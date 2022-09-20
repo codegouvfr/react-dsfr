@@ -1,0 +1,45 @@
+{
+    "name": "react_dsfr-test-app-cra",
+    "homepage": "https://www.tss-react.dev/test",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@types/node": "^15.3.1",
+        "@types/react": "18.0.9",
+        "@types/react-dom": "18.0.4",
+        "react": "18.1.0",
+        "react-dom": "18.1.0",
+        "react-scripts": "4.0.3",
+        "typescript": "^4.6.4",
+        "tss-react": "file:../../../../dist",
+        "@emotion/react": "11.9.0",
+        "@emotion/styled": "11.8.1",
+        "@mui/material": "5.9.3",
+        "@mui/icons-material": "^5.8.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all",
+            "IE 11"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
