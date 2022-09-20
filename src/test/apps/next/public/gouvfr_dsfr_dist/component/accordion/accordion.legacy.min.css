@@ -1,0 +1,7 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */@media (min-width:36em){
+  /*! media sm */}@media (min-width:48em){
+  /*! media md */}@media (min-width:62em){
+  /*! media lg */}@media (min-width:78em){
+  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-accordions-group ol,.fr-accordions-group ul{list-style-type:none}.fr-accordions-group ol,.fr-accordions-group ul{margin-bottom:0;margin-top:0;padding-left:0}ul{list-style-type:disc}ol{list-style-type:decimal}ol,ul{margin-bottom:.5rem;margin-top:.5rem;padding-left:1rem}.fr-accordion__btn:after,.fr-accordion__btn:before{background-color:transparent;background-image:url(../../icons/system/add-line.svg);background-repeat:no-repeat;background-size:100%;height:1rem;width:1rem}.fr-accordion__btn[aria-expanded=true]:after,.fr-accordion__btn[aria-expanded=true]:before{background-image:url(../../icons/system/subtract-line.svg)}.fr-accordion:before{box-shadow:inset 0 1px 0 0 #ddd,0 1px 0 0 #ddd}.fr-accordion__btn{color:#161616}}

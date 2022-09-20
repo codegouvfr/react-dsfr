@@ -1,0 +1,109 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Correction largeur max du texte
+  */
+  .fr-quote::before,
+  .fr-quote::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/editor/fr--quote-line.svg");
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .fr-quote blockquote {
+    max-width: 100%;
+  }
+
+  .fr-quote::before {
+    color: #6a6af4;
+  }
+
+  .fr-quote--green-tilleul-verveine::before {
+    color: #b7a73f;
+  }
+
+  .fr-quote--green-bourgeon::before {
+    color: #68a532;
+  }
+
+  .fr-quote--green-emeraude::before {
+    color: #00a95f;
+  }
+
+  .fr-quote--green-menthe::before {
+    color: #009081;
+  }
+
+  .fr-quote--green-archipel::before {
+    color: #009099;
+  }
+
+  .fr-quote--blue-ecume::before {
+    color: #465f9d;
+  }
+
+  .fr-quote--blue-cumulus::before {
+    color: #417dc4;
+  }
+
+  .fr-quote--purple-glycine::before {
+    color: #a558a0;
+  }
+
+  .fr-quote--pink-macaron::before {
+    color: #e18b76;
+  }
+
+  .fr-quote--pink-tuile::before {
+    color: #ce614a;
+  }
+
+  .fr-quote--yellow-tournesol::before {
+    color: #c8aa39;
+  }
+
+  .fr-quote--yellow-moutarde::before {
+    color: #c3992a;
+  }
+
+  .fr-quote--orange-terre-battue::before {
+    color: #e4794a;
+  }
+
+  .fr-quote--brown-cafe-creme::before {
+    color: #d1b781;
+  }
+
+  .fr-quote--brown-caramel::before {
+    color: #c08c65;
+  }
+
+  .fr-quote--brown-opera::before {
+    color: #bd987a;
+  }
+
+  .fr-quote--beige-gris-galet::before {
+    color: #aea397;
+  }
+
+  .fr-quote {
+    background-image: linear-gradient(0deg, #ddd, #ddd);
+  }
+}

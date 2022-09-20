@@ -1,0 +1,361 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  ICON COMMUNICATION
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-account-circle-fill::before,
+.fr-icon-account-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-fill.svg");
+  mask-image: url("../../../icons/user/account-circle-fill.svg");
+}
+
+.fr-icon-account-circle-line::before,
+.fr-icon-account-circle-line::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-line.svg");
+  mask-image: url("../../../icons/user/account-circle-line.svg");
+}
+
+.fr-icon-account-pin-circle-fill::before,
+.fr-icon-account-pin-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/user/account-pin-circle-fill.svg");
+  mask-image: url("../../../icons/user/account-pin-circle-fill.svg");
+}
+
+.fr-icon-account-pin-circle-line::before,
+.fr-icon-account-pin-circle-line::after {
+  -webkit-mask-image: url("../../../icons/user/account-pin-circle-line.svg");
+  mask-image: url("../../../icons/user/account-pin-circle-line.svg");
+}
+
+.fr-icon-admin-fill::before,
+.fr-icon-admin-fill::after {
+  -webkit-mask-image: url("../../../icons/user/admin-fill.svg");
+  mask-image: url("../../../icons/user/admin-fill.svg");
+}
+
+.fr-icon-admin-line::before,
+.fr-icon-admin-line::after {
+  -webkit-mask-image: url("../../../icons/user/admin-line.svg");
+  mask-image: url("../../../icons/user/admin-line.svg");
+}
+
+.fr-icon-group-fill::before,
+.fr-icon-group-fill::after {
+  -webkit-mask-image: url("../../../icons/user/group-fill.svg");
+  mask-image: url("../../../icons/user/group-fill.svg");
+}
+
+.fr-icon-group-line::before,
+.fr-icon-group-line::after {
+  -webkit-mask-image: url("../../../icons/user/group-line.svg");
+  mask-image: url("../../../icons/user/group-line.svg");
+}
+
+.fr-icon-parent-fill::before,
+.fr-icon-parent-fill::after {
+  -webkit-mask-image: url("../../../icons/user/parent-fill.svg");
+  mask-image: url("../../../icons/user/parent-fill.svg");
+}
+
+.fr-icon-parent-line::before,
+.fr-icon-parent-line::after {
+  -webkit-mask-image: url("../../../icons/user/parent-line.svg");
+  mask-image: url("../../../icons/user/parent-line.svg");
+}
+
+.fr-icon-team-fill::before,
+.fr-icon-team-fill::after {
+  -webkit-mask-image: url("../../../icons/user/team-fill.svg");
+  mask-image: url("../../../icons/user/team-fill.svg");
+}
+
+.fr-icon-team-line::before,
+.fr-icon-team-line::after {
+  -webkit-mask-image: url("../../../icons/user/team-line.svg");
+  mask-image: url("../../../icons/user/team-line.svg");
+}
+
+.fr-icon-user-add-fill::before,
+.fr-icon-user-add-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-add-fill.svg");
+  mask-image: url("../../../icons/user/user-add-fill.svg");
+}
+
+.fr-icon-user-add-line::before,
+.fr-icon-user-add-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-add-line.svg");
+  mask-image: url("../../../icons/user/user-add-line.svg");
+}
+
+.fr-icon-user-fill::before,
+.fr-icon-user-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-fill.svg");
+  mask-image: url("../../../icons/user/user-fill.svg");
+}
+
+.fr-icon-user-heart-fill::before,
+.fr-icon-user-heart-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-heart-fill.svg");
+  mask-image: url("../../../icons/user/user-heart-fill.svg");
+}
+
+.fr-icon-user-heart-line::before,
+.fr-icon-user-heart-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-heart-line.svg");
+  mask-image: url("../../../icons/user/user-heart-line.svg");
+}
+
+.fr-icon-user-line::before,
+.fr-icon-user-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-line.svg");
+  mask-image: url("../../../icons/user/user-line.svg");
+}
+
+.fr-icon-user-search-fill::before,
+.fr-icon-user-search-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-search-fill.svg");
+  mask-image: url("../../../icons/user/user-search-fill.svg");
+}
+
+.fr-icon-user-search-line::before,
+.fr-icon-user-search-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-search-line.svg");
+  mask-image: url("../../../icons/user/user-search-line.svg");
+}
+
+.fr-icon-user-setting-fill::before,
+.fr-icon-user-setting-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-setting-fill.svg");
+  mask-image: url("../../../icons/user/user-setting-fill.svg");
+}
+
+.fr-icon-user-setting-line::before,
+.fr-icon-user-setting-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-setting-line.svg");
+  mask-image: url("../../../icons/user/user-setting-line.svg");
+}
+
+.fr-icon-user-star-fill::before,
+.fr-icon-user-star-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-star-fill.svg");
+  mask-image: url("../../../icons/user/user-star-fill.svg");
+}
+
+.fr-icon-user-star-line::before,
+.fr-icon-user-star-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-star-line.svg");
+  mask-image: url("../../../icons/user/user-star-line.svg");
+}
+
+.fr-fi-user-fill::before,
+.fr-fi-user-fill::after {
+  -webkit-mask-image: url("../../../icons/user/user-fill.svg");
+  mask-image: url("../../../icons/user/user-fill.svg");
+}
+
+.fr-fi-user-line::before,
+.fr-fi-user-line::after {
+  -webkit-mask-image: url("../../../icons/user/user-line.svg");
+  mask-image: url("../../../icons/user/user-line.svg");
+}
+
+.fr-fi-account-line::before,
+.fr-fi-account-line::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-line.svg");
+  mask-image: url("../../../icons/user/account-circle-line.svg");
+}
+
+.fr-fi-account-fill::before,
+.fr-fi-account-fill::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-fill.svg");
+  mask-image: url("../../../icons/user/account-circle-fill.svg");
+}
+
+.fr-icon-account-line::before,
+.fr-icon-account-line::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-line.svg");
+  mask-image: url("../../../icons/user/account-circle-line.svg");
+}
+
+.fr-icon-account-fill::before,
+.fr-icon-account-fill::after {
+  -webkit-mask-image: url("../../../icons/user/account-circle-fill.svg");
+  mask-image: url("../../../icons/user/account-circle-fill.svg");
+}
+
+@media (min-width: 36em) {
+  /*! media sm */
+
+  /*! media sm */
+}
+
+@media (min-width: 48em) {
+  /*! media md */
+
+  /*! media md */
+}
+
+@media (min-width: 62em) {
+  /*! media lg */
+
+  /*! media lg */
+}
+
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-icon-account-circle-fill::before,
+  .fr-icon-account-circle-fill::after {
+    background-image: url("../../../icons/user/account-circle-fill.svg");
+  }
+
+  .fr-icon-account-circle-line::before,
+  .fr-icon-account-circle-line::after {
+    background-image: url("../../../icons/user/account-circle-line.svg");
+  }
+
+  .fr-icon-account-pin-circle-fill::before,
+  .fr-icon-account-pin-circle-fill::after {
+    background-image: url("../../../icons/user/account-pin-circle-fill.svg");
+  }
+
+  .fr-icon-account-pin-circle-line::before,
+  .fr-icon-account-pin-circle-line::after {
+    background-image: url("../../../icons/user/account-pin-circle-line.svg");
+  }
+
+  .fr-icon-admin-fill::before,
+  .fr-icon-admin-fill::after {
+    background-image: url("../../../icons/user/admin-fill.svg");
+  }
+
+  .fr-icon-admin-line::before,
+  .fr-icon-admin-line::after {
+    background-image: url("../../../icons/user/admin-line.svg");
+  }
+
+  .fr-icon-group-fill::before,
+  .fr-icon-group-fill::after {
+    background-image: url("../../../icons/user/group-fill.svg");
+  }
+
+  .fr-icon-group-line::before,
+  .fr-icon-group-line::after {
+    background-image: url("../../../icons/user/group-line.svg");
+  }
+
+  .fr-icon-parent-fill::before,
+  .fr-icon-parent-fill::after {
+    background-image: url("../../../icons/user/parent-fill.svg");
+  }
+
+  .fr-icon-parent-line::before,
+  .fr-icon-parent-line::after {
+    background-image: url("../../../icons/user/parent-line.svg");
+  }
+
+  .fr-icon-team-fill::before,
+  .fr-icon-team-fill::after {
+    background-image: url("../../../icons/user/team-fill.svg");
+  }
+
+  .fr-icon-team-line::before,
+  .fr-icon-team-line::after {
+    background-image: url("../../../icons/user/team-line.svg");
+  }
+
+  .fr-icon-user-add-fill::before,
+  .fr-icon-user-add-fill::after {
+    background-image: url("../../../icons/user/user-add-fill.svg");
+  }
+
+  .fr-icon-user-add-line::before,
+  .fr-icon-user-add-line::after {
+    background-image: url("../../../icons/user/user-add-line.svg");
+  }
+
+  .fr-icon-user-fill::before,
+  .fr-icon-user-fill::after {
+    background-image: url("../../../icons/user/user-fill.svg");
+  }
+
+  .fr-icon-user-heart-fill::before,
+  .fr-icon-user-heart-fill::after {
+    background-image: url("../../../icons/user/user-heart-fill.svg");
+  }
+
+  .fr-icon-user-heart-line::before,
+  .fr-icon-user-heart-line::after {
+    background-image: url("../../../icons/user/user-heart-line.svg");
+  }
+
+  .fr-icon-user-line::before,
+  .fr-icon-user-line::after {
+    background-image: url("../../../icons/user/user-line.svg");
+  }
+
+  .fr-icon-user-search-fill::before,
+  .fr-icon-user-search-fill::after {
+    background-image: url("../../../icons/user/user-search-fill.svg");
+  }
+
+  .fr-icon-user-search-line::before,
+  .fr-icon-user-search-line::after {
+    background-image: url("../../../icons/user/user-search-line.svg");
+  }
+
+  .fr-icon-user-setting-fill::before,
+  .fr-icon-user-setting-fill::after {
+    background-image: url("../../../icons/user/user-setting-fill.svg");
+  }
+
+  .fr-icon-user-setting-line::before,
+  .fr-icon-user-setting-line::after {
+    background-image: url("../../../icons/user/user-setting-line.svg");
+  }
+
+  .fr-icon-user-star-fill::before,
+  .fr-icon-user-star-fill::after {
+    background-image: url("../../../icons/user/user-star-fill.svg");
+  }
+
+  .fr-icon-user-star-line::before,
+  .fr-icon-user-star-line::after {
+    background-image: url("../../../icons/user/user-star-line.svg");
+  }
+
+  .fr-fi-user-fill::before {
+    background-image: url("../../../icons/user/user-fill.svg");
+  }
+
+  .fr-fi-user-line::before {
+    background-image: url("../../../icons/user/user-line.svg");
+  }
+
+  .fr-fi-account-line::before,
+  .fr-fi-account-line::after {
+    background-image: url("../../../icons/user/account-circle-line.svg");
+  }
+
+  .fr-fi-account-fill::before,
+  .fr-fi-account-fill::after {
+    background-image: url("../../../icons/user/account-circle-fill.svg");
+  }
+
+  .fr-icon-account-line::before,
+  .fr-icon-account-line::after {
+    background-image: url("../../../icons/user/account-circle-line.svg");
+  }
+
+  .fr-icon-account-fill::before,
+  .fr-icon-account-fill::after {
+    background-image: url("../../../icons/user/account-circle-fill.svg");
+  }
+}

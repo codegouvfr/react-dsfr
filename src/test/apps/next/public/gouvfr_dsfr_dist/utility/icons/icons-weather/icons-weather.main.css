@@ -1,0 +1,83 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  ICON COMMUNICATION
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-cloudy-2-fill::before,
+.fr-icon-cloudy-2-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/cloudy-2-fill.svg");
+  mask-image: url("../../../icons/weather/cloudy-2-fill.svg");
+}
+
+.fr-icon-cloudy-2-line::before,
+.fr-icon-cloudy-2-line::after {
+  -webkit-mask-image: url("../../../icons/weather/cloudy-2-line.svg");
+  mask-image: url("../../../icons/weather/cloudy-2-line.svg");
+}
+
+.fr-icon-flashlight-fill::before,
+.fr-icon-flashlight-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/flashlight-fill.svg");
+  mask-image: url("../../../icons/weather/flashlight-fill.svg");
+}
+
+.fr-icon-flashlight-line::before,
+.fr-icon-flashlight-line::after {
+  -webkit-mask-image: url("../../../icons/weather/flashlight-line.svg");
+  mask-image: url("../../../icons/weather/flashlight-line.svg");
+}
+
+.fr-icon-moon-fill::before,
+.fr-icon-moon-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/moon-fill.svg");
+  mask-image: url("../../../icons/weather/moon-fill.svg");
+}
+
+.fr-icon-moon-line::before,
+.fr-icon-moon-line::after {
+  -webkit-mask-image: url("../../../icons/weather/moon-line.svg");
+  mask-image: url("../../../icons/weather/moon-line.svg");
+}
+
+.fr-icon-sun-fill::before,
+.fr-icon-sun-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/sun-fill.svg");
+  mask-image: url("../../../icons/weather/sun-fill.svg");
+}
+
+.fr-icon-sun-line::before,
+.fr-icon-sun-line::after {
+  -webkit-mask-image: url("../../../icons/weather/sun-line.svg");
+  mask-image: url("../../../icons/weather/sun-line.svg");
+}
+
+.fr-fi-flashlight-fill::before,
+.fr-fi-flashlight-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/flashlight-fill.svg");
+  mask-image: url("../../../icons/weather/flashlight-fill.svg");
+}
+
+.fr-fi-flashlight-line::before,
+.fr-fi-flashlight-line::after {
+  -webkit-mask-image: url("../../../icons/weather/flashlight-line.svg");
+  mask-image: url("../../../icons/weather/flashlight-line.svg");
+}
+
+@media (min-width: 36em) {
+  /*! media sm */
+}
+
+@media (min-width: 48em) {
+  /*! media md */
+}
+
+@media (min-width: 62em) {
+  /*! media lg */
+}
+
+@media (min-width: 78em) {
+  /*! media xl */
+}

@@ -1,0 +1,44 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-connect {
+    background-color: #000091;
+    color: #f5f5fe;
+  }
+
+  .fr-connect::after {
+    background-image: linear-gradient(0deg, #f5f5fe, #f5f5fe), linear-gradient(0deg, #f5f5fe, #f5f5fe);
+  }
+
+  .fr-connect:disabled,
+  a.fr-connect:not([href]) {
+    background-color: #e5e5e5;
+    color: #929292;
+  }
+
+  .fr-connect:disabled::after,
+  a.fr-connect:not([href])::after {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
+  }
+
+  .fr-connect-group .fr-connect + p a {
+    color: #000091;
+  }
+
+  .fr-connect-group p {
+    color: #666;
+  }
+}

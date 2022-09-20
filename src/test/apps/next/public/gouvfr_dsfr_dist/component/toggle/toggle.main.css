@@ -1,0 +1,246 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  TOGGLE
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 1rem 0;
+
+  --text-spacing: 0;
+  --title-spacing: 0;
+
+  /*
+   * On utilise un input de type checkbox pour gérer le toggle
+   * On reset ses styles afin de ne garder que son fonctionnement et son espacement
+   * On l'utilisera égalemement pour afficher l'état du toggle (optionnel)
+   */
+  /*
+  * Ajout d'un séparateur
+  */
+}
+
+.fr-toggle input[type=checkbox] {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /*
+   * On applique des styles aux pseudo-elements du label quand l'input est check.
+   * On change l'ordre du texte d'état du label dans le content pour afficher
+   * la valeur correspondant à l'état checked (optionnel).
+   */
+  box-shadow: inset 0 0 0 1px var(--border-action-high-blue-france);
+}
+
+.fr-toggle input[type=checkbox]:checked ~ .fr-toggle__label[data-fr-unchecked-label][data-fr-checked-label]::before {
+  content: attr(data-fr-checked-label);
+}
+
+.fr-toggle input[type=checkbox]:checked ~ .fr-toggle__label::after {
+  transform: translateX(1rem);
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23000091' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+  background-image: var(--data-uri-svg);
+}
+
+.fr-toggle label {
+  --toggle-status-width: auto;
+  display: inline-flex;
+  flex-basis: calc(100% - 2.5rem);
+  min-height: 1.5rem;
+  padding-left: 2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  /*
+   * Si les data attributes sont présents, on assigne un content au pseudo element before,
+   * et on enlève le padding left du label.
+   */
+
+  /*
+   * On prévoit un pseudo-élément pour afficher l'état du bouton( optionnel)
+   * On récupère le text via l'attribut [data-fr-unchecked-label]
+   */
+
+  /*
+   * On inclut l'icône check en background dans un pseudo-element after
+   *
+   */
+}
+
+.fr-toggle label[data-fr-unchecked-label][data-fr-checked-label] {
+  padding-left: 0;
+}
+
+.fr-toggle label[data-fr-unchecked-label][data-fr-checked-label]::before {
+  content: attr(data-fr-unchecked-label);
+}
+
+.fr-toggle label[data-fr-unchecked-label][data-fr-checked-label] + .fr-hint-text {
+  margin-top: 0.5rem;
+}
+
+.fr-toggle label::before {
+  flex-shrink: 0;
+  min-width: 2.5rem;
+  height: calc(1.25rem + 1px);
+  margin-top: 1.5rem;
+  margin-left: -2.5rem;
+  margin-right: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  white-space: pre-wrap;
+  overflow: hidden;
+  outline: none !important;
+  width: var(--toggle-status-width);
+  color: var(--text-active-blue-france);
+}
+
+.fr-toggle label::after {
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  background-position: center;
+  color: var(--text-active-blue-france);
+  box-shadow: inset 0 0 0 1px var(--border-action-high-blue-france);
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-toggle .fr-hint-text {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  flex-basis: 100%;
+  color: var(--text-mention-grey);
+}
+
+/*
+ * Passage du label ferré à gauche, le toggle ferré à droite
+ */
+.fr-toggle--label-left .fr-toggle__input {
+  order: 1;
+  margin: 0 0 0 auto;
+}
+
+.fr-toggle--label-left .fr-toggle__input[data-fr-checked-label] ~ .fr-toggle__label {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.fr-toggle--label-left .fr-toggle__label {
+  justify-content: space-between;
+  padding-left: 0;
+  width: calc(100% - 2.5rem);
+}
+
+.fr-toggle--label-left .fr-toggle__label::before {
+  flex-shrink: 0;
+  order: 1;
+  margin-right: -2.5rem;
+  margin-left: 1rem;
+  text-align: right;
+}
+
+.fr-toggle--label-left .fr-toggle__label::after {
+  left: auto;
+  right: 1rem;
+}
+
+.fr-toggle--label-left .fr-hint-text {
+  order: 2;
+}
+
+/*
+ * On surcharge les styles de base
+ */
+.fr-toggle__list {
+  --ul-type: none;
+  --ol-type: none;
+  --ul-start: 0;
+  --ol-start: 0;
+  --xl-block: 0;
+  --li-bottom: 0;
+  --ol-content: none;
+}
+
+.fr-toggle input[type=checkbox]:checked {
+  background-color: var(--background-active-blue-france);
+
+  --idle: transparent;
+  --hover: var(--background-active-blue-france-hover);
+  --active: var(--background-active-blue-france-active);
+}
+
+:root:where([data-fr-theme="dark"]) .fr-toggle input[type=checkbox]:checked ~ .fr-toggle__label::after {
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%238585f6' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+}
+
+.fr-toggle input[type=checkbox]:disabled {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey);
+}
+
+.fr-toggle input[type=checkbox]:disabled:checked {
+  background-color: var(--background-disabled-grey);
+
+  --idle: transparent;
+  --hover: var(--background-disabled-grey-hover);
+  --active: var(--background-disabled-grey-active);
+}
+
+.fr-toggle input[type=checkbox]:disabled:checked ~ .fr-toggle__label::after {
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23929292' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+  background-image: var(--data-uri-svg);
+}
+
+:root:where([data-fr-theme="dark"]) .fr-toggle input[type=checkbox]:disabled:checked ~ .fr-toggle__label::after {
+  --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23666' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+}
+
+.fr-toggle input[type=checkbox]:disabled ~ .fr-toggle__label::before {
+  color: var(--text-disabled-grey);
+}
+
+.fr-toggle input[type=checkbox]:disabled ~ .fr-toggle__label::after {
+  color: var(--text-disabled-grey);
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey);
+}
+
+.fr-toggle--border-bottom {
+  box-shadow: inset 0 -1px 0 0 var(--border-default-grey);
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}

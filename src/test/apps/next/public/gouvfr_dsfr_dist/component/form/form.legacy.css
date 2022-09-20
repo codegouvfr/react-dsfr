@@ -1,0 +1,158 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+.fr-select-group,
+.fr-input-group {
+  /**
+  * Modificateur au niveau du groupe pour appliquer un état validé aux labels
+  */
+
+  /**
+  * Modificateur au niveau du groupe pour appliquer un état d'erreur aux labels
+  */
+
+  /**
+  * Modificateur au niveau du groupe pour appliquer un état inactif aux labels
+  */
+}
+
+.fr-label {
+  /**
+  * Modificateur au niveau du label pour appliquer un état d'erreur au label
+  */
+
+  /**
+  * Modificateur au niveau du label pour appliquer un état de succès au label
+  */
+}
+
+/**
+* Style du texte d'aide
+*/
+
+/**
+* Style du texte d'erreur
+*/
+
+/**
+* Style du texte de l'état validé
+*/
+
+/**
+* Style d'un ensemble de champs
+*/
+.fr-fieldset {
+  /**
+  * Mixin disabled pour gérer l'état disabled
+  */
+
+  /**
+  * Modificateur pour gérer l'état d'erreur
+  */
+
+  /**
+  * Modificateur pour gérer l'état de validation
+  */
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Correctif de la largeur de la légende d'un fieldset
+  */
+  .fr-fieldset__legend {
+    max-width: 100%;
+    color: #161616;
+  }
+
+  .fr-error-text::before,
+  .fr-error-text::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/fr--error-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-valid-text::before,
+  .fr-valid-text::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/fr--success-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-select-group--valid label,
+  .fr-input-group--valid label {
+    color: #18753c;
+  }
+
+  .fr-select-group--error label,
+  .fr-input-group--error label {
+    color: #ce0500;
+  }
+
+  .fr-select-group--disabled label,
+  .fr-input-group--disabled label {
+    color: #929292;
+  }
+
+  .fr-label {
+    color: #161616;
+  }
+
+  .fr-label--error {
+    color: #ce0500;
+  }
+
+  .fr-label--success {
+    color: #18753c;
+  }
+
+  .fr-hint-text {
+    color: #666;
+  }
+
+  .fr-error-text {
+    color: #ce0500;
+  }
+
+  .fr-valid-text {
+    color: #18753c;
+  }
+
+  .fr-fieldset:disabled label {
+    color: #929292;
+  }
+
+  .fr-fieldset--error .fr-fieldset__content::before {
+    box-shadow: inset 2px 0 0 0 #ce0500;
+  }
+
+  .fr-fieldset--error label {
+    color: #ce0500;
+  }
+
+  .fr-fieldset--valid .fr-fieldset__content::before {
+    box-shadow: inset 2px 0 0 0 #18753c;
+  }
+
+  .fr-fieldset--valid label {
+    color: #18753c;
+  }
+}

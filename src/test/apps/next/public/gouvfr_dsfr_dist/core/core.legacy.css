@@ -1,0 +1,244 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none) and (-ms-high-contrast: none), (-ms-high-contrast: none) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (-ms-high-contrast: none), (-ms-high-contrast: active) and (-ms-high-contrast: active) {
+  .fr-enlarge-link {
+    background-color: transparent;
+  }
+
+  .fr-enlarge-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-enlarge-link:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-enlarge-link [href] {
+    text-decoration: none;
+  }
+
+  [href],
+  .fr-reset-link {
+    text-decoration: underline;
+  }
+
+  .fr-raw-link {
+    text-decoration: none;
+  }
+
+  .fr-reset-link::after {
+    content: none;
+  }
+
+  [target=_blank]::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../icons/system/external-link-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-responsive-vid::before {
+    content: "";
+    display: block;
+    padding-bottom: 56.25%;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul,
+  ol {
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  [class^=fr-icon-]::before,
+  [class*=" fr-icon-"]::before,
+  [class^=fr-fi-]::before,
+  [class*=" fr-fi-"]::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-icon--xs::before {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .fr-icon--sm::before {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-icon--md::before {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-icon--lg::before {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  body {
+    background-color: #fff;
+    color: #3a3a3a;
+  }
+
+  a:not([href]),
+  button:disabled,
+  input:disabled,
+  input[type=checkbox]:disabled,
+  input[type=checkbox]:disabled + label,
+  input[type=radio]:disabled,
+  input[type=radio]:disabled + label,
+  textarea:disabled,
+  video:not([href]),
+  audio:not([href]) {
+    color: #929292;
+  }
+
+  .fr-artwork-decorative {
+    fill: #ececfe;
+  }
+
+  .fr-artwork-minor {
+    fill: #e1000f;
+  }
+
+  .fr-artwork-major {
+    fill: #000091;
+  }
+
+  .fr-artwork-background {
+    fill: #f6f6f6;
+  }
+
+  .fr-artwork-motif {
+    fill: #e5e5e5;
+  }
+
+  .fr-artwork--green-tilleul-verveine .fr-artwork-minor {
+    fill: #b7a73f;
+  }
+
+  .fr-artwork--green-bourgeon .fr-artwork-minor {
+    fill: #68a532;
+  }
+
+  .fr-artwork--green-emeraude .fr-artwork-minor {
+    fill: #00a95f;
+  }
+
+  .fr-artwork--green-menthe .fr-artwork-minor {
+    fill: #009081;
+  }
+
+  .fr-artwork--green-archipel .fr-artwork-minor {
+    fill: #009099;
+  }
+
+  .fr-artwork--blue-ecume .fr-artwork-minor {
+    fill: #465f9d;
+  }
+
+  .fr-artwork--blue-cumulus .fr-artwork-minor {
+    fill: #417dc4;
+  }
+
+  .fr-artwork--purple-glycine .fr-artwork-minor {
+    fill: #a558a0;
+  }
+
+  .fr-artwork--pink-macaron .fr-artwork-minor {
+    fill: #e18b76;
+  }
+
+  .fr-artwork--pink-tuile .fr-artwork-minor {
+    fill: #ce614a;
+  }
+
+  .fr-artwork--yellow-tournesol .fr-artwork-minor {
+    fill: #c8aa39;
+  }
+
+  .fr-artwork--yellow-moutarde .fr-artwork-minor {
+    fill: #c3992a;
+  }
+
+  .fr-artwork--orange-terre-battue .fr-artwork-minor {
+    fill: #e4794a;
+  }
+
+  .fr-artwork--brown-cafe-creme .fr-artwork-minor {
+    fill: #d1b781;
+  }
+
+  .fr-artwork--brown-caramel .fr-artwork-minor {
+    fill: #c08c65;
+  }
+
+  .fr-artwork--brown-opera .fr-artwork-minor {
+    fill: #bd987a;
+  }
+
+  .fr-artwork--beige-gris-galet .fr-artwork-minor {
+    fill: #aea397;
+  }
+
+  .fr-h6,
+  .fr-h5,
+  .fr-h4,
+  .fr-h3,
+  .fr-h2,
+  .fr-h1,
+  .fr-display-xs,
+  .fr-display-sm,
+  .fr-display-md,
+  .fr-display-lg,
+  .fr-display-xl {
+    color: #161616;
+  }
+
+  h6,
+  h5,
+  h4,
+  h3,
+  h2,
+  h1 {
+    color: #161616;
+  }
+
+  hr {
+    background-image: linear-gradient(0deg, #ddd, #ddd);
+  }
+
+  .fr-hr {
+    background-image: linear-gradient(0deg, #ddd, #ddd);
+  }
+}

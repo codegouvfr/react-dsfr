@@ -1,0 +1,246 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  TILE
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+
+  --text-spacing: 0;
+  --title-spacing: 0 0 0.5rem;
+
+  /**
+   * Forcer la hauteur à 100% pour que les tuiles aient la même hauteur dans le contexte de la grille
+   */
+
+  /**
+   * Conteneur pour l'image, on force les dimensions à 80x80 tout en permettant de mettre une image
+   * ne respectant pas cette taille :
+   * Si l'image est plus grande, elle sera croppée afin de ne jamais dépasser 80x80.
+   * Si l'image est plus petite, elle sera centrée, en hauteur, en largeur ou bien les deux.
+   */
+
+  /**
+   * Partie de la tuile contenant le titre (obligatoire) et la description (optionnel)
+   */
+
+  /**
+   * Titre de la tuile
+   */
+
+  /**
+   * Description de la tuile
+   */
+  /**
+  * Modificateur vertical à partir du breakpoint md -> horizontal en dessous du breakpoint md
+  **/
+
+  /**
+  * Modificateur horizontal à partir du breakpoint md -> vertical en dessous du breakpoint md
+  **/
+  box-shadow: inset 0 0 0 1px var(--border-default-grey), inset 0 -0.25rem 0 0 var(--border-plain-blue-france);
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-grid-row .fr-tile {
+  height: 100%;
+}
+
+.fr-tile__link {
+  display: inline-flex;
+
+  --underline-img: none;
+  width: 100%;
+}
+
+.fr-tile.fr-enlarge-link:hover .fr-tile__img {
+  --brightness: calc(100% + var(--brighten) * 10%);
+}
+
+.fr-tile.fr-enlarge-link:active .fr-tile__img {
+  --brightness: calc(100% + var(--brighten) * 20%);
+}
+
+.fr-tile__img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+  margin: 2rem auto 0;
+  overflow: hidden;
+  filter: brightness(var(--brightness));
+
+  /**
+   * Dans le cas d'un svg inline sans largeur et hauteur spécifiées, on lui attribue une largeur de 100%.
+   */
+}
+
+.fr-tile__img > svg {
+  width: 100%;
+}
+
+.fr-tile__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.fr-tile__title {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.fr-tile__desc {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/**
+ * Modificateur tuile horizontale
+ **/
+
+.fr-tile--horizontal {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.fr-tile--horizontal .fr-tile__img {
+  width: 3rem;
+  height: 3rem;
+  margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.fr-tile--horizontal .fr-tile__body {
+  align-items: flex-start;
+  padding: 0;
+  margin: 1.5rem;
+  text-align: left;
+}
+
+.fr-tile--vertical-md {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.fr-tile--vertical-md .fr-tile__img {
+  width: 3rem;
+  height: 3rem;
+  margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.fr-tile--vertical-md .fr-tile__body {
+  align-items: flex-start;
+  padding: 0;
+  margin: 1.5rem;
+  text-align: left;
+}
+
+.fr-tile--horizontal-md {
+  flex-direction: column-reverse;
+}
+
+.fr-tile--horizontal-md .fr-tile__img {
+  width: 5rem;
+  height: 5rem;
+  margin: 2rem auto 0;
+}
+
+.fr-tile--horizontal-md .fr-tile__img + .fr-tile__body {
+  min-height: initial;
+}
+
+.fr-tile--horizontal-md .fr-tile__body {
+  align-items: center;
+  padding: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.fr-tile--grey {
+  background-color: var(--background-contrast-grey);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-grey-hover);
+  --active: var(--background-contrast-grey-active);
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+  .fr-tile__body {
+    padding: 1.5rem;
+  }
+
+  .fr-tile--horizontal .fr-tile__img {
+    width: 5rem;
+    height: 5rem;
+    margin: 2rem 0 2rem 2rem;
+  }
+
+  .fr-tile--horizontal .fr-tile__body {
+    margin: 2rem;
+  }
+
+  .fr-tile--vertical-md .fr-tile__img {
+    width: 5rem;
+    height: 5rem;
+    margin: 2rem auto 0;
+  }
+
+  .fr-tile--vertical-md .fr-tile__body {
+    align-items: center;
+    padding: 1.5rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .fr-tile--vertical-md {
+    flex-direction: column-reverse;
+    align-items: initial;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__img + .fr-tile__body {
+    padding: 0;
+    margin: 2rem;
+    min-height: 5rem;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__img {
+    margin: 2rem 0 2rem 2rem;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__body {
+    align-items: flex-start;
+    padding: 0;
+    margin: 2rem;
+    text-align: left;
+  }
+
+  .fr-tile--horizontal-md {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}

@@ -1,0 +1,7 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */@media (min-width:36em){
+  /*! media sm */}@media (min-width:48em){
+  /*! media md */}@media (min-width:62em){
+  /*! media lg */}@media (min-width:78em){
+  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-card:before{background-color:transparent;background-image:url(../../icons/system/arrow-right-line.svg);background-repeat:no-repeat;background-size:100%;color:#000091;height:1.5rem;width:1.5rem}.fr-card--no-icon:before{content:none}.fr-card__desc,.fr-card__title{flex:1 0 auto}.fr-card__title [target=_blank]:after{height:2rem;width:2rem}.fr-card__detail:before{height:1rem;width:1rem}.fr-card--horizontal .fr-card__body{flex-basis:100%}.fr-card>.fr-card__img{flex-shrink:0}.fr-card{background-color:#fff}.fr-card:not(.fr-card--no-border):not(.fr-card--shadow){box-shadow:0 0 0 1px #ddd}.fr-card--grey{background-color:#eee}.fr-card--shadow{background-color:#fff;z-index:500}.fr-card--shadow.fr-card--grey{background-color:#eee}.fr-card--no-background{background-color:transparent}.fr-card--no-background:hover{background-color:rgba(0,0,0,.05)}.fr-card--no-background:active{background-color:rgba(0,0,0,.1)}.fr-card__detail{color:#666}.fr-card__title{color:#161616}}

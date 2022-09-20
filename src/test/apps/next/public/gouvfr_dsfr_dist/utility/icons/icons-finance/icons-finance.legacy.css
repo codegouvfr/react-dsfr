@@ -1,0 +1,101 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-icon-bank-card-fill::before,
+  .fr-icon-bank-card-fill::after {
+    background-image: url("../../../icons/finance/bank-card-fill.svg");
+  }
+
+  .fr-icon-bank-card-line::before,
+  .fr-icon-bank-card-line::after {
+    background-image: url("../../../icons/finance/bank-card-line.svg");
+  }
+
+  .fr-icon-coin-fill::before,
+  .fr-icon-coin-fill::after {
+    background-image: url("../../../icons/finance/coin-fill.svg");
+  }
+
+  .fr-icon-gift-fill::before,
+  .fr-icon-gift-fill::after {
+    background-image: url("../../../icons/finance/gift-fill.svg");
+  }
+
+  .fr-icon-gift-line::before,
+  .fr-icon-gift-line::after {
+    background-image: url("../../../icons/finance/gift-line.svg");
+  }
+
+  .fr-icon-money-euro-box-fill::before,
+  .fr-icon-money-euro-box-fill::after {
+    background-image: url("../../../icons/finance/money-euro-box-fill.svg");
+  }
+
+  .fr-icon-money-euro-box-line::before,
+  .fr-icon-money-euro-box-line::after {
+    background-image: url("../../../icons/finance/money-euro-box-line.svg");
+  }
+
+  .fr-icon-money-euro-circle-fill::before,
+  .fr-icon-money-euro-circle-fill::after {
+    background-image: url("../../../icons/finance/money-euro-circle-fill.svg");
+  }
+
+  .fr-icon-money-euro-circle-line::before,
+  .fr-icon-money-euro-circle-line::after {
+    background-image: url("../../../icons/finance/money-euro-circle-line.svg");
+  }
+
+  .fr-icon-secure-payment-fill::before,
+  .fr-icon-secure-payment-fill::after {
+    background-image: url("../../../icons/finance/secure-payment-fill.svg");
+  }
+
+  .fr-icon-secure-payment-line::before,
+  .fr-icon-secure-payment-line::after {
+    background-image: url("../../../icons/finance/secure-payment-line.svg");
+  }
+
+  .fr-icon-shopping-bag-fill::before,
+  .fr-icon-shopping-bag-fill::after {
+    background-image: url("../../../icons/finance/shopping-bag-fill.svg");
+  }
+
+  .fr-icon-shopping-bag-line::before,
+  .fr-icon-shopping-bag-line::after {
+    background-image: url("../../../icons/finance/shopping-bag-line.svg");
+  }
+
+  .fr-icon-shopping-cart-2-fill::before,
+  .fr-icon-shopping-cart-2-fill::after {
+    background-image: url("../../../icons/finance/shopping-cart-2-fill.svg");
+  }
+
+  .fr-icon-shopping-cart-2-line::before,
+  .fr-icon-shopping-cart-2-line::after {
+    background-image: url("../../../icons/finance/shopping-cart-2-line.svg");
+  }
+
+  .fr-icon-trophy-fill::before,
+  .fr-icon-trophy-fill::after {
+    background-image: url("../../../icons/finance/trophy-fill.svg");
+  }
+
+  .fr-icon-trophy-line::before,
+  .fr-icon-trophy-line::after {
+    background-image: url("../../../icons/finance/trophy-line.svg");
+  }
+}
