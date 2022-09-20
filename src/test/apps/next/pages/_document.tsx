@@ -5,7 +5,7 @@ import { withEmotionCache } from "./_app";
 class Document extends NextDocument {
 	render() {
 		return (
-			<Html>
+			<Html data-fr-scheme="system">
 				<Head>
 					<link rel="stylesheet" href="gouvfr_dsfr_dist/dsfr.css" />
 				</Head>

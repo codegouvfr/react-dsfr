@@ -192,6 +192,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@gouvfr/dsfr@1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.7.2.tgz#c522fce21a14989a10e30583160118c39c9c05d1"
+  integrity sha512-hPNtz+gHcc8m7ZPANxSOFMz4Ap+M9FHOudqoMR/+Kjl5FCOqwA6u/aoYnMJ8KqedS1k5XThFMp7jiktr53qXYw==
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
@@ -1769,6 +1774,12 @@ react@18.1.0:
   dependencies:
     loose-envify "^1.1.0"
 
+"react_dsfr@file:../../../../dist":
+  version "0.0.1"
+  dependencies:
+    "@gouvfr/dsfr" "1.7.2"
+    tsafe "^1.0.1"
+
 readable-stream@^2.0.2:
   version "2.3.7"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
@@ -2071,6 +2082,11 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+tsafe@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.0.1.tgz#c8c4eb2d75d1478418a4941307c5dd667fd76d23"
+  integrity sha512-FgJ1a4rE7YbmW5QIzpsfFl4tsAp0x74FH2bVE6qODb2U8jSrwTr5/ckIazeylme5zXndVbtgKm4BZdqmoGhiPw==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
