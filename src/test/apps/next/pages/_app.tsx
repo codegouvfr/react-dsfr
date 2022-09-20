@@ -17,8 +17,6 @@ export default function App(_props: AppProps) {
 			</Head>
 			<EmotionCacheProvider>
 				<Index />
-				<script type="module" src="gouvfr_dsfr_dist/dsfr.module.min.js"></script>
-				<script type="text/javascript" noModule src="gouvfr_dsfr_dist/dsfr.nomodule.min.js"></script>
 			</EmotionCacheProvider>
 		</>
 	);

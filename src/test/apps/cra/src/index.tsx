@@ -1,7 +1,7 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "@gouvfr/dsfr/dist/dsfr.css";
-import { useColorScheme } from "react_dsfr/lib/colorScheme";
+import { Deferred } from "evt/tools/Deferred";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,15 +14,60 @@ createRoot(document.getElementById("root")!).render(
   "mode": "manual"
 };
 
+document.documentElement.setAttribute("data-fr-scheme", "system")
+
+const dColorSchemeApi = new Deferred<typeof import("./colorScheme")>();
+
+(async () => {
+
+  // @ts-ignore
+  await import("@gouvfr/dsfr/dist/dsfr.module");
+
+  (window as any).dsfr.start();
+
+  const x = await import("./colorScheme")
+
+  dColorSchemeApi.resolve(x);
+
+})();
+
 // @ts-ignore
 import("@gouvfr/dsfr/dist/dsfr.module").then(() => {
   console.log("starting");
   (window as any).dsfr.start();
+
+
 });
 
 function Root() {
 
-  const { colorScheme } = useColorScheme();
+  const [x, setX] = useState<typeof import("./colorScheme") | undefined>(undefined);
+
+  useEffect(
+    () => {
+
+      dColorSchemeApi.pr.then(
+        x => {
+          setX(x)
+        }
+      );
+    },
+    []
+  );
+
+  if (x === undefined) {
+    return null;
+  }
+
+  return <Root2 x={x} />;
+
+}
+
+function Root2(props: { x: typeof import("./colorScheme"); }) {
+
+  const { x } = props;
+
+  const { colorScheme } = x.useColorScheme();
 
   return (
     <>
