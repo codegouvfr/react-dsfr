@@ -1,0 +1,7 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */@media (min-width:36em){
+  /*! media sm */}@media (min-width:48em){
+  /*! media md */}@media (min-width:62em){
+  /*! media lg */}@media (min-width:78em){
+  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-fieldset__legend{color:#161616;max-width:100%}.fr-error-text:after,.fr-error-text:before{background-image:url(../../icons/system/fr--error-fill.svg)}.fr-error-text:after,.fr-error-text:before,.fr-valid-text:after,.fr-valid-text:before{background-color:transparent;background-repeat:no-repeat;background-size:100%;height:1rem;width:1rem}.fr-valid-text:after,.fr-valid-text:before{background-image:url(../../icons/system/fr--success-fill.svg)}.fr-input-group--valid label,.fr-select-group--valid label{color:#18753c}.fr-input-group--error label,.fr-select-group--error label{color:#ce0500}.fr-input-group--disabled label,.fr-select-group--disabled label{color:#929292}.fr-label{color:#161616}.fr-label--error{color:#ce0500}.fr-label--success{color:#18753c}.fr-hint-text{color:#666}.fr-error-text{color:#ce0500}.fr-valid-text{color:#18753c}.fr-fieldset:disabled label{color:#929292}.fr-fieldset--error .fr-fieldset__content:before{box-shadow:inset 2px 0 0 0 #ce0500}.fr-fieldset--error label{color:#ce0500}.fr-fieldset--valid .fr-fieldset__content:before{box-shadow:inset 2px 0 0 0 #18753c}.fr-fieldset--valid label{color:#18753c}}

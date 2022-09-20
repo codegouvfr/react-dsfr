@@ -1,0 +1,113 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/**
+ * Modificateur pour la taille sm
+ */
+.fr-radio-group {
+  /**
+  * On cache l'input de type radio pour le styler via le label
+  */
+}
+
+.fr-radio-group input[type=radio] {
+  /**
+  * On applique les styles au pseudo élément before du label quand l'input présente
+  * un état check
+  */
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Correctif radio
+  */
+  .fr-fieldset--inline .fr-radio-rich:last-child input[type=radio] + label {
+    margin-bottom: 0.5rem !important;
+  }
+
+  /**
+  * Correctif alignement vertical IE
+  * Inconvéniant : fixe la height à la min-height, soit 5.5 rem
+  */
+  .fr-radio-rich input[type=radio] + .fr-label {
+    height: 1px;
+  }
+
+  .fr-radio-group input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 12px #fff, inset 0 0 0 12px #000091;
+  }
+
+  .fr-radio-group input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 12px #fff, inset 0 0 0 12px #929292;
+  }
+
+  .fr-radio-group input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 6px #fff, inset 0 0 0 12px #000091;
+  }
+
+  .fr-radio-group input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 6px #fff, inset 0 0 0 12px #929292;
+  }
+
+  .fr-radio-group--sm input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-group--sm input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #e5e5e5, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #e5e5e5, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-rich__img {
+    box-shadow: inset 1px 0 0 0 #ddd;
+  }
+
+  .fr-radio-rich input[type=radio] + label {
+    box-shadow: inset 0 0 0 1px #ddd;
+    background-color: #fff;
+  }
+
+  .fr-radio-rich input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #fff, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-rich input[type=radio]:checked + label {
+    box-shadow: inset 0 0 0 1px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:checked:disabled + label {
+    box-shadow: inset 0 0 0 1px #929292;
+  }
+
+  .fr-radio-rich input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #fff, inset 0 0 0 8px #929292;
+  }
+}

@@ -17,21 +17,8 @@ export default function App(_props: AppProps) {
 			</Head>
 			<EmotionCacheProvider>
 				<Index />
-				{/*
-				<script dangerouslySetInnerHTML={{"__html": `
-				console.log("wesh");
-  window.dsfr = {
-    verbose: true,
-    mode: 'manual'
-  };
-				`}}/>
 				<script type="module" src="gouvfr_dsfr_dist/dsfr.module.min.js"></script>
 				<script type="text/javascript" noModule src="gouvfr_dsfr_dist/dsfr.nomodule.min.js"></script>
-
-				<script dangerouslySetInnerHTML={{"__html": `
-				console.log(window.dsfr);
-				`}}/>
-*/}
 			</EmotionCacheProvider>
 		</>
 	);

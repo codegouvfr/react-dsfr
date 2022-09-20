@@ -1,0 +1,349 @@
+/*!
+ * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  LINK
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-link {
+  --text-spacing: 0;
+  --title-spacing: 0;
+  z-index: 1;
+  display: inline;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0 0;
+  color: var(--text-action-high-blue-france);
+}
+
+.fr-link[target=_blank] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link[target=_blank]::after {
+  content: "";
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--icon-left[class^=fr-icon-],
+.fr-link--icon-left[class*=" fr-icon-"],
+.fr-link--icon-left[class^=fr-fi-],
+.fr-link--icon-left[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--icon-left[class^=fr-icon-]::before,
+.fr-link--icon-left[class*=" fr-icon-"]::before,
+.fr-link--icon-left[class^=fr-fi-]::before,
+.fr-link--icon-left[class*=" fr-fi-"]::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+}
+
+.fr-link--icon-right[class^=fr-icon-],
+.fr-link--icon-right[class*=" fr-icon-"],
+.fr-link--icon-right[class^=fr-fi-],
+.fr-link--icon-right[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--icon-right[class^=fr-icon-]::after,
+.fr-link--icon-right[class*=" fr-icon-"]::after,
+.fr-link--icon-right[class^=fr-fi-]::after,
+.fr-link--icon-right[class*=" fr-fi-"]::after {
+  content: "";
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--icon-right[class^=fr-icon-]::before,
+.fr-link--icon-right[class*=" fr-icon-"]::before,
+.fr-link--icon-right[class^=fr-fi-]::before,
+.fr-link--icon-right[class*=" fr-fi-"]::before {
+  content: none;
+}
+
+.fr-link[class^=fr-icon-]:not([class*=fr-link--icon-])::before,
+.fr-link[class*=" fr-icon-"]:not([class*=fr-link--icon-])::before,
+.fr-link[class^=fr-fi-]:not([class*=fr-link--icon-])::before,
+.fr-link[class*=" fr-fi-"]:not([class*=fr-link--icon-])::before {
+  content: none;
+}
+
+.fr-link--sm {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding: 0 0;
+}
+
+.fr-link--sm[target=_blank] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--sm[target=_blank]::after {
+  content: "";
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--sm.fr-link--icon-left[class^=fr-icon-],
+.fr-link--sm.fr-link--icon-left[class*=" fr-icon-"],
+.fr-link--sm.fr-link--icon-left[class^=fr-fi-],
+.fr-link--sm.fr-link--icon-left[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--sm.fr-link--icon-left[class^=fr-icon-]::before,
+.fr-link--sm.fr-link--icon-left[class*=" fr-icon-"]::before,
+.fr-link--sm.fr-link--icon-left[class^=fr-fi-]::before,
+.fr-link--sm.fr-link--icon-left[class*=" fr-fi-"]::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+}
+
+.fr-link--sm.fr-link--icon-right[class^=fr-icon-],
+.fr-link--sm.fr-link--icon-right[class*=" fr-icon-"],
+.fr-link--sm.fr-link--icon-right[class^=fr-fi-],
+.fr-link--sm.fr-link--icon-right[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--sm.fr-link--icon-right[class^=fr-icon-]::after,
+.fr-link--sm.fr-link--icon-right[class*=" fr-icon-"]::after,
+.fr-link--sm.fr-link--icon-right[class^=fr-fi-]::after,
+.fr-link--sm.fr-link--icon-right[class*=" fr-fi-"]::after {
+  content: "";
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--sm.fr-link--icon-right[class^=fr-icon-]::before,
+.fr-link--sm.fr-link--icon-right[class*=" fr-icon-"]::before,
+.fr-link--sm.fr-link--icon-right[class^=fr-fi-]::before,
+.fr-link--sm.fr-link--icon-right[class*=" fr-fi-"]::before {
+  content: none;
+}
+
+.fr-link--sm[class^=fr-icon-]:not([class*=fr-link--icon-])::before,
+.fr-link--sm[class*=" fr-icon-"]:not([class*=fr-link--icon-])::before,
+.fr-link--sm[class^=fr-fi-]:not([class*=fr-link--icon-])::before,
+.fr-link--sm[class*=" fr-fi-"]:not([class*=fr-link--icon-])::before {
+  content: none;
+}
+
+.fr-link--lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  padding: 0 0;
+}
+
+.fr-link--lg[target=_blank] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--lg[target=_blank]::after {
+  content: "";
+
+  --icon-size: 1.5rem;
+  margin-right: -0.1875rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--lg.fr-link--icon-left[class^=fr-icon-],
+.fr-link--lg.fr-link--icon-left[class*=" fr-icon-"],
+.fr-link--lg.fr-link--icon-left[class^=fr-fi-],
+.fr-link--lg.fr-link--icon-left[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--lg.fr-link--icon-left[class^=fr-icon-]::before,
+.fr-link--lg.fr-link--icon-left[class*=" fr-icon-"]::before,
+.fr-link--lg.fr-link--icon-left[class^=fr-fi-]::before,
+.fr-link--lg.fr-link--icon-left[class*=" fr-fi-"]::before {
+  --icon-size: 1.5rem;
+  margin-left: -0.1875rem;
+  margin-right: 0.5rem;
+}
+
+.fr-link--lg.fr-link--icon-right[class^=fr-icon-],
+.fr-link--lg.fr-link--icon-right[class*=" fr-icon-"],
+.fr-link--lg.fr-link--icon-right[class^=fr-fi-],
+.fr-link--lg.fr-link--icon-right[class*=" fr-fi-"] {
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link--lg.fr-link--icon-right[class^=fr-icon-]::after,
+.fr-link--lg.fr-link--icon-right[class*=" fr-icon-"]::after,
+.fr-link--lg.fr-link--icon-right[class^=fr-fi-]::after,
+.fr-link--lg.fr-link--icon-right[class*=" fr-fi-"]::after {
+  content: "";
+
+  --icon-size: 1.5rem;
+  margin-right: -0.1875rem;
+  margin-left: 0.5rem;
+}
+
+.fr-link--lg.fr-link--icon-right[class^=fr-icon-]::before,
+.fr-link--lg.fr-link--icon-right[class*=" fr-icon-"]::before,
+.fr-link--lg.fr-link--icon-right[class^=fr-fi-]::before,
+.fr-link--lg.fr-link--icon-right[class*=" fr-fi-"]::before {
+  content: none;
+}
+
+.fr-link--lg[class^=fr-icon-]:not([class*=fr-link--icon-])::before,
+.fr-link--lg[class*=" fr-icon-"]:not([class*=fr-link--icon-])::before,
+.fr-link--lg[class^=fr-fi-]:not([class*=fr-link--icon-])::before,
+.fr-link--lg[class*=" fr-fi-"]:not([class*=fr-link--icon-])::before {
+  content: none;
+}
+
+.fr-links-group {
+  --ul-type: none;
+  --ol-type: none;
+  --ul-start: 0;
+  --ol-start: 0;
+  --xl-block: 0;
+  --li-bottom: 0;
+  --ol-content: none;
+  display: inline-block;
+  margin: 0 -0.5rem;
+}
+
+.fr-links-group > li {
+  display: inline;
+  line-height: 2.75rem;
+}
+
+.fr-links-group .fr-link {
+  margin: 0 0.5rem 1rem;
+  vertical-align: top;
+}
+
+.fr-links-group--sm .fr-link {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding: 0 0;
+}
+
+.fr-links-group--sm .fr-link::before,
+.fr-links-group--sm .fr-link::after {
+  --icon-size: 1rem;
+}
+
+.fr-links-group--lg .fr-link {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  padding: 0 0;
+}
+
+.fr-links-group--lg .fr-link::before,
+.fr-links-group--lg .fr-link::after {
+  --icon-size: 1.5rem;
+}
+
+.fr-link--close {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+  display: flex;
+  margin-left: auto;
+  margin-right: -1rem;
+  background-color: transparent;
+
+  --hover: inherit;
+  --active: inherit;
+  color: var(--text-action-high-blue-france);
+}
+
+.fr-link--close::after {
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/close-line.svg");
+  mask-image: url("../../icons/system/close-line.svg");
+  content: "";
+}
+
+.fr-link--close::before {
+  content: none;
+}
+
+.fr-link.fr-link--icon-left.fr-fi-theme-fill {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-link.fr-link--icon-left.fr-fi-theme-fill::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+}
+
+.fr-link--close:disabled,
+a.fr-link--close:not([href]) {
+  color: var(--text-disabled-grey);
+  background-color: transparent;
+
+  --hover: inherit;
+  --active: inherit;
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
