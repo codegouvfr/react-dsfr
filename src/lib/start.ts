@@ -21,7 +21,7 @@ export async function startReactDsfr(params: Params) {
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
-    if (global.__NEXT_DATA__.buildId === "development") {
+    if (global.__NEXT_DATA__?.buildId === "development") {
         console.log("Artificial delay before starting the lib");
         await new Promise(resolve => setTimeout(resolve, 150));
     }
