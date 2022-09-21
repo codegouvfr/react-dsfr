@@ -5,7 +5,8 @@ import { isBrowser } from "./tools/isBrowser";
 
 export type ColorScheme = "light" | "dark";
 
-const data_fr_theme = "data-fr-theme";
+export const data_fr_scheme = "data-fr-scheme";
+export const data_fr_theme = "data-fr-theme";
 
 export const $colorScheme = createStatefulObservable<ColorScheme>(
     getCurrentColorSchemeFromHtmlAttribute
@@ -20,7 +21,7 @@ const useColorSchemeClientSide: UseColorScheme = () => {
     useRerenderOnChange($colorScheme);
 
     const setColorScheme = useConstCallback((colorSchemeOrSystem: ColorScheme | "system") =>
-        document.documentElement.setAttribute("data-fr-scheme", colorSchemeOrSystem)
+        document.documentElement.setAttribute(data_fr_scheme, colorSchemeOrSystem)
     );
 
     return { "colorScheme": $colorScheme.current, setColorScheme };

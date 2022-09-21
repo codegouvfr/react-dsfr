@@ -9,7 +9,7 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "rm -rf dist && ts-node src/bin/copy_gouvfr_dsfr_dist_in_assets.ts && tsc && cp -r src/assets dist",
+        "build": "tsc",
         "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",
         "start_next": "yarn yarn_link && cd src/test/apps/next && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",

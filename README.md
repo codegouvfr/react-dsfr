@@ -3,3 +3,10 @@
 </p>
 
 WIP
+
+```bash
+yarn add react_dsfr
+# You need to do that every time you update react_dsfr
+rm -rf public/dsfr
+cp -r node_modules/\@gouvfr/dsfr/dist public/dsfr
+```

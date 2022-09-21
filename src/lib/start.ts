@@ -1,6 +1,10 @@
 import { isBrowser } from "./tools/isBrowser";
 import type { ColorScheme } from "./colorScheme";
-import { startObservingColorSchemeHtmlAttribute } from "./colorScheme";
+import {
+    startObservingColorSchemeHtmlAttribute,
+    data_fr_theme,
+    data_fr_scheme
+} from "./colorScheme";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
@@ -15,9 +19,9 @@ export async function startReactDsfr(params: Params) {
 
     const global: any = window;
 
-    document.documentElement.setAttribute("data-fr-scheme", defaultColorScheme);
+    document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
     document.documentElement.setAttribute(
-        "data-fr-theme",
+        data_fr_theme,
         defaultColorScheme !== "system"
             ? defaultColorScheme
             : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
