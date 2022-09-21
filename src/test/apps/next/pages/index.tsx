@@ -121,7 +121,7 @@ export default function Index() {
                                 </div>
                                 <div className="fr-modal__content">
                                     <h1 id="fr-theme-modal-title" className="fr-modal__title">
-                                        Paramètres d’affichage
+                                        Paramètres d'affichage
                                     </h1>
                                     <div id="fr-display" className="fr-display">
                                         <div className="fr-form-group">
