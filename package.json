@@ -9,7 +9,7 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && yarn grant_exec_perms",
         "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",
         "start_next": "yarn yarn_link && cd src/test/apps/next && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
@@ -17,7 +17,11 @@
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
-        "yarn_link": "ts-node src/bin/yarn_link.ts"
+        "yarn_link": "ts-node src/bin/yarn_link.ts",
+        "grant_exec_perms": "node dist/bin/tools/grant_exec_perms.js"
+    },
+    "bin": {
+        "update_dsfr": "dist/bin/update_dsfr.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -37,9 +41,7 @@
     "files": [
         "dist/",
         "!dist/test/",
-        "!dist/esm/test/",
         "!dist/tsconfig.tsbuildinfo",
-        "!dist/esm/tsconfig.tsbuildinfo",
         "!dist/package.json"
     ],
     "keywords": [

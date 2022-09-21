@@ -18,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "node node_modules/react_dsfr/bin/update_dsfr.js"
   },
   "eslintConfig": {
     "extends": [
