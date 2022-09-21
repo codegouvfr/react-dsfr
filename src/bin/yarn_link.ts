@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { execSync } from "child_process";
-import { join as pathJoin, relative as pathRelative } from "path";
+import { join as pathJoin, relative as pathRelative, basename as pathBasename } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 
@@ -49,6 +49,18 @@ fs.writeFileSync(
         "utf8"
     )
 );
+
+{
+    const dsfrDestDirPath = pathJoin(projectDirPath, "dist", "dsfr");
+
+    if (fs.existsSync(dsfrDestDirPath)) {
+        fs.rmSync(dsfrDestDirPath, { "recursive": true, "force": true });
+    }
+
+    fs.cpSync(pathJoin(projectDirPath, pathBasename(dsfrDestDirPath)), dsfrDestDirPath, {
+        "recursive": true
+    });
+}
 
 const commonThirdPartyDeps = (() => {
     const namespaceModuleNames: string[] = [

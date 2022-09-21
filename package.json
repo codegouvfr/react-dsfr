@@ -9,7 +9,7 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "tsc && yarn grant_exec_perms",
+        "build": "tsc && yarn grant_exec_perms && yarn copy_dsfr_dist_to_root",
         "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",
         "start_next": "yarn yarn_link && cd src/test/apps/next && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
@@ -18,7 +18,8 @@
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
         "yarn_link": "ts-node src/bin/yarn_link.ts",
-        "grant_exec_perms": "node dist/bin/tools/grant_exec_perms.js"
+        "grant_exec_perms": "node dist/bin/tools/grant_exec_perms.js",
+        "copy_dsfr_dist_to_root": "node dist/bin/copy_dsfr_dist_to_root.js"
     },
     "bin": {
         "update_dsfr_static_resources": "dist/bin/update_dsfr_static_resources.js"
@@ -40,6 +41,7 @@
     "license": "MIT",
     "files": [
         "dist/",
+        "dsfr/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo",
         "!dist/package.json"

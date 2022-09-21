@@ -5,8 +5,6 @@ startReactDsfr({
     "defaultColorScheme": "system"
 });
 
-
-
 export default function Index() {
 
     const { colorScheme, setColorScheme } = useColorScheme();

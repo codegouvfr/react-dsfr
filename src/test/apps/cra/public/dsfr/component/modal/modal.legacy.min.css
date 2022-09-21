@@ -1,7 +1,0 @@
-/*!
- * DSFR v1.7.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
- */.fr-modal__body{max-height:calc(100vh - 2rem)}@media (min-width:36em){
-  /*! media sm */}@media (min-width:48em){
-  /*! media md */}@media (min-width:62em){
-  /*! media lg */}@media (min-width:78em){
-  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-modal__body{background-color:#fff;z-index:2000}.fr-modal__title{color:#161616}.fr-modal__footer{background-color:#fff}}

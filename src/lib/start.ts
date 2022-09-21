@@ -19,22 +19,33 @@ export async function startReactDsfr(params: Params) {
 
     const global: any = window;
 
+    const isNextJsDevMode = global.__NEXT_DATA__?.buildId === "development";
+
     document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
-    document.documentElement.setAttribute(
-        data_fr_theme,
-        defaultColorScheme !== "system"
-            ? defaultColorScheme
-            : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light"
-    );
+
+    if (!isNextJsDevMode) {
+        document.documentElement.setAttribute(
+            data_fr_theme,
+            defaultColorScheme !== "system"
+                ? defaultColorScheme
+                : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light"
+        );
+    }
 
     global.dsfr = { "verbose": true, "mode": "manual" };
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
-    if (global.__NEXT_DATA__?.buildId === "development") {
-        console.log("Artificial delay before starting the lib");
+    if (isNextJsDevMode) {
+        console.log(
+            [
+                "Artificial delay to avoid the",
+                "'Hydration failed because the initial UI does not match what was rendered on the server.'",
+                "Error. In production mode the white flash wont be that long."
+            ].join(" ")
+        );
         await new Promise(resolve => setTimeout(resolve, 150));
     }
 
