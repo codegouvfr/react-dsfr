@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
 import Index from "./index";
-import Script from 'next/script'
 import "react_dsfr/assets/gouvfr_dsfr_dist/dsfr.css";
 
 const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({ "key": "css" });
@@ -19,9 +18,6 @@ export default function App() {
 			<EmotionCacheProvider>
 				<Index />
 			</EmotionCacheProvider>
-			<Script>{`window.dsfr = { "verbose": true, "mode": "manual" };`}</Script>
-			<Script type="module" src="gouvfr_dsfr_dist/dsfr.module.min.js" />
-    		<Script type="text/javascript" noModule src="gouvfr_dsfr_dist/dsfr.nomodule.min.js"/>
 		</>
 	);
 

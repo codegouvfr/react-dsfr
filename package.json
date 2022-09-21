@@ -6,8 +6,8 @@
         "type": "git",
         "url": "git://github.com/codegouvfr/react_dsfr.git"
     },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/lib/index.js",
+    "types": "dist/lib/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && ts-node src/bin/copy_gouvfr_dsfr_dist_in_assets.ts && tsc && cp -r src/assets dist",
         "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",

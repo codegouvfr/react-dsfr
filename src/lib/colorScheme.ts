@@ -1,58 +1,54 @@
 import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
-
-const isBrowser = typeof window !== "undefined";
+import { isBrowser } from "./tools/isBrowser";
 
 export type ColorScheme = "light" | "dark";
 
-const attributeQualifiedName = "data-fr-theme";
+const data_fr_theme = "data-fr-theme";
 
 export const $colorScheme = createStatefulObservable<ColorScheme>(
     getCurrentColorSchemeFromHtmlAttribute
 );
 
-if (isBrowser) {
-    new MutationObserver(() => {
-        console.log("update!");
-        $colorScheme.current = getCurrentColorSchemeFromHtmlAttribute();
-    }).observe(document.documentElement, {
-        "attributes": true,
-        "attributeFilter": [attributeQualifiedName]
-    });
-}
-
-export const useColorScheme: () => {
+type UseColorScheme = () => {
     colorScheme: ColorScheme;
     setColorScheme: (colorSchemeOrSystem: ColorScheme | "system") => void;
-} = !isBrowser
-    ? //TODO: Provide alternate implementation that would play nice with Next.js SSR
-      () => ({
-          "colorScheme": "light",
-          "setColorScheme": () => {
-              /*nothing*/
-          }
-      })
-    : () => {
-          useRerenderOnChange($colorScheme);
+};
 
-          const setColorScheme = useConstCallback((colorSchemeOrSystem: ColorScheme | "system") =>
-              document.documentElement.setAttribute("data-fr-scheme", colorSchemeOrSystem)
-          );
+const useColorSchemeClientSide: UseColorScheme = () => {
+    useRerenderOnChange($colorScheme);
 
-          return { "colorScheme": $colorScheme.current, setColorScheme };
-      };
+    const setColorScheme = useConstCallback((colorSchemeOrSystem: ColorScheme | "system") =>
+        document.documentElement.setAttribute("data-fr-scheme", colorSchemeOrSystem)
+    );
+
+    return { "colorScheme": $colorScheme.current, setColorScheme };
+};
+
+const useColorSchemeServerSide: UseColorScheme = () => {
+    const setColorScheme = useConstCallback(() => {
+        /* nothing */
+    });
+
+    return {
+        "colorScheme": "light",
+        setColorScheme
+    };
+};
+
+export const useColorScheme = isBrowser ? useColorSchemeClientSide : useColorSchemeServerSide;
 
 function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
     if (!isBrowser) {
         return "light";
     }
 
-    const colorSchemeReadFromDom = document.documentElement.getAttribute(attributeQualifiedName);
+    const colorSchemeReadFromDom = document.documentElement.getAttribute(data_fr_theme);
 
     switch (colorSchemeReadFromDom) {
         case null:
-            return "light"; //TODO: See if
+            return "light";
         case "light":
         case "dark":
             return colorSchemeReadFromDom;
@@ -61,10 +57,17 @@ function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
     assert(false);
 }
 
-if (isBrowser) {
-    $colorScheme.subscribe(colorScheme => {
-        //TODO: Submit an issue on gouvfr/dsfr, this should be their responsibility.
-        {
+export function startObservingColorSchemeHtmlAttribute() {
+    new MutationObserver(() => {
+        $colorScheme.current = getCurrentColorSchemeFromHtmlAttribute();
+    }).observe(document.documentElement, {
+        "attributes": true,
+        "attributeFilter": [data_fr_theme]
+    });
+
+    //TODO: Remove once https://github.com/GouvernementFR/dsfr/issues/407 is dealt with
+    {
+        const setRootColorScheme = (colorScheme: ColorScheme) => {
             const id = "root-color-scheme";
 
             remove_existing_element: {
@@ -84,6 +87,10 @@ if (isBrowser) {
             element.innerHTML = `:root { color-scheme: ${colorScheme} }`;
 
             document.getElementsByTagName("head")[0].appendChild(element);
-        }
-    });
+        };
+
+        setRootColorScheme($colorScheme.current);
+
+        $colorScheme.subscribe(setRootColorScheme);
+    }
 }

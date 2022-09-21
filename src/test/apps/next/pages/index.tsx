@@ -1,54 +1,22 @@
 
+import { startReactDsfr, useColorScheme } from "react_dsfr";
 
-(async () => {
+startReactDsfr({
+    "defaultColorScheme": "system"
+});
 
-    if (typeof window === "undefined") {
-        return;
-    }
-
-    (window as any).dsfr = {
-        "verbose": true,
-        "mode": "manual"
-    };
-
-    //await import("@gouvfr/dsfr/dist/dsfr.module");
-
-    document.documentElement.setAttribute("data-fr-scheme", "system");
-
-    if (window.__NEXT_DATA__.buildId === "development") {
-        console.log("Artificial delay before starting the lib");
-        await new Promise(resolve=> setTimeout(resolve, 100));
-    }
-
-    if (document.documentElement.getAttribute("data-fr-js") !== "true") {
-
-        await new Promise<void>(resolve => {
-
-            const observer = new MutationObserver(() => {
-                observer.disconnect();
-                resolve();
-            })
-
-            observer.observe(document.documentElement, {
-                "attributes": true,
-                "attributeFilter": ["data-fr-js"]
-            });
-
-        });
-
-    }
-
-    (window as any).dsfr.start();
-
-
-
-})();
 
 
 export default function Index() {
 
+    const { colorScheme, setColorScheme } = useColorScheme();
+
     return (
         <>
+        <h1>Color Scheme: {colorScheme}</h1>
+        <button onClick={()=> setColorScheme("dark")}>Set color scheme to dark</button>
+        <button onClick={()=> setColorScheme("light")}>Set color scheme to light</button>
+        <button onClick={()=> setColorScheme("system")}>Set color scheme to system</button>
             <header role="banner" className="fr-header">
                 <div className="fr-header__body">
                     <div className="fr-container">
@@ -121,7 +89,7 @@ export default function Index() {
                                 </div>
                                 <div className="fr-modal__content">
                                     <h1 id="fr-theme-modal-title" className="fr-modal__title">
-                                        Paramètres d'affichage
+                                        Paramètres d{"'"}affichage
                                     </h1>
                                     <div id="fr-display" className="fr-display">
                                         <div className="fr-form-group">
