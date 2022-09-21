@@ -1,4 +1,9 @@
 
-
-declare module "@gouvfr/dsfr/dist/dsfr.module" {
+declare module "*.svg" {
+	declare const _default: {
+		height: number;
+		width: number;
+		src: string;
+	};
+	export default _default;
 }
