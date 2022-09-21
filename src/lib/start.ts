@@ -16,6 +16,14 @@ export async function startReactDsfr(params: Params) {
     const global: any = window;
 
     document.documentElement.setAttribute("data-fr-scheme", defaultColorScheme);
+    document.documentElement.setAttribute(
+        "data-fr-theme",
+        defaultColorScheme !== "system"
+            ? defaultColorScheme
+            : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"
+    );
 
     global.dsfr = { "verbose": true, "mode": "manual" };
 

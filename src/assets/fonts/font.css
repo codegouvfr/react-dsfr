@@ -1,0 +1,88 @@
+/*
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous">
+<link rel="preload" href="%PUBLIC_URL%/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/fonts/font.css">
+*/
+
+/**
+ * Déclaration des fontes
+ */
+ @font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Light.woff2") format("woff2"), url("./Marianne-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Light_Italic.woff2") format("woff2"), url("./Marianne-Light_Italic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Regular.woff2") format("woff2"), url("./Marianne-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Regular_Italic.woff2") format("woff2"), url("./Marianne-Regular_Italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Medium.woff2") format("woff2"), url("./Marianne-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Medium_Italic.woff2") format("woff2"), url("./Marianne-Medium_Italic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Bold.woff2") format("woff2"), url("./Marianne-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Marianne;
+  src: url("./Marianne-Bold_Italic.woff2") format("woff2"), url("./Marianne-Bold_Italic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: Spectral;
+  src: url("./Spectral-Regular.woff2") format("woff2"), url("./Spectral-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Spectral;
+  src: url("./Spectral-ExtraBold.woff2") format("woff2"), url("./Spectral-ExtraBold.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

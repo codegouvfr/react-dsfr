@@ -1,16 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "react_dsfr/assets/gouvfr_dsfr_dist/dsfr.css";
 import { startReactDsfr, useColorScheme } from "react_dsfr";
+import artworkLightSvgUrl from "react_dsfr/assets/gouvfr_dsfr_dist/artwork/light.svg";
+import artworkDarkSvgUrl from "react_dsfr/assets/gouvfr_dsfr_dist/artwork/dark.svg";
+import artworkSystemSvgUrl from "react_dsfr/assets/gouvfr_dsfr_dist/artwork/system.svg";
 
 startReactDsfr({
-  "defaultColorScheme": "system"
+    "defaultColorScheme": "system"
 });
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <Index />
-  </StrictMode>
+    <StrictMode>
+        <Index />
+    </StrictMode>
 );
 
 export default function Index() {
@@ -19,10 +21,10 @@ export default function Index() {
 
     return (
         <>
-        <h1>Color Scheme: {colorScheme}</h1>
-        <button onClick={()=> setColorScheme("dark")}>Set color scheme to dark</button>
-        <button onClick={()=> setColorScheme("light")}>Set color scheme to light</button>
-        <button onClick={()=> setColorScheme("system")}>Set color scheme to system</button>
+            <h1>Color Scheme: {colorScheme}</h1>
+            <button onClick={() => setColorScheme("dark")}>Set color scheme to dark</button>
+            <button onClick={() => setColorScheme("light")}>Set color scheme to light</button>
+            <button onClick={() => setColorScheme("system")}>Set color scheme to system</button>
             <header role="banner" className="fr-header">
                 <div className="fr-header__body">
                     <div className="fr-container">
@@ -111,9 +113,9 @@ export default function Index() {
                                                         </label>
                                                         <div className="fr-radio-rich__img">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="fr-artwork" width="80px" height="80px" viewBox="0 0 80 80">
-                                                                <use className="fr-artwork-decorative" xlinkHref="/gouvfr_dsfr_dist/artwork/light.svg#artwork-decorative"></use>
-                                                                <use className="fr-artwork-minor" xlinkHref="/gouvfr_dsfr_dist/artwork/light.svg#artwork-minor"></use>
-                                                                <use className="fr-artwork-major" xlinkHref="/gouvfr_dsfr_dist/artwork/light.svg#artwork-major"></use>
+                                                                <use className="fr-artwork-decorative" xlinkHref={`${artworkLightSvgUrl}#artwork-decorative`}></use>
+                                                                <use className="fr-artwork-minor" xlinkHref={`${artworkLightSvgUrl}#artwork-minor`}></use>
+                                                                <use className="fr-artwork-major" xlinkHref={`${artworkLightSvgUrl}#artwork-major`}></use>
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -124,9 +126,9 @@ export default function Index() {
                                                         </label>
                                                         <div className="fr-radio-rich__img">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="fr-artwork" width="80px" height="80px" viewBox="0 0 80 80">
-                                                                <use className="fr-artwork-decorative" xlinkHref="/gouvfr_dsfr_dist/artwork/dark.svg#artwork-decorative"></use>
-                                                                <use className="fr-artwork-minor" xlinkHref="/gouvfr_dsfr_dist/artwork/dark.svg#artwork-minor"></use>
-                                                                <use className="fr-artwork-major" xlinkHref="/gouvfr_dsfr_dist/artwork/dark.svg#artwork-major"></use>
+                                                                <use className="fr-artwork-decorative" xlinkHref={`${artworkDarkSvgUrl}#artwork-decorative`}></use>
+                                                                <use className="fr-artwork-minor" xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`}></use>
+                                                                <use className="fr-artwork-major" xlinkHref={`${artworkDarkSvgUrl}#artwork-major`}></use>
                                                             </svg>
                                                         </div>
                                                     </div>
@@ -138,9 +140,9 @@ export default function Index() {
                                                         </label>
                                                         <div className="fr-radio-rich__img">
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="fr-artwork" width="80px" height="80px" viewBox="0 0 80 80">
-                                                                <use className="fr-artwork-decorative" xlinkHref="/gouvfr_dsfr_dist/artwork/system.svg#artwork-decorative"></use>
-                                                                <use className="fr-artwork-minor" xlinkHref="/gouvfr_dsfr_dist/artwork/system.svg#artwork-minor"></use>
-                                                                <use className="fr-artwork-major" xlinkHref="/gouvfr_dsfr_dist/artwork/system.svg#artwork-major"></use>
+                                                                <use className="fr-artwork-decorative" xlinkHref={`${artworkSystemSvgUrl}#artwork-decorative`}></use>
+                                                                <use className="fr-artwork-minor" xlinkHref={`${artworkSystemSvgUrl}#artwork-minor`}></use>
+                                                                <use className="fr-artwork-major" xlinkHref={`${artworkSystemSvgUrl}#artwork-major`}></use>
                                                             </svg>
                                                         </div>
                                                     </div>
