@@ -11,17 +11,36 @@
         "mode": "manual"
     };
 
-    // @ts-ignore
-    await import("@gouvfr/dsfr/dist/dsfr.module");
+    //await import("@gouvfr/dsfr/dist/dsfr.module");
 
     document.documentElement.setAttribute("data-fr-scheme", "system");
 
-    if( window.__NEXT_DATA__.buildId === "development" ){
+    if (window.__NEXT_DATA__.buildId === "development") {
         console.log("Artificial delay before starting the lib");
-        await new Promise(resolve=> setTimeout(resolve, 50));
+        await new Promise(resolve=> setTimeout(resolve, 100));
+    }
+
+    if (document.documentElement.getAttribute("data-fr-js") !== "true") {
+
+        await new Promise<void>(resolve => {
+
+            const observer = new MutationObserver(() => {
+                observer.disconnect();
+                resolve();
+            })
+
+            observer.observe(document.documentElement, {
+                "attributes": true,
+                "attributeFilter": ["data-fr-js"]
+            });
+
+        });
+
     }
 
     (window as any).dsfr.start();
+
+
 
 })();
 
@@ -37,7 +56,7 @@ export default function Index() {
                             <div className="fr-header__brand fr-enlarge-link">
                                 <div className="fr-header__brand-top">
                                     <div className="fr-header__logo">
-                                        <a href="/" title="Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)">
+                                        <a href="https://example.fr" title="Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)">
                                             <p className="fr-logo">
                                                 Intitulé
                                                 <br />officiel
@@ -82,7 +101,7 @@ export default function Index() {
                 <div className="fr-header__tools-links">
                     <ul className="fr-links-group">
                         <li>
-                            <button className="fr-link fr-fi-theme-fill fr-link--icon-left" aria-controls="fr-theme-modal" data-fr-opened="false">Paramètres d'affichage</button>
+                            <button className="fr-link fr-fi-theme-fill fr-link--icon-left" aria-controls="fr-theme-modal" data-fr-opened="false">Paramètres d{"'"}affichage</button>
                         </li>
                     </ul>
                 </div>
