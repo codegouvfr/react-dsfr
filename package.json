@@ -21,7 +21,7 @@
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms.js"
     },
     "bin": {
-        "update_dsfr": "dist/bin/update_dsfr.js"
+        "update_dsfr_static_resources": "dist/bin/update_dsfr_static_resources.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [

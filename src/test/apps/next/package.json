@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "prestart": "node node_modules/react_dsfr/bin/update_dsfr_static_resources.js"
     },
     "dependencies": {
         "@emotion/react": "11.10.4",
