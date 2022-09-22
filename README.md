@@ -36,6 +36,11 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
  <!DOCTYPE html>
  <html>
  <head>
++    <link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
++    <link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
++    <link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
++    <link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+
 +    <!-- For preventing https://fonts.google.com/knowledge/glossary/fout -->
 +    <!-- Be eco friendly, only preload the fonts variant you actually use ! -->
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
