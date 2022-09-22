@@ -16,6 +16,10 @@ import marianneBoldWoff2Url from "../dsfr/fonts/Marianne-Bold.woff2";
 import marianneBoldItalicWoff2Url from "../dsfr/fonts/Marianne-Bold_Italic.woff2";
 import spectralRegularWoff2Url from "../dsfr/fonts/Spectral-Regular.woff2";
 import spectralExtraBoldWoff2Url from "../dsfr/fonts/Spectral-ExtraBold.woff2";
+import appleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
+import faviconSvg from "../dsfr/favicon/favicon.svg";
+import faviconIco from "../dsfr/favicon/favicon.ico";
+import faviconWebmanifestUrl from "../dsfr/favicon/manifest.webmanifest";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -65,6 +69,14 @@ export function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
                                 crossOrigin="anonymous"
                             />
                         ))}
+                    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
+                    <link rel="icon" href={faviconSvg.src} type="image/svg+xml" />
+                    <link rel="shortcut icon" href={faviconIco.src} type="image/x-icon" />
+                    <link
+                        rel="manifest"
+                        href={faviconWebmanifestUrl}
+                        crossOrigin="use-credentials"
+                    />
                 </Head>
                 <App {...(props as any)} />
             </>

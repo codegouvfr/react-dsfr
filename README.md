@@ -72,7 +72,7 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 +  webpack: config => {
 +
 +   config.module.rules.push({
-+      test: /\.woff2$/,
++      test: /\.(woff2|webmanifest)$/,
 +      type: "asset/resource"
 +    });
 +

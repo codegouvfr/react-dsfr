@@ -3,7 +3,7 @@ module.exports = {
   webpack: config => {
 
     config.module.rules.push({
-      test: /\.woff2$/,
+      test: /\.(woff2|webmanifest)$/,
       type: "asset/resource"
     });
 
