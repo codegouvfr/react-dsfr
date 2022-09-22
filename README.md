@@ -36,7 +36,8 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
  <!DOCTYPE html>
  <html>
  <head>
-+    <!-- For preventing https://fonts.google.com/knowledge/glossary/fout, only preload what you are using -->
++    <!-- For preventing https://fonts.google.com/knowledge/glossary/fout -->
++    <!-- Be eco friendly, only preload the fonts variant you actually use ! -->
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
@@ -92,7 +93,8 @@ export default withDsfr(
     DefaultApp, // You can, of course, provide your custom App in place of the default if you have one
     {
         "defaultColorScheme": "system",
-        // (Optional) Pick the fonts variant you want to preload, if undefined, everything is preloaded.
+        // Preloading fonts prevent from https://fonts.google.com/knowledge/glossary/fout
+        // Be eco friendly, only preload the fonts variant you actually use!
         "preloadFonts": ["Marianne-Bold", "Marianne-Regular", "Marianne-Medium"]
     }
 );
@@ -110,8 +112,8 @@ across the following HTML code.
 </svg>
 ```
 
-Because the `update_dsfr_static_resources` copied all the assets into `public/dsfr/` you
-can always translate the above HTML code into:
+Because the `npx update_dsfr_static_resources` (supposing you ran it) copied
+all the assets into `public/dsfr/` you can always translate the above HTML code into:
 
 ```tsx
 // ❌ DON'T
@@ -133,8 +135,8 @@ import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
 ```
 
 Depending of your webpack config the way you import assets may vary.  
-For example, by default in a Next.js project, you'll get the SVG url
-this way:
+For example, by default in a Next.js project, you'll get the `.svg` url
+this way (Same thing for `.png`, `.ico` and other image format):
 
 ```diff
 -import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
@@ -146,14 +148,18 @@ this way:
  </svg>;
 ```
 
-If you are getting TypeScript error create a global declaration file:
+If you are getting TypeScript error while trying to import assets:
 
-`/src/global.d.ts` (or `/global.d.ts` in Next.js):
+Create a `/src/global.d.ts` (or `/global.d.ts` in Next.js):
 
 ```typescript
 declare module "*.svg" {
     declare const url: string;
     export default url;
+    /* In Next.js it will be instead
+    declare const _default: { src: string; height: number; width: number; };
+    export default _default;
+    */
 }
 //OR just 'declare module "*.svg";' if you don't know/want to write the actual type.
 ```
