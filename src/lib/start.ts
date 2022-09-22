@@ -16,10 +16,11 @@ export async function startReactDsfr(params: Params) {
     const { defaultColorScheme } = params;
 
     assert(
-        !isBrowser,
-        `${symToStr({
-            startReactDsfr
-        })} is not supposed to be run on the backed, only in the browser`
+        isBrowser,
+        [
+            `${symToStr({ startReactDsfr })} is not supposed`,
+            `to be run on the backed, only in the browser`
+        ].join(" ")
     );
 
     const global: any = window;
