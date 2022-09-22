@@ -5,6 +5,8 @@ import {
     data_fr_theme,
     data_fr_scheme
 } from "./colorScheme";
+import { assert } from "tsafe/assert";
+import { symToStr } from "tsafe/symToStr";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
@@ -13,9 +15,12 @@ export type Params = {
 export async function startReactDsfr(params: Params) {
     const { defaultColorScheme } = params;
 
-    if (!isBrowser) {
-        return;
-    }
+    assert(
+        !isBrowser,
+        `${symToStr({
+            startReactDsfr
+        })} is not supposed to be run on the backed, only in the browser`
+    );
 
     const global: any = window;
 
