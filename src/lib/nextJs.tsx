@@ -4,8 +4,8 @@ import type { NextComponentType } from "next";
 import type { AppProps } from "next/app";
 import { startReactDsfr } from "./start";
 import type { Params as StartReactDsfrParams } from "./start";
-import { id } from "tsafe/id";
 import { isBrowser } from "./tools/isBrowser";
+import { objectKeys } from "tsafe/objectKeys";
 import marianneLightWoff2Url from "../dsfr/fonts/Marianne-Light.woff2";
 import marianneItalicWoff2Url from "../dsfr/fonts/Marianne-Light_Italic.woff2";
 import marianneRegularWoff2Url from "../dsfr/fonts/Marianne-Regular.woff2";
@@ -35,7 +35,9 @@ const fontUrlByFileBasename = {
 } as const;
 
 export type Params = StartReactDsfrParams & {
-    /** If not provided all fonts are preloaded */
+    /** If not provided no fonts are preloaded.
+     * Preloading of fonts is only enabled in production.
+     */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
 };
 
@@ -43,32 +45,28 @@ export function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
     App: AppComponent,
     params: Params
 ): AppComponent {
-    const { preloadFonts, ...startReactDsfrParams } = params;
+    const { preloadFonts = [], ...startReactDsfrParams } = params;
 
     if (isBrowser) {
         startReactDsfr(startReactDsfrParams);
     }
-
     function AppWithDsfr(props: AppProps) {
         return (
             <>
                 <Head>
-                    {Object.entries(fontUrlByFileBasename)
-                        .filter(([fileBasename]) =>
-                            id<string[]>(
-                                preloadFonts ?? Object.keys(fontUrlByFileBasename)
-                            ).includes(fileBasename)
-                        )
-                        .map(([, url]) => url)
-                        .map(url => (
-                            <link
-                                key={url}
-                                rel="preload"
-                                href={url}
-                                as="font"
-                                crossOrigin="anonymous"
-                            />
-                        ))}
+                    {process.env.NODE_ENV !== "development" &&
+                        objectKeys(fontUrlByFileBasename)
+                            .filter(fileBasename => preloadFonts.includes(fileBasename))
+                            .map(fileBasename => fontUrlByFileBasename[fileBasename])
+                            .map(url => (
+                                <link
+                                    key={url}
+                                    rel="preload"
+                                    href={url}
+                                    as="font"
+                                    crossOrigin="anonymous"
+                                />
+                            ))}
                     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
                     <link rel="icon" href={faviconSvg.src} type="image/svg+xml" />
                     <link rel="shortcut icon" href={faviconIco.src} type="image/x-icon" />
