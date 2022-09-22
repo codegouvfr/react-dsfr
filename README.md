@@ -18,6 +18,8 @@ yarn add react_dsfr
  }
 ```
 
+> `update_dsfr_static_resources` is a `bin` script of `react_dsfr` that copies `@gouvfr/dsfr/dist` to `public/dsfr`
+
 `.gitignore`
 
 ```diff
@@ -31,22 +33,27 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 `public/index.html` ( or `/index.html` depending of your Framework )
 
 ```diff
-+  <!-- For preventing https://fonts.google.com/knowledge/glossary/fout -->
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />
-+  <link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />
+ <!DOCTYPE html>
+ <html>
+ <head>
++    <!-- For preventing https://fonts.google.com/knowledge/glossary/fout -->
++    <link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />
++    <link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />
 
-+  <link rel="stylesheet" href="/dsfr/dsfr.min.css"/>
++    <link rel="stylesheet" href="/dsfr/dsfr.min.css"/>
+ </head>
 ```
 
-> NOTE: If you are using CRA you might want to use `%PUBLIC_URL%` [like so](https://github.com/codegouvfr/react_dsfr/blob/c13d1066b188a509d5808aa6c87722bedc35f21f/src/test/apps/cra/public/index.html#L10-L21) if you are hosting your app under a subpath.
+> NOTE: If you are using CRA and if you are hosting your app under a subpath (`package.json` -> `"homepage": "https://my-site.gouv/a/sub/path"`) you need to include
+> `%PUBLIC_URL%` [like so](https://github.com/codegouvfr/react_dsfr/blob/c13d1066b188a509d5808aa6c87722bedc35f21f/src/test/apps/cra/public/index.html#L10-L21) in the URL.
 
 `src/index.tsx`
 
@@ -57,118 +64,127 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 
 ## Next.js
 
+Create a file `global.d.ts` at the root of your Next.js project:
+
+```typescript
+declare module "*.woff2" {
+    declare const _default: string;
+    export default _default;
+}
+```
+
+`next.config.js`
+
+```diff
+ module.exports = {
+   reactStrictMode: true,
++  webpack: config => {
++
++   config.module.rules.push({
++      test: /\.woff2$/,
++      type: "asset/resource"
++    });
++
++    return config;
++  }
+ }
+```
+
 You'll have to create an [`_app.tsx` (or `_app.js`)](https://nextjs.org/docs/advanced-features/custom-app) file.
 
-`pages/_app.tsx`
+Create a [`_app.tsx` (or `_app.js`)](https://nextjs.org/docs/advanced-features/custom-app) file:
 
 ```tsx
 import Head from "next/head";
-import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
-import Index from "./index";
-import "../public/dsfr/dsfr.css";
+import type { AppProps } from "next/app";
+import marianneLightWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Light.woff2";
+import marianneItalicWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Light_Italic.woff2";
+import marianneRegularWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Regular.woff2";
+import marianneRegularItalicWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Regular_Italic.woff2";
+import marianneMediumWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Medium.woff2";
+import marianneMediumItalicWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Medium_Italic.woff2";
+import marianneBoldWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Bold.woff2";
+import marianneBoldItalicWoff2Url from "react_dsfr/dsfr/fonts/Marianne-Bold_Italic.woff2";
+import spectralRegularWoff2Url from "react_dsfr/dsfr/fonts/Spectral-Regular.woff2";
+import spectralExtraBoldWoff2Url from "react_dsfr/dsfr/fonts/Spectral-ExtraBold.woff2";
+import { startReactDsfr } from "react_dsfr";
+import "react_dsfr/dsfr/dsfr.css";
 
-const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({
-    "key": "css"
-});
+startReactDsfr({ "defaultColorScheme": "system" });
 
-export { withEmotionCache };
-
-export default function App() {
+export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
                 <title>Next DSFR!</title>
                 <meta name="description" content="Generated by create next app" />
-
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Light.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Light_Italic.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Regular.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Regular_Italic.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Medium.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Medium_Italic.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Bold.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Marianne-Bold_Italic.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Spectral-Regular.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
-                <link
-                    rel="preload"
-                    href="/dsfr/fonts/Spectral-ExtraBold.woff2"
-                    as="font"
-                    crossOrigin="anonymous"
-                />
+                {[
+                    marianneLightWoff2Url,
+                    marianneItalicWoff2Url,
+                    marianneRegularWoff2Url,
+                    marianneRegularItalicWoff2Url,
+                    marianneMediumWoff2Url,
+                    marianneMediumItalicWoff2Url,
+                    marianneBoldWoff2Url,
+                    marianneBoldItalicWoff2Url,
+                    spectralRegularWoff2Url,
+                    spectralExtraBoldWoff2Url
+                ].map(href => (
+                    <link key={href} rel="preload" href={href} as="font" crossOrigin="anonymous" />
+                ))}
             </Head>
-            <EmotionCacheProvider>
-                <Index />
-            </EmotionCacheProvider>
+            <Component {...pageProps} />
         </>
     );
 }
 ```
 
-# Use of assets
+# Importing assets
 
-If you read [in the DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/parametres-d-affichage) something like:
+Let's say, [in the DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/parametres-d-affichage), you come
+across the following HTML code.
 
 ```html
+<!-- Official documentation code, don't copy paste that -->
 <svg>
     <use xlink:href="../../../dist/artwork/dark.svg#artwork-minor" />
 </svg>
 ```
 
-You would do this in React:
+Because the `update_dsfr_static_resources` copied all the assets into `public/dsfr/` you
+can always translate the above HTML code into:
 
 ```tsx
-import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
+// ❌ DON'T
+<svg>
+    <use xlinkHref="/dsfr/artwork/dark.svg#artwork-minor#artwork-minor" />
+</svg>
+```
 
-//...
+It will work but don't do that, it's not the maintainable nor the more efficient way.
+Write this instead:
+
+```tsx
+// ✅ DO
+import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
 
 <svg>
     <use xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`} />
 </svg>;
+```
+
+Depending of your webpack config the way you import assets may vary.  
+For example, by default in a Next.js project, you'll get the SVG url
+this way:
+
+```diff
+-import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
++import artworkDarkSvg from "react_dsfr/dsfr/artwork/dark.svg";
+
+ <svg>
+-    <use xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`} />
++    <use xlinkHref={`${artworkDarkSvg.src}#artwork-minor`} />
+ </svg>;
 ```
 
 If you are getting TypeScript error create a global declaration file:
@@ -180,6 +196,7 @@ declare module "*.svg" {
     declare const url: string;
     export default url;
 }
+//OR just 'declare module "*.svg";' if you don't know/want to write the actual type.
 ```
 
 # Development

@@ -1,9 +1,5 @@
 
-declare module "*.svg" {
-	declare const _default: {
-		height: number;
-		width: number;
-		src: string;
-	};
+declare module "*.woff2" {
+	declare const _default: string;
 	export default _default;
 }
