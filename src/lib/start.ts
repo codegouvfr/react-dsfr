@@ -10,12 +10,14 @@ import { symToStr } from "tsafe/symToStr";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
+    /** Default: false */
+    verbose?: boolean;
 };
 
 let isStarted = false;
 
 export async function startReactDsfr(params: Params) {
-    const { defaultColorScheme } = params;
+    const { defaultColorScheme, verbose = false } = params;
 
     assert(
         isBrowser,
@@ -64,7 +66,7 @@ export async function startReactDsfr(params: Params) {
 
     startObservingColorSchemeHtmlAttribute();
 
-    global.dsfr = { "verbose": true, "mode": "manual" };
+    global.dsfr = { verbose, "mode": "manual" };
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
