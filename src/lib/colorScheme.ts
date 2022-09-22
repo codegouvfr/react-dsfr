@@ -59,9 +59,11 @@ function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
 }
 
 export function startObservingColorSchemeHtmlAttribute() {
-    new MutationObserver(() => {
-        $colorScheme.current = getCurrentColorSchemeFromHtmlAttribute();
-    }).observe(document.documentElement, {
+    $colorScheme.current = getCurrentColorSchemeFromHtmlAttribute();
+
+    new MutationObserver(
+        () => ($colorScheme.current = getCurrentColorSchemeFromHtmlAttribute())
+    ).observe(document.documentElement, {
         "attributes": true,
         "attributeFilter": [data_fr_theme]
     });

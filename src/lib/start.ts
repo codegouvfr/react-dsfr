@@ -12,16 +12,22 @@ export type Params = {
     defaultColorScheme: ColorScheme | "system";
 };
 
+let isStarted = false;
+
 export async function startReactDsfr(params: Params) {
     const { defaultColorScheme } = params;
 
     assert(
         isBrowser,
         [
-            `${symToStr({ startReactDsfr })} is not supposed`,
+            `${symToStr({ startReactDsfr })}() is not supposed`,
             `to be run on the backed, only in the browser`
         ].join(" ")
     );
+
+    assert(!isStarted, `${symToStr({ startReactDsfr })}() should be called only once`);
+
+    isStarted = true;
 
     const global: any = window;
 
