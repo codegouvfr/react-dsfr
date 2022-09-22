@@ -38,13 +38,31 @@ export async function startReactDsfr(params: Params) {
     if (!isNextJsDevMode) {
         document.documentElement.setAttribute(
             data_fr_theme,
-            defaultColorScheme !== "system"
-                ? defaultColorScheme
-                : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light"
+            (() => {
+                const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+
+                const colorSchemeOrSystem: ColorScheme | "system" =
+                    (() => {
+                        switch (colorSchemeReadFromLocalStorage) {
+                            case "light":
+                            case "dark":
+                            case "system":
+                                return colorSchemeReadFromLocalStorage;
+                            default:
+                                return null;
+                        }
+                    })() ?? defaultColorScheme;
+
+                return colorSchemeOrSystem !== "system"
+                    ? colorSchemeOrSystem
+                    : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            })()
         );
     }
+
+    startObservingColorSchemeHtmlAttribute();
 
     global.dsfr = { "verbose": true, "mode": "manual" };
 
@@ -62,6 +80,4 @@ export async function startReactDsfr(params: Params) {
     }
 
     global.dsfr.start();
-
-    startObservingColorSchemeHtmlAttribute();
 }

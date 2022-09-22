@@ -8,9 +8,7 @@ export type ColorScheme = "light" | "dark";
 export const data_fr_scheme = "data-fr-scheme";
 export const data_fr_theme = "data-fr-theme";
 
-export const $colorScheme = createStatefulObservable<ColorScheme>(
-    getCurrentColorSchemeFromHtmlAttribute
-);
+export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
 
 type UseColorScheme = () => {
     colorScheme: ColorScheme;
