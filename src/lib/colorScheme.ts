@@ -66,6 +66,8 @@ export function startObservingColorSchemeHtmlAttribute() {
         "attributeFilter": [data_fr_theme]
     });
 
+    //TODO:    <meta name="theme-color" content="#000091"><!-- Défini la couleur de thème du navigateur (Safari/Android) -->
+
     //TODO: Remove once https://github.com/GouvernementFR/dsfr/issues/407 is dealt with
     {
         const setRootColorScheme = (colorScheme: ColorScheme) => {

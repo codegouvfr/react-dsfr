@@ -2,7 +2,6 @@
 import artworkLightSvg from "react_dsfr/dsfr/artwork/light.svg";
 import artworkDarkSvg from "react_dsfr/dsfr/artwork/dark.svg";
 import artworkSystemSvg from "react_dsfr/dsfr/artwork/system.svg";
-
 import { useColorScheme } from "react_dsfr";
 
 export default function Index() {

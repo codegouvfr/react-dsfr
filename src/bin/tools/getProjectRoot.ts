@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 function getProjectRootRec(dirPath: string): string {
-    if (fs.existsSync(path.join(dirPath, "tsconfig.json"))) {
+    if (fs.existsSync(path.join(dirPath, "LICENSE"))) {
         return dirPath;
     }
     return getProjectRootRec(path.join(dirPath, ".."));

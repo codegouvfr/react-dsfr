@@ -9,7 +9,7 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "tsc && yarn grant_exec_perms && yarn copy_dsfr_dist_to_root",
+        "build": "rimraf dist/ && tsc -p src/bin && tsc -p src && yarn grant_exec_perms && yarn copy_dsfr_dist_to_root",
         "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",
         "start_next": "yarn yarn_link && cd src/test/apps/next && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
@@ -44,7 +44,7 @@
         "dsfr/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo",
-        "!dist/package.json"
+        "!dist/bin/tsconfig.tsbuildinfo"
     ],
     "keywords": [
         "dsfr",
@@ -80,6 +80,7 @@
         "prettier": "^2.3.0",
         "react": "18.1.0",
         "ts-node": "^10.2.1",
+        "rimraf": "^3.0.2",
         "evt": "^2.4.2",
         "typescript": "^4.8.3"
     }
