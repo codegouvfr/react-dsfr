@@ -42,7 +42,8 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 +    <link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
 +    <!-- For preventing https://fonts.google.com/knowledge/glossary/fout -->
-+    <!-- Be eco friendly, only preload the fonts variant you actually use ! -->
++    <!-- Be eco friendly, only preload the fonts variant you actually use, you can see in the network tab
++         of your browser dev tools what are the font varian downloaded initially. -->
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />
 +    <link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
@@ -99,7 +100,9 @@ export default withDsfr(
     {
         "defaultColorScheme": "system",
         // Preloading fonts prevent from https://fonts.google.com/knowledge/glossary/fout
-        // Be eco friendly, only preload the fonts variant you actually use!
+        // Be eco friendly, only preload the fonts variant you actually use, 
+        // you can see in the network tab of your browser dev tools what are 
+        // the font varian downloaded initially.
         "preloadFonts": ["Marianne-Bold", "Marianne-Regular", "Marianne-Medium"]
     }
 );
