@@ -152,6 +152,6 @@ execYarnLink({ "cwd": pathJoin(projectDirPath, "dist") });
 testAppNames.forEach(testAppName =>
     execYarnLink({
         "cwd": getTestAppPath(testAppName),
-        "targetModuleName": "react_dsfr"
+        "targetModuleName": "dsfr-react"
     })
 );

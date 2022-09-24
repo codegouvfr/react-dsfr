@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { startReactDsfr, useColorScheme } from "react_dsfr";
-import artworkLightSvgUrl from "react_dsfr/dsfr/artwork/light.svg";
-import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
-import artworkSystemSvgUrl from "react_dsfr/dsfr/artwork/system.svg";
+import { startReactDsfr, useColorScheme } from "dsfr-react";
+import artworkLightSvgUrl from "dsfr-react/dsfr/artwork/light.svg";
+import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
+import artworkSystemSvgUrl from "dsfr-react/dsfr/artwork/system.svg";
 
 startReactDsfr({
     "defaultColorScheme": "system"

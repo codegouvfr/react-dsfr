@@ -7,5 +7,6 @@
         "lib": ["es2015", "DOM", "ES2019.Object"],
         "outDir": "../../dist/bin",
         "rootDir": "."
-    }
+    },
+    "exclude": ["./yarn_link.ts"]
 }

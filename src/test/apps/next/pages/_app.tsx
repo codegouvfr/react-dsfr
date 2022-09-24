@@ -1,8 +1,8 @@
 import Head from "next/head";
 import type { AppProps } from 'next/app'
 import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
-import "react_dsfr/dsfr/dsfr.css";
-import { withDsfr } from "react_dsfr/lib/nextJs";
+import "dsfr-react/dsfr/dsfr.css";
+import { withDsfr } from "dsfr-react/lib/nextJs";
 
 const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({ "key": "css" });
 

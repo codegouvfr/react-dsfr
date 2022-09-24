@@ -1,12 +1,12 @@
 {
-  "name": "react_dsfr-test-app-cra",
+  "name": "dsfr-react-test-app-cra",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "18.1.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "react_dsfr": "file:../../../../dist"
+    "dsfr-react": "file:../../../../dist"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prestart": "node node_modules/react_dsfr/bin/update_dsfr_static_resources.js"
+    "prestart": "node node_modules/dsfr-react/bin/update_dsfr_static_resources.js"
   },
   "eslintConfig": {
     "extends": [

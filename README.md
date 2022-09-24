@@ -33,6 +33,10 @@ yarn start_cra  # For testing in in a Create React App setup
 yarn start_next # For testing in a Next.js setup
 ```
 
+> ⚠️: When you want to import assets from the `./dsfr/` directory
+> you must assume it's located in `./src/dsfr` because it's where
+> it's going to be relative to the transpiled JS files.
+
 ## How to publish a new version on NPM, how to release a beta version
 
 This repo was bootstrapped form [garronej/ts-ci](https://github.com/garronej/ts-ci) have a look at the
