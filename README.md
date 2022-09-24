@@ -138,8 +138,8 @@ Preloading of font variants is only enabled in the production build (not when yo
  import React from 'react';
  import ReactDOM from 'react-dom/client';
  import App from './App';
-+import { startReactDsfr } from "dsfr-react";
-+startReactDsfr({ "defaultColorScheme": "system" });
++import { startDsfrReact } from "dsfr-react";
++startDsfrReact({ "defaultColorScheme": "system" });
 
  const root = ReactDOM.createRoot(
    document.getElementById('root') as HTMLElement
@@ -210,8 +210,8 @@ Preloading of font variants is only enabled in the production build (not when yo
 <pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
 </strong> import ReactDOM from "react-dom/client";
  import { App } from "./App";
-+import { startReactDsfr } from "dsfr-react";
-+startReactDsfr({ "defaultColorScheme": "system" });
++import { startDsfrReact } from "dsfr-react";
++startDsfrReact({ "defaultColorScheme": "system" });
 
  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
    &#x3C;React.StrictMode>
@@ -232,15 +232,15 @@ The gist of it is, there is a few things that, for performance reasons, react-ds
 * Setting up the Favicon. &#x20;
 * Preloading the relevent font variant to avoid [FOUT](https://fonts.google.com/knowledge/glossary/fout).&#x20;
 
-Then, you must call `startReactDsfr()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
+Then, you must call `startDsfrReact()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
 
 ```typescript
-import { startReactDsfr } from "dsfr-react";
+import { startDsfrReact } from "dsfr-react";
 
 const isBrowser = typeof window === "object" && typeof document === "object";
 
 if( isBrowser ){
-    startReactDsfr({ "defaultColorScheme": "system" });
+    startDsfrReact({ "defaultColorScheme": "system" });
 }
 ```
 {% endtab %}
