@@ -34,7 +34,11 @@ export default withDsfr(
     DefaultApp, // You can, of course, provide your custom App if you have one
     {
         "defaultColorScheme": "system",
-        "preloadFonts": ["Marianne-Bold", "Marianne-Regular", "Marianne-Medium"]
+        "preloadFonts": [
+            "Marianne-Bold", 
+            "Marianne-Regular", 
+            "Marianne-Medium"
+        ]
     }
 );
 ```
@@ -42,7 +46,7 @@ export default withDsfr(
 {% hint style="info" %}
 Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
 
-Be eco friendly, only preload the fonts variant you actually use.
+Be eco friendly 🌱, only preload the fonts variant you actually use.
 
 You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
 {% endhint %}
