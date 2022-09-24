@@ -7,7 +7,6 @@ import {
 } from "./colorScheme";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
-import { isBrowserNextJsDevMode } from "./tools/isBrowserNextJsDevMode";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
@@ -36,8 +35,10 @@ export async function startReactDsfr(params: Params) {
 
     document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
 
+    const isNextJsDevMode = global.__NEXT_DATA__?.buildId === "development";
+
     hack_html_attribute_supposed_to_be_set_by_js: {
-        if (isBrowserNextJsDevMode) {
+        if (isNextJsDevMode) {
             // NOTE: Or else we get an hydration error.
             break hack_html_attribute_supposed_to_be_set_by_js;
         }
@@ -74,7 +75,7 @@ export async function startReactDsfr(params: Params) {
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
-    if (isBrowserNextJsDevMode) {
+    if (isNextJsDevMode) {
         console.log(
             [
                 "Artificial delay to avoid the",
