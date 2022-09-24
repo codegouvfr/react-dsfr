@@ -22,7 +22,7 @@
         "copy_dsfr_dist_to_root": "node dist/bin/copy_dsfr_dist_to_root.js"
     },
     "bin": {
-        "update_dsfr_static_resources": "dist/bin/update_dsfr_static_resources.js"
+        "copy_dsfr_dist_to_public": "dist/bin/copy_dsfr_dist_to_public.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [

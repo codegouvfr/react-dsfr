@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prestart": "node node_modules/dsfr-react/bin/update_dsfr_static_resources.js"
+    "prestart": "node node_modules/dsfr-react/bin/copy_dsfr_dist_to_public.js"
   },
   "eslintConfig": {
     "extends": [
