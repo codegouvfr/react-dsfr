@@ -9,7 +9,10 @@
       <img src="https://github.com/codegouvfr/dsfr-react/workflows/ci/badge.svg?branch=main">
     </a>
     <a href="https://www.npmjs.com/package/dsfr-react">
-      <img src="https://img.shields.io/npm/dm/dsfr-react">
+      <img src="https://img.shields.io/npm/v/dsfr-react?logo=npm">
+    </a>
+    <a href="https://bundlephobia.com/package/dsfr-react">
+      <img src="https://img.shields.io/bundlephobia/minzip/dsfr-react">
     </a>
     <a href="https://github.com/codegouvfr/dsfr-react/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/dsfr-react">
