@@ -1,4 +1,14 @@
+---
+description: Setup dsfr-react in your project
+---
+
 # 🔧 Initial setup
+
+If you already had the DSFR installed in your project, let's start from scratch: &#x20;
+
+* Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
+* Remove the favicon import
+* Remove the imports of the `dsfr.css` and `dsfr.module.js`
 
 {% tabs %}
 {% tab title="Next.js" %}
@@ -49,12 +59,14 @@ Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary
 Be eco friendly 🌱, only preload the fonts variant you actually use.
 
 You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
+
+Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
 {% endtab %}
 
 {% tab title="Create React App" %}
 ```bash
-yarn add react_dsfr
+yarn add dsfr-react
 ```
 
 `package.json`
