@@ -174,7 +174,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 
 Add the following tags in the `<head />`&#x20;
 
-```ejs
+```html
 <link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
 <link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
 <link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
