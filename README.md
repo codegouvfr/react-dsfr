@@ -84,7 +84,34 @@ yarn add dsfr-react
 ```
 
 {% hint style="info" %}
-`update_dsfr_static_resources` is a `bin` script of `react_dsfr` that copies `@gouvfr/dsfr/dist` to `public/dsfr`
+`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
 {% endhint %}
+
+Add the following code in the `<head />` of your `public/index.html`:
+
+```ejs
+<link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
+<link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+
+<%
+[
+  "Marianne-Light",
+  "Marianne-Light_Italic",
+  "Marianne-Regular",
+  "Marianne-Regular_Italic",
+  "Marianne-Medium",
+  "Marianne-Medium_Italic",
+  "Marianne-Bold",
+  "Marianne-Bold_Italic",
+  "Spectral-Regular",
+  "Spectral-ExtraBold"
+].forEach(function(name){ %>
+  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
+<% }); %>
+
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
+```
 {% endtab %}
 {% endtabs %}
