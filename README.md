@@ -21,7 +21,7 @@
 
 # Development
 
-Here are instructions contributing, if you are looking to **use** `dsfr-react` heads over to the [documentation](https://etalab-2.gitbook.io/dsfr-react/).
+Here are instructions for contributing, if you are looking to **use** `dsfr-react` heads over to the [documentation](https://etalab-2.gitbook.io/dsfr-react/).
 
 ```bash
 yarn
