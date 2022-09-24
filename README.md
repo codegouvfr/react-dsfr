@@ -4,19 +4,20 @@ description: Setup dsfr-react in your project
 
 # 🔧 Initial setup
 
+{% hint style="warning" %}
 If you already had the DSFR installed in your project, let's start from scratch: &#x20;
 
 * Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
-* Remove the favicon import
-* Remove the imports of the `dsfr.css` and `dsfr.module.js`
+* Remove all imports:`dsfr.css, dsfr.module.js the favicon and the fonts.`
+{% endhint %}
 
-{% tabs %}
-{% tab title="Next.js" %}
 ```bash
 yarn add dsfr-react
 ```
 
-`next.config.js`:
+{% tabs %}
+{% tab title="Next.js" %}
+#### next.config.js
 
 ```diff
  module.exports = {
@@ -33,7 +34,9 @@ yarn add dsfr-react
  }
 ```
 
-Create a [`pages/_app.tsx` (or `pages/_app.js`)](https://nextjs.org/docs/advanced-features/custom-app) file:
+#### pages/\_app.tsx
+
+You may need to create this file (or \_app.js) if it dosen't already exist in your project. &#x20;
 
 ```tsx
 import DefaultApp from "next/app";
@@ -65,11 +68,7 @@ Preloading of font variants is only enabled in the production build (not when yo
 {% endtab %}
 
 {% tab title="Create React App" %}
-```bash
-yarn add dsfr-react
-```
-
-`package.json`
+#### package.json
 
 ```diff
  "scripts": {
@@ -77,7 +76,7 @@ yarn add dsfr-react
  }
 ```
 
-`.gitignore`:
+#### .gitignore
 
 ```diff
 + /public/dsfr
@@ -87,7 +86,9 @@ yarn add dsfr-react
 `update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
 {% endhint %}
 
-Add the following code in the `<head />` of your `public/index.html`:
+#### public/inde.html
+
+Add the following code in the `<head />`&#x20;
 
 ```ejs
 <link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
@@ -123,5 +124,12 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 
 Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
+
+#### src/index.tsx
+
+```diff
++import { startReactDsfr } from "dsfr-react";
++startReactDsfr({ "defaultColorScheme": "system" });
+```
 {% endtab %}
 {% endtabs %}
