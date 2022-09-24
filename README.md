@@ -113,5 +113,15 @@ Add the following code in the `<head />` of your `public/index.html`:
 
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 ```
+
+{% hint style="info" %}
+Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
+
+Be eco friendly 🌱, only preload the fonts variant you actually use.
+
+You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
+
+Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
+{% endhint %}
 {% endtab %}
 {% endtabs %}
