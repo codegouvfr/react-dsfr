@@ -72,19 +72,17 @@ Preloading of font variants is only enabled in the production build (not when yo
 
 ```diff
  "scripts": {
-+    "postinstall": "update_dsfr_static_resources"
++    "postinstall": "copy_dsfr_dist_to_public"
  }
 ```
+
+`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
 
 #### .gitignore
 
 ```diff
 + /public/dsfr
 ```
-
-{% hint style="info" %}
-`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
-{% endhint %}
 
 #### public/inde.html
 
