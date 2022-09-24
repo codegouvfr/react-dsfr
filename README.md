@@ -126,8 +126,20 @@ Preloading of font variants is only enabled in the production build (not when yo
 #### src/index.tsx
 
 ```diff
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 +import { startReactDsfr } from "dsfr-react";
 +startReactDsfr({ "defaultColorScheme": "system" });
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 ```
 {% endtab %}
 {% endtabs %}
