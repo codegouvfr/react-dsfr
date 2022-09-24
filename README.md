@@ -48,9 +48,16 @@ export default withDsfr(
     {
         "defaultColorScheme": "system",
         "preloadFonts": [
-            "Marianne-Bold", 
-            "Marianne-Regular", 
-            "Marianne-Medium"
+		//"Marianne-Light",
+		//"Marianne-Light_Italic",
+		"Marianne-Regular",
+		//"Marianne-Regular_Italic",
+		"Marianne-Medium",
+		//"Marianne-Medium_Italic",
+		"Marianne-Bold",
+		//"Marianne-Bold_Italic",
+		//"Spectral-Regular",
+		//"Spectral-ExtraBold"
         ]
     }
 );
