@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { startReactDsfr } from "dsfr-react";
+import { startDsfrReact } from "dsfr-react";
 import { App } from "./App";
 
-startReactDsfr({
+startDsfrReact({
     "defaultColorScheme": "system"
 });
 

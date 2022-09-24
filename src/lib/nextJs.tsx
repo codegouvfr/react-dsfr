@@ -2,8 +2,8 @@ import React from "react";
 import Head from "next/head";
 import type { NextComponentType } from "next";
 import type { AppProps } from "next/app";
-import { startReactDsfr } from "./start";
-import type { Params as StartReactDsfrParams } from "./start";
+import { startDsfrReact } from "./start";
+import type { Params as startDsfrReactParams } from "./start";
 import { isBrowser } from "./tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
 import marianneLightWoff2Url from "../dsfr/fonts/Marianne-Light.woff2";
@@ -34,7 +34,7 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = StartReactDsfrParams & {
+export type Params = startDsfrReactParams & {
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */
@@ -45,10 +45,10 @@ export function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
     App: AppComponent,
     params: Params
 ): AppComponent {
-    const { preloadFonts = [], ...startReactDsfrParams } = params;
+    const { preloadFonts = [], ...startDsfrReactParams } = params;
 
     if (isBrowser) {
-        startReactDsfr(startReactDsfrParams);
+        startDsfrReact(startDsfrReactParams);
     }
     function AppWithDsfr(props: AppProps) {
         return (

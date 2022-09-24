@@ -16,18 +16,18 @@ export type Params = {
 
 let isStarted = false;
 
-export async function startReactDsfr(params: Params) {
+export async function startDsfrReact(params: Params) {
     const { defaultColorScheme, verbose = false } = params;
 
     assert(
         isBrowser,
         [
-            `${symToStr({ startReactDsfr })}() is not supposed`,
+            `${symToStr({ startDsfrReact })}() is not supposed`,
             `to be run on the backed, only in the browser`
         ].join(" ")
     );
 
-    assert(!isStarted, `${symToStr({ startReactDsfr })}() should be called only once`);
+    assert(!isStarted, `${symToStr({ startDsfrReact })}() should be called only once`);
 
     isStarted = true;
 
