@@ -26,8 +26,15 @@ export function App({ Component, pageProps }: AppProps) {
 export default withDsfr(App, {
 	"defaultColorScheme": "system",
 	"preloadFonts": [
-		"Marianne-Bold",
+		//"Marianne-Light",
+		//"Marianne-Light_Italic",
 		"Marianne-Regular",
-		"Marianne-Medium"
+		//"Marianne-Regular_Italic",
+		"Marianne-Medium",
+		//"Marianne-Medium_Italic",
+		"Marianne-Bold",
+		//"Marianne-Bold_Italic",
+		//"Spectral-Regular",
+		//"Spectral-ExtraBold"
 	]
 });
