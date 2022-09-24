@@ -12,7 +12,7 @@ If you already had the DSFR installed in your project, let's start from scratch:
 {% endhint %}
 
 ```bash
-yarn add dsfr-react
+yarn add dsfr-react # Or: 'npm install --save dsfr-react'
 ```
 
 {% tabs %}
@@ -221,5 +221,27 @@ Preloading of font variants is only enabled in the production build (not when yo
 </code></pre>
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
+{% endtab %}
+
+{% tab title="Other" %}
+There isn't specific instructions for your React setup but don't worry, you can figure out what needs to be done by reading the instructions for Vite.&#x20;
+
+The gist of it is, there is a few things that, for performance reasons, react-dsfr dosen't automatically do for you and thus you have to do manually: &#x20;
+
+* Loading `dsfr-react/dsfr/dsfr.min.css` (as soon as possilbe)
+* Setting up the Favicon. &#x20;
+* Preloading the relevent font variant to avoid [FOUT](https://fonts.google.com/knowledge/glossary/fout).&#x20;
+
+Then, you must call `startReactDsfr()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
+
+```typescript
+import { startReactDsfr } from "dsfr-react";
+
+const isBrowser = typeof window === "object" && typeof document === "object";
+
+if( isBrowser ){
+    startReactDsfr({ "defaultColorScheme": "system" });
+}
+```
 {% endtab %}
 {% endtabs %}
