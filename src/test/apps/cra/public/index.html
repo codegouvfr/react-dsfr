@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
 
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
@@ -12,16 +11,21 @@
   <link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
   <link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />
+  <%
+  [
+    "Marianne-Light",
+    "Marianne-Light_Italic",
+    "Marianne-Regular",
+    "Marianne-Regular_Italic",
+    "Marianne-Medium",
+    "Marianne-Medium_Italic",
+    "Marianne-Bold",
+    "Marianne-Bold_Italic",
+    "Spectral-Regular",
+    "Spectral-ExtraBold"
+  ].forEach(function(name){ %>
+  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
+  <% }); %>
 
   <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 
