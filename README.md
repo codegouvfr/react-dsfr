@@ -129,8 +129,6 @@ Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary
 Be eco friendly 🌱, only preload the fonts variant you actually use.
 
 You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-
-Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
 
 #### src/index.tsx
@@ -202,8 +200,6 @@ Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary
 Be eco friendly 🌱, only preload the fonts variant you actually use.
 
 You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-
-Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
 
 #### src/main.tsx
