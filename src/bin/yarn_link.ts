@@ -106,7 +106,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     });
 };
 
-const testAppNames = ["cra", "next"] as const;
+const testAppNames = ["cra", "vite", "next"] as const;
 
 const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
     pathJoin(projectDirPath, "src", "test", "frameworks", testAppName);

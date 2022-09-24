@@ -1,0 +1,26 @@
+{
+  "name": "vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "copy_dsfr_dist_to_public": "node node_modules/dsfr-react/bin/copy_dsfr_dist_to_public.js",
+    "predev": "yarn copy_dsfr_dist_to_public",
+    "prebuild": "yarn copy_dsfr_dist_to_public"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "^18.2.0",
+    "dsfr-react": "file:../../../../dist"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  }
+}

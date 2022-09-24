@@ -36,6 +36,7 @@ npx tsc -p src/bin -w & npx tsc -p src -w
 
 yarn start_cra  # For testing in in a Create React App setup
 yarn start_next # For testing in a Next.js setup
+yarn start_vite # For testing in a Vite setup
 ```
 
 > When you want to import assets from the `./dsfr/` directory
