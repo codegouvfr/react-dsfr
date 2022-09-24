@@ -98,16 +98,16 @@ Add the following code in the `<head />`&#x20;
 
 <%
 [
-  "Marianne-Light",
-  "Marianne-Light_Italic",
+  //"Marianne-Light",
+  //"Marianne-Light_Italic",
   "Marianne-Regular",
-  "Marianne-Regular_Italic",
+  //"Marianne-Regular_Italic",
   "Marianne-Medium",
-  "Marianne-Medium_Italic",
+  //"Marianne-Medium_Italic",
   "Marianne-Bold",
-  "Marianne-Bold_Italic",
-  "Spectral-Regular",
-  "Spectral-ExtraBold"
+  //"Marianne-Bold_Italic",
+  //"Spectral-Regular",
+  //"Spectral-ExtraBold"
 ].forEach(function(name){ %>
   <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
 <% }); %>
