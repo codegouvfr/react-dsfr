@@ -65,6 +65,8 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 
 Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
+
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
 {% endtab %}
 
 {% tab title="Create React App" %}
@@ -141,5 +143,7 @@ root.render(
   </React.StrictMode>
 );
 ```
+
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 {% endtab %}
 {% endtabs %}
