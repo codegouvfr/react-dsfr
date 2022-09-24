@@ -140,7 +140,7 @@ jobs:
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
         IS_BETA: ${{ needs.check_if_version_upgraded.outputs.is_release_beta }}
 
-  github_pages:
+  deploy_cra_test_app_on_github_pages:
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -153,7 +153,7 @@ jobs:
     - run: |
         yarn build
         yarn yarn_link
-        cd src/test/apps/spa
+        cd src/test/apps/cra
         yarn build
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
       env:
