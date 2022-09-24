@@ -8,11 +8,11 @@
     <a href="https://github.com/codegouvfr/dsfr-react/actions">
       <img src="https://github.com/codegouvfr/dsfr-react/workflows/ci/badge.svg?branch=main">
     </a>
-    <a href="https://www.npmjs.com/package/tss-react">
-      <img src="https://img.shields.io/npm/dm/tss-react">
+    <a href="https://www.npmjs.com/package/dsfr-react">
+      <img src="https://img.shields.io/npm/dm/dsfr-react">
     </a>
     <a href="https://github.com/codegouvfr/dsfr-react/blob/main/LICENSE">
-      <img src="https://img.shields.io/npm/l/tss-react">
+      <img src="https://img.shields.io/npm/l/dsfr-react">
     </a>
 </p>
 <p align="center">
