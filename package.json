@@ -1,10 +1,10 @@
 {
-    "name": "react_dsfr",
+    "name": "dsfr-react",
     "version": "0.0.1",
     "description": "React implementation of the DSFR",
     "repository": {
         "type": "git",
-        "url": "git://github.com/codegouvfr/react_dsfr.git"
+        "url": "git://github.com/codegouvfr/dsfr-react.git"
     },
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
@@ -53,7 +53,7 @@
         "react",
         "typescript"
     ],
-    "homepage": "https://github.com/codegouvfr/react_dsfr",
+    "homepage": "https://github.com/codegouvfr/dsfr-react",
     "peerDependencies": {
         "@types/react": "^16.0.0 || ^17.0.0 || ^18.0.0",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"

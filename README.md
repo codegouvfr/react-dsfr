@@ -7,7 +7,7 @@ WIP
 # Install
 
 ```bash
-yarn add react_dsfr
+yarn add dsfr-react
 ```
 
 `package.json` (Optional if you are using Next.js):
@@ -18,7 +18,7 @@ yarn add react_dsfr
  }
 ```
 
-> `update_dsfr_static_resources` is a `bin` script of `react_dsfr` that copies `@gouvfr/dsfr/dist` to `public/dsfr`
+> `update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` to `public/dsfr`
 
 `.gitignore`:
 
@@ -60,12 +60,12 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 ```
 
 > NOTE: If you are using CRA and if you are hosting your app under a subpath (`package.json` -> `"homepage": "https://my-site.gouv/a/sub/path"`) you need to include
-> `%PUBLIC_URL%` [like so](https://github.com/codegouvfr/react_dsfr/blob/c13d1066b188a509d5808aa6c87722bedc35f21f/src/test/apps/cra/public/index.html#L10-L21) in the URL.
+> `%PUBLIC_URL%` [like so](https://github.com/codegouvfr/dsfr-react/blob/c13d1066b188a509d5808aa6c87722bedc35f21f/src/test/apps/cra/public/index.html#L10-L21) in the URL.
 
 `src/index.tsx`
 
 ```diff
-+import { startReactDsfr } from "react_dsfr";
++import { startReactDsfr } from "dsfr-react";
 +startReactDsfr({ "defaultColorScheme": "system" });
 ```
 
@@ -91,17 +91,17 @@ If you are using [Create React App](https://create-react-app.dev/) or [Vite](htt
 Create a [`_app.tsx` (or `_app.js`)](https://nextjs.org/docs/advanced-features/custom-app) file:
 
 ```tsx
-import { withDsfr } from "react_dsfr/lib/nextJs";
+import { withDsfr } from "dsfr-react/lib/nextJs";
 import DefaultApp from "next/app";
-import "react_dsfr/dsfr/dsfr.css";
+import "dsfr-react/dsfr/dsfr.css";
 
 export default withDsfr(
     DefaultApp, // You can, of course, provide your custom App in place of the default if you have one
     {
         "defaultColorScheme": "system",
         // Preloading fonts prevent from https://fonts.google.com/knowledge/glossary/fout
-        // Be eco friendly, only preload the fonts variant you actually use, 
-        // you can see in the network tab of your browser dev tools what are 
+        // Be eco friendly, only preload the fonts variant you actually use,
+        // you can see in the network tab of your browser dev tools what are
         // the font varian downloaded initially.
         "preloadFonts": ["Marianne-Bold", "Marianne-Regular", "Marianne-Medium"]
     }
@@ -135,7 +135,7 @@ Write this instead:
 
 ```tsx
 // ✅ DO
-import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
+import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
 
 <svg>
     <use xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`} />
@@ -147,8 +147,8 @@ For example, by default in a Next.js project, you'll get the `.svg` url
 this way (Same thing for `.png`, `.ico` and other image format):
 
 ```diff
--import artworkDarkSvgUrl from "react_dsfr/dsfr/artwork/dark.svg";
-+import artworkDarkSvg from "react_dsfr/dsfr/artwork/dark.svg";
+-import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
++import artworkDarkSvg from "dsfr-react/dsfr/artwork/dark.svg";
 
  <svg>
 -    <use xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`} />
