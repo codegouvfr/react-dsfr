@@ -9,7 +9,7 @@ If you already had the DSFR installed in your project, let's start from scratch:
 
 * Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
 * Remove all imports:`dsfr.css, dsfr.module.js the favicon and the fonts.`
-* Remove `thedata-fr-scheme` (and `data-fr-theme` ) attribude from your `<html />` tag
+* Remove `thedata-fr-scheme` (and `data-fr-theme` ) attribude from your `<html/>` tag
 {% endhint %}
 
 ```bash
