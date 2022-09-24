@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
 </p>
 <p align="center">
-    <i> React implementation of the <a href="https://www.systeme-de-design.gouv.fr/">DSFR</a>! </i>
+    <i> React implementation of the <a href="https://www.systeme-de-design.gouv.fr/">DSFR</a> </i>
     <br>
     <br>
     <a href="https://github.com/codegouvfr/dsfr-react/actions">
