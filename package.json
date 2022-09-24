@@ -10,8 +10,8 @@
     "types": "dist/lib/index.d.ts",
     "scripts": {
         "build": "rimraf dist/ && tsc -p src/bin && tsc -p src && yarn grant_exec_perms && yarn copy_dsfr_dist_to_root",
-        "start_cra": "yarn yarn_link && cd src/test/apps/cra && yarn start",
-        "start_next": "yarn yarn_link && cd src/test/apps/next && yarn dev",
+        "start_cra": "yarn yarn_link && cd src/test/frameworks/cra && yarn start",
+        "start_next": "yarn yarn_link && cd src/test/frameworks/next && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
