@@ -19,12 +19,10 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://etalab-2.gitbook.io/dsfr-react/">👉 Documentation 👈</a>
+  <a href="https://etalab-2.gitbook.io/dsfr-react/">Documentation</a>
 </p>
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
-
-Roadmap:
 
 -   [x] Fully TypeSafe, well documented API.
 -   [ ] Always in up to date with latest the DSFR evolutions.
@@ -42,6 +40,10 @@ Roadmap:
 
 This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
 [I](https://github.com/garronej)'m working full time on this project. You can expect rapid development. 🚀
+
+<p align="center">
+  <a href="https://etalab-2.gitbook.io/dsfr-react/">Get started</a>
+</p>
 
 # Development
 
