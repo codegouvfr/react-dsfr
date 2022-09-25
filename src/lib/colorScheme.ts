@@ -108,7 +108,7 @@ export function startObservingColorSchemeHtmlAttribute() {
 
             element.id = id;
 
-            element.innerHTML = `:root { color-scheme: ${colorScheme} }`;
+            element.innerHTML = `:root { color-scheme: ${colorScheme}; }`;
 
             document.getElementsByTagName("head")[0].appendChild(element);
         };
