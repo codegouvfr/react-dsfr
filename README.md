@@ -41,10 +41,10 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 
 ```tsx
 import DefaultApp from "next/app";
-import { withDsfr } from "dsfr-react/lib/nextJs";
+import { withAppDsfr } from "dsfr-react/lib/nextJs";
 import "dsfr-react/dsfr/dsfr.css";
 
-export default withDsfr(
+export default withAppDsfr(
     DefaultApp, // Provide your custom App if you have one
     {
         "defaultColorScheme": "system",
