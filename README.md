@@ -17,107 +17,6 @@ yarn add dsfr-react # Or: 'npm install --save dsfr-react'
 ```
 
 {% tabs %}
-{% tab title="Next.js" %}
-#### next.config.js
-
-```diff
- module.exports = {
-   reactStrictMode: true,
-+  webpack: config => {
-+
-+   config.module.rules.push({
-+      test: /\.(woff2|webmanifest)$/,
-+      type: "asset/resource"
-+    });
-+
-+    return config;
-+  }
- }
-```
-
-#### pages/\_app.tsx
-
-If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
-
-```tsx
-import DefaultApp from "next/app";
-import { withAppDsfr } from "dsfr-react/lib/nextJs";
-import "dsfr-react/dsfr/dsfr.css";
-
-export default withAppDsfr(
-    DefaultApp, // Provide your custom App if you have one
-    {
-        "defaultColorScheme": "system",
-        "preloadFonts": [
-		//"Marianne-Light",
-		//"Marianne-Light_Italic",
-		"Marianne-Regular",
-		//"Marianne-Regular_Italic",
-		"Marianne-Medium",
-		//"Marianne-Medium_Italic",
-		"Marianne-Bold",
-		//"Marianne-Bold_Italic",
-		//"Spectral-Regular",
-		//"Spectral-ExtraBold"
-        ]
-    }
-);
-```
-
-{% hint style="info" %}
-Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
-
-Be eco friendly 🌱, only preload the fonts variant you actually use.
-
-You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-
-Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
-{% endhint %}
-
-#### pages/\_document.tsx
-
-This is optional, it enables to get rid of the [white flashes on pages reload](https://github.com/codegouvfr/dsfr-react/issues/2#issuecomment-1257263480). &#x20;
-
-```tsx
-import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
-import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
-
-const { 
-  readColorSchemeFromCookie, 
-  getColorSchemeHtmlAttributes 
-} = getColorSchemeSsrUtils();
-
-export default function Document() {
-  return (
-    <Html {...getColorSchemeHtmlAttributes()}>
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
-}
-
-Document.getInitialProps = async (ctx: DocumentContext) => {
-
-  const initialProps = await DefaultDocument.getInitialProps(ctx);
-
-  readColorSchemeFromCookie(ctx);
-
-  return { ...initialProps };
-
-};
-```
-
-{% hint style="warning" %}
-This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for ultimate UX. &#x20;
-{% endhint %}
-
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
-{% endtab %}
-
 {% tab title="Create React App" %}
 #### package.json
 
@@ -259,6 +158,107 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 </code></pre>
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
+{% endtab %}
+
+{% tab title="Next.js" %}
+#### next.config.js
+
+```diff
+ module.exports = {
+   reactStrictMode: true,
++  webpack: config => {
++
++   config.module.rules.push({
++      test: /\.(woff2|webmanifest)$/,
++      type: "asset/resource"
++    });
++
++    return config;
++  }
+ }
+```
+
+#### pages/\_app.tsx
+
+If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
+
+```tsx
+import DefaultApp from "next/app";
+import { withAppDsfr } from "dsfr-react/lib/nextJs";
+import "dsfr-react/dsfr/dsfr.css";
+
+export default withAppDsfr(
+    DefaultApp, // Provide your custom App if you have one
+    {
+        "defaultColorScheme": "system",
+        "preloadFonts": [
+		//"Marianne-Light",
+		//"Marianne-Light_Italic",
+		"Marianne-Regular",
+		//"Marianne-Regular_Italic",
+		"Marianne-Medium",
+		//"Marianne-Medium_Italic",
+		"Marianne-Bold",
+		//"Marianne-Bold_Italic",
+		//"Spectral-Regular",
+		//"Spectral-ExtraBold"
+        ]
+    }
+);
+```
+
+{% hint style="info" %}
+Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
+
+Be eco friendly 🌱, only preload the fonts variant you actually use.
+
+You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
+
+Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
+{% endhint %}
+
+#### pages/\_document.tsx
+
+This is optional, it enables to get rid of the [white flashes on pages reload](https://github.com/codegouvfr/dsfr-react/issues/2#issuecomment-1257263480). &#x20;
+
+```tsx
+import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
+import type { DocumentContext } from "next/document";
+import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
+
+const { 
+  readColorSchemeFromCookie, 
+  getColorSchemeHtmlAttributes 
+} = getColorSchemeSsrUtils();
+
+export default function Document() {
+  return (
+    <Html {...getColorSchemeHtmlAttributes()}>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+
+Document.getInitialProps = async (ctx: DocumentContext) => {
+
+  const initialProps = await DefaultDocument.getInitialProps(ctx);
+
+  readColorSchemeFromCookie(ctx);
+
+  return { ...initialProps };
+
+};
+```
+
+{% hint style="warning" %}
+This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for ultimate UX. &#x20;
+{% endhint %}
+
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
 {% endtab %}
 
 {% tab title="Other" %}
