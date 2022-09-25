@@ -21,12 +21,11 @@ import appleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import faviconSvg from "../dsfr/favicon/favicon.svg";
 import faviconIco from "../dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "../dsfr/favicon/manifest.webmanifest";
-import type { DocumentContext, DocumentProps } from "next/document";
+import type { DocumentContext } from "next/document";
 import { data_fr_scheme, data_fr_theme, $colorScheme } from "./colorScheme";
 import type { ColorScheme } from "./colorScheme";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
 import { createStatefulObservable } from "./tools/StatefulObservable";
+import { symToStr } from "tsafe/symToStr";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -52,25 +51,38 @@ const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefi
     () => undefined
 );
 
-export function getDsfrDocumentApi() {
+export function getColorSchemeSsrUtils() {
     $overwriteGetInitialProps.current?.();
 
     $overwriteGetInitialProps.subscribe(overwriteGetInitialProps => overwriteGetInitialProps?.());
 
-    function getDocumentDsfrInitialProps(ctx: DocumentContext) {
-        const colorScheme: ColorScheme | undefined = (() => {
-            const cookie = ctx.req?.headers.cookie;
+    let colorScheme: ColorScheme | undefined = undefined;
 
-            return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-        })();
+    let isNextTickCleared = false;
 
-        return { colorScheme };
+    function readColorSchemeFromCookie(ctx: DocumentContext) {
+        const cookie = ctx.req?.headers.cookie;
+
+        colorScheme = cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+
+        isNextTickCleared = false;
+
+        process.nextTick(() => {
+            if (!isNextTickCleared) {
+                console.error(
+                    [
+                        `WARNING: ${symToStr({
+                            getColorSchemeHtmlAttributes
+                        })} should be called just after`,
+                        `${symToStr({ getColorSchemeSsrUtils })}, in the same event loop tick!`
+                    ].join(" ")
+                );
+            }
+        });
     }
 
-    function getDsfrHtmlAttributes(props: DocumentProps) {
-        assert(is<ReturnType<typeof getDocumentDsfrInitialProps>>(props));
-
-        const { colorScheme } = props;
+    function getColorSchemeHtmlAttributes() {
+        isNextTickCleared = true;
 
         if (colorScheme === undefined) {
             return {};
@@ -84,7 +96,7 @@ export function getDsfrDocumentApi() {
         };
     }
 
-    return { getDocumentDsfrInitialProps, getDsfrHtmlAttributes };
+    return { readColorSchemeFromCookie, getColorSchemeHtmlAttributes };
 }
 
 export function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(

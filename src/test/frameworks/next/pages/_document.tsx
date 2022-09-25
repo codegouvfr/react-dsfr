@@ -1,25 +1,23 @@
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getDsfrDocumentApi } from "dsfr-react/lib/nextJs";
+import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
 
-const { getDocumentDsfrInitialProps, getDsfrHtmlAttributes } = getDsfrDocumentApi();
+const { readColorSchemeFromCookie, getColorSchemeHtmlAttributes } = getColorSchemeSsrUtils();
 
 export default class Document extends DefaultDocument {
 	static async getInitialProps(ctx: DocumentContext) {
 
 		const initialProps = await DefaultDocument.getInitialProps(ctx);
 
-		const dsfrInitialProps = getDocumentDsfrInitialProps(ctx);
+		readColorSchemeFromCookie(ctx);
 
-		console.log("(server) Document.getInitialProps we read colorScheme from cookie: ", dsfrInitialProps);
-
-		return { ...initialProps, ...dsfrInitialProps };
+		return { ...initialProps };
 
 	}
 
 	render() {
 		return (
-			<Html {...getDsfrHtmlAttributes(this.props)}>
+			<Html {...getColorSchemeHtmlAttributes()}>
 				<Head />
 				<body>
 					<Main />
