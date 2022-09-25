@@ -92,8 +92,6 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
     );
 
     AppWithDsfr.getInitialProps = async (appContext: AppContext) => {
-        console.log("here here here");
-
         if (!isBrowser) {
             /*
             $colorScheme.current = (() => {

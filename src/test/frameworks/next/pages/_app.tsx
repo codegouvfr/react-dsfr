@@ -1,8 +1,7 @@
 import DefaultApp from "next/app";
-import "dsfr-react/dsfr/dsfr.css";
 import { withAppDsfr } from "dsfr-react/lib/nextJs";
+import "dsfr-react/dsfr/dsfr.css";
 
-//export default withDsfr(DefaultApp);
 export default withAppDsfr(DefaultApp, {
 	"defaultColorScheme": "system",
 	"preloadFonts": [
