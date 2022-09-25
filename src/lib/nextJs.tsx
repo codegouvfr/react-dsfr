@@ -51,6 +51,8 @@ const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefi
     () => undefined
 );
 
+let defaultColorScheme: ColorScheme | "system";
+
 export function getColorSchemeSsrUtils() {
     $overwriteGetInitialProps.current?.();
 
@@ -63,7 +65,17 @@ export function getColorSchemeSsrUtils() {
     function readColorSchemeFromCookie(ctx: DocumentContext) {
         const cookie = ctx.req?.headers.cookie;
 
-        colorScheme = cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+        colorScheme =
+            (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
+            (() => {
+                switch (defaultColorScheme) {
+                    case "light":
+                    case "dark":
+                        return defaultColorScheme;
+                    case "system":
+                        return undefined;
+                }
+            })();
 
         isNextTickCleared = false;
 
@@ -107,7 +119,10 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
 
     if (isBrowser) {
         startDsfrReact(startDsfrReactParams);
+    } else {
+        defaultColorScheme = startDsfrReactParams.defaultColorScheme;
     }
+
     function AppWithDsfr(props: AppProps) {
         return (
             <>
@@ -133,6 +148,7 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
                         href={faviconWebmanifestUrl}
                         crossOrigin="use-credentials"
                     />
+                    <style>{`:root { color-scheme: ${$colorScheme.current}; }`}</style>
                 </Head>
                 <App {...(props as any)} />
             </>
@@ -155,7 +171,16 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
                         const cookie = appContext.ctx.req?.headers.cookie;
 
                         return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-                    })() ?? "light";
+                    })() ??
+                    (() => {
+                        switch (startDsfrReactParams.defaultColorScheme) {
+                            case "dark":
+                            case "light":
+                                return startDsfrReactParams.defaultColorScheme;
+                            case "system":
+                                return "light";
+                        }
+                    })();
             }
 
             return { ...initialProps };
