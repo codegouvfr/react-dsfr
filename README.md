@@ -74,6 +74,47 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
 {% endhint %}
 
+#### pages/\_document.tsx
+
+This is optional, it enables to get rid of the white flashes on pages reload. &#x20;
+
+```tsx
+import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
+import type { DocumentContext } from "next/document";
+import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
+
+const { 
+  readColorSchemeFromCookie, 
+  getColorSchemeHtmlAttributes 
+} = getColorSchemeSsrUtils();
+
+export default function Document() {
+  return (
+    <Html {...getColorSchemeHtmlAttributes()}>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+
+Document.getInitialProps = async (ctx: DocumentContext) => {
+
+  const initialProps = await DefaultDocument.getInitialProps(ctx);
+
+  readColorSchemeFromCookie(ctx);
+
+  return { ...initialProps };
+
+};
+```
+
+{% hint style="warning" %}
+This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for ultimate UX. &#x20;
+{% endhint %}
+
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
 {% endtab %}
 
@@ -242,3 +283,4 @@ if( isBrowser ){
 ```
 {% endtab %}
 {% endtabs %}
+
