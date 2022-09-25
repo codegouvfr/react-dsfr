@@ -26,6 +26,7 @@ import { data_fr_scheme, data_fr_theme, $colorScheme } from "./colorScheme";
 import type { ColorScheme } from "./colorScheme";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
+import { createStatefulObservable } from "./tools/StatefulObservable";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -46,6 +47,45 @@ export type Params = startDsfrReactParams & {
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
 };
+
+const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefined>(
+    () => undefined
+);
+
+export function getDsfrDocumentApi() {
+    $overwriteGetInitialProps.current?.();
+
+    $overwriteGetInitialProps.subscribe(overwriteGetInitialProps => overwriteGetInitialProps?.());
+
+    function getDocumentDsfrInitialProps(ctx: DocumentContext) {
+        const colorScheme: ColorScheme | undefined = (() => {
+            const cookie = ctx.req?.headers.cookie;
+
+            return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+        })();
+
+        return { colorScheme };
+    }
+
+    function getDsfrHtmlAttributes(props: DocumentProps) {
+        assert(is<ReturnType<typeof getDocumentDsfrInitialProps>>(props));
+
+        const { colorScheme } = props;
+
+        if (colorScheme === undefined) {
+            return {};
+        }
+
+        $colorScheme.current = colorScheme;
+
+        return {
+            [data_fr_scheme]: colorScheme,
+            [data_fr_theme]: colorScheme
+        };
+    }
+
+    return { getDocumentDsfrInitialProps, getDsfrHtmlAttributes };
+}
 
 export function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
     App: AppComponent,
@@ -91,65 +131,44 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
         staticMethod => ((AppWithDsfr as any)[staticMethod] = (App as any)[staticMethod])
     );
 
-    AppWithDsfr.getInitialProps = async (appContext: AppContext) => {
-        if (!isBrowser) {
-            /*
-            $colorScheme.current = (() => {
-
-                const cookie = appContext.ctx.req?.headers.cookie
-
-                return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-
-            })() ?? "light";
-            */
-
-            const colorScheme = (() => {
-                const cookie = appContext.ctx.req?.headers.cookie;
-
-                return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-            })();
-
-            console.log(
-                "(server) App.getInitialProps, we read the colorScheme from cookie: ",
-                colorScheme
+    $overwriteGetInitialProps.current = () => {
+        (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
+            const initialProps = await (App.getInitialProps ?? DefaultApp.getInitialProps)(
+                appContext
             );
 
-            $colorScheme.current = colorScheme ?? "light";
-        }
+            if (!isBrowser) {
+                /*
+                $colorScheme.current = (() => {
+    
+                    const cookie = appContext.ctx.req?.headers.cookie
+    
+                    return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+    
+                })() ?? "light";
+                */
 
-        return { ...(await (App.getInitialProps ?? DefaultApp.getInitialProps)(appContext)) };
+                const colorScheme = (() => {
+                    const cookie = appContext.ctx.req?.headers.cookie;
+
+                    return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+                })();
+
+                console.log(
+                    "(server) App.getInitialProps, we read the colorScheme from cookie: ",
+                    colorScheme
+                );
+
+                $colorScheme.current = colorScheme ?? "light";
+            }
+
+            return { ...initialProps };
+        };
     };
 
     AppWithDsfr.displayName = AppWithDsfr.name;
 
     return AppWithDsfr as any;
-}
-
-export function getDocumentDsfrInitialProps(ctx: DocumentContext) {
-    const colorScheme: ColorScheme | undefined = (() => {
-        const cookie = ctx.req?.headers.cookie;
-
-        return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-    })();
-
-    return { colorScheme };
-}
-
-export function getDsfrHtmlAttributes(props: DocumentProps) {
-    assert(is<ReturnType<typeof getDocumentDsfrInitialProps>>(props));
-
-    const { colorScheme } = props;
-
-    if (colorScheme === undefined) {
-        return {};
-    }
-
-    $colorScheme.current = colorScheme;
-
-    return {
-        [data_fr_scheme]: colorScheme,
-        [data_fr_theme]: colorScheme
-    };
 }
 
 function readColorSchemeInCookie(cookie: string) {

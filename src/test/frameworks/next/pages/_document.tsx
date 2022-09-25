@@ -1,6 +1,8 @@
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getDocumentDsfrInitialProps, getDsfrHtmlAttributes } from "dsfr-react/lib/nextJs";
+import { getDsfrDocumentApi } from "dsfr-react/lib/nextJs";
+
+const { getDocumentDsfrInitialProps, getDsfrHtmlAttributes } = getDsfrDocumentApi();
 
 export default class Document extends DefaultDocument {
 	static async getInitialProps(ctx: DocumentContext) {
