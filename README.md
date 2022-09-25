@@ -93,73 +93,6 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 {% endtab %}
 
-{% tab title="Vite" %}
-#### package.json
-
-```diff
- "scripts": {
-+    "postinstall": "copy_dsfr_dist_to_public"
- }
-```
-
-`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
-
-#### .gitignore
-
-```diff
-+ /public/dsfr
-```
-
-#### index.html
-
-Add the following tags in the `<head />`&#x20;
-
-```html
-<link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
-<link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
-<link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
-<link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
-
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
-
-<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
-```
-
-{% hint style="info" %}
-Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
-
-Be eco friendly 🌱, only preload the fonts variant you actually use.
-
-You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-{% endhint %}
-
-#### src/main.tsx
-
-<pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
-</strong> import ReactDOM from "react-dom/client";
- import { App } from "./App";
-+import { startDsfrReact } from "dsfr-react";
-+startDsfrReact({ "defaultColorScheme": "system" });
-
- ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-   &#x3C;React.StrictMode>
-     &#x3C;App />
-   &#x3C;/React.StrictMode>
- );
-</code></pre>
-
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
-{% endtab %}
-
 {% tab title="Next.js" %}
 #### next.config.js
 
@@ -259,6 +192,73 @@ This feature [opte you out of Automatic Static Optimization](https://nextjs.org/
 {% endhint %}
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
+{% endtab %}
+
+{% tab title="Vite" %}
+#### package.json
+
+```diff
+ "scripts": {
++    "postinstall": "copy_dsfr_dist_to_public"
+ }
+```
+
+`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
+
+#### .gitignore
+
+```diff
++ /public/dsfr
+```
+
+#### index.html
+
+Add the following tags in the `<head />`&#x20;
+
+```html
+<link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
+<link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
+
+<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
+```
+
+{% hint style="info" %}
+Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
+
+Be eco friendly 🌱, only preload the fonts variant you actually use.
+
+You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
+{% endhint %}
+
+#### src/main.tsx
+
+<pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
+</strong> import ReactDOM from "react-dom/client";
+ import { App } from "./App";
++import { startDsfrReact } from "dsfr-react";
++startDsfrReact({ "defaultColorScheme": "system" });
+
+ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+   &#x3C;React.StrictMode>
+     &#x3C;App />
+   &#x3C;/React.StrictMode>
+ );
+</code></pre>
+
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
 {% endtab %}
 
 {% tab title="Other" %}

@@ -29,7 +29,7 @@ Fisrt sure you have this script in your `package.json`
  }
 ```
 
-Now can simply write the following and it will work: &#x20;
+Now you can simply write the following and it will work: &#x20;
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>&#x3C;svg>
 </strong>    &#x3C;use xlinkHref="/dsfr/artwork/dark.svg#artwork-minor#artwork-minor" />
