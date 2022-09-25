@@ -2,7 +2,7 @@
     <img src="https://github.com/codegouvfr/dsfr-react/releases/download/assets/dsfr-react_repo-card.png">  
 </p>
 <p align="center">
-    <i> React implementation of the <a href="https://www.systeme-de-design.gouv.fr/">DSFR</a> </i>
+    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React component library</i> 🇫🇷 
     <br>
     <br>
     <a href="https://github.com/codegouvfr/dsfr-react/actions">
@@ -22,9 +22,30 @@
   <a href="https://etalab-2.gitbook.io/dsfr-react/">👉 Documentation 👈</a>
 </p>
 
+This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
+
+Roadmap:
+
+-   [x] Fully TypeSafe, well documented API.
+-   [ ] Always in up to date with latest the DSFR evolutions.
+        Code and Types generated from [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
+-   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
+-   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/dsfr-react/issues/2#issuecomment-1257263480).
+-   [x] No [flash of unstyled text](https://fonts.google.com/knowledge/glossary/fout).
+-   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://etalab-2.gitbook.io/dsfr-react/).
+-   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (0/42)
+-   [ ] Three shakable, cherry pick the components you import. (It's not all in a big .js bundle)
+-   [ ] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
+        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
+-   [ ] Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision
+        for the currently enabled color scheme.
+
+This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
+[I](https://github.com/garronej)'m working full time on this project. You can expect rapid development. 🚀
+
 # Development
 
-Here are instructions for contributing, if you are looking to **use** `dsfr-react` heads over to the [documentation](https://etalab-2.gitbook.io/dsfr-react/).
+Here are instructions for contributing, if you are looking to **use** `dsfr-react` heads over to the [documentation page](https://etalab-2.gitbook.io/dsfr-react/).
 
 ```bash
 yarn

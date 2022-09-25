@@ -1,7 +1,7 @@
 {
     "name": "dsfr-react",
     "version": "0.0.3",
-    "description": "React implementation of the DSFR",
+    "description": "French State Design System React component library",
     "repository": {
         "type": "git",
         "url": "git://github.com/codegouvfr/dsfr-react.git"
