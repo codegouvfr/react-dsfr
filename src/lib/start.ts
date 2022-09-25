@@ -31,17 +31,13 @@ export async function startDsfrReact(params: Params) {
 
     isStarted = true;
 
-    const global: any = window;
+    //NOTE: It's non null if we are in a SSR setup
+    if (document.documentElement.getAttribute(data_fr_theme) === null) {
+        console.log("(client) Start: There was NO HTML tag");
 
-    document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
+        //NOTE: SPA or SSG
 
-    const isNextJsDevMode = global.__NEXT_DATA__?.buildId === "development";
-
-    hack_html_attribute_supposed_to_be_set_by_js: {
-        if (isNextJsDevMode) {
-            // NOTE: Or else we get an hydration error.
-            break hack_html_attribute_supposed_to_be_set_by_js;
-        }
+        document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
 
         document.documentElement.setAttribute(
             data_fr_theme,
@@ -67,24 +63,22 @@ export async function startDsfrReact(params: Params) {
                     : "light";
             })()
         );
+    } else {
+        console.log("(client) Start:  Html tags are present");
     }
 
     startObservingColorSchemeHtmlAttribute();
 
-    global.dsfr = { verbose, "mode": "manual" };
+    (window as any).dsfr = { verbose, "mode": "manual" };
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
-    if (isNextJsDevMode) {
-        console.log(
-            [
-                "Artificial delay to avoid the",
-                "'Hydration failed because the initial UI does not match what was rendered on the server.'",
-                "Error. In production mode the white flash wont be that long."
-            ].join(" ")
-        );
+    if ((window as any).__NEXT_DATA__?.buildId === "development") {
+        // NOTE: @gouvfr/dsfr/dist/dsfr.module.js is not isomorphic, it can't run on the Server.",
+        // We set an artificial delay before starting the module otherwise to avoid getting",
+        // Hydration error from Next.js
         await new Promise(resolve => setTimeout(resolve, 150));
     }
 
-    global.dsfr.start();
+    (window as any).dsfr.start();
 }

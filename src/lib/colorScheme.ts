@@ -30,8 +30,10 @@ const useColorSchemeServerSide: UseColorScheme = () => {
         /* nothing */
     });
 
+    console.log("(server) useColorSchemeServerSide: ", $colorScheme.current);
+
     return {
-        "colorScheme": "light",
+        "colorScheme": $colorScheme.current,
         setColorScheme
     };
 };
@@ -65,6 +67,27 @@ export function startObservingColorSchemeHtmlAttribute() {
         "attributes": true,
         "attributeFilter": [data_fr_theme]
     });
+
+    {
+        const setColorSchemeCookie = (colorScheme: ColorScheme) => {
+            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
+
+            //We do not set the domain if we are on localhost or an ip
+            if (window.location.hostname.match(/\.[a-zA-Z]{2,}$/)) {
+                newCookie += `;domain=${
+                    window.location.hostname.split(".").length >= 3
+                        ? window.location.hostname.replace(/^[^.]+\./, "")
+                        : window.location.hostname
+                }`;
+            }
+
+            document.cookie = newCookie;
+        };
+
+        setColorSchemeCookie($colorScheme.current);
+
+        $colorScheme.subscribe(setColorSchemeCookie);
+    }
 
     //TODO:    <meta name="theme-color" content="#000091"><!-- Défini la couleur de thème du navigateur (Safari/Android) -->
 
