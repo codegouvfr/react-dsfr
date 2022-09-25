@@ -150,28 +150,12 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
             );
 
             if (!isBrowser) {
-                /*
-                $colorScheme.current = (() => {
-    
-                    const cookie = appContext.ctx.req?.headers.cookie
-    
-                    return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-    
-                })() ?? "light";
-                */
+                $colorScheme.current =
+                    (() => {
+                        const cookie = appContext.ctx.req?.headers.cookie;
 
-                const colorScheme = (() => {
-                    const cookie = appContext.ctx.req?.headers.cookie;
-
-                    return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-                })();
-
-                console.log(
-                    "(server) App.getInitialProps, we read the colorScheme from cookie: ",
-                    colorScheme
-                );
-
-                $colorScheme.current = colorScheme ?? "light";
+                        return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
+                    })() ?? "light";
             }
 
             return { ...initialProps };

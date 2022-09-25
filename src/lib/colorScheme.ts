@@ -30,8 +30,6 @@ const useColorSchemeServerSide: UseColorScheme = () => {
         /* nothing */
     });
 
-    console.log("(server) useColorSchemeServerSide: ", $colorScheme.current);
-
     return {
         "colorScheme": $colorScheme.current,
         setColorScheme
