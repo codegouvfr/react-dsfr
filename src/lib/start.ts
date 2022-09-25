@@ -31,13 +31,19 @@ export async function startDsfrReact(params: Params) {
 
     isStarted = true;
 
-    //NOTE: It's non null if we are in a SSR setup
-    if (document.documentElement.getAttribute(data_fr_theme) === null) {
-        console.log("(client) Start: There was NO HTML tag");
+    const isNextJsDevEnvironnement = (window as any).__NEXT_DATA__?.buildId === "development";
 
-        //NOTE: SPA or SSG
+    set_html_color_scheme_attributes: {
+        if (document.documentElement.getAttribute(data_fr_theme) !== null) {
+            //NOTE: Is has been set by SSR
+            break set_html_color_scheme_attributes;
+        }
 
         document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
+
+        if (isNextJsDevEnvironnement) {
+            break set_html_color_scheme_attributes;
+        }
 
         document.documentElement.setAttribute(
             data_fr_theme,
@@ -63,8 +69,6 @@ export async function startDsfrReact(params: Params) {
                     : "light";
             })()
         );
-    } else {
-        console.log("(client) Start:  Html tags are present");
     }
 
     startObservingColorSchemeHtmlAttribute();
@@ -73,7 +77,7 @@ export async function startDsfrReact(params: Params) {
 
     await import("@gouvfr/dsfr/dist/dsfr.module");
 
-    if ((window as any).__NEXT_DATA__?.buildId === "development") {
+    if (isNextJsDevEnvironnement) {
         // NOTE: @gouvfr/dsfr/dist/dsfr.module.js is not isomorphic, it can't run on the Server.",
         // We set an artificial delay before starting the module otherwise to avoid getting",
         // Hydration error from Next.js
