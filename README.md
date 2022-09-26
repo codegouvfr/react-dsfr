@@ -281,6 +281,8 @@ if( isBrowser ){
     startDsfrReact({ "defaultColorScheme": "system" });
 }
 ```
+
+If you are in an SSR setup and want to avoit white flashes on reload let's [get in touch](https://github.com/codegouvfr/dsfr-react).
 {% endtab %}
 {% endtabs %}
 
