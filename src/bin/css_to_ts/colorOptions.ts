@@ -5,46 +5,10 @@ import css from "css";
 import { assert } from "tsafe/assert";
 import { data_fr_theme } from "../sharedTypes";
 import { exclude } from "tsafe/exclude";
+import { multiReplace } from "../tools/multiReplace";
+import * as crypto from "crypto";
 
-/*
-This type doesn't exist
-type ColorOptions = {
-	blueFrance: {
-		_975_75: {
-			default: string;
-			hover: string;
-			active: string;
-		}
-	}
-
-};
-
-
-export function getColorOptions(colorScheme: ColorScheme) {
-    const isDark: boolean = (() => {
-        switch (colorScheme) {
-            case "dark":
-                return true;
-            case "light":
-                return false;
-        }
-    })();
-
-    return {
-        "blueFrance": {
-            "_975_75": {
-                "default": isDark ? "#44033" : "#303022",
-                "hover": isDark ? "#433033" : "#33300",
-                "active": isDark ? "#334343" : "#30333"
-            }
-        }
-    } as const;
-}
-*/
-
-/*
-https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/couleurs-palette
-*/
+// https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/couleurs-palette
 
 export type Variant = "main" | "sun" | "moon";
 
@@ -331,10 +295,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
     }
 }
 
-// YAGNI
-//export declare function stringifyColorOptionName(parsedColorOptionName: ParsedColorOptionName): `--${string}`
-
 /**
+ * Exported only for tests
+ *
  * getThemePath(parseColorOptionName("--pink-macaron-sun-406-moon-833-hover"))
  * ->
  * ["pinkMacaron", "_sun_406_moon_833", "hover"]
@@ -363,6 +326,7 @@ export type ColorOption = {
           };
 };
 
+/** Exported only for tests */
 export function parseColorOptions(rawCssCode: string): ColorOption[] {
     const parsedCss = css.parse(rawCssCode);
 
@@ -424,4 +388,96 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
             };
         })
         .filter(exclude(undefined));
+}
+
+export function generateGetColorOptionsTsCode(colorOptions: ColorOption[]) {
+    const obj: any = {};
+
+    const keyValues: Record<string, string> = {};
+
+    colorOptions.forEach(colorOption => {
+        const value = (() => {
+            if (typeof colorOption.color === "string") {
+                return colorOption.color;
+            }
+
+            const hash = crypto
+                .createHash("sha256")
+                .update(colorOption.themePath.join(""))
+                .digest("hex");
+
+            keyValues[
+                `"${hash}"`
+            ] = `isDark ? "${colorOption.color.dark}" : "${colorOption.color.light}"`;
+
+            return hash;
+        })();
+
+        function req(obj: any, path: string[]): void {
+            const [propertyName, ...pathRest] = path;
+
+            if (pathRest.length === 0) {
+                obj[propertyName] = value;
+                return;
+            }
+
+            if (obj[propertyName] === undefined) {
+                obj[propertyName] = {};
+            }
+
+            req(obj[propertyName], pathRest);
+        }
+
+        req(obj, colorOption.themePath);
+    });
+
+    Object.values(obj).forEach((obj: any) => {
+        /*
+            obj=
+            {
+                "sun113_625": {
+                  "default": isDark ? "#a00000" : "#00000d",
+                  "active": isDark ? "#b00000" : "#00000e"
+                },
+                "main525": {
+                  "default": "#00000f"
+                }
+              }
+              */
+
+        Object.entries(obj as any).forEach(([key, subObj]: any) => {
+            //key = main525
+            //subObj = { "default": "#00000f" }
+
+            const keys = Object.keys(subObj as any);
+
+            if (keys.length === 1 && keys[0] === "default") {
+                obj[key] = subObj.default;
+            }
+        });
+    });
+
+    return [
+        `export function getColorOptions(colorScheme: ColorScheme) {`,
+        `    const isDark: boolean = (() => {`,
+        `        switch (colorScheme) {`,
+        `            case "dark": return true;`,
+        `            case "light": return false;`,
+        `        }`,
+        `    })();`,
+        ``,
+        `    return {`,
+        multiReplace({
+            "input": JSON.stringify(obj, null, 2),
+            keyValues
+        })
+            .replace(/^{\n/, "")
+            .replace(/\n}$/, "")
+            .split("\n")
+            .map(line => line.replace(/^[ ]{2}/, ""))
+            .map(line => `        ${line}`)
+            .join("\n"),
+        `    } as const;`,
+        `}`
+    ].join("\n");
 }

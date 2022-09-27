@@ -1,5 +1,5 @@
-import { getThemePath } from "../../../bin/generate_theme/parseColorOptions";
-import type { ParsedColorOptionName } from "../../../bin/generate_theme/parseColorOptions";
+import { getThemePath } from "../../../bin/css_to_ts/colorOptions";
+import type { ParsedColorOptionName } from "../../../bin/css_to_ts/colorOptions";
 import { same } from "evt/tools/inDepth/same";
 import { assert } from "tsafe/assert";
 

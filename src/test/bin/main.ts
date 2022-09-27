@@ -1,1 +1,1 @@
-import "./parseColorOptions";
+import "./colorOptions";
