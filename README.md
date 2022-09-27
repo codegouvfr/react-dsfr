@@ -54,12 +54,17 @@ yarn
 yarn build
 npx tsc -w
 npx tsc -p src/bin -w & npx tsc -p src -w
-
 # Open another Terminal
-
 yarn start_cra  # For testing in in a Create React App setup
 yarn start_next # For testing in a Next.js setup
 yarn start_vite # For testing in a Vite setup
+
+# Debugging while unit testing
+
+yarn build:test
+npx tsc -p src/test -w
+# Open a new terminal
+node dist_test/test/bin/main.js
 ```
 
 > When you want to import assets from the `./dsfr/` directory

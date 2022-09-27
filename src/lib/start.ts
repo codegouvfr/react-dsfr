@@ -1,10 +1,10 @@
 import { isBrowser } from "./tools/isBrowser";
-import type { ColorScheme } from "./colorScheme";
+import type { ColorScheme } from "./useColorScheme";
 import {
     startObservingColorSchemeHtmlAttribute,
     data_fr_theme,
     data_fr_scheme
-} from "./colorScheme";
+} from "./useColorScheme";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 

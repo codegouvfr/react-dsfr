@@ -2,8 +2,9 @@ import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulO
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
 import { isBrowser } from "./tools/isBrowser";
+import type { ColorScheme } from "../bin/sharedTypes";
 
-export type ColorScheme = "light" | "dark";
+export type { ColorScheme };
 
 export const data_fr_scheme = "data-fr-scheme";
 export const data_fr_theme = "data-fr-theme";

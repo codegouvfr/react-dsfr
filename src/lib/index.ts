@@ -1,3 +1,3 @@
-export { $colorScheme, useColorScheme } from "./colorScheme";
-export type { ColorScheme } from "./colorScheme";
+export { $colorScheme, useColorScheme } from "./useColorScheme";
+export type { ColorScheme } from "./useColorScheme";
 export * from "./start";

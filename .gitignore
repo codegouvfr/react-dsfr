@@ -43,4 +43,5 @@ jspm_packages
 /dist
 /.yarn_home
 /dsfr
+/dist_test
 
