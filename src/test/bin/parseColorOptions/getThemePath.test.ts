@@ -1,4 +1,4 @@
-import { parseColorOptionName } from "../../../bin/generate_theme/parseColorOptions";
+import { getThemePath } from "../../../bin/generate_theme/parseColorOptions";
 import type { ParsedColorOptionName } from "../../../bin/generate_theme/parseColorOptions";
 import { same } from "evt/tools/inDepth/same";
 import { assert } from "tsafe/assert";
@@ -6,7 +6,7 @@ import { assert } from "tsafe/assert";
 console.log(`Running test ${__filename}`);
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": true,
@@ -16,7 +16,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-111");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111", "default"];
 
     assert(same(expected, got));
 
@@ -24,7 +26,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": true,
@@ -34,7 +36,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-111-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111", "hover"];
 
     assert(same(expected, got));
 
@@ -42,7 +46,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": true,
@@ -52,7 +56,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111", "default"];
 
     assert(same(expected, got));
 
@@ -60,7 +66,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": true,
@@ -70,7 +76,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111", "hover"];
 
     assert(same(expected, got));
 
@@ -78,7 +86,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -94,7 +102,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-111-222");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111_222", "default"];
 
     assert(same(expected, got));
 
@@ -102,7 +112,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -118,7 +128,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-111-222-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111_222", "hover"];
 
     assert(same(expected, got));
 
@@ -126,7 +138,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -142,7 +154,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111-222");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111_222", "default"];
 
     assert(same(expected, got));
 
@@ -150,7 +164,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -166,7 +180,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111-222-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111_222", "hover"];
 
     assert(same(expected, got));
 
@@ -174,7 +190,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -190,7 +206,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-111-moon-222");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111moon222", "default"];
 
     assert(same(expected, got));
 
@@ -198,7 +216,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -214,7 +232,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-111-moon-222-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "_111moon222", "hover"];
 
     assert(same(expected, got));
 
@@ -222,7 +242,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -238,7 +258,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111-moon-222");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111moon222", "default"];
 
     assert(same(expected, got));
 
@@ -246,7 +268,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "name1Name2",
         "brightness": {
             "isInvariant": false,
@@ -262,7 +284,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--name1-name2-sun-111-moon-222-hover");
+    const got = getThemePath(input);
+
+    const expected = ["name1Name2", "sun111moon222", "hover"];
 
     assert(same(expected, got));
 
@@ -270,7 +294,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "grey",
         "brightness": {
             "isInvariant": false,
@@ -286,7 +310,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--grey-1000-50-hover");
+    const got = getThemePath(input);
+
+    const expected = ["grey", "_1000_50", "hover"];
 
     assert(same(expected, got));
 
@@ -294,7 +320,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "blueFrance",
         "brightness": {
             "isInvariant": false,
@@ -310,15 +336,16 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--blue-france-sun-113-625");
+    const got = getThemePath(input);
+
+    const expected = ["blueFrance", "sun113_625", "default"];
 
     assert(same(expected, got));
 
     console.log("PASS 14");
 }
-
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "blueFrance",
         "brightness": {
             "isInvariant": false,
@@ -334,7 +361,9 @@ console.log(`Running test ${__filename}`);
         "state": "active"
     };
 
-    const got = parseColorOptionName("--blue-france-sun-113-625-active");
+    const got = getThemePath(input);
+
+    const expected = ["blueFrance", "sun113_625", "active"];
 
     assert(same(expected, got));
 
@@ -342,7 +371,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "blueFrance",
         "brightness": {
             "isInvariant": true,
@@ -352,7 +381,9 @@ console.log(`Running test ${__filename}`);
         "state": undefined
     };
 
-    const got = parseColorOptionName("--blue-france-main-525");
+    const got = getThemePath(input);
+
+    const expected = ["blueFrance", "main525", "default"];
 
     assert(same(expected, got));
 
@@ -360,7 +391,7 @@ console.log(`Running test ${__filename}`);
 }
 
 {
-    const expected: ParsedColorOptionName = {
+    const input: ParsedColorOptionName = {
         "colorName": "purpleGlycine",
         "brightness": {
             "isInvariant": false,
@@ -376,7 +407,9 @@ console.log(`Running test ${__filename}`);
         "state": "hover"
     };
 
-    const got = parseColorOptionName("--purple-glycine-sun-319-moon-630-hover");
+    const got = getThemePath(input);
+
+    const expected = ["purpleGlycine", "sun319moon630", "hover"];
 
     assert(same(expected, got));
 

@@ -336,7 +336,19 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
  * ->
  * ["pinkMacaron", "_sun_406_moon_833", "hover"]
  */
-export declare function getThemePath(parsedColorOptionName: ParsedColorOptionName): string;
+export function getThemePath(parsedColorOptionName: ParsedColorOptionName): string[] {
+    const o = parsedColorOptionName;
+
+    return [
+        o.colorName,
+        o.brightness.isInvariant
+            ? `${o.brightness.variant ?? "_"}${o.brightness.value}`
+            : `${o.brightness.light.variant ?? "_"}${o.brightness.light.value}${
+                  o.brightness.dark.variant ?? "_"
+              }${o.brightness.dark.value}`,
+        o.state ?? "default"
+    ];
+}
 
 export type ParsedColorOption = {
     parsedColorOptionName: ParsedColorOptionName;
