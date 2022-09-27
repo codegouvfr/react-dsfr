@@ -1,5 +1,5 @@
 ---
-description: Setup dsfr-react in your project
+description: Setup @codegouvfr/react-dsfr in your project
 ---
 
 # 🔧 Initial setup
@@ -13,7 +13,7 @@ If you already had the DSFR installed in your project, let's start from scratch:
 {% endhint %}
 
 ```bash
-yarn add dsfr-react # Or: 'npm install --save dsfr-react'
+yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
 ```
 
 {% tabs %}
@@ -26,7 +26,7 @@ yarn add dsfr-react # Or: 'npm install --save dsfr-react'
  }
 ```
 
-`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
+`update_dsfr_static_resources` is a `bin` script of `@codegouvfr/react-dsfr` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
 
 #### .gitignore
 
@@ -77,7 +77,7 @@ You can see in the network tab of your browser's dev tools what are the fonts va
  import React from 'react';
  import ReactDOM from 'react-dom/client';
  import App from './App';
-+import { startDsfrReact } from "dsfr-react";
++import { startDsfrReact } from "@codegouvfr/react-dsfr";
 +startDsfrReact({ "defaultColorScheme": "system" });
 
  const root = ReactDOM.createRoot(
@@ -117,8 +117,8 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 
 ```tsx
 import DefaultApp from "next/app";
-import { withAppDsfr } from "dsfr-react/lib/nextJs";
-import "dsfr-react/dsfr/dsfr.css";
+import { withAppDsfr } from "@codegouvfr/react-dsfr/lib/nextJs";
+import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 
 export default withAppDsfr(
     DefaultApp, // Provide your custom App if you have one
@@ -157,7 +157,7 @@ This is optional, it enables to get rid of the [white flashes on pages reload](h
 ```tsx
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
+import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/lib/nextJs";
 
 const { 
   readColorSchemeFromCookie, 
@@ -203,7 +203,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
  }
 ```
 
-`update_dsfr_static_resources` is a `bin` script of `dsfr-react` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
+`update_dsfr_static_resources` is a `bin` script of `@codegouvfr/react-dsfr` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
 
 #### .gitignore
 
@@ -248,7 +248,7 @@ You can see in the network tab of your browser's dev tools what are the fonts va
 <pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
 </strong> import ReactDOM from "react-dom/client";
  import { App } from "./App";
-+import { startDsfrReact } from "dsfr-react";
++import { startDsfrReact } from "@codegouvfr/react-dsfr";
 +startDsfrReact({ "defaultColorScheme": "system" });
 
  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -266,14 +266,14 @@ There isn't specific instructions for your React setup but don't worry, you can 
 
 The gist of it is, there is a few things that, for performance reasons, react-dsfr dosen't automatically do for you and thus you have to do manually: &#x20;
 
-* Loading `dsfr-react/dsfr/dsfr.min.css` (as soon as possilbe)
+* Loading `@codegouvfr/react-dsfr/dsfr/dsfr.min.css` (as soon as possilbe)
 * Setting up the Favicon. &#x20;
 * Preloading the relevent font variant to avoid [FOUT](https://fonts.google.com/knowledge/glossary/fout).&#x20;
 
 Then, you must call `startDsfrReact()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
 
 ```typescript
-import { startDsfrReact } from "dsfr-react";
+import { startDsfrReact } from "@codegouvfr/react-dsfr";
 
 const isBrowser = typeof window === "object" && typeof document === "object";
 
