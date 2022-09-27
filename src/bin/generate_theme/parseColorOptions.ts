@@ -1,6 +1,10 @@
 import type { ColorScheme } from "../sharedTypes";
 import { capitalize } from "tsafe/capitalize";
 import { id } from "tsafe/id";
+import css from "css";
+import { assert } from "tsafe/assert";
+import { data_fr_theme } from "../sharedTypes";
+import { exclude } from "tsafe/exclude";
 
 /*
 This type doesn't exist
@@ -15,9 +19,7 @@ type ColorOptions = {
 
 };
 
-*/
 
-/** Generated */
 export function getColorOptions(colorScheme: ColorScheme) {
     const isDark: boolean = (() => {
         switch (colorScheme) {
@@ -38,6 +40,7 @@ export function getColorOptions(colorScheme: ColorScheme) {
         }
     } as const;
 }
+*/
 
 /*
 https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/couleurs-palette
@@ -350,10 +353,75 @@ export function getThemePath(parsedColorOptionName: ParsedColorOptionName): stri
     ];
 }
 
-export type ParsedColorOption = {
-    parsedColorOptionName: ParsedColorOptionName;
-    lightValue: `#${string}`;
-    darkValue: `#${string}` | undefined;
+export type ColorOption = {
+    themePath: string[];
+    color:
+        | string
+        | {
+              light: `#${string}`;
+              dark: `#${string}`;
+          };
 };
 
-export declare function parseColorOptions(rawCssCode: string): ParsedColorOption[];
+export function parseColorOptions(rawCssCode: string): ColorOption[] {
+    const parsedCss = css.parse(rawCssCode);
+
+    const { declarations } = (() => {
+        const node = parsedCss.stylesheet?.rules.find(
+            rule => rule.type === "rule" && (rule as any)?.selectors?.[0] === ":root"
+        );
+
+        assert(node !== undefined);
+
+        const { declarations } = node as any;
+
+        return { declarations };
+    })();
+
+    const { declarationsDark } = (() => {
+        const node = parsedCss.stylesheet?.rules.find(
+            rule =>
+                rule.type === "rule" &&
+                (rule as any)?.selectors?.[0] === `:root:where([${data_fr_theme}="dark"])`
+        );
+
+        assert(node !== undefined);
+
+        const { declarations: declarationsDark } = node as any;
+
+        return { declarationsDark };
+    })();
+
+    return declarations
+        .map(({ property: colorName, value: color }: any) => {
+            const htmlColorRegexp = /^#[0-9a-f]{6}$/;
+
+            if (!htmlColorRegexp.test(color)) {
+                return undefined;
+            }
+
+            const parsedName = parseColorOptionName(colorName);
+
+            const colorDark = declarationsDark.find(
+                ({ property }: any) => property === colorName
+            )?.value;
+
+            assert(typeof colorDark === "string");
+            assert(htmlColorRegexp.test(colorDark));
+
+            if (parsedName.brightness.isInvariant) {
+                assert(color === colorDark);
+            }
+
+            return {
+                "themePath": getThemePath(parsedName),
+                "color": parsedName.brightness.isInvariant
+                    ? color
+                    : {
+                          "light": color,
+                          "dark": colorDark
+                      }
+            };
+        })
+        .filter(exclude(undefined));
+}

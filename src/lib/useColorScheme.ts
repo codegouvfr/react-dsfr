@@ -3,11 +3,12 @@ import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
 import { isBrowser } from "./tools/isBrowser";
 import type { ColorScheme } from "../bin/sharedTypes";
+import { data_fr_theme } from "../bin/sharedTypes";
 
 export type { ColorScheme };
+export { data_fr_theme };
 
 export const data_fr_scheme = "data-fr-scheme";
-export const data_fr_theme = "data-fr-theme";
 
 export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
 
