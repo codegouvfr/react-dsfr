@@ -134,7 +134,7 @@ jobs:
         if [ "$IS_BETA" = "true" ]; then
             EXTRA_ARGS="--tag beta"
         fi
-        npm publish $EXTRA_ARGS
+        npm publish --access public $EXTRA_ARGS
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
