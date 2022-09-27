@@ -1,12 +1,13 @@
-import type { ColorScheme } from "../sharedTypes";
 import { capitalize } from "tsafe/capitalize";
 import { id } from "tsafe/id";
 import css from "css";
 import { assert } from "tsafe/assert";
-import { data_fr_theme } from "../sharedTypes";
 import { exclude } from "tsafe/exclude";
 import { multiReplace } from "../tools/multiReplace";
 import * as crypto from "crypto";
+
+export type ColorScheme = "light" | "dark";
+export const data_fr_theme = "data-fr-theme";
 
 // https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/couleurs-palette
 

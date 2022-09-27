@@ -1,21 +1,21 @@
 <p align="center">
-    <img src="https://github.com/codegouvfr/dsfr-react/releases/download/assets/dsfr-react_repo-card.png">  
+    <img src="https://github.com/codegouvfr/@codegouvfr/react-dsfr/releases/download/assets/@codegouvfr/react-dsfr_repo-card.png">  
 </p>
 <p align="center">
     🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React component library</i> 🇫🇷 
     <br>
     <br>
-    <a href="https://github.com/codegouvfr/dsfr-react/actions">
-      <img src="https://github.com/codegouvfr/dsfr-react/workflows/ci/badge.svg?branch=main">
+    <a href="https://github.com/codegouvfr/react-dsfr/actions">
+      <img src="https://github.com/codegouvfr/react-dsfr/workflows/ci/badge.svg?branch=main">
     </a>
-    <a href="https://www.npmjs.com/package/dsfr-react">
-      <img src="https://img.shields.io/npm/v/dsfr-react?logo=npm">
+    <a href="https://www.npmjs.com/package/@codegouvfr/react-dsfr">
+      <img src="https://img.shields.io/npm/v/@codegouvfr/react-dsfr?logo=npm">
     </a>
-    <a href="https://bundlephobia.com/package/dsfr-react">
-      <img src="https://img.shields.io/bundlephobia/minzip/dsfr-react">
+    <a href="https://bundlephobia.com/package/@codegouvfr/react-dsfr">
+      <img src="https://img.shields.io/bundlephobia/minzip/@codegouvfr/react-dsfr">
     </a>
-    <a href="https://github.com/codegouvfr/dsfr-react/blob/main/LICENSE">
-      <img src="https://img.shields.io/npm/l/dsfr-react">
+    <a href="https://github.com/codegouvfr/react-dsfr/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/@codegouvfr/react-dsfr">
     </a>
 </p>
 <p align="center">
@@ -28,7 +28,7 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [ ] Always in up to date with latest the DSFR evolutions.
         Code and Types generated from [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
--   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/dsfr-react/issues/2#issuecomment-1257263480).
+-   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] No [flash of unstyled text](https://fonts.google.com/knowledge/glossary/fout).
 -   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://etalab-2.gitbook.io/dsfr-react/).
 -   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (0/42)
@@ -47,9 +47,11 @@ This module is a product of [Etalab's Free and open source software pole](https:
 
 # Development
 
-Here are instructions for contributing, if you are looking to **use** `dsfr-react` heads over to the [documentation page](https://etalab-2.gitbook.io/dsfr-react/).
+Here are instructions for contributing, if you are looking to **use** `@codegouvfr/react-dsfr` heads over to the [documentation page](https://etalab-2.gitbook.io/dsfr-react/).
 
 ```bash
+git clone https://github.com/codegouvfr/react-dsfr
+cd react-dsfr
 yarn
 yarn build
 npx tsc -w

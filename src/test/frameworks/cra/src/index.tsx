@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { startDsfrReact } from "dsfr-react";
+import { startDsfrReact } from "@codegouvfr/react-dsfr";
 import { App } from "./App";
 
 startDsfrReact({

@@ -1,5 +1,5 @@
 {
-  "name": "vite",
+  "name": "react-dsfr-test-app-vite",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,14 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "copy_dsfr_dist_to_public": "node node_modules/dsfr-react/bin/copy_dsfr_dist_to_public.js",
+    "copy_dsfr_dist_to_public": "node node_modules/@codegouvfr/react-dsfr/bin/copy_dsfr_dist_to_public.js",
     "predev": "yarn copy_dsfr_dist_to_public",
     "prebuild": "yarn copy_dsfr_dist_to_public"
   },
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "^18.2.0",
-    "dsfr-react": "file:../../../../dist"
+    "@codegouvfr/react-dsfr": "file:../../../../dist"
   },
   "devDependencies": {
     "@types/react": "18.0.21",

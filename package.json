@@ -1,10 +1,10 @@
 {
-    "name": "dsfr-react",
+    "name": "@codegouvfr/react-dsfr",
     "version": "0.0.4",
     "description": "French State Design System React component library",
     "repository": {
         "type": "git",
-        "url": "git://github.com/codegouvfr/dsfr-react.git"
+        "url": "git://github.com/codegouvfr/react-dsfr.git"
     },
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
@@ -57,7 +57,7 @@
         "react",
         "typescript"
     ],
-    "homepage": "https://github.com/codegouvfr/dsfr-react",
+    "homepage": "https://github.com/codegouvfr/react-dsfr",
     "peerDependencies": {
         "@types/react": "^16.0.0 || ^17.0.0 || ^18.0.0",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"

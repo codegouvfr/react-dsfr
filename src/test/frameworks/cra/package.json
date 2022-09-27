@@ -1,12 +1,12 @@
 {
-  "name": "dsfr-react-test-app-cra",
+  "name": "react-dsfr-test-app-cra",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "dsfr-react": "file:../../../../dist"
+    "@codegouvfr/react-dsfr": "file:../../../../dist"
   },
   "devDependencies": {
     "@types/node": "^16.7.13",
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "copy_dsfr_dist_to_public": "node node_modules/dsfr-react/bin/copy_dsfr_dist_to_public.js",
+    "copy_dsfr_dist_to_public": "node node_modules/@codegouvfr/react-dsfr/bin/copy_dsfr_dist_to_public.js",
     "prestart": "yarn copy_dsfr_dist_to_public",
     "prebuild": "yarn copy_dsfr_dist_to_public"
   },

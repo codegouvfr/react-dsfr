@@ -1,6 +1,6 @@
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "dsfr-react/lib/nextJs";
+import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/lib/nextJs";
 
 const { readColorSchemeFromCookie, getColorSchemeHtmlAttributes } = getColorSchemeSsrUtils();
 

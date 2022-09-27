@@ -1,8 +1,8 @@
 
-import artworkLightSvgUrl from "dsfr-react/dsfr/artwork/light.svg";
-import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
-import artworkSystemSvgUrl from "dsfr-react/dsfr/artwork/system.svg";
-import { useColorScheme } from "dsfr-react";
+import artworkLightSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/light.svg";
+import artworkDarkSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
+import artworkSystemSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/system.svg";
+import { useColorScheme } from "@codegouvfr/react-dsfr";
 
 export function App() {
 
