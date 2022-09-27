@@ -18,7 +18,7 @@ Let's see how we would translate this into React.
 ### Using hardcoded links
 
 {% hint style="danger" %}
-This is not the recomended aproach since it isn't the more efficient not the more maintainable way. You should [rely on your bundler](importing-assets.md#rely-on-your-bundler) instead.
+This is not the recomended aproach since it isn't the more efficient nor the more maintainable way. You should [rely on your bundler](importing-assets.md#rely-on-your-bundler) instead.
 {% endhint %}
 
 Fisrt sure you have this script in your `package.json`
@@ -46,7 +46,7 @@ This is the preferred approach.
 Most JS bundlers, by default, emits a separate file and exports the URL when comming across an import of a image or video file format. &#x20;
 
 ```tsx
-import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
+import artworkDarkSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
 
 <svg>
     <use xlinkHref={`${artworkDarkSvgUrl}#artwork-minor`} />
@@ -54,13 +54,13 @@ import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Next.js" %}
 In modern next, if not explicitely disabled, image files (including SVGs) are imported using [next/image](https://nextjs.org/docs/upgrading#nextconfigjs-customization-to-import-images). &#x20;
 
 You'll get a valid url by accessing the src property of the react component.
 
 ```tsx
-import ArtworkDarkSvg from "dsfr-react/dsfr/artwork/dark.svg";
+import ArtworkDarkSvg from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
 
 <svg>
     <use xlinkHref={`${ArtworkDarkSvg.src}#artwork-minor`} />
