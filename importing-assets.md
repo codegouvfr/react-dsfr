@@ -18,7 +18,7 @@ Let's see how we would translate this into React.
 ### Using hardcoded links
 
 {% hint style="danger" %}
-This is not the recomended aproach since it isn't the more efficient not the more maintainable way. You should [rely on your bundler](importing-assets.md#rely-on-your-bundler) instead.
+This is not the recomended aproach since it isn't the more efficient nor the more maintainable way. You should [rely on your bundler](importing-assets.md#rely-on-your-bundler) instead.
 {% endhint %}
 
 Fisrt sure you have this script in your `package.json`
