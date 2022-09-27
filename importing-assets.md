@@ -54,7 +54,7 @@ import artworkDarkSvgUrl from "dsfr-react/dsfr/artwork/dark.svg";
 ```
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Next.js" %}
 In modern next, if not explicitely disabled, image files (including SVGs) are imported using [next/image](https://nextjs.org/docs/upgrading#nextconfigjs-customization-to-import-images). &#x20;
 
 You'll get a valid url by accessing the src property of the react component.
