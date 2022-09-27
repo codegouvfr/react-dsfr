@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/codegouvfr/@codegouvfr/react-dsfr/releases/download/assets/@codegouvfr/react-dsfr_repo-card.png">  
+    <img src="https://github.com/codegouvfr/react-dsfr/releases/download/assets/dsfr-react_repo-card.png">  
 </p>
 <p align="center">
     🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React component library</i> 🇫🇷 
