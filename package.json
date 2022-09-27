@@ -45,10 +45,11 @@
     "license": "MIT",
     "files": [
         "dist/",
-        "dsfr/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo",
-        "!dist/bin/tsconfig.tsbuildinfo"
+        "!dist/bin/tsconfig.tsbuildinfo",
+        "dsfr/",
+        "!dist/bin/css_to_ts/"
     ],
     "keywords": [
         "dsfr",
