@@ -45,6 +45,8 @@
     "author": "u/garronej",
     "license": "MIT",
     "files": [
+        "src/",
+        "!src/test/",
         "dist/",
         "!dist/test/",
         "!dist/tsconfig.tsbuildinfo",
