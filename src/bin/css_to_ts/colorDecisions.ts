@@ -123,3 +123,24 @@ export function createParseColorDecisionName(params: {
 
     return { parseColorDecisionName };
 }
+
+/**
+ * Exported only for tests
+ *
+ * getThemePath(createParseColorDecisionName("--background-alt-raised-grey-hover"))
+ * ->
+ * ["background", "altRaised", "normal", "grey", "hover"]
+ *
+ * getThemePath(createParseColorDecisionName("--border-action-low-orange-terre-battue"))
+ * ->
+ * ["border", "action", "low", "orangeTerreBattue", "default"]
+ */
+export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
+    return [
+        parsedColorDecisionName.context,
+        parsedColorDecisionName.usage,
+        parsedColorDecisionName.variant ?? "normal",
+        parsedColorDecisionName.colorName,
+        parsedColorDecisionName.state ?? "default"
+    ];
+}
