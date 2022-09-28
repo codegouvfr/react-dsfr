@@ -15,6 +15,7 @@ const contexts = ["background", "text", "border", "artwork"] as const;
 
 type Context = typeof contexts[number];
 
+/*
 const usages = [
     "default",
     "alt",
@@ -29,6 +30,7 @@ const usages = [
     "altOverlap",
     "contrastRaised"
 ] as const;
+*/
 
 //type Usage = typeof usages[number];
 
@@ -49,7 +51,23 @@ export function createParseColorDecisionName(params: {
 }) {
     const { colorNames } = params;
 
-    function parseColorDecisionName(desicsionName: `--${string}`): ParsedColorDecisionName {
+    console.log(colorNames);
+
+    function parseColorDecisionName(decisionName: `--${string}`): ParsedColorDecisionName {
+        console.log(decisionName);
+
+        //const parsedColorDecisionName: ParsedColorDecisionName = { } as any;
+
+        //let revArr = colorOptionName.replace(/^--/, "").split("-").reverse();
+
+        /*
+		--background-default-grey-hover
+		--background-default-grey
+		--border-action-low-orange-terre-battue
+		--background-alt-raised-grey-hover
+		--background-contrast-overlap-grey
+		*/
+
         return null as any;
     }
 

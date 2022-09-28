@@ -1,2 +1,2 @@
 import "./colorOptions";
-import "./colorDecisions";
+//import "./colorDecisions";
