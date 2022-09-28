@@ -13,9 +13,7 @@ export const data_fr_theme = "data-fr-theme";
 
 export type Variant = "main" | "sun" | "moon";
 
-export const states = ["hover", "active"] as const;
-
-export type State = typeof states[number];
+export type State = "hover" | "active";
 
 export type BrightnessIndex = {
     value: number;
@@ -327,7 +325,6 @@ export type ColorOption = {
           };
 };
 
-/** Exported only for tests */
 export function parseColorOptions(rawCssCode: string): ColorOption[] {
     const parsedCss = css.parse(rawCssCode);
 
