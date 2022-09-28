@@ -160,7 +160,9 @@ Preloading of font variants is only enabled in the production build (not when yo
 
 #### pages/\_document.tsx
 
-This is optional, it enables to get rid of the [white flashes on pages reload](https://github.com/codegouvfr/dsfr-react/issues/2#issuecomment-1257263480). &#x20;
+This is optional, it enables to get rid of the white flashes on pages reload. &#x20;
+
+[Here is a video to help you decide if you need this or not.](https://user-images.githubusercontent.com/6702424/192881319-a43b88dd-d800-4ebe-b8f0-988d800d4ea5.mov)
 
 ```tsx
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
