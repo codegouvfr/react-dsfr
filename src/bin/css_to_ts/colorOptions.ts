@@ -432,32 +432,6 @@ export function generateGetColorOptionsTsCode(colorOptions: ColorOption[]) {
         req(obj, colorOption.themePath);
     });
 
-    Object.values(obj).forEach((obj: any) => {
-        /*
-            obj=
-            {
-                "sun113_625": {
-                  "default": isDark ? "#a00000" : "#00000d",
-                  "active": isDark ? "#b00000" : "#00000e"
-                },
-                "main525": {
-                  "default": "#00000f"
-                }
-              }
-              */
-
-        Object.entries(obj as any).forEach(([key, subObj]: any) => {
-            //key = main525
-            //subObj = { "default": "#00000f" }
-
-            const keys = Object.keys(subObj as any);
-
-            if (keys.length === 1 && keys[0] === "default") {
-                obj[key] = subObj.default;
-            }
-        });
-    });
-
     return [
         `export function getColorOptions(colorScheme: ColorScheme) {`,
         `    const isDark: boolean = (() => {`,

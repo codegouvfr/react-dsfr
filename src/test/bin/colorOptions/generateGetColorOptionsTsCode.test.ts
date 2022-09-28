@@ -121,7 +121,9 @@ export function getColorOptions(colorScheme: ColorScheme) {
             "default": isDark ? "#a00000" : "#00000d",
             "active": isDark ? "#b00000" : "#00000e"
           },
-          "main525": "#00000f"
+          "main525": {
+            "default": "#00000f"
+          }
         },
         "purpleGlycine": {
           "sun319moon630": {
