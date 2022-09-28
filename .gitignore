@@ -44,4 +44,5 @@ jspm_packages
 /.yarn_home
 /dsfr
 /dist_test
+/src/lib/useTheme/generated
 

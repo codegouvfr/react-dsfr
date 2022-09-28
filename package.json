@@ -9,7 +9,7 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "rimraf dist/ && tsc -p src/bin && tsc -p src && yarn grant_exec_perms && yarn copy_dsfr_dist_to_root",
+        "build": "rimraf dist/ && tsc -p src/bin && yarn copy_dsfr_dist_to_root && yarn css_to_ts && tsc -p src && yarn grant_exec_perms",
         "build:test": "rimraf dist_test/ && tsc -p src/test",
         "pretest": "yarn build:test",
         "test": "node dist_test/test/bin/main.js",
@@ -22,8 +22,9 @@
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
         "yarn_link": "ts-node src/bin/yarn_link.ts",
-        "grant_exec_perms": "node dist/bin/tools/grant_exec_perms.js",
-        "copy_dsfr_dist_to_root": "node dist/bin/copy_dsfr_dist_to_root.js"
+        "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
+        "copy_dsfr_dist_to_root": "node dist/bin/copy_dsfr_dist_to_root",
+        "css_to_ts": "node dist/bin/css_to_ts"
     },
     "bin": {
         "copy_dsfr_dist_to_public": "dist/bin/copy_dsfr_dist_to_public.js"
