@@ -13,7 +13,8 @@ export const data_fr_theme = "data-fr-theme";
 
 export type Variant = "main" | "sun" | "moon";
 
-export type State = "hover" | "active";
+export const states = ["hover", "active"] as const;
+export type State = typeof states[number];
 
 export type BrightnessIndex = {
     value: number;

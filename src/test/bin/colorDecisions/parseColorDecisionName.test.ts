@@ -21,6 +21,8 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
     const got = parseColorDecisionName("--background-default-grey-hover");
 
     assert(same(got, expected));
+
+    console.log("PASS 1");
 }
 
 {
@@ -35,6 +37,8 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
     const got = parseColorDecisionName("--background-default-grey");
 
     assert(same(got, expected));
+
+    console.log("PASS 2");
 }
 
 {
@@ -42,13 +46,15 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
         "context": "border",
         "usage": "action",
         "variant": "low",
-        "colorName": "orange-terre-battue",
+        "colorName": "orangeTerreBattue",
         "state": undefined
     };
 
     const got = parseColorDecisionName("--border-action-low-orange-terre-battue");
 
     assert(same(got, expected));
+
+    console.log("PASS 3");
 }
 
 {
@@ -63,6 +69,8 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
     const got = parseColorDecisionName("--background-alt-raised-grey-hover");
 
     assert(same(got, expected));
+
+    console.log("PASS 4");
 }
 
 {
@@ -77,4 +85,6 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
     const got = parseColorDecisionName("--background-contrast-overlap-grey");
 
     assert(same(got, expected));
+
+    console.log("PASS 5");
 }
