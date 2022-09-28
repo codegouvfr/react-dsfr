@@ -359,7 +359,7 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
 
     return declarations
         .map(({ property: colorName, value: color }: any) => {
-            const htmlColorRegexp = /^#[0-9a-f]{6}$/;
+            const htmlColorRegexp = /^#[0-9a-f]{3,6}$/;
 
             if (!htmlColorRegexp.test(color)) {
                 return undefined;
@@ -372,7 +372,7 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
             )?.value;
 
             assert(typeof colorDark === "string");
-            assert(htmlColorRegexp.test(colorDark));
+            assert(htmlColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
 
             if (parsedName.brightness.isInvariant) {
                 assert(color === colorDark);
