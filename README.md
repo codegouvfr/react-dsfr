@@ -94,10 +94,17 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 {% endtab %}
 
 {% tab title="Next.js" %}
+```bash
+yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
+```
+
 #### next.config.js
 
 ```diff
- module.exports = {
++const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
+ 
+-module.exports = {
++module.exports = withTM({
    reactStrictMode: true,
 +  webpack: config => {
 +
@@ -108,7 +115,8 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 +
 +    return config;
 +  }
- }
+-}
++});
 ```
 
 #### pages/\_app.tsx
