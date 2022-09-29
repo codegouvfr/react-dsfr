@@ -7,6 +7,8 @@ import css from "css";
 import { exclude } from "tsafe/exclude";
 import { is } from "tsafe/is";
 import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";
+import * as crypto from "crypto";
+import { multiReplace } from "../tools/multiReplace";
 
 const contexts = ["background", "text", "border", "artwork"] as const;
 
@@ -211,4 +213,64 @@ export function createParseColorDecision(params: {
     }
 
     return { parseColorDecision };
+}
+
+export function generateGetColorDecisionsTsCode(colorDecisions: ColorDecision[]): string {
+    const obj: any = {};
+
+    const keyValues: Record<string, string> = {};
+
+    colorDecisions.forEach(colorDecision => {
+        const value = (() => {
+            const hash = crypto
+                .createHash("sha256")
+                .update(colorDecision.themePath.join(""))
+                .digest("hex");
+
+            keyValues[`"${hash}"`] = ["colorOptions", ...colorDecision.optionThemePath].join(".");
+
+            return hash;
+        })();
+
+        function req(obj: any, path: string[]): void {
+            const [propertyName, ...pathRest] = path;
+
+            if (pathRest.length === 0) {
+                obj[propertyName] = value;
+                return;
+            }
+
+            if (obj[propertyName] === undefined) {
+                obj[propertyName] = {};
+            }
+
+            req(obj[propertyName], pathRest);
+        }
+
+        req(obj, colorDecision.themePath);
+    });
+
+    return [
+        `export function getColorDecisions(`,
+        `    params: {`,
+        `        colorOptions: ColorOptions;`,
+        `    }`,
+        `) {`,
+        ``,
+        `    const { colorOptions } = params;`,
+        ``,
+        `    return {`,
+        multiReplace({
+            "input": JSON.stringify(obj, null, 2),
+            keyValues
+        })
+            .replace(/^{\n/, "")
+            .replace(/\n}$/, "")
+            .split("\n")
+            .map(line => line.replace(/^[ ]{2}/, ""))
+            .map(line => `        ${line}`)
+            .join("\n"),
+        `    } as const;`,
+        `}`
+    ].join("\n");
 }
