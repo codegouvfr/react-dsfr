@@ -316,6 +316,7 @@ export function getThemePath(parsedColorOptionName: ParsedColorOptionName): stri
 }
 
 export type ColorOption = {
+    colorOptionName: `--${string}`;
     themePath: string[];
     color:
         | string
@@ -376,6 +377,7 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
             }
 
             return {
+                "colorOptionName": colorName,
                 "themePath": getThemePath(parsedName),
                 "color": parsedName.brightness.isInvariant
                     ? color

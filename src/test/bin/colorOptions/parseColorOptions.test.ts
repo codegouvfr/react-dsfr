@@ -56,70 +56,87 @@ const got = parseColorOptions(rawCssCode);
 
 const expected: ColorOption[] = [
     {
+        "colorOptionName": "--name1-name2-111",
         "themePath": ["name1Name2", "_111", "default"],
         "color": "#000000"
     },
     {
+        "colorOptionName": "--name1-name2-111-hover",
         "themePath": ["name1Name2", "_111", "hover"],
         "color": "#000001"
     },
     {
+        "colorOptionName": "--name1-name2-sun-111",
         "themePath": ["name1Name2", "sun111", "default"],
         "color": "#000002"
     },
     {
+        "colorOptionName": "--name1-name2-sun-111-hover",
         "themePath": ["name1Name2", "sun111", "hover"],
         "color": "#000003"
     },
     {
+        "colorOptionName": "--name1-name2-111-222",
         "themePath": ["name1Name2", "_111_222", "default"],
         "color": { "light": "#000004", "dark": "#100000" }
     },
     {
+        "colorOptionName": "--name1-name2-111-222-hover",
         "themePath": ["name1Name2", "_111_222", "hover"],
         "color": { "light": "#000005", "dark": "#200000" }
     },
     {
+        "colorOptionName": "--name1-name2-sun-111-222",
         "themePath": ["name1Name2", "sun111_222", "default"],
         "color": { "light": "#000006", "dark": "#300000" }
     },
     {
+        "colorOptionName": "--name1-name2-sun-111-222-hover",
         "themePath": ["name1Name2", "sun111_222", "hover"],
         "color": { "light": "#000007", "dark": "#400000" }
     },
     {
+        "colorOptionName": "--name1-name2-111-moon-222",
         "themePath": ["name1Name2", "_111moon222", "default"],
         "color": { "light": "#000008", "dark": "#500000" }
     },
     {
+        "colorOptionName": "--name1-name2-111-moon-222-hover",
         "themePath": ["name1Name2", "_111moon222", "hover"],
         "color": { "light": "#000009", "dark": "#600000" }
     },
     {
+        "colorOptionName": "--name1-name2-sun-111-moon-222",
         "themePath": ["name1Name2", "sun111moon222", "default"],
         "color": { "light": "#00000a", "dark": "#700000" }
     },
     {
+        "colorOptionName": "--name1-name2-sun-111-moon-222-hover",
         "themePath": ["name1Name2", "sun111moon222", "hover"],
         "color": { "light": "#00000b", "dark": "#800000" }
     },
     {
+        "colorOptionName": "--grey-1000-50-hover",
         "themePath": ["grey", "_1000_50", "hover"],
         "color": { "light": "#00000c", "dark": "#900000" }
     },
     {
+        "colorOptionName": "--blue-france-sun-113-625",
         "themePath": ["blueFrance", "sun113_625", "default"],
         "color": { "light": "#00000d", "dark": "#a00000" }
     },
     {
+        "colorOptionName": "--blue-france-sun-113-625-active",
         "themePath": ["blueFrance", "sun113_625", "active"],
         "color": { "light": "#00000e", "dark": "#b00000" }
     },
     {
+        "colorOptionName": "--blue-france-main-525",
         "themePath": ["blueFrance", "main525", "default"],
         "color": "#00000f"
     },
     {
+        "colorOptionName": "--purple-glycine-sun-319-moon-630-hover",
         "themePath": ["purpleGlycine", "sun319moon630", "hover"],
         "color": { "light": "#000010", "dark": "#c00000" }
     }

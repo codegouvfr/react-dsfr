@@ -4,3 +4,5 @@ node_modules/
 /.yarn_home/
 /src/test/frameworks/
 /src/tools/types/
+/dsfr/
+/dist_test/

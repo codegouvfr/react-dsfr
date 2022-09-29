@@ -1,20 +1,9 @@
-import { createParseColorDecision } from "../../../bin/css_to_ts/colorDecisions";
+import { parseColorDecision } from "../../../bin/css_to_ts/colorDecisions";
 import type { ColorDecision } from "../../../bin/css_to_ts/colorDecisions";
 import { assert } from "tsafe/assert";
 import { same } from "evt/tools/inDepth/same";
 
 console.log(`Running test ${__filename}`);
-
-const { parseColorDecision } = createParseColorDecision({
-    "colorNames": ["grey", "orangeTerreBattue"],
-    "colorOptionNames": [
-        "--grey-1000-50-hover",
-        "--grey-1000-50",
-        "--orange-terre-battue-850-200",
-        "--grey-975-100-hover",
-        "--grey-950-150"
-    ]
-});
 
 const rawCssCode = `
 :root {
@@ -26,7 +15,16 @@ const rawCssCode = `
 }
 `;
 
-const got = parseColorDecision(rawCssCode);
+const got = parseColorDecision({
+    "colorOptionNames": [
+        "--grey-1000-50-hover",
+        "--grey-1000-50",
+        "--orange-terre-battue-850-200",
+        "--grey-975-100-hover",
+        "--grey-950-150"
+    ],
+    rawCssCode
+});
 
 const expected: ColorDecision[] = [
     {

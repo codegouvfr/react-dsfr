@@ -156,63 +156,55 @@ export type ColorDecision = {
     optionThemePath: string[];
 };
 
-export function createParseColorDecision(params: {
-    /** Like [ "grey", "blueFrance", ... ]
-     * All the the color name in camel case that we deduce from Options
-     * it help parsing without making assumption on what is a valid Usage
-     */
-    colorNames: string[];
+export function parseColorDecision(params: {
     /** ["--grey-1000-50-hover", "--grey-1000-50", ... ] */
     colorOptionNames: `--${string}`[];
-}) {
-    const { colorNames, colorOptionNames } = params;
+    rawCssCode: string;
+}): ColorDecision[] {
+    const { colorOptionNames, rawCssCode } = params;
+
+    const colorNames = colorOptionNames.map(parseColorOptionName).map(o => o.colorName);
 
     const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
 
-    function parseColorDecision(rawCssCode: string): ColorDecision[] {
-        const parsedCss = css.parse(rawCssCode);
+    const parsedCss = css.parse(rawCssCode);
 
-        const { declarations } = (() => {
-            const node = parsedCss.stylesheet?.rules.find(
-                rule => rule.type === "rule" && (rule as any)?.selectors?.[0] === ":root"
-            );
+    const { declarations } = (() => {
+        const node = parsedCss.stylesheet?.rules.find(
+            rule => rule.type === "rule" && (rule as any)?.selectors?.[0] === ":root"
+        );
 
-            assert(node !== undefined);
+        assert(node !== undefined);
 
-            const { declarations } = node as any;
+        const { declarations } = node as any;
 
-            return { declarations };
-        })();
+        return { declarations };
+    })();
 
-        return declarations
-            .map(({ property, value }: { property: string; value: string }) => {
-                const mathArray = value.match(/^var\((--[^)]+)\)$/);
+    return declarations
+        .map(({ property, value }: { property: string; value: string }) => {
+            const mathArray = value.match(/^var\((--[^)]+)\)$/);
 
-                if (mathArray === null) {
-                    return undefined;
-                }
+            if (mathArray === null) {
+                return undefined;
+            }
 
-                const colorOptionName = mathArray[1];
+            const colorOptionName = mathArray[1];
 
-                assert(is<`--${string}`>(colorOptionName));
+            assert(is<`--${string}`>(colorOptionName));
 
-                if (!id<string[]>(colorOptionNames).includes(colorOptionName)) {
-                    return undefined;
-                }
+            if (!id<string[]>(colorOptionNames).includes(colorOptionName)) {
+                return undefined;
+            }
 
-                assert(is<`--${string}`>(property));
+            assert(is<`--${string}`>(property));
 
-                return {
-                    "themePath": getThemePath(parseColorDecisionName(property)),
-                    "optionThemePath": getColorOptionThemePath(
-                        parseColorOptionName(colorOptionName)
-                    )
-                };
-            })
-            .filter(exclude(undefined));
-    }
-
-    return { parseColorDecision };
+            return {
+                "themePath": getThemePath(parseColorDecisionName(property)),
+                "optionThemePath": getColorOptionThemePath(parseColorOptionName(colorOptionName))
+            };
+        })
+        .filter(exclude(undefined));
 }
 
 export function generateGetColorDecisionsTsCode(colorDecisions: ColorDecision[]): string {
