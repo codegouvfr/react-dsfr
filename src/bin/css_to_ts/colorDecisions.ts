@@ -3,6 +3,10 @@ import { states } from "./colorOptions";
 import { id } from "tsafe/id";
 import { assert } from "tsafe/assert";
 import { capitalize } from "tsafe/capitalize";
+import css from "css";
+import { exclude } from "tsafe/exclude";
+import { is } from "tsafe/is";
+import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";
 
 const contexts = ["background", "text", "border", "artwork"] as const;
 
@@ -31,26 +35,26 @@ export function createParseColorDecisionName(params: {
 
     function parseColorDecisionName(colorDecisionName: `--${string}`): ParsedColorDecisionName {
         /*
-		colorDecisionName: 
-		--background-default-grey-hover
-		--background-default-grey
-		--border-action-low-orange-terre-battue
-		--background-alt-raised-grey-hover
-		--background-contrast-overlap-grey
-		*/
+        colorDecisionName: 
+        --background-default-grey-hover
+        --background-default-grey
+        --border-action-low-orange-terre-battue
+        --background-alt-raised-grey-hover
+        --background-contrast-overlap-grey
+        */
 
         const parsedColorDecisionName: ParsedColorDecisionName = {} as any;
 
         let arr = colorDecisionName.replace(/^--/, "").split("-");
 
         /*
-		arr: 
-		[ "background", "default", "grey", "hover" ]
-		[ "background", "default", "grey" ]
-		[ "border", "action-low", "orange", "terre", "battue"]
-		[ "background", "alt", "raised", "grey", "hover" ]
-		[ "background", "contrast-overlap", "grey" ]
-		*/
+        arr: 
+        [ "background", "default", "grey", "hover" ]
+        [ "background", "default", "grey" ]
+        [ "border", "action-low", "orange", "terre", "battue"]
+        [ "background", "alt", "raised", "grey", "hover" ]
+        [ "background", "contrast-overlap", "grey" ]
+        */
 
         //parse context
         {
@@ -143,4 +147,68 @@ export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
         parsedColorDecisionName.colorName,
         parsedColorDecisionName.state ?? "default"
     ];
+}
+
+export type ColorDecision = {
+    themePath: string[];
+    optionThemePath: string[];
+};
+
+export function createParseColorDecision(params: {
+    /** Like [ "grey", "blueFrance", ... ]
+     * All the the color name in camel case that we deduce from Options
+     * it help parsing without making assumption on what is a valid Usage
+     */
+    colorNames: string[];
+    /** ["--grey-1000-50-hover", "--grey-1000-50", ... ] */
+    colorOptionNames: `--${string}`[];
+}) {
+    const { colorNames, colorOptionNames } = params;
+
+    const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
+
+    function parseColorDecision(rawCssCode: string): ColorDecision[] {
+        const parsedCss = css.parse(rawCssCode);
+
+        const { declarations } = (() => {
+            const node = parsedCss.stylesheet?.rules.find(
+                rule => rule.type === "rule" && (rule as any)?.selectors?.[0] === ":root"
+            );
+
+            assert(node !== undefined);
+
+            const { declarations } = node as any;
+
+            return { declarations };
+        })();
+
+        return declarations
+            .map(({ property, value }: { property: string; value: string }) => {
+                const mathArray = value.match(/^var\((--[^)]+)\)$/);
+
+                if (mathArray === null) {
+                    return undefined;
+                }
+
+                const colorOptionName = mathArray[1];
+
+                assert(is<`--${string}`>(colorOptionName));
+
+                if (!id<string[]>(colorOptionNames).includes(colorOptionName)) {
+                    return undefined;
+                }
+
+                assert(is<`--${string}`>(property));
+
+                return {
+                    "themePath": getThemePath(parseColorDecisionName(property)),
+                    "optionThemePath": getColorOptionThemePath(
+                        parseColorOptionName(colorOptionName)
+                    )
+                };
+            })
+            .filter(exclude(undefined));
+    }
+
+    return { parseColorDecision };
 }

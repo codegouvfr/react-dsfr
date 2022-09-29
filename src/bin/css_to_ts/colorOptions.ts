@@ -46,7 +46,6 @@ export declare namespace ParsedColorOptionName {
     };
 }
 
-/** Exported only for tests */
 export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColorOptionName {
     const parsedColorOptionName: ParsedColorOptionName.Variadic = {
         "colorName": "",
