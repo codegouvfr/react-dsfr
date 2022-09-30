@@ -5,7 +5,7 @@ import { same } from "evt/tools/inDepth/same";
 
 console.log(`Running test ${__filename}`);
 
-const colorNames = ["grey", "orangeTerreBattue"];
+const colorNames = ["grey", "orangeTerreBattue", "blueFrance"];
 
 const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
 
@@ -87,4 +87,20 @@ const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
     assert(same(got, expected));
 
     console.log("PASS 5");
+}
+
+{
+    const expected: ParsedColorDecisionName = {
+        "context": "background",
+        "usage": "action",
+        "variant": "high",
+        "colorName": "blueFrance",
+        "state": undefined
+    };
+
+    const got = parseColorDecisionName("--background-action-high-blue-france");
+
+    assert(same(got, expected));
+
+    console.log("PASS 6");
 }
