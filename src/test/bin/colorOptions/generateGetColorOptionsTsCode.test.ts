@@ -93,14 +93,7 @@ const input: ColorOption[] = [
 ];
 
 const expected = `
-export function getColorOptions(colorScheme: ColorScheme) {
-    const isDark: boolean = (() => {
-        switch (colorScheme) {
-            case "dark": return true;
-            case "light": return false;
-        }
-    })();
-
+export function getColorOptions(isDark: boolean) {
     return {
         "name1Name2": {
           "_111": {

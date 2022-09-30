@@ -14,7 +14,7 @@ const contexts = ["background", "text", "border", "artwork"] as const;
 
 type Context = typeof contexts[number];
 
-const variants = ["hight", "low"] as const;
+const variants = ["high", "low"] as const;
 
 type Variant = typeof variants[number];
 
