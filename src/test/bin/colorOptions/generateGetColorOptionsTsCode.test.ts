@@ -93,7 +93,14 @@ const input: ColorOption[] = [
 ];
 
 const expected = `
-export function getColorOptions(isDark: boolean) {
+export function getColorOptions(
+    params: {
+        isDark: boolean;
+    }
+) {
+
+    const { isDark } = params;
+
     return {
         "name1Name2": {
           "_111": {

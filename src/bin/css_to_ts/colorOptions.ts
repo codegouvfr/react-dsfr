@@ -432,7 +432,14 @@ export function generateGetColorOptionsTsCode(colorOptions: ColorOption[]) {
     });
 
     return [
-        `export function getColorOptions(isDark: boolean) {`,
+        `export function getColorOptions(`,
+        `    params: {`,
+        `        isDark: boolean;`,
+        `    }`,
+        `) {`,
+        ``,
+        `    const { isDark } = params;`,
+        ``,
         `    return {`,
         multiReplace({
             "input": JSON.stringify(obj, null, 2),
