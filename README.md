@@ -44,32 +44,8 @@ Add the following code in the `<head />`&#x20;
 <link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
 <link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
-<%
-[
-  //"Marianne-Light",
-  //"Marianne-Light_Italic",
-  "Marianne-Regular",
-  //"Marianne-Regular_Italic",
-  "Marianne-Medium",
-  //"Marianne-Medium_Italic",
-  "Marianne-Bold",
-  //"Marianne-Bold_Italic",
-  //"Spectral-Regular",
-  //"Spectral-ExtraBold"
-].forEach(function(name){ %>
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
-<% }); %>
-
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 ```
-
-{% hint style="info" %}
-Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
-
-Be eco friendly 🌱, only preload the fonts variant you actually use.
-
-You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-{% endhint %}
 
 #### src/index.tsx
 
@@ -130,33 +106,9 @@ import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 
 export default withAppDsfr(
     DefaultApp, // Provide your custom App if you have one
-    {
-        "defaultColorScheme": "system",
-        "preloadFonts": [
-		//"Marianne-Light",
-		//"Marianne-Light_Italic",
-		"Marianne-Regular",
-		//"Marianne-Regular_Italic",
-		"Marianne-Medium",
-		//"Marianne-Medium_Italic",
-		"Marianne-Bold",
-		//"Marianne-Bold_Italic",
-		//"Spectral-Regular",
-		//"Spectral-ExtraBold"
-        ]
-    }
+    { "defaultColorScheme": "system" }
 );
 ```
-
-{% hint style="info" %}
-Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
-
-Be eco friendly 🌱, only preload the fonts variant you actually use.
-
-You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-
-Preloading of font variants is only enabled in the production build (not when you run `yarn dev`)
-{% endhint %}
 
 #### pages/\_document.tsx
 
@@ -230,17 +182,6 @@ Add the following tags in the `<head />`&#x20;
 <link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
 <link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
 <link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
-
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
 
 <link rel="stylesheet" href="/dsfr/dsfr.min.css" />
 ```
