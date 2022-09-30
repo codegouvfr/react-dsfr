@@ -296,3 +296,90 @@ If you are in an SSR setup and want to avoit white flashes on reload let's [get 
 {% endtab %}
 {% endtabs %}
 
+### Avoiding or flash of unstyled text (FOUT) &#x20;
+
+{% hint style="danger" %}
+While jarring, the official recommendation from the DSFR team is to accept the Flash of Unstiled text because preloading fonts **significantly delays the First Contentfull Paint (FCP) for users with slow connection internet and slow devices**.
+
+Measures have been taken in the JS code to mitigate discomfort induced by the FOUT.
+{% endhint %}
+
+{% embed url="https://user-images.githubusercontent.com/6702424/193168884-703a3c95-45be-47ad-823d-15bb6b8e620d.gif" %}
+What FOUT looks like, it's usally must faster
+{% endembed %}
+
+To get rid of FOUT you can preload the font, make sure you only preload the ones immediately used (look in the network tab of your browser dev tool)
+
+{% tabs %}
+{% tab title="Create React App" %}
+#### public/index.html
+
+Add the following code in the `<head />`&#x20;
+
+```ejs
+<%
+[
+  //"Marianne-Light",
+  //"Marianne-Light_Italic",
+  "Marianne-Regular",
+  //"Marianne-Regular_Italic",
+  "Marianne-Medium",
+  //"Marianne-Medium_Italic",
+  "Marianne-Bold",
+  //"Marianne-Bold_Italic",
+  //"Spectral-Regular",
+  //"Spectral-ExtraBold"
+].forEach(function(name){ %>
+  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
+<% }); %>
+```
+{% endtab %}
+
+{% tab title="Next.js" %}
+#### pages/\_app.tsx
+
+```diff
+ import DefaultApp from "next/app";
+ import { withAppDsfr } from "@codegouvfr/react-dsfr/lib/nextJs";
+ import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
+ 
+ export default withAppDsfr(
+     DefaultApp, // Provide your custom App if you have one
+     {
+         "defaultColorScheme": "system",
++        "preloadFonts": [
++  		//"Marianne-Light",
++       	//"Marianne-Light_Italic",
++		"Marianne-Regular",
++		//"Marianne-Regular_Italic",
++		"Marianne-Medium",
++		//"Marianne-Medium_Italic",
++		"Marianne-Bold",
++		//"Marianne-Bold_Italic",
++		//"Spectral-Regular",
++		//"Spectral-ExtraBold"
++        ]
++    }
+);
+```
+{% endtab %}
+
+{% tab title="Vite" %}
+#### index.html
+
+Add the following tags in the `<head />`&#x20;
+
+```html
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
+```
+{% endtab %}
+{% endtabs %}
