@@ -28,7 +28,6 @@ fs.writeFileSync(
     Buffer.from(
         [
             warningMessage,
-            `import type { ColorScheme } from "../../useColorScheme";`,
             ``,
             generateGetColorOptionsTsCode(colorOptions),
             ``,

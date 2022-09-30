@@ -2,18 +2,18 @@
 import artworkLightSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/light.svg";
 import artworkDarkSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
 import artworkSystemSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/system.svg";
-import { useColorScheme } from "@codegouvfr/react-dsfr";
+import { useIsDark } from "@codegouvfr/react-dsfr";
 
 export function App() {
 
-    const { colorScheme, setColorScheme } = useColorScheme();
+    const { isDark, setIsDark } = useIsDark();
 
     return (
         <>
-            <h1>Color Scheme: {colorScheme}</h1>
-            <button onClick={() => setColorScheme("dark")}>Set color scheme to dark</button>
-            <button onClick={() => setColorScheme("light")}>Set color scheme to light</button>
-            <button onClick={() => setColorScheme("system")}>Set color scheme to system</button>
+            <h1>Color Scheme: {isDark ? "dark" : "light"}</h1>
+            <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
+            <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
+            <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
             <header role="banner" className="fr-header">
                 <div className="fr-header__body">
                     <div className="fr-container">

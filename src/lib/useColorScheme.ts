@@ -38,6 +38,29 @@ const useColorSchemeServerSide: UseColorScheme = () => {
 
 export const useColorScheme = isBrowser ? useColorSchemeClientSide : useColorSchemeServerSide;
 
+//NOTE: Just because it's more convenient to have a boolean than "light" | "dark"
+export function useIsDark() {
+    const { colorScheme, setColorScheme } = useColorScheme();
+
+    const setIsDark = useConstCallback((isDark: boolean | "system") =>
+        setColorScheme(typeof isDark !== "boolean" ? isDark : isDark ? "dark" : "light")
+    );
+
+    const isDark = (() => {
+        switch (colorScheme) {
+            case "dark":
+                return true;
+            case "light":
+                return false;
+        }
+    })();
+
+    return {
+        isDark,
+        setIsDark
+    };
+}
+
 function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
     if (!isBrowser) {
         return "light";

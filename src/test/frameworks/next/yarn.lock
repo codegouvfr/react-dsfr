@@ -39,7 +39,10 @@
     regenerator-runtime "^0.13.4"
 
 "@codegouvfr/react-dsfr@file:../../../../dist":
-  version "0.0.0"
+  version "0.0.6"
+  dependencies:
+    "@gouvfr/dsfr" "1.7.2"
+    tsafe "^1.0.1"
 
 "@eslint/eslintrc@^0.4.2":
   version "0.4.3"
@@ -55,6 +58,11 @@
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@gouvfr/dsfr@1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.7.2.tgz#c522fce21a14989a10e30583160118c39c9c05d1"
+  integrity sha512-hPNtz+gHcc8m7ZPANxSOFMz4Ap+M9FHOudqoMR/+Kjl5FCOqwA6u/aoYnMJ8KqedS1k5XThFMp7jiktr53qXYw==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -1745,6 +1753,11 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+tsafe@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.1.1.tgz#8d6998c726f8c63c518e1d1e283bbcd282a2b9a9"
+  integrity sha512-Ogblm3uh0dVupcCcC4IT641rnSQ7CW9IO0q8yIncG8OBe4DDXEqGtUE8LWf7+0MK1qZGeWPWEqSxlLzY2xzREA==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"
