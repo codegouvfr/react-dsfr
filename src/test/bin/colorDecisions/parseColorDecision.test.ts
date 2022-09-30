@@ -28,23 +28,23 @@ const got = parseColorDecision({
 
 const expected: ColorDecision[] = [
     {
-        "themePath": ["background", "default", "normal", "grey", "hover"],
+        "themePath": ["background", "default", "grey", "hover"],
         "optionThemePath": ["grey", "_1000_50", "hover"]
     },
     {
-        "themePath": ["background", "default", "normal", "grey", "default"],
+        "themePath": ["background", "default", "grey", "default"],
         "optionThemePath": ["grey", "_1000_50", "default"]
     },
     {
-        "themePath": ["border", "action", "low", "orangeTerreBattue", "default"],
+        "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
         "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
     },
     {
-        "themePath": ["background", "altRaised", "normal", "grey", "hover"],
+        "themePath": ["background", "altRaised", "grey", "hover"],
         "optionThemePath": ["grey", "_975_100", "hover"]
     },
     {
-        "themePath": ["background", "contrastOverlap", "normal", "grey", "default"],
+        "themePath": ["background", "contrastOverlap", "grey", "default"],
         "optionThemePath": ["grey", "_950_150", "default"]
     }
 ];

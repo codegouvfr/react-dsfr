@@ -135,17 +135,20 @@ export function createParseColorDecisionName(params: {
  *
  * getThemePath(createParseColorDecisionName("--background-alt-raised-grey-hover"))
  * ->
- * ["background", "altRaised", "normal", "grey", "hover"]
+ * ["background", "altRaised", "grey", "hover"]
  *
  * getThemePath(createParseColorDecisionName("--border-action-low-orange-terre-battue"))
  * ->
- * ["border", "action", "low", "orangeTerreBattue", "default"]
+ * ["border", "actionLow", "orangeTerreBattue", "default"]
  */
 export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
     return [
         parsedColorDecisionName.context,
-        parsedColorDecisionName.usage,
-        parsedColorDecisionName.variant ?? "normal",
+        `${parsedColorDecisionName.usage}${
+            parsedColorDecisionName.variant === undefined
+                ? ""
+                : capitalize(parsedColorDecisionName.variant)
+        }`,
         parsedColorDecisionName.colorName,
         parsedColorDecisionName.state ?? "default"
     ];

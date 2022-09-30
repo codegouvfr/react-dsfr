@@ -6,23 +6,23 @@ console.log(`Running test ${__filename}`);
 
 const input: ColorDecision[] = [
     {
-        "themePath": ["background", "default", "normal", "grey", "hover"],
+        "themePath": ["background", "default", "grey", "hover"],
         "optionThemePath": ["grey", "_1000_50", "hover"]
     },
     {
-        "themePath": ["background", "default", "normal", "grey", "default"],
+        "themePath": ["background", "default", "grey", "default"],
         "optionThemePath": ["grey", "_1000_50", "default"]
     },
     {
-        "themePath": ["border", "action", "low", "orangeTerreBattue", "default"],
+        "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
         "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
     },
     {
-        "themePath": ["background", "altRaised", "normal", "grey", "hover"],
+        "themePath": ["background", "altRaised", "grey", "hover"],
         "optionThemePath": ["grey", "_975_100", "hover"]
     },
     {
-        "themePath": ["background", "contrastOverlap", "normal", "grey", "default"],
+        "themePath": ["background", "contrastOverlap", "grey", "default"],
         "optionThemePath": ["grey", "_950_150", "default"]
     }
 ];
@@ -39,34 +39,26 @@ export function getColorDecisions(
     return {
         "background": {
           "default": {
-            "normal": {
-              "grey": {
-                "hover": colorOptions.grey._1000_50.hover,
-                "default": colorOptions.grey._1000_50.default
-              }
+            "grey": {
+              "hover": colorOptions.grey._1000_50.hover,
+              "default": colorOptions.grey._1000_50.default
             }
           },
           "altRaised": {
-            "normal": {
-              "grey": {
-                "hover": colorOptions.grey._975_100.hover
-              }
+            "grey": {
+              "hover": colorOptions.grey._975_100.hover
             }
           },
           "contrastOverlap": {
-            "normal": {
-              "grey": {
-                "default": colorOptions.grey._950_150.default
-              }
+            "grey": {
+              "default": colorOptions.grey._950_150.default
             }
           }
         },
         "border": {
-          "action": {
-            "low": {
-              "orangeTerreBattue": {
-                "default": colorOptions.orangeTerreBattue._850_200.default
-              }
+          "actionLow": {
+            "orangeTerreBattue": {
+              "default": colorOptions.orangeTerreBattue._850_200.default
             }
           }
         }
@@ -75,6 +67,6 @@ export function getColorDecisions(
 
 const got = generateGetColorDecisionsTsCode(input);
 
-assert(got === expected);
+assert(got === expected, "xxxx::");
 
 console.log("PASS");
