@@ -29,7 +29,6 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
         Code and Types generated from [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
--   [x] No [flash of unstyled text](https://fonts.google.com/knowledge/glossary/fout).
 -   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://etalab-2.gitbook.io/dsfr-react/).
 -   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (0/42)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
