@@ -232,14 +232,10 @@ If you are in an SSR setup and want to avoit white flashes on reload let's [get 
 ### Avoiding or flash of unstyled text (FOUT) &#x20;
 
 {% hint style="danger" %}
-The official recommendation from the DSFR team is to accept the Flash of Unstiled text because preloading fonts **significantly delays the First Contentfull Paint (FCP) for users with slow internet connection and slow devices**.
+The official recommendation from the DSFR team is to cope with [the Flash of Unstiled text](https://user-images.githubusercontent.com/6702424/193168884-703a3c95-45be-47ad-823d-15bb6b8e620d.gif) because preloading fonts **significantly delays the First Contentfull Paint (FCP) for users with slow internet connection and slow devices**.
 
 Measures have been taken in the JS code to mitigate discomfort induced by the FOUT.
 {% endhint %}
-
-{% embed url="https://user-images.githubusercontent.com/6702424/193168884-703a3c95-45be-47ad-823d-15bb6b8e620d.gif" %}
-What FOUT looks like, it's usally must faster
-{% endembed %}
 
 If you chose, despite the recommendation agaist it, to preload the fonts, at least make sure you only preload the ones immediately used on your page (look in the network tab of your browser dev tool). &#x20;
 
