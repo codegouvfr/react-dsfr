@@ -241,7 +241,7 @@ Measures have been taken in the JS code to mitigate discomfort induced by the FO
 What FOUT looks like, it's usally must faster
 {% endembed %}
 
-To get rid of FOUT you can preload the font, make sure you only preload the ones immediately used (look in the network tab of your browser dev tool)
+If you chose, despite the recommendation agaist it, to preload the fonts, at least make sure you only preload the ones immediately used on your page (look in the network tab of your browser dev tool). &#x20;
 
 {% tabs %}
 {% tab title="Create React App" %}
