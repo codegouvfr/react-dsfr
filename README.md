@@ -186,14 +186,6 @@ Add the following tags in the `<head />`&#x20;
 <link rel="stylesheet" href="/dsfr/dsfr.min.css" />
 ```
 
-{% hint style="info" %}
-Preloading fonts prevent from [FOUT](https://fonts.google.com/knowledge/glossary/fout).
-
-Be eco friendly 🌱, only preload the fonts variant you actually use.
-
-You can see in the network tab of your browser's dev tools what are the fonts variant used in the first print.
-{% endhint %}
-
 #### src/main.tsx
 
 <pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
