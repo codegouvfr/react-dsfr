@@ -174,7 +174,7 @@ export function parseColorDecision(params: {
 
     const { declarations } = (() => {
         const node = parsedCss.stylesheet?.rules.find(
-            rule => rule.type === "rule" && (rule as any)?.selectors?.[0] === ":root"
+            rule => rule.type === "rule" && (rule as any).selectors?.[0] === ":root"
         );
 
         assert(node !== undefined);

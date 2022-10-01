@@ -12,6 +12,19 @@ function createMuiDsfrThemeFromTheme(params: { theme: Theme }): MuiTheme {
 
     /*
 	const muiTheme = createMuiTheme({
+		"shape": {
+			"borderRadius": 0
+		},
+		"breakpoints": {
+			"unit": "em",
+			"values": { 
+				"xs": 0,  
+				"sm": number,
+				"md": number,
+				"lg": number,
+				"xl": number,
+			},
+		},
 		"typography": createMuiTypographyOptions({
 			typographyDesc,
 		}),
@@ -21,9 +34,6 @@ function createMuiDsfrThemeFromTheme(params: { theme: Theme }): MuiTheme {
 			useCases,
 		}),
 		spacing,
-		"breakpoints": {
-			"values": { "xs": 0, ...breakpointsValues },
-		},
 		"components": {
 			"MuiLink": {
 				"defaultProps": {

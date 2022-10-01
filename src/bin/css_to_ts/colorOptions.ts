@@ -345,7 +345,7 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
         const node = parsedCss.stylesheet?.rules.find(
             rule =>
                 rule.type === "rule" &&
-                (rule as any)?.selectors?.[0] === `:root:where([${data_fr_theme}="dark"])`
+                (rule as any).selectors?.[0] === `:root:where([${data_fr_theme}="dark"])`
         );
 
         assert(node !== undefined);
