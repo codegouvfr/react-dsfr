@@ -73,7 +73,7 @@
     },
     "dependencies": {
         "@gouvfr/dsfr": "1.7.2",
-        "tsafe": "^1.0.1"
+        "tsafe": "^1.1.1"
     },
     "devDependencies": {
         "@emotion/react": "^11.10.4",

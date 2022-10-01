@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { getColorOptions } from "./generated/getColorOptions";
-import type { ColorOptions } from "./generated/getColorOptions";
-import { getColorDecisions } from "./generated/getColorDecisions";
-import type { ColorDecisions } from "./generated/getColorDecisions";
-import { useIsDark } from "../useColorScheme";
+import { getColorOptions } from "./generatedFromCss/getColorOptions";
+import type { ColorOptions } from "./generatedFromCss/getColorOptions";
+import { getColorDecisions } from "./generatedFromCss/getColorDecisions";
+import type { ColorDecisions } from "./generatedFromCss/getColorDecisions";
+import { useIsDark } from "./useColorScheme";
 
 export type Theme = {
     isDark: boolean;

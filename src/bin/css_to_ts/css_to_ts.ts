@@ -1,5 +1,6 @@
 import { generateGetColorOptionsTsCode, parseColorOptions } from "./colorOptions";
 import { generateGetColorDecisionsTsCode, parseColorDecision } from "./colorDecisions";
+import { parseBreakpointsValues, generateBreakpointsValuesTsCode } from "./breakpoints";
 import { getProjectRoot } from "../tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
@@ -8,7 +9,7 @@ const projectRoot = getProjectRoot();
 
 const rawCssCode = fs.readFileSync(pathJoin(projectRoot, "dsfr", "dsfr.css")).toString("utf8");
 
-const generatedDirPath = pathJoin(projectRoot, "src", "lib", "useTheme", "generated");
+const generatedDirPath = pathJoin(projectRoot, "src", "lib", "generatedFromCss");
 
 fs.mkdirSync(generatedDirPath, { "recursive": true });
 
@@ -59,6 +60,20 @@ fs.writeFileSync(
             ``,
             `export type ColorDecisions = ReturnType<typeof getColorDecisions>;`,
             ``
+        ].join("\n"),
+        "utf8"
+    )
+);
+
+const targetBreakpointsValuesFilePath = pathJoin(generatedDirPath, "breakpoints.ts");
+
+fs.writeFileSync(
+    targetBreakpointsValuesFilePath,
+    Buffer.from(
+        [
+            warningMessage,
+            ``,
+            generateBreakpointsValuesTsCode(parseBreakpointsValues(rawCssCode))
         ].join("\n"),
         "utf8"
     )

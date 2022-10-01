@@ -1,5 +1,7 @@
 import css from "css";
 import { assert } from "tsafe/assert";
+import { objectKeys } from "tsafe/objectKeys";
+import { exclude } from "tsafe/exclude";
 
 export type BreakpointsValues = {
     unit: string /* em, px ... */;
@@ -41,7 +43,7 @@ export function parseBreakpointsValues(rawCssCode: string): BreakpointsValues {
     assert(values.length === 4);
     assert(prevUnit !== undefined);
 
-    const [sm, md, lg, xl] = values;
+    const [sm, md, lg, xl] = values.sort();
 
     return {
         "unit": prevUnit,
@@ -53,15 +55,42 @@ export function parseBreakpointsValues(rawCssCode: string): BreakpointsValues {
 }
 
 export function generateBreakpointsValuesTsCode(breakpointsValues: BreakpointsValues): string {
+    const sortedKeys = objectKeys(breakpointsValues)
+        .filter(exclude("unit"))
+        .sort((a, b) => breakpointsValues[a] - breakpointsValues[b]);
+
     return [
-        `export const breakpointsValues = {`,
-        JSON.stringify(breakpointsValues, null, 2)
+        `import { assert } from "tsafe/assert";`,
+        `import type { Extends } from "tsafe";`,
+        ``,
+        `export const breakpointValuesUnit = "em";`,
+        ``,
+        `export const breakpointKeys = ["xs", ${sortedKeys
+            .map(key => `"${key}"`)
+            .join(", ")}] as const;`,
+        ``,
+        `export type BreakpointKeys = typeof breakpointKeys[number];`,
+        ``,
+        `export const breakpointValues = {`,
+        JSON.stringify(
+            Object.fromEntries(
+                (["xs", ...sortedKeys] as const).map(key => [
+                    key,
+                    key === "xs" ? 0 : breakpointsValues[key]
+                ])
+            ),
+            null,
+            2
+        )
             .replace(/^{\n/, "")
             .replace(/\n}$/, "")
             .split("\n")
             .map(line => line.replace(/^[ ]{2}/, ""))
             .map(line => `    ${line}`)
             .join("\n"),
-        `} as const;`
+        `} as const;`,
+        ``,
+        `assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();`,
+        ``
     ].join("\n");
 }

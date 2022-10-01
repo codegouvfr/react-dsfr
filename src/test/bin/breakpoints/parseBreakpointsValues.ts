@@ -25,20 +25,20 @@ const input = `
 	}
 }
 
-@media (min-width: 62em) {
-	/*! media lg */
-  
-	/*! media lg */
-	.fr-hidden-lg {
-	  display: none !important;
-	}
-}
-
 @media (min-width: 78em) {
 	/*! media xl */
   
 	/*! media xl */
 	.fr-hidden-xl {
+	  display: none !important;
+	}
+}
+
+@media (min-width: 62em) {
+	/*! media lg */
+  
+	/*! media lg */
+	.fr-hidden-lg {
 	  display: none !important;
 	}
 }

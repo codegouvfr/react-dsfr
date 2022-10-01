@@ -13,15 +13,30 @@ const input: BreakpointsValues = {
 };
 
 const expected = `
-export const breakpointsValues = {
-    "unit": "em",
+import { assert } from "tsafe/assert";
+import type { Extends } from "tsafe";
+
+export const breakpointValuesUnit = "em";
+
+export const breakpointKeys = ["xs", "sm", "md", "lg", "xl"] as const;
+
+export type BreakpointKeys = typeof breakpointKeys[number];
+
+export const breakpointValues = {
+    "xs": 0,
     "sm": 36,
     "md": 48,
     "lg": 62,
     "xl": 78
-} as const;`.replace(/^\n/, "");
+} as const;
+
+assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();
+`.replace(/^\n/, "");
 
 const got = generateBreakpointsValuesTsCode(input);
+
+console.log(JSON.stringify(got));
+console.log(JSON.stringify(expected));
 
 assert(got === expected);
 
