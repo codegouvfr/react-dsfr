@@ -9,7 +9,6 @@ import type { PaletteOptions as MuiPaletteOptions } from "@mui/material/styles/c
 import { getColorDecisions } from "./generatedFromCss/getColorDecisions";
 import { getColorOptions } from "./generatedFromCss/getColorOptions";
 import { useIsDark } from "./useColorScheme";
-import { breakpoints } from "./breakpoints";
 
 function createMuiDsfrThemeFromTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
