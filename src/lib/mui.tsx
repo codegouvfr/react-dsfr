@@ -9,11 +9,12 @@ import type { PaletteOptions as MuiPaletteOptions } from "@mui/material/styles/c
 import { getColorDecisions } from "./generatedFromCss/getColorDecisions";
 import { getColorOptions } from "./generatedFromCss/getColorOptions";
 import { useIsDark } from "./useColorScheme";
+import { breakpoints } from "./breakpoints";
 
 function createMuiDsfrThemeFromTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
 
-    const palette = useMemo(() => createMuiPaletteOptions({ isDark }), [isDark]);
+    const palette = createMuiPaletteOptions({ isDark });
 
     const muiTheme = createMuiTheme({
         "shape": {
@@ -41,9 +42,15 @@ function createMuiDsfrThemeFromTheme(params: { isDark: boolean }): MuiTheme {
 				"xl": number,
 			},
 		},
-		"typography": createMuiTypographyOptions({
-			typographyDesc,
-		}),
+        "typography": {
+            "h1": {
+                "color": "red",
+                [breakpoints.up("md")]: {
+                    "color": "pink"
+                }
+                
+            }
+        }
 		"palette": createMuiPaletteOptions({
 			isDarkModeEnabled,
 			palette,
