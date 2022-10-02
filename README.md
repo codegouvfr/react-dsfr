@@ -53,7 +53,6 @@ git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
 yarn build
-npx tsc -w
 npx tsc -p src/bin -w & npx tsc -p src -w
 # Open another Terminal
 yarn start_cra  # For testing in in a Create React App setup
