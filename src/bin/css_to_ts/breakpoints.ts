@@ -54,7 +54,7 @@ export function parseBreakpointsValues(rawCssCode: string): BreakpointsValues {
     };
 }
 
-export function generateBreakpointsValuesTsCode(breakpointsValues: BreakpointsValues): string {
+export function generateBreakpointsTsCode(breakpointsValues: BreakpointsValues): string {
     const sortedKeys = objectKeys(breakpointsValues)
         .filter(exclude("unit"))
         .sort((a, b) => breakpointsValues[a] - breakpointsValues[b]);

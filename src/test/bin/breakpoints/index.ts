@@ -1,2 +1,2 @@
 import "./parseBreakpointsValues";
-import "./generateBreakpointsValuesTsCode";
+import "./generateBreakpointsTsCode";

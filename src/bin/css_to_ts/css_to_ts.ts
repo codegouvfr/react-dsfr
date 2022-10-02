@@ -1,6 +1,6 @@
 import { generateGetColorOptionsTsCode, parseColorOptions } from "./colorOptions";
 import { generateGetColorDecisionsTsCode, parseColorDecision } from "./colorDecisions";
-import { parseBreakpointsValues, generateBreakpointsValuesTsCode } from "./breakpoints";
+import { parseBreakpointsValues, generateBreakpointsTsCode } from "./breakpoints";
 import { getProjectRoot } from "../tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
@@ -65,16 +65,14 @@ fs.writeFileSync(
     )
 );
 
-const targetBreakpointsValuesFilePath = pathJoin(generatedDirPath, "breakpoints.ts");
+const targetBreakpointsFilePath = pathJoin(generatedDirPath, "breakpoints.ts");
 
 fs.writeFileSync(
-    targetBreakpointsValuesFilePath,
+    targetBreakpointsFilePath,
     Buffer.from(
-        [
-            warningMessage,
-            ``,
-            generateBreakpointsValuesTsCode(parseBreakpointsValues(rawCssCode))
-        ].join("\n"),
+        [warningMessage, ``, generateBreakpointsTsCode(parseBreakpointsValues(rawCssCode))].join(
+            "\n"
+        ),
         "utf8"
     )
 );
