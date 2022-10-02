@@ -10,13 +10,12 @@ export type { BreakpointKeys };
 const epsilon = 0.003125;
 
 export const breakpoints = {
-    "up": (key: BreakpointKeys) => `@media (min-width:${values[key]}${unit})`,
-    "down": (key: BreakpointKeys) => `@media (max-width:${values[key] - epsilon}${unit})`,
+    "up": (key: BreakpointKeys) => `@media (min-width:${values[key]}${unit})` as const,
+    "down": (key: BreakpointKeys) => `@media (max-width:${values[key] - epsilon}${unit})` as const,
     "between": (start: BreakpointKeys, end: BreakpointKeys) =>
-        [
-            `@media (min-width:${values[start]}${unit})`,
-            `(max-width:${values[end] - epsilon}${unit})`
-        ].join(" and "),
+        `@media (min-width:${values[start]}${unit}) and (max-width:${
+            values[end] - epsilon
+        }${unit})` as const,
     "only": (key: BreakpointKeys) =>
         keys.indexOf(key) + 1 < keys.length
             ? breakpoints.between(key, keys[keys.indexOf(key) + 1])
