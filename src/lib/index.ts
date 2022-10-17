@@ -1,6 +1,4 @@
-export { $colorScheme, useIsDark } from "./useColorScheme";
+export { useIsDark, $isDark } from "./darkMode";
 export * from "./breakpoints";
-export { useTheme } from "./useTheme";
-export type { Theme } from "./useTheme";
-export type { ColorScheme } from "./useColorScheme";
+export * from "./colors";
 export * from "./start";

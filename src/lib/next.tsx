@@ -22,8 +22,8 @@ import faviconSvg from "../dsfr/favicon/favicon.svg";
 import faviconIco from "../dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "../dsfr/favicon/manifest.webmanifest";
 import type { DocumentContext } from "next/document";
-import { data_fr_scheme, data_fr_theme, $colorScheme } from "./useColorScheme";
-import type { ColorScheme } from "./useColorScheme";
+import { data_fr_scheme, data_fr_theme, $colorScheme } from "./darkMode";
+import type { ColorScheme } from "./darkMode";
 import { createStatefulObservable } from "./tools/StatefulObservable";
 import { symToStr } from "tsafe/symToStr";
 

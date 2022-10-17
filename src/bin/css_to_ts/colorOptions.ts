@@ -1,13 +1,14 @@
 import { capitalize } from "tsafe/capitalize";
 import { id } from "tsafe/id";
-import css from "css";
+import { parseCss } from "./parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import { multiReplace } from "../tools/multiReplace";
+import { createGetCssVariable } from "./cssVariable";
+import memoize from "memoizee";
 import * as crypto from "crypto";
 
 export type ColorScheme = "light" | "dark";
-export const data_fr_theme = "data-fr-theme";
 
 // https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/couleurs-palette
 
@@ -76,37 +77,37 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
             : parsedColorOptionName;
 
     /*
-	--name1-name2-111
-	--name1-name2-111-hover
-	--name1-name2-sun-111
-	--name1-name2-sun-111-hover
-	--name1-name2-111-222
-	--name1-name2-111-222-hover
-	--name1-name2-sun-111-222
-	--name1-name2-sun-111-222-hover
-	--name1-name2-111-moon-222
-	--name1-name2-111-moon-222-hover
-	--name1-name2-sun-111-moon-222
-	--name1-name2-sun-111-moon-222-hover
-	*/
+    --name1-name2-111
+    --name1-name2-111-hover
+    --name1-name2-sun-111
+    --name1-name2-sun-111-hover
+    --name1-name2-111-222
+    --name1-name2-111-222-hover
+    --name1-name2-sun-111-222
+    --name1-name2-sun-111-222-hover
+    --name1-name2-111-moon-222
+    --name1-name2-111-moon-222-hover
+    --name1-name2-sun-111-moon-222
+    --name1-name2-sun-111-moon-222-hover
+    */
 
     let revArr = colorOptionName.replace(/^--/, "").split("-").reverse();
 
     /*
-	revArr=
-	["111","name2","name1"]
-	["hover","111","name2","name1"]
-	["111","sun","name2","name1"]
-	["hover","111","sun","name2","name1"]
-	["222","111","name2","name1"]
-	["hover","222","111","name2","name1"]
-	["222","111","sun","name2","name1"]
-	["hover","222","111","sun","name2","name1"]
-	["222","moon","111","name2","name1"]
-	["hover","222","moon","111","name2","name1"]
-	["222","moon","111","sun","name2","name1"]
-	["hover","222","moon","111","sun","name2","name1"]
-	*/
+    revArr=
+    ["111","name2","name1"]
+    ["hover","111","name2","name1"]
+    ["111","sun","name2","name1"]
+    ["hover","111","sun","name2","name1"]
+    ["222","111","name2","name1"]
+    ["hover","222","111","name2","name1"]
+    ["222","111","sun","name2","name1"]
+    ["hover","222","111","sun","name2","name1"]
+    ["222","moon","111","name2","name1"]
+    ["hover","222","moon","111","name2","name1"]
+    ["222","moon","111","sun","name2","name1"]
+    ["hover","222","moon","111","sun","name2","name1"]
+    */
 
     parse_state: {
         const [word, ...rest] = revArr;
@@ -121,14 +122,14 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
     }
 
     /*
-	revArr=
-	["111","name2","name1"]
-	["111","sun","name2","name1"]
-	["222","111","name2","name1"]
-	["222","111","sun","name2","name1"]
-	["222","moon","111","name2","name1"]
-	["222","moon","111","sun","name2","name1"]
-	*/
+    revArr=
+    ["111","name2","name1"]
+    ["111","sun","name2","name1"]
+    ["222","111","name2","name1"]
+    ["222","111","sun","name2","name1"]
+    ["222","moon","111","name2","name1"]
+    ["222","moon","111","sun","name2","name1"]
+    */
 
     let brightnessIndex: number;
 
@@ -141,14 +142,14 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
     }
 
     /*
-	revArr=
-	["name2","name1"]
-	["sun","name2","name1"]
-	["111","name2","name1"]
-	["111","sun","name2","name1"]
-	["moon","111","name2","name1"]
-	["moon","111","sun","name2","name1"]
-	*/
+    revArr=
+    ["name2","name1"]
+    ["sun","name2","name1"]
+    ["111","name2","name1"]
+    ["111","sun","name2","name1"]
+    ["moon","111","name2","name1"]
+    ["moon","111","sun","name2","name1"]
+    */
 
     {
         const [word, ...rest] = revArr;
@@ -159,10 +160,10 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
 
         if (!isNaN(n)) {
             /*
-			revArr=
-			["name2","name1"]
-			["sun","name2","name1"]
-			*/
+            revArr=
+            ["name2","name1"]
+            ["sun","name2","name1"]
+            */
 
             parsedColorOptionName.brightness.dark.value = brightnessIndex;
             parsedColorOptionName.brightness.light.value = n;
@@ -174,9 +175,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
 
                 if (word === "main" || word === "sun" || word === "moon") {
                     /*
-					revArr=
-					["name2","name1"]
-					*/
+                    revArr=
+                    ["name2","name1"]
+                    */
 
                     parsedColorOptionName.brightness.light.variant = word;
 
@@ -189,9 +190,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
                 }
 
                 /*
-				revArr=
-				["name1"]
-				*/
+                revArr=
+                ["name1"]
+                */
 
                 parsedColorOptionName.colorName = [...rest.reverse(), word]
                     .map((word, i) => (i === 0 ? word : capitalize(word)))
@@ -203,11 +204,11 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
 
         if (word === "main" || word === "sun" || word === "moon") {
             /*
-			revArr=
-			["name2","name1"]
-			["111","name2","name1"]
-			["111","sun","name2","name1"]
-			*/
+            revArr=
+            ["name2","name1"]
+            ["111","name2","name1"]
+            ["111","sun","name2","name1"]
+            */
 
             const variant: Variant = word;
 
@@ -220,10 +221,10 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
 
                 if (!isNaN(n)) {
                     /*
-					revArr=
-					["name2","name1"]
-					["sun","name2","name1"]
-					*/
+                    revArr=
+                    ["name2","name1"]
+                    ["sun","name2","name1"]
+                    */
 
                     parsedColorOptionName.brightness.dark.value = brightnessIndex;
                     parsedColorOptionName.brightness.dark.variant = variant;
@@ -236,9 +237,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
 
                         if (word === "main" || word === "sun" || word === "moon") {
                             /*
-							revArr=
-							["name2","name1"]
-							*/
+                            revArr=
+                            ["name2","name1"]
+                            */
 
                             parsedColorOptionName.brightness.light.variant = word;
 
@@ -251,9 +252,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
                         }
 
                         /*
-						revArr=
-						["name1"]
-						*/
+                        revArr=
+                        ["name1"]
+                        */
 
                         parsedColorOptionName.colorName = [...rest.reverse(), word]
                             .map((word, i) => (i === 0 ? word : capitalize(word)))
@@ -264,9 +265,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
                 }
 
                 /*
-				revArr=
-				["name1"]
-				*/
+                revArr=
+                ["name1"]
+                */
 
                 parsedColorOptionName.brightness.light.variant = variant;
                 parsedColorOptionName.brightness.light.value = brightnessIndex;
@@ -280,9 +281,9 @@ export function parseColorOptionName(colorOptionName: `--${string}`): ParsedColo
         }
 
         /*
-		revArr=
-		["name1"]
-		*/
+        revArr=
+        ["name1"]
+        */
 
         parsedColorOptionName.brightness.light.value = brightnessIndex;
 
@@ -326,8 +327,10 @@ export type ColorOption = {
           };
 };
 
-export function parseColorOptions(rawCssCode: string): ColorOption[] {
-    const parsedCss = css.parse(rawCssCode);
+export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => {
+    const parsedCss = parseCss(rawCssCode);
+
+    const { getCssVariable } = createGetCssVariable(rawCssCode);
 
     const { declarations } = (() => {
         const node = parsedCss.stylesheet?.rules.find(
@@ -341,56 +344,50 @@ export function parseColorOptions(rawCssCode: string): ColorOption[] {
         return { declarations };
     })();
 
-    const { declarationsDark } = (() => {
-        const node = parsedCss.stylesheet?.rules.find(
-            rule =>
-                rule.type === "rule" &&
-                (rule as any).selectors?.[0] === `:root:where([${data_fr_theme}="dark"])`
-        );
-
-        assert(node !== undefined);
-
-        const { declarations: declarationsDark } = node as any;
-
-        return { declarationsDark };
-    })();
+    const htmlColorRegexp = /^#[0-9a-f]{3,6}$/;
 
     return declarations
-        .map(({ property: colorName, value: color }: any) => {
-            const htmlColorRegexp = /^#[0-9a-f]{3,6}$/;
+        .map(({ property }: any) => {
+            console.log({ property });
 
-            if (!htmlColorRegexp.test(color)) {
+            const cssVariableValue = getCssVariable(property);
+
+            console.log({ cssVariableValue });
+
+            const colorLight = cssVariableValue.root.light;
+
+            if (!htmlColorRegexp.test(colorLight)) {
                 return undefined;
             }
 
-            const parsedName = parseColorOptionName(colorName);
-
-            const colorDark = declarationsDark.find(
-                ({ property }: any) => property === colorName
-            )?.value;
+            const colorDark = cssVariableValue.root.dark;
 
             assert(typeof colorDark === "string");
             assert(htmlColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
 
+            const parsedName = parseColorOptionName(property);
+
             if (parsedName.brightness.isInvariant) {
-                assert(color === colorDark);
+                assert(colorLight === colorDark);
             }
 
             return {
-                "colorOptionName": colorName,
+                "colorOptionName": property,
                 "themePath": getThemePath(parsedName),
                 "color": parsedName.brightness.isInvariant
-                    ? color
+                    ? colorLight
                     : {
-                          "light": color,
+                          "light": colorLight,
                           "dark": colorDark
                       }
             };
         })
         .filter(exclude(undefined));
-}
+});
 
-export function generateGetColorOptionsTsCode(colorOptions: ColorOption[]) {
+export function generateGetColorOptionsTsCode(rawCssCode: string) {
+    const colorOptions = parseColorOptions(rawCssCode);
+
     const obj: any = {};
 
     const keyValues: Record<string, string> = {};

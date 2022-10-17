@@ -1,7 +1,8 @@
 import { parseBreakpointsValues } from "../../../bin/css_to_ts/breakpoints";
-import type { BreakpointsValues } from "../../../bin/css_to_ts/breakpoints";
+import type { BreakpointsValues, MediaQueryByBreakpoint } from "../../../bin/css_to_ts/breakpoints";
 import { assert } from "tsafe/assert";
 import { same } from "evt/tools/inDepth/same";
+import { id } from "tsafe";
 
 console.log(`Running test ${__filename}`);
 
@@ -44,12 +45,20 @@ const input = `
 }
 `;
 
-const expected: BreakpointsValues = {
-    "unit": "em",
-    "sm": 36,
-    "md": 48,
-    "lg": 62,
-    "xl": 78
+const expected = {
+    "breakpointsValues": id<BreakpointsValues>({
+        "unit": "em",
+        "sm": 36,
+        "md": 48,
+        "lg": 62,
+        "xl": 78
+    }),
+    "mediaQueryByBreakpoint": id<MediaQueryByBreakpoint>({
+        "sm": "(min-width: 36em)",
+        "md": "(min-width: 48em)",
+        "lg": "(min-width: 62em)",
+        "xl": "(min-width: 78em)"
+    })
 };
 
 const got = parseBreakpointsValues(input);

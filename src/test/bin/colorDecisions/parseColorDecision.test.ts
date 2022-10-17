@@ -7,24 +7,37 @@ console.log(`Running test ${__filename}`);
 
 const rawCssCode = `
 :root {
+  --grey-1000-50-hover: #FFFFFF;
+  --grey-1000-50: #FFFFFF;
+  --orange-terre-battue-850-200: #FFFFFF;
+  --grey-975-100-hover: #FFFFFF;
+  --grey-950-150: #FFFFFF;
+
   --background-default-grey-hover: var(--grey-1000-50-hover);
   --background-default-grey: var(--grey-1000-50);
   --border-action-low-orange-terre-battue: var(--orange-terre-battue-850-200);
   --background-alt-raised-grey-hover: var(--grey-975-100-hover);
   --background-contrast-overlap-grey: var(--grey-950-150);
 }
+
+:root:where([data-fr-theme="dark"]) {
+  --grey-1000-50-hover: #000000;
+  --grey-1000-50: #000000;
+  --orange-terre-battue-850-200: #000000;
+  --grey-975-100-hover: #000000;
+  --grey-950-150: #000000;
+}
+
+@media (min-width: 36em) { }
+
+@media (min-width: 48em) { }
+
+@media (min-width: 78em) { }
+
+@media (min-width: 62em) { }
 `;
 
-const got = parseColorDecision({
-    "colorOptionNames": [
-        "--grey-1000-50-hover",
-        "--grey-1000-50",
-        "--orange-terre-battue-850-200",
-        "--grey-975-100-hover",
-        "--grey-950-150"
-    ],
-    rawCssCode
-});
+const got = parseColorDecision(rawCssCode);
 
 const expected: ColorDecision[] = [
     {

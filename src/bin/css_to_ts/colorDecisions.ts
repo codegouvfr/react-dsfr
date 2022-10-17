@@ -1,9 +1,9 @@
 import type { State } from "./colorOptions";
-import { states } from "./colorOptions";
+import { states, parseColorOptions } from "./colorOptions";
 import { id } from "tsafe/id";
 import { assert } from "tsafe/assert";
 import { capitalize } from "tsafe/capitalize";
-import css from "css";
+import { parseCss } from "./parseCss";
 import { exclude } from "tsafe/exclude";
 import { is } from "tsafe/is";
 import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";
@@ -26,14 +26,15 @@ export type ParsedColorDecisionName = {
     state: State | undefined;
 };
 
-export function createParseColorDecisionName(params: {
+export function createParseColorDecisionName(rawCssCode: string) {
     /** Like [ "grey", "blueFrance", ... ]
      * All the the color name in camel case that we deduce from Options
      * it help parsing without making assumption on what is a valid Usage
      */
-    colorNames: string[];
-}) {
-    const { colorNames } = params;
+    const colorNames = parseColorOptions(rawCssCode)
+        .map(({ colorOptionName }) => colorOptionName)
+        .map(parseColorOptionName)
+        .map(o => o.colorName);
 
     function parseColorDecisionName(colorDecisionName: `--${string}`): ParsedColorDecisionName {
         /*
@@ -159,18 +160,14 @@ export type ColorDecision = {
     optionThemePath: string[];
 };
 
-export function parseColorDecision(params: {
-    /** ["--grey-1000-50-hover", "--grey-1000-50", ... ] */
-    colorOptionNames: `--${string}`[];
-    rawCssCode: string;
-}): ColorDecision[] {
-    const { colorOptionNames, rawCssCode } = params;
+export function parseColorDecision(rawCssCode: string): ColorDecision[] {
+    const { parseColorDecisionName } = createParseColorDecisionName(rawCssCode);
 
-    const colorNames = colorOptionNames.map(parseColorOptionName).map(o => o.colorName);
+    const parsedCss = parseCss(rawCssCode);
 
-    const { parseColorDecisionName } = createParseColorDecisionName({ colorNames });
-
-    const parsedCss = css.parse(rawCssCode);
+    const colorOptionNames = parseColorOptions(rawCssCode).map(
+        ({ colorOptionName }) => colorOptionName
+    );
 
     const { declarations } = (() => {
         const node = parsedCss.stylesheet?.rules.find(
@@ -210,12 +207,12 @@ export function parseColorDecision(params: {
         .filter(exclude(undefined));
 }
 
-export function generateGetColorDecisionsTsCode(colorDecisions: ColorDecision[]): string {
+export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
     const obj: any = {};
 
     const keyValues: Record<string, string> = {};
 
-    colorDecisions.forEach(colorDecision => {
+    parseColorDecision(rawCssCode).forEach(colorDecision => {
         const value = (() => {
             const hash = crypto
                 .createHash("sha256")

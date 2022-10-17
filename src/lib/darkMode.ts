@@ -1,4 +1,8 @@
-import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
+import {
+    createStatefulObservable,
+    useRerenderOnChange,
+    statefulObservableBidirectionalMap
+} from "./tools/StatefulObservable";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
 import { isBrowser } from "./tools/isBrowser";
@@ -37,29 +41,6 @@ const useColorSchemeServerSide: UseColorScheme = () => {
 };
 
 export const useColorScheme = isBrowser ? useColorSchemeClientSide : useColorSchemeServerSide;
-
-//NOTE: Just because it's more convenient to have a boolean than "light" | "dark"
-export function useIsDark() {
-    const { colorScheme, setColorScheme } = useColorScheme();
-
-    const setIsDark = useConstCallback((isDark: boolean | "system") =>
-        setColorScheme(typeof isDark !== "boolean" ? isDark : isDark ? "dark" : "light")
-    );
-
-    const isDark = (() => {
-        switch (colorScheme) {
-            case "dark":
-                return true;
-            case "light":
-                return false;
-        }
-    })();
-
-    return {
-        isDark,
-        setIsDark
-    };
-}
 
 function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
     if (!isBrowser) {
@@ -140,4 +121,41 @@ export function startObservingColorSchemeHtmlAttribute() {
 
         $colorScheme.subscribe(setRootColorScheme);
     }
+}
+
+//NOTE: Just because it's more convenient to have a boolean than "light" | "dark"
+
+export const $isDark = statefulObservableBidirectionalMap({
+    "statefulObservable": $colorScheme,
+    "trInToOut": colorScheme => {
+        switch (colorScheme) {
+            case "light":
+                return false;
+            case "dark":
+                return true;
+        }
+    },
+    "trOutToIn": isDark => (isDark ? "dark" : "light")
+});
+
+export function useIsDark() {
+    const { colorScheme, setColorScheme } = useColorScheme();
+
+    const setIsDark = useConstCallback((isDark: boolean | "system") =>
+        setColorScheme(typeof isDark !== "boolean" ? isDark : isDark ? "dark" : "light")
+    );
+
+    const isDark = (() => {
+        switch (colorScheme) {
+            case "dark":
+                return true;
+            case "light":
+                return false;
+        }
+    })();
+
+    return {
+        isDark,
+        setIsDark
+    };
 }

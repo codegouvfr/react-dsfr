@@ -1,6 +1,6 @@
-import { generateGetColorOptionsTsCode, parseColorOptions } from "./colorOptions";
-import { generateGetColorDecisionsTsCode, parseColorDecision } from "./colorDecisions";
-import { parseBreakpointsValues, generateBreakpointsTsCode } from "./breakpoints";
+import { generateBreakpointsTsCode } from "./breakpoints";
+import { generateGetColorDecisionsTsCode } from "./colorDecisions";
+import { generateGetColorOptionsTsCode } from "./colorOptions";
 import { getProjectRoot } from "../tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
@@ -22,15 +22,13 @@ const warningMessage = [
 
 const targetOptionFilePath = pathJoin(generatedDirPath, "getColorOptions.ts");
 
-const colorOptions = parseColorOptions(rawCssCode);
-
 fs.writeFileSync(
     targetOptionFilePath,
     Buffer.from(
         [
             warningMessage,
             ``,
-            generateGetColorOptionsTsCode(colorOptions),
+            generateGetColorOptionsTsCode(rawCssCode),
             ``,
             `export type ColorOptions = ReturnType<typeof getColorOptions>;`,
             ``
@@ -39,10 +37,8 @@ fs.writeFileSync(
     )
 );
 
-const targetDecisionFilePath = pathJoin(generatedDirPath, "getColorDecisions.ts");
-
 fs.writeFileSync(
-    targetDecisionFilePath,
+    pathJoin(generatedDirPath, "getColorDecisions.ts"),
     Buffer.from(
         [
             warningMessage,
@@ -51,12 +47,7 @@ fs.writeFileSync(
                 ""
             )}";`,
             ``,
-            generateGetColorDecisionsTsCode(
-                parseColorDecision({
-                    "colorOptionNames": colorOptions.map(({ colorOptionName }) => colorOptionName),
-                    rawCssCode
-                })
-            ),
+            generateGetColorDecisionsTsCode(rawCssCode),
             ``,
             `export type ColorDecisions = ReturnType<typeof getColorDecisions>;`,
             ``
@@ -65,14 +56,7 @@ fs.writeFileSync(
     )
 );
 
-const targetBreakpointsFilePath = pathJoin(generatedDirPath, "breakpoints.ts");
-
 fs.writeFileSync(
-    targetBreakpointsFilePath,
-    Buffer.from(
-        [warningMessage, ``, generateBreakpointsTsCode(parseBreakpointsValues(rawCssCode))].join(
-            "\n"
-        ),
-        "utf8"
-    )
+    pathJoin(generatedDirPath, "breakpoints.ts"),
+    Buffer.from([warningMessage, ``, generateBreakpointsTsCode(rawCssCode)].join("\n"), "utf8")
 );
