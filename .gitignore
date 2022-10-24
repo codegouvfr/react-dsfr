@@ -46,3 +46,9 @@ jspm_packages
 /dist_test
 /src/lib/generatedFromCss/
 
+
+# tmp!
+/typo.css
+/typography.ts
+/view.json
+

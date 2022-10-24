@@ -65,9 +65,6 @@ assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();
 
 const got = generateBreakpointsTsCode(input);
 
-console.log(JSON.stringify(got));
-console.log(JSON.stringify(expected));
-
 assert(got === expected);
 
 console.log("PASS");

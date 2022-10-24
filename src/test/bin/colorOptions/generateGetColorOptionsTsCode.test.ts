@@ -48,6 +48,11 @@ const input = `
   --name1-name2-sun-111-hover: #000003;
   --blue-france-main-525: #00000f;
 }
+
+@media (min-width: 36em) { }
+@media (min-width: 48em) { }
+@media (min-width: 78em) { }
+@media (min-width: 62em) { }
 `;
 
 const expected = `

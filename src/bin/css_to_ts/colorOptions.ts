@@ -7,6 +7,7 @@ import { multiReplace } from "../tools/multiReplace";
 import { createGetCssVariable } from "./cssVariable";
 import memoize from "memoizee";
 import * as crypto from "crypto";
+import { cssColorRegexp } from "../tools/cssColorRegexp";
 
 export type ColorScheme = "light" | "dark";
 
@@ -344,26 +345,17 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
         return { declarations };
     })();
 
-    const htmlColorRegexp = /^#[0-9a-f]{3,6}$/;
-
     return declarations
+        .filter(({ value }: any) => cssColorRegexp.test(value))
         .map(({ property }: any) => {
-            console.log({ property });
-
             const cssVariableValue = getCssVariable(property);
 
-            console.log({ cssVariableValue });
-
             const colorLight = cssVariableValue.root.light;
-
-            if (!htmlColorRegexp.test(colorLight)) {
-                return undefined;
-            }
 
             const colorDark = cssVariableValue.root.dark;
 
             assert(typeof colorDark === "string");
-            assert(htmlColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
+            assert(cssColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
 
             const parsedName = parseColorOptionName(property);
 

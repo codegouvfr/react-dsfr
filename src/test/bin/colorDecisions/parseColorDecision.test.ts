@@ -7,11 +7,11 @@ console.log(`Running test ${__filename}`);
 
 const rawCssCode = `
 :root {
-  --grey-1000-50-hover: #FFFFFF;
-  --grey-1000-50: #FFFFFF;
-  --orange-terre-battue-850-200: #FFFFFF;
-  --grey-975-100-hover: #FFFFFF;
-  --grey-950-150: #FFFFFF;
+  --grey-1000-50-hover: #ffffff;
+  --grey-1000-50: #ffffff;
+  --orange-terre-battue-850-200: #ffffff;
+  --grey-975-100-hover: #ffffff;
+  --grey-950-150: #ffffff;
 
   --background-default-grey-hover: var(--grey-1000-50-hover);
   --background-default-grey: var(--grey-1000-50);

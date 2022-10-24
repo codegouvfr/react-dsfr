@@ -4,6 +4,11 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { exclude } from "tsafe/exclude";
 import memoize from "memoizee";
+import type { ColorScheme } from "./colorOptions";
+
+const orderedColorScheme = ["light", "dark"] as const;
+
+assert<Equals<typeof orderedColorScheme[number], ColorScheme>>();
 
 export type CssVariableValue = Record<
     "root" | keyof MediaQueryByBreakpoint,
@@ -28,7 +33,7 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
         orderedBreakpoints.forEach(breakpoint => {
             const rules = rulesByBreakpoint[breakpoint];
 
-            (["light", "dark"] as const).forEach(colorScheme => {
+            orderedColorScheme.forEach(colorScheme => {
                 const [declaration] = rules
                     .filter(
                         (rule: any) =>
@@ -60,8 +65,6 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
                     );
                 }
 
-                //TODO: Fix! It's more complex than that!
-
                 const value = declaration?.value as string | undefined;
 
                 if (value === undefined) {
@@ -70,10 +73,26 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
 
                 const match = value.match(/^var\((--[^)]+)\)$/);
 
-                cssVariableValue[breakpoint][colorScheme] =
-                    match === null
-                        ? value
-                        : getCssVariable(match[1] as any)[breakpoint][colorScheme];
+                for (
+                    let i = orderedBreakpoints.indexOf(breakpoint);
+                    i < orderedBreakpoints.length;
+                    i++
+                ) {
+                    const breakpoint = orderedBreakpoints[i];
+
+                    for (
+                        let j = orderedColorScheme.indexOf(colorScheme);
+                        j < orderedColorScheme.length;
+                        j++
+                    ) {
+                        const colorScheme = orderedColorScheme[j];
+
+                        (cssVariableValue[breakpoint] ??= {} as any)[colorScheme] =
+                            match === null
+                                ? value
+                                : getCssVariable(match[1] as any)[breakpoint][colorScheme];
+                    }
+                }
             });
         });
 
