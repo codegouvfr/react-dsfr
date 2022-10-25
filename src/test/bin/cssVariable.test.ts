@@ -29,14 +29,14 @@ const rawCssCode = `
     }
 
 }
-
-@media (min-width: 78em) { 
+@media (min-width: 62em) { 
     :root {
         --my-var-3: #000001;
     }
 }
 
-@media (min-width: 62em) { }
+@media (min-width: 78em) { }
+
 `;
 
 const { getCssVariable } = createGetCssVariable(rawCssCode);

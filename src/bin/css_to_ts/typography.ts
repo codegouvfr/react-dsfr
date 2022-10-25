@@ -1,12 +1,7 @@
 import { getRulesByBreakpoint, parseBreakpointsValues } from "./breakpoints";
-import {
-    createGetCssVariable,
-    isInvariantAcrossScreenSizes,
-    isInvariantAcrossTheme
-} from "./cssVariable";
 import { objectKeys } from "tsafe/objectKeys";
+import { capitalize } from "tsafe/capitalize";
 import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
 
 // Object that represent a set of CSS rules, see https://www.npmjs.com/package/csstype
 // It's the argument of the `css()` function of @emotion/css.
@@ -24,8 +19,6 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
 
     const { mediaQueryByBreakpoint } = parseBreakpointsValues(rawCssCode);
 
-    const { getCssVariable } = createGetCssVariable(rawCssCode);
-
     objectKeys(rulesByBreakpoint).forEach(breakpoint => {
         const mediaQuery = breakpoint === "root" ? undefined : mediaQueryByBreakpoint[breakpoint];
 
@@ -38,24 +31,35 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
 
             const style: CSSObject = {};
 
-            rule.declarations.forEach(
-                declaration =>
-                    (style[(declaration as any).property] = (() => {
-                        const value = declaration.value as string;
+            rule.declarations.forEach(declaration => {
+                const property: string = (declaration as any).property;
 
-                        int: {
-                            const n = parseInt(value.replace(/px$/, ""));
+                assert(
+                    !property.startsWith("--"),
+                    "We don't know how to deal with variables redefined specifically for typography"
+                );
 
-                            if (isNaN(n)) {
-                                break int;
-                            }
+                return (style[
+                    property
+                        .split("-")
+                        .map((word, i) => (i === 0 ? word : capitalize(word)))
+                        .join("")
+                ] = (() => {
+                    const value = declaration.value as string;
 
-                            return n;
+                    int: {
+                        const matchArr = value.match(/^([0-9]+(?:\.[0-9]+)?)(?:px)?$/);
+
+                        if (matchArr === null) {
+                            break int;
                         }
 
-                        return value;
-                    })())
-            );
+                        return Number.parseFloat(matchArr[1]);
+                    }
+
+                    return value;
+                })());
+            });
 
             matchedSelectors.forEach(selector => {
                 const typographyVariant = typographyVariants.find(

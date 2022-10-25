@@ -30,9 +30,9 @@ const input = `
 
 @media (min-width: 48em) { }
 
-@media (min-width: 78em) { }
-
 @media (min-width: 62em) { }
+
+@media (min-width: 78em) { }
 `;
 
 const expected = `

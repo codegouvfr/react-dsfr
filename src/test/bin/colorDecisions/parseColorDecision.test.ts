@@ -32,9 +32,9 @@ const rawCssCode = `
 
 @media (min-width: 48em) { }
 
-@media (min-width: 78em) { }
-
 @media (min-width: 62em) { }
+
+@media (min-width: 78em) { }
 `;
 
 const got = parseColorDecision(rawCssCode);
