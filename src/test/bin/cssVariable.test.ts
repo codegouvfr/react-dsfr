@@ -31,7 +31,9 @@ const rawCssCode = `
 }
 
 @media (min-width: 78em) { 
-	--my-var-3: #000001;
+    :root {
+        --my-var-3: #000001;
+    }
 }
 
 @media (min-width: 62em) { }
