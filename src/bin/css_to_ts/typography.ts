@@ -53,22 +53,7 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
                             return n;
                         }
 
-                        return value.replace(/var\((--[^)]+)\)/g, (...[, cssVariableName]) => {
-                            assert(is<`--${string}`>(cssVariableName));
-
-                            const cssVariableValue = getCssVariable(cssVariableName);
-
-                            assert(
-                                isInvariantAcrossTheme(cssVariableValue),
-                                "CSS variable for TypoGraphy that depends on the theme have been introduce, the alg need to be made a bit more sophisticated."
-                            );
-                            assert(
-                                isInvariantAcrossScreenSizes(cssVariableValue),
-                                "CSS variable for TypoGraphy that depends on screen width have been introduce, the alg need to be made a bit more sophisticated."
-                            );
-
-                            return cssVariableValue.root.light;
-                        });
+                        return value;
                     })())
             );
 
