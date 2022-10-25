@@ -5,6 +5,8 @@ import type { Equals } from "tsafe";
 import { exclude } from "tsafe/exclude";
 import memoize from "memoizee";
 import type { ColorScheme } from "./colorOptions";
+import { objectKeys } from "tsafe/objectKeys";
+import { same } from "evt/tools/inDepth/same";
 
 const orderedColorScheme = ["light", "dark"] as const;
 
@@ -101,3 +103,27 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
 
     return { getCssVariable };
 });
+
+export function isInvariantAcrossTheme(cssVariableValue: CssVariableValue): boolean {
+    for (const breakpoint of objectKeys(cssVariableValue)) {
+        const { light, dark } = cssVariableValue[breakpoint];
+
+        if (light !== dark) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+export function isInvariantAcrossScreenSizes(cssVariableValue: CssVariableValue): boolean {
+    const lightAndDark = cssVariableValue["root"];
+
+    for (const breakpoint of objectKeys(cssVariableValue).filter(exclude("root"))) {
+        if (!same(lightAndDark, cssVariableValue[breakpoint])) {
+            return false;
+        }
+    }
+
+    return true;
+}

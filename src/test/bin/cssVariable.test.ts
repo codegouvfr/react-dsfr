@@ -1,4 +1,8 @@
-import { createGetCssVariable } from "../../bin/css_to_ts/cssVariable";
+import {
+    createGetCssVariable,
+    isInvariantAcrossTheme,
+    isInvariantAcrossScreenSizes
+} from "../../bin/css_to_ts/cssVariable";
 import type { CssVariableValue } from "../../bin/css_to_ts/cssVariable";
 import { same } from "evt/tools/inDepth";
 import { assert } from "tsafe/assert";
@@ -59,6 +63,9 @@ const { getCssVariable } = createGetCssVariable(rawCssCode);
         }
     };
 
+    assert(isInvariantAcrossScreenSizes(expected));
+    assert(isInvariantAcrossTheme(expected));
+
     const got = getCssVariable("--my-var");
 
     assert(same(got, expected));
@@ -87,6 +94,9 @@ const { getCssVariable } = createGetCssVariable(rawCssCode);
             "dark": "#000000"
         }
     };
+
+    assert(isInvariantAcrossScreenSizes(expected));
+    assert(!isInvariantAcrossTheme(expected));
 
     const got = getCssVariable("--my-var-2");
 
@@ -117,6 +127,9 @@ const { getCssVariable } = createGetCssVariable(rawCssCode);
         }
     };
 
+    assert(!isInvariantAcrossScreenSizes(expected));
+    assert(isInvariantAcrossTheme(expected));
+
     const got = getCssVariable("--my-var-3");
 
     assert(same(got, expected));
@@ -145,6 +158,9 @@ const { getCssVariable } = createGetCssVariable(rawCssCode);
             "dark": "#000000"
         }
     };
+
+    assert(!isInvariantAcrossScreenSizes(expected));
+    assert(!isInvariantAcrossTheme(expected));
 
     const got = getCssVariable("--my-var-4");
 

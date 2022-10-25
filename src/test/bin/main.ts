@@ -1,4 +1,5 @@
 import "./breakpoints";
 import "./colorDecisions";
 import "./colorOptions";
-//import "./typography";
+import "./cssVariable.test";
+import "./typography";

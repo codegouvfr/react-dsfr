@@ -1,6 +1,12 @@
 import { getRulesByBreakpoint, parseBreakpointsValues } from "./breakpoints";
-import { createGetCssVariable } from "./cssVariable";
+import {
+    createGetCssVariable,
+    isInvariantAcrossScreenSizes,
+    isInvariantAcrossTheme
+} from "./cssVariable";
 import { objectKeys } from "tsafe/objectKeys";
+import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
 
 // Object that represent a set of CSS rules, see https://www.npmjs.com/package/csstype
 // It's the argument of the `css()` function of @emotion/css.
@@ -20,8 +26,6 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
 
     const { getCssVariable } = createGetCssVariable(rawCssCode);
 
-    console.log("TODO use", getCssVariable);
-
     objectKeys(rulesByBreakpoint).forEach(breakpoint => {
         const mediaQuery = breakpoint === "root" ? undefined : mediaQueryByBreakpoint[breakpoint];
 
@@ -34,7 +38,39 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
 
             const style: CSSObject = {};
 
-            //TODO: fill up style
+            rule.declarations.forEach(
+                declaration =>
+                    (style[(declaration as any).property] = (() => {
+                        const value = declaration.value as string;
+
+                        int: {
+                            const n = parseInt(value);
+
+                            if (isNaN(n)) {
+                                break int;
+                            }
+
+                            return n;
+                        }
+
+                        return value.replace(/var\((--[^)]+)\)/g, (...[, cssVariableName]) => {
+                            assert(is<`--${string}`>(cssVariableName));
+
+                            const cssVariableValue = getCssVariable(cssVariableName);
+
+                            assert(
+                                isInvariantAcrossTheme(cssVariableValue),
+                                "CSS variable for TypoGraphy that depends on the theme have been introduce, the alg need to be made a bit more sophisticated."
+                            );
+                            assert(
+                                isInvariantAcrossScreenSizes(cssVariableValue),
+                                "CSS variable for TypoGraphy that depends on screen width have been introduce, the alg need to be made a bit more sophisticated."
+                            );
+
+                            return cssVariableValue.root.light;
+                        });
+                    })())
+            );
 
             matchedSelectors.forEach(selector => {
                 const typographyVariant = typographyVariants.find(

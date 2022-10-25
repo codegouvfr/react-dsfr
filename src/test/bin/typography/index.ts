@@ -1,2 +1,2 @@
-import "./parseTypographyVariants.test.ts";
-import "./generateTypographyTsCode.test.ts.disabled";
+import "./generateTypographyTsCode.test";
+import "./parseTypographyVariants.test";

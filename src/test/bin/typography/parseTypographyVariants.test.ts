@@ -347,6 +347,14 @@ sup {
   }
 
 }
+
+@media (min-width: 36em) { }
+
+
+@media (min-width: 78em) { }
+
+@media (min-width: 62em) { }
+
 `;
 
 const got = parseTypographyVariants(rawCssCode);
