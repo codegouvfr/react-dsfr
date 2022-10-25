@@ -44,7 +44,7 @@ export function parseTypographyVariants(rawCssCode: string): TypographyVariant[]
                         const value = declaration.value as string;
 
                         int: {
-                            const n = parseInt(value);
+                            const n = parseInt(value.replace(/px$/, ""));
 
                             if (isNaN(n)) {
                                 break int;
