@@ -2,6 +2,7 @@ import { generateBreakpointsTsCode } from "./breakpoints";
 import { generateGetColorDecisionsTsCode } from "./colorDecisions";
 import { generateGetColorOptionsTsCode } from "./colorOptions";
 import { getProjectRoot } from "../tools/getProjectRoot";
+import { generateTypographyTsCode } from "./typography";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
 
@@ -59,4 +60,9 @@ fs.writeFileSync(
 fs.writeFileSync(
     pathJoin(generatedDirPath, "breakpoints.ts"),
     Buffer.from([warningMessage, ``, generateBreakpointsTsCode(rawCssCode)].join("\n"), "utf8")
+);
+
+fs.writeFileSync(
+    pathJoin(generatedDirPath, "typography.ts"),
+    Buffer.from([warningMessage, ``, generateTypographyTsCode(rawCssCode)].join("\n"), "utf8")
 );

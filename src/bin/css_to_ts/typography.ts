@@ -106,8 +106,7 @@ function matchSelector(selector: string): boolean {
 }
 
 export function generateTypographyTsCode(rawCssCode: string): string {
-    const typographyVariants = parseBreakpointsValues(rawCssCode);
+    const typographyVariants = parseTypographyVariants(rawCssCode);
 
-    //TODO
-    return "const typography= " + JSON.stringify(typographyVariants, null, 2);
+    return `export const typography = ${JSON.stringify(typographyVariants, null, 4)} as const;`;
 }
