@@ -347,6 +347,7 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
 
     return declarations
         .filter(({ value }: any) => cssColorRegexp.test(value))
+        .filter(({ property }: any) => /-[0-9]+/.test(property))
         .map(({ property }: any) => {
             const cssVariableValue = getCssVariable(property);
 
