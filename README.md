@@ -119,7 +119,7 @@ This is optional, it enables to get rid of the white flashes on pages reload. &#
 ```tsx
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/lib/nextJs";
+import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/lib/next";
 
 const { 
   readColorSchemeFromCookie, 
