@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
 import { breakpointValues, breakpointValuesUnit } from "./generatedFromCss/breakpoints";
-import { createTheme as createMuiTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import type { Theme as MuiTheme } from "@mui/material/styles";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { getColorDecisions } from "./generatedFromCss/getColorDecisions";
 import { getColorOptions } from "./generatedFromCss/getColorOptions";
 import { useIsDark } from "./darkMode";
+import { typography } from "./generatedFromCss/typography";
 
-function createMuiDsfrThemeFromTheme(params: { isDark: boolean }): MuiTheme {
+function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
 
-    const muiTheme = createMuiTheme({
+    const muiTheme = createTheme({
         "shape": {
             "borderRadius": 0
         },
@@ -44,7 +46,23 @@ function createMuiDsfrThemeFromTheme(params: { isDark: boolean }): MuiTheme {
                 },
                 */
             } as const;
-        })()
+        })(),
+        "typography": {
+            "fontFamily": "Marianne",
+            "h1": typography.find(({ selector }) => selector === "h1")!.style,
+            "h2": typography.find(({ selector }) => selector === "h2")!.style,
+            "h3": typography.find(({ selector }) => selector === "h3")!.style,
+            "h4": typography.find(({ selector }) => selector === "h4")!.style,
+            "h5": typography.find(({ selector }) => selector === "h5")!.style,
+            "h6": typography.find(({ selector }) => selector === "h6")!.style,
+            //"subtitle1":
+            //"subtitle2":
+            "body1": typography.find(({ selector }) => selector === "p")!.style
+            //"body2": {},
+            //"caption": {},
+            //"button": {},
+            //"overline": {}
+        }
     });
 
     /*
@@ -99,7 +117,7 @@ export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
 
     const { isDark } = useIsDark();
 
-    const muiTheme = useMemo(() => createMuiDsfrThemeFromTheme({ isDark }), [isDark]);
+    const muiTheme = useMemo(() => createMuiDsfrTheme({ isDark }), [isDark]);
 
     return <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>;
 }

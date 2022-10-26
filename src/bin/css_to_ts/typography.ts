@@ -106,7 +106,17 @@ function matchSelector(selector: string): boolean {
 }
 
 export function generateTypographyTsCode(rawCssCode: string): string {
-    const typographyVariants = parseTypographyVariants(rawCssCode);
+    let typographyVariantsJson = JSON.stringify(parseTypographyVariants(rawCssCode), null, 4);
 
-    return `export const typography = ${JSON.stringify(typographyVariants, null, 4)} as const;`;
+    const { mediaQueryByBreakpoint } = parseBreakpointsValues(rawCssCode);
+
+    objectKeys(mediaQueryByBreakpoint).forEach(
+        bp =>
+            (typographyVariantsJson = typographyVariantsJson.replaceAll(
+                `"@media ${mediaQueryByBreakpoint[bp]}"`,
+                `[breakpoints.up("${bp}")]`
+            ))
+    );
+
+    return `export const typography = ${typographyVariantsJson} as const;`;
 }

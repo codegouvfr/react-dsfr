@@ -4,7 +4,7 @@
         "module": "CommonJS",
         "target": "ES5",
         "esModuleInterop": true,
-        "lib": ["es2015", "DOM", "ES2019.Object"],
+        "lib": ["DOM", "ES2021"],
         "outDir": "../../dist/bin",
         "rootDir": "."
     },

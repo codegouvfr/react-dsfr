@@ -363,7 +363,7 @@ export const typography = [
             "fontSize": "1.125rem",
             "lineHeight": "1.5rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "1.25rem",
                 "lineHeight": "1.75rem"
             }
@@ -376,7 +376,7 @@ export const typography = [
             "fontSize": "1.25rem",
             "lineHeight": "1.75rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "1.375rem",
                 "lineHeight": "1.75rem"
             }
@@ -389,7 +389,7 @@ export const typography = [
             "fontSize": "1.375rem",
             "lineHeight": "1.75rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "1.5rem",
                 "lineHeight": "2rem"
             }
@@ -402,7 +402,7 @@ export const typography = [
             "fontSize": "1.5rem",
             "lineHeight": "2rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "1.75rem",
                 "lineHeight": "2.25rem"
             }
@@ -415,7 +415,7 @@ export const typography = [
             "fontSize": "1.75rem",
             "lineHeight": "2.25rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "2rem",
                 "lineHeight": "2.5rem"
             }
@@ -428,7 +428,7 @@ export const typography = [
             "fontSize": "2rem",
             "lineHeight": "2.5rem",
             "margin": "var(--title-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "2.5rem",
                 "lineHeight": "3rem"
             }
@@ -473,7 +473,7 @@ export const typography = [
             "fontSize": "2.5rem !important",
             "lineHeight": "3rem !important",
             "margin": "var(--display-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "3rem !important",
                 "lineHeight": "3.5rem !important"
             }
@@ -486,7 +486,7 @@ export const typography = [
             "fontSize": "3rem !important",
             "lineHeight": "3.5rem !important",
             "margin": "var(--display-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "3.5rem !important",
                 "lineHeight": "4rem !important"
             }
@@ -499,7 +499,7 @@ export const typography = [
             "fontSize": "3.5rem !important",
             "lineHeight": "4rem !important",
             "margin": "var(--display-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "4rem !important",
                 "lineHeight": "4.5rem !important"
             }
@@ -512,7 +512,7 @@ export const typography = [
             "fontSize": "4rem !important",
             "lineHeight": "4.5rem !important",
             "margin": "var(--display-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "4.5rem !important",
                 "lineHeight": "5rem !important"
             }
@@ -525,7 +525,7 @@ export const typography = [
             "fontSize": "4.5rem !important",
             "lineHeight": "5rem !important",
             "margin": "var(--display-spacing)",
-            "@media (min-width: 48em)": {
+            [breakpoints.up("md")]: {
                 "fontSize": "5rem !important",
                 "lineHeight": "5.5rem !important"
             }

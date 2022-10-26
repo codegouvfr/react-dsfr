@@ -66,3 +66,17 @@ fs.writeFileSync(
     pathJoin(generatedDirPath, "typography.ts"),
     Buffer.from([warningMessage, ``, generateTypographyTsCode(rawCssCode)].join("\n"), "utf8")
 );
+
+fs.writeFileSync(
+    pathJoin(generatedDirPath, "typography.ts"),
+    Buffer.from(
+        [
+            warningMessage,
+            `import { breakpoints } from "../breakpoints";`,
+            ``,
+            generateTypographyTsCode(rawCssCode),
+            ``
+        ].join("\n"),
+        "utf8"
+    )
+);
