@@ -29,8 +29,12 @@ export default () =>
                 "value": "1.75rem"
             },
             {
-                "token": "7v",
-                "value": "1.75rem"
+                "token": "12v",
+                "value": "3rem"
+            },
+            {
+                "token": "6w",
+                "value": "3rem"
             }
         ];
 

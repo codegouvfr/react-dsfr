@@ -591,5 +591,3 @@ sup {
 
         expect(got).toStrictEqual(expected);
     });
-
-console.log("PASS");
