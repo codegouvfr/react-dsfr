@@ -101,7 +101,7 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 
 ```tsx
 import DefaultApp from "next/app";
-import { withAppDsfr } from "@codegouvfr/react-dsfr/lib/nextJs";
+import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 
 export default withAppDsfr(
@@ -119,7 +119,7 @@ This is optional, it enables to get rid of the white flashes on pages reload. &#
 ```tsx
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/lib/next";
+import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/next";
 
 const { 
   readColorSchemeFromCookie, 
@@ -269,7 +269,7 @@ Add the following code in the `<head />`&#x20;
 
 ```diff
  import DefaultApp from "next/app";
- import { withAppDsfr } from "@codegouvfr/react-dsfr/lib/nextJs";
+ import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
  import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
  
  export default withAppDsfr(
