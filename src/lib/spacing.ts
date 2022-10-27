@@ -11,7 +11,7 @@ const spacingTokenByValue = {
 
 type SpacingTokenByValue = typeof spacingTokenByValue;
 
-type SpacingToken = keyof SpacingTokenByValue;
+export type SpacingToken = keyof SpacingTokenByValue;
 
 export function spacing<T extends SpacingToken>(token: T): SpacingTokenByValue[T];
 export function spacing<

@@ -11,7 +11,7 @@ export type ColorTheme = {
     options: ColorOptions;
 };
 
-export function useColorTheme(): ColorTheme {
+export function useColors(): ColorTheme {
     const { isDark } = useIsDark();
 
     const options = useMemo(() => getColorOptions({ isDark }), [isDark]);
