@@ -2,9 +2,8 @@ import { describe, it, expect } from "vitest";
 import { createParseColorDecisionName } from "../../../../src/bin/css_to_ts/colorDecisions";
 import type { ParsedColorDecisionName } from "../../../../src/bin/css_to_ts/colorDecisions";
 
-export default () =>
-    describe("Color decision css variable correctly parsed", () => {
-        const rawCssCode = `
+describe("Color decision css variable correctly parsed", () => {
+    const rawCssCode = `
 :root {
   --grey-1000-50-hover: #ffffff;
   --grey-1000-50: #ffffff;
@@ -37,103 +36,103 @@ export default () =>
 @media (min-width: 78em) { }
 `;
 
-        const { parseColorDecisionName } = createParseColorDecisionName(rawCssCode);
+    const { parseColorDecisionName } = createParseColorDecisionName(rawCssCode);
 
-        it("test 1", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "default",
-                "variant": undefined,
-                "colorName": "grey",
-                "state": "hover"
-            };
+    it("test 1", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "default",
+            "variant": undefined,
+            "colorName": "grey",
+            "state": "hover"
+        };
 
-            const got = parseColorDecisionName("--background-default-grey-hover");
+        const got = parseColorDecisionName("--background-default-grey-hover");
 
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 2", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "default",
-                "variant": undefined,
-                "colorName": "grey",
-                "state": undefined
-            };
-
-            const got = parseColorDecisionName("--background-default-grey");
-
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 3", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "border",
-                "usage": "action",
-                "variant": "low",
-                "colorName": "orangeTerreBattue",
-                "state": undefined
-            };
-
-            const got = parseColorDecisionName("--border-action-low-orange-terre-battue");
-
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 4", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "altRaised",
-                "variant": undefined,
-                "colorName": "grey",
-                "state": "hover"
-            };
-
-            const got = parseColorDecisionName("--background-alt-raised-grey-hover");
-
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 5", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "contrastOverlap",
-                "variant": undefined,
-                "colorName": "grey",
-                "state": undefined
-            };
-
-            const got = parseColorDecisionName("--background-contrast-overlap-grey");
-
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 6", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "contrastOverlap",
-                "variant": undefined,
-                "colorName": "grey",
-                "state": undefined
-            };
-
-            const got = parseColorDecisionName("--background-contrast-overlap-grey");
-
-            expect(got).toStrictEqual(expected);
-        });
-
-        it("test 7", () => {
-            const expected: ParsedColorDecisionName = {
-                "context": "background",
-                "usage": "action",
-                "variant": "high",
-                "colorName": "blueFrance",
-                "state": undefined
-            };
-
-            const got = parseColorDecisionName("--background-action-high-blue-france");
-
-            expect(got).toStrictEqual(expected);
-        });
+        expect(got).toStrictEqual(expected);
     });
+
+    it("test 2", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "default",
+            "variant": undefined,
+            "colorName": "grey",
+            "state": undefined
+        };
+
+        const got = parseColorDecisionName("--background-default-grey");
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("test 3", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "border",
+            "usage": "action",
+            "variant": "low",
+            "colorName": "orangeTerreBattue",
+            "state": undefined
+        };
+
+        const got = parseColorDecisionName("--border-action-low-orange-terre-battue");
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("test 4", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "altRaised",
+            "variant": undefined,
+            "colorName": "grey",
+            "state": "hover"
+        };
+
+        const got = parseColorDecisionName("--background-alt-raised-grey-hover");
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("test 5", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "contrastOverlap",
+            "variant": undefined,
+            "colorName": "grey",
+            "state": undefined
+        };
+
+        const got = parseColorDecisionName("--background-contrast-overlap-grey");
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("test 6", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "contrastOverlap",
+            "variant": undefined,
+            "colorName": "grey",
+            "state": undefined
+        };
+
+        const got = parseColorDecisionName("--background-contrast-overlap-grey");
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("test 7", () => {
+        const expected: ParsedColorDecisionName = {
+            "context": "background",
+            "usage": "action",
+            "variant": "high",
+            "colorName": "blueFrance",
+            "state": undefined
+        };
+
+        const got = parseColorDecisionName("--background-action-high-blue-france");
+
+        expect(got).toStrictEqual(expected);
+    });
+});

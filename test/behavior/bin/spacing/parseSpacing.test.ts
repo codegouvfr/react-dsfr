@@ -2,9 +2,8 @@ import { it, expect } from "vitest";
 import { parseSpacing } from "../../../../src/bin/css_to_ts/spacing";
 import type { SpacingTokenAndValue } from "../../../../src/bin/css_to_ts/spacing";
 
-export default () =>
-    it("Parse spacing successfully", () => {
-        const input = `
+it("Parse spacing successfully", () => {
+    const input = `
 .fr-m-7v {
   margin: 1.75rem !important;
 }
@@ -23,22 +22,22 @@ export default () =>
 @media (min-width: 78em) { }
 `;
 
-        const expected: SpacingTokenAndValue[] = [
-            {
-                "token": "7v",
-                "value": "1.75rem"
-            },
-            {
-                "token": "12v",
-                "value": "3rem"
-            },
-            {
-                "token": "6w",
-                "value": "3rem"
-            }
-        ];
+    const expected: SpacingTokenAndValue[] = [
+        {
+            "token": "7v",
+            "value": "1.75rem"
+        },
+        {
+            "token": "12v",
+            "value": "3rem"
+        },
+        {
+            "token": "6w",
+            "value": "3rem"
+        }
+    ];
 
-        const got = parseSpacing(input);
+    const got = parseSpacing(input);
 
-        expect(got).toStrictEqual(expected);
-    });
+    expect(got).toStrictEqual(expected);
+});

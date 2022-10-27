@@ -1,9 +1,8 @@
 import { it, expect } from "vitest";
 import { generateGetColorOptionsTsCode } from "../../../../src/bin/css_to_ts/colorOptions";
 
-export default () =>
-    it("Generate the correct TS code for colors options", () => {
-        const input = `
+it("Generate the correct TS code for colors options", () => {
+    const input = `
 :root {
   --name1-name2-111: #000000;
   --name1-name2-111-hover: #000001;
@@ -55,7 +54,7 @@ export default () =>
 @media (min-width: 78em) { }
 `;
 
-        const expected = `
+    const expected = `
 export function getColorOptions(
     params: {
         isDark: boolean;
@@ -113,7 +112,7 @@ export function getColorOptions(
     } as const;
 }`.replace(/^\n/, "");
 
-        const got = generateGetColorOptionsTsCode(input);
+    const got = generateGetColorOptionsTsCode(input);
 
-        expect(got).toBe(expected);
-    });
+    expect(got).toBe(expected);
+});

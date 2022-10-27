@@ -1,9 +1,8 @@
 import { it, expect } from "vitest";
 import { generateGetColorDecisionsTsCode } from "../../../../src/bin/css_to_ts/colorDecisions";
 
-export default () =>
-    it("Generates the correct TS code for breakpoints", () => {
-        const input = `
+it("Generates the correct TS code for breakpoints", () => {
+    const input = `
 :root {
   --grey-1000-50-hover: #ffffff;
   --grey-1000-50: #ffffff;
@@ -35,7 +34,7 @@ export default () =>
 @media (min-width: 78em) { }
 `;
 
-        const expected = `
+    const expected = `
 export function getColorDecisions(
     params: {
         colorOptions: ColorOptions;
@@ -73,7 +72,7 @@ export function getColorDecisions(
     } as const;
 }`.replace(/^\n/, "");
 
-        const got = generateGetColorDecisionsTsCode(input);
+    const got = generateGetColorDecisionsTsCode(input);
 
-        expect(got).toBe(expected);
-    });
+    expect(got).toBe(expected);
+});

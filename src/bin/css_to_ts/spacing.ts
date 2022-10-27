@@ -97,9 +97,9 @@ export function generateSpacingTsCode(rawCssCode: string) {
             Object.fromEntries(spacingTokenAndValues.map(({ token, value }) => [token, value])),
             null,
             4
-        )};`,
+        )} as const;`,
         ``,
-        `type SpacingTokenByValue = typeof spacingTokenByValue;`,
+        `export type SpacingTokenByValue = typeof spacingTokenByValue;`,
         ``,
         `export type SpacingToken = keyof SpacingTokenByValue;`,
         ``

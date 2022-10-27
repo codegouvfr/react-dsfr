@@ -8,9 +8,8 @@ import type {
 //import { same } from "evt/tools/inDepth/same";
 import { id } from "tsafe";
 
-export default () =>
-    it("Parsing of breakpoint", () => {
-        const input = `
+it("Parsing of breakpoint", () => {
+    const input = `
 @media (min-width: 36em) {
   /*! media sm */
 
@@ -49,23 +48,23 @@ export default () =>
 }
 `;
 
-        const expected = {
-            "breakpointsValues": id<BreakpointsValues>({
-                "unit": "em",
-                "sm": 36,
-                "md": 48,
-                "lg": 62,
-                "xl": 78
-            }),
-            "mediaQueryByBreakpoint": id<MediaQueryByBreakpoint>({
-                "sm": "(min-width: 36em)",
-                "md": "(min-width: 48em)",
-                "lg": "(min-width: 62em)",
-                "xl": "(min-width: 78em)"
-            })
-        };
+    const expected = {
+        "breakpointsValues": id<BreakpointsValues>({
+            "unit": "em",
+            "sm": 36,
+            "md": 48,
+            "lg": 62,
+            "xl": 78
+        }),
+        "mediaQueryByBreakpoint": id<MediaQueryByBreakpoint>({
+            "sm": "(min-width: 36em)",
+            "md": "(min-width: 48em)",
+            "lg": "(min-width: 62em)",
+            "xl": "(min-width: 78em)"
+        })
+    };
 
-        const got = parseBreakpointsValues(input);
+    const got = parseBreakpointsValues(input);
 
-        expect(got).toStrictEqual(expected);
-    });
+    expect(got).toStrictEqual(expected);
+});

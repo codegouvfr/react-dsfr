@@ -1,9 +1,8 @@
 import { it, expect } from "vitest";
 import { generateTypographyTsCode } from "../../../../src/bin/css_to_ts/typography";
 
-export default () =>
-    it("Generates typography TS code", () => {
-        const rawCssCode = `
+it("Generates typography TS code", () => {
+    const rawCssCode = `
 :root {
     --title-spacing: 0 0 1.5rem;
     --text-spacing: 0 0 1.5rem;
@@ -354,7 +353,7 @@ sup {
 
 `;
 
-        const expected = `
+    const expected = `
 export const typography = [
     {
         "selector": "h6",
@@ -587,7 +586,7 @@ export const typography = [
     }
 ] as const;`.replace(/^\n/, "");
 
-        const got = generateTypographyTsCode(rawCssCode);
+    const got = generateTypographyTsCode(rawCssCode);
 
-        expect(got).toBe(expected);
-    });
+    expect(got).toBe(expected);
+});

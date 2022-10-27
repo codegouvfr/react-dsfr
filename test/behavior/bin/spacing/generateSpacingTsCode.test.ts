@@ -1,9 +1,8 @@
 import { it, expect } from "vitest";
 import { generateSpacingTsCode } from "../../../../src/bin/css_to_ts/spacing";
 
-export default () =>
-    it("Generates spacing TS code", () => {
-        const rawCssCode = `
+it("Generates spacing TS code", () => {
+    const rawCssCode = `
 .fr-m-7v {
   margin: 1.75rem !important;
 }
@@ -22,19 +21,19 @@ export default () =>
 @media (min-width: 78em) { }
 `.replace(/^\n/, "");
 
-        const got = generateSpacingTsCode(rawCssCode);
+    const got = generateSpacingTsCode(rawCssCode);
 
-        const expected = `
+    const expected = `
 export const spacingTokenByValue= {
     "7v": "1.75rem",
     "12v": "3rem",
     "6w": "3rem"
-};
+} as const;
 
-type SpacingTokenByValue = typeof spacingTokenByValue;
+export type SpacingTokenByValue = typeof spacingTokenByValue;
 
 export type SpacingToken = keyof SpacingTokenByValue;
 `.replace(/^\n/, "");
 
-        expect(got).toBe(expected);
-    });
+    expect(got).toBe(expected);
+});

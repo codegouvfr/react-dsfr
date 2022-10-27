@@ -4,6 +4,8 @@ import { capitalize } from "tsafe/capitalize";
 import { spacingTokenByValue } from "./generatedFromCss/spacing";
 import type { SpacingToken, SpacingTokenByValue } from "./generatedFromCss/spacing";
 
+export type { SpacingToken };
+
 export function spacing<T extends SpacingToken>(token: T): SpacingTokenByValue[T];
 export function spacing<
     Kind extends "padding" | "margin",

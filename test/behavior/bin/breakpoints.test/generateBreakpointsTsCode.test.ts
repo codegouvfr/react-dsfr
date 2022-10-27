@@ -1,9 +1,8 @@
 import { it, expect } from "vitest";
 import { generateBreakpointsTsCode } from "../../../../src/bin/css_to_ts/breakpoints";
 
-export default () =>
-    it("Generation of TS code for breakpoints", () => {
-        const input = `
+it("Generation of TS code for breakpoints", () => {
+    const input = `
 @media (min-width: 36em) {
   /*! media sm */
 
@@ -42,7 +41,7 @@ export default () =>
 }
 `;
 
-        const expected = `
+    const expected = `
 import { assert } from "tsafe/assert";
 import type { Extends } from "tsafe";
 
@@ -63,7 +62,7 @@ export const breakpointValues = {
 assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();
 `.replace(/^\n/, "");
 
-        const got = generateBreakpointsTsCode(input);
+    const got = generateBreakpointsTsCode(input);
 
-        expect(got).toBe(expected);
-    });
+    expect(got).toBe(expected);
+});

@@ -2,9 +2,8 @@ import { it, expect } from "vitest";
 import { parseColorDecision } from "../../../../src/bin/css_to_ts/colorDecisions";
 import type { ColorDecision } from "../../../../src/bin/css_to_ts/colorDecisions";
 
-export default () =>
-    it("Color decisions to be successfully parsed", () => {
-        const rawCssCode = `
+it("Color decisions to be successfully parsed", () => {
+    const rawCssCode = `
 :root {
   --grey-1000-50-hover: #ffffff;
   --grey-1000-50: #ffffff;
@@ -36,30 +35,30 @@ export default () =>
 @media (min-width: 78em) { }
 `;
 
-        const got = parseColorDecision(rawCssCode);
+    const got = parseColorDecision(rawCssCode);
 
-        const expected: ColorDecision[] = [
-            {
-                "themePath": ["background", "default", "grey", "hover"],
-                "optionThemePath": ["grey", "_1000_50", "hover"]
-            },
-            {
-                "themePath": ["background", "default", "grey", "default"],
-                "optionThemePath": ["grey", "_1000_50", "default"]
-            },
-            {
-                "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
-                "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
-            },
-            {
-                "themePath": ["background", "altRaised", "grey", "hover"],
-                "optionThemePath": ["grey", "_975_100", "hover"]
-            },
-            {
-                "themePath": ["background", "contrastOverlap", "grey", "default"],
-                "optionThemePath": ["grey", "_950_150", "default"]
-            }
-        ];
+    const expected: ColorDecision[] = [
+        {
+            "themePath": ["background", "default", "grey", "hover"],
+            "optionThemePath": ["grey", "_1000_50", "hover"]
+        },
+        {
+            "themePath": ["background", "default", "grey", "default"],
+            "optionThemePath": ["grey", "_1000_50", "default"]
+        },
+        {
+            "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
+            "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
+        },
+        {
+            "themePath": ["background", "altRaised", "grey", "hover"],
+            "optionThemePath": ["grey", "_975_100", "hover"]
+        },
+        {
+            "themePath": ["background", "contrastOverlap", "grey", "default"],
+            "optionThemePath": ["grey", "_950_150", "default"]
+        }
+    ];
 
-        expect(got).toStrictEqual(expected);
-    });
+    expect(got).toStrictEqual(expected);
+});
