@@ -48,6 +48,9 @@ export function createParseColorDecisionName(rawCssCode: string) {
 
         const parsedColorDecisionName: ParsedColorDecisionName = {} as any;
 
+        parsedColorDecisionName.variant = undefined;
+        parsedColorDecisionName.state = undefined;
+
         let arr = colorDecisionName.replace(/^--/, "").split("-");
 
         /*

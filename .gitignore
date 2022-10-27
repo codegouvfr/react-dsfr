@@ -43,12 +43,7 @@ jspm_packages
 /dist
 /.yarn_home
 /dsfr
-/dist_test
 /src/lib/generatedFromCss/
 
 
-# tmp!
-/typo.css
-/typography.ts
-/view.json
 

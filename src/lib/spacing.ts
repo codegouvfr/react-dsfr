@@ -82,7 +82,7 @@ export function spacing(
         >
     >
 ): any {
-    if (["padding", "margin"].indexOf(kindOrToken)) {
+    if (["padding", "margin"].indexOf(kindOrToken) >= 0) {
         const kind = kindOrToken as "padding" | "margin";
         assert(params !== undefined);
 

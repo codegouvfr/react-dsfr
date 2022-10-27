@@ -65,7 +65,24 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
         }
     });
 
-    /*
+    return muiTheme;
+}
+
+export type MuiDsfrThemeProviderProps = {
+    children: ReactNode;
+};
+
+export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
+    const { children } = props;
+
+    const { isDark } = useIsDark();
+
+    const muiTheme = useMemo(() => createMuiDsfrTheme({ isDark }), [isDark]);
+
+    return <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>;
+}
+
+/*
     const muiTheme = createMuiTheme({
         "shape": {
             "borderRadius": 0
@@ -104,20 +121,3 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
         },
     });
     */
-
-    return muiTheme;
-}
-
-export type MuiDsfrThemeProviderProps = {
-    children: ReactNode;
-};
-
-export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
-    const { children } = props;
-
-    const { isDark } = useIsDark();
-
-    const muiTheme = useMemo(() => createMuiDsfrTheme({ isDark }), [isDark]);
-
-    return <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>;
-}

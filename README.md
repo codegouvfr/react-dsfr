@@ -59,12 +59,14 @@ yarn start_cra  # For testing in in a Create React App setup
 yarn start_next # For testing in a Next.js setup
 yarn start_vite # For testing in a Vite setup
 
+# Run all unit test:
+yarn test
+# Run only test/behavior/cssVariable.test.ts (for example)
+npx vitest -t "Resolution of CSS variables"
+
 # Debugging while unit testing
 
-yarn build:test
-npx tsc -p src/test -w
-# Open a new terminal
-node dist_test/test/bin/main.js
+
 ```
 
 > When you want to import assets from the `./dsfr/` directory

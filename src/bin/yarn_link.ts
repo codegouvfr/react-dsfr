@@ -109,7 +109,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 const testAppNames = ["cra", "vite", "next"] as const;
 
 const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
-    pathJoin(projectDirPath, "src", "test", "frameworks", testAppName);
+    pathJoin(projectDirPath, "test", "frameworks", testAppName);
 
 testAppNames.forEach(testAppName =>
     execSync("yarn install", { "cwd": getTestAppPath(testAppName) })
