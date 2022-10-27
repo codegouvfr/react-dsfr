@@ -1,17 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { assert } from "tsafe/assert";
 import { capitalize } from "tsafe/capitalize";
-
-const spacingTokenByValue = {
-    "1v": "0.25rem",
-    "1w": "0.50rem",
-    "3v": "0.75rem",
-    "2w": "1rem"
-} as const;
-
-type SpacingTokenByValue = typeof spacingTokenByValue;
-
-export type SpacingToken = keyof SpacingTokenByValue;
+import { spacingTokenByValue } from "./generatedFromCss/spacing";
+import type { SpacingToken, SpacingTokenByValue } from "./generatedFromCss/spacing";
 
 export function spacing<T extends SpacingToken>(token: T): SpacingTokenByValue[T];
 export function spacing<

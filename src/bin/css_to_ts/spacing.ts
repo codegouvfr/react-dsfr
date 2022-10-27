@@ -88,3 +88,20 @@ export const parseSpacing = memoize((rawCssCode: string): SpacingTokenAndValue[]
 
     return spacingTokenAndValues;
 });
+
+export function generateSpacingTsCode(rawCssCode: string) {
+    const spacingTokenAndValues = parseSpacing(rawCssCode);
+
+    return [
+        `export const spacingTokenByValue= ${JSON.stringify(
+            Object.fromEntries(spacingTokenAndValues.map(({ token, value }) => [token, value])),
+            null,
+            4
+        )};`,
+        ``,
+        `type SpacingTokenByValue = typeof spacingTokenByValue;`,
+        ``,
+        `export type SpacingToken = keyof SpacingTokenByValue;`,
+        ``
+    ].join("\n");
+}
