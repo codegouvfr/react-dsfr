@@ -1,5 +1,5 @@
 import DefaultApp from "next/app";
-import { withAppDsfr } from "@codegouvfr/react-dsfr/lib/next";
+import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 
 export default withAppDsfr(DefaultApp, {
