@@ -9,6 +9,7 @@ import { getColorDecisions } from "./lib/generatedFromCss/getColorDecisions";
 import { getColorOptions } from "./lib/generatedFromCss/getColorOptions";
 import { useIsDark } from "./lib/darkMode";
 import { typography } from "./lib/generatedFromCss/typography";
+import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 
 function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
@@ -62,7 +63,21 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             //"caption": {},
             //"button": {},
             //"overline": {}
-        }
+        },
+        "spacing": (() => {
+            //NOTE: The properties are declared sorted in the object.
+            const values = Object.values(spacingTokenByValue);
+
+            return (abs: string | number) =>
+                typeof abs === "string"
+                    ? abs
+                    : abs === 0
+                    ? 0
+                    : (() => {
+                          const value = values[abs - 1];
+                          return value === undefined ? abs : value;
+                      })();
+        })()
     });
 
     return muiTheme;
