@@ -20,7 +20,7 @@ export function spacing<
     params: Params
 ): (Params extends { topBottom: SpacingToken | number }
     ? Record<
-          `${"top" | "bottom"}${Capitalize<Kind>}`,
+          `${Kind}${"Top" | "Bottom"}`,
           Params["topBottom"] extends SpacingToken
               ? SpacingTokenByValue[Params["topBottom"]]
               : Params["topBottom"]
@@ -28,7 +28,7 @@ export function spacing<
     : {}) &
     (Params extends { rightLeft: SpacingToken | number }
         ? Record<
-              `${"right" | "left"}${Capitalize<Kind>}`,
+              `${Kind}${"Right" | "Left"}`,
               Params["rightLeft"] extends SpacingToken
                   ? SpacingTokenByValue[Params["rightLeft"]]
                   : Params["rightLeft"]
@@ -36,7 +36,7 @@ export function spacing<
         : {}) &
     (Params extends { top: SpacingToken | number }
         ? Record<
-              `top${Capitalize<Kind>}`,
+              `${Kind}Top`,
               Params["top"] extends SpacingToken
                   ? SpacingTokenByValue[Params["top"]]
                   : Params["top"]
@@ -44,7 +44,7 @@ export function spacing<
         : {}) &
     (Params extends { right: SpacingToken | number }
         ? Record<
-              `right${Capitalize<Kind>}`,
+              `${Kind}Right`,
               Params["right"] extends SpacingToken
                   ? SpacingTokenByValue[Params["right"]]
                   : Params["right"]
@@ -52,7 +52,7 @@ export function spacing<
         : {}) &
     (Params extends { bottom: SpacingToken | number }
         ? Record<
-              `bottom${Capitalize<Kind>}`,
+              `${Kind}Bottom`,
               Params["bottom"] extends SpacingToken
                   ? SpacingTokenByValue[Params["bottom"]]
                   : Params["bottom"]
@@ -60,7 +60,7 @@ export function spacing<
         : {}) &
     (Params extends { left: SpacingToken | number }
         ? Record<
-              `left${Capitalize<Kind>}`,
+              `${Kind}Left`,
               Params["left"] extends SpacingToken
                   ? SpacingTokenByValue[Params["left"]]
                   : Params["left"]
