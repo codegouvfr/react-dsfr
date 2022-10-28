@@ -12,7 +12,7 @@ export const parseClassNames = memoize((rawCssCode: string): string[] => {
 
         rules.forEach(({ selectors }) => {
             selectors.forEach(selector => {
-                const matchArr = selector.match(/^(\.fr-[a-zA-Z0-9_-]+)/);
+                const matchArr = selector.match(/^\.(fr-[a-zA-Z0-9_-]+)/);
 
                 if (matchArr === null) {
                     return;

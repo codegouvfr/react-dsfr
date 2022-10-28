@@ -29,10 +29,10 @@ it("Generation of TS code for fr class names", () => {
 
     const expected = `
 export const frClassNames= [
-    ".fr-text--light",
-    ".fr-text--xl",
-    ".fr-text--lead",
-    ".fr-grid-row--gutters"
+    "fr-text--light",
+    "fr-text--xl",
+    "fr-text--lead",
+    "fr-grid-row--gutters"
 ] as const;
 
 export type FrClassName = typeof frClassNames[number];

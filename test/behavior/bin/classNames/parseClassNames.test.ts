@@ -27,7 +27,7 @@ it("Parsing of fr classnames", () => {
 
 `;
 
-    const expected = [".fr-text--light", ".fr-text--xl", ".fr-text--lead", ".fr-grid-row--gutters"];
+    const expected = ["fr-text--light", "fr-text--xl", "fr-text--lead", "fr-grid-row--gutters"];
 
     const got = parseClassNames(input);
 
