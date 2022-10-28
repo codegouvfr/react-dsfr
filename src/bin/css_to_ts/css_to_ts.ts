@@ -4,6 +4,7 @@ import { generateGetColorOptionsTsCode } from "./colorOptions";
 import { getProjectRoot } from "../tools/getProjectRoot";
 import { generateTypographyTsCode } from "./typography";
 import { generateSpacingTsCode } from "./spacing";
+import { generateClassNamesTsCode } from "./classNames";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
 
@@ -80,4 +81,9 @@ fs.writeFileSync(
 fs.writeFileSync(
     pathJoin(generatedDirPath, "spacing.ts"),
     Buffer.from([warningMessage, ``, generateSpacingTsCode(rawCssCode), ``].join("\n"), "utf8")
+);
+
+fs.writeFileSync(
+    pathJoin(generatedDirPath, "classNames.ts"),
+    Buffer.from([warningMessage, ``, generateClassNamesTsCode(rawCssCode), ``].join("\n"), "utf8")
 );
