@@ -102,10 +102,10 @@ export function spacing(
                           "bottom": topBottom
                       };
             })(),
-            ...(params.top === undefined ? undefined : { "top": params.top }),
-            ...(params.right === undefined ? undefined : { "right": params.right }),
-            ...(params.bottom === undefined ? undefined : { "bottom": params.bottom }),
-            ...(params.left === undefined ? undefined : { "left": params.left })
+            ...(params.top !== undefined && { "top": params.top }),
+            ...(params.right !== undefined && { "right": params.right }),
+            ...(params.bottom !== undefined && { "bottom": params.bottom }),
+            ...(params.left !== undefined && { "left": params.left })
         };
 
         (["top", "right", "bottom", "left"] as const).forEach(p => {
