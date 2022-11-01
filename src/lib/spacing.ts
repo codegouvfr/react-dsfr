@@ -85,22 +85,22 @@ export function spacing(
             ...(() => {
                 const { rightLeft } = params;
 
-                return rightLeft === undefined
-                    ? undefined
-                    : {
-                          "right": rightLeft,
-                          "left": rightLeft
-                      };
+                return (
+                    rightLeft !== undefined && {
+                        "right": rightLeft,
+                        "left": rightLeft
+                    }
+                );
             })(),
             ...(() => {
                 const { topBottom } = params;
 
-                return topBottom === undefined
-                    ? undefined
-                    : {
-                          "top": topBottom,
-                          "bottom": topBottom
-                      };
+                return (
+                    topBottom !== undefined && {
+                        "top": topBottom,
+                        "bottom": topBottom
+                    }
+                );
             })(),
             ...(params.top !== undefined && { "top": params.top }),
             ...(params.right !== undefined && { "right": params.right }),
