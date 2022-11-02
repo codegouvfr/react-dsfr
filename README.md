@@ -70,6 +70,10 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 {% endtab %}
 
 {% tab title="Next.js" %}
+{% hint style="success" %}
+`react-dsfr` supports Next 13 (and older version)
+{% endhint %}
+
 ```bash
 yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
 ```
@@ -211,7 +215,7 @@ The gist of it is, there is a few things that, for performance reasons, react-ds
 
 * Loading `@codegouvfr/react-dsfr/dsfr/dsfr.min.css` (as soon as possilbe)
 * Setting up the Favicon. &#x20;
-* Preloading the relevent font variant to avoid [FOUT](https://fonts.google.com/knowledge/glossary/fout).&#x20;
+* ~~Preloading the relevent font variant to avoid~~ [~~FOUT~~](https://fonts.google.com/knowledge/glossary/fout)~~.~~&#x20;
 
 Then, you must call `startDsfrReact()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
 
