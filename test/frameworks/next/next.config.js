@@ -1,4 +1,6 @@
-module.exports = {
+const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
+
+module.exports = withTM({
   reactStrictMode: true,
   webpack: config => {
 
@@ -8,5 +10,5 @@ module.exports = {
     });
 
     return config;
-  },
-}
+  }
+});
