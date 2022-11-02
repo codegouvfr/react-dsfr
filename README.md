@@ -71,7 +71,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 
 {% tab title="Next.js" %}
 {% hint style="success" %}
-`react-dsfr` supports Next 13 (and older version)
+`react-dsfr` supports Next 13 (and older versions)
 {% endhint %}
 
 ```bash
