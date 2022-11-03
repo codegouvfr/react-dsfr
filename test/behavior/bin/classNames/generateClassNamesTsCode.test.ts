@@ -50,7 +50,7 @@ export const riIconClassNames= [
 
 export type RiIconClassName = typeof riIconClassNames[number];
 
-export type FrClassName = FrCoreClassName | frIconClassNames | RiIconClassName;
+export type FrClassName = FrCoreClassName | FrIconClassName | RiIconClassName;
 `.replace(/^\n/, "");
 
     const got = generateClassNamesTsCode({
