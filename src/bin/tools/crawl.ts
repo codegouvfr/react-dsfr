@@ -32,7 +32,7 @@ async function crawlRec(params: {
                 );
             }
 
-            const filePath = fileOrDirectoryBasename;
+            const filePath = fileOrDirectoryPath;
 
             filePaths.push(filePath);
         })

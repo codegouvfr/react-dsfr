@@ -48,7 +48,7 @@ export function generateClassNamesTsCode(params: {
         ``,
         `export type RiIconClassName = typeof riIconClassNames[number];`,
         ``,
-        `export type FrClassName = FrCoreClassName | frIconClassNames | RiIconClassName;`,
+        `export type FrClassName = FrCoreClassName | FrIconClassName | RiIconClassName;`,
         ``
     ].join("\n");
 }
