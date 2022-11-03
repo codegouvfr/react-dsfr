@@ -6,84 +6,189 @@ import { generateTypographyTsCode } from "./typography";
 import { generateSpacingTsCode } from "./spacing";
 import { generateClassNamesTsCode } from "./classNames";
 import * as fs from "fs";
-import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
+import { readFile } from "fs/promises";
+import {
+    join as pathJoin,
+    basename as pathBasename,
+    relative as pathRelative,
+    dirname as pathDirname
+} from "path";
+import { crawl } from "../tools/crawl";
+import { id } from "tsafe/id";
 
-const projectRoot = getProjectRoot();
+export async function main() {
+    const projectRoot = getProjectRoot();
 
-const rawCssCode = fs.readFileSync(pathJoin(projectRoot, "dsfr", "dsfr.css")).toString("utf8");
+    const dsfrDistDirPath = pathJoin(projectRoot, "dsfr");
 
-const generatedDirPath = pathJoin(projectRoot, "src", "lib", "generatedFromCss");
+    const rawCssCode = fs.readFileSync(pathJoin(dsfrDistDirPath, "dsfr.css")).toString("utf8");
 
-fs.mkdirSync(generatedDirPath, { "recursive": true });
+    const generatedDirPath = pathJoin(projectRoot, "src", "lib", "generatedFromCss");
 
-const warningMessage = [
-    `// This file is generated automatically by ${pathRelative(
-        projectRoot,
-        __filename
-    )}, please don't edit.`
-].join("\n");
+    fs.mkdirSync(generatedDirPath, { "recursive": true });
 
-const targetOptionFilePath = pathJoin(generatedDirPath, "getColorOptions.ts");
+    const warningMessage = [
+        `// This file is generated automatically by ${pathRelative(
+            projectRoot,
+            __filename
+        )}, please don't edit.`
+    ].join("\n");
 
-fs.writeFileSync(
-    targetOptionFilePath,
-    Buffer.from(
-        [
-            warningMessage,
-            ``,
-            generateGetColorOptionsTsCode(rawCssCode),
-            ``,
-            `export type ColorOptions = ReturnType<typeof getColorOptions>;`,
-            ``
-        ].join("\n"),
-        "utf8"
-    )
-);
+    const targetOptionFilePath = pathJoin(generatedDirPath, "getColorOptions.ts");
 
-fs.writeFileSync(
-    pathJoin(generatedDirPath, "getColorDecisions.ts"),
-    Buffer.from(
-        [
-            warningMessage,
-            `import type { ColorOptions } from "./${pathBasename(targetOptionFilePath).replace(
-                /\.ts$/,
-                ""
-            )}";`,
-            ``,
-            generateGetColorDecisionsTsCode(rawCssCode),
-            ``,
-            `export type ColorDecisions = ReturnType<typeof getColorDecisions>;`,
-            ``
-        ].join("\n"),
-        "utf8"
-    )
-);
+    fs.writeFileSync(
+        targetOptionFilePath,
+        Buffer.from(
+            [
+                warningMessage,
+                ``,
+                generateGetColorOptionsTsCode(rawCssCode),
+                ``,
+                `export type ColorOptions = ReturnType<typeof getColorOptions>;`,
+                ``
+            ].join("\n"),
+            "utf8"
+        )
+    );
 
-fs.writeFileSync(
-    pathJoin(generatedDirPath, "breakpoints.ts"),
-    Buffer.from([warningMessage, ``, generateBreakpointsTsCode(rawCssCode)].join("\n"), "utf8")
-);
+    fs.writeFileSync(
+        pathJoin(generatedDirPath, "getColorDecisions.ts"),
+        Buffer.from(
+            [
+                warningMessage,
+                `import type { ColorOptions } from "./${pathBasename(targetOptionFilePath).replace(
+                    /\.ts$/,
+                    ""
+                )}";`,
+                ``,
+                generateGetColorDecisionsTsCode(rawCssCode),
+                ``,
+                `export type ColorDecisions = ReturnType<typeof getColorDecisions>;`,
+                ``
+            ].join("\n"),
+            "utf8"
+        )
+    );
 
-fs.writeFileSync(
-    pathJoin(generatedDirPath, "typography.ts"),
-    Buffer.from(
-        [
-            warningMessage,
-            `import { breakpoints } from "../breakpoints";`,
-            ``,
-            generateTypographyTsCode(rawCssCode),
-            ``
-        ].join("\n"),
-        "utf8"
-    )
-);
+    fs.writeFileSync(
+        pathJoin(generatedDirPath, "breakpoints.ts"),
+        Buffer.from([warningMessage, ``, generateBreakpointsTsCode(rawCssCode)].join("\n"), "utf8")
+    );
 
-fs.writeFileSync(
-    pathJoin(generatedDirPath, "spacing.ts"),
-    Buffer.from([warningMessage, ``, generateSpacingTsCode(rawCssCode), ``].join("\n"), "utf8")
-);
+    fs.writeFileSync(
+        pathJoin(generatedDirPath, "typography.ts"),
+        Buffer.from(
+            [
+                warningMessage,
+                `import { breakpoints } from "../breakpoints";`,
+                ``,
+                generateTypographyTsCode(rawCssCode),
+                ``
+            ].join("\n"),
+            "utf8"
+        )
+    );
 
-fs.writeFileSync(
-    pathJoin(generatedDirPath, "classNames.ts"),
-    Buffer.from([warningMessage, ``, generateClassNamesTsCode(rawCssCode), ``].join("\n"), "utf8")
-);
+    fs.writeFileSync(
+        pathJoin(generatedDirPath, "spacing.ts"),
+        Buffer.from([warningMessage, ``, generateSpacingTsCode(rawCssCode), ``].join("\n"), "utf8")
+    );
+
+    fs.writeFileSync(
+        pathJoin(generatedDirPath, "classNames.ts"),
+        Buffer.from(
+            [
+                warningMessage,
+                ``,
+                generateClassNamesTsCode({
+                    rawCssCode,
+
+                    ...(await (async () => {
+                        const icons = await collectIcons({
+                            dsfrDistDirPath,
+                            "remixiconDirPath": pathJoin(projectRoot, "node_modules", "remixicon")
+                        });
+
+                        return {
+                            "dsfrIconClassNames": icons
+                                .filter(({ prefix }) => prefix === "fr-icon-")
+                                .map(({ iconId, prefix }) => `${prefix}${iconId}`),
+                            "remixiconClassNames": icons
+                                .filter(({ prefix }) => prefix === "ri-")
+                                .map(({ iconId, prefix }) => `${prefix}${iconId}`)
+                        };
+                    })())
+                }),
+                ``
+            ].join("\n"),
+            "utf8"
+        )
+    );
+}
+
+export type Icon = Icon.Dsfr | Icon.Remixicon;
+
+export namespace Icon {
+    export type Common = {
+        iconId: string;
+    };
+
+    export type Dsfr = Common & {
+        prefix: "fr-icon-";
+        category: string;
+    };
+
+    export type Remixicon = Common & {
+        prefix: "ri-";
+        rawSvgCode: string;
+    };
+}
+
+export async function collectIcons(params: {
+    dsfrDistDirPath: string;
+    remixiconDirPath: string;
+}): Promise<Icon[]> {
+    const { dsfrDistDirPath, remixiconDirPath } = params;
+
+    return (
+        await Promise.all([
+            (async () => {
+                const iconDirPath = pathJoin(remixiconDirPath, "icons");
+
+                return Promise.all(
+                    (await crawl({ "dirPath": iconDirPath }))
+                        .filter(filePath => filePath.endsWith(".svg"))
+                        .map(async svgFilePath =>
+                            id<Icon.Remixicon>({
+                                "prefix": "ri-",
+                                "iconId": pathBasename(svgFilePath),
+                                "rawSvgCode": (
+                                    await readFile(pathJoin(iconDirPath, svgFilePath))
+                                ).toString("utf8")
+                            })
+                        )
+                );
+            })(),
+            (async () =>
+                (
+                    await crawl({
+                        "dirPath": pathJoin(dsfrDistDirPath, "icons"),
+                        "getDoCrawlInDir": ({ relativeDirPath }) =>
+                            pathBasename(relativeDirPath) !== "remixicon"
+                    })
+                )
+                    .filter(filePath => filePath.endsWith(".svg"))
+                    .map(svgFilePath =>
+                        id<Icon.Dsfr>({
+                            "prefix": "fr-icon-",
+                            "category": pathBasename(pathDirname(svgFilePath)),
+                            "iconId": pathBasename(svgFilePath)
+                        })
+                    ))()
+        ])
+    ).flat();
+}
+
+if (require.main === module) {
+    main();
+}

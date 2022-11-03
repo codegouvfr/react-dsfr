@@ -25,7 +25,8 @@
         "css_to_ts": "node dist/bin/css_to_ts"
     },
     "bin": {
-        "copy_dsfr_dist_to_public": "dist/bin/copy_dsfr_dist_to_public.js"
+        "copy_dsfr_dist_to_public": "dist/bin/copy_dsfr_dist_to_public.js",
+        "only_include_used_icons": "dist/bin/only_include_used_icons.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -69,6 +70,7 @@
     },
     "dependencies": {
         "@gouvfr/dsfr": "1.7.2",
+        "remixicon": "^2.5.0",
         "tsafe": "^1.1.1"
     },
     "devDependencies": {

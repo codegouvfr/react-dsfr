@@ -26,13 +26,29 @@ export const parseClassNames = memoize((rawCssCode: string): string[] => {
     return Array.from(classes);
 });
 
-export function generateClassNamesTsCode(rawCssCode: string): string {
+export function generateClassNamesTsCode(params: {
+    rawCssCode: string;
+    dsfrIconClassNames: string[];
+    remixiconClassNames: string[];
+}): string {
+    const { rawCssCode, dsfrIconClassNames, remixiconClassNames } = params;
+
     const classNames = parseClassNames(rawCssCode);
 
     return [
-        `export const frClassNames= ${JSON.stringify(classNames, null, 4)} as const;`,
+        `export const frCoreClassNames= ${JSON.stringify(classNames, null, 4)} as const;`,
         ``,
-        `export type FrClassName = typeof frClassNames[number];`,
+        `export type FrCoreClassName = typeof frCoreClassNames[number];`,
+        ``,
+        `export const frIconClassNames= ${JSON.stringify(dsfrIconClassNames, null, 4)} as const;`,
+        ``,
+        `export type FrIconClassName = typeof frIconClassNames[number];`,
+        ``,
+        `export const riIconClassNames= ${JSON.stringify(remixiconClassNames, null, 4)} as const;`,
+        ``,
+        `export type RiIconClassName = typeof riIconClassNames[number];`,
+        ``,
+        `export type FrClassName = FrCoreClassName | frIconClassNames | RiIconClassName;`,
         ``
     ].join("\n");
 }
