@@ -14,7 +14,7 @@ console.log("hello world");
 {% endtab %}
 
 {% tab title="Second Tab" %}
-bar baz
+bar baz ok ok ok
 
 <figure><img src=".gitbook/assets/catalog rotatoed 2.png" alt=""><figcaption><p>This is a caption</p></figcaption></figure>
 {% endtab %}
