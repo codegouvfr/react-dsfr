@@ -2,10 +2,10 @@
 
 {% tabs %}
 {% tab title="First Tab" %}
-foo
+foo bar baz
 {% endtab %}
 
 {% tab title="Second Tab" %}
-bar
+bar baz
 {% endtab %}
 {% endtabs %}
