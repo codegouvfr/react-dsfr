@@ -70,8 +70,7 @@
     "dependencies": {
         "@gouvfr/dsfr": "1.7.2",
         "remixicon": "^2.5.0",
-        "tsafe": "^1.1.1",
-        "css": "^3.0.0"
+        "tsafe": "^1.1.1"
     },
     "devDependencies": {
         "@emotion/react": "^11.10.4",

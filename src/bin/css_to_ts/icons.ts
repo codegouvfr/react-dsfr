@@ -1,16 +1,14 @@
-import memoize from "memoizee";
 import type { Icon } from "./css_to_ts";
-import { parseCss } from "./parseCss";
-import * as css from "css";
 import { exclude } from "tsafe/exclude";
+import { join as pathJoin } from "path";
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 
 export function generateIconsRawCssCode(params: {
     usedIcons: IconLike[];
-    rawCssCode: string;
+    patchedRawCssCodeForCompatWithRemixIcon: string;
 }): string {
-    const { usedIcons, rawCssCode } = params;
+    const { usedIcons, patchedRawCssCodeForCompatWithRemixIcon } = params;
 
     const buildRule = (icon: IconLike, isHighContrast: boolean) => {
         const { iconId, prefix } = icon;
@@ -52,17 +50,24 @@ export function generateIconsRawCssCode(params: {
                   `}`,
                   ``
               ]),
-        ...(usedIcons.find(({ prefix }) => prefix === "ri-") !== undefined
-            ? [
-                  `/* This is all the parts of dsfr.css related to icons with .fr-icon- replaced by .ri- so that we can use remixicon as dsfr icons*/`,
-                  getPatchedRawCssCodeForCompatWithRemixIcon(rawCssCode)
-              ]
-            : [])
+        ...(usedIcons.find(({ prefix }) => prefix === "ri-") === undefined
+            ? []
+            : [patchedRawCssCodeForCompatWithRemixIcon])
     ].join("\n");
 }
 
-export const getPatchedRawCssCodeForCompatWithRemixIcon = memoize((rawCssCode: string) => {
-    const parsedCss = parseCss(rawCssCode);
+export const pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = pathJoin(
+    "utility",
+    "icons",
+    "dsfr_remixicon.css"
+);
+
+export async function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCssCode: string }) {
+    const { rawCssCode } = params;
+
+    const css = await import("css");
+
+    const parsedCss = css.parse(rawCssCode);
 
     const prefixRegExp = /fr-icon-[^-]/;
 
@@ -103,4 +108,4 @@ export const getPatchedRawCssCodeForCompatWithRemixIcon = memoize((rawCssCode: s
         .filter(exclude(undefined));
 
     return css.stringify(parsedCss).replace(/fr-icon-/g, "ri-");
-});
+}

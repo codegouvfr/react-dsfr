@@ -2,13 +2,9 @@ import { it, expect } from "vitest";
 import { generateIconsRawCssCode } from "../../../../src/bin/css_to_ts/icons";
 
 it("Successfully css with only used icons", () => {
-    const rawCssCode = `
-[target=_blank]::after {
-  flex: 0 0 auto;
-}
-
-[target=_blank][class^=fr-icon-]::after,
-[target=_blank][class*=" fr-icon-"]::after,
+    const patchedRawCssCodeForCompatWithRemixIcon = `
+[target=_blank][class^=ri-]::after,
+[target=_blank][class*=" ri-"]::after,
 [target=_blank][class^=fr-fi-]::after,
 [target=_blank][class*=" fr-fi-"]::after {
   flex: 0 0 auto;
@@ -26,19 +22,14 @@ it("Successfully css with only used icons", () => {
   margin-left: 0.25rem;
 }
 
-.fr-icon--xs::before,
-.fr-icon--xs::after {
-  --icon-size: 0.75rem;
-}
-
-.fr-btns-group--sm .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
+.fr-btns-group--sm .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
   font-size: 0.875rem;
   line-height: 1.5rem;
   min-height: 2rem;
   padding: 0.25rem 0.75rem;
 }
 
-.fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
+.fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 2.5rem;
@@ -52,18 +43,8 @@ it("Successfully css with only used icons", () => {
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .fr-enlarge-link [href] {
-    text-decoration: none;
-  }
-
-  [href],
-  .fr-reset-link {
-    text-decoration: underline;
-  }
-
-
-  [class^=fr-icon-]::before,
-  [class*=" fr-icon-"]::before,
+  [class^=ri-]::before,
+  [class*=" ri-"]::before,
   [class^=fr-fi-]::before,
   [class*=" fr-fi-"]::before {
     background-color: transparent;
@@ -72,22 +53,7 @@ it("Successfully css with only used icons", () => {
     width: 1.5rem;
     height: 1.5rem;
   }
-
-  .fr-icon--xs::before {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-
-}
-
-@media (min-width: 36em) { }
-
-@media (min-width: 48em) { }
-
-@media (min-width: 62em) { }
-
-@media (min-width: 78em) { }
-`;
+}`.replace(/^\n/, "");
 
     const expected = `
 .fr-icon-ancient-gate-fill::before,
@@ -126,7 +92,6 @@ it("Successfully css with only used icons", () => {
     
 }
 
-/* This is all the parts of dsfr.css related to icons with .fr-icon- replaced by .ri- so that we can use remixicon as dsfr icons*/
 [target=_blank][class^=ri-]::after,
 [target=_blank][class*=" ri-"]::after,
 [target=_blank][class^=fr-fi-]::after,
@@ -180,7 +145,7 @@ it("Successfully css with only used icons", () => {
 }`.replace(/^\n/, "");
 
     const got = generateIconsRawCssCode({
-        rawCssCode,
+        patchedRawCssCodeForCompatWithRemixIcon,
         "usedIcons": [
             {
                 "prefix": "fr-icon-",

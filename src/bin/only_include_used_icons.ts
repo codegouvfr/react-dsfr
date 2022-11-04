@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 import { collectIcons } from "./css_to_ts";
-import { generateIconsRawCssCode } from "./css_to_ts/icons";
+import {
+    generateIconsRawCssCode,
+    pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist
+} from "./css_to_ts/icons";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin } from "path";
@@ -137,7 +140,14 @@ import type { Equals } from "tsafe";
 
     const rawIconCssCodeBuffer = Buffer.from(
         generateIconsRawCssCode({
-            "rawCssCode": fs.readFileSync(pathJoin(dsfrDistDirPath, "dsfr.css")).toString("utf8"),
+            "patchedRawCssCodeForCompatWithRemixIcon": fs
+                .readFileSync(
+                    pathJoin(
+                        dsfrDistDirPath,
+                        pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist
+                    )
+                )
+                .toString("utf8"),
             usedIcons
         }),
         "utf8"
