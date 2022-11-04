@@ -10,3 +10,4 @@
 * [📏 spacing](fr-utils/spacing.md)
 * [📲 breakpoints](fr-utils/breakpoints.md)
 * [💐 colors](fr-utils/colors.md)
+* [🌗 useIsDark](fr-utils/useisdark.md)
