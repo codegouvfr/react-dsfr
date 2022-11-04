@@ -42,3 +42,5 @@ Example: &#x20;
 <>
 ```
 
+The fr.cx() utility is also handy for autocompleting the icons that are supported: &#x20;
+
