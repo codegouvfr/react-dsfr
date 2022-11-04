@@ -59,9 +59,9 @@ yarn start_cra  # For testing in in a Create React App setup
 yarn start_next # For testing in a Next.js setup
 yarn start_vite # For testing in a Vite setup
 
-# Run all unit test:
+# Run all unit test (test/runtime):
 yarn test
-# Run only test/behavior/cssVariable.test.ts (for example)
+# Run only test/runtime/cssVariable.test.ts (for example)
 npx vitest -t "Resolution of CSS variables"
 
 # Debugging while unit testing
