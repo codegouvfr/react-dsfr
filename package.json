@@ -48,8 +48,7 @@
         "dist/",
         "!dist/tsconfig.tsbuildinfo",
         "!dist/bin/tsconfig.tsbuildinfo",
-        "dsfr/",
-        "!dist/bin/css_to_ts/"
+        "dsfr/"
     ],
     "keywords": [
         "dsfr",
