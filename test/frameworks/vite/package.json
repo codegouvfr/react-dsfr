@@ -8,8 +8,9 @@
         "build": "tsc && vite build",
         "preview": "vite preview",
         "copy_dsfr_dist_to_public": "node node_modules/@codegouvfr/react-dsfr/bin/copy_dsfr_dist_to_public.js",
-        "predev": "yarn copy_dsfr_dist_to_public",
-        "prebuild": "yarn copy_dsfr_dist_to_public"
+        "only_include_used_icons": "node node_modules/@codegouvfr/react-dsfr/bin/only_include_used_icons.js",
+        "predev": "yarn copy_dsfr_dist_to_public && yarn only_include_used_icons",
+        "prebuild": "yarn copy_dsfr_dist_to_public && yarn only_include_used_icons"
     },
     "dependencies": {
         "react": "18.2.0",
