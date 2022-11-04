@@ -66,10 +66,11 @@ import type { Equals } from "tsafe";
                     return true;
                 }
             })
-        ).filter(filePath =>
-            ["tsx", "jsx", "js", "ts", "html", "htm"].find(
-                ext => filePath.endsWith(`.${ext}`) !== undefined
-            )
+        ).filter(
+            filePath =>
+                ["tsx", "jsx", "js", "ts", "html", "htm"].find(ext =>
+                    filePath.endsWith(`.${ext}`)
+                ) !== undefined
         );
 
         const prefixes = { "prefixDsfr": "fr-icon-", "prefixRemixIcon": "ri-" } as const;
@@ -152,7 +153,7 @@ import type { Equals } from "tsafe";
     ].forEach(async dsfrDistDirPath => {
         const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
-        if (!fs.existsSync(dsfrDistDirPath)) {
+        if (!fs.existsSync(remixiconDirPath)) {
             fs.mkdirSync(remixiconDirPath);
         }
 
@@ -166,7 +167,7 @@ import type { Equals } from "tsafe";
                 )
             );
 
-        ["icons.css", "icon.min.css"].forEach(cssFileBasename =>
+        ["icons.css", "icons.min.css"].forEach(cssFileBasename =>
             writeFile(
                 pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename),
                 rawIconCssCodeBuffer
