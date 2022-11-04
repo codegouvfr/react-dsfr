@@ -15,7 +15,7 @@ export default function App() {
             <span className="fr-icon-ancient-gate-fill" aria-hidden="true"></span>
             <i className="fr-icon-ancient-gate-fill" aria-hidden="true"/>
 
-            <button className={fr.cx("fr-btn", "ri-amazon-fill", "fr-btn--icon-left")}>
+            <button className={fr.cx("fr-btn", "ri-24-hours-fill", "fr-btn--icon-left")}>
               Download
             </button>
 
