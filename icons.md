@@ -1,14 +1,6 @@
 # ✅ Icons
 
-{% hint style="success" %}
-No need to worry about importing the correct icons file.&#x20;
-
-It's done automatically for you.
-
-The `dsfr/utility/icons/icons.css` file is patched by the `only_include_used_icons` script. &#x20;
-
-This script look at your code to see what icons you are actually using then proceed to patch `icon.css` file so that only thoses icons are defined.  &#x20;
-{% endhint %}
+{% embed url="https://youtu.be/FdabjOlaCUQ" %}
 
 Icons just works, you can copy paste the any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) and expect things to work.
 
@@ -45,6 +37,16 @@ Example: &#x20;
 ```
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="success" %}
+No need to worry about importing the correct icons file.&#x20;
+
+It's done automatically for you.
+
+The `dsfr/utility/icons/icons.css` file is patched by the `only_include_used_icons` script. &#x20;
+
+This script look at your code to see what icons you are actually using then proceed to patch `icon.css` file so that only thoses icons are defined.  &#x20;
+{% endhint %}
 
 The `fr.cx()` utility is also handy for autocompleting the icons that are supported: &#x20;
 
