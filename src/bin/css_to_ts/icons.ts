@@ -45,10 +45,14 @@ export function generateIconsRawCssCode(params: {
 
     return [
         ...usedIcons.map(icon => buildRule(icon, false)),
-        `@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {`,
-        ...usedIcons.map(icon => buildRule(icon, true)),
-        `}`,
-        ``,
+        ...(usedIcons.length === 0
+            ? []
+            : [
+                  `@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {`,
+                  ...usedIcons.map(icon => buildRule(icon, true)),
+                  `}`,
+                  ``
+              ]),
         ...(usedIcons.find(({ prefix }) => prefix === "ri-") !== undefined
             ? [
                   `/* This is all the parts of dsfr.css related to icons with .fr-icon- replaced by .ri- so that we can use remixicon as dsfr icons*/`,
