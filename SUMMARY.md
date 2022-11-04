@@ -6,6 +6,7 @@
 
 ## ⚙ fr utils
 
+* [🍧 cx](fr-utils/cx.md)
 * [📏 spacing](fr-utils/spacing.md)
 * [📲 breakpoints](fr-utils/breakpoints.md)
-* [🍧 cx](fr-utils/cx.md)
+* [💐 colors](fr-utils/colors.md)
