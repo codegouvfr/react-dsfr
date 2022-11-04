@@ -1,13 +1,24 @@
 import artworkLightSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/light.svg";
 import artworkDarkSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
 import artworkSystemSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/system.svg";
-import { useIsDark } from "@codegouvfr/react-dsfr";
+import { useIsDark, fr } from "@codegouvfr/react-dsfr";
 
 export function App() {
     const { isDark, setIsDark } = useIsDark();
 
     return (
         <>
+
+            <button className={fr.cx("fr-btn", "fr-icon-checkbox-circle-line", "fr-btn--icon-left")}>
+              Label bouton MD
+            </button>
+            <span className="fr-icon-ancient-gate-fill" aria-hidden="true"></span>
+            <i className="fr-icon-ancient-gate-fill" aria-hidden="true"/>
+
+            <button className={fr.cx("fr-btn", "ri-24-hours-fill", "fr-btn--icon-left")}>
+              Download
+            </button>
+
             <h1>Color Scheme: {isDark ? "dark" : "light"}</h1>
             <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
