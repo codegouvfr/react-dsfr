@@ -2,7 +2,7 @@ node_modules/
 /dist/
 /CHANGELOG.md
 /.yarn_home/
-/test/frameworks/
+/test/integration/
 /src/tools/types/
 /dsfr/
 /dist_test/

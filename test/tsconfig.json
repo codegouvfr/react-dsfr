@@ -18,5 +18,5 @@
         "skipLibCheck": true
     },
     "include": ["../src"],
-    "exclude": ["./frameworks", "./runtime"]
+    "exclude": ["./integration", "./runtime"]
 }

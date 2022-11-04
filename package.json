@@ -11,9 +11,9 @@
     "scripts": {
         "build": "rimraf dist/ && tsc -p src/bin && yarn copy_dsfr_dist_to_root && yarn css_to_ts && tsc -p src && yarn grant_exec_perms",
         "test": "vitest",
-        "start_cra": "yarn yarn_link && cd test/frameworks/cra && yarn start",
-        "start_next": "yarn yarn_link && cd test/frameworks/next && yarn dev",
-        "start_vite": "yarn yarn_link && cd test/frameworks/vite && yarn dev",
+        "start_cra": "yarn yarn_link && cd test/integration/cra && yarn start",
+        "start_next": "yarn yarn_link && cd test/integration/next && yarn dev",
+        "start_vite": "yarn yarn_link && cd test/integration/vite && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
@@ -73,6 +73,7 @@
         "tsafe": "^1.1.1"
     },
     "devDependencies": {
+        "css": "^3.0.0",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@mui/material": "^5.10.7",
