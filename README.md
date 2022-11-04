@@ -23,6 +23,8 @@ yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr
 ```diff
  "scripts": {
 +    "postinstall": "copy_dsfr_dist_to_public"
++    "prestart": "only_include_used_icons",
++    "prebuild": "only_include_used_icons"
  }
 ```
 
@@ -45,6 +47,7 @@ Add the following code in the `<head />`&#x20;
 <link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
 ```
 
 #### src/index.tsx
@@ -70,13 +73,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 {% endtab %}
 
 {% tab title="Next.js" %}
-{% hint style="success" %}
-`react-dsfr` supports Next 13 (and older versions)
-{% endhint %}
-
-```bash
-yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
-```
+<pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'</strong></code></pre>
 
 #### next.config.js
 
@@ -99,6 +96,15 @@ yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpi
 +});
 ```
 
+#### package.json
+
+```diff
+ "scripts": {
++    "predev": "only_include_used_icons",
++    "prebuild": "only_include_used_icons"
+ }
+```
+
 #### pages/\_app.tsx
 
 If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
@@ -107,6 +113,7 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 import DefaultApp from "next/app";
 import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
+import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 export default withAppDsfr(
     DefaultApp, // Provide your custom App if you have one
@@ -165,7 +172,9 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 
 ```diff
  "scripts": {
-+    "postinstall": "copy_dsfr_dist_to_public"
++    "postinstall": "copy_dsfr_dist_to_public",
++    "predev": "only_include_used_icons",
++    "prebuild": "only_include_used_icons"
  }
 ```
 
@@ -188,6 +197,7 @@ Add the following tags in the `<head />`&#x20;
 <link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
 <link rel="stylesheet" href="/dsfr/dsfr.min.css" />
+<link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
 ```
 
 #### src/main.tsx
@@ -214,6 +224,7 @@ There isn't specific instructions for your React setup but don't worry, you can 
 The gist of it is, there is a few things that, for performance reasons, react-dsfr dosen't automatically do for you and thus you have to do manually: &#x20;
 
 * Loading `@codegouvfr/react-dsfr/dsfr/dsfr.min.css` (as soon as possilbe)
+* Loading `@codegouvfr/react-dsfr/dsfr/utility/icons/icons.min.css` and calling `npx only_include_used_icons` for patching it. If you don't all hundreds icons from the dsfr will be included and remixicons wont work.
 * Setting up the Favicon. &#x20;
 * ~~Preloading the relevent font variant to avoid~~ [~~FOUT~~](https://fonts.google.com/knowledge/glossary/fout)~~.~~&#x20;
 
