@@ -1,7 +1,7 @@
 import { it, expect } from "vitest";
 import { getPatchedRawCssCodeForCompatWithRemixIcon } from "../../../../src/bin/css_to_ts/icons";
 
-it("Successfully generates patched css for remixicon support", async () => {
+it("Successfully generates patched css for remixicon support", () => {
     const rawCssCode = `
 [target=_blank]::after {
   flex: 0 0 auto;
@@ -142,7 +142,7 @@ it("Successfully generates patched css for remixicon support", async () => {
   }
 }`.replace(/^\n/, "");
 
-    const got = await getPatchedRawCssCodeForCompatWithRemixIcon({ rawCssCode });
+    const got = getPatchedRawCssCodeForCompatWithRemixIcon({ rawCssCode });
 
     expect(got).toEqual(expected);
 });

@@ -18,14 +18,12 @@ fs.cpSync(pathJoin(projectRootDirPath, "node_modules", "@gouvfr", "dsfr", "dist"
     "recursive": true
 });
 
-(async () => {
-    fs.writeFileSync(
-        pathJoin(dsfrDirPath, pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist),
-        Buffer.from(
-            await getPatchedRawCssCodeForCompatWithRemixIcon({
-                "rawCssCode": fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8")
-            }),
-            "utf8"
-        )
-    );
-})();
+fs.writeFileSync(
+    pathJoin(dsfrDirPath, pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist),
+    Buffer.from(
+        getPatchedRawCssCodeForCompatWithRemixIcon({
+            "rawCssCode": fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8")
+        }),
+        "utf8"
+    )
+);

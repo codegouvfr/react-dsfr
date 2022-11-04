@@ -1,6 +1,7 @@
 import type { Icon } from "./css_to_ts";
 import { exclude } from "tsafe/exclude";
 import { join as pathJoin, sep } from "path";
+import * as css from "css";
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 
@@ -62,10 +63,8 @@ export const pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = p
     "dsfr_remixicon.css"
 );
 
-export async function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCssCode: string }) {
+export function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCssCode: string }) {
     const { rawCssCode } = params;
-
-    const css = await import("css");
 
     const parsedCss = css.parse(rawCssCode);
 
