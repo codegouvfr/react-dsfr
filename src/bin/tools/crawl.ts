@@ -11,6 +11,34 @@ async function crawlRec(params: {
 
     const recursiveCallResults: string[][] = [];
 
+    /*
+    for (const fileOrDirectoryBasename of await readdir(dirPath)) {
+
+        const fileOrDirectoryPath = pathJoin(dirPath, fileOrDirectoryBasename);
+
+        if ((await lstat(fileOrDirectoryPath)).isDirectory()) {
+            const dirPath = fileOrDirectoryPath;
+
+            if (!getDoCrawlInDir({ dirPath })) {
+                continue;
+            }
+
+            recursiveCallResults.push(
+                await crawlRec({
+                    dirPath,
+                    getDoCrawlInDir
+                })
+                continue;
+            );
+        }
+
+        const filePath = fileOrDirectoryPath;
+
+        filePaths.push(filePath);
+
+    }
+    */
+
     await Promise.all(
         (
             await readdir(dirPath)
@@ -30,6 +58,8 @@ async function crawlRec(params: {
                         getDoCrawlInDir
                     })
                 );
+
+                return;
             }
 
             const filePath = fileOrDirectoryPath;
