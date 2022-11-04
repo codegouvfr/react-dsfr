@@ -14,17 +14,19 @@ import type { Icon } from "./css_to_ts";
 import type { Equals } from "tsafe";
 
 (async () => {
-    const dsfrProjectRoot = getProjectRoot();
-
-    const dsfrDistDirPath = pathJoin(dsfrProjectRoot, "dsfr");
+    const packageName = JSON.parse(
+        fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
+    )["name"];
 
     const cwd = process.cwd();
+
+    const nodeModulesDirPath = pathJoin(cwd, "node_modules");
+
+    const dsfrDistDirPath = pathJoin(...[nodeModulesDirPath, ...packageName.split("/"), "dsfr"]);
 
     const icons = await collectIcons({
         "dsfrDistDirPath": dsfrDistDirPath,
         "remixiconDirPath": (() => {
-            const nodeModulesDirPath = pathJoin(cwd, "node_modules");
-
             at_the_root: {
                 const remixiconDirPath = pathJoin(nodeModulesDirPath, "remixicon");
 
@@ -36,11 +38,7 @@ import type { Equals } from "tsafe";
             }
 
             const remixiconDirPath = pathJoin(
-                nodeModulesDirPath,
-                JSON.parse(
-                    fs.readFileSync(pathJoin(dsfrProjectRoot, "package.json")).toString("utf8")
-                )["name"],
-                "remixicon"
+                ...[nodeModulesDirPath, ...packageName.split("/"), "remixicon"]
             );
 
             assert(fs.existsSync(remixiconDirPath));
