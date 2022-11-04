@@ -161,7 +161,7 @@ export async function collectIcons(params: {
                         .map(async svgFilePath =>
                             id<Icon.Remixicon>({
                                 "prefix": "ri-",
-                                "iconId": pathBasename(svgFilePath),
+                                "iconId": pathBasename(svgFilePath).replace(/\.svg$/, ""),
                                 "rawSvgCode": (
                                     await readFile(pathJoin(iconDirPath, svgFilePath))
                                 ).toString("utf8")
@@ -182,7 +182,7 @@ export async function collectIcons(params: {
                         id<Icon.Dsfr>({
                             "prefix": "fr-icon-",
                             "category": pathBasename(pathDirname(svgFilePath)),
-                            "iconId": pathBasename(svgFilePath)
+                            "iconId": pathBasename(svgFilePath).replace(/\.svg$/, "")
                         })
                     ))()
         ])
