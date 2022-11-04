@@ -1,4 +1,4 @@
-import type { Icon } from "../css_to_ts";
+import type { Icon } from "../icons";
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 

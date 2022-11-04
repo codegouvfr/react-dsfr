@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { collectIcons } from "./css_to_ts";
+import { collectIcons } from "./css_to_ts/icons/collectIcons";
+import type { Icon } from "./css_to_ts/icons/collectIcons";
 import { generateIconsRawCssCode } from "./css_to_ts/icons/generateIconsRawCssCode";
 import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "./css_to_ts/icons/getPatchedRawCssCodeForCompatWithRemixIcon/pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist";
 import { getProjectRoot } from "./tools/getProjectRoot";
@@ -10,7 +11,6 @@ import { exclude } from "tsafe/exclude";
 import { writeFile, readFile } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename } from "path";
-import type { Icon } from "./css_to_ts";
 import type { Equals } from "tsafe";
 
 (async () => {
