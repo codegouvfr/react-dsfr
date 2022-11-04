@@ -1,6 +1,6 @@
 import type { Icon } from "./css_to_ts";
 import { exclude } from "tsafe/exclude";
-import { join as pathJoin } from "path";
+import { join as pathJoin, sep } from "path";
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 
@@ -107,5 +107,16 @@ export async function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCs
         })
         .filter(exclude(undefined));
 
-    return css.stringify(parsedCss).replace(/fr-icon-/g, "ri-");
+    const back =
+        new Array(
+            pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist.split(sep).length - 1
+        )
+            .fill("..")
+            .join("/") + "/";
+
+    return css
+        .stringify(parsedCss)
+        .replace(/fr-icon-/g, "ri-")
+        .replace(/url\("/g, `url("${back}`)
+        .replace(/url\('/g, `url('${back}`);
 }

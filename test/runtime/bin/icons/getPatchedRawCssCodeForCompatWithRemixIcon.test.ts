@@ -103,8 +103,8 @@ it("Successfully generates patched css for remixicon support", async () => {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   --icon-size: 1rem;
-  -webkit-mask-image: url("icons/system/external-link-line.svg");
-  mask-image: url("icons/system/external-link-line.svg");
+  -webkit-mask-image: url("../../icons/system/external-link-line.svg");
+  mask-image: url("../../icons/system/external-link-line.svg");
   content: var(--external-link-content);
   margin-left: 0.25rem;
 }
