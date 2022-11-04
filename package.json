@@ -68,7 +68,7 @@
         }
     },
     "dependencies": {
-        "@gouvfr/dsfr": "1.7.2",
+        "@gouvfr/dsfr": "1.8.1",
         "remixicon": "^2.5.0",
         "tsafe": "^1.1.1"
     },
