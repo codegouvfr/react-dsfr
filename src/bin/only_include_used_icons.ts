@@ -158,7 +158,7 @@ import type { Equals } from "tsafe";
         ...(() => {
             const dsfrDistInPublic = pathJoin(cwd, "public", "dsfr");
 
-            return fs.readdirSync(dsfrDistInPublic) && [dsfrDistInPublic];
+            return fs.existsSync(dsfrDistInPublic) ? [dsfrDistInPublic] : [];
         })()
     ].forEach(async dsfrDistDirPath => {
         const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
