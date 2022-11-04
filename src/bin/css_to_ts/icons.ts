@@ -3,7 +3,6 @@ import type { Icon } from "./css_to_ts";
 import { parseCss } from "./parseCss";
 import * as css from "css";
 import { exclude } from "tsafe/exclude";
-import { assert } from "tsafe/assert";
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 
@@ -70,11 +69,11 @@ export const getPatchedRawCssCodeForCompatWithRemixIcon = memoize((rawCssCode: s
     (parsedCss as any).stylesheet.rules = (parsedCss as any).stylesheet.rules
         .map((rule: any) => {
             if (rule.type === "media") {
-                //TODO
-
                 rule.rules = rule.rules
                     .map((rule: any) => {
-                        assert(rule.type === "rule");
+                        if (rule.type !== "rule") {
+                            return undefined;
+                        }
 
                         if (prefixRegExp.test(rule.selectors.join(", "))) {
                             return rule;
@@ -91,7 +90,9 @@ export const getPatchedRawCssCodeForCompatWithRemixIcon = memoize((rawCssCode: s
                 return rule;
             }
 
-            assert(rule.type === "rule");
+            if (rule.type !== "rule") {
+                return undefined;
+            }
 
             if (prefixRegExp.test(rule.selectors.join(", "))) {
                 return rule;
