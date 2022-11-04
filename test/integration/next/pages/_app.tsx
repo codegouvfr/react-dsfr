@@ -1,6 +1,7 @@
 import DefaultApp from "next/app";
 import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
+import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 export default withAppDsfr(DefaultApp, {
     "defaultColorScheme": "system",
