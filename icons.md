@@ -22,6 +22,8 @@ Icons just works, you can copy paste the any code from [the dsfr documentation](
 <>
 ```
 
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
 But on top of that all icons from [Remixicon](https://remixicon.com/) are supported.&#x20;
 
 You can go and search for a keyword:  &#x20;
@@ -41,6 +43,8 @@ Example: &#x20;
   <i className="ri-mail-download-line" />
 <>
 ```
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 The `fr.cx()` utility is also handy for autocompleting the icons that are supported: &#x20;
 
