@@ -12,7 +12,7 @@
         "build": "rimraf dist/ && tsc -p src/bin && yarn copy_dsfr_dist_to_root && yarn css_to_ts && tsc -p src && yarn grant_exec_perms",
         "test": "vitest",
         "start_cra": "yarn yarn_link && cd test/integration/cra && yarn start",
-        "start_next": "yarn yarn_link && cd test/integration/next && rm -rf .next && yarn dev",
+        "start_next": "yarn yarn_link && cd test/integration/next && yarn dev",
         "start_vite": "yarn yarn_link && cd test/integration/vite && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",

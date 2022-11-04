@@ -8,7 +8,7 @@ import * as fs from "fs";
 import { join as pathJoin } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile } from "fs/promises";
+import { writeFile, readFile, rm } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename } from "path";
 import type { Equals } from "tsafe";
@@ -149,6 +149,16 @@ import type { Equals } from "tsafe";
         "utf8"
     );
 
+    const onConfirmedChange = async () => {
+        const nextCacheDir = pathJoin(cwd, ".next", "cache");
+
+        if (!fs.existsSync(nextCacheDir)) {
+            return;
+        }
+
+        rm(nextCacheDir, { "recursive": true, "force": true });
+    };
+
     [
         dsfrDistDirPath,
         ...(() => {
@@ -173,11 +183,18 @@ import type { Equals } from "tsafe";
                 )
             );
 
-        ["icons.css", "icons.min.css"].forEach(cssFileBasename =>
-            writeFile(
-                pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename),
-                rawIconCssCodeBuffer
-            )
-        );
+        ["icons.css", "icons.min.css"].forEach(async cssFileBasename => {
+            const filePath = pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename);
+
+            const currentCode = await readFile(filePath);
+
+            if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
+                return;
+            }
+
+            onConfirmedChange();
+
+            writeFile(filePath, rawIconCssCodeBuffer);
+        });
     });
 })();
