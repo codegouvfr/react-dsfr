@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import { collectIcons } from "./css_to_ts";
-import {
-    generateIconsRawCssCode,
-    pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist
-} from "./css_to_ts/icons";
+import { generateIconsRawCssCode } from "./css_to_ts/icons/generateIconsRawCssCode";
+import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "./css_to_ts/icons/getPatchedRawCssCodeForCompatWithRemixIcon/pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin } from "path";
