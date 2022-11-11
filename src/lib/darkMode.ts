@@ -74,9 +74,15 @@ export function startObservingColorSchemeHtmlAttribute() {
         const setColorSchemeCookie = (colorScheme: ColorScheme) => {
             let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
 
-            //We do not set the domain if we are on localhost or an ip
-            if (window.location.hostname.match(/\.[a-zA-Z]{2,}$/)) {
-                newCookie += `;domain=${window.location.hostname}`;
+            set_domain: {
+                const { hostname } = window.location;
+
+                //We do not set the domain if we are on localhost or an ip
+                if (/(^localhost$)|(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)/.test(hostname)) {
+                    break set_domain;
+                }
+
+                newCookie += `;domain=${hostname}`;
             }
 
             document.cookie = newCookie;
