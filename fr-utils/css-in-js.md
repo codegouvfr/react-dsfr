@@ -4,7 +4,7 @@ description: Create your own components
 
 # 🖌 CSS in JS
 
-I personally recomend using tss-react for creating custom components but you can use any CSS-in-JS sollution. &#x20;
+I personally recomend using [tss-react](https://www.tss-react.dev/) for creating custom components but you can use any CSS-in-JS sollution. &#x20;
 
 ```bash
 yarn add tss-react @emotion/react
@@ -56,3 +56,33 @@ const useStyles = makeStyles({ "name": { MyComponent } })(colors => ({
     }
 }));
 ```
+
+{% hint style="info" %}
+If you are using tss-react in a SSR setup like Next.js plese follow [these instructions](https://docs.tss-react.dev/ssr).
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/custom_dsfr.gif" alt=""><figcaption><p>The above comonent, in dark mode, then in light mode</p></figcaption></figure>
+
+### Setup tss-react
+
+{% tabs %}
+{% tab title="SPAs (CRA Vite ect...)" %}
+```bash
+yarn add tss-react @emotion/react
+# or 'npm install --save tss-react @emotion/react'
+```
+{% endtab %}
+
+{% tab title="Second Tab" %}
+```bash
+yarn add tss-react @emotion/react @emotion/server
+# Or: 'npm install --save tss-react @emotion/react @emotion/server'
+```
+
+Reference setup: &#x20;
+
+* The [src/\_app.tsx](https://github.com/garronej/react-dsfr-next-demo/blob/main/pages/\_app.tsx) file.
+* The [src/\_document.tsx](https://github.com/garronej/react-dsfr-next-demo/blob/main/pages/\_document.tsx) file.
+{% endtab %}
+{% endtabs %}
+
