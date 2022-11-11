@@ -82,7 +82,7 @@ yarn add tss-react @emotion/react @emotion/server
 Reference setup: &#x20;
 
 * The [src/\_app.tsx](https://github.com/garronej/react-dsfr-next-demo/blob/main/pages/\_app.tsx) file.
-* The [src/\_document.tsx](https://github.com/garronej/react-dsfr-next-demo/blob/main/pages/\_document.tsx) file.
+* The [src/\_document.tsx](https://github.com/garronej/react-dsfr-next-demo/blob/main/pages/\_document.tsx) (Or copy past the reference `document.tsx` from [here ](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache)if you had made the choice of not using a custom document for persisting the dark mode state. [ref](https://www.youtube.com/watch?v=5X099P97lNw))
 {% endtab %}
 {% endtabs %}
 
