@@ -1,8 +1,10 @@
-import DefaultDocument, { Html, Head, Main, NextScript } from "next/document";
-import type { DocumentContext } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
 import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/next";
 
-const { readColorSchemeFromCookie, getColorSchemeHtmlAttributes } = getColorSchemeSsrUtils();
+const { 
+    getColorSchemeHtmlAttributes, 
+    augmentDocumentByReadingColorSchemeFromCookie 
+} = getColorSchemeSsrUtils();
 
 export default function Document() {
     return (
@@ -16,10 +18,4 @@ export default function Document() {
     );
 }
 
-Document.getInitialProps = async (ctx: DocumentContext) => {
-    const initialProps = await DefaultDocument.getInitialProps(ctx);
-
-    readColorSchemeFromCookie(ctx);
-
-    return { ...initialProps };
-};
+augmentDocumentByReadingColorSchemeFromCookie(Document);

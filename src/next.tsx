@@ -26,6 +26,7 @@ import { data_fr_scheme, data_fr_theme, $colorScheme } from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
 import { createStatefulObservable } from "./lib/tools/StatefulObservable";
 import { symToStr } from "tsafe/symToStr";
+import DefaultDocument from "next/document";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -62,37 +63,6 @@ export function getColorSchemeSsrUtils() {
 
     let isNextTickCleared = false;
 
-    function readColorSchemeFromCookie(ctx: DocumentContext) {
-        const cookie = ctx.req?.headers.cookie;
-
-        colorScheme =
-            (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
-            (() => {
-                switch (defaultColorScheme) {
-                    case "light":
-                    case "dark":
-                        return defaultColorScheme;
-                    case "system":
-                        return undefined;
-                }
-            })();
-
-        isNextTickCleared = false;
-
-        process.nextTick(() => {
-            if (!isNextTickCleared) {
-                console.error(
-                    [
-                        `WARNING: ${symToStr({
-                            getColorSchemeHtmlAttributes
-                        })} should be called just after`,
-                        `${symToStr({ getColorSchemeSsrUtils })}, in the same event loop tick!`
-                    ].join(" ")
-                );
-            }
-        });
-    }
-
     function getColorSchemeHtmlAttributes() {
         isNextTickCleared = true;
 
@@ -108,7 +78,52 @@ export function getColorSchemeSsrUtils() {
         };
     }
 
-    return { readColorSchemeFromCookie, getColorSchemeHtmlAttributes };
+    function augmentDocumentByReadingColorSchemeFromCookie(
+        Document: NextComponentType<any, any, any>
+    ): void {
+        const super_getInitialProps =
+            Document.getInitialProps?.bind(Document) ??
+            DefaultDocument.getInitialProps.bind(DefaultDocument);
+
+        (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
+            const initialProps = await super_getInitialProps(documentContext);
+
+            {
+                const cookie = documentContext.req?.headers.cookie;
+
+                colorScheme =
+                    (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
+                    (() => {
+                        switch (defaultColorScheme) {
+                            case "light":
+                            case "dark":
+                                return defaultColorScheme;
+                            case "system":
+                                return undefined;
+                        }
+                    })();
+
+                isNextTickCleared = false;
+
+                process.nextTick(() => {
+                    if (!isNextTickCleared) {
+                        console.error(
+                            [
+                                `WARNING: react-dsfr, Next.js setup: ${symToStr({
+                                    getColorSchemeHtmlAttributes
+                                })} should be called just after this.`,
+                                `If you see this error please open an issue https://github.com/codegouvfr/react-dsfr/issues`
+                            ].join("\n")
+                        );
+                    }
+                });
+            }
+
+            return { ...initialProps };
+        };
+    }
+
+    return { getColorSchemeHtmlAttributes, augmentDocumentByReadingColorSchemeFromCookie };
 }
 
 export function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
