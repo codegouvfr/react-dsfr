@@ -67,6 +67,8 @@ export async function startDsfrReact(params: Params) {
         );
     }
 
+    console.log("DEBUG: startObservingColorSchemeHtmlAttribute");
+
     startObservingColorSchemeHtmlAttribute();
 
     (window as any).dsfr = { verbose, "mode": "manual" };
