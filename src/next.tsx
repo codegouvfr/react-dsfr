@@ -175,10 +175,13 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
     );
 
     $overwriteGetInitialProps.current = () => {
+        const super_getInitialProps =
+            (AppWithDsfr as any).getInitialProps.bind(AppWithDsfr) ??
+            App.getInitialProps?.bind(App) ??
+            DefaultApp.getInitialProps.bind(DefaultApp);
+
         (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
-            const initialProps = await (App.getInitialProps ?? DefaultApp.getInitialProps)(
-                appContext
-            );
+            const initialProps = await super_getInitialProps(appContext);
 
             if (!isBrowser) {
                 $colorScheme.current =
