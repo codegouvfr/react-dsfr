@@ -210,10 +210,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gouvfr/dsfr@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.1.tgz#2484eb8ad9a73b5f01c5f41f49146d1aa8a71b7b"
-  integrity sha512-XpVFdvhtalA5jSAhzzNaMd+/Hvf8Ef9jCdAZhuukEEMo2/cWvCgzz9tfbE+9QTJDIVP+EwJ7aCGWcXUSWkOHJg==
+"@gouvfr/dsfr@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.2.tgz#11ba1aa3e5a19f5dadcbdc5ab3bb7ffe077a0b23"
+  integrity sha512-F9+M9BAAeFKZ6y/JXSf8CDqsZM61aWMWEJRkdZZCeWuh86SH1tsNZat8XDuB1GS8I/BnvSesnbt7Jvsn71gO0g==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
