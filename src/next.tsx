@@ -126,6 +126,7 @@ export function getColorSchemeSsrUtils() {
     return { getColorSchemeHtmlAttributes, augmentDocumentByReadingColorSchemeFromCookie };
 }
 
+/** the App returned by witAppDsfr should be directly exported default as is */
 export function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
     App: AppComponent,
     params: Params
@@ -170,40 +171,38 @@ export function withAppDsfr<AppComponent extends NextComponentType<any, any, any
         );
     }
 
-    Object.keys(App).forEach(
-        staticMethod => ((AppWithDsfr as any)[staticMethod] = (App as any)[staticMethod])
-    );
-
-    $overwriteGetInitialProps.current = () => {
+    {
         const super_getInitialProps =
-            (AppWithDsfr as any).getInitialProps.bind(AppWithDsfr) ??
-            App.getInitialProps?.bind(App) ??
-            DefaultApp.getInitialProps.bind(DefaultApp);
+            App.getInitialProps?.bind(App) ?? DefaultApp.getInitialProps.bind(DefaultApp);
 
-        (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
-            const initialProps = await super_getInitialProps(appContext);
+        $overwriteGetInitialProps.current = () => {
+            (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
+                const initialProps = await super_getInitialProps(appContext);
 
-            if (!isBrowser) {
-                $colorScheme.current =
-                    (() => {
-                        const cookie = appContext.ctx.req?.headers.cookie;
+                if (!isBrowser) {
+                    $colorScheme.current =
+                        (() => {
+                            const cookie = appContext.ctx.req?.headers.cookie;
 
-                        return cookie === undefined ? undefined : readColorSchemeInCookie(cookie);
-                    })() ??
-                    (() => {
-                        switch (startDsfrReactParams.defaultColorScheme) {
-                            case "dark":
-                            case "light":
-                                return startDsfrReactParams.defaultColorScheme;
-                            case "system":
-                                return "light";
-                        }
-                    })();
-            }
+                            return cookie === undefined
+                                ? undefined
+                                : readColorSchemeInCookie(cookie);
+                        })() ??
+                        (() => {
+                            switch (startDsfrReactParams.defaultColorScheme) {
+                                case "dark":
+                                case "light":
+                                    return startDsfrReactParams.defaultColorScheme;
+                                case "system":
+                                    return "light";
+                            }
+                        })();
+                }
 
-            return { ...initialProps };
+                return { ...initialProps };
+            };
         };
-    };
+    }
 
     AppWithDsfr.displayName = AppWithDsfr.name;
 

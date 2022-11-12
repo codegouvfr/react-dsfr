@@ -39,9 +39,9 @@
     regenerator-runtime "^0.13.10"
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.0.19"
+  version "0.0.33"
   dependencies:
-    "@gouvfr/dsfr" "1.7.2"
+    "@gouvfr/dsfr" "1.8.1"
     remixicon "^2.5.0"
     tsafe "^1.1.1"
 
@@ -60,10 +60,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gouvfr/dsfr@1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.7.2.tgz#c522fce21a14989a10e30583160118c39c9c05d1"
-  integrity sha512-hPNtz+gHcc8m7ZPANxSOFMz4Ap+M9FHOudqoMR/+Kjl5FCOqwA6u/aoYnMJ8KqedS1k5XThFMp7jiktr53qXYw==
+"@gouvfr/dsfr@1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.1.tgz#2484eb8ad9a73b5f01c5f41f49146d1aa8a71b7b"
+  integrity sha512-XpVFdvhtalA5jSAhzzNaMd+/Hvf8Ef9jCdAZhuukEEMo2/cWvCgzz9tfbE+9QTJDIVP+EwJ7aCGWcXUSWkOHJg==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
