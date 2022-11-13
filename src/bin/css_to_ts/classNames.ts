@@ -5,25 +5,27 @@ import { objectKeys } from "tsafe/objectKeys";
 export const parseClassNames = memoize((rawCssCode: string): string[] => {
     const rulesByBreakpoint = getRulesByBreakpoint(rawCssCode);
 
-    const classes = new Set<string>();
+    const classNames = new Set<string>();
 
     objectKeys(rulesByBreakpoint).forEach(breakpoint => {
         const rules = rulesByBreakpoint[breakpoint];
 
         rules.forEach(({ selectors }) => {
             selectors.forEach(selector => {
-                const matchArr = selector.match(/^\.(fr-[a-zA-Z0-9_-]+)/);
+                const matchArr = selector.match(/\.fr-[a-zA-Z0-9_-]+/g);
 
                 if (matchArr === null) {
                     return;
                 }
 
-                classes.add(matchArr[1]);
+                matchArr
+                    .map(matchedStr => matchedStr.replace(/^\./, ""))
+                    .forEach(className => classNames.add(className));
             });
         });
     });
 
-    return Array.from(classes);
+    return Array.from(classNames);
 });
 
 export function generateClassNamesTsCode(params: {

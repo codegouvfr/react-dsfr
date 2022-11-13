@@ -20,6 +20,10 @@ it("Parsing of fr classnames", () => {
   padding: 0.5rem;
 }
 
+.fr-header__navbar .fr-btn--menu {
+  color: #3a3a3a;
+}
+
 @media (min-width: 36em) { }
 @media (min-width: 48em) { }
 @media (min-width: 62em) { }
@@ -27,7 +31,15 @@ it("Parsing of fr classnames", () => {
 
 `;
 
-    const expected = ["fr-text--light", "fr-text--xl", "fr-text--lead", "fr-grid-row--gutters"];
+    const expected = [
+        "fr-text--light",
+        "fr-text--xl",
+        "fr-text--lead",
+        "fr-grid-row--gutters",
+        "fr-col",
+        "fr-header__navbar",
+        "fr-btn--menu"
+    ];
 
     const got = parseClassNames(input);
 
