@@ -149,13 +149,13 @@ it("Successfully css with only used icons", () => {
         "usedIcons": [
             {
                 "prefix": "fr-icon-",
-                "category": "buildings",
-                "iconId": "ancient-gate-fill"
+                "iconId": "ancient-gate-fill",
+                "svgRelativePath": "../../icons/buildings/ancient-gate-fill.svg"
             },
             {
                 "prefix": "fr-icon-",
-                "category": "business",
-                "iconId": "archive-fill"
+                "iconId": "archive-fill",
+                "svgRelativePath": "../../icons/business/archive-fill.svg"
             },
             {
                 "prefix": "ri-",

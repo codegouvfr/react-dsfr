@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { collectIcons } from "./css_to_ts/icons/collectIcons";
-import type { Icon } from "./css_to_ts/icons/collectIcons";
+import { pathOfIconsJson } from "./css_to_ts/icons/collectIcons/pathOfIconsJson";
+import type { Icon } from "./css_to_ts/icons";
 import { generateIconsRawCssCode } from "./css_to_ts/icons/generateIconsRawCssCode";
 import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "./css_to_ts/icons/getPatchedRawCssCodeForCompatWithRemixIcon/pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist";
 import { getProjectRoot } from "./tools/getProjectRoot";
@@ -24,28 +24,9 @@ import type { Equals } from "tsafe";
 
     const dsfrDistDirPath = pathJoin(...[nodeModulesDirPath, ...packageName.split("/"), "dsfr"]);
 
-    const icons = await collectIcons({
-        "dsfrDistDirPath": dsfrDistDirPath,
-        "remixiconDirPath": (() => {
-            at_the_root: {
-                const remixiconDirPath = pathJoin(nodeModulesDirPath, "remixicon");
-
-                if (!fs.existsSync(remixiconDirPath)) {
-                    break at_the_root;
-                }
-
-                return remixiconDirPath;
-            }
-
-            const remixiconDirPath = pathJoin(
-                ...[nodeModulesDirPath, ...packageName.split("/"), "remixicon"]
-            );
-
-            assert(fs.existsSync(remixiconDirPath));
-
-            return remixiconDirPath;
-        })()
-    });
+    const icons: Icon[] = JSON.parse(
+        (await readFile(pathJoin(dsfrDistDirPath, pathOfIconsJson))).toString("utf8")
+    );
 
     const { usedIconClassNames } = await (async function getUsedIconClassNames() {
         const candidateFilePaths = (

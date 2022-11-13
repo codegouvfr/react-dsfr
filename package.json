@@ -69,11 +69,11 @@
     },
     "dependencies": {
         "@gouvfr/dsfr": "1.8.2",
-        "remixicon": "^2.5.0",
         "tsafe": "^1.1.1"
     },
     "devDependencies": {
         "css": "^3.0.0",
+        "remixicon": "^2.5.0",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@mui/material": "^5.10.7",

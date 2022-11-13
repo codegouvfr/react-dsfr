@@ -123,7 +123,7 @@ export function App() {
                     <ul className="fr-links-group">
                         <li>
                             <button
-                                className="fr-link fr-fi-theme-fill fr-link--icon-left"
+                                className={fr.cx("fr-link", "fr-icon-theme-fill", "fr-link--icon-left")}
                                 aria-controls="fr-theme-modal"
                                 data-fr-opened="false"
                             >

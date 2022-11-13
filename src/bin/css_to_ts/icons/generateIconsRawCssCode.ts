@@ -16,7 +16,7 @@ export function generateIconsRawCssCode(params: {
         const relativePath = (() => {
             switch (icon.prefix) {
                 case "fr-icon-":
-                    return `../../icons/${icon.category}/${iconId}.svg`;
+                    return icon.svgRelativePath;
                 case "ri-":
                     return `../../icons/remixicon/${iconId}.svg`;
             }
