@@ -32,7 +32,8 @@ export const frCoreClassNames= [
     "fr-text--light",
     "fr-text--xl",
     "fr-text--lead",
-    "fr-grid-row--gutters"
+    "fr-grid-row--gutters",
+    "fr-col"
 ] as const;
 
 export type FrCoreClassName = typeof frCoreClassNames[number];
