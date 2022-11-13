@@ -2,7 +2,7 @@
     <img src="https://github.com/codegouvfr/react-dsfr/releases/download/assets/dsfr-react_repo-card.png">  
 </p>
 <p align="center">
-    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React component library</i> 🇫🇷 
+    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React integration</i> 🇫🇷 
     <br>
     <br>
     <a href="https://github.com/codegouvfr/react-dsfr/actions">
