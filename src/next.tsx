@@ -22,7 +22,12 @@ import appleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import faviconSvg from "./dsfr/favicon/favicon.svg";
 import faviconIco from "./dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
-import { data_fr_scheme, data_fr_theme, isDarkContext } from "./lib/darkMode";
+import {
+    data_fr_scheme,
+    data_fr_theme,
+    isDarkContext,
+    refDoPersistDarkModePreferenceWithCookie
+} from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
 
@@ -118,6 +123,10 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
         doPersistDarkModePreferenceWithCookie = false,
         ...startDsfrReactParams
     } = params;
+
+    if (doPersistDarkModePreferenceWithCookie) {
+        refDoPersistDarkModePreferenceWithCookie.current = true;
+    }
 
     if (isBrowser) {
         startDsfrReact(startDsfrReactParams);

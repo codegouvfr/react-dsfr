@@ -72,6 +72,8 @@ function getCurrentIsDarkFromHtmlAttribute(): boolean {
     assert(false);
 }
 
+export const refDoPersistDarkModePreferenceWithCookie = { "current": false };
+
 export function startObservingColorSchemeHtmlAttribute() {
     $isDark.current = getCurrentIsDarkFromHtmlAttribute();
 
@@ -84,26 +86,11 @@ export function startObservingColorSchemeHtmlAttribute() {
     );
 
     {
-        /*
-        const setColorSchemeCookie = (colorScheme: ColorScheme) => {
-            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
-
-            set_domain: {
-                const { hostname } = window.location;
-
-                //We do not set the domain if we are on localhost or an ip
-                if (/(^localhost$)|(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)/.test(hostname)) {
-                    break set_domain;
-                }
-
-                newCookie += `;domain=${hostname}`;
+        const setColorSchemeCookie = (isDark: boolean) => {
+            if (!refDoPersistDarkModePreferenceWithCookie.current) {
+                return;
             }
 
-            document.cookie = newCookie;
-        };
-        */
-
-        const setColorSchemeCookie = (isDark: boolean) => {
             const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
             let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000;SameSite=Strict`;
