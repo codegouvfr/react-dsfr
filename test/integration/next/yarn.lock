@@ -39,10 +39,8 @@
     regenerator-runtime "^0.13.10"
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.0.33"
+  version "0.0.37"
   dependencies:
-    "@gouvfr/dsfr" "1.8.1"
-    remixicon "^2.5.0"
     tsafe "^1.1.1"
 
 "@eslint/eslintrc@^0.4.2":
@@ -59,11 +57,6 @@
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
-
-"@gouvfr/dsfr@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.1.tgz#2484eb8ad9a73b5f01c5f41f49146d1aa8a71b7b"
-  integrity sha512-XpVFdvhtalA5jSAhzzNaMd+/Hvf8Ef9jCdAZhuukEEMo2/cWvCgzz9tfbE+9QTJDIVP+EwJ7aCGWcXUSWkOHJg==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -1554,11 +1547,6 @@ regexpp@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
-
-remixicon@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-2.5.0.tgz#b5e245894a1550aa23793f95daceadbf96ad1a41"
-  integrity sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==
 
 require-from-string@^2.0.2:
   version "2.0.2"
