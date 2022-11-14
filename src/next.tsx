@@ -92,7 +92,7 @@ function readColorSchemeInCookie(cookie: string) {
 }
 
 export type NextDsfrIntegrationApi = {
-    withAppDsfr: <AppComponent extends NextComponentType<any, any, any>>(
+    withDsfr: <AppComponent extends NextComponentType<any, any, any>>(
         App: AppComponent
     ) => AppComponent;
     dsfrDocumentApi: {
@@ -130,7 +130,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
 
     const colorSchemeKey = "dsfrColorScheme";
 
-    function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
+    function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
         App: AppComponent
     ): AppComponent {
         function AppWithDsfr({
@@ -296,7 +296,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
     }
 
     return {
-        withAppDsfr,
+        withDsfr,
         "dsfrDocumentApi": {
             augmentDocumentByReadingColorSchemeFromCookie,
             getColorSchemeHtmlAttributes

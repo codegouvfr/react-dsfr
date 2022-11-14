@@ -4,7 +4,7 @@ import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 const { 
-    withAppDsfr, 
+    withDsfr, 
     dsfrDocumentApi 
 } = createNextDsfrIntegrationApi({
     "defaultColorScheme": "system",
@@ -25,4 +25,4 @@ const {
 
 export { dsfrDocumentApi };
 
-export default withAppDsfr(DefaultApp);
+export default withDsfr(DefaultApp);
