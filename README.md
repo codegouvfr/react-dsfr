@@ -126,7 +126,7 @@ export default withAppDsfr(DefaultApp);
 
 #### pages/\_document.tsx (optional)
 
-This is to enable to performe the SSR in the prefered color scheme of the user.&#x20;
+This is to enable to perform the SSR in the preferred color scheme of the user on subsequent reloads..&#x20;
 
 <figure><img src=".gitbook/assets/dark_mode_ssr_explaination.gif" alt=""><figcaption><p>It enables to avoid "white flashes" like this</p></figcaption></figure>
 
