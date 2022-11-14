@@ -116,12 +116,12 @@ import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 const { 
-    withAppDsfr
+    withDsfr
 } = createNextDsfrIntegrationApi({
     defaultColorScheme: "system"
 });
 
-export default withAppDsfr(DefaultApp);
+export default withDsfr(DefaultApp);
 ```
 
 #### pages/\_document.tsx (optional)
@@ -139,7 +139,7 @@ Update your `pages/_app.tsx` like so: &#x20;
  import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
  const { 
-     withAppDsfr,
+     withDsfr,
 +     dsfrDocumentApi
  } = createNextDsfrIntegrationApi({
      defaultColorScheme: "system",
@@ -148,7 +148,7 @@ Update your `pages/_app.tsx` like so: &#x20;
  
 +export { dsfrDocumentApi };
 
- export default withAppDsfr(DefaultApp);
+ export default withDsfr(DefaultApp);
 ```
 
 Then create or update the `pages/_document.tsx`: &#x20;
