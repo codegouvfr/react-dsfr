@@ -111,25 +111,48 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 
 ```tsx
 import DefaultApp from "next/app";
-import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
-export default withAppDsfr(
-    DefaultApp, // Provide your custom App if you have one
-    { "defaultColorScheme": "system" }
-);
+const { 
+    withAppDsfr
+} = createNextDsfrIntegrationApi({
+    defaultColorScheme: "system"
+});
+
+export default withAppDsfr(DefaultApp);
 ```
 
-#### pages/\_document.tsx
+#### pages/\_document.tsx (optional)
 
-This is optional, it enables to get rid of the white flashes on pages reload. &#x20;
+This is to enable to performe the SSR in the prefered color scheme of the user.&#x20;
 
-{% embed url="https://youtu.be/5X099P97lNw" %}
-Here is a video to help you decide if you want a custom Document or not.
-{% endembed %}
+Update your `pages/_app.tsx` like so: &#x20;
+
+```diff
+ import DefaultApp from "next/app";
+ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+ import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
+ import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
+
+ const { 
+     withAppDsfr,
++     dsfrDocumentApi
+ } = createNextDsfrIntegrationApi({
+     defaultColorScheme: "system",
++    doPersistDarkModePreferenceWithCookie: true
+ });
+ 
++export { dsfrDocumentApi };
+
+ export default withAppDsfr(DefaultApp);
+```
+
+Then create or update the `pages/_document.tsx`: &#x20;
 
 ```tsx
+// pages/_document.tsx
 import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
 import type { DocumentContext } from "next/document";
 import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/next";
@@ -154,11 +177,15 @@ export default function Document() {
 augmentDocumentByReadingColorSchemeFromCookie(Document);
 ```
 
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
+
 {% hint style="warning" %}
-This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for ultimate UX. &#x20;
+This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for this feature. &#x20;
 {% endhint %}
 
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
+Explainations: On the server, wer have no way to know if the user prefers dark mode or light mode so we always render il light mode and the color sheme is switched to dark on the client if it's the prefered color scheme. &#x20;
+
+For subsequent reload however with a custom Next.js document, we can read the prefered color scheme from a cookie that has been set by the client and ensure the SSR is performed in the correct color scheme. &#x20;
 {% endtab %}
 
 {% tab title="Vite" %}
