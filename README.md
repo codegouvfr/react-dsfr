@@ -155,7 +155,7 @@ Then create or update the `pages/_document.tsx`: &#x20;
 
 ```tsx
 // pages/_document.tsx
-import DefaultDocument, { Html, Head, Main, NextScript } from 'next/document'
+import { Html, Head, Main, NextScript,  } from 'next/document'
 import type { DocumentContext } from "next/document";
 import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/next";
 
