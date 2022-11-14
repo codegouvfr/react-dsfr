@@ -106,7 +106,7 @@ export function startObservingColorSchemeHtmlAttribute() {
         const setColorSchemeCookie = (isDark: boolean) => {
             const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
-            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
+            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000;SameSite=Strict`;
 
             set_domain: {
                 const { hostname } = window.location;
