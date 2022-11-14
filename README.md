@@ -128,6 +128,8 @@ export default withAppDsfr(DefaultApp);
 
 This is to enable to performe the SSR in the prefered color scheme of the user.&#x20;
 
+<figure><img src=".gitbook/assets/dark_mode_ssr_explaination.gif" alt=""><figcaption><p>It enables to avoid "white flashes" like this</p></figcaption></figure>
+
 Update your `pages/_app.tsx` like so: &#x20;
 
 ```diff
