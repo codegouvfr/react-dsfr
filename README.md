@@ -178,7 +178,7 @@ export default function Document(props: DocumentProps) {
 augmentDocumentByReadingColorSchemeFromCookie(Document);
 ```
 
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/next).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
 
 {% hint style="warning" %}
 This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for this feature. &#x20;
