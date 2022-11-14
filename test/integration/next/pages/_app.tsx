@@ -1,9 +1,12 @@
 import DefaultApp from "next/app";
-import { createDsfrNextIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
-const { withAppDsfr, dsfrDocumentApi } = createDsfrNextIntegrationApi({
+const { 
+    withAppDsfr, 
+    dsfrDocumentApi 
+} = createNextDsfrIntegrationApi({
     "defaultColorScheme": "system",
     "preloadFonts": [
         //"Marianne-Light",

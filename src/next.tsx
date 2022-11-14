@@ -5,7 +5,7 @@ import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
 import { startDsfrReact } from "./lib/start";
-import type { Params as startDsfrReactParams } from "./lib/start";
+import type { Params as StartDsfrReactParams } from "./lib/start";
 import { isBrowser } from "./lib/tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
 import marianneLightWoff2Url from "./dsfr/fonts/Marianne-Light.woff2";
@@ -40,14 +40,25 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = startDsfrReactParams & {
-    /** If not provided no fonts are preloaded.
-     * Preloading of fonts is only enabled in production.
-     */
-    preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-    /** Default false */
-    doPersistDarkModePreferenceWithCookie?: boolean;
-};
+export type Params = Params.WithDocument | Params.WithoutDocument;
+export namespace Params {
+    export type Common = StartDsfrReactParams & {
+        /** If not provided no fonts are preloaded.
+         * Preloading of fonts is only enabled in production.
+         */
+        preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
+        /** Default false */
+        doPersistDarkModePreferenceWithCookie?: boolean;
+    };
+
+    export type WithDocument = Common & {
+        doPersistDarkModePreferenceWithCookie: true;
+    };
+
+    export type WithoutDocument = Common & {
+        doPersistDarkModePreferenceWithCookie?: false;
+    };
+}
 
 /*
 const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefined>(
@@ -82,14 +93,32 @@ function readColorSchemeInCookie(cookie: string) {
     })();
 }
 
-export function createDsfrNextIntegrationApi(params: Params) {
+export type NextDsfrIntegrationApi = {
+    withAppDsfr: <AppComponent extends NextComponentType<any, any, any>>(
+        App: AppComponent
+    ) => AppComponent;
+    dsfrDocumentApi: {
+        augmentDocumentByReadingColorSchemeFromCookie: (
+            Document: NextComponentType<any, any, any>
+        ) => void;
+        getColorSchemeHtmlAttributes: (
+            props: DocumentProps
+        ) =>
+            | Record<never, unknown>
+            | Record<typeof data_fr_scheme | typeof data_fr_theme, ColorScheme>;
+    };
+};
+
+export function createNextDsfrIntegrationApi(params: Params.WithDocument): NextDsfrIntegrationApi;
+export function createNextDsfrIntegrationApi(
+    params: Params.WithoutDocument
+): Omit<NextDsfrIntegrationApi, "dsfrDocumentApi">;
+export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegrationApi {
     const {
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
         ...startDsfrReactParams
     } = params;
-
-    assert(doPersistDarkModePreferenceWithCookie, "TODO: Support without this mode");
 
     if (isBrowser) {
         startDsfrReact(startDsfrReactParams);
@@ -99,11 +128,9 @@ export function createDsfrNextIntegrationApi(params: Params) {
 
     const colorSchemeKey = "dsfrColorScheme";
 
-    /** the App returned by witAppDsfr should be directly exported default as is */
     function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
         App: AppComponent
     ): AppComponent {
-        //function AppWithDsfr({ [colorSchemeKey]: colorScheme = "light", ...props }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
         function AppWithDsfr({
             [colorSchemeKey]: colorScheme,
             ...props
@@ -162,7 +189,7 @@ export function createDsfrNextIntegrationApi(params: Params) {
             staticMethod => ((AppWithDsfr as any)[staticMethod] = (App as any)[staticMethod])
         );
 
-        {
+        if (doPersistDarkModePreferenceWithCookie) {
             const super_getInitialProps =
                 App.getInitialProps?.bind(App) ?? DefaultApp.getInitialProps.bind(DefaultApp);
 
@@ -250,7 +277,9 @@ export function createDsfrNextIntegrationApi(params: Params) {
         };
     }
 
-    function getColorSchemeHtmlAttributes(props: DocumentProps) {
+    function getColorSchemeHtmlAttributes(
+        props: DocumentProps
+    ): Record<never, unknown> | Record<typeof data_fr_scheme | typeof data_fr_theme, ColorScheme> {
         const { [colorSchemeKey]: colorScheme } = props as DocumentProps &
             Record<typeof colorSchemeKey, ColorScheme | undefined>;
 
