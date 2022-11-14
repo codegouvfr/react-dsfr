@@ -64,12 +64,6 @@ export namespace Params {
     };
 }
 
-/*
-const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefined>(
-    () => undefined
-);
-*/
-
 let defaultColorScheme: ColorScheme | "system";
 
 function readColorSchemeInCookie(cookie: string) {
