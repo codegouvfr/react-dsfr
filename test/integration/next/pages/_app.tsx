@@ -1,9 +1,9 @@
 import DefaultApp from "next/app";
-import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
+import { createDsfrNextIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
-export default withAppDsfr(DefaultApp, {
+const { withAppDsfr, dsfrDocumentApi } = createDsfrNextIntegrationApi({
     "defaultColorScheme": "system",
     "preloadFonts": [
         //"Marianne-Light",
@@ -16,5 +16,10 @@ export default withAppDsfr(DefaultApp, {
         //"Marianne-Bold_Italic",
         //"Spectral-Regular",
         //"Spectral-ExtraBold"
-    ]
+    ],
+    "doPersistDarkModePreferenceWithCookie": true
 });
+
+export { dsfrDocumentApi };
+
+export default withAppDsfr(DefaultApp);

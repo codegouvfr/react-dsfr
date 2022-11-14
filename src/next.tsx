@@ -3,6 +3,7 @@ import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
+import type { DocumentProps, DocumentContext } from "next/document";
 import { startDsfrReact } from "./lib/start";
 import type { Params as startDsfrReactParams } from "./lib/start";
 import { isBrowser } from "./lib/tools/isBrowser";
@@ -21,12 +22,10 @@ import appleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import faviconSvg from "./dsfr/favicon/favicon.svg";
 import faviconIco from "./dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
-import type { DocumentContext } from "next/document";
-import { data_fr_scheme, data_fr_theme, $colorScheme } from "./lib/darkMode";
+import { data_fr_scheme, data_fr_theme, isDarkContext } from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
-import { createStatefulObservable } from "./lib/tools/StatefulObservable";
-import { symToStr } from "tsafe/symToStr";
 import DefaultDocument from "next/document";
+import { assert } from "tsafe/assert";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -46,168 +45,17 @@ export type Params = startDsfrReactParams & {
      * Preloading of fonts is only enabled in production.
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
+    /** Default false */
+    doPersistDarkModePreferenceWithCookie?: boolean;
 };
 
+/*
 const $overwriteGetInitialProps = createStatefulObservable<(() => void) | undefined>(
     () => undefined
 );
+*/
 
 let defaultColorScheme: ColorScheme | "system";
-
-export function getColorSchemeSsrUtils() {
-    $overwriteGetInitialProps.current?.();
-
-    $overwriteGetInitialProps.subscribe(overwriteGetInitialProps => overwriteGetInitialProps?.());
-
-    let colorScheme: ColorScheme | undefined = undefined;
-
-    let isNextTickCleared = false;
-
-    function getColorSchemeHtmlAttributes() {
-        isNextTickCleared = true;
-
-        if (colorScheme === undefined) {
-            return {};
-        }
-
-        $colorScheme.current = colorScheme;
-
-        return {
-            [data_fr_scheme]: colorScheme,
-            [data_fr_theme]: colorScheme
-        };
-    }
-
-    function augmentDocumentByReadingColorSchemeFromCookie(
-        Document: NextComponentType<any, any, any>
-    ): void {
-        const super_getInitialProps =
-            Document.getInitialProps?.bind(Document) ??
-            DefaultDocument.getInitialProps.bind(DefaultDocument);
-
-        (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
-            const initialProps = await super_getInitialProps(documentContext);
-
-            {
-                const cookie = documentContext.req?.headers.cookie;
-
-                colorScheme =
-                    (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
-                    (() => {
-                        switch (defaultColorScheme) {
-                            case "light":
-                            case "dark":
-                                return defaultColorScheme;
-                            case "system":
-                                return undefined;
-                        }
-                    })();
-
-                isNextTickCleared = false;
-
-                process.nextTick(() => {
-                    if (!isNextTickCleared) {
-                        console.error(
-                            [
-                                `WARNING: react-dsfr, Next.js setup: ${symToStr({
-                                    getColorSchemeHtmlAttributes
-                                })} should be called just after this.`,
-                                `If you see this error please open an issue https://github.com/codegouvfr/react-dsfr/issues`
-                            ].join("\n")
-                        );
-                    }
-                });
-            }
-
-            return { ...initialProps };
-        };
-    }
-
-    return { getColorSchemeHtmlAttributes, augmentDocumentByReadingColorSchemeFromCookie };
-}
-
-/** the App returned by witAppDsfr should be directly exported default as is */
-export function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
-    App: AppComponent,
-    params: Params
-): AppComponent {
-    const { preloadFonts = [], ...startDsfrReactParams } = params;
-
-    if (isBrowser) {
-        startDsfrReact(startDsfrReactParams);
-    } else {
-        defaultColorScheme = startDsfrReactParams.defaultColorScheme;
-    }
-
-    function AppWithDsfr(props: AppProps) {
-        return (
-            <>
-                <Head>
-                    {process.env.NODE_ENV !== "development" &&
-                        objectKeys(fontUrlByFileBasename)
-                            .filter(fileBasename => preloadFonts.includes(fileBasename))
-                            .map(fileBasename => fontUrlByFileBasename[fileBasename])
-                            .map(url => (
-                                <link
-                                    key={url}
-                                    rel="preload"
-                                    href={url}
-                                    as="font"
-                                    crossOrigin="anonymous"
-                                />
-                            ))}
-                    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
-                    <link rel="icon" href={faviconSvg.src} type="image/svg+xml" />
-                    <link rel="shortcut icon" href={faviconIco.src} type="image/x-icon" />
-                    <link
-                        rel="manifest"
-                        href={faviconWebmanifestUrl}
-                        crossOrigin="use-credentials"
-                    />
-                    <style>{`:root { color-scheme: ${$colorScheme.current}; }`}</style>
-                </Head>
-                <App {...(props as any)} />
-            </>
-        );
-    }
-
-    {
-        const super_getInitialProps =
-            App.getInitialProps?.bind(App) ?? DefaultApp.getInitialProps.bind(DefaultApp);
-
-        $overwriteGetInitialProps.current = () => {
-            (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
-                const initialProps = await super_getInitialProps(appContext);
-
-                if (!isBrowser) {
-                    $colorScheme.current =
-                        (() => {
-                            const cookie = appContext.ctx.req?.headers.cookie;
-
-                            return cookie === undefined
-                                ? undefined
-                                : readColorSchemeInCookie(cookie);
-                        })() ??
-                        (() => {
-                            switch (startDsfrReactParams.defaultColorScheme) {
-                                case "dark":
-                                case "light":
-                                    return startDsfrReactParams.defaultColorScheme;
-                                case "system":
-                                    return "light";
-                            }
-                        })();
-                }
-
-                return { ...initialProps };
-            };
-        };
-    }
-
-    AppWithDsfr.displayName = AppWithDsfr.name;
-
-    return AppWithDsfr as any;
-}
 
 function readColorSchemeInCookie(cookie: string) {
     const parsedCookies = Object.fromEntries(
@@ -232,4 +80,203 @@ function readColorSchemeInCookie(cookie: string) {
                 return undefined;
         }
     })();
+}
+
+export function createDsfrNextIntegrationApi(params: Params) {
+    const {
+        preloadFonts = [],
+        doPersistDarkModePreferenceWithCookie = false,
+        ...startDsfrReactParams
+    } = params;
+
+    assert(doPersistDarkModePreferenceWithCookie, "TODO: Support without this mode");
+
+    if (isBrowser) {
+        startDsfrReact(startDsfrReactParams);
+    } else {
+        defaultColorScheme = startDsfrReactParams.defaultColorScheme;
+    }
+
+    const colorSchemeKey = "dsfrColorScheme";
+
+    /** the App returned by witAppDsfr should be directly exported default as is */
+    function withAppDsfr<AppComponent extends NextComponentType<any, any, any>>(
+        App: AppComponent
+    ): AppComponent {
+        //function AppWithDsfr({ [colorSchemeKey]: colorScheme = "light", ...props }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
+        function AppWithDsfr({
+            [colorSchemeKey]: colorScheme,
+            ...props
+        }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
+            console.log(`AppWithDsfr: ${colorScheme}`);
+
+            if (colorScheme === undefined) {
+                colorScheme = "light";
+            }
+
+            return (
+                <>
+                    <Head>
+                        {process.env.NODE_ENV !== "development" &&
+                            objectKeys(fontUrlByFileBasename)
+                                .filter(fileBasename => preloadFonts.includes(fileBasename))
+                                .map(fileBasename => fontUrlByFileBasename[fileBasename])
+                                .map(url => (
+                                    <link
+                                        key={url}
+                                        rel="preload"
+                                        href={url}
+                                        as="font"
+                                        crossOrigin="anonymous"
+                                    />
+                                ))}
+                        <link rel="apple-touch-icon" href={appleTouchIcon.src} />
+                        <link rel="icon" href={faviconSvg.src} type="image/svg+xml" />
+                        <link rel="shortcut icon" href={faviconIco.src} type="image/x-icon" />
+                        <link
+                            rel="manifest"
+                            href={faviconWebmanifestUrl}
+                            crossOrigin="use-credentials"
+                        />
+                        <style>{`:root { color-scheme: ${colorScheme}; }`}</style>
+                    </Head>
+                    {isBrowser ? (
+                        <App {...(props as any)} />
+                    ) : (
+                        <isDarkContext.Provider
+                            value={(() => {
+                                switch (colorScheme) {
+                                    case "dark":
+                                        return true;
+                                    case "light":
+                                        return false;
+                                }
+                            })()}
+                        >
+                            <App {...(props as any)} />
+                        </isDarkContext.Provider>
+                    )}
+                </>
+            );
+        }
+
+        Object.keys(App).forEach(
+            staticMethod => ((AppWithDsfr as any)[staticMethod] = (App as any)[staticMethod])
+        );
+
+        {
+            const super_getInitialProps =
+                App.getInitialProps?.bind(App) ?? DefaultApp.getInitialProps.bind(DefaultApp);
+
+            (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
+                const initialProps = await super_getInitialProps(appContext);
+
+                let colorScheme: ColorScheme | undefined = undefined;
+
+                if (!isBrowser) {
+                    colorScheme =
+                        (() => {
+                            const cookie = appContext.ctx.req?.headers.cookie;
+
+                            return cookie === undefined
+                                ? undefined
+                                : readColorSchemeInCookie(cookie);
+                        })() ??
+                        (() => {
+                            switch (startDsfrReactParams.defaultColorScheme) {
+                                case "dark":
+                                case "light":
+                                    return startDsfrReactParams.defaultColorScheme;
+                                case "system":
+                                    return undefined;
+                            }
+                        })();
+                }
+
+                console.log(`AppWithDsfr.getInitialProps ${colorScheme}`);
+
+                return { ...initialProps, colorScheme };
+            };
+        }
+
+        AppWithDsfr.displayName = AppWithDsfr.name;
+
+        return AppWithDsfr as any;
+    }
+
+    function augmentDocumentByReadingColorSchemeFromCookie(
+        Document: NextComponentType<any, any, any>
+    ): void {
+        const super_getInitialProps =
+            Document.getInitialProps?.bind(Document) ??
+            DefaultDocument.getInitialProps.bind(DefaultDocument);
+
+        (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
+            const { colorScheme } = (() => {
+                const cookie = documentContext.req?.headers.cookie;
+
+                const colorScheme =
+                    (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
+                    (() => {
+                        switch (defaultColorScheme) {
+                            case "light":
+                            case "dark":
+                                return defaultColorScheme;
+                            case "system":
+                                return undefined;
+                        }
+                    })();
+
+                return { colorScheme };
+            })();
+
+            {
+                const originalRenderPage = documentContext.renderPage;
+
+                documentContext.renderPage = ({ enhanceApp, ...params }: any) =>
+                    originalRenderPage({
+                        ...params,
+                        "enhanceApp": (App: any) => {
+                            const EnhancedApp = enhanceApp?.(App) ?? App;
+
+                            return function EnhanceApp(props) {
+                                return (
+                                    <EnhancedApp {...{ ...props, [colorSchemeKey]: colorScheme }} />
+                                );
+                            };
+                        }
+                    });
+            }
+
+            const initialProps = await super_getInitialProps(documentContext);
+
+            console.log(`Document.getInitialProps ${colorScheme}`);
+
+            return { ...initialProps, [colorSchemeKey]: colorScheme };
+        };
+    }
+
+    function getColorSchemeHtmlAttributes(props: DocumentProps) {
+        const { [colorSchemeKey]: colorScheme } = props as DocumentProps &
+            Record<typeof colorSchemeKey, ColorScheme | undefined>;
+
+        console.log(`getColorSchemeHtmlAttributes ${colorScheme}`);
+
+        if (colorScheme === undefined) {
+            return {};
+        }
+
+        return {
+            [data_fr_scheme]: colorScheme,
+            [data_fr_theme]: colorScheme
+        };
+    }
+
+    return {
+        withAppDsfr,
+        "dsfrDocumentApi": {
+            augmentDocumentByReadingColorSchemeFromCookie,
+            getColorSchemeHtmlAttributes
+        }
+    };
 }

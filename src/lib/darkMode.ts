@@ -1,8 +1,5 @@
-import {
-    createStatefulObservable,
-    useRerenderOnChange,
-    statefulObservableBidirectionalMap
-} from "./tools/StatefulObservable";
+import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
+import { createContext, useContext } from "react";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
 import { isBrowser } from "./tools/isBrowser";
@@ -12,65 +9,82 @@ export type ColorScheme = "light" | "dark";
 export const data_fr_theme = "data-fr-theme";
 export const data_fr_scheme = "data-fr-scheme";
 
-export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
+//export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
+export const $isDark = createStatefulObservable(() => false);
 
-type UseColorScheme = () => {
-    colorScheme: ColorScheme;
-    setColorScheme: (colorSchemeOrSystem: ColorScheme | "system") => void;
+type UseIsDark = () => {
+    isDark: boolean;
+    setIsDark: (isDark: boolean | "system") => void;
 };
 
-const useColorSchemeClientSide: UseColorScheme = () => {
-    useRerenderOnChange($colorScheme);
+const useIsDarkClientSide: UseIsDark = () => {
+    useRerenderOnChange($isDark);
 
-    const setColorScheme = useConstCallback((colorSchemeOrSystem: ColorScheme | "system") =>
-        document.documentElement.setAttribute(data_fr_scheme, colorSchemeOrSystem)
+    const setIsDark = useConstCallback((isDark: boolean | "system") =>
+        document.documentElement.setAttribute(
+            data_fr_scheme,
+            ((): ColorScheme | "system" => {
+                switch (isDark) {
+                    case "system":
+                        return "system";
+                    case true:
+                        return "dark";
+                    case false:
+                        return "light";
+                }
+            })()
+        )
     );
 
-    return { "colorScheme": $colorScheme.current, setColorScheme };
+    return { "isDark": $isDark.current, setIsDark };
 };
 
-const useColorSchemeServerSide: UseColorScheme = () => {
-    const setColorScheme = useConstCallback(() => {
+export const isDarkContext = createContext<boolean | undefined>(undefined);
+
+const useIsDarkServerSide: UseIsDark = () => {
+    const setIsDark = useConstCallback(() => {
         /* nothing */
     });
 
+    const isDark = useContext(isDarkContext);
+
+    assert(isDark !== undefined, "color scheme context should be provided");
+
     return {
-        "colorScheme": $colorScheme.current,
-        setColorScheme
+        isDark,
+        setIsDark
     };
 };
 
-export const useColorScheme = isBrowser ? useColorSchemeClientSide : useColorSchemeServerSide;
+export const useIsDark = isBrowser ? useIsDarkClientSide : useIsDarkServerSide;
 
-function getCurrentColorSchemeFromHtmlAttribute(): ColorScheme {
-    if (!isBrowser) {
-        return "light";
-    }
-
+function getCurrentIsDarkFromHtmlAttribute(): boolean {
     const colorSchemeReadFromDom = document.documentElement.getAttribute(data_fr_theme);
 
     switch (colorSchemeReadFromDom) {
         case null:
-            return "light";
         case "light":
+            return false;
         case "dark":
-            return colorSchemeReadFromDom;
+            return true;
     }
 
     assert(false);
 }
 
 export function startObservingColorSchemeHtmlAttribute() {
-    $colorScheme.current = getCurrentColorSchemeFromHtmlAttribute();
+    $isDark.current = getCurrentIsDarkFromHtmlAttribute();
 
-    new MutationObserver(
-        () => ($colorScheme.current = getCurrentColorSchemeFromHtmlAttribute())
-    ).observe(document.documentElement, {
-        "attributes": true,
-        "attributeFilter": [data_fr_theme]
-    });
+    new MutationObserver(() => ($isDark.current = getCurrentIsDarkFromHtmlAttribute())).observe(
+        document.documentElement,
+        {
+            "attributes": true,
+            "attributeFilter": [data_fr_theme]
+        }
+    );
 
     {
+        /*
         const setColorSchemeCookie = (colorScheme: ColorScheme) => {
             let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
 
@@ -87,17 +101,39 @@ export function startObservingColorSchemeHtmlAttribute() {
 
             document.cookie = newCookie;
         };
+        */
 
-        setColorSchemeCookie($colorScheme.current);
+        const setColorSchemeCookie = (isDark: boolean) => {
+            const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
-        $colorScheme.subscribe(setColorSchemeCookie);
+            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000`;
+
+            set_domain: {
+                const { hostname } = window.location;
+
+                //We do not set the domain if we are on localhost or an ip
+                if (/(^localhost$)|(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)/.test(hostname)) {
+                    break set_domain;
+                }
+
+                newCookie += `;domain=${hostname}`;
+            }
+
+            document.cookie = newCookie;
+        };
+
+        setColorSchemeCookie($isDark.current);
+
+        $isDark.subscribe(setColorSchemeCookie);
     }
 
     //TODO:    <meta name="theme-color" content="#000091"><!-- Défini la couleur de thème du navigateur (Safari/Android) -->
 
     //TODO: Remove once https://github.com/GouvernementFR/dsfr/issues/407 is dealt with
     {
-        const setRootColorScheme = (colorScheme: ColorScheme) => {
+        const setRootColorScheme = (isDark: boolean) => {
+            const colorScheme: ColorScheme = isDark ? "dark" : "light";
+
             const id = "root-color-scheme";
 
             remove_existing_element: {
@@ -119,45 +155,8 @@ export function startObservingColorSchemeHtmlAttribute() {
             document.getElementsByTagName("head")[0].appendChild(element);
         };
 
-        setRootColorScheme($colorScheme.current);
+        setRootColorScheme($isDark.current);
 
-        $colorScheme.subscribe(setRootColorScheme);
+        $isDark.subscribe(setRootColorScheme);
     }
-}
-
-//NOTE: Just because it's more convenient to have a boolean than "light" | "dark"
-
-export const $isDark = statefulObservableBidirectionalMap({
-    "statefulObservable": $colorScheme,
-    "trInToOut": colorScheme => {
-        switch (colorScheme) {
-            case "light":
-                return false;
-            case "dark":
-                return true;
-        }
-    },
-    "trOutToIn": isDark => (isDark ? "dark" : "light")
-});
-
-export function useIsDark() {
-    const { colorScheme, setColorScheme } = useColorScheme();
-
-    const setIsDark = useConstCallback((isDark: boolean | "system") =>
-        setColorScheme(typeof isDark !== "boolean" ? isDark : isDark ? "dark" : "light")
-    );
-
-    const isDark = (() => {
-        switch (colorScheme) {
-            case "dark":
-                return true;
-            case "light":
-                return false;
-        }
-    })();
-
-    return {
-        isDark,
-        setIsDark
-    };
 }
