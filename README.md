@@ -183,7 +183,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for this feature. &#x20;
 {% endhint %}
 
-Explainations: On the server, wer have no way to know if the user prefers dark mode or light mode so we always render il light mode and the color sheme is switched to dark on the client if it's the prefered color scheme. &#x20;
+Explainations: On the server, wer have no way to know if the user prefers dark mode or light mode so we always render il light mode and the color sheme is switched to dark on the client if it's the prefered color scheme. More info [in this video](https://youtu.be/5X099P97lNw). &#x20;
 
 For subsequent reload however with a custom Next.js document, we can read the prefered color scheme from a cookie that has been set by the client and ensure the SSR is performed in the correct color scheme. &#x20;
 {% endtab %}
