@@ -156,17 +156,16 @@ Then create or update the `pages/_document.tsx`: &#x20;
 ```tsx
 // pages/_document.tsx
 import { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
-import type { DocumentContext } from "next/document";
-import { getColorSchemeSsrUtils } from "@codegouvfr/react-dsfr/next";
+import { dsfrDocumentApi } from "./_app";
 
 const { 
-  readColorSchemeFromCookie, 
+  getColorSchemeHtmlAttributes, 
   augmentDocumentByReadingColorSchemeFromCookie 
-} = getColorSchemeSsrUtils();
+} = dsfrDocumentApi;
 
-export default function Document(props: ) {
+export default function Document(props: DocumentProps) {
   return (
-    <Html {...getColorSchemeHtmlAttributes()}>
+    <Html {...getColorSchemeHtmlAttributes(props)}>
       <Head />
       <body>
         <Main />
