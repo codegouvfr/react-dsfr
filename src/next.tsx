@@ -25,7 +25,6 @@ import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import { data_fr_scheme, data_fr_theme, isDarkContext } from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
-import { assert } from "tsafe/assert";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
