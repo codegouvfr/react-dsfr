@@ -108,8 +108,6 @@ export function createDsfrNextIntegrationApi(params: Params) {
             [colorSchemeKey]: colorScheme,
             ...props
         }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
-            console.log(`AppWithDsfr: ${colorScheme}`);
-
             if (colorScheme === undefined) {
                 colorScheme = "light";
             }
@@ -193,8 +191,6 @@ export function createDsfrNextIntegrationApi(params: Params) {
                         })();
                 }
 
-                console.log(`AppWithDsfr.getInitialProps ${colorScheme}`);
-
                 return { ...initialProps, colorScheme };
             };
         }
@@ -250,8 +246,6 @@ export function createDsfrNextIntegrationApi(params: Params) {
 
             const initialProps = await super_getInitialProps(documentContext);
 
-            console.log(`Document.getInitialProps ${colorScheme}`);
-
             return { ...initialProps, [colorSchemeKey]: colorScheme };
         };
     }
@@ -259,8 +253,6 @@ export function createDsfrNextIntegrationApi(params: Params) {
     function getColorSchemeHtmlAttributes(props: DocumentProps) {
         const { [colorSchemeKey]: colorScheme } = props as DocumentProps &
             Record<typeof colorSchemeKey, ColorScheme | undefined>;
-
-        console.log(`getColorSchemeHtmlAttributes ${colorScheme}`);
 
         if (colorScheme === undefined) {
             return {};
