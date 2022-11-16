@@ -8,6 +8,11 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useConstCallback } from "./lib/tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./lib/i18n";
+// We make users import dsfr.css so we don't need to import the scoped CSS
+// but in the future if we have a complete component coverage it
+// we could stop requiring users to import the hole CSS and only import on a
+// per component basis.
+import "./dsfr/component/alert/alert.css";
 
 export type AlertProps = {
     className?: string;
