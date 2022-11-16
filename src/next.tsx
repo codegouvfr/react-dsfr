@@ -18,9 +18,9 @@ import marianneBoldWoff2Url from "./dsfr/fonts/Marianne-Bold.woff2";
 import marianneBoldItalicWoff2Url from "./dsfr/fonts/Marianne-Bold_Italic.woff2";
 import spectralRegularWoff2Url from "./dsfr/fonts/Spectral-Regular.woff2";
 import spectralExtraBoldWoff2Url from "./dsfr/fonts/Spectral-ExtraBold.woff2";
-import appleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
-import faviconSvg from "./dsfr/favicon/favicon.svg";
-import faviconIco from "./dsfr/favicon/favicon.ico";
+import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
+import FaviconSvg from "./dsfr/favicon/favicon.svg";
+import FaviconIco from "./dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import {
     data_fr_scheme,
@@ -30,6 +30,7 @@ import {
 } from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
+import { getAssetUrl } from "./lib/tools/getAssetUrl";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -157,9 +158,13 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                                         crossOrigin="anonymous"
                                     />
                                 ))}
-                        <link rel="apple-touch-icon" href={appleTouchIcon.src} />
-                        <link rel="icon" href={faviconSvg.src} type="image/svg+xml" />
-                        <link rel="shortcut icon" href={faviconIco.src} type="image/x-icon" />
+                        <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
+                        <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
+                        <link
+                            rel="shortcut icon"
+                            href={getAssetUrl(FaviconIco)}
+                            type="image/x-icon"
+                        />
                         <link
                             rel="manifest"
                             href={faviconWebmanifestUrl}
