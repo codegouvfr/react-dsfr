@@ -3,41 +3,13 @@ import { join as pathJoin, relative as pathRelative } from "path";
 
 async function crawlRec(params: {
     dirPath: string;
-    getDoCrawlInDir: (prams: { dirPath: string }) => boolean;
+    getDoCrawlInDir: (prams: { dirPath: string }) => boolean | Promise<boolean>;
 }) {
     const { dirPath, getDoCrawlInDir } = params;
 
     const filePaths: string[] = [];
 
     const recursiveCallResults: string[][] = [];
-
-    /*
-    for (const fileOrDirectoryBasename of await readdir(dirPath)) {
-
-        const fileOrDirectoryPath = pathJoin(dirPath, fileOrDirectoryBasename);
-
-        if ((await lstat(fileOrDirectoryPath)).isDirectory()) {
-            const dirPath = fileOrDirectoryPath;
-
-            if (!getDoCrawlInDir({ dirPath })) {
-                continue;
-            }
-
-            recursiveCallResults.push(
-                await crawlRec({
-                    dirPath,
-                    getDoCrawlInDir
-                })
-                continue;
-            );
-        }
-
-        const filePath = fileOrDirectoryPath;
-
-        filePaths.push(filePath);
-
-    }
-    */
 
     await Promise.all(
         (
@@ -48,7 +20,7 @@ async function crawlRec(params: {
             if ((await lstat(fileOrDirectoryPath)).isDirectory()) {
                 const dirPath = fileOrDirectoryPath;
 
-                if (!getDoCrawlInDir({ dirPath })) {
+                if (!(await getDoCrawlInDir({ dirPath }))) {
                     return;
                 }
 
@@ -74,7 +46,7 @@ async function crawlRec(params: {
 /** List all files in a given directory return paths relative to the dirPath */
 export async function crawl(params: {
     dirPath: string;
-    getDoCrawlInDir?: (prams: { relativeDirPath: string }) => boolean;
+    getDoCrawlInDir?: (prams: { relativeDirPath: string }) => boolean | Promise<boolean>;
 }) {
     const { dirPath: rootDirPath, getDoCrawlInDir = () => true } = params;
 
