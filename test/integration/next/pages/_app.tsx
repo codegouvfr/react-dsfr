@@ -1,11 +1,13 @@
-import DefaultApp from "next/app";
+import type { AppProps } from "next/app";
+import { DsfrLangProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import { Header } from "@codegouvfr/react-dsfr/Header";
 import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
 import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
-const { 
-    withDsfr, 
-    dsfrDocumentApi 
+const {
+    withDsfr,
+    dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
     "defaultColorScheme": "system",
     "preloadFonts": [
@@ -25,4 +27,34 @@ const {
 
 export { dsfrDocumentApi };
 
-export default withDsfr(DefaultApp);
+function App({ Component, pageProps }: AppProps) {
+    return (
+        <DsfrLangProvider lang="fr">
+            <Header
+                intituléOfficiel="Intitulé officiel"
+                baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
+                nomDuSiteSlashService="Nom du site / service"
+                links={[
+                    {
+                        "text": "Créer un espace",
+                        "iconId": "fr-icon-add-circle-line",
+                        "href": "#"
+                    },
+                    {
+                        "text": "Se connecter",
+                        "iconId": "fr-icon-lock-line",
+                        "href": "#"
+                    },
+                    {
+                        "text": "S'enregistrer",
+                        "iconId": "fr-icon-account-line",
+                        "href": "#"
+                    }
+                ]}
+            />
+            <Component {...pageProps} />
+        </DsfrLangProvider>
+    );
+}
+
+export default withDsfr(App);

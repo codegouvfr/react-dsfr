@@ -71,11 +71,9 @@
         "tsafe": "^1.1.1"
     },
     "devDependencies": {
-        "@gouvfr/dsfr": "1.8.2",
-        "css": "^3.0.0",
-        "remixicon": "^2.5.0",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
+        "@gouvfr/dsfr": "1.8.2",
         "@mui/material": "^5.10.7",
         "@types/css": "^0.0.33",
         "@types/memoizee": "^0.4.8",
@@ -84,6 +82,7 @@
         "@types/react-dom": "18.0.6",
         "@typescript-eslint/eslint-plugin": "^4.24.0",
         "@typescript-eslint/parser": "^4.24.0",
+        "css": "^3.0.0",
         "eslint": "^7.26.0",
         "eslint-config-prettier": "^8.3.0",
         "evt": "^2.4.2",
@@ -93,9 +92,11 @@
         "next": "12.3.1",
         "prettier": "^2.3.0",
         "react": "18.2.0",
+        "remixicon": "^2.5.0",
         "rimraf": "^3.0.2",
         "ts-node": "^10.2.1",
-        "vitest": "^0.24.3",
-        "typescript": "^4.9.1-beta"
+        "tsd": "^0.24.1",
+        "typescript": "^4.9.1-beta",
+        "vitest": "^0.24.3"
     }
 }

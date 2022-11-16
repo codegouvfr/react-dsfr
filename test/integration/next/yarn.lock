@@ -39,7 +39,7 @@
     regenerator-runtime "^0.13.10"
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.0.37"
+  version "0.0.41"
   dependencies:
     tsafe "^1.1.1"
 

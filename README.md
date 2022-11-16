@@ -36,6 +36,7 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
         be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
 -   [x] Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
+-   [x] Opt-in i18n.
 
 This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
 [I](https://github.com/garronej)'m working full time on this project. You can expect rapid development. 🚀

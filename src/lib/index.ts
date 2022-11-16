@@ -7,6 +7,7 @@ import { spacing } from "./spacing";
 export type { SpacingToken } from "./spacing";
 import { cx } from "./cx";
 export type { FrCxArg } from "./cx";
+export { DsfrLangProvider } from "./i18n";
 
 export const fr = {
     breakpoints,

@@ -1,6 +1,7 @@
 import ArtworkLightSvg from "@codegouvfr/react-dsfr/dsfr/artwork/light.svg";
 import ArtworkDarkSvg from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";
 import ArtworkSystemSvg from "@codegouvfr/react-dsfr/dsfr/artwork/system.svg";
+import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { useIsDark, fr } from "@codegouvfr/react-dsfr";
 
 export default function App() {
@@ -8,115 +9,35 @@ export default function App() {
 
     return (
         <>
+            <Alert
+                isClosable={true}
+                severity="success"
+                title="Success: This is the title"
+                description="This is the description"
+            />
 
             <button className={fr.cx("fr-btn", "fr-icon-checkbox-circle-line", "fr-btn--icon-left")}>
-              Label bouton MD
+                Label bouton MD
             </button>
             <span className="fr-icon-ancient-gate-fill" aria-hidden="true"></span>
-            <i className="fr-icon-ancient-gate-fill" aria-hidden="true"/>
+            <i className="fr-icon-ancient-gate-fill" aria-hidden="true" />
 
             <button className={fr.cx("fr-btn", "ri-24-hours-fill", "fr-btn--icon-left")}>
-              Download
+                Download
             </button>
 
             <h1>Color Scheme: {isDark ? "dark" : "light"}</h1>
             <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
-            <header role="banner" className="fr-header">
-                <div className="fr-header__body">
-                    <div className="fr-container">
-                        <div className="fr-header__body-row">
-                            <div className="fr-header__brand fr-enlarge-link">
-                                <div className="fr-header__brand-top">
-                                    <div className="fr-header__logo">
-                                        <a
-                                            href="https://example.fr"
-                                            title="Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-                                        >
-                                            <p className="fr-logo">
-                                                Intitulé
-                                                <br />
-                                                officiel
-                                            </p>
-                                        </a>
-                                    </div>
-                                    <div className="fr-header__navbar">
-                                        <button
-                                            className="fr-btn--menu fr-btn"
-                                            data-fr-opened="false"
-                                            aria-controls="modal-491"
-                                            aria-haspopup="menu"
-                                            id="button-492"
-                                            title="Menu"
-                                        >
-                                            Menu
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    className="fr-header__menu fr-modal"
-                    id="modal-491"
-                    aria-labelledby="button-492"
-                >
-                    <div className="fr-container">
-                        <button
-                            className="fr-btn--close fr-btn"
-                            aria-controls="modal-491"
-                            title="Fermer"
-                        >
-                            Fermer
-                        </button>
-                        <div className="fr-header__menu-links"></div>
-                        <nav
-                            className="fr-nav"
-                            id="navigation-494"
-                            role="navigation"
-                            aria-label="Menu principal"
-                        >
-                            <ul className="fr-nav__list">
-                                <li className="fr-nav__item">
-                                    <a className="fr-nav__link" href="#" target="_self">
-                                        accès direct
-                                    </a>
-                                </li>
-                                <li className="fr-nav__item">
-                                    <a className="fr-nav__link" href="#" target="_self">
-                                        accès direct
-                                    </a>
-                                </li>
-                                <li className="fr-nav__item">
-                                    <a className="fr-nav__link" href="#" target="_self">
-                                        accès direct
-                                    </a>
-                                </li>
-                                <li className="fr-nav__item">
-                                    <a className="fr-nav__link" href="#" target="_self">
-                                        accès direct
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div className="fr-header__tools-links">
-                    <ul className="fr-links-group">
-                        <li>
-                            <button
-                                className={fr.cx("fr-link","fr-icon-theme-fill","fr-link--icon-left")}
-                                aria-controls="fr-theme-modal"
-                                data-fr-opened="false"
-                            >
-                                Paramètres d{"'"}affichage
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </header>
+
+            <button
+                className={fr.cx("fr-link", "fr-icon-theme-fill", "fr-link--icon-left")}
+                aria-controls="fr-theme-modal"
+                data-fr-opened="false"
+            >
+                Paramètres d{"'"}affichage
+            </button>
 
             <dialog
                 id="fr-theme-modal"
