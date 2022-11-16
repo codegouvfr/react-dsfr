@@ -32,6 +32,10 @@ if (fs.existsSync(dsfrDirPath)) {
     fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
 }
 
-fs.cpSync(pathJoin(projectDirPath, "node_modules", "@gouvfr", "dsfr", "dist"), dsfrDirPath, {
-    "recursive": true
-});
+fs.cpSync(
+    pathJoin(projectDirPath, "node_modules", "@codegouvfr", "react-dsfr", "dsfr"),
+    dsfrDirPath,
+    {
+        "recursive": true
+    }
+);
