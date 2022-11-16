@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useState, useEffect } from "react";
+import React, { memo, forwardRef, useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { FrClassName } from "./lib/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
@@ -81,13 +81,36 @@ export const Alert = memo(
 
         const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
 
+        const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
+
+        const refShouldButtonGetFocus = useRef<boolean>(false);
+
         useEffect(() => {
             if (props_isClosed === undefined) {
                 return;
             }
+            setIsClosed(isClosed => {
+                if (isClosed && !props_isClosed) {
+                    refShouldButtonGetFocus.current = true;
+                }
 
-            setIsClosed(props_isClosed);
+                return props_isClosed;
+            });
         }, [props_isClosed]);
+
+        useEffect(() => {
+            if (!refShouldButtonGetFocus.current) {
+                return;
+            }
+
+            if (buttonElement === null) {
+                //NOTE: This should not be reachable
+                return;
+            }
+
+            refShouldButtonGetFocus.current = false;
+            buttonElement.focus();
+        }, [buttonElement]);
 
         const onCloseButtonClick = useConstCallback(() => {
             if (props_isClosed === undefined) {
@@ -123,6 +146,7 @@ export const Alert = memo(
                 {/* TODO: Use our button once we have one */}
                 {isClosable && (
                     <button
+                        ref={setButtonElement}
                         className={cx(fr.cx("fr-link--close", "fr-link"), classes.close)}
                         onClick={onCloseButtonClick}
                     >
