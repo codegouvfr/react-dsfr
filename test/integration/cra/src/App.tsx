@@ -1,3 +1,4 @@
+import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { useIsDark, fr } from "@codegouvfr/react-dsfr";
 import { SwitchColorTheme } from "@codegouvfr/react-dsfr/SwitchColorTheme";
@@ -7,6 +8,29 @@ export function App() {
 
     return (
         <>
+            <Header
+                intituléOfficiel="Intitulé officiel"
+                baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
+                nomDuSiteSlashService="Nom du site / service"
+                links={[
+                    {
+                        "text": "Créer un espace",
+                        "iconId": "fr-icon-add-circle-line",
+                        "href": "#"
+                    },
+                    {
+                        "text": "Se connecter",
+                        "iconId": "fr-icon-lock-line",
+                        "href": "#"
+                    },
+                    {
+                        "text": "S'enregistrer",
+                        "iconId": "fr-icon-account-line",
+                        "href": "#"
+                    }
+                ]}
+            />
+
             <Alert
                 isClosable={true}
                 severity="success"
