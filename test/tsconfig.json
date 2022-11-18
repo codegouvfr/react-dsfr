@@ -17,6 +17,6 @@
         "noFallthroughCasesInSwitch": true,
         "skipLibCheck": true
     },
-    "include": ["../src"],
+    "include": ["../src", "stories"],
     "exclude": ["./integration", "./runtime"]
 }
