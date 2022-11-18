@@ -1,30 +1,35 @@
 import { create } from "@storybook/theming";
 
+const brandImage= "/logo.png";
+const brandTitle= "@codegouvfr/react-dsfr";
+const brandUrl= "https://github.com/@codegouvfr/react-dsfr";
+const fontBase= '"Marianne", arial, sans-serif';
+const fontCode= "monospace";
+
 export const darkTheme = create({
     "base": "dark",
-    "appBg": "#2c323f",
-    "appContentBg": "#2c323f",
-    "barBg": "#2c323f",
-    "colorSecondary": "#ff562c",
-    "textColor": "#f1f0eb",
-    "brandImage": "/logo.png",
-    "brandTitle": "Onyxia UI",
-    "brandUrl": "https://github.com/garronej/onyxia-ui",
-    "fontBase": '"Work Sans","Open Sans", sans-serif',
-    "fontCode": "monospace",
+    "appBg": "#161616",
+    "appContentBg": "#1E1E1E",
+    "barBg": "#1E1E1E",
+    "colorSecondary": "#8585F6",
+    "textColor": "#FFFFFF",
+    brandImage,
+    brandTitle,
+    brandUrl,
+    fontBase,
+    fontCode
 });
 
 export const lightTheme = create({
     "base": "light",
-    "appBg": "#f1f0eb",
-    "appContentBg": "#f1f0eb",
-    "barBg": "#f1f0eb",
-    "colorSecondary": "#ff562c",
-    "textColor": "#2c323f",
-    "textInverseColor": "#f1f0eb",
-    "brandImage": "/logo.png",
-    "brandTitle": "Onyxia UI",
-    "brandUrl": "https://github.com/garronej/onyxia-ui",
-    "fontBase": '"Work Sans","Open Sans", sans-serif',
-    "fontCode": "monospace",
+    "appBg": "#FFFFFF",
+    "appContentBg": "#F6F6F6",
+    "barBg": "#FFFFFF",
+    "colorSecondary": "#000091",
+    "textColor": "#212121",
+    brandImage,
+    brandTitle,
+    brandUrl,
+    fontBase,
+    fontCode
 });

@@ -49,7 +49,7 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             } as const;
         })(),
         "typography": {
-            "fontFamily": "Marianne",
+            "fontFamily": '"Marianne", arial, sans-serif',
             "h1": typography.find(({ selector }) => selector === "h1")!.style,
             "h2": typography.find(({ selector }) => selector === "h2")!.style,
             "h3": typography.find(({ selector }) => selector === "h3")!.style,
