@@ -10,6 +10,7 @@
         "downlevelIteration": true,
         "noFallthroughCasesInSwitch": true,
         "composite": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "skipLibCheck": true
     }
 }
