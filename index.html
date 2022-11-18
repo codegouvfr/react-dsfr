@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Webpack App</title><meta name="viewport" content="width=device-width,initial-scale=1"/><style>html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }</style><script>/* globals window */
+  /* eslint-disable no-underscore-dangle */
+  try {
+    if (window.top !== window) {
+      window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.top.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn('unable to connect to top frame for connecting dev tools');
+  }
+
+  window.onerror = function onerror(message, source, line, column, err) {
+    if (window.CONFIG_TYPE !== 'DEVELOPMENT') return;
+    // eslint-disable-next-line no-var, vars-on-top
+    var xhr = new window.XMLHttpRequest();
+    xhr.open('POST', '/runtime-error');
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    xhr.send(
+      JSON.stringify({
+        /* eslint-disable object-shorthand */
+        message: message,
+        source: source,
+        line: line,
+        column: column,
+        error: err && { message: err.message, name: err.name, stack: err.stack },
+        origin: 'manager',
+        /* eslint-enable object-shorthand */
+      })
+    );
+  };</script><style>@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Light.woff2") format("woff2"), url("fonts/Marianne-Light.woff") format("woff");
+		font-weight: 300;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Light_Italic.woff2") format("woff2"), url("fonts/Marianne-Light_Italic.woff") format("woff");
+		font-weight: 300;
+		font-style: italic;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Regular.woff2") format("woff2"), url("fonts/Marianne-Regular.woff") format("woff");
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Regular_Italic.woff2") format("woff2"), url("fonts/Marianne-Regular_Italic.woff") format("woff");
+		font-weight: 400;
+		font-style: italic;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Medium.woff2") format("woff2"), url("fonts/Marianne-Medium.woff") format("woff");
+		font-weight: 500;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Medium_Italic.woff2") format("woff2"), url("fonts/Marianne-Medium_Italic.woff") format("woff");
+		font-weight: 500;
+		font-style: italic;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Bold.woff2") format("woff2"), url("fonts/Marianne-Bold.woff") format("woff");
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Marianne;
+		src: url("fonts/Marianne-Bold_Italic.woff2") format("woff2"), url("fonts/Marianne-Bold_Italic.woff") format("woff");
+		font-weight: 700;
+		font-style: italic;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Spectral;
+		src: url("fonts/Spectral-Regular.woff2") format("woff2"), url("fonts/Spectral-Regular.woff") format("woff");
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: Spectral;
+		src: url("fonts/Spectral-ExtraBold.woff2") format("woff2"), url("fonts/Spectral-ExtraBold.woff") format("woff");
+		font-weight: 900;
+		font-style: normal;
+		font-display: swap;
+	}</style><style>#root[hidden],
+      #docs-root[hidden] {
+        display: none !important;
+      }</style></head><body><div id="root"></div><div id="docs-root"></div><script>window['CONFIG_TYPE'] = "PRODUCTION";
+          
+      
+          
+            window['LOGLEVEL'] = "info";
+          
+      
+          
+            window['FEATURES'] = {"postcss":true,"emotionAlias":false,"warnOnLegacyHierarchySeparator":true,"buildStoriesJson":false,"storyStoreV7":false,"modernInlineRender":false,"breakingChangesV7":false,"interactionsDebugger":false,"babelModeV7":false,"argTypeTargetsV7":false,"previewMdx2":false};
+          
+      
+          
+      
+          
+      
+          
+            window['DOCS_MODE'] = false;</script><script src="runtime~main.9ae7a25fee4f994844ac.manager.bundle.js"></script><script src="182.8772e6a3c209a4344de6.manager.bundle.js"></script><script src="main.5ed0e316e3610955e4e8.manager.bundle.js"></script></body></html>

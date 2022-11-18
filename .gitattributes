@@ -1,4 +1,0 @@
-src/test/apps/**/* linguist-documentation
-.eslintrc.js linguist-documentation
-next.config.js linguist-documentation
-src/bin/update_dsfr_static_resources.ts -linguist-detectable
