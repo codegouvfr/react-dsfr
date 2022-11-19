@@ -2,30 +2,45 @@ import React from "react";
 import { DocsContainer as BaseContainer } from "@storybook/addon-docs";
 import { useDarkMode } from "storybook-dark-mode";
 import { darkTheme, lightTheme } from "./customTheme";
+import { useColors } from "../dist";
 
 export const DocsContainer = ({ children, context }) => {
-    const dark = useDarkMode();
+    const isStorybookUiDark = useDarkMode();
+
+    const backgroundColor = useColors().decisions.background.default.grey.default;
 
     return (
-        <BaseContainer
-            context={{
-                ...context,
-                "storyById": id => {
-                    const storyContext = context.storyById(id);
-                    return {
-                        ...storyContext,
-                        "parameters": {
-                            ...storyContext?.parameters,
-                            "docs": {
-                                ...storyContext?.parameters?.docs,
-                                "theme": dark ? darkTheme : lightTheme
-                            }
-                        }
-                    };
+        <>
+            <style>{`
+                body {
+                    padding: 0 !important,
+                    background-color: ${backgroundColor};
                 }
-            }}
-        >
-            {children}
-        </BaseContainer>
+
+                .docs-story {
+                    background-color: ${backgroundColor};
+                }
+            `}</style>
+            <BaseContainer
+                context={{
+                    ...context,
+                    "storyById": id => {
+                        const storyContext = context.storyById(id);
+                        return {
+                            ...storyContext,
+                            "parameters": {
+                                ...storyContext?.parameters,
+                                "docs": {
+                                    ...storyContext?.parameters?.docs,
+                                    "theme": isStorybookUiDark ? darkTheme : lightTheme
+                                }
+                            }
+                        };
+                    }
+                }}
+            >
+                {children}
+            </BaseContainer>
+        </>
     );
 };

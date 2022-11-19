@@ -32,34 +32,16 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
             setIsDark(darkMode);
         }, [darkMode]);
 
-        const backgroundColor = useColors().decisions.background.default.grey.default;
-
         return (
-            <>
-                <GlobalStyles
-                    styles={{
-                        "html": {
-                            "fontSize": "100% !important"
-                        },
-                        "body": {
-                            "padding": `0 !important`,
-                            backgroundColor
-                        },
-                        ".docs-story": {
-                            backgroundColor
-                        }
-                    }}
-                />
-                <div
-                    style={{
-                        "width": width || undefined,
-                        "border": "1px dashed #e8e8e8",
-                        "display": "inline-block"
-                    }}
-                >
-                    <Component {...props} />
-                </div>
-            </>
+            <div
+                style={{
+                    "width": width || undefined,
+                    "border": "1px dashed #e8e8e8",
+                    "display": "inline-block"
+                }}
+            >
+                <Component {...props} />
+            </div>
         );
     };
 

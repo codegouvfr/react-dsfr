@@ -53,7 +53,6 @@
     ],
     "keywords": [
         "dsfr",
-        "tss-react",
         "design system",
         "react",
         "typescript"
@@ -110,7 +109,6 @@
         "storybook-dark-mode": "^1.1.2",
         "ts-node": "^10.9.1",
         "tsd": "^0.24.1",
-        "tss-react": "^4.4.4",
         "typescript": "^4.9.1-beta",
         "vitest": "^0.24.3"
     }
