@@ -38,7 +38,7 @@ export namespace Icon {
 
 type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
 
-function generateIconsRawCssCode(params: {
+export function generateIconsRawCssCode(params: {
     usedIcons: IconLike[];
     patchedRawCssCodeForCompatWithRemixIcon: string;
 }): string {

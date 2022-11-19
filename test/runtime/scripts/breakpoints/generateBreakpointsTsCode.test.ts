@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateBreakpointsTsCode } from "../../../../src/bin/css_to_ts/breakpoints";
+import { generateBreakpointsTsCode } from "../../../../src/scripts/cssToTs/breakpoints";
 
 it("Generation of TS code for breakpoints", () => {
     const input = `

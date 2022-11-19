@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateTypographyTsCode } from "../../../../src/bin/css_to_ts/typography";
+import { generateTypographyTsCode } from "../../../../src/scripts/cssToTs/typography";
 
 it("Generates typography TS code", () => {
     const rawCssCode = `

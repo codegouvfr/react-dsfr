@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateClassNamesTsCode } from "../../../../src/bin/css_to_ts/classNames";
+import { generateClassNamesTsCode } from "../../../../src/scripts/cssToTs/classNames";
 
 it("Generation of TS code for fr class names", () => {
     const input = `

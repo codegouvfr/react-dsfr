@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
-import { parseTypographyVariants } from "../../../../src/bin/css_to_ts/typography";
-import type { TypographyVariant } from "../../../../src/bin/css_to_ts/typography";
+import { parseTypographyVariants } from "../../../../src/scripts/cssToTs/typography";
+import type { TypographyVariant } from "../../../../src/scripts/cssToTs/typography";
 
 it("Successfully parse typography variants", () => {
     const rawCssCode = `

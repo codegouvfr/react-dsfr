@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { parseColorOptionName } from "../../../../src/bin/css_to_ts/colorOptions";
-import type { ParsedColorOptionName } from "../../../../src/bin/css_to_ts/colorOptions";
+import { parseColorOptionName } from "../../../../src/scripts/cssToTs/colorOptions";
+import type { ParsedColorOptionName } from "../../../../src/scripts/cssToTs/colorOptions";
 
 describe("Successfully parse color option names", () => {
     it("test 1", () => {
