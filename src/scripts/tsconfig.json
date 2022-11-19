@@ -2,10 +2,10 @@
     "extends": "../../tsproject.json",
     "compilerOptions": {
         "module": "CommonJS",
-        "target": "ES5",
+        "target": "ES2020",
         "esModuleInterop": true,
         "lib": ["DOM", "ES2021"],
-        "outDir": "../../dist/bin",
         "rootDir": "."
-    }
+    },
+    "references": [{ "path": "../bin" }]
 }

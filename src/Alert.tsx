@@ -37,7 +37,7 @@ export namespace AlertProps {
     };
 
     export type NonClosable = {
-        isClosable: false;
+        isClosable?: false;
         isClosed?: undefined;
         onClose?: undefined;
     };
@@ -76,7 +76,7 @@ export const Alert = memo(
             isSmall,
             title,
             description,
-            isClosable,
+            isClosable = false,
             isClosed: props_isClosed,
             onClose,
             ...rest

@@ -6,5 +6,5 @@ git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
 yarn build
-yarn start_next
+yarn start-next
 ```

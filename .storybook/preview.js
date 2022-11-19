@@ -2,9 +2,9 @@ import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
 
 export const parameters = {
-    actions: { argTypesRegex: "^on[A-Z].*" },
-    controls: {
-        matchers: {
+    "actions": { "argTypesRegex": "^on[A-Z].*" },
+    "controls": {
+        "matchers": {
             color: /(background|color)$/i,
             date: /Date$/,
         },
@@ -14,7 +14,7 @@ export const parameters = {
         "dark": darkTheme,
     },
     "docs": {
-        container: DocsContainer,
+        "container": DocsContainer
     },
     "viewport": {
         "viewports": {

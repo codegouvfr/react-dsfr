@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-import { pathOfIconsJson } from "./css_to_ts/icons/collectIcons/pathOfIconsJson";
-import type { Icon } from "./css_to_ts/icons";
-import { generateIconsRawCssCode } from "./css_to_ts/icons/generateIconsRawCssCode";
-import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "./css_to_ts/icons/getPatchedRawCssCodeForCompatWithRemixIcon/pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist";
+
 import { getProjectRoot } from "./tools/getProjectRoot";
 import * as fs from "fs";
 import { join as pathJoin } from "path";
@@ -13,7 +10,87 @@ import { crawl } from "./tools/crawl";
 import { basename as pathBasename } from "path";
 import type { Equals } from "tsafe";
 
-(async () => {
+export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
+
+export const pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = pathJoin(
+    "utility",
+    "icons",
+    "dsfr_remixicon.css"
+);
+
+export type Icon = Icon.Dsfr | Icon.Remixicon;
+
+export namespace Icon {
+    export type Common = {
+        iconId: string;
+    };
+
+    export type Dsfr = Common & {
+        prefix: "fr-icon-";
+        svgRelativePath: string;
+    };
+
+    export type Remixicon = Common & {
+        prefix: "ri-";
+        rawSvgCode: string;
+    };
+}
+
+type IconLike = Icon.Dsfr | Omit<Icon.Remixicon, "rawSvgCode">;
+
+function generateIconsRawCssCode(params: {
+    usedIcons: IconLike[];
+    patchedRawCssCodeForCompatWithRemixIcon: string;
+}): string {
+    const { usedIcons, patchedRawCssCodeForCompatWithRemixIcon } = params;
+
+    const buildRule = (icon: IconLike, isHighContrast: boolean) => {
+        const { iconId, prefix } = icon;
+
+        const className = `${prefix}${iconId}`;
+
+        const relativePath = (() => {
+            switch (icon.prefix) {
+                case "fr-icon-":
+                    return icon.svgRelativePath;
+                case "ri-":
+                    return `../../icons/remixicon/${iconId}.svg`;
+            }
+        })();
+
+        return [
+            `.${className}::before,`,
+            `.${className}::after {`,
+            ...(isHighContrast
+                ? [`    background-image: url("${relativePath}");`]
+                : [
+                      `    -webkit-mask-image: url("${relativePath}");`,
+                      `    mask-image: url("${relativePath}");`
+                  ]),
+            `}`,
+            ``
+        ]
+            .map(!isHighContrast ? line => line : line => `    ${line}`)
+            .join("\n");
+    };
+
+    return [
+        ...usedIcons.map(icon => buildRule(icon, false)),
+        ...(usedIcons.length === 0
+            ? []
+            : [
+                  `@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {`,
+                  ...usedIcons.map(icon => buildRule(icon, true)),
+                  `}`,
+                  ``
+              ]),
+        ...(usedIcons.find(({ prefix }) => prefix === "ri-") === undefined
+            ? []
+            : [patchedRawCssCodeForCompatWithRemixIcon])
+    ].join("\n");
+}
+
+async function main() {
     const packageName = JSON.parse(
         fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
     )["name"];
@@ -178,4 +255,8 @@ import type { Equals } from "tsafe";
             writeFile(filePath, rawIconCssCodeBuffer);
         });
     });
-})();
+}
+
+if (require.main === module) {
+    main();
+}

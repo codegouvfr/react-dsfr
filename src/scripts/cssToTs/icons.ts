@@ -1,27 +1,70 @@
 import { readFile } from "fs/promises";
 import { join as pathJoin, basename as pathBasename } from "path";
 import { id } from "tsafe/id";
-import { crawl } from "../../../tools/crawl";
-import { parseCss } from "../../parseCss";
+import { crawl } from "../../bin/tools/crawl";
+import { parseCss } from "./parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
+import type { Icon } from "../../bin/only-include-used-icons";
+import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "../../bin/only-include-used-icons";
+import { sep } from "path";
+import * as css from "css";
 
-export type Icon = Icon.Dsfr | Icon.Remixicon;
+export function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCssCode: string }) {
+    const { rawCssCode } = params;
 
-export namespace Icon {
-    export type Common = {
-        iconId: string;
-    };
+    const parsedCss = css.parse(rawCssCode);
 
-    export type Dsfr = Common & {
-        prefix: "fr-icon-";
-        svgRelativePath: string;
-    };
+    const prefixRegExp = /fr-icon-[^-]/;
 
-    export type Remixicon = Common & {
-        prefix: "ri-";
-        rawSvgCode: string;
-    };
+    (parsedCss as any).stylesheet.rules = (parsedCss as any).stylesheet.rules
+        .map((rule: any) => {
+            if (rule.type === "media") {
+                rule.rules = rule.rules
+                    .map((rule: any) => {
+                        if (rule.type !== "rule") {
+                            return undefined;
+                        }
+
+                        if (prefixRegExp.test(rule.selectors.join(", "))) {
+                            return rule;
+                        }
+
+                        return undefined;
+                    })
+                    .filter(exclude(undefined));
+
+                if (rule.rules.length === 0) {
+                    return undefined;
+                }
+
+                return rule;
+            }
+
+            if (rule.type !== "rule") {
+                return undefined;
+            }
+
+            if (prefixRegExp.test(rule.selectors.join(", "))) {
+                return rule;
+            }
+
+            return undefined;
+        })
+        .filter(exclude(undefined));
+
+    const back =
+        new Array(
+            pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist.split(sep).length - 1
+        )
+            .fill("..")
+            .join("/") + "/";
+
+    return css
+        .stringify(parsedCss)
+        .replace(/fr-icon-/g, "ri-")
+        .replace(/url\("/g, `url("${back}`)
+        .replace(/url\('/g, `url('${back}`);
 }
 
 export async function collectIcons(params: {

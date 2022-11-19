@@ -9,26 +9,24 @@
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
     "scripts": {
-        "build": "rimraf dist/ && tsc -p src/bin && yarn copy_dsfr_dist_to_root && yarn css_to_ts && tsc -p src && yarn grant_exec_perms",
+        "build": "ts-node src/scripts/build",
+        "yarn-link": "ts-node src/scripts/yarn-link.ts",
+        "start-cra": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
+        "start-next": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/next && yarn dev))",
+        "start-vite": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/vite && yarn dev))",
         "test": "vitest",
-        "start_cra": "yarn yarn_link && cd test/integration/cra && yarn start",
-        "start_next": "yarn yarn_link && cd test/integration/next && yarn dev",
-        "start_vite": "yarn yarn_link && cd test/integration/vite && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
-        "yarn_link": "ts-node src/bin/yarn_link.ts",
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
-        "copy_dsfr_dist_to_root": "node dist/bin/copy_dsfr_dist_to_root",
-        "css_to_ts": "node dist/bin/css_to_ts",
-        "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "storybook": "yarn build -w && start-storybook -p 6006",
+        "build-storybook": "yarn build && build-storybook"
     },
     "bin": {
-        "copy_dsfr_dist_to_public": "dist/bin/copy_dsfr_dist_to_public.js",
-        "only_include_used_icons": "dist/bin/only_include_used_icons.js"
+        "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
+        "only-include-used-icons": "dist/bin/only-include-used-icons.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -47,6 +45,7 @@
     "license": "MIT",
     "files": [
         "src/",
+        "!src/scripts/",
         "dist/",
         "!dist/tsconfig.tsbuildinfo",
         "!dist/bin/tsconfig.tsbuildinfo",
@@ -70,6 +69,7 @@
         }
     },
     "dependencies": {
+        "node-watch": "^0.7.3",
         "tsafe": "^1.1.1"
     },
     "devDependencies": {
@@ -91,8 +91,8 @@
         "@types/node": "^18.7.18",
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",
-        "@typescript-eslint/eslint-plugin": "^4.24.0",
-        "@typescript-eslint/parser": "^4.24.0",
+        "@typescript-eslint/eslint-plugin": "^5.43.0",
+        "@typescript-eslint/parser": "^5.43.0",
         "babel-loader": "^8.3.0",
         "css": "^3.0.0",
         "eslint": "^7.26.0",
@@ -103,15 +103,16 @@
         "lint-staged": "^11.0.0",
         "memoizee": "^0.4.15",
         "next": "12.3.1",
+        "oppa": "^0.4.0",
         "prettier": "^2.3.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "remixicon": "^2.5.0",
-        "rimraf": "^3.0.2",
-        "ts-node": "^10.2.1",
+        "storybook-dark-mode": "^1.1.2",
+        "ts-node": "^10.9.1",
         "tsd": "^0.24.1",
+        "tss-react": "^4.4.4",
         "typescript": "^4.9.1-beta",
-        "vitest": "^0.24.3",
-        "storybook-dark-mode": "^1.1.2"
+        "vitest": "^0.24.3"
     }
 }

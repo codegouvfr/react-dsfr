@@ -1,66 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { execSync } from "child_process";
-import { join as pathJoin, relative as pathRelative, basename as pathBasename } from "path";
+import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
-import { getProjectRoot } from "./tools/getProjectRoot";
+import { getProjectRoot } from "../bin/tools/getProjectRoot";
 
 const projectDirPath = getProjectRoot();
-
-fs.writeFileSync(
-    pathJoin(projectDirPath, "dist", "package.json"),
-    Buffer.from(
-        JSON.stringify(
-            (() => {
-                const packageJsonParsed = JSON.parse(
-                    fs.readFileSync(pathJoin(projectDirPath, "package.json")).toString("utf8")
-                );
-
-                return {
-                    ...packageJsonParsed,
-                    "main": packageJsonParsed["main"].replace(/^dist\//, ""),
-                    "types": packageJsonParsed["types"].replace(/^dist\//, "")
-                    /*
-                    "module": packageJsonParsed["module"].replace(
-                        /^dist\//,
-                        "",
-                    ),
-                    "exports": Object.fromEntries(
-                        Object.entries(packageJsonParsed["exports"]).map(
-                            ([path, obj]) => [
-                                path,
-                                Object.fromEntries(
-                                    Object.entries(
-                                        obj as Record<string, string>,
-                                    ).map(([type, path]) => [
-                                        type,
-                                        path.replace(/^\.\/dist\//, "./"),
-                                    ]),
-                                ),
-                            ],
-                        ),
-                    ),
-                    */
-                };
-            })(),
-            null,
-            2
-        ),
-        "utf8"
-    )
-);
-
-{
-    const dsfrDestDirPath = pathJoin(projectDirPath, "dist", "dsfr");
-
-    if (fs.existsSync(dsfrDestDirPath)) {
-        fs.rmSync(dsfrDestDirPath, { "recursive": true, "force": true });
-    }
-
-    fs.cpSync(pathJoin(projectDirPath, pathBasename(dsfrDestDirPath)), dsfrDestDirPath, {
-        "recursive": true
-    });
-}
 
 const commonThirdPartyDeps = (() => {
     const namespaceModuleNames: string[] = [
@@ -152,6 +97,8 @@ execYarnLink({ "cwd": pathJoin(projectDirPath, "dist") });
 testAppNames.forEach(testAppName =>
     execYarnLink({
         "cwd": getTestAppPath(testAppName),
-        "targetModuleName": "@codegouvfr/react-dsfr"
+        "targetModuleName": JSON.parse(
+            fs.readFileSync(pathJoin(projectDirPath, "package.json")).toString("utf8")
+        )["name"]
     })
 );

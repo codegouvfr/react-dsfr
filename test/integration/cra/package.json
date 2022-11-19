@@ -19,10 +19,10 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "copy_dsfr_dist_to_public": "node node_modules/@codegouvfr/react-dsfr/bin/copy_dsfr_dist_to_public.js",
-        "only_include_used_icons": "node node_modules/@codegouvfr/react-dsfr/bin/only_include_used_icons.js",
-        "prestart": "yarn copy_dsfr_dist_to_public && yarn only_include_used_icons",
-        "prebuild": "yarn copy_dsfr_dist_to_public && yarn only_include_used_icons"
+        "copy-dsfr-to-public": "node node_modules/@codegouvfr/react-dsfr/bin/copy-dsfr-to-public.js",
+        "only-include-used-icons": "node node_modules/@codegouvfr/react-dsfr/bin/only-include-used-icons.js",
+        "prestart": "yarn copy-dsfr-to-public && yarn only-include-used-icons",
+        "prebuild": "yarn copy-dsfr-to-public && yarn only-include-used-icons"
     },
     "eslintConfig": {
         "extends": [

@@ -1,4 +1,5 @@
 src/test/integration/**/* linguist-documentation
 .eslintrc.js linguist-documentation
 next.config.js linguist-documentation
-src/bin/copy_dsfr_dist_to_public.ts -linguist-detectable
+src/bin/copy-dsfr-to-public.ts -linguist-detectable
+src/bin/only-include-used-icons.ts -linguist-detectable
