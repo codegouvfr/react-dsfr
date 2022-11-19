@@ -76,7 +76,7 @@
         "@babel/core": "^7.20.2",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
-        "@gouvfr/dsfr": "1.8.2",
+        "@gouvfr/dsfr": "1.8.4",
         "@mui/material": "^5.10.7",
         "@storybook/addon-actions": "^6.5.13",
         "@storybook/addon-essentials": "^6.5.13",
