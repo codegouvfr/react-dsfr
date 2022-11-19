@@ -58,7 +58,7 @@ cd react-dsfr
 yarn
 yarn start-cra  # For testing in in a Create React App setup
 yarn start-next # For testing in a Next.js setup
-yarn start_vite # For testing in a Vite setup
+yarn start-vite # For testing in a Vite setup
 
 # Run all unit test (test/runtime):
 yarn test
