@@ -3,5 +3,3 @@ dist/
 CHANGELOG.md
 .yarn_home/
 src/test/integration/
-src/test/types/
-src/tools/types/
