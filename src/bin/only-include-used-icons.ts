@@ -7,7 +7,7 @@ import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import { writeFile, readFile, rm } from "fs/promises";
 import { crawl } from "./tools/crawl";
-import { basename as pathBasename } from "path";
+import { basename as pathBasename, sep as pathSep } from "path";
 import type { Equals } from "tsafe";
 
 export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
@@ -109,14 +109,60 @@ async function main() {
         const candidateFilePaths = (
             await crawl({
                 "dirPath": cwd,
-                "getDoCrawlInDir": ({ relativeDirPath }) => {
-                    const dirBasename = pathBasename(relativeDirPath);
+                "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                    if (relativeDirPath === "node_modules") {
+                        return true;
+                    }
 
-                    if (dirBasename === "node_modules") {
+                    if (
+                        relativeDirPath.startsWith(`node_modules${pathSep}@`) &&
+                        relativeDirPath.split(pathSep).length === 2
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        relativeDirPath.startsWith("node_modules") &&
+                        (relativeDirPath.split(pathSep).length === 2 ||
+                            (relativeDirPath.startsWith(`node_modules${pathSep}@`) &&
+                                relativeDirPath.split(pathSep).length === 3))
+                    ) {
+                        const parsedPackageJson = await readFile(
+                            pathJoin(relativeDirPath, "package.json")
+                        ).then(
+                            buff => JSON.parse(buff.toString("utf8")),
+                            () => undefined
+                        );
+
+                        if (parsedPackageJson === undefined) {
+                            return false;
+                        }
+
+                        if (
+                            Object.keys({
+                                ...parsedPackageJson["dependencies"],
+                                ...parsedPackageJson["devDependencies"]
+                            }).includes("@gouvfr/dsfr")
+                        ) {
+                            return true;
+                        }
+
                         return false;
                     }
 
-                    if (dirBasename.startsWith(".")) {
+                    if (relativeDirPath === `public${pathSep}dsfr`) {
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath) === "node_modules") {
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath).startsWith(".")) {
                         return false;
                     }
 

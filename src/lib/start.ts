@@ -71,7 +71,7 @@ export async function startDsfrReact(params: Params) {
 
     (window as any).dsfr = { verbose, "mode": "manual" };
 
-    await import("../dsfr/dsfr.module" as any as "@gouvfr/dsfr/dist/dsfr.module");
+    await import("../dsfr/dsfr.module" as any);
 
     if (isNextJsDevEnvironnement) {
         // NOTE: @gouvfr/dsfr/dist/dsfr.module.js is not isomorphic, it can't run on the Server.",

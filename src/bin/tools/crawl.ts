@@ -1,5 +1,6 @@
 import { readdir, lstat } from "fs/promises";
 import { join as pathJoin, relative as pathRelative } from "path";
+import { realpath as fsRealpath } from "fs/promises";
 
 async function crawlRec(params: {
     dirPath: string;
@@ -13,11 +14,11 @@ async function crawlRec(params: {
 
     await Promise.all(
         (
-            await readdir(dirPath)
+            await readdir(await fsRealpath(dirPath))
         ).map(async fileOrDirectoryBasename => {
             const fileOrDirectoryPath = pathJoin(dirPath, fileOrDirectoryBasename);
 
-            if ((await lstat(fileOrDirectoryPath)).isDirectory()) {
+            if ((await lstat(await fsRealpath(fileOrDirectoryPath))).isDirectory()) {
                 const dirPath = fileOrDirectoryPath;
 
                 if (!(await getDoCrawlInDir({ dirPath }))) {
