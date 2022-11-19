@@ -31,6 +31,8 @@ import {
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
+import "./dsfr/dsfr.css";
+import "./dsfr/utility/icons/icons.css";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,

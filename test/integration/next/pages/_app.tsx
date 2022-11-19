@@ -2,8 +2,6 @@ import type { AppProps } from "next/app";
 import { DsfrLangProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import { Header } from "@codegouvfr/react-dsfr/Header";
-import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
-import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 const {
     withDsfr,
