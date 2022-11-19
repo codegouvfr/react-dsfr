@@ -56,9 +56,6 @@ Here are instructions for contributing, if you are looking to **use** `@codegouv
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
-yarn build
-npx tsc -p src/bin -w & npx tsc -p src -w
-# Open another Terminal
 yarn start-cra  # For testing in in a Create React App setup
 yarn start-next # For testing in a Next.js setup
 yarn start_vite # For testing in a Vite setup
@@ -69,13 +66,7 @@ yarn test
 npx vitest -t "Resolution of CSS variables"
 
 # Debugging while unit testing
-
-
 ```
-
-> When you want to import assets from the `./dsfr/` directory
-> you must assume it's located in `./src/dsfr` because it's where
-> it's going to be relative to the transpiled JS files.
 
 ## How to publish a new version on NPM, how to release a beta version
 

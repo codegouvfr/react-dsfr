@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
-import { startDsfrReact, useIsDark, useColors } from "../../dist";
 import { id } from "tsafe/id";
-import { GlobalStyles } from "tss-react/compat";
-
-import "../../dist/dsfr/dsfr.css";
+import { GlobalStyles } from "tss-react";
+import "../dist/dsfr/dsfr.css";
+import { startDsfrReact, useIsDark, useColors } from "../dist";
 
 startDsfrReact({ "defaultColorScheme": "system" });
 
@@ -68,7 +67,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         const out = Template.bind({});
 
         out.args = {
-            "darkMode": false,
+            "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
             "width": defaultWidth ?? 0,
             ...props
         };

@@ -1,4 +1,4 @@
-import { Alert } from "../../dist/Alert";
+import { Alert } from "../dist/Alert";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 
@@ -12,6 +12,6 @@ export default meta;
 
 export const Success = getStory({
     "severity": "success",
-    "title": "Message sucessfuly sent",
+    "title": "Message successfully sent",
     "description": "Everything went well"
 });

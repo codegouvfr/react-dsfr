@@ -21,7 +21,7 @@
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
-        "storybook": "yarn build -w && start-storybook -p 6006",
+        "storybook": "yarn build && ((tsc -w -p src) & start-storybook -p 6006)",
         "build-storybook": "yarn build && build-storybook"
     },
     "bin": {
