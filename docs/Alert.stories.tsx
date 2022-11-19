@@ -27,3 +27,10 @@ export const Success = getStory({
     "title": "Message successfully sent",
     "description": "Everything went well"
 });
+
+export const Small = getStory({
+    "severity": "info",
+    "isSmall": true,
+    "title": "Info: this is a small alert",
+    "description": "This is the description"
+});
