@@ -20,6 +20,9 @@ export const DocsContainer = ({ children, context }) => {
                 .docs-story {
                     background-color: ${backgroundColor};
                 }
+                [id^=story--] .container {
+                    border: 1px dashed #e8e8e8;
+                }
             `}</style>
             <BaseContainer
                 context={{

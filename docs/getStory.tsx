@@ -3,9 +3,8 @@ import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
-import { GlobalStyles } from "tss-react";
 import "../dist/dsfr/dsfr.css";
-import { startDsfrReact, useIsDark, useColors } from "../dist";
+import { startDsfrReact, useIsDark } from "../dist";
 
 startDsfrReact({ "defaultColorScheme": "system" });
 
@@ -14,32 +13,28 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     wrappedComponent: Record<string, (props: Props) => JSX.Element | null>;
     /** https://storybook.js.org/docs/react/essentials/controls */
     argTypes?: Partial<Record<keyof Props, ArgType>>;
-    defaultWidth?: number;
+    defaultContainerWidth?: number;
 }) {
-    const { sectionName, wrappedComponent, argTypes = {}, defaultWidth } = params;
+    const { sectionName, wrappedComponent, argTypes = {}, defaultContainerWidth } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
 
     const Template: Story<
         Props & {
             darkMode: boolean;
-            width: number;
+            containerWidth: number;
         }
-    > = ({ darkMode, width, ...props }) => {
+    > = ({ darkMode, containerWidth, ...props }) => {
         const { setIsDark } = useIsDark();
 
         useEffect(() => {
             setIsDark(darkMode);
         }, [darkMode]);
 
-        return (
-            <div
-                style={{
-                    "width": width || undefined,
-                    "border": "1px dashed #e8e8e8",
-                    "display": "inline-block"
-                }}
-            >
+        return containerWidth === 0 ? (
+            <Component {...props} />
+        ) : (
+            <div className="container" style={{ "width": containerWidth }}>
                 <Component {...props} />
             </div>
         );
@@ -50,7 +45,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
-            "width": defaultWidth ?? 0,
+            "containerWidth": defaultContainerWidth ?? 0,
             ...props
         };
 
@@ -62,7 +57,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
             "title": `${sectionName}/${symToStr(wrappedComponent)}`,
             "component": Component,
             "argTypes": {
-                "width": {
+                "containerWidth": {
                     "control": {
                         "type": "range",
                         "min": 0,
