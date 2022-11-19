@@ -43,8 +43,8 @@ jspm_packages
 /dist
 /.yarn_home
 /dsfr
-/src/lib/generatedFromCss/
-storybook-static/
+/src/lib/generatedFromCss
+/storybook-static
 
 
 

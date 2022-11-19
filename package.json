@@ -69,7 +69,6 @@
         }
     },
     "dependencies": {
-        "node-watch": "^0.7.3",
         "tsafe": "^1.1.1"
     },
     "devDependencies": {
