@@ -24,8 +24,7 @@ const { meta, getStory } = getStoryFactory({
         },
         "title": {
             "description": `Required when the \`<Alert isSmall={false} />\` 
-            (which is the default if \`isSmall\` isn't specified).  
-            `
+            (which is the default if \`isSmall\` isn't specified).`
         },
         "description": {
             "description": "Required when the `<Alert isSmall />`"
@@ -80,7 +79,7 @@ export const TitleOnlyWarning = getStory(
     }
 );
 
-export const Error = getStory({
+export const ClosableError = getStory({
     "severity": "error",
     "title": "This is the title",
     "description": "This is the description",

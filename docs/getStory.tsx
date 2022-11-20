@@ -4,7 +4,7 @@ import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import "../dist/dsfr/dsfr.css";
-import { startDsfrReact, useIsDark } from "../dist";
+import { startDsfrReact, useIsDark, DsfrLangProvider } from "../dist";
 
 startDsfrReact({ "defaultColorScheme": "system" });
 
@@ -31,8 +31,9 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
             darkMode: boolean;
             containerWidth: number;
             isFirstStory: boolean;
+            lang: "fr" | "en" | "en" | "de";
         }
-    > = ({ darkMode, containerWidth, isFirstStory, ...props }) => {
+    > = ({ darkMode, containerWidth, isFirstStory, lang, ...props }) => {
         const { setIsDark } = useIsDark();
 
         useEffect(() => {
@@ -43,13 +44,43 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
             setIsDark(darkMode);
         }, [darkMode]);
 
-        return containerWidth === 0 ? (
-            <Component {...props} />
-        ) : (
-            <div className="container" style={{ "width": containerWidth }}>
-                <Component {...props} />
-            </div>
-        );
+        if (containerWidth !== 0 && lang === "fr") {
+            return (
+                <div className="container" style={{ "width": containerWidth }}>
+                    <Component {...props} />
+                </div>
+            );
+        }
+
+        if (containerWidth !== 0 && lang !== "fr") {
+            return (
+                <DsfrLangProvider lang={lang}>
+                    <div className="container" style={{ "width": containerWidth }}>
+                        <Component {...props} />
+                    </div>
+                </DsfrLangProvider>
+            );
+        }
+
+        if (containerWidth !== 0 && lang !== "fr") {
+            return (
+                <DsfrLangProvider lang={lang}>
+                    <div className="container" style={{ "width": containerWidth }}>
+                        <Component {...props} />
+                    </div>
+                </DsfrLangProvider>
+            );
+        }
+
+        if (containerWidth === 0 && lang !== "fr") {
+            return (
+                <DsfrLangProvider lang={lang}>
+                    <Component {...props} />
+                </DsfrLangProvider>
+            );
+        }
+
+        return <Component {...props} />;
     };
 
     let isFirstStory = true;
@@ -62,6 +93,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
             "containerWidth": defaultContainerWidth ?? 0,
+            "lang": "fr",
             isFirstStory,
             ...props
         };
@@ -97,6 +129,12 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                         "min": 0,
                         "max": 1920,
                         "step": 10
+                    }
+                },
+                "lang": {
+                    "options": ["fr", "en", "es", "de"],
+                    "control": {
+                        "type": "select"
                     }
                 },
                 "isFirstStory": {
