@@ -3,14 +3,7 @@ import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
-import "../dist/dsfr/dsfr.css";
-import "../dist/dsfr/utility/icons/icons.min.css";
-import { startDsfrReact, useIsDark, DsfrLangProvider } from "../dist";
-
-startDsfrReact({
-    "defaultColorScheme": "system",
-    "defaultLang": "fr"
-});
+import { useIsDark, DsfrLangProvider } from "../dist/lib";
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
@@ -135,8 +128,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                         ].join("  \n")
                     }
                 },
-                "viewMode": "docs",
-                "backgrounds": { "disable": true }
+                "viewMode": "docs"
             },
             "argTypes": {
                 "darkMode": {

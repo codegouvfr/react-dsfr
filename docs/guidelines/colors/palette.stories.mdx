@@ -1,0 +1,144 @@
+import { Meta, ColorPalette, ColorItem, Canvas } from "@storybook/addon-docs";
+import { useDarkMode } from "storybook-dark-mode";
+import { StoryProvider, useTheme } from "../../../theme";
+
+<Meta
+    title="Documentation/Guidelines/Colors/Palette"
+    parameters={{
+        viewMode: "docs",
+        previewTabs: {
+            canvas: { hidden: true },
+        },
+    }}
+/>
+
+# Colors Palette
+---
+
+## Main Colors
+
+<Canvas>
+    <ColorPalette>
+        <ColorItem
+            title="palette.inseeBlue"
+            subtitle="Insee Bleu"
+            colors={{
+                "900": useTheme().colors.palette.inseeBlue["900"],
+                "800": useTheme().colors.palette.inseeBlue["800"],
+                "700": useTheme().colors.palette.inseeBlue["700"],
+                "600": useTheme().colors.palette.inseeBlue["600"],
+                "500": useTheme().colors.palette.inseeBlue["500"],
+                "400": useTheme().colors.palette.inseeBlue["400"],
+                "300": useTheme().colors.palette.inseeBlue["300"],
+                "200": useTheme().colors.palette.inseeBlue["200"],
+                "100": useTheme().colors.palette.inseeBlue["100"],
+            }}
+        />
+        <ColorItem
+            title="palette.inseeYellow"
+            subtitle="Insee Yellow"
+            colors={{
+                "900": useTheme().colors.palette.inseeYellow["900"],
+                "800": useTheme().colors.palette.inseeYellow["800"],
+                "700": useTheme().colors.palette.inseeYellow["700"],
+                "600": useTheme().colors.palette.inseeYellow["600"],
+                "500": useTheme().colors.palette.inseeYellow["500"],
+                "400": useTheme().colors.palette.inseeYellow["400"],
+                "300": useTheme().colors.palette.inseeYellow["300"],
+                "200": useTheme().colors.palette.inseeYellow["200"],
+                "100": useTheme().colors.palette.inseeYellow["100"],
+            }}
+        />
+    </ColorPalette>
+</Canvas>
+
+## Gray colors
+
+<Canvas>
+    <ColorPalette>
+        <ColorItem
+            title="palette.inseeGray"
+            subtitle="Insee Gray"
+            colors={{
+                "900": useTheme().colors.palette.inseeGray["900"],
+                "800": useTheme().colors.palette.inseeGray["800"],
+                "700": useTheme().colors.palette.inseeGray["700"],
+                "600": useTheme().colors.palette.inseeGray["600"],
+                "500": useTheme().colors.palette.inseeGray["500"],
+                "400": useTheme().colors.palette.inseeGray["400"],
+                "300": useTheme().colors.palette.inseeGray["300"],
+                "200": useTheme().colors.palette.inseeGray["200"],
+                "100": useTheme().colors.palette.inseeGray["100"],
+                "Black": useTheme().colors.palette.inseeGray["black"],
+                "White": useTheme().colors.palette.inseeGray["white"],
+            }}
+        />
+    </ColorPalette>
+</Canvas>
+
+## Additional colors
+
+<Canvas>
+    <ColorPalette>
+        <ColorItem
+            title="palette.inseeRed"
+            subtitle="Insee Red"
+            colors={{
+                "900": useTheme().colors.palette.inseeRed["900"],
+                "800": useTheme().colors.palette.inseeRed["800"],
+                "700": useTheme().colors.palette.inseeRed["700"],
+                "600": useTheme().colors.palette.inseeRed["600"],
+                "500": useTheme().colors.palette.inseeRed["500"],
+                "400": useTheme().colors.palette.inseeRed["400"],
+                "300": useTheme().colors.palette.inseeRed["300"],
+                "200": useTheme().colors.palette.inseeRed["200"],
+                "100": useTheme().colors.palette.inseeRed["100"],
+            }}
+        />
+        <ColorItem
+            title="palette.inseeAqua"
+            subtitle="Insee Aqua"
+            colors={{
+                "900": useTheme().colors.palette.inseeAqua["900"],
+                "800": useTheme().colors.palette.inseeAqua["800"],
+                "700": useTheme().colors.palette.inseeAqua["700"],
+                "600": useTheme().colors.palette.inseeAqua["600"],
+                "500": useTheme().colors.palette.inseeAqua["500"],
+                "400": useTheme().colors.palette.inseeAqua["400"],
+                "300": useTheme().colors.palette.inseeAqua["300"],
+                "200": useTheme().colors.palette.inseeAqua["200"],
+                "100": useTheme().colors.palette.inseeAqua["100"],
+            }}
+        />
+        <ColorItem
+            title="palette.inseeMagenta"
+            subtitle="Insee Magenta"
+            colors={{
+                "900": useTheme().colors.palette.inseeMagenta["900"],
+                "800": useTheme().colors.palette.inseeMagenta["800"],
+                "700": useTheme().colors.palette.inseeMagenta["700"],
+                "600": useTheme().colors.palette.inseeMagenta["600"],
+                "500": useTheme().colors.palette.inseeMagenta["500"],
+                "400": useTheme().colors.palette.inseeMagenta["400"],
+                "300": useTheme().colors.palette.inseeMagenta["300"],
+                "200": useTheme().colors.palette.inseeMagenta["200"],
+                "100": useTheme().colors.palette.inseeMagenta["100"],
+            }}
+        />
+        <ColorItem
+            title="palette.inseeGreen"
+            subtitle="Insee Green"
+            colors={{
+                "900": useTheme().colors.palette.inseeGreen["900"],
+                "800": useTheme().colors.palette.inseeGreen["800"],
+                "700": useTheme().colors.palette.inseeGreen["700"],
+                "600": useTheme().colors.palette.inseeGreen["600"],
+                "500": useTheme().colors.palette.inseeGreen["500"],
+                "400": useTheme().colors.palette.inseeGreen["400"],
+                "300": useTheme().colors.palette.inseeGreen["300"],
+                "200": useTheme().colors.palette.inseeGreen["200"],
+                "100": useTheme().colors.palette.inseeGreen["100"],
+            }}
+        />
+    </ColorPalette>
+</Canvas>
