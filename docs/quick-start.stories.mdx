@@ -1,18 +1,27 @@
 import { Meta } from "@storybook/addon-docs";
 import { Alert } from "../dist/Alert";
+import ReactMarkdown from "react-markdown";
 
-<Meta title="Documentation/🔧 Initial setup" />
 
-{% hint style="warning" %}
-If you already had the DSFR installed in your project, let's start from scratch: &#x20;
+<Meta title="Guides/🔧 Initial setup" />
 
-* Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
-* Remove all imports:`dsfr.css`, `dsfr.module.js` the favicon and the fonts.
-* Remove `thedata-fr-scheme` (and `data-fr-theme` ) attribude from your `<html/>` tag.
-{% endhint %}
+
+# 🔧 Initial setup  
+  
+_Setup `@codegouvfr/react-dsfr` in your project_
+  
+<Alert 
+	severity="warning" 
+	title="Warning: If you already had the DSFR installed in your project" 
+	isClosable
+	description={<ReactMarkdown>{
+`* Remove [\`@gouvfr/dsfr\`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
+* Remove all imports: \`dsfr.css\`, \`dsfr.module.js\` the favicon and the fonts.
+* Remove the \`data-fr-scheme\` (and \`data-fr-theme\` ) attribude from your \`<html/>\` tag.`
+	}</ReactMarkdown>}
+/>
 
 ```bash
 yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
 ```
 
-<Alert severity="success" title="ok" description="description" />
