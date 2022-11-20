@@ -4,6 +4,7 @@ import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import "../dist/dsfr/dsfr.css";
+import "../dist/dsfr/utility/icons/icons.min.css";
 import { startDsfrReact, useIsDark, DsfrLangProvider } from "../dist";
 
 startDsfrReact({
