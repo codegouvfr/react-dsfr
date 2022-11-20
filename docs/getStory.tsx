@@ -134,13 +134,16 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                             ...(description === undefined ? [] : [description])
                         ].join("  \n")
                     }
-                }
+                },
+                "viewMode": "docs",
+                "backgrounds": { "disable": true }
             },
             "argTypes": {
                 "darkMode": {
                     "table": {
                         "disable": disabledProps.includes("darkMode")
-                    }
+                    },
+                    "description": "Global color scheme enabled, light or dark"
                 },
                 "containerWidth": {
                     "control": {
@@ -151,7 +154,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                     },
                     "table": {
                         "disable": disabledProps.includes("containerWidth")
-                    }
+                    },
+                    "description": "Play with the width of the parent component"
                 },
                 "lang": {
                     "options": ["fr", "en", "es", "de"],
