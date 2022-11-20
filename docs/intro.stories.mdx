@@ -1,7 +1,19 @@
 import { Meta } from "@storybook/addon-docs";
 import { useDarkMode } from "storybook-dark-mode";
 
-<Meta title="Guides/🇫🇷 Introduction" />
+<Meta
+    title="Guides/🇫🇷 Introduction" 
+    parameters={{
+        "viewMode": "docs",
+        "previewTabs": {
+            "canvas": { "hidden": true },
+            "zoom": { "hidden": true },
+            "storybook/background": { "hidden": true },
+            "storybook/viewport": { "hidden": true },
+        },
+    }}
+/>
+
 
 <div style={{ "margin": "0 auto", "maxWidth": "600px", "textAlign": "center" }}>
     <img src="repo-card.png" />  
