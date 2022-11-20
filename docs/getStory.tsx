@@ -120,14 +120,19 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         return out;
     }
 
+    const componentName = symToStr(wrappedComponent);
+
     return {
         "meta": id<Meta>({
-            "title": `${sectionName}/${symToStr(wrappedComponent)}`,
+            "title": `${sectionName}/${componentName}`,
             "component": Component,
             "parameters": {
                 "docs": {
                     "description": {
-                        "component": description
+                        "component": [
+                            `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``,
+                            ...(description === undefined ? [] : [description])
+                        ].join("  \n")
                     }
                 }
             },
