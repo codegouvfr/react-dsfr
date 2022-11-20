@@ -43,7 +43,8 @@ const { meta, getStory } = getStoryFactory({
                 for setting \`isClosed\` to \`false\`, the \`<Alert />\` wont close itself.`,
             "control": { "type": null }
         }
-    }
+    },
+    "disabledProps": ["lang"]
 });
 
 export default meta;

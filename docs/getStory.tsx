@@ -6,7 +6,10 @@ import { id } from "tsafe/id";
 import "../dist/dsfr/dsfr.css";
 import { startDsfrReact, useIsDark, DsfrLangProvider } from "../dist";
 
-startDsfrReact({ "defaultColorScheme": "system" });
+startDsfrReact({
+    "defaultColorScheme": "system",
+    "defaultLang": "fr"
+});
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
@@ -15,13 +18,15 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     /** https://storybook.js.org/docs/react/essentials/controls */
     argTypes?: Partial<Record<keyof Props, ArgType>>;
     defaultContainerWidth?: number;
+    disabledProps?: ("containerWidth" | "lang" | "darkMode")[];
 }) {
     const {
         sectionName,
         wrappedComponent,
         description,
         argTypes = {},
-        defaultContainerWidth
+        defaultContainerWidth,
+        disabledProps = []
     } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
@@ -37,6 +42,9 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         const { setIsDark } = useIsDark();
 
         useEffect(() => {
+            if (disabledProps.includes("darkMode")) {
+                return;
+            }
             if (!isFirstStory) {
                 return;
             }
@@ -123,18 +131,29 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                 }
             },
             "argTypes": {
+                "darkMode": {
+                    "table": {
+                        "disable": disabledProps.includes("darkMode")
+                    }
+                },
                 "containerWidth": {
                     "control": {
                         "type": "range",
                         "min": 0,
                         "max": 1920,
                         "step": 10
+                    },
+                    "table": {
+                        "disable": disabledProps.includes("containerWidth")
                     }
                 },
                 "lang": {
                     "options": ["fr", "en", "es", "de"],
                     "control": {
                         "type": "select"
+                    },
+                    "table": {
+                        "disable": disabledProps.includes("lang")
                     }
                 },
                 "isFirstStory": {

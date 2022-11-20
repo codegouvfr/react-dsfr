@@ -14,7 +14,7 @@ export type DisplayProps = {
     className?: string;
 };
 
-export const SwitchColorTheme = memo(
+export const DarkModeSwitch = memo(
     forwardRef<HTMLButtonElement, DisplayProps>((props, ref) => {
         const { className, ...rest } = props;
 
@@ -101,9 +101,9 @@ export const SwitchColorTheme = memo(
     })
 );
 
-SwitchColorTheme.displayName = symToStr({ SwitchColorTheme });
+DarkModeSwitch.displayName = symToStr({ DarkModeSwitch });
 
-export default SwitchColorTheme;
+export default DarkModeSwitch;
 
 const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
     const { theme } = props;
@@ -159,8 +159,8 @@ const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
 
 RadioGroup.displayName = symToStr({ RadioGroup });
 
-const { useTranslation, addSwitchColorThemeTranslations } = createComponentI18nApi({
-    "componentName": "SwitchColorTheme",
+const { useTranslation, addDarkModeSwitchTranslations } = createComponentI18nApi({
+    "componentName": symToStr({ DarkModeSwitch }),
     "frMessages": {
         /* spell-checker: disable */
         "display settings": "Paramètres d'affichage",
@@ -174,7 +174,7 @@ const { useTranslation, addSwitchColorThemeTranslations } = createComponentI18nA
     }
 });
 
-addSwitchColorThemeTranslations({
+addDarkModeSwitchTranslations({
     "lang": "en",
     "messages": {
         "display settings": "Display settings",
@@ -187,7 +187,7 @@ addSwitchColorThemeTranslations({
     }
 });
 
-addSwitchColorThemeTranslations({
+addDarkModeSwitchTranslations({
     "lang": "es",
     "messages": {
         /* spell-checker: disable */
@@ -198,4 +198,4 @@ addSwitchColorThemeTranslations({
     }
 });
 
-export { addSwitchColorThemeTranslations };
+export { addDarkModeSwitchTranslations };

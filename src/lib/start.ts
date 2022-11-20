@@ -3,9 +3,12 @@ import type { ColorScheme } from "./darkMode";
 import { startObservingColorSchemeHtmlAttribute, data_fr_theme, data_fr_scheme } from "./darkMode";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
+import { setDefaultLang } from "./i18n";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
+    /** If undefined it will fall back to browser preference */
+    defaultLang?: string;
     /** Default: false */
     verbose?: boolean;
 };
@@ -13,7 +16,7 @@ export type Params = {
 let isStarted = false;
 
 export async function startDsfrReact(params: Params) {
-    const { defaultColorScheme, verbose = false } = params;
+    const { defaultColorScheme, verbose = false, defaultLang } = params;
 
     assert(
         isBrowser,
@@ -28,6 +31,10 @@ export async function startDsfrReact(params: Params) {
     }
 
     isStarted = true;
+
+    if (defaultLang !== undefined) {
+        setDefaultLang(defaultLang);
+    }
 
     const isNextJsDevEnvironnement = (window as any).__NEXT_DATA__?.buildId === "development";
 

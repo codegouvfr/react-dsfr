@@ -1,6 +1,6 @@
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { useIsDark, fr } from "@codegouvfr/react-dsfr";
-import { SwitchColorTheme } from "@codegouvfr/react-dsfr/SwitchColorTheme";
+import { DarkModeSwitch } from "@codegouvfr/react-dsfr/DarkModeSwitch";
 
 export default function App() {
     const { isDark, setIsDark } = useIsDark();
@@ -29,7 +29,7 @@ export default function App() {
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
-            <SwitchColorTheme />
+            <DarkModeSwitch />
 
         </>
     );
