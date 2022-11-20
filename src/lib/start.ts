@@ -23,7 +23,9 @@ export async function startDsfrReact(params: Params) {
         ].join(" ")
     );
 
-    assert(!isStarted, `${symToStr({ startDsfrReact })}() should be called only once`);
+    if (isStarted) {
+        return;
+    }
 
     isStarted = true;
 

@@ -23,11 +23,16 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         Props & {
             darkMode: boolean;
             containerWidth: number;
+            isFirstStory: boolean;
         }
-    > = ({ darkMode, containerWidth, ...props }) => {
+    > = ({ darkMode, containerWidth, isFirstStory, ...props }) => {
         const { setIsDark } = useIsDark();
 
         useEffect(() => {
+            if (!isFirstStory) {
+                return;
+            }
+
             setIsDark(darkMode);
         }, [darkMode]);
 
@@ -40,13 +45,26 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         );
     };
 
+    let isFirstStory = true;
+
     function getStory(props: Props): typeof Template {
         const out = Template.bind({});
 
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
             "containerWidth": defaultContainerWidth ?? 0,
+            isFirstStory,
             ...props
+        };
+
+        isFirstStory = false;
+
+        out.parameters = {
+            docs: {
+                description: {
+                    story: "Some story **markdown**"
+                }
+            }
         };
 
         return out;
@@ -56,13 +74,25 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         "meta": id<Meta>({
             "title": `${sectionName}/${symToStr(wrappedComponent)}`,
             "component": Component,
+            parameters: {
+                docs: {
+                    description: {
+                        component: "Some component _markdown_"
+                    }
+                }
+            },
             "argTypes": {
                 "containerWidth": {
                     "control": {
                         "type": "range",
                         "min": 0,
                         "max": 1920,
-                        "step": 1
+                        "step": 10
+                    }
+                },
+                "isFirstStory": {
+                    "table": {
+                        "disable": true
                     }
                 },
                 ...argTypes
