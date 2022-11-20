@@ -24,7 +24,7 @@
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
-> For TypeScript and JavaScript projects.   
+> For TypeScript and JavaScript projects.
 
 -   [x] Fully TypeSafe, well documented API.
 -   [x] Always in up to date with latest the DSFR evolutions.
@@ -55,6 +55,11 @@ Here are instructions for contributing, if you are looking to **use** `@codegouv
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
+
+# Starting storybook
+yarn storybook
+
+# Starting test apps
 yarn start-cra  # For testing in in a Create React App setup
 yarn start-next # For testing in a Next.js setup
 yarn start-vite # For testing in a Vite setup
