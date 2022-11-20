@@ -24,8 +24,7 @@
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
-> 🟨 It goes without saying that this library will work in
-> vanilla JavaScript projects just fine.
+> For TypeScript and JavaScript projects.   
 
 -   [x] Fully TypeSafe, well documented API.
 -   [x] Always in up to date with latest the DSFR evolutions.
