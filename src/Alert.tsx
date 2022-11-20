@@ -88,7 +88,8 @@ export const Alert = memo(
 
         const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
-        const refShouldButtonGetFocus = useRef<boolean>(false);
+        const refShouldButtonGetFocus = useRef(false);
+        const refShouldSetRole = useRef(false);
 
         useEffect(() => {
             if (props_isClosed === undefined) {
@@ -97,6 +98,7 @@ export const Alert = memo(
             setIsClosed(isClosed => {
                 if (isClosed && !props_isClosed) {
                     refShouldButtonGetFocus.current = true;
+                    refShouldSetRole.current = true;
                 }
 
                 return props_isClosed;
@@ -142,6 +144,7 @@ export const Alert = memo(
                     className
                 )}
                 ref={ref}
+                {...(refShouldSetRole.current && { "role": "alert" })}
                 {...rest}
             >
                 <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>

@@ -10,12 +10,19 @@ startDsfrReact({ "defaultColorScheme": "system" });
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
+    description?: string;
     wrappedComponent: Record<string, (props: Props) => JSX.Element | null>;
     /** https://storybook.js.org/docs/react/essentials/controls */
     argTypes?: Partial<Record<keyof Props, ArgType>>;
     defaultContainerWidth?: number;
 }) {
-    const { sectionName, wrappedComponent, argTypes = {}, defaultContainerWidth } = params;
+    const {
+        sectionName,
+        wrappedComponent,
+        description,
+        argTypes = {},
+        defaultContainerWidth
+    } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
 
@@ -47,7 +54,9 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     let isFirstStory = true;
 
-    function getStory(props: Props): typeof Template {
+    function getStory(props: Props, params?: { description?: string }): typeof Template {
+        const { description } = params ?? {};
+
         const out = Template.bind({});
 
         out.args = {
@@ -60,9 +69,9 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         isFirstStory = false;
 
         out.parameters = {
-            docs: {
-                description: {
-                    story: "Some story **markdown**"
+            "docs": {
+                "description": {
+                    "story": description
                 }
             }
         };
@@ -74,10 +83,10 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         "meta": id<Meta>({
             "title": `${sectionName}/${symToStr(wrappedComponent)}`,
             "component": Component,
-            parameters: {
-                docs: {
-                    description: {
-                        component: "Some component _markdown_"
+            "parameters": {
+                "docs": {
+                    "description": {
+                        "component": description
                     }
                 }
             },
