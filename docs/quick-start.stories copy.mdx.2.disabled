@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/addon-docs";
 import { Alert } from "../dist/Alert";
 import { Tabs } from "../dist/Tabs";
-import { Markdown } from "./Markdown";
+import ReactMarkdown from "react-markdown";
 
 
 <Meta 
@@ -26,41 +26,41 @@ _Setup `@codegouvfr/react-dsfr` in your project_
 	severity="warning" 
 	title="Warning: If you already had the DSFR installed in your project" 
 	isClosable
-	description={<Markdown>{`
+	description={<ReactMarkdown>{`
 * Remove [\`@gouvfr/dsfr\`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
 * Remove all imports: \`dsfr.css\`, \`dsfr.module.js\` the favicon and the fonts.
 * Remove the \`data-fr-scheme\` (and \`data-fr-theme\` ) attribude from your \`<html/>\` tag.`
-	}</Markdown>}
+	}</ReactMarkdown>}
 />
 
 ```bash
 yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
 ```
 
-export const craContent = <Markdown>{`
+export const craContent = <ReactMarkdown>{`
 #### package.json
-  
-\`\`\`diff {0}
+
+\`\`\`diff
  "scripts": {
-+  "postinstall": "copy-dsfr-to-public"
-+  "prestart": "only-include-used-icons",
-+  "prebuild": "only-include-used-icons"
++    "postinstall": "copy-dsfr-to-public"
++    "prestart": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
  }
 \`\`\`
-  
-\`copy-dsfr-to-public\` is a \`bin\` script of \`@codegouvfr/react-dsfr\` that copies \`@gouvfr/dsfr/dist\` into \`public/dsfr\`
-  
+
+\`update_dsfr_static_resources\` is a \`bin\` script of \`@codegouvfr/react-dsfr\` that copies \`@gouvfr/dsfr/dist\` into \`public/dsfr\`
+
 #### .gitignore
-  
-\`\`\`diff {0}
+
+\`\`\`diff
 + /public/dsfr
 \`\`\`
-  
+
 #### public/index.html
-  
+
 Add the following code in the \`<head />\`
-  
-\`\`\`ejs {0}
+
+\`\`\`ejs
 <link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
 <link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
 <link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
@@ -68,10 +68,10 @@ Add the following code in the \`<head />\`
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
 \`\`\`
-  
+
 #### src/index.tsx
-  
-\`\`\`diff {0}
+
+\`\`\`diff
  import React from 'react';
  import ReactDOM from 'react-dom/client';
  import App from './App';
@@ -86,11 +86,10 @@ Add the following code in the \`<head />\`
    </React.StrictMode>
  );
 \`\`\`
-  
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
-  
-`}</Markdown>;
 
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
+
+`}</ReactMarkdown>;
 
 <Tabs
     tabs={[

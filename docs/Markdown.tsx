@@ -7,6 +7,7 @@ import typescript from "react-syntax-highlighter/dist/cjs/languages/prism/typesc
 import bash from "react-syntax-highlighter/dist/cjs/languages/prism/bash";
 import json from "react-syntax-highlighter/dist/cjs/languages/prism/json";
 import diff from "react-syntax-highlighter/dist/cjs/languages/prism/diff";
+import ejs from "react-syntax-highlighter/dist/cjs/languages/prism/ejs";
 import rangeParser from "parse-numeric-range";
 import oneDark from "react-syntax-highlighter/dist/esm/styles/prism/one-dark";
 import oneLight from "react-syntax-highlighter/dist/esm/styles/prism/one-light";
@@ -24,6 +25,7 @@ SyntaxHighlighter.registerLanguage("typescript", typescript);
 SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("json", json);
 SyntaxHighlighter.registerLanguage("diff", diff);
+SyntaxHighlighter.registerLanguage("ejs", ejs);
 
 //SEE: https://amirardalan.com/blog/syntax-highlight-code-in-markdown
 
