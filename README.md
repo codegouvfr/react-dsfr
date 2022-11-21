@@ -190,9 +190,9 @@ For subsequent reload however with a custom Next.js document, we can read the pr
 
 ```diff
  "scripts": {
-+    "postinstall": "copy_dsfr_dist_to_public",
-+    "predev": "only_include_used_icons",
-+    "prebuild": "only_include_used_icons"
++    "postinstall": "copy-dsfr-to-public",
++    "predev": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
  }
 ```
 
@@ -311,16 +311,16 @@ Add the following code in the `<head />`&#x20;
      defaultColorScheme: "system",
      doPersistDarkModePreferenceWithCookie: true
 +    "preloadFonts": [
-+  		//"Marianne-Light",
-+       	//"Marianne-Light_Italic",
-+		"Marianne-Regular",
-+		//"Marianne-Regular_Italic",
-+		"Marianne-Medium",
-+		//"Marianne-Medium_Italic",
-+		"Marianne-Bold",
-+		//"Marianne-Bold_Italic",
-+		//"Spectral-Regular",
-+		//"Spectral-ExtraBold"
++  	//"Marianne-Light",
++       //"Marianne-Light_Italic",
++	"Marianne-Regular",
++	//"Marianne-Regular_Italic",
++	"Marianne-Medium",
++	//"Marianne-Medium_Italic",
++	"Marianne-Bold",
++	//"Marianne-Bold_Italic",
++	//"Spectral-Regular",
++	//"Spectral-ExtraBold"
 +     ]
 });
  
