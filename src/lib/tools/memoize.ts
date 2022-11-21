@@ -1,14 +1,14 @@
-export function memoize<F extends (...args: (string | number | boolean)[]) => any>(
-    fn: F,
-    options: {
-        argsLength: number;
+export function memoize<Args extends (number | boolean | string)[], R>(
+    fn: (...args: Args) => R,
+    options?: {
+        argsLength?: number;
     }
-): F {
-    const cache: Record<string, ReturnType<F>> = {};
+): (...args: Args) => R {
+    const cache: Record<string, R> = {};
 
-    const { argsLength } = options;
+    const { argsLength = fn.length } = options ?? {};
 
-    return ((...args: Parameters<F>) => {
+    return ((...args: Args) => {
         const key = JSON.stringify(args.slice(0, argsLength).join("-sIs9sAslOdeWlEdIos3-"));
 
         console.log(key, JSON.stringify({ argsLength, args }));

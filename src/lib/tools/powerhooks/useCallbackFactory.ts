@@ -36,14 +36,14 @@ export function useCallbackFactory<
         id<Out>((...factoryArgs) => {
             if (memoizedRef.current === undefined) {
                 memoizedRef.current = memoize(
-                    ((...factoryArgs: FactoryArgs) =>
+                    (...factoryArgs: FactoryArgs) =>
                         (...args: Args) =>
-                            callbackRef.current(factoryArgs, args)) as any,
+                            callbackRef.current(factoryArgs, args),
                     { "argsLength": factoryArgs.length }
                 );
             }
 
-            return (memoizedRef.current as any)(...factoryArgs);
+            return memoizedRef.current(...factoryArgs);
         })
     )[0];
 }
