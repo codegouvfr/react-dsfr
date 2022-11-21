@@ -8,9 +8,9 @@ const fontCode= "monospace";
 
 export const darkTheme = create({
     "base": "dark",
-    "appBg": "#161616",
-    "appContentBg": "#1E1E1E",
-    "barBg": "#1E1E1E",
+    "appBg": "#1E1E1E",
+    "appContentBg": "#161616",
+    "barBg": "#161616",
     "colorSecondary": "#8585F6",
     "textColor": "#FFFFFF",
     brandImage,
@@ -22,8 +22,8 @@ export const darkTheme = create({
 
 export const lightTheme = create({
     "base": "light",
-    "appBg": "#FFFFFF",
-    "appContentBg": "#F6F6F6",
+    "appBg": "#F6F6F6",
+    "appContentBg": "#FFFFFF",
     "barBg": "#FFFFFF",
     "colorSecondary": "#000091",
     "textColor": "#212121",

@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/addon-docs";
 import { Alert } from "../dist/Alert";
+import { Tabs } from "../dist/Tabs";
 import ReactMarkdown from "react-markdown";
 
 
@@ -35,4 +36,80 @@ _Setup `@codegouvfr/react-dsfr` in your project_
 ```bash
 yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
 ```
+
+export const craContent = 
+`# The content
+  
+\`\`\`diff
+ "scripts": {
++    "postinstall": "copy-dsfr-to-public"
++    "prestart": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
+ }
+\`\`\`
+\`\`\`tsx
+const node =(<div>ok</div>);
+\`\`\`
+  
+`;
+
+
+<Tabs
+    tabs={[
+        { "label": "Create React App", "content": <ReactMarkdown>{craContent}</ReactMarkdown> },
+        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p>  },
+        { "label": "Tab 3", "content": <p>Content of tab3</p> }
+    ]}
+/>
+
+#### package.json
+
+```diff
+ "scripts": {
++    "postinstall": "copy-dsfr-to-public"
++    "prestart": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
+ }
+```
+
+`update_dsfr_static_resources` is a `bin` script of `@codegouvfr/react-dsfr` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
+
+#### .gitignore
+
+```diff
++ /public/dsfr
+```
+
+#### public/index.html
+
+Add the following code in the `<head />`&#x20;
+
+```ejs
+<link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
+<link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
+```
+
+#### src/index.tsx
+
+```diff
+ import React from 'react';
+ import ReactDOM from 'react-dom/client';
+ import App from './App';
++import { startDsfrReact } from "@codegouvfr/react-dsfr";
++startDsfrReact({ "defaultColorScheme": "system" });
+ const root = ReactDOM.createRoot(
+   document.getElementById('root') as HTMLElement
+ );
+ root.render(
+   <React.StrictMode>
+     <App />
+   </React.StrictMode>
+ );
+```
+
+You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 
