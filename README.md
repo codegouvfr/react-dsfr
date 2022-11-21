@@ -22,9 +22,9 @@ yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr
 
 ```diff
  "scripts": {
-+    "postinstall": "copy_dsfr_dist_to_public"
-+    "prestart": "only_include_used_icons",
-+    "prebuild": "only_include_used_icons"
++    "postinstall": "copy-dsfr-to-public"
++    "prestart": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
  }
 ```
 
@@ -100,8 +100,8 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 
 ```diff
  "scripts": {
-+    "predev": "only_include_used_icons",
-+    "prebuild": "only_include_used_icons"
++    "predev": "only-include-used-icons",
++    "prebuild": "only-include-used-icons"
  }
 ```
 
@@ -112,8 +112,6 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 ```tsx
 import DefaultApp from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
-import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
 const { 
     withDsfr
@@ -135,8 +133,6 @@ Update your `pages/_app.tsx` like so: &#x20;
 ```diff
  import DefaultApp from "next/app";
  import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
- import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
- import "@codegouvfr/react-dsfr/dsfr/utility/icons/icons.css";
 
  const { 
      withDsfr,
@@ -306,14 +302,15 @@ Add the following code in the `<head />`&#x20;
 
 ```diff
  import DefaultApp from "next/app";
- import { withAppDsfr } from "@codegouvfr/react-dsfr/next";
- import "@codegouvfr/react-dsfr/dsfr/dsfr.css";
- 
- export default withAppDsfr(
-     DefaultApp, // Provide your custom App if you have one
-     {
-         "defaultColorScheme": "system",
-+        "preloadFonts": [
+ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+
+ const { 
+     withDsfr,
+     dsfrDocumentApi
+ } = createNextDsfrIntegrationApi({
+     defaultColorScheme: "system",
+     doPersistDarkModePreferenceWithCookie: true
++    "preloadFonts": [
 +  		//"Marianne-Light",
 +       	//"Marianne-Light_Italic",
 +		"Marianne-Regular",
@@ -324,9 +321,12 @@ Add the following code in the `<head />`&#x20;
 +		//"Marianne-Bold_Italic",
 +		//"Spectral-Regular",
 +		//"Spectral-ExtraBold"
-+        ]
-+    }
-);
++     ]
+});
+ 
+ export { dsfrDocumentApi };
+
+ export default withDsfr(DefaultApp);
 ```
 {% endtab %}
 
