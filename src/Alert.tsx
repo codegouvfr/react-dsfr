@@ -143,8 +143,8 @@ export const Alert = memo(
                     classes.root,
                     className
                 )}
-                ref={ref}
                 {...(refShouldSetRole.current && { "role": "alert" })}
+                ref={ref}
                 {...rest}
             >
                 <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>

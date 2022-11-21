@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import { DsfrLangProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import { Header } from "@codegouvfr/react-dsfr/Header";
+import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 
 const {
     withDsfr,
@@ -23,7 +24,11 @@ const {
     "doPersistDarkModePreferenceWithCookie": true
 });
 
-export { dsfrDocumentApi };
+const { augmentDocumentWithEmotionCache, withAppEmotionCache} = createEmotionSsrAdvancedApproach({
+    "key": "css"
+});
+
+export { dsfrDocumentApi, augmentDocumentWithEmotionCache };
 
 function App({ Component, pageProps }: AppProps) {
     return (
@@ -55,4 +60,4 @@ function App({ Component, pageProps }: AppProps) {
     );
 }
 
-export default withDsfr(App);
+export default withAppEmotionCache(withDsfr(App));
