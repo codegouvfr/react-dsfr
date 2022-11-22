@@ -58,6 +58,7 @@ yarn
 
 # Starting storybook
 yarn storybook
+# You can run 'npx tsc -w -p src' on another terminal for enabling hot reloading.
 
 # Starting test apps
 yarn start-cra  # For testing in in a Create React App setup

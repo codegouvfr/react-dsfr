@@ -7,7 +7,7 @@ import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import { writeFile, readFile, rm } from "fs/promises";
 import { crawl } from "./tools/crawl";
-import { basename as pathBasename, sep as pathSep } from "path";
+import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import type { Equals } from "tsafe";
 
 export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
@@ -97,9 +97,10 @@ async function main() {
 
     const cwd = process.cwd();
 
-    const nodeModulesDirPath = pathJoin(cwd, "node_modules");
-
-    const dsfrDistDirPath = pathJoin(...[nodeModulesDirPath, ...packageName.split("/"), "dsfr"]);
+    const dsfrDistDirPath =
+        getProjectRoot() === cwd
+            ? pathJoin(cwd, "dist", "dsfr")
+            : pathJoin(...[cwd, "node_modules", ...packageName.split("/"), "dsfr"]);
 
     const icons: Icon[] = JSON.parse(
         (await readFile(pathJoin(dsfrDistDirPath, pathOfIconsJson))).toString("utf8")
@@ -156,6 +157,12 @@ async function main() {
 
                     if (pathBasename(relativeDirPath) === "generatedFromCss") {
                         return false;
+                    }
+
+                    if (
+                        pathDirname(relativeDirPath).endsWith(pathJoin(...packageName.split("/")))
+                    ) {
+                        return pathBasename(relativeDirPath) === "src";
                     }
 
                     if (pathBasename(relativeDirPath) === "node_modules") {
@@ -230,6 +237,8 @@ async function main() {
         return { usedIconClassNames };
     })();
 
+    console.log("Detected usage of the following icons: ", usedIconClassNames);
+
     const usedIcons = usedIconClassNames.map(className => {
         const icon = icons.find(({ prefix, iconId }) => `${prefix}${iconId}` === className);
 
@@ -263,14 +272,15 @@ async function main() {
         rm(nextCacheDir, { "recursive": true, "force": true });
     };
 
-    [
-        dsfrDistDirPath,
-        ...(() => {
-            const dsfrDistInPublic = pathJoin(cwd, "public", "dsfr");
+    [dsfrDistDirPath, pathJoin(cwd, "public", "dsfr")].forEach(async dsfrDistDirPath => {
+        const cssFilePaths = ["icons.css", "icons.min.css"].map(cssFileBasename =>
+            pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename)
+        );
 
-            return fs.existsSync(dsfrDistInPublic) ? [dsfrDistInPublic] : [];
-        })()
-    ].forEach(async dsfrDistDirPath => {
+        if (cssFilePaths.some(cssFilePath => !fs.existsSync(cssFilePath))) {
+            return;
+        }
+
         const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
         if (!fs.existsSync(remixiconDirPath)) {
@@ -287,9 +297,7 @@ async function main() {
                 )
             );
 
-        ["icons.css", "icons.min.css"].forEach(async cssFileBasename => {
-            const filePath = pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename);
-
+        cssFilePaths.forEach(async filePath => {
             const currentCode = await readFile(filePath);
 
             if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
