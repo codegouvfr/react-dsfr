@@ -113,7 +113,6 @@ const createCode = memoize((doShowLineNumber: boolean) => {
                 "display": doShowLineNumber ? undefined : "none !important"
             },
             '& [data="highlight"]': {
-                // Your custom line highlight styles here
                 "background": isDark ? "#37394e" : "#efefef",
                 "margin": "0 -1.5rem",
                 "padding": "0 1.5rem"

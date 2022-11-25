@@ -21,26 +21,19 @@ import { Markdown } from "./Markdown";
 # 🔧 Initial setup  
 
 _Setup `@codegouvfr/react-dsfr` in your project_
- 
-<Alert 
-	severity="warning" 
-	title="Warning: If you already had the DSFR installed in your project" 
-	isClosable
-	description={<Markdown>{`
-* Remove [\`@gouvfr/dsfr\`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
-* Remove all imports: \`dsfr.css\`, \`dsfr.module.js\` the favicon and the fonts.
-* Remove the \`data-fr-scheme\` (and \`data-fr-theme\` ) attribude from your \`<html/>\` tag.`
-	}</Markdown>}
-/>
 
-```bash
+
+<Markdown>{`
+\`\`\`bash {0}
 yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
-```
+\`\`\`
+`}</Markdown>
 
-export const craContent = <Markdown>{`
+
+<Markdown>{`
 #### package.json
   
-\`\`\`diff {0}
+\`\`\`diff
  "scripts": {
 +  "postinstall": "copy-dsfr-to-public"
 +  "prestart": "only-include-used-icons",
@@ -48,54 +41,6 @@ export const craContent = <Markdown>{`
  }
 \`\`\`
   
-\`copy-dsfr-to-public\` is a \`bin\` script of \`@codegouvfr/react-dsfr\` that copies \`@gouvfr/dsfr/dist\` into \`public/dsfr\`
   
-#### .gitignore
-  
-\`\`\`diff {0}
-+ /public/dsfr
-\`\`\`
-  
-#### public/index.html
-  
-Add the following code in the \`<head />\`
-  
-\`\`\`ejs {0}
-<link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
-<link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
-<link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
-<link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
-<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
-<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
-\`\`\`
-  
-#### src/index.tsx
-  
-\`\`\`diff {0}
- import React from 'react';
- import ReactDOM from 'react-dom/client';
- import App from './App';
-+import { startDsfrReact } from "@codegouvfr/react-dsfr";
-+startDsfrReact({ "defaultColorScheme": "system" });
- const root = ReactDOM.createRoot(
-   document.getElementById('root') as HTMLElement
- );
- root.render(
-   <React.StrictMode>
-     <App />
-   </React.StrictMode>
- );
-\`\`\`
-  
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
-  
-`}</Markdown>;
+`}</Markdown>
 
-
-<Tabs
-    tabs={[
-        { "label": "Create React App", "content": craContent },
-        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p>  },
-        { "label": "Tab 3", "content": <p>Content of tab3</p> }
-    ]}
-/>
