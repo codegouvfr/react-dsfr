@@ -8,6 +8,16 @@
     },
     "main": "dist/lib/index.js",
     "types": "dist/lib/index.d.ts",
+    "module": "dist/lib/index.js",
+    "exports": {
+        ".": "./dist/lib/index.js",
+        "./next": "./dist/next.js",
+        "./mui": "./dist/mui.js",
+        "./Tabs": "./dist/Tabs.js",
+        "./Header": "./dist/Header.js",
+        "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
+        "./Alert": "./dist/Alert.js"
+    },
     "scripts": {
         "build": "ts-node src/scripts/build",
         "yarn-link": "ts-node src/scripts/yarn-link.ts",
@@ -23,7 +33,8 @@
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
         "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
         "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
-        "only-include-used-icons": "node dist/bin/only-include-used-icons.js"
+        "only-include-used-icons": "node dist/bin/only-include-used-icons.js",
+        "list-exports": "ts-node src/scripts/list-exports.ts"
     },
     "bin": {
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
@@ -39,7 +50,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged -v"
+            "pre-commit": "yarn list-exports && lint-staged -v"
         }
     },
     "author": "u/garronej",

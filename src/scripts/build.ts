@@ -104,7 +104,21 @@ import { oppa } from "oppa";
                         return {
                             ...packageJsonParsed,
                             "main": packageJsonParsed["main"].replace(/^dist\//, ""),
-                            "types": packageJsonParsed["types"].replace(/^dist\//, "")
+                            "types": packageJsonParsed["types"].replace(/^dist\//, ""),
+                            "module": packageJsonParsed["module"].replace(/^dist\//, ""),
+                            "exports": Object.fromEntries(
+                                Object.entries(packageJsonParsed["exports"]).map(([path, obj]) => [
+                                    path,
+                                    Object.fromEntries(
+                                        Object.entries(obj as Record<string, string>).map(
+                                            ([type, path]) => [
+                                                type,
+                                                path.replace(/^\.\/dist\//, "./")
+                                            ]
+                                        )
+                                    )
+                                ])
+                            )
                         };
                     })(),
                     null,
