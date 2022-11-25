@@ -2,9 +2,8 @@
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
 import { breakpointValues, breakpointValuesUnit } from "./lib/generatedFromCss/breakpoints";
-import { createTheme } from "@mui/material/styles";
 import type { Theme as MuiTheme } from "@mui/material/styles";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { getColorDecisions } from "./lib/generatedFromCss/getColorDecisions";
 import { getColorOptions } from "./lib/generatedFromCss/getColorOptions";
 import { useIsDark } from "./lib/darkMode";
