@@ -34,7 +34,7 @@
         "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
         "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
         "only-include-used-icons": "node dist/bin/only-include-used-icons.js",
-        "list-exports": "ts-node src/scripts/list-exports.ts && prettier --write package.json && git add package.json"
+        "list-exports": "ts-node src/scripts/list-exports.ts && prettier --write package.json"
     },
     "bin": {
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
@@ -50,7 +50,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn list-exports && lint-staged -v"
+            "pre-commit": "yarn list-exports && git add package.json && lint-staged -v"
         }
     },
     "author": "u/garronej",
