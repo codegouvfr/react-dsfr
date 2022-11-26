@@ -201,9 +201,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             );
         }
 
-        Object.keys(App).forEach(
-            staticMethod => ((AppWithDsfr as any)[staticMethod] = (App as any)[staticMethod])
-        );
+        Object.keys(App).forEach(key => ((AppWithDsfr as any)[key] = (App as any)[key]));
 
         if (doPersistDarkModePreferenceWithCookie) {
             const super_getInitialProps =
