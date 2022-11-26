@@ -6,21 +6,9 @@
         "type": "git",
         "url": "git://github.com/codegouvfr/react-dsfr.git"
     },
-    "main": "dist/lib/index.js",
-    "types": "dist/lib/index.d.ts",
-    "module": "dist/lib/index.js",
-    "exports": {
-        ".": "./dist/lib/index.js",
-        "./next": "./dist/next.js",
-        "./mui": "./dist/mui.js",
-        "./Tabs": "./dist/Tabs.js",
-        "./Header": "./dist/Header.js",
-        "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
-        "./Alert": "./dist/Alert.js"
-    },
     "scripts": {
-        "build": "ts-node src/scripts/build",
-        "yarn-link": "ts-node src/scripts/yarn-link.ts",
+        "build": "ts-node -T src/scripts/build",
+        "yarn-link": "ts-node -T src/scripts/yarn-link.ts",
         "start-cra": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
         "start-next": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/next && yarn dev))",
         "start-vite": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/vite && yarn dev))",
@@ -33,8 +21,7 @@
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
         "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
         "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
-        "only-include-used-icons": "node dist/bin/only-include-used-icons.js",
-        "list-exports": "ts-node src/scripts/list-exports.ts && prettier --write package.json"
+        "only-include-used-icons": "node dist/bin/only-include-used-icons.js"
     },
     "bin": {
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
@@ -50,7 +37,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn list-exports && git add package.json && lint-staged -v"
+            "pre-commit": "ts-node -T src/scripts/list-exports.ts && git add package.json && lint-staged -v"
         }
     },
     "author": "u/garronej",
@@ -80,7 +67,7 @@
         }
     },
     "dependencies": {
-        "tsafe": "^1.3.3"
+        "tsafe": "^1.4.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
@@ -128,5 +115,17 @@
         "tsd": "^0.24.1",
         "typescript": "^4.9.1-beta",
         "vitest": "^0.24.3"
+    },
+    "main": "dist/lib/index.js",
+    "types": "dist/lib/index.d.ts",
+    "module": "dist/lib/index.js",
+    "exports": {
+        ".": "./dist/lib/index.js",
+        "./next": "./dist/next.js",
+        "./mui": "./dist/mui.js",
+        "./Tabs": "./dist/Tabs.js",
+        "./Header": "./dist/Header.js",
+        "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
+        "./Alert": "./dist/Alert.js"
     }
 }
