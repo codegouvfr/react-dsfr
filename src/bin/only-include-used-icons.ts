@@ -213,7 +213,7 @@ async function main() {
             return { availableDsfrIconClassNames, availableRemixiconIconClassNames };
         })();
 
-        const usedIconClassNames: string[] = [];
+        const setUsedIconClassNames = new Set<string>();
 
         await Promise.all(
             candidateFilePaths.map(async candidateFilePath => {
@@ -229,15 +229,13 @@ async function main() {
                         return;
                     }
 
-                    usedIconClassNames.push(className);
+                    setUsedIconClassNames.add(className);
                 });
             })
         );
 
-        return { usedIconClassNames };
+        return { "usedIconClassNames": Array.from(setUsedIconClassNames) };
     })();
-
-    console.log("Detected usage of the following icons: ", usedIconClassNames);
 
     const usedIcons = usedIconClassNames.map(className => {
         const icon = icons.find(({ prefix, iconId }) => `${prefix}${iconId}` === className);
