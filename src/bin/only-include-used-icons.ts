@@ -5,7 +5,7 @@ import * as fs from "fs";
 import { join as pathJoin } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile, rm } from "fs/promises";
+import { writeFile, readFile, rm, access } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import type { Equals } from "tsafe";
@@ -100,7 +100,29 @@ async function main() {
     const dsfrDistDirPath =
         getProjectRoot() === cwd
             ? pathJoin(cwd, "dist", "dsfr")
-            : pathJoin(...[cwd, "node_modules", ...packageName.split("/"), "dsfr"]);
+            : await (async function callee(n: number): Promise<string> {
+                  if (n >= cwd.split(pathSep).length) {
+                      throw new Error("Need to install node modules?");
+                  }
+
+                  const dirPath = pathJoin(
+                      ...[
+                          cwd,
+                          ...new Array(n).fill(".."),
+                          "node_modules",
+                          ...packageName.split("/"),
+                          "dsfr"
+                      ]
+                  );
+
+                  try {
+                      await access(dirPath);
+                  } catch {
+                      return callee(n + 1);
+                  }
+
+                  return dirPath;
+              })(0);
 
     const icons: Icon[] = JSON.parse(
         (await readFile(pathJoin(dsfrDistDirPath, pathOfIconsJson))).toString("utf8")
