@@ -9,6 +9,7 @@ import {
 } from "../bin/only-include-used-icons";
 import * as child_process from "child_process";
 import { oppa } from "oppa";
+import { assert } from "tsafe/assert";
 
 (async () => {
     const { args } = oppa()
@@ -107,16 +108,10 @@ import { oppa } from "oppa";
                             "types": packageJsonParsed["types"].replace(/^dist\//, ""),
                             "module": packageJsonParsed["module"].replace(/^dist\//, ""),
                             "exports": Object.fromEntries(
-                                Object.entries(packageJsonParsed["exports"]).map(([path, obj]) => [
-                                    path,
-                                    Object.fromEntries(
-                                        Object.entries(obj as Record<string, string>).map(
-                                            ([type, path]) => [
-                                                type,
-                                                path.replace(/^\.\/dist\//, "./")
-                                            ]
-                                        )
-                                    )
+                                Object.entries(packageJsonParsed["exports"]).map(([key, value]) => [
+                                    key,
+                                    (assert(typeof value === "string"),
+                                    value.replace(/^\.\/dist\//, "./"))
                                 ])
                             )
                         };
