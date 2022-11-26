@@ -4,11 +4,21 @@ import type { ReactNode } from "react";
 import { breakpointValues, breakpointValuesUnit } from "./lib/generatedFromCss/breakpoints";
 import type { Theme as MuiTheme } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { getColorDecisions } from "./lib/generatedFromCss/getColorDecisions";
-import { getColorOptions } from "./lib/generatedFromCss/getColorOptions";
+import { getColors } from "./lib/colors";
 import { useIsDark } from "./lib/darkMode";
 import { typography } from "./lib/generatedFromCss/typography";
 import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
+import type { ColorTheme } from "./lib/colors";
+//import type { Components } from "@mui/material/styles";
+
+/*
+type NonAugmentedBaseMuiTheme = NonNullable<MuiTheme["components"]> extends Components<infer BaseMuiTheme> ? BaseMuiTheme : undefined;
+
+
+export type NonAugmentedMuiTheme = NonAugmentedBaseMuiTheme & {
+    components?: Components<NonAugmentedBaseMuiTheme>;
+};
+*/
 
 function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
@@ -22,18 +32,17 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             "values": breakpointValues
         },
         "palette": (() => {
-            const colorOptions = getColorOptions({ isDark });
-            const colorDecisions = getColorDecisions({ colorOptions });
+            const { decisions } = getColors(isDark);
 
             return {
                 "mode": isDark ? "dark" : "light",
                 "primary": {
-                    "main": colorDecisions.background.actionHigh.blueFrance.default,
-                    "light": colorDecisions.background.actionLow.blueFrance.default
+                    "main": decisions.background.actionHigh.blueFrance.default,
+                    "light": decisions.background.actionLow.blueFrance.default
                 },
                 "secondary": {
-                    "main": colorDecisions.background.actionHigh.redMarianne.default,
-                    "light": colorDecisions.background.actionLow.redMarianne.default
+                    "main": decisions.background.actionHigh.redMarianne.default,
+                    "light": decisions.background.actionLow.redMarianne.default
                 }
                 /*
                 "primary": {
@@ -82,18 +91,36 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     return muiTheme;
 }
 
+export type NonAugmentedMuiTheme = MuiTheme;
+
 export type MuiDsfrThemeProviderProps = {
     children: ReactNode;
+    /** If you have implemented theme augmentation */
+    augmentMuiTheme?: (params: {
+        nonAugmentedMuiTheme: NonAugmentedMuiTheme;
+        frColorTheme: ColorTheme;
+    }) => MuiTheme;
 };
 
 export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
-    const { children } = props;
+    const { children, augmentMuiTheme } = props;
 
     const { isDark } = useIsDark();
 
-    const muiTheme = useMemo(() => createMuiDsfrTheme({ isDark }), [isDark]);
+    const augmentedMuiTheme = useMemo(() => {
+        const muiTheme = createMuiDsfrTheme({ isDark });
 
-    return <MuiThemeProvider theme={muiTheme}>{children}</MuiThemeProvider>;
+        if (augmentMuiTheme === undefined) {
+            return muiTheme;
+        }
+
+        return augmentMuiTheme({
+            "frColorTheme": getColors(isDark),
+            "nonAugmentedMuiTheme": muiTheme
+        });
+    }, [isDark, augmentMuiTheme]);
+
+    return <MuiThemeProvider theme={augmentedMuiTheme}>{children}</MuiThemeProvider>;
 }
 
 /*
