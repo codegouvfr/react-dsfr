@@ -19,7 +19,7 @@
         "format": "yarn _format --write",
         "format:check": "yarn _format --list-different",
         "grant_exec_perms": "node dist/bin/tools/grant_exec_perms",
-        "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
+        "storybook": "yarn build && yarn only-include-used-icons && ((tsc -w -p src) & (start-storybook -p 6006))",
         "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
         "only-include-used-icons": "node dist/bin/only-include-used-icons.js"
     },
