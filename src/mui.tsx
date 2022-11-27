@@ -9,19 +9,12 @@ import { useIsDark } from "./lib/darkMode";
 import { typography } from "./lib/generatedFromCss/typography";
 import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
-//import type { Components } from "@mui/material/styles";
+import { memoize } from "./lib/tools/memoize";
+import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles";
 
-/*
-type NonAugmentedBaseMuiTheme = NonNullable<MuiTheme["components"]> extends Components<infer BaseMuiTheme> ? BaseMuiTheme : undefined;
+export type { NonAugmentedMuiTheme };
 
-
-export type NonAugmentedMuiTheme = NonAugmentedBaseMuiTheme & {
-    components?: Components<NonAugmentedBaseMuiTheme>;
-};
-*/
-
-function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
-    const { isDark } = params;
+const createMuiDsfrTheme = memoize((isDark: boolean): MuiTheme => {
 
     const muiTheme = createTheme({
         "shape": {
@@ -80,18 +73,16 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 typeof abs === "string"
                     ? abs
                     : abs === 0
-                    ? 0
-                    : (() => {
-                          const value = values[abs - 1];
-                          return value === undefined ? abs : value;
-                      })();
+                        ? 0
+                        : (() => {
+                            const value = values[abs - 1];
+                            return value === undefined ? abs : value;
+                        })();
         })()
     });
 
     return muiTheme;
-}
-
-export type NonAugmentedMuiTheme = MuiTheme;
+}, { "max": 1 });
 
 export type MuiDsfrThemeProviderProps = {
     children: ReactNode;
@@ -107,20 +98,20 @@ export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
 
     const { isDark } = useIsDark();
 
-    const augmentedMuiTheme = useMemo(() => {
-        const muiTheme = createMuiDsfrTheme({ isDark });
+    const theme = useMemo(() => {
+        const theme = createMuiDsfrTheme(isDark);
 
         if (augmentMuiTheme === undefined) {
-            return muiTheme;
+            return theme;
         }
 
         return augmentMuiTheme({
             "frColorTheme": getColors(isDark),
-            "nonAugmentedMuiTheme": muiTheme
+            "nonAugmentedMuiTheme": theme
         });
     }, [isDark, augmentMuiTheme]);
 
-    return <MuiThemeProvider theme={augmentedMuiTheme}>{children}</MuiThemeProvider>;
+    return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 }
 
 /*
@@ -162,3 +153,4 @@ export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
         },
     });
     */
+
