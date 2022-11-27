@@ -25,7 +25,7 @@ In this mode the \`Tab\` component is in charge for swapping the panel content.
 
 ## Controlled 
 
-In this mode you are in change of the behavior of the tabs.  
+In this mode you are in charge of the behavior of the tabs.  
 _NOTE: In controlled mode there is no animation transition when switching between tabs._
 
 \`\`\`tsx
