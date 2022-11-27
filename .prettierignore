@@ -3,5 +3,5 @@ node_modules/
 /CHANGELOG.md
 /.yarn_home/
 /test/integration/
-/src/tools/types/
 /dsfr/
+/src/lib/tools/@mui/

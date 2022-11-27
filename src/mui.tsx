@@ -14,30 +14,30 @@ import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/st
 
 export type { NonAugmentedMuiTheme };
 
-const createMuiDsfrTheme = memoize((isDark: boolean): MuiTheme => {
+const createMuiDsfrTheme = memoize(
+    (isDark: boolean): MuiTheme => {
+        const muiTheme = createTheme({
+            "shape": {
+                "borderRadius": 0
+            },
+            "breakpoints": {
+                "unit": breakpointValuesUnit,
+                "values": breakpointValues
+            },
+            "palette": (() => {
+                const { decisions } = getColors(isDark);
 
-    const muiTheme = createTheme({
-        "shape": {
-            "borderRadius": 0
-        },
-        "breakpoints": {
-            "unit": breakpointValuesUnit,
-            "values": breakpointValues
-        },
-        "palette": (() => {
-            const { decisions } = getColors(isDark);
-
-            return {
-                "mode": isDark ? "dark" : "light",
-                "primary": {
-                    "main": decisions.background.actionHigh.blueFrance.default,
-                    "light": decisions.background.actionLow.blueFrance.default
-                },
-                "secondary": {
-                    "main": decisions.background.actionHigh.redMarianne.default,
-                    "light": decisions.background.actionLow.redMarianne.default
-                }
-                /*
+                return {
+                    "mode": isDark ? "dark" : "light",
+                    "primary": {
+                        "main": decisions.background.actionHigh.blueFrance.default,
+                        "light": decisions.background.actionLow.blueFrance.default
+                    },
+                    "secondary": {
+                        "main": decisions.background.actionHigh.redMarianne.default,
+                        "light": decisions.background.actionLow.redMarianne.default
+                    }
+                    /*
                 "primary": {
                     "900": colorOptions.blueFrance._925_125.default,
                     "800": colorOptions.blueFrance._850_200.default,
@@ -47,42 +47,44 @@ const createMuiDsfrTheme = memoize((isDark: boolean): MuiTheme => {
                     "light": colorDecisions.background.actionLow.redMarianne.default,
                 },
                 */
-            } as const;
-        })(),
-        "typography": {
-            "fontFamily": '"Marianne", arial, sans-serif',
-            "h1": typography.find(({ selector }) => selector === "h1")!.style,
-            "h2": typography.find(({ selector }) => selector === "h2")!.style,
-            "h3": typography.find(({ selector }) => selector === "h3")!.style,
-            "h4": typography.find(({ selector }) => selector === "h4")!.style,
-            "h5": typography.find(({ selector }) => selector === "h5")!.style,
-            "h6": typography.find(({ selector }) => selector === "h6")!.style,
-            //"subtitle1":
-            //"subtitle2":
-            "body1": typography.find(({ selector }) => selector === "p")!.style
-            //"body2": {},
-            //"caption": {},
-            //"button": {},
-            //"overline": {}
-        },
-        "spacing": (() => {
-            //NOTE: The properties are declared sorted in the object.
-            const values = Object.values(spacingTokenByValue);
+                } as const;
+            })(),
+            "typography": {
+                "fontFamily": '"Marianne", arial, sans-serif',
+                "h1": typography.find(({ selector }) => selector === "h1")!.style,
+                "h2": typography.find(({ selector }) => selector === "h2")!.style,
+                "h3": typography.find(({ selector }) => selector === "h3")!.style,
+                "h4": typography.find(({ selector }) => selector === "h4")!.style,
+                "h5": typography.find(({ selector }) => selector === "h5")!.style,
+                "h6": typography.find(({ selector }) => selector === "h6")!.style,
+                //"subtitle1":
+                //"subtitle2":
+                "body1": typography.find(({ selector }) => selector === "p")!.style
+                //"body2": {},
+                //"caption": {},
+                //"button": {},
+                //"overline": {}
+            },
+            "spacing": (() => {
+                //NOTE: The properties are declared sorted in the object.
+                const values = Object.values(spacingTokenByValue);
 
-            return (abs: string | number) =>
-                typeof abs === "string"
-                    ? abs
-                    : abs === 0
+                return (abs: string | number) =>
+                    typeof abs === "string"
+                        ? abs
+                        : abs === 0
                         ? 0
                         : (() => {
-                            const value = values[abs - 1];
-                            return value === undefined ? abs : value;
-                        })();
-        })()
-    });
+                              const value = values[abs - 1];
+                              return value === undefined ? abs : value;
+                          })();
+            })()
+        });
 
-    return muiTheme;
-}, { "max": 1 });
+        return muiTheme;
+    },
+    { "max": 1 }
+);
 
 export type MuiDsfrThemeProviderProps = {
     children: ReactNode;
@@ -153,4 +155,3 @@ export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
         },
     });
     */
-
