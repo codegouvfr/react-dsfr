@@ -4,6 +4,8 @@ description: Use MUI components in your App or DSFRify your website build with M
 
 # 🤝 MUI integration
 
+{% embed url="https://youtu.be/TOwdPJUS930" %}
+
 {% hint style="warning" %}
 If you are using Next.js, MUI needs extra steps to work with SSR. &#x20;
 
