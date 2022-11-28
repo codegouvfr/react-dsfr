@@ -19,7 +19,13 @@
         "@emotion/react": "^11.10.5",
         "@emotion/server": "^11.10.0",
         "tss-react": "^4.4.4",
+        "@mui/material": "^5.10.15",
+        "@mui/icons-material": "5.10.15",
+        "@emotion/styled": "^11.10.5",
+        "dayjs": "^1.11.6",
+        "@mui/x-date-pickers": "^5.0.9",
         "@codegouvfr/react-dsfr": "file:../../../dist"
+        
     },
     "devDependencies": {
         "@types/react": "18.0.21",

@@ -8,9 +8,7 @@ import { getProjectRoot } from "../bin/tools/getProjectRoot";
 const projectDirPath = getProjectRoot();
 
 const commonThirdPartyDeps = (() => {
-    const namespaceModuleNames: string[] = [
-        /*"@emotion"*/
-    ];
+    const namespaceModuleNames: string[] = ["@emotion", "@mui"];
     const standaloneModuleNames = ["react", "@types/react"];
 
     return [

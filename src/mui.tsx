@@ -9,33 +9,35 @@ import { useIsDark } from "./lib/darkMode";
 import { typography } from "./lib/generatedFromCss/typography";
 import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
-import { memoize } from "./lib/tools/memoize";
 import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles/createTheme";
+import { assert } from "tsafe/assert";
+import { objectKeys } from "tsafe/objectKeys";
 
-const createMuiDsfrTheme = memoize(
-    (isDark: boolean): MuiTheme => {
-        const muiTheme = createTheme({
-            "shape": {
-                "borderRadius": 0
-            },
-            "breakpoints": {
-                "unit": breakpointValuesUnit,
-                "values": breakpointValues
-            },
-            "palette": (() => {
-                const { decisions } = getColors(isDark);
+function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
+    const { isDark } = params;
 
-                return {
-                    "mode": isDark ? "dark" : "light",
-                    "primary": {
-                        "main": decisions.background.actionHigh.blueFrance.default,
-                        "light": decisions.background.actionLow.blueFrance.default
-                    },
-                    "secondary": {
-                        "main": decisions.background.actionHigh.redMarianne.default,
-                        "light": decisions.background.actionLow.redMarianne.default
-                    }
-                    /*
+    const muiTheme = createTheme({
+        "shape": {
+            "borderRadius": 0
+        },
+        "breakpoints": {
+            "unit": breakpointValuesUnit,
+            "values": breakpointValues
+        },
+        "palette": (() => {
+            const { decisions } = getColors(isDark);
+
+            return {
+                "mode": isDark ? "dark" : "light",
+                "primary": {
+                    "main": decisions.background.actionHigh.blueFrance.default,
+                    "light": decisions.background.actionLow.blueFrance.default
+                },
+                "secondary": {
+                    "main": decisions.background.actionHigh.redMarianne.default,
+                    "light": decisions.background.actionLow.redMarianne.default
+                }
+                /*
                 "primary": {
                     "900": colorOptions.blueFrance._925_125.default,
                     "800": colorOptions.blueFrance._850_200.default,
@@ -45,73 +47,99 @@ const createMuiDsfrTheme = memoize(
                     "light": colorDecisions.background.actionLow.redMarianne.default,
                 },
                 */
-                } as const;
-            })(),
-            "typography": {
+            } as const;
+        })(),
+        "typography": (() => {
+            const getBySelector = (selector: typeof typography[number]["selector"]) => {
+                const variant = typography.find(variant => variant.selector === selector);
+                assert(variant !== undefined);
+
+                const style = { ...variant.style };
+
+                //TODO: Investigate why we need to do that.
+                delete (style as any).margin;
+
+                return style;
+            };
+
+            return {
                 "fontFamily": '"Marianne", arial, sans-serif',
-                "h1": typography.find(({ selector }) => selector === "h1")!.style,
-                "h2": typography.find(({ selector }) => selector === "h2")!.style,
-                "h3": typography.find(({ selector }) => selector === "h3")!.style,
-                "h4": typography.find(({ selector }) => selector === "h4")!.style,
-                "h5": typography.find(({ selector }) => selector === "h5")!.style,
-                "h6": typography.find(({ selector }) => selector === "h6")!.style,
+                "h1": getBySelector("h1"),
+                "h2": getBySelector("h2"),
+                "h3": getBySelector("h3"),
+                "h4": getBySelector("h4"),
+                "h5": getBySelector("h5"),
+                "h6": getBySelector("h6"),
                 //"subtitle1":
                 //"subtitle2":
-                "body1": typography.find(({ selector }) => selector === "p")!.style
+                "body1": getBySelector("p")
                 //"body2": {},
                 //"caption": {},
                 //"button": {},
                 //"overline": {}
-            },
-            "spacing": (() => {
-                //NOTE: The properties are declared sorted in the object.
-                const values = Object.values(spacingTokenByValue);
+            };
+        })(),
+        "spacing": (() => {
+            const values: string[] = [];
 
-                return (abs: string | number) =>
-                    typeof abs === "string"
-                        ? abs
-                        : abs === 0
-                        ? 0
-                        : (() => {
-                              const value = values[abs - 1];
-                              return value === undefined ? abs : value;
-                          })();
-            })()
-        });
+            //NOTE: The properties are declared sorted in the object.
+            objectKeys(spacingTokenByValue).forEach(key => {
+                if (key.endsWith("w")) {
+                    values.push(spacingTokenByValue[key]);
+                }
+            });
 
-        return muiTheme;
-    },
-    { "max": 1 }
-);
+            return (abs: string | number) =>
+                typeof abs === "string"
+                    ? abs
+                    : abs === 0
+                    ? 0
+                    : (() => {
+                          const value = values[abs - 1];
+                          return value === undefined ? abs : value;
+                      })();
+        })()
+    });
 
-export type MuiDsfrThemeProviderProps = {
-    children: ReactNode;
-    /** If you have implemented theme augmentation */
-    augmentMuiTheme?: (params: {
+    return muiTheme;
+}
+
+export function createMuiDsfrThemeProvider(params: {
+    augmentMuiTheme: (params: {
         nonAugmentedMuiTheme: NonAugmentedMuiTheme;
         frColorTheme: ColorTheme;
     }) => MuiTheme;
-};
+}) {
+    const { augmentMuiTheme } = params;
 
-export function MuiDsfrThemeProvider(props: MuiDsfrThemeProviderProps) {
-    const { children, augmentMuiTheme } = props;
+    type Props = {
+        children: ReactNode;
+        /** If you have implemented theme augmentation */
+    };
 
-    const { isDark } = useIsDark();
+    function MuiDsfrThemeProvider(props: Props) {
+        const { children } = props;
 
-    const theme = useMemo(() => {
-        const theme = createMuiDsfrTheme(isDark);
+        const { isDark } = useIsDark();
 
-        if (augmentMuiTheme === undefined) {
-            return theme;
-        }
+        const theme = useMemo(
+            () =>
+                augmentMuiTheme({
+                    "frColorTheme": getColors(isDark),
+                    "nonAugmentedMuiTheme": createMuiDsfrTheme({ isDark })
+                }),
+            [isDark]
+        );
 
-        return augmentMuiTheme({
-            "frColorTheme": getColors(isDark),
-            "nonAugmentedMuiTheme": theme
-        });
-    }, [isDark, augmentMuiTheme]);
+        return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+    }
 
-    return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+    return { MuiDsfrThemeProvider };
+}
+
+export function noAugmentation(params: { nonAugmentedMuiTheme: MuiTheme }) {
+    const { nonAugmentedMuiTheme } = params;
+    return nonAugmentedMuiTheme;
 }
 
 /*

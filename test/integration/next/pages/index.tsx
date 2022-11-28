@@ -8,7 +8,6 @@ import { useStyles } from "tss-react/dsfr";
 export default function App() {
     const { isDark, setIsDark } = useIsDark();
 
-
     return (
         <>
             <Alert

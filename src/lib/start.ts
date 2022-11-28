@@ -86,7 +86,7 @@ export async function startDsfrReact(params: Params) {
         // NOTE: @gouvfr/dsfr/dist/dsfr.module.js is not isomorphic, it can't run on the Server.",
         // We set an artificial delay before starting the module otherwise to avoid getting",
         // Hydration error from Next.js
-        await new Promise(resolve => setTimeout(resolve, 150));
+        await new Promise(resolve => setTimeout(resolve, 400));
     }
 
     (window as any).dsfr.start();
