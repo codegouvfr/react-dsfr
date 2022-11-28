@@ -4,8 +4,12 @@
     "private": true,
     "dependencies": {
         "react": "18.2.0",
-         "react-dom": "18.2.0",
+        "react-dom": "18.2.0",
         "react-scripts": "5.0.1",
+        "type-route": "^0.7.2",
+        "@mui/icons-material": "^5.10.16",
+        "@mui/x-date-pickers": "^5.0.9",
+        "dayjs": "^1.11.6",
         "@codegouvfr/react-dsfr": "file:../../../dist"
     },
     "lldevDependencies": {

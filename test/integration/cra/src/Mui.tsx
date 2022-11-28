@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { createMuiDsfrThemeProvider, noAugmentation } from "@codegouvfr/react-dsfr/mui";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -47,7 +46,7 @@ const muiDefaultLightTheme = createTheme({
 	}
 });
 
-export default function Mui() {
+export function Mui() {
 
 	const { isDark, setIsDark } = useIsDark();
 
