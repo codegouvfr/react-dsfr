@@ -12,3 +12,7 @@
 * [💐 colors](fr-utils/colors.md)
 * [🌗 useIsDark](fr-utils/useisdark.md)
 * [🖌 CSS in JS](fr-utils/css-in-js.md)
+
+***
+
+* [🤝 MUI integration](mui-integration.md)
