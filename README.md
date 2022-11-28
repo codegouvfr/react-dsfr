@@ -34,8 +34,8 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://etalab-2.gitbook.io/dsfr-react/).
 -   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (2/42)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
--   [ ] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
-        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
+-   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
+        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://etalab-2.gitbook.io/dsfr-react/mui-integration).
 -   [x] Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
