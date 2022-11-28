@@ -1,5 +1,4 @@
 import type { AppProps } from "next/app";
-import { DsfrLangProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
@@ -38,7 +37,7 @@ function App({ Component, pageProps }: AppProps) {
     const { css } = useStyles();
 
     return (
-        <DsfrLangProvider lang="fr">
+        <>
                 <Header
                     intituléOfficiel="Intitulé officiel"
                     baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
@@ -70,7 +69,7 @@ function App({ Component, pageProps }: AppProps) {
                 })}>
                     <Component {...pageProps} />
                 </div>
-        </DsfrLangProvider>
+        </>
     );
 }
 

@@ -33,7 +33,7 @@ import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
-import { setDefaultLang } from "./lib/i18n";
+import { setLangToUseIfProviderNotUsed } from "./lib/i18n";
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -119,6 +119,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
     const {
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
+        langIfNoProvider = "fr",
         ...startDsfrReactParams
     } = params;
 
@@ -130,12 +131,10 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
         startDsfrReact(startDsfrReactParams);
     } else {
         defaultColorScheme = startDsfrReactParams.defaultColorScheme;
+    }
 
-        const { defaultLang } = startDsfrReactParams;
-
-        if (defaultLang !== undefined) {
-            setDefaultLang(defaultLang);
-        }
+    if (langIfNoProvider !== undefined) {
+        setLangToUseIfProviderNotUsed(langIfNoProvider);
     }
 
     const colorSchemeKey = "dsfrColorScheme";

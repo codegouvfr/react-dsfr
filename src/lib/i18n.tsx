@@ -2,10 +2,10 @@ import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 import { isBrowser } from "./tools/isBrowser";
 
-let defaultLang: undefined | string;
+let langIfNoProvider: undefined | string;
 
-export function setDefaultLang(lang: string) {
-    defaultLang = lang;
+export function setLangToUseIfProviderNotUsed(lang: string) {
+    langIfNoProvider = lang;
 }
 
 const langContext = createContext<string | undefined>(undefined);
@@ -14,7 +14,7 @@ function useLang(): string | undefined {
     const lang = useContext(langContext);
 
     if (lang === undefined) {
-        return defaultLang ?? (!isBrowser ? undefined : navigator.language);
+        return langIfNoProvider ?? (!isBrowser ? undefined : navigator.language);
     }
 
     return lang;
