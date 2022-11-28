@@ -10,9 +10,7 @@ import { typography } from "./lib/generatedFromCss/typography";
 import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
 import { memoize } from "./lib/tools/memoize";
-import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles";
-
-export type { NonAugmentedMuiTheme };
+import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles/createTheme";
 
 const createMuiDsfrTheme = memoize(
     (isDark: boolean): MuiTheme => {
