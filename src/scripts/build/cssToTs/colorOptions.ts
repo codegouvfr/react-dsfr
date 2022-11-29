@@ -3,11 +3,11 @@ import { id } from "tsafe/id";
 import { parseCss } from "./parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { multiReplace } from "../tools/multiReplace";
+import { multiReplace } from "../../tools/multiReplace";
 import { createGetCssVariable } from "./cssVariable";
 import memoize from "memoizee";
 import * as crypto from "crypto";
-import { cssColorRegexp } from "../tools/cssColorRegexp";
+import { cssColorRegexp } from "../../tools/cssColorRegexp";
 
 export type ColorScheme = "light" | "dark";
 

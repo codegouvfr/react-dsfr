@@ -2,7 +2,7 @@ import { readFile } from "fs/promises";
 import { join as pathJoin, basename as pathBasename } from "path";
 import { id } from "tsafe/id";
 import { crawl } from "../../bin/tools/crawl";
-import { parseCss } from "./parseCss";
+import { parseCss } from "./cssToTs/parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import type { Icon } from "../../bin/only-include-used-icons";

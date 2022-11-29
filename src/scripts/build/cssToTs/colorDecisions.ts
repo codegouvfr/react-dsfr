@@ -8,7 +8,7 @@ import { exclude } from "tsafe/exclude";
 import { is } from "tsafe/is";
 import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";
 import * as crypto from "crypto";
-import { multiReplace } from "../tools/multiReplace";
+import { multiReplace } from "../../tools/multiReplace";
 
 const contexts = ["background", "text", "border", "artwork"] as const;
 
