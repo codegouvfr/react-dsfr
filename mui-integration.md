@@ -6,6 +6,16 @@ description: Use MUI components in your App or DSFRify your website build with M
 
 {% embed url="https://youtu.be/TOwdPJUS930" %}
 
+{% hint style="warning" %}
+If you are using Next.js, MUI needs extra steps to work with SSR. &#x20;
+
+You can follow [the official MUI documentation](https://mui.com/material-ui/guides/server-rendering/#reference-implementations) but the easyest way to set it up is using the tss-react tooling: &#x20;
+
+`yarn add @mui/material @emotion/react @emotion/styled tss-react`
+
+and follow the instruction [here.  ](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache)
+{% endhint %}
+
 react-dsfr features a DSFR theme for MUI. This enables you to use the [large library of MUI components](https://mui.com/) in your website, they will blend in nicely. &#x20;
 
 First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach: &#x20;
@@ -26,7 +36,7 @@ function App() {
     return (
         <MuiDsfrThemeProvider>
             {/* your app ... */}
-        </MuiDsfrThemeProvider>
+        </DsfrLangProvider>
     );
 }
 ```
@@ -68,13 +78,9 @@ function App() {
     return (
         <MuiDsfrThemeProvider>
             {/* your app ... */}
-        </MuiDsfrThemeProvider>
+        </DsfrLangProvider>
     );
 }
 ```
 
 </details>
-
-### Setting up Next.js + MUI + react-dsfr
-
-{% embed url="https://youtu.be/0n0S6PcyG28" %}

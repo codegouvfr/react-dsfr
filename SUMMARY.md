@@ -16,3 +16,4 @@
 ***
 
 * [🤝 MUI integration](mui-integration.md)
+* [🌎 Internationalisation](internationalisation.md)
