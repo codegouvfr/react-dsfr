@@ -11,6 +11,7 @@ import {
 import * as child_process from "child_process";
 import { oppa } from "oppa";
 import { assert } from "tsafe/assert";
+import { patchCssForMui } from "./patchCssForMui";
 
 (async () => {
     const { args } = oppa()
@@ -45,6 +46,21 @@ import { assert } from "tsafe/assert";
             "utf8"
         )
     );
+
+    {
+        const { rawDsfrCssCodePatchedForMui, rawDsfrCssCodePatchedForMuiMinified } = patchCssForMui(
+            { rawDsfrCssCode }
+        );
+
+        (
+            [
+                [rawDsfrCssCodePatchedForMui, ".css"],
+                [rawDsfrCssCodePatchedForMuiMinified, ".min.css"]
+            ] as const
+        ).forEach(([rawCssCode, ext]) =>
+            fs.writeFileSync(pathJoin(dsfrDirPath, `dsfr${ext}`), Buffer.from(rawCssCode, "utf8"))
+        );
+    }
 
     const icons = await collectIcons({
         "remixiconDirPath": pathJoin(nodeModuleDirPath, "remixicon"),
