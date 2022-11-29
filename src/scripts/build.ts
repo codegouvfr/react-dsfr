@@ -29,17 +29,17 @@ import { assert } from "tsafe/assert";
 
     const nodeModuleDirPath = pathJoin(projectRootDirPath, "node_modules");
 
-    const gouvFrDsfrDistDirPath = pathJoin(nodeModuleDirPath, "@gouvfr", "dsfr", "dist");
-
-    fs.cpSync(gouvFrDsfrDistDirPath, dsfrDirPath, {
+    fs.cpSync(pathJoin(nodeModuleDirPath, "@gouvfr", "dsfr", "dist"), dsfrDirPath, {
         "recursive": true
     });
+
+    const rawDsfrCssCode = fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8");
 
     fs.writeFileSync(
         pathJoin(dsfrDirPath, pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist),
         Buffer.from(
             getPatchedRawCssCodeForCompatWithRemixIcon({
-                "rawCssCode": fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8")
+                "rawCssCode": rawDsfrCssCode
             }),
             "utf8"
         )
@@ -66,9 +66,7 @@ import { assert } from "tsafe/assert";
     cssToTs({
         icons,
         "generatedDirPath": pathJoin(projectRootDirPath, "src", "lib", "generatedFromCss"),
-        "rawDsfrCssCode": fs
-            .readFileSync(pathJoin(gouvFrDsfrDistDirPath, "dsfr.css"))
-            .toString("utf8")
+        rawDsfrCssCode
     });
 
     await tsc({
