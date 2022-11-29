@@ -29,7 +29,9 @@ import { assert } from "tsafe/assert";
 
     const nodeModuleDirPath = pathJoin(projectRootDirPath, "node_modules");
 
-    fs.cpSync(pathJoin(nodeModuleDirPath, "@gouvfr", "dsfr", "dist"), dsfrDirPath, {
+    const gouvFrDsfrDistDirPath = pathJoin(nodeModuleDirPath, "@gouvfr", "dsfr", "dist");
+
+    fs.cpSync(gouvFrDsfrDistDirPath, dsfrDirPath, {
         "recursive": true
     });
 
@@ -43,21 +45,16 @@ import { assert } from "tsafe/assert";
         )
     );
 
+    const icons = await collectIcons({
+        "remixiconDirPath": pathJoin(nodeModuleDirPath, "remixicon"),
+        "iconsCssRawCode": fs
+            .readFileSync(pathJoin(dsfrDirPath, "utility", "icons", "icons.css"))
+            .toString("utf8")
+    });
+
     fs.writeFileSync(
         pathJoin(dsfrDirPath, pathOfIconsJson),
-        Buffer.from(
-            JSON.stringify(
-                await collectIcons({
-                    "remixiconDirPath": pathJoin(nodeModuleDirPath, "remixicon"),
-                    "iconsCssRawCode": fs
-                        .readFileSync(pathJoin(dsfrDirPath, "utility", "icons", "icons.css"))
-                        .toString("utf8")
-                }),
-                null,
-                2
-            ),
-            "utf8"
-        )
+        Buffer.from(JSON.stringify(icons, null, 2), "utf8")
     );
 
     const distDirPath = pathJoin(projectRootDirPath, "dist");
@@ -66,7 +63,13 @@ import { assert } from "tsafe/assert";
         fs.rmSync(distDirPath, { "recursive": true, "force": true });
     }
 
-    cssToTs();
+    cssToTs({
+        icons,
+        "generatedDirPath": pathJoin(projectRootDirPath, "src", "lib", "generatedFromCss"),
+        "rawDsfrCssCode": fs
+            .readFileSync(pathJoin(gouvFrDsfrDistDirPath, "dsfr.css"))
+            .toString("utf8")
+    });
 
     await tsc({
         "tsconfigDirPath": pathJoin(projectRootDirPath, "src", "bin"),
@@ -88,8 +91,7 @@ import { assert } from "tsafe/assert";
         "doWatch": false
     });
 
-    //NOTE: From here it's only for local linking, required for storybook and
-    // running integration apps.
+    //NOTE: From here it's only for local linking, required for storybook and running integration apps.
     if (!args.npm) {
         fs.writeFileSync(
             pathJoin(distDirPath, "package.json"),
