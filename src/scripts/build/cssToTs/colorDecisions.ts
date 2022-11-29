@@ -3,7 +3,7 @@ import { states, parseColorOptions } from "./colorOptions";
 import { id } from "tsafe/id";
 import { assert } from "tsafe/assert";
 import { capitalize } from "tsafe/capitalize";
-import { parseCss } from "./parseCss";
+import { parseCss } from "../parseCss";
 import { exclude } from "tsafe/exclude";
 import { is } from "tsafe/is";
 import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";

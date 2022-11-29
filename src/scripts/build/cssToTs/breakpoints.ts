@@ -3,7 +3,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { objectKeys } from "tsafe/objectKeys";
 import { exclude } from "tsafe/exclude";
-import { parseCss } from "./parseCss";
+import { parseCss } from "../parseCss";
 import memoize from "memoizee";
 
 export type BreakpointsValues = {

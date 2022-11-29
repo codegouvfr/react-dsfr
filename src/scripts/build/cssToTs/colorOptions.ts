@@ -1,6 +1,6 @@
 import { capitalize } from "tsafe/capitalize";
 import { id } from "tsafe/id";
-import { parseCss } from "./parseCss";
+import { parseCss } from "../parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import { multiReplace } from "../../tools/multiReplace";
