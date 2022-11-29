@@ -26,7 +26,7 @@ function App() {
     return (
         <MuiDsfrThemeProvider>
             {/* your app ... */}
-        </DsfrLangProvider>
+        </MuiDsfrThemeProvider>
     );
 }
 ```
@@ -68,7 +68,7 @@ function App() {
     return (
         <MuiDsfrThemeProvider>
             {/* your app ... */}
-        </DsfrLangProvider>
+        </MuiDsfrThemeProvider>
     );
 }
 ```
@@ -77,4 +77,4 @@ function App() {
 
 ### Setting up Next.js + MUI + react-dsfr
 
-{% embed url="https://youtu.be/M_OcCCaflJk" %}
+{% embed url="https://youtu.be/0n0S6PcyG28" %}
