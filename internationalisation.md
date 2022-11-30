@@ -83,10 +83,8 @@ function MyApp(){
 ```
 {% endtab %}
 {% endtabs %}
-
-### Ad
-
-### Ad
+ 
+### Adding translations&#x20; 
 
 The components usualy comes with one or two translation by default, typically english (`en`), spanis (`es`) and somethime german (`de`).  [Illustration with the \<DarkModeSwitch /> component](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fbcc34b34b25d4ac8214e34/src/DarkModeSwitch.tsx#L162-L199).&#x20;
 
@@ -105,8 +103,3 @@ addAlertTranslations({
 
 The above code adds chinese (`zh-CN`) support for the Alert component. You can call  `addAlertTranslations()` wherever just be sure it's evaluated before the first use of the component, here `<Alert />`.
 
-#### Ad
-
-### Ad
-
-### Ad
