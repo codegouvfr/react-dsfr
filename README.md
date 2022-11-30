@@ -92,8 +92,6 @@ root.render(
 [integration-with-routing-libraries.md](integration-with-routing-libraries.md)
 {% endcontent-ref %}
 
-
-
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 {% endtab %}
 
@@ -260,6 +258,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
+{% content-ref url="integration-with-routing-libraries.md" %}
+[integration-with-routing-libraries.md](integration-with-routing-libraries.md)
+{% endcontent-ref %}
+
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
 {% endtab %}
 
@@ -281,7 +283,7 @@ import { startDsfrReact } from "@codegouvfr/react-dsfr";
 const isBrowser = typeof window === "object" && typeof document === "object";
 
 if( isBrowser ){
-    startDsfrReact({ "defaultColorScheme": "system" });
+    startDsfrReact({ defaultColorScheme: "system" });
 }
 ```
 
