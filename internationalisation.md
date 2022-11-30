@@ -37,7 +37,7 @@ Example setup [in Next.js](https://github.com/etalab/etalab-website/blob/b427049
 {% hint style="warning" %}
 DISLAMER: I'm the author of i18nifty.
 
-While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out  from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.dind
+While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out  from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.dindd
 {% endhint %}
 {% endtab %}
 
@@ -85,6 +85,27 @@ function MyApp(){
 {% endtabs %}
 
 ### Ad
+
+### Ad
+
+The components usualy comes with one or two translation by default, typically english (`en`), spanis (`es`) and somethime german (`de`).  [Illustration with the \<DarkModeSwitch /> component](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fbcc34b34b25d4ac8214e34/src/DarkModeSwitch.tsx#L162-L199).&#x20;
+
+You can add translation for extra language on a composant basis like so:
+
+```tsx
+import { addAlertTranslations } from "@codegouvfr/react-dsfr/Alert";
+
+addAlertTranslations({
+	"lang": "zh-CN",
+	"messages": {
+		"hide message": "隐藏消息"
+	}
+});
+```
+
+The above code adds chinese (`zh-CN`) support for the Alert component. You can call  `addAlertTranslations()` wherever just be sure it's evaluated before the first use of the component, here `<Alert />`.
+
+#### Ad
 
 ### Ad
 
