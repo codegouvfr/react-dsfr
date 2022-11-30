@@ -6,12 +6,6 @@ Theses strings can be switched form a langage to antother with a provider.&#x20;
 
 ![image](https://user-images.githubusercontent.com/6702424/202221151-9e04dd77-da52-4ce7-b1b1-5bb653addf50.png) ![image](https://user-images.githubusercontent.com/6702424/202221309-b11b89a7-4893-442b-ab2a-92f85177ba69.png)
 
-{% embed url="https://github.com/etalab/etalab-website/blob/b427049dd9609ddbdd5fc2b42484d700e20851f4/pages/_app.tsx#L39-L42" %}
-Example in the Etalab website with the i18n library i18nifty
-{% endembed %}
-
-If a translation for a langage is missing you can add translations on a component basis:&#x20;
-
 ### Integration with i18n libraries&#x20;
 
 {% tabs %}
@@ -43,7 +37,7 @@ Example setup [in Next.js](https://github.com/etalab/etalab-website/blob/b427049
 {% hint style="warning" %}
 DISLAMER: I'm the author of i18nifty.
 
-While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out  from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.
+While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out  from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.dind
 {% endhint %}
 {% endtab %}
 
@@ -89,3 +83,9 @@ function MyApp(){
 ```
 {% endtab %}
 {% endtabs %}
+
+### Ad
+
+### Ad
+
+### Ad
