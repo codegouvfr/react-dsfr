@@ -118,6 +118,12 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 ```tsx
 import DefaultApp from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import type { LinkProps as NextLinkProps } from "next/link";
+
+declare module "@codegouvfr/react-dsfr" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface LinkProps extends NextLinkProps { }
+}
 
 const { 
     withDsfr
