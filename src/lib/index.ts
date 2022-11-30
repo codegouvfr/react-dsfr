@@ -8,7 +8,7 @@ export type { SpacingToken } from "./spacing";
 import { cx } from "./cx";
 export type { FrCxArg } from "./cx";
 export { DsfrLangProvider } from "./i18n";
-export { createLinkProvider } from "./routing";
+export { createDsfrLinkProvider } from "./routing";
 export type { LinkProps, HTMLAnchorProps } from "./routing";
 
 export const fr = {

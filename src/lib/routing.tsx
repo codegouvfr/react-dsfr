@@ -17,23 +17,23 @@ export type HTMLAnchorProps = DetailedHTMLProps<
 const context = createContext<CreateLinkProviderPrams["Link"]>(props => <a {...props} />);
 
 type CreateLinkProviderPrams = {
-    Link: (props: LinkProps) => JSX.Element;
+    Link: (props: LinkProps) => ReturnType<React.FC>;
 };
 
-export function createLinkProvider(params: CreateLinkProviderPrams) {
+export function createDsfrLinkProvider(params: CreateLinkProviderPrams) {
     const { Link } = params;
 
     type Props = {
         children: ReactNode;
     };
 
-    function LinkProvider(props: Props) {
+    function DsfrLinkProvider(props: Props) {
         const { children } = props;
 
         return <context.Provider value={Link}>{children}</context.Provider>;
     }
 
-    return { LinkProvider };
+    return { DsfrLinkProvider };
 }
 
 export function useLink() {
