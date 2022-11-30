@@ -8,8 +8,6 @@ Theses strings can be switched form a langage to antother with a provider.&#x20;
 
 ### Integration with i18n libraries&#x20;
 
-{% tabs %}
-{% tab title="i18nifty" %}
 {% embed url="https://i18nifty.dev" %}
 A type safe internationalisation library for SPAs and Next.js
 {% endembed %}
@@ -39,9 +37,9 @@ DISLAMER: I'm the author of i18nifty.
 
 While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out  from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.dindd
 {% endhint %}
-{% endtab %}
 
-{% tab title="Next.js builtin i18n" %}
+Next.js builtin i18n
+
 {% embed url="https://nextjs.org/docs/advanced-features/i18n-routing" %}
 
 Assuming you have enabled internationalized routing: &#x20;
@@ -64,9 +62,8 @@ function App({ Component, pageProps }: AppProps) {
 
 ```
 {% endcode %}
-{% endtab %}
 
-{% tab title="Other i18n library" %}
+
 It's up you you to remplace in the following example to remplace `"fr"` by the desired locale using to tooling exposed by your i18n library. &#x20;
 
 ```tsx
@@ -81,8 +78,7 @@ function MyApp(){
 
 }
 ```
-{% endtab %}
-{% endtabs %}
+
  
 ### Adding translations&#x20; 
 
