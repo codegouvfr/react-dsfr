@@ -307,7 +307,7 @@ If you chose, despite the recommendation agaist it, to preload the fonts, at lea
 {% tab title="Create React App" %}
 Add the following code in the `<head />`&#x20;
 
-{% code title="public/index.html" %}
+{% code title="public/index.html" lineNumbers="true" %}
 ```ejs
 <%
 [
@@ -329,7 +329,7 @@ Add the following code in the `<head />`&#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
-<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx"> import DefaultApp from "next/app";
+<pre class="language-tsx" data-title="pages/_app.tsx" data-line-numbers><code class="lang-tsx"> import DefaultApp from "next/app";
  import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 
  const { 
