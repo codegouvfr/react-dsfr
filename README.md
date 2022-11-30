@@ -295,10 +295,7 @@ Add the following code in the `<head />`&#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
-#### pages/\_app.tsx
-
-```diff
- import DefaultApp from "next/app";
+<pre class="language-tsx" data-title="pages/_app.tsx" data-line-numbers><code class="lang-tsx"> import DefaultApp from "next/app";
  import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 
  const { 
@@ -307,24 +304,24 @@ Add the following code in the `<head />`&#x20;
  } = createNextDsfrIntegrationApi({
      defaultColorScheme: "system",
      doPersistDarkModePreferenceWithCookie: true
-+    "preloadFonts": [
-+  	//"Marianne-Light",
-+       //"Marianne-Light_Italic",
-+	"Marianne-Regular",
-+	//"Marianne-Regular_Italic",
-+	"Marianne-Medium",
-+	//"Marianne-Medium_Italic",
-+	"Marianne-Bold",
-+	//"Marianne-Bold_Italic",
-+	//"Spectral-Regular",
-+	//"Spectral-ExtraBold"
-+     ]
-});
+<strong>     preloadFonts: [
+</strong><strong>  	//"Marianne-Light",
+</strong><strong>        //"Marianne-Light_Italic",
+</strong><strong>	"Marianne-Regular",
+</strong><strong>	//"Marianne-Regular_Italic",
+</strong><strong>	"Marianne-Medium",
+</strong><strong>	//"Marianne-Medium_Italic",
+</strong><strong>	"Marianne-Bold",
+</strong><strong>	//"Marianne-Bold_Italic",
+</strong><strong>	//"Spectral-Regular",
+</strong><strong>	//"Spectral-ExtraBold"
+</strong><strong>     ]
+</strong> });
  
  export { dsfrDocumentApi };
 
  export default withDsfr(DefaultApp);
-```
+</code></pre>
 {% endtab %}
 
 {% tab title="Vite" %}
