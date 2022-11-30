@@ -12,10 +12,6 @@ Example in the Etalab website with the i18n library i18nifty
 
 If a translation for a langage is missing you can add translations on a component basis:&#x20;
 
-{% embed url="https://github.com/etalab/etalab-website/blob/3978b9f0a799a5564cef52a352324b83db1ba48e/pages/_app.tsx#L7-L14" %}
-Adding chinese translation for the Alert component
-{% endembed %}
-
 ### Integration with i18n libraries&#x20;
 
 {% tabs %}
@@ -74,5 +70,22 @@ function App({ Component, pageProps }: AppProps) {
 
 ```
 {% endcode %}
+{% endtab %}
+
+{% tab title="Other i18n library" %}
+It's up you you to remplace in the following example to remplace `"fr"` by the desired locale using to tooling exposed by your i18n library. &#x20;
+
+```tsx
+import { DsfrLangProvider } from "@codegouvfr/react-dsfr";
+
+function MyApp(){
+    return (
+        <DsfrLangProvider lang="fr">
+            {/* ... your app */}
+        </DsfrLangProvider>
+    );
+
+}
+```
 {% endtab %}
 {% endtabs %}
