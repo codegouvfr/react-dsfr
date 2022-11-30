@@ -13,33 +13,47 @@ If you already had the DSFR installed in your project, let's start from scratch:
 {% endhint %}
 
 ```bash
-yarn add @codegouvfr/react-dsfr # Or: 'npm install --save @codegouvfr/react-dsfr'
+yarn add @codegouvfr/react-dsfr 
+# Or: 'npm install --save @codegouvfr/react-dsfr'
 ```
 
 {% tabs %}
+{% tab title="yarn" %}
+```bash
+yarn add @codegouvfr/react-dsfr
+```
+{% endtab %}
+
+{% tab title="npm" %}
+```bash
+npm install --save @codegouvfr/react-dsfr
+```
+{% endtab %}
+{% endtabs %}
+
+{% tabs %}
 {% tab title="Create React App" %}
-#### package.json
+Add theses three scipts to your `package.json`:
 
-```diff
- "scripts": {
-+    "postinstall": "copy-dsfr-to-public"
-+    "prestart": "only-include-used-icons",
-+    "prebuild": "only-include-used-icons"
- }
+<pre class="language-json" data-title="package.json" data-line-numbers><code class="lang-json">"scripts": {
+    ...
+<strong>    "postinstall": "copy-dsfr-to-public"
+</strong><strong>    "prestart": "only-include-used-icons",
+</strong><strong>    "prebuild": "only-include-used-icons"
+</strong>}
+</code></pre>
+
+Add the following entry to your `.gitignore`:
+
+{% code title=".gitignore" %}
+```gitignore
+/public/dsfr
 ```
-
-`update_dsfr_static_resources` is a `bin` script of `@codegouvfr/react-dsfr` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
-
-#### .gitignore
-
-```diff
-+ /public/dsfr
-```
-
-#### public/index.html
+{% endcode %}
 
 Add the following code in the `<head />`&#x20;
 
+{% code title="public/index.html" %}
 ```ejs
 <link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
 <link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
@@ -49,30 +63,36 @@ Add the following code in the `<head />`&#x20;
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
 ```
+{% endcode %}
 
-#### src/index.tsx
-
-<pre class="language-diff"><code class="lang-diff"> import React from 'react';
- import ReactDOM from 'react-dom/client';
- import App from './App';
-+import { startDsfrReact } from "@codegouvfr/react-dsfr";
-+import type { LinkProps } from "@codegouvfr/react-dsfr";
-+startDsfrReact({ "defaultColorScheme": "system" });
-
-<strong>+declare module "@codegouvfr/react-dsfr" {
-</strong>+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-+    export interface LinkProps extends HTMLAnchorProps { }
-+}
-
- const root = ReactDOM.createRoot(
-   document.getElementById('root') as HTMLElement
- );
- root.render(
-   &#x3C;React.StrictMode>
-     &#x3C;App />
-   &#x3C;/React.StrictMode>
- );
+<pre class="language-tsx" data-title="src/index.tsx" data-line-numbers><code class="lang-tsx">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+<strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
+</strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
+</strong><strong>startDsfrReact({ "defaultColorScheme": "system" });
+</strong>
+//Only for TypeScript users
+<strong>declare module "@codegouvfr/react-dsfr" {
+</strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+</strong><strong>    export interface LinkProps extends HTMLAnchorProps { }
+</strong><strong>}
+</strong>
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  &#x3C;React.StrictMode>
+    &#x3C;App />
+  &#x3C;/React.StrictMode>
+);
 </code></pre>
+
+{% content-ref url="integration-with-routing-libraries.md" %}
+[integration-with-routing-libraries.md](integration-with-routing-libraries.md)
+{% endcontent-ref %}
+
+
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 {% endtab %}
