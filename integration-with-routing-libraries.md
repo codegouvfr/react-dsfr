@@ -1,7 +1,3 @@
----
-description: Like react-router or Next.js file system based route.
----
-
 # 🔀 Integration with Routing libraries
 
 Depending of the framwork/routing library you are using link between pages are not handled the same way. &#x20;
