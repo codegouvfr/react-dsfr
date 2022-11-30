@@ -81,8 +81,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 <pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
 </strong></code></pre>
 
-#### next.config.js
-
+{% code title="next.config.js" %}
 ```diff
 +const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
  
@@ -101,25 +100,23 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 -}
 +});
 ```
+{% endcode %}
 
-#### package.json
-
-```diff
- "scripts": {
-+    "predev": "only-include-used-icons",
-+    "prebuild": "only-include-used-icons"
- }
-```
-
-#### pages/\_app.tsx
+<pre class="language-json" data-title="package.json" data-line-numbers><code class="lang-json">"scripts": {
+<strong>    "predev": "only-include-used-icons",
+</strong><strong>    "prebuild": "only-include-used-icons"
+</strong>}
+</code></pre>
 
 If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 
+{% code title="pages/_app.tsx" %}
 ```tsx
 import DefaultApp from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
 
+// Only for TypeScript users.
 declare module "@codegouvfr/react-dsfr" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface LinkProps extends NextLinkProps { }
@@ -133,36 +130,30 @@ const {
 
 export default withDsfr(DefaultApp);
 ```
+{% endcode %}
 
-#### pages/\_document.tsx (optional)
+The following instructions are optional and enable to performe SSR in the preferred color scheme of the user. This completely eradicate "white flashes" (on subsequent reloads) but also come at the cost of [opting out from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization).
 
-This is to enable to perform the SSR in the preferred color scheme of the user on subsequent reloads..&#x20;
+<figure><img src=".gitbook/assets/dark_mode_ssr_explaination.gif" alt=""><figcaption><p>Example of "white flash" it hapens when the page is initially rendered in light mode before being switched to dark mode. </p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/dark_mode_ssr_explaination.gif" alt=""><figcaption><p>It enables to avoid "white flashes" like this</p></figcaption></figure>
+<pre class="language-tsx" data-title="pages/_app.tsx" data-line-numbers><code class="lang-tsx">import DefaultApp from "next/app";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 
-Update your `pages/_app.tsx` like so: &#x20;
-
-```diff
- import DefaultApp from "next/app";
- import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-
- const { 
-     withDsfr,
-+     dsfrDocumentApi
- } = createNextDsfrIntegrationApi({
-     defaultColorScheme: "system",
-+    doPersistDarkModePreferenceWithCookie: true
- });
+const { 
+    withDsfr,
+<strong>    dsfrDocumentApi
+</strong> } = createNextDsfrIntegrationApi({
+    defaultColorScheme: "system",
+<strong>    doPersistDarkModePreferenceWithCookie: true
+</strong>});
  
-+export { dsfrDocumentApi };
+<strong>export { dsfrDocumentApi };
+</strong>
+export default withDsfr(DefaultApp);
+</code></pre>
 
- export default withDsfr(DefaultApp);
-```
-
-Then create or update the `pages/_document.tsx`: &#x20;
-
+{% code title="pages/_document.tsx" %}
 ```tsx
-// pages/_document.tsx
 import { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
 import { dsfrDocumentApi } from "./_app";
 
@@ -185,16 +176,9 @@ export default function Document(props: DocumentProps) {
 
 augmentDocumentByReadingColorSchemeFromCookie(Document);
 ```
+{% endcode %}
 
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
-
-{% hint style="warning" %}
-This feature [opte you out of Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization). It's not a bug, only the price to pay for this feature. &#x20;
-{% endhint %}
-
-Explainations: On the server, wer have no way to know if the user prefers dark mode or light mode so we always render il light mode and the color sheme is switched to dark on the client if it's the prefered color scheme. More info [in this video](https://youtu.be/5X099P97lNw). &#x20;
-
-For subsequent reload however with a custom Next.js document, we can read the prefered color scheme from a cookie that has been set by the client and ensure the SSR is performed in the correct color scheme. &#x20;
 {% endtab %}
 
 {% tab title="Vite" %}
