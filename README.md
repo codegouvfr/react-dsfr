@@ -271,10 +271,9 @@ If you chose, despite the recommendation agaist it, to preload the fonts, at lea
 
 {% tabs %}
 {% tab title="Create React App" %}
-#### public/index.html
-
 Add the following code in the `<head />`&#x20;
 
+{% code title="public/index.html" lineNumbers="true" %}
 ```ejs
 <%
 [
@@ -292,6 +291,7 @@ Add the following code in the `<head />`&#x20;
   <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
 <% }); %>
 ```
+{% endcode %}
 {% endtab %}
 
 {% tab title="Next.js" %}
@@ -325,10 +325,9 @@ Add the following code in the `<head />`&#x20;
 {% endtab %}
 
 {% tab title="Vite" %}
-#### index.html
-
 Add the following tags in the `<head />`&#x20;
 
+{% code title="index.html" %}
 ```html
 <!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
 <!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
@@ -341,5 +340,6 @@ Add the following tags in the `<head />`&#x20;
 <!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
 <!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
 ```
+{% endcode %}
 {% endtab %}
 {% endtabs %}
