@@ -52,28 +52,34 @@ Add the following code in the `<head />`&#x20;
 
 #### src/index.tsx
 
-```diff
- import React from 'react';
+<pre class="language-diff"><code class="lang-diff"> import React from 'react';
  import ReactDOM from 'react-dom/client';
  import App from './App';
 +import { startDsfrReact } from "@codegouvfr/react-dsfr";
++import type { LinkProps } from "@codegouvfr/react-dsfr";
 +startDsfrReact({ "defaultColorScheme": "system" });
+
+<strong>+declare module "@codegouvfr/react-dsfr" {
+</strong>+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
++    export interface LinkProps extends HTMLAnchorProps { }
++}
 
  const root = ReactDOM.createRoot(
    document.getElementById('root') as HTMLElement
  );
  root.render(
-   <React.StrictMode>
-     <App />
-   </React.StrictMode>
+   &#x3C;React.StrictMode>
+     &#x3C;App />
+   &#x3C;/React.StrictMode>
  );
-```
+</code></pre>
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
 {% endtab %}
 
 {% tab title="Next.js" %}
-<pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'</strong></code></pre>
+<pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
+</strong></code></pre>
 
 #### next.config.js
 
@@ -231,6 +237,7 @@ Add the following tags in the `<head />`&#x20;
      &#x3C;App />
    &#x3C;/React.StrictMode>
  );
+
 </code></pre>
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).

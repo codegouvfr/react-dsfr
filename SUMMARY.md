@@ -14,3 +14,7 @@
 * [💐 colors](fr-utils/colors.md)
 * [🌗 useIsDark](fr-utils/useisdark.md)
 * [🖌 CSS in JS](fr-utils/css-in-js.md)
+
+***
+
+* [🔀 Integration with Routing libraries](integration-with-routing-libraries.md)
