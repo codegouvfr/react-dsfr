@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { getThemePath } from "../../../../src/scripts/cssToTs/colorOptions";
-import type { ParsedColorOptionName } from "../../../../src/scripts/cssToTs/colorOptions";
+import { getThemePath } from "../../../../src/scripts/build/cssToTs/colorOptions";
+import type { ParsedColorOptionName } from "../../../../src/scripts/build/cssToTs/colorOptions";
 
 describe("", () => {
     it("test 1", () => {

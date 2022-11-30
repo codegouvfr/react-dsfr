@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
-import { parseColorOptions } from "../../../../src/scripts/cssToTs/colorOptions";
-import type { ColorOption } from "../../../../src/scripts/cssToTs/colorOptions";
+import { parseColorOptions } from "../../../../src/scripts/build/cssToTs/colorOptions";
+import type { ColorOption } from "../../../../src/scripts/build/cssToTs/colorOptions";
 
 it("Successfully parse color options", () => {
     const rawCssCode = `

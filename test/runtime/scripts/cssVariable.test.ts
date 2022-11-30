@@ -3,8 +3,8 @@ import {
     createGetCssVariable,
     isInvariantAcrossTheme,
     isInvariantAcrossScreenSizes
-} from "../../../src/scripts/cssToTs/cssVariable";
-import type { CssVariableValue } from "../../../src/scripts/cssToTs/cssVariable";
+} from "../../../src/scripts/build/cssToTs/cssVariable";
+import type { CssVariableValue } from "../../../src/scripts/build/cssToTs/cssVariable";
 import { assert } from "tsafe/assert";
 
 const rawCssCode = `

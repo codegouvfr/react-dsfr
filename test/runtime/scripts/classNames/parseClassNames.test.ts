@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { parseClassNames } from "../../../../src/scripts/cssToTs/classNames";
+import { parseClassNames } from "../../../../src/scripts/build/cssToTs/classNames";
 
 it("Parsing of fr classnames", () => {
     const input = `

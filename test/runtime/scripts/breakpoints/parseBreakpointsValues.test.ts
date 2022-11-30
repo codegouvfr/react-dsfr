@@ -1,9 +1,9 @@
 import { it, expect } from "vitest";
-import { parseBreakpointsValues } from "../../../../src/scripts/cssToTs/breakpoints";
+import { parseBreakpointsValues } from "../../../../src/scripts/build/cssToTs/breakpoints";
 import type {
     BreakpointsValues,
     MediaQueryByBreakpoint
-} from "../../../../src/scripts/cssToTs/breakpoints";
+} from "../../../../src/scripts/build/cssToTs/breakpoints";
 //import { assert } from "tsafe/assert";
 //import { same } from "evt/tools/inDepth/same";
 import { id } from "tsafe";

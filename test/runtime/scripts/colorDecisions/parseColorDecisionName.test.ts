@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { createParseColorDecisionName } from "../../../../src/scripts/cssToTs/colorDecisions";
-import type { ParsedColorDecisionName } from "../../../../src/scripts/cssToTs/colorDecisions";
+import { createParseColorDecisionName } from "../../../../src/scripts/build/cssToTs/colorDecisions";
+import type { ParsedColorDecisionName } from "../../../../src/scripts/build/cssToTs/colorDecisions";
 
 describe("Color decision css variable correctly parsed", () => {
     const rawCssCode = `
