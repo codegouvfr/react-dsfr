@@ -5,6 +5,8 @@ import { createComponentI18nApi } from "./lib/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "./lib/tools/cx";
 import { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
+import type { LinkProps } from "./lib/routing";
+import { useLink } from "./lib/routing";
 
 //NOTE: This is a work in progress, this component is not yet usable.
 
@@ -15,7 +17,7 @@ export type HeaderProps = {
     baselinePrécisionsSurLorganisation: ReactNode;
     links: {
         text: ReactNode;
-        href: string;
+        linkProps: LinkProps;
         iconId: FrIconClassName | RiIconClassName;
     }[];
 };
@@ -34,6 +36,8 @@ export function Header(props: HeaderProps) {
     const modalId = useId();
 
     const { t } = useTranslation();
+
+    const { Link } = useLink();
 
     return (
         <header role="banner" className={cx(fr.cx("fr-header"), className)}>
@@ -75,11 +79,14 @@ export function Header(props: HeaderProps) {
                         <div className={fr.cx("fr-header__tools")}>
                             <div className={fr.cx("fr-header__tools-links")}>
                                 <ul className={fr.cx("fr-btns-group")}>
-                                    {links.map(({ href, iconId, text }) => (
-                                        <li key={href + iconId}>
-                                            <a className={fr.cx("fr-btn", iconId)} href={href}>
+                                    {links.map(({ linkProps, iconId, text }, i) => (
+                                        <li key={i}>
+                                            <Link
+                                                {...linkProps}
+                                                className={fr.cx("fr-btn", iconId)}
+                                            >
                                                 {text}
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>

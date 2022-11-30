@@ -6,6 +6,14 @@ import { Mui } from "./Mui";
 import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
+import type { Link as TypeRouteLink } from "type-route";
+import { routes } from "./router";
+
+declare module "@codegouvfr/react-dsfr" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface LinkProps extends TypeRouteLink { }
+
+}
 
 startDsfrReact({
     "defaultColorScheme": "system"
@@ -20,19 +28,14 @@ createRoot(document.getElementById("root")!).render(
                 nomDuSiteSlashService="Nom du site / service"
                 links={[
                     {
-                        "text": "Créer un espace",
-                        "iconId": "fr-icon-add-circle-line",
-                        "href": "#"
+                        "text": "Home",
+                        "iconId": "fr-icon-home-4-fill",
+                        "linkProps": routes.home().link
                     },
                     {
-                        "text": "Se connecter",
-                        "iconId": "fr-icon-lock-line",
-                        "href": "#"
-                    },
-                    {
-                        "text": "S'enregistrer",
-                        "iconId": "fr-icon-account-line",
-                        "href": "#"
+                        "text": "Mui playground",
+                        "iconId": "ri-play-circle-fill",
+                        "linkProps": routes.mui().link
                     }
                 ]}
             />

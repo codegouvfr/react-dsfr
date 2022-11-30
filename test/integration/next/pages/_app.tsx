@@ -4,7 +4,13 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
+import type { LinkProps as NextLinkProps } from "next/link";
 
+declare module "@codegouvfr/react-dsfr" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface LinkProps extends NextLinkProps { }
+
+}
 
 const {
     withDsfr,
@@ -46,17 +52,23 @@ function App({ Component, pageProps }: AppProps) {
                         {
                             "text": "Créer un espace",
                             "iconId": "fr-icon-add-circle-line",
-                            "href": "#"
+                            "linkProps": {
+                                "href": "#"
+                            }
                         },
                         {
                             "text": "Se connecter",
                             "iconId": "fr-icon-lock-line",
-                            "href": "#"
+                            "linkProps": {
+                                "href": "#"
+                            }
                         },
                         {
                             "text": "S'enregistrer",
                             "iconId": "fr-icon-account-line",
-                            "href": "#"
+                            "linkProps": {
+                                "href": "#"
+                            }
                         }
                     ]}
                 />
