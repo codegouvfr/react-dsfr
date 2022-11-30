@@ -35,7 +35,7 @@ npm install --save @codegouvfr/react-dsfr
 {% tab title="Create React App" %}
 Add theses three scipts to your `package.json`:
 
-<pre class="language-json" data-title="package.json" data-line-numbers><code class="lang-json">"scripts": {
+<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
     ...
 <strong>    "postinstall": "copy-dsfr-to-public"
 </strong><strong>    "prestart": "only-include-used-icons",
@@ -65,7 +65,7 @@ Add the following code in the `<head />`&#x20;
 ```
 {% endcode %}
 
-<pre class="language-tsx" data-title="src/index.tsx" data-line-numbers><code class="lang-tsx">import React from 'react';
+<pre class="language-tsx" data-title="src/index.tsx"><code class="lang-tsx">import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 <strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
@@ -122,7 +122,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 ```
 {% endcode %}
 
-<pre class="language-json" data-title="package.json" data-line-numbers><code class="lang-json">"scripts": {
+<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
 <strong>    "predev": "only-include-used-icons",
 </strong><strong>    "prebuild": "only-include-used-icons"
 </strong>}
@@ -164,7 +164,7 @@ The following instructions are optional and enable to performe SSR in the prefer
 
 <figure><img src=".gitbook/assets/dark_mode_ssr_explaination.gif" alt=""><figcaption><p>Example of "white flash" it hapens when the page is initially rendered in light mode before being switched to dark mode. </p></figcaption></figure>
 
-<pre class="language-tsx" data-title="pages/_app.tsx" data-line-numbers><code class="lang-tsx">import DefaultApp from "next/app";
+<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import DefaultApp from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 
 const { 
@@ -208,28 +208,26 @@ augmentDocumentByReadingColorSchemeFromCookie(Document);
 {% endtab %}
 
 {% tab title="Vite" %}
-#### package.json
+Add theses three scipts to your `package.json`:
 
-```diff
- "scripts": {
-+    "postinstall": "copy-dsfr-to-public",
-+    "predev": "only-include-used-icons",
-+    "prebuild": "only-include-used-icons"
- }
+<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
+<strong>    "postinstall": "copy-dsfr-to-public",
+</strong><strong>    "predev": "only-include-used-icons",
+</strong><strong>    "prebuild": "only-include-used-icons"
+</strong>}
+</code></pre>
+
+Add the following entry to your `.gitignore`:
+
+{% code title=".gitignore" %}
+```gitignore
+/public/dsfr
 ```
-
-`update_dsfr_static_resources` is a `bin` script of `@codegouvfr/react-dsfr` that copies `@gouvfr/dsfr/dist` into `public/dsfr`
-
-#### .gitignore
-
-```diff
-+ /public/dsfr
-```
-
-#### index.html
+{% endcode %}
 
 Add the following tags in the `<head />`&#x20;
 
+{% code title="index.html" %}
 ```html
 <link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
 <link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
@@ -239,21 +237,27 @@ Add the following tags in the `<head />`&#x20;
 <link rel="stylesheet" href="/dsfr/dsfr.min.css" />
 <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
 ```
+{% endcode %}
 
 #### src/main.tsx
 
-<pre class="language-diff"><code class="lang-diff"><strong> import React from "react";
-</strong> import ReactDOM from "react-dom/client";
- import { App } from "./App";
-+import { startDsfrReact } from "@codegouvfr/react-dsfr";
-+startDsfrReact({ "defaultColorScheme": "system" });
-
- ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-   &#x3C;React.StrictMode>
-     &#x3C;App />
-   &#x3C;/React.StrictMode>
- );
-
+<pre class="language-tsx"><code class="lang-tsx">import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./App";
+<strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
+</strong><strong>startDsfrReact({ defaultColorScheme: "system" });
+</strong>
+<strong>// Only for TypeScript users.
+</strong><strong>declare module "@codegouvfr/react-dsfr" {
+</strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+</strong><strong>    export interface LinkProps extends NextLinkProps { }
+</strong><strong>}
+</strong>
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  &#x3C;React.StrictMode>
+    &#x3C;App />
+  &#x3C;/React.StrictMode>
+);
 </code></pre>
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
@@ -265,7 +269,7 @@ There isn't specific instructions for your React setup but don't worry, you can 
 The gist of it is, there is a few things that, for performance reasons, react-dsfr dosen't automatically do for you and thus you have to do manually: &#x20;
 
 * Loading `@codegouvfr/react-dsfr/dsfr/dsfr.min.css` (as soon as possilbe)
-* Loading `@codegouvfr/react-dsfr/dsfr/utility/icons/icons.min.css` and calling `npx only_include_used_icons` for patching it. If you don't all hundreds icons from the dsfr will be included and remixicons wont work.
+* Loading `@codegouvfr/react-dsfr/dsfr/utility/icons/icons.min.css` and calling `npx only-include-used-icons` for patching it. If you don't all hundreds icons from the dsfr will be included and remixicons wont work.
 * Setting up the Favicon. &#x20;
 * ~~Preloading the relevent font variant to avoid~~ [~~FOUT~~](https://fonts.google.com/knowledge/glossary/fout)~~.~~&#x20;
 
