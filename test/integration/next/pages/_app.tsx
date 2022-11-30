@@ -50,24 +50,17 @@ function App({ Component, pageProps }: AppProps) {
                     nomDuSiteSlashService="Nom du site / service"
                     links={[
                         {
-                            "text": "Créer un espace",
-                            "iconId": "fr-icon-add-circle-line",
+                            "text": "Home",
+                            "iconId": "fr-icon-home-4-fill",
                             "linkProps": {
-                                "href": "#"
+                                "href": "/"
                             }
                         },
                         {
-                            "text": "Se connecter",
-                            "iconId": "fr-icon-lock-line",
+                            "text": "Mui playground",
+                            "iconId": "ri-play-circle-fill",
                             "linkProps": {
-                                "href": "#"
-                            }
-                        },
-                        {
-                            "text": "S'enregistrer",
-                            "iconId": "fr-icon-account-line",
-                            "linkProps": {
-                                "href": "#"
+                                "href": "/mui"
                             }
                         }
                     ]}
