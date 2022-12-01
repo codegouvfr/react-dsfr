@@ -2,6 +2,7 @@
 
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with Routing libraries](integration-with-routing-libraries.md)
+* [🧩 Components](components.md)
 * [✅ Icons](icons.md)
 * [🌎 Internationalisation](internationalisation.md)
 * [🌅 Importing assets](importing-assets.md)
