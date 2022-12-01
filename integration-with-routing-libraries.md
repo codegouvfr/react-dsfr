@@ -4,14 +4,14 @@ description: Like react-router or Next.js file system based route.
 
 # 🔀 Integration with Routing libraries
 
-Depending of the framwork/routing library you are using link between pages are not handled the same way. &#x20;
+Depending of the framwork/routing library you are using, links between pages are not handled the same way. &#x20;
 
-Usually you'll have a `<Link />` component provided by your library or router of choice. You need to let react-dsfr knows about it so that whenever a link is needed in a DSFR component you can provide the correct props for you `<Link />` component.
+Usually you'll have a `<Link />` component provided by your library or router of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component you can provide the correct props for you `<Link />` component.
 
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do not recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://zilch.dev/type-route), [tanStack Router](https://tanstack.com/router/v1) or other type safe routing library.&#x20;
+Warning: I do not recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://zilch.dev/type-route), [tanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.&#x20;
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
@@ -19,8 +19,8 @@ import ReactDOM from "react-dom/client";
 import { startDsfrReact, createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 <strong>import { Link } from "react-router-dom";
 </strong><strong>import type { LinkProps as ReactRouterLinkProps } from "react-router-dom";
-</strong><strong>startDsfrReact({ "defaultColorScheme": "system" });
-</strong>
+</strong>startDsfrReact({ "defaultColorScheme": "system" });
+
 <strong>declare module "@codegouvfr/react-dsfr" {
 </strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
 </strong><strong>    export interface LinkProps extends ReactRouterLinkProps { }
