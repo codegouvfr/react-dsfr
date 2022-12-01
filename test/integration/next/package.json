@@ -24,6 +24,7 @@
         "@emotion/styled": "^11.10.5",
         "dayjs": "^1.11.6",
         "@mui/x-date-pickers": "^5.0.9",
+        "@mui/x-data-grid": "^5.17.14",
         "@codegouvfr/react-dsfr": "file:../../../dist"
         
     },
