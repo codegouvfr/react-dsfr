@@ -1,7 +1,5 @@
 module.exports = {
     "stories": [
-        "../docs/*.stories.mdx",
-        "../docs/*.stories.@(ts|tsx)",
         "../stories/*.stories.mdx",
         "../stories/*.stories.@(ts|tsx)",
     ],
@@ -15,5 +13,5 @@ module.exports = {
     },
     "staticDirs": [
         "./static"
-    ],
+    ]
 };
