@@ -31,6 +31,21 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
+import Box from '@mui/material/Box';
+import Badge from '@mui/material/Badge';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import MailIcon from '@mui/icons-material/Mail';
+
+
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+
+
 const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({
 	"augmentMuiTheme": noAugmentation
 });
@@ -75,6 +90,9 @@ export default function Mui() {
 			<BasicChips />
 			<IconMenu />
 			<MaterialUIPickers />
+			<BadgeVisibility />
+			<HorizontalLinearStepper />
+			<DataGridDemo />
 		</>
 	);
 
@@ -370,4 +388,253 @@ function MaterialUIPickers() {
 			</Stack>
 		</LocalizationProvider>
 	);
+
 }
+function BadgeVisibility() {
+	const [count, setCount] = React.useState(1);
+	const [invisible, setInvisible] = React.useState(false);
+
+	const handleBadgeVisibility = () => {
+		setInvisible(!invisible);
+	};
+
+	return (
+		<Box
+			sx={{
+				mt: 7,
+				color: 'action.active',
+				display: 'flex',
+				flexDirection: 'column',
+				'& > *': {
+					marginBottom: 2,
+				},
+				'& .MuiBadge-root': {
+					marginRight: 4,
+				},
+			}}
+		>
+			<div>
+				<Badge color="secondary" badgeContent={count}>
+					<MailIcon />
+				</Badge>
+				<ButtonGroup>
+					<Button
+						aria-label="reduce"
+						onClick={() => {
+							setCount(Math.max(count - 1, 0));
+						}}
+					>
+						<RemoveIcon fontSize="small" />
+					</Button>
+					<Button
+						aria-label="increase"
+						onClick={() => {
+							setCount(count + 1);
+						}}
+					>
+						<AddIcon fontSize="small" />
+					</Button>
+				</ButtonGroup>
+			</div>
+			<div>
+				<Badge color="secondary" variant="dot" invisible={invisible}>
+					<MailIcon />
+				</Badge>
+				<FormControlLabel
+					sx={{ color: 'text.primary' }}
+					control={<Switch checked={!invisible} onChange={handleBadgeVisibility} />}
+					label="Show Badge"
+				/>
+			</div>
+		</Box>
+	);
+}
+
+
+const { HorizontalLinearStepper } = (() => {
+
+	const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+	function HorizontalLinearStepper() {
+		const [activeStep, setActiveStep] = React.useState(0);
+		const [skipped, setSkipped] = React.useState(new Set<number>());
+
+		const isStepOptional = (step: number) => {
+			return step === 1;
+		};
+
+		const isStepSkipped = (step: number) => {
+			return skipped.has(step);
+		};
+
+		const handleNext = () => {
+			let newSkipped = skipped;
+			if (isStepSkipped(activeStep)) {
+				newSkipped = new Set(newSkipped.values());
+				newSkipped.delete(activeStep);
+			}
+
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			setSkipped(newSkipped);
+		};
+
+		const handleBack = () => {
+			setActiveStep((prevActiveStep) => prevActiveStep - 1);
+		};
+
+		const handleSkip = () => {
+			if (!isStepOptional(activeStep)) {
+				// You probably want to guard against something like this,
+				// it should never occur unless someone's actively trying to break something.
+				throw new Error("You can't skip a step that isn't optional.");
+			}
+
+			setActiveStep((prevActiveStep) => prevActiveStep + 1);
+			setSkipped((prevSkipped) => {
+				const newSkipped = new Set(prevSkipped.values());
+				newSkipped.add(activeStep);
+				return newSkipped;
+			});
+		};
+
+		const handleReset = () => {
+			setActiveStep(0);
+		};
+
+		return (
+			<Box sx={{ width: '100%', mt: 7 }}>
+				<Stepper activeStep={activeStep}>
+					{steps.map((label, index) => {
+						const stepProps: { completed?: boolean } = {};
+						const labelProps: {
+							optional?: React.ReactNode;
+						} = {};
+						if (isStepOptional(index)) {
+							labelProps.optional = (
+								<Typography variant="caption">Optional</Typography>
+							);
+						}
+						if (isStepSkipped(index)) {
+							stepProps.completed = false;
+						}
+						return (
+							<Step key={label} {...stepProps}>
+								<StepLabel {...labelProps}>{label}</StepLabel>
+							</Step>
+						);
+					})}
+				</Stepper>
+				{activeStep === steps.length ? (
+					<React.Fragment>
+						<Typography sx={{ mt: 2, mb: 1 }}>
+							All steps completed - you&apos;re finished
+						</Typography>
+						<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+							<Box sx={{ flex: '1 1 auto' }} />
+							<Button onClick={handleReset}>Reset</Button>
+						</Box>
+					</React.Fragment>
+				) : (
+					<React.Fragment>
+						<Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+						<Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+							<Button
+								color="inherit"
+								disabled={activeStep === 0}
+								onClick={handleBack}
+								sx={{ mr: 1 }}
+							>
+								Back
+							</Button>
+							<Box sx={{ flex: '1 1 auto' }} />
+							{isStepOptional(activeStep) && (
+								<Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+									Skip
+								</Button>
+							)}
+							<Button onClick={handleNext}>
+								{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+							</Button>
+						</Box>
+					</React.Fragment>
+				)}
+			</Box>
+		);
+	}
+
+
+	return { HorizontalLinearStepper };
+
+
+})();
+
+
+const { DataGridDemo } = (() => {
+
+
+
+	const columns: GridColDef[] = [
+		{ field: 'id', headerName: 'ID', width: 90 },
+		{
+			field: 'firstName',
+			headerName: 'First name',
+			width: 150,
+			editable: true,
+		},
+		{
+			field: 'lastName',
+			headerName: 'Last name',
+			width: 150,
+			editable: true,
+		},
+		{
+			field: 'age',
+			headerName: 'Age',
+			type: 'number',
+			width: 110,
+			editable: true,
+		},
+		{
+			field: 'fullName',
+			headerName: 'Full name',
+			description: 'This column has a value getter and is not sortable.',
+			sortable: false,
+			width: 160,
+			valueGetter: (params: GridValueGetterParams) =>
+				`${params.row.firstName || ''} ${params.row.lastName || ''}`,
+		},
+	];
+
+	const rows = [
+		{ id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+		{ id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+		{ id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
+		{ id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
+		{ id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+		{ id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+		{ id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+		{ id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+		{ id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+	];
+
+	function DataGridDemo() {
+		return (
+			<Box sx={{ height: 400, width: '100%', mt: 7 }}>
+				<DataGrid
+					rows={rows}
+					columns={columns}
+					pageSize={5}
+					rowsPerPageOptions={[5]}
+					checkboxSelection
+					disableSelectionOnClick
+					experimentalFeatures={{ newEditingApi: true }}
+				/>
+			</Box>
+		);
+	}
+
+	return { DataGridDemo };
+
+
+
+})();
