@@ -45,6 +45,9 @@ import StepLabel from '@mui/material/StepLabel';
 
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
+import Link from '@mui/material/Link';
+
+
 
 const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({
 	"augmentMuiTheme": noAugmentation
@@ -93,6 +96,7 @@ export default function Mui() {
 			<BadgeVisibility />
 			<HorizontalLinearStepper />
 			<DataGridDemo />
+			<Links />
 		</>
 	);
 
@@ -636,5 +640,37 @@ const { DataGridDemo } = (() => {
 	return { DataGridDemo };
 
 
+
+})();
+
+const { Links } = (() => {
+
+
+	const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
+
+	function Links() {
+		return (
+			<Box
+				sx={{
+					typography: 'body1',
+					'& > :not(style) + :not(style)': {
+						ml: 2,
+					},
+					"mt": 7
+				}}
+				onClick={preventDefault}
+			>
+				<Link href="#">Link</Link>
+				<Link href="#" color="inherit">
+					{'color="inherit"'}
+				</Link>
+				<Link href="#" variant="body2">
+					{'variant="body2"'}
+				</Link>
+			</Box>
+		);
+	}
+
+	return { Links };
 
 })();
