@@ -241,11 +241,38 @@ const { ComboBox } = (() => {
 
 function BasicButtons() {
 	return (
-		<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
-			<Button variant="text">Text</Button>
-			<Button variant="contained">Contained</Button>
-			<Button variant="outlined">Outlined</Button>
-		</Stack>
+		<>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button variant="text">Text</Button>
+				<Button variant="contained">Contained</Button>
+				<Button variant="outlined">Outlined</Button>
+			</Stack>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button color="secondary">Secondary</Button>
+				<Button color="secondary" variant="contained">Secondary contained</Button>
+				<Button color="secondary" variant="outlined">Secondary contained</Button>
+			</Stack>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button color="success">Success</Button>
+				<Button color="success" variant="contained">Success contained</Button>
+				<Button color="success" variant="outlined">Success contained</Button>
+			</Stack>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button color="info">Info</Button>
+				<Button color="info" variant="contained">Info contained</Button>
+				<Button color="info" variant="outlined">Info contained</Button>
+			</Stack>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button color="warning">Warning</Button>
+				<Button color="warning" variant="contained">Warning contained</Button>
+				<Button color="warning" variant="outlined">Warning contained</Button>
+			</Stack>
+			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+				<Button color="error">Error</Button>
+				<Button color="error" variant="contained">Error contained</Button>
+				<Button color="error" variant="outlined">Error contained</Button>
+			</Stack>
+		</>
 	);
 }
 
@@ -303,44 +330,44 @@ function IconMenu() {
 }
 
 function MaterialUIPickers() {
-  const [value, setValue] = React.useState<Dayjs | null>(
-    dayjs('2014-08-18T21:11:54'),
-  );
+	const [value, setValue] = React.useState<Dayjs | null>(
+		dayjs('2014-08-18T21:11:54'),
+	);
 
-  const handleChange = (newValue: Dayjs | null) => {
-    setValue(newValue);
-  };
+	const handleChange = (newValue: Dayjs | null) => {
+		setValue(newValue);
+	};
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3} sx={{ mt: 7 }}>
-        <DesktopDatePicker
-          label="Date desktop"
-          inputFormat="MM/DD/YYYY"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <MobileDatePicker
-          label="Date mobile"
-          inputFormat="MM/DD/YYYY"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <TimePicker
-          label="Time"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <DateTimePicker
-          label="Date&Time picker"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Stack>
-    </LocalizationProvider>
-  );
+	return (
+		<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<Stack spacing={3} sx={{ mt: 7 }}>
+				<DesktopDatePicker
+					label="Date desktop"
+					inputFormat="MM/DD/YYYY"
+					value={value}
+					onChange={handleChange}
+					renderInput={(params) => <TextField {...params} />}
+				/>
+				<MobileDatePicker
+					label="Date mobile"
+					inputFormat="MM/DD/YYYY"
+					value={value}
+					onChange={handleChange}
+					renderInput={(params) => <TextField {...params} />}
+				/>
+				<TimePicker
+					label="Time"
+					value={value}
+					onChange={handleChange}
+					renderInput={(params) => <TextField {...params} />}
+				/>
+				<DateTimePicker
+					label="Date&Time picker"
+					value={value}
+					onChange={handleChange}
+					renderInput={(params) => <TextField {...params} />}
+				/>
+			</Stack>
+		</LocalizationProvider>
+	);
 }

@@ -25,28 +25,75 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             "values": breakpointValues
         },
         "palette": (() => {
-            const { decisions } = getColors(isDark);
+            const { options, decisions } = getColors(isDark);
 
             return {
                 "mode": isDark ? "dark" : "light",
                 "primary": {
+                    /*
+                    "main": options.blueFrance._850_200.default,
+                    "light": options.blueFrance._850_200.default,
+                    "dark": options.blueFrance.sun113_625.default,
+                    "contrastText": options.blueFrance._975sun113.default
+                    */
                     "main": decisions.background.actionHigh.blueFrance.default,
                     "light": decisions.background.actionLow.blueFrance.default
                 },
                 "secondary": {
+                    /*
+                    "main": options.redMarianne.main472.default,
+                    "light": options.redMarianne._850_200.default,
+                    "dark": options.redMarianne._425_625.default,
+                    "contrastText": options.redMarianne._975_75.default
+                    */
                     "main": decisions.background.actionHigh.redMarianne.default,
                     "light": decisions.background.actionLow.redMarianne.default
+                },
+                "error": {
+                    "light": options.error._950_100.default,
+                    "main": options.error._425_625.default,
+                    "dark": options.error._425_625.default,
+                    "contrastText": options.grey._1000_50.default
+                },
+                "warning": {
+                    "light": options.warning._950_100.default,
+                    "main": options.warning._425_625.default,
+                    "dark": options.warning._425_625.default,
+                    "contrastText": options.grey._1000_50.default
+                },
+                "info": {
+                    "light": options.info._950_100.default,
+                    "main": options.info._425_625.default,
+                    "dark": options.info._425_625.default,
+                    "contrastText": options.grey._1000_50.default
+                },
+                "success": {
+                    "light": options.success._950_100.default,
+                    "main": options.success._425_625.default,
+                    "dark": options.success._425_625.default,
+                    "contrastText": options.grey._1000_50.default
+                },
+                "text": {
+                    "primary": options.grey._50_1000.default,
+                    "secondary": options.grey._200_850.default,
+                    "disabled": options.grey._625_425.default,
+                    "hint": options.grey._425_625.default
+                },
+                "divider": options.grey._900_175.default,
+                "action": {
+                    "default": options.blueFrance.sun113_625.default,
+                    "active": options.blueFrance.sun113_625.active,
+                    "hover": options.blueFrance.sun113_625.hover,
+                    "selected": options.blueFrance.sun113_625.active,
+                    "disabled": options.grey._625_425.default,
+                    "disabledBackground": options.grey._925_125.default,
+                    "focus": options.blueFrance.sun113_625.active
+                },
+                "background": {
+                    "default": options.grey._1000_50.default,
+                    "paper": options.grey._975_75.default,
+                    "paperHover": options.grey._975_75.hover
                 }
-                /*
-                "primary": {
-                    "900": colorOptions.blueFrance._925_125.default,
-                    "800": colorOptions.blueFrance._850_200.default,
-                },
-                "secondary": {
-                    "main": colorDecisions.background.actionHigh.redMarianne.default,
-                    "light": colorDecisions.background.actionLow.redMarianne.default,
-                },
-                */
             } as const;
         })(),
         "typography": (() => {
@@ -141,43 +188,3 @@ export function noAugmentation(params: { nonAugmentedMuiTheme: MuiTheme }) {
     const { nonAugmentedMuiTheme } = params;
     return nonAugmentedMuiTheme;
 }
-
-/*
-    const muiTheme = createMuiTheme({
-        "shape": {
-            "borderRadius": 0
-        },
-        "breakpoints": {
-            "unit": "em",
-            "values": { 
-                "xs": 0,  
-                "sm": number,
-                "md": number,
-                "lg": number,
-                "xl": number,
-            },
-        },
-        "typography": {
-            "h1": {
-                "color": "red",
-                [breakpoints.up("md")]: {
-                    "color": "pink"
-                }
-                
-            }
-        }
-        "palette": createMuiPaletteOptions({
-            isDarkModeEnabled,
-            palette,
-            useCases,
-        }),
-        spacing,
-        "components": {
-            "MuiLink": {
-                "defaultProps": {
-                    "underline": "hover",
-                },
-            },
-        },
-    });
-    */
