@@ -1,10 +1,9 @@
-import React from "react";
 import { Accordion } from "../dist/Accordion";
-import { sectionName } from "./sectionName";
-import { getStoryFactory, logCallbacks } from "./getStory";
+import { getStoryFactory } from "./getStory";
+//import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
+    "sectionName": "wip",
     "wrappedComponent": { Accordion },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Accordion.tsx)  

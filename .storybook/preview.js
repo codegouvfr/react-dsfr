@@ -77,18 +77,15 @@ export const parameters = {
 };
 
 const { getHardCodedWeight } = (() => {
-    //TODO: Address this
+
     const mainServices = [
-        /*
-        "documentation/Fundamentals/Colors",
-        "documentation/Components/Button",
-        "documentation/Components/Alert",
-        */
+        "components",
     ];
 
     function getHardCodedWeight(kind) {
+
         for (let i = 0; i < mainServices.length; i++) {
-            if (kind.toLowerCase().includes(mainServices[i].toLowerCase())) {
+            if (kind.toLowerCase().startsWith(mainServices[i].toLowerCase())) {
                 return mainServices.length - i;
             }
         }

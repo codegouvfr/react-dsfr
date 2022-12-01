@@ -1,12 +1,11 @@
-import React from "react";
 import { AccordionGroup } from "../dist/AccordionGroup";
-import { sectionName } from "./sectionName";
-import { getStoryFactory, logCallbacks } from "./getStory";
+import { getStoryFactory } from "./getStory";
+//import { sectionName } from "./sectionName";
 
 //TODO -> Do only one story for Accordion and AccordionGroup ?
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
+    "sectionName": "wip",
     "wrappedComponent": { AccordionGroup },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Accordion.tsx)  
