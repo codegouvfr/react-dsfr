@@ -25,29 +25,29 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             "values": breakpointValues
         },
         "palette": (() => {
-            const { options, decisions } = getColors(isDark);
+            const { options } = getColors(isDark);
 
             return {
                 "mode": isDark ? "dark" : "light",
                 "primary": {
-                    /*
-                    "main": options.blueFrance._850_200.default,
-                    "light": options.blueFrance._850_200.default,
-                    "dark": options.blueFrance.sun113_625.default,
+                    "main": options.blueFrance.sun113_625.default,
+                    "light": options.blueFrance.sun113_625.active,
+                    "dark": options.blueFrance.sun113_625.hover,
                     "contrastText": options.blueFrance._975sun113.default
-                    */
+                    /*
                     "main": decisions.background.actionHigh.blueFrance.default,
                     "light": decisions.background.actionLow.blueFrance.default
+                       */
                 },
                 "secondary": {
-                    /*
                     "main": options.redMarianne.main472.default,
                     "light": options.redMarianne._850_200.default,
                     "dark": options.redMarianne._425_625.default,
                     "contrastText": options.redMarianne._975_75.default
-                    */
+                    /*
                     "main": decisions.background.actionHigh.redMarianne.default,
                     "light": decisions.background.actionLow.redMarianne.default
+                           */
                 },
                 "error": {
                     "light": options.error._950_100.default,
@@ -82,8 +82,9 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 "divider": options.grey._900_175.default,
                 "action": {
                     "default": options.blueFrance.sun113_625.default,
+                    "background": options.blueFrance._925_125.default,
                     "active": options.blueFrance.sun113_625.active,
-                    "hover": options.blueFrance.sun113_625.hover,
+                    "hover": options.grey._975_100.default,
                     "selected": options.blueFrance.sun113_625.active,
                     "disabled": options.grey._625_425.default,
                     "disabledBackground": options.grey._925_125.default,
@@ -91,7 +92,7 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 },
                 "background": {
                     "default": options.grey._1000_50.default,
-                    "paper": options.grey._975_75.default,
+                    "paper": options.grey._1000_100.default,
                     "paperHover": options.grey._975_75.hover
                 }
             } as const;
