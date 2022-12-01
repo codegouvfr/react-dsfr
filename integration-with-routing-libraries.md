@@ -68,71 +68,17 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/ae8b3319a15064160b9
 {% tab title="trype-route" %}
 type-route is an exeption amongs routing library in the sence that it dosen't require to use a Link component. As a result you only need to implement module augmentation
 
+{% code title="index.tsx" %}
 ```tsx
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { startDsfrReact } from "@codegouvfr/react-dsfr";
-import { Home } from "./Home";
-import { Mui } from "./Mui";
-import { useRoute, RouteProvider } from "./router";
-import { Header } from "@codegouvfr/react-dsfr/Header";
-import { fr } from "@codegouvfr/react-dsfr";
 import type { Link as TypeRouteLink } from "type-route";
-import { routes } from "./router";
-
 declare module "@codegouvfr/react-dsfr" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface LinkProps extends TypeRouteLink { }
-
-}
-
-startDsfrReact({
-    "defaultColorScheme": "system"
-});
-
-createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <RouteProvider>
-            <Header
-                intituléOfficiel="Intitulé officiel"
-                baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
-                nomDuSiteSlashService="Nom du site / service"
-                links={[
-                    {
-                        "text": "Home",
-                        "iconId": "fr-icon-home-4-fill",
-                        "linkProps": routes.home().link
-                    },
-                    {
-                        "text": "Mui playground",
-                        "iconId": "ri-play-circle-fill",
-                        "linkProps": routes.mui().link
-                    }
-                ]}
-            />
-            <div style={{
-                "margin": "auto",
-                "maxWidth": 1000,
-                ...fr.spacing("padding", { "topBottom": "10v" })
-            }}>
-                <Router />
-            </div>
-        </RouteProvider>
-    </StrictMode>
-);
-
-function Router() {
-
-    const route = useRoute();
-
-    switch (route.name) {
-        case "mui": return <Mui />;
-        case "home": return <Home />;
-        case false: return <h1>404</h1>
-    }
-
 }
 ```
+{% endcode %}
+
+Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fbcc34b34b25d4ac8214e34/test/integration/cra/src/index.tsx#L33).
 {% endtab %}
 
 {% tab title="other" %}
