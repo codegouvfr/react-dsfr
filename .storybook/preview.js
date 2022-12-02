@@ -79,6 +79,7 @@ export const parameters = {
 const { getHardCodedWeight } = (() => {
 
     const mainServices = [
+        "🇫🇷 Introduction",
         "components",
     ];
 
