@@ -189,6 +189,13 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                         "color": theme.palette.text.primary
                     })
                 }
+            },
+            "MuiStepIcon": {
+                "styleOverrides": {
+                    "text": ({ theme }) => ({
+                        "fill": getColors(true).decisions.text.title.grey.default
+                    })
+                }
             }
         }
     });
