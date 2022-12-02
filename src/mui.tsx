@@ -192,9 +192,9 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             },
             "MuiStepIcon": {
                 "styleOverrides": {
-                    "text": ({ theme }) => ({
+                    "text": {
                         "fill": getColors(true).decisions.text.title.grey.default
-                    })
+                    }
                 }
             }
         }
