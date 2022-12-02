@@ -11,7 +11,7 @@ Usually you'll have a `<Link />` component provided by your library or router of
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do not recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://zilch.dev/type-route), [tanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.&#x20;
+Warning: I do not recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://zilch.dev/type-route), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.&#x20;
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
@@ -66,7 +66,7 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/ae8b3319a15064160b9
 {% endtab %}
 
 {% tab title="type-route" %}
-[type-route](https://github.com/zilch/type-route) unlike most routing library doesn't export a `<Link />` component. As a result you only need to implement module augmentation
+[type-route](https://zilch.dev/type-route) unlike most routing library doesn't export a `<Link />` component. As a result you only need to implement module augmentation
 
 {% code title="index.tsx" %}
 ```tsx
