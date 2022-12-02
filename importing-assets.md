@@ -1,5 +1,5 @@
 ---
-description: How to import images, SVGs and other static resources from @gouvfr/dsfr
+description: How to import images, SVGs and other static DSFR resources
 ---
 
 # 🌅 Importing assets
@@ -25,7 +25,7 @@ Fisrt make sure you have this script in your `package.json`
 
 ```diff
  "scripts": {
-+    "postinstall": "copy_dsfr_dist_to_public"
++    "postinstall": "copy-dsfr-to-public"
  }
 ```
 
@@ -33,7 +33,8 @@ Now you can simply write the following and it will work: &#x20;
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>&#x3C;svg>
 </strong>    &#x3C;use xlinkHref="/dsfr/artwork/dark.svg#artwork-minor#artwork-minor" />
-&#x3C;/svg></code></pre>
+&#x3C;/svg>
+</code></pre>
 
 ### Rely on your bundler
 
