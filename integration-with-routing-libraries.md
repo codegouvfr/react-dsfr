@@ -65,8 +65,8 @@ export default withDsfr(DefaultApp);
 Example [here](https://github.com/codegouvfr/react-dsfr/blob/ae8b3319a15064160b909c68d311db3c2e825afb/test/integration/next/pages/\_app.tsx#L62-L64).
 {% endtab %}
 
-{% tab title="trype-route" %}
-type-route is an exeption amongs routing library in the sence that it dosen't require to use a Link component. As a result you only need to implement module augmentation
+{% tab title="type-route" %}
+[type-route](https://github.com/zilch/type-route) unlike most routing library doesn't export a `<Link />` component. As a result you only need to implement module augmentation
 
 {% code title="index.tsx" %}
 ```tsx
@@ -83,6 +83,8 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fb
 
 {% tab title="other" %}
 You should be able to infer what needs to be done refering to the `react-router` instructions.
+
+If the library you are using dosen't export a `<Link />` component look at how `type-route` is setup.
 {% endtab %}
 
 {% tab title="No routing library" %}
