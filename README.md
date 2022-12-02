@@ -8,14 +8,9 @@ description: Setup @codegouvfr/react-dsfr in your project
 If you already had the DSFR installed in your project, let's start from scratch: &#x20;
 
 * Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
-* Remove all imports:`dsfr.css, dsfr.module.js the favicon and the fonts.`
-* Remove `thedata-fr-scheme` (and `data-fr-theme` ) attribude from your `<html/>` tag
+* Remove the import of`dsfr.css, dsfr.module.js the favicon and the fonts.`
+* Remove `the data-fr-scheme` (and `data-fr-theme` ) attribude from your `<html/>` tag
 {% endhint %}
-
-```bash
-yarn add @codegouvfr/react-dsfr 
-# Or: 'npm install --save @codegouvfr/react-dsfr'
-```
 
 {% tabs %}
 {% tab title="yarn" %}
