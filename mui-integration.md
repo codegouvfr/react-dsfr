@@ -4,7 +4,7 @@ description: Use MUI components in your App or DSFRify your website build with M
 
 # 🤝 MUI integration
 
-{% embed url="https://youtu.be/TOwdPJUS930" %}
+{% embed url="https://youtu.be/FDRsx3N0OmY" %}
 
 react-dsfr features a DSFR theme for MUI. This enables you to use the [large library of MUI components](https://mui.com/) in your website, they will blend in nicely. &#x20;
 
