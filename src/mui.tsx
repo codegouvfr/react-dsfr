@@ -39,11 +39,18 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     "contrastText": options.blueFrance._975sun113.default
                 },
                 "secondary": {
-                    "main": options.redMarianne.main472.default,
-                    "light": options.redMarianne._850_200.default,
-                    "dark": options.redMarianne._425_625.default,
-                    "contrastText": options.redMarianne._975_75.default
+                    "main": options.blueFrance._950_100.default,
+                    "light": options.blueFrance._950_100.active,
+                    "dark": options.blueFrance._950_100.hover,
+                    "contrastText": options.blueFrance.sun113_625.default
+                    /* 
+                     "main": options.blueFrance._850_200.default,
+                    "light": options.blueFrance._850_200.active,
+                    "dark": options.blueFrance._850_200.hover,
+                    "contrastText": options.blueFrance.sun113_625.default,
+                    */
                 },
+
                 "error": {
                     "light": options.error._425_625.active,
                     "main": options.error._425_625.default,
@@ -76,11 +83,11 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 },
                 "divider": options.grey._900_175.default,
                 "action": {
-                    "default": options.blueFrance.sun113_625.default,
+                    "default": options.grey._200_850.default,
                     "background": options.blueFrance._925_125.default,
-                    "active": options.blueFrance.sun113_625.active,
+                    "active": options.grey._200_850.default,
                     "hover": options.grey._975_100.default,
-                    "selected": options.blueFrance._925_125.default,
+                    "selected": options.blueFrance._925_125.active,
                     "disabled": options.grey._625_425.default,
                     "disabledBackground": options.grey._925_125.default,
                     "focus": options.blueFrance.sun113_625.active
@@ -90,6 +97,9 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     "default": options.grey._1000_50.default,
                     "paper": options.grey._1000_100.default,
                     "paperHover": options.grey._975_75.hover
+                },
+                "getContrastText": () => {
+                    return "cyan";
                 }
             } as const;
         })(),
