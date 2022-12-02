@@ -243,12 +243,13 @@ Add the following tags in the `<head />`&#x20;
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 <strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
+</strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 </strong><strong>startDsfrReact({ defaultColorScheme: "system" });
 </strong>
 <strong>// Only for TypeScript users.
 </strong><strong>declare module "@codegouvfr/react-dsfr" {
 </strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-</strong><strong>    export interface LinkProps extends NextLinkProps { }
+</strong><strong>    export interface LinkProps extends HTMLAnchorProps { }
 </strong><strong>}
 </strong>
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
