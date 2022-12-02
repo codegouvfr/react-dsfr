@@ -36,11 +36,18 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     "contrastText": options.blueFrance._975sun113.default
                 },
                 "secondary": {
-                    "main": options.redMarianne.main472.default,
-                    "light": options.redMarianne._850_200.default,
-                    "dark": options.redMarianne._425_625.default,
-                    "contrastText": options.redMarianne._975_75.default
+                    "main": options.blueFrance._950_100.default,
+                    "light": options.blueFrance._950_100.active,
+                    "dark": options.blueFrance._950_100.hover,
+                    "contrastText": options.blueFrance.sun113_625.default
+                    /* 
+                     "main": options.blueFrance._850_200.default,
+                    "light": options.blueFrance._850_200.active,
+                    "dark": options.blueFrance._850_200.hover,
+                    "contrastText": options.blueFrance.sun113_625.default,
+                    */
                 },
+
                 "error": {
                     "light": options.error._425_625.active,
                     "main": options.error._425_625.default,
@@ -73,11 +80,11 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 },
                 "divider": options.grey._900_175.default,
                 "action": {
-                    "default": options.blueFrance.sun113_625.default,
+                    "default": options.grey._200_850.default,
                     "background": options.blueFrance._925_125.default,
-                    "active": options.blueFrance.sun113_625.active,
+                    "active": options.grey._200_850.default,
                     "hover": options.grey._975_100.default,
-                    "selected": options.blueFrance._925_125.default,
+                    "selected": options.blueFrance._925_125.active,
                     "disabled": options.grey._625_425.default,
                     "disabledBackground": options.grey._925_125.default,
                     "focus": options.blueFrance.sun113_625.active
@@ -87,6 +94,9 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     "default": options.grey._1000_50.default,
                     "paper": options.grey._1000_100.default,
                     "paperHover": options.grey._975_75.hover
+                },
+                "getContrastText": () => {
+                    return "cyan";
                 }
             } as const;
         })(),
@@ -184,20 +194,29 @@ export function noAugmentation(params: { nonAugmentedMuiTheme: MuiTheme }) {
     return nonAugmentedMuiTheme;
 }
 
-//const shadows = [
-//    "none",
-/** ButtonBar shadow */
-//    "0px 6px 10px 0px rgba(0,0,0,0.07)",
-/** Explorer items */
-//    "0px 4px 4px 0px rgba(0,0,0,0.1)",
-/** LeftBar */
-//    "6px 0px 16px 0px rgba(0,0,0,0.15)",
-/** AccountTab default */
-//    "4px 0px 10px 0px rgba(0,0,0,0.07)",
-/** AccountTab active */
-//    "-4px 0px 10px 0px rgba(0,0,0,0.07)",
-/** Card over */
-//    "0px 6px 10px 0px rgba(0,0,0,0.14)",
-/** Dialog **/
-//    "0px 8px 10px -7px rgba(0,0,0,0.07)",
-//] as const;
+// export const shadowsOption = [
+//  "none",
+/* Light / SM */
+//  "0px 2px 6px 0px rgba(0,0,18,0.16)",
+/* Light / MD */
+//  "0px 4px 12px 0px rgba(0,0,18,0.16)",
+/* Light / LG */
+//  "0px 6px 18px 0px rgba(0,0,18,0.16)",
+/* Dark / SM */
+//  "0px 2px 6px 0px rgba(0,0,18,0.32)",
+/* Dark / MD */
+//  "0px 4px 12px 0px rgba(0,0,18,0.32)",
+/* Dark / LG */
+// "0px 4px 18px 0px rgba(0,0,18,0.32)",
+//  ] as const;
+
+// Shadows decisions (shadow applied to an usecase or a context)
+
+/** Raised */
+// Use Light or Dark / SM
+
+/** Overlap */
+// Use Light or Dark / MD
+
+/** Lifted */
+// Use Light or Dark / LG
