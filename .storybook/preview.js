@@ -78,16 +78,16 @@ export const parameters = {
 
 const { getHardCodedWeight } = (() => {
 
-    const mainServices = [
+    const orderedPagesPrefix = [
         "🇫🇷 Introduction",
         "components",
     ];
 
     function getHardCodedWeight(kind) {
 
-        for (let i = 0; i < mainServices.length; i++) {
-            if (kind.toLowerCase().startsWith(mainServices[i].toLowerCase())) {
-                return mainServices.length - i;
+        for (let i = 0; i < orderedPagesPrefix.length; i++) {
+            if (kind.toLowerCase().startsWith(orderedPagesPrefix[i].toLowerCase())) {
+                return orderedPagesPrefix.length - i;
             }
         }
 
