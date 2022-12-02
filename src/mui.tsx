@@ -12,6 +12,9 @@ import type { ColorTheme } from "./lib/colors";
 import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles/createTheme";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
+import defaultMuiShadows from "@mui/material/styles/shadows";
+import type { Shadows } from "@mui/material/styles";
+import { id } from "tsafe/id";
 
 function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
@@ -139,8 +142,29 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                           const value = values[abs - 1];
                           return value === undefined ? abs : value;
                       })();
+        })(),
+        "shadows": (() => {
+            const [, , , , , , , , ...rest] = defaultMuiShadows;
+
+            return id<Shadows>([
+                "none",
+                /** ButtonBar shadow */
+                "0px 6px 10px 0px rgba(0,0,0,0.07)",
+                /** Explorer items */
+                "0px 4px 4px 0px rgba(0,0,0,0.1)",
+                /** LeftBar */
+                "6px 0px 16px 0px rgba(0,0,0,0.15)",
+                /** AccountTab default */
+                "4px 0px 10px 0px rgba(0,0,0,0.07)",
+                /** AccountTab active */
+                "-4px 0px 10px 0px rgba(0,0,0,0.07)",
+                /** Card over */
+                "0px 6px 10px 0px rgba(0,0,0,0.14)",
+                /** Dialog **/
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                ...rest
+            ]);
         })()
-        //shadows
     });
 
     return muiTheme;
@@ -183,21 +207,3 @@ export function noAugmentation(params: { nonAugmentedMuiTheme: MuiTheme }) {
     const { nonAugmentedMuiTheme } = params;
     return nonAugmentedMuiTheme;
 }
-
-//const shadows = [
-//    "none",
-/** ButtonBar shadow */
-//    "0px 6px 10px 0px rgba(0,0,0,0.07)",
-/** Explorer items */
-//    "0px 4px 4px 0px rgba(0,0,0,0.1)",
-/** LeftBar */
-//    "6px 0px 16px 0px rgba(0,0,0,0.15)",
-/** AccountTab default */
-//    "4px 0px 10px 0px rgba(0,0,0,0.07)",
-/** AccountTab active */
-//    "-4px 0px 10px 0px rgba(0,0,0,0.07)",
-/** Card over */
-//    "0px 6px 10px 0px rgba(0,0,0,0.14)",
-/** Dialog **/
-//    "0px 8px 10px -7px rgba(0,0,0,0.07)",
-//] as const;
