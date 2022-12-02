@@ -83,8 +83,8 @@ root.render(
 );
 </code></pre>
 
-{% content-ref url="integration-with-routing-libraries.md" %}
-[integration-with-routing-libraries.md](integration-with-routing-libraries.md)
+{% content-ref url="routing.md" %}
+[routing.md](routing.md)
 {% endcontent-ref %}
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
@@ -145,8 +145,8 @@ export default withDsfr(DefaultApp);
 ```
 {% endcode %}
 
-{% content-ref url="integration-with-routing-libraries.md" %}
-[integration-with-routing-libraries.md](integration-with-routing-libraries.md)
+{% content-ref url="routing.md" %}
+[routing.md](routing.md)
 {% endcontent-ref %}
 
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
@@ -254,8 +254,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
-{% content-ref url="integration-with-routing-libraries.md" %}
-[integration-with-routing-libraries.md](integration-with-routing-libraries.md)
+{% content-ref url="routing.md" %}
+[routing.md](routing.md)
 {% endcontent-ref %}
 
 You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
