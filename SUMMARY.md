@@ -3,7 +3,7 @@
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with Routing libraries](integration-with-routing-libraries.md)
 * [🧩 Components](components.md)
-* [🍧 cx](fr-utils/cx.md)
+* [🍧 Type safe DSFR class names - cx](fr-utils/cx.md)
 * [✅ Icons](icons.md)
 * [💅 CSS in JS](css-in-js.md)
 * [🌎 internationalization](internationalisation.md)
