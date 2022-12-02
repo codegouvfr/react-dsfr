@@ -4,7 +4,7 @@
 * [🔀 Integration with Routing libraries](integration-with-routing-libraries.md)
 * [🧩 Components](components.md)
 * [✅ Icons](icons.md)
-* [🌎 internationalization](internationalization.md)
+* [🌎 internationalization](internationalisation.md)
 * [🌅 Importing assets](importing-assets.md)
 * [🤝 MUI integration](mui-integration.md)
 
@@ -16,3 +16,7 @@
 * [💐 colors](fr-utils/colors.md)
 * [🌗 useIsDark](fr-utils/useisdark.md)
 * [🖌 CSS in JS](fr-utils/css-in-js.md)
+
+***
+
+* [💟 Contributing](contributing.md)
