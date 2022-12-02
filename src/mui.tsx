@@ -174,7 +174,16 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 "0px 8px 10px -7px rgba(0,0,0,0.07)",
                 ...rest
             ]);
-        })()
+        })(),
+        "components": {
+            "MuiButton": {
+                "styleOverrides": {
+                    "root": {
+                        "textTransform": "unset"
+                    }
+                }
+            }
+        }
     });
 
     return muiTheme;
