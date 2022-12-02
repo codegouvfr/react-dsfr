@@ -677,6 +677,7 @@ const { Links } = (() => {
 				onClick={preventDefault}
 			>
 				<Link href="#">Link</Link>
+				<Link href="#" target="_blank">Link target blank</Link>
 				<Link href="#" color="inherit">
 					{'color="inherit"'}
 				</Link>

@@ -17,12 +17,20 @@ export function patchCssForMui(params: { rawDsfrCssCode: string }) {
     })(parsedCss.stylesheet!.rules as any[], "root").forEach(
         ([rule, media]) =>
             (rule.selectors = rule.selectors.map((selector: string) => {
+                const selectorNotMui = `${selector}:not([class^="Mui"])`;
+
+                if (media === "root") {
+                    if (selector === "[href]") {
+                        return selectorNotMui;
+                    }
+                }
+
                 if (media === "(hover: hover) and (pointer: fine)") {
                     if (
                         selector === "button:not(:disabled):hover" ||
                         selector === "button:not(:disabled):active"
                     ) {
-                        return `${selector}:not([class^="Mui"])`;
+                        return selectorNotMui;
                     }
                 }
 
