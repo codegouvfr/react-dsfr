@@ -182,6 +182,13 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                         "textTransform": "unset"
                     }
                 }
+            },
+            "MuiSvgIcon": {
+                "styleOverrides": {
+                    "root": ({ theme }) => ({
+                        "color": theme.palette.text.primary
+                    })
+                }
             }
         }
     });
