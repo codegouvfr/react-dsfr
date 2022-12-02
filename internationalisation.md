@@ -1,4 +1,4 @@
-# 🌎 Internationalisation
+# 🌎 internationalization
 
 DSFR components contains hard coded strings.
 
@@ -35,7 +35,7 @@ Example setup [in Next.js](https://github.com/etalab/etalab-website/blob/b427049
 {% hint style="warning" %}
 DISLAMER: I'm the author of i18nifty.
 
-While I confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.
+While I can confidently recommend it for SPAs I have to warn you that using i18nifty in Next.js will force you to opt out from[ Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization) and bundle all your translations in the JavaScript bundle. SSR, SSO will work fine though.
 {% endhint %}
 {% endtab %}
 
