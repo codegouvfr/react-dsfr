@@ -19,7 +19,7 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://etalab-2.gitbook.io/dsfr-react/">Documentation</a>
+  <a href="https://react-dsfr.etalab.studio/">Documentation</a>
 </p>
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
@@ -31,11 +31,11 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
         Code and Types generated from [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
--   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://etalab-2.gitbook.io/dsfr-react/).
+-   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://react-dsfr.etalab.studio/).
 -   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (2/42)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
-        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://etalab-2.gitbook.io/dsfr-react/mui-integration).
+        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.etalab.studio/mui-integration).
 -   [x] Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
@@ -44,12 +44,12 @@ This module is a product of [Etalab's Free and open source software pole](https:
 [I](https://github.com/garronej)'m working full time on this project. You can expect rapid development. 🚀
 
 <p align="center">
-  <a href="https://etalab-2.gitbook.io/dsfr-react/">Get started</a>
+  <a href="https://react-dsfr.etalab.studio/">Get started</a>
 </p>
 
 # Development
 
-Here are instructions for contributing, if you are looking to **use** `@codegouvfr/react-dsfr` heads over to the [documentation page](https://etalab-2.gitbook.io/dsfr-react/).
+Here are instructions for contributing, if you are looking to **use** `@codegouvfr/react-dsfr` heads over to the [documentation page](https://react-dsfr.etalab.studio/).
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
