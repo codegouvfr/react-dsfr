@@ -1,5 +1,3 @@
 # 🧩 Components
 
-The components are documented on a separate website (Storybook)
-
-{% embed url="https://react-dsfr.tsafe.dev" %}
+The components are documented on [a separate website (Storybook)](https://react-dsfr-components.etalab.studio/).
