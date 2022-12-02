@@ -57,6 +57,10 @@ const useStyles = makeStyles({ "name": { MyComponent } })(colors => ({
 }));
 ```
 
+{% hint style="info" %}
+If you are using tss-react in a SSR setup like Next.js plese follow [these instructions](https://docs.tss-react.dev/ssr).
+{% endhint %}
+
 <figure><img src="../.gitbook/assets/custom_dsfr.gif" alt=""><figcaption><p>The above comonent, in dark mode, then in light mode</p></figcaption></figure>
 
 ### Setup tss-react

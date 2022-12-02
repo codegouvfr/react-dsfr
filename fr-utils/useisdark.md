@@ -26,11 +26,12 @@ Is dark is an observable that enables you to monitor and change the mode outside
 ```tsx
 import { $isDark } from "@codegouvfr/react-dsfr";
 
-$isDark.current //boolean that represent the current app of the App.  
+$isDark.current //boolean that represent the current state of isDark.  
 
 // By calling:  
 $isDark.current = true;  
-//We set the app in dark mode, yes this assignation has side effects.  
+//We set the app in dark mode, yes this assignation has side effects,
+//it will triger the re-render of the component using the useIsDark() hook.
 
 const unsubscribe = $isDark.subscribe(isDark=> {
     //This callback gets called whenever the app mode changes,
