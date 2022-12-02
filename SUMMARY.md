@@ -4,7 +4,7 @@
 * [🔀 Integration with Routing libraries](integration-with-routing-libraries.md)
 * [🧩 Components](components.md)
 * [✅ Icons](icons.md)
-* [🌎 Internationalisation](internationalisation.md)
+* [🌎 internationalization](internationalization.md)
 * [🌅 Importing assets](importing-assets.md)
 * [🤝 MUI integration](mui-integration.md)
 
