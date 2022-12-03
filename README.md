@@ -22,7 +22,7 @@
   <a href="https://react-dsfr.etalab.studio/">Documentation website</a>
 </p>
 
-> 🗣️ Le **9 décembre (ce vendredi)** de **11h à 12h30**, venez assister à la présentation de la librairie et poser vos questions!
+> 🗣️ Le **9 décembre (ce vendredi)** de **11h à 12h30**, venez assister à la présentation de la librairie et poser vos questions!  
 > 👉[Lien du salon ateliers BlueHats](https://webinaire.numerique.gouv.fr//meeting/signin/362/creator/369/hash/84c9902a44b481830388d5d69c808eb669da0a5b)👈
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
