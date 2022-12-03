@@ -69,8 +69,6 @@ export namespace Params {
     };
 }
 
-let defaultColorScheme: ColorScheme | "system";
-
 function readColorSchemeInCookie(cookie: string) {
     const parsedCookies = Object.fromEntries(
         cookie
@@ -130,8 +128,6 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
 
     if (isBrowser) {
         startDsfrReact(startDsfrReactParams);
-    } else {
-        defaultColorScheme = startDsfrReactParams.defaultColorScheme;
     }
 
     if (langIfNoProvider !== undefined) {
@@ -140,19 +136,18 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
 
     const colorSchemeKey = "dsfrColorScheme";
 
-    const isDarkFromHtmlAttribute = (() => {
+    const colorSchemeFromHtmlAttribute = (() => {
         if (!isBrowser) {
             return undefined;
         }
 
-        const colorSchemeReadFromHtmlAttribute =
-            document.documentElement.getAttribute(data_fr_theme);
+        const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
 
-        if (colorSchemeReadFromHtmlAttribute === null) {
+        if (colorSchemeFromHtmlAttribute === null) {
             return undefined;
         }
 
-        return colorSchemeReadFromHtmlAttribute as ColorScheme;
+        return colorSchemeFromHtmlAttribute as ColorScheme;
     })();
 
     function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
@@ -163,7 +158,16 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             ...props
         }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
             if (colorScheme === undefined) {
-                colorScheme = isBrowser ? isDarkFromHtmlAttribute ?? "light" : "light";
+                const colorSchemeExplicitlyProvidedAsParameter =
+                    startDsfrReactParams.defaultColorScheme === "system"
+                        ? undefined
+                        : startDsfrReactParams.defaultColorScheme;
+
+                colorScheme = isBrowser
+                    ? colorSchemeFromHtmlAttribute ??
+                      colorSchemeExplicitlyProvidedAsParameter ??
+                      "light"
+                    : colorSchemeExplicitlyProvidedAsParameter ?? "light";
             }
 
             useEffect(() => {
@@ -276,10 +280,10 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                 const colorScheme =
                     (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
                     (() => {
-                        switch (defaultColorScheme) {
+                        switch (startDsfrReactParams.defaultColorScheme) {
                             case "light":
                             case "dark":
-                                return defaultColorScheme;
+                                return startDsfrReactParams.defaultColorScheme;
                             case "system":
                                 return undefined;
                         }
