@@ -4,6 +4,7 @@ import { startObservingColorSchemeHtmlAttribute, data_fr_theme, data_fr_scheme }
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { setLangToUseIfProviderNotUsed } from "./i18n";
+import { createStatefulObservable } from "./tools/StatefulObservable";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
@@ -38,9 +39,6 @@ export async function startDsfrReact(params: Params) {
 
     const isNextJs = (window as any).__NEXT_DATA__ !== undefined;
 
-    const isNextJsDevEnvironnement =
-        isNextJs && (window as any).__NEXT_DATA__.buildId === "development";
-
     set_html_color_scheme_attributes: {
         if (document.documentElement.getAttribute(data_fr_theme) !== null) {
             //NOTE: Is has been set by SSR
@@ -49,7 +47,7 @@ export async function startDsfrReact(params: Params) {
 
         document.documentElement.setAttribute(data_fr_scheme, defaultColorScheme);
 
-        if (isNextJsDevEnvironnement) {
+        if (isNextJs) {
             break set_html_color_scheme_attributes;
         }
 
@@ -85,7 +83,26 @@ export async function startDsfrReact(params: Params) {
 
     await import("../dsfr/dsfr.module" as any);
 
+    const { dsfr } = window as unknown as { dsfr: { start: () => void } };
+
     if (!isNextJs) {
-        (window as any).dsfr.start();
+        dsfr.start();
     }
+
+    if ($hadFirstEffect.current) {
+        dsfr.start();
+        return;
+    }
+
+    $hadFirstEffect.subscribe(() => dsfr.start());
+}
+
+const $hadFirstEffect = createStatefulObservable(() => false);
+
+export function notifyEffect() {
+    if ($hadFirstEffect.current) {
+        return;
+    }
+
+    $hadFirstEffect.current = true;
 }

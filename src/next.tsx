@@ -4,7 +4,7 @@ import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
-import { startDsfrReact } from "./lib/start";
+import { startDsfrReact, notifyEffect } from "./lib/start";
 import type { Params as StartDsfrReactParams } from "./lib/start";
 import { isBrowser } from "./lib/tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
@@ -152,20 +152,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             }
 
             useEffect(() => {
-                if (!isBrowser) {
-                    return;
-                }
-                const { dsfr } = window as any;
-
-                const isStarted = "isStarted";
-
-                if (dsfr[isStarted] === true) {
-                    return;
-                }
-
-                dsfr.start();
-
-                dsfr[isStarted] = true;
+                notifyEffect();
             }, []);
 
             return (
