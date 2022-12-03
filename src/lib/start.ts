@@ -36,7 +36,10 @@ export async function startDsfrReact(params: Params) {
         setLangToUseIfProviderNotUsed(langIfNoProvider);
     }
 
-    const isNextJsDevEnvironnement = (window as any).__NEXT_DATA__?.buildId === "development";
+    const isNextJs = (window as any).__NEXT_DATA__ !== undefined;
+
+    const isNextJsDevEnvironnement =
+        isNextJs && (window as any).__NEXT_DATA__.buildId === "development";
 
     set_html_color_scheme_attributes: {
         if (document.documentElement.getAttribute(data_fr_theme) !== null) {
@@ -82,12 +85,9 @@ export async function startDsfrReact(params: Params) {
 
     await import("../dsfr/dsfr.module" as any);
 
-    if (isNextJsDevEnvironnement) {
-        // NOTE: @gouvfr/dsfr/dist/dsfr.module.js is not isomorphic, it can't run on the Server.",
-        // We set an artificial delay before starting the module otherwise to avoid getting",
-        // Hydration error from Next.js
-        await new Promise(resolve => setTimeout(resolve, 400));
-    }
+    console.log("disabled");
 
-    (window as any).dsfr.start();
+    if (!isNextJs) {
+        (window as any).dsfr.start();
+    }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
@@ -149,6 +149,23 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             if (colorScheme === undefined) {
                 colorScheme = "light";
             }
+
+            useEffect(() => {
+                if (!isBrowser) {
+                    return;
+                }
+                const { dsfr } = window as any;
+
+                const isStarted = "isStarted";
+
+                if (dsfr[isStarted] === true) {
+                    return;
+                }
+
+                dsfr.start();
+
+                dsfr[isStarted] = true;
+            }, []);
 
             return (
                 <>
