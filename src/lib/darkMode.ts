@@ -59,9 +59,9 @@ const useIsDarkServerSide: UseIsDark = () => {
 export const useIsDark = isBrowser ? useIsDarkClientSide : useIsDarkServerSide;
 
 function getCurrentIsDarkFromHtmlAttribute(): boolean {
-    const colorSchemeReadFromDom = document.documentElement.getAttribute(data_fr_theme);
+    const colorSchemeReadFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
 
-    switch (colorSchemeReadFromDom) {
+    switch (colorSchemeReadFromHtmlAttribute) {
         case null:
         case "light":
             return false;

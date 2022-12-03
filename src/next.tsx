@@ -140,6 +140,21 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
 
     const colorSchemeKey = "dsfrColorScheme";
 
+    const isDarkFromHtmlAttribute = (() => {
+        if (!isBrowser) {
+            return undefined;
+        }
+
+        const colorSchemeReadFromHtmlAttribute =
+            document.documentElement.getAttribute(data_fr_theme);
+
+        if (colorSchemeReadFromHtmlAttribute === null) {
+            return undefined;
+        }
+
+        return colorSchemeReadFromHtmlAttribute as ColorScheme;
+    })();
+
     function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
         App: AppComponent
     ): AppComponent {
@@ -148,7 +163,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             ...props
         }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
             if (colorScheme === undefined) {
-                colorScheme = "light";
+                colorScheme = isBrowser ? isDarkFromHtmlAttribute ?? "light" : "light";
             }
 
             useEffect(() => {
