@@ -85,8 +85,6 @@ export async function startDsfrReact(params: Params) {
 
     await import("../dsfr/dsfr.module" as any);
 
-    console.log("disabled");
-
     if (!isNextJs) {
         (window as any).dsfr.start();
     }
