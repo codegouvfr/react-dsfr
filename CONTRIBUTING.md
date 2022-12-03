@@ -16,7 +16,7 @@ _If you want to link your development version into your own project it's possibl
 A few things:
 
 -   🙏🏻 Don't be afraid to push even if you aren't 100% happy with your code or [if it's still WIP](https://github.com/codegouvfr/react-dsfr/blob/1fdcf15cb085c67d37c31badf6ffa4725795ba0f/stories/Accordion.stories.tsx#L6), any contribution will be hugely helpful and appreciated.
--   📣 Let everyone know what component you are working by [oppening an issue](https://github.com/codegouvfr/react-dsfr/issues).
+-   📣 Let everyone know what component you are working on by [oppening an issue](https://github.com/codegouvfr/react-dsfr/issues).
 -   📚 You can draw inspiration from [`dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface) and the implementation of [france connect](https://github.com/france-connect/sources/tree/main/front/libs/dsfr).
 -   🔗 Use the component returned by `useLink()` instead of `<a />`. [Example in the `<Header />` component](https://github.com/codegouvfr/react-dsfr/blob/bbaf4a81d78de08d6fdcb059a9f4cb8a78ce4d5a/src/Header.tsx#L84-L87). We want to [play nice with all routing libraries](https://react-dsfr.etalab.studio/integration-with-routing-libraries).
 -   🕹️ When it's relevant, try to enable components to be used either in controlled or uncontrolled mode. [Example with <Tabs />](https://react-dsfr-components.etalab.studio/?path=/docs/components-tabs--default).
