@@ -8,7 +8,7 @@ export type ColorScheme = "light" | "dark";
 
 export const data_fr_theme = "data-fr-theme";
 export const data_fr_scheme = "data-fr-scheme";
-
+export const rootColorSchemeStyleTagId = "root-color-scheme";
 //export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
 export const $isDark = createStatefulObservable(() => false);
 
@@ -121,10 +121,8 @@ export function startObservingColorSchemeHtmlAttribute() {
         const setRootColorScheme = (isDark: boolean) => {
             const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
-            const id = "root-color-scheme";
-
             remove_existing_element: {
-                const element = document.getElementById(id);
+                const element = document.getElementById(rootColorSchemeStyleTagId);
 
                 if (element === null) {
                     break remove_existing_element;
@@ -135,7 +133,7 @@ export function startObservingColorSchemeHtmlAttribute() {
 
             const element = document.createElement("style");
 
-            element.id = id;
+            element.id = rootColorSchemeStyleTagId;
 
             element.innerHTML = `:root { color-scheme: ${colorScheme}; }`;
 

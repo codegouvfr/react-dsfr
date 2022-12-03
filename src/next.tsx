@@ -25,6 +25,7 @@ import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import {
     data_fr_scheme,
     data_fr_theme,
+    rootColorSchemeStyleTagId,
     isDarkContext,
     refDoPersistDarkModePreferenceWithCookie
 } from "./lib/darkMode";
@@ -195,7 +196,9 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             href={faviconWebmanifestUrl}
                             crossOrigin="use-credentials"
                         />
-                        <style>{`:root { color-scheme: ${colorScheme}; }`}</style>
+                        <style
+                            id={rootColorSchemeStyleTagId}
+                        >{`:root { color-scheme: ${colorScheme}; }`}</style>
                     </Head>
                     {isBrowser ? (
                         <App {...(props as any)} />
