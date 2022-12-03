@@ -48,6 +48,8 @@ I'm working full time on this project. You can expect rapid development. 🚀
 
 <p align="center">
   <a href="https://react-dsfr.etalab.studio/">Get started</a>
+  -
+  <a href="https://stackblitz.com/edit/nextjs-ghkio2?file=pages/index.tsx">Playground</a>
 </p>
 
 # Development
