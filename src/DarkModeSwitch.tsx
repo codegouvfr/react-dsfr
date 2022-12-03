@@ -14,6 +14,7 @@ export type DisplayProps = {
     className?: string;
 };
 
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-darkmodeswitch> */
 export const DarkModeSwitch = memo(
     forwardRef<HTMLButtonElement, DisplayProps>((props, ref) => {
         const { className, ...rest } = props;

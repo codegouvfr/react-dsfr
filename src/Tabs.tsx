@@ -41,7 +41,7 @@ export namespace TabsProps {
     };
 }
 
-/** @see <https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglets> */
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tabs> */
 export const Tabs = memo(
     forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
         const {
