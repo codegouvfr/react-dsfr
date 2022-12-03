@@ -145,10 +145,6 @@ export default withDsfr(DefaultApp);
 ```
 {% endcode %}
 
-{% content-ref url="routing.md" %}
-[routing.md](routing.md)
-{% endcontent-ref %}
-
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
 
 #### Getting rid of white flashes
