@@ -1,4 +1,4 @@
-# Class names type safety
+# 🦺 Class names type safety
 
 It's like [clsx](https://www.npmjs.com/package/clsx) but you can only pass it classes that are from the dsfr. &#x20;
 
