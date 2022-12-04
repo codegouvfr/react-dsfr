@@ -126,72 +126,6 @@ MyComponent.displayName = "MyComponent";
 {% endtab %}
 {% endtabs %}
 
-Now you&#x20;
-
-```bash
-yarn add tss-react @emotion/react
-```
-
-Example of custom component: &#x20;
-
-```tsx
-import { makeStyles } from "tss-react/dsfr";
-import { fr } from "@codegouvfr/react-dsfr";
-
-export type Props = {
-    className?: string;
-};
-
-export function MyComponent(props: Props){
-
-    const { className } = props;
-
-    const { classes, cx } = useStyles();
-
-    return (
-	<div className={cx(classes.root, className)}>
-	    <span className={cx(fr.cx("fr-p-1v"), classes.innerText)} >Hello World</span>
-	</div>
-    );
-
-}
-
-const useStyles = makeStyles({ "name": { MyComponent } })(colors => ({
-    "root": {
-        "padding": fr.spacing("10v"),
-	"backgroundColor": colors.decisions.background.alt.blueFrance.active,
-	[fr.breakpoints.up("sm")]: {
-	    "backgroundColor": colors.decisions.background.alt.beigeGrisGalet.active,
-	},
-	[fr.breakpoints.up("md")]: {
-	    "backgroundColor": colors.decisions.background.alt.blueCumulus.active,
-	},
-	[fr.breakpoints.up("lg")]: {
-	    "backgroundColor": colors.decisions.background.alt.blueEcume.active,
-	},
-	[fr.breakpoints.up("xl")]: {
-	    "backgroundColor": colors.decisions.background.alt.brownCafeCreme.active,
-	},
-    },
-    "innerText": {
-	...fr.spacing("margin", { "topBottom": "3v" })
-    }
-}));
-```
-
-<figure><img src=".gitbook/assets/custom_dsfr.gif" alt=""><figcaption><p>The above comonent, in dark mode, then in light mode</p></figcaption></figure>
-
-### Setup tss-react
-
-{% tabs %}
-{% tab title="SPAs (CRA Vite ect...)" %}
-```bash
-yarn add tss-react @emotion/react
-# or 'npm install --save tss-react @emotion/react'
-```
-{% endtab %}
-{% endtabs %}
-
 ### spacing
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>import { fr } from "@codegouvfr/react-dsfr";
@@ -256,7 +190,7 @@ function MyComponent() {
 
 ### breakpoints
 
-
+The breakpoint utilitiy enables to write responsive style.&#x20;
 
 ```tsx
 import { useStyles } from "tss-react/dsfr";
