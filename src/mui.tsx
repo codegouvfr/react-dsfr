@@ -9,7 +9,6 @@ import { useIsDark } from "./lib/darkMode";
 import { typography } from "./lib/generatedFromCss/typography";
 import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
-import type { Theme as NonAugmentedMuiTheme } from "./lib/tools/@mui/material/styles/createTheme";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import defaultMuiShadows from "@mui/material/styles/shadows";
@@ -220,12 +219,16 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
 }
 
 export function createMuiDsfrThemeProvider(params: {
-    augmentMuiTheme: (params: {
-        nonAugmentedMuiTheme: NonAugmentedMuiTheme;
+    augmentMuiTheme?: (params: {
+        /** WARNING: The types is lying here.
+         * It's a Theme as defined in import type { Theme } from "@mui/material/styles";
+         * That is to say before augmentation.
+         **/
+        nonAugmentedMuiTheme: MuiTheme;
         frColorTheme: ColorTheme;
     }) => MuiTheme;
 }) {
-    const { augmentMuiTheme } = params;
+    const { augmentMuiTheme = ({ nonAugmentedMuiTheme }) => nonAugmentedMuiTheme } = params;
 
     type Props = {
         children: ReactNode;
@@ -250,9 +253,4 @@ export function createMuiDsfrThemeProvider(params: {
     }
 
     return { MuiDsfrThemeProvider };
-}
-
-export function noAugmentation(params: { nonAugmentedMuiTheme: MuiTheme }) {
-    const { nonAugmentedMuiTheme } = params;
-    return nonAugmentedMuiTheme;
 }
