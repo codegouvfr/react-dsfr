@@ -124,9 +124,50 @@ export const MyComponent = MyComponentNotStyled`
 MyComponent.displayName = "MyComponent";
 ```
 {% endtab %}
+
+{% tab title="Native" %}
+You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.  &#x20;
+
+```tsx
+import { fr } from "@codegouvfr/react-dsfr";
+
+export type Props = {
+    className?: string;
+};
+
+export const MyComponent =(props: Props) => {
+
+    const { className } = props;
+
+    const { classes, cx } = useStyles();
+
+    return (
+	<div 
+	    className={className}
+	    styles={{
+	        "padding": fr.spacing("10v"),
+	        "backgroundColor": colors.decisions.background.alt.blueFrance.active,
+	    }}
+	>
+	    <span 
+	        className={fr.cx("fr-p-1v")}
+	        style={{
+	            ...fr.spacing("margin", { "topBottom": "3v" })
+	        }}
+	    >
+	        Hello World
+	    </span>
+	</div>
+    );
+
+};
+
+MyComponent.displayName = "MyComponent";
+```
+{% endtab %}
 {% endtabs %}
 
-### spacing
+### fr.spacing
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>import { fr } from "@codegouvfr/react-dsfr";
 </strong>
@@ -188,7 +229,7 @@ function MyComponent() {
 
 <figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption><p>You can read the returned value in em just by hovering the spacing function call</p></figcaption></figure>
 
-### breakpoints
+### fr.breakpoints
 
 The breakpoint utilitiy enables to write responsive style.&#x20;
 
