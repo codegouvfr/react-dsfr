@@ -2,8 +2,8 @@
 
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with routing libs](routing.md)
-* [🧩 Components](components.md)
 * [🍧 Class names type safety](fr-utils/cx.md)
+* [🧩 Components](components.md)
 * [☑ Icons](icons.md)
 * [💅 CSS in JS](css-in-js.md)
 * [🌎 internationalization](i18n.md)
