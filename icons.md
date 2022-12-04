@@ -14,7 +14,7 @@ Icons just works, you can copy paste the any code from [the dsfr documentation](
 <>
 ```
 
-<figure><img src=".gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 But on top of that all icons from [Remixicon](https://remixicon.com/) are supported.&#x20;
 
@@ -36,7 +36,7 @@ Example: &#x20;
 <>
 ```
 
-<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 No need to worry about importing the correct icons file.&#x20;
