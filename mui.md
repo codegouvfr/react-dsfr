@@ -12,14 +12,10 @@ First of all you'll have to remove all usage of `<ThemeProvider />` and `createT
 
 ```tsx
 import { 
-    createMuiDsfrThemeProvider, 
-    noAugmentation 
+    createMuiDsfrThemeProvider
 } from "@codegouvfr/react-dsfr/mui";
 
-const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({
-    // If and only if you have a type error here, unflold the following section
-    "augmentMuiTheme": noAugmentation
-});
+const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
 
 function App() {
 
