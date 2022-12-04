@@ -1,8 +1,10 @@
 # 🧩 Components
 
-The components are documented indivudually on a separate website (Storybook).
+The components are documented indivudually on a separate website.
 
 {% embed url="https://react-dsfr-components.etalab.studio" %}
+Storybook website
+{% endembed %}
 
 ### The `classes` property
 
