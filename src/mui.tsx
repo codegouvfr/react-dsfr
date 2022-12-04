@@ -19,6 +19,8 @@ import { id } from "tsafe/id";
 function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     const { isDark } = params;
 
+    const { options, decisions } = getColors(isDark);
+
     const muiTheme = createTheme({
         "shape": {
             "borderRadius": 0
@@ -27,82 +29,63 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
             "unit": breakpointValuesUnit,
             "values": breakpointValues
         },
-        "palette": (() => {
-            const { options } = getColors(isDark);
-
-            return {
-                "mode": isDark ? "dark" : "light",
-                "primary": {
-                    "main": options.blueFrance.sun113_625.default,
-                    "light": options.blueFrance.sun113_625.active,
-                    "dark": options.blueFrance.sun113_625.hover,
-                    "contrastText": options.blueFrance._975sun113.default
-                },
-                "secondary": {
-                    "main": options.blueFrance._950_100.default,
-                    "light": options.blueFrance._950_100.active,
-                    "dark": options.blueFrance._950_100.hover,
-                    "contrastText": options.blueFrance.sun113_625.default
-                    /* 
-                     "main": options.blueFrance._850_200.default,
-                    "light": options.blueFrance._850_200.active,
-                    "dark": options.blueFrance._850_200.hover,
-                    "contrastText": options.blueFrance.sun113_625.default,
-                    */
-                },
-
-                "error": {
-                    "light": options.error._425_625.active,
-                    "main": options.error._425_625.default,
-                    "dark": options.error._425_625.hover,
-                    "contrastText": options.grey._1000_50.default
-                },
-                "warning": {
-                    "light": options.warning._425_625.default,
-                    "main": options.warning._425_625.default,
-                    "dark": options.warning._425_625.hover,
-                    "contrastText": options.grey._1000_50.default
-                },
-                "info": {
-                    "light": options.info._425_625.active,
-                    "main": options.info._425_625.default,
-                    "dark": options.info._425_625.hover,
-                    "contrastText": options.grey._1000_50.default
-                },
-                "success": {
-                    "light": options.success._425_625.active,
-                    "main": options.success._425_625.default,
-                    "dark": options.success._425_625.hover,
-                    "contrastText": options.grey._1000_50.default
-                },
-                "text": {
-                    "primary": options.grey._50_1000.default,
-                    "secondary": options.grey._200_850.default,
-                    "disabled": options.grey._625_425.default,
-                    "hint": options.grey._425_625.default
-                },
-                "divider": options.grey._900_175.default,
-                "action": {
-                    "default": options.grey._200_850.default,
-                    "background": options.blueFrance._925_125.default,
-                    "active": options.grey._200_850.default,
-                    "hover": options.grey._975_100.default,
-                    "selected": options.blueFrance._925_125.active,
-                    "disabled": options.grey._625_425.default,
-                    "disabledBackground": options.grey._925_125.default,
-                    "focus": options.blueFrance.sun113_625.active
-                },
-
-                "background": {
-                    "default": options.grey._1000_50.default,
-                    "paper": options.grey._1000_100.default,
-                    "paperHover": options.grey._975_75.hover
-                },
-                "getContrastText": () => {
-                    return "cyan";
-                }
-            } as const;
-        })(),
+        "palette": {
+            "mode": isDark ? "dark" : "light",
+            "primary": {
+                "main": options.blueFrance.sun113_625.default,
+                "light": options.blueFrance.sun113_625.active,
+                "dark": options.blueFrance.sun113_625.hover,
+                "contrastText": options.blueFrance._975sun113.default
+            },
+            "secondary": {
+                "main": options.blueFrance._950_100.default,
+                "light": options.blueFrance._950_100.active,
+                "dark": options.blueFrance._950_100.hover,
+                "contrastText": options.blueFrance.sun113_625.default
+            },
+            "error": {
+                "light": options.error._425_625.active,
+                "main": options.error._425_625.default,
+                "dark": options.error._425_625.hover,
+                "contrastText": options.grey._1000_50.default
+            },
+            "warning": {
+                "light": options.warning._425_625.default,
+                "main": options.warning._425_625.default,
+                "dark": options.warning._425_625.hover,
+                "contrastText": options.grey._1000_50.default
+            },
+            "info": {
+                "light": options.info._425_625.active,
+                "main": options.info._425_625.default,
+                "dark": options.info._425_625.hover,
+                "contrastText": options.grey._1000_50.default
+            },
+            "success": {
+                "light": options.success._425_625.active,
+                "main": options.success._425_625.default,
+                "dark": options.success._425_625.hover,
+                "contrastText": options.grey._1000_50.default
+            },
+            "text": {
+                "primary": options.grey._50_1000.default,
+                "secondary": options.grey._200_850.default,
+                "disabled": options.grey._625_425.default
+            },
+            "divider": options.grey._900_175.default,
+            "action": {
+                "active": options.grey._200_850.default,
+                "hover": options.grey._975_100.default,
+                "selected": options.blueFrance._925_125.active,
+                "disabled": options.grey._625_425.default,
+                "disabledBackground": options.grey._925_125.default,
+                "focus": options.blueFrance.sun113_625.active
+            },
+            "background": {
+                "default": options.grey._1000_50.default,
+                "paper": options.grey._1000_100.default
+            }
+        } as const,
         "typography": (() => {
             const getBySelector = (selector: typeof typography[number]["selector"]) => {
                 const variant = typography.find(variant => variant.selector === selector);
@@ -196,7 +179,40 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                         "fill": getColors(true).decisions.text.title.grey.default
                     }
                 }
-            }
+            },
+            ...(() => {
+                const nonTypedMuiComponents = {
+                    "MuiDataGrid": {
+                        "styleOverrides": {
+                            "columnHeaders": {
+                                "backgroundColor": decisions.background.contrast.grey.default,
+                                "borderColor": decisions.border.plain.grey.default,
+                                "borderPosition": "bottom",
+                                "borderWidth": 2
+                            },
+                            "row": {
+                                "&:nth-child(2n)": {
+                                    "backgroundColor": decisions.background.contrast.grey.default,
+                                    "&:hover": {
+                                        "backgroundColor": decisions.background.contrast.grey.hover
+                                    }
+                                },
+                                "&:nth-child(2n+1)": {
+                                    "backgroundColor": decisions.background.alt.grey.default,
+                                    "&:hover": {
+                                        "backgroundColor": decisions.background.alt.grey.hover
+                                    }
+                                }
+                            },
+                            "columnSeparator": {
+                                "display": "none"
+                            }
+                        }
+                    }
+                };
+
+                return nonTypedMuiComponents as any as {};
+            })()
         }
     });
 
