@@ -46,12 +46,10 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
 
 This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
-I'm working full time on this project. You can expect rapid development. 🚀
+I'm working full time on this project. You can expect rapid development.
 
 <p align="center">
-  <a href="https://react-dsfr.etalab.studio/">Get started</a>
-  -
-  <a href="https://stackblitz.com/edit/nextjs-ghkio2?file=pages/index.tsx">Playground</a>
+  <a href="https://react-dsfr.etalab.studio/">Get started 🚀 </a>
 </p>
 
 # Development
