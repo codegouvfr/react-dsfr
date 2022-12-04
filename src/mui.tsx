@@ -218,8 +218,8 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
     return muiTheme;
 }
 
-export function createMuiDsfrThemeProvider(params: {
-    augmentMuiTheme?: (params: {
+export function createMuiDsfrThemeProvider(params?: {
+    augmentMuiTheme: (params: {
         /** WARNING: The types is lying here.
          * It's a Theme as defined in import type { Theme } from "@mui/material/styles";
          * That is to say before augmentation.
@@ -228,7 +228,7 @@ export function createMuiDsfrThemeProvider(params: {
         frColorTheme: ColorTheme;
     }) => MuiTheme;
 }) {
-    const { augmentMuiTheme = ({ nonAugmentedMuiTheme }) => nonAugmentedMuiTheme } = params;
+    const { augmentMuiTheme } = params ?? {};
 
     type Props = {
         children: ReactNode;
@@ -240,14 +240,16 @@ export function createMuiDsfrThemeProvider(params: {
 
         const { isDark } = useIsDark();
 
-        const theme = useMemo(
-            () =>
-                augmentMuiTheme({
-                    "frColorTheme": getColors(isDark),
-                    "nonAugmentedMuiTheme": createMuiDsfrTheme({ isDark })
-                }),
-            [isDark]
-        );
+        const theme = useMemo(() => {
+            const nonAugmentedMuiTheme = createMuiDsfrTheme({ isDark });
+
+            return augmentMuiTheme === undefined
+                ? nonAugmentedMuiTheme
+                : augmentMuiTheme({
+                      "frColorTheme": getColors(isDark),
+                      nonAugmentedMuiTheme
+                  });
+        }, [isDark]);
 
         return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
     }
