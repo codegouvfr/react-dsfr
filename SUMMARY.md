@@ -2,7 +2,7 @@
 
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with routing libs](routing.md)
-* [🍧 Class names type safety](fr-utils/cx.md)
+* [🍧 Class names type safety](cx.md)
 * [🧩 Components](components.md)
 * [☑ Icons](icons.md)
 * [💅 CSS in JS](css-in-js.md)

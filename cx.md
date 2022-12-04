@@ -2,7 +2,7 @@
 
 It's like [clsx](https://www.npmjs.com/package/clsx) but you can only pass it classes that are from the dsfr. &#x20;
 
-<figure><img src="../.gitbook/assets/frcx.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/frcx.gif" alt=""><figcaption></figcaption></figure>
 
 You can't apply your custom classes using fr.cx(), you'll get type error, but you can combinate a regular `cx()` or `clsx()` function and `fr.cx()`. Example: &#x20;
 
