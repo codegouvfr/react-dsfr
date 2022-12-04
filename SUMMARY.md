@@ -2,7 +2,6 @@
 
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with routing libs](routing.md)
-* [🦺 Class names type safety](cx.md)
 * [🧩 Components](components.md)
 * [Class names type safety](class-names-type-safety.md)
 * [☑ Icons](icons.md)
