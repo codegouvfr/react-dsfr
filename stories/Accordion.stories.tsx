@@ -15,9 +15,9 @@ _NOTE: In controlled mode there is no animation transition when expanding or col
 
 \`\`\`tsx
 function ControlledAccordion() {
-
+    const [expanded,setExpanded] = useState(true)
     return (
-        <Accordion label="Name of the Accordion" content="Content of the Accordion"/>
+        <Accordion label="Name of the Accordion" content="Content of the Accordion" onChange={(e,value) => setExpanded(!value)} expanded={expanded}/>
     );
 
 }
@@ -29,5 +29,6 @@ export default meta;
 
 export const Default = getStory({
     "label": "Name of the Accordion",
-    "content": "Content of the Accordion"
+    "content": "Content of the Accordion",
+    "defaultExpanded": false
 });
