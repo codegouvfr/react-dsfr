@@ -1,10 +1,132 @@
 ---
-description: >-
-  react-dsfr enables you to use CSS in JS solution like styled-component emotion
-  or TSS.
+description: Compatibility with solutions like styled-components, emotion and TSS.
 ---
 
 # 💅 CSS in JS
+
+At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular it's colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/getColorOptions.ts) and [decision](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/getColorDecisions.ts), the [spacing](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/spacing.ts) stystem and  the [breakpoints](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/breakpoints.ts) values. &#x20;
+
+This enables, to write DSFR compliant CSS in JS code since we are able to expose function that are the equivalent of the DSFR utility classes. &#x20;
+
+{% tabs %}
+{% tab title="TSS" %}
+{% embed url="https://tss-react.dev" %}
+
+```bash
+yarn add tss-react @emotion/react
+```
+
+```tsx
+import { makeStyles } from "tss-react/dsfr";
+import { fr } from "@codegouvfr/react-dsfr";
+
+export type Props = {
+    className?: string;
+};
+
+export const MyComponent =(props: Props) => {
+
+    const { className } = props;
+
+    const { classes, cx } = useStyles();
+
+    return (
+	<div className={cx(classes.root, className)}>
+	    <span className={cx(fr.cx("fr-p-1v"), classes.innerText)} >Hello World</span>
+	</div>
+    );
+
+};
+
+MyComponent.displayName = "MyComponent";
+
+const useStyles = makeStyles({ "name": MyComponent.displayName })(colors => ({
+    "root": {
+        "padding": fr.spacing("10v"),
+	"backgroundColor": colors.decisions.background.alt.blueFrance.active,
+	[fr.breakpoints.up("md")]: {
+	    "backgroundColor": colors.decisions.background.alt.blueCumulus.active
+	}
+    },
+    "innerText": {
+	...fr.spacing("margin", { "topBottom": "3v" })
+    }
+});
+```
+
+{% hint style="info" %}
+Avantages of tss-react over others CSS in JS solutions
+
+* It features a native integration with react-dsfr, I'm the author of TSS so I can[ export from TSS an helper](https://github.com/garronej/tss-react/blob/main/src/dsfr.ts) dedicated to this lib.
+* I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Beside, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).   &#x20;
+{% endhint %}
+{% endtab %}
+
+{% tab title="styled" %}
+{% embed url="https://styled-components.com/" %}
+
+{% hint style="info" %}
+[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise.&#x20;
+{% endhint %}
+
+{% code title="index.tsx" %}
+```tsx
+import { ThemeProvider } from '@emotion/react'
+import { useColors } from "@codegouvfr/react-dsfr";
+
+function Root(){
+
+    const colors = useColors();
+
+    return (
+        <ThemeProvider theme={colors}>
+            <App />
+        </ThemeProvider>
+    );
+
+}
+
+```
+{% endcode %}
+
+```tsx
+import styled from '@emotion/styled'
+import { fr } from "@codegouvfr/react-dsfr";
+
+export type Props = {
+    className?: string;
+};
+
+export function MyComponentNotStyled(props: Props){
+
+    const { className } = props;
+
+    return (
+	<div className={className}>
+	    <span className={fr.cx("fr-p-1v")}>Hello World</span>
+	</div>
+    );
+
+}
+
+export const MyComponent = MyComponentNotStyled`
+  padding: ${fr.spacing("10v")};
+  background-color: ${({ theme })=> theme.decisions.background.alt.blueFrance.active};
+  ${fr.breakpoints.up("md")}: {
+    background-color: ${({ theme })=> theme.decisions.background.alt.beigeGrisGalet.active};
+  }
+  & > span {
+    margin-top: ${fr.spacing("3v")};
+    margin-bottom: ${fr.spacing("3v")};
+  }
+`;
+
+MyComponent.displayName = "MyComponent";
+```
+{% endtab %}
+{% endtabs %}
+
+Now you&#x20;
 
 ```bash
 yarn add tss-react @emotion/react
