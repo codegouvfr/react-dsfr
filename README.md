@@ -49,7 +49,7 @@ This module is a product of [Etalab's Free and open source software pole](https:
 I'm working full time on this project. You can expect rapid development.
 
 <p align="center">
-  <a href="https://react-dsfr.etalab.studio/">Get started 🚀 </a>
+  <a href="https://react-dsfr.etalab.studio/">🚀 Get started 🚀 </a>
 </p>
 
 # Development
