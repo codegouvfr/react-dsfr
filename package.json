@@ -124,6 +124,7 @@
         "./next": "./dist/next.js",
         "./mui": "./dist/mui.js",
         "./Tabs": "./dist/Tabs.js",
+        "./Notice": "./dist/Notice.js",
         "./Header": "./dist/Header.js",
         "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
         "./Alert": "./dist/Alert.js",
