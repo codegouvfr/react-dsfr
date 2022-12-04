@@ -61,7 +61,7 @@ export const Accordion = memo(
 
         const value = expandedProp ? expandedProp : expandedState;
 
-        const handleChange = useConstCallback(
+        const onExtendButtonClick = useConstCallback(
             (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 setExpandedState(!value);
                 if (onExpandedChange) {
@@ -77,7 +77,7 @@ export const Accordion = memo(
                         className={fr.cx("fr-accordion__btn")}
                         aria-expanded={value}
                         aria-controls={`accordion-${id}`}
-                        onClick={handleChange}
+                        onClick={onExtendButtonClick}
                     >
                         {label}
                     </button>
