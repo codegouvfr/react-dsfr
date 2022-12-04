@@ -17,17 +17,24 @@ export namespace AccordionProps {
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;
         content: NonNullable<ReactNode>;
-        defaultExpanded?: boolean;
     };
 
     export type Uncontrolled = Common & {
+        defaultExpanded?: boolean;
         expanded?: undefined;
-        onChange?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, expanded: boolean) => void;
+        onExpandedChange?: (
+            expanded: boolean,
+            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        ) => void;
     };
 
     export type Controlled = Common & {
+        defaultExpanded?: undefined;
         expanded: boolean;
-        onChange: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, expanded: boolean) => void;
+        onExpandedChange: (
+            expanded: boolean,
+            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        ) => void;
     };
 }
 
@@ -42,7 +49,7 @@ export const Accordion = memo(
             content,
             expanded: expandedProp,
             defaultExpanded = false,
-            onChange,
+            onExpandedChange,
             ...rest
         } = props;
 
@@ -57,8 +64,8 @@ export const Accordion = memo(
         const handleChange = useConstCallback(
             (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 setExpandedState(!value);
-                if (onChange) {
-                    onChange(event, !value);
+                if (onExpandedChange) {
+                    onExpandedChange(!value, event);
                 }
             }
         );

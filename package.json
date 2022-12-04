@@ -127,7 +127,6 @@
         "./Header": "./dist/Header.js",
         "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
         "./Alert": "./dist/Alert.js",
-        "./AccordionGroup": "./dist/AccordionGroup.js",
         "./Accordion": "./dist/Accordion.js"
     }
 }

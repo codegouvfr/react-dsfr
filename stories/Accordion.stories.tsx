@@ -1,23 +1,34 @@
 import { Accordion } from "../dist/Accordion";
-import { getStoryFactory } from "./getStory";
-//import { sectionName } from "./sectionName";
+import { getStoryFactory, logCallbacks } from "./getStory";
+import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory({
-    "sectionName": "wip",
+    "sectionName": sectionName,
     "wrappedComponent": { Accordion },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Accordion.tsx)  
 
-## Controlled 
+## Accordion group 
+
+If you want to use a group of accordion, you juste have to wrap your acordions in a div with a class \`fr-accordions-group\` as bellow :
+
+\`\`\`tsx
+<div className={fr.cx("fr-accordions-group")}>
+    <Accordion label="Name of the Accordion 1" content="Content of the Accordion 1" />
+    <Accordion label="Name of the Accordion 2" content="Content of the Accordion 2" />
+</div>
+\`\`\`
+
+## Controlled
 
 In this mode you are in charge of the behavior of the Accordion.  
 _NOTE: In controlled mode there is no animation transition when expanding or colapsing the accordion._
 
 \`\`\`tsx
 function ControlledAccordion() {
-    const [expanded,setExpanded] = useState(true)
+    const [expanded,setExpanded] = useState(false)
     return (
-        <Accordion label="Name of the Accordion" content="Content of the Accordion" onChange={(e,value) => setExpanded(!value)} expanded={expanded}/>
+        <Accordion label="Name of the Accordion" content="Content of the Accordion" onChange={(value,) => setExpanded(!value)} expanded={expanded}/>
     );
 
 }
@@ -30,5 +41,6 @@ export default meta;
 export const Default = getStory({
     "label": "Name of the Accordion",
     "content": "Content of the Accordion",
-    "defaultExpanded": false
+    "defaultExpanded": false,
+    ...logCallbacks(["onExpandedChange"])
 });
