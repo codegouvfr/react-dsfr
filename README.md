@@ -264,8 +264,6 @@ If you are in an SSR setup and want to avoit white flashes on reload let's [get 
 {% endtab %}
 {% endtabs %}
 
-
-
 ### Avoiding or flash of unstyled text (FOUT) &#x20;
 
 {% hint style="danger" %}
@@ -310,7 +308,6 @@ Add the following code in the `<head />`&#x20;
      dsfrDocumentApi
  } = createNextDsfrIntegrationApi({
      defaultColorScheme: "system",
-     doPersistDarkModePreferenceWithCookie: true
 <strong>     preloadFonts: [
 </strong><strong>  	//"Marianne-Light",
 </strong><strong>        //"Marianne-Light_Italic",
