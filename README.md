@@ -155,7 +155,7 @@ import { dsfrDocumentApi } from "./_app";
 
 const { 
   getColorSchemeHtmlAttributes, 
-  augmentDocumentByReadingColorSchemeFromCookie 
+  augmentDocumentForDsfr 
 } = dsfrDocumentApi;
 
 export default function Document(props: DocumentProps) {
@@ -170,19 +170,11 @@ export default function Document(props: DocumentProps) {
   );
 }
 
-augmentDocumentByReadingColorSchemeFromCookie(Document);
+augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
-
-
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
-
-#### Getting rid of white flashes
-
-The following instructions are optional and enable to performe SSR in the preferred color scheme of the user. This completely eradicate "white flashes" (on subsequent reloads) but also come at the cost of [opting out from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization).
-
-
 {% endtab %}
 
 {% tab title="Vite" %}
@@ -271,6 +263,8 @@ if( isBrowser ){
 If you are in an SSR setup and want to avoit white flashes on reload let's [get in touch](https://github.com/codegouvfr/dsfr-react).
 {% endtab %}
 {% endtabs %}
+
+
 
 ### Avoiding or flash of unstyled text (FOUT) &#x20;
 

@@ -12,7 +12,7 @@ Every component or react-dsfr accept an optional classes property that enables y
 
 <figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption><p>Availables classes on the Alert components</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption><p>We add a 5v margin-top to the close button</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (8) (1).png" alt=""><figcaption><p>We add a 5v margin-top to the close button</p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Before </p></figcaption></figure>
 

@@ -227,7 +227,7 @@ function MyComponent() {
 }
 ```
 
-<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption><p>You can read the returned value in em just by hovering the spacing function call</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (6) (1).png" alt=""><figcaption><p>You can read the returned value in em just by hovering the spacing function call</p></figcaption></figure>
 
 ### fr.breakpoints
 
