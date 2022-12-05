@@ -28,8 +28,7 @@ const {
         //"Marianne-Bold_Italic",
         //"Spectral-Regular",
         //"Spectral-ExtraBold"
-    ],
-    "doPersistDarkModePreferenceWithCookie": true
+    ]
 });
 
 const { augmentDocumentWithEmotionCache, withAppEmotionCache } = createEmotionSsrAdvancedApproach({

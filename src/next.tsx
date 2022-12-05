@@ -4,7 +4,14 @@ import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
-import { startDsfrReact, notifyEffect } from "./lib/start";
+import { startReactDsfrNext } from "./lib/start";
+import {
+    getClientSideIsDark,
+    rootColorSchemeStyleTagId,
+    SsrIsDarkProvider,
+    data_fr_scheme,
+    data_fr_theme
+} from "./lib/darkMode";
 import type { Params as StartDsfrReactParams } from "./lib/start";
 import { isBrowser } from "./lib/tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
@@ -22,17 +29,11 @@ import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
-import {
-    data_fr_scheme,
-    data_fr_theme,
-    rootColorSchemeStyleTagId,
-    isDarkContext,
-    refDoPersistDarkModePreferenceWithCookie
-} from "./lib/darkMode";
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import { setLangToUseIfProviderNotUsed } from "./lib/i18n";
+import { getColors } from "./lib/colors";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -49,7 +50,7 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = Params.WithDocument | Params.WithoutDocument;
+export type Params = Params.WithDarkModeCookie | Params.WithoutDarkModeCookie;
 export namespace Params {
     export type Common = StartDsfrReactParams & {
         /** If not provided no fonts are preloaded.
@@ -60,16 +61,16 @@ export namespace Params {
         doPersistDarkModePreferenceWithCookie?: boolean;
     };
 
-    export type WithDocument = Common & {
+    export type WithDarkModeCookie = Common & {
         doPersistDarkModePreferenceWithCookie: true;
     };
 
-    export type WithoutDocument = Common & {
+    export type WithoutDarkModeCookie = Common & {
         doPersistDarkModePreferenceWithCookie?: false;
     };
 }
 
-function readColorSchemeInCookie(cookie: string) {
+function readIsDarkInCookie(cookie: string) {
     const parsedCookies = Object.fromEntries(
         cookie
             .split(/; */)
@@ -81,17 +82,14 @@ function readColorSchemeInCookie(cookie: string) {
         return undefined;
     }
 
-    const colorScheme = parsedCookies[data_fr_theme];
-
-    return (() => {
-        switch (colorScheme) {
-            case "light":
-            case "dark":
-                return colorScheme;
-            default:
-                return undefined;
-        }
-    })();
+    switch (parsedCookies[data_fr_theme]) {
+        case "light":
+            return false;
+        case "dark":
+            return true;
+        default:
+            return undefined;
+    }
 }
 
 export type NextDsfrIntegrationApi = {
@@ -110,68 +108,52 @@ export type NextDsfrIntegrationApi = {
     };
 };
 
-export function createNextDsfrIntegrationApi(params: Params.WithDocument): NextDsfrIntegrationApi;
-export function createNextDsfrIntegrationApi(
-    params: Params.WithoutDocument
-): Omit<NextDsfrIntegrationApi, "dsfrDocumentApi">;
 export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegrationApi {
     const {
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
-        langIfNoProvider = "fr",
         ...startDsfrReactParams
     } = params;
 
-    if (doPersistDarkModePreferenceWithCookie) {
-        refDoPersistDarkModePreferenceWithCookie.current = true;
-    }
+    let isAfterFirstEffect = false;
+    const actions: (() => void)[] = [];
 
-    if (isBrowser) {
-        startDsfrReact(startDsfrReactParams);
-    }
+    {
+        startDsfrReactParams.langIfNoProvider ??= "fr";
 
-    if (langIfNoProvider !== undefined) {
-        setLangToUseIfProviderNotUsed(langIfNoProvider);
-    }
-
-    const colorSchemeKey = "dsfrColorScheme";
-
-    const colorSchemeFromHtmlAttribute = (() => {
-        if (!isBrowser) {
-            return undefined;
+        if (isBrowser) {
+            startReactDsfrNext(startDsfrReactParams, {
+                doPersistDarkModePreferenceWithCookie,
+                "registerEffectAction": action => {
+                    if (isAfterFirstEffect) {
+                        action();
+                    } else {
+                        actions.push(action);
+                    }
+                }
+            });
+        } else {
+            setLangToUseIfProviderNotUsed(startDsfrReactParams.langIfNoProvider);
         }
+    }
 
-        const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
-
-        if (colorSchemeFromHtmlAttribute === null) {
-            return undefined;
-        }
-
-        return colorSchemeFromHtmlAttribute as ColorScheme;
-    })();
+    const isDarkPropKey = "dsfrIsDark";
 
     function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
         App: AppComponent
     ): AppComponent {
         function AppWithDsfr({
-            [colorSchemeKey]: colorScheme,
+            [isDarkPropKey]: isDark,
             ...props
-        }: AppProps & Record<typeof colorSchemeKey, ColorScheme | undefined>) {
-            if (colorScheme === undefined) {
-                const colorSchemeExplicitlyProvidedAsParameter =
-                    startDsfrReactParams.defaultColorScheme === "system"
-                        ? undefined
-                        : startDsfrReactParams.defaultColorScheme;
-
-                colorScheme = isBrowser
-                    ? colorSchemeFromHtmlAttribute ??
-                      colorSchemeExplicitlyProvidedAsParameter ??
-                      "light"
-                    : colorSchemeExplicitlyProvidedAsParameter ?? "light";
+        }: AppProps & Record<typeof isDarkPropKey, boolean | undefined>) {
+            if (isDark === undefined) {
+                //NOTE: No cookie and default "system" or client side
+                isDark = isBrowser ? getClientSideIsDark() : false;
             }
 
             useEffect(() => {
-                notifyEffect();
+                isAfterFirstEffect = true;
+                actions.forEach(action => action());
             }, []);
 
             return (
@@ -202,25 +184,20 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             href={faviconWebmanifestUrl}
                             crossOrigin="use-credentials"
                         />
-                        <style
-                            id={rootColorSchemeStyleTagId}
-                        >{`:root { color-scheme: ${colorScheme}; }`}</style>
+                        <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
+                            isDark ? "dark" : "light"
+                        }; }`}</style>
+                        <meta
+                            name="theme-color"
+                            content={getColors(isDark).decisions.background.default.grey.default}
+                        ></meta>
                     </Head>
                     {isBrowser ? (
                         <App {...(props as any)} />
                     ) : (
-                        <isDarkContext.Provider
-                            value={(() => {
-                                switch (colorScheme) {
-                                    case "dark":
-                                        return true;
-                                    case "light":
-                                        return false;
-                                }
-                            })()}
-                        >
+                        <SsrIsDarkProvider value={isDark}>
                             <App {...(props as any)} />
-                        </isDarkContext.Provider>
+                        </SsrIsDarkProvider>
                     )}
                 </>
             );
@@ -235,29 +212,28 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             (AppWithDsfr as any).getInitialProps = async (appContext: AppContext) => {
                 const initialProps = await super_getInitialProps(appContext);
 
-                let colorScheme: ColorScheme | undefined = undefined;
+                let isDark: boolean | undefined = undefined;
 
                 if (!isBrowser) {
-                    colorScheme =
+                    isDark =
                         (() => {
                             const cookie = appContext.ctx.req?.headers.cookie;
 
-                            return cookie === undefined
-                                ? undefined
-                                : readColorSchemeInCookie(cookie);
+                            return cookie === undefined ? undefined : readIsDarkInCookie(cookie);
                         })() ??
                         (() => {
                             switch (startDsfrReactParams.defaultColorScheme) {
                                 case "dark":
+                                    return true;
                                 case "light":
-                                    return startDsfrReactParams.defaultColorScheme;
+                                    return false;
                                 case "system":
                                     return undefined;
                             }
                         })();
                 }
 
-                return { ...initialProps, colorScheme };
+                return { ...initialProps, [isDarkPropKey]: isDark };
             };
         }
 
@@ -274,22 +250,25 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             DefaultDocument.getInitialProps.bind(DefaultDocument);
 
         (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
-            const { colorScheme } = (() => {
-                const cookie = documentContext.req?.headers.cookie;
+            const { isDark } = (() => {
+                const cookie = !readIsDarkInCookie
+                    ? undefined
+                    : documentContext.req?.headers.cookie;
 
-                const colorScheme =
-                    (cookie === undefined ? undefined : readColorSchemeInCookie(cookie)) ??
+                const isDark =
+                    (cookie === undefined ? undefined : readIsDarkInCookie(cookie)) ??
                     (() => {
                         switch (startDsfrReactParams.defaultColorScheme) {
                             case "light":
+                                return false;
                             case "dark":
-                                return startDsfrReactParams.defaultColorScheme;
+                                return true;
                             case "system":
                                 return undefined;
                         }
                     })();
 
-                return { colorScheme };
+                return { isDark };
             })();
 
             {
@@ -302,9 +281,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             const EnhancedApp = enhanceApp?.(App) ?? App;
 
                             return function EnhanceApp(props) {
-                                return (
-                                    <EnhancedApp {...{ ...props, [colorSchemeKey]: colorScheme }} />
-                                );
+                                return <EnhancedApp {...{ ...props, [isDarkPropKey]: isDark }} />;
                             };
                         }
                     });
@@ -312,19 +289,21 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
 
             const initialProps = await super_getInitialProps(documentContext);
 
-            return { ...initialProps, [colorSchemeKey]: colorScheme };
+            return { ...initialProps, [isDarkPropKey]: isDark };
         };
     }
 
     function getColorSchemeHtmlAttributes(
         props: DocumentProps
     ): Record<never, unknown> | Record<typeof data_fr_scheme | typeof data_fr_theme, ColorScheme> {
-        const { [colorSchemeKey]: colorScheme } = props as DocumentProps &
-            Record<typeof colorSchemeKey, ColorScheme | undefined>;
+        const { [isDarkPropKey]: isDark } = props as DocumentProps &
+            Record<typeof isDarkPropKey, boolean | undefined>;
 
-        if (colorScheme === undefined) {
+        if (isDark === undefined) {
             return {};
         }
+
+        const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
         return {
             [data_fr_scheme]: colorScheme,

@@ -1,24 +1,33 @@
-import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
-import { createContext, useContext } from "react";
-import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-import { assert } from "tsafe/assert";
 import { isBrowser } from "./tools/isBrowser";
+import { assert } from "tsafe/assert";
+import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
+import { useConstCallback } from "./tools/powerhooks/useConstCallback";
+import { createContext, useContext } from "react";
+import { memoize } from "./tools/memoize";
+import { getColors } from "./colors";
 
 export type ColorScheme = "light" | "dark";
 
 export const data_fr_theme = "data-fr-theme";
 export const data_fr_scheme = "data-fr-scheme";
-export const rootColorSchemeStyleTagId = "root-color-scheme";
-//export const $colorScheme = createStatefulObservable<ColorScheme>(() => "light");
-export const $isDark = createStatefulObservable(() => false);
+export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
+
+const $clientSideIsDark = createStatefulObservable<boolean>(() => {
+    throw new Error("not initialized yet");
+});
+
+export const getClientSideIsDark = memoize(() => $clientSideIsDark.current);
 
 type UseIsDark = () => {
     isDark: boolean;
     setIsDark: (isDark: boolean | "system") => void;
 };
 
+const $isAfterFirstEffect = createStatefulObservable(() => false);
+
 const useIsDarkClientSide: UseIsDark = () => {
-    useRerenderOnChange($isDark);
+    useRerenderOnChange($clientSideIsDark);
+    useRerenderOnChange($isAfterFirstEffect);
 
     const setIsDark = useConstCallback((isDark: boolean | "system") =>
         document.documentElement.setAttribute(
@@ -36,19 +45,26 @@ const useIsDarkClientSide: UseIsDark = () => {
         )
     );
 
-    return { "isDark": $isDark.current, setIsDark };
+    return {
+        "isDark": $isAfterFirstEffect.current
+            ? $clientSideIsDark.current
+            : ssrWasPerformedWithIsDark,
+        setIsDark
+    };
 };
 
-export const isDarkContext = createContext<boolean | undefined>(undefined);
+const ssrIsDarkContext = createContext<boolean | undefined>(undefined);
+
+export const { Provider: SsrIsDarkProvider } = ssrIsDarkContext;
 
 const useIsDarkServerSide: UseIsDark = () => {
     const setIsDark = useConstCallback(() => {
         /* nothing */
     });
 
-    const isDark = useContext(isDarkContext);
+    const isDark = useContext(ssrIsDarkContext);
 
-    assert(isDark !== undefined, "color scheme context should be provided");
+    assert(isDark !== undefined, "Not within provider");
 
     return {
         isDark,
@@ -58,11 +74,14 @@ const useIsDarkServerSide: UseIsDark = () => {
 
 export const useIsDark = isBrowser ? useIsDarkClientSide : useIsDarkServerSide;
 
-function getCurrentIsDarkFromHtmlAttribute(): boolean {
+let ssrWasPerformedWithIsDark: boolean;
+
+function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
     const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
 
     switch (colorSchemeFromHtmlAttribute) {
         case null:
+            return undefined;
         case "light":
             return false;
         case "dark":
@@ -72,22 +91,106 @@ function getCurrentIsDarkFromHtmlAttribute(): boolean {
     assert(false);
 }
 
-export const refDoPersistDarkModePreferenceWithCookie = { "current": false };
+export function startClientSideIsDarkLogic(params: {
+    registerEffectAction: (action: () => void) => void;
+    doPersistDarkModePreferenceWithCookie: boolean;
+    colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
+}) {
+    const {
+        doPersistDarkModePreferenceWithCookie,
+        registerEffectAction,
+        colorSchemeExplicitlyProvidedAsParameter
+    } = params;
 
-export function startObservingColorSchemeHtmlAttribute() {
-    $isDark.current = getCurrentIsDarkFromHtmlAttribute();
+    const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
+        clientSideIsDark: boolean;
+        ssrWasPerformedWithIsDark: boolean;
+    } => {
+        const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
 
-    new MutationObserver(() => ($isDark.current = getCurrentIsDarkFromHtmlAttribute())).observe(
-        document.documentElement,
-        {
-            "attributes": true,
-            "attributeFilter": [data_fr_theme]
+        if (isDarkFromHtmlAttribute !== undefined) {
+            return {
+                "clientSideIsDark": isDarkFromHtmlAttribute,
+                "ssrWasPerformedWithIsDark": isDarkFromHtmlAttribute
+            };
         }
+
+        const isDarkExplicitlyProvidedAsParameter = (() => {
+            if (colorSchemeExplicitlyProvidedAsParameter === "system") {
+                return undefined;
+            }
+
+            switch (colorSchemeExplicitlyProvidedAsParameter as ColorScheme) {
+                case "dark":
+                    return true;
+                case "light":
+                    return false;
+            }
+        })();
+
+        const isDarkFromLocalStorage = (() => {
+            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+
+            if (colorSchemeReadFromLocalStorage === null) {
+                return undefined;
+            }
+
+            if (colorSchemeReadFromLocalStorage === "system") {
+                return undefined;
+            }
+
+            switch (colorSchemeExplicitlyProvidedAsParameter as ColorScheme) {
+                case "dark":
+                    return true;
+                case "light":
+                    return false;
+            }
+        })();
+
+        const isDarkFromOsPreference = (() => {
+            if (!window.matchMedia) {
+                return undefined;
+            }
+
+            return window.matchMedia("(prefers-color-scheme: dark)").matches;
+        })();
+
+        const isDarkFallback = false;
+
+        return {
+            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? isDarkFallback,
+            "clientSideIsDark":
+                isDarkFromLocalStorage ??
+                isDarkExplicitlyProvidedAsParameter ??
+                isDarkFromOsPreference ??
+                isDarkFallback
+        };
+    })();
+
+    ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
+
+    $clientSideIsDark.current = clientSideIsDark;
+
+    registerEffectAction(() => ($isAfterFirstEffect.current = true));
+
+    [data_fr_scheme, data_fr_theme].forEach(attr =>
+        document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
     );
+
+    new MutationObserver(() => {
+        const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
+
+        assert(isDarkFromHtmlAttribute !== undefined);
+
+        $clientSideIsDark.current = isDarkFromHtmlAttribute;
+    }).observe(document.documentElement, {
+        "attributes": true,
+        "attributeFilter": [data_fr_theme]
+    });
 
     {
         const setColorSchemeCookie = (isDark: boolean) => {
-            if (!refDoPersistDarkModePreferenceWithCookie.current) {
+            if (!doPersistDarkModePreferenceWithCookie) {
                 return;
             }
 
@@ -109,39 +212,42 @@ export function startObservingColorSchemeHtmlAttribute() {
             document.cookie = newCookie;
         };
 
-        setColorSchemeCookie($isDark.current);
+        setColorSchemeCookie($clientSideIsDark.current);
 
-        $isDark.subscribe(setColorSchemeCookie);
+        $clientSideIsDark.subscribe(setColorSchemeCookie);
     }
 
-    //TODO:    <meta name="theme-color" content="#000091"><!-- Défini la couleur de thème du navigateur (Safari/Android) -->
-
-    //TODO: Remove once https://github.com/GouvernementFR/dsfr/issues/407 is dealt with
     {
         const setRootColorScheme = (isDark: boolean) => {
-            const colorScheme: ColorScheme = isDark ? "dark" : "light";
+            document.getElementById(rootColorSchemeStyleTagId)?.remove();
 
-            remove_existing_element: {
-                const element = document.getElementById(rootColorSchemeStyleTagId);
-
-                if (element === null) {
-                    break remove_existing_element;
-                }
-
-                element.remove();
-            }
-
-            const element = document.createElement("style");
-
-            element.id = rootColorSchemeStyleTagId;
-
-            element.innerHTML = `:root { color-scheme: ${colorScheme}; }`;
-
-            document.getElementsByTagName("head")[0].appendChild(element);
+            document.head.insertAdjacentHTML(
+                "afterend",
+                `<style id="${rootColorSchemeStyleTagId}">:root { color-scheme: ${
+                    isDark ? "dark" : "light"
+                }; }</style>`
+            );
         };
 
-        setRootColorScheme($isDark.current);
+        setRootColorScheme($clientSideIsDark.current);
 
-        $isDark.subscribe(setRootColorScheme);
+        $clientSideIsDark.subscribe(setRootColorScheme);
+    }
+
+    {
+        const setThemeColor = (isDark: boolean) => {
+            document.querySelector("meta[name=theme-color]")?.remove();
+
+            document.head.insertAdjacentHTML(
+                "afterend",
+                `<meta name="theme-color" content="${
+                    getColors(isDark).decisions.background.default.grey.default
+                }">`
+            );
+        };
+
+        setThemeColor($clientSideIsDark.current);
+
+        $clientSideIsDark.subscribe(setThemeColor);
     }
 }
