@@ -28,11 +28,15 @@ _NOTE: In controlled mode there is no animation transition when expanding or col
 
 \`\`\`tsx
 function ControlledAccordion() {
-    const [expanded,setExpanded] = useState(false)
+    const [ expanded, setExpanded ] = useState(false)
     return (
-        <Accordion label="Name of the Accordion" content="Content of the Accordion" onChange={(value,) => setExpanded(!value)} expanded={expanded}/>
+        <Accordion 
+            label="Name of the Accordion" 
+            content="Content of the Accordion" 
+            onChange={(value,) => setExpanded(!value)} 
+            expanded={expanded}
+        />
     );
-
 }
 \`\`\``,
     "disabledProps": ["lang"]
