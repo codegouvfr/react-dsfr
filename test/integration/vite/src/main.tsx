@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
-import { startDsfrReact, createDsfrLinkProvider, fr } from "@codegouvfr/react-dsfr";
+import { startReactDsfr, createDsfrLinkProvider, fr } from "@codegouvfr/react-dsfr";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link } from "react-router-dom";
 import type { LinkProps as ReactRouterLinkProps } from "react-router-dom";
-startDsfrReact({ "defaultColorScheme": "system" });
+startReactDsfr({ "defaultColorScheme": "system" });
 
 declare module "@codegouvfr/react-dsfr" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
