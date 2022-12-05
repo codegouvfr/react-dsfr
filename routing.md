@@ -2,7 +2,7 @@
 description: Like react-router or Next.js file system based route.
 ---
 
-# 🔀 Integration with Routing libraries
+# 🔀 Integration with routing libs
 
 Depending of the framwork/routing library you are using, links between pages are not handled the same way. &#x20;
 
@@ -16,10 +16,10 @@ Warning: I do not recommend using [react-router](https://reactrouter.com/en/main
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
-import { startDsfrReact, createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
+import { startReactDsfr, createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 <strong>import { Link } from "react-router-dom";
 </strong><strong>import type { LinkProps as ReactRouterLinkProps } from "react-router-dom";
-</strong>startDsfrReact({ "defaultColorScheme": "system" });
+</strong>startReactDsfr({ defaultColorScheme: "system" });
 
 <strong>declare module "@codegouvfr/react-dsfr" {
 </strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -54,10 +54,13 @@ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 </strong><strong>}
 </strong>
 const { 
-    withDsfr
+    withDsfr,
+    dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
     defaultColorScheme: "system"
 });
+
+export { dsfrDocumentApi };
 
 export default withDsfr(DefaultApp);
 </code></pre>
