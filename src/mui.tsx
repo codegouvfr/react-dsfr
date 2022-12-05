@@ -190,20 +190,18 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                                 "borderWidth": 2
                             },
                             "row": {
-                                /*
-                                "&:nth-child(2n)": {
+                                "&:nth-of-type(2n)": {
                                     "backgroundColor": decisions.background.contrast.grey.default,
                                     "&:hover": {
                                         "backgroundColor": decisions.background.contrast.grey.hover
                                     }
                                 },
-                                "&:nth-child(2n+1)": {
+                                "&:nth-of-type(odd)": {
                                     "backgroundColor": decisions.background.alt.grey.default,
                                     "&:hover": {
                                         "backgroundColor": decisions.background.alt.grey.hover
                                     }
                                 }
-                                */
                             },
                             "columnSeparator": {
                                 "display": "none"
