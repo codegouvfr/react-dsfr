@@ -3,13 +3,12 @@ import { assert } from "tsafe";
 import type { Equals } from "tsafe";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
-import "@gouvfr/dsfr/dist/component/accordion/accordion.css";
 import { symToStr } from "tsafe/symToStr";
 import { useConstCallback } from "./lib/tools/powerhooks/useConstCallback";
+import "@gouvfr/dsfr/dist/component/accordion/accordion.css";
 
 export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontrolled;
 
-//TODO Controlled mode (callback onClick, expended etc ...)
 export namespace AccordionProps {
     export type Common = {
         className?: string;
@@ -38,7 +37,7 @@ export namespace AccordionProps {
     };
 }
 
-/** @see <https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon>  */
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-accordion>  */
 export const Accordion = memo(
     forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
         const {
@@ -55,7 +54,7 @@ export const Accordion = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const id = useId();
+        const accordionId = `accordion-${useId()}`;
 
         const [expandedState, setExpandedState] = useState(defaultExpanded);
 
@@ -64,9 +63,7 @@ export const Accordion = memo(
         const onExtendButtonClick = useConstCallback(
             (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 setExpandedState(!value);
-                if (onExpandedChange) {
-                    onExpandedChange(!value, event);
-                }
+                onExpandedChange?.(!value, event);
             }
         );
 
@@ -76,13 +73,13 @@ export const Accordion = memo(
                     <button
                         className={fr.cx("fr-accordion__btn")}
                         aria-expanded={value}
-                        aria-controls={`accordion-${id}`}
+                        aria-controls={accordionId}
                         onClick={onExtendButtonClick}
                     >
                         {label}
                     </button>
                 </HtmlTitleTag>
-                <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={`accordion-${id}`}>
+                <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={accordionId}>
                     {content}
                 </div>
             </section>

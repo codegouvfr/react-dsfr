@@ -3,16 +3,18 @@ import { getStoryFactory, logCallbacks } from "./getStory";
 import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory({
-    "sectionName": sectionName,
+    sectionName,
     "wrappedComponent": { Accordion },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Accordion.tsx)  
 
 ## Accordion group 
 
-If you want to use a group of accordion, you juste have to wrap your acordions in a div with a class \`fr-accordions-group\` as bellow :
+If you want to use a group of accordion, you just have to wrap your accordion in a div with a class \`fr-accordions-group\` as bellow :
 
 \`\`\`tsx
+import { fr } from "@codegouvfr/react-dsfr";
+
 <div className={fr.cx("fr-accordions-group")}>
     <Accordion label="Name of the Accordion 1" content="Content of the Accordion 1" />
     <Accordion label="Name of the Accordion 2" content="Content of the Accordion 2" />
