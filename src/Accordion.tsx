@@ -1,12 +1,13 @@
-import React, { forwardRef, memo, ReactNode, useId } from "react";
+import React, { forwardRef, memo, ReactNode, useId, useState } from "react";
 import { assert } from "tsafe";
 import type { Equals } from "tsafe";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import "@gouvfr/dsfr/dist/component/accordion/accordion.css";
 import { symToStr } from "tsafe/symToStr";
+import { useConstCallback } from "./lib/tools/powerhooks/useConstCallback";
 
-export type AccordionProps = AccordionProps.Controlled;
+export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontrolled;
 
 //TODO Controlled mode (callback onClick, expended etc ...)
 export namespace AccordionProps {
@@ -18,7 +19,23 @@ export namespace AccordionProps {
         content: NonNullable<ReactNode>;
     };
 
-    export type Controlled = Common & {};
+    export type Uncontrolled = Common & {
+        defaultExpanded?: boolean;
+        expanded?: undefined;
+        onExpandedChange?: (
+            expanded: boolean,
+            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        ) => void;
+    };
+
+    export type Controlled = Common & {
+        defaultExpanded?: undefined;
+        expanded: boolean;
+        onExpandedChange: (
+            expanded: boolean,
+            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+        ) => void;
+    };
 }
 
 /** @see <https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon>  */
@@ -30,6 +47,9 @@ export const Accordion = memo(
             label,
             classes = {},
             content,
+            expanded: expandedProp,
+            defaultExpanded = false,
+            onExpandedChange,
             ...rest
         } = props;
 
@@ -37,13 +57,27 @@ export const Accordion = memo(
 
         const id = useId();
 
+        const [expandedState, setExpandedState] = useState(defaultExpanded);
+
+        const value = expandedProp ? expandedProp : expandedState;
+
+        const onExtendButtonClick = useConstCallback(
+            (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                setExpandedState(!value);
+                if (onExpandedChange) {
+                    onExpandedChange(!value, event);
+                }
+            }
+        );
+
         return (
             <section className={cx(fr.cx("fr-accordion"), className)} ref={ref} {...rest}>
                 <HtmlTitleTag className={cx(fr.cx("fr-accordion__title"), classes.title)}>
                     <button
                         className={fr.cx("fr-accordion__btn")}
-                        aria-expanded="true"
+                        aria-expanded={value}
                         aria-controls={`accordion-${id}`}
+                        onClick={onExtendButtonClick}
                     >
                         {label}
                     </button>
