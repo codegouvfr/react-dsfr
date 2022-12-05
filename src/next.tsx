@@ -97,9 +97,7 @@ export type NextDsfrIntegrationApi = {
         App: AppComponent
     ) => AppComponent;
     dsfrDocumentApi: {
-        augmentDocumentByReadingColorSchemeFromCookie: (
-            Document: NextComponentType<any, any, any>
-        ) => void;
+        augmentDocumentForDsfr: (Document: NextComponentType<any, any, any>) => void;
         getColorSchemeHtmlAttributes: (
             props: DocumentProps
         ) =>
@@ -242,9 +240,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
         return AppWithDsfr as any;
     }
 
-    function augmentDocumentByReadingColorSchemeFromCookie(
-        Document: NextComponentType<any, any, any>
-    ): void {
+    function augmentDocumentForDsfr(Document: NextComponentType<any, any, any>): void {
         const super_getInitialProps =
             Document.getInitialProps?.bind(Document) ??
             DefaultDocument.getInitialProps.bind(DefaultDocument);
@@ -314,7 +310,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
     return {
         withDsfr,
         "dsfrDocumentApi": {
-            augmentDocumentByReadingColorSchemeFromCookie,
+            augmentDocumentForDsfr,
             getColorSchemeHtmlAttributes
         }
     };
