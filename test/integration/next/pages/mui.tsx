@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { createMuiDsfrThemeProvider, noAugmentation } from "@codegouvfr/react-dsfr/mui";
+import { createMuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useIsDark } from "@codegouvfr/react-dsfr";
 import TextField from '@mui/material/TextField';
@@ -62,11 +62,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
-
-const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({
-	"augmentMuiTheme": noAugmentation
-});
+const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
 
 const muiDefaultDarkTheme = createTheme({
 	"palette": {
