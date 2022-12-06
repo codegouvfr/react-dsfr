@@ -3,8 +3,12 @@ import type { ReactNode } from "react";
 
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
 
+interface AriaEnabled {
+    [key: `aria-${string}`]: string | boolean;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface LinkProps {
+export interface LinkProps extends AriaEnabled {
     className?: string;
     children?: ReactNode;
 }

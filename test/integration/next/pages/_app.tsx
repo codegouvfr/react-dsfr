@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
@@ -41,38 +42,42 @@ function App({ Component, pageProps }: AppProps) {
 
     const { css } = useStyles();
 
+    const router = useRouter()
+
     return (
         <>
-                <Header
-                    intituléOfficiel="Intitulé officiel"
-                    baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
-                    nomDuSiteSlashService="Nom du site / service"
-                    links={[
+            <Header
+                brandTop={<>INTITULE<br />OFFICIEL</>}
+                serviceTitle="Nom du site / service"
+                homeLinkProps={{ "href": "/" }}
+                mainNavigationProps={{
+                    "items": [
                         {
                             "text": "Home",
-                            "iconId": "fr-icon-home-4-fill",
                             "linkProps": {
                                 "href": "/"
-                            }
+                            },
+                            "isActive": router.asPath === "/"
                         },
                         {
                             "text": "Mui playground",
-                            "iconId": "ri-play-circle-fill",
                             "linkProps": {
                                 "href": "/mui"
-                            }
+                            },
+                            "isActive": router.asPath === "/mui"
                         }
-                    ]}
-                />
-                <div className={css({
-                    "margin": "auto",
-                    "maxWidth": 1000,
-                    ...fr.spacing("padding", {
-                        "topBottom": "10v"
-                    })
-                })}>
-                    <Component {...pageProps} />
-                </div>
+                    ]
+                }}
+            />
+            <div className={css({
+                "margin": "auto",
+                "maxWidth": 1000,
+                ...fr.spacing("padding", {
+                    "topBottom": "10v"
+                })
+            })}>
+                <Component {...pageProps} />
+            </div>
         </>
     );
 }

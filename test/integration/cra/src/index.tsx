@@ -22,42 +22,53 @@ startReactDsfr({
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <RouteProvider>
+            <Root />
+        </RouteProvider>
+    </StrictMode>
+);
+
+function Root() {
+
+    const route = useRoute();
+
+    return (
+        <>
             <Header
-                intituléOfficiel="Intitulé officiel"
-                baselinePrécisionsSurLorganisation="baseline - Précision sur l'organisation"
-                nomDuSiteSlashService="Nom du site / service"
-                links={[
-                    {
-                        "text": "Home",
-                        "iconId": "fr-icon-home-4-fill",
-                        "linkProps": routes.home().link
-                    },
-                    {
-                        "text": "Mui playground",
-                        "iconId": "ri-play-circle-fill",
-                        "linkProps": routes.mui().link
-                    }
-                ]}
+                brandTop={<>INTITULE<br />OFFICIEL</>}
+                serviceTitle="Nom du site / service"
+                homeLinkProps={routes.home().link}
+                mainNavigationProps={{
+                    "items": [
+                        {
+                            "text": "Home",
+                            "linkProps": routes.home().link,
+                            "isActive": route.name === "home"
+                        },
+                        {
+                            "text": "Mui playground",
+                            "linkProps": routes.mui().link,
+                            "isActive": route.name === "mui"
+                        }
+                    ]
+                }}
             />
             <div style={{
                 "margin": "auto",
                 "maxWidth": 1000,
                 ...fr.spacing("padding", { "topBottom": "10v" })
             }}>
-                <Router />
+                {(() => {
+                    switch (route.name) {
+                        case "mui": return <Mui />;
+                        case "home": return <Home />;
+                        case false: return <h1>404</h1>
+                    }
+                })()}
             </div>
-        </RouteProvider>
-    </StrictMode>
-);
+        </>
 
-function Router() {
+    );
 
-    const route = useRoute();
 
-    switch (route.name) {
-        case "mui": return <Mui />;
-        case "home": return <Home />;
-        case false: return <h1>404</h1>
-    }
 
 }

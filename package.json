@@ -123,9 +123,10 @@
         ".": "./dist/lib/index.js",
         "./next": "./dist/next.js",
         "./mui": "./dist/mui.js",
+        "./lib": "./dist/lib/index.js",
         "./Tabs": "./dist/Tabs.js",
         "./Notice": "./dist/Notice.js",
-        "./Header": "./dist/Header.js",
+        "./Header": "./dist/Header/index.js",
         "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"

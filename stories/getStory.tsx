@@ -4,6 +4,12 @@ import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import { useIsDark, DsfrLangProvider } from "../dist/lib";
+import type { HTMLAnchorProps } from "../dist/lib";
+
+declare module "../dist" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface LinkProps extends HTMLAnchorProps {}
+}
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
