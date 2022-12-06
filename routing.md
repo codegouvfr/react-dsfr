@@ -103,7 +103,7 @@ import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 
 declare module "@codegouvfr/react-dsfr" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface LinkProps extends TypeRouteLink { }
+    export interface LinkProps extends HTMLAnchorProps { }
 }
 ```
 {% endcode %}
