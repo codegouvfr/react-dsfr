@@ -1,6 +1,6 @@
 {
     "name": "@codegouvfr/react-dsfr",
-    "version": "0.0.77",
+    "version": "0.0.78",
     "description": "French State Design System React integration library",
     "repository": {
         "type": "git",
@@ -128,6 +128,7 @@
         "./Notice": "./dist/Notice.js",
         "./Header": "./dist/Header/index.js",
         "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
+        "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"
     }
