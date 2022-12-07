@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
 import { breakpointValues, breakpointValuesUnit } from "./lib/generatedFromCss/breakpoints";
-import type { Theme as MuiTheme } from "@mui/material/styles";
+import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { getColors } from "./lib/colors";
 import { useIsDark } from "./lib/darkMode";
@@ -15,12 +15,16 @@ import defaultMuiShadows from "@mui/material/styles/shadows";
 import type { Shadows } from "@mui/material/styles";
 import { id } from "tsafe/id";
 
-function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
+export interface MuiDsfrThemeParams {
+    isDark: boolean;
+}
+
+export function getMuiDsfrThemeOptions(params: MuiDsfrThemeParams): ThemeOptions {
     const { isDark } = params;
 
     const { options, decisions } = getColors(isDark);
 
-    const muiTheme = createTheme({
+    return {
         "shape": {
             "borderRadius": 0
         },
@@ -229,7 +233,13 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                 return nonTypedMuiComponents as any as {};
             })()
         }
-    });
+    };
+}
+
+export function createMuiDsfrTheme(params: MuiDsfrThemeParams, ...args: object[]): MuiTheme {
+    const options = getMuiDsfrThemeOptions(params);
+
+    const muiTheme = createTheme(options, ...args);
 
     return muiTheme;
 }
