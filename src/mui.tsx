@@ -15,11 +15,7 @@ import defaultMuiShadows from "@mui/material/styles/shadows";
 import type { Shadows } from "@mui/material/styles";
 import { id } from "tsafe/id";
 
-export interface MuiDsfrThemeParams {
-    isDark: boolean;
-}
-
-export function getMuiDsfrThemeOptions(params: MuiDsfrThemeParams): ThemeOptions {
+export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOptions {
     const { isDark } = params;
 
     const { options, decisions } = getColors(isDark);
@@ -236,15 +232,23 @@ export function getMuiDsfrThemeOptions(params: MuiDsfrThemeParams): ThemeOptions
     };
 }
 
-export function createMuiDsfrTheme(params: MuiDsfrThemeParams, ...args: object[]): MuiTheme {
-    const options = getMuiDsfrThemeOptions(params);
-
-    const muiTheme = createTheme(options, ...args);
+/**
+ *Generate a theme base on the options received.
+ *
+ * @param params — Dark or light mode.
+ *
+ * @param args — Deep merge the arguments with the about to be returned theme.
+ *
+ * @returns — A complete, ready-to-use mui theme object.
+ */
+export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[]): MuiTheme {
+    const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
 
     return muiTheme;
 }
 
 export function createMuiDsfrThemeProvider(params?: {
+    useIsDark?: () => { isDark: boolean };
     augmentMuiTheme: (params: {
         /** WARNING: The types is lying here.
          * It's a Theme as defined in import type { Theme } from "@mui/material/styles";
@@ -254,7 +258,7 @@ export function createMuiDsfrThemeProvider(params?: {
         frColorTheme: ColorTheme;
     }) => MuiTheme;
 }) {
-    const { augmentMuiTheme } = params ?? {};
+    const { augmentMuiTheme, useIsDark: useIsDark_props = useIsDark } = params ?? {};
 
     type Props = {
         children: ReactNode;
@@ -264,7 +268,7 @@ export function createMuiDsfrThemeProvider(params?: {
     function MuiDsfrThemeProvider(props: Props) {
         const { children } = props;
 
-        const { isDark } = useIsDark();
+        const { isDark } = useIsDark_props();
 
         const theme = useMemo(() => {
             const nonAugmentedMuiTheme = createMuiDsfrTheme({ isDark });
