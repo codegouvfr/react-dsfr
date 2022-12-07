@@ -179,6 +179,14 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     }
                 }
             },
+            "MuiTablePagination": {
+                "styleOverrides": {
+                    "displayedRows": {
+                        //Fixes: https://user-images.githubusercontent.com/6702424/206063347-65e7d13c-3dea-410c-a0e0-51cf214deba0.png
+                        "margin": "unset"
+                    }
+                }
+            },
             ...(() => {
                 const nonTypedMuiComponents = {
                     "MuiDataGrid": {

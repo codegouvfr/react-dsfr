@@ -23,10 +23,6 @@ export function patchCssForMui(params: { rawDsfrCssCode: string }) {
                     if (selector === "[href]") {
                         return selectorNotMui;
                     }
-
-                    if (selector === "p") {
-                        return selectorNotMui;
-                    }
                 }
 
                 if (media === "(hover: hover) and (pointer: fine)") {
