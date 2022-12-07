@@ -19,12 +19,6 @@ export function patchCssForMui(params: { rawDsfrCssCode: string }) {
             (rule.selectors = rule.selectors.map((selector: string) => {
                 const selectorNotMui = `${selector}:not([class^="Mui"])`;
 
-                if (media === "root") {
-                    if (selector === "[href]") {
-                        return selectorNotMui;
-                    }
-                }
-
                 if (media === "(hover: hover) and (pointer: fine)") {
                     if (
                         selector === "button:not(:disabled):hover" ||

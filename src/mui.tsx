@@ -187,6 +187,14 @@ function createMuiDsfrTheme(params: { isDark: boolean }): MuiTheme {
                     }
                 }
             },
+            "MuiTypography": {
+                "styleOverrides": {
+                    "root": {
+                        //Fixes double underline: https://user-images.githubusercontent.com/6702424/206064575-4f036145-ff40-47db-aabd-560f29136e71.png
+                        "backgroundImage": "unset"
+                    }
+                }
+            },
             ...(() => {
                 const nonTypedMuiComponents = {
                     "MuiDataGrid": {
