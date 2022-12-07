@@ -249,7 +249,7 @@ export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[
 
 export function createMuiDsfrThemeProvider(params?: {
     useIsDark?: () => { isDark: boolean };
-    augmentMuiTheme: (params: {
+    augmentMuiTheme?: (params: {
         /** WARNING: The types is lying here.
          * It's a Theme as defined in import type { Theme } from "@mui/material/styles";
          * That is to say before augmentation.
