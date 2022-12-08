@@ -17,7 +17,7 @@ In this mode the \`Tab\` component is in charge for swapping the panel content.
 <Tabs
     tabs={[
         { "label": "Tab 1", "iconId": "fr-icon-add-line", "content": <p>Content of tab1</p> },
-        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p>  },
+        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p> },
         { "label": "Tab 3", "content": <p>Content of tab3</p> }
     ]}
 />
