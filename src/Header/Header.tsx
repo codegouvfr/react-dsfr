@@ -21,7 +21,7 @@ export type HeaderProps = {
     homeLinkProps: LinkProps;
     mainNavigationProps?: MainNavigationProps;
     /** There should be at most three of them */
-    quickAccessLinks?: HeaderProps.QuickAccessLink[];
+    quickAccessItems?: HeaderProps.QuickAccessItem[];
     renderSearchInput?: (
         /**
          * id and name must be forwarded to the <input /> component
@@ -55,9 +55,9 @@ export type HeaderProps = {
 };
 
 export namespace HeaderProps {
-    export type QuickAccessLink = QuickAccessLink.Link | QuickAccessLink.Button;
+    export type QuickAccessItem = QuickAccessItem.Link | QuickAccessItem.Button;
 
-    export namespace QuickAccessLink {
+    export namespace QuickAccessItem {
         export type Common = {
             iconId: FrIconClassName | RiIconClassName;
             text: ReactNode;
@@ -88,7 +88,7 @@ export const Header = memo(
             serviceTagline,
             homeLinkProps,
             mainNavigationProps,
-            quickAccessLinks = [],
+            quickAccessItems = [],
             renderSearchInput,
             classes = {},
             ...rest
@@ -185,12 +185,12 @@ export const Header = memo(
                                 )}
                             </div>
 
-                            {(quickAccessLinks.length > 0 || renderSearchInput !== undefined) && (
+                            {(quickAccessItems.length > 0 || renderSearchInput !== undefined) && (
                                 <div className={fr.cx("fr-header__tools")}>
-                                    {quickAccessLinks.length > 0 && (
+                                    {quickAccessItems.length > 0 && (
                                         <div className={fr.cx("fr-header__tools-links")}>
                                             <ul className={fr.cx("fr-btns-group")}>
-                                                {quickAccessLinks.map(
+                                                {quickAccessItems.map(
                                                     (
                                                         { iconId, text, buttonProps, linkProps },
                                                         i
