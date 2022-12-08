@@ -97,7 +97,9 @@ export const Header = memo(
         assert<Equals<keyof typeof rest, never>>();
 
         const menuButtonId = `button-${useId()}`;
-        const modalId = `modal-${useId()}`;
+        const menuModalId = `modal-${useId()}`;
+        const searchModalId = `modal-${useId()}`;
+        const searchInputId = `search-${useId()}-input`;
 
         const { t } = useTranslation();
 
@@ -145,7 +147,7 @@ export const Header = memo(
                                             <button
                                                 className={fr.cx("fr-btn--menu", "fr-btn")}
                                                 data-fr-opened="false"
-                                                aria-controls={modalId}
+                                                aria-controls={menuModalId}
                                                 aria-haspopup="menu"
                                                 id={menuButtonId}
                                                 title="Menu"
@@ -225,7 +227,7 @@ export const Header = memo(
                                     {renderSearchInput !== undefined && (
                                         <div
                                             className={fr.cx("fr-header__search", "fr-modal")}
-                                            id="modal-474"
+                                            id={searchModalId}
                                         >
                                             <div
                                                 className={fr.cx(
@@ -235,26 +237,25 @@ export const Header = memo(
                                             >
                                                 <button
                                                     className={fr.cx("fr-btn--close", "fr-btn")}
-                                                    aria-controls="modal-474"
+                                                    aria-controls={searchModalId}
                                                     title={t("close")}
                                                 >
                                                     {t("close")}
                                                 </button>
                                                 <div
                                                     className={fr.cx("fr-search-bar")}
-                                                    id="search-473"
                                                     role="search"
                                                 >
                                                     <label
                                                         className={fr.cx("fr-label")}
-                                                        htmlFor="search-473-input"
+                                                        htmlFor={searchInputId}
                                                     >
                                                         {t("search")}
                                                     </label>
                                                     {renderSearchInput({
                                                         "className": fr.cx("fr-input"),
-                                                        "id": "search-473-input",
-                                                        "name": "search-473-input",
+                                                        "id": searchInputId,
+                                                        "name": searchInputId,
                                                         "placeholder": t("search"),
                                                         "type": "search"
                                                     })}
@@ -276,13 +277,13 @@ export const Header = memo(
                 {mainNavigationProps !== undefined && (
                     <div
                         className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
-                        id={modalId}
+                        id={menuModalId}
                         aria-labelledby={menuButtonId}
                     >
                         <div className={fr.cx("fr-container")}>
                             <button
                                 className={fr.cx("fr-btn--close", "fr-btn")}
-                                aria-controls={modalId}
+                                aria-controls={menuModalId}
                                 title={t("close")}
                             >
                                 {t("close")}
