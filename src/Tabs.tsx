@@ -115,6 +115,7 @@ export const Tabs = memo(
                 {selectedTabId === undefined ? (
                     tabs.map(({ content }, tabIndex) => (
                         <div
+                            key={tabIndex}
                             id={getPanelId(tabIndex)}
                             className={cx(
                                 fr.cx(
