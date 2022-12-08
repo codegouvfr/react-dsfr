@@ -37,8 +37,7 @@ function Root() {
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
                 homeLinkProps={routes.home().link}
-                mainNavigationProps={{
-                    "items": [
+                navItems={[
                         {
                             "text": "Home",
                             "linkProps": routes.home().link,
@@ -49,8 +48,7 @@ function Root() {
                             "linkProps": routes.mui().link,
                             "isActive": route.name === "mui"
                         }
-                    ]
-                }}
+                ]}
             />
             <div style={{
                 "margin": "auto",

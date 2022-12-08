@@ -37,24 +37,22 @@ function Root() {
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "to": "/" }}
-                mainNavigationProps={{
-                    "items": [
-                        {
-                            "text": "Home",
-                            "linkProps": {
-                                "to": "/"
-                            },
-                            "isActive": location.pathname === "/"
+                navItems={[
+                    {
+                        "text": "Home",
+                        "linkProps": {
+                            "to": "/"
                         },
-                        {
-                            "text": "Mui playground",
-                            "linkProps": {
-                                "to": "/mui"
-                            },
-                            "isActive": location.pathname === "/mui"
-                        }
-                    ]
-                }}
+                        "isActive": location.pathname === "/"
+                    },
+                    {
+                        "text": "Mui playground",
+                        "linkProps": {
+                            "to": "/mui"
+                        },
+                        "isActive": location.pathname === "/mui"
+                    }
+                ]}
             />
             <div style={{
                 "margin": "auto",

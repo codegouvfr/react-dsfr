@@ -19,7 +19,7 @@ export type HeaderProps = {
     serviceTagline?: ReactNode;
     /** Don't forget the title on the link for accessibility*/
     homeLinkProps: LinkProps;
-    mainNavigationProps?: MainNavigationProps;
+    navItems?: MainNavigationProps.Item[];
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];
     renderSearchInput?: (
@@ -48,7 +48,12 @@ export type HeaderProps = {
             | "serviceTitle"
             | "serviceTagline"
             | "menu"
-            | "menuLinks",
+            | "menuLinks"
+            | "navRoot"
+            | "navList"
+            | "navItem"
+            | "navLink"
+            | "navBtn",
             string
         >
     >;
@@ -87,7 +92,7 @@ export const Header = memo(
             serviceTitle,
             serviceTagline,
             homeLinkProps,
-            mainNavigationProps,
+            navItems = [],
             quickAccessItems = [],
             renderSearchInput,
             classes = {},
@@ -137,7 +142,7 @@ export const Header = memo(
                                             );
                                         })()}
                                     </div>
-                                    {mainNavigationProps !== undefined && (
+                                    {navItems.length !== 0 && (
                                         <div
                                             className={cx(
                                                 fr.cx("fr-header__navbar"),
@@ -150,7 +155,7 @@ export const Header = memo(
                                                 aria-controls={menuModalId}
                                                 aria-haspopup="menu"
                                                 id={menuButtonId}
-                                                title="Menu"
+                                                title={t("menu")}
                                             >
                                                 {t("menu")}
                                             </button>
@@ -274,7 +279,7 @@ export const Header = memo(
                         </div>
                     </div>
                 </div>
-                {mainNavigationProps !== undefined && (
+                {navItems.length !== 0 && (
                     <div
                         className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
                         id={menuModalId}
@@ -291,7 +296,16 @@ export const Header = memo(
                             <div
                                 className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}
                             />
-                            <MainNavigation {...mainNavigationProps} />
+                            <MainNavigation
+                                items={navItems}
+                                classes={{
+                                    "root": classes.navRoot,
+                                    "list": classes.navList,
+                                    "item": classes.navItem,
+                                    "link": classes.navLink,
+                                    "btn": classes.navBtn
+                                }}
+                            />
                         </div>
                     </div>
                 )}

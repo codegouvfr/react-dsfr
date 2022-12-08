@@ -50,24 +50,22 @@ function App({ Component, pageProps }: AppProps) {
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "href": "/" }}
-                mainNavigationProps={{
-                    "items": [
-                        {
-                            "text": "Home",
-                            "linkProps": {
-                                "href": "/"
-                            },
-                            "isActive": router.asPath === "/"
+                navItems={[
+                    {
+                        "text": "Home",
+                        "linkProps": {
+                            "href": "/"
                         },
-                        {
-                            "text": "Mui playground",
-                            "linkProps": {
-                                "href": "/mui"
-                            },
-                            "isActive": router.asPath === "/mui"
-                        }
-                    ]
-                }}
+                        "isActive": router.asPath === "/"
+                    },
+                    {
+                        "text": "Mui playground",
+                        "linkProps": {
+                            "href": "/mui"
+                        },
+                        "isActive": router.asPath === "/mui"
+                    }
+                ]}
             />
             <div className={css({
                 "margin": "auto",
