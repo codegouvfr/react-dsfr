@@ -55,7 +55,7 @@ I'm working full time on this project. You can expect rapid development.
 # What about [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 `@codegouvfr/react-dsfr` is a TypeScript oriented libraries that puts high priority providing a good integration with the
-JavaScript ecosystem, notably Next.js.
+JavaScript ecosystem, notably Next.js.  
 It's has been started in October 2022, it's a much newer initiative and although it's being actively developed, as of today,
 `@dataesr/react-dsfr` is more stable and provide [a much wider component coverage than `@codegouvfr/react-dsfr`](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface)
 so if you are working on a SPA (Create React App, Vite) `@dataesr/react-dsfr` is probably a more viable option at the moment.
