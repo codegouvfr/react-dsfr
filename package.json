@@ -127,7 +127,6 @@
         "./Tabs": "./dist/Tabs.js",
         "./Notice": "./dist/Notice.js",
         "./Header": "./dist/Header/index.js",
-        "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"

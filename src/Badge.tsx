@@ -25,7 +25,7 @@ export namespace BadgeProps {
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-badge> */
 export const Badge = memo(
-    forwardRef<HTMLDivElement, BadgeProps>(props => {
+    forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
         const { className, severity, label, isSmall, noIcon, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
@@ -41,6 +41,7 @@ export const Badge = memo(
                     ),
                     className
                 )}
+                ref={ref}
                 {...rest}
             >
                 {label}
