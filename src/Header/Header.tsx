@@ -10,8 +10,7 @@ import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
-//NOTE: WIP
+import type { FrIconClassName, RiIconClassName } from "../lib/generatedFromCss/classNames";
 
 export type HeaderProps = {
     className?: string;
@@ -21,6 +20,21 @@ export type HeaderProps = {
     /** Don't forget the title on the link for accessibility*/
     homeLinkProps: LinkProps;
     mainNavigationProps?: MainNavigationProps;
+    /** There should be at most three of them */
+    quickAccessLinks?: HeaderProps.QuickAccessLink[];
+    renderSearchInput?: (
+        /**
+         * id and name must be forwarded to the <input /> component
+         * the others params can, but it's not mandatory.
+         **/
+        params: {
+            id: string;
+            name: string;
+            type: "search";
+            className: string;
+            placeholder: string;
+        }
+    ) => JSX.Element;
     classes?: Partial<
         Record<
             | "root"
@@ -40,6 +54,30 @@ export type HeaderProps = {
     >;
 };
 
+export namespace HeaderProps {
+    export type QuickAccessLink = QuickAccessLink.Link | QuickAccessLink.Button;
+
+    export namespace QuickAccessLink {
+        export type Common = {
+            iconId: FrIconClassName | RiIconClassName;
+            text: ReactNode;
+        };
+
+        export type Link = Common & {
+            linkProps: LinkProps;
+            buttonProps?: undefined;
+        };
+
+        export type Button = Common & {
+            linkProps?: undefined;
+            buttonProps: React.DetailedHTMLProps<
+                React.ButtonHTMLAttributes<HTMLButtonElement>,
+                HTMLButtonElement
+            >;
+        };
+    }
+}
+
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(
     forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
@@ -50,6 +88,8 @@ export const Header = memo(
             serviceTagline,
             homeLinkProps,
             mainNavigationProps,
+            quickAccessLinks = [],
+            renderSearchInput,
             classes = {},
             ...rest
         } = props;
@@ -142,6 +182,94 @@ export const Header = memo(
                                     </div>
                                 )}
                             </div>
+
+                            {(quickAccessLinks.length > 0 || renderSearchInput !== undefined) && (
+                                <div className={fr.cx("fr-header__tools")}>
+                                    {quickAccessLinks.length > 0 && (
+                                        <div className={fr.cx("fr-header__tools-links")}>
+                                            <ul className={fr.cx("fr-btns-group")}>
+                                                {quickAccessLinks.map(
+                                                    (
+                                                        { iconId, text, buttonProps, linkProps },
+                                                        i
+                                                    ) => (
+                                                        <li key={i}>
+                                                            {linkProps !== undefined ? (
+                                                                <Link
+                                                                    {...linkProps}
+                                                                    className={cx(
+                                                                        fr.cx("fr-btn", iconId),
+                                                                        linkProps.className
+                                                                    )}
+                                                                >
+                                                                    {text}
+                                                                </Link>
+                                                            ) : (
+                                                                <button
+                                                                    {...buttonProps}
+                                                                    className={cx(
+                                                                        fr.cx("fr-btn", iconId),
+                                                                        buttonProps.className
+                                                                    )}
+                                                                >
+                                                                    {text}
+                                                                </button>
+                                                            )}
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {renderSearchInput !== undefined && (
+                                        <div
+                                            className={fr.cx("fr-header__search", "fr-modal")}
+                                            id="modal-474"
+                                        >
+                                            <div
+                                                className={fr.cx(
+                                                    "fr-container",
+                                                    "fr-container-lg--fluid"
+                                                )}
+                                            >
+                                                <button
+                                                    className={fr.cx("fr-btn--close", "fr-btn")}
+                                                    aria-controls="modal-474"
+                                                    title={t("close")}
+                                                >
+                                                    {t("close")}
+                                                </button>
+                                                <div
+                                                    className={fr.cx("fr-search-bar")}
+                                                    id="search-473"
+                                                    role="search"
+                                                >
+                                                    <label
+                                                        className={fr.cx("fr-label")}
+                                                        htmlFor="search-473-input"
+                                                    >
+                                                        {t("search")}
+                                                    </label>
+                                                    {renderSearchInput({
+                                                        "className": fr.cx("fr-input"),
+                                                        "id": "search-473-input",
+                                                        "name": "search-473-input",
+                                                        "placeholder": t("search"),
+                                                        "type": "search"
+                                                    })}
+                                                    <button
+                                                        className={fr.cx("fr-btn")}
+                                                        title={t("search")}
+                                                    >
+                                                        {t("search")}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -178,7 +306,8 @@ const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "frMessages": {
         /* spell-checker: disable */
         "menu": "Menu",
-        "close": "Fermer"
+        "close": "Fermer",
+        "search": "Rechercher"
         /* spell-checker: enable */
     }
 });
@@ -186,7 +315,8 @@ const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
 addHeaderTranslations({
     "lang": "en",
     "messages": {
-        "close": "Close"
+        "close": "Close",
+        "search": "Search"
     }
 });
 
