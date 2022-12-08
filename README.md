@@ -60,9 +60,7 @@ It's has been started in October 2022, it's a much newer initiative and although
 `@dataesr/react-dsfr` is more stable and provide [a much wider component coverage than `@codegouvfr/react-dsfr`](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface)
 so if you are working on a SPA (Create React App, Vite) `@dataesr/react-dsfr` is probably a more viable option at the moment.
 
-## `@dataesr/react-dsfr` + `@codegouvfr/react-dsfr` = ❤️
-
-Many of `@codegouvfr/react-dsfr`'s features can be enjoyed without migrating away from `@dataesr/react-dsfr`.  
+That being said, many of `@codegouvfr/react-dsfr`'s features can be enjoyed without migrating away from `@dataesr/react-dsfr`.  
 You can, as standalone feature:
 
 -   Enjoy the [`fr-*` classes autocompletion and type safety](https://react-dsfr.etalab.studio/class-names-type-safety).
