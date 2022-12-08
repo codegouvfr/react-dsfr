@@ -10,7 +10,6 @@ import { useLink } from "../../lib/routing";
 
 export type MenuProps = {
     className?: string;
-    id: string;
     classes?: Partial<Record<"root" | "list", string>>;
     items: {
         text: ReactNode;
@@ -20,7 +19,7 @@ export type MenuProps = {
 };
 
 export const Menu = memo(
-    forwardRef<HTMLDivElement, MenuProps>((props, ref) => {
+    forwardRef<HTMLDivElement, MenuProps & { id: string }>((props, ref) => {
         const { className, id, classes = {}, items, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();

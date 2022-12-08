@@ -36,15 +36,15 @@ export namespace MainNavigationProps {
         };
 
         export type Menu = Common & {
-            menuProps: MenuProps;
             linkProps?: undefined;
+            menuProps: MenuProps;
             megaMenuProps?: undefined;
         };
 
         export type MegaMenu = Common & {
-            megaMenuProps: MegaMenuProps;
-            menuProps?: undefined;
             linkProps?: undefined;
+            menuProps?: undefined;
+            megaMenuProps: MegaMenuProps;
         };
     }
 }

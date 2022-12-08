@@ -7,12 +7,11 @@ import type { Equals } from "tsafe";
 
 export type MegaMenuProps = {
     className?: string;
-    id: string;
     classes?: Partial<Record<"root", string>>;
 };
 
 export const MegaMenu = memo(
-    forwardRef<HTMLDivElement, MegaMenuProps>((props, ref) => {
+    forwardRef<HTMLDivElement, MegaMenuProps & { id: string }>((props, ref) => {
         const { className, id, classes = {}, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
