@@ -52,6 +52,27 @@ I'm working full time on this project. You can expect rapid development.
   <a href="https://react-dsfr.etalab.studio/">🚀 Get started 🚀 </a>
 </p>
 
+# What about [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
+
+`@codegouvfr/react-dsfr` is a TypeScript oriented libraries that puts high priority providing a good integration with the
+JavaScript ecosystem, notably Next.js.
+It's has been started in October 2022, it's a much newer initiative and although it's being actively developed, as of today,
+`@dataesr/react-dsfr` is more stable and provide [a much wider component coverage than `@codegouvfr/react-dsfr`](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface)
+so if you are working on a SPA (Create React App, Vite) `@dataesr/react-dsfr` is probably a more viable option at the moment.
+
+## `@dataesr/react-dsfr` + `@codegouvfr/react-dsfr` = ❤️
+
+Many of `@codegouvfr/react-dsfr`'s features can be enjoyed without migrating away from `@dataesr/react-dsfr`.  
+You can, as standalone feature:
+
+-   Enjoy the [`fr-*` classes autocompletion and type safety](https://react-dsfr.etalab.studio/class-names-type-safety).
+-   Use [the type safe color system](https://react-dsfr.etalab.studio/css-in-js#colors).
+-   Use the MUI theme.
+-   The [the spacing system](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) and
+    [breakpoints util for building responsive UI](https://react-dsfr.etalab.studio/css-in-js#fr.breakpoints).
+
+[Here is a playground to demonstrate it](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
+
 # Development
 
 Here are instructions for contributing, if you are looking to **use** `@codegouvfr/react-dsfr` heads over to the [documentation page](https://react-dsfr.etalab.studio/).
