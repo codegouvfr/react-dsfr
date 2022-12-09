@@ -37,13 +37,14 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://react-dsfr.etalab.studio/).
--   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (2/42)
+-   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (8/42)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
         be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.etalab.studio/mui-integration).
 -   [x] Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
+-   [x] [Support routing libraries](https://react-dsfr.etalab.studio/routing) like react-router.
 
 This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
 I'm working full time on this project. You can expect rapid development.
@@ -54,7 +55,7 @@ I'm working full time on this project. You can expect rapid development.
 
 # What about [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
-`@codegouvfr/react-dsfr` is a TypeScript oriented librarie that puts high priority in providing a good integration with the
+`@codegouvfr/react-dsfr` is a TypeScript oriented library that puts high priority in providing a good integration with the
 JavaScript ecosystem, notably Next.js.  
 It's has been started in October 2022, it's a much newer initiative and although it's being actively developed, as of today,
 `@dataesr/react-dsfr` is more stable and provide [a wider component coverage](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface).  
