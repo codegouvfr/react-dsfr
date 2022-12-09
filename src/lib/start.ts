@@ -38,6 +38,7 @@ async function startReactDsfrWithOptionalNextParams(params: Params, nextParams?:
     isStarted = true;
 
     if (langIfNoProvider !== undefined) {
+        console.log(`start(), setLangToUseIfProviderNotUsed, ${langIfNoProvider}`);
         setLangToUseIfProviderNotUsed(langIfNoProvider);
     }
 

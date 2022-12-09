@@ -119,6 +119,10 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
     {
         startDsfrReactParams.langIfNoProvider ??= "fr";
 
+        console.log(
+            `startDsfrReactParams.langIfNoProvider: ${startDsfrReactParams.langIfNoProvider}`
+        );
+
         if (isBrowser) {
             startReactDsfrNext(startDsfrReactParams, {
                 doPersistDarkModePreferenceWithCookie,

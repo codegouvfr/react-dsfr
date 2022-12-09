@@ -13,6 +13,12 @@ const langContext = createContext<string | undefined>(undefined);
 export function useLang(): string | undefined {
     const lang = useContext(langContext);
 
+    console.log(
+        `useLang: context: ${lang}, ${
+            isBrowser ? "browser" : "node"
+        }, langIfNoProvider: ${langIfNoProvider}`
+    );
+
     if (lang === undefined) {
         return langIfNoProvider ?? (!isBrowser ? undefined : navigator.language);
     }
@@ -81,8 +87,13 @@ export function createComponentI18nApi<
     function useTranslation() {
         const lang = useLang();
 
+        console.log(`useTranslation: useLang() === ${lang}`);
+
         const bestMatchLang = useMemo(() => {
+            console.log("run use memo");
+
             if (lang === undefined) {
+                console.log("useTranslation: undefined so return fr");
                 return "fr";
             }
 
@@ -90,6 +101,8 @@ export function createComponentI18nApi<
                 "languages": Object.keys(messagesByLang),
                 "languageLike": lang
             });
+
+            console.log(`useTranslation: bestApproxLang: ${bestApproxLang}`);
 
             return bestApproxLang ?? "fr";
         }, [lang]);
