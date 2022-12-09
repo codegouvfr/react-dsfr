@@ -26,37 +26,35 @@ export const SimpleHeader = getStory({
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
-    "mainNavigationProps": {
-        "items": [
-            {
-                "text": "accès direct",
-                "linkProps": {
-                    "href": "#",
-                    "target": "_self"
-                }
-            },
-            {
-                "text": "accès direct",
-                "linkProps": {
-                    "href": "#",
-                    "target": "_self"
-                },
-                "isActive": true
-            },
-            {
-                "text": "accès direct",
-                "linkProps": {
-                    "href": "#",
-                    "target": "_self"
-                }
-            },
-            {
-                "text": "accès direct",
-                "linkProps": {
-                    "href": "#",
-                    "target": "_self"
-                }
+    "navItems": [
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
             }
-        ]
-    }
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            },
+            "isActive": true
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            }
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            }
+        }
+    ]
 });

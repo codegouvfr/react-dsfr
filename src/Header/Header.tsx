@@ -279,7 +279,7 @@ export const Header = memo(
                         </div>
                     </div>
                 </div>
-                {navItems.length !== 0 && (
+                {(navItems.length !== 0 || quickAccessItems.length !== 0) && (
                     <div
                         className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
                         id={menuModalId}
@@ -296,16 +296,18 @@ export const Header = memo(
                             <div
                                 className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}
                             />
-                            <MainNavigation
-                                items={navItems}
-                                classes={{
-                                    "root": classes.navRoot,
-                                    "list": classes.navList,
-                                    "item": classes.navItem,
-                                    "link": classes.navLink,
-                                    "btn": classes.navBtn
-                                }}
-                            />
+                            {navItems.length !== 0 && (
+                                <MainNavigation
+                                    items={navItems}
+                                    classes={{
+                                        "root": classes.navRoot,
+                                        "list": classes.navList,
+                                        "item": classes.navItem,
+                                        "link": classes.navLink,
+                                        "btn": classes.navBtn
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 )}

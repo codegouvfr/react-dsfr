@@ -10,7 +10,7 @@ export function setLangToUseIfProviderNotUsed(lang: string) {
 
 const langContext = createContext<string | undefined>(undefined);
 
-function useLang(): string | undefined {
+export function useLang(): string | undefined {
     const lang = useContext(langContext);
 
     if (lang === undefined) {

@@ -127,6 +127,7 @@
         "./Tabs": "./dist/Tabs.js",
         "./Notice": "./dist/Notice.js",
         "./Header": "./dist/Header/index.js",
+        "./DisplaySettingsDialog": "./dist/DisplaySettingsDialog.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"

@@ -9,7 +9,7 @@ import { startReactDsfr, useIsDark, useColors } from "../dist";
 
 startReactDsfr({
     "defaultColorScheme": "system",
-    "defaultLang": "fr"
+    "langIfNoProvider": "fr"
 });
 
 export const DocsContainer = ({ children, context }) => {

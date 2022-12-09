@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import { useIsDark, fr } from "@codegouvfr/react-dsfr";
-import { DarkModeSwitch } from "@codegouvfr/react-dsfr/DarkModeSwitch";
 import { useStyles } from "tss-react/dsfr";
 
 export default function App() {
@@ -32,8 +31,6 @@ export default function App() {
             <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
-
-            <DarkModeSwitch />
 
         </>
     );
