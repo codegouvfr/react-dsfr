@@ -131,7 +131,6 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 // Only for TypeScript users.
 declare module "@codegouvfr/react-dsfr" {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface LinkProps extends NextLinkProps { }
 }
 
