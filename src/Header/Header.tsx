@@ -151,6 +151,14 @@ export const Header = memo(
                                             )}
                                         >
                                             <button
+                                                className={fr.cx("fr-btn--search", "fr-btn")}
+                                                data-fr-opened={false}
+                                                aria-controls={searchModalId}
+                                                title={t("search")}
+                                            >
+                                                {t("search")}
+                                            </button>
+                                            <button
                                                 className={fr.cx("fr-btn--menu", "fr-btn")}
                                                 data-fr-opened="false"
                                                 aria-controls={menuModalId}
