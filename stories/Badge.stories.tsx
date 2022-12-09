@@ -16,7 +16,7 @@ const { meta, getStory } = getStoryFactory<BadgeProps>({
             options: (() => {
                 const severities = ["success", "warning", "info", "error", "new"] as const;
 
-                assert<Equals<BadgeProps.Severity, BadgeProps.Severity>>();
+                assert<Equals<typeof severities[number], BadgeProps.Severity>>();
 
                 return [null, ...severities];
             })(),
@@ -32,7 +32,7 @@ const { meta, getStory } = getStoryFactory<BadgeProps>({
         },
         label: {
             type: { name: "string", required: true },
-            description: "Label to display on tne badge"
+            description: "Label to display on the badge"
         }
     },
     disabledProps: ["lang"]
