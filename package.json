@@ -126,6 +126,7 @@
         "./lib": "./dist/lib/index.js",
         "./Tabs": "./dist/Tabs.js",
         "./Notice": "./dist/Notice.js",
+        "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header/index.js",
         "./DarkModeSwitch": "./dist/DarkModeSwitch.js",
         "./Badge": "./dist/Badge.js",
