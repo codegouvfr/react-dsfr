@@ -21,7 +21,7 @@
 <p align="center">
   <a href="https://react-dsfr.etalab.studio/">Documentation website</a>
   -
-  <a href="https://stackblitz.com/edit/nextjs-jyrebw?file=pages/index.tsx">Playground</a>
+  <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
 > 🗣️ Le **9 décembre (ce vendredi)** de **11h à 12h30**, venez assister à la présentation de la librairie et poser vos questions!  
