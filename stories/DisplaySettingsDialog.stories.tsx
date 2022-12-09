@@ -63,17 +63,7 @@ function Story() {
                 }
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "href": "#" }}
-                quickAccessItems={[
-                    {
-                        "iconId": "fr-icon-account-circle-fill",
-                        "text": "something",
-                        "linkProps": {
-                            "href": "https://example.com"
-                        }
-                    },
-
-                    headerQuickAccessDisplaySettingsItem
-                ]}
+                quickAccessItems={[headerQuickAccessDisplaySettingsItem]}
             />
             <DisplaySettingsDialog />
         </>

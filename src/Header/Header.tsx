@@ -142,7 +142,8 @@ export const Header = memo(
                                             );
                                         })()}
                                     </div>
-                                    {navItems.length !== 0 && (
+                                    {(quickAccessItems.length > 0 ||
+                                        renderSearchInput !== undefined) && (
                                         <div
                                             className={cx(
                                                 fr.cx("fr-header__navbar"),
