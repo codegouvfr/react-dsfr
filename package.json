@@ -124,6 +124,7 @@
         "./mui": "./dist/mui.js",
         "./lib": "./dist/lib/index.js",
         "./Tabs": "./dist/Tabs.js",
+        "./SkipLinks": "./dist/SkipLinks.js",
         "./Notice": "./dist/Notice.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header/index.js",
