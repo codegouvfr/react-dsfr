@@ -63,7 +63,7 @@ Add the following code in the `<head />`&#x20;
 <pre class="language-tsx" data-title="src/index.tsx"><code class="lang-tsx">import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-<strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
+<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
 </strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 </strong><strong>startDsfrReact({ "defaultColorScheme": "system" });
 </strong>
@@ -94,26 +94,25 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 <pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
 </strong></code></pre>
 
-{% code title="next.config.js" %}
-```diff
-+const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
- 
--module.exports = {
-+module.exports = withTM({
-   reactStrictMode: true,
-+  webpack: config => {
-+
-+   config.module.rules.push({
-+      test: /\.(woff2|webmanifest)$/,
-+      type: "asset/resource"
-+    });
-+
-+    return config;
-+  }
--}
-+});
-```
-{% endcode %}
+<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript"><strong>const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
+</strong>
+/** @type {import('next').NextConfig} */
+<strong>const nextConfig = withTM({
+</strong>  reactStrictMode: true,
+  swcMinify: true,
+<strong>  webpack: config => {
+</strong><strong>
+</strong><strong>    config.module.rules.push({
+</strong><strong>      test: /\.(woff2|webmanifest)$/,
+</strong><strong>      type: "asset/resource"
+</strong><strong>    });
+</strong><strong>
+</strong><strong>    return config;
+</strong><strong>  }
+</strong>});
+
+module.exports = nextConfig
+</code></pre>
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
 <strong>    "predev": "only-include-used-icons",
@@ -128,6 +127,7 @@ If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
 import DefaultApp from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
+import { fr } from "@codegouvfr/react-dsfr";
 
 // Only for TypeScript users.
 declare module "@codegouvfr/react-dsfr" {
@@ -214,9 +214,9 @@ Add the following tags in the `<head />`&#x20;
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
-<strong>import { startDsfrReact } from "@codegouvfr/react-dsfr";
+<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
 </strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
-</strong><strong>startDsfrReact({ defaultColorScheme: "system" });
+</strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
 <strong>// Only for TypeScript users.
 </strong><strong>declare module "@codegouvfr/react-dsfr" {
@@ -248,15 +248,15 @@ The gist of it is, there is a few things that, for performance reasons, react-ds
 * Setting up the Favicon. &#x20;
 * ~~Preloading the relevent font variant to avoid~~ [~~FOUT~~](https://fonts.google.com/knowledge/glossary/fout)~~.~~&#x20;
 
-Then, you must call `startDsfrReact()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
+Then, you must call `startReactDsfr()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
 
 ```typescript
-import { startDsfrReact } from "@codegouvfr/react-dsfr";
+import { startReactDsfr } from "@codegouvfr/react-dsfr";
 
 const isBrowser = typeof window === "object" && typeof document === "object";
 
 if( isBrowser ){
-    startDsfrReact({ defaultColorScheme: "system" });
+    startReactDsfr({ defaultColorScheme: "system" });
 }
 ```
 
