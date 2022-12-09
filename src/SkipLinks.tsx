@@ -25,11 +25,7 @@ export const SkipLinks = memo(
 
         return (
             <div className={cx(fr.cx("fr-skiplinks"), classes.root, className)} ref={ref} {...rest}>
-                <nav
-                    className={cx(fr.cx("fr-container"))}
-                    role="navigation"
-                    aria-label={t("label")}
-                >
+                <nav className={fr.cx("fr-container")} role="navigation" aria-label={t("label")}>
                     <ul className={cx(fr.cx("fr-skiplinks__list"), classes.list)}>
                         {links &&
                             links.map(link => (

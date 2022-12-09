@@ -1,5 +1,5 @@
 import { SkipLinks } from "../dist/SkipLinks";
-import type { SkipLinksProps } from "../dist/SkipLinks";
+import type { SkipLinksProps } from "../src/SkipLinks";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 
