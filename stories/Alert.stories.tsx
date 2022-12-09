@@ -5,7 +5,7 @@ import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory({
+const { meta, getStory } = getStoryFactory<AlertProps>({
     sectionName,
     "wrappedComponent": { Alert },
     "description": `

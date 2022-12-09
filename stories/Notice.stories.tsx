@@ -1,8 +1,9 @@
 import { Notice } from "../dist/Notice";
+import { NoticeProps } from "../src/Notice";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 
-const { meta, getStory } = getStoryFactory({
+const { meta, getStory } = getStoryFactory<NoticeProps>({
     sectionName,
     "wrappedComponent": { Notice },
     "description": `
