@@ -2,7 +2,6 @@ import { SkipLinks } from "../dist/SkipLinks";
 import type { SkipLinksProps } from "../dist/SkipLinks";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { cx } from "../dist/lib/cx";
 
 const { meta, getStory } = getStoryFactory<SkipLinksProps>({
     sectionName,
