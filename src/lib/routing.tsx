@@ -1,19 +1,9 @@
 import React, { createContext, useContext } from "react";
 import type { ReactNode } from "react";
 import { assert } from "tsafe/assert";
-
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-
-/*
-export interface LinkProps extends React.AriaAttributes {
-    className?: string;
-    children?: ReactNode;
-}
-*/
-
-export type HTMLAnchorProps = DetailedHTMLProps<
+type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
 >;
