@@ -10,7 +10,9 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/Header.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/Header.tsx)  
+  
+See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)`,
     "disabledProps": ["lang"]
 });
 

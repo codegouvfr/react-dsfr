@@ -59,11 +59,13 @@ export type HeaderProps = {
             | "serviceTagline"
             | "menu"
             | "menuLinks"
-            | "navRoot"
+            | "nav"
             | "navList"
             | "navItem"
             | "navLink"
-            | "navBtn",
+            | "navBtn"
+            | "navMenu"
+            | "navMenuList",
             string
         >
     >;
@@ -342,11 +344,13 @@ export const Header = memo(
                                 <MainNavigation
                                     items={navItems}
                                     classes={{
-                                        "root": classes.navRoot,
+                                        "root": classes.nav,
                                         "list": classes.navList,
                                         "item": classes.navItem,
                                         "link": classes.navLink,
-                                        "btn": classes.navBtn
+                                        "btn": classes.navBtn,
+                                        "menu": classes.navMenu,
+                                        "menuList": classes.navMenuList
                                     }}
                                 />
                             )}

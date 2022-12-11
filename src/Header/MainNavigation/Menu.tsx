@@ -9,32 +9,30 @@ import type { RegisteredLinkProps } from "../../lib/routing";
 import { useLink } from "../../lib/routing";
 
 export type MenuProps = {
-    className?: string;
     classes?: Partial<Record<"root" | "list", string>>;
-    items: {
+    links: MenuProps.Link[];
+};
+
+export namespace MenuProps {
+    export type Link = {
         text: ReactNode;
         linkProps: RegisteredLinkProps;
         isActive?: boolean;
-    }[];
-};
+    };
+}
 
 export const Menu = memo(
     forwardRef<HTMLDivElement, MenuProps & { id: string }>((props, ref) => {
-        const { className, id, classes = {}, items, ...rest } = props;
+        const { id, classes = {}, links, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const { Link } = useLink();
 
         return (
-            <div
-                className={cx(fr.cx("fr-menu"), classes.root, className)}
-                id={id}
-                ref={ref}
-                {...rest}
-            >
+            <div className={cx(fr.cx("fr-menu"), classes.root)} id={id} ref={ref} {...rest}>
                 <ul className={cx(fr.cx("fr-menu__list"), classes.list)}>
-                    {items.map(({ text, linkProps, isActive = false }, i) => (
+                    {links.map(({ text, linkProps, isActive = false }, i) => (
                         <li key={i}>
                             <Link
                                 {...linkProps}

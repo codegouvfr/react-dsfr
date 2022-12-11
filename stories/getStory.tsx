@@ -13,6 +13,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     argTypes?: Partial<Record<keyof Props, ArgType>>;
     defaultContainerWidth?: number;
     disabledProps?: ("containerWidth" | "lang" | "darkMode")[];
+    /** Default false */
+    doHideImportInstruction?: boolean;
 }) {
     const {
         sectionName,
@@ -20,7 +22,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         description,
         argTypes = {},
         defaultContainerWidth,
-        disabledProps = []
+        disabledProps = [],
+        doHideImportInstruction = false
     } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
@@ -123,7 +126,11 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                 "docs": {
                     "description": {
                         "component": [
-                            `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``,
+                            ...(doHideImportInstruction
+                                ? []
+                                : [
+                                      `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``
+                                  ]),
                             ...(description === undefined ? [] : [description])
                         ].join("  \n")
                     }
