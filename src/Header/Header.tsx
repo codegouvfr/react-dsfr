@@ -142,6 +142,15 @@ export const Header = memo(
                                             );
                                         })()}
                                     </div>
+                                    {/*
+                                    <div class="fr-header__operator">
+                                        <a href="/" title="Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française">
+                                            <img class="fr-responsive-img" style="width:3.5rem;" src="../../../example/img/placeholder.9x16.png" alt="[À MODIFIER - texte alternatif de l’image]" />
+                                            <!-- L’alternative de l’image (attribut alt) doit impérativement être renseignée et reprendre le texte visible dans l’image -->
+                                        </a>
+                                    </div>
+                                    */}
+
                                     {(quickAccessItems.length > 0 ||
                                         renderSearchInput !== undefined) && (
                                         <div
