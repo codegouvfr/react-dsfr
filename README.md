@@ -64,14 +64,7 @@ Add the following code in the `<head />`&#x20;
 import ReactDOM from 'react-dom/client';
 import App from './App';
 <strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
-</strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 </strong><strong>startDsfrReact({ "defaultColorScheme": "system" });
-</strong>
-//Only for TypeScript users
-<strong>declare module "@codegouvfr/react-dsfr" {
-</strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-</strong><strong>    export interface LinkProps extends HTMLAnchorProps { }
-</strong><strong>}
 </strong>
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -120,18 +113,21 @@ module.exports = nextConfig
 </strong>}
 </code></pre>
 
-If you don't have an `_app.tsx` or an `_app.js` in your project, create one.
-
 {% code title="pages/_app.tsx" %}
 ```tsx
-import DefaultApp from "next/app";
+import type { AppProps } from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
 import { fr } from "@codegouvfr/react-dsfr";
+import Link from "next/link";
 
-// Only for TypeScript users.
+const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
+
+// Only in TypeScript projects
 declare module "@codegouvfr/react-dsfr" {
-    export interface LinkProps extends NextLinkProps { }
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
 }
 
 const { 
@@ -143,13 +139,21 @@ const {
 
 export { dsfrDocumentApi };
 
-export default withDsfr(DefaultApp);
+function App({ Component, pageProps }: AppProps) {
+    return (
+        <DsfrLinkProvider>
+            <Component {...pageProps} />
+        </DsfrLinkProvider>
+    );
+}
+
+export default withDsfr(App);
 ```
 {% endcode %}
 
 {% code title="pages/_document.tsx" %}
 ```tsx
-import { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
+import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
 import { dsfrDocumentApi } from "./_app";
 
 const { 
