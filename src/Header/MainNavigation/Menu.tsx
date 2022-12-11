@@ -5,7 +5,7 @@ import { fr } from "../../lib";
 import { cx } from "../../lib/tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { LinkProps } from "../../lib/routing";
+import type { RegisteredLinkProps } from "../../lib/routing";
 import { useLink } from "../../lib/routing";
 
 export type MenuProps = {
@@ -13,7 +13,7 @@ export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;
     items: {
         text: ReactNode;
-        linkProps: LinkProps;
+        linkProps: RegisteredLinkProps;
         isActive?: boolean;
     }[];
 };

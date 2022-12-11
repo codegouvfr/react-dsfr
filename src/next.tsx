@@ -34,8 +34,6 @@ import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import { setLangToUseIfProviderNotUsed } from "./lib/i18n";
 import { getColors } from "./lib/colors";
-import { createDsfrLinkProvider } from "./lib/routing";
-import Link from "next/link";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -51,15 +49,6 @@ const fontUrlByFileBasename = {
     "Spectral-Regular": spectralRegularWoff2Url,
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
-
-type InferLinkProps<Link> = Link extends React.ForwardRefExoticComponent<infer Props>
-    ? Props
-    : never;
-
-declare module "./lib/routing" {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface LinkProps extends InferLinkProps<typeof Link> {}
-}
 
 export type Params = Params.WithDarkModeCookie | Params.WithoutDarkModeCookie;
 export namespace Params {
@@ -146,8 +135,6 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
         }
     }
 
-    const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
-
     const isDarkPropKey = "dsfrIsDark";
 
     function withDsfr<AppComponent extends NextComponentType<any, any, any>>(
@@ -168,7 +155,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             }, []);
 
             return (
-                <DsfrLinkProvider>
+                <>
                     <Head>
                         {process.env.NODE_ENV !== "development" &&
                             objectKeys(fontUrlByFileBasename)
@@ -210,7 +197,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             <App {...(props as any)} />
                         </SsrIsDarkProvider>
                     )}
-                </DsfrLinkProvider>
+                </>
             );
         }
 

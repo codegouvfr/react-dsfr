@@ -6,6 +6,16 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
+import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
+import Link from "next/link";
+
+declare module "@codegouvfr/react-dsfr" {
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
+}
+
+const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
 
 const {
     withDsfr,
@@ -39,7 +49,7 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <>
+        <DsfrLinkProvider>
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
@@ -72,7 +82,7 @@ function App({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
             </div>
             <Display />
-        </>
+        </DsfrLinkProvider>
     );
 }
 

@@ -4,7 +4,7 @@ import { createComponentI18nApi } from "../../lib/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { LinkProps } from "../../lib/routing";
+import type { RegisteredLinkProps } from "../../lib/routing";
 import { fr } from "../../lib";
 import { cx } from "../../lib/tools/cx";
 import { useLink } from "../../lib/routing";
@@ -30,7 +30,7 @@ export namespace MainNavigationProps {
         };
 
         export type Link = Common & {
-            linkProps: LinkProps;
+            linkProps: RegisteredLinkProps;
             menuProps?: undefined;
             megaMenuProps?: undefined;
         };
