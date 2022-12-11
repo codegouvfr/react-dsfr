@@ -10,7 +10,7 @@ import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr" {
-    interface RegisterLink { 
+    interface RegisterLink {
         Link: typeof Link;
     }
 }
@@ -53,7 +53,7 @@ function App({ Component, pageProps }: AppProps) {
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={{ "href": "/" }}
+                homeLinkProps={{ "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
                     {
                         "text": "Home",

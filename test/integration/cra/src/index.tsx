@@ -29,7 +29,7 @@ function Root() {
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={routes.home().link}
+                homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
                         {
                             "text": "Home",
