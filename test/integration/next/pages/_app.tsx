@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import { DisplaySettingsDialog, headerQuickAccessDisplaySettingsItem } from "@codegouvfr/react-dsfr/DisplaySettingsDialog";
+import { Display, headerQuickAccessDisplay } from "@codegouvfr/react-dsfr/Display";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "tss-react/dsfr";
@@ -67,7 +67,7 @@ function App({ Component, pageProps }: AppProps) {
                         "isActive": router.asPath === "/mui"
                     }
                 ]}
-                quickAccessItems={[headerQuickAccessDisplaySettingsItem]}
+                quickAccessItems={[headerQuickAccessDisplay]}
             />
             <div className={css({
                 "margin": "auto",
@@ -78,7 +78,7 @@ function App({ Component, pageProps }: AppProps) {
             })}>
                 <Component {...pageProps} />
             </div>
-            <DisplaySettingsDialog />
+            <Display />
         </>
     );
 }

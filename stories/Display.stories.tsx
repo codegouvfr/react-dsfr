@@ -1,21 +1,18 @@
 import * as React from "react";
 import { Header } from "../dist/Header";
-import {
-    DisplaySettingsDialog,
-    headerQuickAccessDisplaySettingsItem
-} from "../dist/DisplaySettingsDialog";
+import { Display, headerQuickAccessDisplay } from "../dist/Display";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { symToStr } from "tsafe/symToStr";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { [symToStr({ DisplaySettingsDialog })]: Story },
+    "wrappedComponent": { [symToStr({ Display })]: Story },
     "description": `
 A button that opens a dialog to enable the user to select light or dark mode.  
 
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/parametres-d-affichage),
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/DisplaySettingsDialog.tsx)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Display.tsx)
 
 Optionally, you can also use \`import { useIsDark } from "@codegouvfr/react-dsfr"\` to manually monitor and controls 
 the theme state.
@@ -24,7 +21,7 @@ the theme state.
 
 \`\`\`tsx
 import { Header } from "../dist/Header";
-import { DisplaySettingsDialog, headerQuickAccessDisplaySettingsItem } from "../dist/DisplaySettingsDialog";
+import { Display, headerQuickAccessDisplay } from "../dist/Display";
 
 function App(){
 
@@ -34,11 +31,11 @@ function App(){
                 // other header props...
                 quickAccessItems={[
                     // other quick access items...
-                    headerQuickAccessDisplaySettingsItem
+                    headerQuickAccessDisplay
                 ]}
             >
             {/* ... your app ...*/}
-            <DisplaySettingsDialog />
+            <Display />
         <>
     );
 
@@ -63,9 +60,9 @@ function Story() {
                 }
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "href": "#" }}
-                quickAccessItems={[headerQuickAccessDisplaySettingsItem]}
+                quickAccessItems={[headerQuickAccessDisplay]}
             />
-            <DisplaySettingsDialog />
+            <Display />
         </>
     );
 }
