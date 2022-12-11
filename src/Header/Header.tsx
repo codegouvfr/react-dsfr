@@ -17,11 +17,21 @@ export type HeaderProps = {
     brandTop: ReactNode;
     serviceTitle?: ReactNode;
     serviceTagline?: ReactNode;
-    /** Don't forget the title on the link for accessibility*/
-    homeLinkProps: RegisteredLinkProps;
+    homeLinkProps: RegisteredLinkProps & { title: string };
     navItems?: MainNavigationProps.Item[];
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];
+    operatorLogo?: {
+        orientation: "horizontal" | "vertical";
+        /**
+         * Expected ratio:
+         * If "vertical": 9x16
+         * If "horizontal": 16x9
+         */
+        imgUrl: string;
+        /** Textual alternative of the image, it MUST include the text present in the image*/
+        alt: string;
+    };
     renderSearchInput?: (
         /**
          * id and name must be forwarded to the <input /> component
@@ -94,6 +104,7 @@ export const Header = memo(
             homeLinkProps,
             navItems = [],
             quickAccessItems = [],
+            operatorLogo,
             renderSearchInput,
             classes = {},
             ...rest
@@ -142,14 +153,25 @@ export const Header = memo(
                                             );
                                         })()}
                                     </div>
-                                    {/*
-                                    <div class="fr-header__operator">
-                                        <a href="/" title="Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française">
-                                            <img class="fr-responsive-img" style="width:3.5rem;" src="../../../example/img/placeholder.9x16.png" alt="[À MODIFIER - texte alternatif de l’image]" />
-                                            <!-- L’alternative de l’image (attribut alt) doit impérativement être renseignée et reprendre le texte visible dans l’image -->
-                                        </a>
-                                    </div>
-                                    */}
+                                    {operatorLogo !== undefined && (
+                                        <div className={fr.cx("fr-header__operator")}>
+                                            <Link {...homeLinkProps}>
+                                                <img
+                                                    className={fr.cx("fr-responsive-img")}
+                                                    style={(() => {
+                                                        switch (operatorLogo.orientation) {
+                                                            case "vertical":
+                                                                return { "width": "3.5rem" };
+                                                            case "horizontal":
+                                                                return { "maxWidth": "9.0625rem" };
+                                                        }
+                                                    })()}
+                                                    src={operatorLogo.imgUrl}
+                                                    alt={operatorLogo.alt}
+                                                />
+                                            </Link>
+                                        </div>
+                                    )}
 
                                     {(quickAccessItems.length > 0 ||
                                         renderSearchInput !== undefined) && (
