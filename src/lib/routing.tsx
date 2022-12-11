@@ -1,6 +1,5 @@
 import React, { createContext, useContext } from "react";
 import type { ReactNode } from "react";
-import { assert } from "tsafe/assert";
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
 
 type HTMLAnchorProps = DetailedHTMLProps<
@@ -17,14 +16,12 @@ export type RegisteredLinkProps = RegisterLink extends {
     Link: (props: infer LinkProps) => any;
 }
     ? Omit<LinkProps, "children">
-    : RegisterLink extends { Link: "a" }
-    ? Omit<HTMLAnchorProps, "children">
-    : React.AriaAttributes & { className?: string };
+    : Omit<HTMLAnchorProps, "children">;
 
-const context = createContext<CreateLinkProviderPrams["Link"] | undefined>(undefined);
+const context = createContext<CreateLinkProviderPrams["Link"]>(props => <a {...props} />);
 
 type CreateLinkProviderPrams = {
-    Link: ((props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>) | "a";
+    Link: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
 };
 
 export function createDsfrLinkProvider(params: CreateLinkProviderPrams) {
@@ -44,16 +41,7 @@ export function createDsfrLinkProvider(params: CreateLinkProviderPrams) {
 }
 
 export function useLink() {
-    let Link = useContext(context);
-
-    assert(
-        Link !== undefined,
-        "You need to specify what routing library is in use in your project, see: https://react-dsfr.etalab.studio/routing"
-    );
-
-    if (Link === "a") {
-        Link = props => <a {...props} />;
-    }
+    const Link = useContext(context);
 
     return { Link };
 }

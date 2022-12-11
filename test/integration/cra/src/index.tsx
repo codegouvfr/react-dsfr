@@ -7,17 +7,6 @@ import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
-import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
-
-declare module "@codegouvfr/react-dsfr" {
-    interface RegisterLink { 
-        Link: "a";
-    }
-}
-
-const { DsfrLinkProvider } = createDsfrLinkProvider({
-    "Link": "a"
-});
 
 startReactDsfr({
     "defaultColorScheme": "system"
@@ -36,7 +25,7 @@ function Root() {
     const route = useRoute();
 
     return (
-        <DsfrLinkProvider>
+        <>
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
@@ -67,7 +56,7 @@ function Root() {
                     }
                 })()}
             </div>
-        </DsfrLinkProvider>
+        </>
     );
 
 
