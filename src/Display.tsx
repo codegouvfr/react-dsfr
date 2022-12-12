@@ -11,7 +11,7 @@ import ArtworkSystemSvg from "./dsfr/artwork/system.svg";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import type { HeaderProps } from "./Header";
 
-export type Display = {
+export type DisplayProps = {
     className?: string;
 };
 
@@ -36,7 +36,7 @@ export const headerQuickAccessDisplay: HeaderProps.QuickAccessItem.Button = {
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
 export const Display = memo(
-    forwardRef<HTMLDialogElement, Display>((props, ref) => {
+    forwardRef<HTMLDialogElement, DisplayProps>((props, ref) => {
         const { className, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
