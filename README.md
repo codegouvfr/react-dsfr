@@ -221,12 +221,6 @@ import { App } from "./App";
 </strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 </strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
-<strong>// Only for TypeScript users.
-</strong><strong>declare module "@codegouvfr/react-dsfr" {
-</strong><strong>    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-</strong><strong>    export interface LinkProps extends HTMLAnchorProps { }
-</strong><strong>}
-</strong>
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   &#x3C;React.StrictMode>
     &#x3C;App />
