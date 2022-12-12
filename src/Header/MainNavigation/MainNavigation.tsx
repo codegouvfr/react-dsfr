@@ -17,7 +17,20 @@ export type MainNavigationProps = {
     className?: string;
     items: MainNavigationProps.Item[];
     classes?: Partial<
-        Record<"root" | "list" | "item" | "link" | "btn" | "menu" | "menuList", string>
+        Record<
+            | "root"
+            | "list"
+            | "item"
+            | "link"
+            | "btn"
+            | "menu"
+            | "menuList"
+            | "megaMenu"
+            | "megaMenuLeader"
+            | "megaMenuCategory"
+            | "megaMenuList",
+            string
+        >
     >;
 };
 
@@ -34,19 +47,22 @@ export namespace MainNavigationProps {
         export type Link = Common & {
             linkProps: RegisteredLinkProps;
             menuLinks?: undefined;
-            megaMenuProps?: undefined;
+            megaMenu?: undefined;
         };
 
         export type Menu = Common & {
             linkProps?: undefined;
             menuLinks: MenuProps.Link[];
-            megaMenuProps?: undefined;
+            megaMenu?: undefined;
         };
 
         export type MegaMenu = Common & {
             linkProps?: undefined;
             menuLinks?: undefined;
-            megaMenuProps: MegaMenuProps;
+            megaMenu: {
+                leader?: MegaMenuProps.Leader;
+                categories: MegaMenuProps.Category[];
+            };
         };
     }
 }
@@ -86,7 +102,7 @@ export const MainNavigation = memo(
                                 isActive = false,
                                 linkProps,
                                 menuLinks = [],
-                                megaMenuProps
+                                megaMenu
                             },
                             i
                         ) => (
@@ -126,14 +142,20 @@ export const MainNavigation = memo(
                                                 id={getMenuId(i)}
                                             />
                                         )}
-                                        {megaMenuProps !== undefined && (
+                                        {megaMenu !== undefined && (
                                             <MegaMenu
-                                                {...megaMenuProps}
-                                                className={cx(
-                                                    fr.cx("fr-collapse"),
-                                                    megaMenuProps.className
-                                                )}
+                                                classes={{
+                                                    "root": cx(
+                                                        fr.cx("fr-collapse"),
+                                                        classes.megaMenu
+                                                    ),
+                                                    "leader": classes.megaMenuLeader,
+                                                    "category": classes.megaMenuCategory,
+                                                    "list": classes.menuList
+                                                }}
                                                 id={getMenuId(i)}
+                                                leader={megaMenu.leader}
+                                                categories={megaMenu.categories}
                                             />
                                         )}
                                     </>

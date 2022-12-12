@@ -13,6 +13,14 @@ const { meta, getStory } = getStoryFactory({
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/Header.tsx)  
   
 See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)`,
+    "argTypes": {
+        "brandTop": {
+            "control": { "type": null }
+        },
+        "homeLinkProps": {
+            "control": { "type": null }
+        }
+    },
     "disabledProps": ["lang"]
 });
 

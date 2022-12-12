@@ -59,7 +59,11 @@ function Story() {
                     </>
                 }
                 serviceTitle="Nom du site / service"
-                homeLinkProps={{ "href": "#" }}
+                homeLinkProps={{
+                    "href": "#",
+                    "title":
+                        "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+                }}
                 quickAccessItems={[headerQuickAccessDisplay]}
             />
             <Display />
