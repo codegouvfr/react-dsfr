@@ -11,14 +11,14 @@ import ArtworkSystemSvg from "./dsfr/artwork/system.svg";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import type { HeaderProps } from "./Header";
 
-export type DisplaySettingsDialog = {
+export type Display = {
     className?: string;
 };
 
 const dialogId = "fr-theme-modal";
 const dialogTitleId = "fr-theme-modal-title";
 
-export const headerQuickAccessDisplaySettingsItem: HeaderProps.QuickAccessItem.Button = {
+export const headerQuickAccessDisplay: HeaderProps.QuickAccessItem.Button = {
     "buttonProps": {
         "aria-controls": dialogId,
         ...({ "data-fr-opened": false } as {})
@@ -34,9 +34,9 @@ export const headerQuickAccessDisplaySettingsItem: HeaderProps.QuickAccessItem.B
     })()
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-darkmodeswitch> */
-export const DisplaySettingsDialog = memo(
-    forwardRef<HTMLDialogElement, DisplaySettingsDialog>((props, ref) => {
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
+export const Display = memo(
+    forwardRef<HTMLDialogElement, Display>((props, ref) => {
         const { className, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
@@ -101,9 +101,9 @@ export const DisplaySettingsDialog = memo(
     })
 );
 
-DisplaySettingsDialog.displayName = symToStr({ DisplaySettingsDialog });
+Display.displayName = symToStr({ Display });
 
-export default DisplaySettingsDialog;
+export default Display;
 
 const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
     const { theme } = props;
@@ -159,8 +159,8 @@ const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
 
 RadioGroup.displayName = symToStr({ RadioGroup });
 
-const { useTranslation, addDisplaySettingsDialogTranslations } = createComponentI18nApi({
-    "componentName": symToStr({ DisplaySettingsDialog }),
+const { useTranslation, addDisplayTranslations } = createComponentI18nApi({
+    "componentName": symToStr({ Display }),
     "frMessages": {
         /* spell-checker: disable */
         "display settings": "Paramètres d'affichage",
@@ -174,7 +174,7 @@ const { useTranslation, addDisplaySettingsDialogTranslations } = createComponent
     }
 });
 
-addDisplaySettingsDialogTranslations({
+addDisplayTranslations({
     "lang": "en",
     "messages": {
         "display settings": "Display settings",
@@ -187,7 +187,7 @@ addDisplaySettingsDialogTranslations({
     }
 });
 
-addDisplaySettingsDialogTranslations({
+addDisplayTranslations({
     "lang": "es",
     "messages": {
         /* spell-checker: disable */
@@ -198,4 +198,4 @@ addDisplaySettingsDialogTranslations({
     }
 });
 
-export { addDisplaySettingsDialogTranslations };
+export { addDisplayTranslations };

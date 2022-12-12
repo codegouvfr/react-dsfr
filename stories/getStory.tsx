@@ -4,12 +4,6 @@ import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import { useIsDark, DsfrLangProvider } from "../dist/lib";
-import type { HTMLAnchorProps } from "../dist/lib";
-
-declare module "../dist" {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface LinkProps extends HTMLAnchorProps {}
-}
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
@@ -19,6 +13,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     argTypes?: Partial<Record<keyof Props, ArgType>>;
     defaultContainerWidth?: number;
     disabledProps?: ("containerWidth" | "lang" | "darkMode")[];
+    /** Default false */
+    doHideImportInstruction?: boolean;
 }) {
     const {
         sectionName,
@@ -26,7 +22,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         description,
         argTypes = {},
         defaultContainerWidth,
-        disabledProps = []
+        disabledProps = [],
+        doHideImportInstruction = false
     } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
@@ -129,7 +126,11 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                 "docs": {
                     "description": {
                         "component": [
-                            `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``,
+                            ...(doHideImportInstruction
+                                ? []
+                                : [
+                                      `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``
+                                  ]),
                             ...(description === undefined ? [] : [description])
                         ].join("  \n")
                     }

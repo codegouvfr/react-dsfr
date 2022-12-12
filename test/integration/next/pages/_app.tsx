@@ -1,18 +1,21 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import { DisplaySettingsDialog, headerQuickAccessDisplaySettingsItem } from "@codegouvfr/react-dsfr/DisplaySettingsDialog";
+import { Display, headerQuickAccessDisplay } from "@codegouvfr/react-dsfr/Display";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
-import type { LinkProps as NextLinkProps } from "next/link";
+import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
+import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr" {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface LinkProps extends NextLinkProps { }
-
+    interface RegisterLink {
+        Link: typeof Link;
+    }
 }
+
+const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
 
 const {
     withDsfr,
@@ -46,11 +49,11 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <>
+        <DsfrLinkProvider>
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={{ "href": "/" }}
+                homeLinkProps={{ "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
                     {
                         "text": "Home",
@@ -67,7 +70,7 @@ function App({ Component, pageProps }: AppProps) {
                         "isActive": router.asPath === "/mui"
                     }
                 ]}
-                quickAccessItems={[headerQuickAccessDisplaySettingsItem]}
+                quickAccessItems={[headerQuickAccessDisplay]}
             />
             <div className={css({
                 "margin": "auto",
@@ -78,8 +81,8 @@ function App({ Component, pageProps }: AppProps) {
             })}>
                 <Component {...pageProps} />
             </div>
-            <DisplaySettingsDialog />
-        </>
+            <Display />
+        </DsfrLinkProvider>
     );
 }
 

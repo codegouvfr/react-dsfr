@@ -4,7 +4,7 @@ import { fr } from "../lib";
 import { createComponentI18nApi } from "../lib/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "../lib/tools/cx";
-import type { LinkProps } from "../lib/routing";
+import type { RegisteredLinkProps } from "../lib/routing";
 import { useLink } from "../lib/routing";
 import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
@@ -17,11 +17,21 @@ export type HeaderProps = {
     brandTop: ReactNode;
     serviceTitle?: ReactNode;
     serviceTagline?: ReactNode;
-    /** Don't forget the title on the link for accessibility*/
-    homeLinkProps: LinkProps;
+    homeLinkProps: RegisteredLinkProps & { title: string };
     navItems?: MainNavigationProps.Item[];
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];
+    operatorLogo?: {
+        orientation: "horizontal" | "vertical";
+        /**
+         * Expected ratio:
+         * If "vertical": 9x16
+         * If "horizontal": 16x9
+         */
+        imgUrl: string;
+        /** Textual alternative of the image, it MUST include the text present in the image*/
+        alt: string;
+    };
     renderSearchInput?: (
         /**
          * id and name must be forwarded to the <input /> component
@@ -49,11 +59,13 @@ export type HeaderProps = {
             | "serviceTagline"
             | "menu"
             | "menuLinks"
-            | "navRoot"
+            | "nav"
             | "navList"
             | "navItem"
             | "navLink"
-            | "navBtn",
+            | "navBtn"
+            | "navMenu"
+            | "navMenuList",
             string
         >
     >;
@@ -69,7 +81,7 @@ export namespace HeaderProps {
         };
 
         export type Link = Common & {
-            linkProps: LinkProps;
+            linkProps: RegisteredLinkProps;
             buttonProps?: undefined;
         };
 
@@ -94,6 +106,7 @@ export const Header = memo(
             homeLinkProps,
             navItems = [],
             quickAccessItems = [],
+            operatorLogo,
             renderSearchInput,
             classes = {},
             ...rest
@@ -142,6 +155,26 @@ export const Header = memo(
                                             );
                                         })()}
                                     </div>
+                                    {operatorLogo !== undefined && (
+                                        <div className={fr.cx("fr-header__operator")}>
+                                            <Link {...homeLinkProps}>
+                                                <img
+                                                    className={fr.cx("fr-responsive-img")}
+                                                    style={(() => {
+                                                        switch (operatorLogo.orientation) {
+                                                            case "vertical":
+                                                                return { "width": "3.5rem" };
+                                                            case "horizontal":
+                                                                return { "maxWidth": "9.0625rem" };
+                                                        }
+                                                    })()}
+                                                    src={operatorLogo.imgUrl}
+                                                    alt={operatorLogo.alt}
+                                                />
+                                            </Link>
+                                        </div>
+                                    )}
+
                                     {(quickAccessItems.length > 0 ||
                                         renderSearchInput !== undefined) && (
                                         <div
@@ -311,11 +344,13 @@ export const Header = memo(
                                 <MainNavigation
                                     items={navItems}
                                     classes={{
-                                        "root": classes.navRoot,
+                                        "root": classes.nav,
                                         "list": classes.navList,
                                         "item": classes.navItem,
                                         "link": classes.navLink,
-                                        "btn": classes.navBtn
+                                        "btn": classes.navBtn,
+                                        "menu": classes.navMenu,
+                                        "menuList": classes.navMenuList
                                     }}
                                 />
                             )}

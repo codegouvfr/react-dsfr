@@ -6,14 +6,7 @@ import { Mui } from "./Mui";
 import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
-import type { Link as TypeRouteLink } from "type-route";
 import { routes } from "./router";
-
-declare module "@codegouvfr/react-dsfr" {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface LinkProps extends TypeRouteLink { }
-
-}
 
 startReactDsfr({
     "defaultColorScheme": "system"
@@ -36,7 +29,7 @@ function Root() {
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={routes.home().link}
+                homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
                         {
                             "text": "Home",
@@ -64,7 +57,6 @@ function Root() {
                 })()}
             </div>
         </>
-
     );
 
 

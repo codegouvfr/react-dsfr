@@ -4,7 +4,7 @@ import { createComponentI18nApi } from "../../lib/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { LinkProps } from "../../lib/routing";
+import type { RegisteredLinkProps } from "../../lib/routing";
 import { fr } from "../../lib";
 import { cx } from "../../lib/tools/cx";
 import { useLink } from "../../lib/routing";
@@ -16,7 +16,22 @@ import { MegaMenu } from "./MegaMenu";
 export type MainNavigationProps = {
     className?: string;
     items: MainNavigationProps.Item[];
-    classes?: Partial<Record<"root" | "list" | "item" | "link" | "btn", string>>;
+    classes?: Partial<
+        Record<
+            | "root"
+            | "list"
+            | "item"
+            | "link"
+            | "btn"
+            | "menu"
+            | "menuList"
+            | "megaMenu"
+            | "megaMenuLeader"
+            | "megaMenuCategory"
+            | "megaMenuList",
+            string
+        >
+    >;
 };
 
 export namespace MainNavigationProps {
@@ -30,21 +45,24 @@ export namespace MainNavigationProps {
         };
 
         export type Link = Common & {
-            linkProps: LinkProps;
-            menuProps?: undefined;
-            megaMenuProps?: undefined;
+            linkProps: RegisteredLinkProps;
+            menuLinks?: undefined;
+            megaMenu?: undefined;
         };
 
         export type Menu = Common & {
             linkProps?: undefined;
-            menuProps: MenuProps;
-            megaMenuProps?: undefined;
+            menuLinks: MenuProps.Link[];
+            megaMenu?: undefined;
         };
 
         export type MegaMenu = Common & {
             linkProps?: undefined;
-            menuProps?: undefined;
-            megaMenuProps: MegaMenuProps;
+            menuLinks?: undefined;
+            megaMenu: {
+                leader?: MegaMenuProps.Leader;
+                categories: MegaMenuProps.Category[];
+            };
         };
     }
 }
@@ -83,8 +101,8 @@ export const MainNavigation = memo(
                                 text,
                                 isActive = false,
                                 linkProps,
-                                menuProps,
-                                megaMenuProps
+                                menuLinks = [],
+                                megaMenu
                             },
                             i
                         ) => (
@@ -114,24 +132,30 @@ export const MainNavigation = memo(
                                         >
                                             {text}
                                         </button>
-                                        {menuProps !== undefined && (
+                                        {menuLinks.length !== 0 && (
                                             <Menu
-                                                {...menuProps}
-                                                className={cx(
-                                                    fr.cx("fr-collapse"),
-                                                    menuProps.className
-                                                )}
+                                                classes={{
+                                                    "root": cx(fr.cx("fr-collapse"), classes.root),
+                                                    "list": classes.menuList
+                                                }}
+                                                links={menuLinks}
                                                 id={getMenuId(i)}
                                             />
                                         )}
-                                        {megaMenuProps !== undefined && (
+                                        {megaMenu !== undefined && (
                                             <MegaMenu
-                                                {...megaMenuProps}
-                                                className={cx(
-                                                    fr.cx("fr-collapse"),
-                                                    megaMenuProps.className
-                                                )}
+                                                classes={{
+                                                    "root": cx(
+                                                        fr.cx("fr-collapse"),
+                                                        classes.megaMenu
+                                                    ),
+                                                    "leader": classes.megaMenuLeader,
+                                                    "category": classes.megaMenuCategory,
+                                                    "list": classes.menuList
+                                                }}
                                                 id={getMenuId(i)}
+                                                leader={megaMenu.leader}
+                                                categories={megaMenu.categories}
                                             />
                                         )}
                                     </>

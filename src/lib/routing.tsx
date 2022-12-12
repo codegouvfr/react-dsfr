@@ -1,27 +1,27 @@
 import React, { createContext, useContext } from "react";
 import type { ReactNode } from "react";
-
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
 
-interface AriaEnabled {
-    [key: `aria-${string}`]: string | boolean;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface LinkProps extends AriaEnabled {
-    className?: string;
-    children?: ReactNode;
-}
-
-export type HTMLAnchorProps = DetailedHTMLProps<
+type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
     HTMLAnchorElement
 >;
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RegisterLink {
+    // Link: typeof Link
+}
+
+export type RegisteredLinkProps = RegisterLink extends {
+    Link: (props: infer LinkProps) => any;
+}
+    ? Omit<LinkProps, "children">
+    : Omit<HTMLAnchorProps, "children">;
+
 const context = createContext<CreateLinkProviderPrams["Link"]>(props => <a {...props} />);
 
 type CreateLinkProviderPrams = {
-    Link: (props: LinkProps) => ReturnType<React.FC>;
+    Link: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
 };
 
 export function createDsfrLinkProvider(params: CreateLinkProviderPrams) {
