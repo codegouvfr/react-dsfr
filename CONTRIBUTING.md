@@ -1,4 +1,4 @@
-Hello friends 👋,
+`Hello friends 👋,
 
 Would you help us implement [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)?  
 Thank you so much to anyone that would!
@@ -22,6 +22,17 @@ A few things:
 -   🕹️ When it's relevant, try to enable components to be used either in controlled or uncontrolled mode. [Example with <Tabs />](https://react-dsfr-components.etalab.studio/?path=/docs/components-tabs--default).
 -   🌎 Avoid hard coding text in JSX, use [the i18n mechanism](https://react-dsfr.etalab.studio/i18n) instead. [Here is an example](https://github.com/codegouvfr/react-dsfr/blob/bbaf4a81d78de08d6fdcb059a9f4cb8a78ce4d5a/src/DarkModeSwitch.tsx#L162-L199). (Don't worry about providing translations other than French.)
 -   🍳 If you have to arbitrate between ease of use and customisability I'd encourage you to favor ease of use. People that would need a greater level of customizability can always fall back to making their own wrapper from the reference documentation using [`fr.cx()`](https://react-dsfr.etalab.studio/cx).
+
+## Getting TypeScript error in VSCode but the console says everything's right?
+
+Because of how this project is setup TypeScript unaware that files have changed.  
+You don't need to restart VSCode, just restart the TypeScript server.
+
+https://user-images.githubusercontent.com/6702424/206942271-0dc9b94a-1c2b-4073-99d7-96f7fe862bc4.mov
+
+Assets imports error in Storybook can be solved by opening the `stories/global.d.ts` file:
+
+https://user-images.githubusercontent.com/6702424/206940923-8d2d1113-8b81-4f61-8c4e-66101c9fe67e.mov
 
 Thank You Very Much ❤️
 
