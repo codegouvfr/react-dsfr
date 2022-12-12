@@ -20,8 +20,8 @@ the theme state.
 ## Usage example 
 
 \`\`\`tsx
-import { Header } from "../dist/Header";
-import { Display, headerQuickAccessDisplay } from "../dist/Display";
+import { Header } from "@codegouvfr/react-dsfr/Header";
+import { Display, headerQuickAccessDisplay } from "@codegouvfr/react-dsfr/Display";
 
 function App(){
 
