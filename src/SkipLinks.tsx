@@ -7,7 +7,7 @@ import { cx } from "./lib/tools/cx";
 
 export type SkipLink = {
     label: string;
-    anchor: string;
+    anchor: `${string}`;
 };
 
 export type SkipLinksProps = {
@@ -32,7 +32,7 @@ export const SkipLinks = memo(
                                 <li key={link.anchor}>
                                     <a
                                         className={cx(fr.cx("fr-link"), classes.link)}
-                                        href={`#${link.anchor}`}
+                                        href={link.anchor}
                                     >
                                         {link.label}
                                     </a>
