@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
@@ -35,7 +36,6 @@ import type { Equals } from "tsafe";
                   const [, afterPublicDir] = viteConfig.split(/\s["']?publicDir["']?\s*:/);
 
                   for (let indexEnd = 0; indexEnd < afterPublicDir.length; indexEnd++) {
-                      // eslint-disable-next-line @typescript-eslint/no-unused-vars
                       const {
                           default: path,
                           basename,
