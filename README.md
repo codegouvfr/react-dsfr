@@ -38,14 +38,6 @@ Add theses three scipts to your `package.json`:
 </strong>}
 </code></pre>
 
-Add the following entry to your `.gitignore`:
-
-{% code title=".gitignore" %}
-```gitignore
-/public/dsfr
-```
-{% endcode %}
-
 Add the following code in the `<head />`&#x20;
 
 {% code title="public/index.html" %}
@@ -189,14 +181,6 @@ Add theses three scipts to your `package.json`:
 </strong><strong>    "prebuild": "only-include-used-icons"
 </strong>}
 </code></pre>
-
-Add the following entry to your `.gitignore`:
-
-{% code title=".gitignore" %}
-```gitignore
-/public/dsfr
-```
-{% endcode %}
 
 Add the following tags in the `<head />`&#x20;
 
