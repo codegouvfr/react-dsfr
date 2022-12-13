@@ -2,6 +2,7 @@ import React, { memo, forwardRef } from "react";
 // import { symToStr } from "tsafe/symToStr";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
+import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
 
 // We make users import dsfr.css, so we don't need to import the scoped CSS
 // but in the future if we have a complete component coverage it
@@ -13,7 +14,7 @@ import "./dsfr/component/button/button.css";
 // const icons = ["fr-icon-checkbox-circle-line", "fr-icon-account-circle-fill"] as const;
 // type IconType = typeof icons[number];
 
-type IconType = `fr-icon-${string}`;
+type IconType = FrIconClassName | RiIconClassName;
 
 type ButtonIcon = {
     name: IconType;
