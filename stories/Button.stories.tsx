@@ -2,8 +2,6 @@ import { Button } from "../dist/Button";
 import type { ButtonProps } from "../dist/Button";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory<ButtonProps>({
     sectionName,
@@ -13,35 +11,37 @@ const { meta, getStory } = getStoryFactory<ButtonProps>({
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Button.tsx)`,
     "argTypes": {
         "priority": {
-            "options": (() => {
-                const priorities = ["secondary", "tertiary"] as const;
-
-                assert<Equals<typeof priorities[number] | undefined, ButtonProps["priority"]>>();
-
-                return priorities;
-            })(),
+            "options": ((): ButtonProps["priority"][] => ["secondary", "tertiary"])(),
             "control": { "type": "radio" }
         },
         "label": {
-            "description": `Required when the \`<Alert isSmall={false} />\` 
-      (which is the default if \`isSmall\` isn't specified).`
+            "description": `Required`
         },
         "href": {
-            "description": "Required when the `<Alert isSmall />`"
+            "description":
+                "If set, Button component will render a <a> tag, otherwise, it will render a <button>"
+        },
+        "type": {
+            "options": ((): ButtonProps["type"][] => ["button", "submit", "reset"])(),
+            "control": { "type": "radio" },
+            "description":
+                "Type can only be set on <button> element. If the Button component has no href, it will render a <button> element. If type prop is not set, it will render a type='submit' attribute (default value for a <button> element"
         },
         "onClick": {
-            "description": "If the modal should have a close button"
+            "description":
+                "onClick callback, can only be set if Button has no href prop set (to prevent onClick='window.open()' type behavior)"
         },
         "disabled": {
-            "description": "Called when the user clicks the close button"
+            "description":
+                "Can only be set if Button has no href prop set (disabled can't be set on <a> element)"
         },
         "target": {
-            "description": `If specified the \`<Alert />\` is in 
-          [controlled mode](https://reactjs.org/docs/forms.html#controlled-components)
-          this means that when the close button is clicked
-          the \`onClose()\` callback will be called but you are responsible
-          for setting \`isClosed\` to \`false\`, the \`<Alert />\` wont close itself.`,
-            "control": { "type": null }
+            "description": `Can only be set with a href attribute`,
+            "options": ((): ButtonProps["target"][] => ["_self", "_blank", "_parent", "_top"])()
+        },
+        "size": {
+            "description": `Can only be set with a href attribute`,
+            "options": ((): ButtonProps["size"][] => ["sm", "lg"])()
         }
     },
     "disabledProps": ["lang"]
@@ -50,25 +50,54 @@ const { meta, getStory } = getStoryFactory<ButtonProps>({
 export default meta;
 
 export const Default = getStory({
-    label: "Label bouton"
+    label: "Simple button"
 });
 
 export const ButtonSecondary = getStory({
     priority: "secondary",
-    label: "Label bouton secondaire"
+    label: "Simple button - secondary"
 });
 
 export const ButtonTertiary = getStory({
     priority: "tertiary",
-    label: "Label bouton tertiaire"
+    label: "Simple button - tertiary"
+});
+
+export const ButtonDisabled = getStory({
+    label: "Simple button - disabled",
+    disabled: true
+});
+
+export const ButtonWithIconDefault = getStory({
+    label: "Simple button with icon",
+    icon: {
+        name: "fr-icon-account-circle-fill"
+    }
+});
+
+export const ButtonWithIconLeft = getStory({
+    label: "Simple button with icon",
+    icon: {
+        name: "fr-icon-account-circle-fill",
+        position: "left"
+    }
+});
+
+export const ButtonWithIconRight = getStory({
+    label: "Simple button with icon",
+    icon: {
+        name: "fr-icon-account-circle-fill",
+        position: "right"
+    }
 });
 
 export const DefaultAnchorButton = getStory({
-    label: "Label bouton avec lien",
+    label: "Simple button - with href (anchor)",
     href: "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
 });
 
 export const DefaultAnchorButtonWithTargetBlank = getStory({
-    label: "Label bouton avec lien",
+    label: "Simple button - with href (anchor) and target _blank",
+    target: "_blank",
     href: "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
 });

@@ -9,36 +9,48 @@ import { cx } from "./lib/tools/cx";
 // per component basis.
 import "./dsfr/component/button/button.css";
 
-const icons = ["fr-icon-checkbox-circle-line", "fr-icon-account-circle-fill"] as const;
+// This is just an example, we should get types from .fr-icon-* list
+// const icons = ["fr-icon-checkbox-circle-line", "fr-icon-account-circle-fill"] as const;
+// type IconType = typeof icons[number];
 
-type IconType = typeof icons[number];
+type IconType = `fr-icon-${string}`;
 
 type ButtonIcon = {
     name: IconType;
     position?: "left" | "right";
 };
 
-export type ButtonProps = {
+type ButtonCommonProps = {
     label: string;
     icon?: ButtonIcon;
     priority?: "secondary" | "tertiary";
-    type?: "button" | "submit" | "reset";
-    href?: string;
-    target?: React.HTMLAttributeAnchorTarget;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    disabled?: boolean;
     className?: string;
     size?: ButtonProps.Size;
 };
 
+export type ButtonProps = ButtonCommonProps & (ButtonProps.Anchor | ButtonProps.Button);
+
 export namespace ButtonProps {
     export type Size = "sm" | "lg";
+    export type Anchor = {
+        href: string | null;
+        target?: React.HTMLAttributeAnchorTarget;
+        disabled?: never;
+        type?: never;
+        onClick?: never;
+    };
+    export type Button = {
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
+        disabled?: boolean;
+        type?: "button" | "submit" | "reset";
+        href?: never;
+        target?: never;
+    };
 }
 
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(props => {
-        const { icon, priority, type, onClick, href, disabled, className, size, label, target } =
-            props;
+        const { icon, priority, className, size, label } = props;
 
         const buttonClassName = cx(
             fr.cx("fr-btn"),
@@ -49,15 +61,19 @@ export const Button = memo(
         );
         const Component =
             "href" in props ? (
-                <a className={buttonClassName} href={href} target={target || "_self"}>
+                <a
+                    className={buttonClassName}
+                    href={props.href ?? undefined}
+                    target={props.target || "_self"}
+                >
                     {label}
                 </a>
             ) : (
                 <button
                     className={buttonClassName}
-                    type={type}
-                    onClick={onClick}
-                    disabled={disabled}
+                    type={props.type}
+                    onClick={props.onClick}
+                    disabled={props.disabled}
                 >
                     {label}
                 </button>
