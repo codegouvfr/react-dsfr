@@ -1,84 +1,84 @@
 import React, { memo, forwardRef } from "react";
-// import { symToStr } from "tsafe/symToStr";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
+import { RegisteredLinkProps, useLink } from "./lib/routing";
+import { assert } from "tsafe/assert";
+import type { Equals } from "tsafe";
 
-// We make users import dsfr.css, so we don't need to import the scoped CSS
-// but in the future if we have a complete component coverage it
-// we could stop requiring users to import the hole CSS and only import on a
-// per component basis.
-import "./dsfr/component/button/button.css";
-
-// This is just an example, we should get types from .fr-icon-* list
-// const icons = ["fr-icon-checkbox-circle-line", "fr-icon-account-circle-fill"] as const;
-// type IconType = typeof icons[number];
-
-type IconType = FrIconClassName | RiIconClassName;
-
-type ButtonIcon = {
-    name: IconType;
-    position?: "left" | "right";
-};
-
-type ButtonCommonProps = {
-    label: string;
-    icon?: ButtonIcon;
-    priority?: "secondary" | "tertiary";
-    className?: string;
-    size?: ButtonProps.Size;
-};
-
-export type ButtonProps = ButtonCommonProps & (ButtonProps.Anchor | ButtonProps.Button);
+export type ButtonProps = ButtonProps.Anchor | ButtonProps.Button;
 
 export namespace ButtonProps {
-    export type Size = "sm" | "lg";
-    export type Anchor = {
-        href: string | null;
-        target?: React.HTMLAttributeAnchorTarget;
+    type Common = {
+        className?: string;
+        label: string;
+        icon?: {
+            iconId: FrIconClassName | RiIconClassName;
+            position?: "left" | "right";
+        };
+        priority?: "secondary" | "tertiary";
+        size?: "sm" | "lg";
+    };
+
+    export type Anchor = Common & {
+        linkProps: RegisteredLinkProps;
+        onClick?: never;
         disabled?: never;
         type?: never;
-        onClick?: never;
     };
-    export type Button = {
-        onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    export type Button = Common & {
+        linkProps?: never;
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
         disabled?: boolean;
         type?: "button" | "submit" | "reset";
-        href?: never;
-        target?: never;
     };
 }
 
 export const Button = memo(
-    forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(props => {
-        const { icon, priority, className, size, label } = props;
+    forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
+        const {
+            icon,
+            priority,
+            className,
+            size,
+            label,
+            linkProps,
+            onClick,
+            disabled,
+            type,
+            ...rest
+        } = props;
+
+        assert<Equals<keyof typeof rest, never>>();
+
+        const { Link } = useLink();
 
         const buttonClassName = cx(
             fr.cx("fr-btn"),
             priority && fr.cx(`fr-btn--${priority}`),
             size && fr.cx(`fr-btn--${size}`),
-            icon && cx(fr.cx(icon.name), icon.position && fr.cx(`fr-btn--icon-${icon.position}`)),
+            icon && cx(fr.cx(icon.iconId), icon.position && fr.cx(`fr-btn--icon-${icon.position}`)),
             className
         );
-        const Component =
-            "href" in props ? (
-                <a
-                    className={buttonClassName}
-                    href={props.href ?? undefined}
-                    target={props.target || "_self"}
-                >
-                    {label}
-                </a>
-            ) : (
-                <button
-                    className={buttonClassName}
-                    type={props.type}
-                    onClick={props.onClick}
-                    disabled={props.disabled}
-                >
-                    {label}
-                </button>
-            );
+        const Component = linkProps ? (
+            <Link
+                {...linkProps}
+                className={buttonClassName}
+                ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+            >
+                {label}
+            </Link>
+        ) : (
+            <button
+                className={buttonClassName}
+                type={type}
+                onClick={onClick}
+                disabled={disabled}
+                ref={ref as React.ForwardedRef<HTMLButtonElement>}
+            >
+                {label}
+            </button>
+        );
 
         return Component;
     })
