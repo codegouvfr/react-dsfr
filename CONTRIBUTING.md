@@ -5,7 +5,7 @@ Thank you so much to anyone that would!
 
 To get you started you can check out [the `<Alert />` component](https://react-dsfr-components.etalab.studio/?path=/docs/components-alert--default).
 
--   Here is it's definition from the SIG: [systeme-de-design.gouv.fr/elements-d-interface/composants/alerte](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/alerte)
+-   Here is it's definition from the SIG: [systeme-de-design.gouv.fr/elements-d-interface/composants/alerte](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/alerte) (Pro tip: the real source of tuth for DSFR component is [here](https://main--ds-gouv.netlify.app/example/component/))  
 -   Here is its implementation [src/Alert.tsx](https://github.com/codegouvfr/react-dsfr/blob/main/src/Alert.tsx)
 -   Here is the file that generates its documentation: [stories/Alert.stories.tsx](https://github.com/codegouvfr/react-dsfr/blob/main/stories/Alert.stories.tsx)
 
