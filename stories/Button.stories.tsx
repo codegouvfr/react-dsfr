@@ -7,7 +7,7 @@ const { meta, getStory } = getStoryFactory<ButtonProps>({
     sectionName,
     wrappedComponent: { Button },
     description: `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/button)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Button.tsx)`,
     "argTypes": {
         "priority": {
