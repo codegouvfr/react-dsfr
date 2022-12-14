@@ -14,71 +14,16 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    label: "io"
-    // links: [
-    //     { label: "Accueil", href = "/" },
-    //     { label: "Articles", href: "/articles" },
-    //     { label: "Le premier", href: "/articles/first" }
-    // ]
-    //...logCallbacks(["onClick"])
+    links: [
+        { label: "Accueil", href: "/" },
+        { label: "Page 1", href: "/page1" }
+    ]
 });
 
-export const BreadcrumbSecondary = getStory({
-    //"priority": "secondary",
-    "label": "Simple button - secondary"
-    // ...logCallbacks(["onClick"])
+export const LongBreadcrumb = getStory({
+    links: [
+        { label: "Accueil", href: "/" },
+        { label: "Page 1", href: "/page1" },
+        { label: "Article avec un titre très très long", href: "/article1" }
+    ]
 });
-
-// export const ButtonTertiary = getStory({
-//     "priority": "tertiary",
-//     "label": "Simple button - tertiary",
-//     ...logCallbacks(["onClick"])
-// });
-
-// export const ButtonDisabled = getStory({
-//     "label": "Simple button - disabled",
-//     "disabled": true,
-//     ...logCallbacks(["onClick"])
-// });
-
-// export const ButtonWithIconDefault = getStory({
-//     "label": "Simple button with icon",
-//     "icon": {
-//         iconId: "fr-icon-account-circle-fill"
-//     },
-//     ...logCallbacks(["onClick"])
-// });
-
-// export const ButtonWithIconLeft = getStory({
-//     "label": "Simple button with icon",
-//     "icon": {
-//         "iconId": "fr-icon-account-circle-fill",
-//         "position": "left"
-//     },
-//     ...logCallbacks(["onClick"])
-// });
-
-// export const ButtonWithIconRight = getStory({
-//     "label": "Simple button with icon",
-//     "icon": {
-//         "iconId": "fr-icon-account-circle-fill",
-//         "position": "right"
-//     },
-//     ...logCallbacks(["onClick"])
-// });
-
-// export const DefaultAnchorButton = getStory({
-//     "label": "Simple button - with href (anchor)",
-//     "linkProps": {
-//         "href": "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton",
-//         "target": "_blank"
-//     }
-// });
-
-// export const DefaultAnchorButtonWithTargetBlank = getStory({
-//     "label": "Simple button - with href (anchor) and target _blank",
-//     "linkProps": {
-//         "target": "_blank",
-//         "href": "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
-//     }
-// });

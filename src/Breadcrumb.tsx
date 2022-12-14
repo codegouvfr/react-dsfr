@@ -1,6 +1,8 @@
 import React, { memo, forwardRef, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { useLink } from "./lib/routing";
+import { fr } from "./lib";
+import { cx } from "./lib/tools/cx";
 
 // We make users import dsfr.css, so we don't need to import the scoped CSS
 // but in the future if we have a complete component coverage it
@@ -15,6 +17,7 @@ export type BreadcrumbLink = {
 };
 
 export type BreadcrumbProps = {
+    className?: string;
     links: BreadcrumbLink[];
 };
 
@@ -30,14 +33,19 @@ const trimLabel = (label: string) => {
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(
     forwardRef<HTMLDivElement, BreadcrumbProps>(props => {
-        const { links } = props;
+        const { links, className, ...rest } = props;
 
+        <div className={cx(fr.cx("fr-highlight"), className)} {...rest}></div>;
         const router = useRouter();
         const { Link } = useLink();
         const breadcrumbId = useId();
 
         return (
-            <nav role="navigation" className="fr-breadcrumb" aria-label="vous êtes ici :">
+            <nav
+                role="navigation"
+                className={cx(fr.cx("fr-breadcrumb"), className)}
+                aria-label="vous êtes ici :"
+            >
                 <button
                     className="fr-breadcrumb__button"
                     aria-expanded="false"
