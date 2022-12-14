@@ -131,6 +131,7 @@
         "./Footer": "./dist/Footer.js",
         "./Display": "./dist/Display.js",
         "./Button": "./dist/Button.js",
+        "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"
