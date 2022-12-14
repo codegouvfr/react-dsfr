@@ -15,15 +15,35 @@ export default meta;
 
 export const Default = getStory({
     links: [
-        { label: "Accueil", href: "/" },
-        { label: "Page 1", href: "/page1" }
+        { text: "Accueil", linkProps: { href: "/" } },
+        { text: "Page 1", linkProps: { href: "/page1" } }
+    ]
+});
+
+export const ActiveBreadcrumb = getStory({
+    links: [
+        { text: "Accueil", linkProps: { href: "/" } },
+        { text: "Page 1", linkProps: { href: "/page1" }, isActive: true }
     ]
 });
 
 export const LongBreadcrumb = getStory({
     links: [
-        { label: "Accueil", href: "/" },
-        { label: "Page 1", href: "/page1" },
-        { label: "Article avec un titre très très long", href: "/article1" }
+        { text: "Accueil", linkProps: { href: "/" } },
+        { text: "Page de démo 1", linkProps: { href: "/page1" } },
+        { text: "Page de démo 2", linkProps: { href: "/page2" } },
+        { text: "Page de démo 3", linkProps: { href: "/page3" } },
+        { text: "Page de démo 4", linkProps: { href: "/page4" } },
+        { text: "Page de démo 5", linkProps: { href: "/page5" } },
+        { text: "Page de démo 6", linkProps: { href: "/page6" } },
+        { text: "Page de démo 7", linkProps: { href: "/page7" }, isActive: true }
+    ]
+});
+
+export const LongLabelBreadcrumb = getStory({
+    links: [
+        { text: "Accueil", linkProps: { href: "/" } },
+        { text: "Page 1", linkProps: { href: "/page1" } },
+        { text: "Un article très très long", linkProps: { href: "/article1" }, isActive: true }
     ]
 });
