@@ -25,7 +25,7 @@ export namespace BreadcrumbProps {
 
 //Longueur et lisibilité : Afin qu’il reste lisible, évitez que le fil d’Ariane soit trop long et passe sur plusieurs lignes.
 // Si les titres de page de votre site sont longs, nous conseillons de n’afficher que les 4 premiers mots du nom de la page courante et d’indiquer que l’élément est tronqué par l’affichage de “…”
-const trimLabel = (label: string) => {
+const trimText = (label: string) => {
     if (label && label.split(" ").length > 4) {
         return label.split(" ").slice(0, 4).join(" ") + "...";
     }
@@ -67,7 +67,7 @@ export const Breadcrumb = memo(
                                         )}
                                         aria-current={link.isActive ? "page" : undefined}
                                     >
-                                        {trimLabel(link.text)}
+                                        {trimText(link.text)}
                                     </Link>
                                 </li>
                             ))}
