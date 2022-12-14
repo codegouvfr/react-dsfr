@@ -124,6 +124,7 @@
         "./mui": "./dist/mui.js",
         "./lib": "./dist/lib/index.js",
         "./Tabs": "./dist/Tabs.js",
+        "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
         "./Notice": "./dist/Notice.js",
         "./Highlight": "./dist/Highlight.js",
@@ -131,6 +132,7 @@
         "./Footer": "./dist/Footer.js",
         "./Display": "./dist/Display.js",
         "./Button": "./dist/Button.js",
+        "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"
