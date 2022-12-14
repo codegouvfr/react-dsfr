@@ -1,103 +1,79 @@
 import { Button } from "../dist/Button";
-import type { ButtonProps } from "../dist/Button";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory, logCallbacks } from "./getStory";
 
-const { meta, getStory } = getStoryFactory<ButtonProps>({
+const { meta, getStory } = getStoryFactory({
     sectionName,
-    wrappedComponent: { Button },
-    description: `
+    "wrappedComponent": { Button },
+    "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Button.tsx)`,
-    "argTypes": {
-        "priority": {
-            "options": ((): ButtonProps["priority"][] => ["secondary", "tertiary"])(),
-            "control": { "type": "radio" }
-        },
-        "label": {
-            "description": `Required`
-        },
-        "href": {
-            "description":
-                "If set, Button component will render a <a> tag, otherwise, it will render a <button>"
-        },
-        "type": {
-            "options": ((): ButtonProps["type"][] => ["button", "submit", "reset"])(),
-            "control": { "type": "radio" },
-            "description":
-                "Type can only be set on <button> element. If the Button component has no href, it will render a <button> element. If type prop is not set, it will render a type='submit' attribute (default value for a <button> element"
-        },
-        "onClick": {
-            "description":
-                "onClick callback, can only be set if Button has no href prop set (to prevent onClick='window.open()' type behavior)"
-        },
-        "disabled": {
-            "description":
-                "Can only be set if Button has no href prop set (disabled can't be set on <a> element)"
-        },
-        "target": {
-            "description": `Can only be set with a href attribute`,
-            "options": ((): ButtonProps["target"][] => ["_self", "_blank", "_parent", "_top"])()
-        },
-        "size": {
-            "description": `Can only be set with a href attribute`,
-            "options": ((): ButtonProps["size"][] => ["sm", "lg"])()
-        }
-    },
     "disabledProps": ["lang"]
 });
 
 export default meta;
 
 export const Default = getStory({
-    label: "Simple button"
+    "label": "Simple button",
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonSecondary = getStory({
-    priority: "secondary",
-    label: "Simple button - secondary"
+    "priority": "secondary",
+    "label": "Simple button - secondary",
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiary = getStory({
-    priority: "tertiary",
-    label: "Simple button - tertiary"
+    "priority": "tertiary",
+    "label": "Simple button - tertiary",
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonDisabled = getStory({
-    label: "Simple button - disabled",
-    disabled: true
+    "label": "Simple button - disabled",
+    "disabled": true,
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonWithIconDefault = getStory({
-    label: "Simple button with icon",
-    icon: {
-        name: "fr-icon-account-circle-fill"
-    }
+    "label": "Simple button with icon",
+    "icon": {
+        iconId: "fr-icon-account-circle-fill"
+    },
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonWithIconLeft = getStory({
-    label: "Simple button with icon",
-    icon: {
-        name: "fr-icon-account-circle-fill",
-        position: "left"
-    }
+    "label": "Simple button with icon",
+    "icon": {
+        "iconId": "fr-icon-account-circle-fill",
+        "position": "left"
+    },
+    ...logCallbacks(["onClick"])
 });
 
 export const ButtonWithIconRight = getStory({
-    label: "Simple button with icon",
-    icon: {
-        name: "fr-icon-account-circle-fill",
-        position: "right"
-    }
+    "label": "Simple button with icon",
+    "icon": {
+        "iconId": "fr-icon-account-circle-fill",
+        "position": "right"
+    },
+    ...logCallbacks(["onClick"])
 });
 
 export const DefaultAnchorButton = getStory({
-    label: "Simple button - with href (anchor)",
-    href: "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
+    "label": "Simple button - with href (anchor)",
+    "linkProps": {
+        "href": "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton",
+        "target": "_blank"
+    }
 });
 
 export const DefaultAnchorButtonWithTargetBlank = getStory({
-    label: "Simple button - with href (anchor) and target _blank",
-    target: "_blank",
-    href: "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
+    "label": "Simple button - with href (anchor) and target _blank",
+    "linkProps": {
+        "target": "_blank",
+        "href": "https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton"
+    }
 });

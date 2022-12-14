@@ -16,8 +16,10 @@ export namespace ButtonProps {
             iconId: FrIconClassName | RiIconClassName;
             position?: "left" | "right";
         };
-        priority?: "secondary" | "tertiary";
-        size?: "sm" | "lg";
+        /** Default primary */
+        priority?: "primary" | "secondary" | "tertiary";
+        /** Default medium */
+        size?: "small" | "medium" | "large";
     };
 
     export type Anchor = Common & {
@@ -30,6 +32,7 @@ export namespace ButtonProps {
         linkProps?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
         disabled?: boolean;
+        /** Default "button" */
         type?: "button" | "submit" | "reset";
     };
 }
@@ -37,11 +40,11 @@ export namespace ButtonProps {
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {
-            icon,
-            priority,
             className,
-            size,
             label,
+            icon,
+            priority = "primary",
+            size = "medium",
             linkProps,
             onClick,
             disabled,
@@ -55,9 +58,23 @@ export const Button = memo(
 
         const buttonClassName = cx(
             fr.cx("fr-btn"),
-            priority && fr.cx(`fr-btn--${priority}`),
-            size && fr.cx(`fr-btn--${size}`),
-            icon && cx(fr.cx(icon.iconId), icon.position && fr.cx(`fr-btn--icon-${icon.position}`)),
+            priority !== "primary" && fr.cx(`fr-btn--${priority}`),
+            size !== "medium" &&
+                fr.cx(
+                    `fr-btn--${(() => {
+                        switch (size) {
+                            case "small":
+                                return "sm";
+                            case "large":
+                                return "lg";
+                        }
+                    })()}`
+                ),
+            icon !== undefined &&
+                cx(
+                    fr.cx(icon.iconId),
+                    icon.position !== undefined && fr.cx(`fr-btn--icon-${icon.position}`)
+                ),
             className
         );
         const Component = linkProps ? (
