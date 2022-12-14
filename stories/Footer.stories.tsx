@@ -10,7 +10,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Footer },
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/footer)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/pied-de-page)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Footer.tsx)`,
     "argTypes": {
         "brandTop": {
