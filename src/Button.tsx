@@ -7,19 +7,25 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 export type ButtonProps = ButtonProps.Anchor | ButtonProps.Button;
-
 export namespace ButtonProps {
     type Common = {
         className?: string;
         label: string;
-        icon?: {
-            iconId: FrIconClassName | RiIconClassName;
-            position?: "left" | "right";
-        };
         /** Default primary */
         priority?: "primary" | "secondary" | "tertiary";
         /** Default medium */
         size?: "small" | "medium" | "large";
+    } & (WithIcon | WithoutIcon);
+
+    export type WithIcon = {
+        iconId: FrIconClassName | RiIconClassName;
+        /** Default left */
+        iconPosition?: "left" | "right";
+    };
+
+    export type WithoutIcon = {
+        iconId?: never;
+        iconPosition?: never;
     };
 
     export type Anchor = Common & {
@@ -40,9 +46,10 @@ export namespace ButtonProps {
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {
-            className,
+            className: prop_className,
             label,
-            icon,
+            iconId,
+            iconPosition = "left",
             priority = "primary",
             size = "medium",
             linkProps,
@@ -56,7 +63,7 @@ export const Button = memo(
 
         const { Link } = useLink();
 
-        const buttonClassName = cx(
+        const className = cx(
             fr.cx("fr-btn"),
             priority !== "primary" && fr.cx(`fr-btn--${priority}`),
             size !== "medium" &&
@@ -70,24 +77,20 @@ export const Button = memo(
                         }
                     })()}`
                 ),
-            icon !== undefined &&
-                cx(
-                    fr.cx(icon.iconId),
-                    icon.position !== undefined && fr.cx(`fr-btn--icon-${icon.position}`)
-                ),
-            className
+            iconId !== undefined && fr.cx(iconId, `fr-btn--icon-${iconPosition}`),
+            prop_className
         );
         const Component = linkProps ? (
             <Link
                 {...linkProps}
-                className={buttonClassName}
+                className={className}
                 ref={ref as React.ForwardedRef<HTMLAnchorElement>}
             >
                 {label}
             </Link>
         ) : (
             <button
-                className={buttonClassName}
+                className={className}
                 type={type}
                 onClick={onClick}
                 disabled={disabled}
