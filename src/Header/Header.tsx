@@ -82,11 +82,11 @@ export namespace HeaderProps {
 
         export type Link = Common & {
             linkProps: RegisteredLinkProps;
-            buttonProps?: undefined;
+            buttonProps?: never;
         };
 
         export type Button = Common & {
-            linkProps?: undefined;
+            linkProps?: never;
             buttonProps: React.DetailedHTMLProps<
                 React.ButtonHTMLAttributes<HTMLButtonElement>,
                 HTMLButtonElement
