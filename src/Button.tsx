@@ -1,40 +1,62 @@
 import React, { memo, forwardRef } from "react";
+import type {
+    ReactNode,
+    RefAttributes,
+    MemoExoticComponent,
+    ForwardRefExoticComponent
+} from "react";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
 import { RegisteredLinkProps, useLink } from "./lib/routing";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
+import { symToStr } from "tsafe/symToStr";
 
-export type ButtonProps = ButtonProps.Anchor | ButtonProps.Button;
+export type ButtonProps = ButtonProps.Common &
+    (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) &
+    (ButtonProps.AsAnchor | ButtonProps.AsButton);
 export namespace ButtonProps {
-    type Common = {
+    export type Common = {
         className?: string;
-        label: string;
         /** Default primary */
-        priority?: "primary" | "secondary" | "tertiary";
+        priority?: "primary" | "secondary" | "tertiary" | "tertiary no outline";
         /** Default medium */
         size?: "small" | "medium" | "large";
-    } & (WithIcon | WithoutIcon);
+    };
+
+    export type IconOnly = {
+        label?: never;
+        /** Function of the button */
+        title: string;
+        iconId: FrIconClassName | RiIconClassName;
+        iconPosition?: never;
+    };
 
     export type WithIcon = {
+        label: ReactNode;
+        /** Function of the button, to provide if the label isn't explicit */
+        title?: string;
         iconId: FrIconClassName | RiIconClassName;
         /** Default left */
         iconPosition?: "left" | "right";
     };
 
     export type WithoutIcon = {
+        label: ReactNode;
+        /** Function of the button, to provide if the label isn't explicit */
+        title?: string;
         iconId?: never;
         iconPosition?: never;
     };
 
-    export type Anchor = Common & {
+    export type AsAnchor = {
         linkProps: RegisteredLinkProps;
         onClick?: never;
         disabled?: never;
         type?: never;
     };
-    export type Button = Common & {
+    export type AsButton = {
         linkProps?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
         disabled?: boolean;
@@ -48,6 +70,7 @@ export const Button = memo(
         const {
             className: prop_className,
             label,
+            title,
             iconId,
             iconPosition = "left",
             priority = "primary",
@@ -65,7 +88,12 @@ export const Button = memo(
 
         const className = cx(
             fr.cx("fr-btn"),
-            priority !== "primary" && fr.cx(`fr-btn--${priority}`),
+            priority !== "primary" &&
+                fr.cx(
+                    `fr-btn--${
+                        priority === "tertiary no outline" ? "tertiary-no-outline" : priority
+                    }`
+                ),
             size !== "medium" &&
                 fr.cx(
                     `fr-btn--${(() => {
@@ -77,14 +105,19 @@ export const Button = memo(
                         }
                     })()}`
                 ),
-            iconId !== undefined && fr.cx(iconId, `fr-btn--icon-${iconPosition}`),
+            iconId !== undefined &&
+                fr.cx(iconId, label !== undefined && `fr-btn--icon-${iconPosition}`),
+            linkProps !== undefined && linkProps.className,
             prop_className
         );
-        const Component = linkProps ? (
+
+        return linkProps ? (
             <Link
                 {...linkProps}
+                title={title ?? linkProps.title}
                 className={className}
                 ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+                {...rest}
             >
                 {label}
             </Link>
@@ -92,14 +125,27 @@ export const Button = memo(
             <button
                 className={className}
                 type={type}
+                title={title}
                 onClick={onClick}
                 disabled={disabled}
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
+                {...rest}
             >
                 {label}
             </button>
         );
-
-        return Component;
     })
-);
+) as MemoExoticComponent<
+    ForwardRefExoticComponent<
+        ButtonProps.Common &
+            (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) &
+            (
+                | (ButtonProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
+                | (ButtonProps.AsButton & RefAttributes<HTMLButtonElement>)
+            )
+    >
+>;
+
+Button.displayName = symToStr({ Button });
+
+export default Button;
