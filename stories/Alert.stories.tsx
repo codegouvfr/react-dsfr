@@ -29,7 +29,7 @@ const { meta, getStory } = getStoryFactory<AlertProps>({
         "description": {
             "description": "Required when the `<Alert isSmall />`"
         },
-        "isClosable": {
+        "closable": {
             "description": "If the modal should have a close button"
         },
         "onClose": {
@@ -51,10 +51,10 @@ export default meta;
 
 export const Default = getStory({
     "severity": "success",
-    "isSmall": false,
+    "small": false,
     "title": "Message successfully sent",
     "description": "Everything went well",
-    "isClosable": true,
+    "closable": true,
     "isClosed": undefined,
     ...logCallbacks(["onClose"])
 });
@@ -62,7 +62,7 @@ export const Default = getStory({
 export const SmallDescriptionOnlyInfo = getStory(
     {
         "severity": "info",
-        "isSmall": true,
+        "small": true,
         "description": "This is the description"
     },
     {
@@ -84,5 +84,5 @@ export const ClosableError = getStory({
     "severity": "error",
     "title": "This is the title",
     "description": "This is the description",
-    "isClosable": true
+    "closable": true
 });

@@ -20,30 +20,34 @@ export type AlertProps = {
     /** Default h3 */
     as?: `h${2 | 3 | 4 | 5 | 6}`;
     classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
-} & (AlertProps.Md | AlertProps.Sm) &
+} & (AlertProps.DefaultSize | AlertProps.Small) &
     (AlertProps.NonClosable | AlertProps.Closable);
 
 export namespace AlertProps {
-    export type Md = {
-        isSmall?: false;
+    export type DefaultSize = {
+        /** Default false */
+        small?: false;
         title: NonNullable<ReactNode>;
         description?: NonNullable<ReactNode>;
     };
 
-    export type Sm = {
-        isSmall: true;
+    export type Small = {
+        /** Default false */
+        small: true;
         title?: NonNullable<ReactNode>;
         description: NonNullable<ReactNode>;
     };
 
     export type NonClosable = {
-        isClosable?: false;
-        isClosed?: undefined;
-        onClose?: undefined;
+        /** Default false */
+        closable?: false;
+        isClosed?: never;
+        onClose?: never;
     };
 
     export type Closable = {
-        isClosable: true;
+        /** Default false */
+        closable: true;
     } & (Closable.Controlled | Closable.Uncontrolled);
 
     export namespace Closable {
@@ -53,7 +57,7 @@ export namespace AlertProps {
         };
 
         export type Uncontrolled = {
-            isClosed?: undefined;
+            isClosed?: never;
             onClose?: () => void;
         };
     }
@@ -73,10 +77,10 @@ export const Alert = memo(
             severity,
             as: HtmlTitleTag = "h3",
             classes = {},
-            isSmall,
+            small: isSmall,
             title,
             description,
-            isClosable = false,
+            closable: isClosable = false,
             isClosed: props_isClosed,
             onClose,
             ...rest
