@@ -5,7 +5,7 @@ import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import { useConstCallback } from "./lib/tools/powerhooks/useConstCallback";
-import "@gouvfr/dsfr/dist/component/accordion/accordion.css";
+import "./dsfr/component/accordion/accordion.css";
 
 export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontrolled;
 
