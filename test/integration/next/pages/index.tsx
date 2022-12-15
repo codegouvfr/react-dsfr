@@ -10,7 +10,7 @@ export default function App() {
     return (
         <>
             <Alert
-                isClosable={true}
+                closable
                 severity="success"
                 title="Success: This is the title"
                 description="This is the description"
@@ -45,7 +45,7 @@ function ControlledTabs() {
     return (
         <Tabs
             className={css({
-                "margin": fr.spacing("3v")
+                "margin": fr.spacing("10v"),
             })}
             selectedTabId={selectedTabId}
             tabs={[
