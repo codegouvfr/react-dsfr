@@ -86,9 +86,6 @@ type NonFunctionMessageKey<FrMessages extends Record<string, string | ((params: 
 type FunctionMessageKey<FrMessages extends Record<string, string | ((params: any) => string)>> =
     Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
 
-type X = NonFunctionMessageKey<{ foo: string; bar: (params: { x: number }) => string }>;
-type Y = FunctionMessageKey<{ foo: string; bar: (params: { x: number }) => string }>;
-
 export function createComponentI18nApi<
     ComponentName extends string,
     FrMessages extends Record<string, string | ((params: any) => string)>
