@@ -108,9 +108,9 @@ module.exports = nextConfig
 {% code title="pages/_app.tsx" %}
 ```tsx
 import type { AppProps } from "next/app";
+import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
-import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 
 const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
