@@ -6,7 +6,7 @@ import { startReactDsfr, createDsfrLinkProvider, fr } from "@codegouvfr/react-ds
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { Display, headerQuickAccessDisplay } from "@codegouvfr/react-dsfr/Display";
+import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 startReactDsfr({ "defaultColorScheme": "system" });
 
 declare module "@codegouvfr/react-dsfr" {
@@ -37,7 +37,7 @@ function Root() {
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
-                quickAccessItems={[headerQuickAccessDisplay]}
+                quickAccessItems={[headerFooterDisplayItem]}
                 navItems={[
                     {
                         "text": "Home",

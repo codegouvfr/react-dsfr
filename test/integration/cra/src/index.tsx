@@ -7,6 +7,7 @@ import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
+import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 
 startReactDsfr({
     "defaultColorScheme": "system"
@@ -29,6 +30,7 @@ function Root() {
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
+                quickAccessItems={[headerFooterDisplayItem]}
                 homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
                         {
@@ -56,6 +58,7 @@ function Root() {
                     }
                 })()}
             </div>
+            <Display />
         </>
     );
 
