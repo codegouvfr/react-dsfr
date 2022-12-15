@@ -3,7 +3,6 @@ import { assert } from "tsafe/assert";
 import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createContext, useContext } from "react";
-import { memoize } from "./tools/memoize";
 import { getColors } from "./colors";
 
 export type ColorScheme = "light" | "dark";
@@ -15,8 +14,6 @@ export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
     throw new Error("not initialized yet");
 });
-
-export const getClientSideIsDark = memoize(() => $clientSideIsDark.current);
 
 type UseIsDark = () => {
     isDark: boolean;

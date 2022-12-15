@@ -6,7 +6,6 @@ import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
 import { startReactDsfrNext } from "./lib/start";
 import {
-    getClientSideIsDark,
     rootColorSchemeStyleTagId,
     SsrIsDarkProvider,
     data_fr_scheme,
@@ -145,8 +144,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             ...props
         }: AppProps & Record<typeof isDarkPropKey, boolean | undefined>) {
             if (isDark === undefined) {
-                //NOTE: No cookie and default "system" or client side
-                isDark = isBrowser ? getClientSideIsDark() : false;
+                isDark = isBrowser ? /*we do not use it*/ (null as any as boolean) : false;
             }
 
             useEffect(() => {
@@ -182,13 +180,19 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             href={faviconWebmanifestUrl}
                             crossOrigin="use-credentials"
                         />
-                        <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
-                            isDark ? "dark" : "light"
-                        }; }`}</style>
-                        <meta
-                            name="theme-color"
-                            content={getColors(isDark).decisions.background.default.grey.default}
-                        ></meta>
+                        {!isBrowser && ( //NOTE: On browser we handle this manually
+                            <>
+                                <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
+                                    isDark ? "dark" : "light"
+                                }; }`}</style>
+                                <meta
+                                    name="theme-color"
+                                    content={
+                                        getColors(isDark).decisions.background.default.grey.default
+                                    }
+                                />
+                            </>
+                        )}
                     </Head>
                     {isBrowser ? (
                         <App {...(props as any)} />
