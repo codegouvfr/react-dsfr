@@ -18,22 +18,30 @@ export type QuoteProps = {
     source?: ReactNode;
     sourceUrl?: string;
     image?: string;
+    size?: "md" | "lg" | "xl";
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
 export const Quote = memo(
     forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
-        const { className, text, author, source, sourceUrl, image, ...rest } = props;
+        const { className, text, author, source, sourceUrl, image, size, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         return (
             <figure
-                className={cx(fr.cx("fr-quote"), fr.cx("fr-quote--column"), className)}
+                className={cx(fr.cx("fr-quote"), image && fr.cx("fr-quote--column"), className)}
                 ref={ref}
             >
                 <blockquote cite={sourceUrl}>
-                    <p>« {text} »</p>
+                    <p
+                        className={cx(
+                            size === "lg" && fr.cx("fr-text--lg"),
+                            size === "md" && fr.cx("fr-text--md")
+                        )}
+                    >
+                        « {text} »
+                    </p>
                 </blockquote>
                 <figcaption>
                     {author && <p className="fr-quote__author">{author}</p>}
