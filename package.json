@@ -126,6 +126,7 @@
         "./Tabs": "./dist/Tabs.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
+        "./Quote": "./dist/Quote.js",
         "./Notice": "./dist/Notice.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header/index.js",
