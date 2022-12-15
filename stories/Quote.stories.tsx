@@ -1,3 +1,4 @@
+import React from "react";
 import { Quote } from "../dist/Quote";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -18,7 +19,6 @@ export const Default = getStory({
     author: "Auteur",
     source: (
         <>
-            {" "}
             <li>
                 <cite>Ouvrage</cite>
             </li>
@@ -54,7 +54,6 @@ export const QuoteWithoutIllustration = getStory({
     author: "Auteur",
     source: (
         <>
-            {" "}
             <li>
                 <cite>Ouvrage</cite>
             </li>
