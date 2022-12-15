@@ -23,6 +23,17 @@ export type FooterProps = {
     cookiesManagementLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
+    operatorLogo?: {
+        orientation: "horizontal" | "vertical";
+        /**
+         * Expected ratio:
+         * If "vertical": 9x16
+         * If "horizontal": 16x9
+         */
+        imgUrl: string;
+        /** Textual alternative of the image, it MUST include the text present in the image*/
+        alt: string;
+    };
     classes?: Partial<
         Record<
             | "root"
@@ -37,7 +48,9 @@ export type FooterProps = {
             | "bottomList"
             | "bottomItem"
             | "bottomLink"
-            | "bottomCopy",
+            | "bottomCopy"
+            | "brandLink"
+            | "logo",
             string
         >
     >;
@@ -83,6 +96,7 @@ export const Footer = memo(
             personalDataLinkProps,
             cookiesManagementLinkProps,
             bottomItems = [],
+            operatorLogo,
             ...rest
         } = props;
 
@@ -108,9 +122,39 @@ export const Footer = memo(
                                 classes.brand
                             )}
                         >
-                            <Link {...homeLinkProps}>
-                                <p className={fr.cx("fr-logo")}>{brandTop}</p>
-                            </Link>
+                            {(() => {
+                                const children = <p className={fr.cx("fr-logo")}>{brandTop}</p>;
+
+                                return operatorLogo !== undefined ? (
+                                    children
+                                ) : (
+                                    <Link {...homeLinkProps}>{children}</Link>
+                                );
+                            })()}
+                            {operatorLogo !== undefined && (
+                                <Link
+                                    {...homeLinkProps}
+                                    className={cx(
+                                        fr.cx("fr-footer__brand-link"),
+                                        classes.brandLink,
+                                        homeLinkProps.className
+                                    )}
+                                >
+                                    <img
+                                        className={cx(fr.cx("fr-footer__logo"), classes.logo)}
+                                        style={(() => {
+                                            switch (operatorLogo.orientation) {
+                                                case "vertical":
+                                                    return { "width": "3.5rem" };
+                                                case "horizontal":
+                                                    return { "maxWidth": "9.0625rem" };
+                                            }
+                                        })()}
+                                        src={operatorLogo.imgUrl}
+                                        alt={operatorLogo.alt}
+                                    />
+                                </Link>
+                            )}
                         </div>
                         <div className={cx(fr.cx("fr-footer__content"), classes.content)}>
                             {contentDescription !== undefined && (
