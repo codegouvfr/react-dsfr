@@ -62,7 +62,7 @@ export const Quote = memo(
                 <figcaption>
                     {author && <p className="fr-quote__author">{author}</p>}
                     {source && <ul className="fr-quote__source">{source}</ul>}
-                    {image && (
+                    {image !== undefined && (
                         <div className="fr-quote__image">
                             <img src={image} className="fr-responsive-img" alt="" />
                         </div>
