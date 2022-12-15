@@ -33,16 +33,16 @@ function Root() {
                 quickAccessItems={[headerFooterDisplayItem]}
                 homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 navItems={[
-                        {
-                            "text": "Home",
-                            "linkProps": routes.home().link,
-                            "isActive": route.name === "home"
-                        },
-                        {
-                            "text": "Mui playground",
-                            "linkProps": routes.mui().link,
-                            "isActive": route.name === "mui"
-                        }
+                    {
+                        "text": "Home",
+                        "linkProps": routes.home().link,
+                        "isActive": route.name === "home"
+                    },
+                    {
+                        "text": "Mui playground",
+                        "linkProps": routes.mui().link,
+                        "isActive": route.name === "mui"
+                    }
                 ]}
             />
             <div style={{
