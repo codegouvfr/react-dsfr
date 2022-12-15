@@ -96,7 +96,7 @@ export function createComponentI18nApi<
     useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
     `add${ComponentName}Translations`,
-    (params: { lang: string; messages: FrMessages }) => void
+    (params: { lang: string; messages: Partial<FrMessages> }) => void
 > {
     const { componentName, frMessages } = params;
 
@@ -129,10 +129,7 @@ export function createComponentI18nApi<
         return { t };
     }
 
-    function addTranslations(params: {
-        lang: string;
-        messages: Partial<Record<keyof FrMessages, string>>;
-    }) {
+    function addTranslations(params: { lang: string; messages: Partial<FrMessages> }) {
         const { lang, messages } = params;
 
         Object.entries(messages)

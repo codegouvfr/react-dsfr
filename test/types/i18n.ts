@@ -8,7 +8,8 @@ const { useTranslation, addSomeDsfrComponentTranslations } = createComponentI18n
         /* spell-checker: disable */
 
         "do something": ({ what }: { what: string }) => `Faire ${what}`,
-        "the good": "le bien"
+        "the good": "le bien",
+        "bar": "bar"
         /* spell-checker: enable */
     }
 });
