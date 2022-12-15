@@ -19,7 +19,9 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://react-dsfr.etalab.studio/">Documentation website</a>
+  <a href="https://react-dsfr-components.etalab.studio">Components documentation</a>
+  -
+  <a href="https://react-dsfr.etalab.studio/">Guides</a>
   -
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
