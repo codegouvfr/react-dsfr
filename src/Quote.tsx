@@ -20,7 +20,7 @@ export type QuoteProps = {
     image?: string;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-stepper> */
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
 export const Quote = memo(
     forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
         const { className, text, author, source, sourceUrl, image, ...rest } = props;
