@@ -72,9 +72,6 @@ export const Default = getStory({
     "websiteMapLinkProps": {
         "href": "#"
     },
-    "accessibilityLinkProps": {
-        "href": "#"
-    },
     "termsLinkProps": {
         "href": "#"
     },

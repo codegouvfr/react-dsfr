@@ -10,6 +10,7 @@ import ArtworkDarkSvg from "./dsfr/artwork/dark.svg";
 import ArtworkSystemSvg from "./dsfr/artwork/system.svg";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import type { HeaderProps } from "./Header";
+import type { FooterProps } from "./Footer";
 
 export type DisplayProps = {
     className?: string;
@@ -18,7 +19,8 @@ export type DisplayProps = {
 const dialogId = "fr-theme-modal";
 const dialogTitleId = "fr-theme-modal-title";
 
-export const headerQuickAccessDisplay: HeaderProps.QuickAccessItem.Button = {
+export const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button &
+    FooterProps.BottomItem.Button = {
     "buttonProps": {
         "aria-controls": dialogId,
         ...({ "data-fr-opened": false } as {})

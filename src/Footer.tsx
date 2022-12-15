@@ -8,6 +8,8 @@ import { cx } from "./lib/tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./lib/i18n";
+import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
+import { id } from "tsafe/id";
 
 export type FooterProps = {
     className?: string;
@@ -20,6 +22,7 @@ export type FooterProps = {
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
+    bottomItems?: FooterProps.BottomItem[];
     classes?: Partial<
         Record<
             | "root"
@@ -40,6 +43,30 @@ export type FooterProps = {
     >;
 };
 
+export namespace FooterProps {
+    export type BottomItem = BottomItem.Link | BottomItem.Button;
+
+    export namespace BottomItem {
+        export type Common = {
+            iconId?: FrIconClassName | RiIconClassName;
+            text: ReactNode;
+        };
+
+        export type Link = Common & {
+            linkProps: RegisteredLinkProps;
+            buttonProps?: never;
+        };
+
+        export type Button = Common & {
+            linkProps?: undefined;
+            buttonProps: React.DetailedHTMLProps<
+                React.ButtonHTMLAttributes<HTMLButtonElement>,
+                HTMLButtonElement
+            >;
+        };
+    }
+}
+
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
 export const Footer = memo(
     forwardRef<HTMLDivElement, FooterProps>((props, ref) => {
@@ -55,6 +82,7 @@ export const Footer = memo(
             termsLinkProps,
             personalDataLinkProps,
             cookiesManagementLinkProps,
+            bottomItems = [],
             ...rest
         } = props;
 
@@ -131,71 +159,85 @@ export const Footer = memo(
                     </div>
                     <div className={cx(fr.cx("fr-footer__bottom"), classes.bottom)}>
                         <ul className={cx(fr.cx("fr-footer__bottom-list"), classes.bottomList)}>
-                            {(
-                                [
-                                    ["website map", websiteMapLinkProps],
-                                    ["accessibility", accessibilityLinkProps],
-                                    ["terms", termsLinkProps],
-                                    ["personal data", personalDataLinkProps],
-                                    ["cookies managment", cookiesManagementLinkProps]
-                                ] as const
-                            )
-                                .filter(
-                                    ([section, linkProps]) =>
-                                        section === "accessibility" || linkProps !== undefined
-                                )
-                                .map(([section, linkProps], i) => (
-                                    <li
-                                        key={i}
-                                        className={cx(
-                                            fr.cx("fr-footer__bottom-item"),
-                                            classes.bottomItem
-                                        )}
-                                    >
-                                        {section === "accessibility"
-                                            ? (() => {
-                                                  const text = `${t("accessibility")}: ${t(
-                                                      accessibility
-                                                  )}`;
+                            {[
+                                ...(websiteMapLinkProps === undefined
+                                    ? []
+                                    : [
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("website map"),
+                                              "linkProps": websiteMapLinkProps
+                                          })
+                                      ]),
+                                id<FooterProps.BottomItem>({
+                                    "text": `${t("accessibility")}: ${t(accessibility)}`,
+                                    "linkProps": accessibilityLinkProps ?? {}
+                                }),
+                                ...(termsLinkProps === undefined
+                                    ? []
+                                    : [
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("terms"),
+                                              "linkProps": termsLinkProps
+                                          })
+                                      ]),
+                                ...(personalDataLinkProps === undefined
+                                    ? []
+                                    : [
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("personal data"),
+                                              "linkProps": personalDataLinkProps
+                                          })
+                                      ]),
+                                ...(cookiesManagementLinkProps === undefined
+                                    ? []
+                                    : [
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("cookies management"),
+                                              "linkProps": cookiesManagementLinkProps
+                                          })
+                                      ]),
+                                ...bottomItems
+                            ].map(({ iconId, text, buttonProps, linkProps }, i) => (
+                                <li
+                                    key={i}
+                                    className={cx(
+                                        fr.cx("fr-footer__bottom-item"),
+                                        classes.bottomItem
+                                    )}
+                                >
+                                    {(() => {
+                                        const className = cx(
+                                            fr.cx(
+                                                "fr-footer__bottom-link",
+                                                ...(iconId !== undefined
+                                                    ? ([iconId, "fr-link--icon-left"] as const)
+                                                    : [])
+                                            ),
+                                            classes.bottomLink
+                                        );
 
-                                                  return linkProps === undefined ? (
-                                                      <a
-                                                          className={cx(
-                                                              fr.cx("fr-footer__bottom-link"),
-                                                              classes.bottomLink
-                                                          )}
-                                                          href="#"
-                                                      >
-                                                          {text}
-                                                      </a>
-                                                  ) : (
-                                                      <Link
-                                                          {...linkProps}
-                                                          className={cx(
-                                                              fr.cx("fr-footer__bottom-link"),
-                                                              classes.bottomLink,
-                                                              linkProps.className
-                                                          )}
-                                                      >
-                                                          {text}
-                                                      </Link>
-                                                  );
-                                              })()
-                                            : (assert(linkProps !== undefined),
-                                              (
-                                                  <Link
-                                                      {...linkProps}
-                                                      className={cx(
-                                                          fr.cx("fr-footer__bottom-link"),
-                                                          classes.bottomLink,
-                                                          linkProps.className
-                                                      )}
-                                                  >
-                                                      {t(section)}
-                                                  </Link>
-                                              ))}
-                                    </li>
-                                ))}
+                                        return linkProps !== undefined ? (
+                                            Object.keys(linkProps).length === 0 ? (
+                                                <span className={className}>{text}</span>
+                                            ) : (
+                                                <Link
+                                                    {...linkProps}
+                                                    className={cx(className, linkProps.className)}
+                                                >
+                                                    {text}
+                                                </Link>
+                                            )
+                                        ) : (
+                                            <button
+                                                {...buttonProps}
+                                                className={cx(className, buttonProps.className)}
+                                            >
+                                                {text}
+                                            </button>
+                                        );
+                                    })()}
+                                </li>
+                            ))}
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
@@ -231,7 +273,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "fully compliant": "totalement conforme",
         "terms": "Mentions légales",
         "personal data": "Données personnelles",
-        "cookies managment": "Gestion des cookies",
+        "cookies management": "Gestion des cookies",
         "license mention": "Sauf mention contraire, tous les contenus de ce site sont sous",
         "etalab license": "licence etalab-2.0"
         /* spell-checker: enable */

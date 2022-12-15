@@ -1,6 +1,8 @@
 import * as React from "react";
+import { fr } from "../dist";
 import { Header } from "../dist/Header";
-import { Display, headerQuickAccessDisplay } from "../dist/Display";
+import { Footer } from "../dist/Footer";
+import { Display, headerFooterDisplayItem } from "../dist/Display";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { symToStr } from "tsafe/symToStr";
@@ -21,20 +23,27 @@ the theme state.
 
 \`\`\`tsx
 import { Header } from "@codegouvfr/react-dsfr/Header";
-import { Display, headerQuickAccessDisplay } from "@codegouvfr/react-dsfr/Display";
+import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 
 function App(){
 
     return (
         <>
             <Header
-                // other header props...
+                // other Header props...
                 quickAccessItems={[
                     // other quick access items...
-                    headerQuickAccessDisplay
+                    headerFooterDisplayItem
                 ]}
             >
             {/* ... your app ...*/}
+            <Footer
+                // other Footer props...
+                bottomItems={[
+                    // other other bottom items...
+                    headerFooterDisplayItem
+                ]}
+            />
             <Display />
         <>
     );
@@ -47,24 +56,34 @@ function App(){
 
 export default meta;
 
+const brandTop = (
+    <>
+        INTITULE
+        <br />
+        OFFICIEL
+    </>
+);
+
+const homeLinkProps = {
+    "href": "#",
+    "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+};
+
 function Story() {
     return (
         <>
             <Header
-                brandTop={
-                    <>
-                        INTITULE
-                        <br />
-                        OFFICIEL
-                    </>
-                }
+                brandTop={brandTop}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={{
-                    "href": "#",
-                    "title":
-                        "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-                }}
-                quickAccessItems={[headerQuickAccessDisplay]}
+                homeLinkProps={homeLinkProps}
+                quickAccessItems={[headerFooterDisplayItem]}
+            />
+            <Footer
+                className={fr.cx("fr-mt-5v")}
+                brandTop={brandTop}
+                homeLinkProps={homeLinkProps}
+                accessibility="fully compliant"
+                bottomItems={[headerFooterDisplayItem]}
             />
             <Display />
         </>
