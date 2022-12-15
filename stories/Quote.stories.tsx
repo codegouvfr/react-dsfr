@@ -63,7 +63,7 @@ export const QuoteMediumAndAccent = getStory({
     ),
     image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
     size: "md",
-    className: "fr-quote--green-emeraude"
+    accentColor: "pink-macaron"
 });
 
 export const QuoteWithoutDetails = getStory({
@@ -103,6 +103,6 @@ export const QuoteWithoutIllustration = getStory({
 export const QuoteWithAccent = getStory({
     text: "Lorem [...] elit ut. ",
     image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
-    className: "fr-quote--green-emeraude",
+    accentColor: "yellow-moutarde",
     author: "Someone"
 });
