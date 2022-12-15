@@ -80,7 +80,13 @@ const { getHardCodedWeight } = (() => {
 
     const orderedPagesPrefix = [
         "🇫🇷 Introduction",
-        "components",
+        //"components",
+        "components/Header",
+        "components/Footer",
+        "components/Alert",
+        "components/Tabs",
+        "components/Stepper",
+        "components/Button",
     ];
 
     function getHardCodedWeight(kind) {
