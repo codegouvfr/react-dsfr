@@ -62,17 +62,44 @@ function getLanguageBestApprox<Language extends string>(params: {
     return undefined;
 }
 
+type FrMessagesToTranslationFunction<
+    FrMessages extends Record<string, string | ((params: any) => string)>
+> = {
+    (messageKey: NonFunctionMessageKey<FrMessages>): string;
+    <K extends FunctionMessageKey<FrMessages>>(
+        messageKey: K,
+        params: ExtractArgument<FrMessages[K]>
+    ): string;
+};
+
+type ExtractArgument<Message extends string | ((params: any) => string)> = Message extends (
+    params: any
+) => string
+    ? Parameters<Message>[0]
+    : never;
+
+type NonFunctionMessageKey<FrMessages extends Record<string, string | ((params: any) => string)>> =
+    {
+        [Key in keyof FrMessages]: FrMessages[Key] extends string ? Key : never;
+    }[keyof FrMessages];
+
+type FunctionMessageKey<FrMessages extends Record<string, string | ((params: any) => string)>> =
+    Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
+
+type X = NonFunctionMessageKey<{ foo: string; bar: (params: { x: number }) => string }>;
+type Y = FunctionMessageKey<{ foo: string; bar: (params: { x: number }) => string }>;
+
 export function createComponentI18nApi<
     ComponentName extends string,
-    FrMessages extends Record<string, string>
+    FrMessages extends Record<string, string | ((params: any) => string)>
 >(params: {
     componentName: ComponentName;
     frMessages: FrMessages;
 }): {
-    useTranslation: () => { t: (messageKey: keyof FrMessages) => string };
+    useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
     `add${ComponentName}Translations`,
-    (params: { lang: string; messages: Partial<Record<keyof FrMessages, string>> }) => void
+    (params: { lang: string; messages: FrMessages }) => void
 > {
     const { componentName, frMessages } = params;
 
@@ -94,11 +121,12 @@ export function createComponentI18nApi<
             return bestApproxLang ?? "fr";
         }, [lang]);
 
-        function t(messageKey: keyof FrMessages): string {
-            return (
+        function t(messageKey: keyof FrMessages, params?: any): string {
+            const messageOrFn =
                 (messagesByLang as any)[bestMatchLang][messageKey] ??
-                (messagesByLang["fr"] as any)[messageKey]
-            );
+                (messagesByLang["fr"] as any)[messageKey];
+
+            return params === undefined ? messageOrFn : messageOrFn(params);
         }
 
         return { t };
