@@ -97,17 +97,17 @@ export default function Mui() {
 				inputProps={{ 'aria-label': 'controlled' }}
 			/>} label="Dark mode" />
 
-			<Typography sx={{ mt: 7 }} variant="h4">
+			<Typography sx={{ mt: 2 }} variant="h4">
 				This is a place for testing MUI components
 			</Typography>
-			<ComboBox />
+			<DataGridDemo />
 			<BasicButtons />
+			<ComboBox />
 			<BasicChips />
 			<IconMenu />
 			<MaterialUIPickers />
 			<BadgeVisibility />
 			<HorizontalLinearStepper />
-			<DataGridDemo />
 			<Links />
 			<RecipeReviewCard />
 		</>
@@ -277,16 +277,18 @@ const { ComboBox } = (() => {
 function BasicButtons() {
 	return (
 		<>
-			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
+			<Stack spacing={2} direction="row" sx={{ mt: 2 }}>
 				<Button variant="text">Text</Button>
 				<Button variant="contained">Contained</Button>
 				<Button variant="outlined">Outlined</Button>
 			</Stack>
+			{/*
 			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
 				<Button color="secondary">Secondary</Button>
 				<Button color="secondary" variant="contained">Secondary contained</Button>
 				<Button color="secondary" variant="outlined">Secondary contained</Button>
 			</Stack>
+	*/}
 			<Stack spacing={2} direction="row" sx={{ mt: 7 }}>
 				<Button color="success">Success</Button>
 				<Button color="success" variant="contained">Success contained</Button>
