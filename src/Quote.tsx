@@ -2,25 +2,23 @@ import React, { memo, forwardRef, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
 
-// We make users import dsfr.css, so we don't need to import the scoped CSS
-// but in the future if we have a complete component coverage it
-// we could stop requiring users to import the hole CSS and only import on a
-// per component basis.
-import "./dsfr/component/quote/quote.css";
 import { FrClassName } from "./lib/generatedFromCss/classNames";
+import { cx } from "./lib/tools/cx";
+import { fr } from "./lib";
+
+import "./dsfr/component/quote/quote.css";
 
 export type QuoteProps = {
     className?: string;
-    text: string;
-    author?: string;
+    text: ReactNode;
+    author?: ReactNode;
     source?: ReactNode;
     sourceUrl?: string;
-    image?: string;
-    size?: "md" | "lg" | "xl";
+    imageUrl?: string;
+    size?: "medium" | "large" | "xlarge";
     accentColor?: QuoteProps.AccentColor;
+    classes?: Partial<Record<"root" | "author" | "source" | "image" | "imageTag" | "text", string>>;
 };
 
 export namespace QuoteProps {
@@ -34,8 +32,18 @@ export namespace QuoteProps {
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
 export const Quote = memo(
     forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
-        const { className, text, author, source, sourceUrl, image, size, accentColor, ...rest } =
-            props;
+        const {
+            className,
+            text,
+            author,
+            source,
+            sourceUrl,
+            imageUrl,
+            size = "xlarge",
+            accentColor,
+            classes = {},
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -43,8 +51,9 @@ export const Quote = memo(
             <figure
                 className={cx(
                     fr.cx("fr-quote"),
-                    image && fr.cx("fr-quote--column"),
+                    imageUrl && fr.cx("fr-quote--column"),
                     accentColor && `fr-quote--${accentColor}`,
+                    classes.root,
                     className
                 )}
                 ref={ref}
@@ -52,19 +61,28 @@ export const Quote = memo(
                 <blockquote cite={sourceUrl}>
                     <p
                         className={cx(
-                            size === "lg" && fr.cx("fr-text--lg"),
-                            size === "md" && fr.cx("fr-text--md")
+                            size === "large" && fr.cx("fr-text--lg"),
+                            size === "medium" && fr.cx("fr-text--md"),
+                            classes.text
                         )}
                     >
                         « {text} »
                     </p>
                 </blockquote>
                 <figcaption>
-                    {author && <p className="fr-quote__author">{author}</p>}
-                    {source && <ul className="fr-quote__source">{source}</ul>}
-                    {image !== undefined && (
-                        <div className="fr-quote__image">
-                            <img src={image} className="fr-responsive-img" alt="" />
+                    {author !== undefined && (
+                        <p className={cx(fr.cx("fr-quote__author"), classes.author)}>{author}</p>
+                    )}
+                    {source !== undefined && (
+                        <ul className={cx(fr.cx("fr-quote__source"), classes.source)}>{source}</ul>
+                    )}
+                    {imageUrl !== undefined && (
+                        <div className={cx("fr-quote__image", classes.image)}>
+                            <img
+                                src={imageUrl}
+                                className={cx(fr.cx("fr-responsive-img"), classes.imageTag)}
+                                alt=""
+                            />
                         </div>
                     )}
                 </figcaption>

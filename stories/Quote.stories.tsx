@@ -35,8 +35,8 @@ export const Default = getStory({
             </li>
         </>
     ),
-    image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
-    size: "xl",
+    imageUrl: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
+    size: "xlarge",
     className: ""
 });
 
@@ -61,20 +61,20 @@ export const QuoteMediumAndAccent = getStory({
             </li>
         </>
     ),
-    image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
-    size: "md",
+    imageUrl: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
+    size: "medium",
     accentColor: "pink-macaron"
 });
 
 export const QuoteWithoutDetails = getStory({
     text: "Lorem [...] elit ut. ",
     author: "Auteur",
-    image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png"
+    imageUrl: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png"
 });
 
 export const QuoteWithoutSource = getStory({
     text: "Lorem [...] elit ut. ",
-    image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png"
+    imageUrl: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png"
 });
 
 export const QuoteWithoutIllustration = getStory({
@@ -102,7 +102,7 @@ export const QuoteWithoutIllustration = getStory({
 
 export const QuoteWithAccent = getStory({
     text: "Lorem [...] elit ut. ",
-    image: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
+    imageUrl: "//www.systeme-de-design.gouv.fr/img/placeholder.1x1.png",
     accentColor: "yellow-moutarde",
     author: "Someone"
 });
