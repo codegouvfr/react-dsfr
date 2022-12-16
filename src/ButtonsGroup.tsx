@@ -12,28 +12,48 @@ import { cx } from "./lib/tools/cx";
 // per component basis.
 import "./dsfr/component/button/button.css";
 
-export type ButtonsGroupProps = {
+export type ButtonsGroupCommonProps = {
     className?: string;
     classes?: Partial<Record<"root" | "listItem", string>>;
-    mode?: "inline" | "inline-sm" | "inline-md" | "inline-lg";
-    children: React.ReactElement<ButtonProps>[];
-    size?: ButtonsGroupProps.Size;
+    children: [
+        // this component (ul) should have at least 2 children (RGAA)
+        React.ReactElement<ButtonProps>,
+        React.ReactElement<ButtonProps>,
+        ...React.ReactElement<ButtonProps>[]
+    ];
+    size?: ButtonsGroupCommonProps.Size;
 };
 
-export namespace ButtonsGroupProps {
+export namespace ButtonsGroupCommonProps {
     export type Size = "sm" | "lg";
+    export type Mode = "inline" | "inline-sm" | "inline-md" | "inline-lg";
+    export type Align = "center" | "right" | "inline-reverse" | "equisized";
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-badge> */
+type ButtonAlignProps = // align will take effect only on inline placements
+
+        | {
+              mode?: false;
+              align?: never;
+          }
+        | {
+              mode: ButtonsGroupCommonProps.Mode;
+              align?: ButtonsGroupCommonProps.Align;
+          };
+
+export type ButtonsGroupProps = ButtonsGroupCommonProps & ButtonAlignProps;
+
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-buttons-group> */
 export const ButtonsGroup = memo(
     forwardRef<HTMLUListElement, ButtonsGroupProps>((props, ref) => {
-        const { className, classes, mode, children, size, ...rest } = props;
+        const { className, classes, mode, children, size, align, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const buttonsGroupClassName = cx(
             fr.cx("fr-btns-group"),
             mode && fr.cx(`fr-btns-group--${mode}`),
+            align && fr.cx(`fr-btns-group--${align}`),
             size && fr.cx(`fr-btns-group--${size}`),
             className,
             classes?.root
