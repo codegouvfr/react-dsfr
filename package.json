@@ -1,6 +1,6 @@
 {
     "name": "@codegouvfr/react-dsfr",
-    "version": "0.5.2-rc.0",
+    "version": "0.5.3-rc.0",
     "description": "French State Design System React integration library",
     "repository": {
         "type": "git",
@@ -126,6 +126,7 @@
         "./Tabs": "./dist/Tabs.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
+        "./Quote": "./dist/Quote.js",
         "./Notice": "./dist/Notice.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header/index.js",
