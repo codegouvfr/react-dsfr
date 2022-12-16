@@ -131,6 +131,7 @@
         "./Header": "./dist/Header/index.js",
         "./Footer": "./dist/Footer.js",
         "./Display": "./dist/Display.js",
+        "./Card": "./dist/Card.js",
         "./Button": "./dist/Button.js",
         "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",

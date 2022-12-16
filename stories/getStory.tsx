@@ -90,14 +90,17 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     let isFirstStory = true;
 
-    function getStory(props: Props, params?: { description?: string }): typeof Template {
-        const { description } = params ?? {};
+    function getStory(
+        props: Props,
+        params?: { containerWidth?: number; description?: string }
+    ): typeof Template {
+        const { containerWidth, description } = params ?? {};
 
         const out = Template.bind({});
 
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
-            "containerWidth": defaultContainerWidth ?? 0,
+            "containerWidth": containerWidth ?? defaultContainerWidth ?? 0,
             "lang": "fr",
             isFirstStory,
             ...props
@@ -107,8 +110,13 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
         out.parameters = {
             "docs": {
+                sectionName: "plop",
+                componentName: "koko",
+
                 "description": {
-                    "story": description
+                    "story": description,
+                    sectionName: "plop",
+                    componentName: "koko2"
                 }
             }
         };
