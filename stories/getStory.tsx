@@ -110,13 +110,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
         out.parameters = {
             "docs": {
-                sectionName: "plop",
-                componentName: "koko",
-
                 "description": {
-                    "story": description,
-                    sectionName: "plop",
-                    componentName: "koko2"
+                    "story": description
                 }
             }
         };
