@@ -11,7 +11,6 @@ import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
-import defaultMuiShadows from "@mui/material/styles/shadows";
 import type { Shadows } from "@mui/material/styles";
 import { id } from "tsafe/id";
 
@@ -136,8 +135,6 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
                       })();
         })(),
         "shadows": (() => {
-            const [, , , , , , , , ...rest] = defaultMuiShadows;
-
             return id<Shadows>([
                 "none",
                 /** ButtonBar shadow */
@@ -154,7 +151,23 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
                 "0px 6px 10px 0px rgba(0,0,0,0.14)",
                 /** Dialog **/
                 "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                ...rest
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)",
+                "0px 8px 10px -7px rgba(0,0,0,0.07)"
             ]);
         })(),
         "components": {
