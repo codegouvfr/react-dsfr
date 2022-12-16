@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef, useId, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -18,20 +18,11 @@ export type BreadcrumbProps = {
 
 export namespace BreadcrumbProps {
     export type Link = {
-        text: string;
+        text: ReactNode;
         linkProps: RegisteredLinkProps;
         isActive?: boolean;
     };
 }
-
-// Note DSFR: Longueur et lisibilité : Afin qu’il reste lisible, évitez que le fil d’Ariane soit trop long et passe sur plusieurs lignes.
-// Si les titres de page de votre site sont longs, nous conseillons de n’afficher que les 4 premiers mots du nom de la page courante et d’indiquer que l’élément est tronqué par l’affichage de “…”
-const trimText = (label: string) => {
-    if (label && label.split(" ").length > 4) {
-        return label.split(" ").slice(0, 4).join(" ") + "...";
-    }
-    return label;
-};
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(
@@ -44,6 +35,7 @@ export const Breadcrumb = memo(
 
         const { Link } = useLink();
         const breadcrumbId = useId();
+
         return (
             <nav
                 ref={ref}
@@ -73,7 +65,7 @@ export const Breadcrumb = memo(
                                         )}
                                         aria-current={link.isActive ? "page" : undefined}
                                     >
-                                        {trimText(link.text)}
+                                        {link.text}
                                     </Link>
                                 </li>
                             ))}
