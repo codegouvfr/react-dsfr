@@ -1,91 +1,126 @@
 import React from "react";
 import { ButtonsGroup } from "../dist/ButtonsGroup";
 import { Button } from "../dist/Button";
-import type { ButtonsGroupProps, ButtonsGroupCommonProps } from "../dist/ButtonsGroup";
+import type { ButtonsGroupProps } from "../dist/ButtonsGroup";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory<ButtonsGroupProps>({
+const { meta, getStory } = getStoryFactory({
     sectionName,
-    wrappedComponent: { ButtonsGroup },
-    description: `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/badge)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Badge.tsx)`,
-    argTypes: {
-        size: {
-            options: (() => {
-                const sizes = ["sm", "lg"] as const;
+    "wrappedComponent": { ButtonsGroup },
+    "description": `
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/groupe-de-boutons)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ButtonGroup.tsx)`,
+    "argTypes": {
+        "inlineLayoutWhen": {
+            "options": (() => {
+                const options = [
+                    "never",
+                    "always",
+                    ...(["sm", "md", "lg"] as const).map(bp => `${bp} and up` as const)
+                ] as const;
 
-                assert<Equals<typeof sizes[number], ButtonsGroupCommonProps.Size>>();
+                assert<
+                    Equals<
+                        typeof options[number] | undefined,
+                        ButtonsGroupProps["inlineLayoutWhen"]
+                    >
+                >();
 
-                return [null, ...sizes];
+                return options;
             })(),
-            control: { type: "select", labels: { null: "no size (md)" } }
+            "description": ` 
+                Default "never", "never" means that the button are 
+                stacked vertically regardless of the screed width 
+            `,
+            "control": { "type": "select" /*"labels": { "null": "no size (md)" }*/ }
         },
-        mode: {
-            options: (() => {
-                const modes = ["inline", "inline-sm", "inline-md", "inline-lg"] as const;
-
-                assert<Equals<typeof modes[number], ButtonsGroupCommonProps.Mode>>();
-
-                return [null, ...modes];
-            })(),
-            control: { type: "select", labels: { null: "no mode (vertical)" } }
+        "buttonsEquisized": {
+            "description": ` 
+                Default: false, TODO: Report @gouvfr/dsfr bug: only applies when
+                inlineLayout: "never" | "always"
+            `,
+            "control": { "type": "boolean" }
         },
-        align: {
-            options: (() => {
-                const aligns = ["center", "right", "inline-reverse", "equisized"] as const;
+        "alignment": {
+            "options": (() => {
+                const options = ["left", "center", "right", "between"] as const;
 
-                assert<Equals<typeof aligns[number], ButtonsGroupCommonProps.Align>>();
+                assert<
+                    Equals<typeof options[number] | undefined, ButtonsGroupProps["alignment"]>
+                >();
 
-                return [null, ...aligns];
+                return options;
             })(),
-            control: { type: "select", labels: { null: "no align (default to left)" } }
+            "description": `Default: "left", in vertical layout this has no effect`,
+            "control": { "type": "select" }
+        },
+        "buttonsSize": {
+            "options": (() => {
+                const options = ["small", "medium", "large"] as const;
+
+                assert<
+                    Equals<typeof options[number] | undefined, ButtonsGroupProps["buttonsSize"]>
+                >();
+
+                return options;
+            })(),
+            "description": ` 
+                Default: "medium", it overwrite the size that would have been set on the buttons
+            `,
+            "control": { "type": "select" }
+        },
+        "buttonsIconPosition": {
+            "options": (() => {
+                const options = ["left", "right"] as const;
+
+                assert<
+                    Equals<
+                        typeof options[number] | undefined,
+                        ButtonsGroupProps["buttonsIconPosition"]
+                    >
+                >();
+
+                return options;
+            })(),
+            "description": ` 
+                Default: "left", WARNING: Do not set iconPosition on child buttons
+            `,
+            "control": { "type": "select" }
+        },
+        "children": {
+            "description": `This component (ul) should have at least 2 children (RGAA)`,
+            "control": { "type": null }
         }
     },
-    disabledProps: ["lang"]
+    "disabledProps": ["lang"],
+    "defaultContainerWidth": 800
 });
 
 export default meta;
 
 export const Default = getStory({
-    children: [
-        <Button label="Button 1 label" linkProps={{ href: "#" }} />,
-        <Button label="Button 2 label" priority="secondary" linkProps={{ href: "#" }} />
+    "children": [
+        <Button
+            key={0}
+            label="Button 1 label"
+            linkProps={{ href: "#" }}
+            iconId="fr-icon-git-commit-fill"
+        />,
+        <Button
+            key={1}
+            label="Button 2 label (longer)"
+            priority="secondary"
+            linkProps={{ href: "#" }}
+            iconId="fr-icon-chat-check-fill"
+        />,
+        <Button
+            key={2}
+            label="Button 3 label"
+            linkProps={{ href: "#" }}
+            iconId="fr-icon-bank-card-line"
+        />
     ]
-});
-
-export const ModeHorizontal = getStory({
-    children: [
-        <Button label="Button 1 label" linkProps={{ href: "#" }} />,
-        <Button label="Button 2 label" priority="secondary" linkProps={{ href: "#" }} />
-    ],
-    mode: "inline"
-});
-
-export const DefaultSmall = getStory({
-    children: [
-        <Button label="Button 1 label" linkProps={{ href: "#" }} />,
-        <Button label="Button 2 label" priority="secondary" linkProps={{ href: "#" }} />
-    ],
-    size: "sm"
-});
-
-export const HorizontalOnLargerBreakpoints = getStory({
-    children: [
-        <Button label="Button 1 label" linkProps={{ href: "#" }} />,
-        <Button label="Button 2 label" priority="secondary" linkProps={{ href: "#" }} />
-    ],
-    mode: "inline-sm"
-});
-
-export const HorizontalCentered = getStory({
-    children: [
-        <Button label="Button 1 label" linkProps={{ href: "#" }} />,
-        <Button label="Button 2 label" priority="secondary" linkProps={{ href: "#" }} />
-    ],
-    align: "center",
-    mode: "inline"
 });

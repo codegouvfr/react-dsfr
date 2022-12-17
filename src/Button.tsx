@@ -87,15 +87,13 @@ export const Button = memo(
         const { Link } = useLink();
 
         const className = cx(
-            fr.cx("fr-btn"),
-            priority !== "primary" &&
-                fr.cx(
+            fr.cx(
+                "fr-btn",
+                priority !== "primary" &&
                     `fr-btn--${
                         priority === "tertiary no outline" ? "tertiary-no-outline" : priority
-                    }`
-                ),
-            size !== "medium" &&
-                fr.cx(
+                    }`,
+                size !== "medium" &&
                     `fr-btn--${(() => {
                         switch (size) {
                             case "small":
@@ -103,10 +101,11 @@ export const Button = memo(
                             case "large":
                                 return "lg";
                         }
-                    })()}`
-                ),
-            iconId !== undefined &&
-                fr.cx(iconId, label !== undefined && `fr-btn--icon-${iconPosition}`),
+                    })()}`,
+                ...(iconId === undefined
+                    ? []
+                    : [iconId, label !== undefined && (`fr-btn--icon-${iconPosition}` as const)])
+            ),
             linkProps !== undefined && linkProps.className,
             prop_className
         );
