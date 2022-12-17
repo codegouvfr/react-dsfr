@@ -135,6 +135,8 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
                       })();
         })(),
         "shadows": (() => {
+            const [, , , , , , , , ...rest] = createTheme().shadows;
+
             return id<Shadows>([
                 "none",
                 /** ButtonBar shadow */
@@ -151,23 +153,7 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
                 "0px 6px 10px 0px rgba(0,0,0,0.14)",
                 /** Dialog **/
                 "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)",
-                "0px 8px 10px -7px rgba(0,0,0,0.07)"
+                ...rest
             ]);
         })(),
         "components": {

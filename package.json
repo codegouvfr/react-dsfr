@@ -74,7 +74,7 @@
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@gouvfr/dsfr": "1.8.4",
-        "@mui/material": "5.10.7",
+        "@mui/material": "^5.11.0",
         "@storybook/addon-actions": "^6.5.13",
         "@storybook/addon-essentials": "^6.5.13",
         "@storybook/addon-interactions": "^6.5.13",
