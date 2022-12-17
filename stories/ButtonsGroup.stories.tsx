@@ -103,24 +103,19 @@ export default meta;
 
 export const Default = getStory({
     "children": [
-        <Button
-            key={0}
-            label="Button 1 label"
-            linkProps={{ href: "#" }}
-            iconId="fr-icon-git-commit-fill"
-        />,
+        <Button key={0} linkProps={{ href: "#" }} iconId="fr-icon-git-commit-fill">
+            Button 1 label
+        </Button>,
         <Button
             key={1}
-            label="Button 2 label (longer)"
             priority="secondary"
             linkProps={{ href: "#" }}
             iconId="fr-icon-chat-check-fill"
-        />,
-        <Button
-            key={2}
-            label="Button 3 label"
-            linkProps={{ href: "#" }}
-            iconId="fr-icon-bank-card-line"
-        />
+        >
+            Button 2 label (longer)
+        </Button>,
+        <Button key={2} linkProps={{ href: "#" }} iconId="fr-icon-bank-card-line">
+            Button 3 label
+        </Button>
     ]
 });
