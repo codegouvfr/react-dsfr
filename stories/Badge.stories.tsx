@@ -7,103 +7,103 @@ import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory<BadgeProps>({
     sectionName,
-    wrappedComponent: { Badge },
+    "wrappedComponent": { Badge },
     description: `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/badge)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Badge.tsx)`,
-    argTypes: {
-        severity: {
-            options: (() => {
-                const severities = ["success", "warning", "info", "error", "new"] as const;
+    "argTypes": {
+        "severity": {
+            "options": (() => {
+                const options = ["success", "warning", "info", "error", "new", undefined] as const;
 
-                assert<Equals<typeof severities[number], BadgeProps.Severity>>();
+                assert<Equals<typeof options[number], BadgeProps["severity"]>>();
 
-                return [null, ...severities];
+                return options;
             })(),
-            control: { type: "select", labels: { null: "no severity" } }
+            "control": { type: "select", labels: { null: "no severity" } }
         },
-        noIcon: {
-            type: { name: "boolean" },
-            description: "Remove badge icon when true"
+        "noIcon": {
+            "type": { "name": "boolean" },
+            "description": "Remove badge icon when true"
         },
-        isSmall: {
-            type: { name: "boolean" },
-            description: "Set small badge size (`sm`) when true"
+        "small": {
+            "type": { "name": "boolean" },
+            "description": "Set small badge size (`sm`) when true"
         },
-        label: {
-            type: { name: "string", required: true },
-            description: "Label to display on the badge"
+        "label": {
+            "type": { "name": "string", "required": true },
+            "description": "Label to display on the badge"
         }
     },
-    disabledProps: ["lang"]
+    "disabledProps": ["lang"]
 });
 
 export default meta;
 
 export const Default = getStory({
-    severity: "success",
-    label: "Label badge"
+    "severity": "success",
+    "label": "Label badge"
 });
 
 export const BadgeWithoutSeverity = getStory(
     {
-        label: "Label"
+        "label": "Label"
     },
     {
-        description: "Medium info `Badge` with icon"
+        "description": "Medium info `Badge` with icon"
     }
 );
 
 export const InfoBadge = getStory(
     {
-        severity: "info",
-        label: "Label info"
+        "severity": "info",
+        "label": "Label info"
     },
     {
-        description: "Medium info `Badge` with icon"
+        "description": "Medium info `Badge` with icon"
     }
 );
 
 export const WarningBadge = getStory(
     {
-        severity: "warning",
-        noIcon: false,
-        label: 'Label "warning"'
+        "severity": "warning",
+        "noIcon": false,
+        "label": 'Label "warning"'
     },
     {
-        description: "Medium warning `Badge` with icon"
+        "description": "Medium warning `Badge` with icon"
     }
 );
 
 export const SuccessBadge = getStory(
     {
-        severity: "success",
-        noIcon: true,
-        label: "Label success"
+        "severity": "success",
+        "noIcon": true,
+        "label": "Label success"
     },
     {
-        description: "Medium success `Badge` without icon"
+        "description": "Medium success `Badge` without icon"
     }
 );
 
 export const ErrorBadge = getStory(
     {
-        severity: "error",
-        noIcon: true,
-        label: "Label error"
+        "severity": "error",
+        "noIcon": true,
+        "label": "Label error"
     },
     {
-        description: "Medium error `Badge` without icon"
+        "description": "Medium error `Badge` without icon"
     }
 );
 
 export const NewBadge = getStory(
     {
-        severity: "new",
-        isSmall: true,
-        label: "Label new"
+        "severity": "new",
+        "small": true,
+        "label": "Label new"
     },
     {
-        description: "Small new `Badge` with icon"
+        "description": "Small new `Badge` with icon"
     }
 );
