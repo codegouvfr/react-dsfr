@@ -26,7 +26,7 @@ export namespace ButtonProps {
     };
 
     export type IconOnly = {
-        label?: never;
+        children?: never;
         /** Function of the button */
         title: string;
         iconId: FrIconClassName | RiIconClassName;
@@ -34,7 +34,7 @@ export namespace ButtonProps {
     };
 
     export type WithIcon = {
-        label: ReactNode;
+        children: ReactNode;
         /** Function of the button, to provide if the label isn't explicit */
         title?: string;
         iconId: FrIconClassName | RiIconClassName;
@@ -43,7 +43,7 @@ export namespace ButtonProps {
     };
 
     export type WithoutIcon = {
-        label: ReactNode;
+        children: ReactNode;
         /** Function of the button, to provide if the label isn't explicit */
         title?: string;
         iconId?: never;
@@ -69,7 +69,7 @@ export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {
             className: prop_className,
-            label,
+            children,
             title,
             iconId,
             iconPosition = "left",
@@ -87,15 +87,13 @@ export const Button = memo(
         const { Link } = useLink();
 
         const className = cx(
-            fr.cx("fr-btn"),
-            priority !== "primary" &&
-                fr.cx(
+            fr.cx(
+                "fr-btn",
+                priority !== "primary" &&
                     `fr-btn--${
                         priority === "tertiary no outline" ? "tertiary-no-outline" : priority
-                    }`
-                ),
-            size !== "medium" &&
-                fr.cx(
+                    }`,
+                size !== "medium" &&
                     `fr-btn--${(() => {
                         switch (size) {
                             case "small":
@@ -103,10 +101,11 @@ export const Button = memo(
                             case "large":
                                 return "lg";
                         }
-                    })()}`
-                ),
-            iconId !== undefined &&
-                fr.cx(iconId, label !== undefined && `fr-btn--icon-${iconPosition}`),
+                    })()}`,
+                ...(iconId === undefined
+                    ? []
+                    : [iconId, children !== undefined && (`fr-btn--icon-${iconPosition}` as const)])
+            ),
             linkProps !== undefined && linkProps.className,
             prop_className
         );
@@ -119,7 +118,7 @@ export const Button = memo(
                 ref={ref as React.ForwardedRef<HTMLAnchorElement>}
                 {...rest}
             >
-                {label}
+                {children}
             </Link>
         ) : (
             <button
@@ -131,7 +130,7 @@ export const Button = memo(
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
                 {...rest}
             >
-                {label}
+                {children}
             </button>
         );
     })

@@ -24,13 +24,13 @@ export namespace HighlightProps {
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-highlight> */
 export const Highlight = memo(
-    forwardRef<HTMLDivElement, HighlightProps>(props => {
+    forwardRef<HTMLDivElement, HighlightProps>((props, ref) => {
         const { className, classes = {}, children, size, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         return (
-            <div className={cx(fr.cx("fr-highlight"), classes.root, className)} {...rest}>
+            <div className={cx(fr.cx("fr-highlight"), classes.root, className)} ref={ref} {...rest}>
                 <p className={cx(fr.cx({ [`fr-text--${size}`]: size }), classes.content)}>
                     {children}
                 </p>

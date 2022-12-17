@@ -61,6 +61,9 @@ const { meta, getStory } = getStoryFactory({
         },
         "disabled": {
             "control": { "type": "boolean" }
+        },
+        "children": {
+            "control": { "type": "string" }
         }
     },
     "disabledProps": ["lang"]
@@ -69,12 +72,12 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    "label": "Label button",
+    "children": "Label button",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonAsAnchor = getStory({
-    "label": "I'm a link",
+    "children": "I'm a link",
     "linkProps": {
         "href": "#"
     }
@@ -82,85 +85,85 @@ export const ButtonAsAnchor = getStory({
 
 export const ButtonSecondary = getStory({
     "priority": "secondary",
-    "label": "Label bouton",
+    "children": "Label bouton",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiary = getStory({
     "priority": "tertiary",
-    "label": "Simple button - tertiary",
+    "children": "Simple button - tertiary",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiaryNoOutline = getStory({
     "priority": "tertiary no outline",
-    "label": "Simple button - tertiary",
+    "children": "Simple button - tertiary",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonDisabled = getStory({
-    "label": "Bouton primaire désactivé",
+    "children": "Bouton primaire désactivé",
     "disabled": true,
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonSecondaryDisabled = getStory({
-    "label": "Bouton secondaire désactivé",
+    "children": "Bouton secondaire désactivé",
     "priority": "secondary",
     "disabled": true,
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiaryDisabled = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary",
     "disabled": true,
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiaryNoOutlineDisabled = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary no outline",
     "disabled": true,
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonWithIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonSecondaryWithIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "secondary",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiaryWithIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonTertiaryNoOutlineWithIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary no outline",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonWithRightIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "iconId": "fr-icon-checkbox-circle-line",
     "iconPosition": "right",
     ...logCallbacks(["onClick"])
 });
 
 export const ButtonSecondaryWithRightIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "secondary",
     "iconId": "fr-icon-checkbox-circle-line",
     "iconPosition": "right",
@@ -168,7 +171,7 @@ export const ButtonSecondaryWithRightIcon = getStory({
 });
 
 export const ButtonTertiaryWithRightIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary",
     "iconId": "fr-icon-checkbox-circle-line",
     "iconPosition": "right",
@@ -176,7 +179,7 @@ export const ButtonTertiaryWithRightIcon = getStory({
 });
 
 export const ButtonTertiaryNoOutlineWithRightIcon = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "tertiary no outline",
     "iconId": "fr-icon-checkbox-circle-line",
     "iconPosition": "right",
@@ -211,21 +214,21 @@ export const ButtonTertiaryNoOutlineWithIconOnly = getStory({
 });
 
 export const SmallButton = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "size": "small",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const SmallButtonSecondary = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "priority": "secondary",
     "iconId": "fr-icon-checkbox-circle-line",
     ...logCallbacks(["onClick"])
 });
 
 export const BigButtonTertiary = getStory({
-    "label": "Label button",
+    "children": "Label button",
     "size": "large",
     "priority": "tertiary",
     "iconId": "fr-icon-checkbox-circle-line",
