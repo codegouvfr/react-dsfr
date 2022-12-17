@@ -1,6 +1,6 @@
 export { startReactDsfr } from "./start";
 export type { Params } from "./start";
-export { useIsDark } from "./darkMode";
+export { useIsDark, $clientSideIsDark } from "./darkMode";
 export * from "./colors";
 export type { BreakpointKeys } from "./breakpoints";
 import { breakpoints } from "./breakpoints";
