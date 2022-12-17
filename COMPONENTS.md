@@ -6,7 +6,7 @@
 -   [x] Badge
 -   [x] Notice
 -   [x] Button
--   [ ] Buttons group
+-   [x] Buttons group
 -   [ ] France Connect button
 -   [ ] Radio button
 -   [ ] Radio rich
