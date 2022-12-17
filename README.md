@@ -202,7 +202,6 @@ Add the following tags in the `<head />`&#x20;
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 <strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
-</strong><strong>import type { HTMLAnchorProps } from "@codegouvfr/react-dsfr";
 </strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
