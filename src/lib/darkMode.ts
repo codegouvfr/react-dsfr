@@ -11,13 +11,15 @@ export const data_fr_theme = "data-fr-theme";
 export const data_fr_scheme = "data-fr-scheme";
 export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
 
-export const $clientSideIsDark = createStatefulObservable<boolean>(() => {
+const $clientSideIsDark = createStatefulObservable<boolean>(() => {
     throw new Error("not initialized yet");
 });
 
 type UseIsDark = () => {
     isDark: boolean;
-    setIsDark: (isDark: boolean | "system") => void;
+    setIsDark: (
+        isDark: boolean | "system" | ((currentIsDark: boolean) => boolean | "system")
+    ) => void;
 };
 
 const $isAfterFirstEffect = createStatefulObservable(() => false);
@@ -26,26 +28,33 @@ const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
-    const setIsDark = useConstCallback((isDark: boolean | "system") =>
-        document.documentElement.setAttribute(
-            data_fr_scheme,
-            ((): ColorScheme | "system" => {
-                switch (isDark) {
-                    case "system":
-                        return "system";
-                    case true:
-                        return "dark";
-                    case false:
-                        return "light";
-                }
-            })()
-        )
+    const isDark = $isAfterFirstEffect.current
+        ? $clientSideIsDark.current
+        : ssrWasPerformedWithIsDark;
+
+    const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
+        newIsDarkOrDeduceNewIsDarkFromCurrentIsDark =>
+            document.documentElement.setAttribute(
+                data_fr_scheme,
+                ((): ColorScheme | "system" => {
+                    switch (
+                        typeof newIsDarkOrDeduceNewIsDarkFromCurrentIsDark === "function"
+                            ? newIsDarkOrDeduceNewIsDarkFromCurrentIsDark(isDark)
+                            : newIsDarkOrDeduceNewIsDarkFromCurrentIsDark
+                    ) {
+                        case "system":
+                            return "system";
+                        case true:
+                            return "dark";
+                        case false:
+                            return "light";
+                    }
+                })()
+            )
     );
 
     return {
-        "isDark": $isAfterFirstEffect.current
-            ? $clientSideIsDark.current
-            : ssrWasPerformedWithIsDark,
+        isDark,
         setIsDark
     };
 };
