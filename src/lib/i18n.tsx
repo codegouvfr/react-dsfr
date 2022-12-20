@@ -1,20 +1,20 @@
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
-import { isBrowser } from "./tools/isBrowser";
-
-let langIfNoProvider: undefined | string;
-
-export function setLangToUseIfProviderNotUsed(lang: string) {
-    langIfNoProvider = lang;
-}
+import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
 
 const langContext = createContext<string | undefined>(undefined);
 
-export function useLang(): string | undefined {
-    const lang = useContext(langContext);
+const $browserLanguageDifferentFromFrAfterFirstEffect = createStatefulObservable<
+    string | undefined
+>(() => undefined);
+
+export function useLang(): string {
+    useRerenderOnChange($browserLanguageDifferentFromFrAfterFirstEffect);
+
+    let lang = useContext(langContext);
 
     if (lang === undefined) {
-        return langIfNoProvider ?? (!isBrowser ? undefined : navigator.language);
+        lang = $browserLanguageDifferentFromFrAfterFirstEffect.current ?? "fr";
     }
 
     return lang;
@@ -106,10 +106,6 @@ export function createComponentI18nApi<
         const lang = useLang();
 
         const bestMatchLang = useMemo(() => {
-            if (lang === undefined) {
-                return "fr";
-            }
-
             const bestApproxLang = getLanguageBestApprox({
                 "languages": Object.keys(messagesByLang),
                 "languageLike": lang
@@ -141,4 +137,18 @@ export function createComponentI18nApi<
         useTranslation,
         [`add${componentName}Translations`]: addTranslations
     } as any;
+}
+
+export function startI18nLogic(params: { registerEffectAction: (action: () => void) => void }) {
+    const { registerEffectAction } = params;
+
+    registerEffectAction(() => {
+        const lang = navigator.language;
+
+        if (lang === "fr") {
+            return;
+        }
+
+        $browserLanguageDifferentFromFrAfterFirstEffect.current = lang;
+    });
 }
