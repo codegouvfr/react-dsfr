@@ -28,8 +28,11 @@
 
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
-This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.  
-https://filedn.com/lYPEPucNMheV19aDu23lK0Q/Etalab/dsfr/reacr-dsfr_trailer-vp9-chrome.webm  
+This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
+
+[react-dsfr trailer.webm](https://user-images.githubusercontent.com/6702424/208781015-cff0a99e-08ca-4e28-b971-90fab3b184f8.webm)
+
+[Youtube link](https://youtu.be/5q88JgXUAY4)
 
 > For TypeScript and JavaScript projects.
 
