@@ -108,10 +108,12 @@ module.exports = nextConfig
 {% code title="pages/_app.tsx" %}
 ```tsx
 import type { AppProps } from "next/app";
-import { fr } from "@codegouvfr/react-dsfr";
+import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
 import Link from "next/link";
+
+const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
 
 // Only in TypeScript projects
 declare module "@codegouvfr/react-dsfr" {
@@ -124,8 +126,7 @@ const {
     withDsfr,
     dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system",
-    Link
+    defaultColorScheme: "system"
 });
 
 export { dsfrDocumentApi };
@@ -279,27 +280,16 @@ Add the following code in the `<head />`&#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
-<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
-import { fr } from "@codegouvfr/react-dsfr";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import type { LinkProps as NextLinkProps } from "next/link";
-import Link from "next/link";
+<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx"> import DefaultApp from "next/app";
+ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 
-// Only in TypeScript projects
-declare module "@codegouvfr/react-dsfr" {
-    interface RegisterLink { 
-        Link: typeof Link;
-    }
-}
-
-const { 
-    withDsfr,
-    dsfrDocumentApi
-} = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system",
-    Link,
-    preloadFonts: [
-<strong>  	//"Marianne-Light",
+ const { 
+     withDsfr,
+     dsfrDocumentApi
+ } = createNextDsfrIntegrationApi({
+     defaultColorScheme: "system",
+<strong>     preloadFonts: [
+</strong><strong>  	//"Marianne-Light",
 </strong><strong>        //"Marianne-Light_Italic",
 </strong><strong>	"Marianne-Regular",
 </strong><strong>	//"Marianne-Regular_Italic",
@@ -309,20 +299,12 @@ const {
 </strong><strong>	//"Marianne-Bold_Italic",
 </strong><strong>	//"Spectral-Regular",
 </strong><strong>	//"Spectral-ExtraBold"
-</strong>    ]
-});
+</strong><strong>     ]
+</strong> });
+ 
+ export { dsfrDocumentApi };
 
-export { dsfrDocumentApi };
-
-function App({ Component, pageProps }: AppProps) {
-    return (
-        &#x3C;DsfrLinkProvider>
-            &#x3C;Component {...pageProps} />
-        &#x3C;/DsfrLinkProvider>
-    );
-}
-
-export default withDsfr(App);
+ export default withDsfr(DefaultApp);
 </code></pre>
 {% endtab %}
 

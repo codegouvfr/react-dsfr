@@ -16,12 +16,13 @@ Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
-import { startReactDsfr, createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
+import { startReactDsfr } from "@codegouvfr/react-dsfr";
 <strong>import { Link } from "react-router-dom";
-</strong>startReactDsfr({ defaultColorScheme: "system" });
+</strong>startReactDsfr({ 
+    defaultColorScheme: "system", 
+<strong>    Link 
+</strong>});
 
-<strong>const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
-</strong>
 <strong>//Only in TypeScript projects
 </strong><strong>declare module "@codegouvfr/react-dsfr" {
 </strong><strong>    interface RegisterLink { 
@@ -42,13 +43,17 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integrati
 {% endtab %}
 
 {% tab title="Next.js" %}
+{% hint style="info" %}
+This is how you are instructed to set it up by default (no change from the [Initial setup](./#next.js) guide)
+{% endhint %}
+
 <pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
+import { fr } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-<strong>import Link from "next/link";
+<strong>import type { LinkProps as NextLinkProps } from "next/link";
+</strong><strong>import Link from "next/link";
 </strong>
-<strong>const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
-</strong>
-<strong>//Only in TypeScript projects
+<strong>// Only in TypeScript projects
 </strong><strong>declare module "@codegouvfr/react-dsfr" {
 </strong><strong>    interface RegisterLink { 
 </strong><strong>        Link: typeof Link;
@@ -59,12 +64,13 @@ const {
     withDsfr,
     dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system"
-});
+    defaultColorScheme: "system",
+<strong>    Link
+</strong>});
 
 export { dsfrDocumentApi };
 
-function App({ Component, pageProps }: AppProps){
+function App({ Component, pageProps }: AppProps) {
     return (
         &#x3C;DsfrLinkProvider>
             &#x3C;Component {...pageProps} />
@@ -79,7 +85,7 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/ae8b3319a15064160b9
 {% endtab %}
 
 {% tab title="type-route" %}
-[type-route](https://zilch.dev/type-route) unlike most routing library doesn't export a \<Link /> component \<a /> are used directly.
+[type-route](https://zilch.dev/type-route) unlike most routing library doesn't export a `<Link />` component `<a />` are used directly.
 
 In consequence there isn't anything to setup.
 
