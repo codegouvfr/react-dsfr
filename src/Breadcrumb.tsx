@@ -3,7 +3,7 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-import { RegisteredLinkProps, useLink } from "./lib/routing";
+import { RegisteredLinkProps, getLink } from "./lib/routing";
 import { createComponentI18nApi } from "./lib/i18n";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
@@ -33,7 +33,7 @@ export const Breadcrumb = memo(
 
         const { t } = useTranslation();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
         const breadcrumbId = useId();
 
         return (

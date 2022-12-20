@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React from "react";
 import type { ReactNode } from "react";
 import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
 
@@ -8,9 +8,7 @@ type HTMLAnchorProps = DetailedHTMLProps<
 >;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RegisterLink {
-    // Link: typeof Link
-}
+export interface RegisterLink {}
 
 export type RegisteredLinkProps = RegisterLink extends {
     Link: (props: infer LinkProps) => any;
@@ -18,30 +16,14 @@ export type RegisteredLinkProps = RegisterLink extends {
     ? Omit<LinkProps, "children">
     : Omit<HTMLAnchorProps, "children">;
 
-const context = createContext<CreateLinkProviderPrams["Link"]>(props => <a {...props} />);
+let Link: (
+    props: RegisteredLinkProps & { children: ReactNode }
+) => ReturnType<React.FC> = props => <a {...props} />;
 
-type CreateLinkProviderPrams = {
-    Link: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
-};
-
-export function createDsfrLinkProvider(params: CreateLinkProviderPrams) {
-    const { Link } = params;
-
-    type Props = {
-        children: ReactNode;
-    };
-
-    function DsfrLinkProvider(props: Props) {
-        const { children } = props;
-
-        return <context.Provider value={Link}>{children}</context.Provider>;
-    }
-
-    return { DsfrLinkProvider };
+export function setLink(params: { Link: typeof Link }): void {
+    Link = params.Link;
 }
 
-export function useLink() {
-    const Link = useContext(context);
-
+export function getLink() {
     return { Link };
 }

@@ -1,6 +1,6 @@
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
-import { useLink } from "./lib/routing";
+import { getLink } from "./lib/routing";
 import type { RegisteredLinkProps } from "./lib/routing";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./lib";
@@ -102,7 +102,7 @@ export const Footer = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         const { t } = useTranslation();
 

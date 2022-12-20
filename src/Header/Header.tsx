@@ -5,7 +5,7 @@ import { createComponentI18nApi } from "../lib/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "../lib/tools/cx";
 import type { RegisteredLinkProps } from "../lib/routing";
-import { useLink } from "../lib/routing";
+import { getLink } from "../lib/routing";
 import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
 import { assert } from "tsafe/assert";
@@ -121,7 +121,7 @@ export const Header = memo(
 
         const { t } = useTranslation();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         return (
             <header

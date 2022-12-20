@@ -2,28 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
-import { startReactDsfr, createDsfrLinkProvider, fr } from "@codegouvfr/react-dsfr";
+import { startReactDsfr, fr } from "@codegouvfr/react-dsfr";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
-startReactDsfr({ "defaultColorScheme": "system" });
+startReactDsfr({ "defaultColorScheme": "system", Link });
 
 declare module "@codegouvfr/react-dsfr" {
-    interface RegisterLink { 
+    interface RegisterLink {
         Link: typeof Link;
     }
 }
 
-const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <DsfrLinkProvider>
-            <BrowserRouter>
-                <Root />
-            </BrowserRouter>
-        </DsfrLinkProvider>
+        <BrowserRouter>
+            <Root />
+        </BrowserRouter>
     </React.StrictMode>
 );
 
@@ -32,7 +28,7 @@ function Root() {
     const location = useLocation();
 
     return (
-        <DsfrLinkProvider>
+        <>
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
@@ -67,7 +63,7 @@ function Root() {
                 </Routes>
             </div>
             <Display />
-        </DsfrLinkProvider>
+        </>
 
     );
 

@@ -1,14 +1,18 @@
+import type { ReactNode } from "react";
 import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { startI18nLogic } from "./i18n";
 import type { ColorScheme } from "./darkMode";
 import { startClientSideIsDarkLogic } from "./darkMode";
+import type { RegisteredLinkProps } from "./routing";
+import { setLink } from "./routing";
 
 export type Params = {
     defaultColorScheme: ColorScheme | "system";
     /** Default: false */
     verbose?: boolean;
+    Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
 };
 
 export type NextParams = {
@@ -19,7 +23,7 @@ export type NextParams = {
 let isStarted = false;
 
 async function startReactDsfrWithOptionalNextParams(params: Params, nextParams?: NextParams) {
-    const { defaultColorScheme, verbose = false } = params;
+    const { defaultColorScheme, verbose = false, Link } = params;
 
     assert(
         isBrowser,
@@ -34,6 +38,10 @@ async function startReactDsfrWithOptionalNextParams(params: Params, nextParams?:
     }
 
     isStarted = true;
+
+    if (Link !== undefined) {
+        setLink({ Link });
+    }
 
     const registerEffectAction: (action: () => void) => void =
         nextParams === undefined ? action => action() : nextParams.registerEffectAction;

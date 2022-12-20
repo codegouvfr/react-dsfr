@@ -8,7 +8,7 @@ import type {
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
-import { RegisteredLinkProps, useLink } from "./lib/routing";
+import { RegisteredLinkProps, getLink } from "./lib/routing";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
@@ -84,7 +84,7 @@ export const Button = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         const className = cx(
             fr.cx(

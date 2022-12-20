@@ -32,6 +32,7 @@ import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
 import { getColors } from "./lib/colors";
+import { setLink } from "./lib/routing";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -125,6 +126,11 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                 }
             }
         });
+    } else {
+        const { Link } = startDsfrReactParams;
+        if (Link !== undefined) {
+            setLink({ Link });
+        }
     }
 
     const isDarkPropKey = "dsfrIsDark";
