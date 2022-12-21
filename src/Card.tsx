@@ -105,14 +105,14 @@ export const Card = memo(
             <div
                 className={cx(
                     fr.cx("fr-card"),
-                    enlargeLink === true && fr.cx("fr-enlarge-link"),
-                    horizontal === true && fr.cx("fr-card--horizontal"),
+                    enlargeLink && fr.cx("fr-enlarge-link"),
+                    horizontal && fr.cx("fr-card--horizontal"),
                     size === "small" && fr.cx("fr-card--sm"),
                     size === "large" && fr.cx("fr-card--lg"),
                     background === false && fr.cx("fr-card--no-background"),
                     border === false && fr.cx("fr-card--no-border"),
-                    shadow === true && fr.cx("fr-card--shadow"),
-                    grey === true && fr.cx("fr-card--grey"),
+                    shadow && fr.cx("fr-card--shadow"),
+                    grey && fr.cx("fr-card--grey"),
                     iconId !== undefined && fr.cx(iconId),
                     classes.root,
                     className
@@ -122,7 +122,7 @@ export const Card = memo(
                 <div className={cx(fr.cx("fr-card__body"), classes.body)}>
                     <div className={cx(fr.cx("fr-card__content"), classes.content)}>
                         <h3 className={cx(fr.cx("fr-card__title"), classes.title)}>
-                            <Link {...linkProps} className={cx(classes.link)}>
+                            <Link {...linkProps} className={cx(linkProps.className, classes.link)}>
                                 {title}
                             </Link>
                         </h3>
@@ -151,7 +151,7 @@ export const Card = memo(
                     )}
                 </div>
                 {/* ensure we dont have an empty imageUrl string */}
-                {(imageUrl !== undefined && imageUrl.length && (
+                {imageUrl !== undefined && imageUrl.length && (
                     <div className={cx(fr.cx("fr-card__header"), classes.header)}>
                         <div className={cx(fr.cx("fr-card__img"), classes.img)}>
                             <img
@@ -160,17 +160,15 @@ export const Card = memo(
                                 alt={imageAlt}
                             />
                         </div>
-                        {(badges !== undefined && badges.length && (
+                        {badges !== undefined && badges.length && (
                             <ul className={cx(fr.cx("fr-badges-group"), classes.badges)}>
                                 {badges.map((badge, i) => (
                                     <li key={i}>{badge}</li>
                                 ))}
                             </ul>
-                        )) ||
-                            null}
+                        )}
                     </div>
-                )) ||
-                    null}
+                )}
             </div>
         );
     })
