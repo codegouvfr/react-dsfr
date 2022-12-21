@@ -77,7 +77,7 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 
 {% tab title="Next.js" %}
 {% hint style="info" %}
-These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you do [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
+These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
 
 Now if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](./#next.js-appdir).
 {% endhint %}
