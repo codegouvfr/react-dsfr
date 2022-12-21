@@ -24,11 +24,14 @@ export type CardProps = {
     end?: ReactNode;
     endDetail?: ReactNode;
     badges?: ReactNode[]; // todo: restrict to badge component ? these badges are display on the image
-    footer?: ReactNode; // where actions can be placed
-    horizontal?: boolean;
-    size?: "small" | "medium" | "large"; // only affect the text
-    enlargeLink?: boolean; // make the whole card clickable
-    iconId?: FrIconClassName | RiIconClassName; // only needed when enlargeMode=true
+    /** where actions can be placed */
+    footer?: ReactNode; 
+    /** only affect the text */
+    size?: "small" | "medium" | "large"; 
+    /** make the whole card clickable */
+    enlargeLink?: boolean; 
+    /** only needed when enlargeMode=true */
+    iconId?: FrIconClassName | RiIconClassName; 
     shadow?: boolean;
     background?: boolean;
     border?: boolean;
@@ -57,7 +60,9 @@ export type CardProps = {
 } & (CardProps.Default | CardProps.Horizontal);
 
 export namespace CardProps {
-    export type Default = {};
+    export type Default = {
+      horizontal?: never;
+    };
 
     export type Horizontal = {
         horizontal: true;
