@@ -102,7 +102,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
-            "containerWidth": containerWidth ?? defaultContainerWidth ?? 0,
+            "containerWidth": defaultContainerWidthStoryLevel ?? defaultContainerWidth ?? 0,
             "lang": "fr",
             isFirstStory,
             ...props
