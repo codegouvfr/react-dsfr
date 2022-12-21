@@ -26,7 +26,7 @@ export type CardProps = {
     badges?: ReactNode[]; // todo: restrict to badge component ? these badges are display on the image
     /** where actions can be placed */
     footer?: ReactNode;
-    /** only affect the text */
+    /** Default: "medium", only affect the text */
     size?: "small" | "medium" | "large";
     /** make the whole card clickable */
     enlargeLink?: boolean;
@@ -57,16 +57,11 @@ export type CardProps = {
             string
         >
     >;
-} & (CardProps.Default | CardProps.Horizontal) &
-    (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
+    /** Default false */
+    horizontal?: boolean;
+} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
 
 export namespace CardProps {
-    export type Default = {
-        horizontal?: never;
-    };
-    export type Horizontal = {
-        horizontal: true;
-    };
     export type EnlargedLink = {
         enlargeLink: true;
         iconId?: FrIconClassName | RiIconClassName;
@@ -112,20 +107,31 @@ export const Card = memo(
         return (
             <div
                 className={cx(
-                    fr.cx("fr-card"),
-                    enlargeLink && fr.cx("fr-enlarge-link"),
-                    horizontal && fr.cx("fr-card--horizontal"),
-                    size === "small" && fr.cx("fr-card--sm"),
-                    size === "large" && fr.cx("fr-card--lg"),
-                    background === false && fr.cx("fr-card--no-background"),
-                    border === false && fr.cx("fr-card--no-border"),
-                    shadow && fr.cx("fr-card--shadow"),
-                    grey && fr.cx("fr-card--grey"),
-                    iconId !== undefined && fr.cx(iconId),
+                    fr.cx(
+                        "fr-card",
+                        enlargeLink && "fr-enlarge-link",
+                        horizontal && "fr-card--horizontal",
+                        (() => {
+                            switch (size) {
+                                case "large":
+                                    return "fr-card--lg";
+                                case "small":
+                                    return "fr-card--sm";
+                                case "medium":
+                                    return undefined;
+                            }
+                        })(),
+                        !background && "fr-card--no-background",
+                        !border && "fr-card--no-border",
+                        shadow && "fr-card--shadow",
+                        grey && "fr-card--grey",
+                        iconId !== undefined && iconId
+                    ),
                     classes.root,
                     className
                 )}
                 ref={ref}
+                {...rest}
             >
                 <div className={cx(fr.cx("fr-card__body"), classes.body)}>
                     <div className={cx(fr.cx("fr-card__content"), classes.content)}>
@@ -158,7 +164,7 @@ export const Card = memo(
                         <p className={cx(fr.cx("fr-card__footer"), classes.footer)}>{footer}</p>
                     )}
                 </div>
-                {/* ensure we dont have an empty imageUrl string */}
+                {/* ensure we don't have an empty imageUrl string */}
                 {imageUrl !== undefined && imageUrl.length && (
                     <div className={cx(fr.cx("fr-card__header"), classes.header)}>
                         <div className={cx(fr.cx("fr-card__img"), classes.img)}>
