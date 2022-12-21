@@ -30,6 +30,10 @@
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
+[Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
+
+[Youtube link](https://youtu.be/5q88JgXUAY4)
+
 > For TypeScript and JavaScript projects.
 
 -   [x] Fully TypeSafe, well documented API.
@@ -38,7 +42,7 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://react-dsfr.etalab.studio/).
--   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (14/42)
+-   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (14/42, [see details](COMPONENTS.md))
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
         be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.etalab.studio/mui-integration).

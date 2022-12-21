@@ -6,7 +6,7 @@ import { cx } from "../../lib/tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import type { RegisteredLinkProps } from "../../lib/routing";
-import { useLink } from "../../lib/routing";
+import { getLink } from "../../lib/routing";
 
 export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;
@@ -27,7 +27,7 @@ export const Menu = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         return (
             <div className={cx(fr.cx("fr-menu"), classes.root)} id={id} ref={ref} {...rest}>

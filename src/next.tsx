@@ -31,8 +31,8 @@ import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
 import { getAssetUrl } from "./lib/tools/getAssetUrl";
-import { setLangToUseIfProviderNotUsed } from "./lib/i18n";
 import { getColors } from "./lib/colors";
+import { setLink } from "./lib/routing";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -115,22 +115,21 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
     let isAfterFirstEffect = false;
     const actions: (() => void)[] = [];
 
-    {
-        startDsfrReactParams.langIfNoProvider ??= "fr";
-
-        if (isBrowser) {
-            startReactDsfrNext(startDsfrReactParams, {
-                doPersistDarkModePreferenceWithCookie,
-                "registerEffectAction": action => {
-                    if (isAfterFirstEffect) {
-                        action();
-                    } else {
-                        actions.push(action);
-                    }
+    if (isBrowser) {
+        startReactDsfrNext(startDsfrReactParams, {
+            doPersistDarkModePreferenceWithCookie,
+            "registerEffectAction": action => {
+                if (isAfterFirstEffect) {
+                    action();
+                } else {
+                    actions.push(action);
                 }
-            });
-        } else {
-            setLangToUseIfProviderNotUsed(startDsfrReactParams.langIfNoProvider);
+            }
+        });
+    } else {
+        const { Link } = startDsfrReactParams;
+        if (Link !== undefined) {
+            setLink({ Link });
         }
     }
 
@@ -148,6 +147,9 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
             }
 
             useEffect(() => {
+                if (isAfterFirstEffect) {
+                    return;
+                }
                 isAfterFirstEffect = true;
                 actions.forEach(action => action());
             }, []);

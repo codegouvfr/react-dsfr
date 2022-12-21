@@ -4,29 +4,27 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
-
-// We make users import dsfr.css, so we don't need to import the scoped CSS
-// but in the future if we have a complete component coverage it
-// we could stop requiring users to import the hole CSS and only import on a
-// per component basis.
-import "./dsfr/component/badge/badge.css";
+import type { AlertProps } from "./Alert";
 
 export type BadgeProps = {
     className?: string;
-    severity?: BadgeProps.Severity;
-    isSmall?: boolean;
+    severity?: AlertProps.Severity | "new";
+    small?: boolean;
     noIcon?: boolean;
     label: NonNullable<ReactNode>;
 };
 
-export namespace BadgeProps {
-    export type Severity = "info" | "success" | "error" | "warning" | "new";
-}
-
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-badge> */
 export const Badge = memo(
     forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
-        const { className, severity, label, isSmall, noIcon, ...rest } = props;
+        const {
+            className,
+            severity,
+            label,
+            small: isSmall = false,
+            noIcon = false,
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -35,9 +33,9 @@ export const Badge = memo(
                 className={cx(
                     fr.cx(
                         "fr-badge",
-                        { [`fr-badge--${severity}`]: severity != null },
+                        severity !== undefined && `fr-badge--${severity}`,
                         { "fr-badge--sm": isSmall },
-                        { "fr-badge--no-icon": noIcon || severity == null }
+                        { "fr-badge--no-icon": noIcon || severity === undefined }
                     ),
                     className
                 )}

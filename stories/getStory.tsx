@@ -28,6 +28,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
 
+    document.documentElement.style.overflowY = "scroll";
+
     const Template: Story<
         Props & {
             darkMode: boolean;

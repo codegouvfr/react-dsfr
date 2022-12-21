@@ -11,7 +11,6 @@ import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
 import type { ColorTheme } from "./lib/colors";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
-import defaultMuiShadows from "@mui/material/styles/shadows";
 import type { Shadows } from "@mui/material/styles";
 import { id } from "tsafe/id";
 
@@ -136,7 +135,7 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
                       })();
         })(),
         "shadows": (() => {
-            const [, , , , , , , , ...rest] = defaultMuiShadows;
+            const [, , , , , , , , ...rest] = createTheme().shadows;
 
             return id<Shadows>([
                 "none",

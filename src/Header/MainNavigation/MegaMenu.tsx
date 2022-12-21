@@ -6,7 +6,7 @@ import { fr } from "../../lib";
 import { cx } from "../../lib/tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { useLink } from "../../lib/routing";
+import { getLink } from "../../lib/routing";
 import type { RegisteredLinkProps } from "../../lib/routing";
 
 export type MegaMenuProps = {
@@ -45,7 +45,7 @@ export const MegaMenu = memo(
 
         const { t } = useTranslation();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         return (
             <div

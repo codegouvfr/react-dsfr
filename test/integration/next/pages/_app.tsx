@@ -7,7 +7,6 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
-import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr" {
@@ -16,13 +15,12 @@ declare module "@codegouvfr/react-dsfr" {
     }
 }
 
-const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
-
 const {
     withDsfr,
     dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
     "defaultColorScheme": "system",
+    Link,
     "preloadFonts": [
         //"Marianne-Light",
         //"Marianne-Light_Italic",
@@ -54,7 +52,7 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <DsfrLinkProvider>
+        <>
             <Header
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"
@@ -100,7 +98,7 @@ function App({ Component, pageProps }: AppProps) {
                 bottomItems={[headerFooterDisplayItem]}
             />
             <Display />
-        </DsfrLinkProvider>
+        </>
     );
 }
 

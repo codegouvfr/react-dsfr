@@ -39,11 +39,3 @@ export const LongBreadcrumb = getStory({
         { text: "Page de démo 7", linkProps: { href: "/page7" }, isActive: true }
     ]
 });
-
-export const LongLabelBreadcrumb = getStory({
-    links: [
-        { text: "Accueil", linkProps: { href: "/" } },
-        { text: "Page 1", linkProps: { href: "/page1" } },
-        { text: "Un article très très long", linkProps: { href: "/article1" }, isActive: true }
-    ]
-});

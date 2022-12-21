@@ -7,7 +7,7 @@ import type { Equals } from "tsafe";
 import type { RegisteredLinkProps } from "../../lib/routing";
 import { fr } from "../../lib";
 import { cx } from "../../lib/tools/cx";
-import { useLink } from "../../lib/routing";
+import { getLink } from "../../lib/routing";
 import type { MenuProps } from "./Menu";
 import { Menu } from "./Menu";
 import type { MegaMenuProps } from "./MegaMenu";
@@ -75,7 +75,7 @@ export const MainNavigation = memo(
 
         const { t } = useTranslation();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         const { getMenuId } = (function useClosure() {
             const id = useId();

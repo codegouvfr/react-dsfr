@@ -8,7 +8,7 @@ export function Home() {
         <>
 
             <Alert
-                isClosable={true}
+                closable
                 severity="success"
                 title="Success: This is the title"
                 description="This is the description"

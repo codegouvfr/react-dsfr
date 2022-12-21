@@ -9,6 +9,8 @@ export type ColorScheme = "light" | "dark";
 
 export const data_fr_theme = "data-fr-theme";
 export const data_fr_scheme = "data-fr-scheme";
+const data_fr_js = "data-fr-js";
+
 export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
 
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
@@ -17,7 +19,9 @@ const $clientSideIsDark = createStatefulObservable<boolean>(() => {
 
 type UseIsDark = () => {
     isDark: boolean;
-    setIsDark: (isDark: boolean | "system") => void;
+    setIsDark: (
+        isDark: boolean | "system" | ((currentIsDark: boolean) => boolean | "system")
+    ) => void;
 };
 
 const $isAfterFirstEffect = createStatefulObservable(() => false);
@@ -26,26 +30,44 @@ const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
-    const setIsDark = useConstCallback((isDark: boolean | "system") =>
-        document.documentElement.setAttribute(
-            data_fr_scheme,
-            ((): ColorScheme | "system" => {
-                switch (isDark) {
+    const isDark = $isAfterFirstEffect.current
+        ? $clientSideIsDark.current
+        : ssrWasPerformedWithIsDark;
+
+    const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
+        newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
+            const data_fr_js_value = document.documentElement.getAttribute(data_fr_js);
+
+            const newColorScheme = ((): ColorScheme => {
+                switch (
+                    typeof newIsDarkOrDeduceNewIsDarkFromCurrentIsDark === "function"
+                        ? newIsDarkOrDeduceNewIsDarkFromCurrentIsDark(isDark)
+                        : newIsDarkOrDeduceNewIsDarkFromCurrentIsDark
+                ) {
                     case "system":
-                        return "system";
+                        return typeof window.matchMedia === "function" &&
+                            window.matchMedia("(prefers-color-scheme: dark)").matches
+                            ? "dark"
+                            : "light";
                     case true:
                         return "dark";
                     case false:
                         return "light";
                 }
-            })()
-        )
+            })();
+
+            document.documentElement.setAttribute(data_fr_scheme, newColorScheme);
+
+            if (data_fr_js_value !== "true") {
+                //NOTE: DSFR not started yet.
+                document.documentElement.setAttribute(data_fr_theme, newColorScheme);
+                localStorage.setItem("scheme", newColorScheme);
+            }
+        }
     );
 
     return {
-        "isDark": $isAfterFirstEffect.current
-            ? $clientSideIsDark.current
-            : ssrWasPerformedWithIsDark,
+        isDark,
         setIsDark
     };
 };
