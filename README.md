@@ -76,6 +76,12 @@ You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tr
 {% endtab %}
 
 {% tab title="Next.js" %}
+{% hint style="info" %}
+These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you do [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
+
+Now if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](./#next.js-appdir).
+{% endhint %}
+
 <pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
 </strong></code></pre>
 
@@ -108,12 +114,10 @@ module.exports = nextConfig
 {% code title="pages/_app.tsx" %}
 ```tsx
 import type { AppProps } from "next/app";
-import { createDsfrLinkProvider } from "@codegouvfr/react-dsfr";
+import { fr } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
 import type { LinkProps as NextLinkProps } from "next/link";
 import Link from "next/link";
-
-const { DsfrLinkProvider } = createDsfrLinkProvider({ Link });
 
 // Only in TypeScript projects
 declare module "@codegouvfr/react-dsfr" {
@@ -126,7 +130,8 @@ const {
     withDsfr,
     dsfrDocumentApi
 } = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system"
+    defaultColorScheme: "system",
+    Link
 });
 
 export { dsfrDocumentApi };
@@ -170,6 +175,14 @@ augmentDocumentForDsfr(Document);
 {% endcode %}
 
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
+{% endtab %}
+
+{% tab title="Next.js appdir" %}
+{% hint style="info" %}
+This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [these instructions instead](./#next.js).
+{% endhint %}
+
+...Actively being worked on. &#x20;
 {% endtab %}
 
 {% tab title="Vite" %}
@@ -280,16 +293,27 @@ Add the following code in the `<head />`&#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
-<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx"> import DefaultApp from "next/app";
- import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
+import { fr } from "@codegouvfr/react-dsfr";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import type { LinkProps as NextLinkProps } from "next/link";
+import Link from "next/link";
 
- const { 
-     withDsfr,
-     dsfrDocumentApi
- } = createNextDsfrIntegrationApi({
-     defaultColorScheme: "system",
-<strong>     preloadFonts: [
-</strong><strong>  	//"Marianne-Light",
+// Only in TypeScript projects
+declare module "@codegouvfr/react-dsfr" {
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
+}
+
+const { 
+    withDsfr,
+    dsfrDocumentApi
+} = createNextDsfrIntegrationApi({
+    defaultColorScheme: "system",
+    Link,
+    preloadFonts: [
+<strong>  	//"Marianne-Light",
 </strong><strong>        //"Marianne-Light_Italic",
 </strong><strong>	"Marianne-Regular",
 </strong><strong>	//"Marianne-Regular_Italic",
@@ -299,12 +323,20 @@ Add the following code in the `<head />`&#x20;
 </strong><strong>	//"Marianne-Bold_Italic",
 </strong><strong>	//"Spectral-Regular",
 </strong><strong>	//"Spectral-ExtraBold"
-</strong><strong>     ]
-</strong> });
- 
- export { dsfrDocumentApi };
+</strong>    ]
+});
 
- export default withDsfr(DefaultApp);
+export { dsfrDocumentApi };
+
+function App({ Component, pageProps }: AppProps) {
+    return (
+        &#x3C;DsfrLinkProvider>
+            &#x3C;Component {...pageProps} />
+        &#x3C;/DsfrLinkProvider>
+    );
+}
+
+export default withDsfr(App);
 </code></pre>
 {% endtab %}
 
