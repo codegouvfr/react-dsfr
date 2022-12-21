@@ -143,6 +143,10 @@ export function startI18nLogic(params: { registerEffectAction: (action: () => vo
     const { registerEffectAction } = params;
 
     registerEffectAction(() => {
+        if ((window as any).IS_STORYBOOK) {
+            return;
+        }
+
         const lang = navigator.language;
 
         if (lang === "fr") {
