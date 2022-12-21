@@ -6,7 +6,7 @@ import type { Equals } from "tsafe";
 
 import { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
 import { fr, RegisteredLinkProps } from "./lib";
-import { useLink } from "./lib/routing";
+import { getLink } from "./lib/routing";
 import { cx } from "./lib/tools/cx";
 
 import "./dsfr/component/card/card.css";
@@ -94,7 +94,7 @@ export const Card = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { Link } = useLink();
+        const { Link } = getLink();
 
         return (
             <div
