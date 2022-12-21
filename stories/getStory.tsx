@@ -94,9 +94,9 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     function getStory(
         props: Props,
-        params?: { containerWidth?: number; description?: string }
+        params?: { defaultContainerWidth?: number; description?: string }
     ): typeof Template {
-        const { containerWidth, description } = params ?? {};
+        const { defaultContainerWidth: defaultContainerWidthStoryLevel, description } = params ?? {};
 
         const out = Template.bind({});
 
