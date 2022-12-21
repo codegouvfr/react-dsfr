@@ -173,7 +173,7 @@ export const CardHorizontale = getStory(
         ...defaultProps,
         horizontal: true
     },
-    { description: "Carte horizontale", containerWidth: 700 }
+    { description: "Carte horizontale", defaultContainerWidth: 700 }
 );
 
 export const CardHorizontaleSM = getStory(
@@ -182,7 +182,7 @@ export const CardHorizontaleSM = getStory(
         horizontal: true,
         size: "small"
     },
-    { description: "Carte horizontale", containerWidth: 500 }
+    { description: "Carte horizontale", defaultContainerWidth: 500 }
 );
 
 export const CardHorizontaleLG = getStory(
@@ -191,7 +191,7 @@ export const CardHorizontaleLG = getStory(
         horizontal: true,
         size: "large"
     },
-    { description: "Carte horizontale", containerWidth: 900 }
+    { description: "Carte horizontale", defaultContainerWidth: 900 }
 );
 
 export const CardHorizontaleWithoutImage = getStory(
@@ -207,7 +207,7 @@ export const CardHorizontaleWithoutImage = getStory(
             </ul>
         )
     },
-    { description: "Carte horizontale sans image", containerWidth: 900 }
+    { description: "Carte horizontale sans image", defaultContainerWidth: 900 }
 );
 
 export const CardHorizontaleWithoutImageAndEnlargeLink = getStory(
@@ -218,7 +218,7 @@ export const CardHorizontaleWithoutImageAndEnlargeLink = getStory(
         size: "large",
         imageUrl: undefined
     },
-    { description: "Carte horizontale sans image", containerWidth: 900 }
+    { description: "Carte horizontale sans image", defaultContainerWidth: 900 }
 );
 
 export const CardHorizontaleWithActions = getStory(
@@ -245,7 +245,7 @@ export const CardHorizontaleWithActions = getStory(
             </ul>
         )
     },
-    { description: "Carte horizontale", containerWidth: 900 }
+    { description: "Carte horizontale", defaultContainerWidth: 900 }
 );
 
 export const CardGrey = getStory(
@@ -254,5 +254,5 @@ export const CardGrey = getStory(
         horizontal: true,
         grey: false
     },
-    { description: "Carte horizontale grey", containerWidth: 900 }
+    { description: "Carte horizontale grey", defaultContainerWidth: 900 }
 );
