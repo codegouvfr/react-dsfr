@@ -57,15 +57,23 @@ export type CardProps = {
             string
         >
     >;
-} & (CardProps.Default | CardProps.Horizontal);
+} & (CardProps.Default | CardProps.Horizontal) &
+    (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
 
 export namespace CardProps {
     export type Default = {
         horizontal?: never;
     };
-
     export type Horizontal = {
         horizontal: true;
+    };
+    export type EnlargedLink = {
+        enlargeLink: true;
+        iconId?: FrIconClassName | RiIconClassName;
+    };
+    export type NotEnlargedLink = {
+        enlargeLink?: false;
+        iconId?: never;
     };
 }
 
