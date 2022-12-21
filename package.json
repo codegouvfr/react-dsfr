@@ -132,6 +132,7 @@
         "./Header": "./dist/Header/index.js",
         "./Footer": "./dist/Footer.js",
         "./Display": "./dist/Display.js",
+        "./Card": "./dist/Card.js",
         "./ButtonsGroup": "./dist/ButtonsGroup.js",
         "./Button": "./dist/Button.js",
         "./Breadcrumb": "./dist/Breadcrumb.js",

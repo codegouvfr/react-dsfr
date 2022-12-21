@@ -11,7 +11,7 @@
 -   [ ] Radio button
 -   [ ] Radio rich
 -   [ ] Checkbox
--   [ ] Cards
+-   [x] Cards
 -   [x] Quote
 -   [ ] Media
 -   [x] Header

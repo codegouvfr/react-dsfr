@@ -92,14 +92,18 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     let isFirstStory = true;
 
-    function getStory(props: Props, params?: { description?: string }): typeof Template {
-        const { description } = params ?? {};
+    function getStory(
+        props: Props,
+        params?: { defaultContainerWidth?: number; description?: string }
+    ): typeof Template {
+        const { defaultContainerWidth: defaultContainerWidthStoryLevel, description } =
+            params ?? {};
 
         const out = Template.bind({});
 
         out.args = {
             "darkMode": window.matchMedia("(prefers-color-scheme: dark)").matches,
-            "containerWidth": defaultContainerWidth ?? 0,
+            "containerWidth": defaultContainerWidthStoryLevel ?? defaultContainerWidth ?? 0,
             "lang": "fr",
             isFirstStory,
             ...props
