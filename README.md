@@ -30,7 +30,7 @@
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
-[Preview](https://user-images.githubusercontent.com/6702424/208797531-7b28c8ca-0285-49e8-a547-e9ec0eb45bf1.webm)
+[Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
 
 [Youtube link](https://youtu.be/5q88JgXUAY4)
 
