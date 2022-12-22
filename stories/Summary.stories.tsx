@@ -1,4 +1,3 @@
-import React, { Children } from "react";
 import { Summary } from "../dist/Summary";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
