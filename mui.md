@@ -75,7 +75,7 @@ In Next.js setup, on initial page load you may experience a few frames where MUI
 
 <figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption><p>Mui thinks we are in light mode</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption><p>Then it quickly idrates to the correct mode</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption><p>After idratation it switches to dark mode</p></figcaption></figure>
 
 You can eradicate theses few frames on subsequent page load by telling Next.js to perform SSR in the correct color scheme for the user: &#x20;
 
@@ -85,7 +85,7 @@ You can eradicate theses few frames on subsequent page load by telling Next.js t
 </strong>});
 </code></pre>
 
-**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already oped out from static optimisation. &#x20;
+**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already oped out from static optimization. &#x20;
 
 ### Setting up Next.js + MUI + react-dsfr
 
