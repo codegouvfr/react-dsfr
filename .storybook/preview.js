@@ -61,13 +61,34 @@ export const parameters = {
                     "height": "540px",
                 },
             },
-            "verySmallLandscape": {
-                "name": "Very small landscape",
+            "iphone12Pro": {
+                "name": "Iphone 12 pro",
                 "styles": {
-                    "width": "599px",
-                    "height": "337px",
+                    "width": "390px",
+                    "height": "844px",
                 },
             },
+            "iphone5se":{
+                "name": "Iphone 5/SE",
+                "styles": {
+                    "width": "320px",
+                    "height": "568px",
+                },
+            },
+            "ipadPro": {
+                "name": "Ipad pro",
+                "styles": {
+                    "width": "1240px",
+                    "height": "1366px",
+                },
+            },
+            "Galaxy s9+": {
+                "name": "Galaxy S9+",
+                "styles": {
+                    "width": "320px",
+                    "height": "658px",
+                },
+            }
         },
     },
     "options": {
