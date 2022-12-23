@@ -34,7 +34,9 @@ Add theses three scipts to your `package.json`:
     ...
 <strong>    "postinstall": "copy-dsfr-to-public"
 </strong><strong>    "prestart": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
+</strong><strong>    "prebuild": "only-include-used-icons",
+</strong><strong>    "only-include-used-icons": "node node_modules/@codegouvfr/react-dsfr/bin/only-include-used-icons.js",
+
 </strong>}
 </code></pre>
 
