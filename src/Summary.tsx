@@ -31,7 +31,7 @@ export const Summary = memo(
         const { t } = useTranslation();
 
         const titleId = useId();
-        const summaryTitle = title || t("title");
+        const summaryTitle = title ?? t("title");
 
         assert<Equals<keyof typeof rest, never>>();
 
