@@ -2,10 +2,11 @@ import React, { memo, forwardRef, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./lib/i18n";
 
+import { createComponentI18nApi } from "./lib/i18n";
 import { cx } from "./lib/tools/cx";
 import { fr, RegisteredLinkProps } from "./lib";
+import { getLink } from "./lib/routing";
 
 import "./dsfr/component/summary/summary.css";
 
@@ -33,6 +34,8 @@ export const Summary = memo(
         const titleId = useId();
         const summaryTitle = title ?? t("title");
 
+        const { Link } = getLink();
+
         assert<Equals<keyof typeof rest, never>>();
 
         return (
@@ -55,13 +58,16 @@ export const Summary = memo(
                         (link, idx) =>
                             link.linkProps.href !== undefined && (
                                 <li key={idx}>
-                                    <a
+                                    <Link
                                         {...link.linkProps}
-                                        className={cx(fr.cx("fr-summary__link"), classes.link, link.linkProps.className)}
-                                        
+                                        className={cx(
+                                            fr.cx("fr-summary__link"),
+                                            classes.link,
+                                            link.linkProps.className
+                                        )}
                                     >
                                         {link.text}
-                                    </a>
+                                    </Link>
                                 </li>
                             )
                     )}
