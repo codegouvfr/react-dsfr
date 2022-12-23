@@ -49,25 +49,14 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = Params.WithDarkModeCookie | Params.WithoutDarkModeCookie;
-export namespace Params {
-    export type Common = StartDsfrReactParams & {
-        /** If not provided no fonts are preloaded.
-         * Preloading of fonts is only enabled in production.
-         */
-        preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-        /** Default false */
-        doPersistDarkModePreferenceWithCookie?: boolean;
-    };
-
-    export type WithDarkModeCookie = Common & {
-        doPersistDarkModePreferenceWithCookie: true;
-    };
-
-    export type WithoutDarkModeCookie = Common & {
-        doPersistDarkModePreferenceWithCookie?: false;
-    };
-}
+export type Params = StartDsfrReactParams & {
+    /** If not provided no fonts are preloaded.
+     * Preloading of fonts is only enabled in production.
+     */
+    preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
+    /** Default false */
+    doPersistDarkModePreferenceWithCookie?: boolean;
+};
 
 function readIsDarkInCookie(cookie: string) {
     const parsedCookies = Object.fromEntries(
