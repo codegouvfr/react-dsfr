@@ -35,7 +35,7 @@
 -   [ ] Share
 -   [x] Footer
 -   [ ] Translate
--   [ ] Summary
+-   [x] Summary
 -   [ ] Table
 -   [ ] Tag
 -   [ ] Download
