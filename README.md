@@ -138,9 +138,9 @@ export { dsfrDocumentApi };
 
 function App({ Component, pageProps }: AppProps) {
     return (
-        <DsfrLinkProvider>
+        <>
             <Component {...pageProps} />
-        </DsfrLinkProvider>
+        </>
     );
 }
 
