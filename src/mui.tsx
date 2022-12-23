@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
@@ -246,7 +248,7 @@ export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[
     return muiTheme;
 }
 
-export function createMuiDsfrThemeProvider(params?: {
+export default function createMuiDsfrThemeProvider(params?: {
     useIsDark?: () => { isDark: boolean };
     augmentMuiTheme?: (params: {
         /** WARNING: The types is lying here.
@@ -285,3 +287,5 @@ export function createMuiDsfrThemeProvider(params?: {
 
     return { MuiDsfrThemeProvider };
 }
+
+export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
