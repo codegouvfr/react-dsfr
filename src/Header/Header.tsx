@@ -53,6 +53,7 @@ export type HeaderProps = {
             | "brand"
             | "brandTop"
             | "logo"
+            | "operator"
             | "navbar"
             | "service"
             | "serviceTitle"
@@ -159,7 +160,10 @@ export const Header = memo(
                                         <div className={fr.cx("fr-header__operator")}>
                                             <Link {...homeLinkProps}>
                                                 <img
-                                                    className={fr.cx("fr-responsive-img")}
+                                                    className={cx(
+                                                        fr.cx("fr-responsive-img"),
+                                                        classes.operator
+                                                    )}
                                                     style={(() => {
                                                         switch (operatorLogo.orientation) {
                                                             case "vertical":
