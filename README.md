@@ -116,7 +116,6 @@ module.exports = nextConfig
 import type { AppProps } from "next/app";
 import { fr } from "@codegouvfr/react-dsfr";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import type { LinkProps as NextLinkProps } from "next/link";
 import Link from "next/link";
 
 // Only in TypeScript projects
