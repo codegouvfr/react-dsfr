@@ -56,8 +56,9 @@ export const Summary = memo(
                             link.linkProps.href !== undefined && (
                                 <li key={idx}>
                                     <a
-                                        className={cx(fr.cx("fr-summary__link"), classes.link)}
                                         {...link.linkProps}
+                                        className={cx(fr.cx("fr-summary__link"), classes.link, link.linkProps.className)}
+                                        
                                     >
                                         {link.text}
                                     </a>
