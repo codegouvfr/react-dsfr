@@ -180,6 +180,7 @@ export const Header = memo(
                                     )}
 
                                     {(quickAccessItems.length > 0 ||
+                                        navItems.length > 0 ||
                                         renderSearchInput !== undefined) && (
                                         <div
                                             className={cx(
