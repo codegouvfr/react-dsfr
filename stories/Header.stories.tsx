@@ -145,7 +145,7 @@ export const HeaderWithSearchEngine = getStory({
     )
 });
 
-export const HeaderWithQuickAccessItemsAndSearchEngine = getStory({
+export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory({
     "brandTop": (
         <>
             INTITULE
@@ -179,6 +179,37 @@ export const HeaderWithQuickAccessItemsAndSearchEngine = getStory({
             "text": "S’enregistrer",
             "linkProps": {
                 "href": "#"
+            }
+        }
+    ],
+    "navItems": [
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            }
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            },
+            "isActive": true
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
+            }
+        },
+        {
+            "text": "accès direct",
+            "linkProps": {
+                "href": "#",
+                "target": "_self"
             }
         }
     ],
