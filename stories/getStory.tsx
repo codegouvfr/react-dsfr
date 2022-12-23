@@ -160,7 +160,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                     "table": {
                         "disable": disabledProps.includes("containerWidth")
                     },
-                    "description": "Play with the width of the parent component"
+                    "description": `Play with the width of the parent component. Note that this isn't meant for testing the 
+                    responsiveness of the components. For that you have [the viewports](https://youtu.be/psLbgPfEzZY).`
                 },
                 "lang": {
                     "options": ["fr", "en", "es", "de"],
