@@ -18,6 +18,7 @@ export type SummaryProps = {
     className?: string;
     links: SummaryLink[];
     title?: string;
+    /** Default: "p" */
     as?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
     classes?: Partial<Record<"root" | "title" | "link", string>>;
 };
