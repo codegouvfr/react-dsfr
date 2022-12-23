@@ -7,7 +7,6 @@ import { cx } from "./lib/tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useCallbackFactory } from "./lib/tools/powerhooks/useCallbackFactory";
-import "@gouvfr/dsfr/dist/component/tab/tab.css";
 
 export type TabsProps = TabsProps.Uncontrolled | TabsProps.Controlled;
 

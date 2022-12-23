@@ -9,8 +9,6 @@ import { fr, RegisteredLinkProps } from "./lib";
 import { getLink } from "./lib/routing";
 import { cx } from "./lib/tools/cx";
 
-import "./dsfr/component/card/card.css";
-
 //https://main--ds-gouv.netlify.app/example/component/card/
 export type CardProps = {
     className?: string;

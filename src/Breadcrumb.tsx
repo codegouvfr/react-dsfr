@@ -8,8 +8,6 @@ import { createComponentI18nApi } from "./lib/i18n";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 
-import "./dsfr/component/breadcrumb/breadcrumb.css";
-
 export type BreadcrumbProps = {
     className?: string;
     links: BreadcrumbProps.Link[];

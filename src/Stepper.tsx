@@ -6,7 +6,6 @@ import type { Equals } from "tsafe";
 import { fr } from "./lib";
 import { cx } from "./lib/tools/cx";
 import { createComponentI18nApi } from "./lib/i18n";
-import "./dsfr/component/stepper/stepper.css";
 
 export type StepperProps = {
     className?: string;

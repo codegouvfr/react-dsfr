@@ -8,8 +8,6 @@ import { cx } from "./lib/tools/cx";
 import { fr, RegisteredLinkProps } from "./lib";
 import { getLink } from "./lib/routing";
 
-import "./dsfr/component/summary/summary.css";
-
 type SummaryLink = {
     text: string;
     linkProps: RegisteredLinkProps;

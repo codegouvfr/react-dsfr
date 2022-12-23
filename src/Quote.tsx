@@ -7,8 +7,6 @@ import { FrClassName } from "./lib/generatedFromCss/classNames";
 import { cx } from "./lib/tools/cx";
 import { fr } from "./lib";
 
-import "./dsfr/component/quote/quote.css";
-
 export type QuoteProps = {
     className?: string;
     text: ReactNode;
