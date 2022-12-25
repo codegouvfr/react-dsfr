@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createMuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useIsDark } from "@codegouvfr/react-dsfr";
 import TextField from '@mui/material/TextField';
@@ -30,7 +30,6 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
-const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
 
 const muiDefaultDarkTheme = createTheme({
 	"palette": {

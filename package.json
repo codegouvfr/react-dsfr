@@ -11,6 +11,7 @@
         "yarn-link": "ts-node -T src/scripts/yarn-link.ts",
         "start-cra": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
         "start-vite": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/vite && yarn dev))",
+        "start-next": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/next && yarn dev))",
         "start-next-appdir": "yarn build && yarn yarn-link && ((tsc -w -p src) & (cd test/integration/next-appdir && yarn dev))",
         "test": "vitest",
         "lint:check": "eslint . --ext .ts,.tsx",
