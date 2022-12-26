@@ -248,7 +248,7 @@ export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[
     return muiTheme;
 }
 
-export default function createMuiDsfrThemeProvider(params?: {
+export function createMuiDsfrThemeProvider(params?: {
     useIsDark?: () => { isDark: boolean };
     augmentMuiTheme?: (params: {
         /** WARNING: The types is lying here.

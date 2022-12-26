@@ -121,6 +121,10 @@
     "module": "dist/lib/index.js",
     "exports": {
         ".": "./dist/lib/index.js",
+        "./next-appdir/DsfrHead": "./dist/next-appdir/DsfrHead.js",
+        "./next-appdir/DsfrProvider": "./dist/next-appdir/DsfrProvider.js",
+        "./next-appdir/getColorSchemeHtmlAttributes": "./dist/next-appdir/getColorSchemeHtmlAttributes.js",
+        "./next-appdir/start": "./dist/next-appdir/start.js",
         "./next": "./dist/next.js",
         "./mui": "./dist/mui.js",
         "./lib": "./dist/lib/index.js",
