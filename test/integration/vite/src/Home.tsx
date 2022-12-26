@@ -7,7 +7,6 @@ export function Home() {
 
     return (
         <>
-
             <Alert
                 closable
                 severity="success"

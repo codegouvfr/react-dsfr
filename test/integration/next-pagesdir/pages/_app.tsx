@@ -1,15 +1,20 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
-import { useStyles } from "tss-react/dsfr";
+import { createMakeAndWithStyles } from "tss-react";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 
-declare module "@codegouvfr/react-dsfr" {
+const { useStyles } = createMakeAndWithStyles({
+    "useTheme": useColors
+});
+
+declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
         Link: typeof Link;
     }
@@ -41,9 +46,9 @@ const { augmentDocumentWithEmotionCache, withAppEmotionCache } = createEmotionSs
 
 export { dsfrDocumentApi, augmentDocumentWithEmotionCache };
 
-const brandTop= <>INTITULE<br />OFFICIEL</>;
+const brandTop = <>INTITULE<br />OFFICIEL</>;
 
-const homeLinkPops= { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 
 function App({ Component, pageProps }: AppProps) {
 
@@ -56,7 +61,7 @@ function App({ Component, pageProps }: AppProps) {
             <Header
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={homeLinkPops }
+                homeLinkProps={homeLinkPops}
                 navItems={[
                     {
                         "text": "Home",
