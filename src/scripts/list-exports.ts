@@ -15,6 +15,12 @@ const srcDirPath = pathJoin(getProjectRoot(), "src");
 const newExports = {
     ".": `./${packageJsonParsed["module"]}`,
     ...Object.fromEntries(
+        ["DsfrHead", "DsfrProvider", "getColorSchemeHtmlAttributes", "start"].map(name => [
+            `./next-appdir/${name}`,
+            `./dist/next-appdir/${name}.js`
+        ])
+    ),
+    ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)
             .map(basename => {

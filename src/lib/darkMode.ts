@@ -114,11 +114,13 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
+    doAvoidAllPreHydrationMutation: boolean;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
-        colorSchemeExplicitlyProvidedAsParameter
+        colorSchemeExplicitlyProvidedAsParameter,
+        doAvoidAllPreHydrationMutation
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -190,83 +192,93 @@ export function startClientSideIsDarkLogic(params: {
 
     $clientSideIsDark.current = clientSideIsDark;
 
-    registerEffectAction(() => ($isAfterFirstEffect.current = true));
+    const initAction = () => {
+        [data_fr_scheme, data_fr_theme].forEach(attr =>
+            document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
+        );
 
-    [data_fr_scheme, data_fr_theme].forEach(attr =>
-        document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
-    );
+        new MutationObserver(() => {
+            const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
 
-    new MutationObserver(() => {
-        const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
+            assert(isDarkFromHtmlAttribute !== undefined);
 
-        assert(isDarkFromHtmlAttribute !== undefined);
+            $clientSideIsDark.current = isDarkFromHtmlAttribute;
+        }).observe(document.documentElement, {
+            "attributes": true,
+            "attributeFilter": [data_fr_theme]
+        });
 
-        $clientSideIsDark.current = isDarkFromHtmlAttribute;
-    }).observe(document.documentElement, {
-        "attributes": true,
-        "attributeFilter": [data_fr_theme]
-    });
-
-    {
-        const setColorSchemeCookie = (isDark: boolean) => {
-            if (!doPersistDarkModePreferenceWithCookie) {
-                return;
-            }
-
-            const colorScheme: ColorScheme = isDark ? "dark" : "light";
-
-            let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000;SameSite=Strict`;
-
-            set_domain: {
-                const { hostname } = window.location;
-
-                //We do not set the domain if we are on localhost or an ip
-                if (/(^localhost$)|(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)/.test(hostname)) {
-                    break set_domain;
+        {
+            const setColorSchemeCookie = (isDark: boolean) => {
+                if (!doPersistDarkModePreferenceWithCookie) {
+                    return;
                 }
 
-                newCookie += `;domain=${hostname}`;
-            }
+                const colorScheme: ColorScheme = isDark ? "dark" : "light";
 
-            document.cookie = newCookie;
-        };
+                let newCookie = `${data_fr_theme}=${colorScheme};path=/;max-age=31536000;SameSite=Strict`;
 
-        setColorSchemeCookie($clientSideIsDark.current);
+                set_domain: {
+                    const { hostname } = window.location;
 
-        $clientSideIsDark.subscribe(setColorSchemeCookie);
+                    //We do not set the domain if we are on localhost or an ip
+                    if (
+                        /(^localhost$)|(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)/.test(hostname)
+                    ) {
+                        break set_domain;
+                    }
+
+                    newCookie += `;domain=${hostname}`;
+                }
+
+                document.cookie = newCookie;
+            };
+
+            setColorSchemeCookie($clientSideIsDark.current);
+
+            $clientSideIsDark.subscribe(setColorSchemeCookie);
+        }
+
+        {
+            const setRootColorScheme = (isDark: boolean) => {
+                document.getElementById(rootColorSchemeStyleTagId)?.remove();
+
+                document.head.insertAdjacentHTML(
+                    "afterend",
+                    `<style id="${rootColorSchemeStyleTagId}">:root { color-scheme: ${
+                        isDark ? "dark" : "light"
+                    }; }</style>`
+                );
+            };
+
+            setRootColorScheme($clientSideIsDark.current);
+
+            $clientSideIsDark.subscribe(setRootColorScheme);
+        }
+
+        {
+            const setThemeColor = (isDark: boolean) => {
+                document.querySelector("meta[name=theme-color]")?.remove();
+
+                document.head.insertAdjacentHTML(
+                    "afterend",
+                    `<meta name="theme-color" content="${
+                        getColors(isDark).decisions.background.default.grey.default
+                    }">`
+                );
+            };
+
+            setThemeColor($clientSideIsDark.current);
+
+            $clientSideIsDark.subscribe(setThemeColor);
+        }
+    };
+
+    if (doAvoidAllPreHydrationMutation) {
+        registerEffectAction(initAction);
+    } else {
+        initAction();
     }
 
-    {
-        const setRootColorScheme = (isDark: boolean) => {
-            document.getElementById(rootColorSchemeStyleTagId)?.remove();
-
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<style id="${rootColorSchemeStyleTagId}">:root { color-scheme: ${
-                    isDark ? "dark" : "light"
-                }; }</style>`
-            );
-        };
-
-        setRootColorScheme($clientSideIsDark.current);
-
-        $clientSideIsDark.subscribe(setRootColorScheme);
-    }
-
-    {
-        const setThemeColor = (isDark: boolean) => {
-            document.querySelector("meta[name=theme-color]")?.remove();
-
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<meta name="theme-color" content="${
-                    getColors(isDark).decisions.background.default.grey.default
-                }">`
-            );
-        };
-
-        setThemeColor($clientSideIsDark.current);
-
-        $clientSideIsDark.subscribe(setThemeColor);
-    }
+    registerEffectAction(() => ($isAfterFirstEffect.current = true));
 }

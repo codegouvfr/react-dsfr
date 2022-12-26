@@ -113,7 +113,8 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                 } else {
                     actions.push(action);
                 }
-            }
+            },
+            "doAvoidAllPreHydrationMutation": false
         });
     } else {
         const { Link } = startDsfrReactParams;

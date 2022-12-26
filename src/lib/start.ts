@@ -18,6 +18,7 @@ export type Params = {
 export type NextParams = {
     doPersistDarkModePreferenceWithCookie: boolean;
     registerEffectAction: (effect: () => void) => void;
+    doAvoidAllPreHydrationMutation: boolean;
 };
 
 let isStarted = false;
@@ -50,7 +51,9 @@ async function startReactDsfrWithOptionalNextParams(params: Params, nextParams?:
         "colorSchemeExplicitlyProvidedAsParameter": defaultColorScheme,
         "doPersistDarkModePreferenceWithCookie":
             nextParams === undefined ? false : nextParams.doPersistDarkModePreferenceWithCookie,
-        registerEffectAction
+        registerEffectAction,
+        "doAvoidAllPreHydrationMutation":
+            nextParams === undefined ? false : nextParams.doAvoidAllPreHydrationMutation
     });
 
     startI18nLogic({ registerEffectAction });

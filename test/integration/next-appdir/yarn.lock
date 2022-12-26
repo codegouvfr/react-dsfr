@@ -86,7 +86,7 @@
     to-fast-properties "^2.0.0"
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.12.0"
+  version "0.13.0"
   dependencies:
     tsafe "^1.4.0"
 
@@ -2310,7 +2310,7 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-tsafe@^1.4.0:
+tsafe@^1.4.0, tsafe@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.4.1.tgz#59cdad8ac41babf88e56dcd1a683ae2fb145d059"
   integrity sha512-3IDBalvf6SyvHFS14UiwCWzqdSdo+Q0k2J7DZyJYaHW/iraW9DJpaBKDJpry3yQs3o/t/A+oGaRW3iVt2lKxzA==
