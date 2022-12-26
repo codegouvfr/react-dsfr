@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { startReactDsfr } from "@codegouvfr/react-dsfr";
+import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
 import { useRoute, RouteProvider } from "./router";

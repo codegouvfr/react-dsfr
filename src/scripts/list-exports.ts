@@ -26,7 +26,7 @@ const newExports = {
     "./useIsDark": "./dist/useIsDark/index.js",
     "./useColors": "./dist/useColors.js",
     "./i18n": "./dist/i18n/index.js",
-    "./start": "./dist/start/index.js",
+    "./mui": "./dist/mui.js",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)

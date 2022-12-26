@@ -130,7 +130,7 @@
         "./useIsDark": "./dist/useIsDark/index.js",
         "./useColors": "./dist/useColors.js",
         "./i18n": "./dist/i18n/index.js",
-        "./start": "./dist/start/index.js",
+        "./mui": "./dist/mui.js",
         "./Tabs": "./dist/Tabs.js",
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
