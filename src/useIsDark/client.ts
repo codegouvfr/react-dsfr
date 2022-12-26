@@ -1,23 +1,18 @@
-import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
-import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
-import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-import { createContext, useContext } from "react";
-import { getColors } from "./colors";
+import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
+import { useConstCallback } from "../tools/powerhooks/useConstCallback";
+import { getColors } from "../fr/colors";
+import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 
 export type ColorScheme = "light" | "dark";
 
-export const data_fr_theme = "data-fr-theme";
-export const data_fr_scheme = "data-fr-scheme";
 const data_fr_js = "data-fr-js";
-
-export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
 
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
     throw new Error("not initialized yet");
 });
 
-type UseIsDark = () => {
+export type UseIsDark = () => {
     isDark: boolean;
     setIsDark: (
         isDark: boolean | "system" | ((currentIsDark: boolean) => boolean | "system")
@@ -26,7 +21,7 @@ type UseIsDark = () => {
 
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 
-const useIsDarkClientSide: UseIsDark = () => {
+export const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
@@ -72,27 +67,6 @@ const useIsDarkClientSide: UseIsDark = () => {
     };
 };
 
-const ssrIsDarkContext = createContext<boolean | undefined>(undefined);
-
-export const { Provider: SsrIsDarkProvider } = ssrIsDarkContext;
-
-const useIsDarkServerSide: UseIsDark = () => {
-    const setIsDark = useConstCallback(() => {
-        /* nothing */
-    });
-
-    const isDark = useContext(ssrIsDarkContext);
-
-    assert(isDark !== undefined, "Not within provider");
-
-    return {
-        isDark,
-        setIsDark
-    };
-};
-
-export const useIsDark = isBrowser ? useIsDarkClientSide : useIsDarkServerSide;
-
 let ssrWasPerformedWithIsDark: boolean;
 
 function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
@@ -114,13 +88,13 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
-    doAvoidAllPreHydrationMutation: boolean;
+    doAllowHtmlAttributeMutationBeforeHydration: boolean;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
         colorSchemeExplicitlyProvidedAsParameter,
-        doAvoidAllPreHydrationMutation
+        doAllowHtmlAttributeMutationBeforeHydration
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -274,10 +248,10 @@ export function startClientSideIsDarkLogic(params: {
         }
     };
 
-    if (doAvoidAllPreHydrationMutation) {
-        registerEffectAction(initAction);
-    } else {
+    if (doAllowHtmlAttributeMutationBeforeHydration) {
         initAction();
+    } else {
+        registerEffectAction(initAction);
     }
 
     registerEffectAction(() => ($isAfterFirstEffect.current = true));

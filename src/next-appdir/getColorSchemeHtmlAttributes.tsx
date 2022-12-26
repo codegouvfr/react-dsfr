@@ -1,5 +1,5 @@
-import type { ColorScheme, data_fr_scheme, data_fr_theme } from "../lib/darkMode";
-import { id } from "tsafe/id";
+import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
+import type { ColorScheme } from "../useIsDark";
 
 export function getColorSchemeHtmlAttributes(params: {
     defaultColorScheme: ColorScheme | "system";
@@ -11,7 +11,7 @@ export function getColorSchemeHtmlAttributes(params: {
     }
 
     return {
-        [id<typeof data_fr_scheme>("data-fr-scheme")]: defaultColorScheme,
-        [id<typeof data_fr_theme>("data-fr-theme")]: defaultColorScheme
+        [data_fr_scheme]: defaultColorScheme,
+        [data_fr_theme]: defaultColorScheme
     };
 }

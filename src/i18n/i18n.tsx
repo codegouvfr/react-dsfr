@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
-import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
+import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
 
 const langContext = createContext<string | undefined>(undefined);
 

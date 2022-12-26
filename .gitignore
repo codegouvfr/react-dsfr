@@ -44,7 +44,7 @@ jspm_packages
 /dist
 /.yarn_home
 /dsfr
-/src/lib/generatedFromCss
+/src/fr/generatedFromCss
 /storybook-static
 
 

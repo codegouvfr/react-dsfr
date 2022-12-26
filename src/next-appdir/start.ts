@@ -1,14 +1,12 @@
-"use client";
-
-import { isBrowser } from "../lib/tools/isBrowser";
-import type { Params as StartDsfrReactParams } from "../lib/start";
-import { startReactDsfrNext } from "../lib/start";
-import { setLink } from "../lib/routing";
+import { isBrowser } from "../tools/isBrowser";
+import type { StartReactDsfrParams } from "../start";
+import { startReactDsfrNext } from "../start/start";
+import { setLink } from "../link";
 
 let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
 
-export function startReactDsfr(params: StartDsfrReactParams): void {
+export function startReactDsfr(params: StartReactDsfrParams): void {
     if (!isBrowser) {
         const { Link } = params;
         if (Link !== undefined) {
@@ -27,7 +25,7 @@ export function startReactDsfr(params: StartDsfrReactParams): void {
                 actions.push(action);
             }
         },
-        "doAvoidAllPreHydrationMutation": process.env.NODE_ENV === "development"
+        "doAllowHtmlAttributeMutationBeforeHydration": process.env.NODE_ENV !== "development"
     });
 }
 

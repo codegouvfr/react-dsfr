@@ -1,14 +1,14 @@
+"use client";
+
 import React, { memo, forwardRef, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
-import { createComponentI18nApi } from "./lib/i18n";
-import { cx } from "./lib/tools/cx";
-import { fr, RegisteredLinkProps } from "./lib";
-import { getLink } from "./lib/routing";
-
-import "./dsfr/component/summary/summary.css";
+import { createComponentI18nApi } from "./i18n/i18n";
+import { cx } from "./tools/cx";
+import { fr } from "./fr";
+import { getLink } from "./link/link";
+import type { RegisteredLinkProps } from "./link/link";
 
 type SummaryLink = {
     text: string;

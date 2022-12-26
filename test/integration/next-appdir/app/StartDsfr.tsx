@@ -11,7 +11,10 @@ declare module "@codegouvfr/react-dsfr" {
     }
 }
 
-startReactDsfr({ defaultColorScheme, Link });
+startReactDsfr({ 
+	defaultColorScheme, 
+	Link ,
+});
 
 export default function StartDsfr(){
 	return null;

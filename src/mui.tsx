@@ -3,14 +3,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
-import { breakpointValues, breakpointValuesUnit } from "./lib/generatedFromCss/breakpoints";
+import { breakpointValues, breakpointValuesUnit } from "./fr/generatedFromCss/breakpoints";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { getColors } from "./lib/colors";
-import { useIsDark } from "./lib/darkMode";
-import { typography } from "./lib/generatedFromCss/typography";
-import { spacingTokenByValue } from "./lib/generatedFromCss/spacing";
-import type { ColorTheme } from "./lib/colors";
+import { getColors } from "./fr/colors";
+import type { ColorTheme } from "./fr/colors";
+import { useIsDark } from "./useIsDark";
+import { typography } from "./fr/generatedFromCss/typography";
+import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import type { Shadows } from "@mui/material/styles";
@@ -248,7 +248,7 @@ export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[
     return muiTheme;
 }
 
-export function createMuiDsfrThemeProvider(params?: {
+export function createMuiDsfrThemeProvider(params: {
     useIsDark?: () => { isDark: boolean };
     augmentMuiTheme?: (params: {
         /** WARNING: The types is lying here.
@@ -259,7 +259,7 @@ export function createMuiDsfrThemeProvider(params?: {
         frColorTheme: ColorTheme;
     }) => MuiTheme;
 }) {
-    const { augmentMuiTheme, useIsDark: useIsDark_props = useIsDark } = params ?? {};
+    const { augmentMuiTheme, useIsDark: useIsDark_props = useIsDark } = params;
 
     type Props = {
         children: ReactNode;
@@ -288,4 +288,4 @@ export function createMuiDsfrThemeProvider(params?: {
     return { MuiDsfrThemeProvider };
 }
 
-export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
+export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});

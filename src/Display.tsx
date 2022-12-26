@@ -1,14 +1,16 @@
+"use client";
+
 import React, { memo, forwardRef, useId } from "react";
-import { fr } from "./lib";
+import { fr } from "./fr";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "./lib/i18n";
-import { cx } from "./lib/tools/cx";
+import { createComponentI18nApi } from "./i18n/i18n";
+import { cx } from "./tools/cx";
 import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
 import ArtworkLightSvg from "./dsfr/artwork/light.svg";
 import ArtworkDarkSvg from "./dsfr/artwork/dark.svg";
 import ArtworkSystemSvg from "./dsfr/artwork/system.svg";
-import { getAssetUrl } from "./lib/tools/getAssetUrl";
+import { getAssetUrl } from "./tools/getAssetUrl";
 import type { HeaderProps } from "./Header";
 import type { FooterProps } from "./Footer";
 

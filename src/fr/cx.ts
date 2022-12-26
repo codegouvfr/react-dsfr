@@ -1,5 +1,5 @@
 import type { FrClassName } from "./generatedFromCss/classNames";
-import { cx as genericCx } from "./tools/cx";
+import { cx as genericCx } from "../tools/cx";
 
 export type FrCxArg =
     | undefined

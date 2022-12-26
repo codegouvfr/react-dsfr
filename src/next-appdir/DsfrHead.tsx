@@ -1,8 +1,8 @@
 import React from "react";
 import { objectKeys } from "tsafe/objectKeys";
 //import { getColors } from "./lib/colors";
-import type { ColorScheme } from "../lib/darkMode";
-import { getAssetUrl } from "../lib/tools/getAssetUrl";
+import type { ColorScheme } from "../useIsDark";
+import { getAssetUrl } from "../tools/getAssetUrl";
 //import { rootColorSchemeStyleTagId } from "./lib/darkMode";
 
 import marianneLightWoff2Url from "../dsfr/fonts/Marianne-Light.woff2";
@@ -43,7 +43,7 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
 };
 
-export default function DsfrHead(props: DsfrHeadProps) {
+export function DsfrHead(props: DsfrHeadProps) {
     const { defaultColorScheme, preloadFonts = [] } = props;
 
     //const isDark = defaultColorScheme === "dark" ? true : false;

@@ -4,15 +4,12 @@ import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
-import { startReactDsfrNext } from "./lib/start";
-import {
-    rootColorSchemeStyleTagId,
-    SsrIsDarkProvider,
-    data_fr_scheme,
-    data_fr_theme
-} from "./lib/darkMode";
-import type { Params as StartDsfrReactParams } from "./lib/start";
-import { isBrowser } from "./lib/tools/isBrowser";
+import { startReactDsfrNext } from "./start/start";
+import { rootColorSchemeStyleTagId, data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
+import { SsrIsDarkProvider } from "./useIsDark/server";
+import type { ColorScheme } from "./useIsDark";
+import type { StartReactDsfrParams } from "./start";
+import { isBrowser } from "./tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
 import marianneLightWoff2Url from "./dsfr/fonts/Marianne-Light.woff2";
 import marianneItalicWoff2Url from "./dsfr/fonts/Marianne-Light_Italic.woff2";
@@ -28,11 +25,10 @@ import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
 import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
-import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
-import { getAssetUrl } from "./lib/tools/getAssetUrl";
-import { getColors } from "./lib/colors";
-import { setLink } from "./lib/routing";
+import { getAssetUrl } from "./tools/getAssetUrl";
+import { getColors } from "./fr/colors";
+import { setLink } from "./link";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -49,7 +45,7 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = StartDsfrReactParams & {
+export type CreateNextDsfrIntegrationApiParams = StartReactDsfrParams & {
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */
@@ -94,7 +90,9 @@ export type NextDsfrIntegrationApi = {
     };
 };
 
-export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegrationApi {
+export function createNextDsfrIntegrationApi(
+    params: CreateNextDsfrIntegrationApiParams
+): NextDsfrIntegrationApi {
     const {
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
@@ -114,7 +112,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                     actions.push(action);
                 }
             },
-            "doAvoidAllPreHydrationMutation": false
+            "doAllowHtmlAttributeMutationBeforeHydration": true
         });
     } else {
         const { Link } = startDsfrReactParams;

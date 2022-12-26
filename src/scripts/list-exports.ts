@@ -20,6 +20,10 @@ const newExports = {
             `./dist/next-appdir/${name}.js`
         ])
     ),
+    "./useIsDark": "./dist/useIsDark/index.js",
+    "./i18n": "./dist/i18n/index.js",
+    "./link": "./dist/link/index.js",
+    "./start": "./dist/start/index.js",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)

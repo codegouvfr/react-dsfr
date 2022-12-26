@@ -1,13 +1,13 @@
+"use client";
+
 import React, { memo, forwardRef, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-import { FrClassName } from "./lib/generatedFromCss/classNames";
-import { cx } from "./lib/tools/cx";
-import { fr } from "./lib";
-
-import "./dsfr/component/quote/quote.css";
+import type { FrClassName } from "./fr/generatedFromCss/classNames";
+import { cx } from "./tools/cx";
+import { fr } from "./fr";
 
 export type QuoteProps = {
     className?: string;

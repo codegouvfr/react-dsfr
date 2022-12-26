@@ -1,14 +1,14 @@
+"use client";
+
 import React, { memo, forwardRef, useId, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
-import { RegisteredLinkProps, getLink } from "./lib/routing";
-import { createComponentI18nApi } from "./lib/i18n";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
-
-import "./dsfr/component/breadcrumb/breadcrumb.css";
+import { getLink } from "./link/link";
+import type { RegisteredLinkProps } from "./link";
+import { createComponentI18nApi } from "./i18n/i18n";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 
 export type BreadcrumbProps = {
     className?: string;

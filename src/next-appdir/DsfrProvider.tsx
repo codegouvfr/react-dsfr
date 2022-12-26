@@ -2,9 +2,9 @@
 
 import React, { useEffect } from "react";
 import type { ReactNode } from "react";
-import { isBrowser } from "../lib/tools/isBrowser";
-import type { ColorScheme } from "../lib/darkMode";
-import { SsrIsDarkProvider } from "../lib/darkMode";
+import { isBrowser } from "../tools/isBrowser";
+import type { ColorScheme } from "../useIsDark";
+import { SsrIsDarkProvider } from "../useIsDark/server";
 
 export type DsfrProviderProps = {
     defaultColorScheme: ColorScheme | "system";
@@ -12,7 +12,7 @@ export type DsfrProviderProps = {
     children: ReactNode;
 };
 
-export default function NextAppDirDsfrProvider(props: DsfrProviderProps) {
+export function DsfrProvider(props: DsfrProviderProps) {
     const { defaultColorScheme, effect, children } = props;
 
     useEffect(() => {
