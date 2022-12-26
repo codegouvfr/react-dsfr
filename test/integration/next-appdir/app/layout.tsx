@@ -1,19 +1,20 @@
 import { NextAppDirEmotionCacheProvider } from "tss-react/next";
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
-import { dsfrEffect } from "@codegouvfr/react-dsfr/next-appdir/start";
 import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
 import StartDsfr from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
 import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+/*
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
+*/
 
-const brandTop = <>INTITULE<br />OFFICIEL</>;
+//const brandTop = <>INTITULE<br />OFFICIEL</>;
 
-const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+//const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
@@ -38,7 +39,15 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				/>
 			</head>
 			<body>
-				<DsfrProvider defaultColorScheme={defaultColorScheme} effect={dsfrEffect}>
+				<DsfrProvider defaultColorScheme={defaultColorScheme}>
+					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
+						<MuiDsfrThemeProvider>
+							{children}
+						</MuiDsfrThemeProvider>
+					</NextAppDirEmotionCacheProvider>
+				</DsfrProvider>
+				{/*
+				<DsfrProvider defaultColorScheme={defaultColorScheme}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 
@@ -75,6 +84,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>
 				</DsfrProvider>
+						*/}
 			</body>
 		</html>
 	);
