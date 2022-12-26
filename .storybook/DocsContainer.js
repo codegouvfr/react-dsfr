@@ -1,11 +1,12 @@
-
 import React, { useEffect } from "react";
 import { DocsContainer as BaseContainer } from "@storybook/addon-docs";
 import { useDarkMode } from "storybook-dark-mode";
 import { darkTheme, lightTheme } from "./customTheme";
 import "../dist/dsfr/dsfr.css";
 import "../dist/dsfr/utility/icons/icons.min.css";
-import { startReactDsfr, useIsDark, useColors } from "../dist";
+import { startReactDsfr } from "../dist/spa";
+import { useColors } from "../dist/useColors";
+import { useIsDark } from "../dist/useIsDark";
 
 startReactDsfr({
     "defaultColorScheme": "system",
@@ -16,12 +17,9 @@ export const DocsContainer = ({ children, context }) => {
     const isStorybookUiDark = useDarkMode();
     const { setIsDark } = useIsDark();
 
-    useEffect(
-        ()=> {
-            setIsDark(isStorybookUiDark);
-        },
-        [isStorybookUiDark]
-    );
+    useEffect(() => {
+        setIsDark(isStorybookUiDark);
+    }, [isStorybookUiDark]);
 
     const backgroundColor = useColors().decisions.background.default.grey.default;
 
