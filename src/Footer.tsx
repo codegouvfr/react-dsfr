@@ -2,7 +2,7 @@
 
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
-import { getLink } from "./link/link";
+import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";

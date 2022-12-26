@@ -7,7 +7,7 @@ import type { Equals } from "tsafe";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { fr } from "./fr";
 import type { RegisteredLinkProps } from "./link";
-import { getLink } from "./link/link";
+import { getLink } from "./link";
 import { cx } from "./tools/cx";
 
 import "./dsfr/component/card/card.css";

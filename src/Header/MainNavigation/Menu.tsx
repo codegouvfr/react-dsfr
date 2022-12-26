@@ -6,7 +6,7 @@ import { cx } from "../../tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import type { RegisteredLinkProps } from "../../link";
-import { getLink } from "../../link/link";
+import { getLink } from "../../link";
 
 export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;

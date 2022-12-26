@@ -7,8 +7,8 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n/i18n";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
-import { getLink } from "./link/link";
-import type { RegisteredLinkProps } from "./link/link";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 
 type SummaryLink = {
     text: string;

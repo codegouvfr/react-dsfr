@@ -4,7 +4,7 @@ import React, { memo, forwardRef, useId, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { getLink } from "./link/link";
+import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 import { createComponentI18nApi } from "./i18n/i18n";
 import { fr } from "./fr";

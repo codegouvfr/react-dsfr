@@ -5,18 +5,18 @@ import type { ReactNode } from "react";
 import { isBrowser } from "../tools/isBrowser";
 import type { ColorScheme } from "../useIsDark";
 import { SsrIsDarkProvider } from "../useIsDark/server";
+import { dsfrEffect } from "./start";
 
 export type DsfrProviderProps = {
     defaultColorScheme: ColorScheme | "system";
-    effect: () => void;
     children: ReactNode;
 };
 
 export function DsfrProvider(props: DsfrProviderProps) {
-    const { defaultColorScheme, effect, children } = props;
+    const { defaultColorScheme, children } = props;
 
     useEffect(() => {
-        effect();
+        dsfrEffect();
     }, []);
 
     if (isBrowser) {

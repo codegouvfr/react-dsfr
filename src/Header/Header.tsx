@@ -6,7 +6,7 @@ import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "../tools/cx";
-import { getLink } from "../link/link";
+import { getLink } from "../link";
 import type { RegisteredLinkProps } from "../link";
 import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";

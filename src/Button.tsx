@@ -8,7 +8,7 @@ import type {
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import { getLink } from "./link/link";
+import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";

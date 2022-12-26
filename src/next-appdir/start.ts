@@ -1,32 +1,44 @@
-import { isBrowser } from "../tools/isBrowser";
-import type { StartReactDsfrParams } from "../start";
-import { startReactDsfrNext } from "../start/start";
+import type { ReactNode } from "react";
+import { start } from "../start";
+import type { RegisterLink, RegisteredLinkProps } from "../link";
 import { setLink } from "../link";
+import type { ColorScheme } from "../useIsDark";
+import { isBrowser } from "../tools/isBrowser";
+
+export type { RegisterLink, RegisteredLinkProps };
 
 let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
 
-export function startReactDsfr(params: StartReactDsfrParams): void {
-    if (!isBrowser) {
-        const { Link } = params;
-        if (Link !== undefined) {
-            setLink({ Link });
-        }
+export function startReactDsfr(params: {
+    defaultColorScheme: ColorScheme | "system";
+    /** Default: false */
+    verbose?: boolean;
+    /** Default: <a /> */
+    Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+}) {
+    const { defaultColorScheme, verbose = false, Link } = params;
 
-        return;
+    if (Link !== undefined) {
+        setLink({ Link });
     }
 
-    startReactDsfrNext(params, {
-        "doPersistDarkModePreferenceWithCookie": false,
-        "registerEffectAction": action => {
-            if (isAfterFirstEffect) {
-                action();
-            } else {
-                actions.push(action);
+    if (isBrowser) {
+        start({
+            defaultColorScheme,
+            verbose,
+            "nextParams": {
+                "doPersistDarkModePreferenceWithCookie": false,
+                "registerEffectAction": action => {
+                    if (isAfterFirstEffect) {
+                        action();
+                    } else {
+                        actions.push(action);
+                    }
+                }
             }
-        },
-        "doAllowHtmlAttributeMutationBeforeHydration": process.env.NODE_ENV !== "development"
-    });
+        });
+    }
 }
 
 export function dsfrEffect(): void {
