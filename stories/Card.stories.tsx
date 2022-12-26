@@ -7,7 +7,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 import "../dsfr/utility/icons/icons-system/icons-system.css";
-import { fr } from "../dist/lib";
+import { fr } from "../src/fr";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
