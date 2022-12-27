@@ -18,8 +18,9 @@ import spectralExtraBoldWoff2Url from "../dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
-import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
+import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "../useIsDark/constants";
 //import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
+import { getColors } from "../fr/colors";
 import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
 
@@ -44,14 +45,14 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
 };
 
-const isDevMode = process.env.NODE_ENV !== "development";
+const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
     const { defaultColorScheme, preloadFonts = [] } = props;
 
     return (
         <>
-            {isDevMode &&
+            {isProduction &&
                 objectKeys(fontUrlByFileBasename)
                     .filter(fileBasename => preloadFonts.includes(fileBasename))
                     .map(fileBasename => fontUrlByFileBasename[fileBasename])
@@ -74,7 +75,7 @@ export function DsfrHead(props: DsfrHeadProps) {
 				crossOrigin="use-credentials"
 			/>
 					*/}
-            {isDevMode && (
+            {isProduction && (
                 <script
                     dangerouslySetInnerHTML={{
                         "__html": `
@@ -133,6 +134,40 @@ export function DsfrHead(props: DsfrHeadProps) {
                             })();
                             
                             ["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
+
+                            {
+
+                                document.getElementById("${rootColorSchemeStyleTagId}")?.remove();
+
+                                const element = document.createElement("style");
+
+                                element.id = "${rootColorSchemeStyleTagId}";
+
+                                element.innerHTML = \`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`;
+
+                                document.head.appendChild(element);
+
+                            }
+
+                            {
+
+                                const name = "theme-color";
+
+                                document.querySelector(\`meta[name=\${name}]\`)?.remove();
+                    
+                                const element = document.createElement("meta");
+                    
+                                element.name = name;
+                    
+                                element.content = isDark ? "${
+                                    getColors(true).decisions.background.default.grey.default
+                                }" : "${
+                            getColors(false).decisions.background.default.grey.default
+                        }";
+                    
+                                document.head.appendChild(element);
+
+                            }
 
 				`
                     }}

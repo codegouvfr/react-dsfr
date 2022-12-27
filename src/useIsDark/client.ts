@@ -228,11 +228,13 @@ export function startClientSideIsDarkLogic(params: {
 
     {
         const setThemeColor = (isDark: boolean) => {
-            document.querySelector("meta[name=theme-color]")?.remove();
+            const name = "theme-color";
+
+            document.querySelector(`meta[name=${name}]`)?.remove();
 
             const element = document.createElement("meta");
 
-            element.name = "theme-color";
+            element.name = name;
 
             element.content = getColors(isDark).decisions.background.default.grey.default;
 
