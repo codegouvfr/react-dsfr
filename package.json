@@ -123,6 +123,7 @@
         "./next": "./dist/next.js",
         "./mui": "./dist/mui.js",
         "./lib": "./dist/lib/index.js",
+        "./Tile": "./dist/Tile.js",
         "./Tabs": "./dist/Tabs.js",
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
