@@ -210,12 +210,13 @@ export function startClientSideIsDarkLogic(params: {
         const setRootColorScheme = (isDark: boolean) => {
             document.getElementById(rootColorSchemeStyleTagId)?.remove();
 
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<style id="${rootColorSchemeStyleTagId}">:root { color-scheme: ${
-                    isDark ? "dark" : "light"
-                }; }</style>`
-            );
+            const element = document.createElement("style");
+
+            element.id = rootColorSchemeStyleTagId;
+
+            element.innerHTML = `:root { color-scheme: ${isDark ? "dark" : "light"}; }`;
+
+            document.head.appendChild(element);
         };
 
         setRootColorScheme($clientSideIsDark.current);
@@ -227,12 +228,13 @@ export function startClientSideIsDarkLogic(params: {
         const setThemeColor = (isDark: boolean) => {
             document.querySelector("meta[name=theme-color]")?.remove();
 
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<meta name="theme-color" content="${
-                    getColors(isDark).decisions.background.default.grey.default
-                }">`
-            );
+            const element = document.createElement("meta");
+
+            element.name = "theme-color";
+
+            element.content = getColors(isDark).decisions.background.default.grey.default;
+
+            document.head.appendChild(element);
         };
 
         setThemeColor($clientSideIsDark.current);
