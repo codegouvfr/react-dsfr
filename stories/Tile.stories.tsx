@@ -58,32 +58,3 @@ export const TileHorizontalWithImage = getStory(
     },
     { defaultContainerWidth: "100%" }
 );
-// export const SummaryWithCustomTitle = getStory({
-//     title: "Sommaire personnalisé",
-//     links: [
-//         {
-//             linkProps: { href: "#" },
-//             text: "Titre de l’ancre"
-//         },
-//         {
-//             linkProps: { href: "#" },
-
-//             text: "Titre de l’ancre"
-//         },
-//         {
-//             linkProps: { href: "#" },
-
-//             text: "Titre de l’ancre"
-//         },
-//         {
-//             linkProps: { href: "#" },
-
-//             text: "Titre de l’ancre"
-//         },
-//         {
-//             linkProps: { href: "#" },
-
-//             text: "Titre de l’ancre"
-//         }
-//     ]
-// });
