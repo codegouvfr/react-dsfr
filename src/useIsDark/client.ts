@@ -102,7 +102,9 @@ export function startClientSideIsDarkLogic(params: {
         if (isDarkFromHtmlAttribute !== undefined) {
             return {
                 "clientSideIsDark": isDarkFromHtmlAttribute,
-                "ssrWasPerformedWithIsDark": isDarkFromHtmlAttribute
+                "ssrWasPerformedWithIsDark":
+                    ((window as any).ssrWasPerformedWithIsDark as boolean | undefined) ??
+                    isDarkFromHtmlAttribute
             };
         }
 

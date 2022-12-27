@@ -18,7 +18,7 @@ import spectralExtraBoldWoff2Url from "../dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
-//import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
+import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
 //import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
@@ -44,15 +44,14 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
 };
 
+const isDevMode = process.env.NODE_ENV !== "development";
+
 export function DsfrHead(props: DsfrHeadProps) {
-    const {
-        //defaultColorScheme,
-        preloadFonts = []
-    } = props;
+    const { defaultColorScheme, preloadFonts = [] } = props;
 
     return (
         <>
-            {process.env.NODE_ENV !== "development" &&
+            {isDevMode &&
                 objectKeys(fontUrlByFileBasename)
                     .filter(fileBasename => preloadFonts.includes(fileBasename))
                     .map(fileBasename => fontUrlByFileBasename[fileBasename])
@@ -75,70 +74,70 @@ export function DsfrHead(props: DsfrHeadProps) {
 				crossOrigin="use-credentials"
 			/>
 					*/}
-            {/*
-            {process.env.NODE_ENV !== "development" && (
+            {isDevMode && (
                 <script
                     dangerouslySetInnerHTML={{
                         "__html": `
 
-					const isDark = (()=>{
-
-                        const isDarkExplicitlyProvidedAsParameter = (() => {
-                            if ("${defaultColorScheme}" === "system") {
-                                return undefined;
-                            }
-
-                            switch ("${defaultColorScheme}") {
-                                case "dark": return true;
-                                case "light": return false;
-                            }
-                        })();
-
-                        const isDarkFromLocalStorage = (() => {
-                            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
-
-                            if (colorSchemeReadFromLocalStorage === null) {
-                                return undefined;
-                            }
-
-                            if (colorSchemeReadFromLocalStorage === "system") {
-                                return undefined;
-                            }
-
-                            switch (colorSchemeReadFromLocalStorage) {
-                                case "dark":
-                                    return true;
-                                case "light":
-                                    return false;
-                            }
-                        })();
-
-                        const isDarkFromOsPreference = (() => {
-                            if (!window.matchMedia) {
-                                return undefined;
-                            }
-
-                            return window.matchMedia("(prefers-color-scheme: dark)").matches;
-                        })();
-
-                        const isDarkFallback = false;
-						
-						return (
-							isDarkFromLocalStorage ??
-							isDarkExplicitlyProvidedAsParameter ??
-							isDarkFromOsPreference ??
-							isDarkFallback
-						);
-
-					})();
-
-    				["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
+                            window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
+                            
+                            const isDark = (() => {
+                            
+                            	const isDarkExplicitlyProvidedAsParameter = (() => {
+                            		if ("${defaultColorScheme}" === "system") {
+                            			return undefined;
+                            		}
+                            
+                            		switch ("${defaultColorScheme}") {
+                            			case "dark": return true;
+                            			case "light": return false;
+                            		}
+                            	})();
+                            
+                            	const isDarkFromLocalStorage = (() => {
+                            		const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+                            
+                            		if (colorSchemeReadFromLocalStorage === null) {
+                            			return undefined;
+                            		}
+                            
+                            		if (colorSchemeReadFromLocalStorage === "system") {
+                            			return undefined;
+                            		}
+                            
+                            		switch (colorSchemeReadFromLocalStorage) {
+                            			case "dark":
+                            				return true;
+                            			case "light":
+                            				return false;
+                            		}
+                            	})();
+                            
+                            	const isDarkFromOsPreference = (() => {
+                            		if (!window.matchMedia) {
+                            			return undefined;
+                            		}
+                            
+                            		return window.matchMedia("(prefers-color-scheme: dark)").matches;
+                            	})();
+                            
+                            	const isDarkFallback = false;
+                            
+                            	return (
+                            		isDarkFromLocalStorage ??
+                            		isDarkExplicitlyProvidedAsParameter ??
+                            		isDarkFromOsPreference ??
+                            		isDarkFallback
+                            	);
+                            
+                            })();
+                            
+                            ["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
 
 				`
                     }}
                 ></script>
             )}
-                */}
         </>
     );
 }
