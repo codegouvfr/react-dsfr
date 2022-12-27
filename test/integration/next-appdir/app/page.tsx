@@ -1,11 +1,11 @@
-import { MuiButtonsExample } from "../shared/MuiButtonsExample";
+import { ClientComponent } from "../shared/ClientComponent";
 
 export default function Page() {
 
     return (
         <>
             <h1>Hello World</h1>
-            <MuiButtonsExample />
+            <ClientComponent />
         </>
     );
 

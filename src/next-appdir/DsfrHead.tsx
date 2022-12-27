@@ -18,6 +18,7 @@ import spectralExtraBoldWoff2Url from "../dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
+//import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
 //import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
@@ -44,9 +45,10 @@ export type DsfrHeadProps = {
 };
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const { defaultColorScheme, preloadFonts = [] } = props;
-
-    //const isDark = defaultColorScheme === "dark" ? true : false;
+    const {
+        //defaultColorScheme,
+        preloadFonts = []
+    } = props;
 
     return (
         <>
@@ -73,6 +75,7 @@ export function DsfrHead(props: DsfrHeadProps) {
 				crossOrigin="use-credentials"
 			/>
 					*/}
+            {/*
             {process.env.NODE_ENV !== "development" && (
                 <script
                     dangerouslySetInnerHTML={{
@@ -129,24 +132,13 @@ export function DsfrHead(props: DsfrHeadProps) {
 
 					})();
 
-					const data_fr_theme = "data-fr-theme";
-					const data_fr_scheme = "data-fr-scheme";
-
-    				[data_fr_scheme, data_fr_theme].forEach(attr => document.documentElement.setAttribute(attr, "dark"));
+    				["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
 
 				`
                     }}
                 ></script>
             )}
-            {/*
-			<style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${isDark ? "dark" : "light"}; }`}</style>
-					*/}
-            {/*
-			<meta
-				name="theme-color"
-				content={getColors(isDark).decisions.background.default.grey.default}
-			/>
-				*/}
+                */}
         </>
     );
 }
