@@ -60,7 +60,7 @@ const getPaginationParts = ({ count, defaultPage }: { count: number; defaultPage
     ];
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-stepper> */
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-pagination> */
 export const Pagination = memo(
     forwardRef<HTMLDivElement, PaginationProps>((props, ref) => {
         const {
