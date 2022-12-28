@@ -9,6 +9,7 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
+import { DsfrLangProvider } from "@codegouvfr/react-dsfr/i18n";
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 			</head>
 			<body>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
+					<DsfrLangProvider lang="fr">
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 
@@ -73,6 +75,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>
+					</DsfrLangProvider>
 				</DsfrProvider>
 			</body>
 		</html>
