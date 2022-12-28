@@ -12,7 +12,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     wrappedComponent: Record<string, (props: Props) => JSX.Element | null>;
     /** https://storybook.js.org/docs/react/essentials/controls */
     argTypes?: Partial<Record<keyof Props, ArgType>>;
-    defaultContainerWidth?: number;
+    defaultContainerWidth?: number | string;
     disabledProps?: ("containerWidth" | "lang" | "darkMode")[];
     /** Default false */
     doHideImportInstruction?: boolean;
