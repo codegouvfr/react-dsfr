@@ -92,8 +92,9 @@ yarn storybook
 
 # Starting test apps
 yarn start-cra  # For testing in in a Create React App setup
-yarn start-next # For testing in a Next.js setup
 yarn start-vite # For testing in a Vite setup
+yarn start-next-pagesdir # For testing in a Next.js 13 PagesDir setup (the default setup)
+yarn start-next-appdir # For testing in a Next.js 13 AppDir setup
 
 # Run all unit test (test/runtime):
 yarn test

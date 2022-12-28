@@ -5,7 +5,9 @@ import { useDarkMode } from "storybook-dark-mode";
 import { darkTheme, lightTheme } from "./customTheme";
 import "../dist/dsfr/dsfr.css";
 import "../dist/dsfr/utility/icons/icons.min.css";
-import { startReactDsfr, useIsDark, useColors } from "../dist";
+import { useIsDark } from "../dist/useIsDark";
+import { startReactDsfr } from "../dist/spa";
+import { useColors } from "../dist/useColors";
 
 startReactDsfr({
     "defaultColorScheme": "system",

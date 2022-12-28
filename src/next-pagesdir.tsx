@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
+import type { ReactNode } from "react";
 import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
 import type { DocumentProps, DocumentContext } from "next/document";
-import { startReactDsfrNext } from "./lib/start";
-import {
-    rootColorSchemeStyleTagId,
-    SsrIsDarkProvider,
-    data_fr_scheme,
-    data_fr_theme
-} from "./lib/darkMode";
-import type { Params as StartDsfrReactParams } from "./lib/start";
-import { isBrowser } from "./lib/tools/isBrowser";
+import { rootColorSchemeStyleTagId, data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
+import { SsrIsDarkProvider } from "./useIsDark/server";
+import type { ColorScheme } from "./useIsDark";
+import { isBrowser } from "./tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
 import marianneLightWoff2Url from "./dsfr/fonts/Marianne-Light.woff2";
 import marianneItalicWoff2Url from "./dsfr/fonts/Marianne-Light_Italic.woff2";
@@ -27,14 +23,16 @@ import spectralExtraBoldWoff2Url from "./dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
-import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
-import type { ColorScheme } from "./lib/darkMode";
 import DefaultDocument from "next/document";
-import { getAssetUrl } from "./lib/tools/getAssetUrl";
-import { getColors } from "./lib/colors";
-import { setLink } from "./lib/routing";
+import { getAssetUrl } from "./tools/getAssetUrl";
+import { getColors } from "./fr/colors";
+import { start } from "./start";
+import type { RegisterLink, RegisteredLinkProps } from "./link";
+import { setLink } from "./link";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
+
+export type { RegisterLink, RegisteredLinkProps };
 
 const fontUrlByFileBasename = {
     "Marianne-Light": marianneLightWoff2Url,
@@ -49,25 +47,19 @@ const fontUrlByFileBasename = {
     "Spectral-ExtraBold": spectralExtraBoldWoff2Url
 } as const;
 
-export type Params = Params.WithDarkModeCookie | Params.WithoutDarkModeCookie;
-export namespace Params {
-    export type Common = StartDsfrReactParams & {
-        /** If not provided no fonts are preloaded.
-         * Preloading of fonts is only enabled in production.
-         */
-        preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-        /** Default false */
-        doPersistDarkModePreferenceWithCookie?: boolean;
-    };
-
-    export type WithDarkModeCookie = Common & {
-        doPersistDarkModePreferenceWithCookie: true;
-    };
-
-    export type WithoutDarkModeCookie = Common & {
-        doPersistDarkModePreferenceWithCookie?: false;
-    };
-}
+export type CreateNextDsfrIntegrationApiParams = {
+    defaultColorScheme: ColorScheme | "system";
+    /** Default: false */
+    verbose?: boolean;
+    /** Default: <a /> */
+    Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    /** If not provided no fonts are preloaded.
+     * Preloading of fonts is only enabled in production.
+     */
+    preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
+    /** Default false */
+    doPersistDarkModePreferenceWithCookie?: boolean;
+};
 
 function readIsDarkInCookie(cookie: string) {
     const parsedCookies = Object.fromEntries(
@@ -105,32 +97,39 @@ export type NextDsfrIntegrationApi = {
     };
 };
 
-export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegrationApi {
+export function createNextDsfrIntegrationApi(
+    params: CreateNextDsfrIntegrationApiParams
+): NextDsfrIntegrationApi {
     const {
+        defaultColorScheme,
+        verbose = false,
+        Link,
         preloadFonts = [],
-        doPersistDarkModePreferenceWithCookie = false,
-        ...startDsfrReactParams
+        doPersistDarkModePreferenceWithCookie = false
     } = params;
 
     let isAfterFirstEffect = false;
     const actions: (() => void)[] = [];
 
+    if (Link !== undefined) {
+        setLink({ Link });
+    }
+
     if (isBrowser) {
-        startReactDsfrNext(startDsfrReactParams, {
-            doPersistDarkModePreferenceWithCookie,
-            "registerEffectAction": action => {
-                if (isAfterFirstEffect) {
-                    action();
-                } else {
-                    actions.push(action);
+        start({
+            defaultColorScheme,
+            verbose,
+            "nextParams": {
+                doPersistDarkModePreferenceWithCookie,
+                "registerEffectAction": action => {
+                    if (isAfterFirstEffect) {
+                        action();
+                    } else {
+                        actions.push(action);
+                    }
                 }
             }
         });
-    } else {
-        const { Link } = startDsfrReactParams;
-        if (Link !== undefined) {
-            setLink({ Link });
-        }
     }
 
     const isDarkPropKey = "dsfrIsDark";
@@ -177,11 +176,6 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             href={getAssetUrl(FaviconIco)}
                             type="image/x-icon"
                         />
-                        <link
-                            rel="manifest"
-                            href={faviconWebmanifestUrl}
-                            crossOrigin="use-credentials"
-                        />
                         {!isBrowser && ( //NOTE: On browser we handle this manually
                             <>
                                 <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
@@ -226,7 +220,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                             return cookie === undefined ? undefined : readIsDarkInCookie(cookie);
                         })() ??
                         (() => {
-                            switch (startDsfrReactParams.defaultColorScheme) {
+                            switch (defaultColorScheme) {
                                 case "dark":
                                     return true;
                                 case "light":
@@ -260,7 +254,7 @@ export function createNextDsfrIntegrationApi(params: Params): NextDsfrIntegratio
                 const isDark =
                     (cookie === undefined ? undefined : readIsDarkInCookie(cookie)) ??
                     (() => {
-                        switch (startDsfrReactParams.defaultColorScheme) {
+                        switch (defaultColorScheme) {
                             case "light":
                                 return false;
                             case "dark":

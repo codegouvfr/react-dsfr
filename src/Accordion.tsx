@@ -1,10 +1,12 @@
+"use client";
+
 import React, { forwardRef, memo, ReactNode, useId, useState } from "react";
 import { assert } from "tsafe";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
-import { useConstCallback } from "./lib/tools/powerhooks/useConstCallback";
+import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import "./dsfr/component/accordion/accordion.css";
 
 export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontrolled;

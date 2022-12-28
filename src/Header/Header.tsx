@@ -1,16 +1,18 @@
+"use client";
+
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
-import { fr } from "../lib";
-import { createComponentI18nApi } from "../lib/i18n";
+import { fr } from "../fr";
+import { createComponentI18nApi } from "../i18n/i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "../lib/tools/cx";
-import type { RegisteredLinkProps } from "../lib/routing";
-import { getLink } from "../lib/routing";
+import { cx } from "../tools/cx";
+import { getLink } from "../link";
+import type { RegisteredLinkProps } from "../link";
 import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "../lib/generatedFromCss/classNames";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 
 export type HeaderProps = {
     className?: string;
@@ -368,6 +370,8 @@ export const Header = memo(
 );
 
 Header.displayName = symToStr({ Header });
+
+export default Header;
 
 const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),

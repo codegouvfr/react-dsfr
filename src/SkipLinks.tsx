@@ -1,9 +1,11 @@
+"use client";
+
 import React, { forwardRef, memo } from "react";
 import { assert, Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
-import { fr } from "./lib";
-import { createComponentI18nApi } from "./lib/i18n";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { createComponentI18nApi } from "./i18n/i18n";
+import { cx } from "./tools/cx";
 
 export type SkipLink = {
     label: string;

@@ -3,8 +3,8 @@ import { ButtonProps } from "./Button";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 
 export type ButtonsGroupProps = ButtonsGroupProps.AlwaysStacked | ButtonsGroupProps.Inline;
 

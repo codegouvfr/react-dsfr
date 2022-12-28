@@ -1,14 +1,16 @@
+"use client";
+
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
-import { getLink } from "./lib/routing";
-import type { RegisteredLinkProps } from "./lib/routing";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 import { symToStr } from "tsafe/symToStr";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./lib/i18n";
-import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
+import { createComponentI18nApi } from "./i18n/i18n";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
 
 export type FooterProps = {

@@ -1,13 +1,14 @@
+"use client";
+
 import React, { memo, forwardRef, useId, useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { useCallbackFactory } from "./lib/tools/powerhooks/useCallbackFactory";
-import "@gouvfr/dsfr/dist/component/tab/tab.css";
+import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
 
 export type TabsProps = TabsProps.Uncontrolled | TabsProps.Controlled;
 

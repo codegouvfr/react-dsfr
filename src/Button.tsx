@@ -5,10 +5,11 @@ import type {
     MemoExoticComponent,
     ForwardRefExoticComponent
 } from "react";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
-import type { FrIconClassName, RiIconClassName } from "./lib/generatedFromCss/classNames";
-import { RegisteredLinkProps, getLink } from "./lib/routing";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";

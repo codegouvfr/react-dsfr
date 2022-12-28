@@ -14,17 +14,30 @@ const srcDirPath = pathJoin(getProjectRoot(), "src");
 
 const newExports = {
     ".": `./${packageJsonParsed["module"]}`,
+    "./spa": "./dist/spa.js",
+    "./next-appdir": "./dist/next-appdir/index.js",
+    ...Object.fromEntries(
+        ["DsfrHead", "DsfrProvider", "getColorSchemeHtmlAttributes"].map(name => [
+            `./next-appdir/${name}`,
+            `./dist/next-appdir/${name}.js`
+        ])
+    ),
+    "./next-pagesdir": "./dist/next-pagesdir.js",
+    "./useIsDark": "./dist/useIsDark/index.js",
+    "./useColors": "./dist/useColors.js",
+    "./i18n": "./dist/i18n/index.js",
+    "./mui": "./dist/mui.js",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)
             .map(basename => {
+                if (capitalize(basename) !== basename) {
+                    return undefined;
+                }
+
                 const path = pathJoin(srcDirPath, basename);
 
                 if (fs.lstatSync(path).isDirectory()) {
-                    if (capitalize(path) !== path) {
-                        return undefined;
-                    }
-
                     for (const ext of [".ts", ".tsx"] as const) {
                         const relativePath = pathJoin(basename, `index${ext}`);
 

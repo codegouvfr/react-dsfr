@@ -1,8 +1,16 @@
 import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
-import { useIsDark, fr } from "@codegouvfr/react-dsfr";
-import { useStyles } from "tss-react/dsfr";
+import { fr } from "@codegouvfr/react-dsfr";
+import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
+import { createMakeAndWithStyles } from "tss-react";
+
+const { useStyles } = createMakeAndWithStyles({
+    "useTheme": useColors
+});
+
+
 
 export default function App() {
     const { isDark, setIsDark } = useIsDark();

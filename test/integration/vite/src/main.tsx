@@ -2,14 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
-import { startReactDsfr, fr } from "@codegouvfr/react-dsfr";
+import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { fr } from "@codegouvfr/react-dsfr";
+
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
-declare module "@codegouvfr/react-dsfr" {
+declare module "@codegouvfr/react-dsfr/spa" {
     interface RegisterLink {
         Link: typeof Link;
     }

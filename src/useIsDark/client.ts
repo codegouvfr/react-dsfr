@@ -1,23 +1,16 @@
-import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
-import { createStatefulObservable, useRerenderOnChange } from "./tools/StatefulObservable";
-import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-import { createContext, useContext } from "react";
-import { getColors } from "./colors";
+import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
+import { useConstCallback } from "../tools/powerhooks/useConstCallback";
+import { getColors } from "../fr/colors";
+import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 
 export type ColorScheme = "light" | "dark";
-
-export const data_fr_theme = "data-fr-theme";
-export const data_fr_scheme = "data-fr-scheme";
-const data_fr_js = "data-fr-js";
-
-export const rootColorSchemeStyleTagId = "dsfr-root-color-scheme";
 
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
     throw new Error("not initialized yet");
 });
 
-type UseIsDark = () => {
+export type UseIsDark = () => {
     isDark: boolean;
     setIsDark: (
         isDark: boolean | "system" | ((currentIsDark: boolean) => boolean | "system")
@@ -26,7 +19,7 @@ type UseIsDark = () => {
 
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 
-const useIsDarkClientSide: UseIsDark = () => {
+export const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
@@ -36,7 +29,7 @@ const useIsDarkClientSide: UseIsDark = () => {
 
     const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
         newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
-            const data_fr_js_value = document.documentElement.getAttribute(data_fr_js);
+            const data_fr_js_value = document.documentElement.getAttribute("data-fr-js");
 
             const newColorScheme = ((): ColorScheme => {
                 switch (
@@ -71,27 +64,6 @@ const useIsDarkClientSide: UseIsDark = () => {
         setIsDark
     };
 };
-
-const ssrIsDarkContext = createContext<boolean | undefined>(undefined);
-
-export const { Provider: SsrIsDarkProvider } = ssrIsDarkContext;
-
-const useIsDarkServerSide: UseIsDark = () => {
-    const setIsDark = useConstCallback(() => {
-        /* nothing */
-    });
-
-    const isDark = useContext(ssrIsDarkContext);
-
-    assert(isDark !== undefined, "Not within provider");
-
-    return {
-        isDark,
-        setIsDark
-    };
-};
-
-export const useIsDark = isBrowser ? useIsDarkClientSide : useIsDarkServerSide;
 
 let ssrWasPerformedWithIsDark: boolean;
 
@@ -130,7 +102,9 @@ export function startClientSideIsDarkLogic(params: {
         if (isDarkFromHtmlAttribute !== undefined) {
             return {
                 "clientSideIsDark": isDarkFromHtmlAttribute,
-                "ssrWasPerformedWithIsDark": isDarkFromHtmlAttribute
+                "ssrWasPerformedWithIsDark":
+                    ((window as any).ssrWasPerformedWithIsDark as boolean | undefined) ??
+                    isDarkFromHtmlAttribute
             };
         }
 
@@ -190,8 +164,6 @@ export function startClientSideIsDarkLogic(params: {
 
     $clientSideIsDark.current = clientSideIsDark;
 
-    registerEffectAction(() => ($isAfterFirstEffect.current = true));
-
     [data_fr_scheme, data_fr_theme].forEach(attr =>
         document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
     );
@@ -240,12 +212,13 @@ export function startClientSideIsDarkLogic(params: {
         const setRootColorScheme = (isDark: boolean) => {
             document.getElementById(rootColorSchemeStyleTagId)?.remove();
 
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<style id="${rootColorSchemeStyleTagId}">:root { color-scheme: ${
-                    isDark ? "dark" : "light"
-                }; }</style>`
-            );
+            const element = document.createElement("style");
+
+            element.id = rootColorSchemeStyleTagId;
+
+            element.innerHTML = `:root { color-scheme: ${isDark ? "dark" : "light"}; }`;
+
+            document.head.appendChild(element);
         };
 
         setRootColorScheme($clientSideIsDark.current);
@@ -255,18 +228,23 @@ export function startClientSideIsDarkLogic(params: {
 
     {
         const setThemeColor = (isDark: boolean) => {
-            document.querySelector("meta[name=theme-color]")?.remove();
+            const name = "theme-color";
 
-            document.head.insertAdjacentHTML(
-                "afterend",
-                `<meta name="theme-color" content="${
-                    getColors(isDark).decisions.background.default.grey.default
-                }">`
-            );
+            document.querySelector(`meta[name=${name}]`)?.remove();
+
+            const element = document.createElement("meta");
+
+            element.name = name;
+
+            element.content = getColors(isDark).decisions.background.default.grey.default;
+
+            document.head.appendChild(element);
         };
 
         setThemeColor($clientSideIsDark.current);
 
         $clientSideIsDark.subscribe(setThemeColor);
     }
+
+    registerEffectAction(() => ($isAfterFirstEffect.current = true));
 }

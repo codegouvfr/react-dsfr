@@ -1,13 +1,15 @@
+"use client";
+
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
-import { createComponentI18nApi } from "../../lib/i18n";
+import { createComponentI18nApi } from "../../i18n/i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { RegisteredLinkProps } from "../../lib/routing";
-import { fr } from "../../lib";
-import { cx } from "../../lib/tools/cx";
-import { getLink } from "../../lib/routing";
+import type { RegisteredLinkProps } from "../../link";
+import { getLink } from "../../link";
+import { fr } from "../../fr";
+import { cx } from "../../tools/cx";
 import type { MenuProps } from "./Menu";
 import { Menu } from "./Menu";
 import type { MegaMenuProps } from "./MegaMenu";

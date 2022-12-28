@@ -82,7 +82,7 @@ import { patchCssForMui } from "./patchCssForMui";
 
     cssToTs({
         icons,
-        "generatedDirPath": pathJoin(projectRootDirPath, "src", "lib", "generatedFromCss"),
+        "generatedDirPath": pathJoin(projectRootDirPath, "src", "fr", "generatedFromCss"),
         rawDsfrCssCode
     });
 

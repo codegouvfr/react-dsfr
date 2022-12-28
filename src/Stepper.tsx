@@ -1,12 +1,13 @@
+"use client";
+
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
-import { createComponentI18nApi } from "./lib/i18n";
-import "./dsfr/component/stepper/stepper.css";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+import { createComponentI18nApi } from "./i18n/i18n";
 
 export type StepperProps = {
     className?: string;

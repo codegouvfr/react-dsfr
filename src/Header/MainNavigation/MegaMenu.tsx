@@ -1,13 +1,15 @@
+"use client";
+
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "../../lib/i18n";
-import { fr } from "../../lib";
-import { cx } from "../../lib/tools/cx";
+import { createComponentI18nApi } from "../../i18n/i18n";
+import { fr } from "../../fr";
+import { cx } from "../../tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { getLink } from "../../lib/routing";
-import type { RegisteredLinkProps } from "../../lib/routing";
+import { getLink } from "../../link";
+import type { RegisteredLinkProps } from "../../link";
 
 export type MegaMenuProps = {
     classes?: Partial<Record<"root" | "leader" | "category" | "list", string>>;

@@ -1,15 +1,11 @@
+"use client";
+
 import React, { memo, forwardRef, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
-
-// We make users import dsfr.css, so we don't need to import the scoped CSS
-// but in the future if we have a complete component coverage it
-// we could stop requiring users to import the hole CSS and only import on a
-// per component basis.
-import "./dsfr/component/highlight/highlight.css";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 
 export type HighlightProps = {
     className?: string;

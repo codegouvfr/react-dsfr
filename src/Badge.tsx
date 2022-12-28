@@ -2,8 +2,8 @@ import React, { memo, forwardRef, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./lib";
-import { cx } from "./lib/tools/cx";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 import type { AlertProps } from "./Alert";
 
 export type BadgeProps = {

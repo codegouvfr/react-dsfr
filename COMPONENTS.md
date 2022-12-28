@@ -40,4 +40,4 @@
 -   [ ] Tag
 -   [ ] Download
 -   [ ] Transcription
--   [x] Tile
+-   [ ] Tile
