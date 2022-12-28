@@ -93,12 +93,13 @@ export const Pagination = memo(
                     {showFirstLast && (
                         <li>
                             <Link
+                                {...(count > 0 && defaultPage > 1 & getPageLinkProp(1))}
                                 className={cx(
                                     fr.cx("fr-pagination__link", "fr-pagination__link--first"),
-                                    classes.link
+                                    classes.link,
+                                    getPageLinkProp(1).className
                                 )}
                                 aria-disabled={count > 0 ? true : undefined}
-                                href={count > 0 && defaultPage > 1 ? getPageHref(1) : undefined}
                                 role="link"
                             >
                                 {t("first page")}
