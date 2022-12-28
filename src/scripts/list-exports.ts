@@ -39,8 +39,7 @@ const newExports = {
 
                 if (fs.lstatSync(path).isDirectory()) {
                     for (const ext of [".ts", ".tsx"] as const) {
-                        //const relativePath = pathJoin(basename, `index${ext}`);
-                        const relativePath = pathJoin(basename, `${basename}${ext}`);
+                        const relativePath = pathJoin(basename, `index${ext}`);
 
                         if (!fs.existsSync(pathJoin(srcDirPath, relativePath))) {
                             continue;

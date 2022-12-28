@@ -1,5 +1,6 @@
-export * from "./Header";
+export type { HeaderProps } from "./Header";
+import { Header, addHeaderTranslations } from "./Header";
 
-import { Header } from "./Header";
+export { Header, addHeaderTranslations };
 
 export default Header;
