@@ -208,7 +208,7 @@ Add the following tags in the `<head />`&#x20;
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
-<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
+<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 </strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -222,7 +222,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 [routing.md](routing.md)
 {% endcontent-ref %}
 
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/vite).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/vite).
 {% endtab %}
 
 {% tab title="Other" %}
