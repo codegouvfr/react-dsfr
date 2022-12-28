@@ -1,3 +1,5 @@
+"use client";
+
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";

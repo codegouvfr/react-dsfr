@@ -371,6 +371,8 @@ export const Header = memo(
 
 Header.displayName = symToStr({ Header });
 
+export default Header;
+
 const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),
     "frMessages": {
