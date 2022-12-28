@@ -26,6 +26,8 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
+> ⚠️ There's been some massive breaking change in v0.14. Sorry about that 🙏🏻. It was required for supporting Next.js 13 AppDir 🤩.
+
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
