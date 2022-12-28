@@ -42,7 +42,7 @@ export async function start(params: Params) {
 
     (window as any).dsfr = { verbose, "mode": "manual" };
 
-    await import("../dsfr/dsfr.module" as any);
+    await import("./dsfr/dsfr.module" as any);
 
     const { dsfr } = window as unknown as { dsfr: { start: () => void } };
 
