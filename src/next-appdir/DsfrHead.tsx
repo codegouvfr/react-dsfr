@@ -137,8 +137,6 @@ export function DsfrHead(props: DsfrHeadProps) {
 
                             {
 
-                                document.getElementById("${rootColorSchemeStyleTagId}")?.remove();
-
                                 const element = document.createElement("style");
 
                                 element.id = "${rootColorSchemeStyleTagId}";
@@ -150,14 +148,10 @@ export function DsfrHead(props: DsfrHeadProps) {
                             }
 
                             {
-
-                                const name = "theme-color";
-
-                                document.querySelector(\`meta[name=\${name}]\`)?.remove();
                     
                                 const element = document.createElement("meta");
                     
-                                element.name = name;
+                                element.name = "theme-color";
                     
                                 element.content = isDark ? "${
                                     getColors(true).decisions.background.default.grey.default
@@ -168,7 +162,6 @@ export function DsfrHead(props: DsfrHeadProps) {
                                 document.head.appendChild(element);
 
                             }
-
 				`
                     }}
                 ></script>
