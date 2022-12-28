@@ -11,7 +11,9 @@ react-dsfr features a DSFR theme for MUI. This enables you to use the [large lib
 First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach: &#x20;
 
 ```tsx
-import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+import { createMuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+
+const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
 
 function App() {
 
@@ -86,9 +88,5 @@ You can eradicate theses few frames on subsequent page load by telling Next.js t
 **Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already oped out from static optimization. &#x20;
 
 ### Setting up Next.js + MUI + react-dsfr
-
-{% hint style="warning" %}
-Be aware that the API have changed since this video was recorded.&#x20;
-{% endhint %}
 
 {% embed url="https://youtu.be/0n0S6PcyG28" %}
