@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
