@@ -87,4 +87,8 @@ You can eradicate theses few frames on subsequent page load by telling Next.js t
 
 ### Setting up Next.js + MUI + react-dsfr
 
+{% hint style="warning" %}
+Be aware that the API have changed since this video was recorded.&#x20;
+{% endhint %}
+
 {% embed url="https://youtu.be/0n0S6PcyG28" %}
