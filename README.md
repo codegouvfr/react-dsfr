@@ -55,8 +55,8 @@ Add the following code in the `<head />`&#x20;
 <pre class="language-tsx" data-title="src/index.tsx"><code class="lang-tsx">import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr";
-</strong><strong>startDsfrReact({ "defaultColorScheme": "system" });
+<strong>import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
+</strong><strong>startDsfrReact({ defaultColorScheme: "system" });
 </strong>
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
