@@ -235,8 +235,7 @@ The breakpoint utilitiy enables to write responsive style.&#x20;
 
 ```tsx
 import { useStyles } from "tss-react/dsfr";
-import { fr } from "@codegouvfr/react-dsfr";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
+import { fr, useColors } from "@codegouvfr/react-dsfr";
 
 function MyComponent() {
 
@@ -265,7 +264,7 @@ On screen larger than MD the background color will be `colors.decisions.backgrou
 ### colors
 
 ```tsx
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
+import { useColors } from "@codegouvfr/react-dsfr";
 
 function MyComponent(){
 
@@ -285,7 +284,7 @@ function MyComponent(){
 ### useIsDark()
 
 ```tsx
-import { usIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { usIsDark } from "@codegouvfr/react-dsfr";
 
 function MyComponent(){
 
