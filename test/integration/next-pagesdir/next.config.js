@@ -5,7 +5,7 @@ module.exports = withTM({
   webpack: config => {
 
     config.module.rules.push({
-      test: /\.(woff2|webmanifest)$/,
+      test: /\.woff2$/,
       type: "asset/resource"
     });
 

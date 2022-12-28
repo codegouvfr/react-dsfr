@@ -23,7 +23,6 @@ import spectralExtraBoldWoff2Url from "./dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
-import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import DefaultDocument from "next/document";
 import { getAssetUrl } from "./tools/getAssetUrl";
 import { getColors } from "./fr/colors";
@@ -176,11 +175,6 @@ export function createNextDsfrIntegrationApi(
                             rel="shortcut icon"
                             href={getAssetUrl(FaviconIco)}
                             type="image/x-icon"
-                        />
-                        <link
-                            rel="manifest"
-                            href={faviconWebmanifestUrl}
-                            crossOrigin="use-credentials"
                         />
                         {!isBrowser && ( //NOTE: On browser we handle this manually
                             <>

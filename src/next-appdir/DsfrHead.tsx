@@ -19,7 +19,6 @@ import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "../useIsDark/constants";
-//import faviconWebmanifestUrl from "./dsfr/favicon/manifest.webmanifest";
 import { getColors } from "../fr/colors";
 import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
@@ -68,13 +67,6 @@ export function DsfrHead(props: DsfrHeadProps) {
             <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
             <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
             <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
-            {/*
-			<link
-				rel="manifest"
-				href={faviconWebmanifestUrl}
-				crossOrigin="use-credentials"
-			/>
-					*/}
             {isProduction && (
                 <script
                     dangerouslySetInnerHTML={{
