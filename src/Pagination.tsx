@@ -140,7 +140,7 @@ export const Pagination = memo(
                         </li>
                     ))}
                     <li>
-                        <a
+                        <Link
                             className={cx(
                                 fr.cx(
                                     "fr-pagination__link",
@@ -154,11 +154,11 @@ export const Pagination = memo(
                             role="link"
                         >
                             {t("next page")}
-                        </a>
+                        </Link>
                     </li>
                     {showFirstLast && (
                         <li>
-                            <a
+                            <Link
                                 className={cx(
                                     fr.cx("fr-pagination__link", "fr-pagination__link--last"),
                                     classes.link
@@ -167,7 +167,7 @@ export const Pagination = memo(
                                 aria-disabled={defaultPage < count ? true : undefined}
                             >
                                 {t("last page")}
-                            </a>
+                            </Link>
                         </li>
                     )}
                 </ul>
