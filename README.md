@@ -226,28 +226,7 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 {% endtab %}
 
 {% tab title="Other" %}
-There isn't specific instructions for your React setup but don't worry, you can figure out what needs to be done by reading the instructions for Vite.&#x20;
-
-The gist of it is, there is a few things that, for performance reasons, react-dsfr dosen't automatically do for you and thus you have to do manually: &#x20;
-
-* Loading `@codegouvfr/react-dsfr/dsfr/dsfr.min.css` (as soon as possilbe)
-* Loading `@codegouvfr/react-dsfr/dsfr/utility/icons/icons.min.css` and calling `npx only-include-used-icons` for patching it. If you don't all hundreds icons from the dsfr will be included and remixicons wont work.
-* Setting up the Favicon. &#x20;
-* ~~Preloading the relevent font variant to avoid~~ [~~FOUT~~](https://fonts.google.com/knowledge/glossary/fout)~~.~~&#x20;
-
-Then, you must call `startReactDsfr()` as soon as posible, wherever in your code, just make sure you do so only once and, if you are in an SSR setup, only on the client side.
-
-```typescript
-import { startReactDsfr } from "@codegouvfr/react-dsfr";
-
-const isBrowser = typeof window === "object" && typeof document === "object";
-
-if( isBrowser ){
-    startReactDsfr({ defaultColorScheme: "system" });
-}
-```
-
-If you are in an SSR setup and want to avoit white flashes on reload let's [get in touch](https://github.com/codegouvfr/dsfr-react).
+Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react).
 {% endtab %}
 {% endtabs %}
 
