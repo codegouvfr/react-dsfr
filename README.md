@@ -72,7 +72,7 @@ root.render(
 [routing.md](routing.md)
 {% endcontent-ref %}
 
-You can find an example setup [here](https://github.com/codegouvfr/dsfr-react/tree/main/src/test/frameworks/cra).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/cra).
 {% endtab %}
 
 {% tab title="Next.js" %}
@@ -94,7 +94,7 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 <strong>  webpack: config => {
 </strong><strong>
 </strong><strong>    config.module.rules.push({
-</strong><strong>      test: /\.(woff2|webmanifest)$/,
+</strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
 </strong><strong>
@@ -114,8 +114,7 @@ module.exports = nextConfig
 {% code title="pages/_app.tsx" %}
 ```tsx
 import type { AppProps } from "next/app";
-import { fr } from "@codegouvfr/react-dsfr";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
 import Link from "next/link";
 
 // Only in TypeScript projects
@@ -136,11 +135,7 @@ const {
 export { dsfrDocumentApi };
 
 function App({ Component, pageProps }: AppProps) {
-    return (
-        <>
-            <Component {...pageProps} />
-        </>
-    );
+    return <Component {...pageProps} />;
 }
 
 export default withDsfr(App);
@@ -173,12 +168,12 @@ augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir).
 {% endtab %}
 
-{% tab title="Next.js appdir" %}
+{% tab title="Next.js AppDir" %}
 {% hint style="info" %}
-This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [these instructions instead](./#next.js).
+This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
 {% endhint %}
 
 ...Actively being worked on. &#x20;
