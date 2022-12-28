@@ -118,7 +118,7 @@ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesd
 import Link from "next/link";
 
 // Only in TypeScript projects
-declare module "@codegouvfr/react-dsfr" {
+declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink { 
         Link: typeof Link;
     }
@@ -176,7 +176,105 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
 {% endhint %}
 
-...Actively being worked on. &#x20;
+{% code title="next.config.js" %}
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
+  swcMinify: true,
+  experimental: {
+    // Required:
+    appDir: true,
+  },
+  webpack: config => {
+
+    config.module.rules.push({
+      test: /\.woff2$/,
+      type: "asset/resource"
+    });
+
+    return config;
+  }
+};
+
+module.exports = nextConfig;
+```
+{% endcode %}
+
+<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
+<strong>    "predev": "only-include-used-icons",
+</strong><strong>    "prebuild": "only-include-used-icons"
+</strong>}
+</code></pre>
+
+{% code title="app/defaultColorScheme.ts" %}
+```typescript
+import type { DefaultColorScheme } from "@codegouvfr/react-dsfr/next-appdir";
+
+export const defaultColorScheme: DefaultColorScheme = "system";
+```
+{% endcode %}
+
+{% code title="app/StartDsfr.tsx" %}
+```tsx
+"use client";
+
+import { startReactDsfr } from "@codegouvfr/react-dsfr/next-appdir";
+import { defaultColorScheme } from "./defaultColorScheme";
+import Link from "next/link";
+
+declare module "@codegouvfr/react-dsfr/next-appdir" {
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
+}
+
+startReactDsfr({ 
+	defaultColorScheme, 
+	Link
+});
+
+export default function StartDsfr(){
+        //Yes, leave null here.
+	return null;
+}
+```
+{% endcode %}
+
+{% code title="app/layout.tsx" %}
+```tsx
+import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
+import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
+import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
+import StartDsfr from "./StartDsfr";
+import { defaultColorScheme } from "./defaultColorScheme";
+
+export default function RootLayout({ children }: { children: JSX.Element; }) {
+
+  return (
+    <html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
+      <head>
+        <StartDsfr />
+        <DsfrHead defaultColorScheme={defaultColorScheme} />
+      </head>
+      <body>
+        <DsfrProvider defaultColorScheme={defaultColorScheme}>
+          {children}
+        </DsfrProvider>
+      </body>
+    </html>
+  );
+}
+```
+{% endcode %}
+
+{% hint style="success" %}
+Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
+{% endhint %}
+
+{% hint style="info" %}
+You may experience white flashes in dev mode but not in production. 👍&#x20;
+{% endhint %}
 {% endtab %}
 
 {% tab title="Vite" %}
@@ -226,7 +324,7 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 {% endtab %}
 
 {% tab title="Other" %}
-Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react).
+Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react)!
 {% endtab %}
 {% endtabs %}
 
@@ -267,13 +365,11 @@ Add the following code in the `<head />`&#x20;
 
 {% tab title="Next.js" %}
 <pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
-import { fr } from "@codegouvfr/react-dsfr";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-import type { LinkProps as NextLinkProps } from "next/link";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
 import Link from "next/link";
 
 // Only in TypeScript projects
-declare module "@codegouvfr/react-dsfr" {
+declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink { 
         Link: typeof Link;
     }
@@ -285,8 +381,8 @@ const {
 } = createNextDsfrIntegrationApi({
     defaultColorScheme: "system",
     Link,
-    preloadFonts: [
-<strong>  	//"Marianne-Light",
+<strong>    preloadFonts: [
+</strong><strong>  	//"Marianne-Light",
 </strong><strong>        //"Marianne-Light_Italic",
 </strong><strong>	"Marianne-Regular",
 </strong><strong>	//"Marianne-Regular_Italic",
@@ -296,20 +392,56 @@ const {
 </strong><strong>	//"Marianne-Bold_Italic",
 </strong><strong>	//"Spectral-Regular",
 </strong><strong>	//"Spectral-ExtraBold"
-</strong>    ]
-});
+</strong><strong>    ]
+</strong>});
 
 export { dsfrDocumentApi };
 
 function App({ Component, pageProps }: AppProps) {
-    return (
-        &#x3C;DsfrLinkProvider>
-            &#x3C;Component {...pageProps} />
-        &#x3C;/DsfrLinkProvider>
-    );
+    return &#x3C;Component {...pageProps} />;
 }
 
 export default withDsfr(App);
+</code></pre>
+{% endtab %}
+
+{% tab title="Next.js AppDir" %}
+<pre class="language-tsx" data-title="app/layout.tsx"><code class="lang-tsx">import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
+import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
+import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
+import StartDsfr from "./StartDsfr";
+import { defaultColorScheme } from "./defaultColorScheme";
+
+export default function RootLayout({ children }: { children: JSX.Element; }) {
+
+  return (
+    &#x3C;html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
+      &#x3C;head>
+        &#x3C;StartDsfr />
+        &#x3C;DsfrHead 
+          defaultColorScheme={defaultColorScheme} 
+<strong>          preloadFonts={[
+</strong><strong>	    //"Marianne-Light",
+</strong><strong>            //"Marianne-Light_Italic",
+</strong><strong>	    "Marianne-Regular",
+</strong><strong>	    //"Marianne-Regular_Italic",
+</strong><strong>	    "Marianne-Medium",
+</strong><strong>	    //"Marianne-Medium_Italic",
+</strong><strong>	    "Marianne-Bold"
+</strong><strong>	    //"Marianne-Bold_Italic",
+</strong><strong>	    //"Spectral-Regular",
+</strong><strong>	    //"Spectral-ExtraBold"
+</strong><strong>	  ]}
+</strong>        />
+      &#x3C;/head>
+      &#x3C;body>
+        &#x3C;DsfrProvider defaultColorScheme={defaultColorScheme}>
+          {children}
+        &#x3C;/DsfrProvider>
+      &#x3C;/body>
+    &#x3C;/html>
+  );
+}
 </code></pre>
 {% endtab %}
 
