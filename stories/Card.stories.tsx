@@ -6,7 +6,6 @@ import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-import "../dsfr/utility/icons/icons-system/icons-system.css";
 import { fr } from "../dist";
 
 const { meta, getStory } = getStoryFactory({
