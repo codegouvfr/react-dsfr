@@ -15,7 +15,7 @@ export type PaginationProps = {
     defaultPage?: number;
     classes?: Partial<Record<"root" | "list" | "link", string>>;
     showFirstLast?: boolean;
-    getPageHref: typeof getPageHref; // todo: quid link props ?
+    getPageLinkProps: (pageNumber: number)=> RegisteredLinkProps;
 };
 
 const getPageHref = (pageNumber: number) => `/page/${pageNumber}`;
