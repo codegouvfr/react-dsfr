@@ -7,6 +7,7 @@ import { cx } from "./lib/tools/cx";
 import { createComponentI18nApi } from "./lib/i18n";
 import "./dsfr/component/stepper/stepper.css";
 import { getLink } from "./lib/routing";
+import type { RegisteredLinkProps } from "./lib/routing";
 
 export type PaginationProps = {
     className?: string;
