@@ -16,7 +16,7 @@ Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
-import { startReactDsfr } from "@codegouvfr/react-dsfr";
+import { startReactDsfr } from "@codegouvfr/react-dsfr/cra";
 <strong>import { Link } from "react-router-dom";
 </strong>startReactDsfr({ 
     defaultColorScheme: "system", 
@@ -24,7 +24,7 @@ import { startReactDsfr } from "@codegouvfr/react-dsfr";
 </strong>});
 
 <strong>//Only in TypeScript projects
-</strong><strong>declare module "@codegouvfr/react-dsfr" {
+</strong><strong>declare module "@codegouvfr/react-dsfr/cra" {
 </strong><strong>    interface RegisterLink { 
 </strong><strong>        Link: typeof Link;
 </strong><strong>    }
@@ -32,10 +32,8 @@ import { startReactDsfr } from "@codegouvfr/react-dsfr";
 </strong>
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     &#x3C;React.StrictMode>
-<strong>        &#x3C;DsfrLinkProvider>
-</strong>            {/* ... */}
-<strong>        &#x3C;/DsfrLinkProvider>
-</strong>    &#x3C;/React.StrictMode>
+            {/* ... */}
+    &#x3C;/React.StrictMode>
 );
 </code></pre>
 
@@ -49,12 +47,11 @@ This is how you are instructed to set it up by default (no change from the [Init
 
 <pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
 import { fr } from "@codegouvfr/react-dsfr";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next";
-<strong>import type { LinkProps as NextLinkProps } from "next/link";
-</strong><strong>import Link from "next/link";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
+<strong>import Link from "next/link";
 </strong>
 <strong>// Only in TypeScript projects
-</strong><strong>declare module "@codegouvfr/react-dsfr" {
+</strong><strong>declare module "@codegouvfr/react-dsfr/next-pagesdir" {
 </strong><strong>    interface RegisterLink { 
 </strong><strong>        Link: typeof Link;
 </strong><strong>    }
@@ -71,17 +68,42 @@ const {
 export { dsfrDocumentApi };
 
 function App({ Component, pageProps }: AppProps) {
-    return (
-        &#x3C;DsfrLinkProvider>
-            &#x3C;Component {...pageProps} />
-        &#x3C;/DsfrLinkProvider>
-    );
+    return &#x3C;Component {...pageProps} />;
 }
 
 export default withDsfr(App);
 </code></pre>
 
-Example [here](https://github.com/codegouvfr/react-dsfr/blob/ae8b3319a15064160b909c68d311db3c2e825afb/test/integration/next/pages/\_app.tsx#L62-L64).
+Example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/next-pagesdir/pages/\_app.tsx).
+{% endtab %}
+
+{% tab title="Next.js AppDir" %}
+{% hint style="info" %}
+This is how you are instructed to set it up by default (no change from the [Initial setup](./#next.js) guide)
+{% endhint %}
+
+<pre class="language-tsx" data-title="app/StartDsfr.tsx"><code class="lang-tsx">"use client";
+
+import { startReactDsfr } from "@codegouvfr/react-dsfr/next-appdir";
+import { defaultColorScheme } from "./defaultColorScheme";
+import Link from "next/link";
+
+<strong>declare module "@codegouvfr/react-dsfr/next-appdir" {
+</strong><strong>    interface RegisterLink { 
+</strong><strong>        Link: typeof Link;
+</strong><strong>    }
+</strong><strong>}
+</strong>
+startReactDsfr({ 
+	defaultColorScheme, 
+<strong>	Link
+</strong>});
+
+export default function StartDsfr(){
+        //Yes, leave null here.
+	return null;
+}
+</code></pre>
 {% endtab %}
 
 {% tab title="type-route" %}
