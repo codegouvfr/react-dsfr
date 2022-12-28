@@ -3,7 +3,8 @@ import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
-import { useIsDark, DsfrLangProvider } from "../dist/lib";
+import { useIsDark } from "../dist/useIsDark";
+import { DsfrLangProvider } from "../dist/i18n";
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
