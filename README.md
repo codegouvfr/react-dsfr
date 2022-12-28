@@ -176,7 +176,9 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
 {% endhint %}
 
-<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
+{% code title="next.config.js" %}
+```javascript
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
   swcMinify: true,
@@ -184,19 +186,20 @@ const nextConfig = {
     // Required:
     appDir: true,
   },
-<strong>  webpack: config => {
-</strong><strong>
-</strong><strong>    config.module.rules.push({
-</strong><strong>      test: /\.woff2$/,
-</strong><strong>      type: "asset/resource"
-</strong><strong>    });
-</strong><strong>
-</strong><strong>    return config;
-</strong><strong>  }
-</strong>};
+  webpack: config => {
+
+    config.module.rules.push({
+      test: /\.woff2$/,
+      type: "asset/resource"
+    });
+
+    return config;
+  }
+};
 
 module.exports = nextConfig;
-</code></pre>
+```
+{% endcode %}
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
 <strong>    "predev": "only-include-used-icons",
