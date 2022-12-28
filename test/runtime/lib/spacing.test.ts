@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { spacing } from "../../../src/lib/spacing";
+import { spacing } from "../../../src/fr/spacing";
 
 describe("Testing the replacer function", () => {
     it("with one argument", () => {

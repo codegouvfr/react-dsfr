@@ -1,4 +1,4 @@
-import { spacing } from "../../src/lib/spacing";
+import { spacing } from "../../src/fr/spacing";
 import { assert } from "tsafe/assert";
 import { Equals } from "tsafe";
 
