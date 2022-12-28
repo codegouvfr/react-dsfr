@@ -26,8 +26,9 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
-> ⚠️ There's been some massive breaking changes in v0.14. Sorry about that 🙏🏻. Please refer to [the updated documentation](https://react-dsfr.etalab.studio/).
-> Breaking changes where required for supporting Next.js 13 AppDir 🤩.
+> ⚠️ There's been some breaking changes in v0.14. Sorry about that 🙏🏻. Are affected only the initial setup, not the components.  
+> Please refer to [the updated documentation](https://react-dsfr.etalab.studio/).
+> Breaking changes where required for [supporting Next.js 13 AppDir](https://react-dsfr.etalab.studio/#next.js-appdir) 🤩.
 
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
