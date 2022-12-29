@@ -30,7 +30,7 @@
 -   [ ] Modal
 -   [x] Main navigation
 -   [x] Tabs
--   [ ] Pagination
+-   [x] Pagination
 -   [x] Display
 -   [ ] Share
 -   [x] Footer
