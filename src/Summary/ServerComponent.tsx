@@ -1,36 +1,19 @@
-"use client";
-
 import React, { memo, forwardRef, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
-import { cx } from "./tools/cx";
-import { fr } from "./fr";
-import { getLink } from "./link";
-import type { RegisteredLinkProps } from "./link";
-
-type SummaryLink = {
-    text: string;
-    linkProps: RegisteredLinkProps;
-};
-
-export type SummaryProps = {
-    className?: string;
-    links: SummaryLink[];
-    title?: string;
-    /** Default: "p" */
-    as?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
-    classes?: Partial<Record<"root" | "title" | "link", string>>;
-};
+import { createComponentI18nApi } from "../i18n/createComponentI18nApi";
+import { cx } from "../tools/cx";
+import { fr } from "../fr";
+import { getLink } from "../link";
+import type { SummaryProps } from "./Summary";
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-summary> */
 export const Summary = memo(
-    forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
-        const { className, links, as = "p", title, classes = {}, ...rest } = props;
+    forwardRef<HTMLDivElement, SummaryProps & { lang?: string }>((props, ref) => {
+        const { className, links, as = "p", title, classes = {}, lang = "fr", ...rest } = props;
 
-        const { t } = getTranslation(useLang());
+        const { t } = getTranslation(lang);
 
         const titleId = useId();
         const summaryTitle = title ?? t("title");

@@ -1,5 +1,3 @@
-"use client";
-
 import { useMemo } from "react";
 
 function getLanguageBestApprox<Language extends string>(params: {

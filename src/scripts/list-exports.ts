@@ -2,7 +2,6 @@ import * as fs from "fs";
 import { join as pathJoin } from "path";
 import { getProjectRoot } from "../bin/tools/getProjectRoot";
 import { exclude } from "tsafe/exclude";
-import { execSync } from "child_process";
 import { same } from "evt/tools/inDepth/same";
 import { capitalize } from "tsafe/capitalize";
 
@@ -45,7 +44,22 @@ const newExports = {
                             continue;
                         }
 
-                        return [basename, relativePath];
+                        const serverComponentRelativePath = pathJoin(
+                            basename,
+                            "ServerComponent.tsx"
+                        );
+
+                        return [
+                            [basename, relativePath],
+                            ...(fs.existsSync(pathJoin(srcDirPath, serverComponentRelativePath))
+                                ? [
+                                      [
+                                          pathJoin(basename, "ServerComponent"),
+                                          serverComponentRelativePath
+                                      ]
+                                  ]
+                                : [])
+                        ] as const;
                     }
 
                     return undefined;
@@ -60,12 +74,14 @@ const newExports = {
 
                     const componentName = match[1];
 
-                    return [componentName, `${componentName}.tsx`];
+                    return [[componentName, `${componentName}.tsx`]];
                 }
 
                 return undefined;
             })
             .filter(exclude(undefined))
+            .flat()
+            /*
             .filter(([, relativePath]) => {
                 try {
                     execSync(`git ls-files --error-unmatch ${pathJoin(srcDirPath, relativePath)}`, {
@@ -77,6 +93,7 @@ const newExports = {
 
                 return true;
             })
+            */
             .filter(exclude(undefined))
             .sort()
             .reverse()

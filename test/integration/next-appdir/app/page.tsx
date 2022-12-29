@@ -3,7 +3,7 @@ import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { Badge } from "@codegouvfr/react-dsfr/Badge";
 import { Card } from "@codegouvfr/react-dsfr/Card";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
-import { Summary } from "@codegouvfr/react-dsfr/Summary";
+import { Summary } from "@codegouvfr/react-dsfr/Summary/ServerComponent";
 
 export default function Page() {
 
