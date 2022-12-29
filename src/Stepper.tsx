@@ -1,5 +1,3 @@
-"use client";
-
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
@@ -7,8 +5,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 
 export type StepperProps = {
     className?: string;
@@ -34,7 +31,7 @@ export const Stepper = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         return (
             <div className={cx(fr.cx("fr-stepper"), classes.root, className)} ref={ref}>
@@ -61,7 +58,7 @@ export const Stepper = memo(
 
 Stepper.displayName = symToStr({ Stepper });
 
-const { getTranslation, addStepperTranslations } = createComponentI18nApi({
+const { useTranslation, addStepperTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Stepper }),
     "frMessages": {
         /* spell-checker: disable */

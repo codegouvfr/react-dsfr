@@ -1,11 +1,8 @@
-"use client";
-
 import React, { forwardRef, memo } from "react";
 import { assert, Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
 
 export type SkipLink = {
@@ -23,7 +20,7 @@ export type SkipLinksProps = {
 export const SkipLinks = memo(
     forwardRef<HTMLDivElement, SkipLinksProps>((props, ref) => {
         const { className, classes = {}, links, ...rest } = props;
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
         assert<Equals<keyof typeof rest, never>>();
 
         return (
@@ -50,7 +47,7 @@ export const SkipLinks = memo(
 
 SkipLinks.displayName = symToStr({ SkipLinks });
 
-const { getTranslation, addSkipLinksTranslations } = createComponentI18nApi({
+const { useTranslation, addSkipLinksTranslations } = createComponentI18nApi({
     "componentName": symToStr({ SkipLinks }),
     "frMessages": {
         /* spell-checker: disable */

@@ -1,13 +1,10 @@
-"use client";
-
 import React, { memo, forwardRef, useId, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 
@@ -32,7 +29,7 @@ export const Breadcrumb = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         const { Link } = getLink();
         const breadcrumbId = useId();
@@ -80,7 +77,7 @@ export const Breadcrumb = memo(
 
 Breadcrumb.displayName = symToStr({ Breadcrumb });
 
-const { getTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
+const { useTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Breadcrumb }),
     "frMessages": {
         /* spell-checker: disable */

@@ -1,1 +1,0 @@
-export { DsfrLangProvider } from "./useLang";

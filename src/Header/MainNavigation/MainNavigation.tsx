@@ -1,9 +1,6 @@
-"use client";
-
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
-import { createComponentI18nApi } from "../../i18n/createComponentI18nApi";
-import { useLang } from "../../i18n/useLang";
+import { createComponentI18nApi } from "../../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -76,7 +73,7 @@ export const MainNavigation = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         const { Link } = getLink();
 
@@ -176,7 +173,7 @@ MainNavigation.displayName = symToStr({ MainNavigation });
 
 export default MainNavigation;
 
-const { getTranslation, addMainNavigationTranslations } = createComponentI18nApi({
+const { useTranslation, addMainNavigationTranslations } = createComponentI18nApi({
     "componentName": symToStr({ MainNavigation }),
     "frMessages": {
         /* spell-checker: disable */

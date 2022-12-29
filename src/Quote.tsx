@@ -1,5 +1,3 @@
-"use client";
-
 import React, { memo, forwardRef, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";

@@ -1,5 +1,3 @@
-"use client";
-
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { getLink } from "./link";
@@ -9,8 +7,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
 
@@ -107,7 +104,7 @@ export const Footer = memo(
 
         const { Link } = getLink();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         return (
             <footer
@@ -308,7 +305,7 @@ Footer.displayName = symToStr({ Footer });
 
 export default Footer;
 
-const { getTranslation, addFooterTranslations } = createComponentI18nApi({
+const { useTranslation, addFooterTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Footer }),
     "frMessages": {
         /* spell-checker: disable */

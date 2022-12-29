@@ -1,10 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createContext, useContext } from "react";
+import type { ReactNode } from "react";
 import type { Meta, Story } from "@storybook/react";
 import type { ArgType } from "@storybook/addons";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import { useIsDark } from "../dist/useIsDark";
-import { DsfrLangProvider } from "../dist/i18n";
+import { setUseLang } from "../dist/i18n";
+
+const langContext = createContext<string>("fr");
+
+function LangProvider(params: { lang: string; children: ReactNode }) {
+    const { lang, children } = params;
+
+    return <langContext.Provider value={lang}>{children}</langContext.Provider>;
+}
+
+setUseLang({
+    "useLang": () => useContext(langContext)
+});
 
 export function getStoryFactory<Props extends Record<string, any>>(params: {
     sectionName: string;
@@ -62,29 +75,29 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
         if (containerWidth !== 0 && lang !== "fr") {
             return (
-                <DsfrLangProvider lang={lang}>
+                <LangProvider lang={lang}>
                     <div className="container" style={{ "width": containerWidth }}>
                         <Component {...props} />
                     </div>
-                </DsfrLangProvider>
+                </LangProvider>
             );
         }
 
         if (containerWidth !== 0 && lang !== "fr") {
             return (
-                <DsfrLangProvider lang={lang}>
+                <LangProvider lang={lang}>
                     <div className="container" style={{ "width": containerWidth }}>
                         <Component {...props} />
                     </div>
-                </DsfrLangProvider>
+                </LangProvider>
             );
         }
 
         if (containerWidth === 0 && lang !== "fr") {
             return (
-                <DsfrLangProvider lang={lang}>
+                <LangProvider lang={lang}>
                     <Component {...props} />
-                </DsfrLangProvider>
+                </LangProvider>
             );
         }
 

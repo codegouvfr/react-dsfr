@@ -1,10 +1,7 @@
-"use client";
-
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "../../i18n/createComponentI18nApi";
-import { useLang } from "../../i18n/useLang";
+import { createComponentI18nApi } from "../../i18n";
 import { fr } from "../../fr";
 import { cx } from "../../tools/cx";
 import { assert } from "tsafe/assert";
@@ -46,7 +43,7 @@ export const MegaMenu = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         const { Link } = getLink();
 
@@ -144,7 +141,7 @@ export const MegaMenu = memo(
 
 MegaMenu.displayName = symToStr({ MegaMenu });
 
-const { getTranslation, addMegaMenuTranslations } = createComponentI18nApi({
+const { useTranslation, addMegaMenuTranslations } = createComponentI18nApi({
     "componentName": symToStr({ MegaMenu }),
     "frMessages": {
         /* spell-checker: disable */

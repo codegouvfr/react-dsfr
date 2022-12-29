@@ -1,10 +1,7 @@
-"use client";
-
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
 import { fr } from "../fr";
-import { createComponentI18nApi } from "../i18n/createComponentI18nApi";
-import { useLang } from "../i18n/useLang";
+import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "../tools/cx";
 import { getLink } from "../link";
@@ -123,7 +120,7 @@ export const Header = memo(
         const searchModalId = `modal-${useId()}`;
         const searchInputId = `search-${useId()}-input`;
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         const { Link } = getLink();
 
@@ -374,7 +371,7 @@ Header.displayName = symToStr({ Header });
 
 export default Header;
 
-const { getTranslation, addHeaderTranslations } = createComponentI18nApi({
+const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),
     "frMessages": {
         /* spell-checker: disable */

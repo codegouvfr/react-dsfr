@@ -29,6 +29,7 @@ import { getColors } from "./fr/colors";
 import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
+import { setUseLang } from "./i18n";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -59,6 +60,8 @@ export type CreateNextDsfrIntegrationApiParams = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default false */
     doPersistDarkModePreferenceWithCookie?: boolean;
+    /** Default: ()=> "fr" */
+    useLang?: () => string;
 };
 
 function readIsDarkInCookie(cookie: string) {
@@ -105,7 +108,8 @@ export function createNextDsfrIntegrationApi(
         verbose = false,
         Link,
         preloadFonts = [],
-        doPersistDarkModePreferenceWithCookie = false
+        doPersistDarkModePreferenceWithCookie = false,
+        useLang
     } = params;
 
     let isAfterFirstEffect = false;
@@ -113,6 +117,10 @@ export function createNextDsfrIntegrationApi(
 
     if (Link !== undefined) {
         setLink({ Link });
+    }
+
+    if (useLang !== undefined) {
+        setUseLang({ useLang });
     }
 
     if (isBrowser) {

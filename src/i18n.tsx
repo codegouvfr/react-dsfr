@@ -1,5 +1,3 @@
-"use client";
-
 import { useMemo } from "react";
 
 function getLanguageBestApprox<Language extends string>(params: {
@@ -57,6 +55,12 @@ type NonFunctionMessageKey<FrMessages extends Record<string, string | ((params: 
 type FunctionMessageKey<FrMessages extends Record<string, string | ((params: any) => string)>> =
     Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
 
+let useLang: () => string = () => "fr";
+
+export function setUseLang(params: { useLang: () => string }) {
+    useLang = params.useLang;
+}
+
 export function createComponentI18nApi<
     ComponentName extends string,
     FrMessages extends Record<string, string | ((params: any) => string)>
@@ -64,7 +68,7 @@ export function createComponentI18nApi<
     componentName: ComponentName;
     frMessages: FrMessages;
 }): {
-    getTranslation: (lang: string) => { t: FrMessagesToTranslationFunction<FrMessages> };
+    useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
     `add${ComponentName}Translations`,
     (params: { lang: string; messages: Partial<FrMessages> }) => void
@@ -73,7 +77,9 @@ export function createComponentI18nApi<
 
     const messagesByLang = { "fr": frMessages };
 
-    function getTranslation(lang: string) {
+    function useTranslation() {
+        const lang = useLang();
+
         const bestMatchLang = useMemo(() => {
             const bestApproxLang = getLanguageBestApprox({
                 "languages": Object.keys(messagesByLang),
@@ -103,7 +109,7 @@ export function createComponentI18nApi<
     }
 
     return {
-        getTranslation,
+        useTranslation,
         [`add${componentName}Translations`]: addTranslations
     } as any;
 }

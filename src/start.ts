@@ -1,6 +1,5 @@
 import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
-import { startI18nLogic } from "./i18n/useLang";
 import type { ColorScheme } from "./useIsDark";
 import { startClientSideIsDarkLogic } from "./useIsDark/client";
 
@@ -37,8 +36,6 @@ export async function start(params: Params) {
             nextParams === undefined ? false : nextParams.doPersistDarkModePreferenceWithCookie,
         registerEffectAction
     });
-
-    startI18nLogic({ registerEffectAction });
 
     (window as any).dsfr = { verbose, "mode": "manual" };
 

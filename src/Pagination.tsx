@@ -5,8 +5,7 @@ import type { Equals } from "tsafe";
 
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 import { RegisteredLinkProps, getLink } from "./link";
 
 export type PaginationProps = {
@@ -74,7 +73,7 @@ export const Pagination = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         const { Link } = getLink();
 
@@ -178,7 +177,7 @@ export const Pagination = memo(
 
 Pagination.displayName = symToStr({ Pagination });
 
-const { getTranslation, addPaginationTranslations } = createComponentI18nApi({
+const { useTranslation, addPaginationTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Pagination }),
     "frMessages": {
         "first page": "Première page",

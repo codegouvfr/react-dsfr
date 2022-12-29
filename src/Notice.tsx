@@ -7,8 +7,7 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
-import { useLang } from "./i18n/useLang";
+import { createComponentI18nApi } from "./i18n";
 
 export type NoticeProps = {
     className?: string;
@@ -101,7 +100,7 @@ export const Notice = memo(
             }
         });
 
-        const { t } = getTranslation(useLang());
+        const { t } = useTranslation();
 
         if (isClosed) {
             return null;
@@ -138,7 +137,7 @@ Notice.displayName = symToStr({ Notice });
 
 export default Notice;
 
-const { getTranslation, addNoticeTranslations } = createComponentI18nApi({
+const { useTranslation, addNoticeTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Notice }),
     "frMessages": {
         /* spell-checker: disable */
