@@ -66,6 +66,7 @@ export namespace ButtonProps {
     };
 }
 
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-button> */
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {
