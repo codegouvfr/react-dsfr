@@ -4,7 +4,8 @@ import React, { memo, forwardRef, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { getLink } from "./link";
@@ -29,7 +30,7 @@ export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
         const { className, links, as = "p", title, classes = {}, ...rest } = props;
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         const titleId = useId();
         const summaryTitle = title ?? t("title");
@@ -79,7 +80,7 @@ export const Summary = memo(
 
 Summary.displayName = symToStr({ Summary });
 
-const { useTranslation, addSummaryTranslations } = createComponentI18nApi({
+const { getTranslation, addSummaryTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Summary }),
     "frMessages": {
         /* spell-checker: disable */

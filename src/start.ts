@@ -1,6 +1,6 @@
 import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
-import { startI18nLogic } from "./i18n/i18n";
+import { startI18nLogic } from "./i18n/useLang";
 import type { ColorScheme } from "./useIsDark";
 import { startClientSideIsDarkLogic } from "./useIsDark/client";
 

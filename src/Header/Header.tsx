@@ -3,7 +3,8 @@
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
 import { fr } from "../fr";
-import { createComponentI18nApi } from "../i18n/i18n";
+import { createComponentI18nApi } from "../i18n/createComponentI18nApi";
+import { useLang } from "../i18n/useLang";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "../tools/cx";
 import { getLink } from "../link";
@@ -122,7 +123,7 @@ export const Header = memo(
         const searchModalId = `modal-${useId()}`;
         const searchInputId = `search-${useId()}-input`;
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         const { Link } = getLink();
 
@@ -373,7 +374,7 @@ Header.displayName = symToStr({ Header });
 
 export default Header;
 
-const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
+const { getTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),
     "frMessages": {
         /* spell-checker: disable */

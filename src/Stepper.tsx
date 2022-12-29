@@ -7,7 +7,8 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 
 export type StepperProps = {
     className?: string;
@@ -33,7 +34,7 @@ export const Stepper = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         return (
             <div className={cx(fr.cx("fr-stepper"), classes.root, className)} ref={ref}>
@@ -60,7 +61,7 @@ export const Stepper = memo(
 
 Stepper.displayName = symToStr({ Stepper });
 
-const { useTranslation, addStepperTranslations } = createComponentI18nApi({
+const { getTranslation, addStepperTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Stepper }),
     "frMessages": {
         /* spell-checker: disable */

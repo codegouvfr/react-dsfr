@@ -3,7 +3,8 @@
 import React, { memo, forwardRef, useId } from "react";
 import { fr } from "./fr";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 import { cx } from "./tools/cx";
 import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
@@ -30,7 +31,7 @@ export const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button &
     "iconId": "fr-icon-theme-fill",
     "text": (() => {
         function Text() {
-            const { t } = useTranslation();
+            const { t } = getTranslation(useLang());
             return <>{t("display settings")}</>;
         }
 
@@ -45,7 +46,7 @@ export const Display = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         return (
             <dialog
@@ -114,7 +115,7 @@ const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
 
     const inputId = useId();
 
-    const { t } = useTranslation();
+    const { t } = getTranslation(useLang());
 
     const pictogramUrl = getAssetUrl(
         (() => {
@@ -163,7 +164,7 @@ const RadioGroup = memo((props: { theme: "dark" | "light" | "system" }) => {
 
 RadioGroup.displayName = symToStr({ RadioGroup });
 
-const { useTranslation, addDisplayTranslations } = createComponentI18nApi({
+const { getTranslation, addDisplayTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Display }),
     "frMessages": {
         /* spell-checker: disable */

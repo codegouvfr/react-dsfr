@@ -6,7 +6,8 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 
@@ -31,7 +32,7 @@ export const Breadcrumb = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         const { Link } = getLink();
         const breadcrumbId = useId();
@@ -79,11 +80,13 @@ export const Breadcrumb = memo(
 
 Breadcrumb.displayName = symToStr({ Breadcrumb });
 
-const { useTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
+const { getTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Breadcrumb }),
     "frMessages": {
+        /* spell-checker: disable */
         "show breadcrumb": "Voir le fil d’Ariane",
         "navigation label": "vous êtes ici"
+        /* spell-checker: enable */
     }
 });
 

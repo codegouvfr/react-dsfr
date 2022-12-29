@@ -9,7 +9,8 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 
 export type AlertProps = {
     className?: string;
@@ -131,7 +132,7 @@ export const Alert = memo(
             }
         });
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         if (isClosed) {
             return null;
@@ -171,7 +172,7 @@ Alert.displayName = symToStr({ Alert });
 
 export default Alert;
 
-const { useTranslation, addAlertTranslations } = createComponentI18nApi({
+const { getTranslation, addAlertTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Alert }),
     "frMessages": {
         /* spell-checker: disable */

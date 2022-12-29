@@ -1,37 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useMemo } from "react";
-import type { ReactNode } from "react";
-import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
-
-const langContext = createContext<string | undefined>(undefined);
-
-const $browserLanguageDifferentFromFrAfterFirstEffect = createStatefulObservable<
-    string | undefined
->(() => undefined);
-
-export function useLang(): string {
-    useRerenderOnChange($browserLanguageDifferentFromFrAfterFirstEffect);
-
-    let lang = useContext(langContext);
-
-    if (lang === undefined) {
-        lang = $browserLanguageDifferentFromFrAfterFirstEffect.current ?? "fr";
-    }
-
-    return lang;
-}
-
-type Props = {
-    lang: string;
-    children: ReactNode;
-};
-
-export function DsfrLangProvider(params: Props) {
-    const { lang, children } = params;
-
-    return <langContext.Provider value={lang}>{children}</langContext.Provider>;
-}
+import { useMemo } from "react";
 
 function getLanguageBestApprox<Language extends string>(params: {
     languages: readonly Language[];
@@ -95,7 +64,7 @@ export function createComponentI18nApi<
     componentName: ComponentName;
     frMessages: FrMessages;
 }): {
-    useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
+    getTranslation: (lang: string) => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
     `add${ComponentName}Translations`,
     (params: { lang: string; messages: Partial<FrMessages> }) => void
@@ -104,9 +73,7 @@ export function createComponentI18nApi<
 
     const messagesByLang = { "fr": frMessages };
 
-    function useTranslation() {
-        const lang = useLang();
-
+    function getTranslation(lang: string) {
         const bestMatchLang = useMemo(() => {
             const bestApproxLang = getLanguageBestApprox({
                 "languages": Object.keys(messagesByLang),
@@ -136,25 +103,7 @@ export function createComponentI18nApi<
     }
 
     return {
-        useTranslation,
+        getTranslation,
         [`add${componentName}Translations`]: addTranslations
     } as any;
-}
-
-export function startI18nLogic(params: { registerEffectAction: (action: () => void) => void }) {
-    const { registerEffectAction } = params;
-
-    registerEffectAction(() => {
-        if ((window as any).IS_STORYBOOK) {
-            return;
-        }
-
-        const lang = navigator.language;
-
-        if (lang === "fr") {
-            return;
-        }
-
-        $browserLanguageDifferentFromFrAfterFirstEffect.current = lang;
-    });
 }

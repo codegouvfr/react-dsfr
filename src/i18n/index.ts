@@ -1,1 +1,1 @@
-export { DsfrLangProvider } from "./i18n";
+export { DsfrLangProvider } from "./useLang";

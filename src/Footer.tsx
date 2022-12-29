@@ -9,7 +9,8 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./i18n/i18n";
+import { createComponentI18nApi } from "./i18n/createComponentI18nApi";
+import { useLang } from "./i18n/useLang";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
 
@@ -106,7 +107,7 @@ export const Footer = memo(
 
         const { Link } = getLink();
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         return (
             <footer
@@ -307,7 +308,7 @@ Footer.displayName = symToStr({ Footer });
 
 export default Footer;
 
-const { useTranslation, addFooterTranslations } = createComponentI18nApi({
+const { getTranslation, addFooterTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Footer }),
     "frMessages": {
         /* spell-checker: disable */

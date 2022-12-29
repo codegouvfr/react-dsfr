@@ -3,7 +3,8 @@
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "../../i18n/i18n";
+import { createComponentI18nApi } from "../../i18n/createComponentI18nApi";
+import { useLang } from "../../i18n/useLang";
 import { fr } from "../../fr";
 import { cx } from "../../tools/cx";
 import { assert } from "tsafe/assert";
@@ -45,7 +46,7 @@ export const MegaMenu = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { t } = useTranslation();
+        const { t } = getTranslation(useLang());
 
         const { Link } = getLink();
 
@@ -143,7 +144,7 @@ export const MegaMenu = memo(
 
 MegaMenu.displayName = symToStr({ MegaMenu });
 
-const { useTranslation, addMegaMenuTranslations } = createComponentI18nApi({
+const { getTranslation, addMegaMenuTranslations } = createComponentI18nApi({
     "componentName": symToStr({ MegaMenu }),
     "frMessages": {
         /* spell-checker: disable */
