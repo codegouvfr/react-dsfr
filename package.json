@@ -129,7 +129,6 @@
         "./next-pagesdir": "./dist/next-pagesdir.js",
         "./useIsDark": "./dist/useIsDark/index.js",
         "./useColors": "./dist/useColors.js",
-        "./i18n": "./dist/i18n/index.js",
         "./mui": "./dist/mui.js",
         "./Tile": "./dist/Tile.js",
         "./Tabs": "./dist/Tabs.js",

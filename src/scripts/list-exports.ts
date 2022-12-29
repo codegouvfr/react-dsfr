@@ -25,7 +25,6 @@ const newExports = {
     "./next-pagesdir": "./dist/next-pagesdir.js",
     "./useIsDark": "./dist/useIsDark/index.js",
     "./useColors": "./dist/useColors.js",
-    "./i18n": "./dist/i18n/index.js",
     "./mui": "./dist/mui.js",
     ...Object.fromEntries(
         fs
