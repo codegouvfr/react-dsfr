@@ -137,6 +137,7 @@
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
         "./Quote": "./dist/Quote.js",
+        "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header/index.js",
