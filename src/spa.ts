@@ -3,7 +3,6 @@ import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import type { ColorScheme } from "./useIsDark";
-import { isBrowser } from "./tools/isBrowser";
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -20,11 +19,9 @@ export function startReactDsfr(params: {
         setLink({ Link });
     }
 
-    if (isBrowser) {
-        start({
-            defaultColorScheme,
-            verbose,
-            "nextParams": undefined
-        });
-    }
+    start({
+        defaultColorScheme,
+        verbose,
+        "nextParams": undefined
+    });
 }
