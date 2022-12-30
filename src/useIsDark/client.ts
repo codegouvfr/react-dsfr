@@ -132,7 +132,7 @@ export function startClientSideIsDarkLogic(params: {
                 return undefined;
             }
 
-            switch (colorSchemeExplicitlyProvidedAsParameter as ColorScheme) {
+            switch (colorSchemeReadFromLocalStorage as ColorScheme) {
                 case "dark":
                     return true;
                 case "light":
