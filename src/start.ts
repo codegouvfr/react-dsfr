@@ -39,20 +39,20 @@ export async function start(params: Params) {
         registerEffectAction
     });
 
-    (window as any).dsfr = { verbose, "mode": "manual" };
+    console.log("registering action download dsfr and start", Date.now());
 
-    console.log("Start download DSFR js", Date.now());
+    registerEffectAction(async () => {
+        console.log("executing action download dsfr and start", Date.now());
 
-    await import("./dsfr/dsfr.module" as any);
+        (window as any).dsfr = { verbose, "mode": "manual" };
 
-    console.log("DSFR js downloaded", Date.now());
+        console.log("Start download DSFR js", Date.now());
 
-    const { dsfr } = window as unknown as { dsfr: { start: () => void } };
+        await import("./dsfr/dsfr.module" as any);
 
-    console.log("registering action dsfr.start", Date.now());
+        console.log("DSFR js downloaded", Date.now());
 
-    registerEffectAction(() => {
-        console.log("executing action dsfr.start", Date.now());
+        const { dsfr } = window as unknown as { dsfr: { start: () => void } };
 
         dsfr.start();
     });
