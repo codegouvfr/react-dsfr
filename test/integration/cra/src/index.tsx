@@ -32,7 +32,7 @@ function Root() {
                 serviceTitle="Nom du site / service"
                 quickAccessItems={[headerFooterDisplayItem]}
                 homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
-                navItems={[
+                navigation={[
                     {
                         "text": "Home",
                         "linkProps": routes.home().link,

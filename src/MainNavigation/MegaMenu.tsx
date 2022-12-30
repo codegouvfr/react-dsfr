@@ -1,13 +1,13 @@
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { createComponentI18nApi } from "../../i18n";
-import { fr } from "../../fr";
-import { cx } from "../../tools/cx";
+import { createComponentI18nApi } from "../i18n";
+import { fr } from "../fr";
+import { cx } from "../tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { getLink } from "../../link";
-import type { RegisteredLinkProps } from "../../link";
+import { getLink } from "../link";
+import type { RegisteredLinkProps } from "../link";
 
 export type MegaMenuProps = {
     classes?: Partial<Record<"root" | "leader" | "category" | "list", string>>;
@@ -156,5 +156,7 @@ addMegaMenuTranslations({
         "close": "Close"
     }
 });
+
+export { addMegaMenuTranslations };
 
 export default MegaMenu;

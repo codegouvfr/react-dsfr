@@ -1,16 +1,16 @@
 import React, { memo, forwardRef, useId } from "react";
 import type { ReactNode } from "react";
-import { fr } from "../fr";
-import { createComponentI18nApi } from "../i18n";
+import { fr } from "./fr";
+import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "../tools/cx";
-import { getLink } from "../link";
-import type { RegisteredLinkProps } from "../link";
-import type { MainNavigationProps } from "./MainNavigation";
-import { MainNavigation } from "./MainNavigation";
+import { cx } from "./tools/cx";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "./MainNavigation";
+import { MainNavigation } from "./MainNavigation";
 
 export type HeaderProps = {
     className?: string;
@@ -18,7 +18,7 @@ export type HeaderProps = {
     serviceTitle?: ReactNode;
     serviceTagline?: ReactNode;
     homeLinkProps: RegisteredLinkProps & { title: string };
-    navItems?: MainNavigationProps.Item[];
+    navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];
     operatorLogo?: {
@@ -59,14 +59,7 @@ export type HeaderProps = {
             | "serviceTitle"
             | "serviceTagline"
             | "menu"
-            | "menuLinks"
-            | "nav"
-            | "navList"
-            | "navItem"
-            | "navLink"
-            | "navBtn"
-            | "navMenu"
-            | "navMenuList",
+            | "menuLinks",
             string
         >
     >;
@@ -105,7 +98,7 @@ export const Header = memo(
             serviceTitle,
             serviceTagline,
             homeLinkProps,
-            navItems = [],
+            navigation = undefined,
             quickAccessItems = [],
             operatorLogo,
             renderSearchInput,
@@ -180,7 +173,7 @@ export const Header = memo(
                                     )}
 
                                     {(quickAccessItems.length > 0 ||
-                                        navItems.length > 0 ||
+                                        navigation !== undefined ||
                                         renderSearchInput !== undefined) && (
                                         <div
                                             className={cx(
@@ -328,7 +321,7 @@ export const Header = memo(
                         </div>
                     </div>
                 </div>
-                {(navItems.length !== 0 || quickAccessItems.length !== 0) && (
+                {(navigation !== undefined || quickAccessItems.length !== 0) && (
                     <div
                         className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
                         id={menuModalId}
@@ -345,20 +338,12 @@ export const Header = memo(
                             <div
                                 className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}
                             />
-                            {navItems.length !== 0 && (
-                                <MainNavigation
-                                    items={navItems}
-                                    classes={{
-                                        "root": classes.nav,
-                                        "list": classes.navList,
-                                        "item": classes.navItem,
-                                        "link": classes.navLink,
-                                        "btn": classes.navBtn,
-                                        "menu": classes.navMenu,
-                                        "menuList": classes.navMenuList
-                                    }}
-                                />
-                            )}
+                            {navigation !== undefined &&
+                                (navigation instanceof Array ? (
+                                    <MainNavigation items={navigation} />
+                                ) : (
+                                    navigation
+                                ))}
                         </div>
                     </div>
                 )}

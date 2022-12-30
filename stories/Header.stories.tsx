@@ -1,5 +1,6 @@
 import React from "react";
 import { Header } from "../dist/Header";
+import { MainNavigation } from "../dist/MainNavigation";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import placeholder_9x16ImgUrl from "./assets/placeholder.9x16.png";
@@ -38,7 +39,7 @@ export const SimpleHeader = getStory({
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
-    "navItems": [
+    "navigation": [
         {
             "text": "accès direct",
             "linkProps": {
@@ -182,7 +183,7 @@ export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory({
             }
         }
     ],
-    "navItems": [
+    "navigation": [
         {
             "text": "accès direct",
             "linkProps": {
@@ -287,3 +288,66 @@ export const WithHorizontalOperatorLogo = getStory({
         "alt": "[À MODIFIER - texte alternatif de l’image]"
     }
 });
+
+export const NavigationAsCustomNode = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "navigation": (
+            <MainNavigation
+                items={[
+                    {
+                        "text": "accès direct",
+                        "linkProps": {
+                            "href": "#",
+                            "target": "_self"
+                        }
+                    },
+                    {
+                        "text": "accès direct",
+                        "linkProps": {
+                            "href": "#",
+                            "target": "_self"
+                        },
+                        "isActive": true
+                    },
+                    {
+                        "text": "accès direct",
+                        "linkProps": {
+                            "href": "#",
+                            "target": "_self"
+                        }
+                    },
+                    {
+                        "text": "accès direct",
+                        "linkProps": {
+                            "href": "#",
+                            "target": "_self"
+                        }
+                    }
+                ]}
+            />
+        )
+    },
+    {
+        "description": `You can provide a custom \`ReactNode\` as \`navigation\` prop.  
+    It is useful to keep the Header as a server component in Next 13 AppDir.  
+
+\`\`\`tsx
+        
+import { MainNavigation } from "@codegouvfr/react-dsfr/MainNavigation";  
+        
+\`\`\`
+
+    `
+    }
+);

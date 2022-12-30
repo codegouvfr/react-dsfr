@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { join as pathJoin } from "path";
 import { getProjectRoot } from "../bin/tools/getProjectRoot";
 import { exclude } from "tsafe/exclude";
-import { execSync } from "child_process";
+//import { execSync } from "child_process";
 import { same } from "evt/tools/inDepth/same";
 import { capitalize } from "tsafe/capitalize";
 
@@ -65,6 +65,7 @@ const newExports = {
                 return undefined;
             })
             .filter(exclude(undefined))
+            /*
             .filter(([, relativePath]) => {
                 try {
                     execSync(`git ls-files --error-unmatch ${pathJoin(srcDirPath, relativePath)}`, {
@@ -76,6 +77,7 @@ const newExports = {
 
                 return true;
             })
+            */
             .filter(exclude(undefined))
             .sort()
             .reverse()

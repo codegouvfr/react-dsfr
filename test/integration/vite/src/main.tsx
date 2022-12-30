@@ -36,7 +36,7 @@ function Root() {
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 quickAccessItems={[headerFooterDisplayItem]}
-                navItems={[
+                navigation={[
                     {
                         "text": "Home",
                         "linkProps": {

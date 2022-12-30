@@ -62,7 +62,7 @@ function App({ Component, pageProps }: AppProps) {
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"
                 homeLinkProps={homeLinkPops}
-                navItems={[
+                navigation={[
                     {
                         "text": "Home",
                         "linkProps": {

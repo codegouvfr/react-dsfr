@@ -3,12 +3,12 @@
 import React, { memo, forwardRef } from "react";
 import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { fr } from "../../fr";
-import { cx } from "../../tools/cx";
+import { fr } from "../fr";
+import { cx } from "../tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { RegisteredLinkProps } from "../../link";
-import { getLink } from "../../link";
+import type { RegisteredLinkProps } from "../link";
+import { getLink } from "../link";
 
 export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;
