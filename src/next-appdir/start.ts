@@ -54,6 +54,9 @@ export function dsfrEffect(): void {
     if (isAfterFirstEffect) {
         return;
     }
+
+    console.log("hydration now!");
+
     isAfterFirstEffect = true;
     actions.forEach(action => action());
 }

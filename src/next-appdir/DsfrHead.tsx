@@ -18,8 +18,7 @@ import spectralExtraBoldWoff2Url from "../dsfr/fonts/Spectral-ExtraBold.woff2";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
-import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "../useIsDark/constants";
-import { getColors } from "../fr/colors";
+import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
 import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
 
@@ -129,33 +128,6 @@ export function DsfrHead(props: DsfrHeadProps) {
                             
                             ["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
 
-                            {
-
-                                const element = document.createElement("style");
-
-                                element.id = "${rootColorSchemeStyleTagId}";
-
-                                element.innerHTML = \`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`;
-
-                                document.head.appendChild(element);
-
-                            }
-
-                            {
-                    
-                                const element = document.createElement("meta");
-                    
-                                element.name = "theme-color";
-                    
-                                element.content = isDark ? "${
-                                    getColors(true).decisions.background.default.grey.default
-                                }" : "${
-                            getColors(false).decisions.background.default.grey.default
-                        }";
-                    
-                                document.head.appendChild(element);
-
-                            }
 				`
                     }}
                 ></script>
