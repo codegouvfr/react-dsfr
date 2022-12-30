@@ -124,6 +124,8 @@ export function DsfrHead(props: DsfrHeadProps) {
                             	);
                             
                             })();
+
+                            console.log("isDark in inline js: " + isDark ? "true":"false");
                             
                             ["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
 
