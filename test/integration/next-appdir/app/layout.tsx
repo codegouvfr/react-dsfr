@@ -9,6 +9,7 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
+import { Navigation } from "./Navigation";
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 	return (
 		<html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
 			<head>
+				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />
 				<DsfrHead
 					defaultColorScheme={defaultColorScheme}
@@ -45,10 +47,12 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								serviceTitle="Nom du site / service"
 								homeLinkProps={homeLinkPops}
 								quickAccessItems={[headerFooterDisplayItem]}
+								navigation={<Navigation />}
 							/>
 							<div style={{
 								"margin": "auto",
 								"maxWidth": 1000,
+								"minHeight": "calc(100vh - 208px - 231px - 37px)",
 								...fr.spacing("padding", {
 									"topBottom": "10v"
 								})
@@ -69,7 +73,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								bottomItems={[headerFooterDisplayItem]}
 							/>
 							<Display />
-
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>
 				</DsfrProvider>

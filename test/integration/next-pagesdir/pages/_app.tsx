@@ -83,6 +83,7 @@ function App({ Component, pageProps }: AppProps) {
             <div className={css({
                 "margin": "auto",
                 "maxWidth": 1000,
+                "minHeight": "calc(100vh - 208px - 231px - 5px)",
                 ...fr.spacing("padding", {
                     "topBottom": "10v"
                 })
