@@ -30,6 +30,8 @@ export async function start(params: Params) {
     const registerEffectAction: (action: () => void) => void =
         nextParams === undefined ? action => action() : nextParams.registerEffectAction;
 
+    console.log("startClientSideIsDarkLogic", Date.now());
+
     startClientSideIsDarkLogic({
         "colorSchemeExplicitlyProvidedAsParameter": defaultColorScheme,
         "doPersistDarkModePreferenceWithCookie":
@@ -39,9 +41,19 @@ export async function start(params: Params) {
 
     (window as any).dsfr = { verbose, "mode": "manual" };
 
+    console.log("Start download DSFR js", Date.now());
+
     await import("./dsfr/dsfr.module" as any);
+
+    console.log("DSFR js downloaded", Date.now());
 
     const { dsfr } = window as unknown as { dsfr: { start: () => void } };
 
-    registerEffectAction(() => dsfr.start());
+    console.log("registering action dsfr.start", Date.now());
+
+    registerEffectAction(() => {
+        console.log("executing action dsfr.start", Date.now());
+
+        dsfr.start();
+    });
 }

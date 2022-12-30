@@ -131,8 +131,10 @@ export function createNextDsfrIntegrationApi(
                 doPersistDarkModePreferenceWithCookie,
                 "registerEffectAction": action => {
                     if (isAfterFirstEffect) {
+                        console.log("We are after hydration, executing action now");
                         action();
                     } else {
+                        console.log("action delayed to be executed on hydration");
                         actions.push(action);
                     }
                 }

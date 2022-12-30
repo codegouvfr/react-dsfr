@@ -100,6 +100,21 @@ export function startClientSideIsDarkLogic(params: {
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
 
         if (isDarkFromHtmlAttribute !== undefined) {
+            console.log(
+                `We had html theme attribute window.ssrWasPerformedWithIsDark: ${(() => {
+                    switch ((window as any).ssrWasPerformedWithIsDark as boolean | undefined) {
+                        case true:
+                            return "true";
+                        case false:
+                            return "false";
+                        case undefined:
+                            return "undefined";
+                        default:
+                            return "other";
+                    }
+                })()}`
+            );
+
             return {
                 "clientSideIsDark": isDarkFromHtmlAttribute,
                 "ssrWasPerformedWithIsDark":
@@ -150,6 +165,13 @@ export function startClientSideIsDarkLogic(params: {
 
         const isDarkFallback = false;
 
+        console.log({
+            isDarkExplicitlyProvidedAsParameter,
+            isDarkFromLocalStorage,
+            isDarkFromOsPreference,
+            isDarkFallback
+        });
+
         return {
             "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? isDarkFallback,
             "clientSideIsDark":
@@ -159,6 +181,8 @@ export function startClientSideIsDarkLogic(params: {
                 isDarkFallback
         };
     })();
+
+    console.log({ clientSideIsDark, ssrWasPerformedWithIsDark_ });
 
     ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
 
