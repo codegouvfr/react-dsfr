@@ -1,10 +1,8 @@
-This is a test Web App to test the integration of `@codegouvfr/react-dsfr` with Create React App
-You can run it locally with:
+Run the App:  
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
-yarn build
 yarn start-cra
 ```

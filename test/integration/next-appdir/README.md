@@ -1,15 +1,9 @@
 
-
-# tss-react + MUI setup in a Next.js project
-
 Run the App:  
 
 ```bash
-git clone https://github.com/garronej/tss-react
-cd tss-react
+git clone https://github.com/codegouvfr/react-dsfr
+cd react-dsfr
 yarn
-yarn build
-yarn start_ssr
+yarn start-next-appdir
 ```
-
-It's live here: https://next-demo.tss-react.dev
