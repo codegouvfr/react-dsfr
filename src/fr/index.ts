@@ -7,6 +7,7 @@ import { cx } from "./cx";
 export type { FrCxArg } from "./cx";
 export type { ColorTheme } from "./colors";
 import { getColors } from "./colors";
+export type { FrClassName, FrIconClassName, RiIconClassName } from "./generatedFromCss/classNames";
 
 export const fr = {
     breakpoints,
