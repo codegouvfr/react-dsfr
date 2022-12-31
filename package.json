@@ -130,7 +130,7 @@
         "./useIsDark": "./dist/useIsDark/index.js",
         "./useColors": "./dist/useColors.js",
         "./mui": "./dist/mui.js",
-        "./tools/cx": "./dist/tools/cx",
+        "./tools/cx": "./dist/tools/cx.js",
         "./dsfr/*": "./dsfr/*",
         "./Tile": "./dist/Tile.js",
         "./Tabs": "./dist/Tabs.js",
