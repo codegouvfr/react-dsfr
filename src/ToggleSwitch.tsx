@@ -11,6 +11,7 @@ export type ToggleSwitchProps = {
     className?: string;
     label: ReactNode;
     text?: ReactNode;
+    onChange?: () => void;
     checked?: boolean;
     /** Default: "true" */
     showCheckedHint?: boolean;
@@ -75,6 +76,7 @@ export const ToggleSwitch = memo(
             disabled = false,
             labelPosition = "right",
             classes = {},
+            onChange,
             ...rest
         } = props;
 
@@ -94,6 +96,7 @@ export const ToggleSwitch = memo(
                 ref={ref}
             >
                 <input
+                    onChange={onChange}
                     type="checkbox"
                     disabled={disabled || undefined}
                     className={cx(fr.cx("fr-toggle__input"), classes.input)}
