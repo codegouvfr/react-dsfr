@@ -34,6 +34,7 @@ export type FooterProps = {
         /** Textual alternative of the image, it MUST include the text present in the image*/
         alt: string;
     };
+    license?: ReactNode;
     classes?: Partial<
         Record<
             | "root"
@@ -97,6 +98,7 @@ export const Footer = memo(
             cookiesManagementLinkProps,
             bottomItems = [],
             operatorLogo,
+            license,
             ...rest
         } = props;
 
@@ -285,13 +287,19 @@ export const Footer = memo(
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
-                                {t("license mention")}{" "}
-                                <a
-                                    href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                                    target="_blank"
-                                >
-                                    {t("etalab license")}{" "}
-                                </a>{" "}
+                                {license === undefined ? (
+                                    <>
+                                        {t("license mention")}{" "}
+                                        <a
+                                            href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                                            target="_blank"
+                                        >
+                                            {t("etalab license")}{" "}
+                                        </a>{" "}
+                                    </>
+                                ) : (
+                                    license
+                                )}
                             </p>
                         </div>
                     </div>

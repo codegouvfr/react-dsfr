@@ -53,6 +53,10 @@ const { meta, getStory } = getStoryFactory({
         "bottomItems": {
             "description":
                 "To integrate the Dark mode switch head over to the documentation of the [Display component](https://react-dsfr-components.etalab.studio/?path=/docs/components-display)"
+        },
+        "license": {
+            "description":
+                "By default it's Etalab v2. [You can provide a custom React node](#with-custom-license)"
         }
     }
 });
@@ -148,4 +152,35 @@ export const FooterWithHorizontalOperatorLogo = getStory({
         "imgUrl": placeholder_16x9ImgUrl,
         "alt": "[À MODIFIER - texte alternatif de l’image]"
     }
+});
+
+export const WithCustomLicense = getStory({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "accessibility": "fully compliant",
+    "contentDescription": `
+    Ce message est à remplacer par les informations de votre site.
+
+    Comme exemple de contenu, vous pouvez indiquer les informations 
+    suivantes : Le site officiel d’information administrative pour les entreprises.
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+    à la gestion et au développement de votre entreprise.
+    `,
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "license": (
+        <>
+            Unless stated otherwise all content of this website are under{" "}
+            <a href="https://github.com/codegouvfr/react-dsfr/blob/main/LICENSE" target="_blank">
+                licence MIT
+            </a>{" "}
+        </>
+    )
 });
