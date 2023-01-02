@@ -11,7 +11,7 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/Header.tsx)  
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
   
 See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)`,
     "argTypes": {
@@ -20,6 +20,14 @@ See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/
         },
         "homeLinkProps": {
             "control": { "type": null }
+        },
+        "navigation": {
+            "description":
+                "Note that navigation can be an array or a custom react node, see [navigation-as-custom-node](#navigation-as-custom-node)."
+        },
+        "quickAccessItems": {
+            "description":
+                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://react-dsfr-components.etalab.studio/?path=/docs/components-display)"
         }
     },
     "disabledProps": ["lang"]
@@ -146,148 +154,221 @@ export const HeaderWithSearchEngine = getStory({
     )
 });
 
-export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
-    "serviceTitle": "Nom du site / service",
-    "serviceTagline": "baseline - précisions sur l'organisation",
-    "quickAccessItems": [
-        {
-            "iconId": "fr-icon-add-circle-line",
-            "text": "Créer un espace",
-            "linkProps": {
-                "href": "#"
-            }
+export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
         },
-        {
-            "iconId": "fr-icon-lock-line",
-            "text": "Se connecter",
-            "linkProps": {
-                "href": "#"
-            }
-        },
-        {
-            "iconId": "fr-icon-account-line",
-            "text": "S’enregistrer",
-            "linkProps": {
-                "href": "#"
-            }
-        }
-    ],
-    "navigation": [
-        {
-            "text": "accès direct",
-            "linkProps": {
-                "href": "#",
-                "target": "_self"
-            }
-        },
-        {
-            "text": "accès direct",
-            "linkProps": {
-                "href": "#",
-                "target": "_self"
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "quickAccessItems": [
+            {
+                "iconId": "fr-icon-add-circle-line",
+                "text": "Créer un espace",
+                "linkProps": {
+                    "href": "#"
+                }
             },
-            "isActive": true
-        },
-        {
-            "text": "accès direct",
-            "linkProps": {
-                "href": "#",
-                "target": "_self"
+            {
+                "iconId": "fr-icon-lock-line",
+                "text": "Se connecter",
+                "linkProps": {
+                    "href": "#"
+                }
+            },
+            {
+                "iconId": "fr-icon-account-line",
+                "text": "S’enregistrer",
+                "linkProps": {
+                    "href": "#"
+                }
             }
-        },
-        {
-            "text": "accès direct",
-            "linkProps": {
-                "href": "#",
-                "target": "_self"
+        ],
+        "navigation": [
+            {
+                "text": "accès direct",
+                "linkProps": {
+                    "href": "#",
+                    "target": "_self"
+                }
+            },
+            {
+                "text": "accès direct",
+                "linkProps": {
+                    "href": "#",
+                    "target": "_self"
+                },
+                "isActive": true
+            },
+            {
+                "text": "accès direct",
+                "linkProps": {
+                    "href": "#",
+                    "target": "_self"
+                }
+            },
+            {
+                "text": "accès direct",
+                "linkProps": {
+                    "href": "#",
+                    "target": "_self"
+                }
             }
-        }
-    ],
-    "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
-    )
-});
-
-export const HeaderWithVerticalOperatorLogo = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
-    "homeLinkProps": {
-        "href": "/",
-        "title":
-            "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
+        ],
+        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+            <input
+                className={className}
+                id={id}
+                name={name}
+                placeholder={placeholder}
+                type={type}
+            />
+        )
     },
-    "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
-    ),
-    "operatorLogo": {
-        "orientation": "vertical",
-        "imgUrl": placeholder_9x16ImgUrl,
-        "alt": "[À MODIFIER - texte alternatif de l’image]"
-    }
-});
+    {
+        "description": `
 
-export const WithHorizontalOperatorLogo = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
-    "serviceTitle": "Nom du site / service",
-    "serviceTagline": "baseline - précisions sur l'organisation",
-    "quickAccessItems": [
-        {
-            "iconId": "fr-icon-add-circle-line",
-            "text": "Créer un espace",
-            "linkProps": {
-                "href": "#"
-            }
-        },
-        {
-            "iconId": "fr-icon-lock-line",
-            "text": "Se connecter",
-            "linkProps": {
-                "href": "#"
-            }
-        },
-        {
-            "iconId": "fr-icon-account-line",
-            "text": "S’enregistrer",
-            "linkProps": {
-                "href": "#"
-            }
-        }
-    ],
-    "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+\`\`\`tsx
+
+<Header
+    //...
+    renderSearchInput={({ className, id, name, placeholder, type }) => 
         <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
-    ),
-    "operatorLogo": {
-        "orientation": "horizontal",
-        "imgUrl": placeholder_16x9ImgUrl,
-        "alt": "[À MODIFIER - texte alternatif de l’image]"
     }
-});
+/>
+        
+\`\`\`
+    
+    `
+    }
+);
+
+export const HeaderWithVerticalOperatorLogo = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title":
+                "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
+        },
+        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+            <input
+                className={className}
+                id={id}
+                name={name}
+                placeholder={placeholder}
+                type={type}
+            />
+        ),
+        "operatorLogo": {
+            "orientation": "vertical",
+            "imgUrl": placeholder_9x16ImgUrl,
+            "alt": "[À MODIFIER - texte alternatif de l’image]"
+        }
+    },
+
+    {
+        "description": `
+
+\`\`\`tsx
+
+<Header
+    //...
+    renderSearchInput={({ className, id, name, placeholder, type }) => 
+        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    }
+/>
+        
+\`\`\`
+    
+    `
+    }
+);
+
+export const WithHorizontalOperatorLogo = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "quickAccessItems": [
+            {
+                "iconId": "fr-icon-add-circle-line",
+                "text": "Créer un espace",
+                "linkProps": {
+                    "href": "#"
+                }
+            },
+            {
+                "iconId": "fr-icon-lock-line",
+                "text": "Se connecter",
+                "linkProps": {
+                    "href": "#"
+                }
+            },
+            {
+                "iconId": "fr-icon-account-line",
+                "text": "S’enregistrer",
+                "linkProps": {
+                    "href": "#"
+                }
+            }
+        ],
+        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+            <input
+                className={className}
+                id={id}
+                name={name}
+                placeholder={placeholder}
+                type={type}
+            />
+        ),
+        "operatorLogo": {
+            "orientation": "horizontal",
+            "imgUrl": placeholder_16x9ImgUrl,
+            "alt": "[À MODIFIER - texte alternatif de l’image]"
+        }
+    },
+    {
+        "description": `
+
+\`\`\`tsx
+
+<Header
+    //...
+    renderSearchInput={({ className, id, name, placeholder, type }) => 
+        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    }
+/>
+        
+\`\`\`
+    
+    `
+    }
+);
 
 export const NavigationAsCustomNode = getStory(
     {
