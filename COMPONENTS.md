@@ -19,7 +19,7 @@
 -   [ ] Consent banner
 -   [ ] Favicon (?)
 -   [x] Stepper
--   [ ] Toggle switch
+-   [x] Toggle switch
 -   [ ] Follow
 -   [ ] Link
 -   [x] SkipLinks
