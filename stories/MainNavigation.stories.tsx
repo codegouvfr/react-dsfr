@@ -38,7 +38,7 @@ export const DirectLinks = getStory({
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
-    "navItems": [
+    "navigation": [
         {
             "text": "accès direct",
             "linkProps": {
@@ -84,7 +84,7 @@ export const DropdownMenu = getStory({
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
-    "navItems": [
+    "navigation": [
         {
             "text": "Entrée menu active",
             "isActive": true,
@@ -199,7 +199,7 @@ export const MegaMenu = getStory({
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
-    "navItems": [
+    "navigation": [
         {
             "text": "Entrée mega menu",
             "isActive": true,

@@ -46,23 +46,28 @@ export namespace MainNavigationProps {
 
         export type Link = Common & {
             linkProps: RegisteredLinkProps;
-            menuLinks?: undefined;
-            megaMenu?: undefined;
+            menuLinks?: never;
+            megaMenu?: never;
+            buttonProps?: never;
         };
 
         export type Menu = Common & {
-            linkProps?: undefined;
+            linkProps?: never;
             menuLinks: MenuProps.Link[];
-            megaMenu?: undefined;
+            megaMenu?: never;
+            /** @see <https://github.com/codegouvfr/react-dsfr/issues/38> */
+            buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
         };
 
         export type MegaMenu = Common & {
-            linkProps?: undefined;
-            menuLinks?: undefined;
+            linkProps?: never;
+            menuLinks?: never;
             megaMenu: {
                 leader?: MegaMenuProps.Leader;
                 categories: MegaMenuProps.Category[];
             };
+            /** @see <https://github.com/codegouvfr/react-dsfr/issues/38> */
+            buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
         };
     }
 }
@@ -102,7 +107,8 @@ export const MainNavigation = memo(
                                 isActive = false,
                                 linkProps,
                                 menuLinks = [],
-                                megaMenu
+                                megaMenu,
+                                buttonProps = {}
                             },
                             i
                         ) => (
@@ -125,7 +131,12 @@ export const MainNavigation = memo(
                                 ) : (
                                     <>
                                         <button
-                                            className={cx(fr.cx("fr-nav__btn"), classes.btn)}
+                                            {...buttonProps}
+                                            className={cx(
+                                                fr.cx("fr-nav__btn"),
+                                                buttonProps.className,
+                                                classes.btn
+                                            )}
                                             aria-expanded={false}
                                             aria-controls={getMenuId(i)}
                                             {...(isActive && { ["aria-current"]: true })}
