@@ -49,6 +49,10 @@ const { meta, getStory } = getStoryFactory({
         },
         "homeLinkProps": {
             "control": { "type": null }
+        },
+        "bottomItems": {
+            "description":
+                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://react-dsfr-components.etalab.studio/?path=/docs/components-display)"
         }
     }
 });
