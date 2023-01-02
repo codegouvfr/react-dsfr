@@ -20,7 +20,16 @@ export const Default = getStory({
     disabled: false,
     labelPosition: "right",
     showCheckedHint: true,
-    checked: false
+    defaultChecked: false
+});
+
+export const ToggleSwitchControlled = getStory({
+    label: "Label action interrupteur",
+    disabled: false,
+    labelPosition: "right",
+    showCheckedHint: false,
+    checked: true,
+    onChange: e => alert("checked: " + e.currentTarget.checked)
 });
 
 export const ToggleSwitchNoTextNoHint = getStory({
@@ -43,17 +52,19 @@ export const ToggleSwitchLabelLeft = getStory({
     labelPosition: "left"
 });
 
-export const ToggleSwitchLabelLeftChecked = getStory({
+export const ToggleSwitchLabelLeftCheckedWithOnChange = getStory({
     label: "Label action interrupteur",
     text: "Texte d’aide pour clarifier l’action",
     labelPosition: "left",
-    checked: true
+    defaultChecked: true,
+    onChange: e => {
+        alert("checked: " + e.currentTarget.checked);
+    }
 });
 
 export const ToggleSwitchLabelLeftCheckedDisabled = getStory({
     label: "Label action interrupteur",
     text: "Texte d’aide pour clarifier l’action",
     labelPosition: "left",
-    checked: true,
     disabled: true
 });

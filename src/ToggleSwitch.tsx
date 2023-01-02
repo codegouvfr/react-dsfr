@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, ReactNode, useId } from "react";
+import React, { memo, forwardRef, ReactNode, useId, useState } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -6,21 +6,38 @@ import type { Equals } from "tsafe";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
+import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 
-export type ToggleSwitchProps = {
-    className?: string;
-    label: ReactNode;
-    text?: ReactNode;
-    onChange?: () => void;
-    checked?: boolean;
-    /** Default: "true" */
-    showCheckedHint?: boolean;
-    /** Default: "false" */
-    disabled?: boolean;
-    /** Default: "left" */
-    labelPosition?: "left" | "right";
-    classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
-};
+export type ToggleSwitchProps = ToggleSwitchProps.Controlled | ToggleSwitchProps.Uncontrolled;
+
+export namespace ToggleSwitchProps {
+    export type Common = {
+        className?: string;
+        label: ReactNode;
+        text?: ReactNode;
+        /** Default: "true" */
+        showCheckedHint?: boolean;
+        /** Default: "false" */
+        disabled?: boolean;
+        /** Default: "left" */
+        labelPosition?: "left" | "right";
+        classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
+    };
+
+    export type Uncontrolled = Common & {
+        /** Default: "false" */
+        defaultChecked?: boolean;
+        checked?: undefined;
+        onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    };
+
+    export type Controlled = Common & {
+        /** Default: "false" */
+        defaultChecked?: undefined;
+        checked: boolean;
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    };
+}
 
 export type ToggleSwitchGroupProps = {
     className?: string;
@@ -71,7 +88,8 @@ export const ToggleSwitch = memo(
             className,
             label,
             text,
-            checked = false,
+            defaultChecked = false,
+            checked,
             showCheckedHint = true,
             disabled = false,
             labelPosition = "right",
@@ -80,11 +98,20 @@ export const ToggleSwitch = memo(
             ...rest
         } = props;
 
+        const [checkedState, setCheckState] = useState(defaultChecked);
+
+        const checkedValue = checked !== undefined ? checked : checkedState;
+
         assert<Equals<keyof typeof rest, never>>();
 
         const inputId = useId();
 
         const { t } = useTranslation();
+
+        const onInputChange = useConstCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+            setCheckState(event.currentTarget.checked);
+            onChange?.(event);
+        });
 
         return (
             <div
@@ -96,13 +123,13 @@ export const ToggleSwitch = memo(
                 ref={ref}
             >
                 <input
-                    onChange={onChange}
+                    onChange={onInputChange}
                     type="checkbox"
                     disabled={disabled || undefined}
                     className={cx(fr.cx("fr-toggle__input"), classes.input)}
                     aria-describedby={`${inputId}-hint-text`}
                     id={inputId}
-                    checked={checked}
+                    checked={checkedValue}
                 />
                 <label
                     className={cx(fr.cx("fr-toggle__label"), classes.label)}

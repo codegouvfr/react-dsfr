@@ -21,16 +21,17 @@ export const Default = getStory({
         {
             label: "Toggle 1",
             text: "Text toggle 1",
-            checked: true
+            defaultChecked: true
         },
         {
             label: "Toggle 2",
             text: "Text toggle 2",
-            checked: true
+            defaultChecked: true
         },
         {
             label: "Toggle 3",
-            text: "Text toggle 3"
+            text: "Text toggle 3",
+            disabled: true
         },
         {
             label: "Toggle 4",
@@ -43,19 +44,19 @@ export const Default = getStory({
     ]
 });
 
-export const ToggleSwitchGroupLeftWithHint = getStory({
+export const ToggleSwitchGroupLeftLabelWithHint = getStory({
     showCheckedHint: true,
     labelPosition: "left",
     togglesProps: [
         {
             label: "Toggle 1",
             text: "Text toggle 1",
-            checked: true
+            defaultChecked: true
         },
         {
             label: "Toggle 2",
             text: "Text toggle 2",
-            checked: true
+            defaultChecked: true
         },
         {
             label: "Toggle 3",
@@ -63,7 +64,8 @@ export const ToggleSwitchGroupLeftWithHint = getStory({
         },
         {
             label: "Toggle 4",
-            text: "Text toggle 4"
+            text: "Text toggle 4",
+            disabled: true
         },
         {
             label: "Toggle 5",
