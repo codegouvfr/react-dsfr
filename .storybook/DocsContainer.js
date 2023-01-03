@@ -46,6 +46,10 @@ export const DocsContainer = ({ children, context }) => {
                     visibility: collapse;
                 }
 
+                .docblock-argstable-head th:nth-child(3), .docblock-argstable-body tr > td:nth-child(2) p {
+                    font-size: 13px;
+                }
+
             `}</style>
             <BaseContainer
                 context={{
