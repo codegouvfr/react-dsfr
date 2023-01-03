@@ -62,7 +62,13 @@ export const getScriptToRunAsap = (defaultColorScheme: ColorScheme | "system") =
 
     {
 
-        const element = document.createElement("style");
+        let element= document.getElementById("${rootColorSchemeStyleTagId}");
+
+		if( element !== null ){
+			element.remove()
+		}
+
+        element = document.createElement("style");
 
         element.id = "${rootColorSchemeStyleTagId}";
 
@@ -74,9 +80,17 @@ export const getScriptToRunAsap = (defaultColorScheme: ColorScheme | "system") =
 
     {
 
-        const element = document.createElement("meta");
+        const name = "theme-color";
 
-        element.name = "theme-color";
+        let element = document.querySelector(\`meta[name=\${name}]\`);
+		
+		if( element !== null ){
+			element.remove();
+		}
+
+        element = document.createElement("meta");
+
+        element.name = name;
 
         element.content = isDark ? "${
             getColors(true).decisions.background.default.grey.default
