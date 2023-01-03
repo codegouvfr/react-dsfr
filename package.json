@@ -132,6 +132,7 @@
         "./mui": "./dist/mui.js",
         "./tools/cx": "./dist/tools/cx.js",
         "./dsfr/*": "./dsfr/*",
+        "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
         "./ToggleSwitch": "./dist/ToggleSwitch.js",
         "./Tile": "./dist/Tile.js",
         "./Tabs": "./dist/Tabs.js",

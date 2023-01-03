@@ -1,4 +1,5 @@
 import React, { memo, forwardRef } from "react";
+import { Button } from "./Button";
 import { ButtonProps } from "./Button";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -18,11 +19,7 @@ export namespace ButtonsGroupProps {
         alignment?: "left" | "center" | "right";
         /** Default: false */
         buttonsEquisized?: boolean;
-        children: [
-            React.ReactElement<ButtonProps>,
-            React.ReactElement<ButtonProps>,
-            ...React.ReactElement<ButtonProps>[]
-        ];
+        buttons: [ButtonProps, ButtonProps, ...ButtonProps[]];
     };
 
     export type AlwaysStacked = Common & {
@@ -54,11 +51,11 @@ export const ButtonsGroup = memo(
             className,
             buttonsSize = "medium",
             buttonsIconPosition = "left",
-            children,
             inlineLayoutWhen = "never",
             alignment = "left",
             buttonsEquisized = false,
             isReverseOrder = false,
+            buttons,
             ...rest
         } = props;
 
@@ -99,8 +96,10 @@ export const ButtonsGroup = memo(
 
         return (
             <ul className={buttonsGroupClassName} ref={ref} {...rest}>
-                {children.map((button, i) => (
-                    <li key={i}>{button}</li>
+                {buttons.map((buttonProps, i) => (
+                    <li key={i}>
+                        <Button {...buttonProps} />
+                    </li>
                 ))}
             </ul>
         );

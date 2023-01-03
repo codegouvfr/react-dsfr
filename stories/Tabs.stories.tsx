@@ -48,7 +48,9 @@ function ControlledTabs() {
     );
 
 }
-\`\`\``,
+\`\`\`
+
+`,
     "disabledProps": ["lang"]
 });
 

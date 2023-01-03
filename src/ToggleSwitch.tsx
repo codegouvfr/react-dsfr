@@ -1,8 +1,7 @@
-import React, { memo, forwardRef, ReactNode, useId, useState } from "react";
+import React, { memo, forwardRef, ReactNode, useId, useState, useEffect } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
@@ -14,10 +13,10 @@ export namespace ToggleSwitchProps {
     export type Common = {
         className?: string;
         label: ReactNode;
-        text?: ReactNode;
-        /** Default: "true" */
+        helperText?: ReactNode;
+        /** Default: true */
         showCheckedHint?: boolean;
-        /** Default: "false" */
+        /** Default: false */
         disabled?: boolean;
         /** Default: "left" */
         labelPosition?: "left" | "right";
@@ -27,59 +26,18 @@ export namespace ToggleSwitchProps {
     export type Uncontrolled = Common & {
         /** Default: "false" */
         defaultChecked?: boolean;
-        checked?: undefined;
-        onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+        checked?: never;
+        onChange?: (checked: boolean, e: React.ChangeEvent<HTMLInputElement>) => void;
+        inputTitle: string;
     };
 
     export type Controlled = Common & {
-        /** Default: "false" */
-        defaultChecked?: undefined;
+        defaultChecked?: never;
         checked: boolean;
-        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+        onChange: (checked: boolean, e: React.ChangeEvent<HTMLInputElement>) => void;
+        inputTitle?: string;
     };
 }
-
-export type ToggleSwitchGroupProps = {
-    className?: string;
-    /** Needs at least one ToggleSwitch */
-    togglesProps: [ToggleSwitchProps, ...ToggleSwitchProps[]];
-    /** Default: "true" */
-    showCheckedHint?: boolean;
-    /** Default: "left" */
-    labelPosition?: "left" | "right";
-    classes?: Partial<Record<"root" | "li", string>>;
-};
-
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitch> */
-export const ToggleSwitchGroup = memo<ToggleSwitchGroupProps>(props => {
-    const {
-        className,
-        togglesProps,
-        showCheckedHint = true,
-        labelPosition = "right",
-        classes = {},
-        ...rest
-    } = props;
-
-    assert<Equals<keyof typeof rest, never>>();
-
-    return (
-        <ul className={cx(fr.cx("fr-toggle__list"), classes.root, className)} {...rest}>
-            {togglesProps &&
-                togglesProps.map((toggleProps, i) => (
-                    <li key={i} className={classes.li}>
-                        <ToggleSwitch
-                            {...{
-                                ...toggleProps,
-                                showCheckedHint,
-                                labelPosition
-                            }}
-                        />
-                    </li>
-                ))}
-        </ul>
-    );
-});
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitch> */
 export const ToggleSwitch = memo(
@@ -87,30 +45,51 @@ export const ToggleSwitch = memo(
         const {
             className,
             label,
-            text,
+            helperText,
             defaultChecked = false,
-            checked,
+            checked: props_checked,
             showCheckedHint = true,
             disabled = false,
             labelPosition = "right",
             classes = {},
             onChange,
+            inputTitle,
             ...rest
         } = props;
 
-        const [checkedState, setCheckState] = useState(defaultChecked);
+        const [checked, setChecked] = useState(defaultChecked);
 
-        const checkedValue = checked !== undefined ? checked : checkedState;
+        useEffect(() => {
+            if (defaultChecked === undefined) {
+                return;
+            }
+
+            setChecked(defaultChecked);
+        }, [defaultChecked]);
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const inputId = useId();
+        const { inputId, hintId } = (function useClosure() {
+            const id = useId();
+
+            const inputId = `toggle-${id}`;
+
+            const hintId = `toggle-${id}-hint-text`;
+
+            return { inputId, hintId };
+        })();
 
         const { t } = useTranslation();
 
-        const onInputChange = useConstCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-            setCheckState(event.currentTarget.checked);
-            onChange?.(event);
+        const onInputChange = useConstCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+            const checked = e.currentTarget.checked;
+
+            if (props_checked === undefined) {
+                setChecked(checked);
+                onChange?.(checked, e);
+            } else {
+                onChange(checked, e);
+            }
         });
 
         return (
@@ -127,9 +106,10 @@ export const ToggleSwitch = memo(
                     type="checkbox"
                     disabled={disabled || undefined}
                     className={cx(fr.cx("fr-toggle__input"), classes.input)}
-                    aria-describedby={`${inputId}-hint-text`}
+                    aria-describedby={hintId}
                     id={inputId}
-                    checked={checkedValue}
+                    title={inputTitle}
+                    checked={props_checked ?? checked}
                 />
                 <label
                     className={cx(fr.cx("fr-toggle__label"), classes.label)}
@@ -141,12 +121,9 @@ export const ToggleSwitch = memo(
                 >
                     {label}
                 </label>
-                {text && (
-                    <p
-                        className={cx(fr.cx("fr-hint-text"), classes.hint)}
-                        id={`${inputId}-hint-text`}
-                    >
-                        {text}
+                {helperText && (
+                    <p className={cx(fr.cx("fr-hint-text"), classes.hint)} id={hintId}>
+                        {helperText}
                     </p>
                 )}
             </div>

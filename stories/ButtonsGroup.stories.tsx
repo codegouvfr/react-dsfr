@@ -1,6 +1,4 @@
-import React from "react";
 import { ButtonsGroup } from "../dist/ButtonsGroup";
-import { Button } from "../dist/Button";
 import type { ButtonsGroupProps } from "../dist/ButtonsGroup";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -90,8 +88,8 @@ const { meta, getStory } = getStoryFactory({
             `,
             "control": { "type": "select" }
         },
-        "children": {
-            "description": `This component (ul) should have at least 2 children (RGAA)`,
+        "buttons": {
+            "description": `An array of ButtonProps (at least 2, RGAA)`,
             "control": { "type": null }
         }
     },
@@ -102,20 +100,22 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    "children": [
-        <Button key={0} linkProps={{ href: "#" }} iconId="fr-icon-git-commit-fill">
-            Button 1 label
-        </Button>,
-        <Button
-            key={1}
-            priority="secondary"
-            linkProps={{ href: "#" }}
-            iconId="fr-icon-chat-check-fill"
-        >
-            Button 2 label (longer)
-        </Button>,
-        <Button key={2} linkProps={{ href: "#" }} iconId="fr-icon-bank-card-line">
-            Button 3 label
-        </Button>
+    "buttons": [
+        {
+            "linkProps": { "href": "#" },
+            "iconId": "fr-icon-git-commit-fill",
+            "children": "Button 1 label"
+        },
+        {
+            "priority": "secondary",
+            "linkProps": { "href": "#" },
+            "iconId": "fr-icon-chat-check-fill",
+            "children": "Button 2 label (longer)"
+        },
+        {
+            "linkProps": { "href": "#" },
+            "iconId": "fr-icon-bank-card-line",
+            "children": "Button 3 label"
+        }
     ]
 });
