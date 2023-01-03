@@ -16,10 +16,13 @@ const { meta, getStory } = getStoryFactory({
 See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)`,
     "argTypes": {
         "brandTop": {
-            "control": { "type": null }
+            "control": { "type": null },
+            "description": "In the example here it's `<>INTITULE<br />OFFICIEL</>`"
         },
         "homeLinkProps": {
-            "control": { "type": null }
+            "control": { "type": null },
+            "description":
+                "A link to the home, when the user click on the logo he must navigate to the homepage of the website"
         },
         "navigation": {
             "description":
