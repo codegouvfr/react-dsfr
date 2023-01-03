@@ -26,8 +26,11 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
             "borderRadius": 0
         },
         "breakpoints": {
-            "unit": breakpointValuesUnit,
-            "values": breakpointValues
+            //"unit": breakpointValuesUnit,
+            "unit": "px",
+            "values": Object.fromEntries(
+                Object.entries(breakpointValues).map(([key, value]) => [key, value * 16])
+            ) as any
         },
         "palette": {
             "mode": isDark ? "dark" : "light",
