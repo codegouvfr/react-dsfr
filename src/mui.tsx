@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
-import { breakpointValues, breakpointValuesUnit } from "./fr/generatedFromCss/breakpoints";
+import { breakpointValues } from "./fr/generatedFromCss/breakpoints";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { getColors } from "./fr/colors";
