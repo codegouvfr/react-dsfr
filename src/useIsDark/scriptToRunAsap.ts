@@ -5,6 +5,8 @@ import { getColors } from "../fr/colors";
 export const getScriptToRunAsap = (defaultColorScheme: ColorScheme | "system") => `
 {
 
+    window.dsfr = { "mode": "manual" };
+
     window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
     
     const isDark = (() => {

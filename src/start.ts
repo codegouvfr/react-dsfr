@@ -37,9 +37,29 @@ export async function start(params: Params) {
         registerEffectAction
     });
 
-    (window as any).dsfr = { verbose, "mode": "manual" };
+    if ((window as any).dsfr === undefined) {
+        (window as any).dsfr = { verbose, "mode": "manual" };
+        await import("./dsfr/dsfr.module" as any);
+    } else {
+        console.log("we started downloading the js");
 
-    await import("./dsfr/dsfr.module" as any);
+        (window as any).dsfr.verbose = verbose;
+
+        if ((window as any).dsfr.start === undefined) {
+            console.log("not yet done downloading");
+
+            await new Promise<void>(resolve => {
+                const listener = () => {
+                    document.removeEventListener("dsfr js downloaded", listener);
+                    resolve();
+                };
+
+                document.addEventListener("dsfr js downloaded", listener);
+            });
+
+            console.log("downloaded");
+        }
+    }
 
     const { dsfr } = window as unknown as { dsfr: { start: () => void } };
 

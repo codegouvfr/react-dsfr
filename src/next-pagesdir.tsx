@@ -22,8 +22,12 @@ import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
+import Script from "next/script";
+import dsfrJsUrl from "./dsfr/dsfr.module.min.js";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
+
+console.log({ dsfrJsUrl });
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -182,6 +186,16 @@ export function createNextDsfrIntegrationApi(
                             }}
                         />
                     </Head>
+                    <Script
+                        type="module"
+                        src={dsfrJsUrl}
+                        /*
+                            onLoad={() => {
+                                console.log("done!");
+                                document.dispatchEvent(new Event("dsfr js downloaded"))
+                            }}
+                            */
+                    />
                     {isBrowser ? (
                         <App {...(props as any)} />
                     ) : (
