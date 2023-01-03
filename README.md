@@ -26,10 +26,6 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
-> ⚠️ There's been some breaking changes in v0.14. Sorry about that 🙏🏻. Are affected only the initial setup, not the components.  
-> Please refer to [the updated documentation](https://react-dsfr.etalab.studio/).
-> Breaking changes where required for [supporting Next.js 13 AppDir](https://react-dsfr.etalab.studio/#next.js-appdir) 🤩.
-
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
@@ -44,8 +40,9 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 -   [x] Always in up to date with latest the DSFR evolutions.
         Code and Types generated from [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
--   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
--   [x] [Perfect integration with all major React framework: Next.js, Create React App, Vue](https://react-dsfr.etalab.studio/).
+-   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).  
+-   [x] Most components are server component ready. The others are labeled with `"use client";`  
+-   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://react-dsfr.etalab.studio/).
 -   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (14/42, [see details](COMPONENTS.md))
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
