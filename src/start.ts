@@ -37,7 +37,7 @@ export async function start(params: Params) {
         registerEffectAction
     });
 
-    (window as any).dsfr = { verbose, "mode": "manual" };
+    (window as any).dsfr = { verbose, "mode": "react" };
 
     await import("./dsfr/dsfr.module" as any);
 

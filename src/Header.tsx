@@ -58,6 +58,7 @@ export type HeaderProps = {
             | "service"
             | "serviceTitle"
             | "serviceTagline"
+            | "toolsLinks"
             | "menu"
             | "menuLinks",
             string
@@ -117,6 +118,30 @@ export const Header = memo(
 
         const { Link } = getLink();
 
+        const quickAccessNode = (
+            <ul className={fr.cx("fr-btns-group")}>
+                {quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (
+                    <li key={i}>
+                        {linkProps !== undefined ? (
+                            <Link
+                                {...linkProps}
+                                className={cx(fr.cx("fr-btn", iconId), linkProps.className)}
+                            >
+                                {text}
+                            </Link>
+                        ) : (
+                            <button
+                                {...buttonProps}
+                                className={cx(fr.cx("fr-btn", iconId), buttonProps.className)}
+                            >
+                                {text}
+                            </button>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        );
+
         return (
             <header
                 role="banner"
@@ -150,7 +175,12 @@ export const Header = memo(
                                         })()}
                                     </div>
                                     {operatorLogo !== undefined && (
-                                        <div className={fr.cx("fr-header__operator")}>
+                                        <div
+                                            className={cx(
+                                                fr.cx("fr-header__operator"),
+                                                classes.operator
+                                            )}
+                                        >
                                             <Link {...homeLinkProps}>
                                                 <img
                                                     className={cx(
@@ -235,39 +265,13 @@ export const Header = memo(
                             {(quickAccessItems.length > 0 || renderSearchInput !== undefined) && (
                                 <div className={fr.cx("fr-header__tools")}>
                                     {quickAccessItems.length > 0 && (
-                                        <div className={fr.cx("fr-header__tools-links")}>
-                                            <ul className={fr.cx("fr-btns-group")}>
-                                                {quickAccessItems.map(
-                                                    (
-                                                        { iconId, text, buttonProps, linkProps },
-                                                        i
-                                                    ) => (
-                                                        <li key={i}>
-                                                            {linkProps !== undefined ? (
-                                                                <Link
-                                                                    {...linkProps}
-                                                                    className={cx(
-                                                                        fr.cx("fr-btn", iconId),
-                                                                        linkProps.className
-                                                                    )}
-                                                                >
-                                                                    {text}
-                                                                </Link>
-                                                            ) : (
-                                                                <button
-                                                                    {...buttonProps}
-                                                                    className={cx(
-                                                                        fr.cx("fr-btn", iconId),
-                                                                        buttonProps.className
-                                                                    )}
-                                                                >
-                                                                    {text}
-                                                                </button>
-                                                            )}
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
+                                        <div
+                                            className={cx(
+                                                fr.cx("fr-header__tools-links"),
+                                                classes.toolsLinks
+                                            )}
+                                        >
+                                            {quickAccessNode}
                                         </div>
                                     )}
 
@@ -335,9 +339,9 @@ export const Header = memo(
                             >
                                 {t("close")}
                             </button>
-                            <div
-                                className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}
-                            />
+                            <div className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}>
+                                {quickAccessNode}
+                            </div>
                             {navigation !== undefined &&
                                 (navigation instanceof Array ? (
                                     <MainNavigation items={navigation} />
