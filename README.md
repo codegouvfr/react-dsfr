@@ -34,7 +34,7 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 
 [Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
 
-[Youtube link](https://youtu.be/5q88JgXUAY4)
+[Link to the demo video](https://youtu.be/5q88JgXUAY4)
 
 > For TypeScript and JavaScript projects.
 

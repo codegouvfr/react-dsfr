@@ -33,7 +33,7 @@ DSFR en pur JavaScript/CSS.
 
 [Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
 
-[Youtube link](https://youtu.be/5q88JgXUAY4)
+[Lien vers la vidéo démo](https://youtu.be/5q88JgXUAY4)
 
 > Remarque pour les agents non familiers avec TypeScript: Cette librairie, à l'instar de toute librairie développez-en TypeScript
 > **peut** être utilisé dans des projets n'utilisant pas TypeScript!  
