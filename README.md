@@ -26,6 +26,8 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
+👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
+
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
@@ -78,9 +80,7 @@ You can, as standalone feature:
 
 [Here is a playground to demonstrate it](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 
-# Development
-
-Here are instructions for contributing, if you are looking to **use** `@codegouvfr/react-dsfr` heads over to the [documentation page](https://react-dsfr.etalab.studio/).
+## Development
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
@@ -89,7 +89,6 @@ yarn
 
 # Starting storybook
 yarn storybook
-# You can run 'npx tsc -w -p src' on another terminal for enabling hot reloading.
 
 # Starting test apps
 yarn start-cra  # For testing in in a Create React App setup
@@ -105,7 +104,11 @@ npx vitest -t "Resolution of CSS variables"
 # Debugging while unit testing
 ```
 
-## How to publish a new version on NPM, how to release a beta version
+### Looking to contribute?
+
+Thank you! [Here](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md) is the contribution guide.
+
+### How to publish a new version on NPM, how to release a beta version
 
 This repo was bootstrapped form [garronej/ts-ci](https://github.com/garronej/ts-ci) have a look at the
 documentation of this starter for understanding the lifecycle of this repo.
