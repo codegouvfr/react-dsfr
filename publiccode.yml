@@ -1,0 +1,96 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: '@codegouvfr/react-dsfr'
+url: 'https://github.com/codegouvfr/react-dsfr'
+landingURL: 'https://react-dsfr-components.etalab.studio/'
+releaseDate: '2022-10-05'
+developmentStatus: beta
+softwareVersion: 0.21.4
+softwareType: library
+logo: |-
+  https://user-images.githubusercontent.com/6702424/192099597-567442d1-e6e1-4c17-ae3d-cac1e3bac5a0.png
+categories:
+  - website-builder
+maintenance:
+  type: community
+intendedAudience:
+  scope:
+    - science-and-technology
+  countries:
+    - fr
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - fr
+    - en
+it:
+  conforme:
+    gdpr: true
+description:
+  en:
+    documentation: 'https://react-dsfr.etalab.studio/'
+    shortDescription: French State Design System React integration
+    longDescription: |
+      This module is a wrapper/compatibility layer for
+      [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS
+      implementation of the DSFR.  
+
+       > For TypeScript and JavaScript projects.
+
+      - Fully TypeSafe, well documented API.
+
+      - Always in up to date with latest the DSFR evolutions. Code and Types
+      generated from
+      [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
+
+      - Exactly the same look and feel than with
+      [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
+
+      - No [white flash when reloading in SSR
+      setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
+
+      - Most components are server component ready. The others are labeled with
+      `"use client";`
+
+      - [Perfect integration with all major React framework: Next.js (PagesDir
+      and AppDir), Create React App, Vue](https://react-dsfr.etalab.studio/).
+
+      - All [the
+      components](https://www.systeme-de-design.gouv.fr/elements-d-interface)
+      are implemented (14/42, [see
+      details](https://github.com/codegouvfr/react-dsfr/blob/main/COMPONENTS.md))
+
+      - Three shakable distribution, cherry pick the components you import.
+      (It's not all in a big .js bundle)
+
+      - Optional integration with [MUI](https://mui.com/). If you use MUI
+      components they will be automatically adapted to look like [DSFR
+      components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
+      See [documentation](https://react-dsfr.etalab.studio/mui-integration).
+
+      - Enable CSS in JS by providing a `useTheme()` hooks that exposes the
+      correct colors options and decision for the currently enabled color
+      scheme.
+
+      - Opt-in i18n, built in text can be displayed in multiple languages and
+      user can provide extra translations.
+
+      - [Support routing libraries](https://react-dsfr.etalab.studio/routing)
+      like react-router.
+
+
+      This module is a product of [Etalab's Free and open source software
+      pole](https://communs.numerique.gouv.fr/a-propos/). I'm working full time
+      on this project. You can expect rapid development.
+
+
+      ​
+    screenshots:
+      - |-
+        https://user-images.githubusercontent.com/6702424/210700050-b5e273b6-067d-4864-a27a-3433e2b316a7.jpeg
+    videos:
+      - 'https://www.youtube.com/watch?v=5q88JgXUAY4'
+    genericName: react-dsfr
