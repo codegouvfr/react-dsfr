@@ -39,22 +39,27 @@ it("Color decisions to be successfully parsed", () => {
 
     const expected: ColorDecision[] = [
         {
+            "colorDecisionName": "--background-default-grey-hover",
             "themePath": ["background", "default", "grey", "hover"],
             "optionThemePath": ["grey", "_1000_50", "hover"]
         },
         {
+            "colorDecisionName": "--background-default-grey",
             "themePath": ["background", "default", "grey", "default"],
             "optionThemePath": ["grey", "_1000_50", "default"]
         },
         {
+            "colorDecisionName": "--border-action-low-orange-terre-battue",
             "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
             "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
         },
         {
+            "colorDecisionName": "--background-alt-raised-grey-hover",
             "themePath": ["background", "altRaised", "grey", "hover"],
             "optionThemePath": ["grey", "_975_100", "hover"]
         },
         {
+            "colorDecisionName": "--background-contrast-overlap-grey",
             "themePath": ["background", "contrastOverlap", "grey", "default"],
             "optionThemePath": ["grey", "_950_150", "default"]
         }

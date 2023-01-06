@@ -321,7 +321,7 @@ export type ColorOption = {
     colorOptionName: `--${string}`;
     themePath: string[];
     color:
-        | string
+        | `#${string}`
         | {
               light: `#${string}`;
               dark: `#${string}`;

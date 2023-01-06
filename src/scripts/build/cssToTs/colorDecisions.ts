@@ -9,6 +9,7 @@ import { is } from "tsafe/is";
 import { parseColorOptionName, getThemePath as getColorOptionThemePath } from "./colorOptions";
 import * as crypto from "crypto";
 import { multiReplace } from "../../tools/multiReplace";
+import memoize from "memoizee";
 
 const contexts = ["background", "text", "border", "artwork"] as const;
 
@@ -159,11 +160,12 @@ export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
 }
 
 export type ColorDecision = {
+    colorDecisionName: `--${string}`;
     themePath: string[];
     optionThemePath: string[];
 };
 
-export function parseColorDecision(rawCssCode: string): ColorDecision[] {
+export const parseColorDecision = memoize((rawCssCode: string): ColorDecision[] => {
     const { parseColorDecisionName } = createParseColorDecisionName(rawCssCode);
 
     const parsedCss = parseCss(rawCssCode);
@@ -179,13 +181,13 @@ export function parseColorDecision(rawCssCode: string): ColorDecision[] {
 
         assert(node !== undefined);
 
-        const { declarations } = node as any;
+        const { declarations } = node as { declarations: { property: string; value: string }[] };
 
         return { declarations };
     })();
 
     return declarations
-        .map(({ property, value }: { property: string; value: string }) => {
+        .map(({ property, value }) => {
             const mathArray = value.match(/^var\((--[^)]+)\)$/);
 
             if (mathArray === null) {
@@ -203,12 +205,13 @@ export function parseColorDecision(rawCssCode: string): ColorDecision[] {
             assert(is<`--${string}`>(property));
 
             return {
+                "colorDecisionName": property,
                 "themePath": getThemePath(parseColorDecisionName(property)),
                 "optionThemePath": getColorOptionThemePath(parseColorOptionName(colorOptionName))
             };
         })
         .filter(exclude(undefined));
-}
+});
 
 export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
     const obj: any = {};
