@@ -143,6 +143,7 @@
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
         "./MainNavigation": "./dist/MainNavigation/index.js",
+        "./Input": "./dist/Input.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header.js",
         "./Footer": "./dist/Footer.js",

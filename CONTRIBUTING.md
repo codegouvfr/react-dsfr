@@ -37,3 +37,17 @@ https://user-images.githubusercontent.com/6702424/206940923-8d2d1113-8b81-4f61-8
 Thank You Very Much ❤️
 
 PS: If you want to contribute to the Doc website. You can edit [the source Markdown](https://github.com/codegouvfr/react-dsfr/tree/v1_docs) or ask me for access to our GitBook. (We'll migrate to Docusaurus once we have the DSFR theme for it ready.)
+
+## Linking a working version of `@gouvfr/dsfr`
+
+```bash
+cd ~/github/
+git clone http://github.com/gouvernementfr/dsfr
+cd dsfr
+# git checkout my-working-branch
+yarn link
+cd ~/github/react-dsfr
+yarn link @gouvfr/dsfr
+```
+
+Now `~/github/react-dsfr/node_modules/@gouvfr/dsfr` links to `~/github/@gouvfr/dsfr`.
