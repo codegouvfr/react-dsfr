@@ -8,6 +8,8 @@ Depending of the framwork/routing library you are using, links between pages are
 
 Usually you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component you can provide the correct props for you `<Link />` component.
 
+When registering your Link component it's props type will propagate to the react-dsfr API.
+
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
@@ -37,7 +39,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
-Example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).
+Please have a look at the example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).&#x20;
+
+Notice that everywhere a `linkProps` is asked you are now expected to provide an object with a `to` property because `react-router`'s`<Link />` component expects a `to` prop instead of the typical href.&#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
