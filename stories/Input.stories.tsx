@@ -19,18 +19,14 @@ export const Default = getStory({
 
 export const WithErrorMessage = getStory({
     "label": "Label champs de saisie",
-    "message": {
-        "type": "error",
-        "text": "Texte d’erreur obligatoire"
-    }
+    "state": "error",
+    "stateRelatedMessage": "Texte d’erreur obligatoire"
 });
 
 export const WithSuccessMessage = getStory({
     "label": "Label champs de saisie",
-    "message": {
-        "type": "success",
-        "text": "Texte de validation"
-    }
+    "state": "success",
+    "stateRelatedMessage": "Texte de validation"
 });
 
 export const Disabled = getStory({

@@ -7,39 +7,46 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 
-export type InputProps = InputProps.Input | InputProps.TextArea;
+export type InputProps = {
+    className?: string;
+    label: ReactNode;
+    hintText?: ReactNode;
+    /** default: false */
+    disabled?: boolean;
+    iconId?: FrIconClassName | RiIconClassName;
+    classes?: Partial<
+        Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
+    >;
+} & (InputProps.WithSpecialState | InputProps.WithoutSpecialState) &
+    (InputProps.WithoutTextArea | InputProps.WithTextArea);
 
 export namespace InputProps {
-    export type Common = {
-        className?: string;
-        label: ReactNode;
-        hintText?: ReactNode;
-        /** default: false */
-        disabled?: boolean;
-        message?: {
-            type: "success" | "error";
-            text: ReactNode;
-        };
-        iconId?: FrIconClassName | RiIconClassName;
-        classes?: Partial<
-            Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
-        >;
+    export type WithSpecialState = {
+        state: "success" | "error";
+        stateRelatedMessage: ReactNode;
     };
 
-    export type Input = Common & {
+    export type WithoutSpecialState = {
+        state?: never;
+        stateRelatedMessage?: never;
+    };
+
+    export type WithoutTextArea = {
         /** Default: false */
         isTextArea?: false;
         /** Props forwarded to the underlying <input /> element */
         nativeInputProps?: InputHTMLAttributes<HTMLInputElement>;
+
         nativeTextAreaProps?: never;
     };
 
-    export type TextArea = Common & {
+    export type WithTextArea = {
         /** Default: false */
         isTextArea: true;
-        nativeInputProps?: never;
         /** Props forwarded to the underlying <textarea /> element */
         nativeTextAreaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+        nativeInputProps?: never;
     };
 }
 
@@ -53,16 +60,18 @@ export const Input = memo(
             label,
             hintText,
             disabled = false,
-            message,
             iconId: iconId_props,
-            isTextArea = false,
-            nativeInputProps = {},
-            nativeTextAreaProps = {},
             classes = {},
+            state,
+            stateRelatedMessage,
+            isTextArea = false,
+            nativeTextAreaProps,
+            nativeInputProps,
             ...rest
         } = props;
 
-        const nativeInputOrTextAreaProps = isTextArea ? nativeTextAreaProps : nativeInputProps;
+        const nativeInputOrTextAreaProps =
+            (isTextArea ? nativeTextAreaProps : nativeInputProps) ?? {};
 
         const NativeInputOrTexArea = isTextArea ? "textarea" : "input";
 
@@ -82,15 +91,15 @@ export const Input = memo(
                     fr.cx(
                         "fr-input-group",
                         disabled && "fr-input-group--disabled",
-                        message !== undefined &&
+                        state !== undefined &&
                             (() => {
-                                switch (message.type) {
+                                switch (state) {
                                     case "error":
                                         return "fr-input-group--error";
                                     case "success":
                                         return "fr-input-group--valid";
                                 }
-                                assert<Equals<typeof message.type, never>>(false);
+                                assert<Equals<typeof state, never>>(false);
                             })()
                     ),
                     classes.root,
@@ -110,31 +119,29 @@ export const Input = memo(
                             className={cx(
                                 fr.cx(
                                     "fr-input",
-                                    message !== undefined &&
+                                    state !== undefined &&
                                         (() => {
-                                            switch (message.type) {
+                                            switch (state) {
                                                 case "error":
                                                     return "fr-input--error";
                                                 case "success":
                                                     return "fr-input--valid";
                                             }
-                                            assert<Equals<typeof message.type, never>>(false);
+                                            assert<Equals<typeof state, never>>(false);
                                         })()
                                 ),
                                 classes.nativeInputOrTextArea
                             )}
                             disabled={disabled || undefined}
                             aria-describedby={messageId}
-                            type={isTextArea ? undefined : nativeInputProps.type ?? "text"}
+                            type={nativeInputProps?.type ?? "text"}
                             id={inputId}
                         />
                     );
 
                     const iconId =
                         iconId_props ??
-                        (!isTextArea && nativeInputProps.type === "date"
-                            ? "ri-calendar-line"
-                            : undefined);
+                        (nativeInputProps?.type === "date" ? "ri-calendar-line" : undefined);
 
                     return iconId === undefined ? (
                         nativeInputOrTextArea
@@ -144,9 +151,25 @@ export const Input = memo(
                         </div>
                     );
                 })()}
-                {message !== undefined && (
-                    <p id={messageId} className={cx(fr.cx("fr-error-text"), classes.message)}>
-                        {message.text}
+                {stateRelatedMessage !== undefined && (
+                    <p
+                        id={messageId}
+                        className={cx(
+                            fr.cx(
+                                (() => {
+                                    switch (state) {
+                                        case "error":
+                                            return "fr-error-text";
+                                        case "success":
+                                            return "fr-valid-text";
+                                    }
+                                    assert<Equals<typeof state, never>>(false);
+                                })()
+                            ),
+                            classes.message
+                        )}
+                    >
+                        {stateRelatedMessage}
                     </p>
                 )}
             </div>
