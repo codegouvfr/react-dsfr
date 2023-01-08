@@ -41,3 +41,4 @@
 -   [ ] Download
 -   [ ] Transcription
 -   [x] Tile
+-   [x] Input

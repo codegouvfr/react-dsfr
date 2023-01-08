@@ -27,13 +27,13 @@ export namespace InputProps {
     };
 
     export type WithoutSpecialState = {
-        state?: never;
+        state?: "default";
         stateRelatedMessage?: never;
     };
 
     export type WithoutTextArea = {
         /** Default: false */
-        isTextArea?: false;
+        textArea?: false;
         /** Props forwarded to the underlying <input /> element */
         nativeInputProps?: InputHTMLAttributes<HTMLInputElement>;
 
@@ -42,7 +42,7 @@ export namespace InputProps {
 
     export type WithTextArea = {
         /** Default: false */
-        isTextArea: true;
+        textArea: true;
         /** Props forwarded to the underlying <textarea /> element */
         nativeTextAreaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
 
@@ -62,18 +62,18 @@ export const Input = memo(
             disabled = false,
             iconId: iconId_props,
             classes = {},
-            state,
+            state = "default",
             stateRelatedMessage,
-            isTextArea = false,
+            textArea = false,
             nativeTextAreaProps,
             nativeInputProps,
             ...rest
         } = props;
 
         const nativeInputOrTextAreaProps =
-            (isTextArea ? nativeTextAreaProps : nativeInputProps) ?? {};
+            (textArea ? nativeTextAreaProps : nativeInputProps) ?? {};
 
-        const NativeInputOrTexArea = isTextArea ? "textarea" : "input";
+        const NativeInputOrTexArea = textArea ? "textarea" : "input";
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -91,16 +91,17 @@ export const Input = memo(
                     fr.cx(
                         "fr-input-group",
                         disabled && "fr-input-group--disabled",
-                        state !== undefined &&
-                            (() => {
-                                switch (state) {
-                                    case "error":
-                                        return "fr-input-group--error";
-                                    case "success":
-                                        return "fr-input-group--valid";
-                                }
-                                assert<Equals<typeof state, never>>(false);
-                            })()
+                        (() => {
+                            switch (state) {
+                                case "error":
+                                    return "fr-input-group--error";
+                                case "success":
+                                    return "fr-input-group--valid";
+                                case "default":
+                                    return undefined;
+                            }
+                            assert<Equals<typeof state, never>>(false);
+                        })()
                     ),
                     classes.root,
                     className
@@ -119,16 +120,17 @@ export const Input = memo(
                             className={cx(
                                 fr.cx(
                                     "fr-input",
-                                    state !== undefined &&
-                                        (() => {
-                                            switch (state) {
-                                                case "error":
-                                                    return "fr-input--error";
-                                                case "success":
-                                                    return "fr-input--valid";
-                                            }
-                                            assert<Equals<typeof state, never>>(false);
-                                        })()
+                                    (() => {
+                                        switch (state) {
+                                            case "error":
+                                                return "fr-input--error";
+                                            case "success":
+                                                return "fr-input--valid";
+                                            case "default":
+                                                return undefined;
+                                        }
+                                        assert<Equals<typeof state, never>>(false);
+                                    })()
                                 ),
                                 classes.nativeInputOrTextArea
                             )}
@@ -151,7 +153,7 @@ export const Input = memo(
                         </div>
                     );
                 })()}
-                {stateRelatedMessage !== undefined && (
+                {state !== "default" && (
                     <p
                         id={messageId}
                         className={cx(
