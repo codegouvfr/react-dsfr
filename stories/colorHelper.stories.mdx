@@ -1,0 +1,23 @@
+import { Meta } from "@storybook/addon-docs";
+import { useDarkMode } from "storybook-dark-mode";
+import { ColorResolver } from "./ColorResolver";
+
+<Meta
+    title="🎨 Color resolver" 
+    parameters={{
+        "viewMode": "docs",
+        "previewTabs": {
+            "canvas": { "hidden": true },
+            "zoom": { "hidden": true },
+            "storybook/background": { "hidden": true },
+            "storybook/viewport": { "hidden": true },
+        },
+    }}
+
+
+/>
+
+<div style={{ "margin": "0 auto", "maxWidth": "600px" }}>
+    <p>NOTE: This is a work in progress</p>
+    <ColorResolver />
+</div>

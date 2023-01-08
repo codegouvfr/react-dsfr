@@ -17,20 +17,13 @@ export type InputProps = {
     classes?: Partial<
         Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
     >;
-} & (InputProps.WithSpecialState | InputProps.WithoutSpecialState) &
-    (InputProps.WithoutTextArea | InputProps.WithTextArea);
+    /** Default: "default" */
+    state?: "success" | "error" | "default";
+    /** The message won't be displayed if state is "default" */
+    stateRelatedMessage?: ReactNode;
+} & (InputProps.WithoutTextArea | InputProps.WithTextArea);
 
 export namespace InputProps {
-    export type WithSpecialState = {
-        state: "success" | "error";
-        stateRelatedMessage: ReactNode;
-    };
-
-    export type WithoutSpecialState = {
-        state?: "default";
-        stateRelatedMessage?: never;
-    };
-
     export type WithoutTextArea = {
         /** Default: false */
         textArea?: false;

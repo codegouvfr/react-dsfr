@@ -37,12 +37,16 @@ const { meta, getStory } = getStoryFactory({
             })(),
             "control": { "type": "radio" }
         },
+        "stateRelatedMessage": {
+            "description": `This message is only displayed when \`state\` is \`success\` or \`error\`.  
+                If state is \`success\` or \`error\` this message is mandatory.`
+        },
         "textArea": {
             "control": { "type": "boolean" }
         },
         "nativeInputProps": {
             "description": `An object that is forwarded as props to te underlying native \`<input />\` element.  
-                This is where you pass the \`name\` prop or \`onKeyDown\` for example.`,
+                This is where you pass the \`name\` prop or \`onChange\` for example.`,
             "control": { "type": null }
         },
         "nativeTextAreaProps": {
@@ -59,7 +63,7 @@ export const Default = getStory({
     "label": "Label champ de saisie",
     "hintText": "Texte de description",
     "state": "default",
-    "stateRelatedMessage": "Text de validation / d'explication de l'erreur" as unknown as undefined,
+    "stateRelatedMessage": "Text de validation / d'explication de l'erreur",
     "textArea": false
 });
 

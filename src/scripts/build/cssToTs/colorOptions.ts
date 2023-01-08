@@ -8,6 +8,7 @@ import { createGetCssVariable } from "./cssVariable";
 import memoize from "memoizee";
 import * as crypto from "crypto";
 import { cssColorRegexp } from "../../tools/cssColorRegexp";
+import { threeDigitColorHexToSixDigitsColorHex } from "../../tools/threeDigitColorHexToSixDigitsColorHex";
 
 export type ColorScheme = "light" | "dark";
 
@@ -351,9 +352,9 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
         .map(({ property }: any) => {
             const cssVariableValue = getCssVariable(property);
 
-            const colorLight = cssVariableValue.root.light;
+            const colorLight = toConsistentColor(cssVariableValue.root.light);
 
-            const colorDark = cssVariableValue.root.dark;
+            const colorDark = toConsistentColor(cssVariableValue.root.dark);
 
             assert(typeof colorDark === "string");
             assert(cssColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
@@ -444,4 +445,18 @@ export function generateGetColorOptionsTsCode(rawCssCode: string) {
         `    } as const;`,
         `}`
     ].join("\n");
+}
+
+function toConsistentColor(color: string) {
+    if (!color.startsWith("#")) {
+        return color;
+    }
+
+    color = color.toLowerCase();
+
+    if (color.length === 4) {
+        threeDigitColorHexToSixDigitsColorHex(color);
+    }
+
+    return color;
 }

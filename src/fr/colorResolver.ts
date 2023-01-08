@@ -1,7 +1,8 @@
 import { colorOptions, colorDecisions } from "./generatedFromCss/colorResolution";
 import { exclude } from "tsafe/exclude";
+import { threeDigitColorHexToSixDigitsColorHex } from "../tools/threeDigitColorHexToSixDigitsColorHex";
 
-type ColorDecision = {
+export type ColorDecision = {
     cssVarName: `--${string}`;
     decisionObjectPath: readonly string[];
     option: {
@@ -12,9 +13,16 @@ type ColorDecision = {
 };
 
 export function resolveColorHexCodeToDecision(params: {
-    hexColorCode: `#${string}`;
+    /** Expects: #xxxxxx or #xxx */
+    hexColorCode: string;
 }): ColorDecision[] {
-    const { hexColorCode } = params;
+    let { hexColorCode } = params;
+
+    hexColorCode = hexColorCode.toLowerCase();
+
+    if (hexColorCode.length === 4) {
+        hexColorCode = threeDigitColorHexToSixDigitsColorHex(hexColorCode);
+    }
 
     const options = colorOptions
         .filter(({ color }) =>
