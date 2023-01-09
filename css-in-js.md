@@ -264,6 +264,10 @@ On screen larger than MD the background color will be `colors.decisions.backgrou
 
 ### colors
 
+{% hint style="success" %}
+[Here](https://react-dsfr-components.etalab.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) is a tool to help you resolve DSFR colors.
+{% endhint %}
+
 ```tsx
 import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
