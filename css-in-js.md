@@ -18,7 +18,7 @@ yarn add tss-react @emotion/react
 
 ```tsx
 import { makeStyles } from "tss-react/dsfr";
-import { fr } from "@codegouvfr/react-dsfr";
+import { fr } from "@codegouvfr/react-dsfr/useColors";
 
 export type Props = {
     className?: string;
@@ -235,7 +235,8 @@ The breakpoint utilitiy enables to write responsive style.&#x20;
 
 ```tsx
 import { useStyles } from "tss-react/dsfr";
-import { fr, useColors } from "@codegouvfr/react-dsfr";
+import { fr } from "@codegouvfr/react-dsfr";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
 function MyComponent() {
 
@@ -264,27 +265,71 @@ On screen larger than MD the background color will be `colors.decisions.backgrou
 ### colors
 
 ```tsx
-import { useColors } from "@codegouvfr/react-dsfr";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
 function MyComponent(){
 
-    const colors = useColor();
+    const theme = useColor();
     
     //"#518fff" in darlk mode, "#0063cb" in light mode
-    console.log(colors.decisions.background.flat.info.default);
+    console.log(theme.decisions.background.flat.info.default);
     
     // "#313178" in darkMode, "#cacafb" in light mode
-    console.log(colors.options.blueFrance._850_200.default);
+    console.log(theme.options.blueFrance._850_200.default);
     
-    console.log(colors.isDark ? "App in dark mode": "App in light mode");
+    console.log(theme.isDark ? "App in dark mode": "App in light mode");
 
 }
+```
+
+You can also access the theme object using tss-react
+
+```typescript
+import { useStyles } from "tss-react/dsfr";
+
+function MyComponent(){
+
+    const { theme } = useStyles();
+    
+    // ...
+    
+}
+```
+
+Or within `makeStyles`
+
+```tsx
+import { makeStyles } from "tss-react/dsfr";
+
+type Props = {
+    calssName?: string;
+};
+
+function MyComponent(props){
+
+    const { className }= props;
+
+    const { classes, cx } = useStyles();
+    
+    return (
+        <div classes={cx(classes.root, className)}>
+            // ...
+        </div>
+    );
+    
+}
+
+const useStyles = makeStyles()(theme => ({
+    root: {
+        backgroundColor: theme.decisions.background.flat.info.default
+    }
+}));
 ```
 
 ### useIsDark()
 
 ```tsx
-import { usIsDark } from "@codegouvfr/react-dsfr";
+import { usIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 
 function MyComponent(){
 
