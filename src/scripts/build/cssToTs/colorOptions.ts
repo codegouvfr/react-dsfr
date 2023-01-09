@@ -455,7 +455,7 @@ function toConsistentColor(color: string) {
     color = color.toLowerCase();
 
     if (color.length === 4) {
-        threeDigitColorHexToSixDigitsColorHex(color);
+        return threeDigitColorHexToSixDigitsColorHex(color);
     }
 
     return color;

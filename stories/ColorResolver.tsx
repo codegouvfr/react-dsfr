@@ -3,9 +3,10 @@ import { Input } from "../dist/Input";
 import { resolveColorHexCodeToDecision } from "../dist/fr/colorResolver";
 import type { ColorDecision } from "../dist/fr/colorResolver";
 import { useColors } from "../dist/useColors";
+import { fr } from "../dist";
 
 export function ColorResolver() {
-    const [hexColorCode, setHexColorCode] = useState("#161616");
+    const [hexColorCode, setHexColorCode] = useState("#C9191E");
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         setHexColorCode(event.target.value);
@@ -21,7 +22,7 @@ export function ColorResolver() {
         <div>
             <Input
                 label="Hex color code"
-                hintText="Color code, starting by #"
+                hintText="A color that you know belongs to the DSFR pallet"
                 nativeInputProps={{
                     "value": hexColorCode,
                     onChange
@@ -40,22 +41,68 @@ export function ColorResolver() {
 function ColorDecisionShowcase(props: ColorDecision) {
     const { cssVarName, decisionObjectPath, option } = props;
 
+    const theme = useColors();
+
     return (
-        <div>
+        <div
+            style={{
+                "borderWidth": 2,
+                "borderStyle": "solid",
+                "borderColor": theme.decisions.border.default.grey.default,
+                "boxShadow": "0px 6px 10px 0px rgba(0,0,0,0.07)",
+                "padding": fr.spacing("4v"),
+                "marginTop": fr.spacing("4v")
+            }}
+        >
+            <h5>Color decision:</h5>
             <p>
-                <span>CSS variable: </span>: {cssVarName}
+                <span
+                    style={{
+                        "color": theme.decisions.text.mention.grey.default
+                    }}
+                >
+                    CSS variable:{" "}
+                </span>
+                &nbsp;{cssVarName}
             </p>
             <p>
-                <span>Decision path: </span>{" "}
-                <code>theme.decisions.{decisionObjectPath.join(".")}</code>
+                <span
+                    style={{
+                        "color": theme.decisions.text.mention.grey.default
+                    }}
+                >
+                    Decision path:{" "}
+                </span>{" "}
+                <code>
+                    theme.decisions.<strong>{decisionObjectPath.join(".")}</strong>
+                </code>
             </p>
-            <p>Corresponding color option:</p>
+            <h5>Corresponding color option:</h5>
             <p>
-                <span>CSS variable: </span>: {option.cssVarName}
+                <span
+                    style={{
+                        "color": theme.decisions.text.mention.grey.default
+                    }}
+                >
+                    CSS variable:{" "}
+                </span>
+                : {option.cssVarName}
             </p>
-            <p>
-                <span>Option path: </span>{" "}
-                <code>theme.options.{option.optionObjectPath.join(".")}</code>
+            <p
+                style={{
+                    "marginBottom": 12
+                }}
+            >
+                <span
+                    style={{
+                        "color": theme.decisions.text.mention.grey.default
+                    }}
+                >
+                    Option path:{" "}
+                </span>{" "}
+                <code>
+                    theme.options.<strong>{option.optionObjectPath.join(".")}</strong>
+                </code>
             </p>
 
             {typeof option.color === "string" ? (
@@ -63,12 +110,25 @@ function ColorDecisionShowcase(props: ColorDecision) {
                     <span>Colors: </span>: <ColoredSquare hexColorCode={option.color} />
                 </p>
             ) : (
-                <p>
-                    <span>Colors: </span>:<span>Light: </span>
+                <>
+                    <span
+                        style={{
+                            "color": theme.decisions.text.mention.grey.default
+                        }}
+                    >
+                        Dark mode:{" "}
+                    </span>
                     <ColoredSquare hexColorCode={option.color.light} />
-                    <span>Dark: </span>
+                    &nbsp; &nbsp;
+                    <span
+                        style={{
+                            "color": theme.decisions.text.mention.grey.default
+                        }}
+                    >
+                        Light mode:{" "}
+                    </span>
                     <ColoredSquare hexColorCode={option.color.dark} />
-                </p>
+                </>
             )}
         </div>
     );
@@ -80,18 +140,26 @@ function ColoredSquare(props: { hexColorCode: string }) {
     const theme = useColors();
 
     return (
-        <>
-            <span>{hexColorCode}</span>:
+        <div
+            style={{
+                display: "inline"
+            }}
+        >
+            <code>{hexColorCode}</code>
+            &nbsp;
             <div
                 style={{
-                    "borderWidth": "2",
+                    "display": "inline-block",
+                    "borderWidth": 2,
                     "borderStyle": "solid",
                     "borderColor": theme.decisions.border.default.grey.default,
                     "width": 30,
                     "height": 30,
-                    "backgroundColor": hexColorCode
+                    "backgroundColor": hexColorCode,
+                    "position": "relative",
+                    "top": 8
                 }}
             />
-        </>
+        </div>
     );
 }
