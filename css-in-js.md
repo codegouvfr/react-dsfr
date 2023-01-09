@@ -264,9 +264,27 @@ On screen larger than MD the background color will be `colors.decisions.backgrou
 
 ### colors
 
+Accessing the `theme` object that hold the colors decisions and options.
+
 {% hint style="success" %}
 [Here](https://react-dsfr-components.etalab.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) is a tool to help you resolve DSFR colors.
 {% endhint %}
+
+The React agnostic way:&#x20;
+
+```typescript
+import { fr } from "@codegouvfr/react-dsfr";
+
+const isDark = false;
+
+const theme = fr.getColors();
+
+theme.decisions.background.flat.info.default // #0063cb
+theme.options.blueFrance._850_200.default // #cacafb
+theme.isDark // false
+```
+
+Whith a hook that returns the `theme` object for the color scheme (light/dark) that is currently active: &#x20;
 
 ```tsx
 import { useColors } from "@codegouvfr/react-dsfr/useColors";
@@ -286,25 +304,23 @@ function MyComponent(){
 }
 ```
 
-You can also access the theme object using tss-react
+You can also access the theme object using the preconfigured `tss-react` adapter: &#x20;
 
-```typescript
-import { useStyles } from "tss-react/dsfr";
+<pre class="language-typescript"><code class="lang-typescript">import { useStyles } from "tss-react/dsfr";
 
 function MyComponent(){
 
-    const { theme } = useStyles();
-    
+<strong>    const { theme } = useStyles();
+</strong>    
     // ...
     
 }
-```
+</code></pre>
 
-Or within `makeStyles`
+And with `makeStyles` (recomended approach):&#x20;
 
-```tsx
-import { makeStyles } from "tss-react/dsfr";
-
+<pre class="language-tsx"><code class="lang-tsx"><strong>import { makeStyles } from "tss-react/dsfr";
+</strong>
 type Props = {
     calssName?: string;
 };
@@ -316,21 +332,27 @@ function MyComponent(props){
     const { classes, cx } = useStyles();
     
     return (
-        <div classes={cx(classes.root, className)}>
+        &#x3C;div classes={cx(classes.root, className)}>
             // ...
-        </div>
+        &#x3C;/div>
     );
     
 }
 
-const useStyles = makeStyles()(theme => ({
-    root: {
-        backgroundColor: theme.decisions.background.flat.info.default
-    }
+<strong>const useStyles = makeStyles()(theme => ({
+</strong>    root: {
+<strong>        backgroundColor: theme.decisions.background.flat.info.default
+</strong>    }
 }));
-```
+</code></pre>
 
 ### useIsDark()
+
+You can access the active mode (isDark: true/false) in the `theme` object  however, if you want to manually switch the mode you can use `setIsDark(true/false)`  .
+
+{% hint style="info" %}
+Consider using the [\<Display />](https://react-dsfr-components.etalab.studio/?path=/docs/components-display--default) component instead of trying to manually manage the active mode.
+{% endhint %}
 
 ```tsx
 import { usIsDark } from "@codegouvfr/react-dsfr/useIsDark";
