@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { join as pathJoin, relative as pathRelative } from "path";
+import {
+    join as pathJoin,
+    relative as pathRelative,
+    sep as pathSep,
+    posix as pathPosix
+} from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import { assert } from "tsafe/assert";
@@ -93,7 +98,13 @@ import type { Equals } from "tsafe";
 
         const gitignoreRaw = fs.readFileSync(gitignoreFilePath).toString("utf8");
 
-        const pathToIgnore = `/${pathJoin(pathRelative(projectDirPath, publicDirPath), "dsfr")}/`;
+        const pathToIgnore = `/${pathJoin(
+            pathRelative(projectDirPath, publicDirPath).replace(
+                new RegExp(`\\${pathSep}`, "g"),
+                pathPosix.sep
+            ),
+            "dsfr"
+        )}/`;
 
         if (gitignoreRaw.split("\n").find(line => line.startsWith(pathToIgnore)) !== undefined) {
             break edit_gitignore;
