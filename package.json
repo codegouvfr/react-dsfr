@@ -136,6 +136,7 @@
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
+        "./SearchBar": "./dist/SearchBar.js",
         "./Quote": "./dist/Quote.js",
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
