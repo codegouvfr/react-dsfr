@@ -4,3 +4,4 @@ node_modules/
 /.yarn_home/
 /test/integration/
 /dsfr/
+/src/fr/generatedFromCss/
