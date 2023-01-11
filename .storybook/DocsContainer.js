@@ -11,7 +11,7 @@ import { useColors } from "../dist/useColors";
 
 startReactDsfr({
     "defaultColorScheme": "system",
-    "langIfNoProvider": "fr"
+    "useLang": () => "fr"
 });
 
 export const DocsContainer = ({ children, context }) => {

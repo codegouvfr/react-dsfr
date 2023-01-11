@@ -32,3 +32,5 @@ export function startReactDsfr(params: {
         "nextParams": undefined
     });
 }
+
+export { setUseLang };
