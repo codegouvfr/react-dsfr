@@ -49,7 +49,9 @@ yarn
 yarn build --clean
 yarn link
 cd ~/github/react-dsfr
+yarn
 yarn link @gouvfr/dsfr
+yarn build
 ```
 
 Now `~/github/react-dsfr/node_modules/@gouvfr/dsfr` links to `~/github/@gouvfr/dsfr`.
