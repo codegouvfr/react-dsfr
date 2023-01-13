@@ -45,6 +45,8 @@ cd ~/github/
 git clone http://github.com/gouvernementfr/dsfr
 cd dsfr
 # git checkout my-working-branch
+yarn
+yarn build --clean
 yarn link
 cd ~/github/react-dsfr
 yarn link @gouvfr/dsfr
