@@ -5,12 +5,13 @@
 Icons just works, you can copy paste the any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) and expect things to work.
 
 ```jsx
+import { fr } from "@codegrouvfr/react-dsfr";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
 <>
-  <button className="fr-btn fr-icon-checkbox-circle-line fr-btn--icon-left">
-    Label bouton MD
-  </button>
-  <span className="fr-icon-ancient-gate-fill" aria-hidden="true"/>
-  <i className="fr-icon-ancient-gate-fill" />
+  <Button iconId="fr-icon-checkbox-circle-line">Label button MD</Button>
+  <span className={fr.cx("fr-icon-ancient-gate-fill")} aria-hidden={true}/>
+  <i className={fr.cx("fr-icon-ancient-gate-fill")} />
 <>
 ```
 
@@ -27,12 +28,13 @@ When you find something fitting you can copy paste the class name ( starting wit
 Example: &#x20;
 
 ```jsx
+import { fr } from "@codegrouvfr/react-dsfr";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
 <>
-  <button className="fr-btn ri-mail-download-line fr-btn--icon-left">
-    Label bouton MD
-  </button>
-  <span className="ri-mail-download-line" aria-hidden="true"/>
-  <i className="ri-mail-download-line" />
+  <Button iconId="ri-mail-download-line">Label button MD</Button>
+  <span className={fr.cx("ri-mail-download-line")} aria-hidden={true}/>
+  <i className={fr.cx("ri-mail-download-line")} />
 <>
 ```
 
