@@ -4,7 +4,7 @@ description: Compatibility with solutions like styled-components, emotion and TS
 
 # 💅 CSS in JS
 
-At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular it's colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/getColorOptions.ts) and [decision](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/getColorDecisions.ts), the [spacing](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/spacing.ts) stystem and  the [breakpoints](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.0.72/src/lib/generatedFromCss/breakpoints.ts) values. &#x20;
+At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular it's colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.24.0/src/fr/generatedFromCss/getColorOptions.ts) and [decision](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts), the [spacing stystem](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) and  the [breakpoints values](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts). &#x20;
 
 This enables, to write DSFR compliant CSS in JS code since we are able to expose function that are the equivalent of the DSFR utility classes. &#x20;
 
@@ -18,7 +18,6 @@ yarn add tss-react @emotion/react
 
 ```tsx
 import { makeStyles } from "tss-react/dsfr";
-import { fr } from "@codegouvfr/react-dsfr/useColors";
 
 export type Props = {
     className?: string;
@@ -32,7 +31,9 @@ export const MyComponent =(props: Props) => {
 
     return (
 	<div className={cx(classes.root, className)}>
-	    <span className={cx(fr.cx("fr-p-1v"), classes.innerText)} >Hello World</span>
+	    <span className={cx(fr.cx("fr-p-1v"), classes.innerText)} >
+	        Hello World
+	    </span>
 	</div>
     );
 
@@ -40,12 +41,12 @@ export const MyComponent =(props: Props) => {
 
 MyComponent.displayName = "MyComponent";
 
-const useStyles = makeStyles({ "name": MyComponent.displayName })(colors => ({
+const useStyles = makeStyles({ "name": MyComponent.displayName })(theme => ({
     "root": {
         "padding": fr.spacing("10v"),
-	"backgroundColor": colors.decisions.background.alt.blueFrance.active,
+	"backgroundColor": theme.decisions.background.alt.blueFrance.active,
 	[fr.breakpoints.up("md")]: {
-	    "backgroundColor": colors.decisions.background.alt.blueCumulus.active
+	    "backgroundColor": theme.decisions.background.alt.blueCumulus.active
 	}
     },
     "innerText": {
@@ -130,6 +131,7 @@ You can use the style props on native react components but you won't be able to 
 
 ```tsx
 import { fr } from "@codegouvfr/react-dsfr";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
 export type Props = {
     className?: string;
@@ -138,15 +140,15 @@ export type Props = {
 export const MyComponent =(props: Props) => {
 
     const { className } = props;
-
-    const { classes, cx } = useStyles();
+    
+    const theme = useColors();
 
     return (
 	<div 
 	    className={className}
 	    styles={{
 	        "padding": fr.spacing("10v"),
-	        "backgroundColor": colors.decisions.background.alt.blueFrance.active,
+	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
 	    }}
 	>
 	    <span 
