@@ -17,9 +17,11 @@ const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
             themePath,
             colorOption: { colorOptionName, themePath: optionThemePath, color }
         }) =>
-            `${colorDecisionName} ${themePath.join(".")} ${colorOptionName} ${optionThemePath.join(
+            `${colorDecisionName} ${["theme", "decisions", ...themePath].join(
                 "."
-            )} ${typeof color === "string" ? color : `${color.light} ${color.dark}`}`
+            )} ${colorOptionName} ${["theme", "options", ...optionThemePath].join(".")} ${
+                typeof color === "string" ? color : `${color.light} ${color.dark}`
+            }`
     }
 );
 
@@ -49,12 +51,21 @@ export function ColorHelper() {
     return (
         <div>
             <SearchBar
-                label="Hex color code, CSS variable name, 'background'..."
+                label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
                 nativeInputProps={{
                     "value": search,
                     "onChange": event => setSearch(event.target.value)
                 }}
             />
+            <h3
+                style={{
+                    "marginTop": fr.spacing("5v")
+                }}
+            >
+                {search === ""
+                    ? `${colorDecisionAndCorrespondingOption.length} color decisions`
+                    : `Found ${filteredColorDecisionAndCorrespondingOption.length} decisions matching your query`}
+            </h3>
             {filteredColorDecisionAndCorrespondingOption.map((entry, i) => (
                 <ColorDecisionShowcase {...entry} key={i} />
             ))}
