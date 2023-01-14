@@ -5820,7 +5820,7 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
 
-evt@^2.4.2:
+evt@^2.4.13, evt@^2.4.2:
   version "2.4.13"
   resolved "https://registry.yarnpkg.com/evt/-/evt-2.4.13.tgz#5ef873159ce62e099d58801a3e4b8e0f5b648017"
   integrity sha512-haTVOsmjzk+28zpzvVwan9Zw2rLQF2izgi7BKjAPRzZAfcv+8scL0TpM8MzvGNKFYHiy+Bq3r6FYIIUPl9kt3A==
@@ -6336,6 +6336,11 @@ functions-have-names@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
+
+fzf@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/fzf/-/fzf-0.5.1.tgz#1c941f81e219d38f9093826661397ab484e2c9b4"
+  integrity sha512-AJ9BBt/3K/IyCF+pQjdG194kVSS1hU/v/RnZgiCtYZzA0rj2OBVwwjBRUOclo9yJl2ovjtdw3C31/8/rnT0uug==
 
 gauge@^3.0.0:
   version "3.0.2"
@@ -9186,6 +9191,16 @@ postcss@^8.2.15, postcss@^8.4.18:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+powerhooks@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/powerhooks/-/powerhooks-0.21.0.tgz#bafe67c2ce8c4c38cd26dec08de27fdf0d81da70"
+  integrity sha512-O9JG79YKv3yJ6Tkcx+eNWUC/rUKPCFUBkDIDbnoKM29P0+8VAx9pjp/C9eE2qnKNXr5azgnGtEoyLzGB/UKorQ==
+  dependencies:
+    evt "^2.4.13"
+    memoizee "^0.4.15"
+    resize-observer-polyfill "^1.5.1"
+    tsafe "^1.4.1"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -9808,6 +9823,11 @@ requireindex@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
   integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-from@^4.0.0:
   version "4.0.0"
