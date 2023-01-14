@@ -9,6 +9,48 @@ At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/brow
 This enables, to write DSFR compliant CSS in JS code since we are able to expose function that are the equivalent of the DSFR utility classes. &#x20;
 
 {% tabs %}
+{% tab title="Native" %}
+You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.  &#x20;
+
+```tsx
+import { fr } from "@codegouvfr/react-dsfr";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
+
+export type Props = {
+    className?: string;
+};
+
+export const MyComponent =(props: Props) => {
+
+    const { className } = props;
+    
+    const theme = useColors();
+
+    return (
+	<div 
+	    className={className}
+	    styles={{
+	        "padding": fr.spacing("10v"),
+	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
+	    }}
+	>
+	    <span 
+	        className={fr.cx("fr-p-1v")}
+	        style={{
+	            ...fr.spacing("margin", { "topBottom": "3v" })
+	        }}
+	    >
+	        Hello World
+	    </span>
+	</div>
+    );
+
+};
+
+MyComponent.displayName = "MyComponent";
+```
+{% endtab %}
+
 {% tab title="TSS" %}
 {% embed url="https://tss-react.dev" %}
 
@@ -125,51 +167,15 @@ export const MyComponent = MyComponentNotStyled`
 MyComponent.displayName = "MyComponent";
 ```
 {% endtab %}
-
-{% tab title="Native" %}
-You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.  &#x20;
-
-```tsx
-import { fr } from "@codegouvfr/react-dsfr";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
-
-export type Props = {
-    className?: string;
-};
-
-export const MyComponent =(props: Props) => {
-
-    const { className } = props;
-    
-    const theme = useColors();
-
-    return (
-	<div 
-	    className={className}
-	    styles={{
-	        "padding": fr.spacing("10v"),
-	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
-	    }}
-	>
-	    <span 
-	        className={fr.cx("fr-p-1v")}
-	        style={{
-	            ...fr.spacing("margin", { "topBottom": "3v" })
-	        }}
-	    >
-	        Hello World
-	    </span>
-	</div>
-    );
-
-};
-
-MyComponent.displayName = "MyComponent";
-```
-{% endtab %}
 {% endtabs %}
 
-### fr.spacing
+### spacing
+
+For ensuring the spacing between elements is consistent through out the website. &#x20;
+
+{% hint style="info" %}
+This tool is build using [this file](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) that is automatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
+{% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>import { fr } from "@codegouvfr/react-dsfr";
 </strong>
@@ -231,29 +237,32 @@ function MyComponent() {
 
 <figure><img src=".gitbook/assets/image (6) (1).png" alt=""><figcaption><p>You can read the returned value in em just by hovering the spacing function call</p></figcaption></figure>
 
-### fr.breakpoints
+### breakpoints
 
-The breakpoint utilitiy enables to write responsive style.&#x20;
+For writing responsive UIs with media query (`@media`).   &#x20;
+
+{% hint style="info" %}
+This tool is build using [this file](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts) that is automatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
+{% endhint %}
 
 ```tsx
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
 function MyComponent() {
 
-    const { css } = useStyles();
-    
-    const colors= useColors();
+    const { css, theme } = useStyles();
     
     return (
         <div
             className={css({
-                width: 100px;
-                height: 100px;
-                backgroundColor: colors.decisions.background.flat.info.default,
+                width: "100px",
+                height: "100px"
+                backgroundColor: theme.decisions.background.flat.info.default,
+                // On screen larger than MD the background color 
+                // will be colors.decisions.background.alt.blueFrance.default.
                 [fr.breakpoints.up("md")]: {
-                    backgroundColor: colors.decisions.background.alt.blueFrance.default
+                    backgroundColor: theme.decisions.background.alt.blueFrance.default
                 }
             })}
         />
@@ -262,14 +271,18 @@ function MyComponent() {
 }
 ```
 
-On screen larger than MD the background color will be `colors.decisions.background.alt.blueFrance.default`.
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>This tools generates @media query for you that matches the DSFR breakpoints</p></figcaption></figure>
 
 ### colors
 
-Accessing the `theme` object that hold the colors decisions and options.
+Using the `theme` object that holds the colors decisions and options.
+
+{% hint style="info" %}
+This is made possible by [options.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorOptions.ts) and [decisions.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts) files autmatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
+{% endhint %}
 
 {% hint style="success" %}
-[Here](https://react-dsfr-components.etalab.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) is a tool to help you resolve DSFR colors.
+The is [a tool](https://react-dsfr-components.etalab.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) at your disposal to help you pick your colors.
 {% endhint %}
 
 The React agnostic way:&#x20;
@@ -279,7 +292,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 const isDark = false;
 
-const theme = fr.getColors();
+const theme = fr.getColors(isDark);
 
 theme.decisions.background.flat.info.default // #0063cb
 theme.options.blueFrance._850_200.default // #cacafb
@@ -293,7 +306,7 @@ import { useColors } from "@codegouvfr/react-dsfr/useColors";
 
 function MyComponent(){
 
-    const theme = useColor();
+    const theme = useColors();
     
     //"#518fff" in darlk mode, "#0063cb" in light mode
     console.log(theme.decisions.background.flat.info.default);
