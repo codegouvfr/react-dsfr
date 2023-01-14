@@ -36,7 +36,7 @@ This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.c
 
 [Link to the demo video](https://youtu.be/5q88JgXUAY4)
 
-> For TypeScript and JavaScript projects.
+> While this module is written in TypeScript, using TypeScript in your application is optional (but recommended as it comes with outstanding benefits to both you and your codebase).
 
 -   [x] Fully TypeSafe, well documented API.
 -   [x] Always in up to date with latest the DSFR evolutions.

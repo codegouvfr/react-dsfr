@@ -35,10 +35,7 @@ DSFR en pur JavaScript/CSS.
 
 [Lien vers la vidéo démo](https://youtu.be/5q88JgXUAY4)
 
-> Remarque pour les agents non familiers avec TypeScript: Cette librairie, à l'instar de toute librairie développez-en TypeScript
-> **peut** être utilisé dans des projets n'utilisant pas TypeScript!  
-> La distribution publiée sur NPM est constituée de fichier JavaScript couplé à des fichiers de déclaration de types. Ces derniers
-> on pour objet d'aider au développement, mais n'intervienne pas dans le fonctionnement de la libraire.
+> Bien que cette bibliothèque soit écrit en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
 
 -   [x] une interface de programmation strictement typée et bien documentée.
 -   [x] Garantie d'être toujours à jour avec les [dernières évolutions du DSFR](https://www.systeme-de-design.gouv.fr/).
