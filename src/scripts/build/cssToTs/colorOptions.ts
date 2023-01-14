@@ -320,7 +320,7 @@ export function getThemePath(parsedColorOptionName: ParsedColorOptionName): stri
 
 export type ColorOption = {
     colorOptionName: `--${string}`;
-    themePath: string[];
+    themePath: readonly string[];
     color:
         | `#${string}`
         | {
@@ -404,7 +404,7 @@ export function generateGetColorOptionsTsCode(rawCssCode: string) {
             return hash;
         })();
 
-        function req(obj: any, path: string[]): void {
+        function req(obj: any, path: readonly string[]): void {
             const [propertyName, ...pathRest] = path;
 
             if (pathRest.length === 0) {

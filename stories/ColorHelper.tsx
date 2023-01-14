@@ -1,51 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SearchBar } from "../dist/SearchBar";
-import { colorDecisionAndCorrespondingOption } from "../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOption";
-import type { ColorDecisionAndCorrespondingOption } from "../src/scripts/build/cssToTs/colorDecisionsAndCorrespondingOption";
+import { colorDecisionAndCorrespondingOption } from "../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
+import type { ColorDecisionAndCorrespondingOption } from "../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { useColors } from "../dist/useColors";
 import { fr } from "../dist/fr";
-import { waitForDebounceFactory } from "./tools/waitForDebounce";
-import { useConst } from "powerhooks/useConst";
+import { createUseDebounce } from "powerhooks/useDebounce";
+import { Fzf } from "fzf";
 
-/*
-    let { hexColorCode } = params;
+const { useDebounce } = createUseDebounce({ "delay": 400 });
 
-    hexColorCode = hexColorCode.toLowerCase();
-
-    if (hexColorCode.length === 4) {
-        hexColorCode = threeDigitColorHexToSixDigitsColorHex(hexColorCode);
+const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
+    colorDecisionAndCorrespondingOption,
+    {
+        "selector": ({
+            colorDecisionName,
+            themePath,
+            colorOption: { colorOptionName, themePath: optionThemePath, color }
+        }) =>
+            `${colorDecisionName} ${themePath.join(".")} ${colorOptionName} ${optionThemePath.join(
+                "."
+            )} ${typeof color === "string" ? color : `${color.light} ${color.dark}`}`
     }
-
-    const options = colorOptions
-        .filter(({ color }) =>
-            typeof color === "string"
-                ? color === hexColorCode
-                : color.dark === hexColorCode || color.light === hexColorCode
-        )
-        */
-
+);
 
 export function ColorHelper() {
     const [search, setSearch] = useState("");
 
-    const { waitForDebounce } = useConst(() => waitForDebounceFactory({ "delay": 500 }));
-
-    useEffect(
-        ()=> {
-
-            (async ()=> {
-
-                await waitForDebounce();
-
-
-
-
-
-            })();
-
-        },
-        [search]
+    const [
+        filteredColorDecisionAndCorrespondingOption,
+        setFilteredColorDecisionAndCorrespondingOption
+    ] = useState<readonly ColorDecisionAndCorrespondingOption[]>(
+        colorDecisionAndCorrespondingOption
     );
+
+    useDebounce({
+        "query": search,
+        "onDebounced": () =>
+            setFilteredColorDecisionAndCorrespondingOption(
+                fzf
+                    .find(search)
+                    .map(
+                        ({ item: colorDecisionAndCorrespondingOption }) =>
+                            colorDecisionAndCorrespondingOption
+                    )
+            )
+    });
 
     return (
         <div>
@@ -53,22 +52,18 @@ export function ColorHelper() {
                 label="Hex color code, CSS variable name, 'background'..."
                 nativeInputProps={{
                     "value": search,
-                    "onChange": event=> setSearch(event.target.value)
+                    "onChange": event => setSearch(event.target.value)
                 }}
             />
-            {colorDecisionAndCorrespondingOption.map(entry=> )}
-
-            {state === undefined &&
-                resolveColorHexCodeToDecision({ hexColorCode }).map((colorDecision, i) => (
-                    <ColorDecisionShowcase {...colorDecision} key={i} />
-                ))}
-
+            {filteredColorDecisionAndCorrespondingOption.map((entry, i) => (
+                <ColorDecisionShowcase {...entry} key={i} />
+            ))}
         </div>
     );
 }
 
-function ColorDecisionShowcase(props: ColorDecision) {
-    const { cssVarName, decisionObjectPath, option } = props;
+function ColorDecisionShowcase(props: ColorDecisionAndCorrespondingOption) {
+    const { colorDecisionName, themePath, colorOption } = props;
 
     const theme = useColors();
 
@@ -92,7 +87,7 @@ function ColorDecisionShowcase(props: ColorDecision) {
                 >
                     CSS variable:{" "}
                 </span>
-                &nbsp;{cssVarName}
+                &nbsp;{colorDecisionName}
             </p>
             <p>
                 <span
@@ -103,7 +98,7 @@ function ColorDecisionShowcase(props: ColorDecision) {
                     Decision path:{" "}
                 </span>{" "}
                 <code>
-                    theme.decisions.<strong>{decisionObjectPath.join(".")}</strong>
+                    theme.decisions.<strong>{themePath.join(".")}</strong>
                 </code>
             </p>
             <h5>Corresponding color option:</h5>
@@ -115,7 +110,7 @@ function ColorDecisionShowcase(props: ColorDecision) {
                 >
                     CSS variable:{" "}
                 </span>
-                : {option.cssVarName}
+                : {colorOption.colorOptionName}
             </p>
             <p
                 style={{
@@ -130,14 +125,14 @@ function ColorDecisionShowcase(props: ColorDecision) {
                     Option path:{" "}
                 </span>{" "}
                 <code>
-                    theme.options.<strong>{option.optionObjectPath.join(".")}</strong>
+                    theme.options.<strong>{colorOption.themePath.join(".")}</strong>
                 </code>
             </p>
 
-            {typeof option.color === "string" ? (
-                <p>
-                    <span>Colors: </span>: <ColoredSquare hexColorCode={option.color} />
-                </p>
+            {typeof colorOption.color === "string" ? (
+                <>
+                    <span>Colors: </span>: <ColoredSquare hexColorCode={colorOption.color} />
+                </>
             ) : (
                 <>
                     <span
@@ -147,7 +142,7 @@ function ColorDecisionShowcase(props: ColorDecision) {
                     >
                         Dark mode:{" "}
                     </span>
-                    <ColoredSquare hexColorCode={option.color.light} />
+                    <ColoredSquare hexColorCode={colorOption.color.light} />
                     &nbsp; &nbsp;
                     <span
                         style={{
@@ -156,7 +151,7 @@ function ColorDecisionShowcase(props: ColorDecision) {
                     >
                         Light mode:{" "}
                     </span>
-                    <ColoredSquare hexColorCode={option.color.dark} />
+                    <ColoredSquare hexColorCode={colorOption.color.dark} />
                 </>
             )}
         </div>

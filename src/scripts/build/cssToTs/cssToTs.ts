@@ -5,7 +5,7 @@ import { getProjectRoot } from "../../../bin/tools/getProjectRoot";
 import { generateTypographyTsCode } from "./typography";
 import { generateSpacingTsCode } from "./spacing";
 import { generateClassNamesTsCode } from "./classNames";
-import { generateColorDecisionsAndCorrespondingOptionTsCode } from "./colorDecisionsAndCorrespondingOption";
+import { generateColorDecisionAndCorrespondingOptionsTsCode } from "./colorDecisionAndCorrespondingOptions";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
 import type { Icon } from "../../../bin/only-include-used-icons";
@@ -114,12 +114,12 @@ export function cssToTs(params: {
     );
 
     fs.writeFileSync(
-        pathJoin(generatedDirPath, "colorDecisionsAndCorrespondingOption.ts"),
+        pathJoin(generatedDirPath, "colorDecisionAndCorrespondingOptions.ts"),
         Buffer.from(
             [
                 warningMessage,
                 ``,
-                generateColorDecisionsAndCorrespondingOptionTsCode(rawDsfrCssCode),
+                generateColorDecisionAndCorrespondingOptionsTsCode(rawDsfrCssCode),
                 ``
             ].join("\n"),
             "utf8"

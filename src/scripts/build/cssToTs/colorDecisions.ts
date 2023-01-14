@@ -161,8 +161,8 @@ export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
 
 export type ColorDecision = {
     colorDecisionName: `--${string}`;
-    themePath: string[];
-    optionThemePath: string[];
+    themePath: readonly string[];
+    optionThemePath: readonly string[];
 };
 
 export const parseColorDecision = memoize((rawCssCode: string): ColorDecision[] => {
@@ -230,7 +230,7 @@ export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
             return hash;
         })();
 
-        function req(obj: any, path: string[]): void {
+        function req(obj: any, path: readonly string[]): void {
             const [propertyName, ...pathRest] = path;
 
             if (pathRest.length === 0) {

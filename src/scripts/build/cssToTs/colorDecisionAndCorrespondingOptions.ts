@@ -5,12 +5,11 @@ import type { ColorDecision } from "./colorDecisions";
 import type { ColorOption } from "./colorOptions";
 import { symToStr } from "tsafe/symToStr";
 
-export type ColorDecisionAndCorrespondingOption = Omit<
-    ColorDecision,
-    "optionThemePath"
-> & { colorOption: ColorOption }
+export type ColorDecisionAndCorrespondingOption = Omit<ColorDecision, "optionThemePath"> & {
+    colorOption: ColorOption;
+};
 
-export function generateColorDecisionsAndCorrespondingOptionTsCode(rawCssCode: string): string {
+export function generateColorDecisionAndCorrespondingOptionsTsCode(rawCssCode: string): string {
     const colorOptions = parseColorOptions(rawCssCode);
 
     const colorDecisionAndCorrespondingOption = parseColorDecision(rawCssCode)
@@ -24,7 +23,10 @@ export function generateColorDecisionsAndCorrespondingOptionTsCode(rawCssCode: s
         .filter(exclude(undefined))
         .map(
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            ([{ optionThemePath, ...colorDecision }, colorOption]): ColorDecisionAndCorrespondingOption => ({
+            ([
+                { optionThemePath, ...colorDecision },
+                colorOption
+            ]): ColorDecisionAndCorrespondingOption => ({
                 ...colorDecision,
                 colorOption
             })
