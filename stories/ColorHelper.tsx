@@ -6,6 +6,11 @@ import { useColors } from "../dist/useColors";
 import { fr } from "../dist/fr";
 import { createUseDebounce } from "powerhooks/useDebounce";
 import { Fzf } from "fzf";
+import { createMakeAndWithStyles } from "tss-react";
+import { MuiDsfrThemeProvider } from "../dist/mui";
+import Tooltip from "@mui/material/Tooltip";
+
+const { useStyles } = createMakeAndWithStyles({ "useTheme": useColors });
 
 const { useDebounce } = createUseDebounce({ "delay": 400 });
 
@@ -48,48 +53,71 @@ export function ColorHelper() {
             )
     });
 
+    const { css } = useStyles();
+
     return (
-        <div>
-            <SearchBar
-                label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
-                nativeInputProps={{
-                    "value": search,
-                    "onChange": event => setSearch(event.target.value)
-                }}
-            />
-            <h3
-                style={{
-                    "marginTop": fr.spacing("5v")
-                }}
-            >
-                {search === ""
-                    ? `${colorDecisionAndCorrespondingOption.length} color decisions`
-                    : `Found ${filteredColorDecisionAndCorrespondingOption.length} decisions matching your query`}
-            </h3>
-            {filteredColorDecisionAndCorrespondingOption.map((entry, i) => (
-                <ColorDecisionShowcase {...entry} key={i} />
-            ))}
-        </div>
+        <MuiDsfrThemeProvider>
+            <div>
+                <h1>🎨 Color Helper tool</h1>
+                <p>
+                    This tool help you find the perfect DSFR color decision for your usecase. <br />
+                </p>
+                <p>
+                    If you have the hex code (e.g. #c9191e) of a color that you know belong to the
+                    DSFR palette you can use the filter to find to witch decision it correspond.
+                </p>
+                <SearchBar
+                    label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
+                    nativeInputProps={{
+                        "value": search,
+                        "onChange": event => setSearch(event.target.value)
+                    }}
+                />
+                <h3
+                    style={{
+                        "marginTop": fr.spacing("6v")
+                    }}
+                >
+                    {search === ""
+                        ? `${colorDecisionAndCorrespondingOption.length} color decisions`
+                        : `Found ${filteredColorDecisionAndCorrespondingOption.length} decisions matching your query`}
+                </h3>
+                {filteredColorDecisionAndCorrespondingOption.map((entry, i) => (
+                    <ColorDecisionShowcase
+                        {...entry}
+                        key={i}
+                        className={css({
+                            "marginTop": fr.spacing("4v")
+                        })}
+                    />
+                ))}
+            </div>
+        </MuiDsfrThemeProvider>
     );
 }
 
-function ColorDecisionShowcase(props: ColorDecisionAndCorrespondingOption) {
-    const { colorDecisionName, themePath, colorOption } = props;
+function ColorDecisionShowcase(
+    props: { className?: string } & ColorDecisionAndCorrespondingOption
+) {
+    const { className, colorDecisionName, themePath, colorOption } = props;
 
     const theme = useColors();
 
+    const { cx, css } = useStyles();
+
     return (
         <div
-            style={{
-                "borderWidth": 2,
-                "borderStyle": "solid",
-                "borderColor": theme.decisions.border.default.grey.default,
-                "boxShadow": "0px 6px 10px 0px rgba(0,0,0,0.07)",
-                "padding": fr.spacing("4v"),
-                "marginTop": fr.spacing("4v")
-            }}
+            className={cx(
+                css({
+                    "borderWidth": 2,
+                    "borderStyle": "solid",
+                    "borderColor": theme.decisions.border.default.grey.default,
+                    "boxShadow": "0px 6px 10px 0px rgba(0,0,0,0.07)",
+                    "padding": fr.spacing("4v")
+                }),
+                className
+            )}
         >
-            <h5>Color decision:</h5>
             <p>
                 <span
                     style={{
@@ -106,13 +134,28 @@ function ColorDecisionShowcase(props: ColorDecisionAndCorrespondingOption) {
                         "color": theme.decisions.text.mention.grey.default
                     }}
                 >
-                    Decision path:{" "}
+                    Decision path{" "}
+                    <Tooltip
+                        title={
+                            <a
+                                href="https://react-dsfr.etalab.studio/css-in-js#colors"
+                                target="_blank"
+                            >
+                                How to access the <code>theme</code> object
+                            </a>
+                        }
+                        placement="top"
+                        arrow
+                    >
+                        <i className={fr.cx("ri-information-line")} />
+                    </Tooltip>{" "}
+                    :
                 </span>{" "}
                 <code>
                     theme.decisions.<strong>{themePath.join(".")}</strong>
                 </code>
             </p>
-            <h5>Corresponding color option:</h5>
+            <h6>Corresponding color option:</h6>
             <p>
                 <span
                     style={{

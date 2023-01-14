@@ -22,8 +22,8 @@ export function generateColorDecisionAndCorrespondingOptionsTsCode(rawCssCode: s
         })
         .filter(exclude(undefined))
         .map(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             ([
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 { optionThemePath, ...colorDecision },
                 colorOption
             ]): ColorDecisionAndCorrespondingOption => ({
