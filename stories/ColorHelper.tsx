@@ -135,6 +135,9 @@ function ColorDecisionShowcase(
                     "borderWidth": 2,
                     "borderStyle": "solid",
                     "borderColor": theme.decisions.border.default.grey.default,
+                    "&:hover": {
+                        "borderColor": theme.decisions.border.plain.grey.default
+                    },
                     "boxShadow": "0px 6px 10px 0px rgba(0,0,0,0.07)",
                     "padding": fr.spacing("4v")
                 }),
