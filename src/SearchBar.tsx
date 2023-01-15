@@ -1,5 +1,5 @@
 import React, { memo, forwardRef, useId } from "react";
-import type { InputHTMLAttributes } from "react";
+import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
@@ -12,7 +12,7 @@ export type SearchBarProps = {
     /** Default: "Rechercher" (or translation) */
     label?: string;
     /** Props forwarded to the underlying <input /> element */
-    nativeInputProps?: InputHTMLAttributes<HTMLInputElement>;
+    nativeInputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     /** Default: false */
     big?: boolean;
     classes?: Partial<Record<"root" | "label" | "input", string>>;

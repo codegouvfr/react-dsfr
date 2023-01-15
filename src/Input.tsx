@@ -1,5 +1,5 @@
 import React, { memo, forwardRef, ReactNode, useId } from "react";
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type { InputHTMLAttributes, TextareaHTMLAttributes, DetailedHTMLProps } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -28,7 +28,10 @@ export namespace InputProps {
         /** Default: false */
         textArea?: false;
         /** Props forwarded to the underlying <input /> element */
-        nativeInputProps?: InputHTMLAttributes<HTMLInputElement>;
+        nativeInputProps?: DetailedHTMLProps<
+            InputHTMLAttributes<HTMLInputElement>,
+            HTMLInputElement
+        >;
 
         nativeTextAreaProps?: never;
     };
@@ -37,7 +40,10 @@ export namespace InputProps {
         /** Default: false */
         textArea: true;
         /** Props forwarded to the underlying <textarea /> element */
-        nativeTextAreaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+        nativeTextAreaProps?: DetailedHTMLProps<
+            TextareaHTMLAttributes<HTMLTextAreaElement>,
+            HTMLTextAreaElement
+        >;
 
         nativeInputProps?: never;
     };
