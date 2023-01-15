@@ -161,6 +161,7 @@ export function getThemePath(parsedColorDecisionName: ParsedColorDecisionName) {
 
 export type ColorDecision = {
     colorDecisionName: `--${string}`;
+    parsedColorDecisionName: ParsedColorDecisionName;
     themePath: readonly string[];
     optionThemePath: readonly string[];
 };
@@ -204,9 +205,12 @@ export const parseColorDecision = memoize((rawCssCode: string): ColorDecision[] 
 
             assert(is<`--${string}`>(property));
 
+            const parsedColorDecisionName = parseColorDecisionName(property);
+
             return {
                 "colorDecisionName": property,
-                "themePath": getThemePath(parseColorDecisionName(property)),
+                "themePath": getThemePath(parsedColorDecisionName),
+                parsedColorDecisionName,
                 "optionThemePath": getColorOptionThemePath(parseColorOptionName(colorOptionName))
             };
         })

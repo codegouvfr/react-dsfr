@@ -327,6 +327,7 @@ export type ColorOption = {
               light: `#${string}`;
               dark: `#${string}`;
           };
+    parsedColorOptionName: ParsedColorOptionName;
 };
 
 export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => {
@@ -341,7 +342,7 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
 
         assert(node !== undefined);
 
-        const { declarations } = node as any;
+        const { declarations } = node as { declarations: any[] };
 
         return { declarations };
     })();
@@ -359,21 +360,22 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
             assert(typeof colorDark === "string");
             assert(cssColorRegexp.test(colorDark), `${colorDark} doesn't seem to be a color`);
 
-            const parsedName = parseColorOptionName(property);
+            const parsedColorOptionName = parseColorOptionName(property);
 
-            if (parsedName.brightness.isInvariant) {
+            if (parsedColorOptionName.brightness.isInvariant) {
                 assert(colorLight === colorDark);
             }
 
             return {
                 "colorOptionName": property,
-                "themePath": getThemePath(parsedName),
-                "color": parsedName.brightness.isInvariant
-                    ? colorLight
+                "themePath": getThemePath(parsedColorOptionName),
+                "color": parsedColorOptionName.brightness.isInvariant
+                    ? (colorLight as `#${string}`)
                     : {
-                          "light": colorLight,
-                          "dark": colorDark
-                      }
+                          "light": colorLight as `#${string}`,
+                          "dark": colorDark as `#${string}`
+                      },
+                parsedColorOptionName
             };
         })
         .filter(exclude(undefined));
