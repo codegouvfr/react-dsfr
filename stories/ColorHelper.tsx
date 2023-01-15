@@ -10,7 +10,6 @@ import { Fzf } from "fzf";
 import { createMakeAndWithStyles } from "tss-react";
 import { MuiDsfrThemeProvider } from "../dist/mui";
 import Tooltip from "@mui/material/Tooltip";
-import { assert } from "tsafe/assert";
 
 const { useStyles } = createMakeAndWithStyles({ "useTheme": useColors });
 
