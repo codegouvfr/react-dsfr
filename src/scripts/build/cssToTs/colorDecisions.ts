@@ -22,9 +22,9 @@ type Variant = typeof variants[number];
 export type ParsedColorDecisionName = {
     context: Context;
     usage: string; //default alt contrast altOverlap contrastRaised
-    variant: Variant | undefined;
+    variant?: Variant;
     colorName: string; // "grey" "blueFrance"
-    state: State | undefined;
+    state?: State;
 };
 
 export function createParseColorDecisionName(rawCssCode: string) {

@@ -21,7 +21,7 @@ export type State = typeof states[number];
 
 export type BrightnessIndex = {
     value: number;
-    variant: Variant | undefined;
+    variant?: Variant;
 };
 
 export type ParsedColorOptionName =
@@ -31,7 +31,7 @@ export type ParsedColorOptionName =
 export declare namespace ParsedColorOptionName {
     type Common = {
         colorName: string;
-        state: State | undefined;
+        state?: State;
     };
 
     /** Same value in dark and light mode */
