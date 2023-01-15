@@ -17,7 +17,6 @@
 -   [x] Header
 -   [x] Breadcrumb
 -   [ ] Consent banner
--   [ ] Favicon (?)
 -   [x] Stepper
 -   [x] Toggle switch
 -   [ ] Follow
@@ -25,7 +24,7 @@
 -   [x] SkipLinks
 -   [ ] Select
 -   [ ] Side menu
--   [ ] Call out
+-   [x] Call out
 -   [x] Highlight
 -   [ ] Modal
 -   [x] Main navigation
