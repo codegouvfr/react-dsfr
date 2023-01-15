@@ -74,7 +74,7 @@ export default meta;
 export const Default = getStory({
     "title": "Titre mise en avant",
     "iconId": "ri-information-line",
-    "description": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
+    "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`,
     "colorVariant": undefined,
@@ -86,7 +86,7 @@ export const Default = getStory({
 
 export const NoTitle = getStory({
     "iconId": "ri-information-line",
-    "description": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
+    "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`,
     "colorVariant": undefined,
@@ -98,7 +98,7 @@ export const NoTitle = getStory({
 
 export const NoIcon = getStory({
     "title": "Titre mise en avant",
-    "description": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
+    "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`,
     "colorVariant": undefined,
@@ -111,7 +111,7 @@ export const NoIcon = getStory({
 export const NoButton = getStory({
     "title": "Titre mise en avant",
     "iconId": "ri-information-line",
-    "description": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
+    "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`
 });

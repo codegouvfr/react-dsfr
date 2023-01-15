@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SearchBar } from "../dist/SearchBar";
+import { CallOut } from "../dist/CallOut";
 import { colorDecisionAndCorrespondingOption } from "../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
 import type { ColorDecisionAndCorrespondingOption } from "../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { useColors } from "../dist/useColors";
@@ -9,6 +10,7 @@ import { Fzf } from "fzf";
 import { createMakeAndWithStyles } from "tss-react";
 import { MuiDsfrThemeProvider } from "../dist/mui";
 import Tooltip from "@mui/material/Tooltip";
+import { assert } from "tsafe/assert";
 
 const { useStyles } = createMakeAndWithStyles({ "useTheme": useColors });
 
@@ -55,20 +57,42 @@ export function ColorHelper() {
 
     const { css } = useStyles();
 
+    const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
+    const [searchBarElement, setSearchBarElement] = useState<HTMLDivElement | null>(null);
+
     return (
         <MuiDsfrThemeProvider>
             <div>
-                <h1>🎨 Color Helper tool</h1>
-                <p>
-                    This tool help you find the perfect DSFR color decision for your usecase. <br />
-                </p>
-                <p>
-                    If you have the hex code (e.g. #c9191e) of a color that you know belong to the
-                    DSFR palette you can use the filter to find to witch decision it correspond.
-                </p>
+                <CallOut
+                    className={css({
+                        "marginBottom": 0
+                    })}
+                    title="Color Helper tool"
+                    iconId="ri-palette-line"
+                    buttonProps={{
+                        "onClick": () => {
+                            inputElement?.focus();
+                            searchBarElement?.scrollIntoView({
+                                "behavior": "smooth",
+                                "block": "start"
+                            });
+                        },
+                        "children": "Start searching"
+                    }}
+                >
+                    This tool help you find the perfect DSFR color decision for your usecase.
+                    <br />
+                    <br />
+                    If you have the hex code (e.g. <code>#c9191e</code>) of a color that you know
+                    belong to the DSFR palette you can use the filter to find to witch decision it
+                    correspond.
+                </CallOut>
                 <SearchBar
+                    className={css({ "paddingTop": fr.spacing("6v") })}
+                    ref={searchBarElement => setSearchBarElement(searchBarElement)}
                     label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
                     nativeInputProps={{
+                        "ref": inputElement => setInputElement(inputElement),
                         "value": search,
                         "onChange": event => setSearch(event.target.value)
                     }}
