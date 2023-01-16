@@ -108,7 +108,11 @@ export const Input = memo(
                 ref={ref}
                 {...rest}
             >
-                <label className={cx(fr.cx("fr-label"), classes.label)} htmlFor={inputId}>
+                <label
+                    className={cx(fr.cx("fr-label"), classes.label)}
+                    htmlFor={inputId}
+                    aria-describedby="select-valid-desc-valid"
+                >
                     {label}
                     {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
                 </label>

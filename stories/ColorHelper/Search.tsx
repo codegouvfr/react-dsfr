@@ -20,6 +20,9 @@ export function Search(props: Props) {
     const [searchBarWrapperElement, setSearchBarWrapperElement] = useState<HTMLDivElement | null>(
         null
     );
+    const [filtersWrapperDivElement, setFiltersWrapperDivElement] = useState<HTMLDivElement | null>(
+        null
+    );
 
     useEvt(
         ctx => {
@@ -38,50 +41,77 @@ export function Search(props: Props) {
         [evtAction, inputElement, searchBarWrapperElement]
     );
 
-    const { classes, cx } = useStyles();
+    const [areFiltersOpen, setAreFiltersOpen] = useState(false);
 
-    const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+    const { classes, cx } = useStyles({
+        "filterWrapperMaxHeight": areFiltersOpen ? filtersWrapperDivElement?.scrollHeight ?? 0 : 0
+    });
 
     return (
-        <div
-            className={cx(classes.root, className)}
-            ref={searchBarWrapperElement => setSearchBarWrapperElement(searchBarWrapperElement)}
-        >
-            <SearchBar
-                className={classes.searchBar}
-                label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
-                nativeInputProps={{
-                    "ref": inputElement => setInputElement(inputElement),
-                    "value": search,
-                    "onChange": event => onSearchChange(event.target.value)
-                }}
-            />
-            <Button
-                className={classes.filterButton}
-                iconId={isFiltersOpen ? "ri-arrow-up-s-fill" : "ri-arrow-down-s-fill"}
-                iconPosition="right"
-                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+        <>
+            <div
+                className={cx(classes.root, className)}
+                ref={searchBarWrapperElement => setSearchBarWrapperElement(searchBarWrapperElement)}
             >
-                Filters
-            </Button>
-        </div>
+                <SearchBar
+                    className={classes.searchBar}
+                    label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
+                    nativeInputProps={{
+                        "ref": inputElement => setInputElement(inputElement),
+                        "value": search,
+                        "onChange": event => onSearchChange(event.target.value)
+                    }}
+                />
+
+                <Button
+                    className={classes.filterButton}
+                    iconId={areFiltersOpen ? "ri-arrow-down-s-fill" : "ri-arrow-up-s-fill"}
+                    iconPosition="right"
+                    onClick={() => setAreFiltersOpen(!areFiltersOpen)}
+                >
+                    Filters
+                </Button>
+            </div>
+            <div
+                ref={filtersWrapperDivElement =>
+                    setFiltersWrapperDivElement(filtersWrapperDivElement)
+                }
+                className={classes.filtersWrapper}
+            >
+                {/*
+				<p>Ok</p>
+				<p>Ok</p>
+				<p>Ok</p>
+				<p>Ok</p>
+				<p>Ok</p>
+			*/}
+            </div>
+        </>
     );
 }
 
-const useStyles = makeStyles({ "name": { Search } })(theme => ({
-    "root": {
-        "display": "flex",
-        "paddingTop": fr.spacing("6v")
-    },
-    "searchBar": {
-        "flex": 1
-    },
-    "filterButton": {
-        "backgroundColor": theme.decisions.background.actionLow.blueFrance.default,
-        "&&&:hover": {
-            "backgroundColor": theme.decisions.background.actionLow.blueFrance.hover
+const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Search } })(
+    (theme, { filterWrapperMaxHeight }) => ({
+        "root": {
+            "display": "flex",
+            "paddingTop": fr.spacing("6v")
         },
-        "color": theme.decisions.text.actionHigh.blueFrance.default,
-        "marginLeft": fr.spacing("4v")
-    }
-}));
+        "searchBar": {
+            "flex": 1
+        },
+        "filterButton": {
+            "backgroundColor": theme.decisions.background.actionLow.blueFrance.default,
+            "&&&:hover": {
+                "backgroundColor": theme.decisions.background.actionLow.blueFrance.hover
+            },
+            "color": theme.decisions.text.actionHigh.blueFrance.default,
+            "marginLeft": fr.spacing("4v"),
+            "display": "none"
+        },
+        "filtersWrapper": {
+            "transition": "max-height 0.2s ease-out",
+            "maxHeight": filterWrapperMaxHeight,
+            "overflow": "hidden"
+        }
+    })
+);
