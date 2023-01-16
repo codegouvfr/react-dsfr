@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { CallOut } from "../../dist/CallOut";
 import { colorDecisionAndCorrespondingOption } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
 import type { ColorDecisionAndCorrespondingOption } from "../../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
@@ -12,6 +12,7 @@ import { Evt } from "evt";
 import { useStyles } from "./makeStyles";
 import { ColorDecisionCard } from "./ColorDecisionCard";
 import type { Props as SearchProps } from "./Search";
+import { useEffectOnValueChange } from "powerhooks/useEffectOnValueChange";
 
 const colors = Array.from(
     new Set(
@@ -69,27 +70,33 @@ export function ColorHelper() {
     const [color, setColor] = useState<SearchProps["color"]>(undefined);
     const [usage, setUsage] = useState<SearchProps["usage"]>(undefined);
 
-    useDebounce({
-        "query": search + (context ?? "") + (color ?? "") + (usage ?? ""),
-        "onDebounced": () =>
-            setFilteredColorDecisionAndCorrespondingOption(
-                fzf
-                    .find(search)
-                    .map(
-                        ({ item: colorDecisionAndCorrespondingOption }) =>
-                            colorDecisionAndCorrespondingOption
-                    )
-                    .filter(({ parsedColorDecisionName }) =>
-                        context === undefined ? true : parsedColorDecisionName.context === context
-                    )
-                    .filter(({ parsedColorDecisionName }) =>
-                        color === undefined ? true : parsedColorDecisionName.colorName === color
-                    )
-                    .filter(({ parsedColorDecisionName }) =>
-                        usage === undefined ? true : parsedColorDecisionName.usage === usage
-                    )
-            )
-    });
+    const [, startTransition] = useTransition();
+
+    const updateSearch = () => {
+        setFilteredColorDecisionAndCorrespondingOption(
+            fzf
+                .find(search)
+                .map(
+                    ({ item: colorDecisionAndCorrespondingOption }) =>
+                        colorDecisionAndCorrespondingOption
+                )
+                .filter(({ parsedColorDecisionName }) =>
+                    context === undefined ? true : parsedColorDecisionName.context === context
+                )
+                .filter(({ parsedColorDecisionName }) =>
+                    color === undefined ? true : parsedColorDecisionName.colorName === color
+                )
+                .filter(({ parsedColorDecisionName }) =>
+                    usage === undefined ? true : parsedColorDecisionName.usage === usage
+                )
+        );
+    };
+
+    useEffectOnValueChange(() => {
+        startTransition(() => updateSearch());
+    }, [context, color, usage]);
+
+    useDebounce(updateSearch, [search]);
 
     const { css } = useStyles();
 

@@ -102,7 +102,8 @@ export function Search(props: Props) {
                 className={classes.filtersWrapper}
             >
                 <Select
-                    label="Filter by context"
+                    label={`Filter by context (${contextes.length})`}
+                    disabled={contextes.length === 0}
                     nativeSelectProps={{
                         "onChange": event =>
                             onContextChange(event.target.value || (undefined as any)),
@@ -116,7 +117,8 @@ export function Search(props: Props) {
                     ))}
                 </Select>
                 <Select
-                    label="Filter by color name"
+                    label={`Filter by color name (${colors.length})`}
+                    disabled={colors.length === 0}
                     nativeSelectProps={{
                         "onChange": event =>
                             onColorChange(event.target.value || (undefined as any)),
@@ -130,7 +132,8 @@ export function Search(props: Props) {
                     ))}
                 </Select>
                 <Select
-                    label="Filter by usage"
+                    label={`Filter by usage (${usages.length})`}
+                    disabled={usages.length === 0}
                     nativeSelectProps={{
                         "onChange": event =>
                             onUsageChange(event.target.value || (undefined as any)),
