@@ -41,26 +41,61 @@ it("Color decisions to be successfully parsed", () => {
         {
             "colorDecisionName": "--background-default-grey-hover",
             "themePath": ["background", "default", "grey", "hover"],
+            "parsedColorDecisionName": {
+                "variant": undefined,
+                "state": "hover",
+                "context": "background",
+                "colorName": "grey",
+                "usage": "default"
+            },
             "optionThemePath": ["grey", "_1000_50", "hover"]
         },
         {
             "colorDecisionName": "--background-default-grey",
             "themePath": ["background", "default", "grey", "default"],
+            "parsedColorDecisionName": {
+                "variant": undefined,
+                "state": undefined,
+                "context": "background",
+                "colorName": "grey",
+                "usage": "default"
+            },
             "optionThemePath": ["grey", "_1000_50", "default"]
         },
         {
             "colorDecisionName": "--border-action-low-orange-terre-battue",
             "themePath": ["border", "actionLow", "orangeTerreBattue", "default"],
+            "parsedColorDecisionName": {
+                "variant": "low",
+                "state": undefined,
+                "context": "border",
+                "colorName": "orangeTerreBattue",
+                "usage": "action"
+            },
             "optionThemePath": ["orangeTerreBattue", "_850_200", "default"]
         },
         {
             "colorDecisionName": "--background-alt-raised-grey-hover",
             "themePath": ["background", "altRaised", "grey", "hover"],
+            "parsedColorDecisionName": {
+                "variant": undefined,
+                "state": "hover",
+                "context": "background",
+                "colorName": "grey",
+                "usage": "altRaised"
+            },
             "optionThemePath": ["grey", "_975_100", "hover"]
         },
         {
             "colorDecisionName": "--background-contrast-overlap-grey",
             "themePath": ["background", "contrastOverlap", "grey", "default"],
+            "parsedColorDecisionName": {
+                "variant": undefined,
+                "state": undefined,
+                "context": "background",
+                "colorName": "grey",
+                "usage": "contrastOverlap"
+            },
             "optionThemePath": ["grey", "_950_150", "default"]
         }
     ];
