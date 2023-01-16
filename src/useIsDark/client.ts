@@ -7,7 +7,15 @@ import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./cons
 export type ColorScheme = "light" | "dark";
 
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
-    throw new Error("not initialized yet");
+    throw new Error(
+        [
+            "react-dsfr not initialized",
+            "Refer to the documentation for setup instructions",
+            "If it used to work but after an update you're getting this error",
+            "it usually means that you have multiple copies of @codegouvfr/react-dsfr in your node_modules",
+            "@codegouvfr/react-dsfr is a singleton, try removing your lock file and node_module."
+        ].join(" ")
+    );
 });
 
 export type UseIsDark = () => {
