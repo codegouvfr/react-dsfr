@@ -70,8 +70,6 @@ export function ColorHelper() {
     const [color, setColor] = useState<SearchProps["color"]>(undefined);
     const [usage, setUsage] = useState<SearchProps["usage"]>(undefined);
 
-    const [, startTransition] = useTransition();
-
     const updateSearch = () => {
         setFilteredColorDecisionAndCorrespondingOption(
             fzf
@@ -92,11 +90,15 @@ export function ColorHelper() {
         );
     };
 
-    useEffectOnValueChange(() => {
-        startTransition(() => updateSearch());
-    }, [context, color, usage]);
-
     useDebounce(updateSearch, [search]);
+
+    {
+        const [, startTransition] = useTransition();
+
+        useEffectOnValueChange(() => {
+            startTransition(() => updateSearch());
+        }, [context, color, usage]);
+    }
 
     const { css } = useStyles();
 
