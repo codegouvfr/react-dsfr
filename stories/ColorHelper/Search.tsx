@@ -5,16 +5,57 @@ import { Button } from "../../dist/Button";
 import { fr } from "../../dist/fr";
 import { NonPostableEvt } from "evt";
 import { useEvt } from "evt/hooks";
+import { Select } from "../../dist/Select";
+import { colorDecisionAndCorrespondingOption } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
 
-type Props = {
+const colors = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
+        )
+    )
+);
+const contextes = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.context
+        )
+    )
+);
+const usages = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
+        )
+    )
+);
+
+export type Props = {
     className?: string;
     search: string;
     onSearchChange: (search: string) => void;
     evtAction: NonPostableEvt<"scroll to">;
+    context: typeof contextes[number] | undefined;
+    onContextChange: (context: typeof contextes[number] | undefined) => void;
+    color: typeof colors[number] | undefined;
+    onColorChange: (color: typeof colors[number] | undefined) => void;
+    usage: typeof usages[number] | undefined;
+    onUsageChange: (usage: typeof usages[number] | undefined) => void;
 };
 
 export function Search(props: Props) {
-    const { className, search, onSearchChange, evtAction } = props;
+    const {
+        className,
+        search,
+        onSearchChange,
+        evtAction,
+        context,
+        onContextChange,
+        color,
+        onColorChange,
+        usage,
+        onUsageChange
+    } = props;
 
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [searchBarWrapperElement, setSearchBarWrapperElement] = useState<HTMLDivElement | null>(
@@ -62,7 +103,6 @@ export function Search(props: Props) {
                         "onChange": event => onSearchChange(event.target.value)
                     }}
                 />
-
                 <Button
                     className={classes.filterButton}
                     iconId={areFiltersOpen ? "ri-arrow-down-s-fill" : "ri-arrow-up-s-fill"}
@@ -78,13 +118,48 @@ export function Search(props: Props) {
                 }
                 className={classes.filtersWrapper}
             >
-                {/*
-				<p>Ok</p>
-				<p>Ok</p>
-				<p>Ok</p>
-				<p>Ok</p>
-				<p>Ok</p>
-			*/}
+                <Select
+                    label="Filter by context"
+                    nativeSelectProps={{
+                        "onChange": event =>
+                            onContextChange(event.target.value || (undefined as any)),
+                        "defaultValue": context ?? ""
+                    }}
+                >
+                    {[undefined, ...contextes].map(context => (
+                        <option value={context ?? ""} key={context ?? 0}>
+                            {context ?? "No no context selected..."}
+                        </option>
+                    ))}
+                </Select>
+                <Select
+                    label="Filter by color name"
+                    nativeSelectProps={{
+                        "onChange": event =>
+                            onColorChange(event.target.value || (undefined as any)),
+                        "defaultValue": color ?? ""
+                    }}
+                >
+                    {[undefined, ...colors].map(color => (
+                        <option value={color ?? ""} key={color ?? 0}>
+                            {color ?? "No no color selected..."}
+                        </option>
+                    ))}
+                </Select>
+                <Select
+                    label="Filter by usage"
+                    nativeSelectProps={{
+                        "onChange": event =>
+                            onUsageChange(event.target.value || (undefined as any)),
+                        "defaultValue": usage ?? ""
+                    }}
+                >
+                    {[undefined, ...usages].map(usage => (
+                        <option value={usage ?? ""} key={usage ?? 0}>
+                            {usage ?? "No usage selected..."}
+                        </option>
+                    ))}
+                </Select>
             </div>
         </>
     );
@@ -105,13 +180,20 @@ const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Sea
                 "backgroundColor": theme.decisions.background.actionLow.blueFrance.hover
             },
             "color": theme.decisions.text.actionHigh.blueFrance.default,
-            "marginLeft": fr.spacing("4v"),
-            "display": "none"
+            "marginLeft": fr.spacing("4v")
         },
         "filtersWrapper": {
             "transition": "max-height 0.2s ease-out",
             "maxHeight": filterWrapperMaxHeight,
-            "overflow": "hidden"
+            "overflow": "hidden",
+            "display": "flex",
+            "marginTop": fr.spacing("3v"),
+            "& > *": {
+                "flex": 1,
+                ...fr.spacing("padding", {
+                    "rightLeft": "4v"
+                })
+            }
         }
     })
 );

@@ -11,6 +11,7 @@ import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
 import { useStyles } from "./makeStyles";
 import { ColorDecisionCard } from "./ColorDecisionCard";
+import type { Props as SearchProps } from "./Search";
 
 const { useDebounce } = createUseDebounce({ "delay": 400 });
 
@@ -40,8 +41,12 @@ export function ColorHelper() {
         colorDecisionAndCorrespondingOption
     );
 
+    const [context, setContext] = useState<SearchProps["context"]>(undefined);
+    const [color, setColor] = useState<SearchProps["color"]>(undefined);
+    const [usage, setUsage] = useState<SearchProps["usage"]>(undefined);
+
     useDebounce({
-        "query": search,
+        "query": search + (context ?? "") + (color ?? "") + (usage ?? ""),
         "onDebounced": () =>
             setFilteredColorDecisionAndCorrespondingOption(
                 fzf
@@ -49,6 +54,15 @@ export function ColorHelper() {
                     .map(
                         ({ item: colorDecisionAndCorrespondingOption }) =>
                             colorDecisionAndCorrespondingOption
+                    )
+                    .filter(({ parsedColorDecisionName }) =>
+                        context === undefined ? true : parsedColorDecisionName.context === context
+                    )
+                    .filter(({ parsedColorDecisionName }) =>
+                        color === undefined ? true : parsedColorDecisionName.colorName === color
+                    )
+                    .filter(({ parsedColorDecisionName }) =>
+                        usage === undefined ? true : parsedColorDecisionName.usage === usage
                     )
             )
     });
@@ -76,15 +90,20 @@ export function ColorHelper() {
                     belong to the DSFR palette you can use the filter to find to witch decision it
                     correspond.
                 </CallOut>
-
                 <Search
                     evtAction={evtSearchAction}
                     onSearchChange={search => setSearch(search)}
                     search={search}
+                    context={context}
+                    onContextChange={setContext}
+                    color={color}
+                    onColorChange={setColor}
+                    usage={usage}
+                    onUsageChange={setUsage}
                 />
                 <h3 style={{ "marginTop": fr.spacing("6v") }}>
                     {search === ""
-                        ? `${colorDecisionAndCorrespondingOption.length} color decisions`
+                        ? `${filteredColorDecisionAndCorrespondingOption.length} color decisions`
                         : `Found ${filteredColorDecisionAndCorrespondingOption.length} decisions matching your query`}
                 </h3>
                 {filteredColorDecisionAndCorrespondingOption.map(
