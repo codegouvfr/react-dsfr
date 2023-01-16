@@ -6,41 +6,21 @@ import { fr } from "../../dist/fr";
 import { NonPostableEvt } from "evt";
 import { useEvt } from "evt/hooks";
 import { Select } from "../../dist/Select";
-import { colorDecisionAndCorrespondingOption } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
-
-const colors = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
-        )
-    )
-);
-const contextes = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.context
-        )
-    )
-);
-const usages = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
-        )
-    )
-);
 
 export type Props = {
     className?: string;
     search: string;
     onSearchChange: (search: string) => void;
     evtAction: NonPostableEvt<"scroll to">;
-    context: typeof contextes[number] | undefined;
-    onContextChange: (context: typeof contextes[number] | undefined) => void;
-    color: typeof colors[number] | undefined;
-    onColorChange: (color: typeof colors[number] | undefined) => void;
-    usage: typeof usages[number] | undefined;
-    onUsageChange: (usage: typeof usages[number] | undefined) => void;
+    contextes: string[];
+    context: string | undefined;
+    onContextChange: (context: string | undefined) => void;
+    colors: string[];
+    color: string | undefined;
+    onColorChange: (color: string | undefined) => void;
+    usages: string[];
+    usage: string | undefined;
+    onUsageChange: (usage: string | undefined) => void;
 };
 
 export function Search(props: Props) {
@@ -49,10 +29,13 @@ export function Search(props: Props) {
         search,
         onSearchChange,
         evtAction,
+        contextes,
         context,
         onContextChange,
+        colors,
         color,
         onColorChange,
+        usages,
         usage,
         onUsageChange
     } = props;

@@ -13,6 +13,30 @@ import { useStyles } from "./makeStyles";
 import { ColorDecisionCard } from "./ColorDecisionCard";
 import type { Props as SearchProps } from "./Search";
 
+const colors = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
+        )
+    )
+);
+
+const contextes = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.context
+        )
+    )
+);
+
+const usages = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
+        )
+    )
+);
+
 const { useDebounce } = createUseDebounce({ "delay": 400 });
 
 const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
@@ -94,10 +118,13 @@ export function ColorHelper() {
                     evtAction={evtSearchAction}
                     onSearchChange={search => setSearch(search)}
                     search={search}
+                    contextes={contextes}
                     context={context}
                     onContextChange={setContext}
+                    colors={colors}
                     color={color}
                     onColorChange={setColor}
+                    usages={usages}
                     usage={usage}
                     onUsageChange={setUsage}
                 />
