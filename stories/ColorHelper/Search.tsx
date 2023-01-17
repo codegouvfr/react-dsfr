@@ -118,7 +118,7 @@ export function Search(props: Props) {
                     nativeSelectProps={{
                         "onChange": event =>
                             onContextChange(event.target.value || (undefined as any)),
-                        "defaultValue": context ?? ""
+                        "value": context ?? ""
                     }}
                 >
                     {[undefined, ...contextes].map(context => (
@@ -133,7 +133,7 @@ export function Search(props: Props) {
                     nativeSelectProps={{
                         "onChange": event =>
                             onColorChange(event.target.value || (undefined as any)),
-                        "defaultValue": color ?? ""
+                        "value": color ?? ""
                     }}
                 >
                     {[undefined, ...colors].map(color => (
@@ -148,7 +148,7 @@ export function Search(props: Props) {
                     nativeSelectProps={{
                         "onChange": event =>
                             onUsageChange(event.target.value || (undefined as any)),
-                        "defaultValue": usage ?? ""
+                        "value": usage ?? ""
                     }}
                 >
                     {[undefined, ...usages].map(usage => (
