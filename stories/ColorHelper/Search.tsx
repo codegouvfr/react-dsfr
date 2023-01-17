@@ -6,6 +6,7 @@ import { fr } from "../../dist/fr";
 import { NonPostableEvt } from "evt";
 import { useEvt } from "evt/hooks";
 import { Select } from "../../dist/Select";
+import { useEffectOnValueChange } from "powerhooks/useEffectOnValueChange";
 
 export type Props = {
     className?: string;
@@ -66,6 +67,16 @@ export function Search(props: Props) {
     );
 
     const [areFiltersOpen, setAreFiltersOpen] = useState(false);
+
+    useEffectOnValueChange(() => {
+        if (areFiltersOpen) {
+            return;
+        }
+
+        onColorChange(undefined);
+        onColorChange(undefined);
+        onUsageChange(undefined);
+    }, [areFiltersOpen]);
 
     const { classes, cx } = useStyles({
         "filterWrapperMaxHeight": areFiltersOpen ? filtersWrapperDivElement?.scrollHeight ?? 0 : 0
