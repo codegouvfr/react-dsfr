@@ -171,7 +171,7 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
             },
             "MuiSvgIcon": {
                 "styleOverrides": {
-                    "root": ({ theme }) => ({
+                    "colorPrimary": ({ theme }) => ({
                         "color": theme.palette.text.primary
                     })
                 }
