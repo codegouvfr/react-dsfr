@@ -31,7 +31,7 @@ export function ColorDecisionCard(
                 className
             )}
         >
-            <p>
+            <div>
                 <span
                     style={{
                         "color": theme.decisions.text.mention.grey.default
@@ -40,8 +40,8 @@ export function ColorDecisionCard(
                     CSS variable:{" "}
                 </span>
                 &nbsp;<code>{colorDecisionName}</code>
-            </p>
-            <p>
+            </div>
+            <div style={{ "marginTop": fr.spacing("3v") }}>
                 <span
                     style={{
                         "color": theme.decisions.text.mention.grey.default
@@ -70,7 +70,37 @@ export function ColorDecisionCard(
                 <CopyToClipboardButton
                     textToCopy={["theme", "decisions", ...themePath].join(".")}
                 />
-            </p>
+            </div>
+
+            <div style={{ "marginTop": fr.spacing("2v") }}>
+                {typeof colorOption.color === "string" ? (
+                    <>
+                        <span>Colors: </span>: <ColoredSquare hexColorCode={colorOption.color} />
+                    </>
+                ) : (
+                    <>
+                        <span
+                            style={{
+                                "color": theme.decisions.text.mention.grey.default
+                            }}
+                        >
+                            Dark mode:{" "}
+                        </span>
+                        <ColoredSquare hexColorCode={colorOption.color.dark} />
+                        &nbsp; &nbsp;
+                        <span
+                            style={{
+                                "color": theme.decisions.text.mention.grey.default
+                            }}
+                        >
+                            Light mode:{" "}
+                        </span>
+                        <ColoredSquare hexColorCode={colorOption.color.light} />
+                    </>
+                )}
+            </div>
+
+            {/*
             <h6>Corresponding color option:</h6>
             <p>
                 <span
@@ -98,32 +128,7 @@ export function ColorDecisionCard(
                     theme.options.<strong>{colorOption.themePath.join(".")}</strong>
                 </code>
             </p>
-
-            {typeof colorOption.color === "string" ? (
-                <>
-                    <span>Colors: </span>: <ColoredSquare hexColorCode={colorOption.color} />
-                </>
-            ) : (
-                <>
-                    <span
-                        style={{
-                            "color": theme.decisions.text.mention.grey.default
-                        }}
-                    >
-                        Dark mode:{" "}
-                    </span>
-                    <ColoredSquare hexColorCode={colorOption.color.light} />
-                    &nbsp; &nbsp;
-                    <span
-                        style={{
-                            "color": theme.decisions.text.mention.grey.default
-                        }}
-                    >
-                        Light mode:{" "}
-                    </span>
-                    <ColoredSquare hexColorCode={colorOption.color.dark} />
-                </>
-            )}
+                */}
         </div>
     );
 }
