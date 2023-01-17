@@ -49,7 +49,15 @@ export function CopyToClipboardButton(props: Props) {
                             css({ "color": theme.decisions.text.default.success.default })
                         )}
                     />
-                    &nbsp; Copied to clipboard!
+                    <span
+                        className={css({
+                            [fr.breakpoints.down("lg")]: {
+                                "display": "none"
+                            }
+                        })}
+                    >
+                        &nbsp; Copied to clipboard!
+                    </span>
                 </p>
             ) : (
                 <Button
