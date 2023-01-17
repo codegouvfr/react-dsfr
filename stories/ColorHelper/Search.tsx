@@ -73,7 +73,7 @@ export function Search(props: Props) {
             return;
         }
 
-        onColorChange(undefined);
+        onContextChange(undefined);
         onColorChange(undefined);
         onUsageChange(undefined);
     }, [areFiltersOpen]);
