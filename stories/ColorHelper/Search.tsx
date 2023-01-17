@@ -90,7 +90,7 @@ export function Search(props: Props) {
             >
                 <SearchBar
                     className={classes.searchBar}
-                    label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else (e.g. marianne)..."
+                    label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else..."
                     nativeInputProps={{
                         "ref": inputElement => setInputElement(inputElement),
                         "value": search,
