@@ -5,6 +5,7 @@ import { fr } from "../../dist/fr";
 import Tooltip from "@mui/material/Tooltip";
 import { useStyles } from "./makeStyles";
 import { CopyToClipboardButton } from "./CopyToClipboardButton";
+import { Accordion } from "../../dist/Accordion";
 
 export function ColorDecisionCard(
     props: { className?: string } & ColorDecisionAndCorrespondingOption
@@ -99,36 +100,37 @@ export function ColorDecisionCard(
                     </>
                 )}
             </div>
-
-            {/*
-            <h6>Corresponding color option:</h6>
-            <p>
-                <span
-                    style={{
-                        "color": theme.decisions.text.mention.grey.default
-                    }}
-                >
-                    CSS variable:{" "}
-                </span>
-                : {colorOption.colorOptionName}
-            </p>
-            <p
-                style={{
-                    "marginBottom": 12
-                }}
+            <Accordion
+                className={css({ "marginTop": fr.spacing("4v") })}
+                label="Corresponding color option"
             >
-                <span
+                <p>
+                    <span
+                        style={{
+                            "color": theme.decisions.text.mention.grey.default
+                        }}
+                    >
+                        CSS variable:{" "}
+                    </span>
+                    : {colorOption.colorOptionName}
+                </p>
+                <p
                     style={{
-                        "color": theme.decisions.text.mention.grey.default
+                        "marginBottom": 12
                     }}
                 >
-                    Option path:{" "}
-                </span>{" "}
-                <code>
-                    theme.options.<strong>{colorOption.themePath.join(".")}</strong>
-                </code>
-            </p>
-                */}
+                    <span
+                        style={{
+                            "color": theme.decisions.text.mention.grey.default
+                        }}
+                    >
+                        Option path:{" "}
+                    </span>{" "}
+                    <code>
+                        theme.options.<strong>{colorOption.themePath.join(".")}</strong>
+                    </code>
+                </p>
+            </Accordion>
         </div>
     );
 }

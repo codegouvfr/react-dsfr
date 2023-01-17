@@ -16,8 +16,8 @@ If you want to use a group of accordion, you just have to wrap your accordion in
 import { fr } from "@codegouvfr/react-dsfr";
 
 <div className={fr.cx("fr-accordions-group")}>
-    <Accordion label="Name of the Accordion 1" content="Content of the Accordion 1" />
-    <Accordion label="Name of the Accordion 2" content="Content of the Accordion 2" />
+    <Accordion label="Name of the Accordion 1">Content of the Accordion 1</Accordion>
+    <Accordion label="Name of the Accordion 2"/>Content of the Accordion 2</Accordion>
 </div>
 \`\`\`
 
@@ -32,10 +32,11 @@ function ControlledAccordion() {
     return (
         <Accordion 
             label="Name of the Accordion" 
-            content="Content of the Accordion" 
             onChange={(value,) => setExpanded(!value)} 
             expanded={expanded}
-        />
+        >
+            Content of the Accordion
+        </Accordion>
     );
 }
 \`\`\``,
@@ -46,7 +47,7 @@ export default meta;
 
 export const Default = getStory({
     "label": "Name of the Accordion",
-    "content": "Content of the Accordion",
+    "children": "Content of the Accordion",
     "defaultExpanded": false,
     ...logCallbacks(["onExpandedChange"])
 });

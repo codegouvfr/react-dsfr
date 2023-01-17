@@ -16,7 +16,7 @@ export namespace AccordionProps {
         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;
-        content: NonNullable<ReactNode>;
+        children: NonNullable<ReactNode>;
     };
 
     export type Uncontrolled = Common & {
@@ -46,7 +46,7 @@ export const Accordion = memo(
             titleAs: HtmlTitleTag = "h3",
             label,
             classes = {},
-            content,
+            children,
             expanded: expandedProp,
             defaultExpanded = false,
             onExpandedChange,
@@ -81,7 +81,7 @@ export const Accordion = memo(
                     </button>
                 </HtmlTitleTag>
                 <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={accordionId}>
-                    {content}
+                    {children}
                 </div>
             </section>
         );
