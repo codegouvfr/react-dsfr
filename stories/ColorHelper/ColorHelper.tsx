@@ -14,48 +14,6 @@ import { ColorDecisionCard } from "./ColorDecisionCard";
 import type { Props as SearchProps } from "./Search";
 import { useEffectOnValueChange } from "powerhooks/useEffectOnValueChange";
 
-const colors = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
-        )
-    )
-);
-
-const contextes = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.context
-        )
-    )
-);
-
-const usages = Array.from(
-    new Set(
-        colorDecisionAndCorrespondingOption.map(
-            ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
-        )
-    )
-);
-
-const { useDebounce } = createUseDebounce({ "delay": 400 });
-
-const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
-    colorDecisionAndCorrespondingOption,
-    {
-        "selector": ({
-            colorDecisionName,
-            themePath,
-            colorOption: { colorOptionName, themePath: optionThemePath, color }
-        }) =>
-            `${colorDecisionName} ${["theme", "decisions", ...themePath].join(
-                "."
-            )} ${colorOptionName} ${["theme", "options", ...optionThemePath].join(".")} ${
-                typeof color === "string" ? color : `${color.light} ${color.dark}`
-            }`
-    }
-);
-
 export function ColorHelper() {
     const [search, setSearch] = useState("");
 
@@ -70,33 +28,33 @@ export function ColorHelper() {
     const [color, setColor] = useState<SearchProps["color"]>(undefined);
     const [usage, setUsage] = useState<SearchProps["usage"]>(undefined);
 
-    const updateSearch = () => {
-        setFilteredColorDecisionAndCorrespondingOption(
-            fzf
-                .find(search)
-                .map(
-                    ({ item: colorDecisionAndCorrespondingOption }) =>
-                        colorDecisionAndCorrespondingOption
-                )
-                .filter(({ parsedColorDecisionName }) =>
-                    context === undefined ? true : parsedColorDecisionName.context === context
-                )
-                .filter(({ parsedColorDecisionName }) =>
-                    color === undefined ? true : parsedColorDecisionName.colorName === color
-                )
-                .filter(({ parsedColorDecisionName }) =>
-                    usage === undefined ? true : parsedColorDecisionName.usage === usage
-                )
-        );
-    };
-
-    useDebounce(updateSearch, [search]);
+    useDebounce(
+        () =>
+            setFilteredColorDecisionAndCorrespondingOption(
+                filterColorDecisionAndCorrespondingOption({
+                    search,
+                    context,
+                    color,
+                    usage
+                })
+            ),
+        [search]
+    );
 
     {
         const [, startTransition] = useTransition();
 
         useEffectOnValueChange(() => {
-            startTransition(() => updateSearch());
+            startTransition(() =>
+                setFilteredColorDecisionAndCorrespondingOption(
+                    filterColorDecisionAndCorrespondingOption({
+                        search,
+                        context,
+                        color,
+                        usage
+                    })
+                )
+            );
         }, [context, color, usage]);
     }
 
@@ -127,13 +85,37 @@ export function ColorHelper() {
                     evtAction={evtSearchAction}
                     onSearchChange={search => setSearch(search)}
                     search={search}
-                    contextes={contextes}
+                    contextes={contextes.filter(
+                        context =>
+                            filterColorDecisionAndCorrespondingOption({
+                                search,
+                                context,
+                                color,
+                                usage
+                            }).length !== 0
+                    )}
                     context={context}
                     onContextChange={setContext}
-                    colors={colors}
+                    colors={colors.filter(
+                        color =>
+                            filterColorDecisionAndCorrespondingOption({
+                                search,
+                                context,
+                                color,
+                                usage
+                            }).length !== 0
+                    )}
                     color={color}
                     onColorChange={setColor}
-                    usages={usages}
+                    usages={usages.filter(
+                        usage =>
+                            filterColorDecisionAndCorrespondingOption({
+                                search,
+                                context,
+                                color,
+                                usage
+                            }).length !== 0
+                    )}
                     usage={usage}
                     onUsageChange={setUsage}
                 />
@@ -155,3 +137,74 @@ export function ColorHelper() {
         </MuiDsfrThemeProvider>
     );
 }
+
+const colors = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
+        )
+    )
+);
+
+const contextes = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.context
+        )
+    )
+);
+
+const usages = Array.from(
+    new Set(
+        colorDecisionAndCorrespondingOption.map(
+            ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
+        )
+    )
+);
+
+const { useDebounce } = createUseDebounce({ "delay": 400 });
+
+const { filterColorDecisionAndCorrespondingOption } = (() => {
+    const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
+        colorDecisionAndCorrespondingOption,
+        {
+            "selector": ({
+                colorDecisionName,
+                themePath,
+                colorOption: { colorOptionName, themePath: optionThemePath, color }
+            }) =>
+                `${colorDecisionName} ${["theme", "decisions", ...themePath].join(
+                    "."
+                )} ${colorOptionName} ${["theme", "options", ...optionThemePath].join(".")} ${
+                    typeof color === "string" ? color : `${color.light} ${color.dark}`
+                }`
+        }
+    );
+
+    function filterColorDecisionAndCorrespondingOption(params: {
+        search: string;
+        context: SearchProps["context"] | undefined;
+        color: SearchProps["color"] | undefined;
+        usage: SearchProps["usage"] | undefined;
+    }) {
+        const { search, context, color, usage } = params;
+
+        return fzf
+            .find(search)
+            .map(
+                ({ item: colorDecisionAndCorrespondingOption }) =>
+                    colorDecisionAndCorrespondingOption
+            )
+            .filter(({ parsedColorDecisionName }) =>
+                context === undefined ? true : parsedColorDecisionName.context === context
+            )
+            .filter(({ parsedColorDecisionName }) =>
+                color === undefined ? true : parsedColorDecisionName.colorName === color
+            )
+            .filter(({ parsedColorDecisionName }) =>
+                usage === undefined ? true : parsedColorDecisionName.usage === usage
+            );
+    }
+
+    return { filterColorDecisionAndCorrespondingOption };
+})();

@@ -4,6 +4,7 @@ import { useColors } from "../../dist/useColors";
 import { fr } from "../../dist/fr";
 import Tooltip from "@mui/material/Tooltip";
 import { useStyles } from "./makeStyles";
+import { CopyToClipboardButton } from "./CopyToClipboardButton";
 
 export function ColorDecisionCard(
     props: { className?: string } & ColorDecisionAndCorrespondingOption
@@ -38,7 +39,7 @@ export function ColorDecisionCard(
                 >
                     CSS variable:{" "}
                 </span>
-                &nbsp;{colorDecisionName}
+                &nbsp;<code>{colorDecisionName}</code>
             </p>
             <p>
                 <span
@@ -66,6 +67,9 @@ export function ColorDecisionCard(
                 <code>
                     theme.decisions.<strong>{themePath.join(".")}</strong>
                 </code>
+                <CopyToClipboardButton
+                    textToCopy={["theme", "decisions", ...themePath].join(".")}
+                />
             </p>
             <h6>Corresponding color option:</h6>
             <p>

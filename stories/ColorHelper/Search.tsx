@@ -173,7 +173,7 @@ const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Sea
             "maxHeight": filterWrapperMaxHeight,
             "overflow": "hidden",
             "display": "flex",
-            "marginTop": fr.spacing("3v"),
+            "marginTop": fr.spacing("4v"),
             "& > *": {
                 "flex": 1,
                 ...fr.spacing("padding", {
