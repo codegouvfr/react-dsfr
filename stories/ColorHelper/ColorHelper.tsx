@@ -127,11 +127,13 @@ export function ColorHelper() {
                         ? `${filteredColorDecisionAndCorrespondingOption.length} color decisions`
                         : `Found ${filteredColorDecisionAndCorrespondingOption.length} decisions matching your query`}
                 </h3>
-                <RowVirtualizerDynamicWindow
-                    colorDecisionAndCorrespondingOptions={
-                        filteredColorDecisionAndCorrespondingOption
-                    }
-                />
+                {filteredColorDecisionAndCorrespondingOption.length === 0 ? null : (
+                    <RowVirtualizerDynamicWindow
+                        colorDecisionAndCorrespondingOptions={
+                            filteredColorDecisionAndCorrespondingOption
+                        }
+                    />
+                )}
                 {/*
                 {filteredColorDecisionAndCorrespondingOption.map(
                     (colorDecisionAndCorrespondingOption, i) => (
