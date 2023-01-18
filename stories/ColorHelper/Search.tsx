@@ -114,11 +114,11 @@ export function Search(props: Props) {
             >
                 <Select
                     label={`Filter by context (${contextes.length})`}
-                    disabled={contextes.length === 0}
+                    disabled={contextes.length === 1}
                     nativeSelectProps={{
                         "onChange": event =>
                             onContextChange(event.target.value || (undefined as any)),
-                        "value": context ?? ""
+                        "value": contextes.length === 1 ? contextes[0] : context ?? ""
                     }}
                 >
                     {[undefined, ...contextes].map(context => (
@@ -129,11 +129,11 @@ export function Search(props: Props) {
                 </Select>
                 <Select
                     label={`Filter by color name (${colors.length})`}
-                    disabled={colors.length === 0}
+                    disabled={colors.length === 1}
                     nativeSelectProps={{
                         "onChange": event =>
                             onColorChange(event.target.value || (undefined as any)),
-                        "value": color ?? ""
+                        "value": colors.length === 1 ? colors[0] : color ?? ""
                     }}
                 >
                     {[undefined, ...colors].map(color => (
@@ -144,11 +144,11 @@ export function Search(props: Props) {
                 </Select>
                 <Select
                     label={`Filter by usage (${usages.length})`}
-                    disabled={usages.length === 0}
+                    disabled={usages.length === 1}
                     nativeSelectProps={{
                         "onChange": event =>
                             onUsageChange(event.target.value || (undefined as any)),
-                        "value": usage ?? ""
+                        "value": usages.length === 1 ? usages[0] : usage ?? ""
                     }}
                 >
                     {[undefined, ...usages].map(usage => (
