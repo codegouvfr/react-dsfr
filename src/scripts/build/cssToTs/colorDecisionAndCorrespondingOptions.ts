@@ -12,7 +12,7 @@ export type ColorDecisionAndCorrespondingOption = Omit<ColorDecision, "optionThe
 export function generateColorDecisionAndCorrespondingOptionsTsCode(rawCssCode: string): string {
     const colorOptions = parseColorOptions(rawCssCode);
 
-    const colorDecisionAndCorrespondingOption = parseColorDecision(rawCssCode)
+    const colorDecisionAndCorrespondingOptions = parseColorDecision(rawCssCode)
         .map(colorDecision => {
             const colorOption = colorOptions.find(
                 colorOption =>
@@ -34,8 +34,8 @@ export function generateColorDecisionAndCorrespondingOptionsTsCode(rawCssCode: s
 
     return [
         ``,
-        `export const ${symToStr({ colorDecisionAndCorrespondingOption })}= ${JSON.stringify(
-            colorDecisionAndCorrespondingOption,
+        `export const ${symToStr({ colorDecisionAndCorrespondingOptions })}= ${JSON.stringify(
+            colorDecisionAndCorrespondingOptions,
             null,
             4
         )} as const;`,

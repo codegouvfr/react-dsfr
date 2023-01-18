@@ -1,6 +1,6 @@
 import React, { useState, useTransition, useRef } from "react";
 import { CallOut } from "../../dist/CallOut";
-import { colorDecisionAndCorrespondingOption } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
+import { colorDecisionAndCorrespondingOptions } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
 import type { ColorDecisionAndCorrespondingOption } from "../../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { fr } from "../../dist/fr";
 import { createUseDebounce } from "powerhooks/useDebounce";
@@ -24,7 +24,7 @@ export function ColorHelper() {
         filteredColorDecisionAndCorrespondingOption,
         setFilteredColorDecisionAndCorrespondingOption
     ] = useState<readonly ColorDecisionAndCorrespondingOption[]>(
-        colorDecisionAndCorrespondingOption
+        colorDecisionAndCorrespondingOptions
     );
 
     const [context, setContext] = useState<SearchProps["context"]>(undefined);
@@ -142,7 +142,7 @@ export function ColorHelper() {
 
 const colors = Array.from(
     new Set(
-        colorDecisionAndCorrespondingOption.map(
+        colorDecisionAndCorrespondingOptions.map(
             ({ parsedColorDecisionName }) => parsedColorDecisionName.colorName
         )
     )
@@ -150,7 +150,7 @@ const colors = Array.from(
 
 const contextes = Array.from(
     new Set(
-        colorDecisionAndCorrespondingOption.map(
+        colorDecisionAndCorrespondingOptions.map(
             ({ parsedColorDecisionName }) => parsedColorDecisionName.context
         )
     )
@@ -158,7 +158,7 @@ const contextes = Array.from(
 
 const usages = Array.from(
     new Set(
-        colorDecisionAndCorrespondingOption.map(
+        colorDecisionAndCorrespondingOptions.map(
             ({ parsedColorDecisionName }) => parsedColorDecisionName.usage
         )
     )
@@ -226,7 +226,7 @@ function RowVirtualizerDynamicWindow(props: {
 
 const { filterColorDecisionAndCorrespondingOption } = (() => {
     const fzf = new Fzf<readonly ColorDecisionAndCorrespondingOption[]>(
-        colorDecisionAndCorrespondingOption,
+        colorDecisionAndCorrespondingOptions,
         {
             "selector": ({
                 colorDecisionName,
