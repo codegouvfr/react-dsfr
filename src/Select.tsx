@@ -75,6 +75,7 @@ export const Select = memo(
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}
                     aria-describedby={stateDescriptionId}
+                    disabled={disabled}
                 >
                     {children}
                 </select>
