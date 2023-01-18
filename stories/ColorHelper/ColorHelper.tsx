@@ -31,33 +31,23 @@ export function ColorHelper() {
     const [color, setColor] = useState<SearchProps["color"]>(undefined);
     const [usage, setUsage] = useState<SearchProps["usage"]>(undefined);
 
-    useDebounce(
-        () =>
-            setFilteredColorDecisionAndCorrespondingOption(
-                filterColorDecisionAndCorrespondingOption({
-                    search,
-                    context,
-                    color,
-                    usage
-                })
-            ),
-        [search]
-    );
+    const updateFilter = () =>
+        setFilteredColorDecisionAndCorrespondingOption(
+            filterColorDecisionAndCorrespondingOption({
+                search,
+                context,
+                color,
+                usage
+            })
+        );
+
+    useDebounce(() => updateFilter(), [search]);
 
     {
         const [, startTransition] = useTransition();
 
         useEffectOnValueChange(() => {
-            startTransition(() =>
-                setFilteredColorDecisionAndCorrespondingOption(
-                    filterColorDecisionAndCorrespondingOption({
-                        search,
-                        context,
-                        color,
-                        usage
-                    })
-                )
-            );
+            startTransition(() => updateFilter());
         }, [context, color, usage]);
     }
 
