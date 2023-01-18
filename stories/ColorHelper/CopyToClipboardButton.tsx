@@ -83,9 +83,9 @@ const copyToClipboard = (str: string) => {
         const textArea = document.createElement("textarea");
         textArea.value = str;
         textArea.style.opacity = "0";
-        document.body.appendChild(textArea);
+        document.body.prepend(textArea);
         //textArea.focus();
-        //textArea.select();
+        textArea.select();
         try {
             const successful = document.execCommand("copy");
             assert(!!successful);
