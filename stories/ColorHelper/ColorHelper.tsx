@@ -70,6 +70,14 @@ export function ColorHelper() {
         setFilteredColors(colors.filter(color => f({ context, color, usage }).length !== 0));
     }, [search, context, color, usage]);
 
+    const [filteredUsage, setFilteredUsages] = useState(usages);
+
+    useEffectOnValueChange(() => {
+        const f = filterColorDecisionAndCorrespondingOption({ search });
+
+        setFilteredUsages(usages.filter(usage => f({ context, color, usage }).length !== 0));
+    }, [search, context, color, usage]);
+
     return (
         <MuiDsfrThemeProvider>
             <div>
@@ -99,20 +107,7 @@ export function ColorHelper() {
                     colors={filteredColors}
                     color={color}
                     onColorChange={setColor}
-                    usages={
-                        []
-                        /*
-                        usages.filter(
-                        usage =>
-                            filterColorDecisionAndCorrespondingOption({
-                                search,
-                                context,
-                                color,
-                                usage
-                            }).length !== 0
-                    )
-                            */
-                    }
+                    usages={filteredUsage}
                     usage={usage}
                     onUsageChange={setUsage}
                 />
