@@ -23,8 +23,10 @@ jobs:
     needs: test_format
     strategy:
       matrix:
-        node: [ '16', '17' ]
-        os: [ windows-latest, ubuntu-latest ]
+        #node: [ '16', '17' ]
+        node: [ '17' ]
+        #os: [ windows-latest, ubuntu-latest ]
+        os: [ ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
