@@ -1,16 +1,39 @@
-export function memoize<Args extends (number | boolean | string)[], R>(
-    fn: (...args: Args) => R,
+type SimpleType = number | string | boolean | null | undefined;
+type FuncWithSimpleParams<T extends SimpleType[]> = (...args: T) => any;
+
+export function memoize<T extends SimpleType[]>(
+    fn: FuncWithSimpleParams<T>,
     options?: {
         argsLength?: number;
         max?: number;
     }
-): (...args: Args) => R {
-    const cache = new Map<string, R>();
+): FuncWithSimpleParams<T> {
+    const cache = new Map<string, ReturnType<FuncWithSimpleParams<T>>>();
 
     const { argsLength = fn.length, max = Infinity } = options ?? {};
 
-    return ((...args: Args) => {
-        const key = JSON.stringify(args.slice(0, argsLength).join("-sIs9sAslOdeWlEdIos3-"));
+    return ((...args: Parameters<FuncWithSimpleParams<T>>) => {
+        const key = JSON.stringify(
+            args
+                .slice(0, argsLength)
+                .map(v => {
+                    if (v === null) {
+                        return "null";
+                    }
+                    if (v === undefined) {
+                        return "undefined";
+                    }
+                    switch (typeof v) {
+                        case "number":
+                            return `number-${v}`;
+                        case "string":
+                            return `string-${v}`;
+                        case "boolean":
+                            return `boolean-${v ? "true" : "false"}`;
+                    }
+                })
+                .join("-sIs9sAslOdeWlEdIos3-")
+        );
 
         if (cache.has(key)) {
             return cache.get(key);

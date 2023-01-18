@@ -1,4 +1,4 @@
-import React, { useState, useTransition, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { CallOut } from "../../dist/CallOut";
 import { colorDecisionAndCorrespondingOptions } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
 import type { ColorDecisionAndCorrespondingOption } from "../../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
@@ -34,7 +34,8 @@ export function ColorHelper() {
     const updateFilter = () =>
         setFilteredColorDecisionAndCorrespondingOption(
             filterColorDecisionAndCorrespondingOption({
-                search,
+                search
+            })({
                 context,
                 color,
                 usage
@@ -43,17 +44,31 @@ export function ColorHelper() {
 
     useDebounce(() => updateFilter(), [search]);
 
-    {
-        const [, startTransition] = useTransition();
-
-        useEffectOnValueChange(() => {
-            startTransition(() => updateFilter());
-        }, [context, color, usage]);
-    }
+    useEffectOnValueChange(() => {
+        updateFilter();
+    }, [context, color, usage]);
 
     const { css } = useStyles();
 
     const evtSearchAction = useConst(() => Evt.create<"scroll to">());
+
+    const [filteredContextes, setFilteredContextes] = useState(contextes);
+
+    useEffectOnValueChange(() => {
+        const f = filterColorDecisionAndCorrespondingOption({ search });
+
+        setFilteredContextes(
+            contextes.filter(context => f({ context, color, usage }).length !== 0)
+        );
+    }, [search, context, color, usage]);
+
+    const [filteredColors, setFilteredColors] = useState(colors);
+
+    useEffectOnValueChange(() => {
+        const f = filterColorDecisionAndCorrespondingOption({ search });
+
+        setFilteredColors(colors.filter(color => f({ context, color, usage }).length !== 0));
+    }, [search, context, color, usage]);
 
     return (
         <MuiDsfrThemeProvider>
@@ -78,29 +93,16 @@ export function ColorHelper() {
                     evtAction={evtSearchAction}
                     onSearchChange={search => setSearch(search)}
                     search={search}
-                    contextes={contextes.filter(
-                        context =>
-                            filterColorDecisionAndCorrespondingOption({
-                                search,
-                                context,
-                                color,
-                                usage
-                            }).length !== 0
-                    )}
+                    contextes={filteredContextes}
                     context={context}
                     onContextChange={setContext}
-                    colors={colors.filter(
-                        color =>
-                            filterColorDecisionAndCorrespondingOption({
-                                search,
-                                context,
-                                color,
-                                usage
-                            }).length !== 0
-                    )}
+                    colors={filteredColors}
                     color={color}
                     onColorChange={setColor}
-                    usages={usages.filter(
+                    usages={
+                        []
+                        /*
+                        usages.filter(
                         usage =>
                             filterColorDecisionAndCorrespondingOption({
                                 search,
@@ -108,7 +110,9 @@ export function ColorHelper() {
                                 color,
                                 usage
                             }).length !== 0
-                    )}
+                    )
+                            */
+                    }
                     usage={usage}
                     onUsageChange={setUsage}
                 />
@@ -241,29 +245,34 @@ const { filterColorDecisionAndCorrespondingOption } = (() => {
         }
     );
 
-    function filterColorDecisionAndCorrespondingOption(params: {
-        search: string;
-        context: SearchProps["context"] | undefined;
-        color: SearchProps["color"] | undefined;
-        usage: SearchProps["usage"] | undefined;
-    }) {
-        const { search, context, color, usage } = params;
+    function filterColorDecisionAndCorrespondingOption(params: { search: string }) {
+        const { search } = params;
 
-        return fzf
+        const filteredColorDecisionAndCorrespondingOptions = fzf
             .find(search)
             .map(
                 ({ item: colorDecisionAndCorrespondingOption }) =>
                     colorDecisionAndCorrespondingOption
-            )
-            .filter(({ parsedColorDecisionName }) =>
-                context === undefined ? true : parsedColorDecisionName.context === context
-            )
-            .filter(({ parsedColorDecisionName }) =>
-                color === undefined ? true : parsedColorDecisionName.colorName === color
-            )
-            .filter(({ parsedColorDecisionName }) =>
-                usage === undefined ? true : parsedColorDecisionName.usage === usage
             );
+
+        return (params: {
+            context: SearchProps["context"] | undefined;
+            color: SearchProps["color"] | undefined;
+            usage: SearchProps["usage"] | undefined;
+        }) => {
+            const { context, color, usage } = params;
+
+            return filteredColorDecisionAndCorrespondingOptions
+                .filter(({ parsedColorDecisionName }) =>
+                    context === undefined ? true : parsedColorDecisionName.context === context
+                )
+                .filter(({ parsedColorDecisionName }) =>
+                    color === undefined ? true : parsedColorDecisionName.colorName === color
+                )
+                .filter(({ parsedColorDecisionName }) =>
+                    usage === undefined ? true : parsedColorDecisionName.usage === usage
+                );
+        };
     }
 
     return { filterColorDecisionAndCorrespondingOption };
