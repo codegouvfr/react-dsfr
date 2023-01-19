@@ -54,12 +54,20 @@ export namespace ButtonProps {
     export type AsAnchor = {
         linkProps: RegisteredLinkProps;
         onClick?: never;
+        nativeButtonProps?: never;
         disabled?: never;
         type?: never;
     };
     export type AsButton = {
         linkProps?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
+        nativeButtonProps?: Omit<
+            React.DetailedHTMLProps<
+                React.ButtonHTMLAttributes<HTMLButtonElement>,
+                HTMLButtonElement
+            >,
+            "onClick"
+        >;
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
@@ -79,6 +87,7 @@ export const Button = memo(
             size = "medium",
             linkProps,
             onClick,
+            nativeButtonProps,
             disabled,
             type,
             ...rest
@@ -124,6 +133,7 @@ export const Button = memo(
             </Link>
         ) : (
             <button
+                {...nativeButtonProps}
                 className={className}
                 type={type}
                 title={title}

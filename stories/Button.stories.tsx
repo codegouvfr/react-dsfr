@@ -62,7 +62,13 @@ const { meta, getStory } = getStoryFactory({
         "disabled": {
             "control": { "type": "boolean" }
         },
+        "nativeButtonProps": {
+            "description": `Can be used to attach extra props to the underlying native button.  
+            Example: \`{ "aria-controls": "fr-modal-1", onMouseEnter: event => {...} }\``,
+            "control": { "type": null }
+        },
         "children": {
+            "description": "The label of the button",
             "control": { "type": "string" }
         }
     },
