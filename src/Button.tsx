@@ -67,7 +67,8 @@ export namespace ButtonProps {
                 HTMLButtonElement
             >,
             "onClick"
-        >;
+        > &
+            Record<`data-${string}`, string | boolean | null | undefined>;
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
