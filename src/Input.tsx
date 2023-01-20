@@ -72,7 +72,7 @@ export const Input = memo(
         const nativeInputOrTextAreaProps =
             (textArea ? nativeTextAreaProps : nativeInputProps) ?? {};
 
-        const NativeInputOrTexArea = textArea ? "textarea" : "input";
+        const NativeInputOrTextArea = textArea ? "textarea" : "input";
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -118,7 +118,7 @@ export const Input = memo(
                 </label>
                 {(() => {
                     const nativeInputOrTextArea = (
-                        <NativeInputOrTexArea
+                        <NativeInputOrTextArea
                             {...(nativeInputOrTextAreaProps as {})}
                             className={cx(
                                 fr.cx(
