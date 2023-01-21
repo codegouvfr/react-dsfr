@@ -104,7 +104,7 @@ npx vitest -t "Resolution of CSS variables"
 # Debugging while unit testing
 ```
 
-### Looking to contribute?
+### Looking to contribute?
 
 Thank you! [Here](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md) is the contribution guide.
 
