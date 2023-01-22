@@ -11,7 +11,7 @@ export type BadgeProps = {
     severity?: AlertProps.Severity | "new";
     small?: boolean;
     noIcon?: boolean;
-    label: NonNullable<ReactNode>;
+    children: NonNullable<ReactNode>;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-badge> */
@@ -20,9 +20,9 @@ export const Badge = memo(
         const {
             className,
             severity,
-            label,
             small: isSmall = false,
             noIcon = false,
+            children,
             ...rest
         } = props;
 
@@ -42,7 +42,7 @@ export const Badge = memo(
                 ref={ref}
                 {...rest}
             >
-                {label}
+                {children}
             </p>
         );
     })

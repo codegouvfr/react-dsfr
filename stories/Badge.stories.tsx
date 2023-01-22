@@ -30,7 +30,7 @@ const { meta, getStory } = getStoryFactory<BadgeProps>({
             "type": { "name": "boolean" },
             "description": "Set small badge size (`sm`) when true"
         },
-        "label": {
+        "children": {
             "type": { "name": "string", "required": true },
             "description": "Label to display on the badge"
         }
@@ -42,12 +42,12 @@ export default meta;
 
 export const Default = getStory({
     "severity": "success",
-    "label": "Label badge"
+    "children": "Label badge"
 });
 
 export const BadgeWithoutSeverity = getStory(
     {
-        "label": "Label"
+        "children": "Label"
     },
     {
         "description": "Medium info `Badge` with icon"
@@ -57,7 +57,7 @@ export const BadgeWithoutSeverity = getStory(
 export const InfoBadge = getStory(
     {
         "severity": "info",
-        "label": "Label info"
+        "children": "Label info"
     },
     {
         "description": "Medium info `Badge` with icon"
@@ -68,7 +68,7 @@ export const WarningBadge = getStory(
     {
         "severity": "warning",
         "noIcon": false,
-        "label": 'Label "warning"'
+        "children": 'Label "warning"'
     },
     {
         "description": "Medium warning `Badge` with icon"
@@ -79,7 +79,7 @@ export const SuccessBadge = getStory(
     {
         "severity": "success",
         "noIcon": true,
-        "label": "Label success"
+        "children": "Label success"
     },
     {
         "description": "Medium success `Badge` without icon"
@@ -90,7 +90,7 @@ export const ErrorBadge = getStory(
     {
         "severity": "error",
         "noIcon": true,
-        "label": "Label error"
+        "children": "Label error"
     },
     {
         "description": "Medium error `Badge` without icon"
@@ -101,7 +101,7 @@ export const NewBadge = getStory(
     {
         "severity": "new",
         "small": true,
-        "label": "Label new"
+        "children": "Label new"
     },
     {
         "description": "Small new `Badge` with icon"
