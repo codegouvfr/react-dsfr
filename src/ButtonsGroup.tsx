@@ -1,4 +1,5 @@
-import React, { memo, forwardRef } from "react";
+import React, { memo } from "react";
+import type { ForwardedRef } from "react";
 import { Button } from "./Button";
 import { ButtonProps } from "./Button";
 import { symToStr } from "tsafe/symToStr";
@@ -20,6 +21,7 @@ export namespace ButtonsGroupProps {
         /** Default: false */
         buttonsEquisized?: boolean;
         buttons: [ButtonProps, ButtonProps, ...ButtonProps[]];
+        ref?: ForwardedRef<HTMLUListElement>;
     };
 
     export type AlwaysStacked = Common & {
@@ -45,66 +47,65 @@ export namespace ButtonsGroupProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-buttonsgroup> */
-export const ButtonsGroup = memo(
-    forwardRef<HTMLUListElement, ButtonsGroupProps>((props, ref) => {
-        const {
-            className,
-            buttonsSize = "medium",
-            buttonsIconPosition = "left",
-            inlineLayoutWhen = "never",
-            alignment = "left",
-            buttonsEquisized = false,
-            isReverseOrder = false,
-            buttons,
-            ...rest
-        } = props;
+export const ButtonsGroup = memo((props: ButtonsGroupProps) => {
+    const {
+        className,
+        buttonsSize = "medium",
+        buttonsIconPosition = "left",
+        inlineLayoutWhen = "never",
+        alignment = "left",
+        buttonsEquisized = false,
+        isReverseOrder = false,
+        buttons,
+        ref,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        const buttonsGroupClassName = cx(
-            fr.cx(
-                "fr-btns-group",
-                buttonsSize !== "medium" &&
-                    `fr-btns-group--${(() => {
-                        switch (buttonsSize) {
-                            case "small":
-                                return "sm";
-                            case "large":
-                                return "lg";
-                        }
-                    })()}`,
-                inlineLayoutWhen !== "never" &&
-                    `fr-btns-group--inline${(() => {
-                        switch (inlineLayoutWhen) {
-                            case "always":
-                                return "";
-                            case "sm and up":
-                                return "-sm";
-                            case "md and up":
-                                return "-md";
-                            case "lg and up":
-                                return "-lg";
-                        }
-                    })()}`,
-                buttonsEquisized && `fr-btns-group--equisized`,
-                `fr-btns-group--${alignment}`,
-                isReverseOrder && "fr-btns-group--inline-reverse",
-                `fr-btns-group--icon-${buttonsIconPosition}`
-            ),
-            className
-        );
+    const buttonsGroupClassName = cx(
+        fr.cx(
+            "fr-btns-group",
+            buttonsSize !== "medium" &&
+                `fr-btns-group--${(() => {
+                    switch (buttonsSize) {
+                        case "small":
+                            return "sm";
+                        case "large":
+                            return "lg";
+                    }
+                })()}`,
+            inlineLayoutWhen !== "never" &&
+                `fr-btns-group--inline${(() => {
+                    switch (inlineLayoutWhen) {
+                        case "always":
+                            return "";
+                        case "sm and up":
+                            return "-sm";
+                        case "md and up":
+                            return "-md";
+                        case "lg and up":
+                            return "-lg";
+                    }
+                })()}`,
+            buttonsEquisized && `fr-btns-group--equisized`,
+            `fr-btns-group--${alignment}`,
+            isReverseOrder && "fr-btns-group--inline-reverse",
+            `fr-btns-group--icon-${buttonsIconPosition}`
+        ),
+        className
+    );
 
-        return (
-            <ul className={buttonsGroupClassName} ref={ref} {...rest}>
-                {buttons.map((buttonProps, i) => (
-                    <li key={i}>
-                        <Button {...buttonProps} />
-                    </li>
-                ))}
-            </ul>
-        );
-    })
-);
+    return (
+        <ul className={buttonsGroupClassName} ref={ref}>
+            {buttons.map((buttonProps, i) => (
+                <li key={i}>
+                    <Button {...buttonProps} />
+                </li>
+            ))}
+        </ul>
+    );
+});
 
 ButtonsGroup.displayName = symToStr({ ButtonsGroup });
 

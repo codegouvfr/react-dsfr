@@ -1,5 +1,5 @@
-import React, { memo, forwardRef, useId } from "react";
-import type { ReactNode } from "react";
+import React, { memo, useId } from "react";
+import type { ReactNode, ForwardedRef } from "react";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
@@ -64,6 +64,7 @@ export type HeaderProps = {
             string
         >
     >;
+    ref?: ForwardedRef<HTMLDialogElement>;
 };
 
 export namespace HeaderProps {
@@ -91,270 +92,252 @@ export namespace HeaderProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
-export const Header = memo(
-    forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
-        const {
-            className,
-            brandTop,
-            serviceTitle,
-            serviceTagline,
-            homeLinkProps,
-            navigation = undefined,
-            quickAccessItems = [],
-            operatorLogo,
-            renderSearchInput,
-            classes = {},
-            ...rest
-        } = props;
+export const Header = memo((props: HeaderProps) => {
+    const {
+        className,
+        brandTop,
+        serviceTitle,
+        serviceTagline,
+        homeLinkProps,
+        navigation = undefined,
+        quickAccessItems = [],
+        operatorLogo,
+        renderSearchInput,
+        classes = {},
+        ref,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        const menuButtonId = `button-${useId()}`;
-        const menuModalId = `modal-${useId()}`;
-        const searchModalId = `modal-${useId()}`;
-        const searchInputId = `search-${useId()}-input`;
+    const menuButtonId = `button-${useId()}`;
+    const menuModalId = `modal-${useId()}`;
+    const searchModalId = `modal-${useId()}`;
+    const searchInputId = `search-${useId()}-input`;
 
-        const { t } = useTranslation();
+    const { t } = useTranslation();
 
-        const { Link } = getLink();
+    const { Link } = getLink();
 
-        const quickAccessNode = (
-            <ul className={fr.cx("fr-btns-group")}>
-                {quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (
-                    <li key={i}>
-                        {linkProps !== undefined ? (
-                            <Link
-                                {...linkProps}
-                                className={cx(fr.cx("fr-btn", iconId), linkProps.className)}
-                            >
-                                {text}
-                            </Link>
-                        ) : (
-                            <button
-                                {...buttonProps}
-                                className={cx(fr.cx("fr-btn", iconId), buttonProps.className)}
-                            >
-                                {text}
-                            </button>
-                        )}
-                    </li>
-                ))}
-            </ul>
-        );
+    const quickAccessNode = (
+        <ul className={fr.cx("fr-btns-group")}>
+            {quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (
+                <li key={i}>
+                    {linkProps !== undefined ? (
+                        <Link
+                            {...linkProps}
+                            className={cx(fr.cx("fr-btn", iconId), linkProps.className)}
+                        >
+                            {text}
+                        </Link>
+                    ) : (
+                        <button
+                            {...buttonProps}
+                            className={cx(fr.cx("fr-btn", iconId), buttonProps.className)}
+                        >
+                            {text}
+                        </button>
+                    )}
+                </li>
+            ))}
+        </ul>
+    );
 
-        return (
-            <header
-                role="banner"
-                className={cx(fr.cx("fr-header"), classes.root, className)}
-                ref={ref}
-                {...rest}
-            >
-                <div className={cx(fr.cx("fr-header__body" as any), classes.body)}>
-                    <div className={fr.cx("fr-container")}>
-                        <div className={cx(fr.cx("fr-header__body-row"), classes.bodyRow)}>
-                            <div
-                                className={cx(
-                                    fr.cx("fr-header__brand", "fr-enlarge-link"),
-                                    classes.brand
-                                )}
-                            >
-                                <div
-                                    className={cx(fr.cx("fr-header__brand-top"), classes.brandTop)}
-                                >
-                                    <div className={cx(fr.cx("fr-header__logo"), classes.logo)}>
-                                        {(() => {
-                                            const children = (
-                                                <p className={fr.cx("fr-logo")}>{brandTop}</p>
-                                            );
+    return (
+        <header role="banner" className={cx(fr.cx("fr-header"), classes.root, className)} ref={ref}>
+            <div className={cx(fr.cx("fr-header__body" as any), classes.body)}>
+                <div className={fr.cx("fr-container")}>
+                    <div className={cx(fr.cx("fr-header__body-row"), classes.bodyRow)}>
+                        <div
+                            className={cx(
+                                fr.cx("fr-header__brand", "fr-enlarge-link"),
+                                classes.brand
+                            )}
+                        >
+                            <div className={cx(fr.cx("fr-header__brand-top"), classes.brandTop)}>
+                                <div className={cx(fr.cx("fr-header__logo"), classes.logo)}>
+                                    {(() => {
+                                        const children = (
+                                            <p className={fr.cx("fr-logo")}>{brandTop}</p>
+                                        );
 
-                                            return serviceTitle !== undefined ? (
-                                                children
-                                            ) : (
-                                                <Link {...homeLinkProps}>{children}</Link>
-                                            );
-                                        })()}
-                                    </div>
-                                    {operatorLogo !== undefined && (
-                                        <div
-                                            className={cx(
-                                                fr.cx("fr-header__operator"),
-                                                classes.operator
-                                            )}
-                                        >
-                                            <Link {...homeLinkProps}>
-                                                <img
-                                                    className={cx(
-                                                        fr.cx("fr-responsive-img"),
-                                                        classes.operator
-                                                    )}
-                                                    style={(() => {
-                                                        switch (operatorLogo.orientation) {
-                                                            case "vertical":
-                                                                return { "width": "3.5rem" };
-                                                            case "horizontal":
-                                                                return { "maxWidth": "9.0625rem" };
-                                                        }
-                                                    })()}
-                                                    src={operatorLogo.imgUrl}
-                                                    alt={operatorLogo.alt}
-                                                />
-                                            </Link>
-                                        </div>
-                                    )}
-
-                                    {(quickAccessItems.length > 0 ||
-                                        navigation !== undefined ||
-                                        renderSearchInput !== undefined) && (
-                                        <div
-                                            className={cx(
-                                                fr.cx("fr-header__navbar"),
-                                                classes.navbar
-                                            )}
-                                        >
-                                            {renderSearchInput !== undefined && (
-                                                <button
-                                                    className={fr.cx("fr-btn--search", "fr-btn")}
-                                                    data-fr-opened={false}
-                                                    aria-controls={searchModalId}
-                                                    title={t("search")}
-                                                >
-                                                    {t("search")}
-                                                </button>
-                                            )}
-                                            <button
-                                                className={fr.cx("fr-btn--menu", "fr-btn")}
-                                                data-fr-opened="false"
-                                                aria-controls={menuModalId}
-                                                aria-haspopup="menu"
-                                                id={menuButtonId}
-                                                title={t("menu")}
-                                            >
-                                                {t("menu")}
-                                            </button>
-                                        </div>
-                                    )}
+                                        return serviceTitle !== undefined ? (
+                                            children
+                                        ) : (
+                                            <Link {...homeLinkProps}>{children}</Link>
+                                        );
+                                    })()}
                                 </div>
-                                {serviceTitle !== undefined && (
+                                {operatorLogo !== undefined && (
                                     <div
-                                        className={cx(fr.cx("fr-header__service"), classes.service)}
+                                        className={cx(
+                                            fr.cx("fr-header__operator"),
+                                            classes.operator
+                                        )}
                                     >
                                         <Link {...homeLinkProps}>
-                                            <p
+                                            <img
                                                 className={cx(
-                                                    fr.cx("fr-header__service-title"),
-                                                    classes.serviceTitle
+                                                    fr.cx("fr-responsive-img"),
+                                                    classes.operator
                                                 )}
-                                            >
-                                                {serviceTitle}
-                                            </p>
+                                                style={(() => {
+                                                    switch (operatorLogo.orientation) {
+                                                        case "vertical":
+                                                            return { "width": "3.5rem" };
+                                                        case "horizontal":
+                                                            return { "maxWidth": "9.0625rem" };
+                                                    }
+                                                })()}
+                                                src={operatorLogo.imgUrl}
+                                                alt={operatorLogo.alt}
+                                            />
                                         </Link>
-                                        {serviceTagline !== undefined && (
-                                            <p
-                                                className={cx(
-                                                    fr.cx("fr-header__service-tagline" as any),
-                                                    classes.serviceTagline
-                                                )}
+                                    </div>
+                                )}
+
+                                {(quickAccessItems.length > 0 ||
+                                    navigation !== undefined ||
+                                    renderSearchInput !== undefined) && (
+                                    <div className={cx(fr.cx("fr-header__navbar"), classes.navbar)}>
+                                        {renderSearchInput !== undefined && (
+                                            <button
+                                                className={fr.cx("fr-btn--search", "fr-btn")}
+                                                data-fr-opened={false}
+                                                aria-controls={searchModalId}
+                                                title={t("search")}
                                             >
-                                                {serviceTagline}
-                                            </p>
+                                                {t("search")}
+                                            </button>
                                         )}
+                                        <button
+                                            className={fr.cx("fr-btn--menu", "fr-btn")}
+                                            data-fr-opened="false"
+                                            aria-controls={menuModalId}
+                                            aria-haspopup="menu"
+                                            id={menuButtonId}
+                                            title={t("menu")}
+                                        >
+                                            {t("menu")}
+                                        </button>
                                     </div>
                                 )}
                             </div>
-
-                            {(quickAccessItems.length > 0 || renderSearchInput !== undefined) && (
-                                <div className={fr.cx("fr-header__tools")}>
-                                    {quickAccessItems.length > 0 && (
-                                        <div
+                            {serviceTitle !== undefined && (
+                                <div className={cx(fr.cx("fr-header__service"), classes.service)}>
+                                    <Link {...homeLinkProps}>
+                                        <p
                                             className={cx(
-                                                fr.cx("fr-header__tools-links"),
-                                                classes.toolsLinks
+                                                fr.cx("fr-header__service-title"),
+                                                classes.serviceTitle
                                             )}
                                         >
-                                            {quickAccessNode}
-                                        </div>
-                                    )}
-
-                                    {renderSearchInput !== undefined && (
-                                        <div
-                                            className={fr.cx("fr-header__search", "fr-modal")}
-                                            id={searchModalId}
+                                            {serviceTitle}
+                                        </p>
+                                    </Link>
+                                    {serviceTagline !== undefined && (
+                                        <p
+                                            className={cx(
+                                                fr.cx("fr-header__service-tagline" as any),
+                                                classes.serviceTagline
+                                            )}
                                         >
-                                            <div
-                                                className={fr.cx(
-                                                    "fr-container",
-                                                    "fr-container-lg--fluid"
-                                                )}
-                                            >
-                                                <button
-                                                    className={fr.cx("fr-btn--close", "fr-btn")}
-                                                    aria-controls={searchModalId}
-                                                    title={t("close")}
-                                                >
-                                                    {t("close")}
-                                                </button>
-                                                <div
-                                                    className={fr.cx("fr-search-bar")}
-                                                    role="search"
-                                                >
-                                                    <label
-                                                        className={fr.cx("fr-label")}
-                                                        htmlFor={searchInputId}
-                                                    >
-                                                        {t("search")}
-                                                    </label>
-                                                    {renderSearchInput({
-                                                        "className": fr.cx("fr-input"),
-                                                        "id": searchInputId,
-                                                        "name": searchInputId,
-                                                        "placeholder": t("search"),
-                                                        "type": "search"
-                                                    })}
-                                                    <button
-                                                        className={fr.cx("fr-btn")}
-                                                        title={t("search")}
-                                                    >
-                                                        {t("search")}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            {serviceTagline}
+                                        </p>
                                     )}
                                 </div>
                             )}
                         </div>
+
+                        {(quickAccessItems.length > 0 || renderSearchInput !== undefined) && (
+                            <div className={fr.cx("fr-header__tools")}>
+                                {quickAccessItems.length > 0 && (
+                                    <div
+                                        className={cx(
+                                            fr.cx("fr-header__tools-links"),
+                                            classes.toolsLinks
+                                        )}
+                                    >
+                                        {quickAccessNode}
+                                    </div>
+                                )}
+
+                                {renderSearchInput !== undefined && (
+                                    <div
+                                        className={fr.cx("fr-header__search", "fr-modal")}
+                                        id={searchModalId}
+                                    >
+                                        <div
+                                            className={fr.cx(
+                                                "fr-container",
+                                                "fr-container-lg--fluid"
+                                            )}
+                                        >
+                                            <button
+                                                className={fr.cx("fr-btn--close", "fr-btn")}
+                                                aria-controls={searchModalId}
+                                                title={t("close")}
+                                            >
+                                                {t("close")}
+                                            </button>
+                                            <div className={fr.cx("fr-search-bar")} role="search">
+                                                <label
+                                                    className={fr.cx("fr-label")}
+                                                    htmlFor={searchInputId}
+                                                >
+                                                    {t("search")}
+                                                </label>
+                                                {renderSearchInput({
+                                                    "className": fr.cx("fr-input"),
+                                                    "id": searchInputId,
+                                                    "name": searchInputId,
+                                                    "placeholder": t("search"),
+                                                    "type": "search"
+                                                })}
+                                                <button
+                                                    className={fr.cx("fr-btn")}
+                                                    title={t("search")}
+                                                >
+                                                    {t("search")}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
-                {(navigation !== undefined || quickAccessItems.length !== 0) && (
-                    <div
-                        className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
-                        id={menuModalId}
-                        aria-labelledby={menuButtonId}
-                    >
-                        <div className={fr.cx("fr-container")}>
-                            <button
-                                className={fr.cx("fr-btn--close", "fr-btn")}
-                                aria-controls={menuModalId}
-                                title={t("close")}
-                            >
-                                {t("close")}
-                            </button>
-                            <div className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}>
-                                {quickAccessNode}
-                            </div>
-                            {navigation !== undefined &&
-                                (navigation instanceof Array ? (
-                                    <MainNavigation items={navigation} />
-                                ) : (
-                                    navigation
-                                ))}
+            </div>
+            {(navigation !== undefined || quickAccessItems.length !== 0) && (
+                <div
+                    className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
+                    id={menuModalId}
+                    aria-labelledby={menuButtonId}
+                >
+                    <div className={fr.cx("fr-container")}>
+                        <button
+                            className={fr.cx("fr-btn--close", "fr-btn")}
+                            aria-controls={menuModalId}
+                            title={t("close")}
+                        >
+                            {t("close")}
+                        </button>
+                        <div className={cx(fr.cx("fr-header__menu-links"), classes.menuLinks)}>
+                            {quickAccessNode}
                         </div>
+                        {navigation !== undefined &&
+                            (navigation instanceof Array ? (
+                                <MainNavigation items={navigation} />
+                            ) : (
+                                navigation
+                            ))}
                     </div>
-                )}
-            </header>
-        );
-    })
-);
+                </div>
+            )}
+        </header>
+    );
+});
 
 Header.displayName = symToStr({ Header });
 

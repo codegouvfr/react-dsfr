@@ -1,6 +1,7 @@
 "use client";
 
-import React, { memo, forwardRef, useState, useEffect, useRef, ReactNode } from "react";
+import React, { memo, useState, useEffect, useRef, ReactNode } from "react";
+import type { ForwardedRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -11,6 +12,7 @@ import { createComponentI18nApi } from "./i18n";
 
 export type NoticeProps = {
     className?: string;
+    ref?: ForwardedRef<HTMLDivElement>;
     classes?: Partial<Record<"root" | "title" | "close", string>>;
     title: NonNullable<ReactNode>;
 } & (NoticeProps.NonClosable | NoticeProps.Closable);
@@ -40,98 +42,96 @@ export namespace NoticeProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-notice> */
-export const Notice = memo(
-    forwardRef<HTMLDivElement, NoticeProps>((props, ref) => {
-        const {
-            className,
-            classes = {},
-            title,
-            isClosable = false,
-            isClosed: props_isClosed,
-            onClose,
-            ...rest
-        } = props;
+export const Notice = memo((props: NoticeProps) => {
+    const {
+        className,
+        classes = {},
+        title,
+        isClosable = false,
+        isClosed: props_isClosed,
+        onClose,
+        ref,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
+    const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
 
-        const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
+    const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
-        const refShouldButtonGetFocus = useRef(false);
-        const refShouldSetRole = useRef(false);
+    const refShouldButtonGetFocus = useRef(false);
+    const refShouldSetRole = useRef(false);
 
-        useEffect(() => {
-            if (props_isClosed === undefined) {
-                return;
-            }
-            setIsClosed((isClosed: boolean) => {
-                if (isClosed && !props_isClosed) {
-                    refShouldButtonGetFocus.current = true;
-                    refShouldSetRole.current = true;
-                }
-
-                return props_isClosed;
-            });
-        }, [props_isClosed]);
-
-        useEffect(() => {
-            if (!refShouldButtonGetFocus.current) {
-                return;
+    useEffect(() => {
+        if (props_isClosed === undefined) {
+            return;
+        }
+        setIsClosed((isClosed: boolean) => {
+            if (isClosed && !props_isClosed) {
+                refShouldButtonGetFocus.current = true;
+                refShouldSetRole.current = true;
             }
 
-            if (buttonElement === null) {
-                //NOTE: This should not be reachable
-                return;
-            }
-
-            refShouldButtonGetFocus.current = false;
-            buttonElement.focus();
-        }, [buttonElement]);
-
-        const onCloseButtonClick = useConstCallback(() => {
-            if (props_isClosed === undefined) {
-                //Uncontrolled
-                setIsClosed(true);
-                onClose?.();
-            } else {
-                //Controlled
-                onClose();
-            }
+            return props_isClosed;
         });
+    }, [props_isClosed]);
 
-        const { t } = useTranslation();
-
-        if (isClosed) {
-            return null;
+    useEffect(() => {
+        if (!refShouldButtonGetFocus.current) {
+            return;
         }
 
-        return (
-            <div
-                className={cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className)}
-                {...(refShouldSetRole.current && { "role": "notice" })}
-                ref={ref}
-                {...rest}
-            >
-                <div className="fr-container">
-                    <div className="fr-notice__body">
-                        <p className={classes.title}>{title}</p>
-                        {/* TODO: Use our button once we have one */}
-                        {isClosable && (
-                            <button
-                                ref={setButtonElement}
-                                className={cx(fr.cx("fr-btn--close", "fr-btn"), classes.close)}
-                                onClick={onCloseButtonClick}
-                            >
-                                {t("hide message")}
-                            </button>
-                        )}
-                    </div>
+        if (buttonElement === null) {
+            //NOTE: This should not be reachable
+            return;
+        }
+
+        refShouldButtonGetFocus.current = false;
+        buttonElement.focus();
+    }, [buttonElement]);
+
+    const onCloseButtonClick = useConstCallback(() => {
+        if (props_isClosed === undefined) {
+            //Uncontrolled
+            setIsClosed(true);
+            onClose?.();
+        } else {
+            //Controlled
+            onClose();
+        }
+    });
+
+    const { t } = useTranslation();
+
+    if (isClosed) {
+        return null;
+    }
+
+    return (
+        <div
+            className={cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className)}
+            {...(refShouldSetRole.current && { "role": "notice" })}
+            ref={ref}
+        >
+            <div className="fr-container">
+                <div className="fr-notice__body">
+                    <p className={classes.title}>{title}</p>
+                    {/* TODO: Use our button once we have one */}
+                    {isClosable && (
+                        <button
+                            ref={setButtonElement}
+                            className={cx(fr.cx("fr-btn--close", "fr-btn"), classes.close)}
+                            onClick={onCloseButtonClick}
+                        >
+                            {t("hide message")}
+                        </button>
+                    )}
                 </div>
             </div>
-        );
-    })
-);
+        </div>
+    );
+});
 
 Notice.displayName = symToStr({ Notice });
 

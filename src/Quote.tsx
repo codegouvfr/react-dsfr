@@ -1,4 +1,5 @@
-import React, { memo, forwardRef, ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
+import type { ForwardedRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -16,6 +17,7 @@ export type QuoteProps = {
     imageUrl?: string;
     size?: "medium" | "large" | "xlarge";
     accentColor?: QuoteProps.AccentColor;
+    ref?: ForwardedRef<HTMLElement>;
     classes?: Partial<Record<"root" | "author" | "source" | "image" | "imageTag" | "text", string>>;
 };
 
@@ -28,66 +30,65 @@ export namespace QuoteProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
-export const Quote = memo(
-    forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
-        const {
-            className,
-            text,
-            author,
-            source,
-            sourceUrl,
-            imageUrl,
-            size = "xlarge",
-            accentColor,
-            classes = {},
-            ...rest
-        } = props;
+export const Quote = memo((props: QuoteProps) => {
+    const {
+        className,
+        text,
+        author,
+        source,
+        sourceUrl,
+        imageUrl,
+        size = "xlarge",
+        accentColor,
+        classes = {},
+        ref,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        return (
-            <figure
-                className={cx(
-                    fr.cx("fr-quote"),
-                    imageUrl && fr.cx("fr-quote--column"),
-                    accentColor && `fr-quote--${accentColor}`,
-                    classes.root,
-                    className
+    return (
+        <figure
+            className={cx(
+                fr.cx("fr-quote"),
+                imageUrl && fr.cx("fr-quote--column"),
+                accentColor && `fr-quote--${accentColor}`,
+                classes.root,
+                className
+            )}
+            ref={ref}
+        >
+            <blockquote cite={sourceUrl}>
+                <p
+                    className={cx(
+                        size === "large" && fr.cx("fr-text--lg"),
+                        size === "medium" && fr.cx("fr-text--md"),
+                        classes.text
+                    )}
+                >
+                    « {text} »
+                </p>
+            </blockquote>
+            <figcaption>
+                {author !== undefined && (
+                    <p className={cx(fr.cx("fr-quote__author"), classes.author)}>{author}</p>
                 )}
-                ref={ref}
-            >
-                <blockquote cite={sourceUrl}>
-                    <p
-                        className={cx(
-                            size === "large" && fr.cx("fr-text--lg"),
-                            size === "medium" && fr.cx("fr-text--md"),
-                            classes.text
-                        )}
-                    >
-                        « {text} »
-                    </p>
-                </blockquote>
-                <figcaption>
-                    {author !== undefined && (
-                        <p className={cx(fr.cx("fr-quote__author"), classes.author)}>{author}</p>
-                    )}
-                    {source !== undefined && (
-                        <ul className={cx(fr.cx("fr-quote__source"), classes.source)}>{source}</ul>
-                    )}
-                    {imageUrl !== undefined && (
-                        <div className={cx("fr-quote__image", classes.image)}>
-                            <img
-                                src={imageUrl}
-                                className={cx(fr.cx("fr-responsive-img"), classes.imageTag)}
-                                alt=""
-                            />
-                        </div>
-                    )}
-                </figcaption>
-            </figure>
-        );
-    })
-);
+                {source !== undefined && (
+                    <ul className={cx(fr.cx("fr-quote__source"), classes.source)}>{source}</ul>
+                )}
+                {imageUrl !== undefined && (
+                    <div className={cx("fr-quote__image", classes.image)}>
+                        <img
+                            src={imageUrl}
+                            className={cx(fr.cx("fr-responsive-img"), classes.imageTag)}
+                            alt=""
+                        />
+                    </div>
+                )}
+            </figcaption>
+        </figure>
+    );
+});
 
 Quote.displayName = symToStr({ Quote });
 

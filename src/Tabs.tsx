@@ -1,7 +1,7 @@
 "use client";
 
-import React, { memo, forwardRef, useId, useState, useEffect } from "react";
-import type { ReactNode } from "react";
+import React, { memo, useId, useState, useEffect } from "react";
+import type { ReactNode, ForwardedRef } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -16,6 +16,7 @@ export namespace TabsProps {
     export type Common = {
         className?: string;
         label?: string;
+        ref?: ForwardedRef<HTMLDivElement>;
         classes?: Partial<Record<"root" | "tab" | "panel", string>>;
     };
 
@@ -43,115 +44,112 @@ export namespace TabsProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tabs> */
-export const Tabs = memo(
-    forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
-        const {
-            className,
-            label,
-            classes = {},
-            tabs,
-            selectedTabId,
-            onTabChange,
-            children,
-            ...rest
-        } = props;
+export const Tabs = memo((props: TabsProps) => {
+    const {
+        className,
+        label,
+        classes = {},
+        tabs,
+        selectedTabId,
+        onTabChange,
+        children,
+        ref,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        const id = useId();
+    const id = useId();
 
-        const getSelectedTabIndex = () => {
-            assert(selectedTabId !== undefined);
-            return tabs.findIndex(({ tabId }) => tabId === selectedTabId);
-        };
+    const getSelectedTabIndex = () => {
+        assert(selectedTabId !== undefined);
+        return tabs.findIndex(({ tabId }) => tabId === selectedTabId);
+    };
 
-        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
-            selectedTabId !== undefined ? getSelectedTabIndex : 0
-        );
+    const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
+        selectedTabId !== undefined ? getSelectedTabIndex : 0
+    );
 
-        useEffect(() => {
-            if (selectedTabId === undefined) {
-                return;
-            }
+    useEffect(() => {
+        if (selectedTabId === undefined) {
+            return;
+        }
 
-            setSelectedTabIndex(getSelectedTabIndex());
-        }, [selectedTabId]);
+        setSelectedTabIndex(getSelectedTabIndex());
+    }, [selectedTabId]);
 
-        const onTabClickFactory = useCallbackFactory(([tabIndex]: [number]) => {
-            if (selectedTabId === undefined) {
-                onTabChange?.({
-                    tabIndex,
-                    "tab": tabs[tabIndex]
-                });
-            } else {
-                onTabChange(tabs[tabIndex].tabId);
-            }
-        });
+    const onTabClickFactory = useCallbackFactory(([tabIndex]: [number]) => {
+        if (selectedTabId === undefined) {
+            onTabChange?.({
+                tabIndex,
+                "tab": tabs[tabIndex]
+            });
+        } else {
+            onTabChange(tabs[tabIndex].tabId);
+        }
+    });
 
-        const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
-        const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
+    const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
+    const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
 
-        return (
-            <div className={cx(fr.cx("fr-tabs"), className)} ref={ref} {...rest}>
-                <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
-                    {tabs.map(({ label, iconId }, tabIndex) => (
-                        <li key={label + (iconId ?? "")} role="presentation">
-                            <button
-                                id={getTabId(tabIndex)}
-                                className={cx(
-                                    fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"),
-                                    classes.tab
-                                )}
-                                tabIndex={tabIndex === selectedTabIndex ? 0 : -1}
-                                role="tab"
-                                aria-selected={tabIndex === selectedTabIndex}
-                                aria-controls={getPanelId(tabIndex)}
-                                onClick={onTabClickFactory(tabIndex)}
-                            >
-                                {label}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-                {selectedTabId === undefined ? (
-                    tabs.map(({ content }, tabIndex) => (
-                        <div
-                            key={tabIndex}
-                            id={getPanelId(tabIndex)}
+    return (
+        <div className={cx(fr.cx("fr-tabs"), className)} ref={ref}>
+            <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
+                {tabs.map(({ label, iconId }, tabIndex) => (
+                    <li key={label + (iconId ?? "")} role="presentation">
+                        <button
+                            id={getTabId(tabIndex)}
                             className={cx(
-                                fr.cx(
-                                    "fr-tabs__panel",
-                                    `fr-tabs__panel${
-                                        tabIndex === selectedTabIndex ? "--selected" : ""
-                                    }`
-                                ),
-                                classes.panel
+                                fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"),
+                                classes.tab
                             )}
-                            role="tabpanel"
-                            aria-labelledby={getTabId(tabIndex)}
-                            tabIndex={0}
+                            tabIndex={tabIndex === selectedTabIndex ? 0 : -1}
+                            role="tab"
+                            aria-selected={tabIndex === selectedTabIndex}
+                            aria-controls={getPanelId(tabIndex)}
+                            onClick={onTabClickFactory(tabIndex)}
                         >
-                            {content}
-                        </div>
-                    ))
-                ) : (
+                            {label}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            {selectedTabId === undefined ? (
+                tabs.map(({ content }, tabIndex) => (
                     <div
-                        id={getPanelId(selectedTabIndex)}
+                        key={tabIndex}
+                        id={getPanelId(tabIndex)}
                         className={cx(
-                            fr.cx("fr-tabs__panel", "fr-tabs__panel--selected"),
+                            fr.cx(
+                                "fr-tabs__panel",
+                                `fr-tabs__panel${tabIndex === selectedTabIndex ? "--selected" : ""}`
+                            ),
                             classes.panel
                         )}
                         role="tabpanel"
-                        aria-labelledby={getTabId(selectedTabIndex)}
+                        aria-labelledby={getTabId(tabIndex)}
                         tabIndex={0}
                     >
-                        {children}
+                        {content}
                     </div>
-                )}
-            </div>
-        );
-    })
-);
+                ))
+            ) : (
+                <div
+                    id={getPanelId(selectedTabIndex)}
+                    className={cx(
+                        fr.cx("fr-tabs__panel", "fr-tabs__panel--selected"),
+                        classes.panel
+                    )}
+                    role="tabpanel"
+                    aria-labelledby={getTabId(selectedTabIndex)}
+                    tabIndex={0}
+                >
+                    {children}
+                </div>
+            )}
+        </div>
+    );
+});
 
 Tabs.displayName = symToStr({ Tabs });
 

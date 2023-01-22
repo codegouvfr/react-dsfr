@@ -1,4 +1,5 @@
-import React, { memo, forwardRef, ReactNode } from "react";
+import React, { memo } from "react";
+import type { ReactNode, ForwardedRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -19,6 +20,7 @@ export type CallOutProps = {
     buttonProps?: ButtonProps;
     colorVariant?: CallOutProps.ColorVariant;
     classes?: Partial<Record<"root" | "title" | "text" | "button", string>>;
+    ref?: ForwardedRef<HTMLDivElement>;
     children: ReactNode;
 };
 
@@ -31,49 +33,44 @@ export namespace CallOutProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-callout> */
-export const CallOut = memo(
-    forwardRef<HTMLDivElement, CallOutProps>((props, ref) => {
-        const {
-            className,
-            iconId,
-            title,
-            buttonProps,
-            colorVariant,
-            classes = {},
-            children,
-            ...rest
-        } = props;
+export const CallOut = memo((props: CallOutProps) => {
+    const {
+        className,
+        iconId,
+        title,
+        buttonProps,
+        colorVariant,
+        classes = {},
+        ref,
+        children,
+        ...rest
+    } = props;
 
-        assert<Equals<keyof typeof rest, never>>();
+    assert<Equals<keyof typeof rest, never>>();
 
-        return (
-            <div
-                className={cx(
-                    fr.cx(
-                        "fr-callout",
-                        iconId,
-                        colorVariant !== undefined && `fr-callout--${colorVariant}`
-                    ),
-                    classes.root,
-                    className
-                )}
-                ref={ref}
-                {...rest}
-            >
-                {title !== undefined && (
-                    <h3 className={cx(fr.cx("fr-callout__title"), classes.title)}>{title}</h3>
-                )}
-                <p className={cx(fr.cx("fr-callout__text"), classes.text)}> {children} </p>
-                {buttonProps !== undefined && (
-                    <Button
-                        {...buttonProps}
-                        className={cx(classes.button, buttonProps.className)}
-                    />
-                )}
-            </div>
-        );
-    })
-);
+    return (
+        <div
+            className={cx(
+                fr.cx(
+                    "fr-callout",
+                    iconId,
+                    colorVariant !== undefined && `fr-callout--${colorVariant}`
+                ),
+                classes.root,
+                className
+            )}
+            ref={ref}
+        >
+            {title !== undefined && (
+                <h3 className={cx(fr.cx("fr-callout__title"), classes.title)}>{title}</h3>
+            )}
+            <p className={cx(fr.cx("fr-callout__text"), classes.text)}> {children} </p>
+            {buttonProps !== undefined && (
+                <Button {...buttonProps} className={cx(classes.button, buttonProps.className)} />
+            )}
+        </div>
+    );
+});
 
 CallOut.displayName = symToStr({ CallOut });
 
