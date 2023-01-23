@@ -29,7 +29,7 @@ export const MyComponent =(props: Props) => {
     return (
 	<div 
 	    className={className}
-	    styles={{
+	    style={{
 	        "padding": fr.spacing("10v"),
 	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
 	    }}
