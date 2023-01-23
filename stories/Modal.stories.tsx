@@ -14,6 +14,10 @@ const { meta, getStory } = getStoryFactory({
 
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
+
+This is a uncontrolled implementation of the modal, compatible with Server Components.  
+An controlled variant is coming soon.  
+
 `,
     "argTypes": {
         "title": {
@@ -68,7 +72,10 @@ const { meta, getStory } = getStoryFactory({
 
 export default meta;
 
-const { SimpleModal, simpleModalButtonProps } = createModal("simple");
+const { SimpleModal, simpleModalButtonProps } = createModal({
+    "name": "simple",
+    "isOpenedByDefault": false
+});
 
 function Template(args: ModalProps) {
     return (
@@ -109,7 +116,10 @@ Default.parameters = {
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
-const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal("acceptTerms");
+const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal(
+    name: "simple",
+    isOpenedByDefault: false
+);
 
 function MyComponent(){
 

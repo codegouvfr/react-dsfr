@@ -181,12 +181,15 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-function createOpenModalButtonProps(id: string) {
+function createOpenModalButtonProps(params: { modalId: string; isOpenedByDefault: boolean }) {
+    const { modalId, isOpenedByDefault } = params;
+
     return {
+        //For RSC we don't want to pass an empty function.
         "onClick": undefined as any as () => void,
         "nativeButtonProps": {
-            "aria-controls": id,
-            "data-fr-opened": false
+            "aria-controls": modalId,
+            "data-fr-opened": isOpenedByDefault
         }
     };
 }
@@ -194,14 +197,31 @@ function createOpenModalButtonProps(id: string) {
 let counter = 0;
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
-export function createModal<Name extends string>(
-    name: Name
-): Record<`${Uncapitalize<Name>}ModalButtonProps`, ReturnType<typeof createOpenModalButtonProps>> &
+export function createModal<Name extends string>(params: {
+    name: Name;
+    isOpenedByDefault: boolean;
+}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ReturnType<typeof createOpenModalButtonProps>> &
     Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> {
+    const { name, isOpenedByDefault } = params;
+
     const modalId = `${uncapitalize(name)}-modal-${counter++}`;
 
+    const openModalButtonProps = createOpenModalButtonProps({
+        modalId,
+        isOpenedByDefault
+    });
+
     function InternalModal(props: ModalProps) {
-        return <Modal {...props} id={modalId} />;
+        return (
+            <>
+                {isOpenedByDefault && (
+                    <Button {...openModalButtonProps} className={fr.cx("fr-hidden")}>
+                        {" "}
+                    </Button>
+                )}
+                <Modal {...props} id={modalId} />
+            </>
+        );
     }
 
     InternalModal.displayName = `${capitalize(name)}Modal`;
@@ -210,6 +230,6 @@ export function createModal<Name extends string>(
 
     return {
         [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalButtonProps`]: createOpenModalButtonProps(modalId)
+        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps
     } as any;
 }
