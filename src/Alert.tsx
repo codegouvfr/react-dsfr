@@ -152,7 +152,6 @@ export const Alert = memo((props: AlertProps) => {
                 {title}
             </HtmlTitleTag>
             <p className={classes.description}>{description}</p>
-            {/* TODO: Use our button once we have one */}
             {isClosable && (
                 <button
                     ref={setButtonElement}
