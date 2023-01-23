@@ -1,23 +1,21 @@
-import * as React from "react";
-import { Modal, ModalProps } from "../dist/Modal";
+import React from "react";
+import { createModal } from "../dist/Modal";
+import type { ModalProps } from "../dist/Modal";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { Button } from "../dist/Button";
-import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { [symToStr({ Modal })]: Template },
-    "description": `
-A button that opens a modale
+    "wrappedComponent": { "Modal": Template },
+    "description": `\`import { createModal } from "@codegouvfr/react-dsfr/Modal";\` (Click **show code** for usage details)
+
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
+`,
     "argTypes": {
-        "id": {
-            "description": "Required : This modal id (shared with button aria-controls)"
-        },
         "title": {
             "description": `Required : The modal title`
         },
@@ -56,77 +54,98 @@ A button that opens a modale
         "topAnchor": {
             "control": "boolean",
             "description": "Default : false, make modal anchor to the top"
+        },
+        "buttons": {
+            "control": { "type": null },
+            "description": `The buttons at the bottom of the Modal, it's an array of ButtonProps objects.  
+            If not stated otherwise all buttons are "secondary" except the last one that is "primary".  
+            By default all buttons closes the modal, if you want it to be otherwise you can add \`doClosesModal: false\`
+            `
         }
-    }
+    },
+    "doHideImportInstruction": true
 });
 
 export default meta;
 
+const { SimpleModal, simpleModalButtonProps } = createModal("simple");
+
 function Template(args: ModalProps) {
     return (
         <>
-            <Button
-                onClick={() => console.log("onClick")}
-                nativeButtonProps={{
-                    "aria-controls": args.id,
-                    "data-fr-opened": "false"
-                }}
-                wesh-morray={false}
-            >
-                Open Modal
-            </Button>
-            <Modal {...args} />
+            <Button {...simpleModalButtonProps}>Open modal</Button>
+            <SimpleModal {...args} />
         </>
     );
 }
 
-export const ModalSimple = getStory({
-    "id": "fr-modal-1",
-    "children":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.",
-    "title": "Titre de la modale",
+export const Default = getStory({
+    "children": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, 
+sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris 
+malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, 
+tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
+malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
+turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.`,
+    "title": "Accept terms",
     "iconId": "fr-icon-checkbox-circle-line",
-    "size": "medium",
-    "concealingBackdrop": true,
-    "topAnchor": false
+    "buttons": [
+        {
+            "linkProps": { "href": "https://example.com", "target": "_blank" },
+            "doClosesModal": false, //Default true, clicking a button close the modal.
+            "children": "Learn more"
+        },
+        {
+            "iconId": "ri-check-line",
+            "children": "Ok",
+            "onClick": () => console.log("terms accepted")
+        }
+    ]
 });
 
-ModalSimple.parameters = {
-    docs: {
-        source: {
-            code: `
-<>
-    <Button onClick={() => console.log("onClick")} nativeButtonProps={{ "aria-controls": args.id, data-fr-opened="false"}} >
-    Open Modal
-    </Button>
-    <Modal id="fr-modal-1" children="Lorem ipsum dolor sit amet" title="Titre de la modale" iconId="fr-icon-checkbox-circle-line" />
-</>
+Default.parameters = {
+    "docs": {
+        "source": {
+            "code": `
+import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
+const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal("acceptTerms");
+
+function MyComponent(){
+
+    return (
+        <>
+            <Button {...acceptTermsModalButtonProps}>Open modal</Button>
+            <AcceptTermsModal
+                title="Accept terms"
+                iconId="fr-icon-checkbox-circle-line"
+                buttons={
+                    [
+                        {
+                            linkProps: { href: "https://example.com", target: "_blank" },
+                            doClosesModal: false, //Default true, clicking a button close the modal.
+                            children: "Learn more"
+                        },
+                        {
+                            iconId: "ri-check-line",
+                            onClick: ()=> console.log("terms accepted"),
+                            children: "Ok"
+                        }
+                    ]
+                }
+            >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, 
+                sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris 
+                malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, 
+                tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
+                malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
+                turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.
+            </AcceptTermsModal>
+        </>
+    );
+
+}
 `
         }
     }
 };
-
-export const ModalAction = getStory({
-    "id": "fr-modal-2",
-    "children":
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.",
-    "title": "Titre de la modale",
-    "iconId": "fr-icon-checkbox-circle-line",
-    "size": "medium",
-    "concealingBackdrop": true,
-    "topAnchor": false,
-    "actionArea": [
-        {
-            "linkProps": { "href": "#" },
-            "iconId": "fr-icon-git-commit-fill",
-            "children": "Button 1 label",
-            "priority": "secondary"
-        },
-        {
-            "priority": "secondary",
-            "linkProps": { "href": "#" },
-            "iconId": "fr-icon-chat-check-fill",
-            "children": "Button 2 label (longer)"
-        }
-    ]
-});

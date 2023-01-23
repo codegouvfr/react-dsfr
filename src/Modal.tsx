@@ -7,53 +7,33 @@ import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import Button, { ButtonProps } from "./Button";
+import { capitalize } from "tsafe/capitalize";
+import { uncapitalize } from "tsafe/uncapitalize";
 
-export function createOpenModalButtonProps(id: string): ButtonProps {
-    return {
-        "onClick": () => {
-            /* nothing */
-        },
-        "nativeButtonProps": {
-            "aria-controls": id,
-            "data-fr-opened": "false"
-        }
-    };
-}
+export type ModalProps = {
+    className?: string;
+    /** Default: "medium" */
+    size?: "small" | "medium" | "large";
+    title: ReactNode;
+    children: ReactNode;
+    /** Default: true */
+    concealingBackdrop?: boolean;
+    topAnchor?: boolean;
+    ref?: ForwardedRef<HTMLDialogElement>;
+    iconId?: FrIconClassName | RiIconClassName;
+    buttons?:
+        | [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]]
+        | ModalProps.ActionAreaButtonProps;
+};
 
-export type ModalProps = ModalProps.Common &
-    (ModalProps.WithTitleIcon | ModalProps.WithoutTitleIcon) &
-    (ModalProps.WithAction | ModalProps.WithoutAction);
 export namespace ModalProps {
-    export type Common = {
-        className?: string;
-        size?: "small" | "medium" | "large";
-        id: string;
-        title: ReactNode;
-        children: ReactNode;
-        concealingBackdrop?: boolean;
-        topAnchor?: boolean;
-        ref?: ForwardedRef<HTMLDialogElement>;
-    };
-
-    export type WithTitleIcon = {
-        iconId: FrIconClassName | RiIconClassName;
-    };
-
-    export type WithoutTitleIcon = {
-        iconId?: never;
-    };
-
-    export type WithAction = {
-        actionArea: [ButtonProps, ...ButtonProps[]];
-    };
-
-    export type WithoutAction = {
-        actionArea?: never;
+    export type ActionAreaButtonProps = ButtonProps & {
+        /** Default: true */
+        doClosesModal?: boolean;
     };
 }
 
-/** @see <> add doc url */
-export const Modal = memo((props: ModalProps) => {
+const Modal = memo((props: ModalProps & { id: string }) => {
     const {
         className,
         id,
@@ -63,12 +43,19 @@ export const Modal = memo((props: ModalProps) => {
         topAnchor = false,
         ref,
         iconId,
-        actionArea,
+        buttons: buttons_props,
         size = "medium",
         ...rest
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
+
+    const buttons =
+        buttons_props === undefined
+            ? undefined
+            : buttons_props instanceof Array
+            ? buttons_props
+            : [buttons_props];
 
     const { t } = useTranslation();
 
@@ -117,7 +104,7 @@ export const Modal = memo((props: ModalProps) => {
                                 </h1>
                                 {children}
                             </div>
-                            {actionArea !== undefined && (
+                            {buttons !== undefined && (
                                 <div className="fr-modal__footer">
                                     <ul
                                         className={fr.cx(
@@ -128,16 +115,34 @@ export const Modal = memo((props: ModalProps) => {
                                             "fr-btns-group--icon-left"
                                         )}
                                     >
-                                        {actionArea.map((buttonProps, i) => {
-                                            const { priority: priorityProps, ...rest } =
-                                                buttonProps;
-                                            const priority = i === 0 ? "primary" : priorityProps;
-                                            return (
+                                        {[...buttons]
+                                            .reverse()
+                                            .map(({ doClosesModal = true, ...buttonProps }, i) => (
                                                 <li key={i}>
-                                                    <Button priority={priority} {...rest} />
+                                                    <Button
+                                                        {...buttonProps}
+                                                        priority={
+                                                            buttonProps.priority ??
+                                                            (i === 0 ? "primary" : "secondary")
+                                                        }
+                                                        {...(!doClosesModal
+                                                            ? {}
+                                                            : "linkProps" in buttonProps
+                                                            ? {
+                                                                  "linkProps": {
+                                                                      ...buttonProps.linkProps,
+                                                                      "aria-controls": id
+                                                                  } as any
+                                                              }
+                                                            : {
+                                                                  "nativeButtonProps": {
+                                                                      ...buttonProps.nativeButtonProps,
+                                                                      "aria-controls": id
+                                                                  } as any
+                                                              })}
+                                                    />
                                                 </li>
-                                            );
-                                        })}
+                                            ))}
                                     </ul>
                                 </div>
                             )}
@@ -168,8 +173,43 @@ addModalTranslations({
 addModalTranslations({
     "lang": "es",
     "messages": {
+        /* spell-checker: disable */
         "close": "Cerrar"
+        /* spell-checker: enable */
     }
 });
 
 export { addModalTranslations };
+
+function createOpenModalButtonProps(id: string) {
+    return {
+        "onClick": undefined as any as () => void,
+        "nativeButtonProps": {
+            "aria-controls": id,
+            "data-fr-opened": false
+        }
+    };
+}
+
+let counter = 0;
+
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
+export function createModal<Name extends string>(
+    name: Name
+): Record<`${Uncapitalize<Name>}ModalButtonProps`, ReturnType<typeof createOpenModalButtonProps>> &
+    Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> {
+    const modalId = `${uncapitalize(name)}-modal-${counter++}`;
+
+    function InternalModal(props: ModalProps) {
+        return <Modal {...props} id={modalId} />;
+    }
+
+    InternalModal.displayName = `${capitalize(name)}Modal`;
+
+    Object.defineProperty(InternalModal, "name", { "value": InternalModal.displayName });
+
+    return {
+        [InternalModal.displayName]: InternalModal,
+        [`${uncapitalize(name)}ModalButtonProps`]: createOpenModalButtonProps(modalId)
+    } as any;
+}
