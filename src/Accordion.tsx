@@ -1,6 +1,7 @@
 "use client";
 
-import React, { memo, ReactNode, useId, useState, ForwardedRef } from "react";
+import React, { memo, ReactNode, useId, useState } from "react";
+import type { ForwardedRef } from "react";
 import { assert } from "tsafe";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
