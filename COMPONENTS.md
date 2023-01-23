@@ -26,7 +26,7 @@
 -   [ ] Side menu
 -   [x] Call out
 -   [x] Highlight
--   [ ] Modal
+-   [x] Modal (Uncontrolled variant done, still needs to do the controlled one)
 -   [x] Main navigation
 -   [x] Tabs
 -   [x] Pagination
