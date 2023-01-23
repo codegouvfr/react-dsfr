@@ -140,6 +140,7 @@
         "./Quote": "./dist/Quote.js",
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
+        "./Modal": "./dist/Modal.js",
         "./MainNavigation": "./dist/MainNavigation/index.js",
         "./Input": "./dist/Input.js",
         "./Highlight": "./dist/Highlight.js",
