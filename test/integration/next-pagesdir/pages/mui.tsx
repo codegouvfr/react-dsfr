@@ -636,7 +636,8 @@ const { DataGridDemo } = (() => {
 
 	function DataGridDemo() {
 		return (
-			<Box sx={{ height: 400, width: '100%', mt: 7 }}>
+			<div style={{ width: 800 }} >
+			<Box sx={{ height: 400, mt: 7, width: "100%" }}>
 				<DataGrid
 					rows={rows}
 					columns={columns}
@@ -647,6 +648,7 @@ const { DataGridDemo } = (() => {
 					experimentalFeatures={{ newEditingApi: true }}
 				/>
 			</Box>
+			</div>
 		);
 	}
 

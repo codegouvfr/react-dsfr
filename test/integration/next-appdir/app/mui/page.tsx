@@ -637,7 +637,7 @@ const { DataGridDemo } = (() => {
 
 	function DataGridDemo() {
 		return (
-			<Box sx={{ height: 400, width: '100%', mt: 7 }}>
+			<Box sx={{ height: 400, width: 800, mt: 7 }}>
 				<DataGrid
 					rows={rows}
 					columns={columns}

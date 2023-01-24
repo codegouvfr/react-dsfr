@@ -38,7 +38,13 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					]}
 				/>
 			</head>
-			<body>
+			<body
+		style={{
+			"height": "100vh",
+			"display": "flex",
+					"flexDirection": "column"
+		}}
+			>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
@@ -50,9 +56,9 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								navigation={<Navigation />}
 							/>
 							<div style={{
+								"flex": 1,
 								"margin": "auto",
 								"maxWidth": 1000,
-								"minHeight": "calc(100vh - 208px - 231px - 37px)",
 								...fr.spacing("padding", {
 									"topBottom": "10v"
 								})

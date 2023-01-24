@@ -57,7 +57,13 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <>
+        <div
+            style={{
+                "height": "100vh",
+                "display": "flex",
+                "flexDirection": "column"
+            }}
+        >
             <Header
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"
@@ -81,9 +87,9 @@ function App({ Component, pageProps }: AppProps) {
                 quickAccessItems={[headerFooterDisplayItem]}
             />
             <div className={css({
+                "flex": 1,
                 "margin": "auto",
                 "maxWidth": 1000,
-                "minHeight": "calc(100vh - 208px - 231px - 5px)",
                 ...fr.spacing("padding", {
                     "topBottom": "10v"
                 })
@@ -104,7 +110,7 @@ function App({ Component, pageProps }: AppProps) {
                 bottomItems={[headerFooterDisplayItem]}
             />
             <Display />
-        </>
+        </div>
     );
 }
 

@@ -5,7 +5,10 @@ import { Summary } from "@codegouvfr/react-dsfr/Summary";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 
-const { SimpleModal, simpleModalButtonProps } = createModal("simple");
+const { SimpleModal, simpleModalButtonProps } = createModal({
+    "name": "simple",
+    "isOpenedByDefault": false
+});
 
 export default function Page() {
 
@@ -59,7 +62,6 @@ export default function Page() {
                 ]}
             />
             <ClientComponent />
-
             <Button {...simpleModalButtonProps}>Open simple modal</Button>
             <SimpleModal
                 title="simple modal title"

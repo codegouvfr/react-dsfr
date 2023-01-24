@@ -26,7 +26,11 @@ function Root() {
     const route = useRoute();
 
     return (
-        <>
+        <div style={{
+            "height": "100vh",
+            "display": "flex",
+            "flexDirection": "column",
+        }}>
             <Header
                 brandTop={<>INTITULE<br />OFFICIEL</>}
                 serviceTitle="Nom du site / service"
@@ -46,6 +50,7 @@ function Root() {
                 ]}
             />
             <div style={{
+                "flex": 1,
                 "margin": "auto",
                 "maxWidth": 1000,
                 ...fr.spacing("padding", { "topBottom": "10v" })
@@ -59,7 +64,7 @@ function Root() {
                 })()}
             </div>
             <Display />
-        </>
+        </div>
     );
 
 
