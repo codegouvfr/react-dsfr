@@ -1,7 +1,7 @@
 "use client";
 
-import React, { memo, useState, useEffect, useRef } from "react";
-import type { ReactNode, ForwardedRef } from "react";
+import React, { memo, forwardRef, useState, useEffect, useRef } from "react";
+import type { ReactNode } from "react";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -16,7 +16,6 @@ export type AlertProps = {
     severity: AlertProps.Severity;
     /** Default h3 */
     as?: `h${2 | 3 | 4 | 5 | 6}`;
-    ref?: ForwardedRef<HTMLDivElement>;
     classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
 } & (AlertProps.DefaultSize | AlertProps.Small) &
     (AlertProps.NonClosable | AlertProps.Closable);
@@ -68,102 +67,104 @@ export namespace AlertProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-alert> */
-export const Alert = memo((props: AlertProps) => {
-    const {
-        className,
-        severity,
-        as: HtmlTitleTag = "h3",
-        classes = {},
-        ref,
-        small: isSmall,
-        title,
-        description,
-        closable: isClosable = false,
-        isClosed: props_isClosed,
-        onClose,
-        ...rest
-    } = props;
+export const Alert = memo(
+    forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
+        const {
+            className,
+            severity,
+            as: HtmlTitleTag = "h3",
+            classes = {},
+            small: isSmall,
+            title,
+            description,
+            closable: isClosable = false,
+            isClosed: props_isClosed,
+            onClose,
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
+        const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
 
-    const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
+        const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
-    const refShouldButtonGetFocus = useRef(false);
-    const refShouldSetRole = useRef(false);
+        const refShouldButtonGetFocus = useRef(false);
+        const refShouldSetRole = useRef(false);
 
-    useEffect(() => {
-        if (props_isClosed === undefined) {
-            return;
-        }
-        setIsClosed(isClosed => {
-            if (isClosed && !props_isClosed) {
-                refShouldButtonGetFocus.current = true;
-                refShouldSetRole.current = true;
+        useEffect(() => {
+            if (props_isClosed === undefined) {
+                return;
+            }
+            setIsClosed(isClosed => {
+                if (isClosed && !props_isClosed) {
+                    refShouldButtonGetFocus.current = true;
+                    refShouldSetRole.current = true;
+                }
+
+                return props_isClosed;
+            });
+        }, [props_isClosed]);
+
+        useEffect(() => {
+            if (!refShouldButtonGetFocus.current) {
+                return;
             }
 
-            return props_isClosed;
+            if (buttonElement === null) {
+                //NOTE: This should not be reachable
+                return;
+            }
+
+            refShouldButtonGetFocus.current = false;
+            buttonElement.focus();
+        }, [buttonElement]);
+
+        const onCloseButtonClick = useConstCallback(() => {
+            if (props_isClosed === undefined) {
+                //Uncontrolled
+                setIsClosed(true);
+                onClose?.();
+            } else {
+                //Controlled
+                onClose();
+            }
         });
-    }, [props_isClosed]);
 
-    useEffect(() => {
-        if (!refShouldButtonGetFocus.current) {
-            return;
+        const { t } = useTranslation();
+
+        if (isClosed) {
+            return null;
         }
 
-        if (buttonElement === null) {
-            //NOTE: This should not be reachable
-            return;
-        }
-
-        refShouldButtonGetFocus.current = false;
-        buttonElement.focus();
-    }, [buttonElement]);
-
-    const onCloseButtonClick = useConstCallback(() => {
-        if (props_isClosed === undefined) {
-            //Uncontrolled
-            setIsClosed(true);
-            onClose?.();
-        } else {
-            //Controlled
-            onClose();
-        }
-    });
-
-    const { t } = useTranslation();
-
-    if (isClosed) {
-        return null;
-    }
-
-    return (
-        <div
-            className={cx(
-                fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }),
-                classes.root,
-                className
-            )}
-            {...(refShouldSetRole.current && { "role": "alert" })}
-            ref={ref}
-        >
-            <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>
-                {title}
-            </HtmlTitleTag>
-            <p className={classes.description}>{description}</p>
-            {isClosable && (
-                <button
-                    ref={setButtonElement}
-                    className={cx(fr.cx("fr-link--close", "fr-link"), classes.close)}
-                    onClick={onCloseButtonClick}
-                >
-                    {t("hide message")}
-                </button>
-            )}
-        </div>
-    );
-});
+        return (
+            <div
+                className={cx(
+                    fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }),
+                    classes.root,
+                    className
+                )}
+                {...(refShouldSetRole.current && { "role": "alert" })}
+                ref={ref}
+                {...rest}
+            >
+                <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>
+                    {title}
+                </HtmlTitleTag>
+                <p className={classes.description}>{description}</p>
+                {isClosable && (
+                    <button
+                        ref={setButtonElement}
+                        className={cx(fr.cx("fr-link--close", "fr-link"), classes.close)}
+                        onClick={onCloseButtonClick}
+                    >
+                        {t("hide message")}
+                    </button>
+                )}
+            </div>
+        );
+    })
+);
 
 Alert.displayName = symToStr({ Alert });
 

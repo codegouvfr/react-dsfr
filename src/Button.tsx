@@ -1,5 +1,10 @@
-import React, { memo } from "react";
-import type { ReactNode, ForwardedRef } from "react";
+import React, { memo, forwardRef } from "react";
+import type {
+    ReactNode,
+    RefAttributes,
+    MemoExoticComponent,
+    ForwardRefExoticComponent
+} from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
@@ -52,7 +57,6 @@ export namespace ButtonProps {
         nativeButtonProps?: never;
         disabled?: never;
         type?: never;
-        ref?: ForwardedRef<HTMLAnchorElement>;
     };
     export type AsButton = {
         linkProps?: never;
@@ -68,73 +72,91 @@ export namespace ButtonProps {
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
-        ref?: ForwardedRef<HTMLButtonElement>;
     };
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-button> */
-export const Button = memo((props: ButtonProps) => {
-    const {
-        className: prop_className,
-        children,
-        title,
-        iconId,
-        iconPosition = "left",
-        priority = "primary",
-        size = "medium",
-        linkProps,
-        onClick,
-        nativeButtonProps,
-        disabled,
-        type,
-        ref,
-        ...rest
-    } = props;
+export const Button = memo(
+    forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
+        const {
+            className: prop_className,
+            children,
+            title,
+            iconId,
+            iconPosition = "left",
+            priority = "primary",
+            size = "medium",
+            linkProps,
+            onClick,
+            nativeButtonProps,
+            disabled,
+            type,
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { Link } = getLink();
+        const { Link } = getLink();
 
-    const className = cx(
-        fr.cx(
-            "fr-btn",
-            priority !== "primary" &&
-                `fr-btn--${priority === "tertiary no outline" ? "tertiary-no-outline" : priority}`,
-            size !== "medium" &&
-                `fr-btn--${(() => {
-                    switch (size) {
-                        case "small":
-                            return "sm";
-                        case "large":
-                            return "lg";
-                    }
-                })()}`,
-            ...(iconId === undefined
-                ? []
-                : [iconId, children !== undefined && (`fr-btn--icon-${iconPosition}` as const)])
-        ),
-        linkProps !== undefined && linkProps.className,
-        prop_className
-    );
+        const className = cx(
+            fr.cx(
+                "fr-btn",
+                priority !== "primary" &&
+                    `fr-btn--${
+                        priority === "tertiary no outline" ? "tertiary-no-outline" : priority
+                    }`,
+                size !== "medium" &&
+                    `fr-btn--${(() => {
+                        switch (size) {
+                            case "small":
+                                return "sm";
+                            case "large":
+                                return "lg";
+                        }
+                    })()}`,
+                ...(iconId === undefined
+                    ? []
+                    : [iconId, children !== undefined && (`fr-btn--icon-${iconPosition}` as const)])
+            ),
+            linkProps !== undefined && linkProps.className,
+            prop_className
+        );
 
-    return linkProps ? (
-        <Link {...linkProps} title={title ?? linkProps.title} className={className} ref={ref}>
-            {children}
-        </Link>
-    ) : (
-        <button
-            {...nativeButtonProps}
-            className={className}
-            type={type}
-            title={title}
-            onClick={onClick}
-            disabled={disabled}
-            ref={ref}
-        >
-            {children}
-        </button>
-    );
-});
+        return linkProps ? (
+            <Link
+                {...linkProps}
+                title={title ?? linkProps.title}
+                className={className}
+                ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+                {...rest}
+            >
+                {children}
+            </Link>
+        ) : (
+            <button
+                {...nativeButtonProps}
+                className={className}
+                type={type}
+                title={title}
+                onClick={onClick}
+                disabled={disabled}
+                ref={ref as React.ForwardedRef<HTMLButtonElement>}
+                {...rest}
+            >
+                {children}
+            </button>
+        );
+    })
+) as MemoExoticComponent<
+    ForwardRefExoticComponent<
+        ButtonProps.Common &
+            (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) &
+            (
+                | (ButtonProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
+                | (ButtonProps.AsButton & RefAttributes<HTMLButtonElement>)
+            )
+    >
+>;
 
 Button.displayName = symToStr({ Button });
 

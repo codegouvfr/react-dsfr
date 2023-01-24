@@ -1,5 +1,4 @@
-import React, { memo, useId } from "react";
-import type { ForwardedRef } from "react";
+import React, { memo, forwardRef, useId } from "react";
 import { fr } from "./fr";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "./i18n";
@@ -15,7 +14,6 @@ import type { FooterProps } from "./Footer";
 
 export type DisplayProps = {
     className?: string;
-    ref?: ForwardedRef<HTMLDialogElement>;
 };
 
 const dialogId = "fr-theme-modal";
@@ -39,68 +37,71 @@ export const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button &
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
-export const Display = memo((props: DisplayProps) => {
-    const { className, ref, ...rest } = props;
+export const Display = memo(
+    forwardRef<HTMLDialogElement, DisplayProps>((props, ref) => {
+        const { className, ...rest } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { t } = useTranslation();
+        const { t } = useTranslation();
 
-    return (
-        <dialog
-            id={dialogId}
-            className={cx(fr.cx("fr-modal"), className)}
-            role="dialog"
-            aria-labelledby={dialogTitleId}
-            ref={ref}
-        >
-            <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-md")}>
-                <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
-                    <div className={fr.cx("fr-col-12", "fr-col-md-6", "fr-col-lg-4")}>
-                        <div className={fr.cx("fr-modal__body")}>
-                            <div className={fr.cx("fr-modal__header")}>
-                                <button
-                                    className={fr.cx("fr-btn--close", "fr-btn")}
-                                    aria-controls={dialogId}
-                                    title={t("close")}
-                                >
-                                    {t("close")}
-                                </button>
-                            </div>
-                            <div className="fr-modal__content">
-                                <h1 id={dialogTitleId} className={fr.cx("fr-modal__title")}>
-                                    {t("display settings")}
-                                </h1>
-                                <div /*id="fr-display"*/ className={"fr-display"}>
-                                    <div className={fr.cx("fr-form-group" as any)}>
-                                        <fieldset className={fr.cx("fr-fieldset")}>
-                                            <legend
-                                                className={fr.cx(
-                                                    "fr-fieldset__legend",
-                                                    "fr-text--regular"
-                                                )}
-                                                //id="-legend"
-                                            >
-                                                {t("pick a theme")}
-                                            </legend>
-                                            <div className={fr.cx("fr-fieldset__content")}>
-                                                {(["light", "dark", "system"] as const).map(
-                                                    theme => (
-                                                        <RadioGroup key={theme} theme={theme} />
-                                                    )
-                                                )}
-                                            </div>
-                                        </fieldset>
+        return (
+            <dialog
+                id={dialogId}
+                className={cx(fr.cx("fr-modal"), className)}
+                role="dialog"
+                aria-labelledby={dialogTitleId}
+                ref={ref}
+                {...rest}
+            >
+                <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-md")}>
+                    <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
+                        <div className={fr.cx("fr-col-12", "fr-col-md-6", "fr-col-lg-4")}>
+                            <div className={fr.cx("fr-modal__body")}>
+                                <div className={fr.cx("fr-modal__header")}>
+                                    <button
+                                        className={fr.cx("fr-btn--close", "fr-btn")}
+                                        aria-controls={dialogId}
+                                        title={t("close")}
+                                    >
+                                        {t("close")}
+                                    </button>
+                                </div>
+                                <div className="fr-modal__content">
+                                    <h1 id={dialogTitleId} className={fr.cx("fr-modal__title")}>
+                                        {t("display settings")}
+                                    </h1>
+                                    <div /*id="fr-display"*/ className={"fr-display"}>
+                                        <div className={fr.cx("fr-form-group" as any)}>
+                                            <fieldset className={fr.cx("fr-fieldset")}>
+                                                <legend
+                                                    className={fr.cx(
+                                                        "fr-fieldset__legend",
+                                                        "fr-text--regular"
+                                                    )}
+                                                    //id="-legend"
+                                                >
+                                                    {t("pick a theme")}
+                                                </legend>
+                                                <div className={fr.cx("fr-fieldset__content")}>
+                                                    {(["light", "dark", "system"] as const).map(
+                                                        theme => (
+                                                            <RadioGroup key={theme} theme={theme} />
+                                                        )
+                                                    )}
+                                                </div>
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </dialog>
-    );
-});
+            </dialog>
+        );
+    })
+);
 
 Display.displayName = symToStr({ Display });
 

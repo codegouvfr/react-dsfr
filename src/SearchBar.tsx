@@ -1,5 +1,5 @@
-import React, { memo, useId } from "react";
-import type { DetailedHTMLProps, InputHTMLAttributes, ForwardedRef } from "react";
+import React, { memo, forwardRef, useId } from "react";
+import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
@@ -15,58 +15,59 @@ export type SearchBarProps = {
     nativeInputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     /** Default: false */
     big?: boolean;
-    ref?: ForwardedRef<HTMLDivElement>;
     classes?: Partial<Record<"root" | "label" | "input", string>>;
 };
 
 /**
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
  * */
-export const SearchBar = memo((props: SearchBarProps) => {
-    const {
-        className,
-        label: label_props,
-        nativeInputProps = {},
-        big = false,
-        classes = {},
-        ref,
-        ...rest
-    } = props;
+export const SearchBar = memo(
+    forwardRef<HTMLDivElement, SearchBarProps>((props, ref) => {
+        const {
+            className,
+            label: label_props,
+            nativeInputProps = {},
+            big = false,
+            classes = {},
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { t } = useTranslation();
+        const { t } = useTranslation();
 
-    const label = label_props ?? t("label");
+        const label = label_props ?? t("label");
 
-    const inputId = `search-${useId()}-input`;
+        const inputId = `search-${useId()}-input`;
 
-    return (
-        <div
-            className={cx(
-                fr.cx("fr-search-bar", big && "fr-search-bar--lg"),
-                classes.root,
-                className
-            )}
-            role="search"
-            ref={ref}
-        >
-            <label className={cx(fr.cx("fr-label"), classes.label)} htmlFor={inputId}>
-                {label}
-            </label>
-            <input
-                {...nativeInputProps}
-                className={cx(fr.cx("fr-input"), classes.input, nativeInputProps.className)}
-                placeholder={label}
-                type="search"
-                id={inputId}
-            />
-            <button className="fr-btn" title="Rechercher">
-                {label}
-            </button>
-        </div>
-    );
-});
+        return (
+            <div
+                className={cx(
+                    fr.cx("fr-search-bar", big && "fr-search-bar--lg"),
+                    classes.root,
+                    className
+                )}
+                role="search"
+                ref={ref}
+                {...rest}
+            >
+                <label className={cx(fr.cx("fr-label"), classes.label)} htmlFor={inputId}>
+                    {label}
+                </label>
+                <input
+                    {...nativeInputProps}
+                    className={cx(fr.cx("fr-input"), classes.input, nativeInputProps.className)}
+                    placeholder={label}
+                    type="search"
+                    id={inputId}
+                />
+                <button className="fr-btn" title="Rechercher">
+                    {label}
+                </button>
+            </div>
+        );
+    })
+);
 
 SearchBar.displayName = symToStr({ SearchBar });
 

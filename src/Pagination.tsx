@@ -1,5 +1,4 @@
-import React, { memo } from "react";
-import type { ForwardedRef } from "react";
+import React, { memo, forwardRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -13,10 +12,9 @@ export type PaginationProps = {
     className?: string;
     count: number;
     defaultPage?: number;
+    classes?: Partial<Record<"root" | "list" | "link", string>>;
     showFirstLast?: boolean;
     getPageLinkProps: (pageNumber: number) => RegisteredLinkProps;
-    ref?: ForwardedRef<HTMLElement>;
-    classes?: Partial<Record<"root" | "list" | "link", string>>;
 };
 
 // naive page slicing
@@ -61,118 +59,121 @@ const getPaginationParts = ({ count, defaultPage }: { count: number; defaultPage
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-pagination> */
-export const Pagination = memo((props: PaginationProps) => {
-    const {
-        className,
-        count,
-        defaultPage = 1,
-        showFirstLast = true,
-        getPageLinkProps,
-        ref,
-        classes = {},
-        ...rest
-    } = props;
+export const Pagination = memo(
+    forwardRef<HTMLDivElement, PaginationProps>((props, ref) => {
+        const {
+            className,
+            count,
+            defaultPage = 1,
+            showFirstLast = true,
+            getPageLinkProps,
+            classes = {},
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { t } = useTranslation();
+        const { t } = useTranslation();
 
-    const { Link } = getLink();
+        const { Link } = getLink();
 
-    const parts = getPaginationParts({ count, defaultPage });
+        const parts = getPaginationParts({ count, defaultPage });
 
-    return (
-        <nav
-            role="navigation"
-            className={cx(fr.cx("fr-pagination"), classes.root, className)}
-            aria-label={t("aria-label")}
-            ref={ref}
-        >
-            <ul className={cx(fr.cx("fr-pagination__list"), classes.list)}>
-                {showFirstLast && (
-                    <li>
-                        <Link
-                            {...(count > 0 && defaultPage > 1 && getPageLinkProps(1))}
-                            className={cx(
-                                fr.cx("fr-pagination__link", "fr-pagination__link--first"),
-                                classes.link,
-                                getPageLinkProps(1).className
-                            )}
-                            aria-disabled={count > 0 && defaultPage > 1 ? true : undefined}
-                            role="link"
-                        >
-                            {t("first page")}
-                        </Link>
-                    </li>
-                )}
-                <li>
-                    <Link
-                        className={cx(
-                            fr.cx(
-                                "fr-pagination__link",
-                                "fr-pagination__link--prev",
-                                "fr-pagination__link--lg-label"
-                            ),
-                            classes.link
-                        )}
-                        {...(defaultPage > 1 && getPageLinkProps(defaultPage - 1))}
-                        aria-disabled={defaultPage <= 1 ? true : undefined}
-                        role="link"
-                    >
-                        {t("previous page")}
-                    </Link>
-                </li>
-                {parts.map(part => (
-                    <li key={part.number}>
-                        {part.number === null ? (
-                            <a className={cx(fr.cx("fr-pagination__link"), classes.link)}>...</a>
-                        ) : (
+        return (
+            <nav
+                role="navigation"
+                className={cx(fr.cx("fr-pagination"), classes.root, className)}
+                aria-label={t("aria-label")}
+                ref={ref}
+            >
+                <ul className={cx(fr.cx("fr-pagination__list"), classes.list)}>
+                    {showFirstLast && (
+                        <li>
                             <Link
-                                className={cx(fr.cx("fr-pagination__link"), classes.link)}
-                                aria-current={part.active ? true : undefined}
-                                title={`Page ${part.number}`}
-                                {...getPageLinkProps(part.number)}
+                                {...(count > 0 && defaultPage > 1 && getPageLinkProps(1))}
+                                className={cx(
+                                    fr.cx("fr-pagination__link", "fr-pagination__link--first"),
+                                    classes.link,
+                                    getPageLinkProps(1).className
+                                )}
+                                aria-disabled={count > 0 && defaultPage > 1 ? true : undefined}
+                                role="link"
                             >
-                                {part.number}
+                                {t("first page")}
                             </Link>
-                        )}
-                    </li>
-                ))}
-                <li>
-                    <Link
-                        className={cx(
-                            fr.cx(
-                                "fr-pagination__link",
-                                "fr-pagination__link--next",
-                                "fr-pagination__link--lg-label"
-                            ),
-                            classes.link
-                        )}
-                        {...(defaultPage < count && getPageLinkProps(defaultPage + 1))}
-                        aria-disabled={defaultPage < count ? true : undefined}
-                        role="link"
-                    >
-                        {t("next page")}
-                    </Link>
-                </li>
-                {showFirstLast && (
+                        </li>
+                    )}
                     <li>
                         <Link
                             className={cx(
-                                fr.cx("fr-pagination__link", "fr-pagination__link--last"),
+                                fr.cx(
+                                    "fr-pagination__link",
+                                    "fr-pagination__link--prev",
+                                    "fr-pagination__link--lg-label"
+                                ),
                                 classes.link
                             )}
-                            {...(defaultPage < count && getPageLinkProps(count))}
-                            aria-disabled={defaultPage < count ? true : undefined}
+                            {...(defaultPage > 1 && getPageLinkProps(defaultPage - 1))}
+                            aria-disabled={defaultPage <= 1 ? true : undefined}
+                            role="link"
                         >
-                            {t("last page")}
+                            {t("previous page")}
                         </Link>
                     </li>
-                )}
-            </ul>
-        </nav>
-    );
-});
+                    {parts.map(part => (
+                        <li key={part.number}>
+                            {part.number === null ? (
+                                <a className={cx(fr.cx("fr-pagination__link"), classes.link)}>
+                                    ...
+                                </a>
+                            ) : (
+                                <Link
+                                    className={cx(fr.cx("fr-pagination__link"), classes.link)}
+                                    aria-current={part.active ? true : undefined}
+                                    title={`Page ${part.number}`}
+                                    {...getPageLinkProps(part.number)}
+                                >
+                                    {part.number}
+                                </Link>
+                            )}
+                        </li>
+                    ))}
+                    <li>
+                        <Link
+                            className={cx(
+                                fr.cx(
+                                    "fr-pagination__link",
+                                    "fr-pagination__link--next",
+                                    "fr-pagination__link--lg-label"
+                                ),
+                                classes.link
+                            )}
+                            {...(defaultPage < count && getPageLinkProps(defaultPage + 1))}
+                            aria-disabled={defaultPage < count ? true : undefined}
+                            role="link"
+                        >
+                            {t("next page")}
+                        </Link>
+                    </li>
+                    {showFirstLast && (
+                        <li>
+                            <Link
+                                className={cx(
+                                    fr.cx("fr-pagination__link", "fr-pagination__link--last"),
+                                    classes.link
+                                )}
+                                {...(defaultPage < count && getPageLinkProps(count))}
+                                aria-disabled={defaultPage < count ? true : undefined}
+                            >
+                                {t("last page")}
+                            </Link>
+                        </li>
+                    )}
+                </ul>
+            </nav>
+        );
+    })
+);
 
 Pagination.displayName = symToStr({ Pagination });
 

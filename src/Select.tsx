@@ -1,7 +1,6 @@
 "use client";
 
-import React, { memo, useId } from "react";
-import type { ReactNode, ForwardedRef } from "react";
+import React, { memo, forwardRef, ReactNode, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -22,86 +21,87 @@ export type SelectProps = {
     state?: "success" | "error" | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
-    ref?: ForwardedRef<HTMLDivElement>;
 };
 
 /**
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-select>
  * */
-export const Select = memo((props: SelectProps) => {
-    const {
-        className,
-        label,
-        nativeSelectProps,
-        disabled = false,
-        children,
-        state = "default",
-        stateRelatedMessage,
-        ref,
-        ...rest
-    } = props;
+export const Select = memo(
+    forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
+        const {
+            className,
+            label,
+            nativeSelectProps,
+            disabled = false,
+            children,
+            state = "default",
+            stateRelatedMessage,
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const selectId = `select-${useId()}`;
-    const stateDescriptionId = `select-${useId()}-desc`;
+        const selectId = `select-${useId()}`;
+        const stateDescriptionId = `select-${useId()}-desc`;
 
-    return (
-        <div
-            className={cx(
-                fr.cx(
-                    "fr-select-group",
-                    disabled && "fr-select-group--disabled",
-                    (() => {
-                        switch (state) {
-                            case "error":
-                                return "fr-select-group--error";
-                            case "success":
-                                return "fr-select-group--valid";
-                            case "default":
-                                return undefined;
-                        }
-                        assert<Equals<typeof state, never>>(false);
-                    })()
-                ),
-                className
-            )}
-            ref={ref}
-        >
-            <label className={fr.cx("fr-label")} htmlFor={selectId}>
-                {label}
-            </label>
-            <select
-                {...nativeSelectProps}
-                className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
-                id={selectId}
-                aria-describedby={stateDescriptionId}
-                disabled={disabled}
-            >
-                {children}
-            </select>
-            {state !== "default" && (
-                <p
-                    id={stateDescriptionId}
-                    className={fr.cx(
-                        "fr-valid-text",
+        return (
+            <div
+                className={cx(
+                    fr.cx(
+                        "fr-select-group",
+                        disabled && "fr-select-group--disabled",
                         (() => {
                             switch (state) {
                                 case "error":
-                                    return "fr-error-text";
+                                    return "fr-select-group--error";
                                 case "success":
-                                    return "fr-valid-text";
+                                    return "fr-select-group--valid";
+                                case "default":
+                                    return undefined;
                             }
                             assert<Equals<typeof state, never>>(false);
                         })()
-                    )}
+                    ),
+                    className
+                )}
+                ref={ref}
+                {...rest}
+            >
+                <label className={fr.cx("fr-label")} htmlFor={selectId}>
+                    {label}
+                </label>
+                <select
+                    {...nativeSelectProps}
+                    className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
+                    id={selectId}
+                    aria-describedby={stateDescriptionId}
+                    disabled={disabled}
                 >
-                    {stateRelatedMessage}
-                </p>
-            )}
-        </div>
-    );
-});
+                    {children}
+                </select>
+                {state !== "default" && (
+                    <p
+                        id={stateDescriptionId}
+                        className={fr.cx(
+                            "fr-valid-text",
+                            (() => {
+                                switch (state) {
+                                    case "error":
+                                        return "fr-error-text";
+                                    case "success":
+                                        return "fr-valid-text";
+                                }
+                                assert<Equals<typeof state, never>>(false);
+                            })()
+                        )}
+                    >
+                        {stateRelatedMessage}
+                    </p>
+                )}
+            </div>
+        );
+    })
+);
 
 Select.displayName = symToStr({ Select });
 

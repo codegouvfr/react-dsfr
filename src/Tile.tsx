@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import type { ReactNode, ForwardedRef } from "react";
+import React, { memo, forwardRef } from "react";
+import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -25,70 +25,75 @@ export type TileProps = {
     >;
     /** Default false */
     horizontal?: boolean;
-    ref?: ForwardedRef<HTMLDivElement>;
 };
 
 export namespace TileProps {}
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tile> */
-export const Tile = memo((props: TileProps) => {
-    const {
-        className,
-        title,
-        linkProps,
-        desc,
-        imageUrl,
-        imageAlt,
-        horizontal = false,
-        grey = false,
-        classes = {},
-        enlargeLink = true,
-        ref,
-        ...rest
-    } = props;
+export const Tile = memo(
+    forwardRef<HTMLDivElement, TileProps>((props, ref) => {
+        const {
+            className,
+            title,
+            linkProps,
+            desc,
+            imageUrl,
+            imageAlt,
+            horizontal = false,
+            grey = false,
+            classes = {},
+            enlargeLink = true,
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { Link } = getLink();
+        const { Link } = getLink();
 
-    return (
-        <div
-            className={cx(
-                fr.cx(
-                    "fr-tile",
-                    enlargeLink && "fr-enlarge-link",
-                    horizontal && "fr-tile--horizontal",
-                    grey && "fr-tile--grey"
-                ),
-                classes.root,
-                className
-            )}
-            ref={ref}
-        >
-            <div className={cx(fr.cx("fr-tile__body"), classes.body)}>
-                <h3 className={cx(fr.cx("fr-tile__title"), classes.title)}>
-                    <Link
-                        className={cx(fr.cx("fr-tile__link"), classes.link, linkProps.className)}
-                        href={linkProps.href}
-                    >
-                        {title}
-                    </Link>
-                </h3>
-                <p className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</p>
-            </div>
-            {(imageUrl !== undefined && imageUrl.length && (
-                <div className={cx(fr.cx("fr-tile__img"), classes.img)}>
-                    <img
-                        className={cx(fr.cx("fr-responsive-img"), classes.imgTag)}
-                        src={imageUrl}
-                        alt={imageAlt}
-                    />
+        return (
+            <div
+                className={cx(
+                    fr.cx(
+                        "fr-tile",
+                        enlargeLink && "fr-enlarge-link",
+                        horizontal && "fr-tile--horizontal",
+                        grey && "fr-tile--grey"
+                    ),
+                    classes.root,
+                    className
+                )}
+                ref={ref}
+                {...rest}
+            >
+                <div className={cx(fr.cx("fr-tile__body"), classes.body)}>
+                    <h3 className={cx(fr.cx("fr-tile__title"), classes.title)}>
+                        <Link
+                            className={cx(
+                                fr.cx("fr-tile__link"),
+                                classes.link,
+                                linkProps.className
+                            )}
+                            href={linkProps.href}
+                        >
+                            {title}
+                        </Link>
+                    </h3>
+                    <p className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</p>
                 </div>
-            )) ||
-                null}
-        </div>
-    );
-});
+                {(imageUrl !== undefined && imageUrl.length && (
+                    <div className={cx(fr.cx("fr-tile__img"), classes.img)}>
+                        <img
+                            className={cx(fr.cx("fr-responsive-img"), classes.imgTag)}
+                            src={imageUrl}
+                            alt={imageAlt}
+                        />
+                    </div>
+                )) ||
+                    null}
+            </div>
+        );
+    })
+);
 
 Tile.displayName = symToStr({ Tile });
 

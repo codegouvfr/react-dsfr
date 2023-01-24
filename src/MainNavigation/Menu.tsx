@@ -1,7 +1,7 @@
 "use client";
 
-import React, { memo } from "react";
-import type { ReactNode, ForwardedRef } from "react";
+import React, { memo, forwardRef } from "react";
+import type { ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "../fr";
 import { cx } from "../tools/cx";
@@ -13,7 +13,6 @@ import { getLink } from "../link";
 export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;
     links: MenuProps.Link[];
-    ref?: ForwardedRef<HTMLDivElement>;
 };
 
 export namespace MenuProps {
@@ -24,31 +23,33 @@ export namespace MenuProps {
     };
 }
 
-export const Menu = memo((props: MenuProps & { id?: string }) => {
-    const { id, classes = {}, links, ref, ...rest } = props;
+export const Menu = memo(
+    forwardRef<HTMLDivElement, MenuProps & { id: string }>((props, ref) => {
+        const { id, classes = {}, links, ...rest } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const { Link } = getLink();
+        const { Link } = getLink();
 
-    return (
-        <div className={cx(fr.cx("fr-menu"), classes.root)} id={id} ref={ref} {...rest}>
-            <ul className={cx(fr.cx("fr-menu__list"), classes.list)}>
-                {links.map(({ text, linkProps, isActive = false }, i) => (
-                    <li key={i}>
-                        <Link
-                            {...linkProps}
-                            className={cx(fr.cx("fr-nav__link"), linkProps.className)}
-                            {...(isActive && { ["aria-current"]: "page" })}
-                        >
-                            {text}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-});
+        return (
+            <div className={cx(fr.cx("fr-menu"), classes.root)} id={id} ref={ref} {...rest}>
+                <ul className={cx(fr.cx("fr-menu__list"), classes.list)}>
+                    {links.map(({ text, linkProps, isActive = false }, i) => (
+                        <li key={i}>
+                            <Link
+                                {...linkProps}
+                                className={cx(fr.cx("fr-nav__link"), linkProps.className)}
+                                {...(isActive && { ["aria-current"]: "page" })}
+                            >
+                                {text}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    })
+);
 
 Menu.displayName = symToStr({ Menu });
 

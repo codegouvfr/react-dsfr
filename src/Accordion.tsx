@@ -1,7 +1,6 @@
 "use client";
 
-import React, { memo, ReactNode, useId, useState } from "react";
-import type { ForwardedRef } from "react";
+import React, { forwardRef, memo, ReactNode, useId, useState } from "react";
 import { assert } from "tsafe";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
@@ -17,7 +16,6 @@ export namespace AccordionProps {
         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;
-        ref?: ForwardedRef<HTMLDivElement>;
         children: NonNullable<ReactNode>;
     };
 
@@ -41,53 +39,54 @@ export namespace AccordionProps {
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-accordion>  */
-export const Accordion = memo((props: AccordionProps) => {
-    const {
-        className,
-        titleAs: HtmlTitleTag = "h3",
-        label,
-        classes = {},
-        ref,
-        children,
-        expanded: expandedProp,
-        defaultExpanded = false,
-        onExpandedChange,
-        ...rest
-    } = props;
+export const Accordion = memo(
+    forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
+        const {
+            className,
+            titleAs: HtmlTitleTag = "h3",
+            label,
+            classes = {},
+            children,
+            expanded: expandedProp,
+            defaultExpanded = false,
+            onExpandedChange,
+            ...rest
+        } = props;
 
-    assert<Equals<keyof typeof rest, never>>();
+        assert<Equals<keyof typeof rest, never>>();
 
-    const accordionId = `accordion-${useId()}`;
+        const accordionId = `accordion-${useId()}`;
 
-    const [expandedState, setExpandedState] = useState(defaultExpanded);
+        const [expandedState, setExpandedState] = useState(defaultExpanded);
 
-    const value = expandedProp ? expandedProp : expandedState;
+        const value = expandedProp ? expandedProp : expandedState;
 
-    const onExtendButtonClick = useConstCallback(
-        (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            setExpandedState(!value);
-            onExpandedChange?.(!value, event);
-        }
-    );
+        const onExtendButtonClick = useConstCallback(
+            (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                setExpandedState(!value);
+                onExpandedChange?.(!value, event);
+            }
+        );
 
-    return (
-        <section className={cx(fr.cx("fr-accordion"), className)} ref={ref}>
-            <HtmlTitleTag className={cx(fr.cx("fr-accordion__title"), classes.title)}>
-                <button
-                    className={fr.cx("fr-accordion__btn")}
-                    aria-expanded={value}
-                    aria-controls={accordionId}
-                    onClick={onExtendButtonClick}
-                >
-                    {label}
-                </button>
-            </HtmlTitleTag>
-            <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={accordionId}>
-                {children}
-            </div>
-        </section>
-    );
-});
+        return (
+            <section className={cx(fr.cx("fr-accordion"), className)} ref={ref} {...rest}>
+                <HtmlTitleTag className={cx(fr.cx("fr-accordion__title"), classes.title)}>
+                    <button
+                        className={fr.cx("fr-accordion__btn")}
+                        aria-expanded={value}
+                        aria-controls={accordionId}
+                        onClick={onExtendButtonClick}
+                    >
+                        {label}
+                    </button>
+                </HtmlTitleTag>
+                <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={accordionId}>
+                    {children}
+                </div>
+            </section>
+        );
+    })
+);
 
 Accordion.displayName = symToStr({ Accordion });
 
