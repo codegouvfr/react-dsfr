@@ -22,7 +22,7 @@
 -   [ ] Follow
 -   [ ] Link
 -   [x] SkipLinks
--   [ ] Select
+-   [x] Select
 -   [ ] Side menu
 -   [x] Call out
 -   [x] Highlight

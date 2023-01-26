@@ -10,6 +10,7 @@ import { cx } from "./tools/cx";
 export type SelectProps = {
     className?: string;
     label: ReactNode;
+    hint?: ReactNode;
     nativeSelectProps: React.DetailedHTMLProps<
         React.SelectHTMLAttributes<HTMLSelectElement>,
         HTMLSelectElement
@@ -31,6 +32,7 @@ export const Select = memo(
         const {
             className,
             label,
+            hint,
             nativeSelectProps,
             disabled = false,
             children,
@@ -69,6 +71,7 @@ export const Select = memo(
             >
                 <label className={fr.cx("fr-label")} htmlFor={selectId}>
                     {label}
+                    {hint !== undefined && <span className={fr.cx("fr-hint-text")}>{hint}</span>}
                 </label>
                 <select
                     {...nativeSelectProps}
@@ -83,7 +86,6 @@ export const Select = memo(
                     <p
                         id={stateDescriptionId}
                         className={fr.cx(
-                            "fr-valid-text",
                             (() => {
                                 switch (state) {
                                     case "error":
