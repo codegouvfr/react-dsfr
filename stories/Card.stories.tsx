@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardProps } from "../dist/Card";
+import { Card, type CardProps } from "../dist/Card";
 import { Badge } from "../dist/Badge";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -47,211 +47,237 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 const defaultProps = {
-    enlargeLink: true,
-    title: "Intitulé de la carte (sur lequel se trouve le lien)",
-    linkProps: {
-        href: "#"
+    "enlargeLink": true as const,
+    "title": "Intitulé de la carte (sur lequel se trouve le lien)",
+    "linkProps": {
+        "href": "#"
     },
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing, incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et",
-    imageUrl: "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
-    imageAlt: "texte alternatif de l’image"
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing, incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et",
+    "imageUrl": "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
+    "imageAlt": "texte alternatif de l’image"
 };
 
 export const Default = getStory({ ...defaultProps });
 
 // todo: wrap with grid
 export const CardWithoutEnlargeLink = getStory(
-    { ...defaultProps, enlargeLink: false },
-    { description: "Carte sans lien étendu à la carte" }
+    { ...defaultProps, "enlargeLink": false },
+    { "description": "Carte sans lien étendu à la carte" }
 );
 
 export const CardWithIcon = getStory(
-    { ...defaultProps, iconId: "fr-icon-warning-fill" },
-    { description: "Carte avec icône personnalisée" }
+    { ...defaultProps, "iconId": "fr-icon-warning-fill" },
+    { "description": "Carte avec icône personnalisée" }
 );
 
 export const CardWithoutBorder = getStory(
-    { ...defaultProps, border: false },
-    { description: "Carte sans bordure" }
+    { ...defaultProps, "border": false },
+    { "description": "Carte sans bordure" }
 );
 
 export const CardWithShadow = getStory(
-    { ...defaultProps, shadow: true },
-    { description: "Carte avec ombre portée" }
+    { ...defaultProps, "shadow": true },
+    { "description": "Carte avec ombre portée" }
 );
 
 export const CardWithoutImage = getStory(
-    { ...defaultProps, imageUrl: undefined },
-    { description: "Carte sans image" }
+    { ...defaultProps, "imageUrl": undefined },
+    { "description": "Carte sans image" }
 );
 
 export const CardWithImageRatio = getStory(
-    { ...defaultProps, classes: { imgTag: "fr-ratio-3x4" } },
-    { description: "Carte verticale avec image au ratio d'aspect 3x4" }
+    { ...defaultProps, "classes": { "imgTag": "fr-ratio-3x4" } },
+    { "description": "Carte verticale avec image au ratio d'aspect 3x4" }
 );
 
 export const CardWithBadgeInTheHeader = getStory(
     {
         ...defaultProps,
-        badges: [<Badge label="LABEL BADGE" />, <Badge label="LABEL BADGE" severity="new" />]
+        "badges": [<Badge>LABEL BADGE</Badge>, <Badge severity="new">LABEL BADGE</Badge>]
     },
-    { description: "Carte verticale avec badge dans l'image" }
+    { "description": "Carte verticale avec badge dans l'image" }
 );
 
 export const CardWithBadgeInTheContent = getStory(
     {
         ...defaultProps,
-        detail: (
+        "detail": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge label="LABEL BADGE" />
-                <Badge label="LABEL BADGE" severity="new" />
+                <Badge>LABEL BADGE</Badge>
+                <Badge severity="new">LABEL BADGE</Badge>
             </ul>
         )
     },
-    { description: "Carte verticale avec badges dans le contenu" }
+    { "description": "Carte verticale avec badges dans le contenu" }
 );
 
 export const CardWithDetail = getStory(
     {
         ...defaultProps,
-        detail: "détail(optionnel)"
+        "detail": "détail(optionnel)"
     },
-    { description: "Carte verticale avec détail" }
+    { "description": "Carte verticale avec détail" }
 );
 
 export const CardWithEndDetail = getStory(
     {
         ...defaultProps,
-        endDetail: "détail(optionnel)"
+        "endDetail": "détail(optionnel)"
     },
-    { description: "Carte verticale avec détail en bas" }
+    { "description": "Carte verticale avec détail en bas" }
 );
 
 export const CardWithActionLinks = getStory(
     {
         ...defaultProps,
-        enlargeLink: false,
-        footer: (
-            <ul className="fr-links-group">
+        "enlargeLink": false,
+        "footer": (
+            <ul className={fr.cx("fr-links-group")}>
                 <li>
-                    <a className="fr-link fr-icon-arrow-right-line fr-link--icon-right" href="#">
+                    <a
+                        className={fr.cx(
+                            "fr-link",
+                            "fr-icon-arrow-right-line",
+                            "fr-link--icon-right"
+                        )}
+                        href="#"
+                    >
                         label
                     </a>
                 </li>
                 <li>
-                    <a className="fr-link fr-icon-arrow-right-line fr-link--icon-right" href="#">
+                    <a
+                        className={fr.cx(
+                            "fr-link",
+                            "fr-icon-arrow-right-line",
+                            "fr-link--icon-right"
+                        )}
+                        href="#"
+                    >
                         label
                     </a>
                 </li>
             </ul>
         )
     },
-    { description: "Carte verticale avec liens d'action" }
+    { "description": "Carte verticale avec liens d'action" }
 );
 
 export const CardWithActionButtons = getStory(
     {
         ...defaultProps,
-        enlargeLink: false,
-        footer: (
-            <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+        "enlargeLink": false,
+        "footer": (
+            <ul
+                className={fr.cx(
+                    "fr-btns-group",
+                    "fr-btns-group--inline-reverse",
+                    "fr-btns-group--inline-lg"
+                )}
+            >
                 <li>
-                    <button className="fr-btn fr-btn--secondary">Label</button>
+                    <button className={fr.cx("fr-btn", "fr-btn--secondary")}>Label</button>
                 </li>
                 <li>
-                    <button className="fr-btn">Label</button>
+                    <button className={fr.cx("fr-btn")}>Label</button>
                 </li>
             </ul>
         )
     },
-    { description: "Carte verticale avec buttons d'action" }
+    { "description": "Carte verticale avec buttons d'action" }
 );
 
-export const CardHorizontale = getStory(
+export const CardHorizontal = getStory(
     {
         ...defaultProps,
-        horizontal: true
+        "horizontal": true
     },
-    { description: "Carte horizontale", defaultContainerWidth: 700 }
+    { "description": "Carte horizontale", "defaultContainerWidth": 700 }
 );
 
-export const CardHorizontaleSM = getStory(
+export const CardHorizontalSM = getStory(
     {
         ...defaultProps,
-        horizontal: true,
-        size: "small"
+        "horizontal": true,
+        "size": "small"
     },
-    { description: "Carte horizontale", defaultContainerWidth: 500 }
+    { "description": "Carte horizontale", "defaultContainerWidth": 500 }
 );
 
 export const CardHorizontaleLG = getStory(
     {
         ...defaultProps,
-        horizontal: true,
-        size: "large"
+        "horizontal": true,
+        "size": "large"
     },
-    { description: "Carte horizontale", defaultContainerWidth: 900 }
+    { "description": "Carte horizontale", "defaultContainerWidth": 900 }
 );
 
-export const CardHorizontaleWithoutImage = getStory(
+export const CardHorizontalWithoutImage = getStory(
     {
         ...defaultProps,
-        horizontal: true,
-        size: "large",
-        imageUrl: undefined,
-        detail: (
+        "horizontal": true,
+        "size": "large",
+        "imageUrl": undefined,
+        "detail": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge label="LABEL BADGE" />
-                <Badge label="LABEL BADGE" severity="new" />
+                <Badge>LABEL BADGE</Badge>
+                <Badge severity="new">LABEL BADGE</Badge>
             </ul>
         )
     },
-    { description: "Carte horizontale sans image", defaultContainerWidth: 900 }
+    { "description": "Carte horizontale sans image", "defaultContainerWidth": 900 }
 );
 
-export const CardHorizontaleWithoutImageAndEnlargeLink = getStory(
+export const CardHorizontalWithoutImageAndEnlargeLink = getStory(
     {
         ...defaultProps,
-        horizontal: true,
-        enlargeLink: false,
-        size: "large",
-        imageUrl: undefined
+        "horizontal": true,
+        "enlargeLink": false,
+        "size": "large",
+        "imageUrl": undefined
     },
-    { description: "Carte horizontale sans image", defaultContainerWidth: 900 }
+    { "description": "Carte horizontale sans image", "defaultContainerWidth": 900 }
 );
 
-export const CardHorizontaleWithActions = getStory(
+export const CardHorizontalWithActions = getStory(
     {
         ...defaultProps,
-        enlargeLink: false,
-        horizontal: true,
-        size: "large",
-        badges: [<Badge label="LABEL BADGE" />],
-        detail: (
+        "enlargeLink": false,
+        "horizontal": true,
+        "size": "large",
+        "badges": [<Badge>LABEL BADGE</Badge>],
+        "detail": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge label="LABEL BADGE" />
-                <Badge label="LABEL BADGE" severity="new" />
+                <Badge>LABEL BADGE</Badge>
+                <Badge severity="new">LABEL BADGE</Badge>
             </ul>
         ),
-        footer: (
-            <ul className="fr-btns-group fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+        "footer": (
+            <ul
+                className={fr.cx(
+                    "fr-btns-group",
+                    "fr-btns-group--inline-reverse",
+                    "fr-btns-group--inline-lg"
+                )}
+            >
                 <li>
-                    <button className="fr-btn fr-btn--secondary">Label</button>
+                    <button className={fr.cx("fr-btn", "fr-btn--secondary")}>Label</button>
                 </li>
                 <li>
-                    <button className="fr-btn">Label</button>
+                    <button className={fr.cx("fr-btn")}>Label</button>
                 </li>
             </ul>
         )
     },
-    { description: "Carte horizontale", defaultContainerWidth: 900 }
+    { "description": "Carte horizontale", "defaultContainerWidth": 900 }
 );
 
 export const CardGrey = getStory(
     {
         ...defaultProps,
-        horizontal: true,
-        grey: false
+        "horizontal": true,
+        "grey": false
     },
-    { description: "Carte horizontale grey", defaultContainerWidth: 900 }
+    { "description": "Carte horizontale grey", "defaultContainerWidth": 900 }
 );

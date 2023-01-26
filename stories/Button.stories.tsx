@@ -1,5 +1,4 @@
-import { Button } from "../dist/Button";
-import type { ButtonProps } from "../dist/Button";
+import { Button, type ButtonProps } from "../dist/Button";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";

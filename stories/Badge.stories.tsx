@@ -1,11 +1,10 @@
-import { Badge } from "../dist/Badge";
-import type { BadgeProps } from "../dist/Badge";
+import { Badge, type BadgeProps } from "../dist/Badge";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory<BadgeProps>({
+const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Badge },
     description: `

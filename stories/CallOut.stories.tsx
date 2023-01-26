@@ -1,5 +1,4 @@
-import { CallOut } from "../dist/CallOut";
-import type { CallOutProps } from "../dist/CallOut";
+import { CallOut, type CallOutProps } from "../dist/CallOut";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";

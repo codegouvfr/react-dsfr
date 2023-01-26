@@ -1,5 +1,4 @@
-import { ToggleSwitch } from "../dist/ToggleSwitch";
-import type { ToggleSwitchProps } from "../dist/ToggleSwitch";
+import { ToggleSwitch, type ToggleSwitchProps } from "../dist/ToggleSwitch";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";

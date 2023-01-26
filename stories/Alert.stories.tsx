@@ -1,11 +1,10 @@
-import { Alert } from "../dist/Alert";
-import type { AlertProps } from "../dist/Alert";
+import { Alert, type AlertProps } from "../dist/Alert";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory<AlertProps>({
+const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Alert },
     "description": `

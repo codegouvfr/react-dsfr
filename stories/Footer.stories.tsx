@@ -1,6 +1,5 @@
 import React from "react";
-import { Footer } from "../dist/Footer";
-import type { FooterProps } from "../dist/Footer";
+import { Footer, type FooterProps } from "../dist/Footer";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";

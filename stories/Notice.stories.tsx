@@ -1,5 +1,4 @@
-import { Notice } from "../dist/Notice";
-import { NoticeProps } from "../src/Notice";
+import { Notice, type NoticeProps } from "../dist/Notice";
 import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 

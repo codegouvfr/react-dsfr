@@ -1,5 +1,4 @@
-import { Input } from "../dist/Input";
-import type { InputProps } from "../dist/Input";
+import { Input, type InputProps } from "../dist/Input";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";

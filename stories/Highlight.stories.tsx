@@ -1,5 +1,4 @@
-import { Highlight } from "../dist/Highlight";
-import type { HighlightProps } from "../dist/Highlight";
+import { Highlight, type HighlightProps } from "../dist/Highlight";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";

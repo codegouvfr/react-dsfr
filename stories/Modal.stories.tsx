@@ -1,6 +1,5 @@
 import React from "react";
-import { createModal } from "../dist/Modal";
-import type { ModalProps } from "../dist/Modal";
+import { createModal, type ModalProps } from "../dist/Modal";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { Button } from "../dist/Button";
