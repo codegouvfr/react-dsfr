@@ -10,29 +10,33 @@ import { cx } from "./tools/cx";
 
 export type BreadcrumbProps = {
     className?: string;
-    links: BreadcrumbProps.Link[];
+    homeLinkProps?: RegisteredLinkProps;
+    segments: {
+        label: ReactNode;
+        linkProps: RegisteredLinkProps;
+    }[];
+    currentPageLabel: ReactNode;
     classes?: Partial<Record<"root" | "button" | "collapse" | "list" | "link" | "text", string>>;
 };
-
-export namespace BreadcrumbProps {
-    export type Link = {
-        text: ReactNode;
-        linkProps: RegisteredLinkProps;
-        isActive?: boolean;
-    };
-}
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(
     forwardRef<HTMLDivElement, BreadcrumbProps>((props, ref) => {
-        const { links, className, classes = {}, ...rest } = props;
+        const {
+            className,
+            homeLinkProps,
+            segments,
+            currentPageLabel,
+            classes = {},
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const { t } = useTranslation();
 
         const { Link } = getLink();
-        const breadcrumbId = useId();
+        const breadcrumbId = `breadcrumb-${useId()}`;
 
         return (
             <nav
@@ -52,21 +56,30 @@ export const Breadcrumb = memo(
                 <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={breadcrumbId}>
                     <ol className={cx(fr.cx("fr-breadcrumb__list"), classes.list)}>
                         <>
-                            {links.map(link => (
-                                <li key={link.linkProps.href}>
+                            {[
+                                ...(homeLinkProps === undefined
+                                    ? []
+                                    : [{ "linkProps": homeLinkProps, "label": t("home") }]),
+                                ...segments
+                            ].map(({ linkProps, label }, i) => (
+                                <li key={i}>
                                     <Link
-                                        {...link.linkProps}
+                                        {...linkProps}
                                         className={cx(
                                             fr.cx("fr-breadcrumb__link"),
                                             classes.link,
-                                            link.linkProps.className
+                                            linkProps.className
                                         )}
-                                        aria-current={link.isActive ? "page" : undefined}
                                     >
-                                        {link.text}
+                                        {label}
                                     </Link>
                                 </li>
                             ))}
+                            <li>
+                                <a className={fr.cx("fr-breadcrumb__link")} aria-current="page">
+                                    {currentPageLabel}
+                                </a>
+                            </li>
                         </>
                     </ol>
                 </div>
@@ -82,7 +95,8 @@ const { useTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
     "frMessages": {
         /* spell-checker: disable */
         "show breadcrumb": "Voir le fil d’Ariane",
-        "navigation label": "vous êtes ici"
+        "navigation label": "vous êtes ici",
+        "home": "Acceuil"
         /* spell-checker: enable */
     }
 });
@@ -91,7 +105,8 @@ addBreadcrumbTranslations({
     "lang": "en",
     "messages": {
         "show breadcrumb": "Show navigation",
-        "navigation label": "you are here"
+        "navigation label": "you are here",
+        "home": "Home"
     }
 });
 
