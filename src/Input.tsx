@@ -11,6 +11,7 @@ export type InputProps = {
     className?: string;
     label: ReactNode;
     hintText?: ReactNode;
+    hideLabel?: boolean;
     /** default: false */
     disabled?: boolean;
     iconId?: FrIconClassName | RiIconClassName;
@@ -58,6 +59,7 @@ export const Input = memo(
             className,
             label,
             hintText,
+            hideLabel,
             disabled = false,
             iconId: iconId_props,
             classes = {},
@@ -109,9 +111,8 @@ export const Input = memo(
                 {...rest}
             >
                 <label
-                    className={cx(fr.cx("fr-label"), classes.label)}
+                    className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
                     htmlFor={inputId}
-                    aria-describedby="select-valid-desc-valid"
                 >
                     {label}
                     {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
