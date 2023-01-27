@@ -90,7 +90,7 @@ export const Input = memo(
             <div
                 className={cx(
                     fr.cx(
-                        "fr-input-group",
+                        nativeInputProps?.type === "file" ? "fr-upload-group" : "fr-input-group",
                         disabled && "fr-input-group--disabled",
                         (() => {
                             switch (state) {
