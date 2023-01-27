@@ -60,7 +60,7 @@ export namespace ButtonProps {
     };
     export type AsButton = {
         linkProps?: never;
-        onClick: React.MouseEventHandler<HTMLButtonElement>;
+        onClick?: React.MouseEventHandler<HTMLButtonElement>;
         nativeButtonProps?: Omit<
             React.DetailedHTMLProps<
                 React.ButtonHTMLAttributes<HTMLButtonElement>,
