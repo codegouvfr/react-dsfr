@@ -15,26 +15,28 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 
-export type InputProps = {
-    className?: string;
-    label: ReactNode;
-    hintText?: ReactNode;
-    hideLabel?: boolean;
-    /** default: false */
-    disabled?: boolean;
-    iconId?: FrIconClassName | RiIconClassName;
-    classes?: Partial<
-        Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
-    >;
-    style?: CSSProperties;
-    /** Default: "default" */
-    state?: "success" | "error" | "default";
-    /** The message won't be displayed if state is "default" */
-    stateRelatedMessage?: ReactNode;
-} & (InputProps.WithoutTextArea | InputProps.WithTextArea);
+export type InputProps = InputProps.RegularInput | InputProps.TextArea;
 
 export namespace InputProps {
-    export type WithoutTextArea = {
+    export type Common = {
+        className?: string;
+        label: ReactNode;
+        hintText?: ReactNode;
+        hideLabel?: boolean;
+        /** default: false */
+        disabled?: boolean;
+        iconId?: FrIconClassName | RiIconClassName;
+        classes?: Partial<
+            Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
+        >;
+        style?: CSSProperties;
+        /** Default: "default" */
+        state?: "success" | "error" | "default";
+        /** The message won't be displayed if state is "default" */
+        stateRelatedMessage?: ReactNode;
+    };
+
+    export type RegularInput = Common & {
         /** Default: false */
         textArea?: false;
         /** Props forwarded to the underlying <input /> element */
@@ -46,7 +48,7 @@ export namespace InputProps {
         nativeTextAreaProps?: never;
     };
 
-    export type WithTextArea = {
+    export type TextArea = Common & {
         /** Default: false */
         textArea: true;
         /** Props forwarded to the underlying <textarea /> element */
