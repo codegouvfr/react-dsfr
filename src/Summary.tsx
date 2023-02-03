@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef, useId, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -8,24 +8,23 @@ import { fr } from "./fr";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 
-type SummaryLink = {
-    text: string;
-    linkProps: RegisteredLinkProps;
-};
-
 export type SummaryProps = {
     className?: string;
-    links: SummaryLink[];
+    links: {
+        text: string;
+        linkProps: RegisteredLinkProps;
+    }[];
     title?: string;
     /** Default: "p" */
     as?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
     classes?: Partial<Record<"root" | "title" | "link", string>>;
+    style?: CSSProperties;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-summary> */
 export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
-        const { className, links, as = "p", title, classes = {}, ...rest } = props;
+        const { className, links, as = "p", title, classes = {}, style, ...rest } = props;
 
         const { t } = useTranslation();
 
@@ -41,6 +40,7 @@ export const Summary = memo(
                 className={cx(fr.cx("fr-summary"), classes.root, className)}
                 role="navigation"
                 aria-labelledby={titleId}
+                style={style}
                 ref={ref}
             >
                 {React.createElement(

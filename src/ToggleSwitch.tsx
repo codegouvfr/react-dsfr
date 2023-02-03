@@ -1,4 +1,12 @@
-import React, { memo, forwardRef, ReactNode, useId, useState, useEffect } from "react";
+import React, {
+    memo,
+    forwardRef,
+    ReactNode,
+    useId,
+    useState,
+    useEffect,
+    type CSSProperties
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -21,6 +29,7 @@ export namespace ToggleSwitchProps {
         /** Default: "left" */
         labelPosition?: "left" | "right";
         classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
+        style?: CSSProperties;
     };
 
     export type Uncontrolled = Common & {
@@ -54,6 +63,7 @@ export const ToggleSwitch = memo(
             classes = {},
             onChange,
             inputTitle,
+            style,
             ...rest
         } = props;
 
@@ -100,6 +110,7 @@ export const ToggleSwitch = memo(
                     className
                 )}
                 ref={ref}
+                style={style}
             >
                 <input
                     onChange={onInputChange}

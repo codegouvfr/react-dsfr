@@ -1,7 +1,14 @@
 "use client";
 
-import React, { memo, forwardRef, useState, useEffect, useRef } from "react";
-import type { ReactNode } from "react";
+import React, {
+    memo,
+    forwardRef,
+    useState,
+    useEffect,
+    useRef,
+    type ReactNode,
+    type CSSProperties
+} from "react";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -17,6 +24,7 @@ export type AlertProps = {
     /** Default h3 */
     as?: `h${2 | 3 | 4 | 5 | 6}`;
     classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
+    style?: CSSProperties;
 } & (AlertProps.DefaultSize | AlertProps.Small) &
     (AlertProps.NonClosable | AlertProps.Closable);
 
@@ -74,6 +82,7 @@ export const Alert = memo(
             severity,
             as: HtmlTitleTag = "h3",
             classes = {},
+            style,
             small: isSmall,
             title,
             description,
@@ -144,6 +153,7 @@ export const Alert = memo(
                     classes.root,
                     className
                 )}
+                style={style}
                 {...(refShouldSetRole.current && { "role": "alert" })}
                 ref={ref}
                 {...rest}

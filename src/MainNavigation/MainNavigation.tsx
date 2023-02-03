@@ -1,5 +1,4 @@
-import React, { memo, forwardRef, useId } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -32,6 +31,7 @@ export type MainNavigationProps = {
             string
         >
     >;
+    style?: CSSProperties;
 };
 
 export namespace MainNavigationProps {
@@ -74,7 +74,7 @@ export namespace MainNavigationProps {
 
 export const MainNavigation = memo(
     forwardRef<HTMLDivElement, MainNavigationProps>((props, ref) => {
-        const { className, items, classes = {}, ...rest } = props;
+        const { className, items, classes = {}, style, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -93,6 +93,7 @@ export const MainNavigation = memo(
         return (
             <nav
                 className={cx(fr.cx("fr-nav"), classes.root, className)}
+                style={style}
                 role="navigation"
                 aria-label={t("main menu")}
                 ref={ref}

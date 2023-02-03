@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -8,6 +8,7 @@ import type { AlertProps } from "./Alert";
 
 export type BadgeProps = {
     className?: string;
+    style?: CSSProperties;
     severity?: AlertProps.Severity | "new";
     small?: boolean;
     noIcon?: boolean;
@@ -19,6 +20,7 @@ export const Badge = memo(
     forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
         const {
             className,
+            style,
             severity,
             small: isSmall = false,
             noIcon = false,
@@ -39,6 +41,7 @@ export const Badge = memo(
                     ),
                     className
                 )}
+                style={style}
                 ref={ref}
                 {...rest}
             >

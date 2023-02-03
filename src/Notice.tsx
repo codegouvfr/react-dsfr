@@ -1,6 +1,14 @@
 "use client";
 
-import React, { memo, forwardRef, useState, useEffect, useRef, ReactNode } from "react";
+import React, {
+    memo,
+    forwardRef,
+    useState,
+    useEffect,
+    useRef,
+    type ReactNode,
+    type CSSProperties
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -13,6 +21,7 @@ export type NoticeProps = {
     className?: string;
     classes?: Partial<Record<"root" | "title" | "close", string>>;
     title: NonNullable<ReactNode>;
+    style?: CSSProperties;
 } & (NoticeProps.NonClosable | NoticeProps.Closable);
 
 export namespace NoticeProps {
@@ -49,6 +58,7 @@ export const Notice = memo(
             isClosable = false,
             isClosed: props_isClosed,
             onClose,
+            style,
             ...rest
         } = props;
 
@@ -111,6 +121,7 @@ export const Notice = memo(
                 className={cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className)}
                 {...(refShouldSetRole.current && { "role": "notice" })}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <div className="fr-container">

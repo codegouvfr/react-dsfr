@@ -1,4 +1,4 @@
-import React, { memo, forwardRef } from "react";
+import React, { memo, forwardRef, type CSSProperties } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { ReactNode } from "react";
@@ -23,6 +23,7 @@ export type ModalProps = {
     buttons?:
         | [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]]
         | ModalProps.ActionAreaButtonProps;
+    style?: CSSProperties;
 };
 
 export namespace ModalProps {
@@ -44,6 +45,7 @@ const Modal = memo(
             iconId,
             buttons: buttons_props,
             size = "medium",
+            style,
             ...rest
         } = props;
 
@@ -64,6 +66,7 @@ const Modal = memo(
                 role="dialog"
                 id={id}
                 className={cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className)}
+                style={style}
                 ref={ref}
                 data-fr-concealing-backdrop={concealingBackdrop}
             >

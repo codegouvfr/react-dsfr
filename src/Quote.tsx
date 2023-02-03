@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -17,6 +17,7 @@ export type QuoteProps = {
     size?: "medium" | "large" | "xlarge";
     accentColor?: QuoteProps.AccentColor;
     classes?: Partial<Record<"root" | "author" | "source" | "image" | "imageTag" | "text", string>>;
+    style?: CSSProperties;
 };
 
 export namespace QuoteProps {
@@ -40,6 +41,7 @@ export const Quote = memo(
             size = "xlarge",
             accentColor,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -54,6 +56,7 @@ export const Quote = memo(
                     classes.root,
                     className
                 )}
+                style={style}
                 ref={ref}
             >
                 <blockquote cite={sourceUrl}>

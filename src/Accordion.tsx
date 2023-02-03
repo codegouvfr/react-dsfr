@@ -1,6 +1,13 @@
 "use client";
 
-import React, { forwardRef, memo, ReactNode, useId, useState } from "react";
+import React, {
+    forwardRef,
+    memo,
+    useId,
+    useState,
+    type ReactNode,
+    type CSSProperties
+} from "react";
 import { assert } from "tsafe";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
@@ -16,6 +23,7 @@ export namespace AccordionProps {
         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;
+        style?: CSSProperties;
         children: NonNullable<ReactNode>;
     };
 
@@ -46,6 +54,7 @@ export const Accordion = memo(
             titleAs: HtmlTitleTag = "h3",
             label,
             classes = {},
+            style,
             children,
             expanded: expandedProp,
             defaultExpanded = false,
@@ -69,7 +78,12 @@ export const Accordion = memo(
         );
 
         return (
-            <section className={cx(fr.cx("fr-accordion"), className)} ref={ref} {...rest}>
+            <section
+                className={cx(fr.cx("fr-accordion"), className)}
+                style={style}
+                ref={ref}
+                {...rest}
+            >
                 <HtmlTitleTag className={cx(fr.cx("fr-accordion__title"), classes.title)}>
                     <button
                         className={fr.cx("fr-accordion__btn")}

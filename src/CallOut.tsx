@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, ReactNode } from "react";
+import React, { memo, forwardRef, ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -19,6 +19,7 @@ export type CallOutProps = {
     buttonProps?: ButtonProps;
     colorVariant?: CallOutProps.ColorVariant;
     classes?: Partial<Record<"root" | "title" | "text" | "button", string>>;
+    style?: CSSProperties;
     children: ReactNode;
 };
 
@@ -41,6 +42,7 @@ export const CallOut = memo(
             colorVariant,
             classes = {},
             children,
+            style,
             ...rest
         } = props;
 
@@ -58,6 +60,7 @@ export const CallOut = memo(
                     className
                 )}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 {title !== undefined && (

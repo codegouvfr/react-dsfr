@@ -1,4 +1,4 @@
-import React, { memo, forwardRef } from "react";
+import React, { memo, forwardRef, type CSSProperties } from "react";
 import { Button } from "./Button";
 import { ButtonProps } from "./Button";
 import { symToStr } from "tsafe/symToStr";
@@ -20,6 +20,7 @@ export namespace ButtonsGroupProps {
         /** Default: false */
         buttonsEquisized?: boolean;
         buttons: [ButtonProps, ButtonProps, ...ButtonProps[]];
+        style?: CSSProperties;
     };
 
     export type AlwaysStacked = Common & {
@@ -56,6 +57,7 @@ export const ButtonsGroup = memo(
             buttonsEquisized = false,
             isReverseOrder = false,
             buttons,
+            style,
             ...rest
         } = props;
 
@@ -95,7 +97,7 @@ export const ButtonsGroup = memo(
         );
 
         return (
-            <ul className={buttonsGroupClassName} ref={ref} {...rest}>
+            <ul className={buttonsGroupClassName} style={style} ref={ref} {...rest}>
                 {buttons.map((buttonProps, i) => (
                     <li key={i}>
                         <Button {...buttonProps} />

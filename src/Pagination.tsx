@@ -1,4 +1,4 @@
-import React, { memo, forwardRef } from "react";
+import React, { memo, forwardRef, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -13,6 +13,7 @@ export type PaginationProps = {
     count: number;
     defaultPage?: number;
     classes?: Partial<Record<"root" | "list" | "link", string>>;
+    style?: CSSProperties;
     showFirstLast?: boolean;
     getPageLinkProps: (pageNumber: number) => RegisteredLinkProps;
 };
@@ -68,6 +69,7 @@ export const Pagination = memo(
             showFirstLast = true,
             getPageLinkProps,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -84,6 +86,7 @@ export const Pagination = memo(
                 role="navigation"
                 className={cx(fr.cx("fr-pagination"), classes.root, className)}
                 aria-label={t("aria-label")}
+                style={style}
                 ref={ref}
             >
                 <ul className={cx(fr.cx("fr-pagination__list"), classes.list)}>

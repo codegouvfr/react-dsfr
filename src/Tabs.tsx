@@ -1,7 +1,14 @@
 "use client";
 
-import React, { memo, forwardRef, useId, useState, useEffect } from "react";
-import type { ReactNode } from "react";
+import React, {
+    memo,
+    forwardRef,
+    useId,
+    useState,
+    useEffect,
+    type ReactNode,
+    type CSSProperties
+} from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -17,6 +24,7 @@ export namespace TabsProps {
         className?: string;
         label?: string;
         classes?: Partial<Record<"root" | "tab" | "panel", string>>;
+        style?: CSSProperties;
     };
 
     export type Uncontrolled = Common & {
@@ -53,6 +61,7 @@ export const Tabs = memo(
             selectedTabId,
             onTabChange,
             children,
+            style,
             ...rest
         } = props;
 
@@ -92,7 +101,7 @@ export const Tabs = memo(
         const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
 
         return (
-            <div className={cx(fr.cx("fr-tabs"), className)} ref={ref} {...rest}>
+            <div className={cx(fr.cx("fr-tabs"), className)} ref={ref} style={style} {...rest}>
                 <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
                     {tabs.map(({ label, iconId }, tabIndex) => (
                         <li key={label + (iconId ?? "")} role="presentation">

@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef, useId, type CSSProperties } from "react";
 import { fr } from "./fr";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "./i18n";
@@ -14,6 +14,7 @@ import type { FooterProps } from "./Footer";
 
 export type DisplayProps = {
     className?: string;
+    style?: CSSProperties;
 };
 
 const dialogId = "fr-theme-modal";
@@ -39,7 +40,7 @@ export const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button &
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
 export const Display = memo(
     forwardRef<HTMLDialogElement, DisplayProps>((props, ref) => {
-        const { className, ...rest } = props;
+        const { className, style, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -52,6 +53,7 @@ export const Display = memo(
                 role="dialog"
                 aria-labelledby={dialogTitleId}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-md")}>

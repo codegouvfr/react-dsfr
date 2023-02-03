@@ -1,5 +1,4 @@
-import React, { memo, forwardRef } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -25,6 +24,7 @@ export type TileProps = {
     >;
     /** Default false */
     horizontal?: boolean;
+    style?: CSSProperties;
 };
 
 export namespace TileProps {}
@@ -43,6 +43,7 @@ export const Tile = memo(
             grey = false,
             classes = {},
             enlargeLink = true,
+            style,
             ...rest
         } = props;
 
@@ -63,6 +64,7 @@ export const Tile = memo(
                     className
                 )}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <div className={cx(fr.cx("fr-tile__body"), classes.body)}>

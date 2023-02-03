@@ -1,5 +1,4 @@
-import React, { memo, forwardRef, useId } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
@@ -64,6 +63,7 @@ export type HeaderProps = {
             string
         >
     >;
+    style?: CSSProperties;
 };
 
 export namespace HeaderProps {
@@ -104,6 +104,7 @@ export const Header = memo(
             operatorLogo,
             renderSearchInput,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -147,6 +148,7 @@ export const Header = memo(
                 role="banner"
                 className={cx(fr.cx("fr-header"), classes.root, className)}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <div className={cx(fr.cx("fr-header__body" as any), classes.body)}>

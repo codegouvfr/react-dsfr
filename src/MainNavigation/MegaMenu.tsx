@@ -1,5 +1,4 @@
-import React, { memo, forwardRef } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "../i18n";
 import { fr } from "../fr";
@@ -11,6 +10,7 @@ import type { RegisteredLinkProps } from "../link";
 
 export type MegaMenuProps = {
     classes?: Partial<Record<"root" | "leader" | "category" | "list", string>>;
+    style?: CSSProperties;
     leader?: MegaMenuProps.Leader;
     categories: MegaMenuProps.Category[];
 };
@@ -39,7 +39,7 @@ export namespace MegaMenuProps {
 
 export const MegaMenu = memo(
     forwardRef<HTMLDivElement, MegaMenuProps & { id: string }>((props, ref) => {
-        const { id, classes = {}, leader, categories, ...rest } = props;
+        const { id, classes = {}, style, leader, categories, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -50,6 +50,7 @@ export const MegaMenu = memo(
         return (
             <div
                 className={cx(fr.cx("fr-mega-menu"), classes.root)}
+                style={style}
                 tabIndex={-1}
                 id={id}
                 ref={ref}

@@ -1,5 +1,11 @@
-import React, { memo, forwardRef, useId } from "react";
-import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import React, {
+    memo,
+    forwardRef,
+    useId,
+    type DetailedHTMLProps,
+    type InputHTMLAttributes,
+    type CSSProperties
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
@@ -16,6 +22,7 @@ export type SearchBarProps = {
     /** Default: false */
     big?: boolean;
     classes?: Partial<Record<"root" | "label" | "input", string>>;
+    style?: CSSProperties;
 };
 
 /**
@@ -29,6 +36,7 @@ export const SearchBar = memo(
             nativeInputProps = {},
             big = false,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -49,6 +57,7 @@ export const SearchBar = memo(
                 )}
                 role="search"
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <label className={cx(fr.cx("fr-label"), classes.label)} htmlFor={inputId}>

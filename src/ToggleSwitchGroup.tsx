@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, type CSSProperties } from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { cx } from "./tools/cx";
@@ -15,6 +15,7 @@ export type ToggleSwitchGroupProps = {
     classes?: Partial<Record<"root" | "li", string>>;
     /** Needs at least one ToggleSwitch */
     toggles: [ToggleSwitchPropsWithoutSharedProps, ...ToggleSwitchPropsWithoutSharedProps[]];
+    style?: CSSProperties;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitchgroup> */
@@ -25,13 +26,18 @@ export const ToggleSwitchGroup = memo<ToggleSwitchGroupProps>(props => {
         showCheckedHint = true,
         labelPosition = "right",
         classes = {},
+        style,
         ...rest
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
 
     return (
-        <ul className={cx(fr.cx("fr-toggle__list"), classes.root, className)} {...rest}>
+        <ul
+            className={cx(fr.cx("fr-toggle__list"), classes.root, className)}
+            style={style}
+            {...rest}
+        >
             {toggles.map((toggleSwitchProps, i) => (
                 <li key={i} className={classes.li}>
                     <ToggleSwitch

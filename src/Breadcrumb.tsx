@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId, ReactNode } from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -17,6 +17,7 @@ export type BreadcrumbProps = {
     }[];
     currentPageLabel: ReactNode;
     classes?: Partial<Record<"root" | "button" | "collapse" | "list" | "link" | "text", string>>;
+    style?: CSSProperties;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
@@ -28,6 +29,7 @@ export const Breadcrumb = memo(
             segments,
             currentPageLabel,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -43,6 +45,7 @@ export const Breadcrumb = memo(
                 ref={ref}
                 role="navigation"
                 className={cx(fr.cx("fr-breadcrumb"), classes.root, className)}
+                style={style}
                 aria-label={`${t("navigation label")} :`}
                 {...rest}
             >

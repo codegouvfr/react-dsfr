@@ -1,5 +1,4 @@
-import React, { memo, forwardRef } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 import { symToStr } from "tsafe/symToStr";
@@ -55,6 +54,7 @@ export type FooterProps = {
             string
         >
     >;
+    style?: CSSProperties;
 };
 
 export namespace FooterProps {
@@ -99,6 +99,7 @@ export const Footer = memo(
             bottomItems = [],
             operatorLogo,
             license,
+            style,
             ...rest
         } = props;
 
@@ -114,6 +115,7 @@ export const Footer = memo(
                 role="contentinfo"
                 id="footer"
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <div className={fr.cx("fr-container")}>

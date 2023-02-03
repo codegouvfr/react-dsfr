@@ -1,5 +1,4 @@
-import React, { memo, forwardRef } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -14,6 +13,7 @@ export type StepperProps = {
     title: ReactNode;
     nextTitle?: ReactNode;
     classes?: Partial<Record<"root" | "title" | "state" | "steps" | "details", string>>;
+    style?: CSSProperties;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-stepper> */
@@ -26,6 +26,7 @@ export const Stepper = memo(
             title,
             nextTitle,
             classes = {},
+            style,
             ...rest
         } = props;
 
@@ -34,7 +35,11 @@ export const Stepper = memo(
         const { t } = useTranslation();
 
         return (
-            <div className={cx(fr.cx("fr-stepper"), classes.root, className)} ref={ref}>
+            <div
+                className={cx(fr.cx("fr-stepper"), classes.root, className)}
+                style={style}
+                ref={ref}
+            >
                 <h2 className={cx(fr.cx("fr-stepper__title"), classes.title)}>
                     <span className={cx(fr.cx("fr-stepper__state"), classes.state)}>
                         {t("progress", { currentStep, stepCount })}

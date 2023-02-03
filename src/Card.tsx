@@ -1,5 +1,4 @@
-import React, { memo, forwardRef } from "react";
-import type { ReactNode } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -56,6 +55,7 @@ export type CardProps = {
             string
         >
     >;
+    style?: CSSProperties;
     /** Default false */
     horizontal?: boolean;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
@@ -96,6 +96,7 @@ export const Card = memo(
             shadow = false,
             grey = false,
             iconId,
+            style,
             ...rest
         } = props;
 
@@ -129,6 +130,7 @@ export const Card = memo(
                     classes.root,
                     className
                 )}
+                style={style}
                 ref={ref}
                 {...rest}
             >

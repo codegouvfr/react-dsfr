@@ -1,5 +1,13 @@
-import React, { memo, forwardRef, ReactNode, useId } from "react";
-import type { InputHTMLAttributes, TextareaHTMLAttributes, DetailedHTMLProps } from "react";
+import React, {
+    memo,
+    forwardRef,
+    ReactNode,
+    useId,
+    type InputHTMLAttributes,
+    type TextareaHTMLAttributes,
+    type DetailedHTMLProps,
+    type CSSProperties
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -18,6 +26,7 @@ export type InputProps = {
     classes?: Partial<
         Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
     >;
+    style?: CSSProperties;
     /** Default: "default" */
     state?: "success" | "error" | "default";
     /** The message won't be displayed if state is "default" */
@@ -63,6 +72,7 @@ export const Input = memo(
             disabled = false,
             iconId: iconId_props,
             classes = {},
+            style,
             state = "default",
             stateRelatedMessage,
             textArea = false,
@@ -107,6 +117,7 @@ export const Input = memo(
                     classes.root,
                     className
                 )}
+                style={style}
                 ref={ref}
                 {...rest}
             >

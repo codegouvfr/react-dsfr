@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo, forwardRef, ReactNode, useId } from "react";
+import React, { memo, forwardRef, ReactNode, useId, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -22,6 +22,7 @@ export type SelectProps = {
     state?: "success" | "error" | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
+    style?: CSSProperties;
 };
 
 /**
@@ -38,6 +39,7 @@ export const Select = memo(
             children,
             state = "default",
             stateRelatedMessage,
+            style,
             ...rest
         } = props;
 
@@ -67,6 +69,7 @@ export const Select = memo(
                     className
                 )}
                 ref={ref}
+                style={style}
                 {...rest}
             >
                 <label className={fr.cx("fr-label")} htmlFor={selectId}>

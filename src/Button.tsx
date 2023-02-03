@@ -1,9 +1,11 @@
-import React, { memo, forwardRef } from "react";
-import type {
-    ReactNode,
-    RefAttributes,
-    MemoExoticComponent,
-    ForwardRefExoticComponent
+import React, {
+    memo,
+    forwardRef,
+    type ReactNode,
+    type RefAttributes,
+    type MemoExoticComponent,
+    type ForwardRefExoticComponent,
+    type CSSProperties
 } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -24,6 +26,7 @@ export namespace ButtonProps {
         priority?: "primary" | "secondary" | "tertiary" | "tertiary no outline";
         /** Default medium */
         size?: "small" | "medium" | "large";
+        style?: CSSProperties;
     };
 
     export type IconOnly = {
@@ -91,6 +94,7 @@ export const Button = memo(
             nativeButtonProps,
             disabled,
             type,
+            style,
             ...rest
         } = props;
 
@@ -127,6 +131,7 @@ export const Button = memo(
                 {...linkProps}
                 title={title ?? linkProps.title}
                 className={className}
+                style={style}
                 ref={ref as React.ForwardedRef<HTMLAnchorElement>}
                 {...rest}
             >
@@ -136,6 +141,7 @@ export const Button = memo(
             <button
                 {...nativeButtonProps}
                 className={className}
+                style={style}
                 type={type}
                 title={title}
                 onClick={onClick}
