@@ -38,10 +38,29 @@ Thank You Very Much ❤️
 
 PS: If you want to contribute to the Doc website. You can edit [the source Markdown](https://github.com/codegouvfr/react-dsfr/tree/v1_docs) or ask me for access to our GitBook. (We'll migrate to Docusaurus once we have the DSFR theme for it ready.)
 
-## Linking a working version of `@gouvfr/dsfr`
+## Linking your local copy of `@codegouvfr/react-dsfr` in your project
+
+This will enable you to see your react-dsfr changes in your main project.
 
 ```bash
-cd ~/github/
+cd ~/github
+git clone https://github.com/ORG/YOUR-PROJECT-USING-REACT-DSFR
+cd YOUR-PROJECT-USING-REACT-DSFR
+yarn # or npm install or pnpm install depending of what you are using...
+
+cd ~/github
+git clone https://github.com/codegouvfr/react-dsfr
+cd react-dsfr
+yarn
+yarn build
+yarn link-external YOUR-PROJECT-USING-REACT-DSFR
+npx tsc -w -p src # Leave this running if you want hot reload.
+```
+
+## Linking a working version of `@gouvfr/dsfr` (For the SIG)
+
+```bash
+cd ~/github
 git clone http://github.com/gouvernementfr/dsfr
 cd dsfr
 # git checkout my-working-branch
