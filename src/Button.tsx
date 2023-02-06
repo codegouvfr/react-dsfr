@@ -64,12 +64,9 @@ export namespace ButtonProps {
     export type AsButton = {
         linkProps?: never;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: Omit<
-            React.DetailedHTMLProps<
-                React.ButtonHTMLAttributes<HTMLButtonElement>,
-                HTMLButtonElement
-            >,
-            "onClick"
+        nativeButtonProps?: React.DetailedHTMLProps<
+            React.ButtonHTMLAttributes<HTMLButtonElement>,
+            HTMLButtonElement
         > &
             Record<`data-${string}`, string | boolean | null | undefined>;
         disabled?: boolean;
@@ -130,8 +127,11 @@ export const Button = memo(
             <Link
                 {...linkProps}
                 title={title ?? linkProps.title}
-                className={className}
-                style={style}
+                className={cx(linkProps?.className, className)}
+                style={{
+                    ...linkProps?.style,
+                    ...style
+                }}
                 ref={ref as React.ForwardedRef<HTMLAnchorElement>}
                 {...rest}
             >
@@ -140,12 +140,15 @@ export const Button = memo(
         ) : (
             <button
                 {...nativeButtonProps}
-                className={className}
-                style={style}
-                type={type}
-                title={title}
-                onClick={onClick}
-                disabled={disabled}
+                className={cx(nativeButtonProps?.className, className)}
+                style={{
+                    ...nativeButtonProps?.style,
+                    ...style
+                }}
+                type={type ?? nativeButtonProps?.type}
+                title={title ?? nativeButtonProps?.title}
+                onClick={onClick ?? nativeButtonProps?.onClick}
+                disabled={disabled ?? nativeButtonProps?.disabled}
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
                 {...rest}
             >
