@@ -26,7 +26,7 @@ import { startReactDsfr } from "@codegouvfr/react-dsfr/cra";
 </strong>});
 
 <strong>//Only in TypeScript projects
-</strong><strong>declare module "@codegouvfr/react-dsfr/cra" {
+</strong><strong>declare module "@codegouvfr/react-dsfr/spa" {
 </strong><strong>    interface RegisterLink { 
 </strong><strong>        Link: typeof Link;
 </strong><strong>    }
