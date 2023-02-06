@@ -6,7 +6,13 @@ The components are documented indivudually on a separate website.
 Storybook website
 {% endembed %}
 
-### The `classes` property
+### Customization
+
+What to do if you want to customize the components beyond what the props allows.&#x20;
+
+#### The `classes` property
+
+
 
 Every component or react-dsfr accept an optional classes property that enables you to customise their look at a fine grained level. &#x20;
 
@@ -17,3 +23,9 @@ Every component or react-dsfr accept an optional classes property that enables y
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Before </p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (9).png" alt=""><figcaption><p>After</p></figcaption></figure>
+
+### In depth customization
+
+If you need customisation beyound what the props&#x20;
+
+#### Ad
