@@ -4,7 +4,7 @@ description: Like react-router or Next.js file system based route.
 
 # 🔀 Integration with routing libs
 
-Depending of the framwork/routing library you are using, links between pages are not handled the same way. &#x20;
+Depending of the framwork/routing library you are using, links between pages are not handled the same way.
 
 Usually you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component you can provide the correct props for you `<Link />` component.
 
@@ -13,7 +13,7 @@ When registering your Link component it's props type will propagate to the react
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://zilch.dev/type-route), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.&#x20;
+Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
@@ -39,9 +39,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
-Please have a look at the example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).&#x20;
+Please have a look at the example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).
 
-Notice that everywhere a `linkProps` is asked you are now expected to provide an object with a `to` property because `react-router`'s`<Link />` component expects a `to` prop instead of the typical href.&#x20;
+Notice that everywhere a `linkProps` is asked you are now expected to provide an object with a `to` property because `react-router`'s`<Link />` component expects a `to` prop instead of the typical href.
 {% endtab %}
 
 {% tab title="Next.js" %}
@@ -111,7 +111,7 @@ export default function StartDsfr(){
 {% endtab %}
 
 {% tab title="type-route" %}
-[type-route](https://zilch.dev/type-route) unlike most routing library doesn't export a `<Link />` component `<a />` are used directly.
+[type-route](https://type-route.zilch.dev/) unlike most routing library doesn't export a `<Link />` component `<a />` are used directly.
 
 In consequence there isn't anything to setup.
 
@@ -121,6 +121,6 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fb
 {% tab title="other" %}
 You should be able to infer what needs to be done refering to the `react-router` instructions.
 
-If the library you are using dosen't export a `<Link />` (like `type-route` for example) component there isn't anything to do.&#x20;
+If the library you are using dosen't export a `<Link />` (like `type-route` for example) component there isn't anything to do.
 {% endtab %}
 {% endtabs %}
