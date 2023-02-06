@@ -8,7 +8,7 @@
 -   [x] Button
 -   [x] Buttons group
 -   [ ] France Connect button
--   [ ] Radio button
+-   [x] Radio button
 -   [ ] Radio rich
 -   [ ] Checkbox
 -   [x] Cards

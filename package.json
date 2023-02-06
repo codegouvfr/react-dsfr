@@ -138,6 +138,7 @@
         "./SkipLinks": "./dist/SkipLinks.js",
         "./Select": "./dist/Select.js",
         "./SearchBar": "./dist/SearchBar.js",
+        "./RadioButtons": "./dist/RadioButtons.js",
         "./Quote": "./dist/Quote.js",
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
