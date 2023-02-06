@@ -102,7 +102,8 @@ Avantages of tss-react over others CSS in JS solutions
 
 * It features a native integration with react-dsfr, I'm the author of TSS so I can[ export from TSS an helper](https://github.com/garronej/tss-react/blob/main/src/dsfr.ts) dedicated to this lib.
 * I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Beside, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).   &#x20;
-{% endhint %}
+{% endhint %}  
+
 {% endtab %}
 
 {% tab title="styled" %}
