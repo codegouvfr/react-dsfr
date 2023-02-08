@@ -371,7 +371,7 @@ Consider using the [\<Display />](https://react-dsfr-components.etalab.studio/?p
 {% endhint %}
 
 ```tsx
-import { usIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 
 function MyComponent(){
 
