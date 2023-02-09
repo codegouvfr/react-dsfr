@@ -10,7 +10,7 @@
 -   [ ] France Connect button
 -   [x] Radio button
 -   [ ] Radio rich
--   [ ] Checkbox
+-   [x] Checkbox
 -   [x] Cards
 -   [x] Quote
 -   [ ] Media

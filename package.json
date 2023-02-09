@@ -149,6 +149,7 @@
         "./Header": "./dist/Header.js",
         "./Footer": "./dist/Footer.js",
         "./Display": "./dist/Display.js",
+        "./Checkbox": "./dist/Checkbox.js",
         "./Card": "./dist/Card.js",
         "./CallOut": "./dist/CallOut.js",
         "./ButtonsGroup": "./dist/ButtonsGroup.js",
