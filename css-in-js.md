@@ -102,9 +102,69 @@ Avantages of tss-react over others CSS in JS solutions
 * I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Beside, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).
 {% endhint %}
 {% endtab %}
-{% endtabs %}
 
-You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.
+{% tab title="styled" %}
+{% embed url="https://styled-components.com/" %}
+
+{% hint style="info" %}
+[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it's better integrated with MUI. &#x20;
+{% endhint %}
+
+{% code title="index.tsx" %}
+```tsx
+import { ThemeProvider } from '@emotion/react'
+import { useColors } from "@codegouvfr/react-dsfr";
+
+function Root(){
+
+    const colors = useColors();
+
+    return (
+        <ThemeProvider theme={colors}>
+            <App />
+        </ThemeProvider>
+    );
+
+}
+```
+{% endcode %}
+
+```tsx
+import styled from '@emotion/styled'
+import { fr } from "@codegouvfr/react-dsfr";
+
+export type Props = {
+    className?: string;
+};
+
+export function MyComponentNotStyled(props: Props){
+
+    const { className } = props;
+
+    return (
+	<div className={className}>
+	    <span className={fr.cx("fr-p-1v")}>
+	      Hello World
+	    </span>
+	</div>
+    );
+
+}
+
+export const MyComponent = MyComponentNotStyled`
+  padding: ${fr.spacing("10v")};
+  background-color: ${({ theme })=> theme.decisions.background.alt.blueFrance.active};
+  ${fr.breakpoints.up("md")}: {
+    background-color: ${({ theme })=> theme.decisions.background.alt.beigeGrisGalet.active};
+  }
+  & > span {
+    margin-top: ${fr.spacing("3v")};
+    margin-bottom: ${fr.spacing("3v")};
+  }
+`;You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.
+```
+{% endtab %}
+{% endtabs %}
 
 ```tsx
 import { fr } from "@codegouvfr/react-dsfr";
@@ -143,14 +203,6 @@ export const MyComponent =(props: Props) => {
 
 MyComponent.displayName = "MyComponent";
 ```
-
-{% embed url="https://tss-react.dev" %}
-Avantages of tss-react over others CSS in JS solutions
-{% endembed %}
-
-{% embed url="https://styled-components.com/" %}
-[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise.
-{% endembed %}
 
 ### spacing
 
