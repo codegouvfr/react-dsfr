@@ -8,6 +8,10 @@ At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/brow
 
 This enables, to write DSFR compliant CSS in JS code since we are able to expose function that are the equivalent of the DSFR utility classes.
 
+{% hint style="success" %}
+Checkout [the color selection tool](https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page).
+{% endhint %}
+
 {% tabs %}
 {% tab title="Native" %}
 You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.
