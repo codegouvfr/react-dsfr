@@ -1,17 +1,16 @@
-import React, { memo, forwardRef, type CSSProperties } from "react";
+import React, { memo, forwardRef, type CSSProperties, type ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { getLink } from "./link";
-import { RegisteredLinkProps } from "./link";
+import { getLink, type RegisteredLinkProps } from "./link";
 
 export type DownloadProps = {
     className?: string;
     style?: CSSProperties;
-    details: string;
-    label: string;
+    details: ReactNode;
+    label: ReactNode;
     linkProps: RegisteredLinkProps;
     classes?: Partial<Record<"root" | "wrapper" | "link" | "details", string>>;
 };
