@@ -1,6 +1,4 @@
-import React from "react";
-import type { ReactNode } from "react";
-import type { DetailedHTMLProps, AnchorHTMLAttributes } from "react";
+import React, { type ReactNode, type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
 
 type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,

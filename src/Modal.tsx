@@ -1,11 +1,11 @@
-import React, { memo, forwardRef, type CSSProperties } from "react";
+import React, { memo, forwardRef, type CSSProperties, type ReactNode } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import type { ReactNode } from "react";
-import { Equals, assert } from "tsafe";
+import { assert } from "tsafe/assert";
+import { symToStr } from "tsafe/symToStr";
+import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import { symToStr } from "tsafe/symToStr";
 import Button, { ButtonProps } from "./Button";
 import { capitalize } from "tsafe/capitalize";
 import { uncapitalize } from "tsafe/uncapitalize";

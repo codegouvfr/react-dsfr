@@ -2,7 +2,6 @@ import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "rea
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";

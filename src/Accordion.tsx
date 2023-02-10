@@ -8,7 +8,7 @@ import React, {
     type ReactNode,
     type CSSProperties
 } from "react";
-import { assert } from "tsafe";
+import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";

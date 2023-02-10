@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import type { ReactNode } from "react";
+import React, { useEffect, type ReactNode } from "react";
 import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";

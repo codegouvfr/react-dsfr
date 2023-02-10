@@ -1,5 +1,6 @@
 import React, { forwardRef, memo, type CSSProperties } from "react";
-import { assert, Equals } from "tsafe";
+import type { Equals } from "tsafe";
+import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";

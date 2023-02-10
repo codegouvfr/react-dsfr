@@ -1,11 +1,11 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useMemo } from "react";
-import type { ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 import { breakpointValues } from "./fr/generatedFromCss/breakpoints";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import type { Shadows } from "@mui/material/styles";
 import { getColors } from "./fr/colors";
 import type { ColorTheme } from "./fr/colors";
 import { useIsDark } from "./useIsDark";
@@ -13,7 +13,6 @@ import { typography } from "./fr/generatedFromCss/typography";
 import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
-import type { Shadows } from "@mui/material/styles";
 import { id } from "tsafe/id";
 
 export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOptions {
