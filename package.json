@@ -148,6 +148,8 @@
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header.js",
         "./Footer": "./dist/Footer.js",
+        "./File": "./dist/File.js",
+        "./Download": "./dist/Download.js",
         "./Display": "./dist/Display.js",
         "./Checkbox": "./dist/Checkbox.js",
         "./Card": "./dist/Card.js",

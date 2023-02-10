@@ -37,7 +37,7 @@
 -   [x] Summary
 -   [ ] Table
 -   [ ] Tag
--   [ ] Download
+-   [x] Download
 -   [ ] Transcription
 -   [x] Tile
 -   [x] Input
