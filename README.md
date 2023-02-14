@@ -26,7 +26,11 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
-👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
+👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).  
+
+> WARNING: This Design System is only meant to be used to implement French public service websites and Apps.  
+> Its main purpose is to make it easy to identify governmental website for citizens.  
+> If you use it, you may get your website taken down by French authorities.   
 
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
