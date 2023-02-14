@@ -99,7 +99,7 @@ const { useTranslation, addBreadcrumbTranslations } = createComponentI18nApi({
         /* spell-checker: disable */
         "show breadcrumb": "Voir le fil d’Ariane",
         "navigation label": "vous êtes ici",
-        "home": "Acceuil"
+        "home": "Accueil"
         /* spell-checker: enable */
     }
 });
