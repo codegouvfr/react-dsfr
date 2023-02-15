@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
-import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
+import { startReactDsfr } from "@codegouvfr/react-dsfr";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
-declare module "@codegouvfr/react-dsfr/spa" {
+declare module "@codegouvfr/react-dsfr" {
     interface RegisterLink {
         Link: typeof Link;
     }
@@ -36,7 +36,7 @@ function Root() {
                 serviceTitle="Nom du site / service"
                 homeLinkProps={{ "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                 quickAccessItems={[headerFooterDisplayItem]}
-                navigation={[
+                navItems={[
                     {
                         "text": "Home",
                         "linkProps": {
