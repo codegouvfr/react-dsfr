@@ -4,6 +4,11 @@ description: Setup @codegouvfr/react-dsfr in your project
 
 # 🔧 Initial setup
 
+{% hint style="danger" %}
+This Design System is only meant to be used for French's public service websites and Apps.\
+Its main purpose is to make it easy to identify governmental website for citizens. [See CGU](https://www.systeme-de-design.gouv.fr/cgu/)
+{% endhint %}
+
 {% hint style="warning" %}
 If you already had the DSFR installed in your project, let's start from scratch:
 
