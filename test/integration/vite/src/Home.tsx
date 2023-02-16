@@ -1,6 +1,6 @@
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
-import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { useIsDark } from "@codegouvfr/react-dsfr";
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
