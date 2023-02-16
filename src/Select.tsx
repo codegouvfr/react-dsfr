@@ -15,7 +15,6 @@ export type SelectProps = {
         React.SelectHTMLAttributes<HTMLSelectElement>,
         HTMLSelectElement
     >;
-    children: ReactNode;
     /** Default: false */
     disabled?: boolean;
     /** Default: "default" */
@@ -23,6 +22,16 @@ export type SelectProps = {
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
     style?: CSSProperties;
+    options: SelectOption[];
+    placeholder?: string;
+};
+
+export type SelectOption<T = string> = {
+    value: T | number | readonly string[] | undefined;
+    label: string;
+    disabled?: boolean;
+    hidden?: boolean;
+    // selected should not be handled directly by option, but as Select's value
 };
 
 /**
@@ -36,18 +45,29 @@ export const Select = memo(
             hint,
             nativeSelectProps,
             disabled = false,
-            children,
+            options,
             state = "default",
             stateRelatedMessage,
+            placeholder,
             style,
             ...rest
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
-
-        const selectId = `select-${useId()}`;
-        const stateDescriptionId = `select-${useId()}-desc`;
-
+        const elementId = nativeSelectProps.id || useId();
+        const selectId = `select-${elementId}`;
+        const stateDescriptionId = `select-${elementId}-desc`;
+        const displayedOptions = placeholder
+            ? [
+                  {
+                      label: placeholder,
+                      value: "",
+                      disabled: true
+                  },
+                  ...options
+              ]
+            : options;
+        console.log(displayedOptions);
         return (
             <div
                 className={cx(
@@ -83,7 +103,9 @@ export const Select = memo(
                     aria-describedby={stateDescriptionId}
                     disabled={disabled}
                 >
-                    {children}
+                    {displayedOptions.map(option => (
+                        <option {...option}>{option.label}</option>
+                    ))}
                 </select>
                 {state !== "default" && (
                     <p
