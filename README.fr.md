@@ -26,6 +26,9 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essaie immédiat</a>
 </p>
 
+> ATTENTION: Ce design système a uniquement vocation à être utilisé pour des sites officiels de l'état.  
+> Son but est de rendre la parole de l'état clairement identifiable. [Consulter le CGU](https://www.systeme-de-design.gouv.fr/cgu/)
+
 > 🗣️ L'enregistrement de l'atelier de présentation de la librairie est disponible [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
 Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation de officiel de référence du
