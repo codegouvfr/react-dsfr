@@ -1,7 +1,7 @@
 import * as React from "react";
-import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+import { createMuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { useIsDark } from "@codegouvfr/react-dsfr";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
@@ -42,6 +42,8 @@ const muiDefaultLightTheme = createTheme({
 		"mode": "light"
 	}
 });
+
+const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider();
 
 export function Mui() {
 
