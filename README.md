@@ -5,7 +5,7 @@ description: Setup @codegouvfr/react-dsfr in your project
 # 🔧 Initial setup
 
 {% hint style="warning" %}
-If you already had the DSFR installed in your project, let's start from scratch: &#x20;
+If you already had the DSFR installed in your project, let's start from scratch:
 
 * Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
 * Remove the import of`dsfr.css, dsfr.module.js the favicon and the fonts.`
@@ -38,7 +38,7 @@ Add theses three scipts to your `package.json`:
 </strong>}
 </code></pre>
 
-Add the following code in the `<head />`&#x20;
+Add the following code in the `<head />`
 
 {% code title="public/index.html" %}
 ```ejs
@@ -77,7 +77,7 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 
 {% tab title="Next.js" %}
 {% hint style="info" %}
-These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
+These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).
 
 Now, if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](./#next.js-appdir).
 {% endhint %}
@@ -92,13 +92,13 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 </strong>  reactStrictMode: true,
   swcMinify: true,
 <strong>  webpack: config => {
-</strong><strong>
-</strong><strong>    config.module.rules.push({
+</strong>
+<strong>    config.module.rules.push({
 </strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
-</strong><strong>
-</strong><strong>    return config;
+</strong>
+<strong>    return config;
 </strong><strong>  }
 </strong>});
 
@@ -168,7 +168,7 @@ augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir) (or [here](https://github.com/garronej/react-dsfr-next-demo) as a standalong project)
 {% endtab %}
 
 {% tab title="Next.js AppDir" %}
@@ -185,13 +185,13 @@ const nextConfig = {
     appDir: true,
   },
 <strong>  webpack: config => {
-</strong><strong>
-</strong><strong>    config.module.rules.push({
+</strong>
+<strong>    config.module.rules.push({
 </strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
-</strong><strong>
-</strong><strong>    return config;
+</strong>
+<strong>    return config;
 </strong><strong>  }
 </strong>};
 
@@ -262,14 +262,14 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 ```
 {% endcode %}
 
-Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir).
+Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir) (or [here](https://github.com/garronej/react-dsfr-next-appdir-demo) as a standalong project)
 
 {% hint style="success" %}
 Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
 {% endhint %}
 
 {% hint style="info" %}
-You may experience white flashes in dev mode but not in production. 👍&#x20;
+You may experience white flashes in dev mode but not in production. 👍
 {% endhint %}
 {% endtab %}
 
@@ -283,7 +283,7 @@ Add theses three scipts to your `package.json`:
 </strong>}
 </code></pre>
 
-Add the following tags in the `<head />`&#x20;
+Add the following tags in the `<head />`
 
 {% code title="index.html" %}
 ```html
@@ -297,7 +297,7 @@ Add the following tags in the `<head />`&#x20;
 ```
 {% endcode %}
 
-#### src/main.tsx
+**src/main.tsx**
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
@@ -324,7 +324,7 @@ Your framwork isn't supported? let's [get in touch](https://github.com/codegouvf
 {% endtab %}
 {% endtabs %}
 
-### Avoiding or flash of unstyled text (FOUT) &#x20;
+### Avoiding or flash of unstyled text (FOUT)
 
 {% hint style="danger" %}
 The official recommendation from the DSFR team is to cope with [the Flash of Unstiled text](https://user-images.githubusercontent.com/6702424/193168884-703a3c95-45be-47ad-823d-15bb6b8e620d.gif) because preloading fonts **significantly delays the First Contentfull Paint (FCP) for users with slow internet connection and slow devices**.
@@ -332,11 +332,11 @@ The official recommendation from the DSFR team is to cope with [the Flash of Uns
 Measures have been taken in the JS code to mitigate discomfort induced by the FOUT.
 {% endhint %}
 
-If you chose, despite the recommendation agaist it, to preload the fonts, at least make sure you only preload the ones immediately used on your page (look in the network tab of your browser dev tool). &#x20;
+If you chose, despite the recommendation agaist it, to preload the fonts, at least make sure you only preload the ones immediately used on your page (look in the network tab of your browser dev tool).
 
 {% tabs %}
 {% tab title="Create React App" %}
-Add the following code in the `<head />`&#x20;
+Add the following code in the `<head />`
 
 {% code title="public/index.html" %}
 ```ejs
@@ -442,7 +442,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 {% endtab %}
 
 {% tab title="Vite" %}
-Add the following tags in the `<head />`&#x20;
+Add the following tags in the `<head />`
 
 {% code title="index.html" %}
 ```html
