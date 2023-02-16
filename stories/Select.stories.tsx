@@ -1,4 +1,3 @@
-import React from "react";
 import { Select, type SelectProps } from "../dist/Select";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -21,21 +20,30 @@ import { Select } from "@codegouvfr/react-dsfr/Select";
 function MyComponent(){
 
     const [ value, setValue ] = useState("");
-
+    const options = [
+        {
+            value: "1",
+            label: "Option 1",
+        },
+        {
+            value: "2",
+            label: "Option 2",
+        },
+        {
+            value: "3",
+            label: "Option 3",
+        }
+    ]
     return (
         <Select
             label="Label"
             nativeSelectProps={{
                 onChange: event => setValue(event.target.value),
-                value
+                value: ""
             }}
-        >
-            <option value="" disabled hidden>Selectionnez une option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </Select>
+            options={options}
+            placeholder="Selectionnez une option"
+        />
     );
 
 }
@@ -75,12 +83,12 @@ function MyComponent(){
             "description": "The props that you would pass to a native `<select />`",
             "control": { "type": null }
         },
-        "children": {
-            "description": "The `children` that you would give a native `<select />`",
-            "control": { "type": null }
-        },
         "disabled": {
             "control": { "type": "boolean" }
+        },
+        "placeholder": {
+            "description": "Adds a fake placeholder for the select element",
+            "control": { "type": "text" }
         },
         "hint": {
             "control": { "type": "text" }
@@ -89,7 +97,7 @@ function MyComponent(){
             "options": (() => {
                 const options = ["success", "error", "default"] as const;
 
-                assert<Equals<typeof options[number], NonNullable<SelectProps["state"]>>>();
+                assert<Equals<typeof options[number], NonNullable<SelectProps<typeof options[number]>["state"]>>>();
 
                 return options;
             })(),
@@ -105,20 +113,34 @@ function MyComponent(){
 
 export default meta;
 
+const defaultOptions = [
+    {
+        value: "1",
+        label: "Option 1"
+    },
+    {
+        value: "2",
+        label: "Option 2"
+    },
+    {
+        value: "3",
+        label: "Option 3"
+    }
+];
+
 export const Default = getStory({
     "label": "Label pour liste déroulante",
     "nativeSelectProps": {},
-    "children": (
-        <>
-            <option value="" selected disabled hidden>
-                Selectionnez une option
-            </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </>
-    )
+    "options": defaultOptions
+});
+
+export const DefaultWithPlaceholder = getStory({
+    "label": "Label pour liste déroulante",
+    "nativeSelectProps": {
+        "value": ""
+    },
+    "placeholder": "Sélectionnez une option",
+    "options": defaultOptions
 });
 
 export const ErrorState = getStory({
@@ -126,67 +148,36 @@ export const ErrorState = getStory({
     "state": "error",
     "stateRelatedMessage": "Texte d’erreur obligatoire",
     "nativeSelectProps": {},
-    "children": (
-        <>
-            <option value="" selected disabled hidden>
-                Selectionnez une option
-            </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </>
-    )
+    "options": defaultOptions
 });
 
 export const SuccessState = getStory({
     "label": "Label pour liste déroulante",
     "state": "success",
     "stateRelatedMessage": "Texte de validation",
-    "nativeSelectProps": {},
-    "children": (
-        <>
-            <option value="" selected disabled hidden>
-                Selectionnez une option
-            </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </>
-    )
+    "nativeSelectProps": {
+        "value": "2"
+    },
+    "placeholder": "Sélectionnez une option",
+    "options": defaultOptions
 });
 
 export const Disabled = getStory({
     "label": "Label pour liste déroulante",
     "disabled": true,
-    "nativeSelectProps": {},
-    "children": (
-        <>
-            <option value="" selected disabled hidden>
-                Selectionnez une option
-            </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </>
-    )
+    "nativeSelectProps": {
+        "value": ""
+    },
+    "placeholder": "Sélectionnez une option",
+    "options": defaultOptions
 });
 
 export const WithHint = getStory({
     "label": "Label pour liste déroulante",
     "hint": "Texte de description additionnel",
-    "nativeSelectProps": {},
-    "children": (
-        <>
-            <option value="" selected disabled hidden>
-                Selectionnez une option
-            </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </>
-    )
+    "nativeSelectProps": {
+        "value": ""
+    },
+    "placeholder": "Sélectionnez une option",
+    "options": defaultOptions
 });
