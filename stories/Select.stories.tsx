@@ -12,6 +12,8 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Notice.tsx)
 
+## Controlled
+
 \`\`\`tsx
 import { useState } from "react";
 import { Select } from "../../dist/Select";
@@ -28,6 +30,34 @@ function MyComponent(){
                 value
             }}
         >
+            <option value="" disabled hidden>Selectionnez une option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+        </Select>
+    );
+
+}
+\`\`\`
+
+## Uncontrolled
+
+\`\`\`tsx
+import { useState } from "react";
+import { Select } from "../../dist/Select";
+
+function MyComponent(){
+
+    const [ value, setValue ] = useState("");
+
+    return (
+        <Select
+            label="Label"
+            nativeSelectProps={{
+                name: "my-select"
+            }}
+        >
             <option value="" selected disabled hidden>Selectionnez une option</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
@@ -38,6 +68,7 @@ function MyComponent(){
 
 }
 \`\`\`
+
 `,
     "argTypes": {
         "nativeSelectProps": {
