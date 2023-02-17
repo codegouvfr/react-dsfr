@@ -9,7 +9,92 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { RadioButtons },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/boutons-radio)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/RadioButtons.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/RadioButtons.tsx)  
+  
+## Controlled
+
+\`\`\`tsx
+import { useState } from "react";
+import { RadioButtons } from "@codegouvfr/react-dsfr/RadioButtons";
+
+function MyComponent(){
+
+    const [ value, setValue ] = useState<"one" | "two" | "three" | undefined>(undefined);
+
+    return (
+        <RadioButtons 
+            label="Label" 
+            options={[
+                {
+                    label: "Label radio",
+                    nativeInputProps: {
+                        checked: value === "one"
+                        onChange: ()=> setValue("one")
+                    }
+                },
+                {
+                    label: "Label radio 2",
+                    nativeInputProps: {
+                        checked: value === "two"
+                        onChange: ()=> setValue("two")
+                    }
+                },
+                {
+                    label: "Label radio 3",
+                    nativeInputProps: {
+                        checked: value === "three"
+                        onChange: ()=> setValue("three")
+                    }
+                }
+            ]}
+        />
+    );
+
+}
+\`\`\`  
+  
+## Uncontrolled  
+
+\`\`\`tsx
+import { useState } from "react";
+import { RadioButtons } from "@codegouvfr/react-dsfr/RadioButtons";
+
+function MyComponent(){
+
+    return (
+        <form>
+            <RadioButtons
+                label="Label"
+                name="my-radio"
+                options={[
+                    {
+                        label: "Label radio",
+                        nativeInputProps: {
+                            value: "one"
+                        }
+                    },
+                    {
+                        label: "Label radio 2",
+                        nativeInputProps: {
+                            value: "two"
+                        }
+                    },
+                    {
+                        label: "Label radio 3",
+                        nativeInputProps: {
+                            value: "three"
+                        }
+                    }
+                ]}
+            />
+        </form>
+    );
+
+}
+\`\`\`
+
+
+`,
     "argTypes": {
         "name": {
             "description":

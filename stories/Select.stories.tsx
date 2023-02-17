@@ -16,7 +16,7 @@ const { meta, getStory } = getStoryFactory({
 
 \`\`\`tsx
 import { useState } from "react";
-import { Select } from "../../dist/Select";
+import { Select } from "@codegouvfr/react-dsfr/Select";
 
 function MyComponent(){
 
@@ -45,25 +45,25 @@ function MyComponent(){
 
 \`\`\`tsx
 import { useState } from "react";
-import { Select } from "../../dist/Select";
+import { Select } from "@codegouvfr/react-dsfr/Select";
 
 function MyComponent(){
 
-    const [ value, setValue ] = useState("");
-
     return (
-        <Select
-            label="Label"
-            nativeSelectProps={{
-                name: "my-select"
-            }}
-        >
-            <option value="" selected disabled hidden>Selectionnez une option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-        </Select>
+        <form>
+            <Select
+                label="Label"
+                nativeSelectProps={{
+                    name: "my-select"
+                }}
+            >
+                <option value="" selected disabled hidden>Selectionnez une option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+            </Select>
+        </form>
     );
 
 }
