@@ -19,7 +19,19 @@ let Link: (
 ) => ReturnType<React.FC> = props => <a {...props} />;
 
 export function setLink(params: { Link: typeof Link }): void {
-    Link = params.Link;
+    Link = props => {
+        external_link_react_router: {
+            const { to, ...rest } = props as { to?: string };
+
+            if (to === undefined || (!to.startsWith("//") && !/^https?:\/\//.test(to))) {
+                break external_link_react_router;
+            }
+
+            return <a href={to} target="_blank" {...rest} />;
+        }
+
+        return <params.Link {...props} />;
+    };
 }
 
 export function getLink() {
