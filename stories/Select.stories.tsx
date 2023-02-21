@@ -128,6 +128,21 @@ const defaultOptions = [
     }
 ];
 
+const optionsWithTypedValues: SelectOption<number>[] = [
+    {
+        value: 1,
+        label: "Option 1"
+    },
+    {
+        value: 2,
+        label: "Option 2"
+    },
+    {
+        value: 3,
+        label: "Option 3"
+    }
+];
+
 export const Default = getStory({
     "label": "Label pour liste déroulante",
     "nativeSelectProps": {},
@@ -180,4 +195,13 @@ export const WithHint = getStory({
     },
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions
+});
+
+export const TypedSelect = getStory({
+    "label": "Label pour liste déroulante avec valeurs d'options typesafe",
+    "placeholder": "Sélectionnez une option",
+    "options": optionsWithTypedValues,
+    "nativeSelectProps": {
+        "value": "2"
+    }
 });
