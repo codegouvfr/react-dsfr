@@ -39,7 +39,7 @@ function MyComponent(){
             label="Label"
             nativeSelectProps={{
                 onChange: event => setValue(event.target.value),
-                value: ""
+                value,
             }}
             options={options}
             placeholder="Selectionnez une option"
