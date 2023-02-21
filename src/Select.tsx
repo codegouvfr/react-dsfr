@@ -26,7 +26,7 @@ export type SelectProps<OptionValue> = {
     placeholder?: string;
 };
 export type GenericOption<OptionValue> = {
-    value: OptionValue | number | readonly string[] | undefined;
+    value: OptionValue;
     label: string;
     disabled?: boolean;
     hidden?: boolean;
