@@ -1,4 +1,4 @@
-import { Select, type SelectProps } from "../dist/Select";
+import { Select, type SelectProps, type GenericOption } from "../dist/Select";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
@@ -97,7 +97,12 @@ function MyComponent(){
             "options": (() => {
                 const options = ["success", "error", "default"] as const;
 
-                assert<Equals<typeof options[number], NonNullable<SelectProps<typeof options[number]>["state"]>>>();
+                assert<
+                    Equals<
+                        typeof options[number],
+                        NonNullable<SelectProps<typeof options[number]>["state"]>
+                    >
+                >();
 
                 return options;
             })(),
@@ -128,7 +133,7 @@ const defaultOptions = [
     }
 ];
 
-const optionsWithTypedValues: SelectOption<number>[] = [
+const optionsWithTypedValues: GenericOption<number>[] = [
     {
         value: 1,
         label: "Option 1"
