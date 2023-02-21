@@ -28,6 +28,24 @@ yarn add @codegouvfr/react-dsfr
 ```bash
 npm install --save @codegouvfr/react-dsfr
 ```
+
+{% endtab %}
+
+{% tab title="pnpm" %}
+
+```bash
+pnpm add @codegouvfr/react-dsfr
+```
+
+And add this file to the root of your project, to enable pre & post scripts with pnpm:
+
+{% code title=".npmrc" %}
+
+```properties
+enable-pre-post-scripts=true
+```
+
+{% endcode %}
 {% endtab %}
 {% endtabs %}
 
