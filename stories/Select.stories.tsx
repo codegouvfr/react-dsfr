@@ -133,20 +133,23 @@ const defaultOptions = [
     }
 ];
 
-const optionsWithTypedValues: GenericOption<number>[] = [
-    {
-        value: 1,
-        label: "Option 1"
-    },
-    {
-        value: 2,
-        label: "Option 2"
-    },
-    {
-        value: 3,
-        label: "Option 3"
-    }
+type MyFakeValueSet =
+    | "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
+    | "1bda4f79-a199-40ce-985b-fa217809d568"
+    | "e91b2cac-48f6-4d60-b86f-ece02f076837"
+    | "66a9d7ac-9b25-4e52-9de3-4b7238135b39";
+
+const myFakeValueSet: MyFakeValueSet[] = [
+    "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf",
+    "1bda4f79-a199-40ce-985b-fa217809d568",
+    "e91b2cac-48f6-4d60-b86f-ece02f076837",
+    "66a9d7ac-9b25-4e52-9de3-4b7238135b39"
 ];
+
+const optionsWithTypedValues: GenericOption<MyFakeValueSet>[] = myFakeValueSet.map(fakeValue => ({
+    value: fakeValue,
+    label: fakeValue
+}));
 
 export const Default = getStory({
     "label": "Label pour liste déroulante",
@@ -207,6 +210,6 @@ export const TypedSelect = getStory({
     "placeholder": "Sélectionnez une option",
     "options": optionsWithTypedValues,
     "nativeSelectProps": {
-        "value": "2"
+        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
     }
 });
