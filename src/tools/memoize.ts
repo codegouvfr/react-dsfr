@@ -1,18 +1,18 @@
 type SimpleType = number | string | boolean | null | undefined;
-type FuncWithSimpleParams<T extends SimpleType[]> = (...args: T) => any;
+type FuncWithSimpleParams<T extends SimpleType[], R> = (...args: T) => R;
 
-export function memoize<T extends SimpleType[]>(
-    fn: FuncWithSimpleParams<T>,
+export function memoize<T extends SimpleType[], R>(
+    fn: FuncWithSimpleParams<T, R>,
     options?: {
         argsLength?: number;
         max?: number;
     }
-): FuncWithSimpleParams<T> {
-    const cache = new Map<string, ReturnType<FuncWithSimpleParams<T>>>();
+): FuncWithSimpleParams<T, R> {
+    const cache = new Map<string, ReturnType<FuncWithSimpleParams<T, R>>>();
 
     const { argsLength = fn.length, max = Infinity } = options ?? {};
 
-    return ((...args: Parameters<FuncWithSimpleParams<T>>) => {
+    return ((...args: Parameters<FuncWithSimpleParams<T, R>>) => {
         const key = JSON.stringify(
             args
                 .slice(0, argsLength)
