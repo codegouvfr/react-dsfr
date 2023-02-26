@@ -23,7 +23,7 @@ export const cx = (...args: CxArg[]): string => {
                 break;
             case "object": {
                 if (Array.isArray(arg)) {
-                    toAdd = cx(arg);
+                    toAdd = cx(...arg);
                 } else {
                     assert(!typeGuard<{ length: number }>(arg, false));
 
