@@ -8,10 +8,12 @@ export type { FrCxArg } from "./cx";
 export type { ColorTheme } from "./colors";
 import { getColors } from "./colors";
 export type { FrClassName, FrIconClassName, RiIconClassName } from "./generatedFromCss/classNames";
+import { typography } from "./generatedFromCss/typography";
 
 export const fr = {
     breakpoints,
     spacing,
     cx,
-    getColors
+    getColors,
+    typography
 };
