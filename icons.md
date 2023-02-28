@@ -52,4 +52,4 @@ This script look at your code to see what icons you are actually using then proc
 
 The `fr.cx()` utility is also handy for autocompleting the icons that are supported: &#x20;
 
-<figure><img src=".gitbook/assets/frcx.gif" alt=""><figcaption><p>Using fr.cx()</p></figcaption></figure>
+<figure><img src=".gitbook/assets/frcx (1).gif" alt=""><figcaption><p>Using fr.cx()</p></figcaption></figure>

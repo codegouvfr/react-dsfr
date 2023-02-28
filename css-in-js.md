@@ -331,11 +331,11 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 const isDark = false;
 
-const theme = fr.getColors(isDark);
+const lightTheme = fr.getColors(isDark);
 
-theme.decisions.background.flat.info.default // #0063cb
-theme.options.blueFrance._850_200.default // #cacafb
-theme.isDark // false
+lightTheme.decisions.background.flat.info.default // #0063cb
+lightTheme.options.blueFrance._850_200.default // #cacafb
+lightTheme.isDark // false
 ```
 
 Whith a hook that returns the `theme` object for the color scheme (light/dark) that is currently active:
