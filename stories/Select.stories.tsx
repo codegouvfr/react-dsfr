@@ -1,4 +1,4 @@
-import { Select, type SelectProps, type GenericOption } from "../dist/Select";
+import Select, { type SelectProps, type GenericOption } from "../dist/Select";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
@@ -133,27 +133,22 @@ const defaultOptions = [
     }
 ];
 
-type MyFakeValueSet =
-    | "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
-    | "1bda4f79-a199-40ce-985b-fa217809d568"
-    | "e91b2cac-48f6-4d60-b86f-ece02f076837"
-    | "66a9d7ac-9b25-4e52-9de3-4b7238135b39";
-
-const myFakeValueSet: MyFakeValueSet[] = [
+const myFakeValueSet = [
     "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf",
     "1bda4f79-a199-40ce-985b-fa217809d568",
     "e91b2cac-48f6-4d60-b86f-ece02f076837",
     "66a9d7ac-9b25-4e52-9de3-4b7238135b39"
-];
+] as const;
 
-const optionsWithTypedValues: GenericOption<MyFakeValueSet>[] = myFakeValueSet.map(fakeValue => ({
-    value: fakeValue,
-    label: fakeValue
-}));
+const optionsWithTypedValues: GenericOption<typeof myFakeValueSet[number]>[] = myFakeValueSet.map(
+    fakeValue => ({
+        value: fakeValue,
+        label: fakeValue
+    })
+);
 
 export const Default = getStory({
     "label": "Label pour liste déroulante",
-    "nativeSelectProps": {},
     "options": defaultOptions
 });
 
@@ -170,7 +165,6 @@ export const ErrorState = getStory({
     "label": "Label pour liste déroulante",
     "state": "error",
     "stateRelatedMessage": "Texte d’erreur obligatoire",
-    "nativeSelectProps": {},
     "options": defaultOptions
 });
 
@@ -210,6 +204,7 @@ export const TypedSelect = getStory({
     "placeholder": "Sélectionnez une option",
     "options": optionsWithTypedValues,
     "nativeSelectProps": {
-        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
+        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf",
+        "value": "dc9ee-7794-470e-9dcf-a8d1dd1a6fcf"
     }
 });
