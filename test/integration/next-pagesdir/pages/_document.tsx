@@ -1,4 +1,4 @@
-import DefaultDocument, { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
 import type { DocumentProps } from "next/document";
 import { dsfrDocumentApi, augmentDocumentWithEmotionCache } from "./_app";
 
@@ -16,12 +16,6 @@ export default function Document(props: DocumentProps) {
     );
 }
 
-augmentDocumentForDsfr({
-    DefaultDocument,
-    Document
-});
+augmentDocumentForDsfr(Document);
 
-augmentDocumentWithEmotionCache({
-    DefaultDocument,
-    Document
-});
+augmentDocumentWithEmotionCache(Document);

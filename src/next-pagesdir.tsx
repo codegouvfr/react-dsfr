@@ -14,7 +14,6 @@ import { fontUrlByFileBasename } from "./next-appdir/fontUrlByFileBasename";
 import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
-import DefaultDocument from "next/document";
 import { getAssetUrl } from "./tools/getAssetUrl";
 import { getColors } from "./fr/colors";
 import { start } from "./start";
@@ -22,6 +21,7 @@ import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
 import Script from "next/script";
+import { assert } from "tsafe/assert";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -233,9 +233,14 @@ export function createNextDsfrIntegrationApi(
     }
 
     function augmentDocumentForDsfr(Document: NextComponentType<any, any, any>): void {
-        const super_getInitialProps =
-            Document.getInitialProps?.bind(Document) ??
-            DefaultDocument.getInitialProps.bind(DefaultDocument);
+        let super_getInitialProps = Document.getInitialProps?.bind(Document);
+
+        if (super_getInitialProps === undefined) {
+            import("next/document").then(
+                ({ default: DefaultDocument }) =>
+                    (super_getInitialProps = DefaultDocument.getInitialProps.bind(DefaultDocument))
+            );
+        }
 
         (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
             const { isDark } = (() => {
@@ -274,6 +279,11 @@ export function createNextDsfrIntegrationApi(
                         }
                     });
             }
+
+            assert(
+                super_getInitialProps !== undefined,
+                "Default document not yet loaded. Please submit an issue to the tss-react repo"
+            );
 
             const initialProps = await super_getInitialProps(documentContext);
 
