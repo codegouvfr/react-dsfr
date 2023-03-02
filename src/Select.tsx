@@ -135,12 +135,13 @@ export const Select = <T extends GenericOption<DefaultOptionValue>[]>(
     );
 };
 
-Select.displayName = symToStr({ Select });
-
 const ForwardedSelect = forwardRef(Select) as <T extends GenericOption<DefaultOptionValue>[]>(
     props: SelectProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
 ) => ReturnType<typeof Select>;
 
-const MemoizedSelect = memo(ForwardedSelect) as typeof ForwardedSelect;
+const MemoizedSelect = memo(ForwardedSelect) as typeof ForwardedSelect & {
+    displayName: string;
+};
+MemoizedSelect.displayName = symToStr({ Select });
 
 export default MemoizedSelect;
