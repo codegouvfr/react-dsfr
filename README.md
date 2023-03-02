@@ -28,11 +28,9 @@ yarn add @codegouvfr/react-dsfr
 ```bash
 npm install --save @codegouvfr/react-dsfr
 ```
-
 {% endtab %}
 
 {% tab title="pnpm" %}
-
 ```bash
 pnpm add @codegouvfr/react-dsfr
 ```
@@ -40,11 +38,9 @@ pnpm add @codegouvfr/react-dsfr
 And add this file to the root of your project, to enable pre & post scripts with pnpm:
 
 {% code title=".npmrc" %}
-
 ```properties
 enable-pre-post-scripts=true
 ```
-
 {% endcode %}
 {% endtab %}
 {% endtabs %}
@@ -104,6 +100,10 @@ These are the instruction for [Next.js current stable mode](https://nextjs.org/d
 
 Now, if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](./#next.js-appdir).
 {% endhint %}
+
+{% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
+Starter project
+{% endembed %}
 
 <pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
 </strong></code></pre>
@@ -191,13 +191,17 @@ augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir) (or [here](https://github.com/garronej/react-dsfr-next-demo) as a standalong project)
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir).
 {% endtab %}
 
 {% tab title="Next.js AppDir" %}
 {% hint style="info" %}
 This is the documentation for [Next 13 app directory mode ](https://beta.nextjs.org/docs)which is still in beta. If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
 {% endhint %}
+
+{% embed url="https://github.com/garronej/react-dsfr-next-appdir-demo" %}
+Starter project
+{% endembed %}
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -285,7 +289,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 ```
 {% endcode %}
 
-Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir) (or [here](https://github.com/garronej/react-dsfr-next-appdir-demo) as a standalong project)
+Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir).
 
 {% hint style="success" %}
 Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
