@@ -42,7 +42,9 @@ const newExports = {
                     for (const ext of [".ts", ".tsx"] as const) {
                         const relativePath = pathJoin(basename, `index${ext}`);
 
-                        if (!fs.existsSync(pathJoin(srcDirPath, relativePath))) {
+                        if (
+                            !fs.existsSync(pathJoin(srcDirPath, relativePath).replace(/\\/g, "/"))
+                        ) {
                             continue;
                         }
 
