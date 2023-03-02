@@ -20,7 +20,7 @@
         "next": "13.0.7",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "tss-react": "^4.5.0",
+        "tss-react": "^4.7.0",
         "tsafe": "^1.4.1",
         "@mui/x-date-pickers": "^5.0.12",
         "dayjs": "^1.11.7",

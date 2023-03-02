@@ -3,7 +3,8 @@ import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
 import type { AppProps, AppContext } from "next/app";
-import type { DocumentProps, DocumentContext } from "next/document";
+import type DefaultDocument from "next/document";
+import { DocumentProps, DocumentContext } from "next/document";
 import { rootColorSchemeStyleTagId, data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
 import { getScriptToRunAsap } from "./useIsDark/scriptToRunAsap";
 import { SsrIsDarkProvider } from "./useIsDark/server";
@@ -14,7 +15,6 @@ import { fontUrlByFileBasename } from "./next-appdir/fontUrlByFileBasename";
 import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
-import DefaultDocument from "next/document";
 import { getAssetUrl } from "./tools/getAssetUrl";
 import { getColors } from "./fr/colors";
 import { start } from "./start";
@@ -70,7 +70,10 @@ export type NextDsfrIntegrationApi = {
         App: AppComponent
     ) => AppComponent;
     dsfrDocumentApi: {
-        augmentDocumentForDsfr: (Document: NextComponentType<any, any, any>) => void;
+        augmentDocumentForDsfr: (params: {
+            DefaultDocument: typeof DefaultDocument;
+            Document?: NextComponentType<any, any, any>;
+        }) => void;
         getColorSchemeHtmlAttributes: (
             props: DocumentProps
         ) =>
@@ -232,7 +235,12 @@ export function createNextDsfrIntegrationApi(
         return AppWithDsfr as any;
     }
 
-    function augmentDocumentForDsfr(Document: NextComponentType<any, any, any>): void {
+    function augmentDocumentForDsfr(params: {
+        DefaultDocument: typeof DefaultDocument;
+        Document?: NextComponentType<any, any, any>;
+    }): void {
+        const { DefaultDocument, Document = DefaultDocument } = params;
+
         const super_getInitialProps =
             Document.getInitialProps?.bind(Document) ??
             DefaultDocument.getInitialProps.bind(DefaultDocument);
