@@ -4,7 +4,9 @@ import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory({
+const { meta, getStory } = getStoryFactory<
+    SelectProps<GenericOption<string | number | MyFakeValue>[]>
+>({
     sectionName,
     "wrappedComponent": { Select },
     "description": `
@@ -100,7 +102,7 @@ function MyComponent(){
                 assert<
                     Equals<
                         typeof options[number],
-                        NonNullable<SelectProps<typeof options[number]>["state"]>
+                        NonNullable<SelectProps<GenericOption<typeof options[number]>[]>["state"]>
                     >
                 >();
 
@@ -140,12 +142,12 @@ const myFakeValueSet = [
     "66a9d7ac-9b25-4e52-9de3-4b7238135b39"
 ] as const;
 
-const optionsWithTypedValues: GenericOption<typeof myFakeValueSet[number]>[] = myFakeValueSet.map(
-    fakeValue => ({
-        value: fakeValue,
-        label: fakeValue
-    })
-);
+type MyFakeValue = typeof myFakeValueSet[number];
+
+const optionsWithTypedValues: GenericOption<MyFakeValue>[] = myFakeValueSet.map(fakeValue => ({
+    value: fakeValue,
+    label: fakeValue
+}));
 
 export const Default = getStory({
     "label": "Label pour liste déroulante",
