@@ -72,6 +72,7 @@
         "@gouvfr/dsfr": "1.8.5",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.0",
+        "@storybook/addon-a11y": "^6.5.16",
         "@storybook/addon-actions": "^6.5.13",
         "@storybook/addon-essentials": "^6.5.13",
         "@storybook/addon-interactions": "^6.5.13",
