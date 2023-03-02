@@ -21,6 +21,7 @@ import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
+import Script from "next/script";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
 
@@ -175,7 +176,7 @@ export function createNextDsfrIntegrationApi(
                                 />
                             </>
                         )}
-                        <script
+                        <Script
                             dangerouslySetInnerHTML={{
                                 "__html": getScriptToRunAsap(defaultColorScheme)
                             }}
