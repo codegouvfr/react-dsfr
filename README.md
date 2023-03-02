@@ -167,7 +167,7 @@ export default withDsfr(App);
 
 {% code title="pages/_document.tsx" %}
 ```tsx
-import DefaultDocument, { Html, Head, Main, NextScript, DocumentProps } from "next/document";
+import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
 import { dsfrDocumentApi } from "./_app";
 
 const { 
@@ -187,7 +187,7 @@ export default function Document(props: DocumentProps) {
   );
 }
 
-augmentDocumentForDsfr({ DefaultDocument, Document });
+augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
