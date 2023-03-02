@@ -26,6 +26,9 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
+> 🗣️ There was a little breaking change introduced in 0.36 for Next.js Pages dir setup:  
+> See how to migrate [here](https://github.com/garronej/react-dsfr-next-demo/commit/04f570c1bc6360b6e2d0e6771c50e9619c4fb379).
+
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
 > WARNING: This Design System is only meant to be used for official French's public service websites and apps.  
