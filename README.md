@@ -112,7 +112,7 @@ Starter project
 {% endembed %}
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
-<strong>const nextConfig = withTM({
+<strong>const nextConfig = {
 </strong>  reactStrictMode: true,
   swcMinify: true,
 <strong>  webpack: config => {
@@ -122,8 +122,9 @@ Starter project
 </strong><strong>    });
 </strong><strong>    return config;
 </strong><strong>  },
+</strong><strong>  //This option requires Next 13.1 or newer, if  you can update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
 </strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
-</strong>});
+</strong>};
 
 module.exports = nextConfig
 </code></pre>
