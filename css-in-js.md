@@ -53,7 +53,7 @@ export const MyComponent =(props: Props) => {
 </code></pre>
 {% endtab %}
 
-{% tab title="TSS" %}
+{% tab title="TSS (recommended)" %}
 {% embed url="https://tss-react.dev" %}
 
 ```bash
