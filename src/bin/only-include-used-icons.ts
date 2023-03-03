@@ -161,14 +161,20 @@ async function main() {
                             return false;
                         }
 
-                        if (
-                            Object.keys({
-                                ...parsedPackageJson["dependencies"],
-                                ...parsedPackageJson["devDependencies"],
-                                ...parsedPackageJson["peerDependencies"]
-                            }).includes("@gouvfr/dsfr")
-                        ) {
-                            return true;
+                        for (const packageName of [
+                            "@gouvfr/dsfr",
+                            "@codegouvfr/react-dsfr",
+                            "@dataesr/react-dsfr"
+                        ]) {
+                            if (
+                                Object.keys({
+                                    ...parsedPackageJson["dependencies"],
+                                    ...parsedPackageJson["devDependencies"],
+                                    ...parsedPackageJson["peerDependencies"]
+                                }).includes(packageName)
+                            ) {
+                                return true;
+                            }
                         }
 
                         return false;
