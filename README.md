@@ -54,7 +54,13 @@ Add theses three scipts to your `package.json`:
 <strong>    "postinstall": "copy-dsfr-to-public"
 </strong><strong>    "prestart": "only-include-used-icons",
 </strong><strong>    "prebuild": "only-include-used-icons"
-</strong>}
+</strong>},
+...
+"jest": {
+    "transformIgnorePatterns": [
+<strong>      "node_modules/(?!@codegouvfr/react-dsfr)"
+</strong>    ]
+}
 </code></pre>
 
 Add the following code in the `<head />`
@@ -105,8 +111,9 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 Starter project
 {% endembed %}
 
-<pre class="language-bash"><code class="lang-bash"><strong>yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
-</strong></code></pre>
+```bash
+yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
+```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript"><strong>const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
 </strong>
@@ -192,6 +199,38 @@ augmentDocumentForDsfr(Document);
 {% endcode %}
 
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir).
+
+If you are using jest, you must add `@codegouv/react-dsfr` to the `transformIgnorePatterns`
+
+Assuming you are [using the standard setup for Next](https://github.com/vercel/next.js/tree/canary/examples/with-jest):
+
+<pre class="language-diff" data-title="jest.config.js"><code class="lang-diff">const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({
+  dir: './'
+})
+
+// Add any custom config to be passed to Jest
+const customJestConfig = {
+  setupFilesAfterEnv: ['&#x3C;rootDir>/jest.setup.js'],
+  moduleNameMapper: {
+    '^@/components/(.*)$': '&#x3C;rootDir>/components/$1',
+    '^@/pages/(.*)$': '&#x3C;rootDir>/pages/$1',
+  },
+  testEnvironment: 'jest-environment-jsdom'
+}
+
+-module.exports = createJestConfig(customJestConfig)
+<strong>+const asyncConfig = createJestConfig(customJestConfig)
+</strong>
++module.exports = async () => {
++  const config = await asyncConfig()
++  config.transformIgnorePatterns = [
++    "node_modules/(?!@codegouvfr/react-dsfr)"
++  ]
++  return config
++}
+</code></pre>
 {% endtab %}
 
 {% tab title="Next.js AppDir" %}
@@ -291,6 +330,8 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 
 Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir).
 
+If you are using jest, you must add `@codegouv/react-dsfr` to the `transformIgnorePatterns` (see details at the bottom of previous tab)
+
 {% hint style="success" %}
 Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
 {% endhint %}
@@ -350,6 +391,10 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react)!
 {% endtab %}
 {% endtabs %}
+
+
+
+
 
 ### Avoiding or flash of unstyled text (FOUT)
 
