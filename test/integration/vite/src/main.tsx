@@ -4,6 +4,7 @@ import { Home } from "./Home";
 import { Mui } from "./Mui";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { Header } from "@codegouvfr/react-dsfr/Header";
+import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
@@ -25,6 +26,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </React.StrictMode>
 );
 
+const brandTop = <>INTITULE<br />OFFICIEL</>;
+
+const homeLinkProps= { "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+
 function Root() {
 
     const location = useLocation();
@@ -32,9 +37,9 @@ function Root() {
     return (
         <div style={{ "height": "100vh", "display": "flex", "flexDirection": "column" }}>
             <Header
-                brandTop={<>INTITULE<br />OFFICIEL</>}
+                brandTop={brandTop}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={{ "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
+                homeLinkProps={homeLinkProps}
                 quickAccessItems={[headerFooterDisplayItem]}
                 navigation={[
                     {
@@ -72,6 +77,19 @@ function Root() {
                     <Route path="*" element={<h1>404</h1>} />
                 </Routes>
             </div>
+            <Footer
+                brandTop={brandTop}
+                accessibility="fully compliant"
+                contentDescription={`
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+                    eu fugiat nulla pariatur. 
+                `}
+                homeLinkProps={homeLinkProps}
+                bottomItems={[headerFooterDisplayItem]}
+            />
             <Display />
         </div>
 
