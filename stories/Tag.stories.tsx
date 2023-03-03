@@ -1,8 +1,7 @@
 import { Tag, type TagProps } from "../dist/Tag";
 import { sectionName } from "./sectionName";
-import { getStoryFactory, logCallbacks } from "./getStory";
+import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
