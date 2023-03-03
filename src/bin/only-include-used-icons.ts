@@ -164,7 +164,8 @@ async function main() {
                         if (
                             Object.keys({
                                 ...parsedPackageJson["dependencies"],
-                                ...parsedPackageJson["devDependencies"]
+                                ...parsedPackageJson["devDependencies"],
+                                ...parsedPackageJson["peerDependencies"]
                             }).includes("@gouvfr/dsfr")
                         ) {
                             return true;
