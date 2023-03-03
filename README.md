@@ -111,25 +111,18 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 Starter project
 {% endembed %}
 
-```bash
-yarn add --dev next-transpile-modules # Or: 'npm install --save-dev next-transpile-modules'
-```
-
-<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript"><strong>const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr']);
-</strong>
-/** @type {import('next').NextConfig} */
+<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
 <strong>const nextConfig = withTM({
 </strong>  reactStrictMode: true,
   swcMinify: true,
 <strong>  webpack: config => {
-</strong>
-<strong>    config.module.rules.push({
+</strong><strong>    config.module.rules.push({
 </strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
-</strong>
-<strong>    return config;
-</strong><strong>  }
+</strong><strong>    return config;
+</strong><strong>  },
+</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
 </strong>});
 
 module.exports = nextConfig
