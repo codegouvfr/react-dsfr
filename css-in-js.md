@@ -88,9 +88,13 @@ MyComponent.displayName = "MyComponent";
 const useStyles = makeStyles({ name: MyComponent.displayName })(theme => ({
     root: {
         padding: fr.spacing("10v"),
-	backgroundColor: theme.decisions.background.alt.blueFrance.active,
+	backgroundColor: theme.decisions.background.active.redMarianne.default,
+	"&:hover": {
+	  //Rules that apply when the mouse is hover
+	  backgroundColor: theme.decisions.background.active.redMarianne.hover
+	},
 	[fr.breakpoints.up("md")]: {
-	    backgroundColor: theme.decisions.background.alt.blueCumulus.active
+	    //Rules that applies only when the screen is md or up
 	}
     },
     innerText: {
