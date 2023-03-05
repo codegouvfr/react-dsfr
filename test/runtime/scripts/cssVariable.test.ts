@@ -15,7 +15,7 @@ const rawCssCode = `
 	--my-var-4: #ffffff;
 }
 
-:root:where([data-fr-theme="dark"]) {
+:root:where([data-fr-theme=dark]) {
 	--my-var-2: #000000;
 }
 
@@ -24,7 +24,7 @@ const rawCssCode = `
 
 @media (min-width: 48em) { 
 
-    :root:where([data-fr-theme="dark"]) {
+    :root:where([data-fr-theme=dark]) {
         --my-var-4: #000000;
     }
 

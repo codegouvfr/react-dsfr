@@ -17,7 +17,7 @@ it("Generates the correct TS code for breakpoints", () => {
   --background-contrast-overlap-grey: var(--grey-950-150);
 }
 
-:root:where([data-fr-theme="dark"]) {
+:root:where([data-fr-theme=dark]) {
   --grey-1000-50-hover: #000000;
   --grey-1000-50: #000000;
   --orange-terre-battue-850-200: #000000;

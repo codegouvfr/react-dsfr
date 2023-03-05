@@ -66,10 +66,10 @@
         "tsafe": "^1.4.0"
     },
     "devDependencies": {
+        "@gouvfr/dsfr": "1.9.0",
         "@babel/core": "^7.20.2",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
-        "@gouvfr/dsfr": "1.8.5",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.0",
         "@storybook/addon-a11y": "^6.5.16",

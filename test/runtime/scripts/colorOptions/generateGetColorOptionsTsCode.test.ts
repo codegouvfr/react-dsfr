@@ -27,7 +27,7 @@ it("Generate the correct TS code for colors options", () => {
   --background-default-grey: var(--grey-1000-50);
   --background-default-grey-hover: var(--grey-1000-50-hover);
 }
-:root:where([data-fr-theme="dark"]) {
+:root:where([data-fr-theme=dark]) {
   --name1-name2-111-222: #100000;
   --name1-name2-111-222-hover: #200000;
   --name1-name2-sun-111-222: #300000;

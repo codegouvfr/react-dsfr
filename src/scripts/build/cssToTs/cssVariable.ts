@@ -47,7 +47,7 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
                                             case "light":
                                                 return "";
                                             case "dark":
-                                                return `:where([${data_fr_theme}="dark"])`;
+                                                return `:where([${data_fr_theme}=dark])`;
                                         }
                                     })()
                             )
