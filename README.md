@@ -112,8 +112,8 @@ Starter project
 {% endembed %}
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
-<strong>const nextConfig = {
-</strong>  reactStrictMode: true,
+const nextConfig = {
+  reactStrictMode: true,
   swcMinify: true,
 <strong>  webpack: config => {
 </strong><strong>    config.module.rules.push({
@@ -122,7 +122,7 @@ Starter project
 </strong><strong>    });
 </strong><strong>    return config;
 </strong><strong>  },
-</strong><strong>  //This option requires Next 13.1 or newer, if  you can update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
+</strong><strong>  //This option requires Next 13.1 or newer, if you can't update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
 </strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
 </strong>};
 
@@ -325,9 +325,7 @@ Add the following tags in the `<head />`
 ```
 {% endcode %}
 
-**src/main.tsx**
-
-<pre class="language-tsx"><code class="lang-tsx">import React from "react";
+<pre class="language-tsx" data-title="src/main.tsx"><code class="lang-tsx">import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 <strong>import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
