@@ -4,7 +4,7 @@ It's like [clsx](https://www.npmjs.com/package/clsx) but you can only pass it cl
 
 <figure><img src=".gitbook/assets/frcx.gif" alt=""><figcaption></figcaption></figure>
 
-You can't apply your custom classes using fr.cx(), you'll get type error, but you can combinate a regular `cx()` or `clsx()` function and `fr.cx()`. Example: &#x20;
+You can't apply your custom classes using fr.cx(), you'll get type error, but you can combine a regular `cx()` or `clsx()` function and `fr.cx()`. Example: &#x20;
 
 ```tsx
 import { useStyles } from "tss-react/dsfr";
@@ -16,12 +16,12 @@ type Params = {
 
 export function MyComponent(params: Params){
 
-   const { classNames } = params;  
+   const { className } = params;  
    
    const { cx } = useStyles();
    
    return (
-       <div className={cx(fr.cx("fr-p-10v"),className)}>
+       <div className={cx(fr.cx("fr-p-10v"), className)}>
            //...
        </div>
    );
