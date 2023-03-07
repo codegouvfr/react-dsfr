@@ -4,9 +4,9 @@ description: Compatibility with solutions like styled-components, emotion and TS
 
 # 💅 CSS in JS
 
-At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular it's colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.24.0/src/fr/generatedFromCss/getColorOptions.ts) and [decision](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts), the [spacing stystem](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) and the [breakpoints values](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts).
+At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular, its colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.24.0/src/fr/generatedFromCss/getColorOptions.ts) and [decisions](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts), the [spacing stystem](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) and the [breakpoints values](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts).
 
-This enables, to write DSFR compliant CSS in JS code since we are able to expose function that are the equivalent of the DSFR utility classes.
+This enables to write DSFR compliant CSS in JS code, since we are able to expose function that are the equivalent of the DSFR utility classes.
 
 {% hint style="success" %}
 Checkout [the color selection tool](https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page).
@@ -104,10 +104,10 @@ const useStyles = makeStyles({ name: MyComponent.displayName })(theme => ({
 ```
 
 {% hint style="info" %}
-Avantages of tss-react over others CSS in JS solutions
+Advantages of tss-react over others CSS in JS solutions
 
 * It features a native integration with react-dsfr, I'm the author of TSS so I can[ export from TSS an helper](https://github.com/garronej/tss-react/blob/main/src/dsfr.ts) dedicated to this lib.
-* I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Beside, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).
+* I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Besides, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).
 {% endhint %}
 {% endtab %}
 
@@ -214,7 +214,7 @@ MyComponent.displayName = "MyComponent";
 
 ### spacing
 
-For ensuring the spacing between elements is consistent through out the website.
+For ensuring the spacing between elements is consistent throughout the website.
 
 {% hint style="info" %}
 This tool is build using [this file](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) that is automatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
@@ -314,14 +314,14 @@ function MyComponent() {
 }
 ```
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>This tools generates @media query for you that matches the DSFR breakpoints</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption><p>This tool generates @media query for you that matches the DSFR breakpoints</p></figcaption></figure>
 
 ### colors
 
 Using the `theme` object that holds the colors decisions and options.
 
 {% hint style="info" %}
-This is made possible by [options.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorOptions.ts) and [decisions.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts) files autmatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
+This is made possible by [options.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorOptions.ts) and [decisions.ts](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts) files automatically generated from [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css)
 {% endhint %}
 
 {% hint style="success" %}
@@ -342,7 +342,7 @@ lightTheme.options.blueFrance._850_200.default // #cacafb
 lightTheme.isDark // false
 ```
 
-Whith a hook that returns the `theme` object for the color scheme (light/dark) that is currently active:
+With a hook that returns the `theme` object for the color scheme (light/dark) that is currently active:
 
 ```tsx
 import { useColors } from "@codegouvfr/react-dsfr/useColors";
@@ -375,7 +375,7 @@ function MyComponent(){
 }
 </code></pre>
 
-And with `makeStyles` (recomended approach):
+And with `makeStyles` (recommended approach):
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>import { makeStyles } from "tss-react/dsfr";
 </strong>
@@ -406,7 +406,7 @@ function MyComponent(props){
 
 ### useIsDark()
 
-You can access the active mode (isDark: true/false) in the `theme` object however, if you want to manually switch the mode you can use `setIsDark(true/false)` .
+You can access the active mode (isDark: true/false) in the `theme` object. However, if you want to manually switch the mode, you can use `setIsDark(true/false)` .
 
 {% hint style="info" %}
 Consider using the [\<Display />](https://react-dsfr-components.etalab.studio/?path=/docs/components-display--default) component instead of trying to manually manage the active mode.
