@@ -13,7 +13,7 @@ When registering your Link component, its props type will propagate to the react
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](http.     s://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
+Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
