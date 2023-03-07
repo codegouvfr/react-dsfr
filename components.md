@@ -1,6 +1,6 @@
 # 🧩 Components
 
-The components are documented indivudually on a separate website.
+The components are documented individually on a separate website.
 
 {% embed url="https://react-dsfr-components.etalab.studio" %}
 Storybook website
@@ -8,13 +8,13 @@ Storybook website
 
 ### Customization
 
-What to do if you want to customize the components beyond what the props allows.&#x20;
+What to do if you want to customize the components beyond what the props allow.&#x20;
 
 #### The `classes` property
 
 
 
-Every component or react-dsfr accept an optional classes property that enables you to customise their look at a fine grained level. &#x20;
+Every component or react-dsfr accepts an optional classes property that enables you to customize their look at a fine grained level. &#x20;
 
 <figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption><p>Availables classes on the Alert components</p></figcaption></figure>
 
@@ -26,6 +26,6 @@ Every component or react-dsfr accept an optional classes property that enables y
 
 ### In depth customization
 
-If you need customisation beyound what the props&#x20;
+If you need customization beyond what the props&#x20;
 
 #### Ad

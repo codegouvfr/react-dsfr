@@ -2,7 +2,7 @@
 
 {% embed url="https://youtu.be/FdabjOlaCUQ" %}
 
-Icons just works, you can copy paste the any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) and expect things to work.
+Icons just work, you can copy paste any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) and expect things to work.
 
 ```jsx
 import { fr } from "@codegrouvfr/react-dsfr";
@@ -17,13 +17,13 @@ import { Button } from "@codegouvfr/react-dsfr/Button";
 
 <figure><img src=".gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
-But on top of that all icons from [Remixicon](https://remixicon.com/) are supported.&#x20;
+But on top of that, all icons from [Remixicon](https://remixicon.com/) are supported.&#x20;
 
 You can go and search for a keyword:  &#x20;
 
 <figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption><p>Searching for "download" on remixicon.com</p></figcaption></figure>
 
-When you find something fitting you can copy paste the class name ( starting with `ri-` ) and use it anywhere you would have could have used a `.fr-icon-xxxx` ! 🚀 &#x20;
+When you find something fitting, you can copy paste the class name ( starting with `ri-` ) and use it anywhere you would have used a `.fr-icon-xxxx` ! 🚀 &#x20;
 
 Example: &#x20;
 
