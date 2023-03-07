@@ -4,11 +4,11 @@ description: Like react-router or Next.js file system based route.
 
 # 🔀 Integration with routing libs
 
-Depending of the framwork/routing library you are using, links between pages are not handled the same way.
+Depending of the framework or routing library you are using, links between pages are not handled the same way.
 
-Usually you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component you can provide the correct props for you `<Link />` component.
+Usually, you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component, you can provide the correct props for you `<Link />` component.
 
-When registering your Link component it's props type will propagate to the react-dsfr API.
+When registering your Link component, its props type will propagate to the react-dsfr API.
 
 {% tabs %}
 {% tab title="react-router" %}
@@ -121,6 +121,6 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fb
 {% tab title="other" %}
 You should be able to infer what needs to be done refering to the `react-router` instructions.
 
-If the library you are using dosen't export a `<Link />` (like `type-route` for example) component there isn't anything to do.
+If the library you are using doesen't export a `<Link />` (like `type-route` for example) component, there isn't anything to do.
 {% endtab %}
 {% endtabs %}
