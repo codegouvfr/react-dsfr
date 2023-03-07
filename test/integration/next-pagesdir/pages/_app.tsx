@@ -48,7 +48,7 @@ export { dsfrDocumentApi, augmentDocumentWithEmotionCache };
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
-const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+const homeLinkProps = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 
 function App({ Component, pageProps }: AppProps) {
 
@@ -67,7 +67,7 @@ function App({ Component, pageProps }: AppProps) {
             <Header
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"
-                homeLinkProps={homeLinkPops}
+                homeLinkProps={homeLinkProps}
                 navigation={[
                     {
                         "text": "Home",
@@ -106,7 +106,7 @@ function App({ Component, pageProps }: AppProps) {
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                     eu fugiat nulla pariatur. 
                 `}
-                homeLinkProps={homeLinkPops}
+                homeLinkProps={homeLinkProps}
                 bottomItems={[headerFooterDisplayItem]}
             />
             <Display />
