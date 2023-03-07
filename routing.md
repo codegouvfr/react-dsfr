@@ -13,7 +13,7 @@ When registering your Link component, its props type will propagate to the react
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
+Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](http.     s://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
@@ -121,6 +121,6 @@ Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fb
 {% tab title="other" %}
 You should be able to infer what needs to be done refering to the `react-router` instructions.
 
-If the library you are using doesen't export a `<Link />` (like `type-route` for example) component, there isn't anything to do.
+If the library you are using doesn't export a `<Link />` (like `type-route` for example) component, there isn't anything to do.
 {% endtab %}
 {% endtabs %}
