@@ -94,8 +94,8 @@ export function ColorHelper() {
                     <br />
                     <br />
                     If you have the hex code (e.g. <code>#c9191e</code>) of a color that you know
-                    belong to the DSFR palette you can use the filter to find to witch decision it
-                    correspond.
+                    belong to the DSFR palette you can use the filter to find to which decision it
+                    corresponds.
                 </CallOut>
                 <Search
                     evtAction={evtSearchAction}
