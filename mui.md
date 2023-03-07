@@ -83,7 +83,7 @@ You can eradicate theses few frames on subsequent page load by telling Next.js t
 </strong>});
 </code></pre>
 
-**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already oped out from static optimization. &#x20;
+**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already opted out from static optimization. &#x20;
 
 ### Setting up Next.js + MUI + react-dsfr
 
