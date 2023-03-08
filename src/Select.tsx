@@ -42,7 +42,7 @@ type DefaultOptionValue = string | number | readonly string[] | undefined;
 /**
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-select>
  * */
-export const Select = <T extends GenericOption<DefaultOptionValue>[]>(
+const SelectComponent = <T extends GenericOption<DefaultOptionValue>[]>(
     props: SelectProps<T>,
     ref: React.LegacyRef<HTMLDivElement>
 ) => {
@@ -61,19 +61,22 @@ export const Select = <T extends GenericOption<DefaultOptionValue>[]>(
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
-    const elementId = nativeSelectProps?.id || useId();
-    const selectId = `select-${elementId}`;
-    const stateDescriptionId = `select-${elementId}-desc`;
-    const displayedOptions = placeholder
-        ? [
-              {
-                  label: placeholder,
-                  value: "",
-                  disabled: true
-              },
-              ...options
-          ]
-        : options;
+    const elementId = useId();
+    const selectId = nativeSelectProps?.id || `select-${elementId}`;
+    const stateDescriptionId = nativeSelectProps?.id
+        ? `${nativeSelectProps?.id}-desc`
+        : `select-${elementId}-desc`;
+    const displayedOptions =
+        placeholder !== undefined
+            ? [
+                  {
+                      label: placeholder,
+                      value: "",
+                      disabled: true
+                  },
+                  ...options
+              ]
+            : options;
     return (
         <div
             className={cx(
@@ -109,8 +112,10 @@ export const Select = <T extends GenericOption<DefaultOptionValue>[]>(
                 aria-describedby={stateDescriptionId}
                 disabled={disabled}
             >
-                {displayedOptions.map(option => (
-                    <option {...option}>{option.label}</option>
+                {displayedOptions.map((option, index) => (
+                    <option {...option} key={`${option.value}-${index}`}>
+                        {option.label}
+                    </option>
                 ))}
             </select>
             {state !== "default" && (
@@ -135,13 +140,16 @@ export const Select = <T extends GenericOption<DefaultOptionValue>[]>(
     );
 };
 
-const ForwardedSelect = forwardRef(Select) as <T extends GenericOption<DefaultOptionValue>[]>(
+const ForwardedSelect = forwardRef(SelectComponent) as <
+    T extends GenericOption<DefaultOptionValue>[]
+>(
     props: SelectProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
-) => ReturnType<typeof Select>;
+) => ReturnType<typeof SelectComponent>;
 
-const MemoizedSelect = memo(ForwardedSelect) as typeof ForwardedSelect & {
+export const Select = memo(ForwardedSelect) as typeof ForwardedSelect & {
     displayName: string;
 };
-MemoizedSelect.displayName = symToStr({ Select });
 
-export default MemoizedSelect;
+Select.displayName = symToStr({ Select });
+
+export default Select;

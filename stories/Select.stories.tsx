@@ -1,4 +1,4 @@
-import Select, { type SelectProps, type GenericOption } from "../dist/Select";
+import { Select, type SelectProps, type GenericOption } from "../dist/Select";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
