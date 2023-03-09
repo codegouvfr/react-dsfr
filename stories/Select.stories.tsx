@@ -156,9 +156,6 @@ export const Default = getStory({
 
 export const DefaultWithPlaceholder = getStory({
     "label": "Label pour liste déroulante",
-    "nativeSelectProps": {
-        "value": ""
-    },
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions
 });
@@ -174,9 +171,6 @@ export const SuccessState = getStory({
     "label": "Label pour liste déroulante",
     "state": "success",
     "stateRelatedMessage": "Texte de validation",
-    "nativeSelectProps": {
-        "value": "2"
-    },
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions
 });
@@ -184,9 +178,6 @@ export const SuccessState = getStory({
 export const Disabled = getStory({
     "label": "Label pour liste déroulante",
     "disabled": true,
-    "nativeSelectProps": {
-        "value": ""
-    },
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions
 });
@@ -194,9 +185,6 @@ export const Disabled = getStory({
 export const WithHint = getStory({
     "label": "Label pour liste déroulante",
     "hint": "Texte de description additionnel",
-    "nativeSelectProps": {
-        "value": ""
-    },
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions
 });
@@ -206,7 +194,14 @@ export const TypedSelect = getStory({
     "placeholder": "Sélectionnez une option",
     "options": optionsWithTypedValues,
     "nativeSelectProps": {
-        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf",
-        "value": "dc9ee-7794-470e-9dcf-a8d1dd1a6fcf"
+        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
     }
+});
+
+export const SelectWithCustomId = getStory({
+    "label": "Label pour liste déroulante",
+    "nativeSelectProps": {
+        id: "my-unique-id"
+    },
+    "options": defaultOptions
 });

@@ -61,11 +61,17 @@ const SelectComponent = <T extends GenericOption<DefaultOptionValue>[]>(
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
-    const elementId = useId();
-    const selectId = nativeSelectProps?.id || `select-${elementId}`;
-    const stateDescriptionId = nativeSelectProps?.id
-        ? `${nativeSelectProps?.id}-desc`
-        : `select-${elementId}-desc`;
+
+    const { selectId, stateDescriptionId } = (function useClosure() {
+        const elementId = useId();
+        const selectId = nativeSelectProps?.id ?? `select-${elementId}`;
+        const stateDescriptionId = nativeSelectProps?.id
+            ? `${nativeSelectProps?.id}-desc`
+            : `select-${elementId}-desc`;
+
+        return { selectId, stateDescriptionId };
+    })();
+
     const displayedOptions =
         placeholder !== undefined
             ? [
