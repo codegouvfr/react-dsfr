@@ -22,6 +22,7 @@ export type FooterProps = {
     cookiesManagementLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
+    partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
         /**
@@ -79,6 +80,19 @@ export namespace FooterProps {
             >;
         };
     }
+
+    export type PartnersLogos = {
+        main: PartnersLogos.Logo;
+        sub?: PartnersLogos.Logo[];
+    };
+
+    export namespace PartnersLogos {
+        export type Logo = {
+            alt: string;
+            href: string;
+            imgUrl: string;
+        };
+    }
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
@@ -97,6 +111,7 @@ export const Footer = memo(
             personalDataLinkProps,
             cookiesManagementLinkProps,
             bottomItems = [],
+            partnersLogos,
             operatorLogo,
             license,
             style,
@@ -205,6 +220,47 @@ export const Footer = memo(
                             </ul>
                         </div>
                     </div>
+                    {partnersLogos && (
+                        <div className="fr-footer__partners">
+                            <h4 className="fr-footer__partners-title">{t("our partners")}</h4>
+                            <div className="fr-footer__partners-logos">
+                                <div className="fr-footer__partners-main">
+                                    <a
+                                        className="fr-footer__partners-link"
+                                        href={partnersLogos.main.href}
+                                    >
+                                        <img
+                                            className="fr-footer__logo"
+                                            style={{ height: "5.625rem" }}
+                                            src={partnersLogos.main.imgUrl}
+                                            alt={partnersLogos.main.alt}
+                                        />
+                                    </a>
+                                </div>
+                                {partnersLogos.sub && (
+                                    <div className="fr-footer__partners-sub">
+                                        <ul>
+                                            {partnersLogos.sub.map(logo => (
+                                                <li>
+                                                    <a
+                                                        className="fr-footer__partners-link"
+                                                        href={logo.href}
+                                                    >
+                                                        <img
+                                                            className="fr-footer__logo"
+                                                            style={{ height: "5.625rem" }}
+                                                            src={logo.imgUrl}
+                                                            alt={logo.alt}
+                                                        />
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                     <div className={cx(fr.cx("fr-footer__bottom"), classes.bottom)}>
                         <ul className={cx(fr.cx("fr-footer__bottom-list"), classes.bottomList)}>
                             {[
@@ -329,7 +385,8 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
         "license mention": "Sauf mention contraire, tous les contenus de ce site sont sous",
-        "etalab license": "licence etalab-2.0"
+        "etalab license": "licence etalab-2.0",
+        "our partners": "Nos partenaires"
         /* spell-checker: enable */
     }
 });
