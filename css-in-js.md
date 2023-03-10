@@ -61,7 +61,7 @@ yarn add tss-react @emotion/react
 ```
 
 ```tsx
-import { makeStyles } from "tss-react/dsfr";
+import { makeStyles } from "@codegouvfr/react-dsfr/tss";
 
 export type Props = {
     className?: string;
@@ -106,7 +106,7 @@ const useStyles = makeStyles({ name: MyComponent.displayName })(theme => ({
 {% hint style="info" %}
 Advantages of tss-react over others CSS in JS solutions
 
-* It features a native integration with react-dsfr, I'm the author of TSS so I can[ export from TSS an helper](https://github.com/garronej/tss-react/blob/main/src/dsfr.ts) dedicated to this lib.
+* I'm the author of TSS, it automatically gets premium integration and support.
 * I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Besides, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).
 {% endhint %}
 {% endtab %}
@@ -115,7 +115,7 @@ Advantages of tss-react over others CSS in JS solutions
 {% embed url="https://styled-components.com/" %}
 
 {% hint style="info" %}
-[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it's better integrated with MUI. &#x20;
+[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it's better integrated with MUI.
 {% endhint %}
 
 {% code title="index.tsx" %}
