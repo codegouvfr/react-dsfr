@@ -221,36 +221,40 @@ export const Footer = memo(
                         </div>
                     </div>
                     {partnersLogos && (
-                        <div className="fr-footer__partners">
-                            <h4 className="fr-footer__partners-title">{t("our partners")}</h4>
-                            <div className="fr-footer__partners-logos">
-                                <div className="fr-footer__partners-main">
+                        <div className={fr.cx("fr-footer__partners")}>
+                            <h4 className={fr.cx("fr-footer__partners-title")}>
+                                {t("our partners")}
+                            </h4>
+                            <div className={fr.cx("fr-footer__partners-logos")}>
+                                <div className={fr.cx("fr-footer__partners-main")}>
                                     <a
-                                        className="fr-footer__partners-link"
                                         href={partnersLogos.main.href}
+                                        className={fr.cx("fr-footer__partners-link")}
                                     >
                                         <img
-                                            className="fr-footer__logo"
+                                            alt={partnersLogos.main.alt}
                                             style={{ height: "5.625rem" }}
                                             src={partnersLogos.main.imgUrl}
-                                            alt={partnersLogos.main.alt}
+                                            className={fr.cx("fr-footer__logo")}
                                         />
                                     </a>
                                 </div>
                                 {partnersLogos.sub && (
-                                    <div className="fr-footer__partners-sub">
+                                    <div className={fr.cx("fr-footer__partners-sub")}>
                                         <ul>
                                             {partnersLogos.sub.map(logo => (
                                                 <li>
                                                     <a
-                                                        className="fr-footer__partners-link"
                                                         href={logo.href}
+                                                        className={fr.cx(
+                                                            "fr-footer__partners-link"
+                                                        )}
                                                     >
                                                         <img
-                                                            className="fr-footer__logo"
-                                                            style={{ height: "5.625rem" }}
-                                                            src={logo.imgUrl}
                                                             alt={logo.alt}
+                                                            src={logo.imgUrl}
+                                                            style={{ height: "5.625rem" }}
+                                                            className={fr.cx("fr-footer__logo")}
                                                         />
                                                     </a>
                                                 </li>
