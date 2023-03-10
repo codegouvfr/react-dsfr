@@ -118,17 +118,18 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 ## Usecases
 
-Projects that uses `@codegouvfr/react-dsfr`:  
-- https://immersion-facile.beta.gouv.fr/  
+Projects that uses `@codegouvfr/react-dsfr`:
 
-- https://github.com/DISIC/observatoire.numerique.gouv.fr  
-- https://github.com/DISIC/monfranceconnect  
-- https://github.com/InseeFr/Lunatic-DSFR  
-- https://github.com/EIG6-Geocommuns/lidarviz-front  
-- https://github.com/EIG6-Geocommuns/geocommuns-core  
-- https://github.com/SocialGouv/bpco-site  
-- https://github.com/EIG6-ArtificIA/predictia_front  
-- https://github.com/BaseAdresseNationale/bal-admin  
-- https://github.com/etalab/sill-web  
-- https://github.com/inclusion-numerique/mediature  
-- https://territoiresentransitions.fr (maybe)
+-   https://immersion-facile.beta.gouv.fr/
+
+-   https://github.com/DISIC/observatoire.numerique.gouv.fr
+-   https://github.com/DISIC/monfranceconnect
+-   https://github.com/InseeFr/Lunatic-DSFR
+-   https://github.com/EIG6-Geocommuns/lidarviz-front
+-   https://github.com/EIG6-Geocommuns/geocommuns-core
+-   https://github.com/SocialGouv/bpco-site
+-   https://github.com/EIG6-ArtificIA/predictia_front
+-   https://github.com/BaseAdresseNationale/bal-admin
+-   https://github.com/etalab/sill-web
+-   https://github.com/inclusion-numerique/mediature
+-   https://territoiresentransitions.fr (maybe)
