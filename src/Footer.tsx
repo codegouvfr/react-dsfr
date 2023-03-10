@@ -228,6 +228,7 @@ export const Footer = memo(
                             <div className={fr.cx("fr-footer__partners-logos")}>
                                 <div className={fr.cx("fr-footer__partners-main")}>
                                     <a
+                                        target="_blank"
                                         href={partnersLogos.main.href}
                                         className={fr.cx("fr-footer__partners-link")}
                                     >
@@ -245,6 +246,7 @@ export const Footer = memo(
                                             {partnersLogos.sub.map(logo => (
                                                 <li>
                                                     <a
+                                                        target="_blank"
                                                         href={logo.href}
                                                         className={fr.cx(
                                                             "fr-footer__partners-link"
