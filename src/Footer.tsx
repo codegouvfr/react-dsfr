@@ -51,7 +51,13 @@ export type FooterProps = {
             | "bottomLink"
             | "bottomCopy"
             | "brandLink"
-            | "logo",
+            | "logo"
+            | "partners"
+            | "partnersTitle"
+            | "partnersLogos"
+            | "partnersMain"
+            | "partnersLink"
+            | "partnersSub",
             string
         >
     >;
@@ -220,43 +226,68 @@ export const Footer = memo(
                             </ul>
                         </div>
                     </div>
-                    {partnersLogos && (
-                        <div className={fr.cx("fr-footer__partners")}>
-                            <h4 className={fr.cx("fr-footer__partners-title")}>
+                    {partnersLogos !== undefined && (
+                        <div className={cx(fr.cx("fr-footer__partners"), classes.partners)}>
+                            <h4
+                                className={cx(
+                                    fr.cx("fr-footer__partners-title"),
+                                    classes.partnersTitle
+                                )}
+                            >
                                 {t("our partners")}
                             </h4>
-                            <div className={fr.cx("fr-footer__partners-logos")}>
-                                <div className={fr.cx("fr-footer__partners-main")}>
+                            <div
+                                className={cx(
+                                    fr.cx("fr-footer__partners-logos"),
+                                    classes.partnersLogos
+                                )}
+                            >
+                                <div
+                                    className={cx(
+                                        fr.cx("fr-footer__partners-main"),
+                                        classes.partnersMain
+                                    )}
+                                >
                                     <a
-                                        target="_blank"
                                         href={partnersLogos.main.href}
-                                        className={fr.cx("fr-footer__partners-link")}
+                                        className={cx(
+                                            fr.cx("fr-footer__partners-link"),
+                                            classes.partnersLink
+                                        )}
                                     >
                                         <img
                                             alt={partnersLogos.main.alt}
                                             style={{ height: "5.625rem" }}
                                             src={partnersLogos.main.imgUrl}
-                                            className={fr.cx("fr-footer__logo")}
+                                            className={cx(fr.cx("fr-footer__logo"), classes.logo)}
                                         />
                                     </a>
                                 </div>
-                                {partnersLogos.sub && (
-                                    <div className={fr.cx("fr-footer__partners-sub")}>
+                                {partnersLogos.sub !== undefined && (
+                                    <div
+                                        className={cx(
+                                            fr.cx("fr-footer__partners-sub"),
+                                            classes.partnersSub
+                                        )}
+                                    >
                                         <ul>
                                             {partnersLogos.sub.map(logo => (
                                                 <li>
                                                     <a
-                                                        target="_blank"
                                                         href={logo.href}
-                                                        className={fr.cx(
-                                                            "fr-footer__partners-link"
+                                                        className={cx(
+                                                            fr.cx("fr-footer__partners-link"),
+                                                            classes.partnersLink
                                                         )}
                                                     >
                                                         <img
                                                             alt={logo.alt}
                                                             src={logo.imgUrl}
-                                                            style={{ height: "5.625rem" }}
-                                                            className={fr.cx("fr-footer__logo")}
+                                                            style={{ "height": "5.625rem" }}
+                                                            className={cx(
+                                                                fr.cx("fr-footer__logo"),
+                                                                classes.logo
+                                                            )}
                                                         />
                                                     </a>
                                                 </li>
