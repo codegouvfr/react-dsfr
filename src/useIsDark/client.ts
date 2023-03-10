@@ -7,9 +7,13 @@ import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./cons
 export type ColorScheme = "light" | "dark";
 
 const $clientSideIsDark = createStatefulObservable<boolean>(() => {
+    if (typeof process === "object" && process.env.JEST_WORKER_ID !== undefined) {
+        return false;
+    }
+
     throw new Error(
         [
-            "react-dsfr not initialized",
+            "react-dsfr not initialized.",
             "Refer to the documentation for setup instructions",
             "If it used to work but after an update you're getting this error",
             "it usually means that you have multiple copies of @codegouvfr/react-dsfr in your node_modules",
