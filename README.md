@@ -116,7 +116,7 @@ Thank you! [Here](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTIN
 This repo was bootstrapped form [garronej/ts-ci](https://github.com/garronej/ts-ci) have a look at the
 documentation of this starter for understanding the lifecycle of this repo.
 
-## Usecase
+## Usecases
 
 Projects that uses `@codegouvfr/react-dsfr`:  
 - https://immersion-facile.beta.gouv.fr/  
