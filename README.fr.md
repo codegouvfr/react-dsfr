@@ -34,9 +34,9 @@
 Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation de officiel de référence du
 DSFR en pur JavaScript/CSS.
 
-[Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
-
-[Lien vers la vidéo démo](https://youtu.be/5q88JgXUAY4)
+<a href="https://youtu.be/5q88JgXUAY4">
+  <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
+</a>
 
 > Bien que cette bibliothèque soit écrit en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
 
