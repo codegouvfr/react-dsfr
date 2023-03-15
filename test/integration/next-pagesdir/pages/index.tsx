@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
+import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
@@ -10,10 +11,19 @@ const { useStyles } = createMakeAndWithStyles({
     "useTheme": useColors
 });
 
-
-
 export default function App() {
     const { isDark, setIsDark } = useIsDark();
+
+    const sideMenuItems = [{
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    }, {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    }, {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    }];
 
     return (
         <>
@@ -39,6 +49,8 @@ export default function App() {
             <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
+
+            <SideMenu title="Titre de rubrique" items={sideMenuItems} />
 
         </>
     );

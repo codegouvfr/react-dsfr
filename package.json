@@ -160,6 +160,7 @@
         "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
-        "./Accordion": "./dist/Accordion.js"
+        "./Accordion": "./dist/Accordion.js",
+        "./SideMenu": "./dist/SideMenu.js"
     }
 }
