@@ -225,3 +225,70 @@ export const WithPartners = getStory({
         ]
     }
 });
+
+export const WithMainPartnerOnly = getStory({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "accessibility": "fully compliant",
+    "contentDescription": `
+    Ce message est à remplacer par les informations de votre site.
+
+    Comme exemple de contenu, vous pouvez indiquer les informations 
+    suivantes : Le site officiel d’information administrative pour les entreprises.
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+    à la gestion et au développement de votre entreprise.
+    `,
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "partnersLogos": {
+        "main": {
+            "href": "#",
+            "imgUrl": placeholder_16x9ImgUrl,
+            "alt": "[À MODIFIER - texte alternatif de l’image]"
+        }
+    }
+});
+
+export const WithSubPartnersOnly = getStory({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "accessibility": "fully compliant",
+    "contentDescription": `
+    Ce message est à remplacer par les informations de votre site.
+
+    Comme exemple de contenu, vous pouvez indiquer les informations 
+    suivantes : Le site officiel d’information administrative pour les entreprises.
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+    à la gestion et au développement de votre entreprise.
+    `,
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "partnersLogos": {
+        "sub": [
+            {
+                "href": "#",
+                "imgUrl": placeholder_16x9ImgUrl,
+                "alt": "[À MODIFIER - texte alternatif de l’image]"
+            },
+            {
+                "href": "#",
+                "imgUrl": placeholder_16x9ImgUrl,
+                "alt": "[À MODIFIER - texte alternatif de l’image]"
+            }
+        ]
+    }
+});

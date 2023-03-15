@@ -87,10 +87,17 @@ export namespace FooterProps {
         };
     }
 
-    export type PartnersLogos = {
+    export type MainPartnerLogo = {
         main: PartnersLogos.Logo;
         sub?: PartnersLogos.Logo[];
     };
+
+    export type SubPartnersLogos = {
+        main?: PartnersLogos.Logo;
+        sub: PartnersLogos.Logo[];
+    };
+
+    export type PartnersLogos = MainPartnerLogo | SubPartnersLogos;
 
     export namespace PartnersLogos {
         export type Logo = {
@@ -248,20 +255,25 @@ export const Footer = memo(
                                         classes.partnersMain
                                     )}
                                 >
-                                    <a
-                                        href={partnersLogos.main.href}
-                                        className={cx(
-                                            fr.cx("fr-footer__partners-link"),
-                                            classes.partnersLink
-                                        )}
-                                    >
-                                        <img
-                                            alt={partnersLogos.main.alt}
-                                            style={{ height: "5.625rem" }}
-                                            src={partnersLogos.main.imgUrl}
-                                            className={cx(fr.cx("fr-footer__logo"), classes.logo)}
-                                        />
-                                    </a>
+                                    {partnersLogos.main !== undefined && (
+                                        <a
+                                            href={partnersLogos.main.href}
+                                            className={cx(
+                                                fr.cx("fr-footer__partners-link"),
+                                                classes.partnersLink
+                                            )}
+                                        >
+                                            <img
+                                                alt={partnersLogos.main.alt}
+                                                style={{ height: "5.625rem" }}
+                                                src={partnersLogos.main.imgUrl}
+                                                className={cx(
+                                                    fr.cx("fr-footer__logo"),
+                                                    classes.logo
+                                                )}
+                                            />
+                                        </a>
+                                    )}
                                 </div>
                                 {partnersLogos.sub !== undefined && (
                                     <div
