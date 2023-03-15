@@ -87,17 +87,17 @@ export namespace FooterProps {
         };
     }
 
-    export type MainPartnerLogo = {
+    export type PartnersLogosMainOnly = {
         main: PartnersLogos.Logo;
         sub?: PartnersLogos.Logo[];
     };
 
-    export type SubPartnersLogos = {
+    export type PartnersLogosSubOnly = {
         main?: PartnersLogos.Logo;
-        sub: PartnersLogos.Logo[];
+        sub: [PartnersLogos.Logo, ...PartnersLogos.Logo[]];
     };
 
-    export type PartnersLogos = MainPartnerLogo | SubPartnersLogos;
+    export type PartnersLogos = PartnersLogosMainOnly | PartnersLogosSubOnly;
 
     export namespace PartnersLogos {
         export type Logo = {
