@@ -7,7 +7,7 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 
-//https://main--ds-gouv.netlify.app/example/component/tile/
+//https://main--ds-gouv.netlify.app/example/component/sidemenu/
 export type SideMenuProps = {
     className?: string;
     title?: ReactNode;
@@ -23,7 +23,7 @@ export namespace SideMenuProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tile> */
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(
     forwardRef<HTMLDivElement, SideMenuProps>((props, ref) => {
         const { className, title, items, style, ...rest } = props;
