@@ -15,6 +15,7 @@ export default function App() {
     const { isDark, setIsDark } = useIsDark();
 
     const sideMenuItems = [{
+        isActive: true,
         text: "Accès direct",
         linkProps: { href: "#" }
     }, {

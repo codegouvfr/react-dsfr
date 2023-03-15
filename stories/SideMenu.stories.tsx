@@ -19,6 +19,7 @@ export const Default = getStory({
     title: "Titre de rubrique",
     items: [
         {
+            isActive: true,
             text: "Accès direct",
             linkProps: { href: "#" }
         },

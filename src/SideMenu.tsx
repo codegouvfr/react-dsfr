@@ -18,6 +18,7 @@ export type SideMenuProps = {
 export namespace SideMenuProps {
     export type Item = {
         text: string;
+        isActive?: boolean;
         linkProps: RegisteredLinkProps;
     };
 }
@@ -55,13 +56,16 @@ export const SideMenu = memo(
                             </div>
                         )}
                         <ul className={fr.cx("fr-sidemenu__list")}>
-                            {items.map(({ text, linkProps }, i) => (
-                                // <li className={fr.cx("fr-sidemenu__item", "fr-sidemenu__item--active")}>
+                            {items.map(({ text, linkProps, isActive = false }, i) => (
                                 <li key={i} className={fr.cx("fr-sidemenu__item")}>
                                     <Link
-                                        className={cx(fr.cx("fr-sidemenu__link"))}
-                                        href={linkProps.href}
+                                        {...linkProps}
                                         target="_self"
+                                        className={cx(
+                                            fr.cx("fr-sidemenu__link"),
+                                            linkProps.className
+                                        )}
+                                        {...(isActive && { ["aria-current"]: "page" })}
                                     >
                                         {text}
                                     </Link>
