@@ -4,13 +4,39 @@ import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { SideMenu },
-    "defaultContainerWidth": 300,
-    "description": `
+    wrappedComponent: { SideMenu },
+    defaultContainerWidth: 300,
+    description: `
 - [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/menu-lateral)
 - [See DSFR demos](https://main--ds-gouv.netlify.app/example/component/sidemenu/)
 - [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/Sidemenu.tsx)`,
-    "disabledProps": ["lang"]
+    disabledProps: ["lang"],
+    argTypes: {
+        title: {
+            description: "Title displayed above the menu"
+        },
+        items: {
+            control: "object",
+            type: { name: "string", required: true },
+            description: "Items used to populate the menu"
+        },
+        bugerMenuButtonText: {
+            type: { name: "string", required: true },
+            description: "Label to display next to the burger menu button"
+        },
+        sticky: {
+            defaultValue: false,
+            control: { type: "radio" },
+            description: "Make the menu sticky",
+            options: [false, true, "full-height"]
+        },
+        align: {
+            defaultValue: "left",
+            options: ["left", "right"],
+            control: { type: "radio" },
+            description: "Align the menu on the left or the right of the page"
+        }
+    }
 });
 
 export default meta;
