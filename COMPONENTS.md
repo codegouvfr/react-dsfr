@@ -23,7 +23,7 @@
 -   [ ] Link
 -   [x] SkipLinks
 -   [x] Select
--   [ ] Side menu
+-   [x] Side menu
 -   [x] Call out
 -   [x] Highlight
 -   [x] Modal (Uncontrolled variant done, still needs to do the controlled one)
