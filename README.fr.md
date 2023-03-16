@@ -31,7 +31,7 @@
 
 > 🗣️ L'enregistrement de l'atelier de présentation de la librairie est disponible [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
-Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation de officiel de référence du
+Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation officielle de référence du
 DSFR en pur JavaScript/CSS.
 
 <a href="https://youtu.be/5q88JgXUAY4">
@@ -43,12 +43,12 @@ DSFR en pur JavaScript/CSS.
 -   [x] une interface de programmation strictement typée et bien documentée.
 -   [x] Garantie d'être toujours à jour avec les [dernières évolutions du DSFR](https://www.systeme-de-design.gouv.fr/).
         Une grande partie du code et du typage est généré procéduralement à partir de la feuille de style de référence: [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
--   [x] exactement le même aspect et ressentie qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), il s'agit d'une couche de compatibilité et non pas d'une implémentation alternative.
+-   [x] exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), il s'agit d'une couche de compatibilité et non pas d'une implémentation alternative.
 -   [x] pas de [flash d'écran blanc lors du basculement automatique du thème clair vers le thème sombre](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
--   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetées `"use client";`.
+-   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
 -   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.etalab.studio/) si votre
-        framework n'est pas supporter, il suffit de demander notre, nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [ ] tout [les composants de référence implémenter](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
+        framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
+-   [ ] tout [les composants de référence implémentés](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
          Voir là [documentation](https://react-dsfr.etalab.studio/mui-integration).
@@ -64,19 +64,19 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
 
 ## À propos [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
-`@codegouvfr/react-dsfr` (ce projet) est un projet TypeScript aillant pour priorité de fournir une bonne intégration
+`@codegouvfr/react-dsfr` (ce projet) est un projet TypeScript ayant pour priorité de fournir une bonne intégration
 avec l’écosystème React, notamment avec Next.js.
 
-Ce projet a été démarré en octobre 2022, c'est une initiative récente et, malgré le fait qu'il soit activement développé, au jour d'au jour d'hui,
+Ce projet a été démarré en octobre 2022, c'est une initiative récente et, malgré le fait qu'il soit activement développé, aujourd'hui
 `@dataesr/react-dsfr` est plus stable et fournit [une couverture de composant plus exhaustive](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface).  
 Si vous travaillez sur une SPA (Create React App, Vite) `@dataesr/react-dsfr` est probablement l'option la plus viable à ce jour.
 
 Cela étant dit, vous pouvez bénéficier de plusieurs des fonctionnalités de `@codegouvfr/react-dsfr` sans migrer de `@dataesr/react-dsfr`:
 
 -   Profitez de [l'auto complétion des classes en `fr-*`](https://react-dsfr.etalab.studio/class-names-type-safety).
--   Utiliser [le système de couleur strictement typer](https://react-dsfr.etalab.studio/css-in-js#colors).
--   Utiliser le thème MUI.
--   Utiliser [le système d'espacement](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) et de
+-   Utilisez [le système de couleur strictement typer](https://react-dsfr.etalab.studio/css-in-js#colors).
+-   Utilisez le thème MUI.
+-   Utilisez [le système d'espacement](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) et de
     [point de rupture](https://react-dsfr.etalab.studio/css-in-js#fr.breakpoints).
 
 [Voici un bac a sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
@@ -91,7 +91,7 @@ yarn
 # Démarrer Storybook
 yarn storybook
 
-# Démarrer les application de test
+# Démarrer les applications de test
 yarn start-cra
 yarn start-vite
 yarn start-next-pagesdir
