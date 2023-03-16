@@ -87,12 +87,19 @@ export namespace FooterProps {
         };
     }
 
-    export type PartnersLogos = {
-        main: PartnersLogos.Logo;
-        sub?: PartnersLogos.Logo[];
-    };
+    export type PartnersLogos = PartnersLogos.MainOnly | PartnersLogos.SubOnly;
 
     export namespace PartnersLogos {
+        export type MainOnly = {
+            main: Logo;
+            sub?: Logo[];
+        };
+
+        export type SubOnly = {
+            main?: Logo;
+            sub: [Logo, ...Logo[]];
+        };
+
         export type Logo = {
             alt: string;
             href: string;
@@ -129,6 +136,8 @@ export const Footer = memo(
         const { Link } = getLink();
 
         const { t } = useTranslation();
+
+        const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos ?? {};
 
         return (
             <footer
@@ -248,22 +257,27 @@ export const Footer = memo(
                                         classes.partnersMain
                                     )}
                                 >
-                                    <a
-                                        href={partnersLogos.main.href}
-                                        className={cx(
-                                            fr.cx("fr-footer__partners-link"),
-                                            classes.partnersLink
-                                        )}
-                                    >
-                                        <img
-                                            alt={partnersLogos.main.alt}
-                                            style={{ height: "5.625rem" }}
-                                            src={partnersLogos.main.imgUrl}
-                                            className={cx(fr.cx("fr-footer__logo"), classes.logo)}
-                                        />
-                                    </a>
+                                    {mainPartnersLogo !== undefined && (
+                                        <a
+                                            href={mainPartnersLogo.href}
+                                            className={cx(
+                                                fr.cx("fr-footer__partners-link"),
+                                                classes.partnersLink
+                                            )}
+                                        >
+                                            <img
+                                                alt={mainPartnersLogo.alt}
+                                                style={{ height: "5.625rem" }}
+                                                src={mainPartnersLogo.imgUrl}
+                                                className={cx(
+                                                    fr.cx("fr-footer__logo"),
+                                                    classes.logo
+                                                )}
+                                            />
+                                        </a>
+                                    )}
                                 </div>
-                                {partnersLogos.sub !== undefined && (
+                                {subPartnersLogos.length !== 0 && (
                                     <div
                                         className={cx(
                                             fr.cx("fr-footer__partners-sub"),
@@ -271,7 +285,7 @@ export const Footer = memo(
                                         )}
                                     >
                                         <ul>
-                                            {partnersLogos.sub.map(logo => (
+                                            {subPartnersLogos.map(logo => (
                                                 <li>
                                                     <a
                                                         href={logo.href}
