@@ -62,7 +62,7 @@ const Modal = memo(
 
         return (
             <dialog
-                aria-labelledby="fr-modal-title-modal-1"
+                aria-labelledby={`fr-modal-title-${id}`}
                 role="dialog"
                 id={id}
                 className={cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className)}
@@ -96,7 +96,7 @@ const Modal = memo(
                                 </div>
                                 <div className={fr.cx("fr-modal__content")}>
                                     <h1
-                                        id="fr-modal-title-modal-1"
+                                        id={`fr-modal-title-${id}`}
                                         className={fr.cx("fr-modal__title")}
                                     >
                                         {iconId !== undefined && (
