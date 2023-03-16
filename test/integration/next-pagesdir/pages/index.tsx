@@ -145,6 +145,7 @@ function SideMenuExample() {
         <SideMenu
             items={sideMenuItems}
             title="Titre de rubrique"
+            bugerMenuButtonText="Dans cette rubrique"
             className={css({
                 "margin": fr.spacing("10v"),
             })}

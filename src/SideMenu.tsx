@@ -14,6 +14,7 @@ export type SideMenuProps = {
     style?: CSSProperties;
     align?: "left" | "right";
     items: SideMenuProps.Item[];
+    bugerMenuButtonText: string;
     sticky?: boolean | "full-height";
 };
 
@@ -38,7 +39,16 @@ export namespace SideMenuProps {
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(
     forwardRef<HTMLDivElement, SideMenuProps>((props, ref) => {
-        const { className, title, items, style, align = "left", sticky = false, ...rest } = props;
+        const {
+            className,
+            title,
+            items,
+            style,
+            align = "left",
+            sticky = false,
+            bugerMenuButtonText,
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -106,7 +116,7 @@ export const SideMenu = memo(
                         aria-controls="fr-sidemenu-wrapper"
                         className={fr.cx("fr-sidemenu__btn")}
                     >
-                        Dans cette rubrique
+                        {bugerMenuButtonText}
                     </button>
                     <div className={fr.cx("fr-collapse")} id="fr-sidemenu-wrapper">
                         {title !== undefined && (

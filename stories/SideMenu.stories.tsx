@@ -17,6 +17,7 @@ export default meta;
 
 export const Default = getStory({
     title: "Titre de rubrique",
+    bugerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             isActive: true,
@@ -48,6 +49,7 @@ export const Default = getStory({
 
 export const SideMenuWith2Levels = getStory({
     title: "Titre de rubrique",
+    bugerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             text: "Niveau 1",
@@ -119,6 +121,7 @@ export const SideMenuWith2Levels = getStory({
 
 export const SideMenuWith3Levels = getStory({
     title: "Titre de rubrique",
+    bugerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             text: "Niveau 1",
