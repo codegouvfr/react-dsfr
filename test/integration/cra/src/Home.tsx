@@ -99,10 +99,10 @@ export function Home() {
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
             <SideMenu
-            items={sideMenuItems}
-            title="Titre de rubrique"
-            bugerMenuButtonText="Dans cette rubrique"
-        />
+                items={sideMenuItems}
+                title="Titre de rubrique"
+                bugerMenuButtonText="Dans cette rubrique"
+            />
 
         </>
     );
