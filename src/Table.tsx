@@ -10,10 +10,10 @@ export type TableProps = {
     fixed?: boolean;
     data: string[][];
     className?: string;
-    caption: ReactNode;
+    caption?: ReactNode;
     bordered?: boolean;
     headers?: string[];
-    noscroll?: boolean;
+    noScroll?: boolean;
     noCaption?: boolean;
     style?: CSSProperties;
     bottomCaption?: boolean;
@@ -28,35 +28,6 @@ export namespace TableProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
 
-// export namespace TableProps {
-//     export type Common = {
-//         className?: string;
-//         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
-//         label: ReactNode;
-//         classes?: Partial<Record<"root" | "Table" | "title" | "collapse", string>>;
-//         style?: CSSProperties;
-//         children: NonNullable<ReactNode>;
-//     };
-
-//     export type Uncontrolled = Common & {
-//         defaultExpanded?: boolean;
-//         expanded?: undefined;
-//         onExpandedChange?: (
-//             expanded: boolean,
-//             e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-//         ) => void;
-//     };
-
-//     export type Controlled = Common & {
-//         defaultExpanded?: undefined;
-//         expanded: boolean;
-//         onExpandedChange: (
-//             expanded: boolean,
-//             e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-//         ) => void;
-//     };
-// }
-
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */
 export const Table = memo(
     forwardRef<HTMLDivElement, TableProps>((props, ref) => {
@@ -65,21 +36,13 @@ export const Table = memo(
             headers,
             caption,
             bordered = false,
-            noscroll = false,
+            noScroll = false,
             fixed = false,
             noCaption = false,
             bottomCaption = false,
             colorVariant,
             className,
             style,
-            // titleAs: HtmlTitleTag = "h3",
-            // label,
-            // classes = {},
-            // style,
-            // children,
-            // expanded: expandedProp,
-            // defaultExpanded = false,
-            // onExpandedChange,
             ...rest
         } = props;
 
@@ -94,7 +57,7 @@ export const Table = memo(
                         "fr-table",
                         {
                             "fr-table--bordered": bordered,
-                            "fr-table--no-scroll": noscroll,
+                            "fr-table--no-scroll": noScroll,
                             "fr-table--layout-fixed": fixed,
                             "fr-table--no-caption": noCaption,
                             "fr-table--caption-bottom": bottomCaption
@@ -105,7 +68,7 @@ export const Table = memo(
                 )}
             >
                 <table>
-                    <caption>{caption}</caption>
+                    {caption !== undefined && <caption>{caption}</caption>}
                     {headers !== undefined && (
                         <thead>
                             <tr>
