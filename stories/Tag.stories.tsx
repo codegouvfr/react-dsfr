@@ -10,7 +10,7 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tag.tsx)`,
     "argTypes": {
-        "dismissible": {
+        "isDismissible": {
             "control": { "type": "boolean" }
         },
         "isSmall": {
@@ -84,7 +84,7 @@ export const SmallTag = getStory({
 
 export const TagDismissible = getStory({
     "children": "Label button",
-    "dismissible": true,
+    "isDismissible": true,
     "nativeButtonProps": {
         onClick: () => console.log("click")
     }
@@ -93,7 +93,7 @@ export const TagDismissible = getStory({
 export const SmallTagDismissible = getStory({
     "children": "Label button",
     "isSmall": true,
-    "dismissible": true,
+    "isDismissible": true,
     "nativeButtonProps": {
         onClick: () => console.log("click")
     }

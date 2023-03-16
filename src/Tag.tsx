@@ -42,13 +42,13 @@ export namespace TagProps {
         onClick?: never;
         nativeButtonProps?: never;
         nativeSpanProps?: never;
-        dismissible?: never;
+        isDismissible?: never;
         pressed?: never;
     };
     export type AsButton = {
         linkProps?: never;
         nativeSpanProps?: never;
-        dismissible?: boolean;
+        isDismissible?: boolean;
         pressed?: boolean;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
         nativeButtonProps?: React.DetailedHTMLProps<
@@ -60,7 +60,7 @@ export namespace TagProps {
     export type AsSpan = {
         linkProps?: never;
         onClick?: never;
-        dismissible?: never;
+        isDismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
         nativeSpanProps?: React.DetailedHTMLProps<
@@ -81,7 +81,7 @@ export const Tag = memo(
             iconId,
             isSmall,
             pressed,
-            dismissible,
+            isDismissible,
             linkProps,
             nativeButtonProps,
             nativeSpanProps,
@@ -100,7 +100,7 @@ export const Tag = memo(
                 isSmall && `fr-tag--sm`,
                 iconId,
                 iconId && "fr-tag--icon-left", // actually, it's always left but we need it in order to have the icon rendering
-                dismissible && "fr-tag--dismiss"
+                isDismissible && "fr-tag--dismiss"
             ),
             linkProps !== undefined && linkProps.className,
             prop_className
