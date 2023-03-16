@@ -140,6 +140,7 @@
         "./Tile": "./dist/Tile.js",
         "./Tag": "./dist/Tag.js",
         "./Tabs": "./dist/Tabs.js",
+        "./Table": "./dist/Table.js",
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
