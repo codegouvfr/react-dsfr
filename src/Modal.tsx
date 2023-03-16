@@ -59,7 +59,7 @@ const Modal = memo(
                 : [buttons_props];
 
         const { t } = useTranslation();
-const titleId= `fr-modal-title-${id}`;
+        const titleId= `fr-modal-title-${id}`;
         return (
             <dialog
                 aria-labelledby={titleId}
