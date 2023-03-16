@@ -59,10 +59,10 @@ const Modal = memo(
                 : [buttons_props];
 
         const { t } = useTranslation();
-
+        const titleId= `fr-modal-title-${id}`;
         return (
             <dialog
-                aria-labelledby="fr-modal-title-modal-1"
+                aria-labelledby={titleId}
                 role="dialog"
                 id={id}
                 className={cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className)}
@@ -96,7 +96,7 @@ const Modal = memo(
                                 </div>
                                 <div className={fr.cx("fr-modal__content")}>
                                     <h1
-                                        id="fr-modal-title-modal-1"
+                                        id={titleId}
                                         className={fr.cx("fr-modal__title")}
                                     >
                                         {iconId !== undefined && (
