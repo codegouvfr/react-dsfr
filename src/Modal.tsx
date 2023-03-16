@@ -96,7 +96,7 @@ const titleId= `fr-modal-title-${id}`;
                                 </div>
                                 <div className={fr.cx("fr-modal__content")}>
                                     <h1
-                                        id={`fr-modal-title-${id}`}
+                                        id={titleId}
                                         className={fr.cx("fr-modal__title")}
                                     >
                                         {iconId !== undefined && (
