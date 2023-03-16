@@ -7,12 +7,18 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 
+// sticky (fr-sidemenu--sticky)
+// sticky full height (fr-sidemenu--sticky-full-height)
+// align right (fr-sidemenu--right)
+
 //https://main--ds-gouv.netlify.app/example/component/sidemenu/
 export type SideMenuProps = {
     className?: string;
     title?: ReactNode;
     style?: CSSProperties;
+    align?: "left" | "right";
     items: SideMenuProps.Item[];
+    sticky?: boolean | "full-height";
 };
 
 export namespace SideMenuProps {
@@ -26,7 +32,7 @@ export namespace SideMenuProps {
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(
     forwardRef<HTMLDivElement, SideMenuProps>((props, ref) => {
-        const { className, title, items, style, ...rest } = props;
+        const { className, title, items, style, align = "left", sticky = false, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -38,7 +44,14 @@ export const SideMenu = memo(
                 ref={ref}
                 style={style}
                 aria-labelledby="fr-sidemenu-title"
-                className={cx(fr.cx("fr-sidemenu"), className)}
+                className={cx(
+                    fr.cx("fr-sidemenu", {
+                        "fr-sidemenu--sticky": sticky === true,
+                        "fr-sidemenu--right": align === "right",
+                        "fr-sidemenu--sticky-full-height": sticky === "full-height"
+                    }),
+                    className
+                )}
             >
                 <div className={fr.cx("fr-sidemenu__inner")}>
                     {/* <button
