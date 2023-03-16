@@ -14,18 +14,6 @@ const { useStyles } = createMakeAndWithStyles({
 export default function App() {
     const { isDark, setIsDark } = useIsDark();
 
-    const sideMenuItems = [{
-        isActive: true,
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    }, {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    }, {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    }];
-
     return (
         <>
             <Alert
@@ -51,8 +39,7 @@ export default function App() {
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
-            <SideMenu title="Titre de rubrique" items={sideMenuItems} />
-
+            <SideMenuExample />
         </>
     );
 }
@@ -81,3 +68,88 @@ function ControlledTabs() {
     );
 
 }
+
+function SideMenuExample() {
+
+    const { css } = useStyles();
+
+    const sideMenuItems = [
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+        {
+            isActive: true,
+            text: "Entrée menu active",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    isActive: true,
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+            ]
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+    ];
+
+    return (
+        <SideMenu
+            items={sideMenuItems}
+            title="Titre de rubrique"
+            className={css({
+                "margin": fr.spacing("10v"),
+            })}
+        />
+    );
+
+}
+

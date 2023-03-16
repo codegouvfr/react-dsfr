@@ -30,6 +30,178 @@ export const Default = getStory({
         {
             text: "Accès direct",
             linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        }
+    ]
+});
+
+export const SideMenuWith2Levels = getStory({
+    title: "Titre de rubrique",
+    items: [
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+        {
+            isActive: true,
+            text: "Entrée menu active",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    isActive: true,
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        }
+    ]
+});
+
+export const SideMenuWith3Levels = getStory({
+    title: "Titre de rubrique",
+    items: [
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+        {
+            isActive: true,
+            text: "Entrée menu active",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    isActive: true,
+                    text: "Entrée menu active niveau 2",
+                    items: [
+                        {
+                            text: "Accès direct niveau 3",
+                            linkProps: { href: "#" }
+                        },
+                        {
+                            isActive: true,
+                            text: "Accès direct niveau 3",
+                            linkProps: { href: "#" }
+                        },
+                        {
+                            text: "Accès direct niveau 3",
+                            linkProps: { href: "#" }
+                        },
+                        {
+                            text: "Accès direct niveau 3",
+                            linkProps: { href: "#" }
+                        }
+                    ]
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Accès direct",
+            linkProps: { href: "#" }
+        },
+        {
+            text: "Niveau 1",
+            items: [
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                },
+                {
+                    text: "Accès direct niveau 2",
+                    linkProps: { href: "#" }
+                }
+            ]
         }
     ]
 });

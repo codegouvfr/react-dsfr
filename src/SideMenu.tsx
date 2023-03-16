@@ -7,14 +7,10 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 
-// sticky (fr-sidemenu--sticky)
-// sticky full height (fr-sidemenu--sticky-full-height)
-// align right (fr-sidemenu--right)
-
 //https://main--ds-gouv.netlify.app/example/component/sidemenu/
 export type SideMenuProps = {
-    className?: string;
     title?: ReactNode;
+    className?: string;
     style?: CSSProperties;
     align?: "left" | "right";
     items: SideMenuProps.Item[];
@@ -22,10 +18,20 @@ export type SideMenuProps = {
 };
 
 export namespace SideMenuProps {
-    export type Item = {
+    export type Item = ItemWithLinkProps | ItemWithItems;
+
+    export type ItemWithLinkProps = {
         text: string;
+        items?: Item[];
         isActive?: boolean;
         linkProps: RegisteredLinkProps;
+    };
+
+    export type ItemWithItems = {
+        text: string;
+        items: Item[];
+        isActive?: boolean;
+        linkProps?: RegisteredLinkProps;
     };
 }
 
@@ -37,6 +43,46 @@ export const SideMenu = memo(
         assert<Equals<keyof typeof rest, never>>();
 
         const { Link } = getLink();
+
+        const getItem = (
+            { isActive, linkProps, text, items }: SideMenuProps.Item,
+            key: number,
+            level = 0
+        ) => {
+            if (++level > 2) return null;
+            if (items) {
+                return (
+                    <li key={key} className={fr.cx("fr-sidemenu__item")}>
+                        <button
+                            aria-expanded="false"
+                            className={fr.cx("fr-sidemenu__btn")}
+                            aria-controls={`fr-sidemenu-item-${key}`}
+                            {...(isActive && { ["aria-current"]: true })}
+                        >
+                            {text}
+                        </button>
+                        <div className={fr.cx("fr-collapse")} id={`fr-sidemenu-item-${key}`}>
+                            <ul className={fr.cx("fr-sidemenu__list")}>
+                                {items.map((item, i) => getItem(item, i, level))}
+                            </ul>
+                        </div>
+                    </li>
+                );
+            } else {
+                return (
+                    <li key={key} className={fr.cx("fr-sidemenu__item")}>
+                        <Link
+                            target="_self"
+                            {...linkProps}
+                            {...(isActive && { ["aria-current"]: "page" })}
+                            className={cx(fr.cx("fr-sidemenu__link"), linkProps?.className)}
+                        >
+                            {text}
+                        </Link>
+                    </li>
+                );
+            }
+        };
 
         return (
             <nav
@@ -54,14 +100,14 @@ export const SideMenu = memo(
                 )}
             >
                 <div className={fr.cx("fr-sidemenu__inner")}>
-                    {/* <button
+                    <button
                         hidden
                         aria-expanded="false"
                         aria-controls="fr-sidemenu-wrapper"
                         className={fr.cx("fr-sidemenu__btn")}
                     >
                         Dans cette rubrique
-                    </button> */}
+                    </button>
                     <div className={fr.cx("fr-collapse")} id="fr-sidemenu-wrapper">
                         {title !== undefined && (
                             <div className={fr.cx("fr-sidemenu__title")} id="fr-sidemenu-title">
@@ -69,21 +115,7 @@ export const SideMenu = memo(
                             </div>
                         )}
                         <ul className={fr.cx("fr-sidemenu__list")}>
-                            {items.map(({ text, linkProps, isActive = false }, i) => (
-                                <li key={i} className={fr.cx("fr-sidemenu__item")}>
-                                    <Link
-                                        {...linkProps}
-                                        target="_self"
-                                        className={cx(
-                                            fr.cx("fr-sidemenu__link"),
-                                            linkProps.className
-                                        )}
-                                        {...(isActive && { ["aria-current"]: "page" })}
-                                    >
-                                        {text}
-                                    </Link>
-                                </li>
-                            ))}
+                            {items.map((item, i) => getItem(item, i))}
                         </ul>
                     </div>
                 </div>
