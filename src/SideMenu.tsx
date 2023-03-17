@@ -19,21 +19,24 @@ export type SideMenuProps = {
 };
 
 export namespace SideMenuProps {
-    export type Item = ItemWithLinkProps | ItemWithItems;
+    export type Item = Item.Link | Item.SubMenu;
+    
+    export namespace Item {
+    
+        type Common = {
+            text: ReactNode;
+            /** Default: false */
+            isActive?: boolean;
+        };
+    
+        export type Link = Common & {
+            linkProps: RegisteredLinkProps;
+        };
 
-    export type ItemWithLinkProps = {
-        text: string;
-        items?: Item[];
-        isActive?: boolean;
-        linkProps: RegisteredLinkProps;
-    };
-
-    export type ItemWithItems = {
-        text: string;
-        items: Item[];
-        isActive?: boolean;
-        linkProps?: RegisteredLinkProps;
-    };
+        export type SubMenu = Common & {
+            items: Item[];
+        };
+    }
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
