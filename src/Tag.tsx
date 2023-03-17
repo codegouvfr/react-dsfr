@@ -16,6 +16,8 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
 
+type DataAttribute = Record<`data-${string}`, string | boolean | null | undefined>;
+
 export type TagProps = TagProps.Common &
     (TagProps.WithIcon | TagProps.WithoutIcon) &
     (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsSpan);
@@ -55,7 +57,7 @@ export namespace TagProps {
             React.ButtonHTMLAttributes<HTMLButtonElement>,
             HTMLButtonElement
         > &
-            Record<`data-${string}`, string | boolean | null | undefined>;
+            DataAttribute;
     };
     export type AsSpan = {
         linkProps?: never;
@@ -67,7 +69,7 @@ export namespace TagProps {
             React.HTMLAttributes<HTMLSpanElement>,
             HTMLSpanElement
         > &
-            Record<`data-${string}`, string | boolean | null | undefined>;
+            DataAttribute;
     };
 }
 
