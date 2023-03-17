@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
+import { Table } from "@codegouvfr/react-dsfr/Table";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useColors } from "@codegouvfr/react-dsfr/useColors";
@@ -40,6 +41,7 @@ export default function App() {
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
             <SideMenuExample />
+            <TableExample />
         </>
     );
 }
@@ -154,3 +156,22 @@ function SideMenuExample() {
 
 }
 
+function TableExample() {
+    const { css } = useStyles();
+
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            className={css({ "margin": fr.spacing("10v") })}
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
+    );
+}

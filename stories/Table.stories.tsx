@@ -123,7 +123,7 @@ export const TableWithFixedLayout = getStory({
 
 export const TableWithoutCaption = getStory({
     noCaption: true,
-    caption: "Caption tableau fixé",
+    caption: "Titre du tableau",
     headers: ["td", "titre"],
     data: [
         [
@@ -141,7 +141,7 @@ export const TableWithoutCaption = getStory({
 
 export const TableWithBottomCaption = getStory({
     bottomCaption: true,
-    caption: "Caption tableau fixé",
+    caption: "Titre du tableau en bas",
     headers: ["td", "titre"],
     data: [
         [
@@ -159,7 +159,7 @@ export const TableWithBottomCaption = getStory({
 
 export const TableWithColorVariant = getStory({
     colorVariant: "green-emeraude",
-    caption: "Caption tableau fixé",
+    caption: "Titre du tableau",
     headers: ["td", "titre"],
     data: [
         [
