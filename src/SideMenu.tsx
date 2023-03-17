@@ -14,7 +14,7 @@ export type SideMenuProps = {
     style?: CSSProperties;
     align?: "left" | "right";
     items: SideMenuProps.Item[];
-    bugerMenuButtonText: string;
+    bugerMenuButtonText: ReactNode;
     sticky?: boolean | "full-height";
 };
 
