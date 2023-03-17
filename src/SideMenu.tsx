@@ -15,7 +15,10 @@ export type SideMenuProps = {
     align?: "left" | "right";
     items: SideMenuProps.Item[];
     bugerMenuButtonText: ReactNode;
-    sticky?: boolean | "full-height";
+    /** Default: false */
+    sticky?: boolean;
+    /** Default: false, only relevent when sticky */
+    fullHeight: boolean;
 };
 
 export namespace SideMenuProps {
