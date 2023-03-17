@@ -18,6 +18,7 @@ export type TableProps = {
     style?: CSSProperties;
     bottomCaption?: boolean;
     colorVariant?: TableProps.ColorVariant;
+    classes?: Partial<Record<"root", string>>;
 };
 
 export namespace TableProps {
@@ -35,14 +36,15 @@ export const Table = memo(
             data,
             headers,
             caption,
-            bordered = false,
-            noScroll = false,
-            fixed = false,
-            noCaption = false,
-            bottomCaption = false,
+            bordered,
+            noScroll,
+            fixed,
+            noCaption,
+            bottomCaption,
             colorVariant,
             className,
             style,
+            classes = {},
             ...rest
         } = props;
 
@@ -64,6 +66,7 @@ export const Table = memo(
                         },
                         colorVariant !== undefined && `fr-table--${colorVariant}`
                     ),
+                    classes.root,
                     className
                 )}
             >
