@@ -4,11 +4,80 @@ import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import { Summary } from "@codegouvfr/react-dsfr/Summary";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 
 const { SimpleModal, simpleModalButtonProps } = createModal({
     "name": "simple",
     "isOpenedByDefault": false
 });
+
+const sideMenuItems = [
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+    {
+        isActive: true,
+        text: "Entrée menu active",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                isActive: true,
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+        ]
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+];
 
 export default function Page() {
 
@@ -82,6 +151,11 @@ export default function Page() {
             >
                 Modal content
             </SimpleModal>
+            <SideMenu
+            items={sideMenuItems}
+            title="Titre de rubrique"
+            bugerMenuButtonText="Dans cette rubrique"
+        />
         </>
     );
 

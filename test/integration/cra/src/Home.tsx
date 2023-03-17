@@ -1,6 +1,75 @@
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+
+const sideMenuItems = [
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+    {
+        isActive: true,
+        text: "Entrée menu active",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                isActive: true,
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+        ]
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+];
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -28,6 +97,12 @@ export function Home() {
             <button onClick={() => setIsDark(true)}>Set color scheme to dark</button>
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
+
+            <SideMenu
+                items={sideMenuItems}
+                title="Titre de rubrique"
+                bugerMenuButtonText="Dans cette rubrique"
+            />
 
         </>
     );
