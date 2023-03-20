@@ -63,7 +63,7 @@
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
     },
     "dependencies": {
-        "tsafe": "^1.4.0"
+        "tsafe": "^1.6.0"
     },
     "devDependencies": {
         "@gouvfr/dsfr": "1.9.0",
@@ -131,6 +131,7 @@
         "./tss": "./dist/tss.js",
         "./tools/cx": "./dist/tools/cx.js",
         "./dsfr/*": "./dsfr/*",
+        "./block/*": "./block/*",
         "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
         "./ToggleSwitch": "./dist/ToggleSwitch.js",
         "./Tile": "./dist/Tile.js",
@@ -146,7 +147,7 @@
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
         "./Modal": "./dist/Modal.js",
-        "./MainNavigation": "./dist/MainNavigation\\index.js",
+        "./MainNavigation": "./dist/MainNavigation/index.js",
         "./Input": "./dist/Input.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header.js",

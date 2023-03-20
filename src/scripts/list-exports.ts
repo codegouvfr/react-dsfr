@@ -29,6 +29,7 @@ const newExports = {
     "./tss": "./dist/tss.js",
     "./tools/cx": "./dist/tools/cx.js",
     "./dsfr/*": "./dsfr/*",
+    "./block/*": "./block/*",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)
@@ -49,7 +50,7 @@ const newExports = {
                             continue;
                         }
 
-                        return [basename, relativePath];
+                        return [basename, relativePath.replace(new RegExp(/\\/, "g"), "/")];
                     }
 
                     return undefined;

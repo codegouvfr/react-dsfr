@@ -17,8 +17,7 @@ const { meta, getStory } = getStoryFactory({
             This is where you pass the \`name\` prop or \`onChange\` for example.`,
             "control": { "type": null }
         }
-    },
-    "disabledProps": ["lang"]
+    }
 });
 
 export default meta;
@@ -29,24 +28,28 @@ export const Default = getStory({
 
 export const WithHint = getStory({
     "label": "Mot de passe",
+    /* spell-checker: disable */
     "hintText": "Texte de description additionnel"
+    /* spell-checker: english */
 });
 
 export const WithMessagesGroup = getStory({
     "label": "Mot de passe",
-    "messagesGroup": [
+    "messages": [
+        /* spell-checker: disable */
         {
             "message": "12 caractères minimum",
-            "state": "default"
+            "severity": "info"
         },
         {
             "message": "1 caractère spécial minimum",
-            "state": "success"
+            "severity": "valid"
         },
         {
             "message": "1 chiffre minimum",
-            "state": "error"
+            "severity": "error"
         }
+        /* spell-checker: enabled */
     ]
 });
 

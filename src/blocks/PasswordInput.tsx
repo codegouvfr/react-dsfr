@@ -1,36 +1,40 @@
 import React, {
-    DetailedHTMLProps,
+    type DetailedHTMLProps,
     forwardRef,
-    InputHTMLAttributes,
+    type InputHTMLAttributes,
     memo,
-    ReactNode,
+    type ReactNode,
     useId
 } from "react";
-import { assert, Equals } from "tsafe";
+import { assert, type Equals } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import type { InputProps } from "../Input";
 import { cx } from "../tools/cx";
-
-export type MessageGroup = {
-    state?: "success" | "error" | "default";
-    message: ReactNode;
-};
+import type { FrClassName } from "../fr/generatedFromCss/classNames";
 
 export type PasswordInputProps = Omit<
     InputProps.Common,
-    "state" | "stateRelatedMessage" | "iconId"
+    "state" | "stateRelatedMessage" | "iconId" | "classes"
 > & {
-    classes?: Partial<
-        Record<"root" | "label" | "description" | "input" | "message" | "messageGroup", string>
-    >;
-    messagesGroup?: MessageGroup[];
+    classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
+    messages?: {
+        severity: PasswordInputProps.Severity;
+        message: ReactNode;
+    }[];
     nativeInputProps?: Omit<
         DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
         "type"
     >;
 };
+
+export namespace PasswordInputProps {
+    type ExtractSeverity<ClassName extends string> =
+        ClassName extends `fr-message--${infer Severity}` ? Severity : never;
+
+    export type Severity = ExtractSeverity<FrClassName>;
+}
 
 /**
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/blocks-passwordinput
@@ -45,7 +49,7 @@ export const PasswordInput = memo(
             disabled = false,
             classes = {},
             style,
-            messagesGroup,
+            messages = [],
             nativeInputProps,
             ...rest
         } = props;
@@ -64,10 +68,10 @@ export const PasswordInput = memo(
         const messagesGroupId = `${inputId}-messages-group`;
         const messageGroupId = `${inputId}-message-group`;
 
-        const hasError = messagesGroup?.find(({ state: messageState }) => messageState === "error");
-        const isSuccess = messagesGroup?.every(
-            ({ state: messageState }) => messageState === "success"
-        );
+        const hasError = messages.find(({ severity }) => severity === "error") !== undefined;
+        const isSuccess =
+            messages.length !== 0 &&
+            messages.find(({ severity }) => severity !== "valid") === undefined;
 
         return (
             <div
@@ -99,37 +103,23 @@ export const PasswordInput = memo(
                         className={cx(fr.cx("fr-password__input", "fr-input"), classes.input)}
                         id={inputId}
                         type="password"
-                        disabled={disabled || undefined}
-                        aria-describedby={messagesGroup && messagesGroupId}
+                        disabled={disabled}
+                        {...(messages.length !== 0 && { "aria-describedby": messagesGroupId })}
                     />
                 </div>
-                {messagesGroup && (
+                {messages.length !== 0 && (
                     <div
-                        className={cx(fr.cx("fr-messages-group"), classes.messageGroup)}
+                        className={fr.cx("fr-messages-group")}
                         id={messagesGroupId}
                         aria-live="assertive"
                     >
-                        <p className={(fr.cx("fr-message"), classes.message)} id={messageGroupId}>
+                        <p className={fr.cx("fr-message")} id={messageGroupId}>
                             {t("your password must contain")}
                         </p>
-                        {messagesGroup.map(({ state, message }, index) => (
+                        {messages.map(({ severity, message }, index) => (
                             <p
-                                className={cx(
-                                    fr.cx(
-                                        "fr-message",
-                                        (() => {
-                                            switch (state) {
-                                                case "error":
-                                                    return "fr-message--error";
-                                                case "success":
-                                                    return "fr-message--valid";
-                                                default:
-                                                    return "fr-message--info";
-                                            }
-                                        })()
-                                    ),
-                                    classes.message
-                                )}
+                                key={index}
+                                className={fr.cx("fr-message", `fr-message--${severity}`)}
                                 id={`${messageGroupId}-${index}`}
                             >
                                 {message}
@@ -138,10 +128,13 @@ export const PasswordInput = memo(
                     </div>
                 )}
                 <div
-                    className={fr.cx(
-                        "fr-password__checkbox",
-                        "fr-checkbox-group",
-                        "fr-checkbox-group--sm"
+                    className={cx(
+                        fr.cx(
+                            "fr-password__checkbox",
+                            "fr-checkbox-group",
+                            "fr-checkbox-group--sm"
+                        ),
+                        classes.checkbox
                     )}
                 >
                     <input
@@ -151,7 +144,7 @@ export const PasswordInput = memo(
                         disabled={disabled || undefined}
                     />
                     <label
-                        className={fr.cx("fr-password__checkbox", "fr-label")}
+                        className={cx(fr.cx("fr-password__checkbox", "fr-label"), classes.checkbox)}
                         htmlFor={togglePasswordShowId}
                     >
                         {t("show")}
