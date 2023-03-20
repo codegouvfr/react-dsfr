@@ -101,7 +101,7 @@ export function Home() {
             <SideMenu
                 items={sideMenuItems}
                 title="Titre de rubrique"
-                bugerMenuButtonText="Dans cette rubrique"
+                burgerMenuButtonText="Dans cette rubrique"
             />
 
         </>
