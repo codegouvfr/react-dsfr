@@ -25,7 +25,7 @@ export type SideMenuProps = {
 };
 
 export namespace SideMenuProps {
-    export type Item = Item.Link & Item.SubMenu;
+    export type Item = Item.Link | Item.SubMenu;
 
     export namespace Item {
         type Common = {
