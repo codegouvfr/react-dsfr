@@ -39,7 +39,7 @@ export namespace SideMenuProps {
         };
 
         export type SubMenu = Common & {
-            items: Item[];
+            items?: Item[];
         };
     }
 }
