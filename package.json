@@ -63,7 +63,7 @@
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
     },
     "dependencies": {
-        "tsafe": "^1.4.0"
+        "tsafe": "^1.6.0"
     },
     "devDependencies": {
         "@gouvfr/dsfr": "1.9.0",
@@ -131,6 +131,7 @@
         "./tss": "./dist/tss.js",
         "./tools/cx": "./dist/tools/cx.js",
         "./dsfr/*": "./dsfr/*",
+        "./block/*": "./block/*",
         "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
         "./ToggleSwitch": "./dist/ToggleSwitch.js",
         "./Tile": "./dist/Tile.js",
@@ -138,6 +139,7 @@
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
+        "./SideMenu": "./dist/SideMenu.js",
         "./Select": "./dist/Select.js",
         "./SearchBar": "./dist/SearchBar.js",
         "./RadioButtons": "./dist/RadioButtons.js",
@@ -160,7 +162,6 @@
         "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
-        "./Accordion": "./dist/Accordion.js",
-        "./SideMenu": "./dist/SideMenu.js"
+        "./Accordion": "./dist/Accordion.js"
     }
 }
