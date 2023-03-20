@@ -152,10 +152,10 @@ export default function Page() {
                 Modal content
             </SimpleModal>
             <SideMenu
-            items={sideMenuItems}
-            title="Titre de rubrique"
-            bugerMenuButtonText="Dans cette rubrique"
-        />
+                items={sideMenuItems}
+                title="Titre de rubrique"
+                burgerMenuButtonText="Dans cette rubrique"
+            />
         </>
     );
 
