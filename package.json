@@ -138,6 +138,7 @@
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
+        "./SideMenu": "./dist/SideMenu.js",
         "./Select": "./dist/Select.js",
         "./SearchBar": "./dist/SearchBar.js",
         "./RadioButtons": "./dist/RadioButtons.js",
@@ -145,7 +146,7 @@
         "./Pagination": "./dist/Pagination.js",
         "./Notice": "./dist/Notice.js",
         "./Modal": "./dist/Modal.js",
-        "./MainNavigation": "./dist/MainNavigation/index.js",
+        "./MainNavigation": "./dist/MainNavigation\\index.js",
         "./Input": "./dist/Input.js",
         "./Highlight": "./dist/Highlight.js",
         "./Header": "./dist/Header.js",
@@ -160,7 +161,6 @@
         "./Breadcrumb": "./dist/Breadcrumb.js",
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
-        "./Accordion": "./dist/Accordion.js",
-        "./SideMenu": "./dist/SideMenu.js"
+        "./Accordion": "./dist/Accordion.js"
     }
 }
