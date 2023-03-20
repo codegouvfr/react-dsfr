@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties, useId } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -14,7 +14,7 @@ export type SideMenuProps = {
     style?: CSSProperties;
     align?: "left" | "right";
     items: SideMenuProps.Item[];
-    bugerMenuButtonText: ReactNode;
+    burgerMenuButtonText: ReactNode;
     /** Default: false */
     sticky?: boolean;
     /** Default: false, only relevent when sticky */
@@ -56,7 +56,7 @@ export const SideMenu = memo(
             fullHeight,
             classes = {},
             align = "left",
-            bugerMenuButtonText,
+            burgerMenuButtonText,
             ...rest
         } = props;
 
@@ -64,55 +64,28 @@ export const SideMenu = memo(
 
         const { Link } = getLink();
 
-        const getItem = (
-            { isActive, linkProps, text, items }: SideMenuProps.Item,
-            key: number,
-            level = 0
-        ) => {
-            if (++level > 2) return null;
+        const { wrapperId, titleId, getItemId } = (function useClosure() {
+            const id = useId();
 
-            return (
-                <li key={key} className={cx(fr.cx("fr-sidemenu__item"), classes.item)}>
-                    {items ? (
-                        <>
-                            <button
-                                aria-expanded="false"
-                                aria-controls={`fr-sidemenu-item-${key}`}
-                                {...(isActive && { ["aria-current"]: true })}
-                                className={cx(fr.cx("fr-sidemenu__btn"), classes.button)}
-                            >
-                                {text}
-                            </button>
-                            <div className={fr.cx("fr-collapse")} id={`fr-sidemenu-item-${key}`}>
-                                <ul className={cx(fr.cx("fr-sidemenu__list"), classes.list)}>
-                                    {items.map((item, i) => getItem(item, i, level))}
-                                </ul>
-                            </div>
-                        </>
-                    ) : (
-                        <Link
-                            target="_self"
-                            {...linkProps}
-                            {...(isActive && { ["aria-current"]: "page" })}
-                            className={cx(
-                                fr.cx("fr-sidemenu__link"),
-                                classes.link,
-                                linkProps?.className
-                            )}
-                        >
-                            {text}
-                        </Link>
-                    )}
-                </li>
-            );
-        };
+            const wrapperId = `fr-sidemenu-wrapper-${id}`;
+
+            const titleId = `fr-sidemenu-title-${id}`;
+
+            const getItemId = (params: { level: number; key: string }) => {
+                const { level, key } = params;
+
+                return `fr-sidemenu-item-${id}-${level}-${key}`;
+            };
+
+            return { wrapperId, titleId, getItemId };
+        })();
 
         return (
             <nav
                 {...rest}
                 ref={ref}
                 style={style}
-                aria-labelledby="fr-sidemenu-title"
+                aria-labelledby={titleId}
                 className={cx(
                     fr.cx("fr-sidemenu", {
                         "fr-sidemenu--right": align === "right",
@@ -127,22 +100,97 @@ export const SideMenu = memo(
                     <button
                         hidden
                         aria-expanded="false"
-                        aria-controls="fr-sidemenu-wrapper"
+                        aria-controls={wrapperId}
                         className={cx(fr.cx("fr-sidemenu__btn"), classes.button)}
                     >
-                        {bugerMenuButtonText}
+                        {burgerMenuButtonText}
                     </button>
-                    <div className={fr.cx("fr-collapse")} id="fr-sidemenu-wrapper">
+                    <div className={fr.cx("fr-collapse")} id={wrapperId}>
                         {title !== undefined && (
                             <div
                                 className={cx(fr.cx("fr-sidemenu__title"), classes.title)}
-                                id="fr-sidemenu-title"
+                                id={titleId}
                             >
                                 {title}
                             </div>
                         )}
                         <ul className={cx(fr.cx("fr-sidemenu__list"), classes.list)}>
-                            {items.map((item, i) => getItem(item, i))}
+                            {items.map((item, i) => {
+                                const getItemRec = (params: {
+                                    item: SideMenuProps.Item;
+                                    key: string;
+                                    level: number;
+                                }) => {
+                                    const { item, key, level } = params;
+
+                                    const itemId = getItemId({ key, level });
+
+                                    return (
+                                        <li
+                                            key={key}
+                                            className={cx(fr.cx("fr-sidemenu__item"), classes.item)}
+                                        >
+                                            {"items" in item ? (
+                                                <>
+                                                    <button
+                                                        aria-expanded="false"
+                                                        aria-controls={itemId}
+                                                        {...(item.isActive && {
+                                                            ["aria-current"]: true
+                                                        })}
+                                                        className={cx(
+                                                            fr.cx("fr-sidemenu__btn"),
+                                                            classes.button
+                                                        )}
+                                                    >
+                                                        {item.text}
+                                                    </button>
+                                                    <div
+                                                        className={fr.cx("fr-collapse")}
+                                                        id={itemId}
+                                                    >
+                                                        <ul
+                                                            className={cx(
+                                                                fr.cx("fr-sidemenu__list"),
+                                                                classes.list
+                                                            )}
+                                                        >
+                                                            {item.items.map((item, i) =>
+                                                                getItemRec({
+                                                                    item,
+                                                                    "key": `${i}`,
+                                                                    "level": level + 1
+                                                                })
+                                                            )}
+                                                        </ul>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <Link
+                                                    target="_self"
+                                                    {...item.linkProps}
+                                                    {...(item.isActive && {
+                                                        ["aria-current"]: "page"
+                                                    })}
+                                                    className={cx(
+                                                        fr.cx("fr-sidemenu__link"),
+                                                        classes.link,
+                                                        item.linkProps?.className
+                                                    )}
+                                                >
+                                                    {item.text}
+                                                </Link>
+                                            )}
+                                        </li>
+                                    );
+                                };
+
+                                return getItemRec({
+                                    "key": `${i}`,
+                                    item,
+                                    "level": 0
+                                });
+                            })}
                         </ul>
                     </div>
                 </div>

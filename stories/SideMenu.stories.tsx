@@ -7,9 +7,9 @@ const { meta, getStory } = getStoryFactory({
     wrappedComponent: { SideMenu },
     defaultContainerWidth: 300,
     description: `
-- [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/menu-lateral)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/menu-lateral)
 - [See DSFR demos](https://main--ds-gouv.netlify.app/example/component/sidemenu/)
-- [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/Sidemenu.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Sidemenu.tsx)`,
     disabledProps: ["lang"],
     argTypes: {
         title: {
@@ -20,7 +20,7 @@ const { meta, getStory } = getStoryFactory({
             type: { name: "string", required: true },
             description: "Items used to populate the menu"
         },
-        bugerMenuButtonText: {
+        burgerMenuButtonText: {
             type: { name: "string", required: true },
             description: "Label to display next to the burger menu button"
         },
@@ -43,7 +43,7 @@ export default meta;
 
 export const Default = getStory({
     title: "Titre de rubrique",
-    bugerMenuButtonText: "Dans cette rubrique",
+    burgerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             isActive: true,
@@ -75,7 +75,7 @@ export const Default = getStory({
 
 export const SideMenuWith2Levels = getStory({
     title: "Titre de rubrique",
-    bugerMenuButtonText: "Dans cette rubrique",
+    burgerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             text: "Niveau 1",
@@ -147,7 +147,7 @@ export const SideMenuWith2Levels = getStory({
 
 export const SideMenuWith3Levels = getStory({
     title: "Titre de rubrique",
-    bugerMenuButtonText: "Dans cette rubrique",
+    burgerMenuButtonText: "Dans cette rubrique",
     items: [
         {
             text: "Niveau 1",
