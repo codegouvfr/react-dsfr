@@ -131,7 +131,7 @@
         "./tss": "./dist/tss.js",
         "./tools/cx": "./dist/tools/cx.js",
         "./dsfr/*": "./dsfr/*",
-        "./block/*": "./block/*",
+        "./blocks/*": "./dist/blocks/*",
         "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
         "./ToggleSwitch": "./dist/ToggleSwitch.js",
         "./Tile": "./dist/Tile.js",
