@@ -362,9 +362,9 @@ function MyComponent(){
 }
 ```
 
-You can also access the theme object using the preconfigured `tss-react` adapter:
+You can also access the theme object using the preconfigured [`tss-react`](https://tss-react.dev) adapter:
 
-<pre class="language-typescript"><code class="lang-typescript">import { useStyles } from "tss-react/dsfr";
+<pre class="language-typescript"><code class="lang-typescript">import { useStyles } from "@codegouvfr/react-dsfr/tss";
 
 function MyComponent(){
 
