@@ -26,7 +26,14 @@ export namespace TableProps {
         ? AccentColor
         : never;
 
-    export type ColorVariant = ExtractColorVariant<FrClassName>;
+    type NonColorTableClassName =
+        | "no-scroll"
+        | "no-caption"
+        | "caption-bottom"
+        | "layout-fixed"
+        | "bordered";
+
+    export type ColorVariant = Exclude<ExtractColorVariant<FrClassName>, NonColorTableClassName>;
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */

@@ -1,9 +1,8 @@
-// import { Table, type TableProps } from "../dist/Table";
-import { Table } from "../dist/Table";
+import { Table, type TableProps } from "../dist/Table";
 import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
-// import { assert } from "tsafe/assert";
-// import type { Equals } from "tsafe";
+import { assert } from "tsafe/assert";
+import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -59,7 +58,7 @@ const { meta, getStory } = getStoryFactory({
                     undefined
                 ] as const;
 
-                // assert<Equals<typeof options[number], TableProps["colorVariant"]>>();
+                assert<Equals<typeof options[number], TableProps["colorVariant"]>>();
 
                 return options;
             })(),
