@@ -8,7 +8,7 @@ import type { FrClassName } from "./fr/generatedFromCss/classNames";
 
 export type TableProps = {
     fixed?: boolean;
-    data: string[][];
+    data: ReactNode[][];
     className?: string;
     caption?: ReactNode;
     bordered?: boolean;
