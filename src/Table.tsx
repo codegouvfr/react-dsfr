@@ -12,7 +12,7 @@ export type TableProps = {
     className?: string;
     caption?: ReactNode;
     bordered?: boolean;
-    headers?: string[];
+    headers?: ReactNode[];
     noScroll?: boolean;
     noCaption?: boolean;
     style?: CSSProperties;
