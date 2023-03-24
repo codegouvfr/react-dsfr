@@ -1,12 +1,10 @@
-import { Select, type SelectProps, type GenericOption } from "../dist/Select";
+import { Select, type SelectProps } from "../dist/Select";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-const { meta, getStory } = getStoryFactory<
-    SelectProps<GenericOption<string | number | MyFakeValue>[]>
->({
+const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
     sectionName,
     "wrappedComponent": { Select },
     "description": `
@@ -19,23 +17,25 @@ const { meta, getStory } = getStoryFactory<
 import { useState } from "react";
 import { Select } from "@codegouvfr/react-dsfr/Select";
 
+const options = [
+    {
+        value: "1",
+        label: "Option 1",
+    },
+    {
+        value: "2",
+        label: "Option 2",
+    },
+    {
+        value: "3",
+        label: "Option 3",
+    }
+];
+
 function MyComponent(){
 
     const [ value, setValue ] = useState("");
-    const options = [
-        {
-            value: "1",
-            label: "Option 1",
-        },
-        {
-            value: "2",
-            label: "Option 2",
-        },
-        {
-            value: "3",
-            label: "Option 3",
-        }
-    ]
+
     return (
         <Select
             label="Label"
@@ -57,25 +57,57 @@ function MyComponent(){
 import { useState } from "react";
 import { Select } from "@codegouvfr/react-dsfr/Select";
 
+
 function MyComponent(){
 
     return (
         <form>
+            {/* With no value pre selected*/}
             <Select
                 label="Label"
                 nativeSelectProps={{
                     name: "my-select"
                 }}
-            >
-                <option value="" selected disabled hidden>Selectionnez une option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-            </Select>
+                options={[
+                    {
+                        value: "1",
+                        label: "Option 1",
+                    },
+                    {
+                        value: "2",
+                        label: "Option 2",
+                    },
+                    {
+                        value: "3",
+                        label: "Option 3",
+                    }
+                ]}
+                placeholder="Selectionnez une option"
+            />
+            {/* With a value pre selected*/}
+            <Select
+                label="Label"
+                nativeSelectProps={{
+                    name: "my-select-2"
+                }}
+                options={[
+                    {
+                        value: "1",
+                        label: "Option 1",
+                    },
+                    {
+                        value: "2",
+                        label: "Option 2",
+                        selected: true
+                    },
+                    {
+                        value: "3",
+                        label: "Option 3",
+                    }
+                ]}
+            />
         </form>
     );
-
 }
 \`\`\`
 
@@ -97,12 +129,14 @@ function MyComponent(){
         },
         "state": {
             "options": (() => {
-                const options = ["success", "error", "default"] as const;
+                const options = ["valid", "error", "info", "default"] as const;
 
                 assert<
                     Equals<
                         typeof options[number],
-                        NonNullable<SelectProps<GenericOption<typeof options[number]>[]>["state"]>
+                        NonNullable<
+                            SelectProps<SelectProps.Option<typeof options[number]>[]>["state"]
+                        >
                     >
                 >();
 
@@ -144,7 +178,7 @@ const myFakeValueSet = [
 
 type MyFakeValue = typeof myFakeValueSet[number];
 
-const optionsWithTypedValues: GenericOption<MyFakeValue>[] = myFakeValueSet.map(fakeValue => ({
+const optionsWithTypedValues: SelectProps.Option<MyFakeValue>[] = myFakeValueSet.map(fakeValue => ({
     value: fakeValue,
     label: fakeValue
 }));
@@ -169,7 +203,7 @@ export const ErrorState = getStory({
 
 export const SuccessState = getStory({
     "label": "Label pour liste déroulante",
-    "state": "success",
+    "state": "valid",
     "stateRelatedMessage": "Texte de validation",
     "placeholder": "Sélectionnez une option",
     "options": defaultOptions

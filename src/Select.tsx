@@ -1,51 +1,75 @@
 "use client";
 
-import React, { memo, forwardRef, ReactNode, useId, type CSSProperties, ForwardedRef } from "react";
+import React, {
+    memo,
+    forwardRef,
+    type ReactNode,
+    useId,
+    type CSSProperties,
+    type ForwardedRef,
+    type DetailedHTMLProps,
+    type SelectHTMLAttributes,
+    type ChangeEvent
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import type { FrClassName } from "./fr/generatedFromCss/classNames";
 
-export type SelectProps<Options extends GenericOption<DefaultOptionValue>[]> = {
+export type SelectProps<Options extends SelectProps.Option[]> = {
     options: Options;
     className?: string;
     label: ReactNode;
     hint?: ReactNode;
     nativeSelectProps?: Omit<
-        React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
-        "value" | "defaultValue"
+        DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
+        "value" | "defaultValue" | "onChange"
     > & {
         // Overriding the type of value and defaultValue to only accept the value type of the options
         value?: Options[number]["value"];
         defaultValue?: Options[number]["value"];
+        onChange?: (
+            e: Omit<ChangeEvent<HTMLSelectElement>, "target" | "currentTarget"> & {
+                target: Options[number]["value"];
+                currentTarget: Options[number]["value"];
+            }
+        ) => void;
     };
     /** Default: false */
     disabled?: boolean;
     /** Default: "default" */
-    state?: "success" | "error" | "default";
+    state?: SelectProps.State | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
     style?: CSSProperties;
     placeholder?: string;
 };
-export type GenericOption<OptionValue> = {
-    value: OptionValue;
-    label: string;
-    disabled?: boolean;
-    hidden?: boolean;
-    selected?: boolean;
-};
 
-type DefaultOptionValue = string | number | readonly string[] | undefined;
+export namespace SelectProps {
+    export type Option<T extends string = string> = {
+        value: T;
+        label: string;
+        disabled?: boolean;
+        hidden?: boolean;
+        selected?: boolean;
+    };
+
+    type ExtractState<FrClassName> = FrClassName extends `fr-select-group--${infer State}`
+        ? Exclude<State, "disabled">
+        : never;
+
+    export type State = ExtractState<FrClassName>;
+}
 
 /**
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-select>
  * */
-const SelectComponent = <T extends GenericOption<DefaultOptionValue>[]>(
+function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
     props: SelectProps<T>,
     ref: React.LegacyRef<HTMLDivElement>
-) => {
+) {
     const {
         className,
         label,
@@ -61,46 +85,26 @@ const SelectComponent = <T extends GenericOption<DefaultOptionValue>[]>(
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
+
     const { selectId, stateDescriptionId } = (function useClosure() {
-        const selectIdExplicitelyProvided = nativeSelectProps?.id;
+        const selectIdExplicitlyProvided = nativeSelectProps?.id;
         const elementId = useId();
-        const selectId = selectIdExplicitelyProvided ?? `select-${elementId}`;
+        const selectId = selectIdExplicitlyProvided ?? `select-${elementId}`;
         const stateDescriptionId =
-            selectIdExplicitelyProvided !== undefined
-                ? `${selectIdExplicitelyProvided}-desc`
+            selectIdExplicitlyProvided !== undefined
+                ? `${selectIdExplicitlyProvided}-desc`
                 : `select-${elementId}-desc`;
 
         return { selectId, stateDescriptionId };
     })();
 
-    const displayedOptions =
-        placeholder !== undefined
-            ? [
-                  {
-                      label: placeholder,
-                      value: "",
-                      disabled: true
-                  },
-                  ...options
-              ]
-            : options;
     return (
         <div
             className={cx(
                 fr.cx(
                     "fr-select-group",
                     disabled && "fr-select-group--disabled",
-                    (() => {
-                        switch (state) {
-                            case "error":
-                                return "fr-select-group--error";
-                            case "success":
-                                return "fr-select-group--valid";
-                            case "default":
-                                return undefined;
-                        }
-                        assert<Equals<typeof state, never>>(false);
-                    })()
+                    state !== "default" && `fr-select-group--${state}`
                 ),
                 className
             )}
@@ -113,50 +117,44 @@ const SelectComponent = <T extends GenericOption<DefaultOptionValue>[]>(
                 {hint !== undefined && <span className={fr.cx("fr-hint-text")}>{hint}</span>}
             </label>
             <select
-                {...nativeSelectProps}
+                {...(nativeSelectProps as any)}
                 className={cx(fr.cx("fr-select"), nativeSelectProps?.className)}
                 id={selectId}
                 aria-describedby={stateDescriptionId}
                 disabled={disabled}
             >
-                {displayedOptions.map((option, index) => (
+                {[
+                    ...(placeholder === undefined
+                        ? []
+                        : [
+                              {
+                                  label: placeholder,
+                                  value: "",
+                                  disabled: true
+                              }
+                          ]),
+                    ...options
+                ].map((option, index) => (
                     <option {...option} key={`${option.value}-${index}`}>
                         {option.label}
                     </option>
                 ))}
             </select>
             {state !== "default" && (
-                <p
-                    id={stateDescriptionId}
-                    className={fr.cx(
-                        (() => {
-                            switch (state) {
-                                case "error":
-                                    return "fr-error-text";
-                                case "success":
-                                    return "fr-valid-text";
-                            }
-                            assert<Equals<typeof state, never>>(false);
-                        })()
-                    )}
-                >
+                <p id={stateDescriptionId} className={fr.cx(`fr-${state}-text`)}>
                     {stateRelatedMessage}
                 </p>
             )}
         </div>
     );
-};
+}
 
-const ForwardedSelect = forwardRef(SelectComponent) as <
-    T extends GenericOption<DefaultOptionValue>[]
+export const Select = memo(forwardRef(NonMemoizedNonForwardedSelect)) as <
+    T extends SelectProps.Option[]
 >(
     props: SelectProps<T> & { ref?: ForwardedRef<HTMLDivElement> }
-) => ReturnType<typeof SelectComponent>;
+) => ReturnType<typeof NonMemoizedNonForwardedSelect>;
 
-export const Select = memo(ForwardedSelect) as typeof ForwardedSelect & {
-    displayName: string;
-};
-
-Select.displayName = symToStr({ Select });
+(Select as any).displayName = symToStr({ Select });
 
 export default Select;
