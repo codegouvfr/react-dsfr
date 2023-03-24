@@ -64,14 +64,7 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
 
 ## À propos [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
-`@codegouvfr/react-dsfr` (ce projet) est un projet TypeScript aillant pour priorité de fournir une bonne intégration
-avec l’écosystème React, notamment avec Next.js.
-
-Ce projet a été démarré en octobre 2022, c'est une initiative récente et, malgré le fait qu'il soit activement développé, au jour d'au jour d'hui,
-`@dataesr/react-dsfr` est plus stable et fournit [une couverture de composant plus exhaustive](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface).  
-Si vous travaillez sur une SPA (Create React App, Vite) `@dataesr/react-dsfr` est probablement l'option la plus viable à ce jour.
-
-Cela étant dit, vous pouvez bénéficier de plusieurs des fonctionnalités de `@codegouvfr/react-dsfr` sans migrer de `@dataesr/react-dsfr`:
+Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieur fonctionalitées de ce dernier:
 
 -   Profitez de [l'auto complétion des classes en `fr-*`](https://react-dsfr.etalab.studio/class-names-type-safety).
 -   Utiliser [le système de couleur strictement typer](https://react-dsfr.etalab.studio/css-in-js#colors).
