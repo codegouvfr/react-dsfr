@@ -37,6 +37,8 @@ jobs:
     - run: yarn build
     - run: yarn test
     - run: npx chromatic --exit-zero-on-changes
+      env:
+        CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   deploy_storybook:
     runs-on: ubuntu-latest
