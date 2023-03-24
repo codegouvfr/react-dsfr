@@ -112,7 +112,7 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 ## Usecases
 
-Projects that uses `@codegouvfr/react-dsfr`:
+A few project that I know of that uses `@codegouvfr/react-dsfr`:
 
 -   https://immersion-facile.beta.gouv.fr/
 
