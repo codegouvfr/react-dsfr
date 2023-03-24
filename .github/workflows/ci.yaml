@@ -36,6 +36,7 @@ jobs:
     - uses: bahmutov/npm-install@v1
     - run: yarn build
     - run: yarn test
+    - run: npx chromatic --exit-zero-on-changes
 
   deploy_storybook:
     runs-on: ubuntu-latest
