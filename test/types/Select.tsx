@@ -46,7 +46,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "defaultValue": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], Value>>();
+                assert<Equals<typeof event["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -67,7 +67,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], Value>>();
+                assert<Equals<typeof event["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -88,7 +88,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], Value>>();
+                assert<Equals<typeof event["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -110,7 +110,7 @@ import { assert, type Equals } from "tsafe";
             //@ts-expect-error
             "value": "not foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], Value>>();
+                assert<Equals<typeof event["target"]["value"], Value>>();
             }
         }}
         //@ts-expect-error
@@ -130,7 +130,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], string>>();
+                assert<Equals<typeof event["target"]["value"], string>>();
             }
         }}
         options={values.map(value => ({
@@ -149,7 +149,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"], string>>();
+                assert<Equals<typeof event["target"]["value"], string>>();
             }
         }}
         options={values.map(value => ({

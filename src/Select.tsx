@@ -32,8 +32,12 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
         defaultValue?: Options[number]["value"];
         onChange?: (
             e: Omit<ChangeEvent<HTMLSelectElement>, "target" | "currentTarget"> & {
-                target: Options[number]["value"];
-                currentTarget: Options[number]["value"];
+                target: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
+                    value: Options[number]["value"];
+                };
+                currentTarget: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
+                    value: Options[number]["value"];
+                };
             }
         ) => void;
     };
@@ -129,6 +133,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                         : [
                               {
                                   label: placeholder,
+                                  selected: true,
                                   value: "",
                                   disabled: true
                               }
