@@ -114,7 +114,7 @@ export function Home() {
                     nativeSelectProps={{
                         name: "favorite-meal",
                         onChange: (event) => {
-                            // ❤️
+                            // ❤️ no "as Meal" needed here!
                             setFavoriteMeal(event.currentTarget.value);
 
                             // This next line will throw a type error
