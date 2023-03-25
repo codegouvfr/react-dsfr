@@ -3,6 +3,7 @@ module.exports = {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier", "plugin:storybook/recommended"],
+  "ignorePatterns": [".eslintrc.js"],
   "rules": {
     "no-extra-boolean-cast": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -10,5 +11,6 @@ module.exports = {
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off"
-  }
+  },
+  
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Select, type SelectProps } from "../../src/Select";
-import { assert, type Equals } from "tsafe/assert";
+import { assert, type Equals } from "tsafe";
 
 {
     const values = ["foo", "bar", "baz"] as const;
@@ -15,7 +15,7 @@ import { assert, type Equals } from "tsafe/assert";
             value,
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -32,7 +32,7 @@ import { assert, type Equals } from "tsafe/assert";
             value,
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -53,7 +53,7 @@ import { assert, type Equals } from "tsafe/assert";
             value,
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -74,7 +74,7 @@ import { assert, type Equals } from "tsafe/assert";
             value,
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -95,7 +95,7 @@ import { assert, type Equals } from "tsafe/assert";
             value,
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -118,7 +118,7 @@ import { assert, type Equals } from "tsafe/assert";
             "value": "not foo",
             "label": value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -137,7 +137,7 @@ import { assert, type Equals } from "tsafe/assert";
             "value": `${value}`,
             "label": "" + value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
 
@@ -156,6 +156,6 @@ import { assert, type Equals } from "tsafe/assert";
             "value": `${value}`,
             "label": "" + value
         }))}
-        placeholder="Selectionnez une option"
+        placeholder="Sélectionnez une option"
     />;
 }
