@@ -22,6 +22,7 @@ export type FooterProps = {
     cookiesManagementLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
+    partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
         /**
@@ -50,7 +51,13 @@ export type FooterProps = {
             | "bottomLink"
             | "bottomCopy"
             | "brandLink"
-            | "logo",
+            | "logo"
+            | "partners"
+            | "partnersTitle"
+            | "partnersLogos"
+            | "partnersMain"
+            | "partnersLink"
+            | "partnersSub",
             string
         >
     >;
@@ -79,6 +86,26 @@ export namespace FooterProps {
             >;
         };
     }
+
+    export type PartnersLogos = PartnersLogos.MainOnly | PartnersLogos.SubOnly;
+
+    export namespace PartnersLogos {
+        export type MainOnly = {
+            main: Logo;
+            sub?: Logo[];
+        };
+
+        export type SubOnly = {
+            main?: Logo;
+            sub: [Logo, ...Logo[]];
+        };
+
+        export type Logo = {
+            alt: string;
+            href: string;
+            imgUrl: string;
+        };
+    }
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
@@ -97,6 +124,7 @@ export const Footer = memo(
             personalDataLinkProps,
             cookiesManagementLinkProps,
             bottomItems = [],
+            partnersLogos,
             operatorLogo,
             license,
             style,
@@ -108,6 +136,8 @@ export const Footer = memo(
         const { Link } = getLink();
 
         const { t } = useTranslation();
+
+        const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos ?? {};
 
         return (
             <footer
@@ -205,6 +235,83 @@ export const Footer = memo(
                             </ul>
                         </div>
                     </div>
+                    {partnersLogos !== undefined && (
+                        <div className={cx(fr.cx("fr-footer__partners"), classes.partners)}>
+                            <h4
+                                className={cx(
+                                    fr.cx("fr-footer__partners-title"),
+                                    classes.partnersTitle
+                                )}
+                            >
+                                {t("our partners")}
+                            </h4>
+                            <div
+                                className={cx(
+                                    fr.cx("fr-footer__partners-logos"),
+                                    classes.partnersLogos
+                                )}
+                            >
+                                <div
+                                    className={cx(
+                                        fr.cx("fr-footer__partners-main"),
+                                        classes.partnersMain
+                                    )}
+                                >
+                                    {mainPartnersLogo !== undefined && (
+                                        <a
+                                            href={mainPartnersLogo.href}
+                                            className={cx(
+                                                fr.cx("fr-footer__partners-link"),
+                                                classes.partnersLink
+                                            )}
+                                        >
+                                            <img
+                                                alt={mainPartnersLogo.alt}
+                                                style={{ height: "5.625rem" }}
+                                                src={mainPartnersLogo.imgUrl}
+                                                className={cx(
+                                                    fr.cx("fr-footer__logo"),
+                                                    classes.logo
+                                                )}
+                                            />
+                                        </a>
+                                    )}
+                                </div>
+                                {subPartnersLogos.length !== 0 && (
+                                    <div
+                                        className={cx(
+                                            fr.cx("fr-footer__partners-sub"),
+                                            classes.partnersSub
+                                        )}
+                                    >
+                                        <ul>
+                                            {subPartnersLogos.map(logo => (
+                                                <li>
+                                                    <a
+                                                        href={logo.href}
+                                                        className={cx(
+                                                            fr.cx("fr-footer__partners-link"),
+                                                            classes.partnersLink
+                                                        )}
+                                                    >
+                                                        <img
+                                                            alt={logo.alt}
+                                                            src={logo.imgUrl}
+                                                            style={{ "height": "5.625rem" }}
+                                                            className={cx(
+                                                                fr.cx("fr-footer__logo"),
+                                                                classes.logo
+                                                            )}
+                                                        />
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                     <div className={cx(fr.cx("fr-footer__bottom"), classes.bottom)}>
                         <ul className={cx(fr.cx("fr-footer__bottom-list"), classes.bottomList)}>
                             {[
@@ -329,7 +436,8 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
         "license mention": "Sauf mention contraire, tous les contenus de ce site sont sous",
-        "etalab license": "licence etalab-2.0"
+        "etalab license": "licence etalab-2.0",
+        "our partners": "Nos partenaires"
         /* spell-checker: enable */
     }
 });

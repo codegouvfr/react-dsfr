@@ -42,7 +42,7 @@ const { meta, getStory } = getStoryFactory({
 
                 return options;
             })(),
-            "control": { type: "select", labels: { null: "no severity" } }
+            "control": { type: "select", labels: { null: "no color variant" } }
         },
         "iconId": {
             "options": (() => {

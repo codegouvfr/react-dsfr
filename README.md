@@ -35,9 +35,9 @@
 
 This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
-[Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
-
-[Link to the demo video](https://youtu.be/5q88JgXUAY4)
+<a href="https://youtu.be/5q88JgXUAY4">
+  <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
+</a>
 
 > While this module is written in TypeScript, using TypeScript in your application is optional (but recommended as it comes with outstanding benefits to both you and your codebase).
 
@@ -108,3 +108,21 @@ Thank you! [Here](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTIN
 
 This repo was bootstrapped form [garronej/ts-ci](https://github.com/garronej/ts-ci) have a look at the
 documentation of this starter for understanding the lifecycle of this repo.
+
+## Usecases
+
+A few project that I know of that uses `@codegouvfr/react-dsfr`:
+
+-   https://immersion-facile.beta.gouv.fr/
+
+-   https://github.com/DISIC/observatoire.numerique.gouv.fr
+-   https://github.com/DISIC/monfranceconnect
+-   https://github.com/InseeFr/Lunatic-DSFR
+-   https://github.com/EIG6-Geocommuns/lidarviz-front
+-   https://github.com/EIG6-Geocommuns/geocommuns-core
+-   https://github.com/SocialGouv/bpco-site
+-   https://github.com/EIG6-ArtificIA/predictia_front
+-   https://github.com/BaseAdresseNationale/bal-admin
+-   https://github.com/etalab/sill-web
+-   https://github.com/inclusion-numerique/mediature
+-   https://territoiresentransitions.fr (maybe)

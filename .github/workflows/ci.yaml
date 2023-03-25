@@ -30,12 +30,17 @@ jobs:
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node }}
     - uses: bahmutov/npm-install@v1
     - run: yarn build
     - run: yarn test
+    - run: npx chromatic --exit-zero-on-changes
+      env:
+        CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
   deploy_storybook:
     runs-on: ubuntu-latest

@@ -23,6 +23,11 @@ A few things:
 -   🌎 Avoid hard coding text in JSX, use [the i18n mechanism](https://react-dsfr.etalab.studio/i18n) instead. [Here is an example](https://github.com/codegouvfr/react-dsfr/blob/bbaf4a81d78de08d6fdcb059a9f4cb8a78ce4d5a/src/DarkModeSwitch.tsx#L162-L199). (Don't worry about providing translations other than French.)
 -   🍳 If you have to arbitrate between ease of use and customisability I'd encourage you to favor ease of use. People that would need a greater level of customizability can always fall back to making their own wrapper from the reference documentation using [`fr.cx()`](https://react-dsfr.etalab.studio/cx).
 
+## PR Reviews
+
+[Here is a video](https://youtu.be/RI6jEPvgKJ4) to show you how I review PRs. Please have a look at it, it's full of valuable information
+that will save you and I time.
+
 ## Getting TypeScript error in VSCode but the console says everything's right?
 
 Because of how this project is setup TypeScript unaware that files have changed.  

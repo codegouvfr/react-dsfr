@@ -2,5 +2,5 @@ node_modules/
 dist/
 CHANGELOG.md
 .yarn_home/
-src/integration/
+/test/integration/
 

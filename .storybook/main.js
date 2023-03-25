@@ -2,6 +2,7 @@ module.exports = {
     "stories": [
         "../stories/*.stories.mdx",
         "../stories/*.stories.@(ts|tsx)",
+        "../stories/blocks/*.stories.@(ts|tsx)"
     ],
     "addons": [
         "@storybook/addon-links",
@@ -10,9 +11,7 @@ module.exports = {
         "@storybook/addon-a11y"
     ],
     "core": {
-        "builder": "webpack5",
+        "builder": "webpack5"
     },
-    "staticDirs": [
-        "./static"
-    ]
+    "staticDirs": ["./static"]
 };

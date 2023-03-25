@@ -34,9 +34,9 @@
 Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation officielle de référence du
 DSFR en pur JavaScript/CSS.
 
-[Preview.webm](https://user-images.githubusercontent.com/6702424/208798079-52c39962-94a3-4ff5-adbc-800d47b50757.webm)
-
-[Lien vers la vidéo démo](https://youtu.be/5q88JgXUAY4)
+<a href="https://youtu.be/5q88JgXUAY4">
+  <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
+</a>
 
 > Bien que cette bibliothèque soit écrite en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
 
@@ -46,8 +46,9 @@ DSFR en pur JavaScript/CSS.
 -   [x] exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), il s'agit d'une couche de compatibilité et non pas d'une implémentation alternative.
 -   [x] pas de [flash d'écran blanc lors du basculement automatique du thème clair vers le thème sombre](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
--   [x] [Intégration clef en main pour les différents frameworks de développement: Vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.etalab.studio/) si votre framework n'est pas supporté, merci de nous l'indiquer, nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [ ] tous [les composants de référence implémentés](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
+-   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.etalab.studio/) si votre
+        framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
+-   [ ] tout [les composants de référence implémentés](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
          Voir la [documentation](https://react-dsfr.etalab.studio/mui-integration).
@@ -83,7 +84,7 @@ yarn
 # Démarrer Storybook
 yarn storybook
 
-# Démarrer les application de test
+# Démarrer les applications de test
 yarn start-cra
 yarn start-vite
 yarn start-next-pagesdir

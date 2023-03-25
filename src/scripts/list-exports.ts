@@ -26,8 +26,10 @@ const newExports = {
     "./useIsDark": "./dist/useIsDark/index.js",
     "./useColors": "./dist/useColors.js",
     "./mui": "./dist/mui.js",
+    "./tss": "./dist/tss.js",
     "./tools/cx": "./dist/tools/cx.js",
     "./dsfr/*": "./dsfr/*",
+    "./blocks/*": "./dist/blocks/*",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)
@@ -48,7 +50,7 @@ const newExports = {
                             continue;
                         }
 
-                        return [basename, relativePath];
+                        return [basename, relativePath.replace(new RegExp(/\\/, "g"), "/")];
                     }
 
                     return undefined;
