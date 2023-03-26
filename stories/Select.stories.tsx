@@ -4,6 +4,8 @@ import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
+type X= SelectProps.Option<"foo" | "bar">;
+
 const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
     sectionName,
     "wrappedComponent": { Select },
@@ -13,43 +15,76 @@ const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
 
 ## Controlled
 
+You want to make the user select an option between "foo", "bar" and "baz".
+
+For all examples we assumes those are defined:
+
+\`\`\`tsx
+const values = ["foo", "bar", "baz"] as const;
+
+type Value = typeof values[number]; // "foo" | "bar" | "baz";
+\`\`\`
+
+### No value is pre selected
+
+If no value is pre-select you should use the \`placeholder\` prop.  
+
 \`\`\`tsx
 import { useState } from "react";
 import { Select } from "@codegouvfr/react-dsfr/Select";
 
-const options = [
-    {
-        value: "1",
-        label: "Option 1",
-    },
-    {
-        value: "2",
-        label: "Option 2",
-    },
-    {
-        value: "3",
-        label: "Option 3",
-    }
-];
-
 function MyComponent(){
 
-    const [ value, setValue ] = useState("");
+    const [ value, setValue ] = useState<Value | undefined>(undefined);
 
     return (
         <Select
-            label="Label"
+            label="..."
+            placeholder="Select an options"
             nativeSelectProps={{
-                onChange: event => setValue(event.target.value),
                 value,
+                onChange: event => setValue(event.target.value)
             }}
-            options={options}
-            placeholder="Selectionnez une option"
+            options={values.map(value=> ({
+                value,
+                "label": \`Option \${value}\`
+            }))}
         />
     );
 
 }
 \`\`\`
+
+### Value pre-selected
+
+"bar" selected by default.
+
+\`\`\`tsx
+import { useState } from "react";
+import { Select } from "@codegouvfr/react-dsfr/Select";
+
+function MyComponent(){
+
+    const [ value, setValue ] = useState<Value>("bar");
+
+    return (
+        <Select
+            label="..."
+            nativeSelectProps={{
+                value,
+                onChange: event => setValue(event.target.value)
+            }}
+            options={values.map(value=> ({
+                value,
+                "label": \`Option \${value}\`
+            }))}
+        />
+    );
+
+}
+\`\`\`
+
+
 
 ## Uncontrolled
 
@@ -62,7 +97,7 @@ function MyComponent(){
 
     return (
         <form>
-            {/* With no value pre selected*/}
+            {/* With no value pre selected, if submitted the value will be ""*/}
             <Select
                 label="Label"
                 nativeSelectProps={{
@@ -82,7 +117,7 @@ function MyComponent(){
                         label: "Option 3",
                     }
                 ]}
-                placeholder="Selectionnez une option"
+                placeholder="Select an option"
             />
             {/* With a value pre selected*/}
             <Select
@@ -92,17 +127,17 @@ function MyComponent(){
                 }}
                 options={[
                     {
-                        value: "1",
-                        label: "Option 1",
+                        value: "foo",
+                        label: "Option foo",
                     },
                     {
-                        value: "2",
-                        label: "Option 2",
+                        value: "bar",
+                        label: "Option bar",
                         selected: true
                     },
                     {
-                        value: "3",
-                        label: "Option 3",
+                        value: "baz",
+                        label: "Option baz",
                     }
                 ]}
             />
@@ -228,7 +263,7 @@ export const TypedSelect = getStory({
     "placeholder": "Sélectionnez une option",
     "options": optionsWithTypedValues,
     "nativeSelectProps": {
-        "defaultValue": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
+        "value": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
     }
 });
 

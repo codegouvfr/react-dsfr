@@ -110,9 +110,7 @@ export function Home() {
                 />
                 <Select label="Favorite meal?" 
                     options={exampleOptions2}
-                    placeholder="Select an option"
                     nativeSelectProps={{
-                        name: "favorite-meal",
                         onChange: (event) => {
                             // ❤️ no "as Meal" needed here!
                             setFavoriteMeal(event.currentTarget.value);
@@ -134,3 +132,4 @@ export function Home() {
         </>
     );
 }
+

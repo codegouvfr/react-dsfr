@@ -26,7 +26,7 @@ import { assert, type Equals } from "tsafe";
         label="Label"
         nativeSelectProps={{
             //@ts-expect-error
-            "defaultValue": "not foo"
+            "value": "not foo"
         }}
         options={values.map(value => ({
             value,
@@ -44,7 +44,7 @@ import { assert, type Equals } from "tsafe";
     <Select
         label="Label"
         nativeSelectProps={{
-            "defaultValue": "foo",
+            "value": "foo",
             "onChange": event => {
                 assert<Equals<typeof event["target"]["value"], Value>>();
             }
@@ -155,6 +155,58 @@ import { assert, type Equals } from "tsafe";
         options={values.map(value => ({
             "value": `${value}`,
             "label": "" + value
+        }))}
+        placeholder="Sélectionnez une option"
+    />;
+}
+
+{
+    type Value = "foo" | "bar" | "baz";
+
+    const options: SelectProps.Option<Value>[] = [
+        {
+            "value": "foo",
+            "label": "Option foo"
+        },
+        {
+            "value": "bar",
+            "label": "Option bar"
+        },
+        {
+            "value": "baz",
+            "label": "Option bar"
+        }
+    ];
+
+    <Select
+        label="Label"
+        nativeSelectProps={{
+            "value": undefined,
+            "onChange": event => {
+                assert<Equals<typeof event["target"]["value"], Value>>();
+            }
+        }}
+        options={options}
+        placeholder="Sélectionnez une option"
+    />;
+}
+
+{
+
+    const values = ["foo", "bar", "baz"] as const;
+
+
+    <Select
+        label="Label"
+        nativeSelectProps={{
+            "value": undefined,
+            "onChange": event => {
+                assert<Equals<typeof event["target"]["value"], typeof values[number]>>();
+            }
+        }}
+        options={values.map(value=> ({
+            value,
+            "label": `Option ${value}`
         }))}
         placeholder="Sélectionnez une option"
     />;

@@ -28,8 +28,7 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
         "value" | "defaultValue" | "onChange"
     > & {
         // Overriding the type of value and defaultValue to only accept the value type of the options
-        value?: Options[number]["value"];
-        defaultValue?: Options[number]["value"];
+        value?: Options[number]["value"] | undefined;
         onChange?: (
             e: Omit<ChangeEvent<HTMLSelectElement>, "target" | "currentTarget"> & {
                 target: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
@@ -127,15 +126,17 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 aria-describedby={stateDescriptionId}
                 disabled={disabled}
             >
+                {/* NOTE: It's not okay to have no placeholder if the value can be undefined, it lead to an inconsistent state */}
+                {/* NOTE: We should always have a placeholder with the value and have a i18n key "Select an option" */}
                 {[
                     ...(placeholder === undefined
                         ? []
                         : [
                               {
-                                  label: placeholder,
-                                  selected: true,
-                                  value: "",
-                                  disabled: true
+                                  "label": placeholder,
+                                  "selected": true,
+                                  "value": "",
+                                  "disabled": true
                               }
                           ]),
                     ...options
