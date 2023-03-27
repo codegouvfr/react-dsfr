@@ -13,6 +13,7 @@ export type TableProps = {
     caption?: ReactNode;
     bordered?: boolean;
     headers?: ReactNode[];
+    /** Default: false */
     noScroll?: boolean;
     noCaption?: boolean;
     style?: CSSProperties;
