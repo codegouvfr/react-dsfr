@@ -285,8 +285,8 @@ export const Footer = memo(
                                         )}
                                     >
                                         <ul>
-                                            {subPartnersLogos.map(logo => (
-                                                <li>
+                                            {subPartnersLogos.map((logo, i) => (
+                                                <li key={i}>
                                                     <a
                                                         href={logo.href}
                                                         className={cx(
