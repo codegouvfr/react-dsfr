@@ -24,9 +24,11 @@ export type TableProps = {
 
 export namespace TableProps {
     type ExtractColorVariant<FrClassName> = FrClassName extends `fr-table--${infer AccentColor}`
-        ? Exclude<AccentColor, "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered">
+        ? Exclude<
+              AccentColor,
+              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered"
+          >
         : never;
-
 
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
@@ -38,7 +40,7 @@ export const Table = memo(
             data,
             headers,
             caption,
-            bordered,
+            bordered = false,
             noScroll = false,
             fixed,
             noCaption,
