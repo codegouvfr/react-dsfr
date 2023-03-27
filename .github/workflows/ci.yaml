@@ -120,7 +120,7 @@ jobs:
         registry-url: https://registry.npmjs.org/
     - uses: bahmutov/npm-install@v1
     - run: yarn build --npm
-    - run: npx -y -p denoify@1.3.0 enable_short_npm_import_path
+    - run: npx -y -p denoify@1.5.1 enable_short_npm_import_path
       env:
         DRY_RUN: "0"
     - uses: garronej/ts-ci@v2.1.0
