@@ -39,7 +39,7 @@ export const Table = memo(
             headers,
             caption,
             bordered,
-            noScroll,
+            noScroll = false,
             fixed,
             noCaption,
             bottomCaption,
