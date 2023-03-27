@@ -7,19 +7,22 @@ import { symToStr } from "tsafe/symToStr";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 
 export type TableProps = {
-    fixed?: boolean;
     data: ReactNode[][];
     className?: string;
     caption?: ReactNode;
-    bordered?: boolean;
     headers?: ReactNode[];
     /** Default: false */
+    fixed?: boolean;
+    /** Default: false */
     noScroll?: boolean;
+    /** Default: false */
+    bordered?: boolean;
+    /** Default: false */
     noCaption?: boolean;
-    style?: CSSProperties;
+    /** Default: false */
     bottomCaption?: boolean;
+    style?: CSSProperties;
     colorVariant?: TableProps.ColorVariant;
-    classes?: Partial<Record<"root", string>>;
 };
 
 export namespace TableProps {
@@ -42,13 +45,12 @@ export const Table = memo(
             caption,
             bordered = false,
             noScroll = false,
-            fixed,
-            noCaption,
-            bottomCaption,
+            fixed = false,
+            noCaption = false,
+            bottomCaption = false,
             colorVariant,
             className,
             style,
-            classes = {},
             ...rest
         } = props;
 
@@ -70,7 +72,6 @@ export const Table = memo(
                         },
                         colorVariant !== undefined && `fr-table--${colorVariant}`
                     ),
-                    classes.root,
                     className
                 )}
             >
