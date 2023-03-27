@@ -20,15 +20,34 @@ let Link: (
 
 export function setLink(params: { Link: typeof Link }): void {
     Link = props => {
-        external_link_react_router: {
-            const { to, ...rest } = props as { to?: string };
 
-            if (to === undefined || (!to.startsWith("//") && !/^https?:\/\//.test(to))) {
-                break external_link_react_router;
+        {
+
+            const { to, href, ...rest } = props as { to?: string; href?: string; };
+
+            const target = to ?? href;
+
+            mailto: {
+
+                if (target === undefined || !target.startsWith("mailto:")) {
+                    break mailto;
+                }
+
+                return <a href={target} {...rest} />;
+
             }
 
-            return <a href={to} target="_blank" {...rest} />;
+            external_links: {
+
+                if (target === undefined || (!target.startsWith("//") && !/^https?:\/\//.test(target))) {
+                    break external_links;
+                }
+
+                return <a href={target} target="_blank" {...rest} />;
+            }
+
         }
+
 
         return <params.Link {...props} />;
     };
