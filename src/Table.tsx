@@ -26,12 +26,6 @@ export namespace TableProps {
         ? Exclude<AccentColor, "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered">
         : never;
 
-    type NonColorTableClassName =
-        | "no-scroll"
-        | "no-caption"
-        | "caption-bottom"
-        | "layout-fixed"
-        | "bordered";
 
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
