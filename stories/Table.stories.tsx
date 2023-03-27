@@ -70,9 +70,9 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    caption: "Résumé du tableau (accessibilité)",
-    headers: ["Titre", "Titre", "Titre", "Titre", "Titre"],
-    data: [
+    "caption": "Résumé du tableau (accessibilité)",
+    "headers": ["Titre", "Titre", "Titre", "Titre", "Titre"],
+    "data": [
         ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
         ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
         ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
@@ -82,10 +82,10 @@ export const Default = getStory({
 });
 
 export const TableWithBorders = getStory({
-    bordered: true,
-    caption: "Résumé du tableau (accessibilité)",
-    headers: ["th0", "th1", "th2", "th3"],
-    data: [
+    "bordered": true,
+    "caption": "Résumé du tableau (accessibilité)",
+    "headers": ["th0", "th1", "th2", "th3"],
+    "data": [
         [
             "Lorem [...] elit ut.",
             "Lorem [...] elit ut.",
@@ -98,20 +98,20 @@ export const TableWithBorders = getStory({
 });
 
 export const TableNoScroll = getStory({
-    noScroll: true,
-    caption: "Résumé du tableau (accessibilité)",
-    headers: ["Titre", "Titre"],
-    data: [
+    "noScroll": true,
+    "caption": "Résumé du tableau (accessibilité)",
+    "headers": ["Titre", "Titre"],
+    "data": [
         ["Donnée", "Donnée"],
         ["Donnée", "Donnée"]
     ]
 });
 
 export const TableWithFixedLayout = getStory({
-    fixed: true,
-    caption: "Caption tableau fixé",
-    headers: ["td", "titre"],
-    data: [
+    "fixed": true,
+    "caption": "Caption tableau fixé",
+    "headers": ["td", "titre"],
+    "data": [
         [
             "Lorem ipsum dolor sit amet consectetur adipisicin",
             "Lorem ipsum dolor sit amet consectetur"
@@ -121,10 +121,10 @@ export const TableWithFixedLayout = getStory({
 });
 
 export const TableWithoutCaption = getStory({
-    noCaption: true,
-    caption: "Titre du tableau",
-    headers: ["td", "titre"],
-    data: [
+    "noCaption": true,
+    "caption": "Titre du tableau",
+    "headers": ["td", "titre"],
+    "data": [
         [
             "Lorem ipsum dolor sit amet consectetur adipisicin",
             "Lorem ipsum dolor sit amet consectetur"
@@ -139,10 +139,10 @@ export const TableWithoutCaption = getStory({
 });
 
 export const TableWithBottomCaption = getStory({
-    bottomCaption: true,
-    caption: "Titre du tableau en bas",
-    headers: ["td", "titre"],
-    data: [
+    "bottomCaption": true,
+    "caption": "Titre du tableau en bas",
+    "headers": ["td", "titre"],
+    "data": [
         [
             "Lorem ipsum dolor sit amet consectetur adipisicin",
             "Lorem ipsum dolor sit amet consectetur"
@@ -157,10 +157,10 @@ export const TableWithBottomCaption = getStory({
 });
 
 export const TableWithColorVariant = getStory({
-    colorVariant: "green-emeraude",
-    caption: "Titre du tableau",
-    headers: ["td", "titre"],
-    data: [
+    "colorVariant": "green-emeraude",
+    "caption": "Titre du tableau",
+    "headers": ["td", "titre"],
+    "data": [
         [
             "Lorem ipsum dolor sit amet consectetur adipisicin",
             "Lorem ipsum dolor sit amet consectetur"
