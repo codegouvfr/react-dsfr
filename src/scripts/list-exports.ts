@@ -29,7 +29,7 @@ const newExports = {
     "./tss": "./dist/tss.js",
     "./tools/cx": "./dist/tools/cx.js",
     "./dsfr/*": "./dsfr/*",
-    "./blocks/*": "./dist/blocks/*",
+    "./blocks/*": "./blocks/*",
     ...Object.fromEntries(
         fs
             .readdirSync(srcDirPath)
