@@ -33,7 +33,7 @@ export namespace TableProps {
         | "layout-fixed"
         | "bordered";
 
-    export type ColorVariant = Exclude<ExtractColorVariant<FrClassName>, NonColorTableClassName>;
+    export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */
