@@ -62,7 +62,7 @@ const { meta, getStory } = getStoryFactory({
 
                 return options;
             })(),
-            "control": { type: "select", labels: { null: "no color variant" } }
+            "control": { "type": "select", "labels": { "null": "no color variant" } }
         }
     }
 });
