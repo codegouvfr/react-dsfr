@@ -1,7 +1,7 @@
 import { Tag, type TagProps } from "../dist/Tag";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { assert } from "tsafe/assert";
+import { assert, Equals } from "tsafe/assert";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -10,18 +10,19 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tag.tsx)`,
     "argTypes": {
-        "isDismissible": {
+        "dismissible": {
             "control": { "type": "boolean" }
         },
-        "isSmall": {
+        "small": {
             "control": { "type": "boolean" }
         },
         "iconId": {
             "options": (() => {
                 const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
+                type AllIconIds = NonNullable<TagProps["iconId"]>;
 
                 assert<
-                    typeof options[number] extends NonNullable<TagProps["iconId"]> ? true : false
+                    Equals<typeof options[number], Extract<AllIconIds, typeof options[number]>>
                 >();
 
                 return options;
@@ -78,13 +79,13 @@ export const TagButtonWithIcon = getStory({
 
 export const SmallTag = getStory({
     "children": "Label button",
-    "isSmall": true,
+    "small": true,
     "iconId": "fr-icon-checkbox-circle-line"
 });
 
 export const TagDismissible = getStory({
     "children": "Label button",
-    "isDismissible": true,
+    "dismissible": true,
     "nativeButtonProps": {
         onClick: () => console.log("click")
     }
@@ -92,8 +93,8 @@ export const TagDismissible = getStory({
 
 export const SmallTagDismissible = getStory({
     "children": "Label button",
-    "isSmall": true,
-    "isDismissible": true,
+    "small": true,
+    "dismissible": true,
     "nativeButtonProps": {
         onClick: () => console.log("click")
     }

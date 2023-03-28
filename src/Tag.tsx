@@ -24,7 +24,8 @@ export type TagProps = TagProps.Common &
 export namespace TagProps {
     export type Common = {
         className?: string;
-        isSmall?: boolean;
+        /** Default: false */
+        small?: boolean;
         style?: CSSProperties;
         title?: string;
         children: ReactNode;
@@ -44,13 +45,14 @@ export namespace TagProps {
         onClick?: never;
         nativeButtonProps?: never;
         nativeSpanProps?: never;
-        isDismissible?: never;
+        dismissible?: never;
         pressed?: never;
     };
     export type AsButton = {
         linkProps?: never;
         nativeSpanProps?: never;
-        isDismissible?: boolean;
+        /** Default: false */
+        dismissible?: boolean;
         pressed?: boolean;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
         nativeButtonProps?: React.DetailedHTMLProps<
@@ -62,7 +64,7 @@ export namespace TagProps {
     export type AsSpan = {
         linkProps?: never;
         onClick?: never;
-        isDismissible?: never;
+        dismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
         nativeSpanProps?: React.DetailedHTMLProps<
@@ -81,9 +83,9 @@ export const Tag = memo(
             children,
             title,
             iconId,
-            isSmall,
+            small = false,
             pressed,
-            isDismissible,
+            dismissible = false,
             linkProps,
             nativeButtonProps,
             nativeSpanProps,
@@ -99,10 +101,10 @@ export const Tag = memo(
         const className = cx(
             fr.cx(
                 "fr-tag",
-                isSmall && `fr-tag--sm`,
+                small && `fr-tag--sm`,
                 iconId,
                 iconId && "fr-tag--icon-left", // actually, it's always left but we need it in order to have the icon rendering
-                isDismissible && "fr-tag--dismiss"
+                dismissible && "fr-tag--dismiss"
             ),
             linkProps !== undefined && linkProps.className,
             prop_className
@@ -110,7 +112,7 @@ export const Tag = memo(
 
         return (
             <>
-                {linkProps && (
+                {linkProps !== undefined && (
                     <Link
                         {...linkProps}
                         title={title ?? linkProps.title}
@@ -125,7 +127,7 @@ export const Tag = memo(
                         {children}
                     </Link>
                 )}
-                {nativeButtonProps && (
+                {nativeButtonProps !== undefined && (
                     <button
                         {...nativeButtonProps}
                         className={cx(nativeButtonProps?.className, className)}
@@ -143,7 +145,7 @@ export const Tag = memo(
                         {children}
                     </button>
                 )}
-                {!linkProps && !nativeButtonProps && (
+                {linkProps === undefined && nativeButtonProps === undefined && (
                     <span
                         {...nativeSpanProps}
                         className={cx(nativeSpanProps?.className, className)}

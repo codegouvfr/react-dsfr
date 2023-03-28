@@ -8,7 +8,7 @@ import { Tag } from "../../src/Tag";
     <Tag iconId="fr-icon-add-line">Label</Tag>;
 }
 {
-    <Tag iconId="fr-icon-add-line" isSmall>
+    <Tag iconId="fr-icon-add-line" small>
         Label
     </Tag>;
 }
@@ -31,12 +31,12 @@ import { Tag } from "../../src/Tag";
     <Tag onClick={() => console.log("clicked")}>Label</Tag>;
 }
 {
-    <Tag isDismissible onClick={() => console.log("clicked on my dismissible tag")}>
+    <Tag dismissible onClick={() => console.log("clicked on my dismissible tag")}>
         Label
     </Tag>;
 }
 {
-    <Tag isDismissible onClick={() => console.log("clicked")}>
+    <Tag dismissible onClick={() => console.log("clicked")}>
         Label
     </Tag>;
 }
@@ -69,7 +69,7 @@ import { Tag } from "../../src/Tag";
 {
     //@ts-expect-error: we shouldn't use Tag component as a span if it's dismissible
     <Tag
-        isDismissible
+        dismissible
         nativeSpanProps={{
             "id": "foo"
         }}
@@ -80,7 +80,7 @@ import { Tag } from "../../src/Tag";
 {
     //@ts-expect-error: we shouldn't use Tag component as an anchor if it's dismissible
     <Tag
-        isDismissible
+        dismissible
         linkProps={{
             "href": "https://www.example.com"
         }}
