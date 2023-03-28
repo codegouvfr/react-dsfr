@@ -115,10 +115,10 @@ Default.parameters = {
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
-const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal(
-    name: "simple",
+const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal({
+    name: "acceptTerms", // The name of Modal component and modalButtonProps is compute from this string
     isOpenedByDefault: false
-);
+});
 
 function MyComponent(){
 
