@@ -126,7 +126,7 @@ export const Notice = memo(
             >
                 <div className="fr-container">
                     <div className="fr-notice__body">
-                        <p className={classes.title}>{title}</p>
+                        <p className={cx(fr.cx(`fr-notice__title`), classes.title)}>{title}</p>
                         {/* TODO: Use our button once we have one */}
                         {isClosable && (
                             <button
