@@ -112,10 +112,10 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 ## Usecases
 
-A few project that I know of that uses `@codegouvfr/react-dsfr`:
+A few project **that I know of** that uses `@codegouvfr/react-dsfr`.  
 
 -   https://immersion-facile.beta.gouv.fr/
-
+-   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
 -   https://github.com/DISIC/observatoire.numerique.gouv.fr
 -   https://github.com/DISIC/monfranceconnect
 -   https://github.com/InseeFr/Lunatic-DSFR
@@ -127,3 +127,6 @@ A few project that I know of that uses `@codegouvfr/react-dsfr`:
 -   https://github.com/etalab/sill-web
 -   https://github.com/inclusion-numerique/mediature
 -   https://territoiresentransitions.fr (maybe)
+
+Keep in mind that the project has been released recently so it's only natural
+that there is only a few project in production using it.  
