@@ -17,6 +17,30 @@ const { meta, getStory } = getStoryFactory({
 This is a uncontrolled implementation of the modal, compatible with Server Components.  
 An controlled variant is coming soon.  
 
+## The 'createModal' function
+
+The \`createModal(options)\` function take an \`options\` object as parameter.
+
+**Options Params keys:**
+- \`name\` (*STRING - Required*): Prefix of the \`Modal\` component name and \`ModalButtonProps\` object name.
+- \`isOpenedByDefault\` (*BOOLEAN - Required*): Set the opening state of the Modal after it mount.
+
+**Return:**  
+An object with two keys. The name of these keys are computed from the value 
+of \`name\` key of the \`options\` param object :
+- \`\${PascalCasePrefix}Modal\`: The Modal component
+- \`\${camelCasePrefix}ModalButtonProps\`: The props object for \`Button\` DSFR component
+
+**Eg.:**
+\`\`\`
+const { MyComponentModal, myComponentButtonProps } = createModal({
+    name: "myComponent", // The name of Modal component and modalButtonProps is compute from this string
+    isOpenedByDefault: false
+});
+\`\`\`
+
+## The Modal component
+
 `,
     "argTypes": {
         "title": {
@@ -116,7 +140,7 @@ import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
 const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal({
-    name: "acceptTerms", // The name of Modal component and modalButtonProps is compute from this string
+    name: "acceptTerms",
     isOpenedByDefault: false
 });
 
