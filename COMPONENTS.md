@@ -36,7 +36,7 @@
 -   [ ] Translate
 -   [x] Summary
 -   [ ] Table
--   [ ] Tag
+-   [x] Tag
 -   [x] Download
 -   [ ] Transcription
 -   [x] Tile

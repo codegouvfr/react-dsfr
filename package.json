@@ -1,6 +1,6 @@
 {
     "name": "@codegouvfr/react-dsfr",
-    "version": "0.43.2",
+    "version": "0.44.0",
     "description": "French State Design System React integration library",
     "repository": {
         "type": "git",
@@ -138,6 +138,7 @@
         "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
         "./ToggleSwitch": "./dist/ToggleSwitch.js",
         "./Tile": "./dist/Tile.js",
+        "./Tag": "./dist/Tag.js",
         "./Tabs": "./dist/Tabs.js",
         "./Summary": "./dist/Summary.js",
         "./Stepper": "./dist/Stepper.js",
