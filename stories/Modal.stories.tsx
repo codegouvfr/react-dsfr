@@ -116,7 +116,7 @@ import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
 const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal(
-    name: "simple",
+    name: "acceptTerms", // name of the modal, it will be used to generate the component name and the button props.
     isOpenedByDefault: false
 );
 
