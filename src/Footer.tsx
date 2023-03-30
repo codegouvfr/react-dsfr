@@ -230,6 +230,7 @@ export const Footer = memo(
                                         >
                                             {domain}
                                         </a>
+                                        &nbsp;
                                     </li>
                                 ))}
                             </ul>
