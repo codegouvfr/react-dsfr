@@ -1,4 +1,5 @@
 import React, { type ReactNode, type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
+import { UrlObject, format } from "url";
 
 type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -18,12 +19,26 @@ let Link: (
     props: RegisteredLinkProps & { children: ReactNode }
 ) => ReturnType<React.FC> = props => <a {...props} />;
 
+/**
+ * Returns a url string from an Link href. If the link href is an UrlObject, it is converted to a string
+ *
+ * Return undefined if the href params is undefined
+ */
+function getUrlStringFromLinkHref(href: string | UrlObject | undefined): string | undefined {
+    if (href === undefined || typeof href === "string") {
+        return href;
+    }
+
+    // format is deprecated but didn't find a real alternative yet
+    return format(href);
+}
+
 export function setLink(params: { Link: typeof Link }): void {
     Link = props => {
         {
-            const { to, href, ...rest } = props as { to?: string; href?: string };
+            const { to, href, ...rest } = props as { to?: string; href?: string | UrlObject };
 
-            const target = to ?? href;
+            const target = to ?? getUrlStringFromLinkHref(href);
 
             mailto: {
                 if (target === undefined || !target.startsWith("mailto:")) {
