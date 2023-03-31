@@ -116,7 +116,7 @@ Advantages of tss-react over others CSS in JS solutions
 {% embed url="https://styled-components.com/" %}
 
 {% hint style="info" %}
-[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it's better integrated with MUI.
+[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it has a better MUI integration.
 {% endhint %}
 
 {% code title="index.tsx" %}
@@ -174,44 +174,6 @@ export const MyComponent = MyComponentNotStyled`
 ```
 {% endtab %}
 {% endtabs %}
-
-```tsx
-import { fr } from "@codegouvfr/react-dsfr";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
-
-export type Props = {
-    className?: string;
-};
-
-export const MyComponent =(props: Props) => {
-
-    const { className } = props;
-    
-    const theme = useColors();
-
-    return (
-	<div 
-	    className={className}
-	    style={{
-	        "padding": fr.spacing("10v"),
-	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
-	    }}
-	>
-	    <span 
-	        className={fr.cx("fr-p-1v")}
-	        style={{
-	            ...fr.spacing("margin", { "topBottom": "3v" })
-	        }}
-	    >
-	        Hello World
-	    </span>
-	</div>
-    );
-
-};
-
-MyComponent.displayName = "MyComponent";
-```
 
 ### spacing
 
