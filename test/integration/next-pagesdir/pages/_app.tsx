@@ -82,6 +82,12 @@ function App({ Component, pageProps }: AppProps) {
                             "href": "/mui"
                         },
                         "isActive": router.asPath === "/mui"
+                    },
+                    {
+                        "text": "External link",
+                        "linkProps": {
+                            "href": "https://example.com"
+                        }
                     }
                 ]}
                 quickAccessItems={[headerFooterDisplayItem]}

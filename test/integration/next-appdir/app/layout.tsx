@@ -39,11 +39,11 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				/>
 			</head>
 			<body
-		style={{
-			"height": "100vh",
-			"display": "flex",
+				style={{
+					"height": "100vh",
+					"display": "flex",
 					"flexDirection": "column"
-		}}
+				}}
 			>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
