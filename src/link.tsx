@@ -23,7 +23,9 @@ export function setLink(params: { Link: typeof Link }): void {
         {
             const { to, href, ...rest } = props as { to?: string; href?: string };
 
-            const target = to ?? href;
+            const target =
+                (typeof to === "string" ? to : undefined) ??
+                (typeof href === "string" ? href : undefined);
 
             mailto: {
                 if (target === undefined || !target.startsWith("mailto:")) {
