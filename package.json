@@ -167,10 +167,5 @@
         "./Badge": "./dist/Badge.js",
         "./Alert": "./dist/Alert.js",
         "./Accordion": "./dist/Accordion.js"
-    },
-    "bugs": {
-        "url": "https://github.com/codegouvfr/react-dsfr/issues"
-    },
-    "readme": "ERROR: No README data found!",
-    "_id": "@codegouvfr/react-dsfr@0.41.0"
+    }
 }
