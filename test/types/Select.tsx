@@ -211,3 +211,57 @@ import { assert, type Equals } from "tsafe";
         placeholder="Sélectionnez une option"
     />;
 }
+
+{
+
+    const dogOrCatOptions = [
+        {
+            value: "dog",
+            label: "Dog",
+        },
+        {
+            value: "cat",
+            label: "Cat",
+        },
+    ] as const;
+
+    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
+
+    <Select label="Dog or cat person?"
+        options={[...dogOrCatOptions]}
+        placeholder="Select an option"
+        nativeSelectProps={{
+            "onChange": event => {
+                assert<Equals<typeof event["target"]["value"], DogOrCat>>();
+            }
+        }}
+    />
+
+}
+
+{
+
+    const dogOrCatOptions = [
+        {
+            value: "dog",
+            label: "Dog",
+        },
+        {
+            value: "cat",
+            label: "Cat",
+        },
+    ] as const;
+
+    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
+
+    <Select label="Dog or cat person?"
+        options={dogOrCatOptions}
+        placeholder="Select an option"
+        nativeSelectProps={{
+            "onChange": event => {
+                assert<Equals<typeof event["target"]["value"], DogOrCat>>();
+            }
+        }}
+    />
+
+}

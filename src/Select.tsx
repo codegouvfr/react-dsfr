@@ -17,6 +17,7 @@ import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
+import { createComponentI18nApi } from "./i18n";
 
 export type SelectProps<Options extends SelectProps.Option[]> = {
     options: Options;
@@ -25,10 +26,10 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
     hint?: ReactNode;
     nativeSelectProps?: Omit<
         DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
-        "value" | "defaultValue" | "onChange"
+        "value" | "onChange"
     > & {
         // Overriding the type of value and defaultValue to only accept the value type of the options
-        value?: Options[number]["value"] | undefined;
+        value?: Options[number]["value"];
         onChange?: (
             e: Omit<ChangeEvent<HTMLSelectElement>, "target" | "currentTarget"> & {
                 target: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
@@ -55,7 +56,7 @@ export namespace SelectProps {
         value: T;
         label: string;
         disabled?: boolean;
-        hidden?: boolean;
+        /** Default: false, should be used only in uncontrolled mode */
         selected?: boolean;
     };
 
@@ -101,6 +102,8 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
         return { selectId, stateDescriptionId };
     })();
 
+    const { t } = useTranslation();
+
     return (
         <div
             className={cx(
@@ -126,19 +129,14 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 aria-describedby={stateDescriptionId}
                 disabled={disabled}
             >
-                {/* NOTE: It's not okay to have no placeholder if the value can be undefined, it lead to an inconsistent state */}
-                {/* NOTE: We should always have a placeholder with the value and have a i18n key "Select an option" */}
                 {[
-                    ...(placeholder === undefined
-                        ? []
-                        : [
-                              {
-                                  "label": placeholder,
-                                  "selected": true,
-                                  "value": "",
-                                  "disabled": true
-                              }
-                          ]),
+                    {
+                        "label": placeholder === undefined ? t("select an option") : placeholder,
+                        "selected": true,
+                        "value": "",
+                        "disabled": true,
+                        "hidden": true
+                    },
                     ...options
                 ].map((option, index) => (
                     <option {...option} key={`${option.value}-${index}`}>
@@ -164,3 +162,21 @@ export const Select = memo(forwardRef(NonMemoizedNonForwardedSelect)) as <
 (Select as any).displayName = symToStr({ Select });
 
 export default Select;
+
+const { useTranslation, addSelectTranslations } = createComponentI18nApi({
+    "componentName": symToStr({ Select }),
+    "frMessages": {
+        /* spell-checker: disable */
+        "select an option": "Selectioner une option",
+        /* spell-checker: enable */
+    }
+});
+
+addSelectTranslations({
+    "lang": "en",
+    "messages": {
+        "select an option": "Select an option"
+    }
+});
+
+export { addSelectTranslations };

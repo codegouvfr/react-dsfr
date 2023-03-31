@@ -4,8 +4,6 @@ import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-type X= SelectProps.Option<"foo" | "bar">;
-
 const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
     sectionName,
     "wrappedComponent": { Select },
@@ -27,8 +25,6 @@ type Value = typeof values[number]; // "foo" | "bar" | "baz";
 
 ### No value is pre selected
 
-If no value is pre-select you should use the \`placeholder\` prop.  
-
 \`\`\`tsx
 import { useState } from "react";
 import { Select } from "@codegouvfr/react-dsfr/Select";
@@ -38,6 +34,10 @@ function MyComponent(){
     const [ value, setValue ] = useState<Value | undefined>(undefined);
 
     return (
+        {/* 
+          * If the user didn't select anything, 
+          * when submitted the value of "my-select" will be "" 
+          */}
         <Select
             label="..."
             placeholder="Select an options"
@@ -96,8 +96,11 @@ import { Select } from "@codegouvfr/react-dsfr/Select";
 function MyComponent(){
 
     return (
-        <form>
-            {/* With no value pre selected, if submitted the value will be ""*/}
+        <form method="POST" action="...">
+            {/* 
+              * With no value pre selected, if the user didn't select anything, 
+              * when submitted the value of "my-select" will be "" 
+              */}
             <Select
                 label="Label"
                 nativeSelectProps={{
@@ -119,7 +122,7 @@ function MyComponent(){
                 ]}
                 placeholder="Select an option"
             />
-            {/* With a value pre selected*/}
+            {/* With a value pre selected ("bar") */}
             <Select
                 label="Label"
                 nativeSelectProps={{
@@ -191,16 +194,16 @@ export default meta;
 
 const defaultOptions = [
     {
-        value: "1",
-        label: "Option 1"
+        "value": "1",
+        "label": "Option 1"
     },
     {
-        value: "2",
-        label: "Option 2"
+        "value": "2",
+        "label": "Option 2"
     },
     {
-        value: "3",
-        label: "Option 3"
+        "value": "3",
+        "label": "Option 3"
     }
 ];
 
