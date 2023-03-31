@@ -34,7 +34,8 @@ export const MyComponent =(props: Props) => {
 	    className={className}
 <strong>	    style={{
 </strong><strong>	        "padding": fr.spacing("10v"),
-</strong><strong>	        "backgroundColor": theme.decisions.background.alt.blueFrance.active,
+</strong><strong>		//SEE: https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
+</strong><strong>	        "backgroundColor": theme.decisions.background.alt.blueFrance.active
 </strong><strong>	    }}
 </strong>	>
 	    &#x3C;span 
