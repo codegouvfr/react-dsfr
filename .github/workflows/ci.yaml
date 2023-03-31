@@ -38,7 +38,7 @@ jobs:
     - uses: bahmutov/npm-install@v1
     - run: yarn build
     - run: yarn test
-    - run: npx chromatic --exit-zero-on-changes
+    - run: npx chromatic --exit-zero-on-changes --ci --project-token c1fab2a84f78.
       env:
         CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 

@@ -22,8 +22,7 @@
         "format:check": "yarn _format --list-different",
         "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
         "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
-        "only-include-used-icons": "node dist/bin/only-include-used-icons.js",
-        "chromatic": "npx chromatic"
+        "only-include-used-icons": "node dist/bin/only-include-used-icons.js"
     },
     "bin": {
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
