@@ -2,6 +2,7 @@ import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { Table } from "@codegouvfr/react-dsfr/Table";
 
 const sideMenuItems = [
     {
@@ -104,6 +105,24 @@ export function Home() {
                 burgerMenuButtonText="Dans cette rubrique"
             />
 
+            <TableExample />
         </>
+    );
+}
+
+function TableExample() {
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
     );
 }

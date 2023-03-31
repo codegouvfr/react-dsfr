@@ -1,6 +1,7 @@
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
+import { Table } from "@codegouvfr/react-dsfr/Table";
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -29,6 +30,24 @@ export function Home() {
             <button onClick={() => setIsDark(false)}>Set color scheme to light</button>
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
+            <TableExample />
         </>
+    );
+}
+
+function TableExample() {
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
     );
 }
