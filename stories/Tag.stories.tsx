@@ -7,7 +7,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Tag },
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/tag)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tag.tsx)`,
     "argTypes": {
         "dismissible": {
