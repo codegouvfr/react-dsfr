@@ -1,3 +1,4 @@
+export * from "tss-react";
 import { useColors } from "./useColors";
 import { createMakeAndWithStyles } from "tss-react";
 
