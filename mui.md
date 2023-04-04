@@ -6,9 +6,9 @@ description: Use MUI components in your App or DSFRify your website build with M
 
 {% embed url="https://youtu.be/FDRsx3N0OmY" %}
 
-react-dsfr features a DSFR theme for MUI. This enables you to use the [large library of MUI components](https://mui.com/) in your website, they will blend in nicely. &#x20;
+react-dsfr features a DSFR theme for MUI. This enables you to use the [large library of MUI components](https://mui.com/) in your website, they will blend in nicely.
 
-First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach: &#x20;
+First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach:
 
 ```tsx
 import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
@@ -27,9 +27,9 @@ function App() {
 
 <summary>Custom variable in MUI theme</summary>
 
-If you have [custom variables](https://mui.com/material-ui/customization/theming/#custom-variables) in your MUI theme implement the following approach. &#x20;
+If you have [custom variables](https://mui.com/material-ui/customization/theming/#custom-variables) in your MUI theme implement the following approach.
 
-In this example we have augmented the MUI theme so it was possible to call `theme.custom.isDarkModeEnabled`. &#x20;
+In this example we have augmented the MUI theme so it was possible to call `theme.custom.isDarkModeEnabled`.
 
 ```tsx
 import { createMuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
@@ -67,15 +67,15 @@ function App() {
 
 </details>
 
-### Next.js: Improving first print&#x20;
+### Next.js: Improving first print
 
-In Next.js setup, on initial page load you may experience a few frames where MUI components aren't aware that the dark mode is enabled. &#x20;
+In Next.js setup, on initial page load you may experience a few frames where MUI components aren't aware that the dark mode is enabled.
 
 <figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption><p>Mui thinks we are in light mode</p></figcaption></figure>
 
 <figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption><p>After idratation it switches to dark mode</p></figcaption></figure>
 
-You can eradicate theses few frames on subsequent page load by telling Next.js to perform SSR in the correct color scheme for the user: &#x20;
+You can eradicate theses few frames on subsequent page load by telling Next.js to perform SSR in the correct color scheme for the user:
 
 <pre class="language-tsx" data-title="_app.tsx"><code class="lang-tsx">const { withDsfr, dsfrDocumentApi } = createNextDsfrIntegrationApi({
   defaultColorScheme: 'system',
@@ -83,12 +83,17 @@ You can eradicate theses few frames on subsequent page load by telling Next.js t
 </strong>});
 </code></pre>
 
-**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already opted out from static optimization. &#x20;
+**Be aware**: this will opt you out[ from Automatic Static Optimization](https://nextjs.org/docs/messages/opt-out-auto-static-optimization), every hit of your website will trigger a complete render on the backend, so **it probably isn't worth it** unless you have already opted out from static optimization.
 
 ### Setting up Next.js + MUI + react-dsfr
 
 {% hint style="warning" %}
-Be aware that the API have changed since this video was recorded.&#x20;
+Be aware that the API have changed since this video was recorded.
 {% endhint %}
 
 {% embed url="https://youtu.be/0n0S6PcyG28" %}
+
+{% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
+Reference Next.js setup
+{% endembed %}
+
