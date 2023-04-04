@@ -192,7 +192,7 @@ augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
 
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir).
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir)
 {% endtab %}
 
 {% tab title="Next.js AppDir" %}
