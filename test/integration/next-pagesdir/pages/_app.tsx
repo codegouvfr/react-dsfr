@@ -5,14 +5,10 @@ import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
-import { createMakeAndWithStyles } from "tss-react";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
+import { useStyles } from "@codegouvfr/react-dsfr/tss";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 
-const { useStyles } = createMakeAndWithStyles({
-    "useTheme": useColors
-});
 
 declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
