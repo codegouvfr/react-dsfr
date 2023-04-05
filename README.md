@@ -43,7 +43,21 @@ enable-pre-post-scripts=true
 ```
 {% endcode %}
 {% endtab %}
+
+{% tab title="Yarn Berry (a.k.a Yarn 3 or Yarn modern)" %}
+{% hint style="warning" %}
+When we say Yarn we usually refer to Yarn 1.x as most dev teams (Including me) havent upgraded to the newest version (for good reasons). &#x20;
+{% endhint %}
+
+If you want to use Yarn Berry you be aware that pre- post- scripts aren't supported. &#x20;
+
+So you must do something like `"dev": "copy-dsfr-to-public && next dev"` (same thing for `start`) &#x20;
+
+Also you must configure it so it uses `node_modules` (sorry)
+{% endtab %}
 {% endtabs %}
+
+
 
 {% tabs %}
 {% tab title="Create React App" %}
