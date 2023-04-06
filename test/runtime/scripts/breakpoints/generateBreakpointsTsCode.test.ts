@@ -45,13 +45,13 @@ it("Generation of TS code for breakpoints", () => {
 import { assert } from "tsafe/assert";
 import type { Extends } from "tsafe";
 
-export const breakpointValuesUnit = "em";
+export const BreakpointsValuesUnit = "em";
 
 export const breakpointKeys = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export type BreakpointKeys = typeof breakpointKeys[number];
 
-export const breakpointValues = {
+export const BreakpointsValues = {
     "xs": 0,
     "sm": 36,
     "md": 48,
@@ -59,7 +59,7 @@ export const breakpointValues = {
     "xl": 78
 } as const;
 
-assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();
+assert<Extends<typeof BreakpointsValues, Record<BreakpointKeys, number>>>();
 `.replace(/^\n/, "");
 
     const got = generateBreakpointsTsCode(input);

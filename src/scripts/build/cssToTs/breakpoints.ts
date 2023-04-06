@@ -143,7 +143,7 @@ export function generateBreakpointsTsCode(rawCssCode: string): string {
         `import { assert } from "tsafe/assert";`,
         `import type { Extends } from "tsafe";`,
         ``,
-        `export const breakpointValuesUnit = "em";`,
+        `export const BreakpointsValuesUnit = "em";`,
         ``,
         `export const breakpointKeys = ["xs", ${sortedKeys
             .map(key => `"${key}"`)
@@ -151,7 +151,7 @@ export function generateBreakpointsTsCode(rawCssCode: string): string {
         ``,
         `export type BreakpointKeys = typeof breakpointKeys[number];`,
         ``,
-        `export const breakpointValues = {`,
+        `export const BreakpointsValues = {`,
         JSON.stringify(
             Object.fromEntries(
                 (["xs", ...sortedKeys] as const).map(key => [
@@ -170,7 +170,7 @@ export function generateBreakpointsTsCode(rawCssCode: string): string {
             .join("\n"),
         `} as const;`,
         ``,
-        `assert<Extends<typeof breakpointValues, Record<BreakpointKeys, number>>>();`,
+        `assert<Extends<typeof BreakpointsValues, Record<BreakpointKeys, number>>>();`,
         ``
     ].join("\n");
 }
