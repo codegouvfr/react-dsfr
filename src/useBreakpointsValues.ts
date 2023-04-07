@@ -21,9 +21,7 @@ export function useBreakpointsValues() {
                     mutation =>
                         mutation.target === htmlElement &&
                         mutation.attributeName === "style" &&
-                        (assert(mutation.oldValue !== null), mutation.oldValue).indexOf(
-                            "font-size"
-                        ) !== -1
+                        (mutation.oldValue ?? "").indexOf("font-size") !== -1
                 ) !== undefined
             ) {
                 triggerRefresh();
