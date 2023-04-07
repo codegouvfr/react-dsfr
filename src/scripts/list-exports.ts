@@ -29,6 +29,7 @@ const newExports = {
     "./mui": "./dist/mui.js",
     "./tss": "./dist/tss.js",
     "./tools/cx": "./dist/tools/cx.js",
+    "./i18n": "./dist/i18n.js",
     "./dsfr/*": "./dsfr/*",
     "./blocks/*": "./dist/blocks/*",
     ...Object.fromEntries(
