@@ -58,6 +58,7 @@ export const MyComponent =(props: Props) => {
 {% embed url="https://tss-react.dev" %}
 
 ```bash
+# Deppendencies to install even if never user directly:  
 yarn add tss-react @emotion/react
 ```
 
@@ -84,11 +85,12 @@ export const MyComponent =(props: Props) => {
 
 };
 
-MyComponent.displayName = "MyComponent";
+MyComponent.displayName = MyComponent.name;
 
-const useStyles = makeStyles({ name: MyComponent.displayName })(theme => ({
+const useStyles = makeStyles({ name: MyComponent.name })(theme => ({
     root: {
         padding: fr.spacing("10v"),
+        //SEE: https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
 	backgroundColor: theme.decisions.background.active.redMarianne.default,
 	"&:hover": {
 	  //Rules that apply when the mouse is hover
@@ -104,10 +106,42 @@ const useStyles = makeStyles({ name: MyComponent.displayName })(theme => ({
 });
 ```
 
-{% hint style="info" %}
-Advantages of tss-react over others CSS in JS solutions
+You can also use TSS to apply global styles:
 
-* I'm the author of TSS, it automatically gets premium integration and support.
+```tsx
+// Some code
+import { GlobalStyles, useStyles } from "@codegouvfr/react-dsfr/tss";
+
+function App(){
+
+    const { theme }= useStyles();
+
+    return (
+        <>
+            <GlobalStyles
+                styles={{
+                    html: {
+                        overflowY: "scroll"
+                    },
+                    body: {
+                        margin: 0,
+                        borderWidth: 20,
+                        borderStyle: "solid",
+                        borderColor: theme.decisions.border.actionHigh.success.default
+                    }
+                }}
+            />
+            {/*...rest of the app...*/}
+        </>
+    );
+
+}
+```
+
+{% hint style="info" %}
+Advantages of tss-react over other CSS in JS solutions
+
+* I'm the author of TSS, it gets premium integration and support.
 * I made tss-react in coordination the MUI team. (TSS is documented in the MUI documentation [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react) and [here](https://mui.com/material-ui/guides/interoperability/#jss-tss)) so it works very well with it. Besides, getting MUI to correctly SSR in a Next.js setup is complicated ([see the reference repo](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript)). With the help of TSS, [it's much easier](https://docs.tss-react.dev/ssr/next.js#single-emotion-cache).
 {% endhint %}
 {% endtab %}
@@ -391,3 +425,46 @@ function MyComponent(){
 
 }
 ```
+
+### useBreakpointsValues()
+
+It returns the values in pixel of the different breakpoint ("xs", "md", "lg", "xl") based on the current root font size. &#x20;
+
+It can be used to do stuffs like this, geting the number of column of a responsive layout in JavaScript: &#x20;
+
+```tsx
+import { useBreakpointsValues } from "@codegouvfr/react-dsfr/useBreakpointsValues";
+import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
+
+function useColumnCount(){
+
+        const { breakpointsValues } = useBreakpointsValues();
+
+        const { windowInnerWidth } = useWindowInnerSize();
+
+        const columnCount = (() => {
+            if (windowInnerWidth < breakpointsValues.md) {
+                return 1;
+            }
+
+            if (windowInnerWidth < breakpointsValues.xl) {
+                return 2;
+            }
+
+            return 3;
+        })();
+        
+        return collumnCount;
+
+}
+```
+
+{% hint style="warning" %}
+Be carefull though, favor using `fr.breakpoints` over client size mesurement and computation. &#x20;
+
+On the backend you can't know ahead of time the size of the screen of your users so this kind of approach will result in a flickering in SSR setups. &#x20;
+
+For example, your backend has no clue the size of the device making the request so it renders for a 1080p screen but the device making the request was, in fact, an iPhone and the first print is fully broken, the app becomes usable only after hydratation. &#x20;
+
+Long story short, use this only if you are building an SPA. &#x20;
+{% endhint %}
