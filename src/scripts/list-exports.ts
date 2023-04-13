@@ -14,6 +14,7 @@ const srcDirPath = pathJoin(getProjectRoot(), "src");
 
 const newExports = {
     ".": `./${packageJsonParsed["module"]}`,
+    "./gdpr": "./dist/gdpr.js",
     "./spa": "./dist/spa.js",
     "./next-appdir": "./dist/next-appdir/index.js",
     ...Object.fromEntries(
