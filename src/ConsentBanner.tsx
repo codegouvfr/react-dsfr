@@ -1,13 +1,17 @@
 "use client";
 
 import React from "react";
-import { partition } from "lodash";
 import { type ElementType, type PropsWithChildren, useEffect, useState } from "react";
 
 import ButtonsGroup from "./ButtonsGroup";
 import { ConsentModal, consentModalButtonProps } from "./gdpr/ConsentModal";
 import { useGdprStore, useSetterStore } from "./gdpr/useGdprStore";
 import { GdprService } from "./gdpr/types";
+
+const partition = <T,>(arr: T[], criteria: (item: T) => boolean): [T[], T[]] => [
+    arr.filter(item => criteria(item)),
+    arr.filter(item => !criteria(item))
+];
 
 export interface ConsentBannerProps {
     gdprPageLink: string;
