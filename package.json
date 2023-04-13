@@ -160,6 +160,7 @@
         "./Footer": "./dist/Footer.js",
         "./Download": "./dist/Download.js",
         "./Display": "./dist/Display.js",
+        "./ConsentBanner": "./dist/ConsentBanner.js",
         "./Checkbox": "./dist/Checkbox.js",
         "./Card": "./dist/Card.js",
         "./CallOut": "./dist/CallOut.js",

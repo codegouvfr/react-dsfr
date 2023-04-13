@@ -6,6 +6,7 @@ import { isBrowser } from "../tools/isBrowser";
 import type { ColorScheme } from "../useIsDark";
 import { SsrIsDarkProvider } from "../useIsDark/server";
 import { dsfrEffect } from "./start";
+import { GdprProvider } from "../gdpr/GdprContext";
 
 export type DsfrProviderProps = {
     defaultColorScheme: ColorScheme | "system";
@@ -25,5 +26,9 @@ export function DsfrProvider(props: DsfrProviderProps) {
 
     const isDark = defaultColorScheme === "dark" ? true : false;
 
-    return <SsrIsDarkProvider value={isDark}>{children}</SsrIsDarkProvider>;
+    return (
+        <SsrIsDarkProvider value={isDark}>
+            <GdprProvider>{children}</GdprProvider>
+        </SsrIsDarkProvider>
+    );
 }
