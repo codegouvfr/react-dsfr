@@ -33,7 +33,7 @@ of \`name\` key of the \`options\` param object :
 
 **Eg.:**
 \`\`\`
-const { MyComponentModal, myComponentButtonProps } = createModal({
+const { MyComponentModal, myComponentModalButtonProps } = createModal({
     name: "myComponent", // The name of Modal component and modalButtonProps is compute from this string
     isOpenedByDefault: false
 });
