@@ -62,6 +62,7 @@ export type FooterProps = {
         >
     >;
     style?: CSSProperties;
+    linkList?: FooterProps.LinkList.List;
 };
 
 export namespace FooterProps {
@@ -85,6 +86,28 @@ export namespace FooterProps {
                 HTMLButtonElement
             >;
         };
+    }
+
+    export namespace LinkList {
+        export type List = [Column, Column?, Column?, Column?, Column?, Column?];
+        export type Links = [
+            LinkList.Link,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?
+        ];
+        export interface Column {
+            categoryName?: string;
+            links: Links;
+        }
+        export interface Link {
+            text: string;
+            linkProps: RegisteredLinkProps;
+        }
     }
 
     export type PartnersLogos = PartnersLogos.MainOnly | PartnersLogos.SubOnly;
@@ -128,6 +151,7 @@ export const Footer = memo(
             operatorLogo,
             license,
             style,
+            linkList,
             ...rest
         } = props;
 
@@ -148,6 +172,52 @@ export const Footer = memo(
                 style={style}
                 {...rest}
             >
+                {linkList !== undefined && (
+                    <div className={fr.cx("fr-footer__top")}>
+                        <div className={fr.cx("fr-container")}>
+                            <div
+                                className={fr.cx(
+                                    "fr-grid-row",
+                                    // "fr-grid-row--start", // why is this class used in dsfr doc?
+                                    "fr-grid-row--gutters"
+                                )}
+                            >
+                                {linkList.map(
+                                    column =>
+                                        column !== undefined && (
+                                            <div
+                                                className={fr.cx(
+                                                    "fr-col-12",
+                                                    "fr-col-sm-3",
+                                                    "fr-col-md-2"
+                                                )}
+                                            >
+                                                {column?.categoryName && (
+                                                    <h3 className={fr.cx("fr-footer__top-cat")}>
+                                                        {column?.categoryName}
+                                                    </h3>
+                                                )}
+                                                <ul className={fr.cx("fr-footer__top-list")}>
+                                                    {column?.links.map(linkItem => (
+                                                        <li>
+                                                            <Link
+                                                                {...linkItem?.linkProps}
+                                                                className={fr.cx(
+                                                                    "fr-footer__top-link"
+                                                                )}
+                                                            >
+                                                                {linkItem?.text}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div className={fr.cx("fr-container")}>
                     <div className={cx(fr.cx("fr-footer__body"), classes.body)}>
                         <div
