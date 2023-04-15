@@ -89,7 +89,7 @@ const Modal = memo(
                             <div className={fr.cx("fr-modal__body")}>
                                 <div className={fr.cx("fr-modal__header")}>
                                     <button
-                                        className={fr.cx("fr-link--close", "fr-link")}
+                                        className={fr.cx("fr-btn--close", "fr-btn")}
                                         title={t("close")}
                                         aria-controls={id}
                                     >

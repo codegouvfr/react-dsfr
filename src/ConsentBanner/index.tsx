@@ -1,13 +1,11 @@
-"use client";
-
 import React, { memo } from "react";
-import { useEffect, useState } from "react";
 
-import { useGdprStore } from "../useGdprStore";
 import { symToStr } from "tsafe/symToStr";
 import { createModal } from "../Modal";
-import { ConsentBannerContent, ConsentBannerContentProps } from "./ConsentBannerContent";
+import { ConsentBannerContentProps } from "./ConsentBannerContent";
 import { ConsentManager } from "./ConsentManager";
+import { ConsentBannerContentDisplayer } from "./ConsentBannerContentDisplayer";
+import { useTranslation } from "./i18n";
 
 const { ConsentModal, consentModalButtonProps } = createModal({
     name: "Consent",
@@ -18,32 +16,24 @@ export { consentModalButtonProps };
 
 export type ConsentBannerProps = Omit<ConsentBannerContentProps, "consentModalButtonProps">;
 
+// TODO handle sub finalities (https://www.systeme-de-design.gouv.fr/uploads/Capture_d_ecran_2021_03_24_a_17_45_33_8ba8e1fabb_1_1dd3309589.png)
 export const ConsentBanner = memo((props: ConsentBannerProps) => {
     const { gdprPageLink, services } = props;
-
-    const firstChoiceMade = useGdprStore(state => state.firstChoiceMade);
-    const __inited = useGdprStore(state => state.__inited);
-    const [stateFCM, setStateFCM] = useState(true);
-
-    useEffect(() => {
-        __inited && setStateFCM(firstChoiceMade);
-    }, [firstChoiceMade, __inited]);
+    const { t } = useTranslation();
 
     return (
         <>
-            <ConsentModal title="Panneau de gestion des cookies" size="large">
+            <ConsentModal title={t("consent modal title")} size="large">
                 <ConsentManager
                     gdprPageLink={gdprPageLink}
                     services={services}
                     consentModalButtonProps={consentModalButtonProps}
                 />
             </ConsentModal>
-            {!stateFCM && (
-                <ConsentBannerContent
-                    {...props}
-                    consentModalButtonProps={consentModalButtonProps}
-                />
-            )}
+            <ConsentBannerContentDisplayer
+                {...props}
+                consentModalButtonProps={consentModalButtonProps}
+            />
         </>
     );
 });

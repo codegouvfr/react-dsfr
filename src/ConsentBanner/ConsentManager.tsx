@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import ButtonsGroup from "../ButtonsGroup";
 import { fr } from "../fr";
@@ -5,6 +7,7 @@ import { GdprService } from "../gdpr";
 import { getLink } from "../link";
 import { useGdprStore } from "../useGdprStore";
 import { ConsentBannerContentProps } from "./ConsentBannerContent";
+import { useTranslation } from "./i18n";
 
 const partition = <T,>(arr: T[], criteria: (item: T) => boolean): [T[], T[]] => [
     arr.filter(item => criteria(item)),
@@ -22,6 +25,8 @@ export const ConsentManager = ({
     const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
     const consents = useGdprStore(state => state.consents);
     const [accepted, setAccepted] = useState<string[]>([]);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         setAccepted([
@@ -69,9 +74,9 @@ export const ConsentManager = ({
                         className={fr.cx("fr-consent-service__title")}
                         id="fr-consent-service__title"
                     >
-                        Préférences pour tous les services.
+                        {t("all services pref")}
                         <br />
-                        <Link href={gdprPageLink}>Données personnelles et cookies</Link>
+                        <Link href={gdprPageLink}>{t("personal data cookies")}</Link>
                     </legend>
                     <div className={fr.cx("fr-consent-service__radios")}>
                         <ButtonsGroup
@@ -80,13 +85,13 @@ export const ConsentManager = ({
                             buttons={[
                                 {
                                     onClick: () => accept(),
-                                    title: "Tout accepter",
-                                    children: "Tout accepter"
+                                    title: t("accept all"),
+                                    children: t("accept all")
                                 },
                                 {
                                     onClick: () => refuse(),
-                                    title: "Tout refuser",
-                                    children: "Tout refuser",
+                                    title: t("refuse all"),
+                                    children: t("refuse all"),
                                     priority: "secondary"
                                 }
                             ]}
@@ -119,7 +124,7 @@ export const ConsentManager = ({
                                     htmlFor={`consent-finality-${index}-accept`}
                                     className={fr.cx("fr-label")}
                                 >
-                                    Accepter
+                                    {t("accept")}
                                 </label>
                             </div>
                             <div className={fr.cx("fr-radio-group")}>
@@ -137,7 +142,7 @@ export const ConsentManager = ({
                                     htmlFor={`consent-finality-${index}-refuse`}
                                     className={fr.cx("fr-label")}
                                 >
-                                    Refuser
+                                    {t("refuse")}
                                 </label>
                             </div>
                         </div>
@@ -157,8 +162,8 @@ export const ConsentManager = ({
                 buttons={[
                     {
                         ...consentModalButtonProps,
-                        children: "Confirmer mes choix",
-                        title: "Confirmer mes choix",
+                        children: t("confirm choices"),
+                        title: t("confirm choices"),
                         onClick: () => confirm()
                     }
                 ]}

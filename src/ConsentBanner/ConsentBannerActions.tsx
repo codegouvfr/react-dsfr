@@ -6,6 +6,7 @@ import React from "react";
 import { useGdprStore } from "../useGdprStore";
 import { GdprService } from "../gdpr";
 import { ModalProps } from "../Modal";
+import { useTranslation } from "./i18n";
 
 export interface ConsentBannerActionsProps {
     services: GdprService[];
@@ -18,6 +19,9 @@ export const ConsentBannerActions = ({
 }: ConsentBannerActionsProps) => {
     const setConsent = useGdprStore(state => state.setConsent);
     const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
+
+    const { t } = useTranslation();
+
     const acceptAll = () => {
         services.forEach(service => {
             if (!service.mandatory) setConsent(service.name, true);
@@ -39,18 +43,18 @@ export const ConsentBannerActions = ({
             inlineLayoutWhen="sm and up"
             buttons={[
                 {
-                    children: "Tout accepter",
-                    title: "Autoriser tous les cookies",
+                    children: t("accept all"),
+                    title: t("accept all - title"),
                     onClick: () => acceptAll()
                 },
                 {
-                    children: "Tout refuser",
-                    title: "Refuser tous les cookies",
+                    children: t("refuse all"),
+                    title: t("refuse all - title"),
                     onClick: () => refuseAll()
                 },
                 {
-                    children: "Personnaliser",
-                    title: "Personnaliser les cookies",
+                    children: t("customize cookies"),
+                    title: t("customize cookies - title"),
                     priority: "secondary",
                     ...consentModalButtonProps
                 }
