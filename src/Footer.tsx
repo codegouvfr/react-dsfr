@@ -183,9 +183,10 @@ export const Footer = memo(
                                 )}
                             >
                                 {linkList.map(
-                                    column =>
+                                    (column, columnIndex) =>
                                         column !== undefined && (
                                             <div
+                                                key={`fr-footer__top-cat-${columnIndex}`}
                                                 className={fr.cx(
                                                     "fr-col-12",
                                                     "fr-col-sm-3",
@@ -198,18 +199,22 @@ export const Footer = memo(
                                                     </h3>
                                                 )}
                                                 <ul className={fr.cx("fr-footer__top-list")}>
-                                                    {column?.links.map(linkItem => (
-                                                        <li>
-                                                            <Link
-                                                                {...linkItem?.linkProps}
-                                                                className={fr.cx(
-                                                                    "fr-footer__top-link"
-                                                                )}
+                                                    {column?.links.map(
+                                                        (linkItem, linkItemIndex) => (
+                                                            <li
+                                                                key={`fr-footer__top-link-${linkItemIndex}`}
                                                             >
-                                                                {linkItem?.text}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
+                                                                <Link
+                                                                    {...linkItem?.linkProps}
+                                                                    className={fr.cx(
+                                                                        "fr-footer__top-link"
+                                                                    )}
+                                                                >
+                                                                    {linkItem?.text}
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    )}
                                                 </ul>
                                             </div>
                                         )
