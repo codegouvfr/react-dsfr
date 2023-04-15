@@ -15,6 +15,8 @@ export type TileProps = {
     desc?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
+    imageWidth?: string | number;
+    imageHeight?: string | number;
     grey?: boolean;
 
     /** make the whole tile clickable */
@@ -39,6 +41,8 @@ export const Tile = memo(
             desc,
             imageUrl,
             imageAlt,
+            imageWidth,
+            imageHeight,
             horizontal = false,
             grey = false,
             classes = {},
@@ -88,6 +92,8 @@ export const Tile = memo(
                             className={cx(fr.cx("fr-responsive-img"), classes.imgTag)}
                             src={imageUrl}
                             alt={imageAlt}
+                            width={imageWidth}
+                            height={imageHeight}
                         />
                     </div>
                 )) ||
