@@ -25,6 +25,7 @@ const newExports = {
     ),
     "./next-pagesdir": "./dist/next-pagesdir.js",
     "./useIsDark": "./dist/useIsDark/index.js",
+    "./useGdprStore": "./dist/useGdprStore.js",
     "./useColors": "./dist/useColors.js",
     "./useBreakpointsValues": "./dist/useBreakpointsValues.js",
     "./mui": "./dist/mui.js",

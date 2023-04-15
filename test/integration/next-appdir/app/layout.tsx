@@ -12,7 +12,6 @@ import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from 'next/link';
-import "@codegouvfr/react-dsfr/gdpr";
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 

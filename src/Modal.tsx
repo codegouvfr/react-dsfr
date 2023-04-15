@@ -31,6 +31,8 @@ export namespace ModalProps {
         /** Default: true */
         doClosesModal?: boolean;
     };
+
+    export type ModalButtonProps = Pick<ButtonProps, "onClick" | "nativeButtonProps">;
 }
 
 const Modal = memo(
@@ -188,7 +190,10 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-function createOpenModalButtonProps(params: { modalId: string; isOpenedByDefault: boolean }) {
+function createOpenModalButtonProps(params: {
+    modalId: string;
+    isOpenedByDefault: boolean;
+}): ModalProps.ModalButtonProps {
     const { modalId, isOpenedByDefault } = params;
 
     return {
@@ -207,7 +212,7 @@ let counter = 0;
 export function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ReturnType<typeof createOpenModalButtonProps>> &
+}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
     Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> {
     const { name, isOpenedByDefault } = params;
 

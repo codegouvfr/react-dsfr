@@ -1,114 +1,24 @@
-"use client";
-
-import React from "react";
-import { type ElementType, type PropsWithChildren, useEffect, useState } from "react";
-
-import ButtonsGroup from "./ButtonsGroup";
-import { ConsentModal, consentModalButtonProps } from "./gdpr/ConsentModal";
-import { useGdprStore, useSetterStore } from "./gdpr/useGdprStore";
-import { GdprService } from "./gdpr/types";
+import React, { useState, useEffect } from "react";
+import ButtonsGroup from "../ButtonsGroup";
+import { fr } from "../fr";
+import { GdprService } from "../gdpr";
+import { useGdprStore } from "../useGdprStore";
+import { ConsentBannerContentProps } from "./ConsentBannerContent";
 
 const partition = <T,>(arr: T[], criteria: (item: T) => boolean): [T[], T[]] => [
     arr.filter(item => criteria(item)),
     arr.filter(item => !criteria(item))
 ];
 
-export interface ConsentBannerProps {
-    gdprPageLink: string;
-    gdprPageLinkAs?: ElementType<PropsWithChildren<{ href: any }>> | string;
-    services: GdprService[];
-    siteName: string;
-}
-
-export const ConsentBanner = ({
-    gdprPageLink,
-    gdprPageLinkAs: GdprPageLinkAs = "a",
-    siteName,
-    services
-}: ConsentBannerProps) => {
-    const { setConsent, setFirstChoiceMade } = useSetterStore();
-    const [stateFCM, setStateFCM] = useState(true);
-    const firstChoiceMade = useGdprStore(state => state.firstChoiceMade);
-
-    const acceptAll = () => {
-        services.forEach(service => {
-            if (!service.mandatory) setConsent(service.name, true);
-        });
-        setFirstChoiceMade();
-    };
-
-    const refuseAll = () => {
-        services.forEach(service => {
-            if (!service.mandatory) setConsent(service.name, false);
-        });
-        setFirstChoiceMade();
-    };
-
-    useEffect(() => {
-        setStateFCM(firstChoiceMade);
-    }, [firstChoiceMade]);
-
-    return (
-        <>
-            <ConsentModal title="Panneau de gestion des cookies" size="large">
-                <ConsentManager
-                    gdprPageLink={gdprPageLink}
-                    gdprPageLinkAs={GdprPageLinkAs}
-                    services={services}
-                />
-            </ConsentModal>
-            {!stateFCM && (
-                <div className="fr-consent-banner">
-                    <h2 className="fr-h6">À propos des cookies sur {siteName}</h2>
-                    <div className="fr-consent-banner__content">
-                        <p className="fr-text--sm">
-                            Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience
-                            et les services disponibles sur ce site. Pour en savoir plus, visitez la
-                            page{" "}
-                            <GdprPageLinkAs href={gdprPageLink}>
-                                Données personnelles et cookies
-                            </GdprPageLinkAs>
-                            . Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous
-                            souhaitez activer.
-                        </p>
-                    </div>
-                    <ButtonsGroup
-                        className="fr-consent-banner__buttons"
-                        alignment="right"
-                        isReverseOrder
-                        inlineLayoutWhen="sm and up"
-                        buttons={[
-                            {
-                                children: "Tout accepter",
-                                title: "Autoriser tous les cookies",
-                                onClick: () => acceptAll()
-                            },
-                            {
-                                children: "Tout refuser",
-                                title: "Refuser tous les cookies",
-                                onClick: () => refuseAll()
-                            },
-                            {
-                                children: "Personnaliser",
-                                title: "Personnaliser les cookies",
-                                priority: "secondary",
-                                ...consentModalButtonProps
-                            }
-                        ]}
-                    />
-                </div>
-            )}
-        </>
-    );
-};
-
-type ConsentManagerProps = Required<Omit<ConsentBannerProps, "siteName">>;
-const ConsentManager = ({
+type ConsentManagerProps = Required<Omit<ConsentBannerContentProps, "siteName">>;
+export const ConsentManager = ({
     gdprPageLink,
     services,
-    gdprPageLinkAs: GdprPageLinkAs
+    gdprPageLinkAs: GdprPageLinkAs,
+    consentModalButtonProps
 }: ConsentManagerProps) => {
-    const { setConsent, setFirstChoiceMade } = useSetterStore();
+    const setConsent = useGdprStore(state => state.setConsent);
+    const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
     const consents = useGdprStore(state => state.consents);
     const [accepted, setAccepted] = useState<string[]>([]);
 
@@ -121,7 +31,6 @@ const ConsentManager = ({
     }, [consents]);
 
     const accept = (service?: GdprService) => {
-        console.info("GDPR accept", service?.name ?? "all services");
         if (service && !service.mandatory && !accepted.includes(service.name)) {
             return setAccepted([...accepted, service.name]);
         }
@@ -133,7 +42,6 @@ const ConsentManager = ({
     };
 
     const refuse = (service?: GdprService) => {
-        console.info("GDPR refuse", service?.name ?? "all services");
         if (service && !service.mandatory && accepted.includes(service.name))
             return setAccepted(accepted.filter(name => service.name !== name));
 
@@ -151,16 +59,22 @@ const ConsentManager = ({
 
     return (
         <div className="fr-consent-manager">
-            <div className="fr-consent-service fr-consent-manager__header">
-                <fieldset className="fr-fieldset fr-fieldset--inline">
-                    <legend className="fr-consent-service__title">
+            <div className={fr.cx("fr-consent-service", "fr-consent-manager__header")}>
+                <fieldset
+                    className={fr.cx("fr-fieldset", "fr-fieldset--inline")}
+                    aria-describedby="fr-consent-service__title"
+                >
+                    <legend
+                        className={fr.cx("fr-consent-service__title")}
+                        id="fr-consent-service__title"
+                    >
                         Préférences pour tous les services.
                         <br />
                         <GdprPageLinkAs href={gdprPageLink}>
                             Données personnelles et cookies
                         </GdprPageLinkAs>
                     </legend>
-                    <div className="fr-consent-service__radios">
+                    <div className={fr.cx("fr-consent-service__radios")}>
                         <ButtonsGroup
                             inlineLayoutWhen="always"
                             alignment="right"
@@ -182,16 +96,16 @@ const ConsentManager = ({
                 </fieldset>
             </div>
             {services.map((service, index) => (
-                <div className="fr-consent-service" key={`consent-service-${index}`}>
-                    <fieldset className="fr-fieldset fr-fieldset--inline">
+                <div className={fr.cx("fr-consent-service")} key={`consent-service-${index}`}>
+                    <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
                         <legend
                             aria-describedby={`finality-${index}-desc`}
-                            className="fr-consent-service__title"
+                            className={fr.cx("fr-consent-service__title")}
                         >
                             {service.title}
                         </legend>
-                        <div className="fr-consent-service__radios">
-                            <div className="fr-radio-group">
+                        <div className={fr.cx("fr-consent-service__radios")}>
+                            <div className={fr.cx("fr-radio-group")}>
                                 <input
                                     type="radio"
                                     id={`consent-finality-${index}-accept`}
@@ -204,12 +118,12 @@ const ConsentManager = ({
                                 />
                                 <label
                                     htmlFor={`consent-finality-${index}-accept`}
-                                    className="fr-label"
+                                    className={fr.cx("fr-label")}
                                 >
                                     Accepter
                                 </label>
                             </div>
-                            <div className="fr-radio-group">
+                            <div className={fr.cx("fr-radio-group")}>
                                 <input
                                     {...(service.mandatory
                                         ? { disabled: true, checked: false }
@@ -222,20 +136,23 @@ const ConsentManager = ({
                                 />
                                 <label
                                     htmlFor={`consent-finality-${index}-refuse`}
-                                    className="fr-label"
+                                    className={fr.cx("fr-label")}
                                 >
                                     Refuser
                                 </label>
                             </div>
                         </div>
-                        <p id={`finality-${index}-desc`} className="fr-consent-service__desc">
+                        <p
+                            id={`finality-${index}-desc`}
+                            className={fr.cx("fr-consent-service__desc")}
+                        >
                             {service.description}
                         </p>
                     </fieldset>
                 </div>
             ))}
             <ButtonsGroup
-                className="fr-consent-manager__buttons"
+                className={fr.cx("fr-consent-manager__buttons")}
                 alignment="right"
                 inlineLayoutWhen="sm and up"
                 buttons={[
