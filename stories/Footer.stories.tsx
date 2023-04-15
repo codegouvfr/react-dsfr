@@ -56,6 +56,9 @@ const { meta, getStory } = getStoryFactory({
         "license": {
             "description":
                 "By default it's Etalab v2. [You can provide a custom React node](#with-custom-license)"
+        },
+        "linkList": {
+            "controls": { "type": null }
         }
     }
 });
@@ -291,4 +294,37 @@ export const WithSubPartnersOnly = getStory({
             }
         ]
     }
+});
+
+const links = new Array(8).fill({
+    text: "Lien de navigation",
+    linkProps: { href: "#" }
+}) as FooterProps.LinkList.Links;
+const linkList = new Array(6).fill({
+    categoryName: "Nom de la catégorie",
+    links
+}) as FooterProps.LinkList.List;
+
+export const WithLinkList = getStory({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "accessibility": "fully compliant",
+    "contentDescription": `
+    Ce message est à remplacer par les informations de votre site.
+
+    Comme exemple de contenu, vous pouvez indiquer les informations 
+    suivantes : Le site officiel d’information administrative pour les entreprises.
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+    à la gestion et au développement de votre entreprise.
+    `,
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    linkList
 });
