@@ -1,15 +1,11 @@
-type UnknownMapping = string & {
-    _?: never & symbol;
-};
-
 /**
- * format: `<serviceName>: <isMandatory>`
+ * format: `<serviceName>: never`
  * @example
  * ```ts
  * declare module "@codegouvfr/react-dsfr/gdpr" {
  *   interface RegisterGdprServices {
- *     matomo: true;
- *     youtube: false;
+ *     matomo: never;
+ *     youtube: never;
  *   }
  * }
  * ```
@@ -18,12 +14,20 @@ type UnknownMapping = string & {
 export interface RegisterGdprServices {}
 export type GdprServiceName = keyof RegisterGdprServices extends never
     ? string
-    : keyof RegisterGdprServices | UnknownMapping;
+    :
+          | keyof RegisterGdprServices
+          | (string & {
+                _?: never & symbol;
+            });
 export type Consents = Record<GdprServiceName, boolean | undefined>;
 
 export interface GdprService {
+    /** Will be displayed in consent modal. */
     description: string;
+    /** If true, consent for this service will always be true and not switchable. */
     mandatory?: boolean;
+    /** Technical name. Not displayed. */
     name: GdprServiceName;
+    /** Displayed name. */
     title: string;
 }

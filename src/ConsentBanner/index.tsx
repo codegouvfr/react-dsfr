@@ -19,7 +19,7 @@ export { consentModalButtonProps };
 export type ConsentBannerProps = Omit<ConsentBannerContentProps, "consentModalButtonProps">;
 
 export const ConsentBanner = memo((props: ConsentBannerProps) => {
-    const { gdprPageLink, gdprPageLinkAs: GdprPageLinkAs = "a", services } = props;
+    const { gdprPageLink, services } = props;
 
     const firstChoiceMade = useGdprStore(state => state.firstChoiceMade);
     const __inited = useGdprStore(state => state.__inited);
@@ -34,7 +34,6 @@ export const ConsentBanner = memo((props: ConsentBannerProps) => {
             <ConsentModal title="Panneau de gestion des cookies" size="large">
                 <ConsentManager
                     gdprPageLink={gdprPageLink}
-                    gdprPageLinkAs={GdprPageLinkAs}
                     services={services}
                     consentModalButtonProps={consentModalButtonProps}
                 />

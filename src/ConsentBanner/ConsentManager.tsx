@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ButtonsGroup from "../ButtonsGroup";
 import { fr } from "../fr";
 import { GdprService } from "../gdpr";
+import { getLink } from "../link";
 import { useGdprStore } from "../useGdprStore";
 import { ConsentBannerContentProps } from "./ConsentBannerContent";
 
@@ -14,9 +15,9 @@ type ConsentManagerProps = Required<Omit<ConsentBannerContentProps, "siteName">>
 export const ConsentManager = ({
     gdprPageLink,
     services,
-    gdprPageLinkAs: GdprPageLinkAs,
     consentModalButtonProps
 }: ConsentManagerProps) => {
+    const { Link } = getLink();
     const setConsent = useGdprStore(state => state.setConsent);
     const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
     const consents = useGdprStore(state => state.consents);
@@ -70,9 +71,7 @@ export const ConsentManager = ({
                     >
                         Préférences pour tous les services.
                         <br />
-                        <GdprPageLinkAs href={gdprPageLink}>
-                            Données personnelles et cookies
-                        </GdprPageLinkAs>
+                        <Link href={gdprPageLink}>Données personnelles et cookies</Link>
                     </legend>
                     <div className={fr.cx("fr-consent-service__radios")}>
                         <ButtonsGroup

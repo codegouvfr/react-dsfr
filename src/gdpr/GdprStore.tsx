@@ -33,7 +33,6 @@ export const GdprStoreProvider = ({ children }: PropsWithChildren) => {
     const [__inited, setInited] = useState(defaultStore.__inited);
 
     const setConsentImpl: GdprStore["setConsent"] = (serviceName, consent) => {
-        console.log("In provider setConsent", consents, serviceName, consent);
         setConsents({ ...consents, [serviceName]: consent });
     };
 

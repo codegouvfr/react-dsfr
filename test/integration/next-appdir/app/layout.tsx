@@ -54,7 +54,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				}}
 			>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
-					<ConsentBanner gdprPageLinkAs={Link} gdprPageLink="/mui" siteName='Next Test App' services={[
+					<ConsentBanner gdprPageLink="/mui" siteName='Next Test App' services={[
 						{
 							name: "matomo",
 							title: "Matomo",
