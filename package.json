@@ -121,7 +121,7 @@
     "module": "dist/fr/index.js",
     "exports": {
         ".": "./dist/fr/index.js",
-        "./gdpr": "./dist/gdpr.js",
+        "./gdpr": "./dist/gdpr/index.js",
         "./spa": "./dist/spa.js",
         "./next-appdir": "./dist/next-appdir/index.js",
         "./next-appdir/DsfrHead": "./dist/next-appdir/DsfrHead.js",

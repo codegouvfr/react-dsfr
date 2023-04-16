@@ -60,73 +60,75 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <div
-            style={{
-                "height": "100vh",
-                "display": "flex",
-                "flexDirection": "column"
-            }}
-        >
+        <>
             <ConsentBanner gdprPageLink="/mui" siteName='Next Test App' services={[
-                {
-                    name: "matomo",
-                    title: "Matomo",
-                    description: "User tracking",
-                }
-            ]} />
-            <Header
-                brandTop={brandTop}
-                serviceTitle="Nom du site / service"
-                homeLinkProps={homeLinkProps}
-                navigation={[
                     {
-                        "text": "Home",
-                        "linkProps": {
-                            "href": "/"
-                        },
-                        "isActive": router.asPath === "/"
-                    },
-                    {
-                        "text": "Mui playground",
-                        "linkProps": {
-                            "href": "/mui"
-                        },
-                        "isActive": router.asPath === "/mui"
-                    },
-                    {
-                        "text": "External link",
-                        "linkProps": {
-                            "href": "https://example.com"
-                        }
+                        name: "matomo",
+                        title: "Matomo",
+                        description: "User tracking",
                     }
-                ]}
-                quickAccessItems={[headerFooterDisplayItem]}
-            />
-            <div className={css({
-                "flex": 1,
-                "margin": "auto",
-                "maxWidth": 1000,
-                ...fr.spacing("padding", {
-                    "topBottom": "10v"
-                })
-            })}>
-                <Component {...pageProps} />
+                ]} />
+            <div
+                style={{
+                    "height": "100vh",
+                    "display": "flex",
+                    "flexDirection": "column"
+                }}
+            >
+                <Header
+                    brandTop={brandTop}
+                    serviceTitle="Nom du site / service"
+                    homeLinkProps={homeLinkProps}
+                    navigation={[
+                        {
+                            "text": "Home",
+                            "linkProps": {
+                                "href": "/"
+                            },
+                            "isActive": router.asPath === "/"
+                        },
+                        {
+                            "text": "Mui playground",
+                            "linkProps": {
+                                "href": "/mui"
+                            },
+                            "isActive": router.asPath === "/mui"
+                        },
+                        {
+                            "text": "External link",
+                            "linkProps": {
+                                "href": "https://example.com"
+                            }
+                        }
+                    ]}
+                    quickAccessItems={[headerFooterDisplayItem]}
+                />
+                <div className={css({
+                    "flex": 1,
+                    "margin": "auto",
+                    "maxWidth": 1000,
+                    ...fr.spacing("padding", {
+                        "topBottom": "10v"
+                    })
+                })}>
+                    <Component {...pageProps} />
+                </div>
+                <Footer
+                    brandTop={brandTop}
+                    accessibility="fully compliant"
+                    contentDescription={`
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+                        eu fugiat nulla pariatur. 
+                    `}
+                    homeLinkProps={homeLinkProps}
+                    bottomItems={[headerFooterDisplayItem]}
+                />
+                <Display />
             </div>
-            <Footer
-                brandTop={brandTop}
-                accessibility="fully compliant"
-                contentDescription={`
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-                    eu fugiat nulla pariatur. 
-                `}
-                homeLinkProps={homeLinkProps}
-                bottomItems={[headerFooterDisplayItem]}
-            />
-            <Display />
-        </div>
+        </>
     );
 }
 
