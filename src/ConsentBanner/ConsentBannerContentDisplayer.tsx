@@ -2,17 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import { useGdprStore } from "../useGdprStore";
-import { ConsentBannerContent, ConsentBannerContentProps } from "./ConsentBannerContent";
+import { ConsentBannerContent, type ConsentBannerContentProps } from "./ConsentBannerContent";
 
-export const ConsentBannerContentDisplayer = (props: ConsentBannerContentProps) => {
+export function ConsentBannerContentDisplayer(props: ConsentBannerContentProps) {
     const firstChoiceMade = useGdprStore(state => state.firstChoiceMade);
     const __inited = useGdprStore(state => state.__inited);
-    const [stateFCM, setStateFCM] = useState(true);
+    const [isFCM, setIsFCM] = useState(true);
 
     useEffect(() => {
-        __inited && setStateFCM(firstChoiceMade);
+        if (!__inited) return;
+        setIsFCM(firstChoiceMade);
     }, [firstChoiceMade, __inited]);
 
-    if (stateFCM) return null;
+    if (isFCM) return null;
     return <ConsentBannerContent {...props} />;
-};
+}

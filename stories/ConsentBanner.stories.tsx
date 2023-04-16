@@ -41,7 +41,8 @@ function App(){
         <>
             {/* must be on root level */}
             <ConsentBanner
-                gdprPageLink="#"
+                {/* depending on your registered Link */}
+                gdprLinkProps={{href: "#"}}
                 services={[
                     {
                         name: "mandatory-cookie-consumer",
@@ -70,7 +71,7 @@ function App(){
 \`\`\`
 `,
     argTypes: {
-        gdprPageLink: {
+        gdprLinkProps: {
             description: "Usually the same as FooterProps.personalDataLinkProps"
         },
         siteName: {
@@ -99,7 +100,7 @@ function Story(props: ConsentBannerProps) {
 }
 
 export const Default = getStory({
-    gdprPageLink: "#",
+    gdprLinkProps: { href: "#" },
     services: [
         {
             name: "mandatory-cookie-consumer",

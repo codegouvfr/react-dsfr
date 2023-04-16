@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { GdprStoreContext, GdprStore } from "./gdpr/GdprStore";
+import { GdprStoreContext, type GdprStore } from "./gdpr/GdprStore";
 
 /**
  * Zustand like store based on ReactContext. See {@link GdprStore} for store content.

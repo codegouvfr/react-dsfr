@@ -1,25 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ButtonsGroup from "../ButtonsGroup";
+import { ButtonsGroup } from "../ButtonsGroup";
 import { fr } from "../fr";
-import { GdprService } from "../gdpr";
+import { type GdprService } from "../gdpr";
 import { getLink } from "../link";
+import { partition } from "../tools/partition";
 import { useGdprStore } from "../useGdprStore";
-import { ConsentBannerContentProps } from "./ConsentBannerContent";
+import { type ConsentBannerContentProps } from "./ConsentBannerContent";
 import { useTranslation } from "./i18n";
 
-const partition = <T,>(arr: T[], criteria: (item: T) => boolean): [T[], T[]] => [
-    arr.filter(item => criteria(item)),
-    arr.filter(item => !criteria(item))
-];
-
-type ConsentManagerProps = Required<Omit<ConsentBannerContentProps, "siteName">>;
-export const ConsentManager = ({
-    gdprPageLink,
+export type ConsentManagerProps = Required<Omit<ConsentBannerContentProps, "siteName">>;
+export function ConsentManager({
+    gdprLinkProps,
     services,
     consentModalButtonProps
-}: ConsentManagerProps) => {
+}: ConsentManagerProps) {
     const { Link } = getLink();
     const setConsent = useGdprStore(state => state.setConsent);
     const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
@@ -76,7 +72,7 @@ export const ConsentManager = ({
                     >
                         {t("all services pref")}
                         <br />
-                        <Link href={gdprPageLink}>{t("personal data cookies")}</Link>
+                        <Link {...gdprLinkProps}>{t("personal data cookies")}</Link>
                     </legend>
                     <div className={fr.cx("fr-consent-service__radios")}>
                         <ButtonsGroup
@@ -170,4 +166,4 @@ export const ConsentManager = ({
             />
         </div>
     );
-};
+}

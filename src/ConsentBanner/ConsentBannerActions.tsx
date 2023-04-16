@@ -4,8 +4,8 @@ import { ButtonsGroup } from "../ButtonsGroup";
 import { fr } from "../fr";
 import React from "react";
 import { useGdprStore } from "../useGdprStore";
-import { GdprService } from "../gdpr";
-import { ModalProps } from "../Modal";
+import { type GdprService } from "../gdpr";
+import { type ModalProps } from "../Modal";
 import { useTranslation } from "./i18n";
 
 export interface ConsentBannerActionsProps {
@@ -13,10 +13,10 @@ export interface ConsentBannerActionsProps {
     consentModalButtonProps: ModalProps.ModalButtonProps;
 }
 
-export const ConsentBannerActions = ({
+export function ConsentBannerActions({
     services,
     consentModalButtonProps
-}: ConsentBannerActionsProps) => {
+}: ConsentBannerActionsProps) {
     const setConsent = useGdprStore(state => state.setConsent);
     const setFirstChoiceMade = useGdprStore(state => state.setFirstChoiceMade);
 
@@ -61,4 +61,4 @@ export const ConsentBannerActions = ({
             ]}
         />
     );
-};
+}

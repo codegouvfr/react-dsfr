@@ -44,7 +44,7 @@ function Root() {
 
     return (
         <GdprStoreProvider>
-            <ConsentBanner gdprPageLink="/mui" siteName='Next Test App' services={[
+            <ConsentBanner gdprLinkProps={{to: "/mui"}} siteName='Next Test App' services={[
                 {
                     name: "matomo",
                     title: "Matomo",

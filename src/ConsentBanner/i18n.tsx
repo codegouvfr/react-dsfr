@@ -1,6 +1,6 @@
 import { createComponentI18nApi } from "../i18n";
 import React from "react";
-import { getLink } from "../link";
+import { getLink, type RegisteredLinkProps } from "../link";
 
 export const { useTranslation, addConsentBannerTranslations } = createComponentI18nApi({
     componentName: "ConsentBanner",
@@ -15,13 +15,13 @@ export const { useTranslation, addConsentBannerTranslations } = createComponentI
         "refuse": "Refuser",
         "confirm choices": "Confirmer mes choix",
         "about cookies": (p: { siteName: string }) => `À propos des cookies sur ${p.siteName}`,
-        "welcome message": (p: { gdprPageLink: string }) => {
+        "welcome message": (p: { gdprLinkProps: RegisteredLinkProps }) => {
             const { Link } = getLink();
             return (
                 <>
                     Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et les
                     services disponibles sur ce site. Pour en savoir plus, visitez la page{" "}
-                    <Link href={p.gdprPageLink}>Données personnelles et cookies</Link>. Vous pouvez,
+                    <Link {...p.gdprLinkProps}>Données personnelles et cookies</Link>. Vous pouvez,
                     à tout moment, avoir le contrôle sur les cookies que vous souhaitez activer.
                 </>
             );
@@ -44,14 +44,14 @@ addConsentBannerTranslations({
         "accept": "Accept",
         "refuse": "Refuse",
         "confirm choices": "Confirm my choices",
-        "about cookies": (p: { siteName: string }) => `About cookies on ${p.siteName}`,
-        "welcome message": (p: { gdprPageLink: string }) => {
+        "about cookies": p => `About cookies on ${p.siteName}`,
+        "welcome message": p => {
             const { Link } = getLink();
             return (
                 <>
                     Welcome to our website! We use cookies to improve your experience and the
                     services available services available on this site. To learn more, visit the{" "}
-                    <Link href={p.gdprPageLink}>"Personal Data and Cookies"</Link> page. You can, at
+                    <Link {...p.gdprLinkProps}>"Personal Data and Cookies"</Link> page. You can, at
                     any time, have control over which cookies you wish to enable at any time.
                 </>
             );

@@ -1,23 +1,24 @@
 import React from "react";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
-import { FooterProps } from "../Footer";
+import { type FooterProps } from "../Footer";
 import { fr } from "../fr";
-import { ConsentBannerActions, ConsentBannerActionsProps } from "./ConsentBannerActions";
+import { type RegisteredLinkProps } from "../link";
+import { ConsentBannerActions, type ConsentBannerActionsProps } from "./ConsentBannerActions";
 import { useTranslation } from "./i18n";
 
 export interface ConsentBannerContentProps extends ConsentBannerActionsProps {
     /** Usually the same as {@link FooterProps.personalDataLinkProps} */
-    gdprPageLink: string;
+    gdprLinkProps: RegisteredLinkProps;
     /** Current website name */
     siteName: string;
 }
 
-export const ConsentBannerContent = ({
-    gdprPageLink,
+export function ConsentBannerContent({
+    gdprLinkProps,
     siteName,
     services,
     consentModalButtonProps
-}: ConsentBannerContentProps) => {
+}: ConsentBannerContentProps) {
     const { t } = useTranslation();
     return (
         <div className={fr.cx("fr-consent-banner")}>
@@ -25,7 +26,7 @@ export const ConsentBannerContent = ({
             <div className="fr-consent-banner__content">
                 <p className="fr-text--sm">
                     {t("welcome message", {
-                        gdprPageLink
+                        gdprLinkProps
                     })}
                 </p>
             </div>
@@ -35,4 +36,4 @@ export const ConsentBannerContent = ({
             />
         </div>
     );
-};
+}
