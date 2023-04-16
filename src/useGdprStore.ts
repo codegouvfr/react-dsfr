@@ -3,6 +3,9 @@
 import { useContext } from "react";
 import { GdprStoreContext, GdprStore } from "./gdpr/GdprStore";
 
+/**
+ * Zustand like store based on ReactContext. See {@link GdprStore} for store content.
+ */
 export function useGdprStore(): GdprStore;
 export function useGdprStore<T extends GdprStore[keyof GdprStore]>(
     slice: (state: GdprStore) => T

@@ -16,6 +16,7 @@ export { consentModalButtonProps };
 
 export type ConsentBannerProps = Omit<ConsentBannerContentProps, "consentModalButtonProps">;
 
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-consentbanner> */
 // TODO handle sub finalities (https://www.systeme-de-design.gouv.fr/uploads/Capture_d_ecran_2021_03_24_a_17_45_33_8ba8e1fabb_1_1dd3309589.png)
 export const ConsentBanner = memo((props: ConsentBannerProps) => {
     const { gdprPageLink, services } = props;

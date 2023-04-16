@@ -9,6 +9,7 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
+import { ModalProps } from "./Modal";
 
 export type FooterProps = {
     className?: string;
@@ -20,6 +21,7 @@ export type FooterProps = {
     termsLinkProps?: RegisteredLinkProps;
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
+    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
@@ -146,6 +148,7 @@ export const Footer = memo(
             termsLinkProps,
             personalDataLinkProps,
             cookiesManagementLinkProps,
+            cookiesManagementButtonProps,
             bottomItems = [],
             partnersLogos,
             operatorLogo,
@@ -418,12 +421,23 @@ export const Footer = memo(
                                               "linkProps": personalDataLinkProps
                                           })
                                       ]),
-                                ...(cookiesManagementLinkProps === undefined
-                                    ? []
+                                ...(cookiesManagementButtonProps === undefined
+                                    ? // one or the other, but not both. Priority to button for consent modal control.
+                                      cookiesManagementLinkProps === undefined
+                                        ? []
+                                        : [
+                                              id<FooterProps.BottomItem>({
+                                                  "text": t("cookies management"),
+                                                  "linkProps": cookiesManagementLinkProps
+                                              })
+                                          ]
                                     : [
                                           id<FooterProps.BottomItem>({
                                               "text": t("cookies management"),
-                                              "linkProps": cookiesManagementLinkProps
+                                              "buttonProps": {
+                                                  onClick: cookiesManagementButtonProps.onClick,
+                                                  ...cookiesManagementButtonProps.nativeButtonProps
+                                              }
                                           })
                                       ]),
                                 ...bottomItems
