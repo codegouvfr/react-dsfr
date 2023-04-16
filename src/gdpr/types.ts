@@ -1,16 +1,19 @@
 /**
  * format: `<serviceName>: never`
+ *
+ * The value can be anything (or `never`), but you can set `true`
+ * as a reminder that this service is mandatory.
  * @example
  * ```ts
  * declare module "@codegouvfr/react-dsfr/gdpr" {
  *   interface RegisterGdprServices {
- *     matomo: never;
+ *     matomo: true;
  *     youtube: never;
  *   }
  * }
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- for later augment
 export interface RegisterGdprServices {}
 export type GdprServiceName = keyof RegisterGdprServices extends never
     ? string

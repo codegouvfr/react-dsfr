@@ -25,6 +25,16 @@ the consent state.
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { ConsentBanner, consentModalButtonProps } from "@codegouvfr/react-dsfr/ConsentBanner";
 
+// You can augment the service registry to have autocomplete when using useGdprStore
+declare module "@codegouvfr/react-dsfr/gdpr" {
+    interface RegisterGdprServices {
+        // the value can be anything (or never), but you can set true
+        // as a reminder that this service is mandatory
+        mandatory-cookie-consumer: true;
+        cookie-consumer: never;
+    }
+}
+
 function App(){
 
     return (

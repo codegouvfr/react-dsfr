@@ -11,7 +11,6 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
-import Link from 'next/link';
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
@@ -19,7 +18,7 @@ const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (mini
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
     interface RegisterGdprServices { 
-        matomo: true;
+        matomo: never;
     }
 }
 
