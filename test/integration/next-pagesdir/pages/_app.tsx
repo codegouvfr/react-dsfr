@@ -8,11 +8,18 @@ import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "@codegouvfr/react-dsfr/tss";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
+import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
 
 
 declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
         Link: typeof Link;
+    }
+}
+
+declare module "@codegouvfr/react-dsfr/gdpr" {
+    interface RegisterGdprServices { 
+        matomo: never;
     }
 }
 
@@ -60,6 +67,13 @@ function App({ Component, pageProps }: AppProps) {
                 "flexDirection": "column"
             }}
         >
+            <ConsentBanner gdprPageLink="/mui" siteName='Next Test App' services={[
+                {
+                    name: "matomo",
+                    title: "Matomo",
+                    description: "User tracking",
+                }
+            ]} />
             <Header
                 brandTop={brandTop}
                 serviceTitle="Nom du site / service"

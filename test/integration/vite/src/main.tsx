@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
+import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
 
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
@@ -71,11 +72,13 @@ function Root() {
                 "maxWidth": 1000,
                 ...fr.spacing("padding", { "topBottom": "10v" })
             }}>
+                <GdprStoreProvider>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/mui" element={<Mui />} />
                     <Route path="*" element={<h1>404</h1>} />
                 </Routes>
+                </GdprStoreProvider>
             </div>
             <Footer
                 brandTop={brandTop}

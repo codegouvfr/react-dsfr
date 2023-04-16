@@ -8,6 +8,7 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
 
 startReactDsfr({
     "defaultColorScheme": "system"
@@ -55,6 +56,7 @@ function Root() {
                 "maxWidth": 1000,
                 ...fr.spacing("padding", { "topBottom": "10v" })
             }}>
+                <GdprStoreProvider>
                 {(() => {
                     switch (route.name) {
                         case "mui": return <Mui />;
@@ -62,6 +64,7 @@ function Root() {
                         case false: return <h1>404</h1>
                     }
                 })()}
+                </GdprStoreProvider>
             </div>
             <Display />
         </div>
