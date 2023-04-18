@@ -1,0 +1,69 @@
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+import React, { memo, forwardRef, useId } from "react";
+import { symToStr } from "tsafe/symToStr";
+import { assert } from "tsafe/assert";
+import { getLink } from "./link";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
+export const SideMenu = memo(forwardRef((props, ref) => {
+    const { title, items, style, sticky, className, fullHeight, classes = {}, align = "left", burgerMenuButtonText } = props, rest = __rest(props, ["title", "items", "style", "sticky", "className", "fullHeight", "classes", "align", "burgerMenuButtonText"]);
+    assert();
+    const { Link } = getLink();
+    const { wrapperId, titleId, getItemId } = (function useClosure() {
+        const id = useId();
+        const wrapperId = `fr-sidemenu-wrapper-${id}`;
+        const titleId = `fr-sidemenu-title-${id}`;
+        const getItemId = (params) => {
+            const { level, key } = params;
+            return `fr-sidemenu-item-${id}-${level}-${key}`;
+        };
+        return { wrapperId, titleId, getItemId };
+    })();
+    return (React.createElement("nav", Object.assign({}, rest, { ref: ref, style: style, "aria-labelledby": titleId, className: cx(fr.cx("fr-sidemenu", {
+            "fr-sidemenu--right": align === "right",
+            "fr-sidemenu--sticky": sticky && !fullHeight,
+            "fr-sidemenu--sticky-full-height": sticky && fullHeight
+        }), classes.root, className) }),
+        React.createElement("div", { className: cx(fr.cx("fr-sidemenu__inner"), classes.inner) },
+            React.createElement("button", { hidden: true, "aria-expanded": "false", "aria-controls": wrapperId, className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }, burgerMenuButtonText),
+            React.createElement("div", { className: fr.cx("fr-collapse"), id: wrapperId },
+                title !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-sidemenu__title"), classes.title), id: titleId }, title)),
+                React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, items.map((item, i) => {
+                    const getItemRec = (params) => {
+                        var _a;
+                        const { item, key, level } = params;
+                        const itemId = getItemId({ key, level });
+                        return (React.createElement("li", { key: key, className: cx(fr.cx("fr-sidemenu__item"), classes.item) }, "items" in item ? (React.createElement(React.Fragment, null,
+                            React.createElement("button", Object.assign({ "aria-expanded": "false", "aria-controls": itemId }, (item.isActive && {
+                                ["aria-current"]: true
+                            }), { className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }), item.text),
+                            React.createElement("div", { className: fr.cx("fr-collapse"), id: itemId },
+                                React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, item.items.map((item, i) => getItemRec({
+                                    item,
+                                    "key": `${i}`,
+                                    "level": level + 1
+                                })))))) : (React.createElement(Link, Object.assign({ target: "_self" }, item.linkProps, (item.isActive && {
+                            ["aria-current"]: "page"
+                        }), { className: cx(fr.cx("fr-sidemenu__link"), classes.link, (_a = item.linkProps) === null || _a === void 0 ? void 0 : _a.className) }), item.text))));
+                    };
+                    return getItemRec({
+                        "key": `${i}`,
+                        item,
+                        "level": 0
+                    });
+                }))))));
+}));
+SideMenu.displayName = symToStr({ SideMenu });
+export default SideMenu;
+//# sourceMappingURL=SideMenu.js.map

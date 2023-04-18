@@ -1,0 +1,169 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-icon-code-view::before,
+  .fr-icon-code-view::after {
+    background-image: url("../../../icons/editor/code-view.svg");
+  }
+
+  .fr-icon-font-size::before,
+  .fr-icon-font-size::after {
+    background-image: url("../../../icons/editor/font-size.svg");
+  }
+
+  .fr-icon-bold::before,
+  .fr-icon-bold::after {
+    background-image: url("../../../icons/editor/fr--bold.svg");
+  }
+
+  .fr-icon-highlight::before,
+  .fr-icon-highlight::after {
+    background-image: url("../../../icons/editor/fr--highlight.svg");
+  }
+
+  .fr-icon-quote-fill::before,
+  .fr-icon-quote-fill::after {
+    background-image: url("../../../icons/editor/fr--quote-fill.svg");
+  }
+
+  .fr-icon-quote-line::before,
+  .fr-icon-quote-line::after {
+    background-image: url("../../../icons/editor/fr--quote-line.svg");
+  }
+
+  .fr-icon-h-1::before,
+  .fr-icon-h-1::after {
+    background-image: url("../../../icons/editor/h-1.svg");
+  }
+
+  .fr-icon-h-2::before,
+  .fr-icon-h-2::after {
+    background-image: url("../../../icons/editor/h-2.svg");
+  }
+
+  .fr-icon-h-3::before,
+  .fr-icon-h-3::after {
+    background-image: url("../../../icons/editor/h-3.svg");
+  }
+
+  .fr-icon-h-4::before,
+  .fr-icon-h-4::after {
+    background-image: url("../../../icons/editor/h-4.svg");
+  }
+
+  .fr-icon-h-5::before,
+  .fr-icon-h-5::after {
+    background-image: url("../../../icons/editor/h-5.svg");
+  }
+
+  .fr-icon-h-6::before,
+  .fr-icon-h-6::after {
+    background-image: url("../../../icons/editor/h-6.svg");
+  }
+
+  .fr-icon-hashtag::before,
+  .fr-icon-hashtag::after {
+    background-image: url("../../../icons/editor/hashtag.svg");
+  }
+
+  .fr-icon-italic::before,
+  .fr-icon-italic::after {
+    background-image: url("../../../icons/editor/italic.svg");
+  }
+
+  .fr-icon-link-unlink::before,
+  .fr-icon-link-unlink::after {
+    background-image: url("../../../icons/editor/link-unlink.svg");
+  }
+
+  .fr-icon-link::before,
+  .fr-icon-link::after {
+    background-image: url("../../../icons/editor/link.svg");
+  }
+
+  .fr-icon-list-ordered::before,
+  .fr-icon-list-ordered::after {
+    background-image: url("../../../icons/editor/list-ordered.svg");
+  }
+
+  .fr-icon-list-unordered::before,
+  .fr-icon-list-unordered::after {
+    background-image: url("../../../icons/editor/list-unordered.svg");
+  }
+
+  .fr-icon-question-mark::before,
+  .fr-icon-question-mark::after {
+    background-image: url("../../../icons/editor/question-mark.svg");
+  }
+
+  .fr-icon-separator::before,
+  .fr-icon-separator::after {
+    background-image: url("../../../icons/editor/separator.svg");
+  }
+
+  .fr-icon-space::before,
+  .fr-icon-space::after {
+    background-image: url("../../../icons/editor/space.svg");
+  }
+
+  .fr-icon-subscript::before,
+  .fr-icon-subscript::after {
+    background-image: url("../../../icons/editor/subscript.svg");
+  }
+
+  .fr-icon-superscript::before,
+  .fr-icon-superscript::after {
+    background-image: url("../../../icons/editor/superscript.svg");
+  }
+
+  .fr-icon-table-2::before,
+  .fr-icon-table-2::after {
+    background-image: url("../../../icons/editor/table-2.svg");
+  }
+
+  .fr-icon-translate-2::before,
+  .fr-icon-translate-2::after {
+    background-image: url("../../../icons/editor/translate-2.svg");
+  }
+
+  .fr-fi-font-size::before {
+    background-image: url("../../../icons/editor/font-size.svg");
+  }
+
+  .fr-fi-bold::before {
+    background-image: url("../../../icons/editor/fr--bold.svg");
+  }
+
+  .fr-fi-highlight::before {
+    background-image: url("../../../icons/editor/fr--highlight.svg");
+  }
+
+  .fr-fi-italic::before {
+    background-image: url("../../../icons/editor/italic.svg");
+  }
+
+  .fr-fi-link-unlink::before {
+    background-image: url("../../../icons/editor/link-unlink.svg");
+  }
+
+  .fr-fi-list-ordered::before {
+    background-image: url("../../../icons/editor/list-ordered.svg");
+  }
+
+  .fr-fi-list-unordered::before {
+    background-image: url("../../../icons/editor/list-unordered.svg");
+  }
+}

@@ -1,0 +1,99 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  SUMMARY
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-summary {
+  --text-spacing: 0 0 0.5rem 0;
+  --title-spacing: 0 0 0.5rem 0;
+  padding: 1.5rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  background-color: var(--background-contrast-grey);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-grey-hover);
+  --active: var(--background-contrast-grey-active);
+}
+
+.fr-summary ol {
+  list-style-type: none;
+}
+
+.fr-summary li {
+  padding: 0.5rem 0;
+}
+
+.fr-summary li::marker {
+  content: none;
+}
+
+.fr-summary__title {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-title-grey);
+}
+
+.fr-summary__link {
+  display: inline;
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+.fr-summary__link::before {
+  content: var(--ol-content);
+  position: absolute;
+  right: 100%;
+  font-size: var(--xl-size);
+  font-weight: bold;
+}
+
+.fr-summary__link:not(:hover):not(:active) {
+  --underline-idle-width: 0;
+}
+
+.fr-summary li > a {
+  color: var(--text-action-high-grey);
+}
+@media (min-width: 36em) {
+  /*! media sm */
+
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+  .fr-summary {
+    padding: 2rem;
+  }
+
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-summary {
+    background-color: #eee;
+  }
+
+  .fr-summary__title {
+    color: #161616;
+  }
+
+  .fr-summary li > a {
+    color: #161616;
+  }
+}

@@ -1,0 +1,51 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * reset des marges dans le bandeau
+  */
+  .fr-notice__title,
+  .fr-notice p {
+    margin: 0;
+  }
+
+  .fr-notice--info .fr-notice__body::before {
+    background-image: url("../../icons/system/fr--info-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+    color: transparent;
+  }
+
+  .fr-notice .fr-btn--close::before,
+  .fr-notice .fr-btn--close::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/close-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-notice {
+    background-color: #eee;
+    color: #161616;
+  }
+
+  .fr-notice--info {
+    background-color: #e8edff;
+    color: #0063cb;
+  }
+}

@@ -1,0 +1,346 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  RADIO
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-radio-group {
+  position: relative;
+}
+
+.fr-radio-group input[type=radio] {
+  position: absolute;
+  margin: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0;
+}
+
+.fr-radio-group input[type=radio] + label {
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-left: 2rem;
+}
+
+.fr-radio-group input[type=radio] + label .fr-hint-text {
+  margin: 0;
+  width: 100%;
+}
+
+.fr-radio-group input[type=radio] + label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: -2rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 12px var(--background-default-grey), inset 0 0 0 12px var(--background-action-high-blue-france);
+}
+
+.fr-radio-group--sm input[type=radio] {
+  width: 1rem;
+  height: 1rem;
+  top: 0.25rem;
+}
+
+.fr-radio-group--sm input[type=radio] + label {
+  margin-left: 1.5rem;
+}
+
+.fr-radio-group--sm input[type=radio] + label::before {
+  left: -1.5rem;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.25rem;
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+}
+
+.fr-radio-rich {
+  position: relative;
+}
+
+.fr-radio-rich input[type=radio] {
+  width: 1rem;
+  height: 1rem;
+  left: 1.75rem;
+  top: calc(50% - 0.5rem);
+}
+
+.fr-radio-rich input[type=radio] + label {
+  padding-left: 3.5rem;
+  margin-left: 0;
+  min-height: 5.5rem;
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 6.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px var(--border-default-grey);
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-radio-rich input[type=radio] + label::before {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 1.75rem;
+  margin-top: -0.5rem;
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+}
+
+.fr-radio-rich input[type=radio] + label .fr-hint-text {
+  margin-left: 0;
+}
+
+.fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__img,
+.fr-radio-rich input[type=radio][disabled] ~ .fr-radio-rich__img {
+  filter: grayscale(1);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label {
+  --hover-tint: var(--hover);
+  --active-tint: var(--active);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:hover {
+  background-color: var(--hover-tint);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:active {
+  background-color: var(--active-tint);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:hover ~ .fr-radio-rich__img {
+  --brightness: calc(100% + var(--brighten) * 10%);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:active ~ .fr-radio-rich__img {
+  --brightness: calc(100% + var(--brighten) * 20%);
+}
+
+.fr-radio-rich__img {
+  filter: brightness(var(--brightness));
+  padding-left: 0.25rem;
+  width: 5.25rem;
+  height: 5rem;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  pointer-events: none;
+  box-shadow: inset 1px 0 0 0 var(--border-default-grey);
+}
+
+.fr-radio-rich__img img,
+.fr-radio-rich__img svg {
+  max-width: 5rem;
+  object-fit: cover;
+}
+
+.fr-control > .fr-radio-rich.fr-radio-group {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.fr-radio-group input[type=radio]:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 12px var(--background-default-grey), inset 0 0 0 12px var(--text-disabled-grey);
+}
+
+.fr-radio-group input[type=radio]:checked + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 6px var(--background-default-grey), inset 0 0 0 12px var(--background-action-high-blue-france);
+}
+
+.fr-radio-group input[type=radio]:checked:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 6px var(--background-default-grey), inset 0 0 0 12px var(--text-disabled-grey);
+}
+
+.fr-radio-group--sm input[type=radio]:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 8px var(--background-disabled-grey), inset 0 0 0 8px var(--text-disabled-grey);
+}
+
+.fr-radio-group--sm input[type=radio]:checked + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+}
+
+.fr-radio-group--sm input[type=radio]:checked:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 4px var(--background-disabled-grey), inset 0 0 0 8px var(--text-disabled-grey);
+}
+
+.fr-radio-rich input[type=radio]:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--text-disabled-grey);
+}
+
+.fr-radio-rich input[type=radio]:checked + label {
+  box-shadow: inset 0 0 0 1px var(--border-action-high-blue-france);
+}
+
+.fr-radio-rich input[type=radio]:checked + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+}
+
+.fr-radio-rich input[type=radio]:checked:disabled + label {
+  box-shadow: inset 0 0 0 1px var(--text-disabled-grey);
+}
+
+.fr-radio-rich input[type=radio]:checked:disabled + label::before {
+  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--text-disabled-grey);
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-group--sm label::before {
+  margin-top: 1rem;
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-rich:first-child input[type=radio] + label {
+  margin-top: 0.75rem;
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-rich input[type=radio] + label {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-rich:last-child input[type=radio] + label {
+  margin-bottom: 0.75rem;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:not(:last-child) input[type=radio] + label {
+  margin-right: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:not(:last-child) .fr-radio-rich__img {
+  right: 1rem;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:last-child {
+  margin-bottom: 0;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:last-child input[type=radio] + label {
+  margin-bottom: 0.75rem;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:first-child .fr-radio-rich__img {
+  top: 1rem;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich__img {
+  top: 0.75rem;
+}
+
+.fr-fieldset--inline .fr-hint-text + .fr-fieldset__content .fr-radio-rich:first-child input[type=radio] + label {
+  margin-top: 1.5rem;
+}
+@media (min-width: 36em) {
+  /*! media sm */
+
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-fieldset--inline .fr-radio-rich:last-child input[type=radio] + label {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .fr-radio-rich input[type=radio] + .fr-label {
+    height: 1px;
+  }
+
+  .fr-radio-group input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 12px #fff, inset 0 0 0 12px #000091;
+  }
+
+  .fr-radio-group input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 12px #fff, inset 0 0 0 12px #929292;
+  }
+
+  .fr-radio-group input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 6px #fff, inset 0 0 0 12px #000091;
+  }
+
+  .fr-radio-group input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 6px #fff, inset 0 0 0 12px #929292;
+  }
+
+  .fr-radio-group--sm input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-group--sm input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #e5e5e5, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #e5e5e5, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-rich__img {
+    box-shadow: inset 1px 0 0 0 #ddd;
+  }
+
+  .fr-radio-rich input[type=radio] + label {
+    box-shadow: inset 0 0 0 1px #ddd;
+    background-color: #fff;
+  }
+
+  .fr-radio-rich input[type=radio] + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #fff, inset 0 0 0 8px #929292;
+  }
+
+  .fr-radio-rich input[type=radio]:checked + label {
+    box-shadow: inset 0 0 0 1px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:checked + label::before {
+    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  }
+
+  .fr-radio-rich input[type=radio]:checked:disabled + label {
+    box-shadow: inset 0 0 0 1px #929292;
+  }
+
+  .fr-radio-rich input[type=radio]:checked:disabled + label::before {
+    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #fff, inset 0 0 0 8px #929292;
+  }
+}

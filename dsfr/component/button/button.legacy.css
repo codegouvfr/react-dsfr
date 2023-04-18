@@ -1,0 +1,300 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-btn::before,
+  .fr-btn::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-btn--sm::before,
+  .fr-btn--sm::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .fr-btn--sm[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--sm[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--sm[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--sm[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--sm[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--sm[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--sm[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--sm[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--lg::before,
+  .fr-btn--lg::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-btn--lg[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--lg[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--lg[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--lg[class*=" fr-icon-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--lg[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--lg[class^=fr-fi-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after,
+  .fr-btn--lg[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
+  .fr-btn--lg[class*=" fr-fi-"]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .fr-btn--close::before,
+  .fr-btn--close::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/close-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--fullscreen::before,
+  .fr-btn--fullscreen::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/media/fullscreen-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--display::before,
+  .fr-btn--display::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/fr--theme-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  ul.fr-btns-group {
+    list-style-type: none;
+  }
+
+  ol.fr-btns-group {
+    list-style-type: none;
+  }
+
+  ul.fr-btns-group,
+  ol.fr-btns-group {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::before,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::after,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::before,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::after,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::after,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before,
+  .fr-btns-group--sm:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::before,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::after,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::before,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::after,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::after,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before,
+  .fr-btns-group--lg:not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .fr-btn {
+    background-color: #000091;
+    color: #f5f5fe;
+  }
+
+  .fr-btn:hover {
+    background-color: #1212ff;
+  }
+
+  .fr-btn:active {
+    background-color: #2323ff;
+  }
+
+  .fr-btn:disabled,
+  a.fr-btn:not([href]) {
+    color: #929292;
+    background-color: #e5e5e5;
+  }
+
+  .fr-btn--secondary {
+    background-color: transparent;
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #000091;
+  }
+
+  .fr-btn--secondary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--secondary:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--secondary:disabled,
+  a.fr-btn--secondary:not([href]) {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+    background-color: transparent;
+  }
+
+  .fr-btn--secondary:disabled:hover,
+  a.fr-btn--secondary:not([href]):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--secondary:disabled:active,
+  a.fr-btn--secondary:not([href]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary {
+    background-color: transparent;
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-btn--tertiary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary:disabled,
+  a.fr-btn--tertiary:not([href]) {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary:disabled:hover,
+  a.fr-btn--tertiary:not([href]):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary:disabled:active,
+  a.fr-btn--tertiary:not([href]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary-no-outline,
+  .fr-btn--close,
+  .fr-btn--display,
+  .fr-btn--fullscreen {
+    background-color: transparent;
+    color: #000091;
+  }
+
+  .fr-btn--tertiary-no-outline:hover,
+  .fr-btn--close:hover,
+  .fr-btn--display:hover,
+  .fr-btn--fullscreen:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary-no-outline:active,
+  .fr-btn--close:active,
+  .fr-btn--display:active,
+  .fr-btn--fullscreen:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary-no-outline:disabled,
+  a.fr-btn--tertiary-no-outline:not([href]),
+  a.fr-btn--close:not([href]),
+  a.fr-btn--display:not([href]),
+  a.fr-btn--fullscreen:not([href]),
+  .fr-btn--close:disabled,
+  .fr-btn--display:disabled,
+  .fr-btn--fullscreen:disabled {
+    color: #929292;
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary-no-outline:disabled:hover,
+  a.fr-btn--tertiary-no-outline:not([href]):hover,
+  a.fr-btn--close:not([href]):hover,
+  a.fr-btn--display:not([href]):hover,
+  a.fr-btn--fullscreen:not([href]):hover,
+  .fr-btn--close:disabled:hover,
+  .fr-btn--display:disabled:hover,
+  .fr-btn--fullscreen:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary-no-outline:disabled:active,
+  a.fr-btn--tertiary-no-outline:not([href]):active,
+  a.fr-btn--close:not([href]):active,
+  a.fr-btn--display:not([href]):active,
+  a.fr-btn--fullscreen:not([href]):active,
+  .fr-btn--close:disabled:active,
+  .fr-btn--display:disabled:active,
+  .fr-btn--fullscreen:disabled:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

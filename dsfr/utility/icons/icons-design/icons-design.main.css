@@ -1,0 +1,287 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  ICON DESIGN
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-ball-pen-fill::before,
+.fr-icon-ball-pen-fill::after {
+  -webkit-mask-image: url("../../../icons/design/ball-pen-fill.svg");
+  mask-image: url("../../../icons/design/ball-pen-fill.svg");
+}
+
+.fr-icon-ball-pen-line::before,
+.fr-icon-ball-pen-line::after {
+  -webkit-mask-image: url("../../../icons/design/ball-pen-line.svg");
+  mask-image: url("../../../icons/design/ball-pen-line.svg");
+}
+
+.fr-icon-brush-3-fill::before,
+.fr-icon-brush-3-fill::after {
+  -webkit-mask-image: url("../../../icons/design/brush-3-fill.svg");
+  mask-image: url("../../../icons/design/brush-3-fill.svg");
+}
+
+.fr-icon-brush-3-line::before,
+.fr-icon-brush-3-line::after {
+  -webkit-mask-image: url("../../../icons/design/brush-3-line.svg");
+  mask-image: url("../../../icons/design/brush-3-line.svg");
+}
+
+.fr-icon-brush-fill::before,
+.fr-icon-brush-fill::after {
+  -webkit-mask-image: url("../../../icons/design/brush-fill.svg");
+  mask-image: url("../../../icons/design/brush-fill.svg");
+}
+
+.fr-icon-brush-line::before,
+.fr-icon-brush-line::after {
+  -webkit-mask-image: url("../../../icons/design/brush-line.svg");
+  mask-image: url("../../../icons/design/brush-line.svg");
+}
+
+.fr-icon-contrast-fill::before,
+.fr-icon-contrast-fill::after {
+  -webkit-mask-image: url("../../../icons/design/contrast-fill.svg");
+  mask-image: url("../../../icons/design/contrast-fill.svg");
+}
+
+.fr-icon-contrast-line::before,
+.fr-icon-contrast-line::after {
+  -webkit-mask-image: url("../../../icons/design/contrast-line.svg");
+  mask-image: url("../../../icons/design/contrast-line.svg");
+}
+
+.fr-icon-crop-fill::before,
+.fr-icon-crop-fill::after {
+  -webkit-mask-image: url("../../../icons/design/crop-fill.svg");
+  mask-image: url("../../../icons/design/crop-fill.svg");
+}
+
+.fr-icon-crop-line::before,
+.fr-icon-crop-line::after {
+  -webkit-mask-image: url("../../../icons/design/crop-line.svg");
+  mask-image: url("../../../icons/design/crop-line.svg");
+}
+
+.fr-icon-drag-move-2-fill::before,
+.fr-icon-drag-move-2-fill::after {
+  -webkit-mask-image: url("../../../icons/design/drag-move-2-fill.svg");
+  mask-image: url("../../../icons/design/drag-move-2-fill.svg");
+}
+
+.fr-icon-drag-move-2-line::before,
+.fr-icon-drag-move-2-line::after {
+  -webkit-mask-image: url("../../../icons/design/drag-move-2-line.svg");
+  mask-image: url("../../../icons/design/drag-move-2-line.svg");
+}
+
+.fr-icon-drop-fill::before,
+.fr-icon-drop-fill::after {
+  -webkit-mask-image: url("../../../icons/design/drop-fill.svg");
+  mask-image: url("../../../icons/design/drop-fill.svg");
+}
+
+.fr-icon-drop-line::before,
+.fr-icon-drop-line::after {
+  -webkit-mask-image: url("../../../icons/design/drop-line.svg");
+  mask-image: url("../../../icons/design/drop-line.svg");
+}
+
+.fr-icon-edit-box-fill::before,
+.fr-icon-edit-box-fill::after {
+  -webkit-mask-image: url("../../../icons/design/edit-box-fill.svg");
+  mask-image: url("../../../icons/design/edit-box-fill.svg");
+}
+
+.fr-icon-edit-box-line::before,
+.fr-icon-edit-box-line::after {
+  -webkit-mask-image: url("../../../icons/design/edit-box-line.svg");
+  mask-image: url("../../../icons/design/edit-box-line.svg");
+}
+
+.fr-icon-edit-fill::before,
+.fr-icon-edit-fill::after {
+  -webkit-mask-image: url("../../../icons/design/edit-fill.svg");
+  mask-image: url("../../../icons/design/edit-fill.svg");
+}
+
+.fr-icon-edit-line::before,
+.fr-icon-edit-line::after {
+  -webkit-mask-image: url("../../../icons/design/edit-line.svg");
+  mask-image: url("../../../icons/design/edit-line.svg");
+}
+
+.fr-icon-ink-bottle-fill::before,
+.fr-icon-ink-bottle-fill::after {
+  -webkit-mask-image: url("../../../icons/design/ink-bottle-fill.svg");
+  mask-image: url("../../../icons/design/ink-bottle-fill.svg");
+}
+
+.fr-icon-ink-bottle-line::before,
+.fr-icon-ink-bottle-line::after {
+  -webkit-mask-image: url("../../../icons/design/ink-bottle-line.svg");
+  mask-image: url("../../../icons/design/ink-bottle-line.svg");
+}
+
+.fr-icon-layout-grid-fill::before,
+.fr-icon-layout-grid-fill::after {
+  -webkit-mask-image: url("../../../icons/design/layout-grid-fill.svg");
+  mask-image: url("../../../icons/design/layout-grid-fill.svg");
+}
+
+.fr-icon-layout-grid-line::before,
+.fr-icon-layout-grid-line::after {
+  -webkit-mask-image: url("../../../icons/design/layout-grid-line.svg");
+  mask-image: url("../../../icons/design/layout-grid-line.svg");
+}
+
+.fr-icon-mark-pen-fill::before,
+.fr-icon-mark-pen-fill::after {
+  -webkit-mask-image: url("../../../icons/design/mark-pen-fill.svg");
+  mask-image: url("../../../icons/design/mark-pen-fill.svg");
+}
+
+.fr-icon-mark-pen-line::before,
+.fr-icon-mark-pen-line::after {
+  -webkit-mask-image: url("../../../icons/design/mark-pen-line.svg");
+  mask-image: url("../../../icons/design/mark-pen-line.svg");
+}
+
+.fr-icon-paint-brush-fill::before,
+.fr-icon-paint-brush-fill::after {
+  -webkit-mask-image: url("../../../icons/design/paint-brush-fill.svg");
+  mask-image: url("../../../icons/design/paint-brush-fill.svg");
+}
+
+.fr-icon-paint-brush-line::before,
+.fr-icon-paint-brush-line::after {
+  -webkit-mask-image: url("../../../icons/design/paint-brush-line.svg");
+  mask-image: url("../../../icons/design/paint-brush-line.svg");
+}
+
+.fr-icon-paint-fill::before,
+.fr-icon-paint-fill::after {
+  -webkit-mask-image: url("../../../icons/design/paint-fill.svg");
+  mask-image: url("../../../icons/design/paint-fill.svg");
+}
+
+.fr-icon-paint-line::before,
+.fr-icon-paint-line::after {
+  -webkit-mask-image: url("../../../icons/design/paint-line.svg");
+  mask-image: url("../../../icons/design/paint-line.svg");
+}
+
+.fr-icon-palette-fill::before,
+.fr-icon-palette-fill::after {
+  -webkit-mask-image: url("../../../icons/design/palette-fill.svg");
+  mask-image: url("../../../icons/design/palette-fill.svg");
+}
+
+.fr-icon-palette-line::before,
+.fr-icon-palette-line::after {
+  -webkit-mask-image: url("../../../icons/design/palette-line.svg");
+  mask-image: url("../../../icons/design/palette-line.svg");
+}
+
+.fr-icon-pantone-fill::before,
+.fr-icon-pantone-fill::after {
+  -webkit-mask-image: url("../../../icons/design/pantone-fill.svg");
+  mask-image: url("../../../icons/design/pantone-fill.svg");
+}
+
+.fr-icon-pantone-line::before,
+.fr-icon-pantone-line::after {
+  -webkit-mask-image: url("../../../icons/design/pantone-line.svg");
+  mask-image: url("../../../icons/design/pantone-line.svg");
+}
+
+.fr-icon-pen-nib-fill::before,
+.fr-icon-pen-nib-fill::after {
+  -webkit-mask-image: url("../../../icons/design/pen-nib-fill.svg");
+  mask-image: url("../../../icons/design/pen-nib-fill.svg");
+}
+
+.fr-icon-pen-nib-line::before,
+.fr-icon-pen-nib-line::after {
+  -webkit-mask-image: url("../../../icons/design/pen-nib-line.svg");
+  mask-image: url("../../../icons/design/pen-nib-line.svg");
+}
+
+.fr-icon-pencil-fill::before,
+.fr-icon-pencil-fill::after {
+  -webkit-mask-image: url("../../../icons/design/pencil-fill.svg");
+  mask-image: url("../../../icons/design/pencil-fill.svg");
+}
+
+.fr-icon-pencil-line::before,
+.fr-icon-pencil-line::after {
+  -webkit-mask-image: url("../../../icons/design/pencil-line.svg");
+  mask-image: url("../../../icons/design/pencil-line.svg");
+}
+
+.fr-icon-pencil-ruler-fill::before,
+.fr-icon-pencil-ruler-fill::after {
+  -webkit-mask-image: url("../../../icons/design/pencil-ruler-fill.svg");
+  mask-image: url("../../../icons/design/pencil-ruler-fill.svg");
+}
+
+.fr-icon-pencil-ruler-line::before,
+.fr-icon-pencil-ruler-line::after {
+  -webkit-mask-image: url("../../../icons/design/pencil-ruler-line.svg");
+  mask-image: url("../../../icons/design/pencil-ruler-line.svg");
+}
+
+.fr-icon-sip-fill::before,
+.fr-icon-sip-fill::after {
+  -webkit-mask-image: url("../../../icons/design/sip-fill.svg");
+  mask-image: url("../../../icons/design/sip-fill.svg");
+}
+
+.fr-icon-sip-line::before,
+.fr-icon-sip-line::after {
+  -webkit-mask-image: url("../../../icons/design/sip-line.svg");
+  mask-image: url("../../../icons/design/sip-line.svg");
+}
+
+.fr-icon-table-fill::before,
+.fr-icon-table-fill::after {
+  -webkit-mask-image: url("../../../icons/design/table-fill.svg");
+  mask-image: url("../../../icons/design/table-fill.svg");
+}
+
+.fr-icon-table-line::before,
+.fr-icon-table-line::after {
+  -webkit-mask-image: url("../../../icons/design/table-line.svg");
+  mask-image: url("../../../icons/design/table-line.svg");
+}
+
+.fr-fi-edit-fill::before,
+.fr-fi-edit-fill::after {
+  -webkit-mask-image: url("../../../icons/design/edit-fill.svg");
+  mask-image: url("../../../icons/design/edit-fill.svg");
+}
+
+.fr-fi-edit-line::before,
+.fr-fi-edit-line::after {
+  -webkit-mask-image: url("../../../icons/design/edit-line.svg");
+  mask-image: url("../../../icons/design/edit-line.svg");
+}
+
+@media (min-width: 36em) {
+  /*! media sm */
+}
+
+@media (min-width: 48em) {
+  /*! media md */
+}
+
+@media (min-width: 62em) {
+  /*! media lg */
+}
+
+@media (min-width: 78em) {
+  /*! media xl */
+}

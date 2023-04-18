@@ -1,0 +1,101 @@
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+import React, { memo, forwardRef } from "react";
+import { symToStr } from "tsafe/symToStr";
+import { assert } from "tsafe/assert";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+import { createComponentI18nApi } from "./i18n";
+import { getLink } from "./link";
+// naive page slicing
+const getPaginationParts = ({ count, defaultPage }) => {
+    const maxVisiblePages = 10;
+    const slicesSize = 4;
+    // first n pages
+    if (count <= maxVisiblePages) {
+        return Array.from({ length: count }, (_, v) => ({
+            number: v + 1,
+            active: defaultPage === v + 1
+        }));
+    }
+    // last n pages
+    if (defaultPage > count - maxVisiblePages) {
+        return Array.from({ length: maxVisiblePages }, (_, v) => {
+            const pageNumber = count - (maxVisiblePages - v) + 1;
+            return {
+                number: pageNumber,
+                active: defaultPage === pageNumber
+            };
+        });
+    }
+    // slices
+    return [
+        ...Array.from({ length: slicesSize }, (_, v) => {
+            if (defaultPage > slicesSize) {
+                const pageNumber = v + defaultPage;
+                return { number: pageNumber, active: defaultPage === pageNumber };
+            }
+            return { number: v + 1, active: defaultPage === v + 1 };
+        }),
+        { number: null, active: false },
+        ...Array.from({ length: slicesSize }, (_, v) => {
+            const pageNumber = count - (slicesSize - v) + 1;
+            return {
+                number: pageNumber,
+                active: defaultPage === pageNumber
+            };
+        })
+    ];
+};
+/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-pagination> */
+export const Pagination = memo(forwardRef((props, ref) => {
+    const { className, count, defaultPage = 1, showFirstLast = true, getPageLinkProps, classes = {}, style } = props, rest = __rest(props, ["className", "count", "defaultPage", "showFirstLast", "getPageLinkProps", "classes", "style"]);
+    assert();
+    const { t } = useTranslation();
+    const { Link } = getLink();
+    const parts = getPaginationParts({ count, defaultPage });
+    return (React.createElement("nav", { role: "navigation", className: cx(fr.cx("fr-pagination"), classes.root, className), "aria-label": t("aria-label"), style: style, ref: ref },
+        React.createElement("ul", { className: cx(fr.cx("fr-pagination__list"), classes.list) },
+            showFirstLast && (React.createElement("li", null,
+                React.createElement(Link, Object.assign({}, (count > 0 && defaultPage > 1 && getPageLinkProps(1)), { className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--first"), classes.link, getPageLinkProps(1).className), "aria-disabled": count > 0 && defaultPage > 1 ? true : undefined, role: "link" }), t("first page")))),
+            React.createElement("li", null,
+                React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--prev", "fr-pagination__link--lg-label"), classes.link) }, (defaultPage > 1 && getPageLinkProps(defaultPage - 1)), { "aria-disabled": defaultPage <= 1 ? true : undefined, role: "link" }), t("previous page"))),
+            parts.map(part => (React.createElement("li", { key: part.number }, part.number === null ? (React.createElement("a", { className: cx(fr.cx("fr-pagination__link"), classes.link) }, "...")) : (React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link"), classes.link), "aria-current": part.active ? true : undefined, title: `Page ${part.number}` }, getPageLinkProps(part.number)), part.number))))),
+            React.createElement("li", null,
+                React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--next", "fr-pagination__link--lg-label"), classes.link) }, (defaultPage < count && getPageLinkProps(defaultPage + 1)), { "aria-disabled": defaultPage < count ? true : undefined, role: "link" }), t("next page"))),
+            showFirstLast && (React.createElement("li", null,
+                React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--last"), classes.link) }, (defaultPage < count && getPageLinkProps(count)), { "aria-disabled": defaultPage < count ? true : undefined }), t("last page")))))));
+}));
+Pagination.displayName = symToStr({ Pagination });
+const { useTranslation, addPaginationTranslations } = createComponentI18nApi({
+    "componentName": symToStr({ Pagination }),
+    "frMessages": {
+        "first page": "Première page",
+        "previous page": "Page précédente",
+        "next page": "Page suivante",
+        "last page": "Dernière page",
+        "aria-label": "Pagination"
+    }
+});
+addPaginationTranslations({
+    "lang": "en",
+    "messages": {
+        "first page": "First page",
+        "previous page": "Previous page",
+        "next page": "Next page",
+        "last page": "Last page",
+        "aria-label": "Pagination"
+    }
+});
+export { addPaginationTranslations };
+export default Pagination;
+//# sourceMappingURL=Pagination.js.map

@@ -1,0 +1,611 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  FOOTER
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-footer {
+  --ul-type: none;
+  --ol-type: none;
+  --ul-start: 0;
+  --ol-start: 0;
+  --xl-block: 0;
+  --li-bottom: 0;
+  --ol-content: none;
+  width: 100%;
+  padding-top: 2.5rem;
+
+  /**
+   * Conteneur du bloc marque, avec le logo principal et éventuellement
+   * un logo opérateur
+   */
+
+  /**
+   * Hauteur auto pour le logo opérateur
+   */
+  /**
+  * Contenu texte simple
+  */
+
+  /**
+  * Liste des liens situés en dessous de la partie texte
+  */
+  /**
+  * Catégorie (optionnel)
+  */
+
+  /**
+  * Style de la liste
+  */
+
+  /**
+  * Style du lien
+  */
+  /**
+  * Liste de liens avec séparateur
+  */
+
+  /**
+  * Style du lien de la liste
+  */
+
+  /**
+  * Copyright
+  */
+  /**
+  * Container des logos partenaires (principaux et secondaires)
+  */
+
+  /**
+  * Container des logos partenaires principaux
+  */
+
+  /**
+  * Container des logos partenaires secondaires
+  */
+  box-shadow: inset 0 2px 0 0 var(--border-plain-blue-france), inset 0 -1px 0 0 var(--border-default-grey);
+}
+
+.fr-footer__body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.fr-footer__body + .fr-footer__bottom {
+  margin-top: 1rem;
+}
+
+.fr-footer__brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-basis: 100%;
+
+  /**
+   * Si on ajoute un logo opérateur à côté du logo principal, on lui applique une marge à gauche
+   * On prévoit que le logo soit encapsulé dans un <a>, ou bien directement en img ou en svg
+   * (Eventuellement prévoir une classe pour pouvoir le mettre en background image)
+   */
+}
+
+.fr-footer__brand .fr-logo {
+  font-size: 1.05rem;
+  padding: 1rem;
+  margin: -1rem;
+}
+
+.fr-footer__brand .fr-logo::before {
+  width: 2.75rem;
+  height: 1rem;
+  margin-bottom: 0.3333333333rem;
+  background-size: 2.75rem 1.125rem, 2.75rem 1rem, 0;
+  background-position: 0 -0.0625rem, 0 0, 0 0;
+}
+
+:root[data-fr-mourning] .fr-footer__brand .fr-logo::before {
+  background-size: 2.75rem 1.125rem, 0, 2.75rem 1rem;
+}
+
+.fr-footer__brand .fr-logo::after {
+  min-width: 2.625rem;
+  background-size: 5.25rem 3.75rem;
+  background-position: 0 calc(100% + 1.875rem);
+  padding-top: 2.2083333333rem;
+}
+
+[data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+  background-position: -2.625rem 100%;
+}
+
+.fr-footer__brand-link {
+  display: flex;
+  flex-direction: row;
+}
+
+.fr-footer__brand .fr-logo + .fr-footer__brand-link {
+  margin-left: 1.5rem;
+}
+
+.fr-footer__logo {
+  height: auto;
+  max-height: 100%;
+}
+
+/**
+ * La partie "content" représente les informations sous forme de texte rajoutées dans le footer
+ * ainsi que les éventuels liens simples
+ */
+
+.fr-footer__content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  margin-top: 1.5rem;
+}
+
+.fr-footer__content-desc {
+  --underline-img: linear-gradient(0deg, currentColor, currentColor);
+  --text-spacing: 0 0 0.5rem 0;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.fr-footer__content-list {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.fr-footer__content-list > li {
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.fr-footer__content-list > li::before {
+  content: none;
+}
+
+.fr-footer__content-list > li:last-child {
+  margin-right: 0;
+}
+
+.fr-footer__content-link {
+  font-weight: bold;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.fr-footer__content-link:not(:hover):not(:active) {
+  --underline-idle-width: 0;
+}
+
+/**
+ * La partie "top" du footer est constituée de colonnes basées sur le système de grille du Design System
+ * Ces colonnes sont constituées d’une catégorie (optionnel) et d'une liste verticale de liens
+ */
+
+.fr-footer__top {
+  display: flex;
+  margin: -2.375rem 0 1rem;
+  padding: 2rem 0 1rem;
+  background-color: var(--background-alt-grey);
+
+  --idle: transparent;
+  --hover: var(--background-alt-grey-hover);
+  --active: var(--background-alt-grey-active);
+}
+
+.fr-footer__top-cat {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  display: block;
+  font-weight: 700;
+  text-align: left;
+}
+
+.fr-footer__top-list {
+  margin: 0;
+}
+
+.fr-footer__top-list li {
+  margin-bottom: 0.75rem;
+}
+
+.fr-footer__top-link {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+.fr-footer__top-link:not(:hover):not(:active) {
+  --underline-idle-width: 0;
+}
+
+/**
+ * La partie "bottom" du footer est constituée d'une liste de liens simples (ferrée à gauche)
+ * ainsi que du copyright (ferré à droite)
+ */
+
+.fr-footer__bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  box-shadow: inset 0 1px 0 0 var(--border-default-grey);
+}
+
+.fr-footer__bottom .fr-btn {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  min-height: 1.25rem;
+  padding: 0 0.5rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+  color: var(--text-mention-grey);
+}
+
+.fr-footer__bottom .fr-btn::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+}
+
+.fr-footer__bottom-list {
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.5rem 0 1rem;
+  width: 100%;
+  margin: 0;
+}
+
+.fr-footer__bottom-item {
+  position: relative;
+  margin: 0.5rem 0 0 0.25rem;
+  display: inline;
+}
+
+.fr-footer__bottom-item::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 1px;
+  height: 1rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  box-shadow: inset 0 0 0 1px var(--border-default-grey);
+}
+
+.fr-footer__bottom-item:first-child {
+  margin: 0.5rem 0 0;
+}
+
+.fr-footer__bottom-item:first-child::before {
+  content: none;
+}
+
+.fr-footer__bottom-link {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-mention-grey);
+}
+
+.fr-footer__bottom-link:not(:hover):not(:active) {
+  --underline-idle-width: 0;
+}
+
+.fr-footer__bottom-copy {
+  --text-spacing: 0 0 1rem 0;
+  margin-top: 0.5rem;
+  color: var(--text-mention-grey);
+}
+
+.fr-footer__bottom-copy * {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+/**
+ * La partie "partners" du footer est constituée de logos organisés
+ * en partenaires principaux (ferré à gauche) et secondaires (ferrés à droite)
+ */
+
+.fr-footer__partners {
+  margin-top: 1rem;
+  padding-top: 1rem;
+
+  /**
+  * On surcharge le style du logo de base
+  */
+  box-shadow: inset 0 1px 0 0 var(--border-default-grey);
+}
+
+.fr-footer__partners a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fr-footer__partners .fr-footer__logo {
+  width: auto;
+  height: auto;
+  padding: 0.25rem;
+}
+
+.fr-footer__partners + .fr-footer__bottom {
+  margin-top: 0.5rem;
+}
+
+.fr-footer__partners-title {
+  --title-spacing: 0 0 0.5rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.fr-footer__partners-logos {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 0 -0.5rem 0;
+}
+
+.fr-footer__partners-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+}
+
+.fr-footer__partners-sub {
+  margin-bottom: 0.5rem;
+
+  /**
+  * On surcharge le style du lien pour les logos secondaires
+  */
+}
+
+.fr-footer__partners-sub,
+.fr-footer__partners-sub > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fr-footer__partners-sub .fr-footer__partners-link {
+  margin-bottom: 0.5rem;
+}
+
+.fr-footer__content-link,
+.fr-footer__top-cat {
+  color: var(--text-title-grey);
+}
+
+.fr-footer__partners .fr-footer__partners-link,
+.fr-footer__partners .fr-footer__partners-link:hover,
+.fr-footer__partners .fr-footer__partners-link:active {
+  background: #fff;
+}
+@media (min-width: 36em) {
+  /*! media sm */
+  .fr-footer__content-list > li {
+    margin-right: 1.5rem;
+  }
+
+  .fr-footer__partners-title {
+    text-align: left;
+  }
+
+  .fr-footer__partners-logos {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-right: -0.5rem;
+  }
+
+  .fr-footer__partners-logos::before {
+    content: "";
+    display: block;
+    order: 2;
+    flex: 1;
+  }
+
+  .fr-footer__partners-main {
+    margin-bottom: 1rem;
+    order: 1;
+  }
+
+  .fr-footer__partners-main + .fr-footer__partners-sub > ul > li {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+
+  .fr-footer__partners-sub,
+  .fr-footer__partners-sub > ul {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .fr-footer__partners-sub {
+    order: 3;
+  }
+
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+  .fr-footer__body {
+    margin-bottom: 1.5rem;
+  }
+
+  .fr-footer__brand .fr-logo {
+    font-size: 1.3125rem;
+    padding: 1.25rem;
+    margin: -1.25rem;
+  }
+
+  .fr-footer__brand .fr-logo::before {
+    width: 3.4375rem;
+    height: 1.25rem;
+    margin-bottom: 0.4166666667rem;
+    background-size: 3.4375rem 1.40625rem, 3.4375rem 1.25rem, 0;
+    background-position: 0 -0.078125rem, 0 0, 0 0;
+  }
+
+  :root[data-fr-mourning] .fr-footer__brand .fr-logo::before {
+    background-size: 3.4375rem 1.40625rem, 0, 3.4375rem 1.25rem;
+  }
+
+  .fr-footer__brand .fr-logo::after {
+    min-width: 3.28125rem;
+    background-size: 6.5625rem 4.6875rem;
+    background-position: 0 calc(100% + 2.34375rem);
+    padding-top: 2.7604166667rem;
+  }
+
+  [data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+    background-position: -3.28125rem 100%;
+  }
+
+  .fr-footer__brand .fr-logo + .fr-footer__brand-link {
+    margin-left: 3rem;
+  }
+
+  .fr-footer__brand {
+    flex-basis: auto;
+    margin-right: 1rem;
+  }
+
+  .fr-footer__brand.fr-enlarge-link {
+    margin: -1rem 0 -1rem -1rem;
+    padding: 1rem;
+    align-self: flex-start;
+  }
+
+  .fr-footer__content {
+    margin-left: auto;
+  }
+
+  .fr-footer__top {
+    margin: -2.375rem 0 2.5rem;
+  }
+
+  .fr-footer__bottom-item {
+    margin: 0.5rem 0 0 0.75rem;
+  }
+
+  .fr-footer__bottom-item::before {
+    margin-right: 0.75rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .fr-footer__partners-logos {
+    margin-right: -1rem;
+    flex-wrap: nowrap;
+  }
+
+  .fr-footer__partners-main + .fr-footer__partners-sub > ul > li {
+    margin: 0 1rem 0 1rem;
+  }
+
+  .fr-footer__partners-main + .fr-footer__partners-sub {
+    padding-left: 1rem;
+    padding-top: 0;
+  }
+
+  .fr-footer__partners-main + .fr-footer__partners-sub > ul {
+    justify-content: flex-end;
+  }
+
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+  .fr-footer__content {
+    margin-top: 0;
+    flex-basis: 50%;
+  }
+
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Reset liste à puce
+  */
+  .fr-footer ul {
+    list-style-type: none;
+  }
+
+  .fr-footer ol {
+    list-style-type: none;
+  }
+
+  .fr-footer ul,
+  .fr-footer ol {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .fr-footer__content-desc [href] {
+    text-decoration: underline;
+  }
+
+  .fr-footer {
+    box-shadow: inset 0 2px 0 0 #000091, inset 0 -1px 0 0 #ddd;
+  }
+
+  .fr-footer__content-link,
+  .fr-footer__top-cat {
+    color: #161616;
+  }
+
+  .fr-footer__top {
+    background-color: #f6f6f6;
+  }
+
+  .fr-footer__bottom {
+    box-shadow: inset 0 1px 0 0 #ddd;
+  }
+
+  .fr-footer__bottom .fr-btn {
+    color: #666;
+  }
+
+  .fr-footer__bottom-item::before {
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-footer__bottom-link {
+    color: #666;
+  }
+
+  .fr-footer__bottom-copy {
+    color: #666;
+  }
+
+  .fr-footer__partners {
+    box-shadow: inset 0 1px 0 0 #ddd;
+  }
+}

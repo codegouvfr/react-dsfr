@@ -1,0 +1,358 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  CALLOUT
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-callout {
+  position: relative;
+  padding: 1.5rem;
+
+  --title-spacing: 0 0 0.5rem;
+  --text-spacing: 0;
+  margin: 0 0 1.5rem;
+
+  /**
+   * Inclusion de l'icône (optionnel)
+   */
+
+  /**
+   * Ajout de marge quand on inclut un bouton (optionnel)
+   */
+  background-color: var(--background-contrast-grey);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-grey-hover);
+  --active: var(--background-contrast-grey-active);
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-france);
+}
+
+.fr-callout[class^=fr-icon-]::before,
+.fr-callout[class*=" fr-icon-"]::before,
+.fr-callout[class^=fr-fi-]::before,
+.fr-callout[class*=" fr-fi-"]::before {
+  display: block;
+  margin: -0.5rem 0 0.5rem;
+}
+
+.fr-callout__title {
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  color: var(--text-title-grey);
+}
+
+.fr-callout__text {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.fr-callout .fr-btn {
+  margin-top: 1rem;
+}
+
+.fr-callout::before {
+  color: var(--text-title-grey);
+}
+
+.fr-callout--green-tilleul-verveine {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-tilleul-verveine);
+  background-color: var(--background-contrast-green-tilleul-verveine);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-green-tilleul-verveine-hover);
+  --active: var(--background-contrast-green-tilleul-verveine-active);
+}
+
+.fr-callout--green-bourgeon {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-bourgeon);
+  background-color: var(--background-contrast-green-bourgeon);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-green-bourgeon-hover);
+  --active: var(--background-contrast-green-bourgeon-active);
+}
+
+.fr-callout--green-emeraude {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-emeraude);
+  background-color: var(--background-contrast-green-emeraude);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-green-emeraude-hover);
+  --active: var(--background-contrast-green-emeraude-active);
+}
+
+.fr-callout--green-menthe {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-menthe);
+  background-color: var(--background-contrast-green-menthe);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-green-menthe-hover);
+  --active: var(--background-contrast-green-menthe-active);
+}
+
+.fr-callout--green-archipel {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-archipel);
+  background-color: var(--background-contrast-green-archipel);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-green-archipel-hover);
+  --active: var(--background-contrast-green-archipel-active);
+}
+
+.fr-callout--blue-ecume {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-ecume);
+  background-color: var(--background-contrast-blue-ecume);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-blue-ecume-hover);
+  --active: var(--background-contrast-blue-ecume-active);
+}
+
+.fr-callout--blue-cumulus {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-cumulus);
+  background-color: var(--background-contrast-blue-cumulus);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-blue-cumulus-hover);
+  --active: var(--background-contrast-blue-cumulus-active);
+}
+
+.fr-callout--purple-glycine {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-purple-glycine);
+  background-color: var(--background-contrast-purple-glycine);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-purple-glycine-hover);
+  --active: var(--background-contrast-purple-glycine-active);
+}
+
+.fr-callout--pink-macaron {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-macaron);
+  background-color: var(--background-contrast-pink-macaron);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-pink-macaron-hover);
+  --active: var(--background-contrast-pink-macaron-active);
+}
+
+.fr-callout--pink-tuile {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-tuile);
+  background-color: var(--background-contrast-pink-tuile);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-pink-tuile-hover);
+  --active: var(--background-contrast-pink-tuile-active);
+}
+
+.fr-callout--yellow-tournesol {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-tournesol);
+  background-color: var(--background-contrast-yellow-tournesol);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-yellow-tournesol-hover);
+  --active: var(--background-contrast-yellow-tournesol-active);
+}
+
+.fr-callout--yellow-moutarde {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-moutarde);
+  background-color: var(--background-contrast-yellow-moutarde);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-yellow-moutarde-hover);
+  --active: var(--background-contrast-yellow-moutarde-active);
+}
+
+.fr-callout--orange-terre-battue {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-orange-terre-battue);
+  background-color: var(--background-contrast-orange-terre-battue);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-orange-terre-battue-hover);
+  --active: var(--background-contrast-orange-terre-battue-active);
+}
+
+.fr-callout--brown-cafe-creme {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-cafe-creme);
+  background-color: var(--background-contrast-brown-cafe-creme);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-brown-cafe-creme-hover);
+  --active: var(--background-contrast-brown-cafe-creme-active);
+}
+
+.fr-callout--brown-caramel {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-caramel);
+  background-color: var(--background-contrast-brown-caramel);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-brown-caramel-hover);
+  --active: var(--background-contrast-brown-caramel-active);
+}
+
+.fr-callout--brown-opera {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-opera);
+  background-color: var(--background-contrast-brown-opera);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-brown-opera-hover);
+  --active: var(--background-contrast-brown-opera-active);
+}
+
+.fr-callout--beige-gris-galet {
+  box-shadow: inset 0.25rem 0 0 0 var(--border-default-beige-gris-galet);
+  background-color: var(--background-contrast-beige-gris-galet);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-beige-gris-galet-hover);
+  --active: var(--background-contrast-beige-gris-galet-active);
+}
+
+@media (min-width: 36em) {
+  /*! media sm */
+
+  /*! media sm */
+}
+
+@media (min-width: 48em) {
+  /*! media md */
+  .fr-callout {
+    padding: 2rem 3rem;
+  }
+
+  .fr-callout[class^=fr-icon-]::before,
+  .fr-callout[class*=" fr-icon-"]::before,
+  .fr-callout[class^=fr-fi-]::before,
+  .fr-callout[class*=" fr-fi-"]::before {
+    margin: -1rem 0 1rem -2rem;
+  }
+
+  .fr-callout__title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  /*! media md */
+}
+
+@media (min-width: 62em) {
+  /*! media lg */
+
+  /*! media lg */
+}
+
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Marge des titres et textes
+  */
+  .fr-callout__title {
+    margin: 0 0 0.5rem;
+    color: #161616;
+  }
+
+  .fr-callout__text {
+    margin: 0;
+  }
+
+  .fr-callout {
+    background-color: #eee;
+    box-shadow: inset 0.25rem 0 0 0 #6a6af4;
+  }
+
+  .fr-callout::before {
+    color: #161616;
+  }
+
+  .fr-callout--green-tilleul-verveine {
+    box-shadow: inset 0.25rem 0 0 0 #b7a73f;
+    background-color: #fceeac;
+  }
+
+  .fr-callout--green-bourgeon {
+    box-shadow: inset 0.25rem 0 0 0 #68a532;
+    background-color: #c9fcac;
+  }
+
+  .fr-callout--green-emeraude {
+    box-shadow: inset 0.25rem 0 0 0 #00a95f;
+    background-color: #c3fad5;
+  }
+
+  .fr-callout--green-menthe {
+    box-shadow: inset 0.25rem 0 0 0 #009081;
+    background-color: #bafaee;
+  }
+
+  .fr-callout--green-archipel {
+    box-shadow: inset 0.25rem 0 0 0 #009099;
+    background-color: #c7f6fc;
+  }
+
+  .fr-callout--blue-ecume {
+    box-shadow: inset 0.25rem 0 0 0 #465f9d;
+    background-color: #e9edfe;
+  }
+
+  .fr-callout--blue-cumulus {
+    box-shadow: inset 0.25rem 0 0 0 #417dc4;
+    background-color: #e6eefe;
+  }
+
+  .fr-callout--purple-glycine {
+    box-shadow: inset 0.25rem 0 0 0 #a558a0;
+    background-color: #fee7fc;
+  }
+
+  .fr-callout--pink-macaron {
+    box-shadow: inset 0.25rem 0 0 0 #e18b76;
+    background-color: #fee9e6;
+  }
+
+  .fr-callout--pink-tuile {
+    box-shadow: inset 0.25rem 0 0 0 #ce614a;
+    background-color: #fee9e7;
+  }
+
+  .fr-callout--yellow-tournesol {
+    box-shadow: inset 0.25rem 0 0 0 #c8aa39;
+    background-color: #feecc2;
+  }
+
+  .fr-callout--yellow-moutarde {
+    box-shadow: inset 0.25rem 0 0 0 #c3992a;
+    background-color: #feebd0;
+  }
+
+  .fr-callout--orange-terre-battue {
+    box-shadow: inset 0.25rem 0 0 0 #e4794a;
+    background-color: #fee9e5;
+  }
+
+  .fr-callout--brown-cafe-creme {
+    box-shadow: inset 0.25rem 0 0 0 #d1b781;
+    background-color: #f7ecdb;
+  }
+
+  .fr-callout--brown-caramel {
+    box-shadow: inset 0.25rem 0 0 0 #c08c65;
+    background-color: #f7ebe5;
+  }
+
+  .fr-callout--brown-opera {
+    box-shadow: inset 0.25rem 0 0 0 #bd987a;
+    background-color: #f7ece4;
+  }
+
+  .fr-callout--beige-gris-galet {
+    box-shadow: inset 0.25rem 0 0 0 #aea397;
+    background-color: #f3ede5;
+  }
+}

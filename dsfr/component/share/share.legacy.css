@@ -1,0 +1,125 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-share__group > li {
+    list-style: none;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share .fr-btn--facebook::before {
+    background-image: url("../../icons/logo/facebook-circle-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter::before {
+    background-image: url("../../icons/logo/twitter-line.svg");
+  }
+
+  .fr-share .fr-btn--linkedin::before {
+    background-image: url("../../icons/logo/linkedin-box-line.svg");
+  }
+
+  .fr-share .fr-btn--mastodon::before {
+    background-image: url("../../icons/logo/mastodon-line.svg");
+  }
+
+  .fr-share .fr-btn--mail::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/business/mail-line.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share .fr-btn--copy::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/business/links-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share .fr-btn {
+    background-color: transparent;
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-share .fr-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-share .fr-btn:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-share .fr-btn:disabled,
+  .fr-share a.fr-btn:not([href]) {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+    background-color: transparent;
+  }
+
+  .fr-share .fr-btn:disabled:hover,
+  .fr-share a.fr-btn:not([href]):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-share .fr-btn:disabled:active,
+  .fr-share a.fr-btn:not([href]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-share__link {
+    background-color: transparent;
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-share__link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-share__link:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-share__link:disabled,
+  a.fr-share__link:not([href]) {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+    background-color: transparent;
+  }
+
+  .fr-share__link:disabled:hover,
+  a.fr-share__link:not([href]):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-share__link:disabled:active,
+  a.fr-share__link:not([href]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

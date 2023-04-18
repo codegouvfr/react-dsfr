@@ -1,0 +1,51 @@
+/*!
+ * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+  .fr-translate .fr-translate__btn[aria-expanded=true]:hover {
+    background-color: var(--hover-tint);
+  }
+
+  .fr-translate .fr-translate__btn[aria-expanded=true]:active {
+    background-color: var(--active-tint);
+  }
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-translate .fr-translate__btn::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/editor/translate-2.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-translate .fr-translate__btn::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-down-s-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-translate__menu .fr-translate__language {
+    box-shadow: none;
+  }
+}
+@media (min-width: 62em) and (-ms-high-contrast: none), (min-width: 62em) and (-ms-high-contrast: active) {
+  .fr-translate .fr-translate__btn[aria-expanded=true] {
+    color: #000091;
+    background-color: #e3e3fd;
+  }
+}
