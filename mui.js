@@ -242,4 +242,5 @@ export function createMuiDsfrThemeProvider(params) {
     return { MuiDsfrThemeProvider };
 }
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
+export default MuiDsfrThemeProvider;
 //# sourceMappingURL=mui.js.map

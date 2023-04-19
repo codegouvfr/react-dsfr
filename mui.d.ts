@@ -39,3 +39,4 @@ export declare function createMuiDsfrThemeProvider(params: {
 export declare const MuiDsfrThemeProvider: (props: {
     children: ReactNode;
 }) => JSX.Element;
+export default MuiDsfrThemeProvider;
