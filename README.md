@@ -214,10 +214,6 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 This is the documentation for [Next 13 app directory mode ](https://beta.nextjs.org/docs)which is still in beta. If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
 {% endhint %}
 
-{% hint style="danger" %}
-Next 13.3 (the current version of Next at the time of writing theses lines is not yet working. Last working version: Next: \~13.2.0
-{% endhint %}
-
 {% embed url="https://github.com/garronej/react-dsfr-next-appdir-demo" %}
 Starter project
 {% endembed %}
