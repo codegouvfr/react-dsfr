@@ -122,7 +122,7 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
-Starter project
+Starter project in prod here: [https://react-dsfr-next-demo.vercel.app/](https://react-dsfr-next-demo.vercel.app/)
 {% endembed %}
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
@@ -215,7 +215,7 @@ This is the documentation for [Next 13 app directory mode ](https://beta.nextjs.
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-appdir-demo" %}
-Starter project
+Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
 {% endembed %}
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
