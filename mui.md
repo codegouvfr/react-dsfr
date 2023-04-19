@@ -11,7 +11,7 @@ react-dsfr features a DSFR theme for MUI. This enables you to use the [large lib
 First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach:
 
 ```tsx
-import { MuiDsfrThemeProvider } from "@codegouvfr/react-dsfr/mui";
+import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
 
 function App() {
 
