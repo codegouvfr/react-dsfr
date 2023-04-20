@@ -13,6 +13,7 @@ export declare namespace ToggleSwitchProps {
         labelPosition?: "left" | "right";
         classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
         style?: CSSProperties;
+        name?: string;
     };
     type Uncontrolled = Common & {
         /** Default: "false" */

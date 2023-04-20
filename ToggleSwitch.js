@@ -18,7 +18,7 @@ import { createComponentI18nApi } from "./i18n";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitch> */
 export const ToggleSwitch = memo(forwardRef((props, ref) => {
-    const { className, label, helperText, defaultChecked = false, checked: props_checked, showCheckedHint = true, disabled = false, labelPosition = "right", classes = {}, onChange, inputTitle, style } = props, rest = __rest(props, ["className", "label", "helperText", "defaultChecked", "checked", "showCheckedHint", "disabled", "labelPosition", "classes", "onChange", "inputTitle", "style"]);
+    const { className, label, helperText, defaultChecked = false, checked: props_checked, showCheckedHint = true, disabled = false, labelPosition = "right", classes = {}, onChange, inputTitle, style, name } = props, rest = __rest(props, ["className", "label", "helperText", "defaultChecked", "checked", "showCheckedHint", "disabled", "labelPosition", "classes", "onChange", "inputTitle", "style", "name"]);
     const [checked, setChecked] = useState(defaultChecked);
     useEffect(() => {
         if (defaultChecked === undefined) {
@@ -45,7 +45,7 @@ export const ToggleSwitch = memo(forwardRef((props, ref) => {
         }
     });
     return (React.createElement("div", { className: cx(fr.cx("fr-toggle", labelPosition === "left" && "fr-toggle--label-left"), classes.root, className), ref: ref, style: style },
-        React.createElement("input", { onChange: onInputChange, type: "checkbox", disabled: disabled || undefined, className: cx(fr.cx("fr-toggle__input"), classes.input), "aria-describedby": hintId, id: inputId, title: inputTitle, checked: props_checked !== null && props_checked !== void 0 ? props_checked : checked }),
+        React.createElement("input", { onChange: onInputChange, type: "checkbox", disabled: disabled || undefined, className: cx(fr.cx("fr-toggle__input"), classes.input), "aria-describedby": hintId, id: inputId, title: inputTitle, checked: props_checked !== null && props_checked !== void 0 ? props_checked : checked, name: name }),
         React.createElement("label", Object.assign({ className: cx(fr.cx("fr-toggle__label"), classes.label), htmlFor: inputId }, (showCheckedHint && {
             "data-fr-checked-label": t("checked"),
             "data-fr-unchecked-label": t("unchecked")

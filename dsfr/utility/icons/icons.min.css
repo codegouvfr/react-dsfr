@@ -46,6 +46,12 @@
     mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
+}
+
 .fr-icon-add-circle-line::before,
 .fr-icon-add-circle-line::after {
     -webkit-mask-image: url("../../icons/system/add-circle-line.svg");
@@ -62,12 +68,6 @@
 .fr-icon-account-line::after {
     -webkit-mask-image: url("../../icons/user/account-circle-line.svg");
     mask-image: url("../../icons/user/account-circle-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -207,6 +207,11 @@
         background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
+    }
+    
     .fr-icon-add-circle-line::before,
     .fr-icon-add-circle-line::after {
         background-image: url("../../icons/system/add-circle-line.svg");
@@ -220,11 +225,6 @@
     .fr-icon-account-line::before,
     .fr-icon-account-line::after {
         background-image: url("../../icons/user/account-circle-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,
