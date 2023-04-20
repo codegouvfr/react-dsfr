@@ -123,7 +123,7 @@ export const ToggleSwitch = memo(
                     id={inputId}
                     title={inputTitle}
                     checked={props_checked ?? checked}
-                    {...(name !== undefined && { name: name })}
+                    name={name}
                 />
                 <label
                     className={cx(fr.cx("fr-toggle__label"), classes.label)}
