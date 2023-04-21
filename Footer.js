@@ -19,7 +19,7 @@ import { createComponentI18nApi } from "./i18n";
 import { id } from "tsafe/id";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, brandTop, contentDescription, homeLinkProps, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, style, linkList } = props, rest = __rest(props, ["className", "classes", "brandTop", "contentDescription", "homeLinkProps", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "style", "linkList"]);
+    const { className, classes = {}, brandTop, contentDescription, homeLinkProps, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, style, linkList } = props, rest = __rest(props, ["className", "classes", "brandTop", "contentDescription", "homeLinkProps", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "style", "linkList"]);
     assert();
     const { Link } = getLink();
     const { t } = useTranslation();
@@ -97,12 +97,20 @@ export const Footer = memo(forwardRef((props, ref) => {
                                 "linkProps": personalDataLinkProps
                             })
                         ]),
-                    ...(cookiesManagementLinkProps === undefined
-                        ? []
+                    ...(cookiesManagementButtonProps === undefined
+                        ? // one or the other, but not both. Priority to button for consent modal control.
+                            cookiesManagementLinkProps === undefined
+                                ? []
+                                : [
+                                    id({
+                                        "text": t("cookies management"),
+                                        "linkProps": cookiesManagementLinkProps
+                                    })
+                                ]
                         : [
                             id({
                                 "text": t("cookies management"),
-                                "linkProps": cookiesManagementLinkProps
+                                "buttonProps": Object.assign({ onClick: cookiesManagementButtonProps.onClick }, cookiesManagementButtonProps.nativeButtonProps)
                             })
                         ]),
                     ...bottomItems

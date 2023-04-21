@@ -19,6 +19,7 @@ export declare namespace ModalProps {
         /** Default: true */
         doClosesModal?: boolean;
     };
+    type ModalButtonProps = Pick<ButtonProps, "onClick" | "nativeButtonProps">;
 }
 declare const addModalTranslations: (params: {
     lang: string;
@@ -27,18 +28,8 @@ declare const addModalTranslations: (params: {
     }>;
 }) => void;
 export { addModalTranslations };
-declare function createOpenModalButtonProps(params: {
-    modalId: string;
-    isOpenedByDefault: boolean;
-}): {
-    onClick: () => void;
-    nativeButtonProps: {
-        "aria-controls": string;
-        "data-fr-opened": boolean;
-    };
-};
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
 export declare function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ReturnType<typeof createOpenModalButtonProps>> & Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element>;
+}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> & Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element>;

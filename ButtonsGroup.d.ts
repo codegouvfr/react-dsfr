@@ -10,7 +10,7 @@ export declare namespace ButtonsGroupProps {
         alignment?: "left" | "center" | "right";
         /** Default: false */
         buttonsEquisized?: boolean;
-        buttons: [ButtonProps, ButtonProps, ...ButtonProps[]];
+        buttons: [ButtonProps, ...ButtonProps[]];
         style?: CSSProperties;
     };
     type AlwaysStacked = Common & {

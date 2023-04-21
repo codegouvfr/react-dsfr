@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import { ModalProps } from "./Modal";
 export type FooterProps = {
     className?: string;
     brandTop: ReactNode;
@@ -11,6 +12,7 @@ export type FooterProps = {
     termsLinkProps?: RegisteredLinkProps;
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
+    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
     homeLinkProps: RegisteredLinkProps & {
         title: string;
     };

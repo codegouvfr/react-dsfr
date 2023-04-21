@@ -30,6 +30,7 @@ import Script from "next/script";
 import { assert } from "tsafe/assert";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
+import { GdprStoreProvider } from "./gdpr/GdprStore";
 function readIsDarkInCookie(cookie) {
     const parsedCookies = Object.fromEntries(cookie
         .split(/; */)
@@ -106,7 +107,8 @@ export function createNextDsfrIntegrationApi(params) {
                     React.createElement(Script, { dangerouslySetInnerHTML: {
                             "__html": getScriptToRunAsap(defaultColorScheme)
                         } })),
-                isBrowser ? (React.createElement(App, Object.assign({}, props))) : (React.createElement(SsrIsDarkProvider, { value: isDark },
+                isBrowser ? (React.createElement(GdprStoreProvider, null,
+                    React.createElement(App, Object.assign({}, props)))) : (React.createElement(SsrIsDarkProvider, { value: isDark },
                     React.createElement(App, Object.assign({}, props))))));
         }
         Object.keys(App).forEach(key => (AppWithDsfr[key] = App[key]));

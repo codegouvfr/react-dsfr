@@ -43,7 +43,7 @@ const Modal = memo(forwardRef((props, ref) => {
                     })() },
                     React.createElement("div", { className: fr.cx("fr-modal__body") },
                         React.createElement("div", { className: fr.cx("fr-modal__header") },
-                            React.createElement("button", { className: fr.cx("fr-link--close", "fr-link"), title: t("close"), "aria-controls": id }, t("close"))),
+                            React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), title: t("close"), "aria-controls": id }, t("close"))),
                         React.createElement("div", { className: fr.cx("fr-modal__content") },
                             React.createElement("h1", { id: titleId, className: fr.cx("fr-modal__title") },
                                 iconId !== undefined && (React.createElement("span", { className: fr.cx(iconId, "fr-fi--lg") })),
