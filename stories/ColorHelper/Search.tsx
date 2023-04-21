@@ -120,11 +120,13 @@ export function Search(props: Props) {
                             onContextChange(event.target.value || (undefined as any)),
                         "value": contextes.length === 1 ? contextes[0] : context ?? ""
                     }}
-                    options={[undefined, ...contextes].map(context => ({
-                        "value": context ?? "",
-                        "label": context ?? "No context selected..."
-                    }))}
-                />
+                >
+                    {[undefined, ...contextes].map(context => (
+                        <option value={context ?? ""} key={context ?? 0}>
+                            {context ?? "No no context selected..."}
+                        </option>
+                    ))}
+                </Select>
                 <Select
                     label={`Filter by color name (${colors.length})`}
                     disabled={colors.length === 1}
@@ -133,11 +135,13 @@ export function Search(props: Props) {
                             onColorChange(event.target.value || (undefined as any)),
                         "value": colors.length === 1 ? colors[0] : color ?? ""
                     }}
-                    options={[undefined, ...colors].map(color => ({
-                        "value": color ?? "",
-                        "label": color ?? "No color selected..."
-                    }))}
-                />
+                >
+                    {[undefined, ...colors].map(color => (
+                        <option value={color ?? ""} key={color ?? 0}>
+                            {color ?? "No no color selected..."}
+                        </option>
+                    ))}
+                </Select>
                 <Select
                     label={`Filter by usage (${usages.length})`}
                     disabled={usages.length === 1}
@@ -146,11 +150,13 @@ export function Search(props: Props) {
                             onUsageChange(event.target.value || (undefined as any)),
                         "value": usages.length === 1 ? usages[0] : usage ?? ""
                     }}
-                    options={[undefined, ...usages].map(usage => ({
-                        "value": usage ?? "",
-                        "label": usage ?? "No usage selected..."
-                    }))}
-                />
+                >
+                    {[undefined, ...usages].map(usage => (
+                        <option value={usage ?? ""} key={usage ?? 0}>
+                            {usage ?? "No usage selected..."}
+                        </option>
+                    ))}
+                </Select>
             </div>
         </>
     );

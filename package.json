@@ -148,6 +148,7 @@
         "./Stepper": "./dist/Stepper.js",
         "./SkipLinks": "./dist/SkipLinks.js",
         "./SideMenu": "./dist/SideMenu.js",
+        "./SelectNext": "./dist/SelectNext.js",
         "./Select": "./dist/Select.js",
         "./SearchBar": "./dist/SearchBar.js",
         "./RadioButtons": "./dist/RadioButtons.js",

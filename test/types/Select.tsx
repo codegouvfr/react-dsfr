@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, type SelectProps } from "../../src/Select";
+import { Select, type SelectProps } from "../../src/SelectNext";
 import { assert, type Equals } from "tsafe";
 
 {
@@ -192,9 +192,7 @@ import { assert, type Equals } from "tsafe";
 }
 
 {
-
     const values = ["foo", "bar", "baz"] as const;
-
 
     <Select
         label="Label"
@@ -204,7 +202,7 @@ import { assert, type Equals } from "tsafe";
                 assert<Equals<typeof event["target"]["value"], typeof values[number]>>();
             }
         }}
-        options={values.map(value=> ({
+        options={values.map(value => ({
             value,
             "label": `Option ${value}`
         }))}
@@ -213,21 +211,21 @@ import { assert, type Equals } from "tsafe";
 }
 
 {
-
     const dogOrCatOptions = [
         {
             value: "dog",
-            label: "Dog",
+            label: "Dog"
         },
         {
             value: "cat",
-            label: "Cat",
-        },
+            label: "Cat"
+        }
     ] as const;
 
-    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
+    type DogOrCat = typeof dogOrCatOptions[number]["value"];
 
-    <Select label="Dog or cat person?"
+    <Select
+        label="Dog or cat person?"
         options={[...dogOrCatOptions]}
         placeholder="Select an option"
         nativeSelectProps={{
@@ -235,33 +233,32 @@ import { assert, type Equals } from "tsafe";
                 assert<Equals<typeof event["target"]["value"], DogOrCat>>();
             }
         }}
-    />
-
+    />;
 }
 
 {
-
     const dogOrCatOptions = [
         {
             value: "dog",
-            label: "Dog",
+            label: "Dog"
         },
         {
             value: "cat",
-            label: "Cat",
-        },
+            label: "Cat"
+        }
     ] as const;
 
-    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
+    type DogOrCat = typeof dogOrCatOptions[number]["value"];
 
-    <Select label="Dog or cat person?"
-        options={dogOrCatOptions}
+    <Select
+        label="Dog or cat person?"
+        options={[...dogOrCatOptions]}
+        //TODO: Make it work with: options={[...dogOrCatOptions]}
         placeholder="Select an option"
         nativeSelectProps={{
             "onChange": event => {
                 assert<Equals<typeof event["target"]["value"], DogOrCat>>();
             }
         }}
-    />
-
+    />;
 }
