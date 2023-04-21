@@ -3,6 +3,8 @@ import type { InputProps } from "../Input";
 import type { FrClassName } from "../fr/generatedFromCss/classNames";
 export type PasswordInputProps = Omit<InputProps.Common, "state" | "stateRelatedMessage" | "iconId" | "classes"> & {
     classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
+    /** Default "Your password must contain:", if empty string the hint wont be displayed */
+    messagesHint?: ReactNode;
     messages?: {
         severity: PasswordInputProps.Severity;
         message: ReactNode;
@@ -19,6 +21,8 @@ export declare namespace PasswordInputProps {
  * */
 export declare const PasswordInput: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<InputProps.Common, "classes" | "iconId" | "state" | "stateRelatedMessage"> & {
     classes?: Partial<Record<"input" | "label" | "root" | "checkbox", string>> | undefined;
+    /** Default "Your password must contain:", if empty string the hint wont be displayed */
+    messagesHint?: ReactNode;
     messages?: {
         severity: PasswordInputProps.Severity;
         message: ReactNode;

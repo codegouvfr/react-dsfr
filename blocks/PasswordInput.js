@@ -19,9 +19,9 @@ import { cx } from "../tools/cx";
  * @see <https://react-dsfr-components.etalab.studio/?path=/docs/blocks-passwordinput
  * */
 export const PasswordInput = memo(forwardRef((props, ref) => {
-    const { className, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps } = props, rest = __rest(props, ["className", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps"]);
-    assert();
     const { t } = useTranslation();
+    const { className, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps, messagesHint = t("your password must contain") } = props, rest = __rest(props, ["className", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps", "messagesHint"]);
+    assert();
     const inputId = (function useClosure() {
         var _a;
         const id = useId();
@@ -41,7 +41,7 @@ export const PasswordInput = memo(forwardRef((props, ref) => {
         React.createElement("div", { className: fr.cx("fr-input-wrap") },
             React.createElement("input", Object.assign({}, nativeInputProps, { className: cx(fr.cx("fr-password__input", "fr-input"), classes.input), id: inputId, type: "password", disabled: disabled }, (messages.length !== 0 && { "aria-describedby": messagesGroupId })))),
         messages.length !== 0 && (React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesGroupId, "aria-live": "assertive" },
-            React.createElement("p", { className: fr.cx("fr-message"), id: messageGroupId }, t("your password must contain")),
+            messagesHint !== "" && (React.createElement("p", { className: fr.cx("fr-message"), id: messageGroupId }, messagesHint)),
             messages.map(({ severity, message }, index) => (React.createElement("p", { key: index, className: fr.cx("fr-message", `fr-message--${severity}`), id: `${messageGroupId}-${index}` }, message))))),
         React.createElement("div", { className: cx(fr.cx("fr-password__checkbox", "fr-checkbox-group", "fr-checkbox-group--sm"), classes.checkbox) },
             React.createElement("input", { "aria-label": t("show password"), id: togglePasswordShowId, type: "checkbox", disabled: disabled || undefined }),
