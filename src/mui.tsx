@@ -2,7 +2,6 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo, type ReactNode } from "react";
-import { breakpointValues } from "./fr/generatedFromCss/breakpoints";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import type { Shadows } from "@mui/material/styles";
@@ -14,9 +13,13 @@ import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
+import { useBreakpointsValues, type BreakpointsValues } from "./useBreakpointsValues";
 
-export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOptions {
-    const { isDark } = params;
+export function getMuiDsfrThemeOptions(params: {
+    isDark: boolean;
+    breakpointsValues: BreakpointsValues;
+}): ThemeOptions {
+    const { isDark, breakpointsValues } = params;
 
     const { options, decisions } = getColors(isDark);
 
@@ -25,11 +28,9 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
             "borderRadius": 0
         },
         "breakpoints": {
-            //"unit": breakpointValuesUnit,
+            //NOTE: We would use "unit": breakpointsValuesUnit but only "px" works.
             "unit": "px",
-            "values": Object.fromEntries(
-                Object.entries(breakpointValues).map(([key, value]) => [key, value * 16])
-            ) as any
+            "values": breakpointsValues
         },
         "palette": {
             "mode": isDark ? "dark" : "light",
@@ -244,7 +245,10 @@ export function getMuiDsfrThemeOptions(params: { isDark: boolean }): ThemeOption
  *
  * @returns — A complete, ready-to-use mui theme object.
  */
-export function createMuiDsfrTheme(params: { isDark: boolean }, ...args: object[]): MuiTheme {
+export function createMuiDsfrTheme(
+    params: { isDark: boolean; breakpointsValues: BreakpointsValues },
+    ...args: object[]
+): MuiTheme {
     const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
 
     return muiTheme;
@@ -273,8 +277,10 @@ export function createMuiDsfrThemeProvider(params: {
 
         const { isDark } = useIsDark_props();
 
+        const { breakpointsValues } = useBreakpointsValues();
+
         const theme = useMemo(() => {
-            const nonAugmentedMuiTheme = createMuiDsfrTheme({ isDark });
+            const nonAugmentedMuiTheme = createMuiDsfrTheme({ isDark, breakpointsValues });
 
             return augmentMuiTheme === undefined
                 ? nonAugmentedMuiTheme
@@ -291,3 +297,5 @@ export function createMuiDsfrThemeProvider(params: {
 }
 
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
+
+export default MuiDsfrThemeProvider;

@@ -35,8 +35,8 @@
 -   [x] Footer
 -   [ ] Translate
 -   [x] Summary
--   [ ] Table
--   [ ] Tag
+-   [x] Tag
+-   [x] Table
 -   [x] Download
 -   [ ] Transcription
 -   [x] Tile

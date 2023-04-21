@@ -2,6 +2,10 @@ import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { Table } from "@codegouvfr/react-dsfr/Table";
+import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
+import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
+import { consentModalButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
 
 const sideMenuItems = [
     {
@@ -104,6 +108,48 @@ export function Home() {
                 burgerMenuButtonText="Dans cette rubrique"
             />
 
+            <TableExample />
+            <GdprStoreViewer />
         </>
     );
+}
+
+function TableExample() {
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
+    );
+}
+
+
+export const GdprStoreViewer = () => {
+    const {consents, firstChoiceMade } = useGdprStore();
+
+    return <>
+        <ButtonsGroup inlineLayoutWhen='always' buttons={[
+            {
+                ...consentModalButtonProps,
+                children: "Open Consent"
+            },
+            {
+                children: "Reset Consent",
+                priority: "secondary",
+                onClick() {
+                    localStorage.removeItem("dsfr-gdpr-consent");
+                    window.location.reload();
+                }
+            }
+        ]} />
+        <pre>{JSON.stringify({consents, firstChoiceMade})}</pre>
+    </>;
 }

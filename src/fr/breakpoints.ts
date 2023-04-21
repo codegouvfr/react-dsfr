@@ -1,12 +1,16 @@
 import type { BreakpointKeys } from "./generatedFromCss/breakpoints";
 import {
-    breakpointValues as values,
-    breakpointValuesUnit as unit,
+    BreakpointsValues as values,
+    BreakpointsValuesUnit as unit,
     breakpointKeys as keys
 } from "./generatedFromCss/breakpoints";
-import { assert } from "tsafe/assert";
+import { type Equals, assert } from "tsafe/assert";
+import { getBaseFontSizePx } from "../tools/getBaseFontSizePx";
 
 export type { BreakpointKeys };
+
+/** Breakpoint values in px */
+export type BreakpointsValues = Record<BreakpointKeys, number>;
 
 const epsilon = 0.003125;
 
@@ -38,5 +42,22 @@ export const breakpoints = {
         return breakpoints
             .between(key, keys[keys.indexOf(key) + 1])
             .replace("@media", "@media not all and");
+    },
+    /**
+     * Returns the breakpoint values in px.
+     *
+     * Warning: It reflects the values at a given time, if the root font size changes so will the breakpointsValues.
+     * Plus this function is rather expensive to call.
+     * If you're in react you should use the
+     * import { useBreakpointsValues } from "@codegouvfr/react-dsfr/useBreakpointsValues";
+     */
+    "getBreakpointsValues": (): BreakpointsValues => {
+        assert<Equals<typeof unit, "em">>();
+
+        const factor = getBaseFontSizePx();
+
+        return Object.fromEntries(
+            Object.entries(values).map(([key, value]) => [key, value * factor])
+        ) as any;
     }
 };

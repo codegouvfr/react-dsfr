@@ -23,6 +23,7 @@ export type SearchBarProps = {
     big?: boolean;
     classes?: Partial<Record<"root" | "label" | "input", string>>;
     style?: CSSProperties;
+    onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 /**
@@ -37,6 +38,7 @@ export const SearchBar = memo(
             big = false,
             classes = {},
             style,
+            onButtonClick,
             ...rest
         } = props;
 
@@ -70,7 +72,7 @@ export const SearchBar = memo(
                     type="search"
                     id={inputId}
                 />
-                <button className="fr-btn" title="Rechercher">
+                <button className="fr-btn" title={label} onClick={onButtonClick}>
                     {label}
                 </button>
             </div>

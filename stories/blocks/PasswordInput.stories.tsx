@@ -5,19 +5,26 @@ import { sectionName } from "./sectionName";
 const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { PasswordInput },
-    "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mot-de-passe)
+    "description": `\`import { PasswordInput } from "@codegouvfr/react-dsfr/blocks/PasswordInput"\`
+
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mot-de-passe/)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/blocks/PasswordInput.tsx)  `,
     "argTypes": {
         "disabled": {
             "control": { "type": "boolean" }
         },
-
         "nativeInputProps": {
             "description": `An object that is forwarded as props to te underlying native \`<input />\` element.  
             This is where you pass the \`name\` prop or \`onChange\` for example.`,
             "control": { "type": null }
+        },
+        "messagesHint": {
+            "description": `The text that is displayed before the list of messages. 
+            Default to "Your password must contain:" (internationalized).
+            If you pass an empty string, the hint block wont be displayed.`
         }
-    }
+    },
+    "doHideImportInstruction": true
 });
 
 export default meta;

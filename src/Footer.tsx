@@ -9,6 +9,7 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
+import { ModalProps } from "./Modal";
 
 export type FooterProps = {
     className?: string;
@@ -20,6 +21,7 @@ export type FooterProps = {
     termsLinkProps?: RegisteredLinkProps;
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
+    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
@@ -62,6 +64,7 @@ export type FooterProps = {
         >
     >;
     style?: CSSProperties;
+    linkList?: FooterProps.LinkList.List;
 };
 
 export namespace FooterProps {
@@ -85,6 +88,28 @@ export namespace FooterProps {
                 HTMLButtonElement
             >;
         };
+    }
+
+    export namespace LinkList {
+        export type List = [Column, Column?, Column?, Column?, Column?, Column?];
+        export type Links = [
+            LinkList.Link,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?,
+            LinkList.Link?
+        ];
+        export interface Column {
+            categoryName?: string;
+            links: Links;
+        }
+        export interface Link {
+            text: string;
+            linkProps: RegisteredLinkProps;
+        }
     }
 
     export type PartnersLogos = PartnersLogos.MainOnly | PartnersLogos.SubOnly;
@@ -123,11 +148,13 @@ export const Footer = memo(
             termsLinkProps,
             personalDataLinkProps,
             cookiesManagementLinkProps,
+            cookiesManagementButtonProps,
             bottomItems = [],
             partnersLogos,
             operatorLogo,
             license,
             style,
+            linkList,
             ...rest
         } = props;
 
@@ -148,6 +175,57 @@ export const Footer = memo(
                 style={style}
                 {...rest}
             >
+                {linkList !== undefined && (
+                    <div className={fr.cx("fr-footer__top")}>
+                        <div className={fr.cx("fr-container")}>
+                            <div
+                                className={fr.cx(
+                                    "fr-grid-row",
+                                    // "fr-grid-row--start", // why is this class used in dsfr doc?
+                                    "fr-grid-row--gutters"
+                                )}
+                            >
+                                {linkList.map(
+                                    (column, columnIndex) =>
+                                        column !== undefined && (
+                                            <div
+                                                key={`fr-footer__top-cat-${columnIndex}`}
+                                                className={fr.cx(
+                                                    "fr-col-12",
+                                                    "fr-col-sm-3",
+                                                    "fr-col-md-2"
+                                                )}
+                                            >
+                                                {column?.categoryName && (
+                                                    <h3 className={fr.cx("fr-footer__top-cat")}>
+                                                        {column?.categoryName}
+                                                    </h3>
+                                                )}
+                                                <ul className={fr.cx("fr-footer__top-list")}>
+                                                    {column?.links.map(
+                                                        (linkItem, linkItemIndex) => (
+                                                            <li
+                                                                key={`fr-footer__top-link-${linkItemIndex}`}
+                                                            >
+                                                                <Link
+                                                                    {...linkItem?.linkProps}
+                                                                    className={fr.cx(
+                                                                        "fr-footer__top-link"
+                                                                    )}
+                                                                >
+                                                                    {linkItem?.text}
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        )
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div className={fr.cx("fr-container")}>
                     <div className={cx(fr.cx("fr-footer__body"), classes.body)}>
                         <div
@@ -285,8 +363,8 @@ export const Footer = memo(
                                         )}
                                     >
                                         <ul>
-                                            {subPartnersLogos.map(logo => (
-                                                <li>
+                                            {subPartnersLogos.map((logo, i) => (
+                                                <li key={i}>
                                                     <a
                                                         href={logo.href}
                                                         className={cx(
@@ -343,12 +421,23 @@ export const Footer = memo(
                                               "linkProps": personalDataLinkProps
                                           })
                                       ]),
-                                ...(cookiesManagementLinkProps === undefined
-                                    ? []
+                                ...(cookiesManagementButtonProps === undefined
+                                    ? // one or the other, but not both. Priority to button for consent modal control.
+                                      cookiesManagementLinkProps === undefined
+                                        ? []
+                                        : [
+                                              id<FooterProps.BottomItem>({
+                                                  "text": t("cookies management"),
+                                                  "linkProps": cookiesManagementLinkProps
+                                              })
+                                          ]
                                     : [
                                           id<FooterProps.BottomItem>({
                                               "text": t("cookies management"),
-                                              "linkProps": cookiesManagementLinkProps
+                                              "buttonProps": {
+                                                  onClick: cookiesManagementButtonProps.onClick,
+                                                  ...cookiesManagementButtonProps.nativeButtonProps
+                                              }
                                           })
                                       ]),
                                 ...bottomItems

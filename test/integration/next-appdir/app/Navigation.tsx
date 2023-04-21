@@ -23,6 +23,12 @@ export function Navigation() {
 						"href": "/mui"
 					},
 					"isActive": segment === "mui"
+				},
+				{
+					"text": "External link",
+					"linkProps": {
+						"href": "https://example.com"
+					}
 				}
 			]}
 		/>

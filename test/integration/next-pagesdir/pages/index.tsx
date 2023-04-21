@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
+import { Table } from "@codegouvfr/react-dsfr/Table";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
-import { useColors } from "@codegouvfr/react-dsfr/useColors";
-import { createMakeAndWithStyles } from "tss-react";
+import { useStyles } from "@codegouvfr/react-dsfr/tss";
+import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
+import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
+import { consentModalButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
 
-const { useStyles } = createMakeAndWithStyles({
-    "useTheme": useColors
-});
 
 export default function App() {
     const { isDark, setIsDark } = useIsDark();
@@ -40,6 +40,8 @@ export default function App() {
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
             <SideMenuExample />
+            <TableExample />
+            <GdprStoreViewer />
         </>
     );
 }
@@ -154,3 +156,45 @@ function SideMenuExample() {
 
 }
 
+function TableExample() {
+    const { css } = useStyles();
+
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            className={css({ "margin": fr.spacing("10v") })}
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
+    );
+}
+
+
+export const GdprStoreViewer = () => {
+    const {consents, firstChoiceMade } = useGdprStore();
+
+    return <>
+        <ButtonsGroup inlineLayoutWhen='always' buttons={[
+            {
+                ...consentModalButtonProps,
+                children: "Open Consent"
+            },
+            {
+                children: "Reset Consent",
+                priority: "secondary",
+                onClick() {
+                    localStorage.removeItem("dsfr-gdpr-consent");
+                    location.reload();
+                }
+            }
+        ]} />
+        <pre>{JSON.stringify({consents, firstChoiceMade})}</pre>
+    </>;
+}

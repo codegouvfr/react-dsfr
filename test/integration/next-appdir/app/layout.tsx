@@ -1,6 +1,7 @@
 import { NextAppDirEmotionCacheProvider } from "tss-react/next";
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
+import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
 import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
 import StartDsfr from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
@@ -14,6 +15,12 @@ import { Navigation } from "./Navigation";
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
 const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+
+declare module "@codegouvfr/react-dsfr/gdpr" {
+    interface RegisterGdprServices { 
+        matomo: never;
+    }
+}
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
@@ -39,13 +46,20 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				/>
 			</head>
 			<body
-		style={{
-			"height": "100vh",
-			"display": "flex",
+				style={{
+					"height": "100vh",
+					"display": "flex",
 					"flexDirection": "column"
-		}}
+				}}
 			>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
+					<ConsentBanner gdprLinkProps={{href: "/mui"}} siteName='Next Test App' services={[
+						{
+							name: "matomo",
+							title: "Matomo",
+							description: "User tracking",
+						}
+					]} />
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 							<Header

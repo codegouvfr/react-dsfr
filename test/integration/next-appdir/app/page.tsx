@@ -1,10 +1,12 @@
 import { ClientComponent } from "#/ui/ClientComponent";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
+import { Table } from "@codegouvfr/react-dsfr/Table";
 import { Summary } from "@codegouvfr/react-dsfr/Summary";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { GdprStoreViewer } from '#/ui/GdprStoreViewer';
 
 const { SimpleModal, simpleModalButtonProps } = createModal({
     "name": "simple",
@@ -156,7 +158,26 @@ export default function Page() {
                 title="Titre de rubrique"
                 burgerMenuButtonText="Dans cette rubrique"
             />
+            <TableExample />
+            <GdprStoreViewer />
         </>
     );
 
+}
+
+function TableExample() {
+    return (
+        <Table
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
+                ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"]
+            ]}
+        />
+    );
 }
