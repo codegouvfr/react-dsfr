@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "0.49.0",
+  "version": "0.50.0",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
@@ -148,6 +148,7 @@
     "./Stepper": "./Stepper.js",
     "./SkipLinks": "./SkipLinks.js",
     "./SideMenu": "./SideMenu.js",
+    "./SelectNext": "./SelectNext.js",
     "./Select": "./Select.js",
     "./SearchBar": "./SearchBar.js",
     "./RadioButtons": "./RadioButtons.js",
