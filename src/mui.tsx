@@ -297,3 +297,5 @@ export function createMuiDsfrThemeProvider(params: {
 }
 
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
+
+export default MuiDsfrThemeProvider;

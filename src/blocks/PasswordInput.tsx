@@ -19,6 +19,8 @@ export type PasswordInputProps = Omit<
     "state" | "stateRelatedMessage" | "iconId" | "classes"
 > & {
     classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
+    /** Default "Your password must contain:", if empty string the hint wont be displayed */
+    messagesHint?: ReactNode;
     messages?: {
         severity: PasswordInputProps.Severity;
         message: ReactNode;
@@ -41,6 +43,8 @@ export namespace PasswordInputProps {
  * */
 export const PasswordInput = memo(
     forwardRef<HTMLDivElement, PasswordInputProps>((props, ref) => {
+        const { t } = useTranslation();
+
         const {
             className,
             label,
@@ -51,12 +55,11 @@ export const PasswordInput = memo(
             style,
             messages = [],
             nativeInputProps,
+            messagesHint = t("your password must contain"),
             ...rest
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
-
-        const { t } = useTranslation();
 
         const inputId = (function useClosure() {
             const id = useId();
@@ -113,9 +116,11 @@ export const PasswordInput = memo(
                         id={messagesGroupId}
                         aria-live="assertive"
                     >
-                        <p className={fr.cx("fr-message")} id={messageGroupId}>
-                            {t("your password must contain")}
-                        </p>
+                        {messagesHint !== "" && (
+                            <p className={fr.cx("fr-message")} id={messageGroupId}>
+                                {messagesHint}
+                            </p>
+                        )}
                         {messages.map(({ severity, message }, index) => (
                             <p
                                 key={index}

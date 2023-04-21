@@ -30,6 +30,7 @@ export namespace ToggleSwitchProps {
         labelPosition?: "left" | "right";
         classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
         style?: CSSProperties;
+        name?: string;
     };
 
     export type Uncontrolled = Common & {
@@ -64,6 +65,7 @@ export const ToggleSwitch = memo(
             onChange,
             inputTitle,
             style,
+            name,
             ...rest
         } = props;
 
@@ -121,6 +123,7 @@ export const ToggleSwitch = memo(
                     id={inputId}
                     title={inputTitle}
                     checked={props_checked ?? checked}
+                    name={name}
                 />
                 <label
                     className={cx(fr.cx("fr-toggle__label"), classes.label)}
