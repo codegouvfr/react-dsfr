@@ -13,11 +13,15 @@ const { meta, getStory } = getStoryFactory({
         "disabled": {
             "control": { "type": "boolean" }
         },
-
         "nativeInputProps": {
             "description": `An object that is forwarded as props to te underlying native \`<input />\` element.  
             This is where you pass the \`name\` prop or \`onChange\` for example.`,
             "control": { "type": null }
+        },
+        "messagesHint": {
+            "description": `The text that is displayed before the list of messages. 
+            Default to "Your password must contain:" (internationalized).
+            If you pass an empty string, the hint block wont be displayed.`
         }
     },
     "doHideImportInstruction": true
