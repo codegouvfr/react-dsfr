@@ -23,7 +23,7 @@
   -
   <a href="https://react-dsfr.etalab.studio/">guides</a>
   -
-  <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essaie immédiat</a>
+  <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essai immédiat</a>
 </p>
 
 > ATTENTION: Ce design système a uniquement vocation à être utilisé pour des sites officiels de l'état.  
@@ -38,7 +38,7 @@ DSFR en pur JavaScript/CSS.
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
 </a>
 
-> Bien que cette bibliothèque soit écrit en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
+> Bien que cette bibliothèque soit écrite en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
 
 -   [x] une interface de programmation strictement typée et bien documentée.
 -   [x] Garantie d'être toujours à jour avec les [dernières évolutions du DSFR](https://www.systeme-de-design.gouv.fr/).
@@ -51,10 +51,10 @@ DSFR en pur JavaScript/CSS.
 -   [ ] tout [les composants de référence implémentés](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
-         Voir là [documentation](https://react-dsfr.etalab.studio/mui-integration).
+         Voir la [documentation](https://react-dsfr.etalab.studio/mui-integration).
 -   [x] permet de développer à l'aide d'outil de CSS-in-JS comme [Styled component](https://styled-components.com/), [Emotion](https://emotion.sh/docs/introduction) ou [TSS](https://www.tss-react.dev/).
--   [x] prévois un système de traduction pour les textes présents dans les composants (i18n).
--   [x] [s'intègre avec les librairies de routing](https://react-dsfr.etalab.studio/routing) like [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
+-   [x] prévoit un système de traduction pour les textes présents dans les composants (i18n).
+-   [x] [s'intègre avec les librairies de routing](https://react-dsfr.etalab.studio/routing) comme [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
 
 Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
 
@@ -64,14 +64,7 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
 
 ## À propos [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
-`@codegouvfr/react-dsfr` (ce projet) est un projet TypeScript ayant pour priorité de fournir une bonne intégration
-avec l’écosystème React, notamment avec Next.js.
-
-Ce projet a été démarré en octobre 2022, c'est une initiative récente et, malgré le fait qu'il soit activement développé, aujourd'hui
-`@dataesr/react-dsfr` est plus stable et fournit [une couverture de composant plus exhaustive](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface).  
-Si vous travaillez sur une SPA (Create React App, Vite) `@dataesr/react-dsfr` est probablement l'option la plus viable à ce jour.
-
-Cela étant dit, vous pouvez bénéficier de plusieurs des fonctionnalités de `@codegouvfr/react-dsfr` sans migrer de `@dataesr/react-dsfr`:
+Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieurs fonctionalités de ce dernier:
 
 -   Profitez de [l'auto complétion des classes en `fr-*`](https://react-dsfr.etalab.studio/class-names-type-safety).
 -   Utilisez [le système de couleur strictement typer](https://react-dsfr.etalab.studio/css-in-js#colors).
@@ -79,7 +72,7 @@ Cela étant dit, vous pouvez bénéficier de plusieurs des fonctionnalités de `
 -   Utilisez [le système d'espacement](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) et de
     [point de rupture](https://react-dsfr.etalab.studio/css-in-js#fr.breakpoints).
 
-[Voici un bac a sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
+[Voici un bac à sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 
 ## Development
 
@@ -105,7 +98,7 @@ npx vitest -t "Resolution of CSS variables"
 
 ### Vous cherchez comment contribuer?
 
-Tout d'abord, merci! Voici [le guide de contribution](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md).
+Tout d'abord, merci ! Voici [le guide de contribution](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md).
 
 ### Comment publier une nouvelle version sur NPM
 
