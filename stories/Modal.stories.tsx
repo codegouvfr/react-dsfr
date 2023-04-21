@@ -32,7 +32,7 @@ of \`name\` key of the \`options\` param object :
 - \`\${camelCasePrefix}ModalButtonProps\`: The props object for \`Button\` DSFR component
 
 **Eg.:**
-\`\`\`
+\`\`\`ts
 const { MyComponentModal, myComponentModalButtonProps } = createModal({
     name: "myComponent", // The name of Modal component and modalButtonProps is compute from this string
     isOpenedByDefault: false

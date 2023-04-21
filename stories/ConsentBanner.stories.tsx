@@ -11,6 +11,9 @@ const { meta, getStory } = getStoryFactory({
         [symToStr({ ConsentBanner })]: Story
     },
     "description": `
+
+    WARNING: This is [a temporary implementation](https://github.com/codegouvfr/react-dsfr/pull/107#issuecomment-1517538228).
+
 Manage cookies and consent with a banner and a dedicated modal.  
 
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/gestionnaire-de-consentement),
