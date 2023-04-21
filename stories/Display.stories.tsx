@@ -23,6 +23,7 @@ the theme state.
 
 \`\`\`tsx
 import { Header } from "@codegouvfr/react-dsfr/Header";
+import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 
 function App(){

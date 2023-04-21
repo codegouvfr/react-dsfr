@@ -24,6 +24,7 @@ import Script from "next/script";
 import { assert } from "tsafe/assert";
 import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
+import { GdprStoreProvider } from "./gdpr/GdprStore";
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -183,7 +184,9 @@ export function createNextDsfrIntegrationApi(
                         />
                     </Head>
                     {isBrowser ? (
-                        <App {...(props as any)} />
+                        <GdprStoreProvider>
+                            <App {...(props as any)} />
+                        </GdprStoreProvider>
                     ) : (
                         <SsrIsDarkProvider value={isDark}>
                             <App {...(props as any)} />

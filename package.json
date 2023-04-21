@@ -1,6 +1,6 @@
 {
     "name": "@codegouvfr/react-dsfr",
-    "version": "0.48.4",
+    "version": "0.49.0",
     "description": "French State Design System React integration library",
     "repository": {
         "type": "git",
@@ -121,6 +121,7 @@
     "module": "dist/fr/index.js",
     "exports": {
         ".": "./dist/fr/index.js",
+        "./gdpr": "./dist/gdpr/index.js",
         "./spa": "./dist/spa.js",
         "./next-appdir": "./dist/next-appdir/index.js",
         "./next-appdir/DsfrHead": "./dist/next-appdir/DsfrHead.js",
@@ -128,6 +129,7 @@
         "./next-appdir/getColorSchemeHtmlAttributes": "./dist/next-appdir/getColorSchemeHtmlAttributes.js",
         "./next-pagesdir": "./dist/next-pagesdir.js",
         "./useIsDark": "./dist/useIsDark/index.js",
+        "./useGdprStore": "./dist/useGdprStore.js",
         "./useColors": "./dist/useColors.js",
         "./useBreakpointsValues": "./dist/useBreakpointsValues.js",
         "./mui": "./dist/mui.js",
@@ -160,6 +162,7 @@
         "./Footer": "./dist/Footer.js",
         "./Download": "./dist/Download.js",
         "./Display": "./dist/Display.js",
+        "./ConsentBanner": "./dist/ConsentBanner/index.js",
         "./Checkbox": "./dist/Checkbox.js",
         "./Card": "./dist/Card.js",
         "./CallOut": "./dist/CallOut.js",

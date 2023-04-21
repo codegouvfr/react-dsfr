@@ -6,6 +6,7 @@ import { Summary } from "@codegouvfr/react-dsfr/Summary";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
+import { GdprStoreViewer } from '#/ui/GdprStoreViewer';
 
 const { SimpleModal, simpleModalButtonProps } = createModal({
     "name": "simple",
@@ -158,6 +159,7 @@ export default function Page() {
                 burgerMenuButtonText="Dans cette rubrique"
             />
             <TableExample />
+            <GdprStoreViewer />
         </>
     );
 

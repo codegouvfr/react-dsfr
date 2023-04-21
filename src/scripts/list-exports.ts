@@ -14,6 +14,7 @@ const srcDirPath = pathJoin(getProjectRoot(), "src");
 
 const newExports = {
     ".": `./${packageJsonParsed["module"]}`,
+    "./gdpr": "./dist/gdpr/index.js",
     "./spa": "./dist/spa.js",
     "./next-appdir": "./dist/next-appdir/index.js",
     ...Object.fromEntries(
@@ -24,6 +25,7 @@ const newExports = {
     ),
     "./next-pagesdir": "./dist/next-pagesdir.js",
     "./useIsDark": "./dist/useIsDark/index.js",
+    "./useGdprStore": "./dist/useGdprStore.js",
     "./useColors": "./dist/useColors.js",
     "./useBreakpointsValues": "./dist/useBreakpointsValues.js",
     "./mui": "./dist/mui.js",

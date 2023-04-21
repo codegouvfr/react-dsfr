@@ -8,11 +8,18 @@ import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { useStyles } from "@codegouvfr/react-dsfr/tss";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
+import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
 
 
 declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
         Link: typeof Link;
+    }
+}
+
+declare module "@codegouvfr/react-dsfr/gdpr" {
+    interface RegisterGdprServices { 
+        matomo: never;
     }
 }
 
@@ -53,66 +60,75 @@ function App({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     return (
-        <div
-            style={{
-                "height": "100vh",
-                "display": "flex",
-                "flexDirection": "column"
-            }}
-        >
-            <Header
-                brandTop={brandTop}
-                serviceTitle="Nom du site / service"
-                homeLinkProps={homeLinkProps}
-                navigation={[
+        <>
+            <ConsentBanner gdprLinkProps={{href: "/mui"}} siteName='Next Test App' services={[
                     {
-                        "text": "Home",
-                        "linkProps": {
-                            "href": "/"
-                        },
-                        "isActive": router.asPath === "/"
-                    },
-                    {
-                        "text": "Mui playground",
-                        "linkProps": {
-                            "href": "/mui"
-                        },
-                        "isActive": router.asPath === "/mui"
-                    },
-                    {
-                        "text": "External link",
-                        "linkProps": {
-                            "href": "https://example.com"
-                        }
+                        name: "matomo",
+                        title: "Matomo",
+                        description: "User tracking",
                     }
-                ]}
-                quickAccessItems={[headerFooterDisplayItem]}
-            />
-            <div className={css({
-                "flex": 1,
-                "margin": "auto",
-                "maxWidth": 1000,
-                ...fr.spacing("padding", {
-                    "topBottom": "10v"
-                })
-            })}>
-                <Component {...pageProps} />
+                ]} />
+            <div
+                style={{
+                    "height": "100vh",
+                    "display": "flex",
+                    "flexDirection": "column"
+                }}
+            >
+                <Header
+                    brandTop={brandTop}
+                    serviceTitle="Nom du site / service"
+                    homeLinkProps={homeLinkProps}
+                    navigation={[
+                        {
+                            "text": "Home",
+                            "linkProps": {
+                                "href": "/"
+                            },
+                            "isActive": router.asPath === "/"
+                        },
+                        {
+                            "text": "Mui playground",
+                            "linkProps": {
+                                "href": "/mui"
+                            },
+                            "isActive": router.asPath === "/mui"
+                        },
+                        {
+                            "text": "External link",
+                            "linkProps": {
+                                "href": "https://example.com"
+                            }
+                        }
+                    ]}
+                    quickAccessItems={[headerFooterDisplayItem]}
+                />
+                <div className={css({
+                    "flex": 1,
+                    "margin": "auto",
+                    "maxWidth": 1000,
+                    ...fr.spacing("padding", {
+                        "topBottom": "10v"
+                    })
+                })}>
+                    <Component {...pageProps} />
+                </div>
+                <Footer
+                    brandTop={brandTop}
+                    accessibility="fully compliant"
+                    contentDescription={`
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+                        eu fugiat nulla pariatur. 
+                    `}
+                    homeLinkProps={homeLinkProps}
+                    bottomItems={[headerFooterDisplayItem]}
+                />
+                <Display />
             </div>
-            <Footer
-                brandTop={brandTop}
-                accessibility="fully compliant"
-                contentDescription={`
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-                    eu fugiat nulla pariatur. 
-                `}
-                homeLinkProps={homeLinkProps}
-                bottomItems={[headerFooterDisplayItem]}
-            />
-            <Display />
-        </div>
+        </>
     );
 }
 
