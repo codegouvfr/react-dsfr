@@ -1,3 +1,15 @@
+.fr-icon-checkbox-circle-line::before,
+.fr-icon-checkbox-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
+    mask-image: url("../../icons/system/checkbox-circle-line.svg");
+}
+
+.ri-ancient-gate-fill::before,
+.ri-ancient-gate-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+}
+
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -16,16 +28,10 @@
     mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
-.fr-icon-checkbox-circle-line::before,
-.fr-icon-checkbox-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
-    mask-image: url("../../icons/system/checkbox-circle-line.svg");
-}
-
-.ri-ancient-gate-fill::before,
-.ri-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
 .fr-icon-arrow-right-line::before,
@@ -38,18 +44,6 @@
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
-}
-
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-add-circle-line::before,
@@ -68,6 +62,12 @@
 .fr-icon-account-line::after {
     -webkit-mask-image: url("../../icons/user/account-circle-line.svg");
     mask-image: url("../../icons/user/account-circle-line.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -167,6 +167,16 @@
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .fr-icon-checkbox-circle-line::before,
+    .fr-icon-checkbox-circle-line::after {
+        background-image: url("../../icons/system/checkbox-circle-line.svg");
+    }
+    
+    .ri-ancient-gate-fill::before,
+    .ri-ancient-gate-fill::after {
+        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    }
+    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -182,14 +192,9 @@
         background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
-    .fr-icon-checkbox-circle-line::before,
-    .fr-icon-checkbox-circle-line::after {
-        background-image: url("../../icons/system/checkbox-circle-line.svg");
-    }
-    
-    .ri-ancient-gate-fill::before,
-    .ri-ancient-gate-fill::after {
-        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
     }
     
     .fr-icon-arrow-right-line::before,
@@ -200,16 +205,6 @@
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
-    }
-    
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-add-circle-line::before,
@@ -225,6 +220,11 @@
     .fr-icon-account-line::before,
     .fr-icon-account-line::after {
         background-image: url("../../icons/user/account-circle-line.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,
