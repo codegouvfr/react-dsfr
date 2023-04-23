@@ -223,11 +223,15 @@ export function createModal<Name extends string>(params: {
     function InternalModal(props: ModalProps) {
         return (
             <>
-                {isOpenedByDefault && (
-                    <Button {...openModalButtonProps} className={fr.cx("fr-hidden")}>
-                        {" "}
-                    </Button>
-                )}
+                <Button
+                    nativeButtonProps={{
+                        ...openModalButtonProps.nativeButtonProps,
+                        "id": hiddenControlButtonId
+                    }}
+                    className={fr.cx("fr-hidden")}
+                >
+                    {" "}
+                </Button>
                 <Modal {...props} id={modalId} />
             </>
         );
@@ -238,6 +242,8 @@ export function createModal<Name extends string>(params: {
     overwriteReadonlyProp(InternalModal as any, "name", InternalModal.displayName);
 
     function openModal() {
+        console.log("wesh!");
+
         const hiddenControlButton = document.getElementById(hiddenControlButtonId);
 
         assert(hiddenControlButton !== null, "Modal isn't mounted");

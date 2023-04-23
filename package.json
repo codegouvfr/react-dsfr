@@ -163,7 +163,6 @@
         "./Footer": "./dist/Footer.js",
         "./Download": "./dist/Download.js",
         "./Display": "./dist/Display.js",
-        "./ConsentBannerNext": "./dist/ConsentBannerNext/index.js",
         "./ConsentBanner": "./dist/ConsentBanner/index.js",
         "./Checkbox": "./dist/Checkbox.js",
         "./Card": "./dist/Card.js",

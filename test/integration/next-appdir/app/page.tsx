@@ -133,7 +133,7 @@ export default function Page() {
                 ]}
             />
             <ClientComponent />
-            <Button {...simpleModalButtonProps}>Open simple modal</Button>
+            <Button {...simpleModalButtonProps}>Open simple modal (control button)</Button>
             <SimpleModal
                 title="simple modal title"
                 buttons={

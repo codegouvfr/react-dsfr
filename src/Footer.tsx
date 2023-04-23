@@ -434,10 +434,8 @@ export const Footer = memo(
                                     : [
                                           id<FooterProps.BottomItem>({
                                               "text": t("cookies management"),
-                                              "buttonProps": {
-                                                  onClick: cookiesManagementButtonProps.onClick,
-                                                  ...cookiesManagementButtonProps.nativeButtonProps
-                                              }
+                                              "buttonProps":
+                                                  cookiesManagementButtonProps.nativeButtonProps
                                           })
                                       ]),
                                 ...bottomItems
