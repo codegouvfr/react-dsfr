@@ -203,8 +203,7 @@ let counter = 0;
 export function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): //Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
-Record<
+}): Record<
     `${Uncapitalize<Name>}ModalNativeButtonProps`,
     {
         "aria-controls": string;
@@ -213,7 +212,8 @@ Record<
 > &
     Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> &
     Record<`close${Capitalize<Name>}Modal`, () => void> &
-    Record<`open${Capitalize<Name>}Modal`, () => void> {
+    Record<`open${Capitalize<Name>}Modal`, () => void> &
+    Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> {
     const { name, isOpenedByDefault } = params;
 
     const modalId = `${uncapitalize(name)}-modal-${counter++}`;
@@ -281,6 +281,10 @@ Record<
         [InternalModal.displayName]: InternalModal,
         [`${uncapitalize(name)}ModalNativeButtonProps`]: modalNativeButtonProps,
         [openModal.name]: openModal,
-        [closeModal.name]: closeModal
+        [closeModal.name]: closeModal,
+        /** @deprecated */
+        [`${uncapitalize(name)}ModalButtonProps`]: {
+            "nativeButtonProps": modalNativeButtonProps
+        }
     } as any;
 }
