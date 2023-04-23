@@ -32,11 +32,26 @@ of \`name\` key of the \`options\` param object :
 - \`\${camelCasePrefix}ModalButtonProps\`: The props object for \`Button\` DSFR component
 
 **Eg.:**
-\`\`\`ts
-const { MyComponentModal, myComponentModalButtonProps } = createModal({
-    name: "myComponent", // The name of Modal component and modalButtonProps is compute from this string
+\`\`\`tsx
+import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
+const { FooModal, fooModalButtonProps, openFooModal, closeFooModal } = createModal({
+    name: "foo", // The name of Modal component and modalButtonProps is compute from this string
     isOpenedByDefault: false
 });
+
+
+const node = (
+    <>
+        {/* ... */}
+        <FooModal title="foo modal title"/>
+        <Button {...fooModalButtonProps}>Open foo modal</Button>
+        <Button onClick={openFooModal}>Open foo modal</Button>
+        <Button onClick={closeFooModal}>Close foo modal</Button>
+    </>
+);
+
 \`\`\`
 
 ## The Modal component

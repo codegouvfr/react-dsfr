@@ -9,6 +9,8 @@ import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/cla
 import Button, { ButtonProps } from "./Button";
 import { capitalize } from "tsafe/capitalize";
 import { uncapitalize } from "tsafe/uncapitalize";
+import { typeGuard } from "tsafe/typeGuard";
+import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 
 export type ModalProps = {
     className?: string;
@@ -32,7 +34,12 @@ export namespace ModalProps {
         doClosesModal?: boolean;
     };
 
-    export type ModalButtonProps = Pick<ButtonProps, "onClick" | "nativeButtonProps">;
+    export type ModalButtonProps = {
+        "nativeButtonProps": {
+            "aria-controls": string;
+            "data-fr-opened": boolean;
+        };
+    };
 }
 
 const Modal = memo(
@@ -190,22 +197,6 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-function createOpenModalButtonProps(params: {
-    modalId: string;
-    isOpenedByDefault: boolean;
-}): ModalProps.ModalButtonProps {
-    const { modalId, isOpenedByDefault } = params;
-
-    return {
-        //For RSC we don't want to pass an empty function.
-        "onClick": undefined as any as () => void,
-        "nativeButtonProps": {
-            "aria-controls": modalId,
-            "data-fr-opened": isOpenedByDefault
-        }
-    };
-}
-
 let counter = 0;
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
@@ -213,15 +204,21 @@ export function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
 }): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
-    Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> {
+    Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> &
+    Record<`close${Capitalize<Name>}Modal`, () => void> &
+    Record<`open${Capitalize<Name>}Modal`, () => void> {
     const { name, isOpenedByDefault } = params;
 
     const modalId = `${uncapitalize(name)}-modal-${counter++}`;
 
-    const openModalButtonProps = createOpenModalButtonProps({
-        modalId,
-        isOpenedByDefault
-    });
+    const openModalButtonProps: ModalProps.ModalButtonProps = {
+        "nativeButtonProps": {
+            "aria-controls": modalId,
+            "data-fr-opened": isOpenedByDefault
+        }
+    };
+
+    const hiddenControlButtonId = `${modalId}-hidden-control-button`;
 
     function InternalModal(props: ModalProps) {
         return (
@@ -238,10 +235,41 @@ export function createModal<Name extends string>(params: {
 
     InternalModal.displayName = `${capitalize(name)}Modal`;
 
-    Object.defineProperty(InternalModal, "name", { "value": InternalModal.displayName });
+    overwriteReadonlyProp(InternalModal as any, "name", InternalModal.displayName);
+
+    function openModal() {
+        const hiddenControlButton = document.getElementById(hiddenControlButtonId);
+
+        assert(hiddenControlButton !== null, "Modal isn't mounted");
+
+        hiddenControlButton.click();
+    }
+
+    overwriteReadonlyProp(openModal as any, "name", `open${capitalize(name)}Modal`);
+
+    function closeModal() {
+        const modalElement = document.getElementById(modalId);
+
+        assert(modalElement !== null, "Modal isn't mounted");
+
+        const closeButtonElement = modalElement.querySelector(`.${fr.cx("fr-btn--close")}`);
+
+        assert(closeButtonElement !== null);
+
+        assert(
+            typeGuard<HTMLButtonElement>(closeButtonElement, "click" in closeButtonElement),
+            "Close button isn't a button"
+        );
+
+        closeButtonElement.click();
+    }
+
+    overwriteReadonlyProp(closeModal as any, "name", `close${capitalize(name)}Modal`);
 
     return {
         [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps
+        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps,
+        [openModal.name]: openModal,
+        [closeModal.name]: closeModal
     } as any;
 }
