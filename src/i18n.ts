@@ -1,4 +1,6 @@
-import { type ReactNode, useMemo } from "react";
+import { useMemo } from "react";
+
+type ReactNode = string | JSX.Element | null;
 
 function getLanguageBestApprox<Language extends string>(params: {
     languages: readonly Language[];
@@ -31,31 +33,37 @@ function getLanguageBestApprox<Language extends string>(params: {
     return undefined;
 }
 
-type Message = NonNullable<ReactNode> | ((params: any) => NonNullable<ReactNode>);
-type Messages = Record<string, Message>;
-
-type FrMessagesToTranslationFunction<FrMessages extends Messages> = {
-    (messageKey: NonFunctionMessageKey<FrMessages>): string;
+type FrMessagesToTranslationFunction<
+    FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
+> = {
+    <K extends NonFunctionMessageKey<FrMessages>>(messageKey: K): FrMessages[K] extends (
+        params: any
+    ) => infer R
+        ? R
+        : FrMessages[K];
+} & {
     <K extends FunctionMessageKey<FrMessages>>(
         messageKey: K,
         params: ExtractArgument<FrMessages[K]>
-    ): string;
+    ): FrMessages[K] extends (params: any) => infer R ? R : FrMessages[K];
 };
 
-type ExtractArgument<TMessage extends Message> = TMessage extends (
+type ExtractArgument<Message extends ReactNode | ((params: any) => ReactNode)> = Message extends (
     params: any
-) => Exclude<Message, string>
-    ? Parameters<TMessage>[0]
+) => any
+    ? Parameters<Message>[0]
     : never;
 
-type NonFunctionMessageKey<FrMessages extends Messages> = {
-    [Key in keyof FrMessages]: FrMessages[Key] extends string ? Key : never;
+type NonFunctionMessageKey<
+    FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
+> = {
+    [Key in keyof FrMessages]: FrMessages[Key] extends (params: any) => any ? never : Key;
+    //[Key in keyof FrMessages]: FrMessages[Key] extends "accept all" ? "accept all" : never;
 }[keyof FrMessages];
 
-type FunctionMessageKey<FrMessages extends Messages> = Exclude<
-    keyof FrMessages,
-    NonFunctionMessageKey<FrMessages>
->;
+type FunctionMessageKey<
+    FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
+> = Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
 
 let useLang: () => string = () => "fr";
 
@@ -65,7 +73,7 @@ export function setUseLang(params: { useLang: () => string }) {
 
 export function createComponentI18nApi<
     ComponentName extends string,
-    FrMessages extends Messages
+    FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
 >(params: {
     componentName: ComponentName;
     frMessages: FrMessages;
