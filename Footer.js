@@ -110,7 +110,7 @@ export const Footer = memo(forwardRef((props, ref) => {
                         : [
                             id({
                                 "text": t("cookies management"),
-                                "buttonProps": Object.assign({ onClick: cookiesManagementButtonProps.onClick }, cookiesManagementButtonProps.nativeButtonProps)
+                                "buttonProps": cookiesManagementButtonProps.nativeButtonProps
                             })
                         ]),
                     ...bottomItems

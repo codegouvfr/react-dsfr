@@ -19,7 +19,12 @@ export declare namespace ModalProps {
         /** Default: true */
         doClosesModal?: boolean;
     };
-    type ModalButtonProps = Pick<ButtonProps, "onClick" | "nativeButtonProps">;
+    type ModalButtonProps = {
+        "nativeButtonProps": {
+            "aria-controls": string;
+            "data-fr-opened": boolean;
+        };
+    };
 }
 declare const addModalTranslations: (params: {
     lang: string;
@@ -32,4 +37,7 @@ export { addModalTranslations };
 export declare function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> & Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element>;
+}): Record<`${Uncapitalize<Name>}ModalNativeButtonProps`, {
+    "aria-controls": string;
+    "data-fr-opened": boolean;
+}> & Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> & Record<`close${Capitalize<Name>}Modal`, () => void> & Record<`open${Capitalize<Name>}Modal`, () => void> & Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps>;

@@ -18,6 +18,8 @@ import { createComponentI18nApi } from "./i18n";
 import Button from "./Button";
 import { capitalize } from "tsafe/capitalize";
 import { uncapitalize } from "tsafe/uncapitalize";
+import { typeGuard } from "tsafe/typeGuard";
+import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 const Modal = memo(forwardRef((props, ref) => {
     const { className, id, title, children, concealingBackdrop = true, topAnchor = false, iconId, buttons: buttons_props, size = "medium", style } = props, rest = __rest(props, ["className", "id", "title", "children", "concealingBackdrop", "topAnchor", "iconId", "buttons", "size", "style"]);
     assert();
@@ -91,36 +93,48 @@ addModalTranslations({
     }
 });
 export { addModalTranslations };
-function createOpenModalButtonProps(params) {
-    const { modalId, isOpenedByDefault } = params;
-    return {
-        //For RSC we don't want to pass an empty function.
-        "onClick": undefined,
-        "nativeButtonProps": {
-            "aria-controls": modalId,
-            "data-fr-opened": isOpenedByDefault
-        }
-    };
-}
 let counter = 0;
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
 export function createModal(params) {
     const { name, isOpenedByDefault } = params;
     const modalId = `${uncapitalize(name)}-modal-${counter++}`;
-    const openModalButtonProps = createOpenModalButtonProps({
-        modalId,
-        isOpenedByDefault
-    });
+    const modalNativeButtonProps = {
+        "aria-controls": modalId,
+        "data-fr-opened": isOpenedByDefault
+    };
+    const hiddenControlButtonId = `${modalId}-hidden-control-button`;
     function InternalModal(props) {
         return (React.createElement(React.Fragment, null,
-            isOpenedByDefault && (React.createElement(Button, Object.assign({}, openModalButtonProps, { className: fr.cx("fr-hidden") }), " ")),
+            React.createElement(Button, { nativeButtonProps: Object.assign(Object.assign({}, modalNativeButtonProps), { "id": hiddenControlButtonId }), className: fr.cx("fr-hidden") }, " "),
             React.createElement(Modal, Object.assign({}, props, { id: modalId }))));
     }
     InternalModal.displayName = `${capitalize(name)}Modal`;
-    Object.defineProperty(InternalModal, "name", { "value": InternalModal.displayName });
+    overwriteReadonlyProp(InternalModal, "name", InternalModal.displayName);
+    function openModal() {
+        console.log("wesh!");
+        const hiddenControlButton = document.getElementById(hiddenControlButtonId);
+        assert(hiddenControlButton !== null, "Modal isn't mounted");
+        hiddenControlButton.click();
+    }
+    overwriteReadonlyProp(openModal, "name", `open${capitalize(name)}Modal`);
+    function closeModal() {
+        const modalElement = document.getElementById(modalId);
+        assert(modalElement !== null, "Modal isn't mounted");
+        const closeButtonElement = modalElement.querySelector(`.${fr.cx("fr-btn--close")}`);
+        assert(closeButtonElement !== null);
+        assert(typeGuard(closeButtonElement, "click" in closeButtonElement), "Close button isn't a button");
+        closeButtonElement.click();
+    }
+    overwriteReadonlyProp(closeModal, "name", `close${capitalize(name)}Modal`);
     return {
         [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps
+        [`${uncapitalize(name)}ModalNativeButtonProps`]: modalNativeButtonProps,
+        [openModal.name]: openModal,
+        [closeModal.name]: closeModal,
+        /** @deprecated */
+        [`${uncapitalize(name)}ModalButtonProps`]: {
+            "nativeButtonProps": modalNativeButtonProps
+        }
     };
 }
 //# sourceMappingURL=Modal.js.map
