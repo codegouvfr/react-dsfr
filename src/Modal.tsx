@@ -203,7 +203,14 @@ let counter = 0;
 export function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
+}): //Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
+Record<
+    `${Uncapitalize<Name>}ModalNativeButtonProps`,
+    {
+        "aria-controls": string;
+        "data-fr-opened": boolean;
+    }
+> &
     Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> &
     Record<`close${Capitalize<Name>}Modal`, () => void> &
     Record<`open${Capitalize<Name>}Modal`, () => void> {
@@ -211,11 +218,9 @@ export function createModal<Name extends string>(params: {
 
     const modalId = `${uncapitalize(name)}-modal-${counter++}`;
 
-    const openModalButtonProps: ModalProps.ModalButtonProps = {
-        "nativeButtonProps": {
-            "aria-controls": modalId,
-            "data-fr-opened": isOpenedByDefault
-        }
+    const modalNativeButtonProps = {
+        "aria-controls": modalId,
+        "data-fr-opened": isOpenedByDefault
     };
 
     const hiddenControlButtonId = `${modalId}-hidden-control-button`;
@@ -225,7 +230,7 @@ export function createModal<Name extends string>(params: {
             <>
                 <Button
                     nativeButtonProps={{
-                        ...openModalButtonProps.nativeButtonProps,
+                        ...modalNativeButtonProps,
                         "id": hiddenControlButtonId
                     }}
                     className={fr.cx("fr-hidden")}
@@ -274,7 +279,7 @@ export function createModal<Name extends string>(params: {
 
     return {
         [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps,
+        [`${uncapitalize(name)}ModalNativeButtonProps`]: modalNativeButtonProps,
         [openModal.name]: openModal,
         [closeModal.name]: closeModal
     } as any;

@@ -8,7 +8,7 @@ import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useStyles } from "@codegouvfr/react-dsfr/tss";
 import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
 import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
-import { consentModalButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
+import { consentModalNativeButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
 
 
 export default function App() {
@@ -183,7 +183,7 @@ export const GdprStoreViewer = () => {
     return <>
         <ButtonsGroup inlineLayoutWhen='always' buttons={[
             {
-                ...consentModalButtonProps,
+                "nativeButtonProps": consentModalNativeButtonProps,
                 children: "Open Consent"
             },
             {

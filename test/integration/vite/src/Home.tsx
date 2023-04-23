@@ -3,15 +3,14 @@ import { Button } from "@codegouvfr/react-dsfr/Button";
 import { ButtonsGroup } from "@codegouvfr/react-dsfr/ButtonsGroup";
 
 import { Input } from "@codegouvfr/react-dsfr/Input";
-import { Select } from "@codegouvfr/react-dsfr/Select";
+import { Select } from "@codegouvfr/react-dsfr/SelectNext";
 
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
-import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
-import { consentModalButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
+import { consentModalNativeButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -214,7 +213,7 @@ export const GdprStoreViewer = () => {
     return <>
         <ButtonsGroup inlineLayoutWhen='always' buttons={[
             {
-                ...consentModalButtonProps,
+                "nativeButtonProps": consentModalNativeButtonProps,
                 children: "Open Consent"
             },
             {

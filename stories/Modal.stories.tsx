@@ -19,37 +19,42 @@ An controlled variant is coming soon.
 
 ## The 'createModal' function
 
-The \`createModal(options)\` function take an \`options\` object as parameter.
+The \`createModal(params)\` function take an \`params\` object as parameter.
 
 **Options Params keys:**
 - \`name\` (*STRING - Required*): Prefix of the \`Modal\` component name and \`ModalButtonProps\` object name.
-- \`isOpenedByDefault\` (*BOOLEAN - Required*): Set the opening state of the Modal after it mount.
+- \`isOpenedByDefault\` (*boolean - Required*): Set the opening state of the Modal after it mount.
 
 **Return:**  
-An object with two keys. The name of these keys are computed from the value 
+An object with four keys. The name of these keys are computed from the value 
 of \`name\` key of the \`options\` param object :
 - \`\${PascalCasePrefix}Modal\`: The Modal component
-- \`\${camelCasePrefix}ModalButtonProps\`: The props object for \`Button\` DSFR component
+- \`open\${camelCasePrefix}Modal\`: Programmatically open the modal
+- \`close\${camelCasePrefix}Modal\`: Programmatically close the modal
+- \`\${camelCasePrefix}ModalNativeButtonProps\`: The props object for <button /> component (For Next AppDir, if you want to be RSC ready)
 
 **Eg.:**
 \`\`\`tsx
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
-const { FooModal, fooModalButtonProps, openFooModal, closeFooModal } = createModal({
+const { FooModal, fooModalButtonProps, openFooModal, closeFooModal, fooModalNativeButtonProps } = createModal({
     name: "foo", // The name of Modal component and modalButtonProps is compute from this string
     isOpenedByDefault: false
 });
 
-
-const node = (
-    <>
-        {/* ... */}
-        <FooModal title="foo modal title"/>
-        <Button {...fooModalButtonProps}>Open foo modal</Button>
-        <Button onClick={openFooModal}>Open foo modal</Button>
-        <Button onClick={closeFooModal}>Close foo modal</Button>
-    </>
+function Home(){
+    return (
+        <>
+            {/* ... */}
+            <FooModal title="foo modal title">
+                <h1>Foo modal content</h1>
+            </FooModal>
+            <Button nativeButtonProps={fooModalNativeButtonProp}>Open foo modal</Button> {/* Use this if you are in a Server component (Next AppDir) and you don't want to add "use client"; just because of the the Modal */}
+            <Button onClick={openFooModal}>Open foo modal</Button> {/* ...otherwise this works just as well and is more versatile */}
+            <Button onClick={closeFooModal}>Close foo modal</Button>
+        </>
+    );
 );
 
 \`\`\`
@@ -110,7 +115,7 @@ const node = (
 
 export default meta;
 
-const { SimpleModal, simpleModalButtonProps } = createModal({
+const { SimpleModal, simpleModalNativeButtonProps } = createModal({
     "name": "simple",
     "isOpenedByDefault": false
 });
@@ -118,7 +123,7 @@ const { SimpleModal, simpleModalButtonProps } = createModal({
 function Template(args: ModalProps) {
     return (
         <>
-            <Button {...simpleModalButtonProps}>Open modal</Button>
+            <Button nativeButtonProps={simpleModalNativeButtonProps}>Open modal</Button>
             <SimpleModal {...args} />
         </>
     );

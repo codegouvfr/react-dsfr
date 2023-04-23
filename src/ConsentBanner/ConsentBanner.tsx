@@ -7,12 +7,12 @@ import { ConsentManager } from "./ConsentManager";
 import { ConsentBannerContentDisplayer } from "./ConsentBannerContentDisplayer";
 import { useTranslation } from "./i18n";
 
-const { ConsentModal, consentModalButtonProps } = createModal({
+const { ConsentModal, consentModalNativeButtonProps } = createModal({
     name: "Consent",
     isOpenedByDefault: false
 });
 
-export { consentModalButtonProps };
+export { consentModalNativeButtonProps };
 
 export type ConsentBannerProps = Omit<ConsentBannerContentProps, "consentModalButtonProps">;
 
@@ -28,12 +28,16 @@ export const ConsentBanner = memo((props: ConsentBannerProps) => {
                 <ConsentManager
                     gdprLinkProps={gdprLinkProps}
                     services={services}
-                    consentModalButtonProps={consentModalButtonProps}
+                    consentModalButtonProps={{
+                        "nativeButtonProps": consentModalNativeButtonProps
+                    }}
                 />
             </ConsentModal>
             <ConsentBannerContentDisplayer
                 {...props}
-                consentModalButtonProps={consentModalButtonProps}
+                consentModalButtonProps={{
+                    "nativeButtonProps": consentModalNativeButtonProps
+                }}
             />
         </>
     );
