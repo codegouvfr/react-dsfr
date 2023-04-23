@@ -9,7 +9,7 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
-import { ModalProps } from "./Modal";
+import { getOpenConsentModal } from "./ConsentBannerNext/openConsentModal";
 
 export type FooterProps = {
     className?: string;
@@ -20,8 +20,8 @@ export type FooterProps = {
     accessibilityLinkProps?: RegisteredLinkProps;
     termsLinkProps?: RegisteredLinkProps;
     personalDataLinkProps?: RegisteredLinkProps;
-    cookiesManagementLinkProps?: RegisteredLinkProps;
-    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
+    /** This is only to use if you're not using the ConsentBanner component */
+    consentManagementLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
@@ -147,8 +147,7 @@ export const Footer = memo(
             accessibility,
             termsLinkProps,
             personalDataLinkProps,
-            cookiesManagementLinkProps,
-            cookiesManagementButtonProps,
+            consentManagementLinkProps,
             bottomItems = [],
             partnersLogos,
             operatorLogo,
@@ -421,25 +420,41 @@ export const Footer = memo(
                                               "linkProps": personalDataLinkProps
                                           })
                                       ]),
-                                ...(cookiesManagementButtonProps === undefined
-                                    ? // one or the other, but not both. Priority to button for consent modal control.
-                                      cookiesManagementLinkProps === undefined
-                                        ? []
-                                        : [
-                                              id<FooterProps.BottomItem>({
-                                                  "text": t("cookies management"),
-                                                  "linkProps": cookiesManagementLinkProps
-                                              })
-                                          ]
-                                    : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("cookies management"),
-                                              "buttonProps": {
-                                                  onClick: cookiesManagementButtonProps.onClick,
-                                                  ...cookiesManagementButtonProps.nativeButtonProps
-                                              }
-                                          })
-                                      ]),
+
+                                ...(() => {
+                                    const openConsentModal = getOpenConsentModal();
+
+                                    if (consentManagementLinkProps !== undefined) {
+                                        if (openConsentModal !== undefined) {
+                                            console.warn(
+                                                [
+                                                    "You are using ConsentBanner, consentManagementLinkProps provided",
+                                                    "to the Footer will be ignored. Please remove this prop from the Footer"
+                                                ].join(" ")
+                                            );
+                                        }
+
+                                        return [
+                                            id<FooterProps.BottomItem>({
+                                                "text": t("cookies management"),
+                                                "linkProps": consentManagementLinkProps
+                                            })
+                                        ];
+                                    }
+
+                                    if (openConsentModal !== undefined) {
+                                        return [
+                                            id<FooterProps.BottomItem>({
+                                                "text": t("cookies management"),
+                                                "buttonProps": {
+                                                    "onClick": openConsentModal
+                                                }
+                                            })
+                                        ];
+                                    }
+
+                                    return [];
+                                })(),
                                 ...bottomItems
                             ].map(({ iconId, text, buttonProps, linkProps }, i) => (
                                 <li

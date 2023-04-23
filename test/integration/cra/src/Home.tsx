@@ -3,9 +3,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Table } from "@codegouvfr/react-dsfr/Table";
-import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
-import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
-import { consentModalButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
+import { useFinalitiesConsent } from "./gdpr";
 
 const sideMenuItems = [
     {
@@ -78,6 +76,8 @@ const sideMenuItems = [
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
 
+    const { finalitiesConsent } = useFinalitiesConsent();
+
     return (
         <>
             <Alert
@@ -109,7 +109,6 @@ export function Home() {
             />
 
             <TableExample />
-            <GdprStoreViewer />
         </>
     );
 }
@@ -131,25 +130,3 @@ function TableExample() {
     );
 }
 
-
-export const GdprStoreViewer = () => {
-    const {consents, firstChoiceMade } = useGdprStore();
-
-    return <>
-        <ButtonsGroup inlineLayoutWhen='always' buttons={[
-            {
-                ...consentModalButtonProps,
-                children: "Open Consent"
-            },
-            {
-                children: "Reset Consent",
-                priority: "secondary",
-                onClick() {
-                    localStorage.removeItem("dsfr-gdpr-consent");
-                    window.location.reload();
-                }
-            }
-        ]} />
-        <pre>{JSON.stringify({consents, firstChoiceMade})}</pre>
-    </>;
-}

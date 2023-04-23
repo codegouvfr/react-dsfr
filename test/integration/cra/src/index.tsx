@@ -8,18 +8,11 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
-import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
-import { ConsentBanner } from '@codegouvfr/react-dsfr/ConsentBanner';
+import { ConsentBanner } from "./gdpr";
 
 startReactDsfr({
     "defaultColorScheme": "system"
 });
-
-declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices { 
-        matomo: never;
-    }
-}
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -34,14 +27,6 @@ function Root() {
     const route = useRoute();
 
     return (
-        <GdprStoreProvider>
-            <ConsentBanner gdprLinkProps={{href: "/mui"}} siteName='Next Test App' services={[
-                {
-                    name: "matomo",
-                    title: "Matomo",
-                    description: "User tracking",
-                }
-            ]} />
             <div style={{
                 "height": "100vh",
                 "display": "flex",
@@ -79,9 +64,32 @@ function Root() {
                         }
                     })()}
                 </div>
-                <Display />
-            </div>
-        </GdprStoreProvider>
+            <ConsentBanner
+                finalities={{
+                    "advertising": {
+                        "title": "Publicité",
+                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
+                    },
+                    "analytics": {
+                        "title": "Analyse",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+                    },
+                    "personalization": {
+                        "title": "Personnalisation",
+                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
+                    },
+                    "statistics": {
+                        "title": "Statistiques",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
+                        "titleBySubFinality": {
+                            "deviceInfo": "Informations sur votre appareil",
+                            "traffic": "Informations sur votre navigation",
+                        }
+                    }
+                }}
+            />
+            <Display />
+        </div>
     );
 
 
