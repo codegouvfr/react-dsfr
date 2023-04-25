@@ -8,7 +8,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { RadioButtons },
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/boutons-radio)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton-radio)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/RadioButtons.tsx)  
   
 ## Controlled
@@ -137,6 +137,9 @@ function MyComponent(){
             "control": { "type": "text" }
         },
         "disabled": {
+            "control": { "type": "boolean" }
+        },
+        "small": {
             "control": { "type": "boolean" }
         }
     },
@@ -335,6 +338,31 @@ export const SuccessState = getStory({
 export const Disabled = getStory({
     "legend": "Légende pour l’ensemble de champs",
     "disabled": true,
+    "options": [
+        {
+            "label": "Label radio",
+            "nativeInputProps": {
+                "value": "value1"
+            }
+        },
+        {
+            "label": "Label radio 2",
+            "nativeInputProps": {
+                "value": "value2"
+            }
+        },
+        {
+            "label": "Label radio 3",
+            "nativeInputProps": {
+                "value": "value3"
+            }
+        }
+    ]
+});
+
+export const Small = getStory({
+    "legend": "Légende pour l’ensemble de champs",
+    "small": true,
     "options": [
         {
             "label": "Label radio",

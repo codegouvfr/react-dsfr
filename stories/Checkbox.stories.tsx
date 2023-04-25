@@ -46,6 +46,9 @@ const { meta, getStory } = getStoryFactory({
         },
         "disabled": {
             "control": { "type": "boolean" }
+        },
+        "small": {
+            "control": { "type": "boolean" }
         }
     },
     "disabledProps": ["lang"]
@@ -244,6 +247,34 @@ export const SuccessState = getStory({
     "state": "success",
     "orientation": "horizontal",
     "stateRelatedMessage": "Texte de validation",
+    "options": [
+        {
+            "label": "Label checkbox",
+            "nativeInputProps": {
+                "name": "checkboxes-1",
+                "value": "value1"
+            }
+        },
+        {
+            "label": "Label checkbox 2",
+            "nativeInputProps": {
+                "name": "checkboxes-1",
+                "value": "value2"
+            }
+        },
+        {
+            "label": "Label checkbox 3",
+            "nativeInputProps": {
+                "name": "checkboxes-1",
+                "value": "value3"
+            }
+        }
+    ]
+});
+
+export const Small = getStory({
+    "legend": "Légende pour l’ensemble de champs",
+    "small": true,
     "options": [
         {
             "label": "Label checkbox",
