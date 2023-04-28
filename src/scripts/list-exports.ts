@@ -28,6 +28,7 @@ const newExports = {
     "./useGdprStore": "./dist/useGdprStore.js",
     "./useColors": "./dist/useColors.js",
     "./useBreakpointsValues": "./dist/useBreakpointsValues.js",
+    "./link": "./dist/link.js",
     "./mui": "./dist/mui.js",
     "./tss": "./dist/tss.js",
     "./tools/cx": "./dist/tools/cx.js",
