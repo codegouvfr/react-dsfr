@@ -132,6 +132,7 @@
     "./useGdprStore": "./useGdprStore.js",
     "./useColors": "./useColors.js",
     "./useBreakpointsValues": "./useBreakpointsValues.js",
+    "./link": "./link.js",
     "./mui": "./mui.js",
     "./tss": "./tss.js",
     "./tools/cx": "./tools/cx.js",
