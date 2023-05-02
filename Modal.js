@@ -111,7 +111,6 @@ export function createModal(params) {
     InternalModal.displayName = `${capitalize(name)}Modal`;
     overwriteReadonlyProp(InternalModal, "name", InternalModal.displayName);
     function openModal() {
-        console.log("wesh!");
         const hiddenControlButton = document.getElementById(hiddenControlButtonId);
         assert(hiddenControlButton !== null, "Modal isn't mounted");
         hiddenControlButton.click();
