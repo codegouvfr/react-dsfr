@@ -33,7 +33,8 @@ of \`name\` key of the \`options\` param object :
 - \`close\${camelCasePrefix}Modal\`: Programmatically close the modal
 - \`\${camelCasePrefix}ModalNativeButtonProps\`: The props object for <button /> component (For Next AppDir, if you want to be RSC ready)
 
-**Eg.:**
+**Eg.:**  
+
 \`\`\`tsx
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
