@@ -150,13 +150,8 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps }, i) => {
-                        const divClassName = small
-                            ? fr.cx(`fr-${type}-group`, `fr-${type}-group--sm`)
-                            : fr.cx(`fr-${type}-group`);
-
-                        return (
-                            <div className={divClassName} key={i}>
+                    {options.map(({ label, hintText, nativeInputProps }, i) => 
+                            <div className={fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`)} key={i}>
                                 <input
                                     type={type}
                                     id={getInputId(i)}
@@ -170,8 +165,7 @@ export const Fieldset = memo(
                                     )}
                                 </label>
                             </div>
-                        );
-                    })}
+                    )}
                 </div>
                 {state !== "default" && (
                     <p
