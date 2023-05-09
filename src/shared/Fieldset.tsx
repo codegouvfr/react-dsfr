@@ -41,6 +41,7 @@ export namespace FieldsetProps {
         stateRelatedMessage?: ReactNode;
         /** Default: false */
         disabled?: boolean;
+        /** default: false */
         small?: boolean;
     };
 
