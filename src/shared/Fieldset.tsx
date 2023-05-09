@@ -72,7 +72,7 @@ export const Fieldset = memo(
             disabled = false,
             type,
             name: name_props,
-            small,
+            small = false,
             ...rest
         } = props;
 
