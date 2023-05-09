@@ -16,7 +16,7 @@ import { cx } from "../tools/cx";
 import { fr } from "../fr";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-radiobutton> */
 export const Fieldset = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props } = props, rest = __rest(props, ["className", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name"]);
+    const { className, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
     assert();
     const { getInputId, legendId, errorDescId, successDescId } = (function useClosure() {
         const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
@@ -52,7 +52,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
         legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },
             legend,
             hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
-        React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map(({ label, hintText, nativeInputProps }, i) => (React.createElement("div", { className: fr.cx(`fr-${type}-group`), key: i },
+        React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map(({ label, hintText, nativeInputProps }, i) => (React.createElement("div", { className: fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`), key: i },
             React.createElement("input", Object.assign({ type: type, id: getInputId(i), name: radioName }, nativeInputProps)),
             React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
                 label,

@@ -23,6 +23,8 @@ export declare namespace FieldsetProps {
         stateRelatedMessage?: ReactNode;
         /** Default: false */
         disabled?: boolean;
+        /** default: false */
+        small?: boolean;
     };
     type Radio = Common & {
         type: "radio";
