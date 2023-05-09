@@ -151,22 +151,25 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps }, i) => 
-                            <div className={fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`)} key={i}>
-                                <input
-                                    type={type}
-                                    id={getInputId(i)}
-                                    name={radioName}
-                                    {...nativeInputProps}
-                                />
-                                <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
-                                    {label}
-                                    {hintText !== undefined && (
-                                        <span className={fr.cx("fr-hint-text")}>{hintText}</span>
-                                    )}
-                                </label>
-                            </div>
-                    )}
+                    {options.map(({ label, hintText, nativeInputProps }, i) => (
+                        <div
+                            className={fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`)}
+                            key={i}
+                        >
+                            <input
+                                type={type}
+                                id={getInputId(i)}
+                                name={radioName}
+                                {...nativeInputProps}
+                            />
+                            <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
+                                {label}
+                                {hintText !== undefined && (
+                                    <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                                )}
+                            </label>
+                        </div>
+                    ))}
                 </div>
                 {state !== "default" && (
                     <p
