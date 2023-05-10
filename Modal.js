@@ -45,7 +45,7 @@ const Modal = memo(forwardRef((props, ref) => {
                     })() },
                     React.createElement("div", { className: fr.cx("fr-modal__body") },
                         React.createElement("div", { className: fr.cx("fr-modal__header") },
-                            React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), title: t("close"), "aria-controls": id }, t("close"))),
+                            React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), title: t("close"), "aria-controls": id, type: "button" }, t("close"))),
                         React.createElement("div", { className: fr.cx("fr-modal__content") },
                             React.createElement("h1", { id: titleId, className: fr.cx("fr-modal__title") },
                                 iconId !== undefined && (React.createElement("span", { className: fr.cx(iconId, "fr-fi--lg") })),
@@ -105,7 +105,7 @@ export function createModal(params) {
     const hiddenControlButtonId = `${modalId}-hidden-control-button`;
     function InternalModal(props) {
         return (React.createElement(React.Fragment, null,
-            React.createElement(Button, { nativeButtonProps: Object.assign(Object.assign({}, modalNativeButtonProps), { "id": hiddenControlButtonId }), className: fr.cx("fr-hidden") }, " "),
+            React.createElement(Button, { nativeButtonProps: Object.assign(Object.assign({}, modalNativeButtonProps), { "id": hiddenControlButtonId, "type": "button" }), className: fr.cx("fr-hidden") }, " "),
             React.createElement(Modal, Object.assign({}, props, { id: modalId }))));
     }
     InternalModal.displayName = `${capitalize(name)}Modal`;
