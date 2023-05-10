@@ -198,8 +198,6 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-let counter = 0;
-
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
 export function createModal<Name extends string>(params: {
     name: Name;
@@ -217,7 +215,7 @@ export function createModal<Name extends string>(params: {
     Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> {
     const { name, isOpenedByDefault } = params;
 
-    const modalId = `${uncapitalize(name)}-modal-${counter++}`;
+    const modalId = `${uncapitalize(name)}-modal`;
 
     const modalNativeButtonProps = {
         "aria-controls": modalId,
