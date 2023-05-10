@@ -99,6 +99,7 @@ const Modal = memo(
                                         className={fr.cx("fr-btn--close", "fr-btn")}
                                         title={t("close")}
                                         aria-controls={id}
+                                        type="button"
                                     >
                                         {t("close")}
                                     </button>
@@ -231,7 +232,8 @@ export function createModal<Name extends string>(params: {
                 <Button
                     nativeButtonProps={{
                         ...modalNativeButtonProps,
-                        "id": hiddenControlButtonId
+                        "id": hiddenControlButtonId,
+                        "type": "button"
                     }}
                     className={fr.cx("fr-hidden")}
                 >
