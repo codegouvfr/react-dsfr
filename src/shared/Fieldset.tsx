@@ -78,18 +78,20 @@ export const Fieldset = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { getInputId, legendId, errorDescId, successDescId } = (function useClosure() {
-            const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
+        const { getInputId, legendId, errorDescId, successDescId, messagesWrapperId } =
+            (function useClosure() {
+                const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
 
-            const getInputId = (i: number) => `${id}-${i}`;
+                const getInputId = (i: number) => `${id}-${i}`;
 
-            const legendId = `${id}-legend`;
+                const legendId = `${id}-legend`;
 
-            const errorDescId = `${id}-desc-error`;
-            const successDescId = `${id}-desc-valid`;
+                const errorDescId = `${id}-desc-error`;
+                const successDescId = `${id}-desc-valid`;
+                const messagesWrapperId = `${id}-messages`;
 
-            return { getInputId, legendId, errorDescId, successDescId };
-        })();
+                return { getInputId, legendId, errorDescId, successDescId, messagesWrapperId };
+            })();
 
         const radioName = (function useClosure() {
             const id = useId();
@@ -119,19 +121,7 @@ export const Fieldset = memo(
                 )}
                 disabled={disabled}
                 style={style}
-                aria-labelledby={cx(
-                    legendId,
-                    (() => {
-                        switch (state) {
-                            case "default":
-                                return undefined;
-                            case "error":
-                                return errorDescId;
-                            case "success":
-                                return successDescId;
-                        }
-                    })()
-                )}
+                aria-labelledby={cx(legend !== undefined && legendId, messagesWrapperId)}
                 role={state === "default" ? undefined : "group"}
                 {...rest}
                 ref={ref}
@@ -171,37 +161,37 @@ export const Fieldset = memo(
                         </div>
                     ))}
                 </div>
-                {state !== "default" && (
-                    <div
-                        className="fr-messages-group"
-                        id="radio-rich-error-messages"
-                        aria-live="assertive"
-                    >
-                    <p
-                        id={(() => {
-                            switch (state) {
-                                case "error":
-                                    return errorDescId;
-                                case "success":
-                                    return successDescId;
-                            }
-                        })()}
-                        className={fr.cx(
-                            (() => {
+                <div
+                    className={fr.cx("fr-messages-group")}
+                    id={messagesWrapperId}
+                    aria-live="assertive"
+                >
+                    {stateRelatedMessage !== undefined && (
+                        <p
+                            id={(() => {
                                 switch (state) {
                                     case "error":
-                                        return "fr-error-text";
+                                        return errorDescId;
                                     case "success":
-                                        return "fr-valid-text";
+                                        return successDescId;
                                 }
-                            })(), 
-                            "fr-message"
-                        )}
-                    >
-                        {stateRelatedMessage ?? ""}
-                    </p>
-                    </div>
-                )}
+                            })()}
+                            className={fr.cx(
+                                (() => {
+                                    switch (state) {
+                                        case "error":
+                                            return "fr-error-text";
+                                        case "success":
+                                            return "fr-valid-text";
+                                    }
+                                })(),
+                                "fr-message"
+                            )}
+                        >
+                            {stateRelatedMessage}
+                        </p>
+                    )}
+                </div>
             </fieldset>
         );
     })
