@@ -172,6 +172,11 @@ export const Fieldset = memo(
                     ))}
                 </div>
                 {state !== "default" && (
+                    <div
+                        className="fr-messages-group"
+                        id="radio-rich-error-messages"
+                        aria-live="assertive"
+                    >
                     <p
                         id={(() => {
                             switch (state) {
@@ -189,11 +194,13 @@ export const Fieldset = memo(
                                     case "success":
                                         return "fr-valid-text";
                                 }
-                            })()
+                            })(), 
+                            "fr-message"
                         )}
                     >
                         {stateRelatedMessage ?? ""}
                     </p>
+                    </div>
                 )}
             </fieldset>
         );
