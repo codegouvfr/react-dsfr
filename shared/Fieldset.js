@@ -18,13 +18,14 @@ import { fr } from "../fr";
 export const Fieldset = memo(forwardRef((props, ref) => {
     const { className, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
     assert();
-    const { getInputId, legendId, errorDescId, successDescId } = (function useClosure() {
+    const { getInputId, legendId, errorDescId, successDescId, messagesWrapperId } = (function useClosure() {
         const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
         const getInputId = (i) => `${id}-${i}`;
         const legendId = `${id}-legend`;
         const errorDescId = `${id}-desc-error`;
         const successDescId = `${id}-desc-valid`;
-        return { getInputId, legendId, errorDescId, successDescId };
+        const messagesWrapperId = `${id}-messages`;
+        return { getInputId, legendId, errorDescId, successDescId, messagesWrapperId };
     })();
     const radioName = (function useClosure() {
         const id = useId();
@@ -39,16 +40,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                 case "success":
                     return "fr-fieldset--valid";
             }
-        })()), classes.root, className), disabled: disabled, style: style, "aria-labelledby": cx(legendId, (() => {
-            switch (state) {
-                case "default":
-                    return undefined;
-                case "error":
-                    return errorDescId;
-                case "success":
-                    return successDescId;
-            }
-        })()), role: state === "default" ? undefined : "group" }, rest, { ref: ref }),
+        })()), classes.root, className), disabled: disabled, style: style, "aria-labelledby": cx(legend !== undefined && legendId, messagesWrapperId), role: state === "default" ? undefined : "group" }, rest, { ref: ref }),
         legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },
             legend,
             hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
@@ -57,7 +49,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
             React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
                 label,
                 hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText))))))),
-        state !== "default" && (React.createElement("p", { id: (() => {
+        React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesWrapperId, "aria-live": "assertive" }, stateRelatedMessage !== undefined && (React.createElement("p", { id: (() => {
                 switch (state) {
                     case "error":
                         return errorDescId;
@@ -71,7 +63,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                     case "success":
                         return "fr-valid-text";
                 }
-            })()) }, stateRelatedMessage !== null && stateRelatedMessage !== void 0 ? stateRelatedMessage : ""))));
+            })(), "fr-message") }, stateRelatedMessage)))));
 }));
 Fieldset.displayName = symToStr({ Fieldset });
 export default Fieldset;
