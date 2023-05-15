@@ -121,13 +121,11 @@ export const Footer = memo(forwardRef((props, ref) => {
                     return linkProps !== undefined ? (Object.keys(linkProps).length === 0 ? (React.createElement("span", { className: className }, text)) : (React.createElement(Link, Object.assign({}, linkProps, { className: cx(className, linkProps.className) }), text))) : (React.createElement("button", Object.assign({}, buttonProps, { className: cx(className, buttonProps.className) }), text));
                 })())))),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy) },
-                    React.createElement("p", null, license === undefined ? (React.createElement(React.Fragment, null,
-                        t("license mention"),
-                        " ",
-                        React.createElement("a", { href: "https://github.com/etalab/licence-ouverte/blob/master/LO.md", target: "_blank" },
-                            t("etalab license"),
-                            " "),
-                        " ")) : (license)))))));
+                    React.createElement("p", null, license === undefined
+                        ? t("license mention", {
+                            "licenseUrl": "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                        })
+                        : license))))));
 }));
 Footer.displayName = symToStr({ Footer });
 export default Footer;
@@ -144,8 +142,10 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "terms": "Mentions légales",
         "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
-        "license mention": "Sauf mention contraire, tous les contenus de ce site sont sous",
-        "etalab license": "licence etalab-2.0",
+        "license mention": (p) => (React.createElement(React.Fragment, null,
+            "Sauf mention contraire, tous les contenus de ce site sont sous",
+            " ",
+            React.createElement("a", { href: p.licenseUrl, target: "_blank" }, "licence etalab-2.0"))),
         "our partners": "Nos partenaires"
         /* spell-checker: enable */
     }
@@ -159,8 +159,10 @@ addFooterTranslations({
         "non compliant": "non compliant",
         "partially compliant": "partially compliant",
         "fully compliant": "fully compliant",
-        "license mention": "Unless stated otherwise all content of this website are under",
-        "etalab license": "etalab-2.0 license"
+        "license mention": p => (React.createElement(React.Fragment, null,
+            "Unless stated otherwise, all content of this website is under the",
+            " ",
+            React.createElement("a", { href: p.licenseUrl, target: "_blank" }, "etalab-2.0 license")))
     }
 });
 addFooterTranslations({

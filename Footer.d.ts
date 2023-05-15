@@ -103,8 +103,9 @@ declare const addFooterTranslations: (params: {
         terms: string;
         "personal data": string;
         "cookies management": string;
-        "license mention": string;
-        "etalab license": string;
+        "license mention": (p: {
+            licenseUrl: string;
+        }) => JSX.Element;
         "our partners": string;
     }>;
 }) => void;
