@@ -60,14 +60,6 @@
         "typescript"
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
-    "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
-    },
-    "peerDependenciesMeta": {
-        "react": {
-            "optional": true
-        }
-    },
     "dependencies": {
         "tsafe": "^1.6.0"
     },
