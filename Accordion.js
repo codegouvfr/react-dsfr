@@ -29,7 +29,7 @@ export const Accordion = memo(forwardRef((props, ref) => {
     });
     return (React.createElement("section", Object.assign({ className: cx(fr.cx("fr-accordion"), className), style: style, ref: ref }, rest),
         React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-accordion__title"), classes.title) },
-            React.createElement("button", { className: fr.cx("fr-accordion__btn"), "aria-expanded": value, "aria-controls": accordionId, onClick: onExtendButtonClick }, label)),
+            React.createElement("button", { className: fr.cx("fr-accordion__btn"), "aria-expanded": value, "aria-controls": accordionId, onClick: onExtendButtonClick, type: "button" }, label)),
         React.createElement("div", { className: cx(fr.cx("fr-collapse"), classes.collapse), id: accordionId }, children)));
 }));
 Accordion.displayName = symToStr({ Accordion });
