@@ -90,6 +90,7 @@ export const Accordion = memo(
                         aria-expanded={value}
                         aria-controls={accordionId}
                         onClick={onExtendButtonClick}
+                        type="button"
                     >
                         {label}
                     </button>

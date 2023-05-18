@@ -113,6 +113,7 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few project **that I know of** that uses `@codegouvfr/react-dsfr`.
 
+-   https://sill.code.gouv.fr
 -   https://immersion-facile.beta.gouv.fr/
 -   https://refugies.info/fr
 -   https://www.mediateur-public.fr/
