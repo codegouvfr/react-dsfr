@@ -8,6 +8,7 @@
     },
     "scripts": {
         "build": "ts-node -T src/scripts/build && mv dist/bin . && js2mjs dist && mv bin dist",
+        "build-npm": "ts-node -T src/scripts/build --npm && mv dist/bin . && js2mjs dist && mv bin dist",
         "_link": "ts-node -T src/scripts/link-in-integration-apps.ts",
         "link-external": "ts-node -T src/scripts/link-in-external-project.ts",
         "start-cra": "yarn build && yarn _link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
