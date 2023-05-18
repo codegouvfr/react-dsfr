@@ -8095,6 +8095,14 @@ js-yaml@^4.1.0:
   dependencies:
     argparse "^2.0.1"
 
+js2mjs@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/js2mjs/-/js2mjs-0.3.0.tgz#4db5f4e31dae63ee661f689e853308b138bbc58e"
+  integrity sha512-jiejhgZW09Y7m4IMQbsosFWHwPLeskSS5Ybd1lrf3RskjkHd6XaLtNFO+oy6G+tzHc6mmxHXcQLKbfgRrTRgrA==
+  dependencies:
+    commander "^4.1.1"
+    tsafe "^1.4.1"
+
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
