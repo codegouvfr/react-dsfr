@@ -1,4 +1,4 @@
-// This file is generated automatically by src/scripts/build/cssToTs/cssToTs.ts, please don't edit.
+// This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
 export const spacingTokenByValue = {
     "1v": "0.25rem",
     "1w": "0.5rem",

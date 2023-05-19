@@ -1,4 +1,4 @@
-// This file is generated automatically by src/scripts/build/cssToTs/cssToTs.ts, please don't edit.
+// This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
 import { breakpoints } from "../breakpoints";
 export const typography = [
     {

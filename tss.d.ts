@@ -1,5 +1,4 @@
 /// <reference types="react" />
-export * from "tss-react";
 /** @see <https://docs.tss-react.dev/setup> */
 export declare const makeStyles: <Params = void, RuleNameSubsetReferencableInNestedSelectors extends string = never>(params?: {
     name?: string | Record<string, unknown> | undefined;

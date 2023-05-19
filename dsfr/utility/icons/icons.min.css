@@ -10,12 +10,6 @@
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
-}
-
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -32,6 +26,12 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
 .fr-icon-arrow-right-line::before,
@@ -136,16 +136,16 @@
     mask-image: url("../../icons/buildings/ancient-gate-fill.svg");
 }
 
-.ri-airplay-line::before,
-.ri-airplay-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/airplay-line.svg");
-    mask-image: url("../../icons/remixicon/airplay-line.svg");
-}
-
 .ri-airplay-fill::before,
 .ri-airplay-fill::after {
     -webkit-mask-image: url("../../icons/remixicon/airplay-fill.svg");
     mask-image: url("../../icons/remixicon/airplay-fill.svg");
+}
+
+.ri-airplay-line::before,
+.ri-airplay-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/airplay-line.svg");
+    mask-image: url("../../icons/remixicon/airplay-line.svg");
 }
 
 .fr-icon-archive-fill::before,
@@ -177,11 +177,6 @@
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
-    }
-    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -195,6 +190,11 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
     }
     
     .fr-icon-arrow-right-line::before,
@@ -282,14 +282,14 @@
         background-image: url("../../icons/buildings/ancient-gate-fill.svg");
     }
     
-    .ri-airplay-line::before,
-    .ri-airplay-line::after {
-        background-image: url("../../icons/remixicon/airplay-line.svg");
-    }
-    
     .ri-airplay-fill::before,
     .ri-airplay-fill::after {
         background-image: url("../../icons/remixicon/airplay-fill.svg");
+    }
+    
+    .ri-airplay-line::before,
+    .ri-airplay-line::after {
+        background-image: url("../../icons/remixicon/airplay-line.svg");
     }
     
     .fr-icon-archive-fill::before,
