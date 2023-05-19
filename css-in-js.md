@@ -110,7 +110,8 @@ You can also use TSS to apply global styles:
 
 ```tsx
 // Some code
-import { GlobalStyles, useStyles } from "@codegouvfr/react-dsfr/tss";
+import { useStyles } from "@codegouvfr/react-dsfr/tss";
+import { GlobalStyles } from "tss-react";
 
 function App(){
 
@@ -286,7 +287,7 @@ This tool is build using [this file](https://unpkg.com/browse/@codegouvfr/react-
 {% endhint %}
 
 ```tsx
-import { useStyles } from "tss-react/dsfr";
+import { useStyles } from "@codegouvf/react-dsfr/tss";
 import { fr } from "@codegouvfr/react-dsfr";
 
 function MyComponent() {
