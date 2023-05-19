@@ -1,5 +1,5 @@
 import { tsc } from "../tools/tsc";
-import { getProjectRoot } from "../../bin/tools/getProjectRoot";
+import { getProjectRoot } from "../../src/bin/tools/getProjectRoot";
 import { join as pathJoin } from "path";
 import * as fs from "fs";
 import { getPatchedRawCssCodeForCompatWithRemixIcon, collectIcons } from "./icons";
@@ -7,7 +7,7 @@ import { cssToTs } from "./cssToTs";
 import {
     pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist,
     pathOfIconsJson
-} from "../../bin/only-include-used-icons";
+} from "../../src/bin/only-include-used-icons";
 import * as child_process from "child_process";
 import { oppa } from "oppa";
 import { assert } from "tsafe/assert";

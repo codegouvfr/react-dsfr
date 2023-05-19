@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateGetColorDecisionsTsCode } from "../../../../src/scripts/build/cssToTs/colorDecisions";
+import { generateGetColorDecisionsTsCode } from "../../../../scripts/build/cssToTs/colorDecisions";
 
 it("Generates the correct TS code for breakpoints", () => {
     const input = `

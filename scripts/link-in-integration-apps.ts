@@ -3,7 +3,7 @@
 import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import * as fs from "fs";
-import { getProjectRoot } from "../bin/tools/getProjectRoot";
+import { getProjectRoot } from "../src/bin/tools/getProjectRoot";
 
 const projectDirPath = getProjectRoot();
 

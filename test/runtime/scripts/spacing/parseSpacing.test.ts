@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
-import { parseSpacing } from "../../../../src/scripts/build/cssToTs/spacing";
-import type { SpacingTokenAndValue } from "../../../../src/scripts/build/cssToTs/spacing";
+import { parseSpacing } from "../../../../scripts/build/cssToTs/spacing";
+import type { SpacingTokenAndValue } from "../../../../scripts/build/cssToTs/spacing";
 
 it("Parse spacing successfully", () => {
     const input = `

@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { getPatchedRawCssCodeForCompatWithRemixIcon } from "../../../../src/scripts/build/icons";
+import { getPatchedRawCssCodeForCompatWithRemixIcon } from "../../../../scripts/build/icons";
 
 it("Successfully generates patched css for remixicon support", () => {
     const rawCssCode = `

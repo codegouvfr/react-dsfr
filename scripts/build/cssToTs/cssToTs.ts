@@ -1,14 +1,14 @@
 import { generateBreakpointsTsCode } from "./breakpoints";
 import { generateGetColorDecisionsTsCode } from "./colorDecisions";
 import { generateGetColorOptionsTsCode } from "./colorOptions";
-import { getProjectRoot } from "../../../bin/tools/getProjectRoot";
+import { getProjectRoot } from "../../../src/bin/tools/getProjectRoot";
 import { generateTypographyTsCode } from "./typography";
 import { generateSpacingTsCode } from "./spacing";
 import { generateClassNamesTsCode } from "./classNames";
 import { generateColorDecisionAndCorrespondingOptionsTsCode } from "./colorDecisionAndCorrespondingOptions";
 import * as fs from "fs";
 import { join as pathJoin, basename as pathBasename, relative as pathRelative } from "path";
-import type { Icon } from "../../../bin/only-include-used-icons";
+import type { Icon } from "../../../src/bin/only-include-used-icons";
 
 export function cssToTs(params: {
     rawDsfrCssCode: string;
