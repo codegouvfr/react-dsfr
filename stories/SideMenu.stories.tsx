@@ -9,7 +9,7 @@ const { meta, getStory } = getStoryFactory({
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/menu-lateral)
 - [See DSFR demos](https://main--ds-gouv.netlify.app/example/component/sidemenu/)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Sidemenu.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SideMenu.tsx)`,
     "disabledProps": ["lang"],
     "argTypes": {
         "title": {
@@ -97,6 +97,79 @@ export const SideMenuWith2Levels = getStory({
         {
             "isActive": true,
             "text": "Entrée menu active",
+            "items": [
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "isActive": true,
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                }
+            ]
+        },
+        {
+            "text": "Accès direct",
+            "linkProps": { "href": "#" }
+        },
+        {
+            "text": "Accès direct",
+            "linkProps": { "href": "#" }
+        },
+        {
+            "text": "Niveau 1",
+            "items": [
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                }
+            ]
+        }
+    ]
+});
+
+export const SideMenuWith2LevelsExpendedByDefault = getStory({
+    "title": "Titre de rubrique",
+    "burgerMenuButtonText": "Dans cette rubrique",
+    "items": [
+        {
+            "text": "Niveau 1",
+            "items": [
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                },
+                {
+                    "text": "Accès direct niveau 2",
+                    "linkProps": { "href": "#" }
+                }
+            ]
+        },
+        {
+            "isActive": true,
+            "expandedByDefault": true,
+            "text": "Entrée menu ouverte par défaut",
             "items": [
                 {
                     "text": "Accès direct niveau 2",
