@@ -40,6 +40,8 @@ export namespace SideMenuProps {
 
         export type SubMenu = Common & {
             items: Item[];
+            /** Default: false */
+            expandedByDefault?: boolean;
         };
     }
 }
@@ -133,7 +135,11 @@ export const SideMenu = memo(
                                             {"items" in item ? (
                                                 <>
                                                     <button
-                                                        aria-expanded="false"
+                                                        aria-expanded={
+                                                            (item.expandedByDefault ?? false)
+                                                                ? "true"
+                                                                : "false"
+                                                        }
                                                         aria-controls={itemId}
                                                         {...(item.isActive && {
                                                             ["aria-current"]: true
