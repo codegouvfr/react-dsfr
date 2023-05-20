@@ -316,6 +316,8 @@ You may experience white flashes in dev mode but not in production. 👍
 {% endtab %}
 
 {% tab title="Vite" %}
+{% embed url="https://github.com/garronej/react-dsfr-vite-demo" %}
+
 Add theses three scipts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
