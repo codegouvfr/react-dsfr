@@ -10,7 +10,6 @@ import {
 } from "../../src/bin/only-include-used-icons";
 import * as child_process from "child_process";
 import { oppa } from "oppa";
-import { assert } from "tsafe/assert";
 import { patchCssForMui } from "./patchCssForMui";
 
 (async () => {
@@ -123,14 +122,7 @@ import { patchCssForMui } from "./patchCssForMui";
                             ...packageJsonParsed,
                             "main": packageJsonParsed["main"].replace(/^dist\//, ""),
                             "types": packageJsonParsed["types"].replace(/^dist\//, ""),
-                            "module": packageJsonParsed["module"].replace(/^dist\//, ""),
-                            "exports": Object.fromEntries(
-                                Object.entries(packageJsonParsed["exports"]).map(([key, value]) => [
-                                    key,
-                                    (assert(typeof value === "string"),
-                                    value.replace(/^\.\/dist\//, "./"))
-                                ])
-                            )
+                            "module": packageJsonParsed["module"].replace(/^dist\//, "")
                         };
                     })(),
                     null,
