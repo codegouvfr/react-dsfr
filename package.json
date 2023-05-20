@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "0.54.9",
+  "version": "0.54.10-rc.1",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
@@ -114,18 +114,5 @@
   },
   "main": "fr/index.js",
   "types": "fr/index.d.ts",
-  "module": "fr/index.js",
-  "exports": {
-    ".": "./fr/index.js",
-    "./*": "./*.js",
-    "./gdpr": "./gdpr/index.js",
-    "./next-appdir": "./next-appdir/index.js",
-    "./next-appdir/*": "./next-appdir/*.js",
-    "./useIsDark": "./useIsDark/index.js",
-    "./tools/*": "./tools/*.js",
-    "./dsfr/*": "./dsfr/*",
-    "./blocks/*": "./blocks/*.js",
-    "./MainNavigation": "./MainNavigation/index.js",
-    "./ConsentBanner": "./ConsentBanner/index.js"
-  }
+  "module": "fr/index.js"
 }
