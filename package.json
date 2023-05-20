@@ -114,18 +114,5 @@
     },
     "main": "dist/fr/index.js",
     "types": "dist/fr/index.d.ts",
-    "module": "dist/fr/index.js",
-    "exports": {
-        ".": "./dist/fr/index.js",
-        "./*": "./dist/*.js",
-        "./gdpr": "./dist/gdpr/index.js",
-        "./next-appdir": "./dist/next-appdir/index.js",
-        "./next-appdir/*": "./dist/next-appdir/*.js",
-        "./useIsDark": "./dist/useIsDark/index.js",
-        "./tools/*": "./dist/tools/*.js",
-        "./dsfr/*": "./dsfr/*",
-        "./blocks/*": "./dist/blocks/*.js",
-        "./MainNavigation": "./dist/MainNavigation/index.js",
-        "./ConsentBanner": "./dist/ConsentBanner/index.js"
-    }
+    "module": "dist/fr/index.js"
 }
