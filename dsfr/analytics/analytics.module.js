@@ -1,10 +1,10 @@
-/*! DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.1'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
@@ -69,34 +69,35 @@ class Init {
     });
   }
 
-  configure () {
-    this.pushing();
-    if (opt.isDisabled) this._reject();
-    else this.load();
-    return this._promise;
-  }
-
   get id () {
-    if (!this._id) {
-      let bit = 5381;
-      for (let i = this._domain.length - 1; i > 0; i--) bit = (bit * 33) ^ this._domain.charCodeAt(i);
-      bit >>>= 0;
-      this._id = `_EA_${bit}`;
-    }
     return this._id;
   }
 
   get store () {
-    if (!this._store) {
-      this._store = [];
-      this._store.eah = this._domain;
-      window[this.id] = this._store;
-    }
     return this._store;
   }
 
-  pushing () {
+  configure () {
+    this.init();
+    return this._promise;
+  }
+
+  init () {
+    let bit = 5381;
+    for (let i = this._domain.length - 1; i > 0; i--) bit = (bit * 33) ^ this._domain.charCodeAt(i);
+    bit >>>= 0;
+    this._id = `_EA_${bit}`;
+
+    this._store = [];
+    this._store.eah = this._domain;
+    window[this._id] = this._store;
+
     if (!window[PUSH]) window[PUSH] = (...args) => this.store.push(args);
+
+    if (opt.isDisabled) {
+      api.inspector.warn('User opted out, eulerian is disabled');
+      this._reject('User opted out, eulerian is disabled');
+    } else this.load();
   }
 
   load () {
@@ -115,7 +116,7 @@ class Init {
 
   error () {
     api.inspector.error('unable to load Eulerian script file. the domain declared in your configuration must match the domain provided by the Eulerian interface (tag creation)');
-    this._reject();
+    this._reject('eulerian script loading error');
   }
 
   loaded () {
@@ -290,6 +291,10 @@ class ConsentManagerPlatform {
     this._tac = new TarteAuCitronIntegration(this._config);
     return this._tac.configure();
   }
+
+  optin () {
+
+  }
 }
 
 const push = (type, layer) => {
@@ -322,6 +327,7 @@ var RESTRICTED = {
   '0x0026': '＆',
   '0x0027': '＇',
   '0x002a': '＊',
+  '0x002c': '，',
   '0x003c': '＜',
   '0x003e': '＞',
   '0x003f': '？',
@@ -465,7 +471,6 @@ class Action {
     this._status = ActionStatus.UNSTARTED;
     this._labels = [];
     this._parameters = {};
-    this._isRatingActive = true;
   }
 
   get isMuted () {
@@ -474,6 +479,10 @@ class Action {
 
   set isMuted (value) {
     this._isMuted = value;
+  }
+
+  get isSingular () {
+    return this._status === ActionStatus.SINGULAR;
   }
 
   get status () {
@@ -506,14 +515,6 @@ class Action {
       case ActionStatus.ENDED:
         this._status = ActionStatus.UNSTARTED;
     }
-  }
-
-  get isRatingActive () {
-    return this._isRatingActive;
-  }
-
-  set isRatingActive (value) {
-    this._isRatingActive = value;
   }
 
   addParameter (key, value) {
@@ -549,7 +550,7 @@ class Action {
 
     if (this._reference) layer.push('actionref', this._reference);
 
-    if (data) layer.push.apply(layer, getParametersLayer({ ...this._parameters, ...data }));
+    layer.push.apply(layer, getParametersLayer(Object.assign(this._parameters, data || {})));
     return layer;
   }
 
@@ -557,7 +558,6 @@ class Action {
     let mode;
     switch (this._status) {
       case ActionStatus.UNSTARTED:
-        if (!this._isRatingActive || !Action.isRatingEnabled) return [];
         mode = ActionMode.IN;
         this._status = ActionStatus.STARTED;
         break;
@@ -570,8 +570,7 @@ class Action {
         api.inspector.error(`unexpected start on action ${this._name} with status ${this._status.id}`);
         return [];
     }
-    const layer = this._getLayer(mode, data);
-    return layer;
+    return this._getLayer(mode, data);
   }
 
   end (data) {
@@ -592,8 +591,7 @@ class Action {
         mode = ActionMode.NONE;
         break;
     }
-    const layer = this._getLayer(mode, data);
-    return layer;
+    return this._getLayer(mode, data);
   }
 
   resume (data) {
@@ -608,15 +606,18 @@ class Action {
   }
 }
 
-Action.isRatingEnabled = false;
-
 class Actions {
   constructor () {
     this._actions = [];
+    this._isRatingEnabled = false;
   }
 
   configure (config) {
-    Action.isRatingEnabled = config.enableRating === true;
+    this._isRatingEnabled = config.enableRating === true;
+  }
+
+  get isRatingEnabled () {
+    return this._isRatingEnabled;
   }
 
   rewind () {
@@ -687,11 +688,14 @@ class Queue {
     this.reset();
   }
 
+  setCollector (collector) {
+    this._collector = collector;
+  }
+
   reset (ending = false) {
     this._type = PushType.ACTION;
     if (!ending) this._startingActions.length = 0;
     this._endingActions.length = 0;
-    this._collectionLayer = [];
     this._count = 0;
     this._delay = -1;
     this._isRequested = false;
@@ -704,21 +708,28 @@ class Queue {
     renderer.add(this);
   }
 
-  collect (layer) {
+  collect () {
     this._type = PushType.COLLECTOR;
-    this._collectionLayer = layer;
     this._request();
   }
 
-  appendStartingAction (action) {
-    if (this._startingActions.indexOf(action) > -1) return;
-    this._startingActions.push(action);
+  appendStartingAction (action, data) {
+    if (!action || this._startingActions.some(queued => queued.test(action))) {
+      api.inspector.log('appendStartingAction exists or null', action);
+      return;
+    }
+    const queued = new QueuedAction(action, data);
+    this._startingActions.push(queued);
     this._request();
   }
 
-  appendEndingAction (action) {
-    if (this._endingActions.indexOf(action) > -1) return;
-    this._endingActions.push(action);
+  appendEndingAction (action, data) {
+    if (!action || this._endingActions.some(queued => queued.test(action))) {
+      api.inspector.log('appendEndingAction exists or null', action);
+      return;
+    }
+    const queued = new QueuedAction(action, data);
+    this._endingActions.push(queued);
     this._request();
   }
 
@@ -769,8 +780,8 @@ class Queue {
   send (ending = false) {
     if (!this._isRequested) return;
     const actionLayers = [];
-    if (!ending) actionLayers.push(...this._startingActions.map(action => action.start()).filter(layer => layer.length > 0));
-    actionLayers.push(...this._endingActions.map(action => action.end()).filter(layer => layer.length > 0));
+    if (!ending) actionLayers.push(...this._startingActions.map(queued => queued.start()).filter(layer => layer.length > 0));
+    actionLayers.push(...this._endingActions.map(queued => queued.end()).filter(layer => layer.length > 0));
 
     const length = ((actionLayers.length / SLICE) + 1) | 0;
     const slices = [];
@@ -779,11 +790,20 @@ class Queue {
       slices.push(slice.flat());
     }
 
-    push(this._type, [...this._collectionLayer, ...slices[0]]);
+    if (this._type === PushType.COLLECTOR) {
+      const layer = this._collector.layer;
+      if (slices.length > 0) {
+        const slice = slices.splice(0, 1)[0];
+        if (slice.length > 0) layer.push.apply(layer, slice);
+      }
+      layer.flat();
+      if (layer.length > 0) push(PushType.COLLECTOR, layer);
+    }
 
-    if (slices.length > 1) {
-      for (let i = 1; i < slices.length; i++) {
-        push(PushType.ACTION, slices[i]);
+    if (slices.length > 0) {
+      for (let i = 0; i < slices.length; i++) {
+        const slice = slices[i];
+        if (slice.length > 0) push(PushType.ACTION, slice);
       }
     }
 
@@ -791,7 +811,44 @@ class Queue {
   }
 }
 
+class QueuedAction {
+  constructor (action, data) {
+    this._action = action;
+    this._data = data;
+  }
+
+  test (action) {
+    return this._action === action;
+  }
+
+  start () {
+    return this._action.start(this._data);
+  }
+
+  end () {
+    return this._action.end(this._data);
+  }
+}
+
 const queue = new Queue();
+
+class Debug {
+  get debugger () {
+    return window._oEa;
+  }
+
+  get isActive () {
+    if (!this.debugger) return false;
+    return this.debugger._dbg === '1';
+  }
+
+  set isActive (value) {
+    if (!this.debugger || this.isActive === value) return;
+    this.debugger.debug(value ? 1 : 0);
+  }
+}
+
+const debug = new Debug();
 
 const Status = {
   CONNECTED: {
@@ -1595,6 +1652,7 @@ class Collector {
 
     this._isCollected = false;
     this._delay = -1;
+    queue.setCollector(this);
   }
 
   get page () {
@@ -1672,7 +1730,7 @@ class Collector {
 
   collect () {
     if (this._isCollected) return;
-    queue.collect(this.layer);
+    queue.collect();
     this._isCollected = true;
   }
 
@@ -1728,7 +1786,7 @@ class Analytics {
 
   _build () {
     this._init = new Init(this._config.domain);
-    this._init.configure().then(this._start.bind(this), this._reject);
+    this._init.configure().then(this._start.bind(this), (reason) => this._reject(reason));
   }
 
   get isReady () {
@@ -1784,6 +1842,14 @@ class Analytics {
 
   get collection () {
     return this._collector.collection;
+  }
+
+  get isDebugging () {
+    return debug.isActive;
+  }
+
+  set isDebugging (value) {
+    debug.isActive = value;
   }
 
   push (type, layer) {
@@ -2109,8 +2175,8 @@ class Member {
   }
 
   _parseHeadings () {
-    const selector = Array.from({ length: this._level }, (v, i) => `:scope > h${i + 1}, :scope > * > h${i + 1}`).join(',');
-    this._headings = [...this._node.querySelectorAll(selector)].filter(heading => (this._target.compareDocumentPosition(heading) & NODE_POSITION) > 0).map(heading => new Heading(heading)).reverse();
+    const selector = Array.from({ length: this._level }, (v, i) => `h${i + 1}`).join(',');
+    this._headings = Array.from(this._node.querySelectorAll(selector)).filter(heading => heading === this._node || heading.parentNode === this._node || (heading.parentNode != null && heading.parentNode.parentNode === this._node)).filter(heading => (this._target.compareDocumentPosition(heading) & NODE_POSITION) > 0).map(heading => new Heading(heading)).reverse();
   }
 
   _getComponent () {
@@ -2295,7 +2361,6 @@ class ActionElement {
     this._name = `${type}${this._title || this._hierarchy.title}${id}`;
 
     this._action = actions.getAction(this._name, this._type.status);
-    this._action.isRatingActive = this._isRatingActive;
     if (this._type.isSingular) this._action.singularize();
     Object.keys(this._parameters).forEach(key => this._action.addParameter(key, this._parameters[key]));
     this._action.isMuted = this._isMuted;
@@ -2330,21 +2395,27 @@ class ActionElement {
     this.begin();
   }
 
-  begin () {
+  begin (data = {}) {
     if (this._hasBegun) return;
     this._hasBegun = true;
-    if (this._type.isBeginning) queue.appendStartingAction(this._action);
+    if (this._type.isBeginning) queue.appendStartingAction(this._action, data);
   }
 
   act (data = {}) {
     if (this._isMuted) return;
-    queue.appendEndingAction(this._action);
+    if (!this._action) {
+      requestAnimationFrame(() => this.act(data));
+      return;
+    }
+    queue.appendEndingAction(this._action, data);
   }
 
   dispose () {
     actions.remove(this._action);
   }
 }
+
+ActionElement.isRatingEnabled = false;
 
 class Actionee extends api.core.Instance {
   constructor (priority = -1, isRatingActive = false, category = '', title = null) {
@@ -2389,6 +2460,10 @@ class Actionee extends api.core.Instance {
     };
 
     return api.internals.property.completeAssign(super.proxy, proxy, proxyAccessors);
+  }
+
+  get data () {
+    return this._data;
   }
 
   _config (element, registration) {
@@ -2444,17 +2519,17 @@ class Actionee extends api.core.Instance {
 
       case isDownload:
         this._type = Type$1.DOWNLOAD;
-        this._parameters.component_value = href;
+        this.value = href;
         break;
 
       case hostname === location.hostname :
         this._type = Type$1.INTERNAL;
-        this._parameters.component_value = href;
+        this.value = href;
         break;
 
       case hostname.length > 0 :
         this._type = Type$1.EXTERNAL;
-        this._parameters.component_value = href;
+        this.value = href;
         break;
 
       default:
@@ -2488,26 +2563,69 @@ class Actionee extends api.core.Instance {
   }
 
   act (data = {}) {
-    if (this._actionElement !== undefined) this._actionElement.act(Object.assign(this._data, data));
+    if (this._actionElement !== undefined) {
+      this._data.component_value = this.value;
+      this._actionElement.act(Object.assign(this._data, data));
+    }
+  }
+
+  getFirstText (node) {
+    if (!node) node = this.node;
+    if (node.childNodes && node.childNodes.length > 0) {
+      for (let i = 0; i < node.childNodes.length; i++) {
+        if (node.childNodes[i].nodeType === Node.TEXT_NODE) {
+          const text = node.childNodes[i].textContent.trim();
+          if (text) {
+            return this.cropText(text);
+          }
+        }
+      }
+
+      for (let i = 0; i < node.childNodes.length; i++) {
+        const text = this.getFirstText(node.childNodes[i]);
+        if (text) {
+          return this.cropText(text);
+        }
+      }
+    }
+    return '';
+  }
+
+  cropText (text, length = 50) {
+    return text.length > 50 ? `${text.substring(0, 50).trim()}[...]` : text;
   }
 
   getInteractionLabel () {
     const title = this.getAttribute('title');
-    if (title) return title;
+    if (title) return this.cropText(title);
 
-    const content = this.node.textContent.trim();
-    if (content) return content;
+    const text = this.getFirstText();
+    if (text) return text;
 
     const img = this.node.querySelector('img');
-    if (img) return img.getAttribute('alt').trim();
+    if (img) {
+      const alt = img.getAttribute('alt');
+      if (alt) return this.cropText(alt);
+    }
 
     return null;
+  }
+
+  getHeadingLabel (length = 6) {
+    const selector = Array.from({ length: length }, (v, i) => `h${i + 1}`).join(',');
+    const headings = Array.from(this.querySelectorAll(selector)).filter(heading => (this.node.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_CONTAINED_BY) > 0);
+    if (headings.length) {
+      for (const heading of headings) {
+        const text = this.getFirstText(heading);
+        if (text) return text;
+      }
+    }
   }
 
   detectLevel (node) {
     if (!node) node = this.node;
     const selector = Array.from({ length: 6 }, (v, i) => `h${i + 1}`).join(',');
-    const levels = [...node.querySelectorAll(selector)].map(heading => Number(heading.tagName.charAt(1)));
+    const levels = Array.from(node.querySelectorAll(selector)).map(heading => Number(heading.tagName.charAt(1)));
     if (levels.length) this._level = Math.min.apply(null, levels) - 1;
   }
 
@@ -2521,6 +2639,14 @@ class Actionee extends api.core.Instance {
 
   get label () {
     return null;
+  }
+
+  get value () {
+    return this._value || this.label;
+  }
+
+  set value (value) {
+    this._value = value;
   }
 
   get isActionee () {
@@ -2637,14 +2763,19 @@ class ComponentActionee extends Actionee {
 
   _handleChange (e) {
     if (e.target && e.target.value) {
-      this._data.component_value = e.target.value;
+      this.setChangeValue(e);
       this.act();
     }
   }
 
-  listenInputValidation (node, type = Type$1.CLICK) {
+  setChangeValue (e) {
+    this.value = e.target.value;
+  }
+
+  listenInputValidation (node, type = Type$1.CLICK, isSendingInputValue = false) {
     if (!node) node = this.node;
     this._type = type;
+    this._isSendingInputValue = isSendingInputValue;
     this.addAscent(ButtonEmission.CLICK, this._actValidatedInput.bind(this));
     const button = this.element.getDescendantInstances('ButtonActionee', null, true)[0];
     if (button) button.isMuted = true;
@@ -2660,7 +2791,8 @@ class ComponentActionee extends Actionee {
   _actValidatedInput () {
     if (this._isActingValidatedInput) return;
     this._isActingValidatedInput = true;
-    this.act({ component_value: this._validatedInput.value.trim() });
+    if (this._isSendingInputValue) this.value = this._validatedInput.value.trim();
+    this.act();
     this.request(() => { this._isActingValidatedInput = false; });
   }
 
@@ -2679,7 +2811,7 @@ class ComponentActionee extends Actionee {
 
   _handleCheckable (e) {
     if (e.target && e.target.value !== 'on') {
-      this._data.component_value = e.target.value;
+      this.value = e.target.value;
     }
 
     switch (true) {
@@ -2704,10 +2836,6 @@ class ComponentActionee extends Actionee {
   }
 
   _handlePressable (e) {
-    // if (e.target && e.target.value !== 'on') {
-    //   this._data.component_value = e.target.value;
-    // }
-
     switch (true) {
       case this._type === Type$1.PRESS && e.target.getAttribute('aria-pressed') === 'false':
       case this._type === Type$1.RELEASE && e.target.getAttribute('aria-pressed') === 'true':
@@ -2730,25 +2858,6 @@ class ComponentActionee extends Actionee {
     }
 
     super.dispose();
-  }
-
-  getFirstText (node) {
-    if (!node) node = this.node;
-    if (node.childNodes.length === 0) return '';
-
-    for (let i = 0; i < node.childNodes.length; i++) {
-      if (node.childNodes[i].nodeType === Node.TEXT_NODE) {
-        const text = node.childNodes[i].textContent.trim();
-        if (text) return text;
-      }
-    }
-
-    for (let i = 0; i < node.childNodes.length; i++) {
-      const text = this.getFirstText(node.childNodes[i]);
-      if (text) return text;
-    }
-
-    return '';
   }
 }
 
@@ -2783,7 +2892,10 @@ class AccordionButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'bouton d\'accordéon';
   }
 
   get component () {
@@ -2811,18 +2923,28 @@ class AccordionActionee extends ComponentActionee {
   get label () {
     if (this.wrapper) {
       const title = this.wrapper.querySelector(AccordionSelector.TITLE);
-      if (title) return this.getFirstText(title);
+      if (title) {
+        const text = this.getFirstText(title);
+        if (text) return text;
+      }
     }
     const instance = this.element.getInstance('Collapse');
     if (instance) {
       const button = instance.buttons.filter(button => button.isPrimary)[0];
-      if (button) return this.getFirstText(button);
+      if (button) {
+        const text = this.getFirstText(button);
+        if (text) return text;
+      }
     }
-    return null;
+    return 'accordéon';
   }
 
   get component () {
     return ID$B;
+  }
+
+  dispose () {
+    super.dispose();
   }
 }
 
@@ -2848,7 +2970,9 @@ class BreadcrumbButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+    return 'voir le fil d\'ariane';
   }
 
   get component () {
@@ -2905,7 +3029,9 @@ class BreadcrumbLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+    return 'lien fil d\'ariane';
   }
 
   get component () {
@@ -2940,7 +3066,16 @@ class ButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    if (this.node.tagName === 'input') {
+      switch (this.node.type) {
+        case 'button':
+        case 'submit':
+          if (this.hasAttribute('value')) return this.getAttribute('value');
+      }
+    }
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+    return 'bouton';
   }
 
   get component () {
@@ -2970,9 +3105,11 @@ class AlertActionee extends ComponentActionee {
 
   get label () {
     const alertTitle = this.node.querySelector(AlertSelector.TITLE);
-    if (alertTitle) return this.getFirstText(alertTitle);
-
-    return 'Alerte';
+    if (alertTitle) {
+      const text = this.getFirstText(alertTitle);
+      if (text) return text;
+    }
+    return 'alerte';
   }
 
   get component () {
@@ -3000,7 +3137,10 @@ class BadgeActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'badge';
   }
 
   get component () {
@@ -3030,9 +3170,12 @@ class CalloutActionee extends ComponentActionee {
 
   get label () {
     const calloutTitle = this.node.querySelector(CalloutSelector.TITLE);
-    if (calloutTitle) return this.getFirstText(calloutTitle);
+    if (calloutTitle) {
+      const text = this.getFirstText(calloutTitle);
+      if (text) return text;
+    }
 
-    return 'Mise en avant';
+    return 'mise en avant';
   }
 
   get component () {
@@ -3086,7 +3229,7 @@ class ConnectLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText() || 'Qu\'est-ce que FranceConnect ?';
+    return this.getFirstText() || 'qu\'est-ce que FranceConnect ?';
   }
 
   get component () {
@@ -3114,26 +3257,51 @@ class ContentActionee extends ComponentActionee {
     this.setImpressionType();
   }
 
-  get label () {
-    if (this.getAttribute('aria-label')) return this.getAttribute('aria-label');
+  _getImageLabel () {
+    const contentImg = this.querySelector(ContentSelector.IMG);
+    if (!contentImg) return false;
+    const img = contentImg.getElementsByTagName('img')[0];
+    if (img) {
+      const alt = img.getAttribute('alt');
+      if (alt) return alt;
+      const ariaLabel = img.getAttribute('aria-label');
+      if (ariaLabel) return ariaLabel;
+    }
+    const svg = contentImg.getElementsByTagName('svg')[0];
+    if (svg) {
+      const ariaLabel = svg.getAttribute('aria-label');
+      if (ariaLabel) return ariaLabel;
+      const title = svg.querySelector('title');
+      if (title) {
+        const textContent = title.textContent;
+        if (textContent) return textContent.trim();
+      }
+    }
+    return false;
+  }
 
-    const selectorImg = this.querySelector(ContentSelector.IMG);
-    if (selectorImg) {
-      const contentImg = selectorImg.querySelector('img');
-      const labelImg = contentImg.getAttribute('alt') || contentImg.getAttribute('aria-label');
-      const contentSvg = selectorImg.querySelector('svg');
-      const labelSvg = contentSvg.getAttribute('aria-label') || contentSvg.querySelector('title').textContent.trim();
-      if (labelImg && labelImg !== '') return labelImg;
-      if (labelSvg && labelSvg !== '') return labelSvg;
+  get label () {
+    const ariaLabel = this.getAttribute('aria-label');
+    if (ariaLabel) return ariaLabel;
+
+    const imageLabel = this._getImageLabel();
+    if (imageLabel) return imageLabel;
+
+    const iframe = this.querySelector('iframe');
+    if (iframe) {
+      const title = iframe.getAttribute('title');
+      if (title) return title;
+      const ariaLabel = iframe.getAttribute('aria-label');
+      if (ariaLabel) return ariaLabel;
     }
 
-    const contentIframe = this.querySelector('iframe');
-    if (contentIframe) return contentIframe.getAttribute('title') || contentIframe.getAttribute('aria-label');
+    const video = this.querySelector('video');
+    if (video) {
+      const ariaLabel = video.getAttribute('aria-label');
+      if (ariaLabel) return ariaLabel;
+    }
 
-    const contentVideo = this.querySelector('video');
-    if (contentVideo) return contentVideo.getAttribute('aria-label');
-
-    return 'Contenu média';
+    return 'contenu média';
   }
 
   get component () {
@@ -3157,7 +3325,7 @@ class ConsentActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Gestionnaire de consentement';
+    return 'gestionnaire de consentement';
   }
 
   get component () {
@@ -3193,22 +3361,19 @@ class CardActionee extends ComponentActionee {
 
   get label () {
     const cardTitle = this.node.querySelector(CardSelector.TITLE);
-    if (cardTitle) return this.getFirstText(cardTitle);
+    if (cardTitle) {
+      const text = this.getFirstText(cardTitle);
+      if (text) return text;
+    }
 
-    const selector = Array.from({ length: 6 }, (v, i) => `h${i + 1}`).join(',');
-    const headings = this.node.querySelector(selector) ? [...this.node.querySelector(selector)].filter(heading => (this.node.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_CONTAINED_BY) > 0) : [];
-    if (headings.length) return headings[0].textContent.trim();
+    const heading = this.getHeadingLabel();
+    if (heading) return heading;
 
-    return null;
+    return 'carte';
   }
 
   get component () {
     return ID$s;
-  }
-
-  dispose () {
-    if (this.link) this.link.removeEventListener('click', this.handlingClick, { capture: true });
-    super.dispose();
   }
 }
 
@@ -3235,7 +3400,11 @@ class CheckboxActionee extends ComponentActionee {
 
   get label () {
     const label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-    return this.getFirstText(label);
+    if (label) {
+      const text = this.getFirstText(label);
+      if (text) return text;
+    }
+    return 'case à cocher';
   }
 
   get component () {
@@ -3264,7 +3433,9 @@ class DownloadActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const text = this.getFirstText();
+    if (text) return text;
+    return 'téléchargement';
   }
 
   get component () {
@@ -3293,7 +3464,7 @@ class FooterActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Pied de page';
+    return 'pied de page';
   }
 
   get component () {
@@ -3327,7 +3498,7 @@ class FollowActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Lettre d\'information et Réseaux Sociaux';
+    return 'lettre d\'information et réseaux sociaux';
   }
 
   get component () {
@@ -3350,7 +3521,10 @@ class FooterLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getInteractionLabel();
+    const label = this.getInteractionLabel();
+    if (label) return label;
+
+    return 'lien pied de page';
   }
 }
 
@@ -3370,7 +3544,7 @@ class HeaderActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'En-tête';
+    return 'en-tête';
   }
 
   get component () {
@@ -3454,7 +3628,7 @@ class HighlightActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Mise en exergue';
+    return 'mise en exergue';
   }
 
   get component () {
@@ -3487,9 +3661,12 @@ class InputActionee extends ComponentActionee {
   }
 
   get label () {
-    if (this._label) return this.getFirstText(this._label);
+    if (this._label) {
+      const text = this.getFirstText(this._label);
+      if (text) return text;
+    }
 
-    return 'Champ de saisie';
+    return 'champ de saisie';
   }
 
   get component () {
@@ -3518,7 +3695,10 @@ class LinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien';
   }
 
   get component () {
@@ -3550,19 +3730,23 @@ class ModalActionee extends ComponentActionee {
   get label () {
     const title = this.node.querySelector(ModalSelector.TITLE);
 
-    if (title) return title.textContent.trim();
+    if (title) {
+      const text = this.getFirstText(title);
+      if (text) return text;
+    }
 
-    const selector = Array.from({ length: 2 }, (v, i) => `h${i + 1}`).join(',');
-    const headings = this.node.querySelector(selector) ? [...this.node.querySelector(selector)].filter(heading => (this.node.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_CONTAINED_BY) > 0) : [];
-
-    if (headings.length) return headings[0].textContent.trim();
+    const heading = this.getHeadingLabel(2);
+    if (heading) return heading;
 
     const instance = this.element.getInstance('Modal');
     if (instance) {
       const button = instance.buttons.filter(button => button.isPrimary)[0];
-      return this.getFirstText(button.node);
+      if (button) {
+        const text = this.getFirstText(button.node);
+        if (text) return text;
+      }
     }
-    return null;
+    return 'modale';
   }
 
   get component () {
@@ -3585,7 +3769,7 @@ class NavigationActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Navigation';
+    return 'navigation';
   }
 }
 
@@ -3605,15 +3789,21 @@ class NavigationSectionActionee extends ComponentActionee {
   get label () {
     if (this._wrapper) {
       const button = this._wrapper.querySelector(NavigationSelector.BUTTON);
-      if (button) return this.getFirstText(button);
+      if (button) {
+        const text = this.getFirstText(button);
+        if (text) return text;
+      }
     }
 
     const instance = this.element.getInstance('Collapse');
     if (instance) {
       const button = instance.buttons.filter(button => button.isPrimary)[0];
-      if (button) return this.getFirstText(button);
+      if (button) {
+        const text = this.getFirstText(button);
+        if (text) return text;
+      }
     }
-    return null;
+    return 'section de navigation';
   }
 }
 
@@ -3634,7 +3824,10 @@ class NavigationLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien de navigation';
   }
 
   get component () {
@@ -3664,9 +3857,12 @@ class NoticeActionee extends ComponentActionee {
 
   get label () {
     const noticeTitle = this.node.querySelector(NoticeSelector.TITLE);
-    if (noticeTitle) return this.getFirstText(noticeTitle);
+    if (noticeTitle) {
+      const firstText = this.getFirstText(noticeTitle);
+      if (firstText) return firstText;
+    }
 
-    return 'Bandeau information importante';
+    return 'bandeau d\'information importante';
   }
 
   get component () {
@@ -3675,7 +3871,12 @@ class NoticeActionee extends ComponentActionee {
 }
 
 const PaginationSelector = {
-  LINK: api.internals.ns.selector('pagination__link')
+  PAGINATION: api.internals.ns.selector('pagination'),
+  LINK: api.internals.ns.selector('pagination__link'),
+  NEXT_LINK: api.internals.ns.selector('pagination__link--next'),
+  LAST_LINK: api.internals.ns.selector('pagination__link--last'),
+  ANALYTICS_TOTAL: api.internals.ns.attr('analytics-page-total'),
+  CURRENT: '[aria-current="page"]'
 };
 
 const ID$g = 'pagination';
@@ -3690,16 +3891,70 @@ class PaginationActionee extends ComponentActionee {
   }
 
   init () {
+    this.setPagination();
+  }
+
+  get label () {
+    return 'pagination';
+  }
+
+  get component () {
+    return ID$g;
+  }
+
+  setPagination () {
+    const currentLink = this.node.querySelector(PaginationSelector.CURRENT);
+    if (!currentLink) return;
+    const currentLabel = this.getFirstText(currentLink);
+    if (!currentLabel) return;
+    const current = this.getInt(currentLabel);
+    if (isNaN(current)) return;
+    api.analytics.page.current = current;
+
+    const total = this.getTotalPage();
+    if (isNaN(total)) return;
+    api.analytics.page.total = total;
+  }
+
+  getTotalPage () {
+    const attr = parseInt(this.node.getAttribute(PaginationSelector.ANALYTICS_TOTAL));
+    if (!isNaN(attr)) return attr;
+    const links = this.node.querySelectorAll(`${PaginationSelector.LINK}:not(${PaginationSelector.NEXT_LINK}):not(${PaginationSelector.LAST_LINK})`);
+    if (!links) return null;
+    const totalLabel = this.getFirstText(links[links.length - 1]);
+    if (!totalLabel) return null;
+    return this.getInt(totalLabel);
+  }
+
+  getInt (val) {
+    const ints = val.match(/\d+/);
+    if (!ints || ints.length === 0) return null;
+    return parseInt(ints[0]);
+  }
+}
+
+class PaginationLinkActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'PaginationLinkActionee';
+  }
+
+  init () {
     this.detectInteractionType();
     this.listenClick();
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+    return 'lien pagination';
   }
 
   get component () {
-    return ID$g;
+    return null;
   }
 }
 
@@ -3735,10 +3990,16 @@ class RadioActionee extends ComponentActionee {
     const fieldset = this.node.closest(FormSelector.FIELDSET);
     if (fieldset) {
       const legend = fieldset.querySelector(FormSelector.LEGEND);
-      if (legend) parts.push(this.getFirstText(legend));
+      if (legend) {
+        const firstTextLegend = this.getFirstText(legend);
+        if (firstTextLegend) parts.push(firstTextLegend);
+      }
     }
     const label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-    if (label) parts.push(this.getFirstText(label));
+    if (label) {
+      const firstTextLabel = this.getFirstText(label);
+      if (firstTextLabel) parts.push(firstTextLabel);
+    }
     return parts.join(' › ');
   }
 
@@ -3769,10 +4030,12 @@ class QuoteActionee extends ComponentActionee {
   get label () {
     const blockquote = this.node.querySelector('blockquote');
     if (blockquote) {
-      const quote = this.getFirstText(blockquote);
-      return quote.length > 50 ? `${quote.substring(0, 35).trim()}[...]` : quote;
+      const firstText = this.getFirstText(blockquote);
+      if (firstText) {
+        return firstText;
+      }
     }
-    return 'Citation';
+    return 'citation';
   }
 
   get component () {
@@ -3796,7 +4059,7 @@ class SearchActionee extends ComponentActionee {
   }
 
   init () {
-    this.listenInputValidation(this.node, Type$1.SEARCH);
+    this.listenInputValidation(this.node, Type$1.SEARCH, true);
   }
 
   get label () {
@@ -3829,9 +4092,20 @@ class SelectActionee extends ComponentActionee {
     this.listenChange();
   }
 
+  setChangeValue (e) {
+    if (!e.target || !e.target.selectedOptions) return;
+    const value = Array.from(e.target.selectedOptions).map(option => option.text).join(' - ');
+    if (value) this.value = value;
+  }
+
   get label () {
     const label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-    return this.getFirstText(label);
+    if (label) {
+      const firstText = this.getFirstText(label);
+      if (firstText) return firstText;
+    }
+
+    return 'liste déroulante';
   }
 
   get component () {
@@ -3860,10 +4134,13 @@ class SidemenuActionee extends ComponentActionee {
     const sidemenu = this.node.closest(SidemenuSelector.SIDEMENU);
     if (sidemenu) {
       const title = sidemenu.querySelector(SidemenuSelector.TITLE);
-      if (title) return this.getFirstText(title);
+      if (title) {
+        const firstText = this.getFirstText(title);
+        if (firstText) return firstText;
+      }
     }
 
-    return 'Menu Latéral';
+    return 'menu Latéral';
   }
 }
 
@@ -3884,7 +4161,10 @@ class SidemenuLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien menu latéral';
   }
 
   get component () {
@@ -3908,14 +4188,20 @@ class SidemenuSectionActionee extends ComponentActionee {
   get label () {
     if (this._wrapper) {
       const button = this._wrapper.querySelector(SidemenuSelector.BUTTON);
-      if (button) return button.textContent.trim();
+      if (button) {
+        const firstText = this.getFirstText(button);
+        if (firstText) return firstText;
+      }
     }
     const instance = this.element.getInstance('Collapse');
     if (instance) {
       const button = instance.buttons.filter(button => button.isPrimary)[0];
-      if (button) return this.getFirstText(button);
+      if (button) {
+        const firstTextBtn = this.getFirstText(button);
+        if (firstTextBtn) return firstTextBtn;
+      }
     }
-    return null;
+    return 'section menu latéral';
   }
 }
 
@@ -3941,8 +4227,11 @@ class ShareActionee extends ComponentActionee {
 
   get label () {
     const title = this.querySelector(ShareSelector.TITLE);
-    if (title) return this.getFirstText(title);
-    return 'Boutons de partage';
+    if (title) {
+      const firstText = this.getFirstText(title);
+      if (firstText) return firstText;
+    }
+    return 'boutons de partage';
   }
 
   get component () {
@@ -3970,7 +4259,7 @@ class StepperActionee extends ComponentActionee {
   }
 
   get label () {
-    return 'Indicateur d\'étapes';
+    return 'indicateur d\'étapes';
   }
 
   get component () {
@@ -3996,8 +4285,11 @@ class SummaryActionee extends ComponentActionee {
 
   get label () {
     const title = this.node.querySelector(SummarySelector.TITLE);
-    if (title) return this.getFirstText(title);
-    return 'Sommaire';
+    if (title) {
+      const firstText = this.getFirstText(title);
+      if (firstText) return firstText;
+    }
+    return 'sommaire';
   }
 }
 
@@ -4018,7 +4310,9 @@ class SummaryLinkActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+    return 'lien sommaire';
   }
 
   get component () {
@@ -4045,7 +4339,9 @@ class SummarySectionActionee extends ComponentActionee {
 
   get label () {
     if (!this._link) return null;
-    return this.getFirstText(this._link);
+    const firstText = this.getFirstText(this._link);
+    if (firstText) return firstText;
+    return 'section sommaire';
   }
 }
 
@@ -4071,7 +4367,9 @@ class TabButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const text = this.getFirstText();
+    if (text) return text;
+    return 'bouton onglet';
   }
 
   get component () {
@@ -4099,12 +4397,18 @@ class TabActionee extends ComponentActionee {
     const tabs = this.node.closest(api.tab.TabSelector.GROUP);
     if (tabs) {
       const tab = tabs.querySelector(`${api.tab.TabSelector.LIST} [aria-controls="${this.id}"]${api.tab.TabSelector.TAB}`);
-      if (tab) return this.getFirstText();
+      if (tab) {
+        const firstTextTab = this.getFirstText(tab);
+        if (firstTextTab) return firstTextTab;
+      }
     }
 
     const button = this._instance.buttons.filter(button => button.isPrimary)[0];
-    if (button) return this.getFirstText(button);
-    return null;
+    if (button) {
+      const firstTextBtn = this.getFirstText(button);
+      if (firstTextBtn) return firstTextBtn;
+    }
+    return 'onglet';
   }
 
   get component () {
@@ -4133,8 +4437,11 @@ class TableActionee extends ComponentActionee {
 
   get label () {
     const caption = this.node.querySelector('caption');
-    if (caption) return this.getFirstText(caption);
-    return 'Tableau';
+    if (caption) {
+      const firstText = this.getFirstText(caption);
+      if (firstText) return firstText;
+    }
+    return 'tableau';
   }
 
   get component () {
@@ -4172,20 +4479,14 @@ class TileActionee extends ComponentActionee {
     const tileTitle = this.node.querySelector(TileSelector.TITLE);
     if (tileTitle) return this.getFirstText(tileTitle);
 
-    const selector = Array.from({ length: 6 }, (v, i) => `h${i + 1}`).join(',');
-    const headings = this.node.querySelector(selector) ? [...this.node.querySelector(selector)].filter(heading => (this.node.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_CONTAINED_BY) > 0) : [];
-    if (headings.length) return headings[0].textContent.trim();
+    const heading = this.getHeadingLabel();
+    if (heading) return heading;
 
-    return null;
+    return 'tuile';
   }
 
   get component () {
     return ID$5;
-  }
-
-  dispose () {
-    if (this.link) this.link.removeEventListener('click', this.handlingClick, { capture: true });
-    super.dispose();
   }
 }
 
@@ -4212,7 +4513,12 @@ class ToggleActionee extends ComponentActionee {
 
   get label () {
     const label = this.node.parentNode.querySelector(api.internals.ns.selector('toggle__label'));
-    return this.getFirstText(label) || 'Interrupteur';
+    if (label) {
+      const firstText = this.getFirstText(label);
+      if (firstText) return firstText;
+    }
+
+    return 'interrupteur';
   }
 
   get component () {
@@ -4259,7 +4565,10 @@ class TagActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.getFirstText();
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'tag';
   }
 
   get component () {
@@ -4300,7 +4609,9 @@ class TranscriptionButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const text = this.getFirstText();
+    if (text) return text;
+    return 'bouton transcription';
   }
 
   get component () {
@@ -4328,14 +4639,20 @@ class TranscriptionActionee extends ComponentActionee {
   get label () {
     if (this.wrapper) {
       const title = this.wrapper.querySelector(TranscriptionSelector.TITLE);
-      if (title) return this.getFirstText(title);
+      if (title) {
+        const firstTextTitle = this.getFirstText(title);
+        if (firstTextTitle) return firstTextTitle;
+      }
     }
     const instance = this.element.getInstance('Collapse');
     if (instance) {
       const button = instance.buttons.filter(button => button.isPrimary)[0];
-      if (button) return this.getFirstText(button);
+      if (button) {
+        const firstTextBtn = this.getFirstText(button);
+        if (firstTextBtn) return firstTextBtn;
+      }
     }
-    return null;
+    return 'transcription';
   }
 
   get component () {
@@ -4374,7 +4691,9 @@ class TranslateButtonActionee extends ComponentActionee {
   }
 
   get label () {
-    return this.node.textContent.trim();
+    const label = this.getInteractionLabel();
+    if (label) return label;
+    return 'bouton sélecteur de langue';
   }
 
   get component () {
@@ -4399,7 +4718,12 @@ class TranslateActionee extends ComponentActionee {
 
   get label () {
     const button = this.node.querySelector(TranslateSelector.BUTTON);
-    return button.getAttribute('title') || 'Sélecteur de langue';
+    if (button) {
+      const title = button.getAttribute('title');
+      if (title) return title;
+    }
+
+    return 'sélecteur de langue';
   }
 
   get component () {
@@ -4423,18 +4747,24 @@ class UploadActionee extends ComponentActionee {
   }
 
   init () {
-    this.setClickType();
-    // this._label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-    this.listenClick();
+    this.setChangeType();
+    this._label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
+    this.listenChange();
+  }
+
+  setChangeValue (e) {
+    if (!e.target || !e.target.files) return;
+    const value = Array.from(e.target.files).map(file => /(?:\.([^.]+))?$/.exec(file.name)[1]).filter((name, index, array) => array.indexOf(name) === index).join(' - ');
+    if (value) this.value = value;
   }
 
   get label () {
-    // if (this._label) return this._label.textContent.trim();
-    return 'Ajout de fichier';
-  }
+    if (this._label) {
+      const text = this.getFirstText(this._label);
+      if (text) return text;
+    }
 
-  getData () {
-    return { component_value: this.node.value.trim() };
+    return 'ajout de fichier';
   }
 
   get component () {
@@ -4503,7 +4833,8 @@ const integrateComponents = () => {
 
   api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
 
-  api.internals.register(PaginationSelector.LINK, PaginationActionee);
+  api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
+  api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
 
   api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
 
@@ -4553,5 +4884,5 @@ const integration = () => {
   integrateComponents();
 };
 
-api.analytics.readiness.then(() => integration());
+api.analytics.readiness.then(() => integration(), () => {});
 //# sourceMappingURL=analytics.module.js.map

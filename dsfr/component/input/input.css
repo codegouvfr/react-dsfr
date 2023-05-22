@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -34,6 +34,15 @@
   opacity: 1;
   font-style: italic;
   color: var(--text-mention-grey);
+}
+
+.fr-input::-webkit-contacts-auto-fill-button {
+  cursor: pointer;
+  background-color: var(--text-label-grey);
+
+  --idle: transparent;
+  --hover: var(--text-label-grey-hover);
+  --active: var(--text-label-grey-active);
 }
 
 .fr-input:not(textarea) {
@@ -124,7 +133,7 @@ textarea.fr-input {
 }
 @supports selector(::-webkit-calendar-picker-indicator) {
 
-  :root:where([data-fr-theme=dark]) .fr-input[type=date] {
+  :root[data-fr-theme=dark] .fr-input[type=date] {
     --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24'><path fill='%23fff' d='M17 3h4c.55 0 1 .45 1 1v16c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h4V1h2v2h6V1h2v2zm-2 2H9v2H7V5H4v4h16V5h-3v2h-2V5zm5 6H4v8h16v-8z'/></svg>");
   }
 
@@ -136,7 +145,7 @@ textarea.fr-input {
     background-image: var(--data-uri-svg);
   }
 
-  :root:where([data-fr-theme=dark]) .fr-input[type=date]:disabled {
+  :root[data-fr-theme=dark] .fr-input[type=date]:disabled {
     --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24'><path fill='%23666' d='M17 3h4c.55 0 1 .45 1 1v16c0 .55-.45 1-1 1H3c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h4V1h2v2h6V1h2v2zm-2 2H9v2H7V5H4v4h16V5h-3v2h-2V5zm5 6H4v8h16v-8z'/></svg>");
   }
 }
@@ -210,6 +219,18 @@ textarea.fr-input {
 
   .fr-input::placeholder {
     color: #666;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button {
+    background-color: #161616;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:hover {
+    background-color: #343434;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:active {
+    background-color: #474747;
   }
 
   .fr-input:autofill,

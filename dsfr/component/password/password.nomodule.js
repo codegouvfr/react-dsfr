@@ -1,4 +1,4 @@
-/*! DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.1'
+    version: '1.9.3'
   };
 
   var api = window[config.namespace];
@@ -56,7 +56,6 @@
 
     PasswordToggle.prototype.toggle = function toggle () {
       this.isChecked = !this._isChecked;
-      // this.node.checked = this.isChecked;
     };
 
     PasswordToggle.prototype.swapFont = function swapFont (families) {

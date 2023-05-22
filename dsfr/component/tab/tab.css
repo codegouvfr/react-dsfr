@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -266,7 +266,7 @@
   box-shadow: inset 2rem 0 1.5rem -2rem #161616, inset -2rem 0 1.5rem -2rem #161616;
 }
 
-:root:where([data-fr-theme=dark]) .fr-tabs__shadow > .fr-tabs__list::before {
+:root[data-fr-theme=dark] .fr-tabs__shadow > .fr-tabs__list::before {
   opacity: 1;
 }
 

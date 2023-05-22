@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -1686,7 +1686,7 @@ hr {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
 }
 
 .fr-hr-or::before,
@@ -6668,7 +6668,7 @@ iframe[class*=" fr-ratio"] {
   padding-bottom: 8rem !important;
 }
 
-:root:where([data-fr-theme=dark]) {
+:root[data-fr-theme=dark] {
   --shadow-color: rgba(0, 0, 18, 0.32);
 }
 

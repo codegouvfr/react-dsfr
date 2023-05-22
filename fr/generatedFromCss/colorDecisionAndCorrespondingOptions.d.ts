@@ -11,7 +11,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_50", "default"];
         readonly color: {
             readonly light: "#ffffff";
-            readonly dark: "#161616";
+            readonly dark: "#ffffff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -40,7 +40,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_50", "hover"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#343434";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -70,7 +70,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_50", "active"];
         readonly color: {
             readonly light: "#ededed";
-            readonly dark: "#474747";
+            readonly dark: "#ededed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -99,7 +99,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_75", "default"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#1e1e1e";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -128,7 +128,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_75", "hover"];
         readonly color: {
             readonly light: "#dfdfdf";
-            readonly dark: "#3f3f3f";
+            readonly dark: "#dfdfdf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -158,7 +158,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_75", "active"];
         readonly color: {
             readonly light: "#cfcfcf";
-            readonly dark: "#525252";
+            readonly dark: "#cfcfcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -187,7 +187,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_975_75", "default"];
         readonly color: {
             readonly light: "#f5f5fe";
-            readonly dark: "#1b1b35";
+            readonly dark: "#f5f5fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -216,7 +216,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_975_75", "hover"];
         readonly color: {
             readonly light: "#dcdcfc";
-            readonly dark: "#3a3a68";
+            readonly dark: "#dcdcfc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -246,7 +246,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_975_75", "active"];
         readonly color: {
             readonly light: "#cbcbfa";
-            readonly dark: "#4d4d83";
+            readonly dark: "#cbcbfa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -275,7 +275,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f4";
-            readonly dark: "#2b1919";
+            readonly dark: "#fef4f4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -304,7 +304,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcd7d7";
-            readonly dark: "#573737";
+            readonly dark: "#fcd7d7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -334,7 +334,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_975_75", "active"];
         readonly color: {
             readonly light: "#fac4c4";
-            readonly dark: "#704848";
+            readonly dark: "#fac4c4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -363,7 +363,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef7da";
-            readonly dark: "#201e14";
+            readonly dark: "#fef7da";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -392,7 +392,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fce552";
-            readonly dark: "#433f2e";
+            readonly dark: "#fce552";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -422,7 +422,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_975_75", "active"];
         readonly color: {
             readonly light: "#ebd54c";
-            readonly dark: "#57533d";
+            readonly dark: "#ebd54c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -451,7 +451,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_975_75", "default"];
         readonly color: {
             readonly light: "#e6feda";
-            readonly dark: "#182014";
+            readonly dark: "#e6feda";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -480,7 +480,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_975_75", "hover"];
         readonly color: {
             readonly light: "#a7fc62";
-            readonly dark: "#35432e";
+            readonly dark: "#a7fc62";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -510,7 +510,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_975_75", "active"];
         readonly color: {
             readonly light: "#98ed4d";
-            readonly dark: "#46573d";
+            readonly dark: "#98ed4d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -539,7 +539,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_975_75", "default"];
         readonly color: {
             readonly light: "#e3fdeb";
-            readonly dark: "#142018";
+            readonly dark: "#e3fdeb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -568,7 +568,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_975_75", "hover"];
         readonly color: {
             readonly light: "#94f9b9";
-            readonly dark: "#2e4335";
+            readonly dark: "#94f9b9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -598,7 +598,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_975_75", "active"];
         readonly color: {
             readonly light: "#6df1a3";
-            readonly dark: "#3d5846";
+            readonly dark: "#6df1a3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -627,7 +627,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_975_75", "default"];
         readonly color: {
             readonly light: "#dffdf7";
-            readonly dark: "#15201e";
+            readonly dark: "#dffdf7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -656,7 +656,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_975_75", "hover"];
         readonly color: {
             readonly light: "#84f9e7";
-            readonly dark: "#30433f";
+            readonly dark: "#84f9e7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -686,7 +686,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_975_75", "active"];
         readonly color: {
             readonly light: "#70ebd8";
-            readonly dark: "#3f5753";
+            readonly dark: "#70ebd8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -715,7 +715,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_975_75", "default"];
         readonly color: {
             readonly light: "#e5fbfd";
-            readonly dark: "#152021";
+            readonly dark: "#e5fbfd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -744,7 +744,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_975_75", "hover"];
         readonly color: {
             readonly light: "#99f2f8";
-            readonly dark: "#2f4345";
+            readonly dark: "#99f2f8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -774,7 +774,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_975_75", "active"];
         readonly color: {
             readonly light: "#73e9f0";
-            readonly dark: "#3f5759";
+            readonly dark: "#73e9f0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -803,7 +803,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_975_75", "default"];
         readonly color: {
             readonly light: "#f4f6fe";
-            readonly dark: "#171d2f";
+            readonly dark: "#f4f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -832,7 +832,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_975_75", "hover"];
         readonly color: {
             readonly light: "#d7dffb";
-            readonly dark: "#333e5e";
+            readonly dark: "#d7dffb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -862,7 +862,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_975_75", "active"];
         readonly color: {
             readonly light: "#c3cffa";
-            readonly dark: "#445179";
+            readonly dark: "#c3cffa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -891,7 +891,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_975_75", "default"];
         readonly color: {
             readonly light: "#f3f6fe";
-            readonly dark: "#171e2b";
+            readonly dark: "#f3f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -920,7 +920,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_975_75", "hover"];
         readonly color: {
             readonly light: "#d3dffc";
-            readonly dark: "#333f56";
+            readonly dark: "#d3dffc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -950,7 +950,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_975_75", "active"];
         readonly color: {
             readonly light: "#bed0fa";
-            readonly dark: "#43536f";
+            readonly dark: "#bed0fa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -979,7 +979,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef3fd";
-            readonly dark: "#251a24";
+            readonly dark: "#fef3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -1008,7 +1008,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcd4f8";
-            readonly dark: "#4c394a";
+            readonly dark: "#fcd4f8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -1038,7 +1038,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_975_75", "active"];
         readonly color: {
             readonly light: "#fabff5";
-            readonly dark: "#634a60";
+            readonly dark: "#fabff5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -1067,7 +1067,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#261b19";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -1096,7 +1096,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcd8d0";
-            readonly dark: "#4e3a37";
+            readonly dark: "#fcd8d0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -1126,7 +1126,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_975_75", "active"];
         readonly color: {
             readonly light: "#fac5b8";
-            readonly dark: "#654c48";
+            readonly dark: "#fac5b8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -1155,7 +1155,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f3";
-            readonly dark: "#281b19";
+            readonly dark: "#fef4f3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -1184,7 +1184,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcd7d3";
-            readonly dark: "#513a37";
+            readonly dark: "#fcd7d3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -1214,7 +1214,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_975_75", "active"];
         readonly color: {
             readonly light: "#fac4be";
-            readonly dark: "#694c48";
+            readonly dark: "#fac4be";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -1243,7 +1243,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef6e3";
-            readonly dark: "#221d11";
+            readonly dark: "#fef6e3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -1272,7 +1272,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fce086";
-            readonly dark: "#473e29";
+            readonly dark: "#fce086";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -1302,7 +1302,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_975_75", "active"];
         readonly color: {
             readonly light: "#f5d24b";
-            readonly dark: "#5c5136";
+            readonly dark: "#f5d24b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -1331,7 +1331,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef5e8";
-            readonly dark: "#231d14";
+            readonly dark: "#fef5e8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -1360,7 +1360,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcdca3";
-            readonly dark: "#483e2e";
+            readonly dark: "#fcdca3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -1390,7 +1390,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_975_75", "active"];
         readonly color: {
             readonly light: "#fbcd64";
-            readonly dark: "#5e513d";
+            readonly dark: "#fbcd64";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -1419,7 +1419,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#281a16";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -1448,7 +1448,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_975_75", "hover"];
         readonly color: {
             readonly light: "#fcd8d0";
-            readonly dark: "#513932";
+            readonly dark: "#fcd8d0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -1478,7 +1478,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_975_75", "active"];
         readonly color: {
             readonly light: "#fac5b8";
-            readonly dark: "#6a4b42";
+            readonly dark: "#fac5b8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -1507,7 +1507,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf6ed";
-            readonly dark: "#211d16";
+            readonly dark: "#fbf6ed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -1536,7 +1536,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_975_75", "hover"];
         readonly color: {
             readonly light: "#f2deb6";
-            readonly dark: "#453e31";
+            readonly dark: "#f2deb6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -1566,7 +1566,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_975_75", "active"];
         readonly color: {
             readonly light: "#eacf91";
-            readonly dark: "#5a5141";
+            readonly dark: "#eacf91";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -1595,7 +1595,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#251c16";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -1624,7 +1624,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_975_75", "hover"];
         readonly color: {
             readonly light: "#f1dbcf";
-            readonly dark: "#4c3c31";
+            readonly dark: "#f1dbcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -1654,7 +1654,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_975_75", "active"];
         readonly color: {
             readonly light: "#ecc9b5";
-            readonly dark: "#624e41";
+            readonly dark: "#ecc9b5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -1683,7 +1683,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#241c17";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -1712,7 +1712,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_975_75", "hover"];
         readonly color: {
             readonly light: "#f1dbcf";
-            readonly dark: "#4a3c33";
+            readonly dark: "#f1dbcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -1742,7 +1742,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_975_75", "active"];
         readonly color: {
             readonly light: "#ecc9b5";
-            readonly dark: "#604f44";
+            readonly dark: "#ecc9b5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -1771,7 +1771,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_975_75", "default"];
         readonly color: {
             readonly light: "#f9f6f2";
-            readonly dark: "#211d19";
+            readonly dark: "#f9f6f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -1800,7 +1800,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_975_75", "hover"];
         readonly color: {
             readonly light: "#eadecd";
-            readonly dark: "#453e37";
+            readonly dark: "#eadecd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -1830,7 +1830,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_975_75", "active"];
         readonly color: {
             readonly light: "#e1ceb1";
-            readonly dark: "#595148";
+            readonly dark: "#e1ceb1";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -1859,7 +1859,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_100", "default"];
         readonly color: {
             readonly light: "#eeeeee";
-            readonly dark: "#242424";
+            readonly dark: "#eeeeee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -1888,7 +1888,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_100", "hover"];
         readonly color: {
             readonly light: "#d2d2d2";
-            readonly dark: "#474747";
+            readonly dark: "#d2d2d2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -1918,7 +1918,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_100", "active"];
         readonly color: {
             readonly light: "#c1c1c1";
-            readonly dark: "#5b5b5b";
+            readonly dark: "#c1c1c1";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -1947,7 +1947,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_950_100", "default"];
         readonly color: {
             readonly light: "#ececfe";
-            readonly dark: "#21213f";
+            readonly dark: "#ececfe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -1976,7 +1976,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_950_100", "hover"];
         readonly color: {
             readonly light: "#cecefc";
-            readonly dark: "#424275";
+            readonly dark: "#cecefc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -2006,7 +2006,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_950_100", "active"];
         readonly color: {
             readonly light: "#bbbbfc";
-            readonly dark: "#56568c";
+            readonly dark: "#bbbbfc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -2035,7 +2035,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e9";
-            readonly dark: "#331f1f";
+            readonly dark: "#fee9e9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -2064,7 +2064,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdc5c5";
-            readonly dark: "#613f3f";
+            readonly dark: "#fdc5c5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -2094,7 +2094,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_950_100", "active"];
         readonly color: {
             readonly light: "#fcafaf";
-            readonly dark: "#7b5151";
+            readonly dark: "#fcafaf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -2123,7 +2123,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_950_100", "default"];
         readonly color: {
             readonly light: "#fceeac";
-            readonly dark: "#272419";
+            readonly dark: "#fceeac";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -2152,7 +2152,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_950_100", "hover"];
         readonly color: {
             readonly light: "#e8d45c";
-            readonly dark: "#4c4734";
+            readonly dark: "#e8d45c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -2182,7 +2182,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_950_100", "active"];
         readonly color: {
             readonly light: "#d4c254";
-            readonly dark: "#615b44";
+            readonly dark: "#d4c254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -2211,7 +2211,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_950_100", "default"];
         readonly color: {
             readonly light: "#c9fcac";
-            readonly dark: "#1e2719";
+            readonly dark: "#c9fcac";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -2240,7 +2240,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_950_100", "hover"];
         readonly color: {
             readonly light: "#9ae95d";
-            readonly dark: "#3d4c34";
+            readonly dark: "#9ae95d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -2270,7 +2270,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_950_100", "active"];
         readonly color: {
             readonly light: "#8dd555";
-            readonly dark: "#4e6144";
+            readonly dark: "#8dd555";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -2299,7 +2299,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_950_100", "default"];
         readonly color: {
             readonly light: "#c3fad5";
-            readonly dark: "#19271e";
+            readonly dark: "#c3fad5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -2328,7 +2328,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_950_100", "hover"];
         readonly color: {
             readonly light: "#77eda5";
-            readonly dark: "#344c3d";
+            readonly dark: "#77eda5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -2358,7 +2358,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_950_100", "active"];
         readonly color: {
             readonly light: "#6dd897";
-            readonly dark: "#44624f";
+            readonly dark: "#6dd897";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -2387,7 +2387,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_950_100", "default"];
         readonly color: {
             readonly light: "#bafaee";
-            readonly dark: "#1a2624";
+            readonly dark: "#bafaee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -2416,7 +2416,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_950_100", "hover"];
         readonly color: {
             readonly light: "#79e7d5";
-            readonly dark: "#364b47";
+            readonly dark: "#79e7d5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -2446,7 +2446,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_950_100", "active"];
         readonly color: {
             readonly light: "#6fd3c3";
-            readonly dark: "#46605b";
+            readonly dark: "#6fd3c3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -2475,7 +2475,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_950_100", "default"];
         readonly color: {
             readonly light: "#c7f6fc";
-            readonly dark: "#1a2628";
+            readonly dark: "#c7f6fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -2504,7 +2504,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_950_100", "hover"];
         readonly color: {
             readonly light: "#64ecf8";
-            readonly dark: "#364a4e";
+            readonly dark: "#64ecf8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -2534,7 +2534,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_950_100", "active"];
         readonly color: {
             readonly light: "#5bd8e3";
-            readonly dark: "#465f63";
+            readonly dark: "#5bd8e3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -2563,7 +2563,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_950_100", "default"];
         readonly color: {
             readonly light: "#e9edfe";
-            readonly dark: "#1d2437";
+            readonly dark: "#e9edfe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -2592,7 +2592,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_950_100", "hover"];
         readonly color: {
             readonly light: "#c5d0fc";
-            readonly dark: "#3b4767";
+            readonly dark: "#c5d0fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -2622,7 +2622,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_950_100", "active"];
         readonly color: {
             readonly light: "#adbffc";
-            readonly dark: "#4c5b83";
+            readonly dark: "#adbffc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -2651,7 +2651,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_950_100", "default"];
         readonly color: {
             readonly light: "#e6eefe";
-            readonly dark: "#1c2433";
+            readonly dark: "#e6eefe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -2680,7 +2680,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_950_100", "hover"];
         readonly color: {
             readonly light: "#bcd3fc";
-            readonly dark: "#3a4761";
+            readonly dark: "#bcd3fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -2710,7 +2710,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_950_100", "active"];
         readonly color: {
             readonly light: "#9fc3fc";
-            readonly dark: "#4a5b7b";
+            readonly dark: "#9fc3fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -2739,7 +2739,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee7fc";
-            readonly dark: "#2c202b";
+            readonly dark: "#fee7fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -2768,7 +2768,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdc0f8";
-            readonly dark: "#554053";
+            readonly dark: "#fdc0f8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -2798,7 +2798,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_950_100", "active"];
         readonly color: {
             readonly light: "#fca8f6";
-            readonly dark: "#6c536a";
+            readonly dark: "#fca8f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -2827,7 +2827,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e6";
-            readonly dark: "#2e211f";
+            readonly dark: "#fee9e6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -2856,7 +2856,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdc6bd";
-            readonly dark: "#58423f";
+            readonly dark: "#fdc6bd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -2886,7 +2886,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_950_100", "active"];
         readonly color: {
             readonly light: "#fcb0a2";
-            readonly dark: "#705551";
+            readonly dark: "#fcb0a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -2915,7 +2915,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e7";
-            readonly dark: "#2f211f";
+            readonly dark: "#fee9e7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -2944,7 +2944,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdc6c0";
-            readonly dark: "#5a423e";
+            readonly dark: "#fdc6c0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -2974,7 +2974,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_950_100", "active"];
         readonly color: {
             readonly light: "#fcb0a7";
-            readonly dark: "#725550";
+            readonly dark: "#fcb0a7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -3003,7 +3003,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_950_100", "default"];
         readonly color: {
             readonly light: "#feecc2";
-            readonly dark: "#292416";
+            readonly dark: "#feecc2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -3032,7 +3032,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fbd335";
-            readonly dark: "#4f472f";
+            readonly dark: "#fbd335";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -3062,7 +3062,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_950_100", "active"];
         readonly color: {
             readonly light: "#e6c130";
-            readonly dark: "#655b3d";
+            readonly dark: "#e6c130";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -3091,7 +3091,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_950_100", "default"];
         readonly color: {
             readonly light: "#feebd0";
-            readonly dark: "#2a2319";
+            readonly dark: "#feebd0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -3120,7 +3120,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdcd6d";
-            readonly dark: "#514534";
+            readonly dark: "#fdcd6d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -3150,7 +3150,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_950_100", "active"];
         readonly color: {
             readonly light: "#f4be30";
-            readonly dark: "#685944";
+            readonly dark: "#f4be30";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -3179,7 +3179,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e5";
-            readonly dark: "#31201c";
+            readonly dark: "#fee9e5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -3208,7 +3208,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_950_100", "hover"];
         readonly color: {
             readonly light: "#fdc6ba";
-            readonly dark: "#5d403a";
+            readonly dark: "#fdc6ba";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -3238,7 +3238,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_950_100", "active"];
         readonly color: {
             readonly light: "#fcb09e";
-            readonly dark: "#77534a";
+            readonly dark: "#fcb09e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -3267,7 +3267,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ecdb";
-            readonly dark: "#28241c";
+            readonly dark: "#f7ecdb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -3296,7 +3296,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_950_100", "hover"];
         readonly color: {
             readonly light: "#edce94";
-            readonly dark: "#4e4739";
+            readonly dark: "#edce94";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -3326,7 +3326,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_950_100", "active"];
         readonly color: {
             readonly light: "#dabd84";
-            readonly dark: "#635b4a";
+            readonly dark: "#dabd84";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -3355,7 +3355,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ebe5";
-            readonly dark: "#2c221c";
+            readonly dark: "#f7ebe5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -3384,7 +3384,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_950_100", "hover"];
         readonly color: {
             readonly light: "#eccbb9";
-            readonly dark: "#554439";
+            readonly dark: "#eccbb9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -3414,7 +3414,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_950_100", "active"];
         readonly color: {
             readonly light: "#e6b79a";
-            readonly dark: "#6c574a";
+            readonly dark: "#e6b79a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -3443,7 +3443,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ece4";
-            readonly dark: "#2b221c";
+            readonly dark: "#f7ece4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -3472,7 +3472,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_950_100", "hover"];
         readonly color: {
             readonly light: "#eccdb3";
-            readonly dark: "#53443a";
+            readonly dark: "#eccdb3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -3502,7 +3502,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_950_100", "active"];
         readonly color: {
             readonly light: "#e6ba90";
-            readonly dark: "#6a574a";
+            readonly dark: "#e6ba90";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -3531,7 +3531,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_950_100", "default"];
         readonly color: {
             readonly light: "#f3ede5";
-            readonly dark: "#28231f";
+            readonly dark: "#f3ede5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -3560,7 +3560,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_950_100", "hover"];
         readonly color: {
             readonly light: "#e1d0b5";
-            readonly dark: "#4e453f";
+            readonly dark: "#e1d0b5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -3590,7 +3590,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_950_100", "active"];
         readonly color: {
             readonly light: "#d1bea2";
-            readonly dark: "#635950";
+            readonly dark: "#d1bea2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -3619,7 +3619,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_950_100", "default"];
         readonly color: {
             readonly light: "#e8edff";
-            readonly dark: "#1d2437";
+            readonly dark: "#e8edff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -3648,7 +3648,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_950_100", "hover"];
         readonly color: {
             readonly light: "#c2d1ff";
-            readonly dark: "#3b4767";
+            readonly dark: "#c2d1ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -3678,7 +3678,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_950_100", "active"];
         readonly color: {
             readonly light: "#a9bfff";
-            readonly dark: "#4c5b83";
+            readonly dark: "#a9bfff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -3707,7 +3707,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_950_100", "default"];
         readonly color: {
             readonly light: "#b8fec9";
-            readonly dark: "#19271d";
+            readonly dark: "#b8fec9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -3736,7 +3736,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_950_100", "hover"];
         readonly color: {
             readonly light: "#46fd89";
-            readonly dark: "#344c3b";
+            readonly dark: "#46fd89";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -3766,7 +3766,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_950_100", "active"];
         readonly color: {
             readonly light: "#34eb7b";
-            readonly dark: "#44624d";
+            readonly dark: "#34eb7b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -3795,7 +3795,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_950_100", "default"];
         readonly color: {
             readonly light: "#ffe9e6";
-            readonly dark: "#361e19";
+            readonly dark: "#ffe9e6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -3824,7 +3824,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_950_100", "hover"];
         readonly color: {
             readonly light: "#ffc6bd";
-            readonly dark: "#663d35";
+            readonly dark: "#ffc6bd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -3854,7 +3854,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_950_100", "active"];
         readonly color: {
             readonly light: "#ffb0a2";
-            readonly dark: "#824f44";
+            readonly dark: "#ffb0a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -3883,7 +3883,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_950_100", "default"];
         readonly color: {
             readonly light: "#ffe9e9";
-            readonly dark: "#391c1c";
+            readonly dark: "#ffe9e9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -3912,7 +3912,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_950_100", "hover"];
         readonly color: {
             readonly light: "#ffc5c5";
-            readonly dark: "#6c3a3a";
+            readonly dark: "#ffc5c5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -3942,7 +3942,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_950_100", "active"];
         readonly color: {
             readonly light: "#ffafaf";
-            readonly dark: "#894b4b";
+            readonly dark: "#ffafaf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -3971,7 +3971,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_200_850", "default"];
         readonly color: {
             readonly light: "#3a3a3a";
-            readonly dark: "#cecece";
+            readonly dark: "#3a3a3a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -3999,7 +3999,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "default"];
         readonly color: {
             readonly light: "#0063cb";
-            readonly dark: "#518fff";
+            readonly dark: "#0063cb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -4027,7 +4027,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "default"];
         readonly color: {
             readonly light: "#18753c";
-            readonly dark: "#27a658";
+            readonly dark: "#18753c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -4055,7 +4055,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "default"];
         readonly color: {
             readonly light: "#b34000";
-            readonly dark: "#fc5d00";
+            readonly dark: "#b34000";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -4083,7 +4083,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "default"];
         readonly color: {
             readonly light: "#ce0500";
-            readonly dark: "#ff5655";
+            readonly dark: "#ce0500";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -4112,7 +4112,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -4143,7 +4143,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "hover"];
         readonly color: {
             readonly light: "#1212ff";
-            readonly dark: "#b1b1f9";
+            readonly dark: "#1212ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -4175,7 +4175,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "active"];
         readonly color: {
             readonly light: "#2323ff";
-            readonly dark: "#c6c6fb";
+            readonly dark: "#2323ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -4206,7 +4206,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -4236,7 +4236,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "hover"];
         readonly color: {
             readonly light: "#f93f42";
-            readonly dark: "#fa9293";
+            readonly dark: "#f93f42";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -4267,7 +4267,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "active"];
         readonly color: {
             readonly light: "#f95a5c";
-            readonly dark: "#fbabac";
+            readonly dark: "#f95a5c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -4297,7 +4297,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "default"];
         readonly color: {
             readonly light: "#66673d";
-            readonly dark: "#d8c634";
+            readonly dark: "#66673d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -4329,7 +4329,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "hover"];
         readonly color: {
             readonly light: "#929359";
-            readonly dark: "#fee943";
+            readonly dark: "#929359";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -4362,7 +4362,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "active"];
         readonly color: {
             readonly light: "#a7a967";
-            readonly dark: "#fef1ab";
+            readonly dark: "#a7a967";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -4394,7 +4394,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "default"];
         readonly color: {
             readonly light: "#447049";
-            readonly dark: "#99c221";
+            readonly dark: "#447049";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -4426,7 +4426,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "hover"];
         readonly color: {
             readonly light: "#639f6a";
-            readonly dark: "#baec2a";
+            readonly dark: "#639f6a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -4459,7 +4459,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "active"];
         readonly color: {
             readonly light: "#72b77a";
-            readonly dark: "#c9fd2e";
+            readonly dark: "#72b77a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -4491,7 +4491,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "default"];
         readonly color: {
             readonly light: "#297254";
-            readonly dark: "#34cb6a";
+            readonly dark: "#297254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -4523,7 +4523,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "hover"];
         readonly color: {
             readonly light: "#3ea47a";
-            readonly dark: "#42fb84";
+            readonly dark: "#3ea47a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -4556,7 +4556,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "active"];
         readonly color: {
             readonly light: "#49bc8d";
-            readonly dark: "#80fda3";
+            readonly dark: "#49bc8d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -4588,7 +4588,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "default"];
         readonly color: {
             readonly light: "#37635f";
-            readonly dark: "#21ab8e";
+            readonly dark: "#37635f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -4620,7 +4620,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "hover"];
         readonly color: {
             readonly light: "#53918c";
-            readonly dark: "#2eddb8";
+            readonly dark: "#53918c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -4653,7 +4653,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "active"];
         readonly color: {
             readonly light: "#62a9a2";
-            readonly dark: "#34f4cc";
+            readonly dark: "#62a9a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -4685,7 +4685,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "default"];
         readonly color: {
             readonly light: "#006a6f";
-            readonly dark: "#34bab5";
+            readonly dark: "#006a6f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -4717,7 +4717,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "hover"];
         readonly color: {
             readonly light: "#009fa7";
-            readonly dark: "#43e9e2";
+            readonly dark: "#009fa7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -4750,7 +4750,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "active"];
         readonly color: {
             readonly light: "#00bbc3";
-            readonly dark: "#4cfdf6";
+            readonly dark: "#00bbc3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -4782,7 +4782,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "default"];
         readonly color: {
             readonly light: "#2f4077";
-            readonly dark: "#869ece";
+            readonly dark: "#2f4077";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -4814,7 +4814,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "hover"];
         readonly color: {
             readonly light: "#4e68bb";
-            readonly dark: "#b8c5e2";
+            readonly dark: "#4e68bb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -4847,7 +4847,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "active"];
         readonly color: {
             readonly light: "#667dcf";
-            readonly dark: "#ced6ea";
+            readonly dark: "#667dcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -4879,7 +4879,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "default"];
         readonly color: {
             readonly light: "#3558a2";
-            readonly dark: "#7ab1e8";
+            readonly dark: "#3558a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -4911,7 +4911,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "hover"];
         readonly color: {
             readonly light: "#5982e0";
-            readonly dark: "#bad2f2";
+            readonly dark: "#5982e0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -4944,7 +4944,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "active"];
         readonly color: {
             readonly light: "#7996e6";
-            readonly dark: "#d2e2f6";
+            readonly dark: "#7996e6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -4976,7 +4976,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "default"];
         readonly color: {
             readonly light: "#6e445a";
-            readonly dark: "#ce70cc";
+            readonly dark: "#6e445a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -5008,7 +5008,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "hover"];
         readonly color: {
             readonly light: "#a66989";
-            readonly dark: "#dfa4dd";
+            readonly dark: "#a66989";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -5041,7 +5041,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "active"];
         readonly color: {
             readonly light: "#bb7f9e";
-            readonly dark: "#e7bbe6";
+            readonly dark: "#bb7f9e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -5073,7 +5073,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "default"];
         readonly color: {
             readonly light: "#8d533e";
-            readonly dark: "#ffb7ae";
+            readonly dark: "#8d533e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -5105,7 +5105,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "hover"];
         readonly color: {
             readonly light: "#ca795c";
-            readonly dark: "#ffe0dc";
+            readonly dark: "#ca795c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -5138,7 +5138,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "active"];
         readonly color: {
             readonly light: "#e08e73";
-            readonly dark: "#fff0ee";
+            readonly dark: "#e08e73";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -5170,7 +5170,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "default"];
         readonly color: {
             readonly light: "#a94645";
-            readonly dark: "#ff9575";
+            readonly dark: "#a94645";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -5202,7 +5202,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "hover"];
         readonly color: {
             readonly light: "#d5706f";
-            readonly dark: "#ffc4b7";
+            readonly dark: "#d5706f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -5235,7 +5235,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "active"];
         readonly color: {
             readonly light: "#da8a89";
-            readonly dark: "#ffd8d0";
+            readonly dark: "#da8a89";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -5267,7 +5267,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "default"];
         readonly color: {
             readonly light: "#716043";
-            readonly dark: "#ffe552";
+            readonly dark: "#716043";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -5299,7 +5299,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "hover"];
         readonly color: {
             readonly light: "#a28a62";
-            readonly dark: "#e1c700";
+            readonly dark: "#a28a62";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -5332,7 +5332,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "active"];
         readonly color: {
             readonly light: "#ba9f72";
-            readonly dark: "#cab300";
+            readonly dark: "#ba9f72";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -5364,7 +5364,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "default"];
         readonly color: {
             readonly light: "#695240";
-            readonly dark: "#ffca00";
+            readonly dark: "#695240";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -5396,7 +5396,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "hover"];
         readonly color: {
             readonly light: "#9b7b61";
-            readonly dark: "#cda200";
+            readonly dark: "#9b7b61";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -5429,7 +5429,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "active"];
         readonly color: {
             readonly light: "#b58f72";
-            readonly dark: "#b28c00";
+            readonly dark: "#b58f72";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -5461,7 +5461,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "default"];
         readonly color: {
             readonly light: "#755348";
-            readonly dark: "#ff732c";
+            readonly dark: "#755348";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -5493,7 +5493,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "hover"];
         readonly color: {
             readonly light: "#ab7b6b";
-            readonly dark: "#ffa48b";
+            readonly dark: "#ab7b6b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -5526,7 +5526,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "active"];
         readonly color: {
             readonly light: "#c68f7d";
-            readonly dark: "#ffbbab";
+            readonly dark: "#c68f7d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -5558,7 +5558,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "default"];
         readonly color: {
             readonly light: "#685c48";
-            readonly dark: "#ecd7a2";
+            readonly dark: "#685c48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -5590,7 +5590,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "hover"];
         readonly color: {
             readonly light: "#97866a";
-            readonly dark: "#c5b386";
+            readonly dark: "#97866a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -5623,7 +5623,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "active"];
         readonly color: {
             readonly light: "#ae9b7b";
-            readonly dark: "#af9f77";
+            readonly dark: "#ae9b7b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -5655,7 +5655,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "default"];
         readonly color: {
             readonly light: "#845d48";
-            readonly dark: "#fbd8ab";
+            readonly dark: "#845d48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -5687,7 +5687,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "hover"];
         readonly color: {
             readonly light: "#bb8568";
-            readonly dark: "#efb547";
+            readonly dark: "#bb8568";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -5720,7 +5720,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "active"];
         readonly color: {
             readonly light: "#d69978";
-            readonly dark: "#d6a23e";
+            readonly dark: "#d69978";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -5752,7 +5752,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "default"];
         readonly color: {
             readonly light: "#745b47";
-            readonly dark: "#e6be92";
+            readonly dark: "#745b47";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -5784,7 +5784,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "hover"];
         readonly color: {
             readonly light: "#a78468";
-            readonly dark: "#f2e2d3";
+            readonly dark: "#a78468";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -5817,7 +5817,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "active"];
         readonly color: {
             readonly light: "#c09979";
-            readonly dark: "#f8f0e9";
+            readonly dark: "#c09979";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -5849,7 +5849,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "default"];
         readonly color: {
             readonly light: "#6a6156";
-            readonly dark: "#d0c3b7";
+            readonly dark: "#6a6156";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -5881,7 +5881,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "hover"];
         readonly color: {
             readonly light: "#988b7c";
-            readonly dark: "#eae5e1";
+            readonly dark: "#988b7c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -5914,7 +5914,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "active"];
         readonly color: {
             readonly light: "#afa08f";
-            readonly dark: "#f4f2f0";
+            readonly dark: "#afa08f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -5946,7 +5946,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "default"];
         readonly color: {
             readonly light: "#0063cb";
-            readonly dark: "#518fff";
+            readonly dark: "#0063cb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -5976,7 +5976,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "hover"];
         readonly color: {
             readonly light: "#3b87ff";
-            readonly dark: "#98b4ff";
+            readonly dark: "#3b87ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -6007,7 +6007,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "active"];
         readonly color: {
             readonly light: "#6798ff";
-            readonly dark: "#b4c7ff";
+            readonly dark: "#6798ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -6037,7 +6037,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "default"];
         readonly color: {
             readonly light: "#18753c";
-            readonly dark: "#27a658";
+            readonly dark: "#18753c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -6067,7 +6067,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "hover"];
         readonly color: {
             readonly light: "#27a959";
-            readonly dark: "#36d975";
+            readonly dark: "#27a959";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -6098,7 +6098,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "active"];
         readonly color: {
             readonly light: "#2fc368";
-            readonly dark: "#3df183";
+            readonly dark: "#2fc368";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -6128,7 +6128,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "default"];
         readonly color: {
             readonly light: "#b34000";
-            readonly dark: "#fc5d00";
+            readonly dark: "#b34000";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -6158,7 +6158,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "hover"];
         readonly color: {
             readonly light: "#ff6218";
-            readonly dark: "#ff8c73";
+            readonly dark: "#ff6218";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -6189,7 +6189,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "active"];
         readonly color: {
             readonly light: "#ff7a55";
-            readonly dark: "#ffa595";
+            readonly dark: "#ff7a55";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -6219,7 +6219,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "default"];
         readonly color: {
             readonly light: "#ce0500";
-            readonly dark: "#ff5655";
+            readonly dark: "#ce0500";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -6249,7 +6249,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "hover"];
         readonly color: {
             readonly light: "#ff2725";
-            readonly dark: "#ff8c8c";
+            readonly dark: "#ff2725";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -6280,7 +6280,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "active"];
         readonly color: {
             readonly light: "#ff4140";
-            readonly dark: "#ffa6a6";
+            readonly dark: "#ff4140";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -6310,7 +6310,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "default"];
         readonly color: {
             readonly light: "#e3e3fd";
-            readonly dark: "#272747";
+            readonly dark: "#e3e3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -6340,7 +6340,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "hover"];
         readonly color: {
             readonly light: "#c1c1fb";
-            readonly dark: "#4a4a7d";
+            readonly dark: "#c1c1fb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -6371,7 +6371,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "active"];
         readonly color: {
             readonly light: "#adadf9";
-            readonly dark: "#5e5e90";
+            readonly dark: "#adadf9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -6401,7 +6401,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddede";
-            readonly dark: "#3b2424";
+            readonly dark: "#fddede";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -6431,7 +6431,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbb6b6";
-            readonly dark: "#6b4545";
+            readonly dark: "#fbb6b6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -6462,7 +6462,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "active"];
         readonly color: {
             readonly light: "#fa9e9e";
-            readonly dark: "#865757";
+            readonly dark: "#fa9e9e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -6492,7 +6492,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_925_125", "default"];
         readonly color: {
             readonly light: "#fbe769";
-            readonly dark: "#2d2a1d";
+            readonly dark: "#fbe769";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -6522,7 +6522,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_925_125", "hover"];
         readonly color: {
             readonly light: "#d7c655";
-            readonly dark: "#534f39";
+            readonly dark: "#d7c655";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -6553,7 +6553,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_925_125", "active"];
         readonly color: {
             readonly light: "#c2b24c";
-            readonly dark: "#696349";
+            readonly dark: "#c2b24c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -6583,7 +6583,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_925_125", "default"];
         readonly color: {
             readonly light: "#a9fb68";
-            readonly dark: "#232d1d";
+            readonly dark: "#a9fb68";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -6613,7 +6613,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_925_125", "hover"];
         readonly color: {
             readonly light: "#8ed654";
-            readonly dark: "#435339";
+            readonly dark: "#8ed654";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -6644,7 +6644,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_925_125", "active"];
         readonly color: {
             readonly light: "#7fc04b";
-            readonly dark: "#556949";
+            readonly dark: "#7fc04b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -6674,7 +6674,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_925_125", "default"];
         readonly color: {
             readonly light: "#9ef9be";
-            readonly dark: "#1e2e23";
+            readonly dark: "#9ef9be";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -6704,7 +6704,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_925_125", "hover"];
         readonly color: {
             readonly light: "#69df97";
-            readonly dark: "#3b5543";
+            readonly dark: "#69df97";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -6735,7 +6735,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_925_125", "active"];
         readonly color: {
             readonly light: "#5ec988";
-            readonly dark: "#4b6b55";
+            readonly dark: "#5ec988";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -6765,7 +6765,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_925_125", "default"];
         readonly color: {
             readonly light: "#8bf8e7";
-            readonly dark: "#1f2d2a";
+            readonly dark: "#8bf8e7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -6795,7 +6795,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_925_125", "hover"];
         readonly color: {
             readonly light: "#6ed5c5";
-            readonly dark: "#3c534e";
+            readonly dark: "#6ed5c5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -6826,7 +6826,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_925_125", "active"];
         readonly color: {
             readonly light: "#62bfb1";
-            readonly dark: "#4d6963";
+            readonly dark: "#62bfb1";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -6856,7 +6856,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_925_125", "default"];
         readonly color: {
             readonly light: "#a6f2fa";
-            readonly dark: "#1f2c2e";
+            readonly dark: "#a6f2fa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -6886,7 +6886,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_925_125", "hover"];
         readonly color: {
             readonly light: "#62dbe5";
-            readonly dark: "#3c5255";
+            readonly dark: "#62dbe5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -6917,7 +6917,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_925_125", "active"];
         readonly color: {
             readonly light: "#58c5cf";
-            readonly dark: "#4d676b";
+            readonly dark: "#58c5cf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -6947,7 +6947,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_925_125", "default"];
         readonly color: {
             readonly light: "#dee5fd";
-            readonly dark: "#222940";
+            readonly dark: "#dee5fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -6977,7 +6977,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_925_125", "hover"];
         readonly color: {
             readonly light: "#b4c5fb";
-            readonly dark: "#424d73";
+            readonly dark: "#b4c5fb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -7008,7 +7008,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_925_125", "active"];
         readonly color: {
             readonly light: "#99b3f9";
-            readonly dark: "#536190";
+            readonly dark: "#99b3f9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -7038,7 +7038,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_925_125", "default"];
         readonly color: {
             readonly light: "#dae6fd";
-            readonly dark: "#212a3a";
+            readonly dark: "#dae6fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -7068,7 +7068,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_925_125", "hover"];
         readonly color: {
             readonly light: "#a9c8fb";
-            readonly dark: "#404f69";
+            readonly dark: "#a9c8fb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -7099,7 +7099,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_925_125", "active"];
         readonly color: {
             readonly light: "#8ab8f9";
-            readonly dark: "#516384";
+            readonly dark: "#8ab8f9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -7129,7 +7129,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddbfa";
-            readonly dark: "#332632";
+            readonly dark: "#fddbfa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -7159,7 +7159,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbaff5";
-            readonly dark: "#5d485c";
+            readonly dark: "#fbaff5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -7190,7 +7190,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_925_125", "active"];
         readonly color: {
             readonly light: "#fa96f2";
-            readonly dark: "#755b73";
+            readonly dark: "#fa96f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -7220,7 +7220,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfda";
-            readonly dark: "#352724";
+            readonly dark: "#fddfda";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -7250,7 +7250,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbb8ab";
-            readonly dark: "#614a45";
+            readonly dark: "#fbb8ab";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -7281,7 +7281,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_925_125", "active"];
         readonly color: {
             readonly light: "#faa18d";
-            readonly dark: "#795d57";
+            readonly dark: "#faa18d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -7311,7 +7311,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfdb";
-            readonly dark: "#372624";
+            readonly dark: "#fddfdb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -7341,7 +7341,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbb8ad";
-            readonly dark: "#644845";
+            readonly dark: "#fbb8ad";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -7372,7 +7372,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_925_125", "active"];
         readonly color: {
             readonly light: "#faa191";
-            readonly dark: "#7d5b57";
+            readonly dark: "#faa191";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -7402,7 +7402,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_925_125", "default"];
         readonly color: {
             readonly light: "#fde39c";
-            readonly dark: "#302a1a";
+            readonly dark: "#fde39c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -7432,7 +7432,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_925_125", "hover"];
         readonly color: {
             readonly light: "#e9c53b";
-            readonly dark: "#584e34";
+            readonly dark: "#e9c53b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -7463,7 +7463,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_925_125", "active"];
         readonly color: {
             readonly light: "#d3b235";
-            readonly dark: "#6f6342";
+            readonly dark: "#d3b235";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -7493,7 +7493,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_925_125", "default"];
         readonly color: {
             readonly light: "#fde2b5";
-            readonly dark: "#30291d";
+            readonly dark: "#fde2b5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -7523,7 +7523,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_925_125", "hover"];
         readonly color: {
             readonly light: "#f6c43c";
-            readonly dark: "#584d39";
+            readonly dark: "#f6c43c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -7554,7 +7554,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_925_125", "active"];
         readonly color: {
             readonly light: "#dfb135";
-            readonly dark: "#6f6149";
+            readonly dark: "#dfb135";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -7584,7 +7584,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfd8";
-            readonly dark: "#382621";
+            readonly dark: "#fddfd8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -7614,7 +7614,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbb8a5";
-            readonly dark: "#664840";
+            readonly dark: "#fbb8a5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -7645,7 +7645,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_925_125", "active"];
         readonly color: {
             readonly light: "#faa184";
-            readonly dark: "#7f5b51";
+            readonly dark: "#faa184";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -7675,7 +7675,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_925_125", "default"];
         readonly color: {
             readonly light: "#f4e3c7";
-            readonly dark: "#2e2a21";
+            readonly dark: "#f4e3c7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -7705,7 +7705,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_925_125", "hover"];
         readonly color: {
             readonly light: "#e1c386";
-            readonly dark: "#554e3f";
+            readonly dark: "#e1c386";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -7736,7 +7736,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_925_125", "active"];
         readonly color: {
             readonly light: "#ccb078";
-            readonly dark: "#6b6351";
+            readonly dark: "#ccb078";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -7766,7 +7766,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_925_125", "default"];
         readonly color: {
             readonly light: "#f3e2d9";
-            readonly dark: "#332821";
+            readonly dark: "#f3e2d9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -7796,7 +7796,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_925_125", "hover"];
         readonly color: {
             readonly light: "#e7bea6";
-            readonly dark: "#5d4b40";
+            readonly dark: "#e7bea6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -7827,7 +7827,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_925_125", "active"];
         readonly color: {
             readonly light: "#e1a982";
-            readonly dark: "#755f51";
+            readonly dark: "#e1a982";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -7857,7 +7857,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_925_125", "default"];
         readonly color: {
             readonly light: "#f3e2d7";
-            readonly dark: "#322821";
+            readonly dark: "#f3e2d7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -7887,7 +7887,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_925_125", "hover"];
         readonly color: {
             readonly light: "#e7bfa0";
-            readonly dark: "#5c4b40";
+            readonly dark: "#e7bfa0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -7918,7 +7918,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_925_125", "active"];
         readonly color: {
             readonly light: "#deaa7e";
-            readonly dark: "#735f51";
+            readonly dark: "#deaa7e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -7948,7 +7948,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_925_125", "default"];
         readonly color: {
             readonly light: "#eee4d9";
-            readonly dark: "#2e2924";
+            readonly dark: "#eee4d9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -7978,7 +7978,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_925_125", "hover"];
         readonly color: {
             readonly light: "#dbc3a4";
-            readonly dark: "#554d45";
+            readonly dark: "#dbc3a4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -8009,7 +8009,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_925_125", "active"];
         readonly color: {
             readonly light: "#c6b094";
-            readonly dark: "#6b6157";
+            readonly dark: "#c6b094";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -8038,7 +8038,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8068,7 +8068,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "hover"];
         readonly color: {
             readonly light: "#1212ff";
-            readonly dark: "#b1b1f9";
+            readonly dark: "#1212ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8099,7 +8099,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "active"];
         readonly color: {
             readonly light: "#2323ff";
-            readonly dark: "#c6c6fb";
+            readonly dark: "#2323ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8129,7 +8129,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8158,7 +8158,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "hover"];
         readonly color: {
             readonly light: "#f93f42";
-            readonly dark: "#fa9293";
+            readonly dark: "#f93f42";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8188,7 +8188,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "active"];
         readonly color: {
             readonly light: "#f95a5c";
-            readonly dark: "#fbabac";
+            readonly dark: "#f95a5c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8217,7 +8217,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "default"];
         readonly color: {
             readonly light: "#e3e3fd";
-            readonly dark: "#272747";
+            readonly dark: "#e3e3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8246,7 +8246,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "hover"];
         readonly color: {
             readonly light: "#c1c1fb";
-            readonly dark: "#4a4a7d";
+            readonly dark: "#c1c1fb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8276,7 +8276,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "active"];
         readonly color: {
             readonly light: "#adadf9";
-            readonly dark: "#5e5e90";
+            readonly dark: "#adadf9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -8305,7 +8305,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddede";
-            readonly dark: "#3b2424";
+            readonly dark: "#fddede";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8334,7 +8334,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "hover"];
         readonly color: {
             readonly light: "#fbb6b6";
-            readonly dark: "#6b4545";
+            readonly dark: "#fbb6b6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8364,7 +8364,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "active"];
         readonly color: {
             readonly light: "#fa9e9e";
-            readonly dark: "#865757";
+            readonly dark: "#fa9e9e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -8393,7 +8393,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_925_125", "default"];
         readonly color: {
             readonly light: "#e5e5e5";
-            readonly dark: "#2a2a2a";
+            readonly dark: "#e5e5e5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8421,7 +8421,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "default"];
         readonly color: {
             readonly light: "#ffffff";
-            readonly dark: "#1e1e1e";
+            readonly dark: "#ffffff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8450,7 +8450,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "hover"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#3f3f3f";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8480,7 +8480,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "active"];
         readonly color: {
             readonly light: "#ededed";
-            readonly dark: "#525252";
+            readonly dark: "#ededed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8509,7 +8509,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_100", "default"];
         readonly color: {
             readonly light: "#ffffff";
-            readonly dark: "#242424";
+            readonly dark: "#ffffff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8538,7 +8538,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_100", "hover"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#474747";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8568,7 +8568,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_100", "active"];
         readonly color: {
             readonly light: "#ededed";
-            readonly dark: "#5b5b5b";
+            readonly dark: "#ededed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8597,7 +8597,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "default"];
         readonly color: {
             readonly light: "#ffffff";
-            readonly dark: "#1e1e1e";
+            readonly dark: "#ffffff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8626,7 +8626,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "hover"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#3f3f3f";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8656,7 +8656,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_75", "active"];
         readonly color: {
             readonly light: "#ededed";
-            readonly dark: "#525252";
+            readonly dark: "#ededed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8685,7 +8685,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_100", "default"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#242424";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8714,7 +8714,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_100", "hover"];
         readonly color: {
             readonly light: "#dfdfdf";
-            readonly dark: "#474747";
+            readonly dark: "#dfdfdf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8744,7 +8744,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_100", "active"];
         readonly color: {
             readonly light: "#cfcfcf";
-            readonly dark: "#5b5b5b";
+            readonly dark: "#cfcfcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8773,7 +8773,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_125", "default"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#2a2a2a";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8802,7 +8802,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_125", "hover"];
         readonly color: {
             readonly light: "#dfdfdf";
-            readonly dark: "#4e4e4e";
+            readonly dark: "#dfdfdf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8832,7 +8832,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_125", "active"];
         readonly color: {
             readonly light: "#cfcfcf";
-            readonly dark: "#636363";
+            readonly dark: "#cfcfcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8861,7 +8861,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_125", "default"];
         readonly color: {
             readonly light: "#eeeeee";
-            readonly dark: "#2a2a2a";
+            readonly dark: "#eeeeee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8890,7 +8890,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_125", "hover"];
         readonly color: {
             readonly light: "#d2d2d2";
-            readonly dark: "#4e4e4e";
+            readonly dark: "#d2d2d2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8920,7 +8920,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_125", "active"];
         readonly color: {
             readonly light: "#c1c1c1";
-            readonly dark: "#636363";
+            readonly dark: "#c1c1c1";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8949,7 +8949,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_150", "default"];
         readonly color: {
             readonly light: "#eeeeee";
-            readonly dark: "#2f2f2f";
+            readonly dark: "#eeeeee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -8978,7 +8978,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_150", "hover"];
         readonly color: {
             readonly light: "#d2d2d2";
-            readonly dark: "#545454";
+            readonly dark: "#d2d2d2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9008,7 +9008,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_150", "active"];
         readonly color: {
             readonly light: "#c1c1c1";
-            readonly dark: "#696969";
+            readonly dark: "#c1c1c1";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9037,7 +9037,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_200_850", "default"];
         readonly color: {
             readonly light: "#3a3a3a";
-            readonly dark: "#cecece";
+            readonly dark: "#3a3a3a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9065,7 +9065,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "default"];
         readonly color: {
             readonly light: "#0063cb";
-            readonly dark: "#518fff";
+            readonly dark: "#0063cb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -9093,7 +9093,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "default"];
         readonly color: {
             readonly light: "#18753c";
-            readonly dark: "#27a658";
+            readonly dark: "#18753c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -9121,7 +9121,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "default"];
         readonly color: {
             readonly light: "#b34000";
-            readonly dark: "#fc5d00";
+            readonly dark: "#b34000";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -9149,7 +9149,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "default"];
         readonly color: {
             readonly light: "#ce0500";
-            readonly dark: "#ff5655";
+            readonly dark: "#ce0500";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -9178,7 +9178,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_50_1000", "default"];
         readonly color: {
             readonly light: "#161616";
-            readonly dark: "#ffffff";
+            readonly dark: "#161616";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9207,7 +9207,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -9237,7 +9237,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -9266,7 +9266,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "default"];
         readonly color: {
             readonly light: "#66673d";
-            readonly dark: "#d8c634";
+            readonly dark: "#66673d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -9297,7 +9297,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "default"];
         readonly color: {
             readonly light: "#447049";
-            readonly dark: "#99c221";
+            readonly dark: "#447049";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -9328,7 +9328,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "default"];
         readonly color: {
             readonly light: "#297254";
-            readonly dark: "#34cb6a";
+            readonly dark: "#297254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -9359,7 +9359,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "default"];
         readonly color: {
             readonly light: "#37635f";
-            readonly dark: "#21ab8e";
+            readonly dark: "#37635f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -9390,7 +9390,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "default"];
         readonly color: {
             readonly light: "#006a6f";
-            readonly dark: "#34bab5";
+            readonly dark: "#006a6f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -9421,7 +9421,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "default"];
         readonly color: {
             readonly light: "#2f4077";
-            readonly dark: "#869ece";
+            readonly dark: "#2f4077";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -9452,7 +9452,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "default"];
         readonly color: {
             readonly light: "#3558a2";
-            readonly dark: "#7ab1e8";
+            readonly dark: "#3558a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -9483,7 +9483,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "default"];
         readonly color: {
             readonly light: "#6e445a";
-            readonly dark: "#ce70cc";
+            readonly dark: "#6e445a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -9514,7 +9514,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "default"];
         readonly color: {
             readonly light: "#8d533e";
-            readonly dark: "#ffb7ae";
+            readonly dark: "#8d533e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -9545,7 +9545,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "default"];
         readonly color: {
             readonly light: "#a94645";
-            readonly dark: "#ff9575";
+            readonly dark: "#a94645";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -9576,7 +9576,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "default"];
         readonly color: {
             readonly light: "#716043";
-            readonly dark: "#ffe552";
+            readonly dark: "#716043";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -9607,7 +9607,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "default"];
         readonly color: {
             readonly light: "#695240";
-            readonly dark: "#ffca00";
+            readonly dark: "#695240";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -9638,7 +9638,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "default"];
         readonly color: {
             readonly light: "#755348";
-            readonly dark: "#ff732c";
+            readonly dark: "#755348";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -9669,7 +9669,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "default"];
         readonly color: {
             readonly light: "#685c48";
-            readonly dark: "#ecd7a2";
+            readonly dark: "#685c48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -9700,7 +9700,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "default"];
         readonly color: {
             readonly light: "#845d48";
-            readonly dark: "#fbd8ab";
+            readonly dark: "#845d48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -9731,7 +9731,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "default"];
         readonly color: {
             readonly light: "#745b47";
-            readonly dark: "#e6be92";
+            readonly dark: "#745b47";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -9762,7 +9762,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "default"];
         readonly color: {
             readonly light: "#6a6156";
-            readonly dark: "#d0c3b7";
+            readonly dark: "#6a6156";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -9792,7 +9792,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_50_1000", "default"];
         readonly color: {
             readonly light: "#161616";
-            readonly dark: "#ffffff";
+            readonly dark: "#161616";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9820,7 +9820,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -9849,7 +9849,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -9877,7 +9877,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_50_1000", "default"];
         readonly color: {
             readonly light: "#161616";
-            readonly dark: "#ffffff";
+            readonly dark: "#161616";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -9905,7 +9905,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -9934,7 +9934,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -9962,7 +9962,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "default"];
         readonly color: {
             readonly light: "#66673d";
-            readonly dark: "#d8c634";
+            readonly dark: "#66673d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -9992,7 +9992,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "default"];
         readonly color: {
             readonly light: "#447049";
-            readonly dark: "#99c221";
+            readonly dark: "#447049";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -10022,7 +10022,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "default"];
         readonly color: {
             readonly light: "#297254";
-            readonly dark: "#34cb6a";
+            readonly dark: "#297254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -10052,7 +10052,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "default"];
         readonly color: {
             readonly light: "#37635f";
-            readonly dark: "#21ab8e";
+            readonly dark: "#37635f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -10082,7 +10082,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "default"];
         readonly color: {
             readonly light: "#006a6f";
-            readonly dark: "#34bab5";
+            readonly dark: "#006a6f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -10112,7 +10112,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "default"];
         readonly color: {
             readonly light: "#2f4077";
-            readonly dark: "#869ece";
+            readonly dark: "#2f4077";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -10142,7 +10142,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "default"];
         readonly color: {
             readonly light: "#3558a2";
-            readonly dark: "#7ab1e8";
+            readonly dark: "#3558a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -10172,7 +10172,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "default"];
         readonly color: {
             readonly light: "#6e445a";
-            readonly dark: "#ce70cc";
+            readonly dark: "#6e445a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -10202,7 +10202,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "default"];
         readonly color: {
             readonly light: "#8d533e";
-            readonly dark: "#ffb7ae";
+            readonly dark: "#8d533e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -10232,7 +10232,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "default"];
         readonly color: {
             readonly light: "#a94645";
-            readonly dark: "#ff9575";
+            readonly dark: "#a94645";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -10262,7 +10262,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "default"];
         readonly color: {
             readonly light: "#716043";
-            readonly dark: "#ffe552";
+            readonly dark: "#716043";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -10292,7 +10292,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "default"];
         readonly color: {
             readonly light: "#695240";
-            readonly dark: "#ffca00";
+            readonly dark: "#695240";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -10322,7 +10322,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "default"];
         readonly color: {
             readonly light: "#755348";
-            readonly dark: "#ff732c";
+            readonly dark: "#755348";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -10352,7 +10352,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "default"];
         readonly color: {
             readonly light: "#685c48";
-            readonly dark: "#ecd7a2";
+            readonly dark: "#685c48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -10382,7 +10382,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "default"];
         readonly color: {
             readonly light: "#845d48";
-            readonly dark: "#fbd8ab";
+            readonly dark: "#845d48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -10412,7 +10412,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "default"];
         readonly color: {
             readonly light: "#745b47";
-            readonly dark: "#e6be92";
+            readonly dark: "#745b47";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -10442,7 +10442,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "default"];
         readonly color: {
             readonly light: "#6a6156";
-            readonly dark: "#d0c3b7";
+            readonly dark: "#6a6156";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -10472,7 +10472,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_50_1000", "default"];
         readonly color: {
             readonly light: "#161616";
-            readonly dark: "#ffffff";
+            readonly dark: "#161616";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -10500,7 +10500,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -10529,7 +10529,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -10557,7 +10557,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_425_625", "default"];
         readonly color: {
             readonly light: "#666666";
-            readonly dark: "#929292";
+            readonly dark: "#666666";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -10585,7 +10585,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_1000_50", "default"];
         readonly color: {
             readonly light: "#ffffff";
-            readonly dark: "#161616";
+            readonly dark: "#ffffff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -10613,7 +10613,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_975sun113", "default"];
         readonly color: {
             readonly light: "#f5f5fe";
-            readonly dark: "#000091";
+            readonly dark: "#f5f5fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -10642,7 +10642,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f4";
-            readonly dark: "#2b1919";
+            readonly dark: "#fef4f4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -10670,7 +10670,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_975_75", "default"];
         readonly color: {
             readonly light: "#f4f6ff";
-            readonly dark: "#171d2e";
+            readonly dark: "#f4f6ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -10698,7 +10698,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_975_75", "default"];
         readonly color: {
             readonly light: "#dffee6";
-            readonly dark: "#142117";
+            readonly dark: "#dffee6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -10726,7 +10726,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_975_75", "default"];
         readonly color: {
             readonly light: "#fff4f3";
-            readonly dark: "#2d1814";
+            readonly dark: "#fff4f3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -10754,7 +10754,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_975_75", "default"];
         readonly color: {
             readonly light: "#fff4f4";
-            readonly dark: "#301717";
+            readonly dark: "#fff4f4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -10782,7 +10782,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef7da";
-            readonly dark: "#201e14";
+            readonly dark: "#fef7da";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -10810,7 +10810,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_975_75", "default"];
         readonly color: {
             readonly light: "#e6feda";
-            readonly dark: "#182014";
+            readonly dark: "#e6feda";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -10838,7 +10838,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_975_75", "default"];
         readonly color: {
             readonly light: "#e3fdeb";
-            readonly dark: "#142018";
+            readonly dark: "#e3fdeb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -10866,7 +10866,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_975_75", "default"];
         readonly color: {
             readonly light: "#dffdf7";
-            readonly dark: "#15201e";
+            readonly dark: "#dffdf7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -10894,7 +10894,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_975_75", "default"];
         readonly color: {
             readonly light: "#e5fbfd";
-            readonly dark: "#152021";
+            readonly dark: "#e5fbfd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -10922,7 +10922,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_975_75", "default"];
         readonly color: {
             readonly light: "#f4f6fe";
-            readonly dark: "#171d2f";
+            readonly dark: "#f4f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -10950,7 +10950,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_975_75", "default"];
         readonly color: {
             readonly light: "#f3f6fe";
-            readonly dark: "#171e2b";
+            readonly dark: "#f3f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -10978,7 +10978,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef3fd";
-            readonly dark: "#251a24";
+            readonly dark: "#fef3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -11006,7 +11006,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#261b19";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -11034,7 +11034,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f3";
-            readonly dark: "#281b19";
+            readonly dark: "#fef4f3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -11062,7 +11062,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef6e3";
-            readonly dark: "#221d11";
+            readonly dark: "#fef6e3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -11090,7 +11090,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef5e8";
-            readonly dark: "#231d14";
+            readonly dark: "#fef5e8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -11118,7 +11118,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#281a16";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -11146,7 +11146,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf6ed";
-            readonly dark: "#211d16";
+            readonly dark: "#fbf6ed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -11174,7 +11174,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#251c16";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -11202,7 +11202,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#241c17";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -11230,7 +11230,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_975_75", "default"];
         readonly color: {
             readonly light: "#f9f6f2";
-            readonly dark: "#211d19";
+            readonly dark: "#f9f6f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -11258,7 +11258,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_625_425", "default"];
         readonly color: {
             readonly light: "#929292";
-            readonly dark: "#666666";
+            readonly dark: "#929292";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -11286,7 +11286,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_900_175", "default"];
         readonly color: {
             readonly light: "#dddddd";
-            readonly dark: "#353535";
+            readonly dark: "#dddddd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -11713,7 +11713,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -11742,7 +11742,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -11771,7 +11771,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_50_1000", "default"];
         readonly color: {
             readonly light: "#161616";
-            readonly dark: "#ffffff";
+            readonly dark: "#161616";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -11800,7 +11800,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -11830,7 +11830,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -11859,7 +11859,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "default"];
         readonly color: {
             readonly light: "#0063cb";
-            readonly dark: "#518fff";
+            readonly dark: "#0063cb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -11888,7 +11888,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "default"];
         readonly color: {
             readonly light: "#18753c";
-            readonly dark: "#27a658";
+            readonly dark: "#18753c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -11917,7 +11917,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "default"];
         readonly color: {
             readonly light: "#b34000";
-            readonly dark: "#fc5d00";
+            readonly dark: "#b34000";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -11946,7 +11946,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "default"];
         readonly color: {
             readonly light: "#ce0500";
-            readonly dark: "#ff5655";
+            readonly dark: "#ce0500";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -11975,7 +11975,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_850_200", "default"];
         readonly color: {
             readonly light: "#cacafb";
-            readonly dark: "#313178";
+            readonly dark: "#cacafb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -12004,7 +12004,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_850_200", "default"];
         readonly color: {
             readonly light: "#fcbfbf";
-            readonly dark: "#5e2a2b";
+            readonly dark: "#fcbfbf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -12033,7 +12033,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_850_200", "default"];
         readonly color: {
             readonly light: "#e2cf58";
-            readonly dark: "#3f3a20";
+            readonly dark: "#e2cf58";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -12062,7 +12062,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_850_200", "default"];
         readonly color: {
             readonly light: "#95e257";
-            readonly dark: "#2a401a";
+            readonly dark: "#95e257";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -12091,7 +12091,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_850_200", "default"];
         readonly color: {
             readonly light: "#6fe49d";
-            readonly dark: "#21402c";
+            readonly dark: "#6fe49d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -12120,7 +12120,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_850_200", "default"];
         readonly color: {
             readonly light: "#73e0cf";
-            readonly dark: "#223f3a";
+            readonly dark: "#73e0cf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -12149,7 +12149,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_850_200", "default"];
         readonly color: {
             readonly light: "#60e0eb";
-            readonly dark: "#233e41";
+            readonly dark: "#60e0eb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -12178,7 +12178,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_850_200", "default"];
         readonly color: {
             readonly light: "#bfccfb";
-            readonly dark: "#273962";
+            readonly dark: "#bfccfb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -12207,7 +12207,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_850_200", "default"];
         readonly color: {
             readonly light: "#b6cffb";
-            readonly dark: "#263b58";
+            readonly dark: "#b6cffb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -12236,7 +12236,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_850_200", "default"];
         readonly color: {
             readonly light: "#fbb8f6";
-            readonly dark: "#502e4d";
+            readonly dark: "#fbb8f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -12265,7 +12265,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_850_200", "default"];
         readonly color: {
             readonly light: "#fcc0b4";
-            readonly dark: "#52312a";
+            readonly dark: "#fcc0b4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -12294,7 +12294,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_850_200", "default"];
         readonly color: {
             readonly light: "#fcbfb7";
-            readonly dark: "#55302a";
+            readonly dark: "#fcbfb7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -12323,7 +12323,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_850_200", "default"];
         readonly color: {
             readonly light: "#efcb3a";
-            readonly dark: "#43391a";
+            readonly dark: "#efcb3a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -12352,7 +12352,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_850_200", "default"];
         readonly color: {
             readonly light: "#fcc63a";
-            readonly dark: "#453820";
+            readonly dark: "#fcc63a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -12381,7 +12381,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_850_200", "default"];
         readonly color: {
             readonly light: "#fcc0b0";
-            readonly dark: "#543125";
+            readonly dark: "#fcc0b0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -12410,7 +12410,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_850_200", "default"];
         readonly color: {
             readonly light: "#e7ca8e";
-            readonly dark: "#423925";
+            readonly dark: "#e7ca8e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -12439,7 +12439,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_850_200", "default"];
         readonly color: {
             readonly light: "#eac7b2";
-            readonly dark: "#4b3525";
+            readonly dark: "#eac7b2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -12468,7 +12468,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_850_200", "default"];
         readonly color: {
             readonly light: "#eac7ad";
-            readonly dark: "#493625";
+            readonly dark: "#eac7ad";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -12497,7 +12497,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_850_200", "default"];
         readonly color: {
             readonly light: "#e0cab0";
-            readonly dark: "#433829";
+            readonly dark: "#e0cab0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -12525,7 +12525,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "default"];
         readonly color: {
             readonly light: "#e3e3fd";
-            readonly dark: "#272747";
+            readonly dark: "#e3e3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -12553,7 +12553,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddede";
-            readonly dark: "#3b2424";
+            readonly dark: "#fddede";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -12581,7 +12581,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_200_850", "default"];
         readonly color: {
             readonly light: "#3a3a3a";
-            readonly dark: "#cecece";
+            readonly dark: "#3a3a3a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -12609,7 +12609,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -12638,7 +12638,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -12666,7 +12666,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["info", "_425_625", "default"];
         readonly color: {
             readonly light: "#0063cb";
-            readonly dark: "#518fff";
+            readonly dark: "#0063cb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "info";
@@ -12694,7 +12694,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["success", "_425_625", "default"];
         readonly color: {
             readonly light: "#18753c";
-            readonly dark: "#27a658";
+            readonly dark: "#18753c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "success";
@@ -12722,7 +12722,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["warning", "_425_625", "default"];
         readonly color: {
             readonly light: "#b34000";
-            readonly dark: "#fc5d00";
+            readonly dark: "#b34000";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "warning";
@@ -12750,7 +12750,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["error", "_425_625", "default"];
         readonly color: {
             readonly light: "#ce0500";
-            readonly dark: "#ff5655";
+            readonly dark: "#ce0500";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "error";
@@ -12778,7 +12778,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "default"];
         readonly color: {
             readonly light: "#66673d";
-            readonly dark: "#d8c634";
+            readonly dark: "#66673d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -12808,7 +12808,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "default"];
         readonly color: {
             readonly light: "#447049";
-            readonly dark: "#99c221";
+            readonly dark: "#447049";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -12838,7 +12838,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "default"];
         readonly color: {
             readonly light: "#297254";
-            readonly dark: "#34cb6a";
+            readonly dark: "#297254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -12868,7 +12868,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "default"];
         readonly color: {
             readonly light: "#37635f";
-            readonly dark: "#21ab8e";
+            readonly dark: "#37635f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -12898,7 +12898,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "default"];
         readonly color: {
             readonly light: "#006a6f";
-            readonly dark: "#34bab5";
+            readonly dark: "#006a6f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -12928,7 +12928,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "default"];
         readonly color: {
             readonly light: "#2f4077";
-            readonly dark: "#869ece";
+            readonly dark: "#2f4077";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -12958,7 +12958,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "default"];
         readonly color: {
             readonly light: "#3558a2";
-            readonly dark: "#7ab1e8";
+            readonly dark: "#3558a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -12988,7 +12988,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "default"];
         readonly color: {
             readonly light: "#6e445a";
-            readonly dark: "#ce70cc";
+            readonly dark: "#6e445a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -13018,7 +13018,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "default"];
         readonly color: {
             readonly light: "#8d533e";
-            readonly dark: "#ffb7ae";
+            readonly dark: "#8d533e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -13048,7 +13048,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "default"];
         readonly color: {
             readonly light: "#a94645";
-            readonly dark: "#ff9575";
+            readonly dark: "#a94645";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -13078,7 +13078,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "default"];
         readonly color: {
             readonly light: "#716043";
-            readonly dark: "#ffe552";
+            readonly dark: "#716043";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -13108,7 +13108,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "default"];
         readonly color: {
             readonly light: "#695240";
-            readonly dark: "#ffca00";
+            readonly dark: "#695240";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -13138,7 +13138,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "default"];
         readonly color: {
             readonly light: "#755348";
-            readonly dark: "#ff732c";
+            readonly dark: "#755348";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -13168,7 +13168,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "default"];
         readonly color: {
             readonly light: "#685c48";
-            readonly dark: "#ecd7a2";
+            readonly dark: "#685c48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -13198,7 +13198,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "default"];
         readonly color: {
             readonly light: "#845d48";
-            readonly dark: "#fbd8ab";
+            readonly dark: "#845d48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -13228,7 +13228,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "default"];
         readonly color: {
             readonly light: "#745b47";
-            readonly dark: "#e6be92";
+            readonly dark: "#745b47";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -13258,7 +13258,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "default"];
         readonly color: {
             readonly light: "#6a6156";
-            readonly dark: "#d0c3b7";
+            readonly dark: "#6a6156";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -13288,7 +13288,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_925_125", "default"];
         readonly color: {
             readonly light: "#e5e5e5";
-            readonly dark: "#2a2a2a";
+            readonly dark: "#e5e5e5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -13316,7 +13316,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "default"];
         readonly color: {
             readonly light: "#000091";
-            readonly dark: "#8585f6";
+            readonly dark: "#000091";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -13346,7 +13346,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "hover"];
         readonly color: {
             readonly light: "#1212ff";
-            readonly dark: "#b1b1f9";
+            readonly dark: "#1212ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -13377,7 +13377,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "sun113_625", "active"];
         readonly color: {
             readonly light: "#2323ff";
-            readonly dark: "#c6c6fb";
+            readonly dark: "#2323ff";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -13407,7 +13407,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "default"];
         readonly color: {
             readonly light: "#c9191e";
-            readonly dark: "#f95c5e";
+            readonly dark: "#c9191e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -13436,7 +13436,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "hover"];
         readonly color: {
             readonly light: "#f93f42";
-            readonly dark: "#fa9293";
+            readonly dark: "#f93f42";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -13466,7 +13466,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_425_625", "active"];
         readonly color: {
             readonly light: "#f95a5c";
-            readonly dark: "#fbabac";
+            readonly dark: "#f95a5c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -13495,7 +13495,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "default"];
         readonly color: {
             readonly light: "#66673d";
-            readonly dark: "#d8c634";
+            readonly dark: "#66673d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -13526,7 +13526,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "hover"];
         readonly color: {
             readonly light: "#929359";
-            readonly dark: "#fee943";
+            readonly dark: "#929359";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -13558,7 +13558,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "sun418moon817", "active"];
         readonly color: {
             readonly light: "#a7a967";
-            readonly dark: "#fef1ab";
+            readonly dark: "#a7a967";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -13589,7 +13589,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "default"];
         readonly color: {
             readonly light: "#447049";
-            readonly dark: "#99c221";
+            readonly dark: "#447049";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -13620,7 +13620,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "hover"];
         readonly color: {
             readonly light: "#639f6a";
-            readonly dark: "#baec2a";
+            readonly dark: "#639f6a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -13652,7 +13652,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "sun425moon759", "active"];
         readonly color: {
             readonly light: "#72b77a";
-            readonly dark: "#c9fd2e";
+            readonly dark: "#72b77a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -13683,7 +13683,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "default"];
         readonly color: {
             readonly light: "#297254";
-            readonly dark: "#34cb6a";
+            readonly dark: "#297254";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -13714,7 +13714,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "hover"];
         readonly color: {
             readonly light: "#3ea47a";
-            readonly dark: "#42fb84";
+            readonly dark: "#3ea47a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -13746,7 +13746,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "sun425moon753", "active"];
         readonly color: {
             readonly light: "#49bc8d";
-            readonly dark: "#80fda3";
+            readonly dark: "#49bc8d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -13777,7 +13777,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "default"];
         readonly color: {
             readonly light: "#37635f";
-            readonly dark: "#21ab8e";
+            readonly dark: "#37635f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -13808,7 +13808,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "hover"];
         readonly color: {
             readonly light: "#53918c";
-            readonly dark: "#2eddb8";
+            readonly dark: "#53918c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -13840,7 +13840,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "sun373moon652", "active"];
         readonly color: {
             readonly light: "#62a9a2";
-            readonly dark: "#34f4cc";
+            readonly dark: "#62a9a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -13871,7 +13871,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "default"];
         readonly color: {
             readonly light: "#006a6f";
-            readonly dark: "#34bab5";
+            readonly dark: "#006a6f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -13902,7 +13902,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "hover"];
         readonly color: {
             readonly light: "#009fa7";
-            readonly dark: "#43e9e2";
+            readonly dark: "#009fa7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -13934,7 +13934,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "sun391moon716", "active"];
         readonly color: {
             readonly light: "#00bbc3";
-            readonly dark: "#4cfdf6";
+            readonly dark: "#00bbc3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -13965,7 +13965,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "default"];
         readonly color: {
             readonly light: "#2f4077";
-            readonly dark: "#869ece";
+            readonly dark: "#2f4077";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -13996,7 +13996,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "hover"];
         readonly color: {
             readonly light: "#4e68bb";
-            readonly dark: "#b8c5e2";
+            readonly dark: "#4e68bb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -14028,7 +14028,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "sun247moon675", "active"];
         readonly color: {
             readonly light: "#667dcf";
-            readonly dark: "#ced6ea";
+            readonly dark: "#667dcf";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -14059,7 +14059,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "default"];
         readonly color: {
             readonly light: "#3558a2";
-            readonly dark: "#7ab1e8";
+            readonly dark: "#3558a2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -14090,7 +14090,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "hover"];
         readonly color: {
             readonly light: "#5982e0";
-            readonly dark: "#bad2f2";
+            readonly dark: "#5982e0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -14122,7 +14122,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "sun368moon732", "active"];
         readonly color: {
             readonly light: "#7996e6";
-            readonly dark: "#d2e2f6";
+            readonly dark: "#7996e6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -14153,7 +14153,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "default"];
         readonly color: {
             readonly light: "#6e445a";
-            readonly dark: "#ce70cc";
+            readonly dark: "#6e445a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -14184,7 +14184,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "hover"];
         readonly color: {
             readonly light: "#a66989";
-            readonly dark: "#dfa4dd";
+            readonly dark: "#a66989";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -14216,7 +14216,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "sun319moon630", "active"];
         readonly color: {
             readonly light: "#bb7f9e";
-            readonly dark: "#e7bbe6";
+            readonly dark: "#bb7f9e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -14247,7 +14247,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "default"];
         readonly color: {
             readonly light: "#8d533e";
-            readonly dark: "#ffb7ae";
+            readonly dark: "#8d533e";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -14278,7 +14278,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "hover"];
         readonly color: {
             readonly light: "#ca795c";
-            readonly dark: "#ffe0dc";
+            readonly dark: "#ca795c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -14310,7 +14310,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "sun406moon833", "active"];
         readonly color: {
             readonly light: "#e08e73";
-            readonly dark: "#fff0ee";
+            readonly dark: "#e08e73";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -14341,7 +14341,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "default"];
         readonly color: {
             readonly light: "#a94645";
-            readonly dark: "#ff9575";
+            readonly dark: "#a94645";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -14372,7 +14372,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "hover"];
         readonly color: {
             readonly light: "#d5706f";
-            readonly dark: "#ffc4b7";
+            readonly dark: "#d5706f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -14404,7 +14404,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "sun425moon750", "active"];
         readonly color: {
             readonly light: "#da8a89";
-            readonly dark: "#ffd8d0";
+            readonly dark: "#da8a89";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -14435,7 +14435,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "default"];
         readonly color: {
             readonly light: "#716043";
-            readonly dark: "#ffe552";
+            readonly dark: "#716043";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -14466,7 +14466,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "hover"];
         readonly color: {
             readonly light: "#a28a62";
-            readonly dark: "#e1c700";
+            readonly dark: "#a28a62";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -14498,7 +14498,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "sun407moon922", "active"];
         readonly color: {
             readonly light: "#ba9f72";
-            readonly dark: "#cab300";
+            readonly dark: "#ba9f72";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -14529,7 +14529,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "default"];
         readonly color: {
             readonly light: "#695240";
-            readonly dark: "#ffca00";
+            readonly dark: "#695240";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -14560,7 +14560,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "hover"];
         readonly color: {
             readonly light: "#9b7b61";
-            readonly dark: "#cda200";
+            readonly dark: "#9b7b61";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -14592,7 +14592,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "sun348moon860", "active"];
         readonly color: {
             readonly light: "#b58f72";
-            readonly dark: "#b28c00";
+            readonly dark: "#b58f72";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -14623,7 +14623,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "default"];
         readonly color: {
             readonly light: "#755348";
-            readonly dark: "#ff732c";
+            readonly dark: "#755348";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -14654,7 +14654,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "hover"];
         readonly color: {
             readonly light: "#ab7b6b";
-            readonly dark: "#ffa48b";
+            readonly dark: "#ab7b6b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -14686,7 +14686,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "sun370moon672", "active"];
         readonly color: {
             readonly light: "#c68f7d";
-            readonly dark: "#ffbbab";
+            readonly dark: "#c68f7d";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -14717,7 +14717,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "default"];
         readonly color: {
             readonly light: "#685c48";
-            readonly dark: "#ecd7a2";
+            readonly dark: "#685c48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -14748,7 +14748,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "hover"];
         readonly color: {
             readonly light: "#97866a";
-            readonly dark: "#c5b386";
+            readonly dark: "#97866a";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -14780,7 +14780,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "sun383moon885", "active"];
         readonly color: {
             readonly light: "#ae9b7b";
-            readonly dark: "#af9f77";
+            readonly dark: "#ae9b7b";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -14811,7 +14811,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "default"];
         readonly color: {
             readonly light: "#845d48";
-            readonly dark: "#fbd8ab";
+            readonly dark: "#845d48";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -14842,7 +14842,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "hover"];
         readonly color: {
             readonly light: "#bb8568";
-            readonly dark: "#efb547";
+            readonly dark: "#bb8568";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -14874,7 +14874,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "sun425moon901", "active"];
         readonly color: {
             readonly light: "#d69978";
-            readonly dark: "#d6a23e";
+            readonly dark: "#d69978";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -14905,7 +14905,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "default"];
         readonly color: {
             readonly light: "#745b47";
-            readonly dark: "#e6be92";
+            readonly dark: "#745b47";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -14936,7 +14936,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "hover"];
         readonly color: {
             readonly light: "#a78468";
-            readonly dark: "#f2e2d3";
+            readonly dark: "#a78468";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -14968,7 +14968,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "sun395moon820", "active"];
         readonly color: {
             readonly light: "#c09979";
-            readonly dark: "#f8f0e9";
+            readonly dark: "#c09979";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -14999,7 +14999,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "default"];
         readonly color: {
             readonly light: "#6a6156";
-            readonly dark: "#d0c3b7";
+            readonly dark: "#6a6156";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -15030,7 +15030,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "hover"];
         readonly color: {
             readonly light: "#988b7c";
-            readonly dark: "#eae5e1";
+            readonly dark: "#988b7c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -15062,7 +15062,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "sun407moon821", "active"];
         readonly color: {
             readonly light: "#afa08f";
-            readonly dark: "#f4f2f0";
+            readonly dark: "#afa08f";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -15492,7 +15492,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_950_100", "default"];
         readonly color: {
             readonly light: "#eeeeee";
-            readonly dark: "#242424";
+            readonly dark: "#eeeeee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -15520,7 +15520,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_950_100", "default"];
         readonly color: {
             readonly light: "#ececfe";
-            readonly dark: "#21213f";
+            readonly dark: "#ececfe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -15548,7 +15548,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e9";
-            readonly dark: "#331f1f";
+            readonly dark: "#fee9e9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -15576,7 +15576,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_950_100", "default"];
         readonly color: {
             readonly light: "#fceeac";
-            readonly dark: "#272419";
+            readonly dark: "#fceeac";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -15604,7 +15604,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_950_100", "default"];
         readonly color: {
             readonly light: "#c9fcac";
-            readonly dark: "#1e2719";
+            readonly dark: "#c9fcac";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -15632,7 +15632,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_950_100", "default"];
         readonly color: {
             readonly light: "#c3fad5";
-            readonly dark: "#19271e";
+            readonly dark: "#c3fad5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -15660,7 +15660,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_950_100", "default"];
         readonly color: {
             readonly light: "#bafaee";
-            readonly dark: "#1a2624";
+            readonly dark: "#bafaee";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -15688,7 +15688,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_950_100", "default"];
         readonly color: {
             readonly light: "#c7f6fc";
-            readonly dark: "#1a2628";
+            readonly dark: "#c7f6fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -15716,7 +15716,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_950_100", "default"];
         readonly color: {
             readonly light: "#e9edfe";
-            readonly dark: "#1d2437";
+            readonly dark: "#e9edfe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -15744,7 +15744,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_950_100", "default"];
         readonly color: {
             readonly light: "#e6eefe";
-            readonly dark: "#1c2433";
+            readonly dark: "#e6eefe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -15772,7 +15772,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee7fc";
-            readonly dark: "#2c202b";
+            readonly dark: "#fee7fc";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -15800,7 +15800,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e6";
-            readonly dark: "#2e211f";
+            readonly dark: "#fee9e6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -15828,7 +15828,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e7";
-            readonly dark: "#2f211f";
+            readonly dark: "#fee9e7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -15856,7 +15856,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_950_100", "default"];
         readonly color: {
             readonly light: "#feecc2";
-            readonly dark: "#292416";
+            readonly dark: "#feecc2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -15884,7 +15884,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_950_100", "default"];
         readonly color: {
             readonly light: "#feebd0";
-            readonly dark: "#2a2319";
+            readonly dark: "#feebd0";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -15912,7 +15912,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_950_100", "default"];
         readonly color: {
             readonly light: "#fee9e5";
-            readonly dark: "#31201c";
+            readonly dark: "#fee9e5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -15940,7 +15940,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ecdb";
-            readonly dark: "#28241c";
+            readonly dark: "#f7ecdb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -15968,7 +15968,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ebe5";
-            readonly dark: "#2c221c";
+            readonly dark: "#f7ebe5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -15996,7 +15996,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_950_100", "default"];
         readonly color: {
             readonly light: "#f7ece4";
-            readonly dark: "#2b221c";
+            readonly dark: "#f7ece4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -16024,7 +16024,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_950_100", "default"];
         readonly color: {
             readonly light: "#f3ede5";
-            readonly dark: "#28231f";
+            readonly dark: "#f3ede5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -16052,7 +16052,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_975_75", "default"];
         readonly color: {
             readonly light: "#f6f6f6";
-            readonly dark: "#1e1e1e";
+            readonly dark: "#f6f6f6";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -16080,7 +16080,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_975_75", "default"];
         readonly color: {
             readonly light: "#f5f5fe";
-            readonly dark: "#1b1b35";
+            readonly dark: "#f5f5fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -16108,7 +16108,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f4";
-            readonly dark: "#2b1919";
+            readonly dark: "#fef4f4";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -16136,7 +16136,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef7da";
-            readonly dark: "#201e14";
+            readonly dark: "#fef7da";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -16164,7 +16164,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_975_75", "default"];
         readonly color: {
             readonly light: "#e6feda";
-            readonly dark: "#182014";
+            readonly dark: "#e6feda";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -16192,7 +16192,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_975_75", "default"];
         readonly color: {
             readonly light: "#e3fdeb";
-            readonly dark: "#142018";
+            readonly dark: "#e3fdeb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -16220,7 +16220,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_975_75", "default"];
         readonly color: {
             readonly light: "#dffdf7";
-            readonly dark: "#15201e";
+            readonly dark: "#dffdf7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -16248,7 +16248,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_975_75", "default"];
         readonly color: {
             readonly light: "#e5fbfd";
-            readonly dark: "#152021";
+            readonly dark: "#e5fbfd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -16276,7 +16276,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_975_75", "default"];
         readonly color: {
             readonly light: "#f4f6fe";
-            readonly dark: "#171d2f";
+            readonly dark: "#f4f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -16304,7 +16304,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_975_75", "default"];
         readonly color: {
             readonly light: "#f3f6fe";
-            readonly dark: "#171e2b";
+            readonly dark: "#f3f6fe";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -16332,7 +16332,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef3fd";
-            readonly dark: "#251a24";
+            readonly dark: "#fef3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -16360,7 +16360,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#261b19";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -16388,7 +16388,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f3";
-            readonly dark: "#281b19";
+            readonly dark: "#fef4f3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -16416,7 +16416,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef6e3";
-            readonly dark: "#221d11";
+            readonly dark: "#fef6e3";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -16444,7 +16444,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef5e8";
-            readonly dark: "#231d14";
+            readonly dark: "#fef5e8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -16472,7 +16472,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_975_75", "default"];
         readonly color: {
             readonly light: "#fef4f2";
-            readonly dark: "#281a16";
+            readonly dark: "#fef4f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -16500,7 +16500,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf6ed";
-            readonly dark: "#211d16";
+            readonly dark: "#fbf6ed";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -16528,7 +16528,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#251c16";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -16556,7 +16556,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_975_75", "default"];
         readonly color: {
             readonly light: "#fbf5f2";
-            readonly dark: "#241c17";
+            readonly dark: "#fbf5f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -16584,7 +16584,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_975_75", "default"];
         readonly color: {
             readonly light: "#f9f6f2";
-            readonly dark: "#211d19";
+            readonly dark: "#f9f6f2";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";
@@ -16612,7 +16612,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["grey", "_925_125", "default"];
         readonly color: {
             readonly light: "#e5e5e5";
-            readonly dark: "#2a2a2a";
+            readonly dark: "#e5e5e5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "grey";
@@ -16640,7 +16640,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueFrance", "_925_125", "default"];
         readonly color: {
             readonly light: "#e3e3fd";
-            readonly dark: "#272747";
+            readonly dark: "#e3e3fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueFrance";
@@ -16668,7 +16668,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["redMarianne", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddede";
-            readonly dark: "#3b2424";
+            readonly dark: "#fddede";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "redMarianne";
@@ -16696,7 +16696,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenTilleulVerveine", "_925_125", "default"];
         readonly color: {
             readonly light: "#fbe769";
-            readonly dark: "#2d2a1d";
+            readonly dark: "#fbe769";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenTilleulVerveine";
@@ -16724,7 +16724,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenBourgeon", "_925_125", "default"];
         readonly color: {
             readonly light: "#a9fb68";
-            readonly dark: "#232d1d";
+            readonly dark: "#a9fb68";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenBourgeon";
@@ -16752,7 +16752,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenEmeraude", "_925_125", "default"];
         readonly color: {
             readonly light: "#9ef9be";
-            readonly dark: "#1e2e23";
+            readonly dark: "#9ef9be";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenEmeraude";
@@ -16780,7 +16780,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenMenthe", "_925_125", "default"];
         readonly color: {
             readonly light: "#8bf8e7";
-            readonly dark: "#1f2d2a";
+            readonly dark: "#8bf8e7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenMenthe";
@@ -16808,7 +16808,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["greenArchipel", "_925_125", "default"];
         readonly color: {
             readonly light: "#a6f2fa";
-            readonly dark: "#1f2c2e";
+            readonly dark: "#a6f2fa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "greenArchipel";
@@ -16836,7 +16836,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueEcume", "_925_125", "default"];
         readonly color: {
             readonly light: "#dee5fd";
-            readonly dark: "#222940";
+            readonly dark: "#dee5fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueEcume";
@@ -16864,7 +16864,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["blueCumulus", "_925_125", "default"];
         readonly color: {
             readonly light: "#dae6fd";
-            readonly dark: "#212a3a";
+            readonly dark: "#dae6fd";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "blueCumulus";
@@ -16892,7 +16892,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["purpleGlycine", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddbfa";
-            readonly dark: "#332632";
+            readonly dark: "#fddbfa";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "purpleGlycine";
@@ -16920,7 +16920,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkMacaron", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfda";
-            readonly dark: "#352724";
+            readonly dark: "#fddfda";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkMacaron";
@@ -16948,7 +16948,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["pinkTuile", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfdb";
-            readonly dark: "#372624";
+            readonly dark: "#fddfdb";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "pinkTuile";
@@ -16976,7 +16976,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowTournesol", "_925_125", "default"];
         readonly color: {
             readonly light: "#fde39c";
-            readonly dark: "#302a1a";
+            readonly dark: "#fde39c";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowTournesol";
@@ -17004,7 +17004,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["yellowMoutarde", "_925_125", "default"];
         readonly color: {
             readonly light: "#fde2b5";
-            readonly dark: "#30291d";
+            readonly dark: "#fde2b5";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "yellowMoutarde";
@@ -17032,7 +17032,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["orangeTerreBattue", "_925_125", "default"];
         readonly color: {
             readonly light: "#fddfd8";
-            readonly dark: "#382621";
+            readonly dark: "#fddfd8";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "orangeTerreBattue";
@@ -17060,7 +17060,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCafeCreme", "_925_125", "default"];
         readonly color: {
             readonly light: "#f4e3c7";
-            readonly dark: "#2e2a21";
+            readonly dark: "#f4e3c7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCafeCreme";
@@ -17088,7 +17088,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownCaramel", "_925_125", "default"];
         readonly color: {
             readonly light: "#f3e2d9";
-            readonly dark: "#332821";
+            readonly dark: "#f3e2d9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownCaramel";
@@ -17116,7 +17116,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["brownOpera", "_925_125", "default"];
         readonly color: {
             readonly light: "#f3e2d7";
-            readonly dark: "#322821";
+            readonly dark: "#f3e2d7";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "brownOpera";
@@ -17144,7 +17144,7 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         readonly themePath: readonly ["beigeGrisGalet", "_925_125", "default"];
         readonly color: {
             readonly light: "#eee4d9";
-            readonly dark: "#2e2924";
+            readonly dark: "#eee4d9";
         };
         readonly parsedColorOptionName: {
             readonly colorName: "beigeGrisGalet";

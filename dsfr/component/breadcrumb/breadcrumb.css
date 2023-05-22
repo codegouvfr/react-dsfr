@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -112,14 +112,11 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   --underline-hover-width: var(--underline-max-width);
 }
 
-.fr-breadcrumb__link[aria-current]:not(button):not([href]) {
+.fr-breadcrumb__link[aria-current] {
   pointer-events: none;
   cursor: default;
 
   --underline-img: none;
-}
-
-.fr-breadcrumb__link[aria-current] {
   color: var(--text-active-grey);
 }
 @media (min-width: 36em) {

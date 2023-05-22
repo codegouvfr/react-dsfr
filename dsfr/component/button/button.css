@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -589,17 +589,17 @@
   content: none;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 2.5rem;
   padding: 0.5rem 1rem;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"] {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"] {
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 2.5rem;
@@ -613,19 +613,19 @@
   justify-content: flex-start;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-icon-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-icon-"]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before {
   --icon-size: 1.5rem;
   margin-left: 0;
   margin-right: 0.5rem;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class^=fr-icon-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class*=" fr-icon-"],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class^=fr-fi-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class*=" fr-fi-"] {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class^=fr-icon-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class*=" fr-icon-"],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class^=fr-fi-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class*=" fr-fi-"] {
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 2.5rem;
@@ -635,19 +635,19 @@
   max-height: none;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class^=fr-icon-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class*=" fr-icon-"]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class^=fr-fi-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-left .fr-btn[class*=" fr-fi-"]::before {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class^=fr-icon-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class*=" fr-icon-"]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class^=fr-fi-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-left .fr-btn[class*=" fr-fi-"]::before {
   --icon-size: 1rem;
   margin-left: -0.125rem;
   margin-right: 0.5rem;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-icon-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-fi-],
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"] {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-icon-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-fi-],
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"] {
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 2.5rem;
@@ -657,10 +657,10 @@
   max-height: none;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-icon-]::after,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"]::after,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-fi-]::after,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"]::after {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-icon-]::after,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"]::after,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-fi-]::after,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"]::after {
   content: "";
 
   --icon-size: 1rem;
@@ -668,10 +668,10 @@
   margin-left: 0.5rem;
 }
 
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-icon-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class^=fr-fi-]::before,
-.fr-btns-group:where(:not(.fr-btns-group--sm):not(.fr-btns-group--lg)).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"]::before {
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-icon-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-icon-"]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class^=fr-fi-]::before,
+.fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg).fr-btns-group--icon-right .fr-btn[class*=" fr-fi-"]::before {
   content: none;
 }
 

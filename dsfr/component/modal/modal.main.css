@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -111,11 +111,11 @@
   position: sticky;
   bottom: 0;
   transition: box-shadow 0.3s;
-  background-color: var(--background-default-grey);
+  background-color: var(--background-lifted-grey);
 
   --idle: transparent;
-  --hover: var(--background-default-grey-hover);
-  --active: var(--background-default-grey-active);
+  --hover: var(--background-lifted-grey-hover);
+  --active: var(--background-lifted-grey-active);
 }
 
 .fr-modal__footer .fr-btns-group {
@@ -138,8 +138,11 @@
   margin-right: 0.5rem;
 }
 
-.fr-modal__body.fr-scroll-shadow .fr-modal__footer {
-  box-shadow: inset 0 -2rem 1.5rem -2rem #161616;
+.fr-modal__body.fr-scroll-divider .fr-modal__footer {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
 @media (min-width: 36em) {
   /*! media sm */

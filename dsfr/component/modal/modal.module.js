@@ -1,17 +1,17 @@
-/*! DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.1'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
 
 const ModalSelector = {
   MODAL: api.internals.ns.selector('modal'),
-  SCROLL_SHADOW: api.internals.ns.selector('scroll-shadow'),
+  SCROLL_DIVIDER: api.internals.ns.selector('scroll-divider'),
   BODY: api.internals.ns.selector('modal__body')
 };
 
@@ -318,7 +318,7 @@ class ModalBody extends api.core.Instance {
   }
 
   init () {
-    this.listen('scroll', this.shade.bind(this));
+    this.listen('scroll', this.divide.bind(this));
   }
 
   activate () {
@@ -330,15 +330,15 @@ class ModalBody extends api.core.Instance {
     this.isResizing = false;
   }
 
-  shade () {
+  divide () {
     if (this.node.scrollHeight > this.node.clientHeight) {
       if (this.node.offsetHeight + this.node.scrollTop >= this.node.scrollHeight) {
-        this.removeClass(ModalSelector.SCROLL_SHADOW);
+        this.removeClass(ModalSelector.SCROLL_DIVIDER);
       } else {
-        this.addClass(ModalSelector.SCROLL_SHADOW);
+        this.addClass(ModalSelector.SCROLL_DIVIDER);
       }
     } else {
-      this.removeClass(ModalSelector.SCROLL_SHADOW);
+      this.removeClass(ModalSelector.SCROLL_DIVIDER);
     }
   }
 
@@ -351,7 +351,7 @@ class ModalBody extends api.core.Instance {
     const offset = OFFSET * (this.isBreakpoint(api.core.Breakpoints.MD) ? 2 : 1);
     if (this.isLegacy) this.style.maxHeight = `${window.innerHeight - offset}px`;
     else this.style.setProperty('--modal-max-height', `${window.innerHeight - offset}px`);
-    this.shade();
+    this.divide();
   }
 }
 

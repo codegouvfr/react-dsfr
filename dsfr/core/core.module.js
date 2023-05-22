@@ -1,4 +1,4 @@
-/*! DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.1'
+  version: '1.9.3'
 };
 
 class LogLevel {
@@ -652,7 +652,10 @@ class Element {
   }
 
   dispose () {
-    for (const instance of this.instances) instance._dispose();
+    for (let i = this.instances.length - 1; i >= 0; i--) {
+      const instance = this.instances[i];
+      if (instance) instance._dispose();
+    }
     this.instances.length = 0;
     state.remove('stage', this);
     this.parent.removeChild(this);
@@ -1344,24 +1347,31 @@ class Instance {
 
   listen (type, closure, options) {
     if (!this._listeners[type]) this._listeners[type] = [];
-    if (this._listeners[type].indexOf(closure) > -1) return;
-    this._listeners[type].push(closure);
-    this.node.addEventListener(type, closure, options);
+    const listeners = this._listeners[type];
+    // if (listeners.some(listener => listener.closure === closure)) return;
+    const listener = new Listener(this.node, type, closure, options);
+    listeners.push(listener);
+    listener.listen();
   }
 
-  unlisten (type, closure) {
+  unlisten (type, closure, options) {
     if (!type) {
       for (const type in this._listeners) this.unlisten(type);
-    } else if (!closure) {
-      if (!this._listeners[type]) return;
-      for (const closure of this._listeners[type]) this.node.removeEventListener(type, closure);
-      this._listeners[type].length = 0;
-    } else {
-      if (!this._listeners[type]) return;
-      const index = this._listeners[type].indexOf(closure);
-      if (index > -1) this._listeners[type].splice(index, 1);
-      this.node.removeEventListener(type, closure);
+      return;
     }
+
+    const listeners = this._listeners[type];
+
+    if (!listeners) return;
+
+    if (!closure) {
+      listeners.forEach(listener => this.unlisten(type, listener.closure));
+      return;
+    }
+
+    const removal = listeners.filter(listener => listener.closure === closure && listener.matchOptions(options));
+    removal.forEach(listener => listener.unlisten());
+    this._listeners[type] = listeners.filter(listener => removal.indexOf(listener) === -1);
   }
 
   listenKey (code, closure, preventDefault = false, stopPropagation = false, type = 'down') {
@@ -1673,6 +1683,43 @@ class KeyAction {
         e.stopPropagation();
       }
     }
+  }
+}
+
+class Listener {
+  constructor (node, type, closure, options) {
+    this._node = node;
+    this._type = type;
+    this._closure = closure;
+    this._options = options;
+  }
+
+  get closure () {
+    return this._closure;
+  }
+
+  listen () {
+    this._node.addEventListener(this._type, this._closure, this._options);
+  }
+
+  matchOptions (options = null) {
+    switch (true) {
+      case options === null:
+      case typeof this._options === 'boolean' && typeof options === 'boolean' && this._options === options:
+        return true;
+
+      case Object.keys(this._options).length !== Object.keys(options).length:
+        return false;
+
+      case Object.keys(options).every(key => this._options[key] === options[key]):
+        return true;
+    }
+
+    return false;
+  }
+
+  unlisten () {
+    this._node.removeEventListener(this._type, this._closure, this._options);
   }
 }
 

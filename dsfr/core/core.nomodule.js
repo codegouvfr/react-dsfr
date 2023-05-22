@@ -1,4 +1,4 @@
-/*! DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     this.modules = {};
   };
 
-  var prototypeAccessors$7 = { isActive: { configurable: true },isLegacy: { configurable: true } };
+  var prototypeAccessors$8 = { isActive: { configurable: true },isLegacy: { configurable: true } };
 
   State.prototype.create = function create (ModuleClass) {
     var module = new ModuleClass();
@@ -26,11 +26,11 @@
     this.modules[type].remove(item);
   };
 
-  prototypeAccessors$7.isActive.get = function () {
+  prototypeAccessors$8.isActive.get = function () {
     return this._isActive;
   };
 
-  prototypeAccessors$7.isActive.set = function (value) {
+  prototypeAccessors$8.isActive.set = function (value) {
       var this$1$1 = this;
 
     if (value === this._isActive) { return; }
@@ -53,16 +53,16 @@
     }
   };
 
-  prototypeAccessors$7.isLegacy.get = function () {
+  prototypeAccessors$8.isLegacy.get = function () {
     return this._isLegacy;
   };
 
-  prototypeAccessors$7.isLegacy.set = function (value) {
+  prototypeAccessors$8.isLegacy.set = function (value) {
     if (value === this._isLegacy) { return; }
     this._isLegacy = value;
   };
 
-  Object.defineProperties( State.prototype, prototypeAccessors$7 );
+  Object.defineProperties( State.prototype, prototypeAccessors$8 );
 
   var state = new State();
 
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.1'
+    version: '1.9.3'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -92,7 +92,7 @@
     }
   };
 
-  var prototypeAccessors$6 = { color: { configurable: true } };
+  var prototypeAccessors$7 = { color: { configurable: true } };
 
   LogLevel.prototype.log = function log () {
       var values = [], len = arguments.length;
@@ -112,11 +112,11 @@
     this.logger.apply(console, message.getMessage());
   };
 
-  prototypeAccessors$6.color.get = function () {
+  prototypeAccessors$7.color.get = function () {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? this.dark : this.light;
   };
 
-  Object.defineProperties( LogLevel.prototype, prototypeAccessors$6 );
+  Object.defineProperties( LogLevel.prototype, prototypeAccessors$7 );
 
   var Message = function Message (domain) {
     this.inputs = ['%c'];
@@ -236,7 +236,7 @@
     this.preventManipulation = false;
   };
 
-  var prototypeAccessors$5 = { mode: { configurable: true } };
+  var prototypeAccessors$6 = { mode: { configurable: true } };
 
   Options.prototype.configure = function configure (settings, start, query) {
       if ( settings === void 0 ) settings = {};
@@ -264,7 +264,7 @@
     this.mode = settings.mode || Modes.AUTO;
   };
 
-  prototypeAccessors$5.mode.set = function (value) {
+  prototypeAccessors$6.mode.set = function (value) {
     switch (value) {
       case Modes.AUTO:
         this.preventManipulation = false;
@@ -306,7 +306,7 @@
     inspector.info(("mode set to " + value));
   };
 
-  prototypeAccessors$5.mode.get = function () {
+  prototypeAccessors$6.mode.get = function () {
     return this._mode;
   };
 
@@ -315,7 +315,7 @@
     this.startCallback();
   };
 
-  Object.defineProperties( Options.prototype, prototypeAccessors$5 );
+  Object.defineProperties( Options.prototype, prototypeAccessors$6 );
 
   var options = new Options();
 
@@ -323,7 +323,7 @@
     this._collection = [];
   };
 
-  var prototypeAccessors$4 = { length: { configurable: true },collection: { configurable: true } };
+  var prototypeAccessors$5 = { length: { configurable: true },collection: { configurable: true } };
 
   Collection.prototype.forEach = function forEach (callback) {
     this._collection.forEach(callback);
@@ -333,7 +333,7 @@
     return this._collection.map(callback);
   };
 
-  prototypeAccessors$4.length.get = function () {
+  prototypeAccessors$5.length.get = function () {
     return this._collection.length;
   };
 
@@ -374,11 +374,11 @@
     return clone;
   };
 
-  prototypeAccessors$4.collection.get = function () {
+  prototypeAccessors$5.collection.get = function () {
     return this._collection;
   };
 
-  Object.defineProperties( Collection.prototype, prototypeAccessors$4 );
+  Object.defineProperties( Collection.prototype, prototypeAccessors$5 );
 
   var Module = /*@__PURE__*/(function (Collection) {
     function Module (type) {
@@ -444,7 +444,7 @@
     this._attribute = ns.attr(("js-" + dashed));
   };
 
-  var prototypeAccessors$3 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
+  var prototypeAccessors$4 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
 
   Registration.prototype.getInstanceClassNames = function getInstanceClassNames (InstanceClass) {
     var prototype = Object.getPrototypeOf(InstanceClass);
@@ -487,23 +487,23 @@
     this.creator = null;
   };
 
-  prototypeAccessors$3.instanceClassName.get = function () {
+  prototypeAccessors$4.instanceClassName.get = function () {
     return this._instanceClassName;
   };
 
-  prototypeAccessors$3.instanceClassNames.get = function () {
+  prototypeAccessors$4.instanceClassNames.get = function () {
     return this._instanceClassNames;
   };
 
-  prototypeAccessors$3.property.get = function () {
+  prototypeAccessors$4.property.get = function () {
     return this._property;
   };
 
-  prototypeAccessors$3.attribute.get = function () {
+  prototypeAccessors$4.attribute.get = function () {
     return this._attribute;
   };
 
-  Object.defineProperties( Registration.prototype, prototypeAccessors$3 );
+  Object.defineProperties( Registration.prototype, prototypeAccessors$4 );
 
   var Register = /*@__PURE__*/(function (Module) {
     function Register () {
@@ -552,9 +552,9 @@
     this._projects = [];
   };
 
-  var prototypeAccessors$2 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
+  var prototypeAccessors$3 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
 
-  prototypeAccessors$2.proxy.get = function () {
+  prototypeAccessors$3.proxy.get = function () {
     var scope = this;
     if (!this._proxy) {
       this._proxy = {
@@ -576,7 +576,7 @@
     return this._proxy;
   };
 
-  prototypeAccessors$2.html.get = function () {
+  prototypeAccessors$3.html.get = function () {
     if (!this.node || !this.node.outerHTML) { return ''; }
     var end = this.node.outerHTML.indexOf('>');
     return this.node.outerHTML.substring(0, end + 1);
@@ -614,19 +614,19 @@
     if (this._proxy) { delete this._proxy[instance.registration.property]; }
   };
 
-  prototypeAccessors$2.parent.get = function () {
+  prototypeAccessors$3.parent.get = function () {
     return this._parent;
   };
 
-  prototypeAccessors$2.ascendants.get = function () {
+  prototypeAccessors$3.ascendants.get = function () {
     return [this.parent ].concat( this.parent.ascendants);
   };
 
-  prototypeAccessors$2.children.get = function () {
+  prototypeAccessors$3.children.get = function () {
     return this._children;
   };
 
-  prototypeAccessors$2.descendants.get = function () {
+  prototypeAccessors$3.descendants.get = function () {
     var descendants = [].concat( this._children );
     this._children.forEach(function (child) { return descendants.push.apply(descendants, child.descendants); });
     return descendants;
@@ -749,11 +749,10 @@
   };
 
   Element.prototype.dispose = function dispose () {
-    for (var i = 0, list = this.instances; i < list.length; i += 1) {
-        var instance = list[i];
-
-        instance._dispose();
-      }
+    for (var i = this.instances.length - 1; i >= 0; i--) {
+      var instance = this.instances[i];
+      if (instance) { instance._dispose(); }
+    }
     this.instances.length = 0;
     state.remove('stage', this);
     this.parent.removeChild(this);
@@ -771,7 +770,7 @@
     for (var i = this.instances.length - 1; i > -1; i--) { this.instances[i].examine(attributeNames); }
   };
 
-  Object.defineProperties( Element.prototype, prototypeAccessors$2 );
+  Object.defineProperties( Element.prototype, prototypeAccessors$3 );
 
   var Root = /*@__PURE__*/(function (Element) {
     function Root () {
@@ -1174,9 +1173,9 @@
     this.register = registerModule.register.bind(registerModule);
   };
 
-  var prototypeAccessors$1 = { isActive: { configurable: true } };
+  var prototypeAccessors$2 = { isActive: { configurable: true } };
 
-  prototypeAccessors$1.isActive.get = function () {
+  prototypeAccessors$2.isActive.get = function () {
     return state.isActive;
   };
 
@@ -1190,7 +1189,7 @@
     state.isActive = false;
   };
 
-  Object.defineProperties( Engine.prototype, prototypeAccessors$1 );
+  Object.defineProperties( Engine.prototype, prototypeAccessors$2 );
 
   var engine = new Engine();
 
@@ -1543,28 +1542,33 @@
 
   Instance.prototype.listen = function listen (type, closure, options) {
     if (!this._listeners[type]) { this._listeners[type] = []; }
-    if (this._listeners[type].indexOf(closure) > -1) { return; }
-    this._listeners[type].push(closure);
-    this.node.addEventListener(type, closure, options);
+    var listeners = this._listeners[type];
+    // if (listeners.some(listener => listener.closure === closure)) return;
+    var listener = new Listener(this.node, type, closure, options);
+    listeners.push(listener);
+    listener.listen();
   };
 
-  Instance.prototype.unlisten = function unlisten (type, closure) {
+  Instance.prototype.unlisten = function unlisten (type, closure, options) {
+      var this$1$1 = this;
+
     if (!type) {
       for (var type$1 in this._listeners) { this.unlisten(type$1); }
-    } else if (!closure) {
-      if (!this._listeners[type]) { return; }
-      for (var i = 0, list = this._listeners[type]; i < list.length; i += 1) {
-          var closure$1 = list[i];
-
-          this.node.removeEventListener(type, closure$1);
-        }
-      this._listeners[type].length = 0;
-    } else {
-      if (!this._listeners[type]) { return; }
-      var index = this._listeners[type].indexOf(closure);
-      if (index > -1) { this._listeners[type].splice(index, 1); }
-      this.node.removeEventListener(type, closure);
+      return;
     }
+
+    var listeners = this._listeners[type];
+
+    if (!listeners) { return; }
+
+    if (!closure) {
+      listeners.forEach(function (listener) { return this$1$1.unlisten(type, listener.closure); });
+      return;
+    }
+
+    var removal = listeners.filter(function (listener) { return listener.closure === closure && listener.matchOptions(options); });
+    removal.forEach(function (listener) { return listener.unlisten(); });
+    this._listeners[type] = listeners.filter(function (listener) { return removal.indexOf(listener) === -1; });
   };
 
   Instance.prototype.listenKey = function listenKey (code, closure, preventDefault, stopPropagation, type) {
@@ -1896,6 +1900,48 @@
       }
     }
   };
+
+  var Listener = function Listener (node, type, closure, options) {
+    this._node = node;
+    this._type = type;
+    this._closure = closure;
+    this._options = options;
+  };
+
+  var prototypeAccessors$1 = { closure: { configurable: true } };
+
+  prototypeAccessors$1.closure.get = function () {
+    return this._closure;
+  };
+
+  Listener.prototype.listen = function listen () {
+    this._node.addEventListener(this._type, this._closure, this._options);
+  };
+
+  Listener.prototype.matchOptions = function matchOptions (options) {
+      var this$1$1 = this;
+      if ( options === void 0 ) options = null;
+
+    switch (true) {
+      case options === null:
+      case typeof this._options === 'boolean' && typeof options === 'boolean' && this._options === options:
+        return true;
+
+      case Object.keys(this._options).length !== Object.keys(options).length:
+        return false;
+
+      case Object.keys(options).every(function (key) { return this$1$1._options[key] === options[key]; }):
+        return true;
+    }
+
+    return false;
+  };
+
+  Listener.prototype.unlisten = function unlisten () {
+    this._node.removeEventListener(this._type, this._closure, this._options);
+  };
+
+  Object.defineProperties( Listener.prototype, prototypeAccessors$1 );
 
   var KeyCodes = {
     TAB: 9,

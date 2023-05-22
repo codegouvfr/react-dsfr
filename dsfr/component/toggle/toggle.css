@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -199,7 +199,7 @@
   --active: var(--background-active-blue-france-active);
 }
 
-:root:where([data-fr-theme=dark]) .fr-toggle input[type=checkbox]:checked ~ .fr-toggle__label::after {
+:root[data-fr-theme=dark] .fr-toggle input[type=checkbox]:checked ~ .fr-toggle__label::after {
   --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%238585f6' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
 }
 
@@ -220,7 +220,7 @@
   background-image: var(--data-uri-svg);
 }
 
-:root:where([data-fr-theme=dark]) .fr-toggle input[type=checkbox]:disabled:checked ~ .fr-toggle__label::after {
+:root[data-fr-theme=dark] .fr-toggle input[type=checkbox]:disabled:checked ~ .fr-toggle__label::after {
   --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23666' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
 }
 

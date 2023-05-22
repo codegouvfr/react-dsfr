@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -138,10 +138,6 @@
   * On applique un style lorsque la valeur est automatiquement remplie par le navigateur
   * sur les navigateurs webkit.
   */
-}
-
-.fr-modal__body {
-  max-height: calc(100vh - 2rem);
 }
 
 .fr-input:disabled {
@@ -3474,6 +3470,10 @@
     background-color: #fff;
   }
 
+  .fr-modal__body.fr-scroll-divider .fr-modal__footer {
+    background-image: linear-gradient(0deg, #ddd, #ddd);
+  }
+
   /**
   * reset liste à puce
   */
@@ -3811,6 +3811,18 @@
 
   .fr-input::placeholder {
     color: #666;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button {
+    background-color: #161616;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:hover {
+    background-color: #343434;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:active {
+    background-color: #474747;
   }
 
   .fr-input:autofill,

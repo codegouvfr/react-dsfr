@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 .fr-input:disabled {
   color: var(--text-disabled-grey);
@@ -38,6 +38,18 @@
 
   .fr-input::placeholder {
     color: #666;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button {
+    background-color: #161616;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:hover {
+    background-color: #343434;
+  }
+
+  .fr-input::-webkit-contacts-auto-fill-button:active {
+    background-color: #474747;
   }
 
   .fr-input:autofill,
