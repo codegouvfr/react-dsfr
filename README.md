@@ -62,7 +62,7 @@ Also you must configure it so it uses `node_modules` (sorry)
 {% tabs %}
 {% tab title="Create React App" %}
 {% hint style="warning" %}
-The create-react-app project is no longer being maintained. If you are starting a new project favor&#x20;
+The create-react-app project is no longer being maintained. If you are starting a new project you'll probably be beter off with Vite.&#x20;
 {% endhint %}
 
 Add theses three scipts to your `package.json`:
