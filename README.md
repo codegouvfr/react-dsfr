@@ -114,11 +114,11 @@ root.render(
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/cra).
 {% endtab %}
 
-{% tab title="Next.js" %}
+{% tab title="Next.js Page Router" %}
 {% hint style="info" %}
-These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).
+This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing). &#x20;
 
-Now, if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](./#next.js-appdir).
+You are in this case if you have a `pages/` directory at the root of your project.
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
@@ -209,9 +209,11 @@ augmentDocumentForDsfr(Document);
 You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir)
 {% endtab %}
 
-{% tab title="Next.js AppDir" %}
+{% tab title="Next.js App Router" %}
 {% hint style="info" %}
-This is the documentation for [Next 13 app directory mode ](https://beta.nextjs.org/docs)which is still in beta. If you're looking for the path of least resistance follow [the instructions in the previous tab](./#next.js).
+This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing). &#x20;
+
+You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-appdir-demo" %}
@@ -365,10 +367,6 @@ You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tr
 Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react)!
 {% endtab %}
 {% endtabs %}
-
-
-
-
 
 ### Avoiding or flash of unstyled text (FOUT)
 
