@@ -61,6 +61,10 @@ Also you must configure it so it uses `node_modules` (sorry)
 
 {% tabs %}
 {% tab title="Create React App" %}
+{% hint style="warning" %}
+The create-react-app project is no longer being maintained. If you are starting a new project favor&#x20;
+{% endhint %}
+
 Add theses three scipts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
