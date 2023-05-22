@@ -60,7 +60,7 @@
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
     "dependencies": {
-        "tsafe": "^1.6.0"
+        "tsafe": "^1.6.3"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
