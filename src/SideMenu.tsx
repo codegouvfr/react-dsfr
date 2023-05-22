@@ -136,7 +136,7 @@ export const SideMenu = memo(
                                                 <>
                                                     <button
                                                         aria-expanded={
-                                                            (item.expandedByDefault ?? false)
+                                                            item.expandedByDefault ?? false
                                                                 ? "true"
                                                                 : "false"
                                                         }
