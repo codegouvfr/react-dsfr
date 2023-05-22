@@ -26,6 +26,8 @@ export declare namespace SideMenuProps {
         };
         export type SubMenu = Common & {
             items: Item[];
+            /** Default: false */
+            expandedByDefault?: boolean;
         };
         export {};
     }
