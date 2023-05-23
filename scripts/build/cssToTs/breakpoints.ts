@@ -115,6 +115,12 @@ export const getRulesByBreakpoint = memoize((rawCssCode: string): RulesByBreakpo
     );
 
     (parsedCss.stylesheet!.rules as any[])
+        .filter(({ type }) => type === "supports")
+        .forEach(({ rules }: any) =>
+            rulesByBreakpoint.root.push(...rules.filter(({ type }: any) => type === "rule"))
+        );
+
+    (parsedCss.stylesheet!.rules as any[])
         .filter(({ type }) => type === "media")
         .filter(({ media }) => Object.values(mediaQueryByBreakpoint).includes(media))
         .forEach(

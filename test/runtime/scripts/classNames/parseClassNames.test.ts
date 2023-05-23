@@ -24,6 +24,17 @@ it("Parsing of fr classnames", () => {
   color: #3a3a3a;
 }
 
+@supports (aspect-ratio: 16/9) {
+  .fr-ratio-32x9 {
+    aspect-ratio: 3.5555555556 !important;
+  }
+
+  .fr-ratio-16x9 {
+    aspect-ratio: 1.7777777778 !important;
+  }
+}
+
+
 @media (min-width: 36em) { }
 @media (min-width: 48em) { }
 @media (min-width: 62em) { }
@@ -38,7 +49,9 @@ it("Parsing of fr classnames", () => {
         "fr-grid-row--gutters",
         "fr-col",
         "fr-header__navbar",
-        "fr-btn--menu"
+        "fr-btn--menu",
+        "fr-ratio-32x9",
+        "fr-ratio-16x9"
     ];
 
     const got = parseClassNames(input);
