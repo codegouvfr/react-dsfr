@@ -22,7 +22,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#161616"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -61,7 +61,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#343434"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -101,7 +101,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ededed",
-                "dark": "#ededed"
+                "dark": "#474747"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -140,7 +140,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#1e1e1e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -179,7 +179,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dfdfdf",
-                "dark": "#dfdfdf"
+                "dark": "#3f3f3f"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -219,7 +219,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cfcfcf",
-                "dark": "#cfcfcf"
+                "dark": "#525252"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -258,7 +258,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f5f5fe",
-                "dark": "#f5f5fe"
+                "dark": "#1b1b35"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -297,7 +297,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dcdcfc",
-                "dark": "#dcdcfc"
+                "dark": "#3a3a68"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -337,7 +337,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cbcbfa",
-                "dark": "#cbcbfa"
+                "dark": "#4d4d83"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -376,7 +376,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f4",
-                "dark": "#fef4f4"
+                "dark": "#2b1919"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -415,7 +415,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcd7d7",
-                "dark": "#fcd7d7"
+                "dark": "#573737"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -455,7 +455,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fac4c4",
-                "dark": "#fac4c4"
+                "dark": "#704848"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -494,7 +494,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef7da",
-                "dark": "#fef7da"
+                "dark": "#201e14"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -533,7 +533,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fce552",
-                "dark": "#fce552"
+                "dark": "#433f2e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -573,7 +573,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ebd54c",
-                "dark": "#ebd54c"
+                "dark": "#57533d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -612,7 +612,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6feda",
-                "dark": "#e6feda"
+                "dark": "#182014"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -651,7 +651,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a7fc62",
-                "dark": "#a7fc62"
+                "dark": "#35432e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -691,7 +691,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#98ed4d",
-                "dark": "#98ed4d"
+                "dark": "#46573d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -730,7 +730,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3fdeb",
-                "dark": "#e3fdeb"
+                "dark": "#142018"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -769,7 +769,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#94f9b9",
-                "dark": "#94f9b9"
+                "dark": "#2e4335"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -809,7 +809,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6df1a3",
-                "dark": "#6df1a3"
+                "dark": "#3d5846"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -848,7 +848,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dffdf7",
-                "dark": "#dffdf7"
+                "dark": "#15201e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -887,7 +887,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#84f9e7",
-                "dark": "#84f9e7"
+                "dark": "#30433f"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -927,7 +927,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#70ebd8",
-                "dark": "#70ebd8"
+                "dark": "#3f5753"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -966,7 +966,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5fbfd",
-                "dark": "#e5fbfd"
+                "dark": "#152021"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -1005,7 +1005,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#99f2f8",
-                "dark": "#99f2f8"
+                "dark": "#2f4345"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -1045,7 +1045,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#73e9f0",
-                "dark": "#73e9f0"
+                "dark": "#3f5759"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -1084,7 +1084,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4f6fe",
-                "dark": "#f4f6fe"
+                "dark": "#171d2f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -1123,7 +1123,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d7dffb",
-                "dark": "#d7dffb"
+                "dark": "#333e5e"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -1163,7 +1163,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c3cffa",
-                "dark": "#c3cffa"
+                "dark": "#445179"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -1202,7 +1202,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3f6fe",
-                "dark": "#f3f6fe"
+                "dark": "#171e2b"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -1241,7 +1241,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d3dffc",
-                "dark": "#d3dffc"
+                "dark": "#333f56"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -1281,7 +1281,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bed0fa",
-                "dark": "#bed0fa"
+                "dark": "#43536f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -1320,7 +1320,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef3fd",
-                "dark": "#fef3fd"
+                "dark": "#251a24"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -1359,7 +1359,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcd4f8",
-                "dark": "#fcd4f8"
+                "dark": "#4c394a"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -1399,7 +1399,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fabff5",
-                "dark": "#fabff5"
+                "dark": "#634a60"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -1438,7 +1438,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#261b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -1477,7 +1477,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcd8d0",
-                "dark": "#fcd8d0"
+                "dark": "#4e3a37"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -1517,7 +1517,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fac5b8",
-                "dark": "#fac5b8"
+                "dark": "#654c48"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -1556,7 +1556,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f3",
-                "dark": "#fef4f3"
+                "dark": "#281b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -1595,7 +1595,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcd7d3",
-                "dark": "#fcd7d3"
+                "dark": "#513a37"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -1635,7 +1635,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fac4be",
-                "dark": "#fac4be"
+                "dark": "#694c48"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -1674,7 +1674,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef6e3",
-                "dark": "#fef6e3"
+                "dark": "#221d11"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -1713,7 +1713,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fce086",
-                "dark": "#fce086"
+                "dark": "#473e29"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -1753,7 +1753,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f5d24b",
-                "dark": "#f5d24b"
+                "dark": "#5c5136"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -1792,7 +1792,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef5e8",
-                "dark": "#fef5e8"
+                "dark": "#231d14"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -1831,7 +1831,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcdca3",
-                "dark": "#fcdca3"
+                "dark": "#483e2e"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -1871,7 +1871,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbcd64",
-                "dark": "#fbcd64"
+                "dark": "#5e513d"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -1910,7 +1910,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#281a16"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -1949,7 +1949,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcd8d0",
-                "dark": "#fcd8d0"
+                "dark": "#513932"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -1989,7 +1989,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fac5b8",
-                "dark": "#fac5b8"
+                "dark": "#6a4b42"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -2028,7 +2028,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf6ed",
-                "dark": "#fbf6ed"
+                "dark": "#211d16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -2067,7 +2067,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f2deb6",
-                "dark": "#f2deb6"
+                "dark": "#453e31"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -2107,7 +2107,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eacf91",
-                "dark": "#eacf91"
+                "dark": "#5a5141"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -2146,7 +2146,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#251c16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -2185,7 +2185,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f1dbcf",
-                "dark": "#f1dbcf"
+                "dark": "#4c3c31"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -2225,7 +2225,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ecc9b5",
-                "dark": "#ecc9b5"
+                "dark": "#624e41"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -2264,7 +2264,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#241c17"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -2303,7 +2303,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f1dbcf",
-                "dark": "#f1dbcf"
+                "dark": "#4a3c33"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -2343,7 +2343,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ecc9b5",
-                "dark": "#ecc9b5"
+                "dark": "#604f44"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -2382,7 +2382,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f9f6f2",
-                "dark": "#f9f6f2"
+                "dark": "#211d19"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -2421,7 +2421,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eadecd",
-                "dark": "#eadecd"
+                "dark": "#453e37"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -2461,7 +2461,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e1ceb1",
-                "dark": "#e1ceb1"
+                "dark": "#595148"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -2500,7 +2500,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eeeeee",
-                "dark": "#eeeeee"
+                "dark": "#242424"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -2539,7 +2539,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d2d2d2",
-                "dark": "#d2d2d2"
+                "dark": "#474747"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -2579,7 +2579,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c1c1c1",
-                "dark": "#c1c1c1"
+                "dark": "#5b5b5b"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -2618,7 +2618,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ececfe",
-                "dark": "#ececfe"
+                "dark": "#21213f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -2657,7 +2657,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cecefc",
-                "dark": "#cecefc"
+                "dark": "#424275"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -2697,7 +2697,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bbbbfc",
-                "dark": "#bbbbfc"
+                "dark": "#56568c"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -2736,7 +2736,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e9",
-                "dark": "#fee9e9"
+                "dark": "#331f1f"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -2775,7 +2775,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdc5c5",
-                "dark": "#fdc5c5"
+                "dark": "#613f3f"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -2815,7 +2815,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcafaf",
-                "dark": "#fcafaf"
+                "dark": "#7b5151"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -2854,7 +2854,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fceeac",
-                "dark": "#fceeac"
+                "dark": "#272419"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -2893,7 +2893,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e8d45c",
-                "dark": "#e8d45c"
+                "dark": "#4c4734"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -2933,7 +2933,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d4c254",
-                "dark": "#d4c254"
+                "dark": "#615b44"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -2972,7 +2972,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9fcac",
-                "dark": "#c9fcac"
+                "dark": "#1e2719"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -3011,7 +3011,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9ae95d",
-                "dark": "#9ae95d"
+                "dark": "#3d4c34"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -3051,7 +3051,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8dd555",
-                "dark": "#8dd555"
+                "dark": "#4e6144"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -3090,7 +3090,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c3fad5",
-                "dark": "#c3fad5"
+                "dark": "#19271e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -3129,7 +3129,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#77eda5",
-                "dark": "#77eda5"
+                "dark": "#344c3d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -3169,7 +3169,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6dd897",
-                "dark": "#6dd897"
+                "dark": "#44624f"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -3208,7 +3208,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bafaee",
-                "dark": "#bafaee"
+                "dark": "#1a2624"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -3247,7 +3247,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#79e7d5",
-                "dark": "#79e7d5"
+                "dark": "#364b47"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -3287,7 +3287,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6fd3c3",
-                "dark": "#6fd3c3"
+                "dark": "#46605b"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -3326,7 +3326,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c7f6fc",
-                "dark": "#c7f6fc"
+                "dark": "#1a2628"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -3365,7 +3365,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#64ecf8",
-                "dark": "#64ecf8"
+                "dark": "#364a4e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -3405,7 +3405,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#5bd8e3",
-                "dark": "#5bd8e3"
+                "dark": "#465f63"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -3444,7 +3444,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e9edfe",
-                "dark": "#e9edfe"
+                "dark": "#1d2437"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -3483,7 +3483,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c5d0fc",
-                "dark": "#c5d0fc"
+                "dark": "#3b4767"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -3523,7 +3523,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#adbffc",
-                "dark": "#adbffc"
+                "dark": "#4c5b83"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -3562,7 +3562,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6eefe",
-                "dark": "#e6eefe"
+                "dark": "#1c2433"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -3601,7 +3601,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bcd3fc",
-                "dark": "#bcd3fc"
+                "dark": "#3a4761"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -3641,7 +3641,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9fc3fc",
-                "dark": "#9fc3fc"
+                "dark": "#4a5b7b"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -3680,7 +3680,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee7fc",
-                "dark": "#fee7fc"
+                "dark": "#2c202b"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -3719,7 +3719,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdc0f8",
-                "dark": "#fdc0f8"
+                "dark": "#554053"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -3759,7 +3759,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fca8f6",
-                "dark": "#fca8f6"
+                "dark": "#6c536a"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -3798,7 +3798,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e6",
-                "dark": "#fee9e6"
+                "dark": "#2e211f"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -3837,7 +3837,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdc6bd",
-                "dark": "#fdc6bd"
+                "dark": "#58423f"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -3877,7 +3877,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcb0a2",
-                "dark": "#fcb0a2"
+                "dark": "#705551"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -3916,7 +3916,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e7",
-                "dark": "#fee9e7"
+                "dark": "#2f211f"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -3955,7 +3955,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdc6c0",
-                "dark": "#fdc6c0"
+                "dark": "#5a423e"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -3995,7 +3995,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcb0a7",
-                "dark": "#fcb0a7"
+                "dark": "#725550"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -4034,7 +4034,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#feecc2",
-                "dark": "#feecc2"
+                "dark": "#292416"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -4073,7 +4073,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbd335",
-                "dark": "#fbd335"
+                "dark": "#4f472f"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -4113,7 +4113,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6c130",
-                "dark": "#e6c130"
+                "dark": "#655b3d"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -4152,7 +4152,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#feebd0",
-                "dark": "#feebd0"
+                "dark": "#2a2319"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -4191,7 +4191,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdcd6d",
-                "dark": "#fdcd6d"
+                "dark": "#514534"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -4231,7 +4231,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4be30",
-                "dark": "#f4be30"
+                "dark": "#685944"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -4270,7 +4270,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e5",
-                "dark": "#fee9e5"
+                "dark": "#31201c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -4309,7 +4309,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fdc6ba",
-                "dark": "#fdc6ba"
+                "dark": "#5d403a"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -4349,7 +4349,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcb09e",
-                "dark": "#fcb09e"
+                "dark": "#77534a"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -4388,7 +4388,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ecdb",
-                "dark": "#f7ecdb"
+                "dark": "#28241c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -4427,7 +4427,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#edce94",
-                "dark": "#edce94"
+                "dark": "#4e4739"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -4467,7 +4467,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dabd84",
-                "dark": "#dabd84"
+                "dark": "#635b4a"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -4506,7 +4506,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ebe5",
-                "dark": "#f7ebe5"
+                "dark": "#2c221c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -4545,7 +4545,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eccbb9",
-                "dark": "#eccbb9"
+                "dark": "#554439"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -4585,7 +4585,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6b79a",
-                "dark": "#e6b79a"
+                "dark": "#6c574a"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -4624,7 +4624,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ece4",
-                "dark": "#f7ece4"
+                "dark": "#2b221c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -4663,7 +4663,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eccdb3",
-                "dark": "#eccdb3"
+                "dark": "#53443a"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -4703,7 +4703,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6ba90",
-                "dark": "#e6ba90"
+                "dark": "#6a574a"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -4742,7 +4742,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3ede5",
-                "dark": "#f3ede5"
+                "dark": "#28231f"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -4781,7 +4781,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e1d0b5",
-                "dark": "#e1d0b5"
+                "dark": "#4e453f"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -4821,7 +4821,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d1bea2",
-                "dark": "#d1bea2"
+                "dark": "#635950"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -4860,7 +4860,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e8edff",
-                "dark": "#e8edff"
+                "dark": "#1d2437"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -4899,7 +4899,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c2d1ff",
-                "dark": "#c2d1ff"
+                "dark": "#3b4767"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -4939,7 +4939,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a9bfff",
-                "dark": "#a9bfff"
+                "dark": "#4c5b83"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -4978,7 +4978,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b8fec9",
-                "dark": "#b8fec9"
+                "dark": "#19271d"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -5017,7 +5017,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#46fd89",
-                "dark": "#46fd89"
+                "dark": "#344c3b"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -5057,7 +5057,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#34eb7b",
-                "dark": "#34eb7b"
+                "dark": "#44624d"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -5096,7 +5096,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffe9e6",
-                "dark": "#ffe9e6"
+                "dark": "#361e19"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -5135,7 +5135,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffc6bd",
-                "dark": "#ffc6bd"
+                "dark": "#663d35"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -5175,7 +5175,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffb0a2",
-                "dark": "#ffb0a2"
+                "dark": "#824f44"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -5214,7 +5214,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffe9e9",
-                "dark": "#ffe9e9"
+                "dark": "#391c1c"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -5253,7 +5253,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffc5c5",
-                "dark": "#ffc5c5"
+                "dark": "#6c3a3a"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -5293,7 +5293,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffafaf",
-                "dark": "#ffafaf"
+                "dark": "#894b4b"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -5332,7 +5332,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3a3a3a",
-                "dark": "#3a3a3a"
+                "dark": "#cecece"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -5370,7 +5370,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#0063cb",
-                "dark": "#0063cb"
+                "dark": "#518fff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -5408,7 +5408,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#18753c",
-                "dark": "#18753c"
+                "dark": "#27a658"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -5446,7 +5446,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b34000",
-                "dark": "#b34000"
+                "dark": "#fc5d00"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -5484,7 +5484,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ce0500",
-                "dark": "#ce0500"
+                "dark": "#ff5655"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -5523,7 +5523,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -5564,7 +5564,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#1212ff",
-                "dark": "#1212ff"
+                "dark": "#b1b1f9"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -5606,7 +5606,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2323ff",
-                "dark": "#2323ff"
+                "dark": "#c6c6fb"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -5647,7 +5647,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -5687,7 +5687,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f93f42",
-                "dark": "#f93f42"
+                "dark": "#fa9293"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -5728,7 +5728,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f95a5c",
-                "dark": "#f95a5c"
+                "dark": "#fbabac"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -5768,7 +5768,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#66673d",
-                "dark": "#66673d"
+                "dark": "#d8c634"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -5810,7 +5810,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#929359",
-                "dark": "#929359"
+                "dark": "#fee943"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -5853,7 +5853,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a7a967",
-                "dark": "#a7a967"
+                "dark": "#fef1ab"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -5895,7 +5895,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#447049",
-                "dark": "#447049"
+                "dark": "#99c221"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -5937,7 +5937,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#639f6a",
-                "dark": "#639f6a"
+                "dark": "#baec2a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -5980,7 +5980,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#72b77a",
-                "dark": "#72b77a"
+                "dark": "#c9fd2e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -6022,7 +6022,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#297254",
-                "dark": "#297254"
+                "dark": "#34cb6a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -6064,7 +6064,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3ea47a",
-                "dark": "#3ea47a"
+                "dark": "#42fb84"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -6107,7 +6107,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#49bc8d",
-                "dark": "#49bc8d"
+                "dark": "#80fda3"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -6149,7 +6149,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#37635f",
-                "dark": "#37635f"
+                "dark": "#21ab8e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -6191,7 +6191,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#53918c",
-                "dark": "#53918c"
+                "dark": "#2eddb8"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -6234,7 +6234,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#62a9a2",
-                "dark": "#62a9a2"
+                "dark": "#34f4cc"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -6276,7 +6276,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#006a6f",
-                "dark": "#006a6f"
+                "dark": "#34bab5"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -6318,7 +6318,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#009fa7",
-                "dark": "#009fa7"
+                "dark": "#43e9e2"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -6361,7 +6361,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#00bbc3",
-                "dark": "#00bbc3"
+                "dark": "#4cfdf6"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -6403,7 +6403,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2f4077",
-                "dark": "#2f4077"
+                "dark": "#869ece"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -6445,7 +6445,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#4e68bb",
-                "dark": "#4e68bb"
+                "dark": "#b8c5e2"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -6488,7 +6488,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#667dcf",
-                "dark": "#667dcf"
+                "dark": "#ced6ea"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -6530,7 +6530,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3558a2",
-                "dark": "#3558a2"
+                "dark": "#7ab1e8"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -6572,7 +6572,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#5982e0",
-                "dark": "#5982e0"
+                "dark": "#bad2f2"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -6615,7 +6615,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#7996e6",
-                "dark": "#7996e6"
+                "dark": "#d2e2f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -6657,7 +6657,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6e445a",
-                "dark": "#6e445a"
+                "dark": "#ce70cc"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -6699,7 +6699,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a66989",
-                "dark": "#a66989"
+                "dark": "#dfa4dd"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -6742,7 +6742,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bb7f9e",
-                "dark": "#bb7f9e"
+                "dark": "#e7bbe6"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -6784,7 +6784,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8d533e",
-                "dark": "#8d533e"
+                "dark": "#ffb7ae"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -6826,7 +6826,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ca795c",
-                "dark": "#ca795c"
+                "dark": "#ffe0dc"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -6869,7 +6869,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e08e73",
-                "dark": "#e08e73"
+                "dark": "#fff0ee"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -6911,7 +6911,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a94645",
-                "dark": "#a94645"
+                "dark": "#ff9575"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -6953,7 +6953,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d5706f",
-                "dark": "#d5706f"
+                "dark": "#ffc4b7"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -6996,7 +6996,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#da8a89",
-                "dark": "#da8a89"
+                "dark": "#ffd8d0"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -7038,7 +7038,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#716043",
-                "dark": "#716043"
+                "dark": "#ffe552"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -7080,7 +7080,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a28a62",
-                "dark": "#a28a62"
+                "dark": "#e1c700"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -7123,7 +7123,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ba9f72",
-                "dark": "#ba9f72"
+                "dark": "#cab300"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -7165,7 +7165,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#695240",
-                "dark": "#695240"
+                "dark": "#ffca00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -7207,7 +7207,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9b7b61",
-                "dark": "#9b7b61"
+                "dark": "#cda200"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -7250,7 +7250,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b58f72",
-                "dark": "#b58f72"
+                "dark": "#b28c00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -7292,7 +7292,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#755348",
-                "dark": "#755348"
+                "dark": "#ff732c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -7334,7 +7334,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ab7b6b",
-                "dark": "#ab7b6b"
+                "dark": "#ffa48b"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -7377,7 +7377,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c68f7d",
-                "dark": "#c68f7d"
+                "dark": "#ffbbab"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -7419,7 +7419,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#685c48",
-                "dark": "#685c48"
+                "dark": "#ecd7a2"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -7461,7 +7461,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#97866a",
-                "dark": "#97866a"
+                "dark": "#c5b386"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -7504,7 +7504,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ae9b7b",
-                "dark": "#ae9b7b"
+                "dark": "#af9f77"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -7546,7 +7546,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#845d48",
-                "dark": "#845d48"
+                "dark": "#fbd8ab"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -7588,7 +7588,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bb8568",
-                "dark": "#bb8568"
+                "dark": "#efb547"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -7631,7 +7631,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d69978",
-                "dark": "#d69978"
+                "dark": "#d6a23e"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -7673,7 +7673,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#745b47",
-                "dark": "#745b47"
+                "dark": "#e6be92"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -7715,7 +7715,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a78468",
-                "dark": "#a78468"
+                "dark": "#f2e2d3"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -7758,7 +7758,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c09979",
-                "dark": "#c09979"
+                "dark": "#f8f0e9"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -7800,7 +7800,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6a6156",
-                "dark": "#6a6156"
+                "dark": "#d0c3b7"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -7842,7 +7842,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#988b7c",
-                "dark": "#988b7c"
+                "dark": "#eae5e1"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -7885,7 +7885,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#afa08f",
-                "dark": "#afa08f"
+                "dark": "#f4f2f0"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -7927,7 +7927,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#0063cb",
-                "dark": "#0063cb"
+                "dark": "#518fff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -7967,7 +7967,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3b87ff",
-                "dark": "#3b87ff"
+                "dark": "#98b4ff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -8008,7 +8008,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6798ff",
-                "dark": "#6798ff"
+                "dark": "#b4c7ff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -8048,7 +8048,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#18753c",
-                "dark": "#18753c"
+                "dark": "#27a658"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -8088,7 +8088,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#27a959",
-                "dark": "#27a959"
+                "dark": "#36d975"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -8129,7 +8129,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2fc368",
-                "dark": "#2fc368"
+                "dark": "#3df183"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -8169,7 +8169,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b34000",
-                "dark": "#b34000"
+                "dark": "#fc5d00"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -8209,7 +8209,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ff6218",
-                "dark": "#ff6218"
+                "dark": "#ff8c73"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -8250,7 +8250,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ff7a55",
-                "dark": "#ff7a55"
+                "dark": "#ffa595"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -8290,7 +8290,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ce0500",
-                "dark": "#ce0500"
+                "dark": "#ff5655"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -8330,7 +8330,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ff2725",
-                "dark": "#ff2725"
+                "dark": "#ff8c8c"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -8371,7 +8371,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ff4140",
-                "dark": "#ff4140"
+                "dark": "#ffa6a6"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -8411,7 +8411,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3e3fd",
-                "dark": "#e3e3fd"
+                "dark": "#272747"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -8451,7 +8451,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c1c1fb",
-                "dark": "#c1c1fb"
+                "dark": "#4a4a7d"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -8492,7 +8492,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#adadf9",
-                "dark": "#adadf9"
+                "dark": "#5e5e90"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -8532,7 +8532,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddede",
-                "dark": "#fddede"
+                "dark": "#3b2424"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -8572,7 +8572,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb6b6",
-                "dark": "#fbb6b6"
+                "dark": "#6b4545"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -8613,7 +8613,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fa9e9e",
-                "dark": "#fa9e9e"
+                "dark": "#865757"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -8653,7 +8653,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbe769",
-                "dark": "#fbe769"
+                "dark": "#2d2a1d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -8693,7 +8693,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d7c655",
-                "dark": "#d7c655"
+                "dark": "#534f39"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -8734,7 +8734,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c2b24c",
-                "dark": "#c2b24c"
+                "dark": "#696349"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -8774,7 +8774,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a9fb68",
-                "dark": "#a9fb68"
+                "dark": "#232d1d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -8814,7 +8814,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8ed654",
-                "dark": "#8ed654"
+                "dark": "#435339"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -8855,7 +8855,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#7fc04b",
-                "dark": "#7fc04b"
+                "dark": "#556949"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -8895,7 +8895,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9ef9be",
-                "dark": "#9ef9be"
+                "dark": "#1e2e23"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -8935,7 +8935,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#69df97",
-                "dark": "#69df97"
+                "dark": "#3b5543"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -8976,7 +8976,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#5ec988",
-                "dark": "#5ec988"
+                "dark": "#4b6b55"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -9016,7 +9016,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8bf8e7",
-                "dark": "#8bf8e7"
+                "dark": "#1f2d2a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -9056,7 +9056,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6ed5c5",
-                "dark": "#6ed5c5"
+                "dark": "#3c534e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -9097,7 +9097,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#62bfb1",
-                "dark": "#62bfb1"
+                "dark": "#4d6963"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -9137,7 +9137,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a6f2fa",
-                "dark": "#a6f2fa"
+                "dark": "#1f2c2e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -9177,7 +9177,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#62dbe5",
-                "dark": "#62dbe5"
+                "dark": "#3c5255"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -9218,7 +9218,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#58c5cf",
-                "dark": "#58c5cf"
+                "dark": "#4d676b"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -9258,7 +9258,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dee5fd",
-                "dark": "#dee5fd"
+                "dark": "#222940"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -9298,7 +9298,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b4c5fb",
-                "dark": "#b4c5fb"
+                "dark": "#424d73"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -9339,7 +9339,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#99b3f9",
-                "dark": "#99b3f9"
+                "dark": "#536190"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -9379,7 +9379,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dae6fd",
-                "dark": "#dae6fd"
+                "dark": "#212a3a"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -9419,7 +9419,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a9c8fb",
-                "dark": "#a9c8fb"
+                "dark": "#404f69"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -9460,7 +9460,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8ab8f9",
-                "dark": "#8ab8f9"
+                "dark": "#516384"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -9500,7 +9500,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddbfa",
-                "dark": "#fddbfa"
+                "dark": "#332632"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -9540,7 +9540,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbaff5",
-                "dark": "#fbaff5"
+                "dark": "#5d485c"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -9581,7 +9581,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fa96f2",
-                "dark": "#fa96f2"
+                "dark": "#755b73"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -9621,7 +9621,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfda",
-                "dark": "#fddfda"
+                "dark": "#352724"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -9661,7 +9661,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb8ab",
-                "dark": "#fbb8ab"
+                "dark": "#614a45"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -9702,7 +9702,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#faa18d",
-                "dark": "#faa18d"
+                "dark": "#795d57"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -9742,7 +9742,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfdb",
-                "dark": "#fddfdb"
+                "dark": "#372624"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -9782,7 +9782,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb8ad",
-                "dark": "#fbb8ad"
+                "dark": "#644845"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -9823,7 +9823,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#faa191",
-                "dark": "#faa191"
+                "dark": "#7d5b57"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -9863,7 +9863,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fde39c",
-                "dark": "#fde39c"
+                "dark": "#302a1a"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -9903,7 +9903,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e9c53b",
-                "dark": "#e9c53b"
+                "dark": "#584e34"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -9944,7 +9944,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d3b235",
-                "dark": "#d3b235"
+                "dark": "#6f6342"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -9984,7 +9984,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fde2b5",
-                "dark": "#fde2b5"
+                "dark": "#30291d"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -10024,7 +10024,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6c43c",
-                "dark": "#f6c43c"
+                "dark": "#584d39"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -10065,7 +10065,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dfb135",
-                "dark": "#dfb135"
+                "dark": "#6f6149"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -10105,7 +10105,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfd8",
-                "dark": "#fddfd8"
+                "dark": "#382621"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -10145,7 +10145,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb8a5",
-                "dark": "#fbb8a5"
+                "dark": "#664840"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -10186,7 +10186,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#faa184",
-                "dark": "#faa184"
+                "dark": "#7f5b51"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -10226,7 +10226,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4e3c7",
-                "dark": "#f4e3c7"
+                "dark": "#2e2a21"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -10266,7 +10266,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e1c386",
-                "dark": "#e1c386"
+                "dark": "#554e3f"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -10307,7 +10307,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ccb078",
-                "dark": "#ccb078"
+                "dark": "#6b6351"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -10347,7 +10347,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3e2d9",
-                "dark": "#f3e2d9"
+                "dark": "#332821"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -10387,7 +10387,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e7bea6",
-                "dark": "#e7bea6"
+                "dark": "#5d4b40"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -10428,7 +10428,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e1a982",
-                "dark": "#e1a982"
+                "dark": "#755f51"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -10468,7 +10468,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3e2d7",
-                "dark": "#f3e2d7"
+                "dark": "#322821"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -10508,7 +10508,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e7bfa0",
-                "dark": "#e7bfa0"
+                "dark": "#5c4b40"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -10549,7 +10549,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#deaa7e",
-                "dark": "#deaa7e"
+                "dark": "#735f51"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -10589,7 +10589,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eee4d9",
-                "dark": "#eee4d9"
+                "dark": "#2e2924"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -10629,7 +10629,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dbc3a4",
-                "dark": "#dbc3a4"
+                "dark": "#554d45"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -10670,7 +10670,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c6b094",
-                "dark": "#c6b094"
+                "dark": "#6b6157"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -10709,7 +10709,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -10749,7 +10749,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#1212ff",
-                "dark": "#1212ff"
+                "dark": "#b1b1f9"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -10790,7 +10790,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2323ff",
-                "dark": "#2323ff"
+                "dark": "#c6c6fb"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -10830,7 +10830,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -10869,7 +10869,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f93f42",
-                "dark": "#f93f42"
+                "dark": "#fa9293"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -10909,7 +10909,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f95a5c",
-                "dark": "#f95a5c"
+                "dark": "#fbabac"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -10948,7 +10948,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3e3fd",
-                "dark": "#e3e3fd"
+                "dark": "#272747"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -10987,7 +10987,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c1c1fb",
-                "dark": "#c1c1fb"
+                "dark": "#4a4a7d"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -11027,7 +11027,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#adadf9",
-                "dark": "#adadf9"
+                "dark": "#5e5e90"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -11066,7 +11066,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddede",
-                "dark": "#fddede"
+                "dark": "#3b2424"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -11105,7 +11105,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb6b6",
-                "dark": "#fbb6b6"
+                "dark": "#6b4545"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -11145,7 +11145,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fa9e9e",
-                "dark": "#fa9e9e"
+                "dark": "#865757"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -11184,7 +11184,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5e5e5",
-                "dark": "#e5e5e5"
+                "dark": "#2a2a2a"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11222,7 +11222,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#1e1e1e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11261,7 +11261,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#3f3f3f"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11301,7 +11301,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ededed",
-                "dark": "#ededed"
+                "dark": "#525252"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11340,7 +11340,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#242424"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11379,7 +11379,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#474747"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11419,7 +11419,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ededed",
-                "dark": "#ededed"
+                "dark": "#5b5b5b"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11458,7 +11458,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#1e1e1e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11497,7 +11497,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#3f3f3f"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11537,7 +11537,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ededed",
-                "dark": "#ededed"
+                "dark": "#525252"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11576,7 +11576,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#242424"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11615,7 +11615,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dfdfdf",
-                "dark": "#dfdfdf"
+                "dark": "#474747"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11655,7 +11655,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cfcfcf",
-                "dark": "#cfcfcf"
+                "dark": "#5b5b5b"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11694,7 +11694,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#2a2a2a"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11733,7 +11733,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dfdfdf",
-                "dark": "#dfdfdf"
+                "dark": "#4e4e4e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11773,7 +11773,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cfcfcf",
-                "dark": "#cfcfcf"
+                "dark": "#636363"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11812,7 +11812,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eeeeee",
-                "dark": "#eeeeee"
+                "dark": "#2a2a2a"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11851,7 +11851,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d2d2d2",
-                "dark": "#d2d2d2"
+                "dark": "#4e4e4e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11891,7 +11891,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c1c1c1",
-                "dark": "#c1c1c1"
+                "dark": "#636363"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11930,7 +11930,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eeeeee",
-                "dark": "#eeeeee"
+                "dark": "#2f2f2f"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -11969,7 +11969,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d2d2d2",
-                "dark": "#d2d2d2"
+                "dark": "#545454"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -12009,7 +12009,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c1c1c1",
-                "dark": "#c1c1c1"
+                "dark": "#696969"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -12048,7 +12048,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3a3a3a",
-                "dark": "#3a3a3a"
+                "dark": "#cecece"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -12086,7 +12086,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#0063cb",
-                "dark": "#0063cb"
+                "dark": "#518fff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -12124,7 +12124,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#18753c",
-                "dark": "#18753c"
+                "dark": "#27a658"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -12162,7 +12162,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b34000",
-                "dark": "#b34000"
+                "dark": "#fc5d00"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -12200,7 +12200,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ce0500",
-                "dark": "#ce0500"
+                "dark": "#ff5655"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -12239,7 +12239,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#161616",
-                "dark": "#161616"
+                "dark": "#ffffff"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -12278,7 +12278,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -12318,7 +12318,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -12357,7 +12357,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#66673d",
-                "dark": "#66673d"
+                "dark": "#d8c634"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -12398,7 +12398,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#447049",
-                "dark": "#447049"
+                "dark": "#99c221"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -12439,7 +12439,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#297254",
-                "dark": "#297254"
+                "dark": "#34cb6a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -12480,7 +12480,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#37635f",
-                "dark": "#37635f"
+                "dark": "#21ab8e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -12521,7 +12521,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#006a6f",
-                "dark": "#006a6f"
+                "dark": "#34bab5"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -12562,7 +12562,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2f4077",
-                "dark": "#2f4077"
+                "dark": "#869ece"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -12603,7 +12603,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3558a2",
-                "dark": "#3558a2"
+                "dark": "#7ab1e8"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -12644,7 +12644,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6e445a",
-                "dark": "#6e445a"
+                "dark": "#ce70cc"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -12685,7 +12685,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8d533e",
-                "dark": "#8d533e"
+                "dark": "#ffb7ae"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -12726,7 +12726,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a94645",
-                "dark": "#a94645"
+                "dark": "#ff9575"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -12767,7 +12767,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#716043",
-                "dark": "#716043"
+                "dark": "#ffe552"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -12808,7 +12808,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#695240",
-                "dark": "#695240"
+                "dark": "#ffca00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -12849,7 +12849,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#755348",
-                "dark": "#755348"
+                "dark": "#ff732c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -12890,7 +12890,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#685c48",
-                "dark": "#685c48"
+                "dark": "#ecd7a2"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -12931,7 +12931,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#845d48",
-                "dark": "#845d48"
+                "dark": "#fbd8ab"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -12972,7 +12972,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#745b47",
-                "dark": "#745b47"
+                "dark": "#e6be92"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -13013,7 +13013,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6a6156",
-                "dark": "#6a6156"
+                "dark": "#d0c3b7"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -13053,7 +13053,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#161616",
-                "dark": "#161616"
+                "dark": "#ffffff"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -13091,7 +13091,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -13130,7 +13130,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -13168,7 +13168,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#161616",
-                "dark": "#161616"
+                "dark": "#ffffff"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -13206,7 +13206,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -13245,7 +13245,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -13283,7 +13283,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#66673d",
-                "dark": "#66673d"
+                "dark": "#d8c634"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -13323,7 +13323,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#447049",
-                "dark": "#447049"
+                "dark": "#99c221"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -13363,7 +13363,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#297254",
-                "dark": "#297254"
+                "dark": "#34cb6a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -13403,7 +13403,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#37635f",
-                "dark": "#37635f"
+                "dark": "#21ab8e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -13443,7 +13443,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#006a6f",
-                "dark": "#006a6f"
+                "dark": "#34bab5"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -13483,7 +13483,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2f4077",
-                "dark": "#2f4077"
+                "dark": "#869ece"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -13523,7 +13523,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3558a2",
-                "dark": "#3558a2"
+                "dark": "#7ab1e8"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -13563,7 +13563,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6e445a",
-                "dark": "#6e445a"
+                "dark": "#ce70cc"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -13603,7 +13603,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8d533e",
-                "dark": "#8d533e"
+                "dark": "#ffb7ae"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -13643,7 +13643,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a94645",
-                "dark": "#a94645"
+                "dark": "#ff9575"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -13683,7 +13683,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#716043",
-                "dark": "#716043"
+                "dark": "#ffe552"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -13723,7 +13723,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#695240",
-                "dark": "#695240"
+                "dark": "#ffca00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -13763,7 +13763,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#755348",
-                "dark": "#755348"
+                "dark": "#ff732c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -13803,7 +13803,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#685c48",
-                "dark": "#685c48"
+                "dark": "#ecd7a2"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -13843,7 +13843,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#845d48",
-                "dark": "#845d48"
+                "dark": "#fbd8ab"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -13883,7 +13883,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#745b47",
-                "dark": "#745b47"
+                "dark": "#e6be92"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -13923,7 +13923,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6a6156",
-                "dark": "#6a6156"
+                "dark": "#d0c3b7"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -13963,7 +13963,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#161616",
-                "dark": "#161616"
+                "dark": "#ffffff"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -14001,7 +14001,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -14040,7 +14040,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -14078,7 +14078,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#666666",
-                "dark": "#666666"
+                "dark": "#929292"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -14116,7 +14116,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ffffff",
-                "dark": "#ffffff"
+                "dark": "#161616"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -14154,7 +14154,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f5f5fe",
-                "dark": "#f5f5fe"
+                "dark": "#000091"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -14193,7 +14193,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f4",
-                "dark": "#fef4f4"
+                "dark": "#2b1919"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -14231,7 +14231,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4f6ff",
-                "dark": "#f4f6ff"
+                "dark": "#171d2e"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -14269,7 +14269,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dffee6",
-                "dark": "#dffee6"
+                "dark": "#142117"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -14307,7 +14307,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fff4f3",
-                "dark": "#fff4f3"
+                "dark": "#2d1814"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -14345,7 +14345,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fff4f4",
-                "dark": "#fff4f4"
+                "dark": "#301717"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -14383,7 +14383,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef7da",
-                "dark": "#fef7da"
+                "dark": "#201e14"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -14421,7 +14421,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6feda",
-                "dark": "#e6feda"
+                "dark": "#182014"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -14459,7 +14459,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3fdeb",
-                "dark": "#e3fdeb"
+                "dark": "#142018"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -14497,7 +14497,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dffdf7",
-                "dark": "#dffdf7"
+                "dark": "#15201e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -14535,7 +14535,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5fbfd",
-                "dark": "#e5fbfd"
+                "dark": "#152021"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -14573,7 +14573,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4f6fe",
-                "dark": "#f4f6fe"
+                "dark": "#171d2f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -14611,7 +14611,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3f6fe",
-                "dark": "#f3f6fe"
+                "dark": "#171e2b"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -14649,7 +14649,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef3fd",
-                "dark": "#fef3fd"
+                "dark": "#251a24"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -14687,7 +14687,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#261b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -14725,7 +14725,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f3",
-                "dark": "#fef4f3"
+                "dark": "#281b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -14763,7 +14763,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef6e3",
-                "dark": "#fef6e3"
+                "dark": "#221d11"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -14801,7 +14801,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef5e8",
-                "dark": "#fef5e8"
+                "dark": "#231d14"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -14839,7 +14839,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#281a16"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -14877,7 +14877,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf6ed",
-                "dark": "#fbf6ed"
+                "dark": "#211d16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -14915,7 +14915,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#251c16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -14953,7 +14953,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#241c17"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -14991,7 +14991,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f9f6f2",
-                "dark": "#f9f6f2"
+                "dark": "#211d19"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -15029,7 +15029,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#929292",
-                "dark": "#929292"
+                "dark": "#666666"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -15067,7 +15067,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dddddd",
-                "dark": "#dddddd"
+                "dark": "#353535"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -15694,7 +15694,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -15733,7 +15733,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -15772,7 +15772,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#161616",
-                "dark": "#161616"
+                "dark": "#ffffff"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -15811,7 +15811,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -15851,7 +15851,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -15890,7 +15890,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#0063cb",
-                "dark": "#0063cb"
+                "dark": "#518fff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -15929,7 +15929,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#18753c",
-                "dark": "#18753c"
+                "dark": "#27a658"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -15968,7 +15968,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b34000",
-                "dark": "#b34000"
+                "dark": "#fc5d00"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -16007,7 +16007,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ce0500",
-                "dark": "#ce0500"
+                "dark": "#ff5655"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -16046,7 +16046,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#cacafb",
-                "dark": "#cacafb"
+                "dark": "#313178"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -16085,7 +16085,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcbfbf",
-                "dark": "#fcbfbf"
+                "dark": "#5e2a2b"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -16124,7 +16124,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e2cf58",
-                "dark": "#e2cf58"
+                "dark": "#3f3a20"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -16163,7 +16163,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#95e257",
-                "dark": "#95e257"
+                "dark": "#2a401a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -16202,7 +16202,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6fe49d",
-                "dark": "#6fe49d"
+                "dark": "#21402c"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -16241,7 +16241,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#73e0cf",
-                "dark": "#73e0cf"
+                "dark": "#223f3a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -16280,7 +16280,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#60e0eb",
-                "dark": "#60e0eb"
+                "dark": "#233e41"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -16319,7 +16319,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bfccfb",
-                "dark": "#bfccfb"
+                "dark": "#273962"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -16358,7 +16358,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b6cffb",
-                "dark": "#b6cffb"
+                "dark": "#263b58"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -16397,7 +16397,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbb8f6",
-                "dark": "#fbb8f6"
+                "dark": "#502e4d"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -16436,7 +16436,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcc0b4",
-                "dark": "#fcc0b4"
+                "dark": "#52312a"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -16475,7 +16475,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcbfb7",
-                "dark": "#fcbfb7"
+                "dark": "#55302a"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -16514,7 +16514,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#efcb3a",
-                "dark": "#efcb3a"
+                "dark": "#43391a"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -16553,7 +16553,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcc63a",
-                "dark": "#fcc63a"
+                "dark": "#453820"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -16592,7 +16592,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fcc0b0",
-                "dark": "#fcc0b0"
+                "dark": "#543125"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -16631,7 +16631,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e7ca8e",
-                "dark": "#e7ca8e"
+                "dark": "#423925"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -16670,7 +16670,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eac7b2",
-                "dark": "#eac7b2"
+                "dark": "#4b3525"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -16709,7 +16709,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eac7ad",
-                "dark": "#eac7ad"
+                "dark": "#493625"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -16748,7 +16748,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e0cab0",
-                "dark": "#e0cab0"
+                "dark": "#433829"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -16786,7 +16786,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3e3fd",
-                "dark": "#e3e3fd"
+                "dark": "#272747"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -16824,7 +16824,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddede",
-                "dark": "#fddede"
+                "dark": "#3b2424"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -16862,7 +16862,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3a3a3a",
-                "dark": "#3a3a3a"
+                "dark": "#cecece"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -16900,7 +16900,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -16939,7 +16939,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -16977,7 +16977,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#0063cb",
-                "dark": "#0063cb"
+                "dark": "#518fff"
             },
             "parsedColorOptionName": {
                 "colorName": "info",
@@ -17015,7 +17015,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#18753c",
-                "dark": "#18753c"
+                "dark": "#27a658"
             },
             "parsedColorOptionName": {
                 "colorName": "success",
@@ -17053,7 +17053,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b34000",
-                "dark": "#b34000"
+                "dark": "#fc5d00"
             },
             "parsedColorOptionName": {
                 "colorName": "warning",
@@ -17091,7 +17091,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ce0500",
-                "dark": "#ce0500"
+                "dark": "#ff5655"
             },
             "parsedColorOptionName": {
                 "colorName": "error",
@@ -17129,7 +17129,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#66673d",
-                "dark": "#66673d"
+                "dark": "#d8c634"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -17169,7 +17169,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#447049",
-                "dark": "#447049"
+                "dark": "#99c221"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -17209,7 +17209,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#297254",
-                "dark": "#297254"
+                "dark": "#34cb6a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -17249,7 +17249,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#37635f",
-                "dark": "#37635f"
+                "dark": "#21ab8e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -17289,7 +17289,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#006a6f",
-                "dark": "#006a6f"
+                "dark": "#34bab5"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -17329,7 +17329,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2f4077",
-                "dark": "#2f4077"
+                "dark": "#869ece"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -17369,7 +17369,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3558a2",
-                "dark": "#3558a2"
+                "dark": "#7ab1e8"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -17409,7 +17409,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6e445a",
-                "dark": "#6e445a"
+                "dark": "#ce70cc"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -17449,7 +17449,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8d533e",
-                "dark": "#8d533e"
+                "dark": "#ffb7ae"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -17489,7 +17489,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a94645",
-                "dark": "#a94645"
+                "dark": "#ff9575"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -17529,7 +17529,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#716043",
-                "dark": "#716043"
+                "dark": "#ffe552"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -17569,7 +17569,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#695240",
-                "dark": "#695240"
+                "dark": "#ffca00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -17609,7 +17609,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#755348",
-                "dark": "#755348"
+                "dark": "#ff732c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -17649,7 +17649,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#685c48",
-                "dark": "#685c48"
+                "dark": "#ecd7a2"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -17689,7 +17689,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#845d48",
-                "dark": "#845d48"
+                "dark": "#fbd8ab"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -17729,7 +17729,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#745b47",
-                "dark": "#745b47"
+                "dark": "#e6be92"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -17769,7 +17769,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6a6156",
-                "dark": "#6a6156"
+                "dark": "#d0c3b7"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -17809,7 +17809,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5e5e5",
-                "dark": "#e5e5e5"
+                "dark": "#2a2a2a"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -17847,7 +17847,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#000091",
-                "dark": "#000091"
+                "dark": "#8585f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -17887,7 +17887,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#1212ff",
-                "dark": "#1212ff"
+                "dark": "#b1b1f9"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -17928,7 +17928,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2323ff",
-                "dark": "#2323ff"
+                "dark": "#c6c6fb"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -17968,7 +17968,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9191e",
-                "dark": "#c9191e"
+                "dark": "#f95c5e"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -18007,7 +18007,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f93f42",
-                "dark": "#f93f42"
+                "dark": "#fa9293"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -18047,7 +18047,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f95a5c",
-                "dark": "#f95a5c"
+                "dark": "#fbabac"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -18086,7 +18086,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#66673d",
-                "dark": "#66673d"
+                "dark": "#d8c634"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -18127,7 +18127,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#929359",
-                "dark": "#929359"
+                "dark": "#fee943"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -18169,7 +18169,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a7a967",
-                "dark": "#a7a967"
+                "dark": "#fef1ab"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -18210,7 +18210,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#447049",
-                "dark": "#447049"
+                "dark": "#99c221"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -18251,7 +18251,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#639f6a",
-                "dark": "#639f6a"
+                "dark": "#baec2a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -18293,7 +18293,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#72b77a",
-                "dark": "#72b77a"
+                "dark": "#c9fd2e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -18334,7 +18334,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#297254",
-                "dark": "#297254"
+                "dark": "#34cb6a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -18375,7 +18375,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3ea47a",
-                "dark": "#3ea47a"
+                "dark": "#42fb84"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -18417,7 +18417,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#49bc8d",
-                "dark": "#49bc8d"
+                "dark": "#80fda3"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -18458,7 +18458,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#37635f",
-                "dark": "#37635f"
+                "dark": "#21ab8e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -18499,7 +18499,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#53918c",
-                "dark": "#53918c"
+                "dark": "#2eddb8"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -18541,7 +18541,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#62a9a2",
-                "dark": "#62a9a2"
+                "dark": "#34f4cc"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -18582,7 +18582,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#006a6f",
-                "dark": "#006a6f"
+                "dark": "#34bab5"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -18623,7 +18623,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#009fa7",
-                "dark": "#009fa7"
+                "dark": "#43e9e2"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -18665,7 +18665,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#00bbc3",
-                "dark": "#00bbc3"
+                "dark": "#4cfdf6"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -18706,7 +18706,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#2f4077",
-                "dark": "#2f4077"
+                "dark": "#869ece"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -18747,7 +18747,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#4e68bb",
-                "dark": "#4e68bb"
+                "dark": "#b8c5e2"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -18789,7 +18789,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#667dcf",
-                "dark": "#667dcf"
+                "dark": "#ced6ea"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -18830,7 +18830,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#3558a2",
-                "dark": "#3558a2"
+                "dark": "#7ab1e8"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -18871,7 +18871,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#5982e0",
-                "dark": "#5982e0"
+                "dark": "#bad2f2"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -18913,7 +18913,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#7996e6",
-                "dark": "#7996e6"
+                "dark": "#d2e2f6"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -18954,7 +18954,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6e445a",
-                "dark": "#6e445a"
+                "dark": "#ce70cc"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -18995,7 +18995,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a66989",
-                "dark": "#a66989"
+                "dark": "#dfa4dd"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -19037,7 +19037,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bb7f9e",
-                "dark": "#bb7f9e"
+                "dark": "#e7bbe6"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -19078,7 +19078,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8d533e",
-                "dark": "#8d533e"
+                "dark": "#ffb7ae"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -19119,7 +19119,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ca795c",
-                "dark": "#ca795c"
+                "dark": "#ffe0dc"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -19161,7 +19161,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e08e73",
-                "dark": "#e08e73"
+                "dark": "#fff0ee"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -19202,7 +19202,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a94645",
-                "dark": "#a94645"
+                "dark": "#ff9575"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -19243,7 +19243,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d5706f",
-                "dark": "#d5706f"
+                "dark": "#ffc4b7"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -19285,7 +19285,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#da8a89",
-                "dark": "#da8a89"
+                "dark": "#ffd8d0"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -19326,7 +19326,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#716043",
-                "dark": "#716043"
+                "dark": "#ffe552"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -19367,7 +19367,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a28a62",
-                "dark": "#a28a62"
+                "dark": "#e1c700"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -19409,7 +19409,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ba9f72",
-                "dark": "#ba9f72"
+                "dark": "#cab300"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -19450,7 +19450,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#695240",
-                "dark": "#695240"
+                "dark": "#ffca00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -19491,7 +19491,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9b7b61",
-                "dark": "#9b7b61"
+                "dark": "#cda200"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -19533,7 +19533,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#b58f72",
-                "dark": "#b58f72"
+                "dark": "#b28c00"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -19574,7 +19574,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#755348",
-                "dark": "#755348"
+                "dark": "#ff732c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -19615,7 +19615,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ab7b6b",
-                "dark": "#ab7b6b"
+                "dark": "#ffa48b"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -19657,7 +19657,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c68f7d",
-                "dark": "#c68f7d"
+                "dark": "#ffbbab"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -19698,7 +19698,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#685c48",
-                "dark": "#685c48"
+                "dark": "#ecd7a2"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -19739,7 +19739,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#97866a",
-                "dark": "#97866a"
+                "dark": "#c5b386"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -19781,7 +19781,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ae9b7b",
-                "dark": "#ae9b7b"
+                "dark": "#af9f77"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -19822,7 +19822,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#845d48",
-                "dark": "#845d48"
+                "dark": "#fbd8ab"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -19863,7 +19863,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bb8568",
-                "dark": "#bb8568"
+                "dark": "#efb547"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -19905,7 +19905,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#d69978",
-                "dark": "#d69978"
+                "dark": "#d6a23e"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -19946,7 +19946,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#745b47",
-                "dark": "#745b47"
+                "dark": "#e6be92"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -19987,7 +19987,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a78468",
-                "dark": "#a78468"
+                "dark": "#f2e2d3"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -20029,7 +20029,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c09979",
-                "dark": "#c09979"
+                "dark": "#f8f0e9"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -20070,7 +20070,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#6a6156",
-                "dark": "#6a6156"
+                "dark": "#d0c3b7"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -20111,7 +20111,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#988b7c",
-                "dark": "#988b7c"
+                "dark": "#eae5e1"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -20153,7 +20153,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#afa08f",
-                "dark": "#afa08f"
+                "dark": "#f4f2f0"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -20783,7 +20783,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eeeeee",
-                "dark": "#eeeeee"
+                "dark": "#242424"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -20821,7 +20821,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#ececfe",
-                "dark": "#ececfe"
+                "dark": "#21213f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -20859,7 +20859,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e9",
-                "dark": "#fee9e9"
+                "dark": "#331f1f"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -20897,7 +20897,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fceeac",
-                "dark": "#fceeac"
+                "dark": "#272419"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -20935,7 +20935,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c9fcac",
-                "dark": "#c9fcac"
+                "dark": "#1e2719"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -20973,7 +20973,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c3fad5",
-                "dark": "#c3fad5"
+                "dark": "#19271e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -21011,7 +21011,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#bafaee",
-                "dark": "#bafaee"
+                "dark": "#1a2624"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -21049,7 +21049,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#c7f6fc",
-                "dark": "#c7f6fc"
+                "dark": "#1a2628"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -21087,7 +21087,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e9edfe",
-                "dark": "#e9edfe"
+                "dark": "#1d2437"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -21125,7 +21125,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6eefe",
-                "dark": "#e6eefe"
+                "dark": "#1c2433"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -21163,7 +21163,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee7fc",
-                "dark": "#fee7fc"
+                "dark": "#2c202b"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -21201,7 +21201,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e6",
-                "dark": "#fee9e6"
+                "dark": "#2e211f"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -21239,7 +21239,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e7",
-                "dark": "#fee9e7"
+                "dark": "#2f211f"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -21277,7 +21277,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#feecc2",
-                "dark": "#feecc2"
+                "dark": "#292416"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -21315,7 +21315,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#feebd0",
-                "dark": "#feebd0"
+                "dark": "#2a2319"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -21353,7 +21353,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fee9e5",
-                "dark": "#fee9e5"
+                "dark": "#31201c"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -21391,7 +21391,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ecdb",
-                "dark": "#f7ecdb"
+                "dark": "#28241c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -21429,7 +21429,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ebe5",
-                "dark": "#f7ebe5"
+                "dark": "#2c221c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -21467,7 +21467,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f7ece4",
-                "dark": "#f7ece4"
+                "dark": "#2b221c"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -21505,7 +21505,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3ede5",
-                "dark": "#f3ede5"
+                "dark": "#28231f"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -21543,7 +21543,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f6f6f6",
-                "dark": "#f6f6f6"
+                "dark": "#1e1e1e"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -21581,7 +21581,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f5f5fe",
-                "dark": "#f5f5fe"
+                "dark": "#1b1b35"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -21619,7 +21619,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f4",
-                "dark": "#fef4f4"
+                "dark": "#2b1919"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -21657,7 +21657,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef7da",
-                "dark": "#fef7da"
+                "dark": "#201e14"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -21695,7 +21695,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e6feda",
-                "dark": "#e6feda"
+                "dark": "#182014"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -21733,7 +21733,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3fdeb",
-                "dark": "#e3fdeb"
+                "dark": "#142018"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -21771,7 +21771,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dffdf7",
-                "dark": "#dffdf7"
+                "dark": "#15201e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -21809,7 +21809,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5fbfd",
-                "dark": "#e5fbfd"
+                "dark": "#152021"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -21847,7 +21847,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4f6fe",
-                "dark": "#f4f6fe"
+                "dark": "#171d2f"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -21885,7 +21885,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3f6fe",
-                "dark": "#f3f6fe"
+                "dark": "#171e2b"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -21923,7 +21923,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef3fd",
-                "dark": "#fef3fd"
+                "dark": "#251a24"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -21961,7 +21961,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#261b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -21999,7 +21999,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f3",
-                "dark": "#fef4f3"
+                "dark": "#281b19"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -22037,7 +22037,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef6e3",
-                "dark": "#fef6e3"
+                "dark": "#221d11"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -22075,7 +22075,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef5e8",
-                "dark": "#fef5e8"
+                "dark": "#231d14"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -22113,7 +22113,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fef4f2",
-                "dark": "#fef4f2"
+                "dark": "#281a16"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -22151,7 +22151,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf6ed",
-                "dark": "#fbf6ed"
+                "dark": "#211d16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -22189,7 +22189,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#251c16"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -22227,7 +22227,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbf5f2",
-                "dark": "#fbf5f2"
+                "dark": "#241c17"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -22265,7 +22265,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f9f6f2",
-                "dark": "#f9f6f2"
+                "dark": "#211d19"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
@@ -22303,7 +22303,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e5e5e5",
-                "dark": "#e5e5e5"
+                "dark": "#2a2a2a"
             },
             "parsedColorOptionName": {
                 "colorName": "grey",
@@ -22341,7 +22341,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#e3e3fd",
-                "dark": "#e3e3fd"
+                "dark": "#272747"
             },
             "parsedColorOptionName": {
                 "colorName": "blueFrance",
@@ -22379,7 +22379,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddede",
-                "dark": "#fddede"
+                "dark": "#3b2424"
             },
             "parsedColorOptionName": {
                 "colorName": "redMarianne",
@@ -22417,7 +22417,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fbe769",
-                "dark": "#fbe769"
+                "dark": "#2d2a1d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenTilleulVerveine",
@@ -22455,7 +22455,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a9fb68",
-                "dark": "#a9fb68"
+                "dark": "#232d1d"
             },
             "parsedColorOptionName": {
                 "colorName": "greenBourgeon",
@@ -22493,7 +22493,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#9ef9be",
-                "dark": "#9ef9be"
+                "dark": "#1e2e23"
             },
             "parsedColorOptionName": {
                 "colorName": "greenEmeraude",
@@ -22531,7 +22531,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#8bf8e7",
-                "dark": "#8bf8e7"
+                "dark": "#1f2d2a"
             },
             "parsedColorOptionName": {
                 "colorName": "greenMenthe",
@@ -22569,7 +22569,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#a6f2fa",
-                "dark": "#a6f2fa"
+                "dark": "#1f2c2e"
             },
             "parsedColorOptionName": {
                 "colorName": "greenArchipel",
@@ -22607,7 +22607,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dee5fd",
-                "dark": "#dee5fd"
+                "dark": "#222940"
             },
             "parsedColorOptionName": {
                 "colorName": "blueEcume",
@@ -22645,7 +22645,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#dae6fd",
-                "dark": "#dae6fd"
+                "dark": "#212a3a"
             },
             "parsedColorOptionName": {
                 "colorName": "blueCumulus",
@@ -22683,7 +22683,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddbfa",
-                "dark": "#fddbfa"
+                "dark": "#332632"
             },
             "parsedColorOptionName": {
                 "colorName": "purpleGlycine",
@@ -22721,7 +22721,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfda",
-                "dark": "#fddfda"
+                "dark": "#352724"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkMacaron",
@@ -22759,7 +22759,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfdb",
-                "dark": "#fddfdb"
+                "dark": "#372624"
             },
             "parsedColorOptionName": {
                 "colorName": "pinkTuile",
@@ -22797,7 +22797,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fde39c",
-                "dark": "#fde39c"
+                "dark": "#302a1a"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowTournesol",
@@ -22835,7 +22835,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fde2b5",
-                "dark": "#fde2b5"
+                "dark": "#30291d"
             },
             "parsedColorOptionName": {
                 "colorName": "yellowMoutarde",
@@ -22873,7 +22873,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#fddfd8",
-                "dark": "#fddfd8"
+                "dark": "#382621"
             },
             "parsedColorOptionName": {
                 "colorName": "orangeTerreBattue",
@@ -22911,7 +22911,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f4e3c7",
-                "dark": "#f4e3c7"
+                "dark": "#2e2a21"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCafeCreme",
@@ -22949,7 +22949,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3e2d9",
-                "dark": "#f3e2d9"
+                "dark": "#332821"
             },
             "parsedColorOptionName": {
                 "colorName": "brownCaramel",
@@ -22987,7 +22987,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#f3e2d7",
-                "dark": "#f3e2d7"
+                "dark": "#322821"
             },
             "parsedColorOptionName": {
                 "colorName": "brownOpera",
@@ -23025,7 +23025,7 @@ export const colorDecisionAndCorrespondingOptions = [
             ],
             "color": {
                 "light": "#eee4d9",
-                "dark": "#eee4d9"
+                "dark": "#2e2924"
             },
             "parsedColorOptionName": {
                 "colorName": "beigeGrisGalet",
