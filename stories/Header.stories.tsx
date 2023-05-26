@@ -1,6 +1,7 @@
 import React from "react";
 import { Header } from "../dist/Header";
 import { MainNavigation } from "../dist/MainNavigation";
+import { LanguageSelector } from "../dist/LanguageSelector";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import placeholder_9x16ImgUrl from "./assets/placeholder.9x16.png";
@@ -131,6 +132,58 @@ export const HeaderWithQuickAccessItems = getStory({
         {
             "iconId": "fr-icon-account-line",
             "text": "S’enregistrer",
+            "linkProps": {
+                "href": "#"
+            }
+        }
+    ]
+});
+
+export const HeaderWithQuickAccessItemsWithLanguageSelector = getStory({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "serviceTitle": "Nom du site / service",
+    "serviceTagline": "baseline - précisions sur l'organisation",
+    "quickAccessItems": [
+        {
+            "iconId": "fr-icon-add-circle-line",
+            "text": "Créer un espace",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-lock-line",
+            "text": "Se connecter",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-account-line",
+            "text": "S’enregistrer",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-translate-2",
+            "text": (
+                <LanguageSelector
+                    lang="fr"
+                    languages={{ fr: "Français", "en": "English" }}
+                    setLang={lang => null}
+                />
+            ),
             "linkProps": {
                 "href": "#"
             }
