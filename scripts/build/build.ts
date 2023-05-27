@@ -1,6 +1,6 @@
 import { tsc } from "../tools/tsc";
 import { getProjectRoot } from "../../src/bin/tools/getProjectRoot";
-import { join as pathJoin } from "path";
+import { join as pathJoin, basename as pathBasename } from "path";
 import * as fs from "fs";
 import { getPatchedRawCssCodeForCompatWithRemixIcon, collectIcons } from "./icons";
 import { cssToTs } from "./cssToTs";
@@ -104,6 +104,22 @@ import { patchCssForMui } from "./patchCssForMui";
         "tsconfigDirPath": pathJoin(projectRootDirPath, "src"),
         "doWatch": false
     });
+
+    {
+        const assertSrcDirPath = pathJoin(projectRootDirPath, "src", "assets");
+
+        fs.cpSync(
+            assertSrcDirPath,
+            pathJoin(
+                projectRootDirPath,
+                JSON.parse(
+                    fs.readFileSync(pathJoin(projectRootDirPath, "tsproject.json")).toString("utf8")
+                )["compilerOptions"]["outDir"],
+                pathBasename(assertSrcDirPath)
+            ),
+            { "recursive": true }
+        );
+    }
 
     //NOTE: From here it's only for local linking, required for storybook and running integration apps.
     if (!args.npm) {
