@@ -74,7 +74,7 @@ const { useTranslation, addFranceConnectButtonTranslations } = createComponentI1
 addFranceConnectButtonTranslations({
     "lang": "en",
     "messages": {
-        "what is service": ({ plus }) => `What is FranceConnect${plus ? "+" : ""} ?`,
+        "what is service": ({ plus }) => `What's FranceConnect${plus ? "+" : ""} ?`,
         "new window": "new window"
     }
 });
