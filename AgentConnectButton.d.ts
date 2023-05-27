@@ -1,7 +1,7 @@
 import React, { type CSSProperties } from "react";
 export type AgentConnectButtonProps = {
     className?: string;
-    redirectUrl: string;
+    url: string;
     style?: CSSProperties;
 };
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */

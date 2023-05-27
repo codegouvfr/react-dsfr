@@ -1,7 +1,7 @@
 import React, { type CSSProperties } from "react";
 export type FranceConnectButtonProps = {
     className?: string;
-    redirectUrl: string;
+    url: string;
     /** Default: false */
     plus?: boolean;
     classes?: Partial<Record<"root" | "login" | "brand", string>>;

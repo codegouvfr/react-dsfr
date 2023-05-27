@@ -24,14 +24,14 @@ import { useColors } from "./useColors";
 import { getAssetUrl } from "./tools/getAssetUrl";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(forwardRef((props, ref) => {
-    const { className, redirectUrl, style } = props, rest = __rest(props, ["className", "redirectUrl", "style"]);
+    const { className, url, style } = props, rest = __rest(props, ["className", "url", "style"]);
     assert();
     const { t } = useTranslation();
     const [isMouseHover, setIsMouseHover] = useState(false);
     const { isDark } = useIsDark();
     const theme = useColors();
     return (React.createElement("div", { className: className, style: style, ref: ref },
-        React.createElement("a", { href: redirectUrl, style: {
+        React.createElement("a", { href: url, style: {
                 "display": "block",
                 "backgroundImage": "unset"
             }, onMouseEnter: () => setIsMouseHover(true), onMouseLeave: () => setIsMouseHover(false) },

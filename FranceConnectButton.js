@@ -17,11 +17,11 @@ import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(forwardRef((props, ref) => {
-    const { classes = {}, className, redirectUrl, plus = false, style } = props, rest = __rest(props, ["classes", "className", "redirectUrl", "plus", "style"]);
+    const { classes = {}, className, url, plus = false, style } = props, rest = __rest(props, ["classes", "className", "url", "plus", "style"]);
     assert();
     const { t } = useTranslation();
     return (React.createElement("div", { className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
-        React.createElement("a", { className: fr.cx("fr-btn", "fr-connect"), href: redirectUrl },
+        React.createElement("a", { className: fr.cx("fr-btn", "fr-connect"), href: url },
             React.createElement("span", { className: cx(fr.cx("fr-connect__login"), classes.login) }, "S\u2019identifier avec"),
             React.createElement("span", { className: cx(fr.cx("fr-connect__brand"), classes.brand) },
                 "FranceConnect",
