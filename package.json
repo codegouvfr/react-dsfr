@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "0.57.1",
+  "version": "0.57.2",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
@@ -107,7 +107,7 @@
     "remixicon": "^3.2.0",
     "storybook-dark-mode": "^1.1.2",
     "ts-node": "^10.9.1",
-    "tss-react": "^4.7.1",
+    "tss-react": "^4.8.4",
     "type-route": "^1.0.1",
     "typescript": "^4.9.1-beta",
     "vitest": "^0.24.3"
