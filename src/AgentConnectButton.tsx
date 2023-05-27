@@ -14,14 +14,14 @@ import { getAssetUrl } from "./tools/getAssetUrl";
 
 export type AgentConnectButtonProps = {
     className?: string;
-    redirectUrl: string;
+    url: string;
     style?: CSSProperties;
 };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(
     forwardRef<HTMLDivElement, AgentConnectButtonProps>((props, ref) => {
-        const { className, redirectUrl, style, ...rest } = props;
+        const { className, url, style, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -35,7 +35,7 @@ export const AgentConnectButton = memo(
         return (
             <div className={className} style={style} ref={ref}>
                 <a
-                    href={redirectUrl}
+                    href={url}
                     style={{
                         "display": "block",
                         "backgroundImage": "unset"

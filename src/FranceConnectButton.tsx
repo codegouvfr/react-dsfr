@@ -7,7 +7,7 @@ import { cx } from "./tools/cx";
 
 export type FranceConnectButtonProps = {
     className?: string;
-    redirectUrl: string;
+    url: string;
     /** Default: false */
     plus?: boolean;
     classes?: Partial<Record<"root" | "login" | "brand", string>>;
@@ -17,7 +17,7 @@ export type FranceConnectButtonProps = {
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, redirectUrl, plus = false, style, ...rest } = props;
+        const { classes = {}, className, url, plus = false, style, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -29,7 +29,7 @@ export const FranceConnectButton = memo(
                 style={style}
                 ref={ref}
             >
-                <a className={fr.cx("fr-btn", "fr-connect")} href={redirectUrl}>
+                <a className={fr.cx("fr-btn", "fr-connect")} href={url}>
                     <span className={cx(fr.cx("fr-connect__login"), classes.login)}>
                         S’identifier avec
                     </span>
