@@ -13,12 +13,12 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    "redirectUrl": "https://example.com"
+    "url": "https://example.com"
 });
 
 export const Centered = getStory({
     "style": {
         "textAlign": "center"
     },
-    "redirectUrl": "https://example.com"
+    "url": "https://example.com"
 });
