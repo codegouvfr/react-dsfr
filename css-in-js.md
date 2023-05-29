@@ -55,9 +55,11 @@ export const MyComponent =(props: Props) => {
 {% endtab %}
 
 {% tab title="TSS (recommended)" %}
-{% embed url="https://tss-react.dev" %}
+### tss-react
 
-#### ddd
+{% embed url="https://tss-react.dev" %}
+Dynamic CSS-in-TS syle engine
+{% endembed %}
 
 ```bash
 # Deppendencies to install even if never user directly:  
@@ -65,7 +67,7 @@ yarn add tss-react @emotion/react
 ```
 
 ```tsx
-import { makeStyles } from "@codegouvfr/react-dsfr/tss";
+import { makeStyles } from "tss-react/dsfr";
 
 export type Props = {
     className?: string;
@@ -289,7 +291,7 @@ This tool is build using [this file](https://unpkg.com/browse/@codegouvfr/react-
 {% endhint %}
 
 ```tsx
-import { useStyles } from "@codegouvf/react-dsfr/tss";
+import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
 
 function MyComponent() {
@@ -364,7 +366,7 @@ function MyComponent(){
 
 You can also access the theme object using the preconfigured [`tss-react`](https://tss-react.dev) adapter:
 
-<pre class="language-typescript"><code class="lang-typescript">import { useStyles } from "@codegouvfr/react-dsfr/tss";
+<pre class="language-typescript"><code class="lang-typescript">import { useStyles } from "tss-react/dsfr";
 
 function MyComponent(){
 
