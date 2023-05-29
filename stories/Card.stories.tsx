@@ -23,7 +23,7 @@ const { meta, getStory } = getStoryFactory({
             "description": `Required only if enlargeLink is true. The Card Link props.`
         },
         enlargeLink: {
-            "description": `default: true. Set to false to restrict the link area to the Card title only.`,
+            "description": `Set to false to restrict the link area to the Card title only.`,
             "control": { "type": "boolean" }
         },
         size: {
