@@ -1,5 +1,5 @@
 /// <reference types="react" />
-/** @see <https://docs.tss-react.dev/setup> */
+/** @deprecated: Please use import { makeStyles } from "tss-react/dsfr"; instead. */
 export declare const makeStyles: <Params = void, RuleNameSubsetReferencableInNestedSelectors extends string = never>(params?: {
     name?: string | Record<string, unknown> | undefined;
     uniqId?: string | undefined;
