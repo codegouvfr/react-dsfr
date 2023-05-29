@@ -20,10 +20,10 @@ const { meta, getStory } = getStoryFactory({
         "title": { "description": `Required.` },
         "desc": { "description": `` },
         linkProps: {
-            "description": `Required. the Card Link props`
+            "description": `Required only if enlargeLink is true. The Card Link props.`
         },
         enlargeLink: {
-            "description": `default: true. Set to false to restrict the link area to the Card title only.`,
+            "description": `Set to false to restrict the link area to the Card title only.`,
             "control": { "type": "boolean" }
         },
         size: {
@@ -277,7 +277,17 @@ export const CardGrey = getStory(
     {
         ...defaultProps,
         "horizontal": true,
-        "grey": false
+        "grey": true
     },
     { "description": "Carte horizontale grey", "defaultContainerWidth": 900 }
+);
+
+export const CardNoLink = getStory(
+    {
+        ...defaultProps,
+        "enlargeLink": false,
+        "horizontal": true,
+        "linkProps": undefined
+    },
+    { "description": "Carte horizontale sans lien", "defaultContainerWidth": 900 }
 );
