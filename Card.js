@@ -41,7 +41,7 @@ export const Card = memo(forwardRef((props, ref) => {
                 React.createElement("div", { className: cx(fr.cx("fr-card__end"), classes.end) },
                     end,
                     endDetail !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-card__detail"), classes.endDetail) }, endDetail)))),
-            footer !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-card__footer"), classes.footer) }, footer))),
+            footer !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-card__footer"), classes.footer) }, footer))),
         imageUrl !== undefined && imageUrl.length && (React.createElement("div", { className: cx(fr.cx("fr-card__header"), classes.header) },
             React.createElement("div", { className: cx(fr.cx("fr-card__img"), classes.img) },
                 React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt })),
