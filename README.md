@@ -245,7 +245,7 @@ const nextConfig = {
 </strong><strong>    return config;
 </strong><strong>  },
 </strong><strong>  //This option requires Next 13.1 or newer, if you can't update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
-</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
+</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr", "tss-react"]
 </strong>};
 
 module.exports = nextConfig
@@ -313,8 +313,6 @@ export default function Document(props: DocumentProps) {
 augmentDocumentForDsfr(Document);
 ```
 {% endcode %}
-
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir)
 {% endtab %}
 
 {% tab title="Create React App" %}
