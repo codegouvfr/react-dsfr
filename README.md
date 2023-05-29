@@ -60,162 +60,63 @@ Also you must configure it so it uses `node_modules` (sorry)
 
 
 {% tabs %}
-{% tab title="Create React App" %}
-{% hint style="warning" %}
-The create-react-app project is no longer being maintained. If you are starting a new project you'll probably be beter off with Vite.&#x20;
-{% endhint %}
+{% tab title="Vite" %}
+{% embed url="https://github.com/garronej/react-dsfr-vite-demo" %}
+Demo setup
+{% endembed %}
 
 Add theses three scipts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-    ...
-<strong>    "postinstall": "copy-dsfr-to-public"
-</strong><strong>    "prestart": "only-include-used-icons",
+<strong>    "postinstall": "copy-dsfr-to-public",
+</strong><strong>    "predev": "only-include-used-icons",
 </strong><strong>    "prebuild": "only-include-used-icons"
-</strong>},
-...
-"jest": {
-    "transformIgnorePatterns": [
-<strong>      "node_modules/(?!@codegouvfr/react-dsfr)"
-</strong>    ]
-}
+</strong>}
 </code></pre>
 
-Add the following code in the `<head />`
+Trigger the execution of the postinstall script by running:
 
-{% code title="public/index.html" %}
-```ejs
-<link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
-<link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
-<link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
-<link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+```bash
+yarn # Or 'npm install' or 'pnpm install'
+```
 
-<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
-<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
+Add the following tags in the `<head />`
+
+{% code title="index.html" %}
+```html
+<link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
+<link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+
+<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
+<link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
 ```
 {% endcode %}
 
-<pre class="language-tsx" data-title="src/index.tsx"><code class="lang-tsx">import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+<pre class="language-tsx" data-title="src/main.tsx"><code class="lang-tsx">import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./App";
 <strong>import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 </strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   &#x3C;React.StrictMode>
     &#x3C;App />
   &#x3C;/React.StrictMode>
 );
 </code></pre>
 
+You're all set! Next step for you is to setup de integration with your routing library (react-router for example)
+
 {% content-ref url="routing.md" %}
 [routing.md](routing.md)
 {% endcontent-ref %}
-
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/cra).
-{% endtab %}
-
-{% tab title="Next.js Page Router" %}
-{% hint style="info" %}
-This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing). &#x20;
-
-You are in this case if you have a `pages/` directory at the root of your project.
-{% endhint %}
-
-{% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
-Starter project in prod here: [https://react-dsfr-next-demo.vercel.app/](https://react-dsfr-next-demo.vercel.app/)
-{% endembed %}
-
-<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-<strong>  webpack: config => {
-</strong><strong>    config.module.rules.push({
-</strong><strong>      test: /\.woff2$/,
-</strong><strong>      type: "asset/resource"
-</strong><strong>    });
-</strong><strong>    return config;
-</strong><strong>  },
-</strong><strong>  //This option requires Next 13.1 or newer, if you can't update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
-</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
-</strong>};
-
-module.exports = nextConfig
-</code></pre>
-
-<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-<strong>    "predev": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
-</strong>}
-</code></pre>
-
-{% code title="pages/_app.tsx" %}
-```tsx
-import type { AppProps } from "next/app";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
-import Link from "next/link";
-
-// Only in TypeScript projects
-declare module "@codegouvfr/react-dsfr/next-pagesdir" {
-    interface RegisterLink { 
-        Link: typeof Link;
-    }
-}
-
-const { 
-    withDsfr,
-    dsfrDocumentApi
-} = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system",
-    Link
-});
-
-export { dsfrDocumentApi };
-
-function App({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
-}
-
-export default withDsfr(App);
-```
-{% endcode %}
-
-{% code title="pages/_document.tsx" %}
-```tsx
-import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
-import { dsfrDocumentApi } from "./_app";
-
-const { 
-  getColorSchemeHtmlAttributes, 
-  augmentDocumentForDsfr 
-} = dsfrDocumentApi;
-
-export default function Document(props: DocumentProps) {
-  return (
-    <Html {...getColorSchemeHtmlAttributes(props)}>
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
-}
-
-augmentDocumentForDsfr(Document);
-```
-{% endcode %}
-
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir)
 {% endtab %}
 
 {% tab title="Next.js App Router" %}
 {% hint style="info" %}
-This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing). &#x20;
+This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).&#x20;
 
 You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
@@ -321,50 +222,167 @@ You may experience white flashes in dev mode but not in production. 👍
 {% endhint %}
 {% endtab %}
 
-{% tab title="Vite" %}
-{% embed url="https://github.com/garronej/react-dsfr-vite-demo" %}
+{% tab title="Next.js Page Router" %}
+{% hint style="info" %}
+This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup). &#x20;
 
-Add theses three scipts to your `package.json`:
+You are in this case if you have a `pages/` directory at the root of your project.
+{% endhint %}
+
+{% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
+Starter project in prod here: [https://react-dsfr-next-demo.vercel.app/](https://react-dsfr-next-demo.vercel.app/)
+{% endembed %}
+
+<pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+<strong>  webpack: config => {
+</strong><strong>    config.module.rules.push({
+</strong><strong>      test: /\.woff2$/,
+</strong><strong>      type: "asset/resource"
+</strong><strong>    });
+</strong><strong>    return config;
+</strong><strong>  },
+</strong><strong>  //This option requires Next 13.1 or newer, if you can't update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
+</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr"]
+</strong>};
+
+module.exports = nextConfig
+</code></pre>
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-<strong>    "postinstall": "copy-dsfr-to-public",
-</strong><strong>    "predev": "only-include-used-icons",
+<strong>    "predev": "only-include-used-icons",
 </strong><strong>    "prebuild": "only-include-used-icons"
 </strong>}
 </code></pre>
 
-Add the following tags in the `<head />`
+{% code title="pages/_app.tsx" %}
+```tsx
+import type { AppProps } from "next/app";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
+import Link from "next/link";
 
-{% code title="index.html" %}
-```html
-<link rel="apple-touch-icon" href="/dsfr/favicon/apple-touch-icon.png" />
-<link rel="icon" href="/dsfr/favicon/favicon.svg" type="image/svg+xml" />
-<link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
-<link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+// Only in TypeScript projects
+declare module "@codegouvfr/react-dsfr/next-pagesdir" {
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
+}
 
-<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
-<link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
+const { 
+    withDsfr,
+    dsfrDocumentApi
+} = createNextDsfrIntegrationApi({
+    defaultColorScheme: "system",
+    Link
+});
+
+export { dsfrDocumentApi };
+
+function App({ Component, pageProps }: AppProps) {
+    return <Component {...pageProps} />;
+}
+
+export default withDsfr(App);
 ```
 {% endcode %}
 
-<pre class="language-tsx" data-title="src/main.tsx"><code class="lang-tsx">import React from "react";
-import ReactDOM from "react-dom/client";
-import { App } from "./App";
+{% code title="pages/_document.tsx" %}
+```tsx
+import { Html, Head, Main, NextScript, DocumentProps } from "next/document";
+import { dsfrDocumentApi } from "./_app";
+
+const { 
+  getColorSchemeHtmlAttributes, 
+  augmentDocumentForDsfr 
+} = dsfrDocumentApi;
+
+export default function Document(props: DocumentProps) {
+  return (
+    <Html {...getColorSchemeHtmlAttributes(props)}>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+
+augmentDocumentForDsfr(Document);
+```
+{% endcode %}
+
+You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-pagesdir)
+{% endtab %}
+
+{% tab title="Create React App" %}
+{% hint style="warning" %}
+The create-react-app project is no longer being maintained. If you are starting a new project you'll probably be beter off with Vite.&#x20;
+{% endhint %}
+
+{% embed url="https://github.com/garronej/react-dsfr-cra-demo" %}
+Demo setup
+{% endembed %}
+
+Add theses three scipts to your `package.json`:
+
+<pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
+    ...
+<strong>    "postinstall": "copy-dsfr-to-public"
+</strong><strong>    "prestart": "only-include-used-icons",
+</strong><strong>    "prebuild": "only-include-used-icons"
+</strong>},
+...
+"jest": {
+    "transformIgnorePatterns": [
+<strong>      "node_modules/(?!@codegouvfr/react-dsfr)"
+</strong>    ]
+}
+</code></pre>
+
+Trigger the execution of the postinstall script by running:
+
+```bash
+yarn # Or 'npm install' or 'pnpm install'
+```
+
+Add the following code in the `<head />`
+
+{% code title="public/index.html" %}
+```ejs
+<link rel="apple-touch-icon" href="%PUBLIC_URL%/dsfr/favicon/apple-touch-icon.png" />
+<link rel="icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.svg" type="image/svg+xml" />
+<link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
+<link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
+
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
+```
+{% endcode %}
+
+<pre class="language-tsx" data-title="src/index.tsx"><code class="lang-tsx">import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 <strong>import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 </strong><strong>startReactDsfr({ defaultColorScheme: "system" });
 </strong>
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
   &#x3C;React.StrictMode>
     &#x3C;App />
   &#x3C;/React.StrictMode>
 );
 </code></pre>
 
+You're all set! Next step for you is to setup de integration with your routing library (react-router for example)
+
 {% content-ref url="routing.md" %}
 [routing.md](routing.md)
 {% endcontent-ref %}
-
-You can find an example setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/vite).
 {% endtab %}
 
 {% tab title="Other" %}
