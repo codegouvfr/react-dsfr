@@ -4,7 +4,6 @@ import type { RegisteredLinkProps } from "./link";
 export type CardProps = {
     className?: string;
     title: ReactNode;
-    linkProps: RegisteredLinkProps;
     desc?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
@@ -33,10 +32,12 @@ export type CardProps = {
 export declare namespace CardProps {
     type EnlargedLink = {
         enlargeLink: true;
+        linkProps: RegisteredLinkProps;
         iconId?: FrIconClassName | RiIconClassName;
     };
     type NotEnlargedLink = {
         enlargeLink?: false;
+        linkProps?: RegisteredLinkProps;
         iconId?: never;
     };
 }
