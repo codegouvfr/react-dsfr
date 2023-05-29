@@ -162,7 +162,7 @@ export const Card = memo(
                         </div>
                     </div>
                     {footer !== undefined && (
-                        <p className={cx(fr.cx("fr-card__footer"), classes.footer)}>{footer}</p>
+                        <div className={cx(fr.cx("fr-card__footer"), classes.footer)}>{footer}</div>
                     )}
                 </div>
                 {/* ensure we don't have an empty imageUrl string */}
