@@ -19,9 +19,10 @@ import agentconnectBtnPrincipalSvgUrl from "./assets/agentconnect-btn-principal.
 import agentconnectBtnPrincipalHoverSvgUrl from "./assets/agentconnect-btn-principal-hover.svg";
 import agentconnectBtnAlternatifSvgUrl from "./assets/agentconnect-btn-alternatif.svg";
 import agentconnectBtnAlternatifHoverSvgUrl from "./assets/agentconnect-btn-alternatif-hover.svg";
+import "./assets/agentconnect.css";
 import { useIsDark } from "./useIsDark";
-import { useColors } from "./useColors";
 import { getAssetUrl } from "./tools/getAssetUrl";
+import { cx } from "./tools/cx";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(forwardRef((props, ref) => {
     const { className, url, style } = props, rest = __rest(props, ["className", "url", "style"]);
@@ -29,12 +30,8 @@ export const AgentConnectButton = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
     const [isMouseHover, setIsMouseHover] = useState(false);
     const { isDark } = useIsDark();
-    const theme = useColors();
     return (React.createElement("div", { className: className, style: style, ref: ref },
-        React.createElement("a", { href: url, style: {
-                "display": "block",
-                "backgroundImage": "unset"
-            }, onMouseEnter: () => setIsMouseHover(true), onMouseLeave: () => setIsMouseHover(false) },
+        React.createElement("a", { className: "agentconnect-button__link", href: url, onMouseEnter: () => setIsMouseHover(true), onMouseLeave: () => setIsMouseHover(false) },
             React.createElement("img", { src: getAssetUrl(isDark
                     ? isMouseHover
                         ? agentconnectBtnAlternatifHoverSvgUrl
@@ -42,11 +39,8 @@ export const AgentConnectButton = memo(forwardRef((props, ref) => {
                     : isMouseHover
                         ? agentconnectBtnPrincipalHoverSvgUrl
                         : agentconnectBtnPrincipalSvgUrl) })),
-        React.createElement("a", { style: {
-                "display": "inline-block",
-                "marginTop": fr.spacing("1v"),
-                "color": theme.decisions.text.actionHigh.blueFrance.default
-            }, className: fr.cx("fr-text--sm"), href: "https://agentconnect.gouv.fr/", target: "_blank" }, t("what is AgentConnect ?"))));
+        React.createElement("p", null,
+            React.createElement("a", { className: cx("agentconnect-button__hint", fr.cx("fr-text--sm", "fr-mt-1v")), href: "https://agentconnect.gouv.fr/", target: "_blank" }, t("what is AgentConnect ?")))));
 }));
 AgentConnectButton.displayName = symToStr({ AgentConnectButton });
 export default AgentConnectButton;

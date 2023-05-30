@@ -1,4 +1,5 @@
 import React, { type CSSProperties } from "react";
+import "./assets/agentconnect.css";
 export type AgentConnectButtonProps = {
     className?: string;
     url: string;

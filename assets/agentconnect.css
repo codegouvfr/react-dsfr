@@ -1,0 +1,10 @@
+
+.agentconnect-button__link {
+    display: block;
+    background-image: unset;
+    --active-tint: unset;
+}
+
+.agentconnect-button__hint {
+    color: var(--text-action-high-blue-france);
+}
