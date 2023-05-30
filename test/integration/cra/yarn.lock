@@ -1075,9 +1075,9 @@
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.44.3"
+  version "0.55.1"
   dependencies:
-    tsafe "^1.6.0"
+    tsafe "^1.6.3"
 
 "@csstools/normalize.css@*":
   version "12.0.0"
@@ -8248,10 +8248,10 @@ tryer@^1.0.1:
   resolved "https://registry.yarnpkg.com/tryer/-/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==
 
-tsafe@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.0.tgz#48a9bd0a4c43df43d289bdfc1d89f0d7fffbd612"
-  integrity sha512-wlUeRBnyN3EN2chXznpLm7vBEvJLEOziDU+MN6NRlD99AkwmXgtChNQhp+V97VyRa3Bp05IaL4Cocsc7JlyEUg==
+tsafe@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.3.tgz#93a77510f542d9043c6f3ab9ed46267729431a59"
+  integrity sha512-55Tbbxn6XAx1NX7X+fNfIsKsM6XxcbFbUMZ47fjXlef1g9jV8w+mZi3rse0+9Dj5nQefyWLeYT4cAwyiakWszQ==
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"

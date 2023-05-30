@@ -108,6 +108,9 @@ const { getHardCodedWeight } = (() => {
         "components/Tabs",
         "components/Stepper",
         "components/Button",
+        "components/FranceConnectButton",
+        "components/AgentConnectButton",
+        "components/MonCompteProButton"
     ];
 
     function getHardCodedWeight(kind) {

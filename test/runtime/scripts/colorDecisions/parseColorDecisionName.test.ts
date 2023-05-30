@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { createParseColorDecisionName } from "../../../../src/scripts/build/cssToTs/colorDecisions";
-import type { ParsedColorDecisionName } from "../../../../src/scripts/build/cssToTs/colorDecisions";
+import { createParseColorDecisionName } from "../../../../scripts/build/cssToTs/colorDecisions";
+import type { ParsedColorDecisionName } from "../../../../scripts/build/cssToTs/colorDecisions";
 
 describe("Color decision css variable correctly parsed", () => {
     const rawCssCode = `
@@ -21,7 +21,7 @@ describe("Color decision css variable correctly parsed", () => {
 
 }
 
-:root:where([data-fr-theme=dark]) {
+:root[data-fr-theme=dark] {
   --grey-1000-50-hover: #000000;
   --grey-1000-50: #000000;
   --orange-terre-battue-850-200: #000000;

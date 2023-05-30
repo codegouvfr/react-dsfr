@@ -1349,10 +1349,10 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@gouvfr/dsfr@1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.9.1.tgz#7651bb86fe61b99afc7f65840a4dddf01f5e4ac1"
-  integrity sha512-vZZpVRr32pW4YiclbWKPI7VGW85O012AE8tHFYgLhc96zzY5Zqp4rsDvwo3qt0GAn2/BSJoM3+MjXi0YFhbzmg==
+"@gouvfr/dsfr@1.9.3":
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.9.3.tgz#289148c79566f6332cc930230742c4fe509d96f2"
+  integrity sha512-toPM1nvzSxPAwpLhnIgf7a/TJV0WOUa6sDqYummvMhZ9PBolFPGuD+3r8e3vg0bR5BkYxOt9hFErOPDU1tU4sQ==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -10523,10 +10523,10 @@ remark-squeeze-paragraphs@4.0.0:
   dependencies:
     mdast-squeeze-paragraphs "^4.0.0"
 
-remixicon@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-2.5.0.tgz#b5e245894a1550aa23793f95daceadbf96ad1a41"
-  integrity sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==
+remixicon@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-3.2.0.tgz#7c3f4c0a073bc4d1f9e8e9941f37a2961de5b561"
+  integrity sha512-ADh4EQE4UGtm9GHqD+TIfVp1b0zeWso6efaMAnejdB6/7Z1W02Ka5K8khQaz+LNgIqC6dSZxCvXMWNalYWHiNQ==
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
@@ -11807,10 +11807,10 @@ tsafe@^1.4.1:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.4.1.tgz#59cdad8ac41babf88e56dcd1a683ae2fb145d059"
   integrity sha512-3IDBalvf6SyvHFS14UiwCWzqdSdo+Q0k2J7DZyJYaHW/iraW9DJpaBKDJpry3yQs3o/t/A+oGaRW3iVt2lKxzA==
 
-tsafe@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.0.tgz#48a9bd0a4c43df43d289bdfc1d89f0d7fffbd612"
-  integrity sha512-wlUeRBnyN3EN2chXznpLm7vBEvJLEOziDU+MN6NRlD99AkwmXgtChNQhp+V97VyRa3Bp05IaL4Cocsc7JlyEUg==
+tsafe@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.3.tgz#93a77510f542d9043c6f3ab9ed46267729431a59"
+  integrity sha512-55Tbbxn6XAx1NX7X+fNfIsKsM6XxcbFbUMZ47fjXlef1g9jV8w+mZi3rse0+9Dj5nQefyWLeYT4cAwyiakWszQ==
 
 tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.3:
   version "1.14.1"
@@ -11827,10 +11827,10 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.4.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
   integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
-tss-react@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.7.1.tgz#52f973924e6e4468fb67b4ed73881d8fb139d5d0"
-  integrity sha512-xlKTTkN232rK16nBPlyvfesVBDbyk17oo+clEB3Wm77VyrBChAakYJ8NcqmzXHzW6QbvyqiSS6AR2Zzd/Ul1ew==
+tss-react@^4.8.4:
+  version "4.8.4"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.8.4.tgz#0a5fb97bc5e1613d98ec69e3ec9bce8a5987976f"
+  integrity sha512-OaCOc7Gfx4TcNsiLczZ1CZC2dkzyUx8Q/NoTO0n7pxk+cAxKQJrDV7x2nl+fB05bnjlbNkR8/jHLmoCaUwzEtg==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"

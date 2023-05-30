@@ -99,6 +99,7 @@ const Modal = memo(
                                         className={fr.cx("fr-btn--close", "fr-btn")}
                                         title={t("close")}
                                         aria-controls={id}
+                                        type="button"
                                     >
                                         {t("close")}
                                     </button>
@@ -197,25 +198,28 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-let counter = 0;
-
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
 export function createModal<Name extends string>(params: {
     name: Name;
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> &
+}): Record<
+    `${Uncapitalize<Name>}ModalNativeButtonProps`,
+    {
+        "aria-controls": string;
+        "data-fr-opened": boolean;
+    }
+> &
     Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> &
     Record<`close${Capitalize<Name>}Modal`, () => void> &
-    Record<`open${Capitalize<Name>}Modal`, () => void> {
+    Record<`open${Capitalize<Name>}Modal`, () => void> &
+    Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> {
     const { name, isOpenedByDefault } = params;
 
-    const modalId = `${uncapitalize(name)}-modal-${counter++}`;
+    const modalId = `${uncapitalize(name)}-modal`;
 
-    const openModalButtonProps: ModalProps.ModalButtonProps = {
-        "nativeButtonProps": {
-            "aria-controls": modalId,
-            "data-fr-opened": isOpenedByDefault
-        }
+    const modalNativeButtonProps = {
+        "aria-controls": modalId,
+        "data-fr-opened": isOpenedByDefault
     };
 
     const hiddenControlButtonId = `${modalId}-hidden-control-button`;
@@ -223,11 +227,16 @@ export function createModal<Name extends string>(params: {
     function InternalModal(props: ModalProps) {
         return (
             <>
-                {isOpenedByDefault && (
-                    <Button {...openModalButtonProps} className={fr.cx("fr-hidden")}>
-                        {" "}
-                    </Button>
-                )}
+                <Button
+                    nativeButtonProps={{
+                        ...modalNativeButtonProps,
+                        "id": hiddenControlButtonId,
+                        "type": "button"
+                    }}
+                    className={fr.cx("fr-hidden")}
+                >
+                    {" "}
+                </Button>
                 <Modal {...props} id={modalId} />
             </>
         );
@@ -268,8 +277,12 @@ export function createModal<Name extends string>(params: {
 
     return {
         [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalButtonProps`]: openModalButtonProps,
+        [`${uncapitalize(name)}ModalNativeButtonProps`]: modalNativeButtonProps,
         [openModal.name]: openModal,
-        [closeModal.name]: closeModal
+        [closeModal.name]: closeModal,
+        /** @deprecated */
+        [`${uncapitalize(name)}ModalButtonProps`]: {
+            "nativeButtonProps": modalNativeButtonProps
+        }
     } as any;
 }

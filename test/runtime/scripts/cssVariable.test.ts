@@ -3,8 +3,8 @@ import {
     createGetCssVariable,
     isInvariantAcrossTheme,
     isInvariantAcrossScreenSizes
-} from "../../../src/scripts/build/cssToTs/cssVariable";
-import type { CssVariableValue } from "../../../src/scripts/build/cssToTs/cssVariable";
+} from "../../../scripts/build/cssToTs/cssVariable";
+import type { CssVariableValue } from "../../../scripts/build/cssToTs/cssVariable";
 import { assert } from "tsafe/assert";
 
 const rawCssCode = `
@@ -15,7 +15,7 @@ const rawCssCode = `
 	--my-var-4: #ffffff;
 }
 
-:root:where([data-fr-theme=dark]) {
+:root[data-fr-theme=dark] {
 	--my-var-2: #000000;
 }
 
@@ -24,7 +24,7 @@ const rawCssCode = `
 
 @media (min-width: 48em) { 
 
-    :root:where([data-fr-theme=dark]) {
+    :root[data-fr-theme=dark] {
         --my-var-4: #000000;
     }
 

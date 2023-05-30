@@ -2,7 +2,7 @@
     <img src="https://github.com/codegouvfr/react-dsfr/releases/download/assets/dsfr-react_repo-card.png">  
 </p>
 <p align="center">
-    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React integration</i> 🇫🇷 
+    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React toolkit</i> 🇫🇷 
     <br>
     <br>
     <a href="https://github.com/codegouvfr/react-dsfr/actions">
@@ -28,12 +28,12 @@
 
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
-> WARNING: This Design System is only meant to be used for official French's public service websites and apps.  
+> WARNING: This Design System is only meant to be used for official French's public service websites.  
 > Its main purpose is to make it easy to identify governmental websites for citizens. [See terms](https://www.systeme-de-design.gouv.fr/cgu/).
 
 > 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
-This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
+This module is an advanced toolkit that leverage [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
 <a href="https://youtu.be/5q88JgXUAY4">
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
@@ -113,7 +113,11 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few project **that I know of** that uses `@codegouvfr/react-dsfr`.
 
+-   https://sill.code.gouv.fr
 -   https://immersion-facile.beta.gouv.fr/
+-   https://refugies.info/fr
+-   https://www.mediateur-public.fr/
+-   https://signal.conso.gouv.fr/
 -   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
 -   https://github.com/DISIC/observatoire.numerique.gouv.fr
 -   https://github.com/DISIC/monfranceconnect

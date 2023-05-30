@@ -420,7 +420,6 @@ export const Footer = memo(
                                               "linkProps": personalDataLinkProps
                                           })
                                       ]),
-
                                 ...(() => {
                                     const openConsentModal = getOpenConsentModal();
 
@@ -500,19 +499,12 @@ export const Footer = memo(
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
-                                {license === undefined ? (
-                                    <>
-                                        {t("license mention")}{" "}
-                                        <a
-                                            href="https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                                            target="_blank"
-                                        >
-                                            {t("etalab license")}{" "}
-                                        </a>{" "}
-                                    </>
-                                ) : (
-                                    license
-                                )}
+                                {license === undefined
+                                    ? t("license mention", {
+                                          "licenseUrl":
+                                              "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                                      })
+                                    : license}
                             </p>
                         </div>
                     </div>
@@ -539,8 +531,14 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "terms": "Mentions légales",
         "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
-        "license mention": "Sauf mention contraire, tous les contenus de ce site sont sous",
-        "etalab license": "licence etalab-2.0",
+        "license mention": (p: { licenseUrl: string }) => (
+            <>
+                Sauf mention contraire, tous les contenus de ce site sont sous{" "}
+                <a href={p.licenseUrl} target="_blank">
+                    licence etalab-2.0
+                </a>
+            </>
+        ),
         "our partners": "Nos partenaires"
         /* spell-checker: enable */
     }
@@ -555,8 +553,14 @@ addFooterTranslations({
         "non compliant": "non compliant",
         "partially compliant": "partially compliant",
         "fully compliant": "fully compliant",
-        "license mention": "Unless stated otherwise all content of this website are under",
-        "etalab license": "etalab-2.0 license"
+        "license mention": p => (
+            <>
+                Unless stated otherwise, all content of this website is under the{" "}
+                <a href={p.licenseUrl} target="_blank">
+                    etalab-2.0 license
+                </a>
+            </>
+        )
     }
 });
 

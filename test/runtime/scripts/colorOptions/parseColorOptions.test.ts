@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
-import { parseColorOptions } from "../../../../src/scripts/build/cssToTs/colorOptions";
-import type { ColorOption } from "../../../../src/scripts/build/cssToTs/colorOptions";
+import { parseColorOptions } from "../../../../scripts/build/cssToTs/colorOptions";
+import type { ColorOption } from "../../../../scripts/build/cssToTs/colorOptions";
 
 it("Successfully parse color options", () => {
     const rawCssCode = `
@@ -28,7 +28,7 @@ it("Successfully parse color options", () => {
   --background-default-grey: var(--grey-1000-50);
   --background-default-grey-hover: var(--grey-1000-50-hover);
 }
-:root:where([data-fr-theme=dark]) {
+:root[data-fr-theme=dark] {
   --name1-name2-111-222: #100000;
   --name1-name2-111-222-hover: #200000;
   --name1-name2-sun-111-222: #300000;

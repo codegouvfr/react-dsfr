@@ -1,15 +1,15 @@
 {
     "name": "@codegouvfr/react-dsfr",
-    "version": "0.50.0",
+    "version": "0.58.1",
     "description": "French State Design System React integration library",
     "repository": {
         "type": "git",
         "url": "git://github.com/codegouvfr/react-dsfr.git"
     },
     "scripts": {
-        "build": "ts-node -T src/scripts/build",
-        "_link": "ts-node -T src/scripts/link-in-integration-apps.ts",
-        "link-external": "ts-node -T src/scripts/link-in-external-project.ts",
+        "build": "ts-node -T scripts/build",
+        "_link": "ts-node -T scripts/link-in-integration-apps.ts",
+        "link-external": "ts-node -T scripts/link-in-external-project.ts",
         "start-cra": "yarn build && yarn _link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
         "start-vite": "yarn build && yarn _link && ((tsc -w -p src) & (cd test/integration/vite && yarn dev))",
         "start-next-pagesdir": "yarn build && yarn _link && ((tsc -w -p src) & (cd test/integration/next-pagesdir && yarn dev))",
@@ -38,7 +38,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "ts-node -T src/scripts/list-exports.ts && git add package.json && lint-staged -v"
+            "pre-commit": "lint-staged -v"
         }
     },
     "author": {
@@ -47,7 +47,6 @@
     "license": "MIT",
     "files": [
         "src/",
-        "!src/scripts/",
         "dist/",
         "!dist/tsconfig.tsbuildinfo",
         "!dist/bin/tsconfig.tsbuildinfo",
@@ -60,17 +59,14 @@
         "typescript"
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
-    "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
-    },
     "dependencies": {
-        "tsafe": "^1.6.0"
+        "tsafe": "^1.6.3"
     },
     "devDependencies": {
         "@babel/core": "^7.20.2",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
-        "@gouvfr/dsfr": "1.9.1",
+        "@gouvfr/dsfr": "1.9.3",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.0",
         "@storybook/addon-a11y": "^6.5.16",
@@ -108,71 +104,15 @@
         "prettier": "^2.3.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "remixicon": "^2.5.0",
+        "remixicon": "^3.2.0",
         "storybook-dark-mode": "^1.1.2",
         "ts-node": "^10.9.1",
-        "tss-react": "^4.7.1",
+        "tss-react": "^4.8.4",
         "type-route": "^1.0.1",
         "typescript": "^4.9.1-beta",
         "vitest": "^0.24.3"
     },
     "main": "dist/fr/index.js",
     "types": "dist/fr/index.d.ts",
-    "module": "dist/fr/index.js",
-    "exports": {
-        ".": "./dist/fr/index.js",
-        "./gdpr": "./dist/gdpr/index.js",
-        "./spa": "./dist/spa.js",
-        "./next-appdir": "./dist/next-appdir/index.js",
-        "./next-appdir/DsfrHead": "./dist/next-appdir/DsfrHead.js",
-        "./next-appdir/DsfrProvider": "./dist/next-appdir/DsfrProvider.js",
-        "./next-appdir/getColorSchemeHtmlAttributes": "./dist/next-appdir/getColorSchemeHtmlAttributes.js",
-        "./next-pagesdir": "./dist/next-pagesdir.js",
-        "./useIsDark": "./dist/useIsDark/index.js",
-        "./useGdprStore": "./dist/useGdprStore.js",
-        "./useColors": "./dist/useColors.js",
-        "./useBreakpointsValues": "./dist/useBreakpointsValues.js",
-        "./mui": "./dist/mui.js",
-        "./tss": "./dist/tss.js",
-        "./tools/cx": "./dist/tools/cx.js",
-        "./i18n": "./dist/i18n.js",
-        "./dsfr/*": "./dsfr/*",
-        "./blocks/*": "./dist/blocks/*",
-        "./ToggleSwitchGroup": "./dist/ToggleSwitchGroup.js",
-        "./ToggleSwitch": "./dist/ToggleSwitch.js",
-        "./Tile": "./dist/Tile.js",
-        "./Tag": "./dist/Tag.js",
-        "./Tabs": "./dist/Tabs.js",
-        "./Table": "./dist/Table.js",
-        "./Summary": "./dist/Summary.js",
-        "./Stepper": "./dist/Stepper.js",
-        "./SkipLinks": "./dist/SkipLinks.js",
-        "./SideMenu": "./dist/SideMenu.js",
-        "./SelectNext": "./dist/SelectNext.js",
-        "./Select": "./dist/Select.js",
-        "./SearchBar": "./dist/SearchBar.js",
-        "./RadioButtons": "./dist/RadioButtons.js",
-        "./Quote": "./dist/Quote.js",
-        "./Pagination": "./dist/Pagination.js",
-        "./Notice": "./dist/Notice.js",
-        "./Modal": "./dist/Modal.js",
-        "./MainNavigation": "./dist/MainNavigation/index.js",
-        "./Input": "./dist/Input.js",
-        "./Highlight": "./dist/Highlight.js",
-        "./Header": "./dist/Header.js",
-        "./Footer": "./dist/Footer.js",
-        "./Download": "./dist/Download.js",
-        "./Display": "./dist/Display.js",
-        "./ConsentBannerNext": "./dist/ConsentBannerNext/index.js",
-        "./ConsentBanner": "./dist/ConsentBanner/index.js",
-        "./Checkbox": "./dist/Checkbox.js",
-        "./Card": "./dist/Card.js",
-        "./CallOut": "./dist/CallOut.js",
-        "./ButtonsGroup": "./dist/ButtonsGroup.js",
-        "./Button": "./dist/Button.js",
-        "./Breadcrumb": "./dist/Breadcrumb.js",
-        "./Badge": "./dist/Badge.js",
-        "./Alert": "./dist/Alert.js",
-        "./Accordion": "./dist/Accordion.js"
-    }
+    "module": "dist/fr/index.js"
 }

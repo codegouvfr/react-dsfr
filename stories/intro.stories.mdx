@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/addon-docs";
 import { useDarkMode } from "storybook-dark-mode";
+import { RotatingLogo } from "./RotatingLogo";
 
 <Meta
     title="🇫🇷 Introduction" 
@@ -14,10 +15,15 @@ import { useDarkMode } from "storybook-dark-mode";
     }}
 />
 
-<div style={{ "margin": "0 auto", "maxWidth": "600px", "textAlign": "center" }}>
-    <img src="repo-card.png" />  
-    🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React integration</i> 🇫🇷 
+<div style={{ "margin": "0 auto", "maxWidth": "700px", "textAlign": "center" }}>
+<div style={{ "display": "flex", "justifyContent": "center" }}>
+<RotatingLogo style={{ "width": 250 }} />
+</div>
+<br/>
+🇫🇷 <i><a href="https://www.systeme-de-design.gouv.fr/">French State Design System</a> React integration</i> 🇫🇷 
 
 This website documents the React components featured by [@codegouvfr/react-dsfr](https://github.com/codegouvfr/react-dsfr).  
 🏁 If you're just getting started heads over to the 👉 [Guides](https://react-dsfr.etalab.studio/) 👈.
+
+
 </div>

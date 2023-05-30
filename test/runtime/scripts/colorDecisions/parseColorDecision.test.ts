@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
-import { parseColorDecision } from "../../../../src/scripts/build/cssToTs/colorDecisions";
-import type { ColorDecision } from "../../../../src/scripts/build/cssToTs/colorDecisions";
+import { parseColorDecision } from "../../../../scripts/build/cssToTs/colorDecisions";
+import type { ColorDecision } from "../../../../scripts/build/cssToTs/colorDecisions";
 
 it("Color decisions to be successfully parsed", () => {
     const rawCssCode = `
@@ -18,7 +18,7 @@ it("Color decisions to be successfully parsed", () => {
   --background-contrast-overlap-grey: var(--grey-950-150);
 }
 
-:root:where([data-fr-theme=dark]) {
+:root[data-fr-theme=dark] {
   --grey-1000-50-hover: #000000;
   --grey-1000-50: #000000;
   --orange-terre-battue-850-200: #000000;

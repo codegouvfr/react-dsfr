@@ -2,8 +2,9 @@ import { execSync } from "child_process";
 import { join as pathJoin, relative as pathRelative } from "path";
 import { exclude } from "tsafe/exclude";
 import * as fs from "fs";
+import { getProjectRoot } from "../src/bin/tools/getProjectRoot";
 
-const rootDirPath = pathJoin(__dirname, "..", "..");
+const rootDirPath = getProjectRoot();
 
 const commonThirdPartyDeps = (() => {
     const namespaceModuleNames = ["@emotion"];

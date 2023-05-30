@@ -13,7 +13,6 @@ import { cx } from "./tools/cx";
 export type CardProps = {
     className?: string;
     title: ReactNode;
-    linkProps: RegisteredLinkProps;
     desc?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
@@ -63,10 +62,12 @@ export type CardProps = {
 export namespace CardProps {
     export type EnlargedLink = {
         enlargeLink: true;
+        linkProps: RegisteredLinkProps;
         iconId?: FrIconClassName | RiIconClassName;
     };
     export type NotEnlargedLink = {
         enlargeLink?: false;
+        linkProps?: RegisteredLinkProps;
         iconId?: never;
     };
 }
@@ -90,7 +91,7 @@ export const Card = memo(
             horizontal = false,
             size = "medium",
             classes = {},
-            enlargeLink = true,
+            enlargeLink = false,
             background = true,
             border = true,
             shadow = false,
@@ -137,9 +138,16 @@ export const Card = memo(
                 <div className={cx(fr.cx("fr-card__body"), classes.body)}>
                     <div className={cx(fr.cx("fr-card__content"), classes.content)}>
                         <h3 className={cx(fr.cx("fr-card__title"), classes.title)}>
-                            <Link {...linkProps} className={cx(linkProps.className, classes.link)}>
-                                {title}
-                            </Link>
+                            {linkProps !== undefined ? (
+                                <Link
+                                    {...linkProps}
+                                    className={cx(linkProps.className, classes.link)}
+                                >
+                                    {title}
+                                </Link>
+                            ) : (
+                                title
+                            )}
                         </h3>
                         {desc !== undefined && (
                             <p className={cx(fr.cx("fr-card__desc"), classes.desc)}>{desc}</p>
@@ -162,7 +170,7 @@ export const Card = memo(
                         </div>
                     </div>
                     {footer !== undefined && (
-                        <p className={cx(fr.cx("fr-card__footer"), classes.footer)}>{footer}</p>
+                        <div className={cx(fr.cx("fr-card__footer"), classes.footer)}>{footer}</div>
                     )}
                 </div>
                 {/* ensure we don't have an empty imageUrl string */}

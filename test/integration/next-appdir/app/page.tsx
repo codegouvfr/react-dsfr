@@ -8,7 +8,7 @@ import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { GdprStoreViewer } from '#/ui/GdprStoreViewer';
 
-const { SimpleModal, simpleModalButtonProps } = createModal({
+const { SimpleModal, simpleModalNativeButtonProps } = createModal({
     "name": "simple",
     "isOpenedByDefault": false
 });
@@ -133,7 +133,7 @@ export default function Page() {
                 ]}
             />
             <ClientComponent />
-            <Button {...simpleModalButtonProps}>Open simple modal</Button>
+            <Button nativeButtonProps={simpleModalNativeButtonProps}>Open simple modal (control button)</Button>
             <SimpleModal
                 title="simple modal title"
                 buttons={

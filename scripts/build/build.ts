@@ -1,16 +1,15 @@
 import { tsc } from "../tools/tsc";
-import { getProjectRoot } from "../../bin/tools/getProjectRoot";
-import { join as pathJoin } from "path";
+import { getProjectRoot } from "../../src/bin/tools/getProjectRoot";
+import { join as pathJoin, basename as pathBasename } from "path";
 import * as fs from "fs";
 import { getPatchedRawCssCodeForCompatWithRemixIcon, collectIcons } from "./icons";
 import { cssToTs } from "./cssToTs";
 import {
     pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist,
     pathOfIconsJson
-} from "../../bin/only-include-used-icons";
+} from "../../src/bin/only-include-used-icons";
 import * as child_process from "child_process";
 import { oppa } from "oppa";
-import { assert } from "tsafe/assert";
 import { patchCssForMui } from "./patchCssForMui";
 
 (async () => {
@@ -106,6 +105,22 @@ import { patchCssForMui } from "./patchCssForMui";
         "doWatch": false
     });
 
+    {
+        const assertSrcDirPath = pathJoin(projectRootDirPath, "src", "assets");
+
+        fs.cpSync(
+            assertSrcDirPath,
+            pathJoin(
+                projectRootDirPath,
+                JSON.parse(
+                    fs.readFileSync(pathJoin(projectRootDirPath, "tsproject.json")).toString("utf8")
+                )["compilerOptions"]["outDir"],
+                pathBasename(assertSrcDirPath)
+            ),
+            { "recursive": true }
+        );
+    }
+
     //NOTE: From here it's only for local linking, required for storybook and running integration apps.
     if (!args.npm) {
         fs.writeFileSync(
@@ -123,14 +138,7 @@ import { patchCssForMui } from "./patchCssForMui";
                             ...packageJsonParsed,
                             "main": packageJsonParsed["main"].replace(/^dist\//, ""),
                             "types": packageJsonParsed["types"].replace(/^dist\//, ""),
-                            "module": packageJsonParsed["module"].replace(/^dist\//, ""),
-                            "exports": Object.fromEntries(
-                                Object.entries(packageJsonParsed["exports"]).map(([key, value]) => [
-                                    key,
-                                    (assert(typeof value === "string"),
-                                    value.replace(/^\.\/dist\//, "./"))
-                                ])
-                            )
+                            "module": packageJsonParsed["module"].replace(/^dist\//, "")
                         };
                     })(),
                     null,

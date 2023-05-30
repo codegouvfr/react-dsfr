@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateSpacingTsCode } from "../../../../src/scripts/build/cssToTs/spacing";
+import { generateSpacingTsCode } from "../../../../scripts/build/cssToTs/spacing";
 
 it("Generates spacing TS code", () => {
     const rawCssCode = `

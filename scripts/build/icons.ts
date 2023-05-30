@@ -1,12 +1,12 @@
 import { readFile } from "fs/promises";
 import { join as pathJoin, basename as pathBasename } from "path";
 import { id } from "tsafe/id";
-import { crawl } from "../../bin/tools/crawl";
+import { crawl } from "../../src/bin/tools/crawl";
 import { parseCss } from "./parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import type { Icon } from "../../bin/only-include-used-icons";
-import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "../../bin/only-include-used-icons";
+import type { Icon } from "../../src/bin/only-include-used-icons";
+import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "../../src/bin/only-include-used-icons";
 import { sep } from "path";
 import * as css from "css";
 
