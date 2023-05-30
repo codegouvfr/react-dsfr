@@ -8,9 +8,10 @@ import agentconnectBtnPrincipalSvgUrl from "./assets/agentconnect-btn-principal.
 import agentconnectBtnPrincipalHoverSvgUrl from "./assets/agentconnect-btn-principal-hover.svg";
 import agentconnectBtnAlternatifSvgUrl from "./assets/agentconnect-btn-alternatif.svg";
 import agentconnectBtnAlternatifHoverSvgUrl from "./assets/agentconnect-btn-alternatif-hover.svg";
+import "./assets/agentconnect.css";
 import { useIsDark } from "./useIsDark";
-import { useColors } from "./useColors";
 import { getAssetUrl } from "./tools/getAssetUrl";
+import { cx } from "./tools/cx";
 
 export type AgentConnectButtonProps = {
     className?: string;
@@ -30,16 +31,12 @@ export const AgentConnectButton = memo(
         const [isMouseHover, setIsMouseHover] = useState(false);
 
         const { isDark } = useIsDark();
-        const theme = useColors();
 
         return (
             <div className={className} style={style} ref={ref}>
                 <a
+                    className="agentconnect-button__link"
                     href={url}
-                    style={{
-                        "display": "block",
-                        "backgroundImage": "unset"
-                    }}
                     onMouseEnter={() => setIsMouseHover(true)}
                     onMouseLeave={() => setIsMouseHover(false)}
                 >
@@ -55,18 +52,18 @@ export const AgentConnectButton = memo(
                         )}
                     />
                 </a>
-                <a
-                    style={{
-                        "display": "inline-block",
-                        "marginTop": fr.spacing("1v"),
-                        "color": theme.decisions.text.actionHigh.blueFrance.default
-                    }}
-                    className={fr.cx("fr-text--sm")}
-                    href="https://agentconnect.gouv.fr/"
-                    target="_blank"
-                >
-                    {t("what is AgentConnect ?")}
-                </a>
+                <p>
+                    <a
+                        className={cx(
+                            "agentconnect-button__hint",
+                            fr.cx("fr-text--sm", "fr-mt-1v")
+                        )}
+                        href="https://agentconnect.gouv.fr/"
+                        target="_blank"
+                    >
+                        {t("what is AgentConnect ?")}
+                    </a>
+                </p>
             </div>
         );
     })
