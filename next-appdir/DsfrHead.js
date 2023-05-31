@@ -6,8 +6,8 @@ import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
 import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./fontUrlByFileBasename";
-import "../dsfr/dsfr.css";
 import "../dsfr/utility/icons/icons.css";
+import "../dsfr/dsfr.css";
 const isProduction = process.env.NODE_ENV !== "development";
 export function DsfrHead(props) {
     const { defaultColorScheme, preloadFonts = [] } = props;
