@@ -50,7 +50,23 @@ function Root() {
                 <Header
                     brandTop={<>INTITULE<br />OFFICIEL</>}
                     serviceTitle="Nom du site / service"
-                    quickAccessItems={[headerFooterDisplayItem]}
+                    quickAccessItems={[headerFooterDisplayItem,
+                        {
+                            iconId: "ri-chat-3-line",
+                            linkProps: {
+                              href: "#",
+                              target: "_self",
+                            },
+                            text: "Soumettre mes retours",
+                          },
+                          {
+                            iconId: "ri-mail-line",
+                            linkProps: {
+                              href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
+                            },
+                            text: "Nous contacter",
+                          },
+                ]}
                     homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
                     navigation={[
                         {
