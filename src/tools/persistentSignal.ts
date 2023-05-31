@@ -1,16 +1,16 @@
-import { useConstCallback } from "./useConstCallback";
+import { useConstCallback } from "./powerhooks/useConstCallback";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
-import type { UseNamedStateReturnType } from "./useNamedState";
+import type { UseNamedStateReturnType } from "./powerhooks/useNamedState";
 import { typeGuard } from "tsafe/typeGuard";
 import { capitalize } from "tsafe/capitalize";
 import {
     createStatefulObservable,
     useRerenderOnChange,
     type StatefulObservable
-} from "../StatefulObservable";
-import { isBrowser } from "../isBrowser";
+} from "./StatefulObservable";
+import { isBrowser } from "./isBrowser";
 
-export function usePersistentState<T, Name extends string>(params: {
+export function createPersistentSignal<T, Name extends string>(params: {
     name: Name;
     /** Function called only if not in local storage */
     defaultValue: T;

@@ -9,7 +9,7 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
-import { getOpenConsentModal } from "./ConsentBannerNext/openConsentModal";
+import { getOpenConsentModal } from "./GdprCookieManagment/openConsentModal";
 
 export type FooterProps = {
     className?: string;
