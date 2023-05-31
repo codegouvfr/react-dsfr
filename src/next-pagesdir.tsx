@@ -22,8 +22,8 @@ import { setLink } from "./link";
 import { setUseLang } from "./i18n";
 import Script from "next/script";
 import { assert } from "tsafe/assert";
-import "./dsfr/dsfr.css";
 import "./dsfr/utility/icons/icons.css";
+import "./dsfr/dsfr.css";
 import { GdprStoreProvider } from "./gdpr/GdprStore";
 
 export type { RegisterLink, RegisteredLinkProps };
