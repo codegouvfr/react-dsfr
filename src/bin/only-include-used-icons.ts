@@ -367,9 +367,7 @@ async function main() {
         const lines = indexHtml.split("\n");
 
         const importDsfrIndexLine = lines.findIndex(line =>
-            /<link\s+rel="stylesheet"\s+href="(.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css"\s*\/>/.test(
-                line
-            )
+            /<link.+href=["'](.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css["']/.test(line)
         );
 
         if (importDsfrIndexLine === -1) {
@@ -377,7 +375,7 @@ async function main() {
         }
 
         if (
-            !/<link\s+rel="stylesheet"\s+href="(%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css"\s*\/>/.test(
+            !/<link.+href=["'](%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css["']/.test(
                 lines[importDsfrIndexLine + 1]
             )
         ) {
