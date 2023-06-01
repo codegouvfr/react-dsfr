@@ -89,8 +89,8 @@ Add the following tags in the `<head />`
 <link rel="shortcut icon" href="/dsfr/favicon/favicon.ico" type="image/x-icon" />
 <link rel="manifest" href="/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
-<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
 <link rel="stylesheet" href="/dsfr/utility/icons/icons.min.css" />
+<link rel="stylesheet" href="/dsfr/dsfr.min.css" />
 ```
 {% endcode %}
 
@@ -355,8 +355,8 @@ Add the following code in the `<head />`
 <link rel="shortcut icon" href="%PUBLIC_URL%/dsfr/favicon/favicon.ico" type="image/x-icon" />
 <link rel="manifest" href="%PUBLIC_URL%/dsfr/favicon/manifest.webmanifest" crossorigin="use-credentials" />
 
-<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 <link rel="stylesheet" href="%PUBLIC_URL%/dsfr/utility/icons/icons.min.css" />
+<link rel="stylesheet" href="%PUBLIC_URL%/dsfr/dsfr.min.css" />
 ```
 {% endcode %}
 
