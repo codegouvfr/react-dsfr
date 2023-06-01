@@ -12,7 +12,7 @@
 }
 
 .agentconnect-button__preload-hover {
-    display: none;
+    visibility: collapse;
 }
 .agentconnect-button__link:hover, .agentconnect-button__preload-hover {
     background-image: url("./agentconnect-btn-principal-hover.svg");
