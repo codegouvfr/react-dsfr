@@ -6,21 +6,36 @@ import { assert, type Equals } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import "./assets/moncomptepro.css";
 
-export type FranceConnectButtonProps = {
-    className?: string;
-    url: string;
-    classes?: Partial<Record<"root" | "login" | "brand", string>>;
-    style?: CSSProperties;
-};
+export type FranceConnectButtonProps = FranceConnectButtonProps.Common &
+    (FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick);
+
+export namespace FranceConnectButtonProps {
+    export type Common = {
+        className?: string;
+        classes?: Partial<Record<"root" | "login" | "brand", string>>;
+        style?: CSSProperties;
+    };
+    export type WithUrl = {
+        url: string;
+        onClick?: never;
+    };
+    export type WithOnClick = {
+        url?: never;
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
+    };
+}
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, url, style, ...rest } = props;
+        const { classes = {}, className, url: href, style, onClick, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const { t } = useTranslation();
+
+        const Inner = onClick !== undefined ? "button" : "a";
+        const innerProps = (onClick !== undefined ? { onClick } : { href }) as any;
 
         return (
             <div
@@ -28,14 +43,17 @@ export const MonCompteProButton = memo(
                 style={style}
                 ref={ref}
             >
-                <a className={cx(fr.cx("fr-btn", "fr-connect"), "moncomptepro-button")} href={url}>
+                <Inner
+                    className={cx(fr.cx("fr-btn", "fr-connect"), "moncomptepro-button")}
+                    {...innerProps}
+                >
                     <span className={cx(fr.cx("fr-connect__login"), classes.login)}>
                         S’identifier avec
                     </span>
                     <span className={cx(fr.cx("fr-connect__brand"), classes.brand)}>
                         MonComptePro
                     </span>
-                </a>
+                </Inner>
                 <p>
                     <a
                         href="https://moncomptepro.beta.gouv.fr/"

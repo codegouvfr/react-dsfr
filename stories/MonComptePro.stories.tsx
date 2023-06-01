@@ -1,6 +1,6 @@
 import { MonCompteProButton } from "../dist/MonCompteProButton";
 import { sectionName } from "./sectionName";
-import { getStoryFactory } from "./getStory";
+import { getStoryFactory, logCallbacks } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -21,4 +21,8 @@ export const Centered = getStory({
         "textAlign": "center"
     },
     "url": "https://example.com"
+});
+
+export const WithOnClick = getStory({
+    ...logCallbacks(["onClick"])
 });
