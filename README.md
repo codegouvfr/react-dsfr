@@ -122,6 +122,10 @@ You are in this case if you have a `app/` directory at the root of your project.
 Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
 {% endembed %}
 
+```bash
+yarn add --dev sass
+```
+
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true, // Recommended for the `pages` directory, default in `app`.
