@@ -5,22 +5,23 @@ import { fr } from "./fr";
 import { assert, type Equals } from "tsafe/assert";
 import { cx } from "./tools/cx";
 
-export type FranceConnectButtonProps = FranceConnectButtonProps.Common &
-    (FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick);
+export type FranceConnectButtonProps =
+    | FranceConnectButtonProps.WithUrl
+    | FranceConnectButtonProps.WithOnClick;
 
 export namespace FranceConnectButtonProps {
-    export type Common = {
+    type Common = {
         className?: string;
         /** Default: false */
         plus?: boolean;
         classes?: Partial<Record<"root" | "login" | "brand", string>>;
         style?: CSSProperties;
     };
-    export type WithUrl = {
+    export type WithUrl = Common & {
         url: string;
         onClick?: never;
     };
-    export type WithOnClick = {
+    export type WithOnClick = Common & {
         url?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
     };

@@ -6,19 +6,20 @@ import { assert, type Equals } from "tsafe/assert";
 import "./assets/agentconnect.css";
 import { cx } from "./tools/cx";
 
-export type AgentConnectButtonProps = AgentConnectButtonProps.Common &
-    (AgentConnectButtonProps.WithUrl | AgentConnectButtonProps.WithOnClick);
+export type AgentConnectButtonProps =
+    | AgentConnectButtonProps.WithUrl
+    | AgentConnectButtonProps.WithOnClick;
 
 export namespace AgentConnectButtonProps {
-    export type Common = {
+    type Common = {
         className?: string;
         style?: CSSProperties;
     };
-    export type WithUrl = {
+    export type WithUrl = Common & {
         url: string;
         onClick?: never;
     };
-    export type WithOnClick = {
+    export type WithOnClick = Common & {
         url?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
     };
