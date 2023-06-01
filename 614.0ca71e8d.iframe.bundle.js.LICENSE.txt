@@ -102,6 +102,14 @@ and limitations under the License.
  */
 
 /**
+ * @mui/styled-engine v5.13.2
+ *
+ * @license MIT
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
  * React Router v6.0.2
  *
  * Copyright (c) Remix Software Inc.
@@ -138,12 +146,6 @@ and limitations under the License.
  * fzf v0.5.1
  * Copyright (c) 2021-2022 Ajit
  * Licensed under BSD 3-Clause
- */
-
-/** @license MUI v5.11.0
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
  */
 
 /** @license React v16.13.1

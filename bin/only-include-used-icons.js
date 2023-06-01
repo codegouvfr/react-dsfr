@@ -173,7 +173,7 @@ function generateIconsRawCssCode(params) {
 exports.generateIconsRawCssCode = generateIconsRawCssCode;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var packageName, cwd, dsfrDistDirPath, _a, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, onConfirmedChange;
+        var packageName, cwd, dsfrDistDirPath, _a, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, onConfirmedChange, indexHtmlFilePath, indexHtml, lines_1, importDsfrIndexLine_1;
         var _this = this;
         return __generator(this, function (_d) {
             switch (_d.label) {
@@ -421,6 +421,49 @@ function main() {
                             return [2 /*return*/];
                         });
                     }); });
+                    // Make sure icon css is imported before main css.
+                    // In the doc prior to first of june 2023, we instructed to import first the main css and then the icon css.
+                    // Since @gouvfr/dsfr@1.9.ish it has to be the opposite.
+                    // We auto correct the order here.
+                    reorder_css_imports: {
+                        indexHtmlFilePath = (function () {
+                            var out = (0, path_1.join)(cwd, "public", "index.html");
+                            if (fs.existsSync(out)) {
+                                return out;
+                            }
+                            out = (0, path_1.join)(cwd, "index.html");
+                            if (fs.existsSync(out)) {
+                                return out;
+                            }
+                            return undefined;
+                        })();
+                        if (indexHtmlFilePath === undefined) {
+                            break reorder_css_imports;
+                        }
+                        indexHtml = fs.readFileSync(indexHtmlFilePath).toString("utf8");
+                        lines_1 = indexHtml.split("\n");
+                        importDsfrIndexLine_1 = lines_1.findIndex(function (line) {
+                            return /<link\s+rel="stylesheet"\s+href="(.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css"\s*\/>/.test(line);
+                        });
+                        if (importDsfrIndexLine_1 === -1) {
+                            break reorder_css_imports;
+                        }
+                        if (!/<link\s+rel="stylesheet"\s+href="(%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css"\s*\/>/.test(lines_1[importDsfrIndexLine_1 + 1])) {
+                            break reorder_css_imports;
+                        }
+                        fs.writeFileSync(indexHtmlFilePath, Buffer.from(lines_1
+                            .map(function (line, i) {
+                            switch (i) {
+                                case importDsfrIndexLine_1:
+                                    return lines_1[importDsfrIndexLine_1 + 1];
+                                case importDsfrIndexLine_1 + 1:
+                                    return lines_1[importDsfrIndexLine_1];
+                                default:
+                                    return line;
+                            }
+                        })
+                            .join("\n"), "utf8"));
+                    }
                     return [2 /*return*/];
             }
         });

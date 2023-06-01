@@ -5,8 +5,7 @@ import { data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
 import type { ColorScheme } from "./useIsDark";
 import { fontUrlByFileBasename } from "./next-appdir/fontUrlByFileBasename";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
-import "./dsfr/utility/icons/icons.css";
-import "./dsfr/dsfr.css";
+import "./assets/dsfr_plus_icons.css";
 export type { RegisterLink, RegisteredLinkProps };
 export type CreateNextDsfrIntegrationApiParams = {
     defaultColorScheme: ColorScheme | "system";

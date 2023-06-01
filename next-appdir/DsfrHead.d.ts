@@ -1,7 +1,6 @@
 import type { ColorScheme } from "../useIsDark";
 import { fontUrlByFileBasename } from "./fontUrlByFileBasename";
-import "../dsfr/utility/icons/icons.css";
-import "../dsfr/dsfr.css";
+import "../assets/dsfr_plus_icons.css";
 export type DsfrHeadProps = {
     defaultColorScheme: ColorScheme | "system";
     /** If not provided no fonts are preloaded.
