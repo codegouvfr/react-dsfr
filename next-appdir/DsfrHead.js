@@ -6,7 +6,10 @@ import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
 import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./fontUrlByFileBasename";
-import "../assets/dsfr_plus_icons.css";
+//NOTE: As of now there is no way to enforce ordering in Next Appdir
+//See: https://github.com/vercel/next.js/issues/16630
+// @import url(...) doesn't work. Using Sass and @use is our last resort.
+import "../assets/dsfr_plus_icons.scss";
 const isProduction = process.env.NODE_ENV !== "development";
 export function DsfrHead(props) {
     const { defaultColorScheme, preloadFonts = [] } = props;
