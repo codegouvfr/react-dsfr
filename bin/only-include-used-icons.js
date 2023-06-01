@@ -443,12 +443,12 @@ function main() {
                         indexHtml = fs.readFileSync(indexHtmlFilePath).toString("utf8");
                         lines_1 = indexHtml.split("\n");
                         importDsfrIndexLine_1 = lines_1.findIndex(function (line) {
-                            return /<link\s+rel="stylesheet"\s+href="(.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css"\s*\/>/.test(line);
+                            return /<link.+href=["'](.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css["']/.test(line);
                         });
                         if (importDsfrIndexLine_1 === -1) {
                             break reorder_css_imports;
                         }
-                        if (!/<link\s+rel="stylesheet"\s+href="(%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css"\s*\/>/.test(lines_1[importDsfrIndexLine_1 + 1])) {
+                        if (!/<link.+href=["'](%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css["']/.test(lines_1[importDsfrIndexLine_1 + 1])) {
                             break reorder_css_imports;
                         }
                         fs.writeFileSync(indexHtmlFilePath, Buffer.from(lines_1
