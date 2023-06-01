@@ -1,8 +1,30 @@
 
 .agentconnect-button__link {
-    display: block;
-    background-image: unset;
+    width: 206px;
+    height: 60px;
+    display: inline-block;
+    background-image: url("./agentconnect-btn-principal.svg");
     --active-tint: unset;
+    background-color: transparent;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.agentconnect-button__preload-hover {
+    display: none;
+}
+.agentconnect-button__link:hover, .agentconnect-button__preload-hover {
+    background-image: url("./agentconnect-btn-principal-hover.svg");
+}
+
+:root[data-fr-theme=dark] .agentconnect-button__link {
+    background-image: url("./agentconnect-btn-alternatif.svg");
+}
+
+:root[data-fr-theme=dark] .agentconnect-button__link:hover,
+:root[data-fr-theme=dark] .agentconnect-button__preload-hover {
+    background-image: url("./agentconnect-btn-alternatif-hover.svg");
 }
 
 .agentconnect-button__hint {

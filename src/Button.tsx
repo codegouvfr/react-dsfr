@@ -123,7 +123,7 @@ export const Button = memo(
             prop_className
         );
 
-        return linkProps ? (
+        return linkProps !== undefined ? (
             <Link
                 {...linkProps}
                 title={title ?? linkProps.title}
