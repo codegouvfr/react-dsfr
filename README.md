@@ -4,11 +4,6 @@ description: Setup @codegouvfr/react-dsfr in your project
 
 # 🔧 Initial setup
 
-{% hint style="danger" %}
-This Design System is only meant to be used for French's public service websites and Apps.\
-Its main purpose is to make it easy to identify governmental website for citizens. [See CGU](https://www.systeme-de-design.gouv.fr/cgu/)
-{% endhint %}
-
 {% hint style="warning" %}
 If you already had the DSFR installed in your project, let's start from scratch:
 
@@ -390,13 +385,7 @@ Your framwork isn't supported? let's [get in touch](https://github.com/codegouvf
 
 ### Avoiding or flash of unstyled text (FOUT)
 
-{% hint style="danger" %}
-The official recommendation from the DSFR team is to cope with [the Flash of Unstiled text](https://user-images.githubusercontent.com/6702424/193168884-703a3c95-45be-47ad-823d-15bb6b8e620d.gif) because preloading fonts **significantly delays the First Contentfull Paint (FCP) for users with slow internet connection and slow devices**.
-
-Measures have been taken in the JS code to mitigate discomfort induced by the FOUT.
-{% endhint %}
-
-If you chose, despite the recommendation agaist it, to preload the fonts, at least make sure you only preload the ones immediately used on your page (look in the network tab of your browser dev tool).
+You can avoid having a flash of unstiled text by preloading the font variant used on your homepage.(look in the network tab of your browser dev tool what are the font downloaded initially).
 
 {% tabs %}
 {% tab title="Create React App" %}
