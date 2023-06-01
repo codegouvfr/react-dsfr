@@ -6,7 +6,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { AgentConnectButton },
     "description": `
-- [See AgentConnect documentation](https://agentconnect.gouv.fr/)
+- [See AgentConnect documentation](https://github.com/france-connect/Documentation-AgentConnect/blob/main/doc_fs/implementation_fca/bouton_fca.md)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/AgentConnectButton.tsx)`
 });
 
