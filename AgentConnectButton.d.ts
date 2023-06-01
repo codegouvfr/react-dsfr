@@ -1,10 +1,20 @@
 import React, { type CSSProperties } from "react";
 import "./assets/agentconnect.css";
-export type AgentConnectButtonProps = {
-    className?: string;
-    url: string;
-    style?: CSSProperties;
-};
+export type AgentConnectButtonProps = AgentConnectButtonProps.Common & (AgentConnectButtonProps.WithUrl | AgentConnectButtonProps.WithOnClick);
+export declare namespace AgentConnectButtonProps {
+    type Common = {
+        className?: string;
+        style?: CSSProperties;
+    };
+    type WithUrl = {
+        url: string;
+        onClick?: never;
+    };
+    type WithOnClick = {
+        url?: never;
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
+    };
+}
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export declare const AgentConnectButton: React.MemoExoticComponent<React.ForwardRefExoticComponent<AgentConnectButtonProps & React.RefAttributes<HTMLDivElement>>>;
 export default AgentConnectButton;

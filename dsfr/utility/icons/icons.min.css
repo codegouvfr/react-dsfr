@@ -10,24 +10,6 @@
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
-.fr-icon-chat-check-fill::before,
-.fr-icon-chat-check-fill::after {
-    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
-    mask-image: url("../../icons/communication/chat-check-fill.svg");
-}
-
-.fr-icon-git-commit-fill::before,
-.fr-icon-git-commit-fill::after {
-    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
-    mask-image: url("../../icons/development/git-commit-fill.svg");
-}
-
-.fr-icon-bank-card-line::before,
-.fr-icon-bank-card-line::after {
-    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
-    mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
 .ri-information-line::before,
 .ri-information-line::after {
     -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
@@ -44,6 +26,24 @@
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-icon-chat-check-fill::before,
+.fr-icon-chat-check-fill::after {
+    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
+    mask-image: url("../../icons/communication/chat-check-fill.svg");
+}
+
+.fr-icon-git-commit-fill::before,
+.fr-icon-git-commit-fill::after {
+    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
+    mask-image: url("../../icons/development/git-commit-fill.svg");
+}
+
+.fr-icon-bank-card-line::before,
+.fr-icon-bank-card-line::after {
+    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
+    mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
 .fr-icon-add-circle-line::before,
@@ -88,6 +88,18 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
+.ri-arrow-down-s-fill::before,
+.ri-arrow-down-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+}
+
+.ri-arrow-up-s-fill::before,
+.ri-arrow-up-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+}
+
 .ri-palette-line::before,
 .ri-palette-line::after {
     -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
@@ -104,18 +116,6 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
-}
-
-.ri-arrow-down-s-fill::before,
-.ri-arrow-down-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-}
-
-.ri-arrow-up-s-fill::before,
-.ri-arrow-up-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
 .fr-icon-theme-fill::before,
@@ -189,21 +189,6 @@
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
-    .fr-icon-chat-check-fill::before,
-    .fr-icon-chat-check-fill::after {
-        background-image: url("../../icons/communication/chat-check-fill.svg");
-    }
-    
-    .fr-icon-git-commit-fill::before,
-    .fr-icon-git-commit-fill::after {
-        background-image: url("../../icons/development/git-commit-fill.svg");
-    }
-    
-    .fr-icon-bank-card-line::before,
-    .fr-icon-bank-card-line::after {
-        background-image: url("../../icons/finance/bank-card-line.svg");
-    }
-    
     .ri-information-line::before,
     .ri-information-line::after {
         background-image: url("../../icons/remixicon/information-line.svg");
@@ -217,6 +202,21 @@
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .fr-icon-chat-check-fill::before,
+    .fr-icon-chat-check-fill::after {
+        background-image: url("../../icons/communication/chat-check-fill.svg");
+    }
+    
+    .fr-icon-git-commit-fill::before,
+    .fr-icon-git-commit-fill::after {
+        background-image: url("../../icons/development/git-commit-fill.svg");
+    }
+    
+    .fr-icon-bank-card-line::before,
+    .fr-icon-bank-card-line::after {
+        background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
     .fr-icon-add-circle-line::before,
@@ -254,6 +254,16 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
+    .ri-arrow-down-s-fill::before,
+    .ri-arrow-down-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    }
+    
+    .ri-arrow-up-s-fill::before,
+    .ri-arrow-up-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    }
+    
     .ri-palette-line::before,
     .ri-palette-line::after {
         background-image: url("../../icons/remixicon/palette-line.svg");
@@ -267,16 +277,6 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
-    }
-    
-    .ri-arrow-down-s-fill::before,
-    .ri-arrow-down-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    }
-    
-    .ri-arrow-up-s-fill::before,
-    .ri-arrow-up-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
     .fr-icon-theme-fill::before,

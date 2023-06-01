@@ -18,11 +18,13 @@ import { cx } from "./tools/cx";
 import "./assets/moncomptepro.css";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(forwardRef((props, ref) => {
-    const { classes = {}, className, url, style } = props, rest = __rest(props, ["classes", "className", "url", "style"]);
+    const { classes = {}, className, url: href, style, onClick } = props, rest = __rest(props, ["classes", "className", "url", "style", "onClick"]);
     assert();
     const { t } = useTranslation();
+    const Inner = onClick !== undefined ? "button" : "a";
+    const innerProps = (onClick !== undefined ? { onClick } : { href });
     return (React.createElement("div", { className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
-        React.createElement("a", { className: cx(fr.cx("fr-btn", "fr-connect"), "moncomptepro-button"), href: url },
+        React.createElement(Inner, Object.assign({ className: cx(fr.cx("fr-btn", "fr-connect"), "moncomptepro-button") }, innerProps),
             React.createElement("span", { className: cx(fr.cx("fr-connect__login"), classes.login) }, "S\u2019identifier avec"),
             React.createElement("span", { className: cx(fr.cx("fr-connect__brand"), classes.brand) }, "MonComptePro")),
         React.createElement("p", null,
