@@ -22,10 +22,9 @@ export const AgentConnectButton = memo(forwardRef((props, ref) => {
     assert();
     const { t } = useTranslation();
     const Inner = onClick !== undefined ? "button" : "a";
-    const innerProps = (onClick !== undefined ? { onClick } : { href });
     return (React.createElement("div", { className: className, style: style, ref: ref },
         React.createElement("span", { className: "agentconnect-button__preload-hover" }),
-        React.createElement(Inner, Object.assign({ className: "agentconnect-button__link" }, innerProps)),
+        React.createElement(Inner, Object.assign({ className: "agentconnect-button__link" }, (onClick !== undefined ? { onClick } : { href }))),
         React.createElement("p", null,
             React.createElement("a", { className: cx("agentconnect-button__hint", fr.cx("fr-text--sm", "fr-mt-1v")), href: "https://agentconnect.gouv.fr/", target: "_blank" }, t("what is AgentConnect ?")))));
 }));

@@ -1,5 +1,5 @@
 import React, { type CSSProperties } from "react";
-export type FranceConnectButtonProps = FranceConnectButtonProps.Common & (FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick);
+export type FranceConnectButtonProps = FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick;
 export declare namespace FranceConnectButtonProps {
     type Common = {
         className?: string;
@@ -8,14 +8,15 @@ export declare namespace FranceConnectButtonProps {
         classes?: Partial<Record<"root" | "login" | "brand", string>>;
         style?: CSSProperties;
     };
-    type WithUrl = {
+    export type WithUrl = Common & {
         url: string;
         onClick?: never;
     };
-    type WithOnClick = {
+    export type WithOnClick = Common & {
         url?: never;
         onClick: React.MouseEventHandler<HTMLButtonElement>;
     };
+    export {};
 }
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export declare const FranceConnectButton: React.MemoExoticComponent<React.ForwardRefExoticComponent<FranceConnectButtonProps & React.RefAttributes<HTMLDivElement>>>;
