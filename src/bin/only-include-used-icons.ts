@@ -336,6 +336,73 @@ async function main() {
             writeFile(filePath, rawIconCssCodeBuffer);
         });
     });
+
+    // Make sure icon css is imported before main css.
+    // In the doc prior to first of june 2023, we instructed to import first the main css and then the icon css.
+    // Since @gouvfr/dsfr@1.9.ish it has to be the opposite.
+    // We auto correct the order here.
+    reorder_css_imports: {
+        const indexHtmlFilePath = (() => {
+            let out = pathJoin(cwd, "public", "index.html");
+
+            if (fs.existsSync(out)) {
+                return out;
+            }
+
+            out = pathJoin(cwd, "index.html");
+
+            if (fs.existsSync(out)) {
+                return out;
+            }
+
+            return undefined;
+        })();
+
+        if (indexHtmlFilePath === undefined) {
+            break reorder_css_imports;
+        }
+
+        const indexHtml = fs.readFileSync(indexHtmlFilePath).toString("utf8");
+
+        const lines = indexHtml.split("\n");
+
+        const importDsfrIndexLine = lines.findIndex(line =>
+            /<link\s+rel="stylesheet"\s+href="(.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css"\s*\/>/.test(
+                line
+            )
+        );
+
+        if (importDsfrIndexLine === -1) {
+            break reorder_css_imports;
+        }
+
+        if (
+            !/<link\s+rel="stylesheet"\s+href="(%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css"\s*\/>/.test(
+                lines[importDsfrIndexLine + 1]
+            )
+        ) {
+            break reorder_css_imports;
+        }
+
+        fs.writeFileSync(
+            indexHtmlFilePath,
+            Buffer.from(
+                lines
+                    .map((line, i) => {
+                        switch (i) {
+                            case importDsfrIndexLine:
+                                return lines[importDsfrIndexLine + 1];
+                            case importDsfrIndexLine + 1:
+                                return lines[importDsfrIndexLine];
+                            default:
+                                return line;
+                        }
+                    })
+                    .join("\n"),
+                "utf8"
+            )
+        );
+    }
 }
 
 if (require.main === module) {

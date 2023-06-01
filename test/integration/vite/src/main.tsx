@@ -56,7 +56,16 @@ function Root() {
                     brandTop={brandTop}
                     serviceTitle="Nom du site / service"
                     homeLinkProps={homeLinkProps}
-                    quickAccessItems={[headerFooterDisplayItem]}
+                    quickAccessItems={[
+                        headerFooterDisplayItem,
+                        {
+                            iconId: "ri-mail-line",
+                            linkProps: {
+                                to: `mailto:${"joseph.garrone@code.gouv.fr"}`,
+                            },
+                            text: "Nous contacter",
+                        }
+                    ]}
                     navigation={[
                         {
                             "text": "Home",

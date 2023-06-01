@@ -7,8 +7,7 @@ import FaviconSvg from "../dsfr/favicon/favicon.svg";
 import FaviconIco from "../dsfr/favicon/favicon.ico";
 import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./fontUrlByFileBasename";
-import "../dsfr/utility/icons/icons.css";
-import "../dsfr/dsfr.css";
+import "../assets/dsfr_plus_icons.css";
 
 export type DsfrHeadProps = {
     defaultColorScheme: ColorScheme | "system";

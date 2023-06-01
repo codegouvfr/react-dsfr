@@ -129,7 +129,7 @@ export const HeaderWithQuickAccessItems = getStory({
             }
         },
         {
-            "iconId": "fr-icon-account-line",
+            "iconId": "ri-account-circle-line",
             "text": "S’enregistrer",
             "linkProps": {
                 "href": "#"
