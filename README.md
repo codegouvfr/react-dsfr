@@ -4,6 +4,8 @@ description: Setup @codegouvfr/react-dsfr in your project
 
 # 🔧 Initial setup
 
+{% embed url="https://youtu.be/5q88JgXUAY4" %}
+
 {% hint style="warning" %}
 If you already had the DSFR installed in your project, let's start from scratch:
 
