@@ -34,12 +34,14 @@ export const AgentConnectButton = memo(
         const { t } = useTranslation();
 
         const Inner = onClick !== undefined ? "button" : "a";
-        const innerProps = (onClick !== undefined ? { onClick } : { href }) as any;
 
         return (
             <div className={className} style={style} ref={ref}>
                 <span className="agentconnect-button__preload-hover" />
-                <Inner className="agentconnect-button__link" {...innerProps} />
+                <Inner
+                    className="agentconnect-button__link"
+                    {...((onClick !== undefined ? { onClick } : { href }) as any)}
+                />
                 <p>
                     <a
                         className={cx(
