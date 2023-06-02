@@ -1,4 +1,6 @@
-import React, { type CSSProperties } from "react";
+"use client";
+
+import React, { useReducer } from "react";
 import { createModal } from "../Modal";
 import { createPersistentSignal } from "../tools/persistentSignal";
 import { id } from "tsafe/id";
@@ -6,7 +8,6 @@ import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
-import { cx } from "../tools/cx";
 import type { Finality, FinalityConsent, FinalityDescription } from "./types";
 import { assert } from "tsafe/assert";
 import { createProcessBulkConsentChange } from "./createProcessBulkConsentChange";
@@ -16,7 +17,7 @@ const { useFinalityConsent, $finalityConsent } = createPersistentSignal({
     "defaultValue": id<FinalityConsent | undefined>(undefined)
 });
 
-let processBulkConsentChange: ReturnType<typeof createProcessBulkConsentChange> | undefined =
+let processBulkConsentChange_global: ReturnType<typeof createProcessBulkConsentChange> | undefined =
     undefined;
 
 const managementModalWrap = createModal({
@@ -37,15 +38,15 @@ export function useConsentBanner(): {
         }
 
         assert(
-            processBulkConsentChange !== undefined,
+            processBulkConsentChange_global !== undefined,
             "ConsentBanner must be mounted before calling assumeConsent"
         );
 
-        await processBulkConsentChange({
-            "paramsOfOnConsentChangeArr": [
+        await processBulkConsentChange_global({
+            "type": "custom",
+            "changes": [
                 {
                     finality,
-                    "isConsentGiven_prev": finalityConsent[finality],
                     "isConsentGiven": true
                 }
             ]
@@ -74,46 +75,82 @@ export function ConsentBanner(props: ConsentBannerProps) {
 
     const { t } = useTranslation();
 
-    processBulkConsentChange = createProcessBulkConsentChange({
+    const processBulkConsentChange = createProcessBulkConsentChange({
         "$finalityConsent": $finalityConsent,
         "finalities": Object.keys(finalityDescription),
         onConsentChange
     });
 
+    processBulkConsentChange_global = processBulkConsentChange;
+
+    const { finalityConsent } = useConsentBanner();
+
+    const [isBannerVisible, hideBanner] = useReducer(() => false, finalityConsent === undefined);
+
     return (
-        <div class="fr-consent-banner">
-            <h2 class="fr-h6">À propos des cookies sur nomdusite.fr</h2>
-            <div class="fr-consent-banner__content">
-                <p class="fr-text--sm">
-                    Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et les
-                    services disponibles sur ce site. Pour en savoir plus, visitez la page{" "}
-                    <a href="">Données personnelles et cookies</a>. Vous pouvez, à tout moment,
-                    avoir le contrôle sur les cookies que vous souhaitez activer.
-                </p>
-            </div>
-            <ul class="fr-consent-banner__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm">
-                <li>
-                    <button class="fr-btn" title="Autoriser tous les cookies">
-                        Tout accepter
-                    </button>
-                </li>
-                <li>
-                    <button class="fr-btn" title="Refuser tous les cookies">
-                        Tout refuser
-                    </button>
-                </li>
-                <li>
-                    <button
-                        class="fr-btn fr-btn--secondary"
-                        data-fr-opened="false"
-                        aria-controls="fr-consent-modal"
-                        title="Personnaliser les cookies"
+        <>
+            {isBannerVisible && (
+                <div className={fr.cx("fr-consent-banner")}>
+                    <h2 className={fr.cx("fr-h6")}>
+                        {t("about cookies", { "hostname": location.host })}
+                    </h2>
+                    <div /*className={fr.cx("fr-consent-banner__content")}*/>
+                        <p className={fr.cx("fr-text--sm")}>
+                            {t("welcome message", { gdprLinkProps })}
+                        </p>
+                    </div>
+                    <ul
+                        className={fr.cx(
+                            "fr-consent-banner__buttons",
+                            "fr-btns-group",
+                            "fr-btns-group--right",
+                            "fr-btns-group--inline-reverse",
+                            "fr-btns-group--inline-sm"
+                        )}
                     >
-                        Personnaliser
-                    </button>
-                </li>
-            </ul>
-        </div>
+                        <li>
+                            <button
+                                className={fr.cx("fr-btn")}
+                                title={t("accept all - title")}
+                                onClick={() => {
+                                    processBulkConsentChange({ "type": "grantAll" });
+                                    hideBanner();
+                                }}
+                            >
+                                {t("accept all")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className={fr.cx("fr-btn")}
+                                title={t("refuse all - title")}
+                                onClick={() => {
+                                    processBulkConsentChange({ "type": "denyAll" });
+                                    hideBanner();
+                                }}
+                            >
+                                {t("refuse all")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className={fr.cx("fr-btn", "fr-btn--secondary")}
+                                onClick={() => {
+                                    hideBanner();
+                                    managementModalWrap.openConsentManagementModal();
+                                }}
+                                title={t("customize cookies - title")}
+                            >
+                                {t("customize")}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            )}
+            <managementModalWrap.ConsentManagementModal title={t("consent modal title")}>
+                <h1></h1>
+            </managementModalWrap.ConsentManagementModal>
+        </>
     );
 }
 

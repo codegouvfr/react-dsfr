@@ -12,7 +12,6 @@ import { isBrowser } from "./isBrowser";
 
 export function createPersistentSignal<T, Name extends string>(params: {
     name: Name;
-    /** Function called only if not in local storage */
     defaultValue: T;
 }): Record<`use${Capitalize<Name>}`, () => UseNamedStateReturnType<T, Name>> &
     Record<`$${Name}`, StatefulObservable<T>> {
