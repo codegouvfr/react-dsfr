@@ -214,8 +214,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 ```
 {% endcode %}
 
-Find a demo setup [here](https://github.com/codegouvfr/react-dsfr/tree/main/test/integration/next-appdir).
-
 {% hint style="success" %}
 Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
 {% endhint %}
