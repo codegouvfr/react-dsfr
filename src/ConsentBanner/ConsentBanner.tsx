@@ -148,7 +148,7 @@ export function ConsentBanner(props: ConsentBannerProps) {
                 </div>
             )}
             <managementModalWrap.ConsentManagementModal title={t("consent modal title")}>
-                <h1></h1>
+                <h1>TODO</h1>
             </managementModalWrap.ConsentManagementModal>
         </>
     );
