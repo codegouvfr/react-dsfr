@@ -5,23 +5,39 @@ import { fr } from "./fr";
 import { assert, type Equals } from "tsafe/assert";
 import { cx } from "./tools/cx";
 
-export type FranceConnectButtonProps = {
-    className?: string;
-    url: string;
-    /** Default: false */
-    plus?: boolean;
-    classes?: Partial<Record<"root" | "login" | "brand", string>>;
-    style?: CSSProperties;
-};
+export type FranceConnectButtonProps =
+    | FranceConnectButtonProps.WithUrl
+    | FranceConnectButtonProps.WithOnClick;
+
+export namespace FranceConnectButtonProps {
+    type Common = {
+        className?: string;
+        /** Default: false */
+        plus?: boolean;
+        classes?: Partial<Record<"root" | "login" | "brand", string>>;
+        style?: CSSProperties;
+    };
+    export type WithUrl = Common & {
+        url: string;
+        onClick?: never;
+    };
+    export type WithOnClick = Common & {
+        url?: never;
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
+    };
+}
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, url, plus = false, style, ...rest } = props;
+        const { classes = {}, className, url: href, plus = false, style, onClick, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const { t } = useTranslation();
+
+        const Inner = onClick !== undefined ? "button" : "a";
+        const innerProps = (onClick !== undefined ? { onClick } : { href }) as any;
 
         return (
             <div
@@ -29,14 +45,14 @@ export const FranceConnectButton = memo(
                 style={style}
                 ref={ref}
             >
-                <a className={fr.cx("fr-btn", "fr-connect")} href={url}>
+                <Inner className={fr.cx("fr-btn", "fr-connect")} {...innerProps}>
                     <span className={cx(fr.cx("fr-connect__login"), classes.login)}>
                         S’identifier avec
                     </span>
                     <span className={cx(fr.cx("fr-connect__brand"), classes.brand)}>
                         FranceConnect{plus ? "+" : ""}
                     </span>
-                </a>
+                </Inner>
                 <p>
                     <a
                         href={

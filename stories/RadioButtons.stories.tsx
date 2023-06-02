@@ -23,7 +23,7 @@ function MyComponent(){
 
     return (
         <RadioButtons 
-            label="Label" 
+            legend="Label" 
             options={[
                 {
                     label: "Label radio",
@@ -64,7 +64,7 @@ function MyComponent(){
     return (
         <form>
             <RadioButtons
-                label="Label"
+                legend="Label"
                 name="my-radio"
                 options={[
                     {

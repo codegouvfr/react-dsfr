@@ -31,15 +31,15 @@ export const RotatingLogo = memo((props: Props) => {
     return (
         <div id={id} className={classes.root} style={style}>
             <img
+                className={classes.stillImg}
+                src={keycloakifyLogoHeroStillPngUrl}
+                alt={"keyhole"}
+            />
+            <img
                 className={classes.rotatingImg}
                 onLoad={onLoad}
                 src={keycloakifyLogoHeroMovingPngUrl}
                 alt={"Rotating react logo"}
-            />
-            <img
-                className={classes.stillImg}
-                src={keycloakifyLogoHeroStillPngUrl}
-                alt={"keyhole"}
             />
         </div>
     );

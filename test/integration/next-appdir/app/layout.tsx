@@ -66,7 +66,16 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								brandTop={brandTop}
 								serviceTitle="Nom du site / service"
 								homeLinkProps={homeLinkPops}
-								quickAccessItems={[headerFooterDisplayItem]}
+								quickAccessItems={[
+									headerFooterDisplayItem,
+									{
+										iconId: "ri-mail-line",
+										linkProps: {
+											href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
+										},
+										text: "Nous contacter",
+									}
+								]}
 								navigation={<Navigation />}
 							/>
 							<div style={{

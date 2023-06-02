@@ -1,57 +1,48 @@
-"use client";
-import React, { forwardRef, memo, useState, type CSSProperties } from "react";
+import React, { forwardRef, memo, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { assert, type Equals } from "tsafe/assert";
-import agentconnectBtnPrincipalSvgUrl from "./assets/agentconnect-btn-principal.svg";
-import agentconnectBtnPrincipalHoverSvgUrl from "./assets/agentconnect-btn-principal-hover.svg";
-import agentconnectBtnAlternatifSvgUrl from "./assets/agentconnect-btn-alternatif.svg";
-import agentconnectBtnAlternatifHoverSvgUrl from "./assets/agentconnect-btn-alternatif-hover.svg";
 import "./assets/agentconnect.css";
-import { useIsDark } from "./useIsDark";
-import { getAssetUrl } from "./tools/getAssetUrl";
 import { cx } from "./tools/cx";
 
-export type AgentConnectButtonProps = {
-    className?: string;
-    url: string;
-    style?: CSSProperties;
-};
+export type AgentConnectButtonProps =
+    | AgentConnectButtonProps.WithUrl
+    | AgentConnectButtonProps.WithOnClick;
+
+export namespace AgentConnectButtonProps {
+    type Common = {
+        className?: string;
+        style?: CSSProperties;
+    };
+    export type WithUrl = Common & {
+        url: string;
+        onClick?: never;
+    };
+    export type WithOnClick = Common & {
+        url?: never;
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
+    };
+}
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(
     forwardRef<HTMLDivElement, AgentConnectButtonProps>((props, ref) => {
-        const { className, url, style, ...rest } = props;
+        const { className, url: href, style, onClick, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
         const { t } = useTranslation();
 
-        const [isMouseHover, setIsMouseHover] = useState(false);
-
-        const { isDark } = useIsDark();
+        const Inner = onClick !== undefined ? "button" : "a";
 
         return (
             <div className={className} style={style} ref={ref}>
-                <a
+                <span className="agentconnect-button__preload-hover" />
+                <Inner
                     className="agentconnect-button__link"
-                    href={url}
-                    onMouseEnter={() => setIsMouseHover(true)}
-                    onMouseLeave={() => setIsMouseHover(false)}
-                >
-                    <img
-                        src={getAssetUrl(
-                            isDark
-                                ? isMouseHover
-                                    ? agentconnectBtnAlternatifHoverSvgUrl
-                                    : agentconnectBtnAlternatifSvgUrl
-                                : isMouseHover
-                                ? agentconnectBtnPrincipalHoverSvgUrl
-                                : agentconnectBtnPrincipalSvgUrl
-                        )}
-                    />
-                </a>
+                    {...((onClick !== undefined ? { onClick } : { href }) as any)}
+                />
                 <p>
                     <a
                         className={cx(

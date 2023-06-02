@@ -5,11 +5,10 @@ import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
-import { useStyles } from "@codegouvfr/react-dsfr/tss";
+import { useStyles } from "tss-react/dsfr";
 import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
 import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
 import { consentModalNativeButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
-
 
 export default function App() {
     const { isDark, setIsDark } = useIsDark();

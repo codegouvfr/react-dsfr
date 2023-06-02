@@ -4,8 +4,8 @@ import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesd
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
-import { createEmotionSsrAdvancedApproach } from "tss-react/next";
-import { useStyles } from "@codegouvfr/react-dsfr/tss";
+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
+import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
 import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
@@ -101,7 +101,16 @@ function App({ Component, pageProps }: AppProps) {
                             }
                         }
                     ]}
-                    quickAccessItems={[headerFooterDisplayItem]}
+                    quickAccessItems={[
+                        headerFooterDisplayItem,
+                        {
+                            iconId: "ri-mail-line",
+                            linkProps: {
+                                href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
+                            },
+                            text: "Nous contacter",
+                        }
+                    ]}
                 />
                 <div className={css({
                     "flex": 1,
