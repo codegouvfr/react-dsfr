@@ -11,27 +11,13 @@ import type { Finality, FinalityConsent, FinalityDescription } from "./types";
 import { assert } from "tsafe/assert";
 import { createProcessBulkConsentChange } from "./createProcessBulkConsentChange";
 
-export type ConsentBannerProps = {
-    gdprLinkProps?: RegisteredLinkProps;
-    finalityDescription: FinalityDescription;
-    onConsentChange?: (params: {
-        finality: Finality;
-        isConsentGiven: boolean;
-        isConsentGiven_prev: boolean | undefined;
-    }) => Promise<void> | void;
-    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
-};
-
 const { useFinalityConsent, $finalityConsent } = createPersistentSignal({
     "name": "finalityConsent",
     "defaultValue": id<FinalityConsent | undefined>(undefined)
 });
 
-let processBulkConsentChange:
-    | ReturnType<typeof createProcessBulkConsentChange>["processBulkConsentChange"]
-    | undefined = undefined;
-
-processBulkConsentChange = undefined;
+let processBulkConsentChange: ReturnType<typeof createProcessBulkConsentChange> | undefined =
+    undefined;
 
 const managementModalWrap = createModal({
     "isOpenedByDefault": false,
@@ -72,293 +58,66 @@ export function useConsentBanner(): {
     };
 }
 
+export type ConsentBannerProps = {
+    gdprLinkProps?: RegisteredLinkProps;
+    finalityDescription: FinalityDescription;
+    onConsentChange?: (params: {
+        finality: Finality;
+        isConsentGiven: boolean;
+        isConsentGiven_prev: boolean | undefined;
+    }) => Promise<void> | void;
+    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
+};
+
 export function ConsentBanner(props: ConsentBannerProps) {
-    const { className, style, classes = {}, gdprLinkProps /*finalities*/ } = props;
+    const { gdprLinkProps, finalityDescription, onConsentChange } = props;
 
     const { t } = useTranslation();
 
-    //const { finalitiesConsent, setFinalitiesConsent } = useFinalitiesConsentPersistentState();
+    processBulkConsentChange = createProcessBulkConsentChange({
+        "$finalityConsent": $finalityConsent,
+        "finalities": Object.keys(finalityDescription),
+        onConsentChange
+    });
 
     return (
-        <>
-            <div style={style} className={cx(fr.cx("fr-consent-banner"), classes.root, className)}>
-                <h2 className={fr.cx("fr-h6")}>
-                    {t("about cookies", { "hostname": window.location.hostname })}
-                </h2>
-                <div className={classes.content}>
-                    <p className={fr.cx("fr-text--sm")}>
-                        {t("welcome message", { gdprLinkProps })}
-                    </p>
-                </div>
-                <ul
-                    className={cx(
-                        fr.cx(
-                            "fr-consent-banner__buttons",
-                            "fr-btns-group",
-                            "fr-btns-group--right",
-                            "fr-btns-group--inline-reverse",
-                            "fr-btns-group--inline-sm"
-                        ),
-                        classes.buttons
-                    )}
-                >
-                    <li>
-                        <button
-                            className={fr.cx("fr-btn")}
-                            title={t("accept all")}
-                            onClick={() => {
-                                //TODO: Using keys of finalities and setFinalitiesConsent, set everything to accept
-                            }}
-                        >
-                            {t("accept all")}
-                        </button>
-                    </li>
-                    <li>
-                        <button className={fr.cx("fr-btn")} title={t("refuse all")}>
-                            {t("refuse all")}
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            className={fr.cx("fr-btn", "fr-btn--secondary")}
-                            data-fr-opened={false}
-                            aria-controls={
-                                consentModalButtonProps.nativeButtonProps["aria-controls"]
-                            }
-                            title={t("customize")}
-                        >
-                            {t("customize")}
-                        </button>
-                    </li>
-                </ul>
+        <div class="fr-consent-banner">
+            <h2 class="fr-h6">À propos des cookies sur nomdusite.fr</h2>
+            <div class="fr-consent-banner__content">
+                <p class="fr-text--sm">
+                    Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et les
+                    services disponibles sur ce site. Pour en savoir plus, visitez la page{" "}
+                    <a href="">Données personnelles et cookies</a>. Vous pouvez, à tout moment,
+                    avoir le contrôle sur les cookies que vous souhaitez activer.
+                </p>
             </div>
-            <ConsentModal title={t("consent modal title")}>
-                <div className={fr.cx("fr-consent-service", "fr-consent-manager__header")}>
-                    <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
-                        <legend id="finality-legend" className={fr.cx("fr-consent-service__title")}>
-                            Préférences pour tous les services.{" "}
-                            <a href="">Données personnelles et cookies</a>
-                        </legend>
-                        <div className={fr.cx("fr-consent-service__radios")}>
-                            <div className={fr.cx("fr-radio-group")}>
-                                <input type="radio" id="consent-all-accept" name="consent-all" />
-                                <label className={fr.cx("fr-label")} htmlFor="consent-all-accept">
-                                    {t("accept all")}
-                                </label>
-                            </div>
-                            <div className={fr.cx("fr-radio-group")}>
-                                <input type="radio" id="consent-all-refuse" name="consent-all" />
-                                <label className={fr.cx("fr-label")} htmlFor="consent-all-refuse">
-                                    {t("refuse all")}
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                {/*
-                    <div className={fr.cx("fr-consent-service")}>
-                        <fieldset aria-labelledby="finality-0-legend finality-0-desc" role="group" class="fr-fieldset fr-fieldset--inline">
-                            <legend id="finality-0-legend" class="fr-consent-service__title">Cookies obligatoires</legend>
-                            <div class="fr-consent-service__radios">
-                                <div class="fr-radio-group">
-                                    <input type="radio" id="consent-finality-0-accept" name="consent-finality-0">
-                                        <label class="fr-label" for="consent-finality-0-accept">
-                                            Accepter
-                                        </label>
-                                </div>
-                                <div class="fr-radio-group">
-                                    <input disabled type="radio" id="consent-finality-0-refuse" name="consent-finality-0">
-                                        <label class="fr-label" for="consent-finality-0-refuse">
-                                            Refuser
-                                        </label>
-                                </div>
-                            </div>
-                            <p id="finality-0-desc" class="fr-consent-service__desc">Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.</p>
-                        </fieldset>
-                    </div>
-                    <div class="fr-consent-service">
-                        <fieldset aria-labelledby="finality-1-legend finality-1-desc" role="group" class="fr-fieldset fr-fieldset--inline">
-                            <legend id="finality-1-legend" class="fr-consent-service__title">Nom de la finalité</legend>
-                            <div class="fr-consent-service__radios">
-                                <div class="fr-radio-group">
-                                    <input type="radio" id="consent-finality-1-accept" name="consent-finality-1">
-                                        <label class="fr-label" for="consent-finality-1-accept">
-                                            Accepter
-                                        </label>
-                                </div>
-                                <div class="fr-radio-group">
-                                    <input type="radio" id="consent-finality-1-refuse" name="consent-finality-1">
-                                        <label class="fr-label" for="consent-finality-1-refuse">
-                                            Refuser
-                                        </label>
-                                </div>
-                            </div>
-                            <p id="finality-1-desc" class="fr-consent-service__desc">Description optionnelle de la finalité, lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in suscipit nulla, et pulvinar velit.</p>
-                            <div class="fr-consent-service__collapse">
-                                <button class="fr-consent-service__collapse-btn" aria-expanded="false" aria-describedby="finality-1-legend" aria-controls="finality-1-collapse"> Voir plus de détails</button>
-                            </div>
-                            <div class="fr-consent-services fr-collapse" id="finality-1-collapse">
-                                <!-- Sous finalités -->
-                                <div class="fr-consent-service">
-                                    <fieldset class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-1-service-1-legend" class="fr-consent-service__title">Sous finalité 1</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-1-accept" name="consent-finality-1-service-1">
-                                                    <label class="fr-label" for="consent-finality-1-service-1-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-1-refuse" name="consent-finality-1-service-1">
-                                                    <label class="fr-label" for="consent-finality-1-service-1-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="fr-consent-service">
-                                    <fieldset aria-labelledby="finality-1-service-2-legend finality-1-service-2-desc" role="group" class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-1-service-2-legend" class="fr-consent-service__title" aria-describedby="finality-1-service-2-desc">Sous finalité 2</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-2-accept" name="consent-finality-1-service-2">
-                                                    <label class="fr-label" for="consent-finality-1-service-2-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-2-refuse" name="consent-finality-1-service-2">
-                                                    <label class="fr-label" for="consent-finality-1-service-2-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                        <p id="finality-1-service-2-desc" class="fr-consent-service__desc">Ce service utilise 3 cookies.</p>
-                                    </fieldset>
-                                </div>
-                                <div class="fr-consent-service">
-                                    <fieldset class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-1-service-3-legend" class="fr-consent-service__title">Sous finalité 3</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-3-accept" name="consent-finality-1-service-3">
-                                                    <label class="fr-label" for="consent-finality-1-service-3-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-1-service-3-refuse" name="consent-finality-1-service-3">
-                                                    <label class="fr-label" for="consent-finality-1-service-3-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <div class="fr-consent-service">
-                        <fieldset aria-labelledby="finality-2-legend finality-2-desc" role="group" class="fr-fieldset fr-fieldset--inline">
-                            <legend id="finality-2-legend" class="fr-consent-service__title">Nom de la finalité</legend>
-                            <div class="fr-consent-service__radios">
-                                <div class="fr-radio-group">
-                                    <input type="radio" id="consent-finality-2-accept" name="consent-finality-2">
-                                        <label class="fr-label" for="consent-finality-2-accept">
-                                            Accepter
-                                        </label>
-                                </div>
-                                <div class="fr-radio-group">
-                                    <input type="radio" id="consent-finality-2-refuse" name="consent-finality-2">
-                                        <label class="fr-label" for="consent-finality-2-refuse">
-                                            Refuser
-                                        </label>
-                                </div>
-                            </div>
-                            <p id="finality-2-desc" class="fr-consent-service__desc">Description optionnelle de la finalité, lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in suscipit nulla, et pulvinar velit.</p>
-                            <div class="fr-consent-service__collapse">
-                                <button class="fr-consent-service__collapse-btn" aria-expanded="false" aria-describedby="finality-2-legend" aria-controls="finality-2-collapse"> Voir plus de détails</button>
-                            </div>
-                            <div class="fr-consent-services fr-collapse" id="finality-2-collapse">
-                                <!-- Sous finalités -->
-                                <div class="fr-consent-service">
-                                    <fieldset class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-2-service-1-legend" class="fr-consent-service__title">Sous finalité 1</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-1-accept" name="consent-finality-2-service-1">
-                                                    <label class="fr-label" for="consent-finality-2-service-1-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-1-refuse" name="consent-finality-2-service-1">
-                                                    <label class="fr-label" for="consent-finality-2-service-1-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="fr-consent-service">
-                                    <fieldset aria-labelledby="finality-2-service-2-legend finality-2-service-2-desc" role="group" class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-2-service-2-legend" class="fr-consent-service__title" aria-describedby="finality-2-service-2-desc">Sous finalité 2</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-2-accept" name="consent-finality-2-service-2">
-                                                    <label class="fr-label" for="consent-finality-2-service-2-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-2-refuse" name="consent-finality-2-service-2">
-                                                    <label class="fr-label" for="consent-finality-2-service-2-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                        <p id="finality-2-service-2-desc" class="fr-consent-service__desc">Ce service utilise 3 cookies.</p>
-                                    </fieldset>
-                                </div>
-                                <div class="fr-consent-service">
-                                    <fieldset class="fr-fieldset fr-fieldset--inline">
-                                        <legend id="finality-2-service-3-legend" class="fr-consent-service__title">Sous finalité 3</legend>
-                                        <div class="fr-consent-service__radios fr-fieldset--inline">
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-3-accept" name="consent-finality-2-service-3">
-                                                    <label class="fr-label" for="consent-finality-2-service-3-accept">
-                                                        Accepter
-                                                    </label>
-                                            </div>
-                                            <div class="fr-radio-group">
-                                                <input type="radio" id="consent-finality-2-service-3-refuse" name="consent-finality-2-service-3">
-                                                    <label class="fr-label" for="consent-finality-2-service-3-refuse">
-                                                        Refuser
-                                                    </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
-                    <!-- Bouton de confirmation/fermeture -->
-                    <ul class="fr-consent-manager__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-sm">
-                        <li>
-                            <button class="fr-btn">
-                                Confirmer mes choix
-                            </button>
-                        </li>
-                    </ul>
-                        */}
-            </ConsentModal>
-        </>
+            <ul class="fr-consent-banner__buttons fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm">
+                <li>
+                    <button class="fr-btn" title="Autoriser tous les cookies">
+                        Tout accepter
+                    </button>
+                </li>
+                <li>
+                    <button class="fr-btn" title="Refuser tous les cookies">
+                        Tout refuser
+                    </button>
+                </li>
+                <li>
+                    <button
+                        class="fr-btn fr-btn--secondary"
+                        data-fr-opened="false"
+                        aria-controls="fr-consent-modal"
+                        title="Personnaliser les cookies"
+                    >
+                        Personnaliser
+                    </button>
+                </li>
+            </ul>
+        </div>
     );
 }
 
-export const { useTranslation, addConsentBannerTranslations } = createComponentI18nApi({
+const { useTranslation, addConsentBannerTranslations } = createComponentI18nApi({
     "componentName": "ConsentBanner",
     "frMessages": {
         /** cspell: disable */
@@ -432,3 +191,5 @@ addConsentBannerTranslations({
         "consent modal title": "Cookie management panel"
     }
 });
+
+export { addConsentBannerTranslations };

@@ -84,5 +84,5 @@ export function createProcessBulkConsentChange(params: {
         $finalityConsent.current = finalityConsentCurrent;
     }
 
-    return { processBulkConsentChange };
+    return processBulkConsentChange;
 }
