@@ -1,4 +1,5 @@
 import React from "react";
+import { fr } from "../fr";
 
 export function DisabledMedia() {
     return (

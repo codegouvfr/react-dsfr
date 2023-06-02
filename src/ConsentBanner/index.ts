@@ -3,7 +3,8 @@ export {
     ConsentBanner,
     type ConsentBannerProps,
     addConsentBannerTranslations,
-    useConsentBanner
+    useConsentBanner,
+    footerConsentBannerItem
 } from "./ConsentBanner";
 export { DisabledMedia } from "./DisabledMedia";
 export { DisabledService } from "./DisabledService";

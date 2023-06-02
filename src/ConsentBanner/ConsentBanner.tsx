@@ -11,6 +11,7 @@ import { getLink, type RegisteredLinkProps } from "../link";
 import type { Finality, FinalityConsent, FinalityDescription } from "./types";
 import { assert } from "tsafe/assert";
 import { createProcessBulkConsentChange } from "./createProcessBulkConsentChange";
+import type { FooterProps } from "../Footer";
 
 const { useFinalityConsent, $finalityConsent } = createPersistentSignal({
     "name": "finalityConsent",
@@ -24,6 +25,19 @@ const managementModalWrap = createModal({
     "isOpenedByDefault": false,
     "name": "consentManagement"
 });
+
+export const footerConsentBannerItem: FooterProps.BottomItem.Button = {
+    "buttonProps": managementModalWrap.consentManagementModalNativeButtonProps,
+    "iconId": "fr-icon-theme-fill",
+    "text": (() => {
+        function Text() {
+            const { t } = useTranslation();
+            return <>{t("cookies management")}</>;
+        }
+
+        return <Text />;
+    })()
+};
 
 export function useConsentBanner(): {
     finalityConsent: FinalityConsent | undefined;
@@ -188,7 +202,8 @@ const { useTranslation, addConsentBannerTranslations } = createComponentI18nApi(
         },
         "customize": "Personnaliser",
         "customize cookies - title": "Personnaliser les cookies",
-        "consent modal title": "Panneau de gestion des cookies"
+        "consent modal title": "Panneau de gestion des cookies",
+        "cookies management": "Gestion des cookies"
         /** cspell: enable */
     }
 });
