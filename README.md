@@ -124,6 +124,8 @@ Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](
 
 ```bash
 yarn add --dev sass
+#OR
+npm install --save-dev sass
 ```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
@@ -135,13 +137,13 @@ const nextConfig = {
     appDir: true,
   },
 <strong>  webpack: config => {
-</strong>
-<strong>    config.module.rules.push({
+</strong><strong>
+</strong><strong>    config.module.rules.push({
 </strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
-</strong>
-<strong>    return config;
+</strong><strong>
+</strong><strong>    return config;
 </strong><strong>  }
 </strong>};
 
