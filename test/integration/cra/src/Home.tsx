@@ -3,80 +3,14 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Table } from "@codegouvfr/react-dsfr/Table";
-import { useFinalitiesConsent } from "./gdpr";
-
-const sideMenuItems = [
-    {
-        text: "Niveau 1",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            }
-        ]
-    },
-    {
-        isActive: true,
-        text: "Entrée menu active",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                isActive: true,
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-        ]
-    },
-    {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    },
-    {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    },
-    {
-        text: "Niveau 1",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            }
-        ]
-    },
-];
+import { useConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
 
-    const { finalitiesConsent } = useFinalitiesConsent();
+    const { finalityConsent } = useConsentBanner();
+
+    console.log(finalityConsent);
 
     return (
         <>
@@ -103,7 +37,76 @@ export function Home() {
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
             <SideMenu
-                items={sideMenuItems}
+                items={
+                    [
+                        {
+                            text: "Niveau 1",
+                            items: [
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                }
+                            ]
+                        },
+                        {
+                            isActive: true,
+                            text: "Entrée menu active",
+                            items: [
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    isActive: true,
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                            ]
+                        },
+                        {
+                            text: "Accès direct",
+                            linkProps: { href: "#" }
+                        },
+                        {
+                            text: "Accès direct",
+                            linkProps: { href: "#" }
+                        },
+                        {
+                            text: "Niveau 1",
+                            items: [
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                },
+                                {
+                                    text: "Accès direct niveau 2",
+                                    linkProps: { href: "#" }
+                                }
+                            ]
+                        }
+                    ]
+
+                }
                 title="Titre de rubrique"
                 burgerMenuButtonText="Dans cette rubrique"
             />
@@ -116,10 +119,10 @@ export function Home() {
 function TableExample() {
     return (
         <Table
-            caption = "Titre du tableau"
-            colorVariant = "green-emeraude"
-            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
-            data = {[
+            caption="Titre du tableau"
+            colorVariant="green-emeraude"
+            headers={["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data={[
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],

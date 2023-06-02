@@ -99,7 +99,7 @@ export function ConsentBanner(props: ConsentBannerProps) {
 
     const { finalityConsent } = useConsentBanner();
 
-    const [isBannerVisible, hideBanner] = useReducer(() => false, finalityConsent === undefined);
+    const [isBannerVisible, discardBanner] = useReducer(() => false, finalityConsent === undefined);
 
     return (
         <>
@@ -128,7 +128,7 @@ export function ConsentBanner(props: ConsentBannerProps) {
                                 title={t("accept all - title")}
                                 onClick={() => {
                                     processBulkConsentChange({ "type": "grantAll" });
-                                    hideBanner();
+                                    discardBanner();
                                 }}
                             >
                                 {t("accept all")}
@@ -140,7 +140,7 @@ export function ConsentBanner(props: ConsentBannerProps) {
                                 title={t("refuse all - title")}
                                 onClick={() => {
                                     processBulkConsentChange({ "type": "denyAll" });
-                                    hideBanner();
+                                    discardBanner();
                                 }}
                             >
                                 {t("refuse all")}
@@ -150,7 +150,6 @@ export function ConsentBanner(props: ConsentBannerProps) {
                             <button
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
                                 onClick={() => {
-                                    hideBanner();
                                     managementModalWrap.openConsentManagementModal();
                                 }}
                                 title={t("customize cookies - title")}

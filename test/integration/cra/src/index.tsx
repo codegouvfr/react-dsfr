@@ -8,11 +8,23 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
 import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
-import { ConsentBanner } from "./gdpr";
+import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
+import { GlobalStyles } from "tss-react";
 
 startReactDsfr({
     "defaultColorScheme": "system"
 });
+
+declare module "@codegouvfr/react-dsfr/ConsentBanner" {
+    interface RegisterConsentBannerFinality {
+        finality:
+        | "analytics"
+        | "statistics.traffic"
+        | "statistics.deviceInfo"
+        | "personalization"
+        | "advertising"
+    }
+}
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -27,6 +39,39 @@ function Root() {
     const route = useRoute();
 
     return (
+        <>
+            <ConsentBanner
+                finalityDescription={{
+                    "advertising": {
+                        "title": "Publicité",
+                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
+                    },
+                    "analytics": {
+                        "title": "Analyse",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+                    },
+                    "personalization": {
+                        "title": "Personnalisation",
+                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
+                    },
+                    "statistics": {
+                        "title": "Statistiques",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
+                        "titleBySubFinality": {
+                            "deviceInfo": "Informations sur votre appareil",
+                            "traffic": "Informations sur votre navigation",
+                        }
+                    }
+                }}
+            />
+            <GlobalStyles
+                styles={{
+                    "html": {
+                        "overflow": "-moz-scrollbars-vertical",
+                        "overflowY": "scroll"
+                    }
+                }}
+            />
             <div style={{
                 "height": "100vh",
                 "display": "flex",
@@ -73,32 +118,9 @@ function Root() {
                         }
                     })()}
                 </div>
-            <ConsentBanner
-                finalities={{
-                    "advertising": {
-                        "title": "Publicité",
-                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
-                    },
-                    "analytics": {
-                        "title": "Analyse",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
-                    },
-                    "personalization": {
-                        "title": "Personnalisation",
-                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
-                    },
-                    "statistics": {
-                        "title": "Statistiques",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-                        "titleBySubFinality": {
-                            "deviceInfo": "Informations sur votre appareil",
-                            "traffic": "Informations sur votre navigation",
-                        }
-                    }
-                }}
-            />
+            </div>
             <Display />
-        </div>
+        </>
     );
 
 
