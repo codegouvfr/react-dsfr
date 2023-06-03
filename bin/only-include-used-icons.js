@@ -256,6 +256,9 @@ function main() {
                                                                     if (parsedPackageJson === undefined) {
                                                                         return [2 /*return*/, false];
                                                                     }
+                                                                    if (parsedPackageJson["name"] === "tss-react") {
+                                                                        return [2 /*return*/, false];
+                                                                    }
                                                                     try {
                                                                         for (_b = __values([
                                                                             "@gouvfr/dsfr",

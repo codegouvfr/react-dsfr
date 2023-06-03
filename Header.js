@@ -17,6 +17,7 @@ import { cx } from "./tools/cx";
 import { getLink } from "./link";
 import { assert } from "tsafe/assert";
 import { MainNavigation } from "./MainNavigation";
+import { Display } from "./Display/Display";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "classes", "style"]);
@@ -28,56 +29,61 @@ export const Header = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
     const { Link } = getLink();
     const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (React.createElement("li", { key: i }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { className: cx(fr.cx("fr-btn", iconId), linkProps.className) }), text)) : (React.createElement("button", Object.assign({}, buttonProps, { className: cx(fr.cx("fr-btn", iconId), buttonProps.className) }), text)))))));
-    return (React.createElement("header", Object.assign({ role: "banner", className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
-        React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
-            React.createElement("div", { className: fr.cx("fr-container") },
-                React.createElement("div", { className: cx(fr.cx("fr-header__body-row"), classes.bodyRow) },
-                    React.createElement("div", { className: cx(fr.cx("fr-header__brand", "fr-enlarge-link"), classes.brand) },
-                        React.createElement("div", { className: cx(fr.cx("fr-header__brand-top"), classes.brandTop) },
-                            React.createElement("div", { className: cx(fr.cx("fr-header__logo"), classes.logo) }, (() => {
-                                const children = (React.createElement("p", { className: fr.cx("fr-logo") }, brandTop));
-                                return serviceTitle !== undefined ? (children) : (React.createElement(Link, Object.assign({}, homeLinkProps), children));
-                            })()),
-                            operatorLogo !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__operator"), classes.operator) },
+    return (React.createElement(React.Fragment, null,
+        React.createElement(Display, null),
+        React.createElement("header", Object.assign({ role: "banner", className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
+            React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
+                React.createElement("div", { className: fr.cx("fr-container") },
+                    React.createElement("div", { className: cx(fr.cx("fr-header__body-row"), classes.bodyRow) },
+                        React.createElement("div", { className: cx(fr.cx("fr-header__brand", "fr-enlarge-link"), classes.brand) },
+                            React.createElement("div", { className: cx(fr.cx("fr-header__brand-top"), classes.brandTop) },
+                                React.createElement("div", { className: cx(fr.cx("fr-header__logo"), classes.logo) }, (() => {
+                                    const children = (React.createElement("p", { className: fr.cx("fr-logo") }, brandTop));
+                                    return serviceTitle !== undefined ? (children) : (React.createElement(Link, Object.assign({}, homeLinkProps), children));
+                                })()),
+                                operatorLogo !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__operator"), classes.operator) },
+                                    React.createElement(Link, Object.assign({}, homeLinkProps),
+                                        React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.operator), style: (() => {
+                                                switch (operatorLogo.orientation) {
+                                                    case "vertical":
+                                                        return { "width": "3.5rem" };
+                                                    case "horizontal":
+                                                        return {
+                                                            "maxWidth": "9.0625rem"
+                                                        };
+                                                }
+                                            })(), src: operatorLogo.imgUrl, alt: operatorLogo.alt })))),
+                                (quickAccessItems.length > 0 ||
+                                    navigation !== undefined ||
+                                    renderSearchInput !== undefined) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
+                                    renderSearchInput !== undefined && (React.createElement("button", { className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: t("search") }, t("search"))),
+                                    React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
+                            serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service"), classes.service) },
                                 React.createElement(Link, Object.assign({}, homeLinkProps),
-                                    React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.operator), style: (() => {
-                                            switch (operatorLogo.orientation) {
-                                                case "vertical":
-                                                    return { "width": "3.5rem" };
-                                                case "horizontal":
-                                                    return { "maxWidth": "9.0625rem" };
-                                            }
-                                        })(), src: operatorLogo.imgUrl, alt: operatorLogo.alt })))),
-                            (quickAccessItems.length > 0 ||
-                                navigation !== undefined ||
-                                renderSearchInput !== undefined) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
-                                renderSearchInput !== undefined && (React.createElement("button", { className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: t("search") }, t("search"))),
-                                React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
-                        serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service"), classes.service) },
-                            React.createElement(Link, Object.assign({}, homeLinkProps),
-                                React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
-                            serviceTagline !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-header__service-tagline"), classes.serviceTagline) }, serviceTagline))))),
-                    (quickAccessItems.length > 0 || renderSearchInput !== undefined) && (React.createElement("div", { className: fr.cx("fr-header__tools") },
-                        quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, quickAccessNode)),
-                        renderSearchInput !== undefined && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId },
-                            React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
-                                React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
-                                React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
-                                    React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId }, t("search")),
-                                    renderSearchInput({
-                                        "className": fr.cx("fr-input"),
-                                        "id": searchInputId,
-                                        "name": searchInputId,
-                                        "placeholder": t("search"),
-                                        "type": "search"
-                                    }),
-                                    React.createElement("button", { className: fr.cx("fr-btn"), title: t("search") }, t("search"))))))))))),
-        (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
-            React.createElement("div", { className: fr.cx("fr-container") },
-                React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
-                React.createElement("div", { className: cx(fr.cx("fr-header__menu-links"), classes.menuLinks) }, quickAccessNode),
-                navigation !== undefined &&
-                    (navigation instanceof Array ? (React.createElement(MainNavigation, { items: navigation })) : (navigation)))))));
+                                    React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
+                                serviceTagline !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-header__service-tagline"), classes.serviceTagline) }, serviceTagline))))),
+                        (quickAccessItems.length > 0 ||
+                            renderSearchInput !== undefined) && (React.createElement("div", { className: fr.cx("fr-header__tools") },
+                            quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, quickAccessNode)),
+                            renderSearchInput !== undefined && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId },
+                                React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
+                                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
+                                    React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
+                                        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId }, t("search")),
+                                        renderSearchInput({
+                                            "className": fr.cx("fr-input"),
+                                            "id": searchInputId,
+                                            "name": searchInputId,
+                                            "placeholder": t("search"),
+                                            "type": "search"
+                                        }),
+                                        React.createElement("button", { className: fr.cx("fr-btn"), title: t("search") }, t("search"))))))))))),
+            (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
+                React.createElement("div", { className: fr.cx("fr-container") },
+                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
+                    React.createElement("div", { className: cx(fr.cx("fr-header__menu-links"), classes.menuLinks) }, quickAccessNode),
+                    navigation !== undefined &&
+                        (navigation instanceof Array ? (React.createElement(MainNavigation, { items: navigation })) : (navigation))))))));
 }));
 Header.displayName = symToStr({ Header });
 export default Header;

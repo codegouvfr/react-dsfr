@@ -34,10 +34,15 @@ declare const addModalTranslations: (params: {
 }) => void;
 export { addModalTranslations };
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
-export declare function createModal<Name extends string>(params: {
-    name: Name;
+export declare function createModal(params: {
     isOpenedByDefault: boolean;
-}): Record<`${Uncapitalize<Name>}ModalNativeButtonProps`, {
-    "aria-controls": string;
-    "data-fr-opened": boolean;
-}> & Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> & Record<`close${Capitalize<Name>}Modal`, () => void> & Record<`open${Capitalize<Name>}Modal`, () => void> & Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps>;
+    id: string;
+}): {
+    buttonProps: {
+        "aria-controls": string;
+        "data-fr-opened": boolean;
+    };
+    Component: (props: ModalProps) => JSX.Element;
+    close: () => void;
+    open: () => void;
+};

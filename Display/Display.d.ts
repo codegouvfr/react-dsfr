@@ -1,13 +1,11 @@
-import React, { type CSSProperties } from "react";
-import type { HeaderProps } from "./Header";
-import type { FooterProps } from "./Footer";
-export type DisplayProps = {
-    className?: string;
-    style?: CSSProperties;
-};
+import type { HeaderProps } from "../Header";
+import type { FooterProps } from "../Footer";
 export declare const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button & FooterProps.BottomItem.Button;
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
-export declare const Display: React.MemoExoticComponent<React.ForwardRefExoticComponent<DisplayProps & React.RefAttributes<HTMLDialogElement>>>;
+export declare function Display(): JSX.Element;
+export declare namespace Display {
+    var displayName: "Display";
+}
 export default Display;
 declare const addDisplayTranslations: (params: {
     lang: string;
