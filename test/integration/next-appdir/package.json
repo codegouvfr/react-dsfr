@@ -1,5 +1,5 @@
 {
-    "name": "ssr",
+    "name": "next-appdir-integration-test-setup",
     "version": "0.1.0",
     "private": true,
     "scripts": {
