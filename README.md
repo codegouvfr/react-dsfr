@@ -122,6 +122,8 @@ You are in this case if you have a `app/` directory at the root of your project.
 Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
 {% endembed %}
 
+I regret the Next AppRouter setup is so convoluted. But please don't blame me&#x20;
+
 ```bash
 yarn add --dev sass
 #OR
