@@ -161,6 +161,10 @@ async function main() {
                             return false;
                         }
 
+                        if (parsedPackageJson["name"] === "tss-react") {
+                            return false;
+                        }
+
                         for (const packageName of [
                             "@gouvfr/dsfr",
                             "@codegouvfr/react-dsfr",
