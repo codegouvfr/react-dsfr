@@ -149,5 +149,8 @@ import { patchCssForMui } from "./patchCssForMui";
         );
 
         fs.cpSync(dsfrDirPath, pathJoin(distDirPath, "dsfr"), { "recursive": true });
+        fs.cpSync(pathJoin(projectRootDirPath, "src"), pathJoin(distDirPath, "src"), {
+            "recursive": true
+        });
     }
 })();
