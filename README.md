@@ -122,7 +122,11 @@ You are in this case if you have a `app/` directory at the root of your project.
 Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
 {% endembed %}
 
-I regret the Next AppRouter setup is so convoluted. But please don't blame me&#x20;
+I understand that the setup process for Next AppRouter can be quite complex, but please rest assured that I have made every effort to simplify it as much as possible.&#x20;
+
+The complexity arises largely due to limitations within the current Next.js App Router. For instance, it d[oes not support higher-order functions](https://github.com/vercel/next.js/issues/44307), lacks [a reliable sequence for applying global stylesheets](https://github.com/vercel/next.js/issues/16630), and [doesn't clearly delineate a way to run code solely on the client-side](https://github.com/vercel/next.js/issues/44367), among [other deficiencies](https://github.com/vercel/next.js/issues/created\_by/garronej).
+
+Despite the setup process not being as streamlined as one might hope, I can confidently say that react-dsfr's integration with Next App Router is as comprehensive and effective as it can be under current circumstances ([see demo](https://react-dsfr-next-appdir-demo.vercel.app/)). Every effort has been made to ensure that all components ready for server-side rendering are appropriately integrated, and the design of each feature has been thoughtfully executed with Next App Router in mind.
 
 ```bash
 yarn add --dev sass
