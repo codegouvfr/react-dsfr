@@ -8,7 +8,7 @@ import { defaultColorScheme } from "./defaultColorScheme";
 import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 
@@ -101,7 +101,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								homeLinkProps={homeLinkPops}
 								bottomItems={[headerFooterDisplayItem]}
 							/>
-							<Display />
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>
 				</DsfrProvider>

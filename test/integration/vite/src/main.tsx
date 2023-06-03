@@ -7,7 +7,7 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
 import { ConsentBanner } from '@codegouvfr/react-dsfr/ConsentBanner';
@@ -115,7 +115,6 @@ function Root() {
                     homeLinkProps={homeLinkProps}
                     bottomItems={[headerFooterDisplayItem]}
                 />
-                <Display />
             </div>
     </GdprStoreProvider>
     );

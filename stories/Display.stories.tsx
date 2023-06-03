@@ -2,14 +2,13 @@ import * as React from "react";
 import { fr } from "../dist";
 import { Header } from "../dist/Header";
 import { Footer } from "../dist/Footer";
-import { Display, headerFooterDisplayItem } from "../dist/Display";
+import { headerFooterDisplayItem } from "../dist/Display";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { symToStr } from "tsafe/symToStr";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
-    "wrappedComponent": { [symToStr({ Display })]: Story },
+    "wrappedComponent": { "Display": Story },
     "description": `
 A button that opens a dialog to enable the user to select light or dark mode.  
 
@@ -24,7 +23,7 @@ the theme state.
 \`\`\`tsx
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 
 function App(){
 
@@ -45,7 +44,6 @@ function App(){
                     headerFooterDisplayItem
                 ]}
             />
-            <Display />
         <>
     );
 
@@ -86,7 +84,6 @@ function Story() {
                 accessibility="fully compliant"
                 bottomItems={[headerFooterDisplayItem]}
             />
-            <Display />
         </>
     );
 }
