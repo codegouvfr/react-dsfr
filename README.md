@@ -197,20 +197,25 @@ export default function StartDsfr(){
 ```tsx
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
-import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
+import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
 import StartDsfr from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
+import Link from "next/link";
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
-
+  //NOTE: The lang parameter is optional and defaults to "fr"
+  const lang = "fr";
   return (
-    <html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
+    <html {...getColorSchemeHtmlAttributes({ defaultColorScheme, lang })} >
       <head>
         <StartDsfr />
-        <DsfrHead defaultColorScheme={defaultColorScheme} />
+        <DsfrHead 
+            defaultColorScheme={defaultColorScheme}
+            Link={Link}
+        />
       </head>
       <body>
-        <DsfrProvider defaultColorScheme={defaultColorScheme}>
+        <DsfrProvider lang={lang}>
           {children}
         </DsfrProvider>
       </body>
