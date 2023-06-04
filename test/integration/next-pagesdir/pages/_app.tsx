@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
@@ -135,7 +135,6 @@ function App({ Component, pageProps }: AppProps) {
                     homeLinkProps={homeLinkProps}
                     bottomItems={[headerFooterDisplayItem]}
                 />
-                <Display />
             </div>
         </>
     );

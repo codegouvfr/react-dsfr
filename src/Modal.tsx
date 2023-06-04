@@ -7,8 +7,6 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import Button, { ButtonProps } from "./Button";
-import { capitalize } from "tsafe/capitalize";
-import { uncapitalize } from "tsafe/uncapitalize";
 import { typeGuard } from "tsafe/typeGuard";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 
@@ -199,37 +197,30 @@ addModalTranslations({
 export { addModalTranslations };
 
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
-export function createModal<Name extends string>(params: {
-    name: Name;
-    isOpenedByDefault: boolean;
-}): Record<
-    `${Uncapitalize<Name>}ModalNativeButtonProps`,
-    {
+export function createModal(params: { isOpenedByDefault: boolean; id: string }): {
+    buttonProps: {
         "aria-controls": string;
         "data-fr-opened": boolean;
-    }
-> &
-    Record<`${Capitalize<Name>}Modal`, (props: ModalProps) => JSX.Element> &
-    Record<`close${Capitalize<Name>}Modal`, () => void> &
-    Record<`open${Capitalize<Name>}Modal`, () => void> &
-    Record<`${Uncapitalize<Name>}ModalButtonProps`, ModalProps.ModalButtonProps> {
-    const { name, isOpenedByDefault } = params;
+    };
+    Component: (props: ModalProps) => JSX.Element;
+    close: () => void;
+    open: () => void;
+} {
+    const { isOpenedByDefault, id } = params;
 
-    const modalId = `${uncapitalize(name)}-modal`;
-
-    const modalNativeButtonProps = {
-        "aria-controls": modalId,
+    const buttonProps = {
+        "aria-controls": id,
         "data-fr-opened": isOpenedByDefault
     };
 
-    const hiddenControlButtonId = `${modalId}-hidden-control-button`;
+    const hiddenControlButtonId = `${id}-hidden-control-button`;
 
-    function InternalModal(props: ModalProps) {
+    function Component(props: ModalProps) {
         return (
             <>
                 <Button
                     nativeButtonProps={{
-                        ...modalNativeButtonProps,
+                        ...buttonProps,
                         "id": hiddenControlButtonId,
                         "type": "button"
                     }}
@@ -237,16 +228,16 @@ export function createModal<Name extends string>(params: {
                 >
                     {" "}
                 </Button>
-                <Modal {...props} id={modalId} />
+                <Modal {...props} id={id} />
             </>
         );
     }
 
-    InternalModal.displayName = `${capitalize(name)}Modal`;
+    Component.displayName = `${id}-modal`;
 
-    overwriteReadonlyProp(InternalModal as any, "name", InternalModal.displayName);
+    overwriteReadonlyProp(Component as any, "name", Component.displayName);
 
-    function openModal() {
+    function open() {
         const hiddenControlButton = document.getElementById(hiddenControlButtonId);
 
         assert(hiddenControlButton !== null, "Modal isn't mounted");
@@ -254,10 +245,8 @@ export function createModal<Name extends string>(params: {
         hiddenControlButton.click();
     }
 
-    overwriteReadonlyProp(openModal as any, "name", `open${capitalize(name)}Modal`);
-
-    function closeModal() {
-        const modalElement = document.getElementById(modalId);
+    function close() {
+        const modalElement = document.getElementById(id);
 
         assert(modalElement !== null, "Modal isn't mounted");
 
@@ -273,16 +262,10 @@ export function createModal<Name extends string>(params: {
         closeButtonElement.click();
     }
 
-    overwriteReadonlyProp(closeModal as any, "name", `close${capitalize(name)}Modal`);
-
     return {
-        [InternalModal.displayName]: InternalModal,
-        [`${uncapitalize(name)}ModalNativeButtonProps`]: modalNativeButtonProps,
-        [openModal.name]: openModal,
-        [closeModal.name]: closeModal,
-        /** @deprecated */
-        [`${uncapitalize(name)}ModalButtonProps`]: {
-            "nativeButtonProps": modalNativeButtonProps
-        }
-    } as any;
+        Component,
+        buttonProps,
+        open,
+        close
+    };
 }

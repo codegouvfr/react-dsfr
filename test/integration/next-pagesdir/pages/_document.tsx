@@ -6,7 +6,13 @@ const { augmentDocumentForDsfr, getColorSchemeHtmlAttributes } = dsfrDocumentApi
 
 export default function Document(props: DocumentProps) {
     return (
-        <Html {...getColorSchemeHtmlAttributes(props)}>
+        <Html
+            {...getColorSchemeHtmlAttributes(props)}
+            style={{
+                "overflow": "-moz-scrollbars-vertical",
+                "overflowY": "scroll"
+            }}
+        >
             <Head />
             <body>
                 <Main />

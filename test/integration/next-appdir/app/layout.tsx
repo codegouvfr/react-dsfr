@@ -8,7 +8,7 @@ import { defaultColorScheme } from "./defaultColorScheme";
 import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 
@@ -17,15 +17,22 @@ const brandTop = <>INTITULE<br />OFFICIEL</>;
 const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices { 
-        matomo: never;
-    }
+	interface RegisterGdprServices {
+		matomo: never;
+	}
 }
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
 	return (
-		<html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
+		<html
+			{...getColorSchemeHtmlAttributes({ defaultColorScheme })}
+			//NOTE: Scrollbar always visible to avoid layout shift when modal are opened
+			style={{
+				"overflow": "-moz-scrollbars-vertical",
+				"overflowY": "scroll"
+			}}
+		>
 			<head>
 				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />
@@ -53,7 +60,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				}}
 			>
 				<DsfrProvider defaultColorScheme={defaultColorScheme}>
-					<ConsentBanner gdprLinkProps={{href: "/mui"}} siteName='Next Test App' services={[
+					<ConsentBanner gdprLinkProps={{ href: "/mui" }} siteName='Next Test App' services={[
 						{
 							name: "matomo",
 							title: "Matomo",
@@ -101,7 +108,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								homeLinkProps={homeLinkPops}
 								bottomItems={[headerFooterDisplayItem]}
 							/>
-							<Display />
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>
 				</DsfrProvider>

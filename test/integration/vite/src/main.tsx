@@ -7,7 +7,8 @@ import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { GlobalStyles } from "tss-react";
 import { fr } from "@codegouvfr/react-dsfr";
 import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
 import { ConsentBanner } from '@codegouvfr/react-dsfr/ConsentBanner';
@@ -21,13 +22,22 @@ declare module "@codegouvfr/react-dsfr/spa" {
 }
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices { 
+    interface RegisterGdprServices {
         matomo: never;
     }
 }
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
+        <GlobalStyles
+            styles={{
+                "html": {
+                    //NOTE: Always show scrollbar to avoid layout shift when modals are opened
+                    "overflow": "-moz-scrollbars-vertical",
+                    "overflowY": "scroll"
+                }
+            }}
+        />
         <BrowserRouter>
             <Root />
         </BrowserRouter>
@@ -36,7 +46,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
 const brandTop = <>INTITULE<br />OFFICIEL</>;
 
-const homeLinkProps= { "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+const homeLinkProps = { "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 
 function Root() {
 
@@ -44,7 +54,7 @@ function Root() {
 
     return (
         <GdprStoreProvider>
-            <ConsentBanner gdprLinkProps={{to: "/mui"}} siteName='Next Test App' services={[
+            <ConsentBanner gdprLinkProps={{ to: "/mui" }} siteName='Next Test App' services={[
                 {
                     name: "matomo",
                     title: "Matomo",
@@ -115,9 +125,8 @@ function Root() {
                     homeLinkProps={homeLinkProps}
                     bottomItems={[headerFooterDisplayItem]}
                 />
-                <Display />
             </div>
-    </GdprStoreProvider>
+        </GdprStoreProvider>
     );
 
 }

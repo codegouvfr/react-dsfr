@@ -8,78 +8,10 @@ import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { GdprStoreViewer } from '#/ui/GdprStoreViewer';
 
-const { SimpleModal, simpleModalNativeButtonProps } = createModal({
-    "name": "simple",
+const modal = createModal({
+    "id": "simple-modal",
     "isOpenedByDefault": false
 });
-
-const sideMenuItems = [
-    {
-        text: "Niveau 1",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            }
-        ]
-    },
-    {
-        isActive: true,
-        text: "Entrée menu active",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                isActive: true,
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-        ]
-    },
-    {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    },
-    {
-        text: "Accès direct",
-        linkProps: { href: "#" }
-    },
-    {
-        text: "Niveau 1",
-        items: [
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            },
-            {
-                text: "Accès direct niveau 2",
-                linkProps: { href: "#" }
-            }
-        ]
-    },
-];
 
 export default function Page() {
 
@@ -133,8 +65,8 @@ export default function Page() {
                 ]}
             />
             <ClientComponent />
-            <Button nativeButtonProps={simpleModalNativeButtonProps}>Open simple modal (control button)</Button>
-            <SimpleModal
+            <Button nativeButtonProps={modal.buttonProps}>Open simple modal (control button)</Button>
+            <modal.Component
                 title="simple modal title"
                 buttons={
                     [
@@ -152,9 +84,77 @@ export default function Page() {
 
             >
                 Modal content
-            </SimpleModal>
+            </modal.Component>
             <SideMenu
-                items={sideMenuItems}
+                items={[
+
+                    {
+                        text: "Niveau 1",
+                        items: [
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            }
+                        ]
+                    },
+                    {
+                        isActive: true,
+                        text: "Entrée menu active",
+                        items: [
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                isActive: true,
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                        ]
+                    },
+                    {
+                        text: "Accès direct",
+                        linkProps: { href: "#" }
+                    },
+                    {
+                        text: "Accès direct",
+                        linkProps: { href: "#" }
+                    },
+                    {
+                        text: "Niveau 1",
+                        items: [
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            },
+                            {
+                                text: "Accès direct niveau 2",
+                                linkProps: { href: "#" }
+                            }
+                        ]
+                    }
+
+                ]}
                 title="Titre de rubrique"
                 burgerMenuButtonText="Dans cette rubrique"
             />
@@ -168,10 +168,10 @@ export default function Page() {
 function TableExample() {
     return (
         <Table
-            caption = "Titre du tableau"
-            colorVariant = "green-emeraude"
-            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
-            data = {[
+            caption="Titre du tableau"
+            colorVariant="green-emeraude"
+            headers={["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data={[
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],

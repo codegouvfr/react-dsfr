@@ -18,16 +18,16 @@ export function ClientComponent() {
         <Button variant="outlined">Outlined</Button>
       </Stack>
       <p>Is dark? {isDark ? "yes" : "no"}</p>
-      <Button onClick={openClientModal}>Open client modal</Button>
-      <ClientModal title="Client modal">
+      <Button onClick={modal.open}>Open client modal</Button>
+      <modal.Component title="Client modal">
         <p>Client modal content</p>
-        <button onClick={closeClientModal}>Close</button>
-      </ClientModal>
+        <button onClick={modal.close}>Close</button>
+      </modal.Component>
     </>
   );
 }
 
-const { ClientModal, openClientModal, closeClientModal } = createModal({
+const modal = createModal({
   "isOpenedByDefault": false,
-  "name": "client"
+  "id": "client-modal"
 });

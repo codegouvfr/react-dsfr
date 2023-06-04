@@ -14,33 +14,14 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
 
-This is a uncontrolled implementation of the modal, compatible with Server Components.  
-An controlled variant is coming soon.  
-
-## The 'createModal' function
-
-The \`createModal(params)\` function take an \`params\` object as parameter.
-
-**Options Params keys:**
-- \`name\` (*STRING - Required*): Prefix of the \`Modal\` component name and \`ModalButtonProps\` object name.
-- \`isOpenedByDefault\` (*boolean - Required*): Set the opening state of the Modal after it mount.
-
-**Return:**  
-An object with four keys. The name of these keys are computed from the value 
-of \`name\` key of the \`options\` param object :
-- \`\${PascalCasePrefix}Modal\`: The Modal component
-- \`open\${camelCasePrefix}Modal\`: Programmatically open the modal
-- \`close\${camelCasePrefix}Modal\`: Programmatically close the modal
-- \`\${camelCasePrefix}ModalNativeButtonProps\`: The props object for <button /> component (For Next AppDir, if you want to be RSC ready)
-
 **Eg.:**  
 
 \`\`\`tsx
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
-const { FooModal, fooModalButtonProps, openFooModal, closeFooModal, fooModalNativeButtonProps } = createModal({
-    name: "foo", // The name of Modal component and modalButtonProps is compute from this string
+const modal = createModal({
+    id: "foo-modal", 
     isOpenedByDefault: false
 });
 
@@ -48,12 +29,12 @@ function Home(){
     return (
         <>
             {/* ... */}
-            <FooModal title="foo modal title">
+            <modal.Component title="foo modal title">
                 <h1>Foo modal content</h1>
-            </FooModal>
-            <Button nativeButtonProps={fooModalNativeButtonProp}>Open foo modal</Button> {/* Use this if you are in a Server component (Next AppDir) and you don't want to add "use client"; just because of the the Modal */}
-            <Button onClick={openFooModal}>Open foo modal</Button> {/* ...otherwise this works just as well and is more versatile */}
-            <Button onClick={closeFooModal}>Close foo modal</Button>
+            </modal.Component>
+            <Button nativeButtonProps={fooModal.buttonProps}>Open foo modal</Button> {/* Use this if you are in a Server component (Next AppDir) and you don't want to add "use client"; just because of the the Modal */}
+            <Button onClick={fooModal.open}>Open foo modal</Button> {/* ...otherwise this works just as well and is more versatile */}
+            <Button onClick={fooModal.close}>Close foo modal</Button>
         </>
     );
 );
@@ -116,16 +97,16 @@ function Home(){
 
 export default meta;
 
-const { SimpleModal, simpleModalNativeButtonProps } = createModal({
-    "name": "simple",
+const modal = createModal({
+    "id": "my-modal",
     "isOpenedByDefault": false
 });
 
 function Template(args: ModalProps) {
     return (
         <>
-            <Button nativeButtonProps={simpleModalNativeButtonProps}>Open modal</Button>
-            <SimpleModal {...args} />
+            <Button nativeButtonProps={modal.buttonProps}>Open modal</Button>
+            <modal.Component {...args} />
         </>
     );
 }
@@ -160,8 +141,8 @@ Default.parameters = {
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
-const { AcceptTermsModal, acceptTermsModalButtonProps } = createModal({
-    name: "acceptTerms",
+const modal = createModal({
+    name: "terms-modal",
     isOpenedByDefault: false
 });
 
@@ -169,8 +150,8 @@ function MyComponent(){
 
     return (
         <>
-            <Button {...acceptTermsModalButtonProps}>Open modal</Button>
-            <AcceptTermsModal
+            <Button nativeButtonProps={modal.buttonProps}>Open modal</Button>
+            <modal.Component
                 title="Accept terms"
                 iconId="fr-icon-checkbox-circle-line"
                 buttons={
@@ -194,7 +175,7 @@ function MyComponent(){
                 tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
                 malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
                 turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.
-            </AcceptTermsModal>
+            </modal.Component>
         </>
     );
 

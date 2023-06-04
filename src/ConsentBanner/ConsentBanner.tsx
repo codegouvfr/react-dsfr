@@ -13,13 +13,12 @@ import { assert } from "tsafe/assert";
 import { createProcessBulkConsentChange } from "./createProcessBulkConsentChange";
 import type { FooterProps } from "../Footer";
 
-const { useFinalityConsent, $finalityConsent } = createPersistentSignal({
-    "name": "finalityConsent",
-    "defaultValue": id<FinalityConsent | undefined>(undefined)
+const modal = createModal({
+    "id": "Consent",
+    "isOpenedByDefault": false
 });
 
-let processBulkConsentChange_global: ReturnType<typeof createProcessBulkConsentChange> | undefined =
-    undefined;
+export const consentModalNativeButtonProps = modal.buttonProps;
 
 const managementModalWrap = createModal({
     "isOpenedByDefault": false,
@@ -103,6 +102,7 @@ export function ConsentBanner(props: ConsentBannerProps) {
 
     return (
         <>
+<<<<<<< HEAD
             {isBannerVisible && (
                 <div className={fr.cx("fr-consent-banner")}>
                     <h2 className={fr.cx("fr-h6")}>
@@ -163,6 +163,23 @@ export function ConsentBanner(props: ConsentBannerProps) {
             <managementModalWrap.ConsentManagementModal title={t("consent modal title")}>
                 <h1>TODO</h1>
             </managementModalWrap.ConsentManagementModal>
+=======
+            <modal.Component title={t("consent modal title")} size="large">
+                <ConsentManager
+                    gdprLinkProps={gdprLinkProps}
+                    services={services}
+                    consentModalButtonProps={{
+                        "nativeButtonProps": consentModalNativeButtonProps
+                    }}
+                />
+            </modal.Component>
+            <ConsentBannerContentDisplayer
+                {...props}
+                consentModalButtonProps={{
+                    "nativeButtonProps": consentModalNativeButtonProps
+                }}
+            />
+>>>>>>> main
         </>
     );
 }
