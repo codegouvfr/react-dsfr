@@ -13,12 +13,10 @@ declare module "@codegouvfr/react-dsfr/next-appdir" {
 
 startReactDsfr({ 
 	defaultColorScheme, 
-	Link,
-    // Uncomment to test in english
-    // useLang: () => "en",
+	Link
 });
 
-export default function StartDsfr(){
+export function StartDsfr(){
 	return null;
 }
 

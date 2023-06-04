@@ -1,8 +1,8 @@
 import { NextAppDirEmotionCacheProvider } from "tss-react/next";
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
-import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
-import StartDsfr from "./StartDsfr";
+import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
+import { StartDsfr } from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
 import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
 import { Header } from "@codegouvfr/react-dsfr/Header";
@@ -10,8 +10,9 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { headerFooterDisplayItem, addDisplayTranslations } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
-import ConsentBannerAndConsentManagement from "@codegouvfr/react-dsfr/gdpr/ConsentBannerAndConsentManagement";
 import { footerConsentManagementItem, getFooterPersonalDataPolicyItem } from "@codegouvfr/react-dsfr/gdpr";
+import { ConsentBannerAndConsentManagement } from "@codegouvfr/react-dsfr/gdpr/ConsentBannerAndConsentManagement";
+import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
 	interface RegisterFinality {
@@ -24,16 +25,17 @@ declare module "@codegouvfr/react-dsfr/gdpr" {
 	}
 }
 
-
-const brandTop = <>INTITULE<br />OFFICIEL</>;
-const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
 const personalDataPolicyLinkProps = { "href": "/politique-de-confidentialite", "title": "Politique de confidentialité" };
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
+	//NOTE: If we had i18n setup we would get lang from the props.
+	//See https://github.com/vercel/next.js/blob/canary/examples/app-dir-i18n-routing/app/%5Blang%5D/layout.tsx
+	const lang = "en";
+
 	return (
 		<html
-			{...getColorSchemeHtmlAttributes({ defaultColorScheme })}
+			{...getHtmlAttributes({ defaultColorScheme, lang })}
 			//NOTE: Scrollbar always visible to avoid layout shift when modal are opened
 			style={{
 				"overflow": "-moz-scrollbars-vertical",
@@ -44,7 +46,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />
 				<DsfrHead
-					defaultColorScheme={defaultColorScheme}
+					Link={Link}
 					preloadFonts={[
 						//"Marianne-Light",
 						//"Marianne-Light_Italic",
@@ -91,13 +93,16 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 						}
 					}}
 				/>
-				<DsfrProvider defaultColorScheme={defaultColorScheme}>
+				<DsfrProvider lang={lang}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 							<Header
-								brandTop={brandTop}
+								brandTop={<>INTITULE<br />OFFICIEL</>}
 								serviceTitle="Nom du site / service"
-								homeLinkProps={homeLinkPops}
+								homeLinkProps={{
+									"href": "/",
+									"title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+								}}
 								quickAccessItems={[
 									headerFooterDisplayItem,
 									{
@@ -121,7 +126,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								{children}
 							</div>
 							<Footer
-								brandTop={brandTop}
 								accessibility="fully compliant"
 								contentDescription={`
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
@@ -130,7 +134,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                     eu fugiat nulla pariatur. 
                 `}
-								homeLinkProps={homeLinkPops}
 								bottomItems={[
 									headerFooterDisplayItem,
 									footerConsentManagementItem,

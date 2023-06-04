@@ -6,6 +6,21 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import placeholder_9x16ImgUrl from "./assets/placeholder.9x16.png";
 import placeholder_16x9ImgUrl from "./assets/placeholder.16x9.png";
+import { setBrandTopAndHomeLinkProps } from "../dist/zz_internal/brandTopAndHomeLinkProps";
+
+setBrandTopAndHomeLinkProps({
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    }
+});
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -14,9 +29,6 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/pied-de-page)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Footer.tsx)`,
     "argTypes": {
-        "brandTop": {
-            "control": { "type": null }
-        },
         "accessibility": {
             "options": (() => {
                 const accessibility = [
@@ -46,9 +58,6 @@ const { meta, getStory } = getStoryFactory({
         "cookiesManagementLinkProps": {
             "control": { "type": null }
         },
-        "homeLinkProps": {
-            "control": { "type": null }
-        },
         "bottomItems": {
             "description":
                 "To integrate the Dark mode switch head over to the documentation of the [Display component](https://react-dsfr-components.etalab.studio/?path=/docs/components-display)"
@@ -66,13 +75,6 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -93,21 +95,10 @@ export const Default = getStory({
     },
     "cookiesManagementLinkProps": {
         "href": "#"
-    },
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     }
 });
 
 export const FooterWithVerticalOperatorLogo = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -117,10 +108,6 @@ export const FooterWithVerticalOperatorLogo = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "operatorLogo": {
         "orientation": "vertical",
         "imgUrl": placeholder_9x16ImgUrl,
@@ -129,13 +116,6 @@ export const FooterWithVerticalOperatorLogo = getStory({
 });
 
 export const FooterWithHorizontalOperatorLogo = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -145,10 +125,6 @@ export const FooterWithHorizontalOperatorLogo = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "operatorLogo": {
         "orientation": "horizontal",
         "imgUrl": placeholder_16x9ImgUrl,
@@ -157,13 +133,6 @@ export const FooterWithHorizontalOperatorLogo = getStory({
 });
 
 export const WithCustomLicense = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -173,10 +142,6 @@ export const WithCustomLicense = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "license": (
         <>
             Unless stated otherwise all content of this website are under{" "}
@@ -188,13 +153,6 @@ export const WithCustomLicense = getStory({
 });
 
 export const WithPartners = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -204,10 +162,6 @@ export const WithPartners = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "partnersLogos": {
         "main": {
             "href": "#",
@@ -230,13 +184,6 @@ export const WithPartners = getStory({
 });
 
 export const WithMainPartnerOnly = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -246,10 +193,6 @@ export const WithMainPartnerOnly = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "partnersLogos": {
         "main": {
             "href": "#",
@@ -260,13 +203,6 @@ export const WithMainPartnerOnly = getStory({
 });
 
 export const WithSubPartnersOnly = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -276,10 +212,6 @@ export const WithSubPartnersOnly = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     "partnersLogos": {
         "sub": [
             {
@@ -306,13 +238,6 @@ const linkList = new Array(6).fill({
 }) as FooterProps.LinkList.List;
 
 export const WithLinkList = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
     "accessibility": "fully compliant",
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
@@ -322,9 +247,5 @@ export const WithLinkList = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-    },
     linkList
 });
