@@ -1,6 +1,9 @@
 import { data_fr_scheme, data_fr_theme } from "../useIsDark/constants";
 import type { ColorScheme } from "../useIsDark";
-import { type DefaultColorScheme, setDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
+import {
+    type DefaultColorScheme,
+    setDefaultColorSchemeServerSide
+} from "./zz_internal/defaultColorScheme";
 import { setUseLang } from "../i18n";
 
 const suppressHydrationWarning = true;
@@ -8,11 +11,10 @@ const suppressHydrationWarning = true;
 export function getHtmlAttributes(params: {
     defaultColorScheme: DefaultColorScheme;
     lang?: string;
-}): { suppressHydrationWarning: true; lang?: string; } & (
+}): { suppressHydrationWarning: true; lang?: string } & (
     | Record<typeof data_fr_scheme | typeof data_fr_theme, ColorScheme>
     | {}
 ) {
-
     const { defaultColorScheme, lang } = params;
 
     setDefaultColorSchemeServerSide({ defaultColorScheme });
@@ -22,9 +24,9 @@ export function getHtmlAttributes(params: {
     }
 
     if (defaultColorScheme === "system") {
-        return { 
+        return {
             lang,
-            suppressHydrationWarning 
+            suppressHydrationWarning
         };
     }
 
@@ -35,4 +37,3 @@ export function getHtmlAttributes(params: {
         [data_fr_theme]: defaultColorScheme
     };
 }
-

@@ -21,19 +21,16 @@ export function DsfrProvider(props: DsfrProviderProps) {
         dsfrEffect();
     }, []);
 
-    useMemo(()=> {
+    useMemo(() => {
         if (lang === undefined) {
             return;
         }
 
         setUseLang({ "useLang": () => lang });
-
     }, [lang]);
 
     if (isBrowser) {
-        return (
-            <GdprStoreProvider>{children}</GdprStoreProvider>
-        );
+        return <GdprStoreProvider>{children}</GdprStoreProvider>;
     }
 
     const defaultColorScheme = getDefaultColorSchemeClientSide();

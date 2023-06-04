@@ -92,8 +92,6 @@ export namespace HeaderProps {
     }
 }
 
-
-
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(
     forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {

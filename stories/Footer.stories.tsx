@@ -9,11 +9,13 @@ import placeholder_16x9ImgUrl from "./assets/placeholder.16x9.png";
 import { setBrandTopAndHomeLinkProps } from "../dist/zz_internal/brandTopAndHomeLinkProps";
 
 setBrandTopAndHomeLinkProps({
-    "brandTop": <>
+    "brandTop": (
+        <>
             INTITULE
             <br />
             OFFICIEL
-        </>,
+        </>
+    ),
     "homeLinkProps": {
         "href": "/",
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
@@ -93,7 +95,7 @@ export const Default = getStory({
     },
     "cookiesManagementLinkProps": {
         "href": "#"
-    },
+    }
 });
 
 export const FooterWithVerticalOperatorLogo = getStory({

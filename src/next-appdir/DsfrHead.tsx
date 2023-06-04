@@ -33,7 +33,7 @@ export function DsfrHead(props: DsfrHeadProps) {
         if (Link !== undefined) {
             setLink({ Link });
         }
-    },[Link]);
+    }, [Link]);
 
     return (
         <>

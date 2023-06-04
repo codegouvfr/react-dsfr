@@ -11,10 +11,9 @@ export function getDefaultColorSchemeServerSide(): DefaultColorScheme {
     return defaultColorSchemeServerSide;
 }
 
-export function setDefaultColorSchemeServerSide(
-    params: { defaultColorScheme: DefaultColorScheme }
-): void {
-
+export function setDefaultColorSchemeServerSide(params: {
+    defaultColorScheme: DefaultColorScheme;
+}): void {
     const { defaultColorScheme } = params;
 
     defaultColorSchemeServerSide = defaultColorScheme;
@@ -27,14 +26,10 @@ export function getDefaultColorSchemeClientSide(): DefaultColorScheme {
     return defaultColorSchemeClientSide;
 }
 
-export function setDefaultColorSchemeClientSide(
-    params: { defaultColorScheme: DefaultColorScheme }
-): void {
-
+export function setDefaultColorSchemeClientSide(params: {
+    defaultColorScheme: DefaultColorScheme;
+}): void {
     const { defaultColorScheme } = params;
 
     defaultColorSchemeClientSide = defaultColorScheme;
 }
-
-
-
