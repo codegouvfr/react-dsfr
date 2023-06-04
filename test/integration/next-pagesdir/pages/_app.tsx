@@ -11,17 +11,24 @@ import Link from "next/link";
 import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
 
 
+declare module "@codegouvfr/react-dsfr/ConsentBanner" {
+    interface RegisterConsentBannerFinality {
+        finality:
+        | "analytics"
+        | "statistics.traffic"
+        | "statistics.deviceInfo"
+        | "personalization"
+        | "advertising"
+    }
+}
+
+
 declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
         Link: typeof Link;
     }
 }
 
-declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices { 
-        matomo: never;
-    }
-}
 
 const {
     withDsfr,
@@ -61,13 +68,30 @@ function App({ Component, pageProps }: AppProps) {
 
     return (
         <>
-            <ConsentBanner gdprLinkProps={{href: "/mui"}} siteName='Next Test App' services={[
-                    {
-                        name: "matomo",
-                        title: "Matomo",
-                        description: "User tracking",
+            <ConsentBanner
+                finalityDescription={{
+                    "advertising": {
+                        "title": "Publicité",
+                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
+                    },
+                    "analytics": {
+                        "title": "Analyse",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+                    },
+                    "personalization": {
+                        "title": "Personnalisation",
+                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
+                    },
+                    "statistics": {
+                        "title": "Statistiques",
+                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
+                        "titleBySubFinality": {
+                            "deviceInfo": "Informations sur votre appareil",
+                            "traffic": "Informations sur votre navigation",
+                        }
                     }
-                ]} />
+                }}
+            />
             <div
                 style={{
                     "height": "100vh",

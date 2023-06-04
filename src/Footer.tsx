@@ -18,7 +18,6 @@ export type FooterProps = {
     websiteMapLinkProps?: RegisteredLinkProps;
     accessibilityLinkProps?: RegisteredLinkProps;
     termsLinkProps?: RegisteredLinkProps;
-    personalDataLinkProps?: RegisteredLinkProps;
     homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
@@ -143,7 +142,6 @@ export const Footer = memo(
             accessibilityLinkProps,
             accessibility,
             termsLinkProps,
-            personalDataLinkProps,
             bottomItems = [],
             partnersLogos,
             operatorLogo,
@@ -408,14 +406,6 @@ export const Footer = memo(
                                               "linkProps": termsLinkProps
                                           })
                                       ]),
-                                ...(personalDataLinkProps === undefined
-                                    ? []
-                                    : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("personal data"),
-                                              "linkProps": personalDataLinkProps
-                                          })
-                                      ]),
                                 ...bottomItems
                             ].map(({ iconId, text, buttonProps, linkProps }, i) => (
                                 <li
@@ -491,7 +481,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "partially compliant": "partiellement conforme",
         "fully compliant": "totalement conforme",
         "terms": "Mentions légales",
-        "personal data": "Données personnelles",
+        "cookies management": "Gestion des cookies",
         "license mention": (p: { licenseUrl: string }) => (
             <>
                 Sauf mention contraire, tous les contenus de ce site sont sous{" "}

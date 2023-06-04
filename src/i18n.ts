@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { capitalize } from "tsafe/capitalize";
 
 type ReactNode = string | JSX.Element | null;
 
@@ -80,7 +81,7 @@ export function createComponentI18nApi<
 }): {
     useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
-    `add${ComponentName}Translations`,
+    `add${Capitalize<ComponentName>}Translations`,
     (params: { lang: string; messages: Partial<FrMessages> }) => void
 > {
     const { componentName, frMessages } = params;
@@ -120,6 +121,6 @@ export function createComponentI18nApi<
 
     return {
         useTranslation,
-        [`add${componentName}Translations`]: addTranslations
+        [`add${capitalize(componentName)}Translations`]: addTranslations
     } as any;
 }

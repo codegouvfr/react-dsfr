@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 import { assert, type Equals } from "tsafe/assert";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RegisterConsentBannerFinality {}
+export interface RegisterFinality {}
 
-export type Finality = RegisterConsentBannerFinality extends {
+export type Finality = RegisterFinality extends {
     finality: string;
 }
-    ? RegisterConsentBannerFinality["finality"]
+    ? RegisterFinality["finality"]
     : string;
 
 export type FinalityConsent = FinalityToFinalityConsent<Finality>;
@@ -36,7 +36,11 @@ type FinalityToFinalityConsent<Finality extends string> = {
         analytics: boolean;
         personalization: boolean;
         advertising: boolean;
-        statistics: Record<"traffic" | "deviceType" | "browser", boolean> & {
+        statistics: {
+            traffic: boolean;
+            deviceType: boolean;
+            browser: boolean;
+        } & {
             isFullConsent: boolean;
         };
     };
@@ -80,7 +84,11 @@ namespace FinalityToFinalityDescription {
         personalization: FinalityToFinalityDescription.Description;
         advertising: FinalityToFinalityDescription.Description;
         statistics: FinalityToFinalityDescription.Description & {
-            titleBySubFinality: Record<"traffic" | "deviceType" | "browser", ReactNode>;
+            titleBySubFinality: {
+                traffic: ReactNode;
+                deviceType: ReactNode;
+                browser: ReactNode;
+            };
         };
     };
 

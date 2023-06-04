@@ -8,23 +8,18 @@ import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
 import { routes } from "./router";
-import { Display, headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
-import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
-import { GlobalStyles } from "tss-react";
+import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
+import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
+import { ConsentBanner } from '@codegouvfr/react-dsfr/ConsentBanner';
 
 
 startReactDsfr({
     "defaultColorScheme": "system"
 });
 
-declare module "@codegouvfr/react-dsfr/ConsentBanner" {
-    interface RegisterConsentBannerFinality {
-        finality:
-        | "analytics"
-        | "statistics.traffic"
-        | "statistics.deviceInfo"
-        | "personalization"
-        | "advertising"
+declare module "@codegouvfr/react-dsfr/gdpr" {
+    interface RegisterGdprServices {
+        matomo: never;
     }
 }
 
@@ -42,79 +37,15 @@ function Root() {
 
     return (
         <>
-<<<<<<< HEAD
-            <ConsentBanner
-                finalityDescription={{
-                    "advertising": {
-                        "title": "Publicité",
-                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
-                    },
-                    "analytics": {
-                        "title": "Analyse",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
-                    },
-                    "personalization": {
-                        "title": "Personnalisation",
-                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
-                    },
-                    "statistics": {
-                        "title": "Statistiques",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-                        "titleBySubFinality": {
-                            "deviceInfo": "Informations sur votre appareil",
-                            "traffic": "Informations sur votre navigation",
-                        }
-                    }
-                }}
-            />
-            <GlobalStyles
-                styles={{
-                    "html": {
-=======
             <GlobalStyles
                 styles={{
                     "html": {
                         //NOTE: Always show scrollbar to avoid layout shift when modals are opened
->>>>>>> main
                         "overflow": "-moz-scrollbars-vertical",
                         "overflowY": "scroll"
                     }
                 }}
             />
-<<<<<<< HEAD
-            <div style={{
-                "height": "100vh",
-                "display": "flex",
-                "flexDirection": "column",
-            }}>
-                <Header
-                    brandTop={<>INTITULE<br />OFFICIEL</>}
-                    serviceTitle="Nom du site / service"
-                    quickAccessItems={[
-                        headerFooterDisplayItem,
-                        {
-                            iconId: "ri-mail-line",
-                            linkProps: {
-                                href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
-                            },
-                            text: "Nous contacter",
-                        }
-                    ]}
-                    homeLinkProps={{ ...routes.home().link, "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" }}
-                    navigation={[
-                        {
-                            "text": "Home",
-                            "linkProps": routes.home().link,
-                            "isActive": route.name === "home"
-                        },
-                        {
-                            "text": "Mui playground",
-                            "linkProps": routes.mui().link,
-                            "isActive": route.name === "mui"
-                        }
-                    ]}
-                />
-=======
             <GdprStoreProvider>
                 <ConsentBanner gdprLinkProps={{ href: "/mui" }} siteName='Next Test App' services={[
                     {
@@ -123,7 +54,6 @@ function Root() {
                         description: "User tracking",
                     }
                 ]} />
->>>>>>> main
                 <div style={{
                     "height": "100vh",
                     "display": "flex",
@@ -171,12 +101,7 @@ function Root() {
                         })()}
                     </div>
                 </div>
-<<<<<<< HEAD
-            </div>
-            <Display />
-=======
             </GdprStoreProvider>
->>>>>>> main
         </>
     );
 

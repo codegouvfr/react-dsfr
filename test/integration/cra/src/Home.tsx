@@ -3,14 +3,80 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Table } from "@codegouvfr/react-dsfr/Table";
-import { useConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
+import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
+import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
+import { consentModalNativeButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
+
+const sideMenuItems = [
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+    {
+        isActive: true,
+        text: "Entrée menu active",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                isActive: true,
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+        ]
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Accès direct",
+        linkProps: { href: "#" }
+    },
+    {
+        text: "Niveau 1",
+        items: [
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            },
+            {
+                text: "Accès direct niveau 2",
+                linkProps: { href: "#" }
+            }
+        ]
+    },
+];
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
-
-    const { finalityConsent } = useConsentBanner();
-
-    console.log(finalityConsent);
 
     return (
         <>
@@ -37,81 +103,13 @@ export function Home() {
             <button onClick={() => setIsDark("system")}>Set color scheme to system</button>
 
             <SideMenu
-                items={
-                    [
-                        {
-                            text: "Niveau 1",
-                            items: [
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                }
-                            ]
-                        },
-                        {
-                            isActive: true,
-                            text: "Entrée menu active",
-                            items: [
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    isActive: true,
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                            ]
-                        },
-                        {
-                            text: "Accès direct",
-                            linkProps: { href: "#" }
-                        },
-                        {
-                            text: "Accès direct",
-                            linkProps: { href: "#" }
-                        },
-                        {
-                            text: "Niveau 1",
-                            items: [
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                },
-                                {
-                                    text: "Accès direct niveau 2",
-                                    linkProps: { href: "#" }
-                                }
-                            ]
-                        }
-                    ]
-
-                }
+                items={sideMenuItems}
                 title="Titre de rubrique"
                 burgerMenuButtonText="Dans cette rubrique"
             />
 
             <TableExample />
+            <GdprStoreViewer />
         </>
     );
 }
@@ -119,10 +117,10 @@ export function Home() {
 function TableExample() {
     return (
         <Table
-            caption="Titre du tableau"
-            colorVariant="green-emeraude"
-            headers={["Titre", "Titre", "Titre", "Titre", "Titre"]}
-            data={[
+            caption = "Titre du tableau"
+            colorVariant = "green-emeraude"
+            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data = {[
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
@@ -131,4 +129,27 @@ function TableExample() {
             ]}
         />
     );
+}
+
+
+export const GdprStoreViewer = () => {
+    const {consents, firstChoiceMade } = useGdprStore();
+
+    return <>
+        <ButtonsGroup inlineLayoutWhen='always' buttons={[
+            {
+                "nativeButtonProps": consentModalNativeButtonProps,
+                children: "Open Consent"
+            },
+            {
+                children: "Reset Consent",
+                priority: "secondary",
+                onClick() {
+                    localStorage.removeItem("dsfr-gdpr-consent");
+                    window.location.reload();
+                }
+            }
+        ]} />
+        <pre>{JSON.stringify({consents, firstChoiceMade})}</pre>
+    </>;
 }

@@ -1,4 +1,4 @@
-import { createComponentI18nApi } from "../../src/i18n";
+import { createComponentI18nApi } from "../../src/lib/i18n";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 

@@ -14,12 +14,9 @@
         "@mui/icons-material": "^5.10.16",
         "@mui/x-date-pickers": "^5.0.9",
         "dayjs": "^1.11.6",
-        "tss-react": "^4.8.6",
-        "@emotion/react": "^11.11.0",
-        "@emotion/styled": "^11.11.0",
         "@codegouvfr/react-dsfr": "file:../../../dist"
     },
-    "devDependencies": {
+    "lldevDependencies": {
         "@types/node": "^16.7.13",
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",
