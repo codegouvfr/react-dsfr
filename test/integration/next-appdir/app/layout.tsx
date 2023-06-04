@@ -37,7 +37,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />
 				<DsfrHead
-					defaultColorScheme={defaultColorScheme}
 					preloadFonts={[
 						//"Marianne-Light",
 						//"Marianne-Light_Italic",
@@ -59,7 +58,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					"flexDirection": "column"
 				}}
 			>
-				<DsfrProvider defaultColorScheme={defaultColorScheme}>
+				<DsfrProvider>
 					<ConsentBanner gdprLinkProps={{ href: "/mui" }} siteName='Next Test App' services={[
 						{
 							name: "matomo",

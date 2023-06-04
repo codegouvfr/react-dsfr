@@ -3,7 +3,7 @@ import { start } from "../start";
 import type { RegisterLink, RegisteredLinkProps } from "../link";
 import { setLink } from "../link";
 import { setUseLang } from "../i18n";
-import type { ColorScheme } from "../useIsDark";
+import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./zz_internal/defaultColorScheme";
 import { isBrowser } from "../tools/isBrowser";
 
 export type { RegisterLink, RegisteredLinkProps };
@@ -12,7 +12,7 @@ let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
 
 export function startReactDsfr(params: {
-    defaultColorScheme: ColorScheme | "system";
+    defaultColorScheme: DefaultColorScheme;
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
@@ -21,6 +21,8 @@ export function startReactDsfr(params: {
     useLang?: () => string;
 }) {
     const { defaultColorScheme, verbose = false, Link, useLang } = params;
+
+    setDefaultColorSchemeClientSide({ defaultColorScheme });
 
     if (Link !== undefined) {
         setLink({ Link });
