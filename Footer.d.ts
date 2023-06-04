@@ -4,7 +4,6 @@ import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/cla
 import { ModalProps } from "./Modal";
 export type FooterProps = {
     className?: string;
-    brandTop: ReactNode;
     accessibility: "non compliant" | "partially compliant" | "fully compliant";
     contentDescription?: ReactNode;
     websiteMapLinkProps?: RegisteredLinkProps;
@@ -13,9 +12,6 @@ export type FooterProps = {
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
     cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
-    homeLinkProps: RegisteredLinkProps & {
-        title: string;
-    };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {

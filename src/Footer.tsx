@@ -10,10 +10,10 @@ import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
 import { ModalProps } from "./Modal";
+import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 
 export type FooterProps = {
     className?: string;
-    brandTop: ReactNode;
     accessibility: "non compliant" | "partially compliant" | "fully compliant";
     contentDescription?: ReactNode;
     websiteMapLinkProps?: RegisteredLinkProps;
@@ -22,7 +22,6 @@ export type FooterProps = {
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
     cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
-    homeLinkProps: RegisteredLinkProps & { title: string };
     bottomItems?: FooterProps.BottomItem[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
@@ -139,9 +138,7 @@ export const Footer = memo(
         const {
             className,
             classes = {},
-            brandTop,
             contentDescription,
-            homeLinkProps,
             websiteMapLinkProps,
             accessibilityLinkProps,
             accessibility,
@@ -159,6 +156,8 @@ export const Footer = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const { brandTop, homeLinkProps } = getBrandTopAndHomeLinkProps();
 
         const { Link } = getLink();
 

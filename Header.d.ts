@@ -5,11 +5,11 @@ import type { MainNavigationProps } from "./MainNavigation";
 export type HeaderProps = {
     className?: string;
     brandTop: ReactNode;
-    serviceTitle?: ReactNode;
-    serviceTagline?: ReactNode;
     homeLinkProps: RegisteredLinkProps & {
         title: string;
     };
+    serviceTitle?: ReactNode;
+    serviceTagline?: ReactNode;
     navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];

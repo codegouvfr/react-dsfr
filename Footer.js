@@ -17,10 +17,12 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
 import { id } from "tsafe/id";
+import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, brandTop, contentDescription, homeLinkProps, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, style, linkList } = props, rest = __rest(props, ["className", "classes", "brandTop", "contentDescription", "homeLinkProps", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "style", "linkList"]);
+    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "style", "linkList"]);
     assert();
+    const { brandTop, homeLinkProps } = getBrandTopAndHomeLinkProps();
     const { Link } = getLink();
     const { t } = useTranslation();
     const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos !== null && partnersLogos !== void 0 ? partnersLogos : {};

@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import type { ColorScheme } from "../useIsDark";
 export type DsfrProviderProps = {
-    defaultColorScheme: ColorScheme | "system";
     children: ReactNode;
+    lang?: string;
 };
 export declare function DsfrProvider(props: DsfrProviderProps): JSX.Element;

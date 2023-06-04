@@ -18,10 +18,12 @@ import { getLink } from "./link";
 import { assert } from "tsafe/assert";
 import { MainNavigation } from "./MainNavigation";
 import { Display } from "./Display/Display";
+import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "classes", "style"]);
     assert();
+    setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
     const menuButtonId = `button-${useId()}`;
     const menuModalId = `modal-${useId()}`;
     const searchModalId = `modal-${useId()}`;
