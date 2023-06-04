@@ -59,7 +59,7 @@ Also you must configure it so it uses `node_modules` (sorry)
 {% tabs %}
 {% tab title="Vite" %}
 {% embed url="https://github.com/garronej/react-dsfr-vite-demo" %}
-Demo setup
+Demo setup in production here: [https://react-dsfr-vite-demo.vercel.app/](https://react-dsfr-vite-demo.vercel.app/)
 {% endembed %}
 
 Add theses three scipts to your `package.json`:
@@ -328,7 +328,7 @@ The create-react-app project is no longer being maintained. If you are starting 
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-cra-demo" %}
-Demo setup
+See demo setup in production here: [https://react-dsfr-cra-demo.vercel.app/](https://react-dsfr-cra-demo.vercel.app/)
 {% endembed %}
 
 Add theses three scipts to your `package.json`:
