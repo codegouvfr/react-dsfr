@@ -12,10 +12,6 @@ import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 
-const brandTop = <>INTITULE<br />OFFICIEL</>;
-
-const homeLinkPops = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
-
 declare module "@codegouvfr/react-dsfr/gdpr" {
 	interface RegisterGdprServices {
 		matomo: never;
@@ -69,9 +65,12 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 							<Header
-								brandTop={brandTop}
+								brandTop={<>INTITULE<br />OFFICIEL</>}
 								serviceTitle="Nom du site / service"
-								homeLinkProps={homeLinkPops}
+								homeLinkProps={{ 
+									"href": "/", 
+									"title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" 
+								}}
 								quickAccessItems={[
 									headerFooterDisplayItem,
 									{
@@ -95,7 +94,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								{children}
 							</div>
 							<Footer
-								brandTop={brandTop}
 								accessibility="fully compliant"
 								contentDescription={`
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
@@ -104,7 +102,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                     eu fugiat nulla pariatur. 
                 `}
-								homeLinkProps={homeLinkPops}
 								bottomItems={[headerFooterDisplayItem]}
 							/>
 						</MuiDsfrThemeProvider>

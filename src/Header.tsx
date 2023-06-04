@@ -11,13 +11,14 @@ import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/cla
 import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
 import { Display } from "./Display/Display";
+import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 
 export type HeaderProps = {
     className?: string;
     brandTop: ReactNode;
+    homeLinkProps: RegisteredLinkProps & { title: string };
     serviceTitle?: ReactNode;
     serviceTagline?: ReactNode;
-    homeLinkProps: RegisteredLinkProps & { title: string };
     navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
     quickAccessItems?: HeaderProps.QuickAccessItem[];
@@ -91,6 +92,8 @@ export namespace HeaderProps {
     }
 }
 
+
+
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(
     forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
@@ -110,6 +113,8 @@ export const Header = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
 
         const menuButtonId = `button-${useId()}`;
         const menuModalId = `modal-${useId()}`;
