@@ -186,7 +186,7 @@ declare module "@codegouvfr/react-dsfr/next-appdir" {
 
 startReactDsfr({ defaultColorScheme, Link });
 
-export default function StartDsfr(){
+export function StartDsfr(){
   //Yes, leave null here.
   return null;
 }
@@ -198,7 +198,7 @@ export default function StartDsfr(){
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
 import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
-import StartDsfr from "./StartDsfr";
+import { StartDsfr } from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
 import Link from "next/link";
 
