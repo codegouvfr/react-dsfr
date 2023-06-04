@@ -16,7 +16,7 @@ export type RegisteredLinkProps = RegisterLink extends {
 
 let Link: (
     props: RegisteredLinkProps & { children: ReactNode }
-) => ReturnType<React.FC> = props => <a {...props} />;
+) => ReturnType<React.FC> = props=> <a {...props} />;
 
 export function setLink(params: { Link: typeof Link }): void {
     Link = props => {

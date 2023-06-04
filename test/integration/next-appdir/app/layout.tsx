@@ -11,6 +11,7 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
+import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
 	interface RegisterGdprServices {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />
 				<DsfrHead
+					Link={Link}
 					preloadFonts={[
 						//"Marianne-Light",
 						//"Marianne-Light_Italic",
@@ -67,9 +69,9 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 							<Header
 								brandTop={<>INTITULE<br />OFFICIEL</>}
 								serviceTitle="Nom du site / service"
-								homeLinkProps={{ 
-									"href": "/", 
-									"title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" 
+								homeLinkProps={{
+									"href": "/",
+									"title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
 								}}
 								quickAccessItems={[
 									headerFooterDisplayItem,
