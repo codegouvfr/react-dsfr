@@ -1,3 +1,3 @@
-export type { RegisterLink, RegisteredLinkProps } from "../link";
+export type { RegisterLink } from "../link";
 export type { DefaultColorScheme } from "./zz_internal/defaultColorScheme";
-export { startReactDsfr } from "./start";
+export { startReactDsfr } from "./zz_internal/start";

@@ -2,7 +2,7 @@ import { NextAppDirEmotionCacheProvider } from "tss-react/next";
 import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
 import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
-import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
+import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
 import StartDsfr from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
 import MuiDsfrThemeProvider from "@codegouvfr/react-dsfr/mui";
@@ -21,9 +21,13 @@ declare module "@codegouvfr/react-dsfr/gdpr" {
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
+	//NOTE: If we had i18n setup we would get lang from the props.
+	//See https://github.com/vercel/next.js/blob/canary/examples/app-dir-i18n-routing/app/%5Blang%5D/layout.tsx
+	const lang = "en";
+
 	return (
 		<html
-			{...getColorSchemeHtmlAttributes({ defaultColorScheme })}
+			{...getHtmlAttributes({ defaultColorScheme, lang })}
 			//NOTE: Scrollbar always visible to avoid layout shift when modal are opened
 			style={{
 				"overflow": "-moz-scrollbars-vertical",
@@ -56,7 +60,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					"flexDirection": "column"
 				}}
 			>
-				<DsfrProvider>
+				<DsfrProvider lang={lang}>
 					<ConsentBanner gdprLinkProps={{ href: "/mui" }} siteName='Next Test App' services={[
 						{
 							name: "matomo",

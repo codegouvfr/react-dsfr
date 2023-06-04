@@ -8,7 +8,6 @@ import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import { getDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
 import { setLink, type RegisteredLinkProps } from "../link";
-import { setUseLang } from "../i18n";
 //NOTE: As of now there is no way to enforce ordering in Next Appdir
 //See: https://github.com/vercel/next.js/issues/16630
 // @import url(...) doesn't work. Using Sass and @use is our last resort.
@@ -21,14 +20,12 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
-    /** Default: ()=> "fr" */
-    useLang?: () => string;
 };
 
 const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const { preloadFonts = [], Link, useLang } = props;
+    const { preloadFonts = [], Link } = props;
 
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
@@ -37,12 +34,6 @@ export function DsfrHead(props: DsfrHeadProps) {
             setLink({ Link });
         }
     },[Link]);
-
-    useMemo(() => {
-        if (useLang !== undefined) {
-            setUseLang({ useLang });
-        }
-    },[useLang]);
 
     return (
         <>
