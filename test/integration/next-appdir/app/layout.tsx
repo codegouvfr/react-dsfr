@@ -10,22 +10,9 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { headerFooterDisplayItem, addDisplayTranslations } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
-import { footerConsentManagementItem, getFooterPersonalDataPolicyItem } from "@codegouvfr/react-dsfr/gdpr";
-import { ConsentBannerAndConsentManagement } from "@codegouvfr/react-dsfr/gdpr/ConsentBannerAndConsentManagement";
 import Link from "next/link";
+import { ConsentBannerAndConsentManagement, footerConsentManagementItem, footerPersonalDataPolicyItem } from "./gdpr";
 
-declare module "@codegouvfr/react-dsfr/gdpr" {
-	interface RegisterFinality {
-		finality:
-		| "analytics"
-		| "statistics.traffic"
-		| "statistics.deviceInfo"
-		| "personalization"
-		| "advertising";
-	}
-}
-
-const personalDataPolicyLinkProps = { "href": "/politique-de-confidentialite", "title": "Politique de confidentialité" };
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
@@ -68,31 +55,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					"flexDirection": "column"
 				}}
 			>
-				<ConsentBannerAndConsentManagement
-					personalDataPolicyLinkProps={personalDataPolicyLinkProps}
-					finalityDescription={{
-						"advertising": {
-							"title": "Publicité",
-							"description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
-						},
-						"analytics": {
-							"title": "Analyse",
-							"description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
-						},
-						"personalization": {
-							"title": "Personnalisation",
-							"description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
-						},
-						"statistics": {
-							"title": "Statistiques",
-							"description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-							"titleBySubFinality": {
-								"deviceInfo": "Informations sur votre appareil",
-								"traffic": "Informations sur votre navigation",
-							}
-						}
-					}}
-				/>
+				<ConsentBannerAndConsentManagement />
 				<DsfrProvider lang={lang}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
@@ -137,7 +100,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								bottomItems={[
 									headerFooterDisplayItem,
 									footerConsentManagementItem,
-									getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })
+									footerPersonalDataPolicyItem
 								]}
 							/>
 						</MuiDsfrThemeProvider>
