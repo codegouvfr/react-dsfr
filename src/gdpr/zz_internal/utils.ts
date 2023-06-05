@@ -55,10 +55,10 @@ export function updateFinalityConsent(params: {
             ...obj,
             [subFinality]: isConsentGiven,
             "isFullConsent":
-                Object.keys(obj)
+                isConsentGiven && (Object.keys(obj)
                     .filter(key => key !== subFinality && key !== "isFullConsent")
                     .map(key => obj[key])
-                    .find(isConsentGiven => !isConsentGiven) === undefined
+                    .find(isConsentGiven => !isConsentGiven) === undefined)
         }
     };
 }

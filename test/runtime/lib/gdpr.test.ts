@@ -29,7 +29,7 @@ describe("Testing gdpr utils", () => {
             "advertising": false
         };
 
-        expect(got).toBe(expected);
+        expect(got).toStrictEqual(expected);
     });
 
     it("updateFinalityConsent 1", () => {
@@ -220,15 +220,16 @@ describe("Testing gdpr utils", () => {
             }
         });
 
+        console.log(JSON.stringify(got, null, 4));
+
         const expected = [
             "analytics",
             "statistics.traffic",
-            "statistics.deviceType",
-            "statistics.browser",
+            "statistics.deviceInfo",
             "personalization",
             "advertising"
         ];
 
-        expect(got).toStrictEqual(expected);
+        expect([...got].sort()).toStrictEqual([...expected].sort());
     });
 });

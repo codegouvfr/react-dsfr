@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 
 	//NOTE: If we had i18n setup we would get lang from the props.
 	//See https://github.com/vercel/next.js/blob/canary/examples/app-dir-i18n-routing/app/%5Blang%5D/layout.tsx
-	const lang = "en";
+	const lang = "fr";
 
 	return (
 		<html
