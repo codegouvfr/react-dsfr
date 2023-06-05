@@ -10,20 +10,44 @@ import {
     getFinalitiesFromFinalityDescription,
     type ProcessBulkConsentChange,
     type OnConsentChange
-} from "./zz_internal/utils";
-import { modal } from "./zz_internal/modal";
-import { $finalityConsent } from "./zz_internal/signal";
+} from "./utils";
+import { modal } from "./modal";
+import { $finalityConsent } from "./signal";
 import { symToStr } from "tsafe/symToStr";
-import type { FinalityDescription } from "./zz_internal/types";
+import type {
+    FinalityToFinalityDescription,
+    ExtractFinalityFromFinalityDescription
+} from "./types";
 
-export type ConsentBannerAndConsentManagementProps = {
+export type ConsentBannerAndConsentManagementProps<
+    FinalityDescription extends FinalityToFinalityDescription<string>
+> = {
     finalityDescription: FinalityDescription;
     onConsentChange?: OnConsentChange;
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 };
 
-export function ConsentBannerAndConsentManagement(props: ConsentBannerAndConsentManagementProps) {
+const x = ConsentBannerAndConsentManagement2({
+    "finalityDescription": {
+        "xxx": {
+            "title": "",
+            "description": ""
+        }
+    }
+});
+
+export function ConsentBannerAndConsentManagement2<
+    FinalityDescription extends FinalityToFinalityDescription<string>
+>(
+    props: ConsentBannerAndConsentManagementProps<FinalityDescription>
+): ExtractFinalityFromFinalityDescription<FinalityDescription> {
+    return null as any;
+}
+
+export function ConsentBannerAndConsentManagement<
+    FinalityDescription extends FinalityToFinalityDescription<string>
+>(props: ConsentBannerAndConsentManagementProps<FinalityDescription>) {
     const { personalDataPolicyLinkProps, finalityDescription, onConsentChange } = props;
 
     const { processBulkConsentChange } = createProcessBulkConsentChange({

@@ -1,8 +1,8 @@
 import React from "react";
-import type { FooterProps } from "../../Footer";
+import type { FooterProps } from "../Footer";
 import { modal } from "./modal";
-import { createComponentI18nApi } from "../../i18n";
-import type { RegisteredLinkProps } from "../../link";
+import { createComponentI18nApi } from "../i18n";
+import type { RegisteredLinkProps } from "../link";
 
 export const footerConsentManagementItem: FooterProps.BottomItem.Button = {
     "buttonProps": modal.buttonProps,

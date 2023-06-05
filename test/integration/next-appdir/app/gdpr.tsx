@@ -39,3 +39,7 @@ export const { ConsentBannerAndConsentManagement, footerConsentManagementItem, f
         "href": "/politique-de-confidentialite",
     }
 });
+
+
+
+
