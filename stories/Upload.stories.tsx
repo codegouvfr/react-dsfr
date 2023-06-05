@@ -1,4 +1,4 @@
-import Upload, { type UploadProps } from "../dist/Upload";
+import { Upload, type UploadProps } from "../dist/Upload";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
