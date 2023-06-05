@@ -1,3 +1,5 @@
+"use client";
+
 import { isBrowser } from "../../tools/isBrowser";
 import { useConstCallback } from "../../tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
