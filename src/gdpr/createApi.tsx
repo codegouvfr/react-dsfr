@@ -1,5 +1,13 @@
 import React, { type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription, FinalityToFinalityConsent } from "./types";
+import type { RegisteredLinkProps } from "../link";
+import type { FooterProps } from "../Footer";
+import { getFooterPersonalDataPolicyItem, footerConsentManagementItem } from "./footerItems";
+import { Reflect } from "tsafe/Reflect";
+import { useGdpr, type UseGdpr } from "./useGdpr";
+import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
+
 
 
 export function createGdprApi<FinalityDescription extends
@@ -10,26 +18,48 @@ export function createGdprApi<FinalityDescription extends
 >(
     params: {
         finalityDescription: ((params: { lang: string; })=> FinalityDescription) | FinalityDescription;
+        personalDataPolicyLinkProps?: RegisteredLinkProps;
     }
 ): {
     useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>
     ConsentBannerAndConsentManagement: (props: { lang: string; })=> ReactNode;
-
+    footerItems: {
+        personalDataPolicy: FooterProps.BottomItem.Link;
+        consentManagement: FooterProps.BottomItem.Button;
+    }
 } {
 
+    type Finality= ExtractFinalityFromFinalityDescription<FinalityDescription>;
+
+    const { finalityDescription, personalDataPolicyLinkProps } = params;
+
+    const footerItems = Object.defineProperty({
+        "consentManagement": footerConsentManagementItem,
+        "personalDataPolicy": Reflect<FooterProps.BottomItem.Link>()
+    }, "personalDataPolicy", {
+        "enumerable": true,
+        "get": (): FooterProps.BottomItem.Link => {
+            if (personalDataPolicyLinkProps === undefined) {
+                throw new Error([
+                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                    "you want to add a link to the personal data policy in the footer"
+                ].join(" "));
+            }
+            return getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps });
+        }
+    });
+
+    assert(is<UseGdpr<Finality>>(useGdpr));
+
+    return {
+        footerItems,
+        useGdpr,
+        "ConsentBannerAndConsentManagement": null as any
+    }
 
     return null as any;
 }
 
-export type UseGdpr<Finality extends string> = (params: {
-    callback?: (params: { 
-        finalityConsent: FinalityToFinalityConsent<Finality>;
-        finalityConsent_prev: FinalityToFinalityConsent<Finality> | undefined;
-    })=> Promise<void> | void;
-}) => {
-    finalityConsent: FinalityToFinalityConsent<Finality>;
-    assumeConsent: (finality: Finality) => void;
-};
 
 
 

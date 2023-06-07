@@ -1,21 +1,27 @@
 "use client";
 
-import { isBrowser } from "../../tools/isBrowser";
-import { useConstCallback } from "../../tools/powerhooks/useConstCallback";
+import { isBrowser } from "../tools/isBrowser";
+import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
 import { getProcessBulkConsentChange, useOnConsentChange } from "./utils";
 import { modal } from "./modal";
 import { useFinalityConsent } from "./signal";
-import type { Finality, FinalityConsent } from "./types";
-import type { OnConsentChange } from "./utils";
+import type { FinalityToFinalityConsent } from "./types";
 
-type UseGdpr = (params?: { onConsentChange?: OnConsentChange }) => {
-    finalityConsent: FinalityConsent | undefined;
-    assumeConsent: (finality: Finality) => Promise<void>;
+export type UseGdpr<Finality extends string> = (params: {
+    callback?: (params: {
+        finalityConsent: FinalityToFinalityConsent<Finality>;
+        finalityConsent_prev: FinalityToFinalityConsent<Finality> | undefined;
+    }) => Promise<void> | void;
+}) => {
+    finalityConsent: FinalityToFinalityConsent<Finality> | undefined;
+    assumeConsent: (finality: Finality) => void;
 };
 
-const useGdprClientSide: UseGdpr = params => {
-    const { onConsentChange } = params ?? {};
+type Finality = string;
+
+const useGdprClientSide: UseGdpr<Finality> = params => {
+    const { callback } = params ?? {};
 
     const { finalityConsent } = useFinalityConsent();
 
@@ -51,7 +57,7 @@ const useGdprClientSide: UseGdpr = params => {
     };
 };
 
-const useGdprServerSide: UseGdpr = () => {
+const useGdprServerSide: UseGdpr<Finality> = () => {
     return {
         "finalityConsent": undefined,
         "assumeConsent": () => {

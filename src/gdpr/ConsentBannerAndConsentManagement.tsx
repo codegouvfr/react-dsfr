@@ -15,8 +15,8 @@ import { modal } from "./modal";
 import { $finalityConsent } from "./signal";
 import { symToStr } from "tsafe/symToStr";
 import type {
-    FinalityToFinalityDescription,
-    ExtractFinalityFromFinalityDescription
+    ExtractFinalityFromFinalityDescription,
+    FinalityToFinalityConsent
 } from "./types";
 
 export type ConsentBannerAndConsentManagementProps<
@@ -27,23 +27,6 @@ export type ConsentBannerAndConsentManagementProps<
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 };
-
-const x = ConsentBannerAndConsentManagement2({
-    "finalityDescription": {
-        "xxx": {
-            "title": "",
-            "description": ""
-        }
-    }
-});
-
-export function ConsentBannerAndConsentManagement2<
-    FinalityDescription extends FinalityToFinalityDescription<string>
->(
-    props: ConsentBannerAndConsentManagementProps<FinalityDescription>
-): ExtractFinalityFromFinalityDescription<FinalityDescription> {
-    return null as any;
-}
 
 export function ConsentBannerAndConsentManagement<
     FinalityDescription extends FinalityToFinalityDescription<string>
