@@ -3,18 +3,15 @@
 import { isBrowser } from "../tools/isBrowser";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { assert } from "tsafe/assert";
-import { getProcessBulkConsentChange, useOnConsentChange } from "./utils";
 import { modal } from "./modal";
 import { useFinalityConsent } from "./signal";
-import type { FinalityToFinalityConsent } from "./types";
+import type { FinalityConsent } from "./types";
+import type { GdprConsentCallback } from "./utils";
 
 export type UseGdpr<Finality extends string> = (params: {
-    callback?: (params: {
-        finalityConsent: FinalityToFinalityConsent<Finality>;
-        finalityConsent_prev: FinalityToFinalityConsent<Finality> | undefined;
-    }) => Promise<void> | void;
+    callback?: GdprConsentCallback<Finality>
 }) => {
-    finalityConsent: FinalityToFinalityConsent<Finality> | undefined;
+    finalityConsent: FinalityConsent<Finality> | undefined;
     assumeConsent: (finality: Finality) => void;
 };
 

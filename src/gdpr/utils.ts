@@ -1,17 +1,114 @@
 import { useEffect } from "react";
-import { deepCopy } from "../../tools/deepCopy";
-import type { Finality, FinalityConsent, FinalityDescription } from "./types";
+import { deepCopy } from "../tools/deepCopy";
+import type { FinalityConsent } from "./types";
 import { assert } from "tsafe/assert";
-import { useConstCallback } from "../../tools/powerhooks/useConstCallback";
+import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 
-export type OnConsentChange = (params: {
-    finality: Finality;
-    isConsentGiven: boolean;
-    isConsentGiven_prev: boolean | undefined;
+export type GdprConsentCallback<Finality extends string> = (params: {
+    finalityConsent: FinalityConsent<Finality>;
+    finalityConsent_prev: FinalityConsent<Finality> | undefined;
 }) => Promise<void> | void;
 
+export function createProcessBulkConsentChange<Finality extends string>(params: {
+    finalities: Finality[];
+    getFinalityConsent: () => FinalityConsent<Finality> | undefined;
+    setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality>; }) => void;
+    callback: GdprConsentCallback<Finality> | undefined;
+}) {
+    const { finalities, getFinalityConsent, setFinalityConsent, callback } = params;
+
+    const callbacks: GdprConsentCallback<Finality>[] = [];
+
+    if( callback !== undefined ){
+        callbacks.push(callback);
+    }
+
+    function useRegisterCallback(params: { callback: GdprConsentCallback<Finality> | undefined }) {
+        const { callback } = params;
+
+        const onConsentChange_const = useConstCallback<GdprConsentCallback<Finality>>(params =>
+            callback?.(params)
+        );
+
+        if (!callbacks.includes(onConsentChange_const)) {
+            callbacks.push(onConsentChange_const);
+        }
+
+        useEffect(
+            () => () => {
+                callbacks.splice(callbacks.indexOf(onConsentChange_const), 1);
+            },
+            []
+        );
+    }
+
+    async function processBulkConsentChange(
+        params: {
+            type: "grantAll" | "denyAll";
+        }
+            | {
+                type: "custom";
+                changes: {
+                    finality: Finality;
+                    isConsentGiven: boolean;
+                }[];
+            }
+    ): Promise<void> {
+
+        if (params.type === "grantAll") {
+            return processBulkConsentChange({
+                "type": "custom",
+                "changes": finalities.map(finality => ({
+                    finality,
+                    "isConsentGiven": true
+                }))
+            });
+        }
+
+        if (params.type === "denyAll") {
+            return processBulkConsentChange({
+                "type": "custom",
+                "changes": finalities.map(finality => ({
+                    finality,
+                    "isConsentGiven": false
+                }))
+            });
+        }
+
+        assert(params.type === "custom");
+
+        const { changes } = params;
+
+        const finalityConsent_prev = getFinalityConsent();
+
+        let finalityConsent = finalityConsent_prev === undefined ? createFullDenyFinalityConsent(finalities) : deepCopy(finalityConsent_prev);
+
+        for (const { finality, isConsentGiven } of changes) {
+            finalityConsent = updateFinalityConsent({
+                "finalityConsent": finalityConsent,
+                finality,
+                isConsentGiven
+            })
+        }
+
+        await Promise.all(
+            callbacks.map(callback => callback({
+                finalityConsent,
+                finalityConsent_prev
+            }))
+        );
+
+        setFinalityConsent({ finalityConsent });
+
+    }
+
+
+    return { processBulkConsentChange, useRegisterCallback };
+}
+
+
 /** Pure, exported for testing */
-export function createFullDenyFinalityConsent(finalities: Finality[]): FinalityConsent {
+export function createFullDenyFinalityConsent<Finality extends string>(finalities: Finality[]): FinalityConsent<Finality> {
     const finalityConsent: any = {};
 
     for (const finality of finalities) {
@@ -31,11 +128,11 @@ export function createFullDenyFinalityConsent(finalities: Finality[]): FinalityC
 }
 
 /** Pure, exported for testing */
-export function updateFinalityConsent(params: {
-    finalityConsent: FinalityConsent;
+export function updateFinalityConsent<Finality extends string>(params: {
+    finalityConsent: FinalityConsent<string>;
     finality: Finality;
     isConsentGiven: boolean;
-}): FinalityConsent {
+}): FinalityConsent<Finality> {
     const { finality, finalityConsent, isConsentGiven } = params;
 
     const [mainFinality, subFinality] = finality.split(".");
@@ -65,8 +162,8 @@ export function updateFinalityConsent(params: {
 }
 
 /** Pure, exported for testing */
-export function readFinalityConsent(params: {
-    finalityConsent: FinalityConsent;
+export function readFinalityConsent<Finality extends string>(params: {
+    finalityConsent: FinalityConsent<Finality>;
     finality: Finality;
 }): boolean | undefined {
     const { finality, finalityConsent } = params;
@@ -74,146 +171,9 @@ export function readFinalityConsent(params: {
     const [mainFinality, subFinality] = finality.split(".");
 
     if (subFinality === undefined) {
-        return finalityConsent[mainFinality];
+        return (finalityConsent as any)[mainFinality];
     }
 
     return (finalityConsent as any)[mainFinality][subFinality];
 }
 
-export type ProcessBulkConsentChange = (
-    params:
-        | {
-              type: "grantAll" | "denyAll";
-          }
-        | {
-              type: "custom";
-              changes: {
-                  finality: Finality;
-                  isConsentGiven: boolean;
-              }[];
-          }
-) => Promise<void>;
-
-const arrOfCallbacks: OnConsentChange[] = [];
-
-const onConsentChange_global: OnConsentChange = async params => {
-    await Promise.all(arrOfCallbacks.map(callback => callback(params)));
-};
-
-export function useOnConsentChange(params: { onConsentChange: OnConsentChange | undefined }) {
-    const { onConsentChange } = params;
-
-    const onConsentChange_const = useConstCallback<OnConsentChange>(params =>
-        onConsentChange?.(params)
-    );
-
-    if (!arrOfCallbacks.includes(onConsentChange_const)) {
-        arrOfCallbacks.push(onConsentChange_const);
-    }
-
-    useEffect(
-        () => () => {
-            arrOfCallbacks.splice(arrOfCallbacks.indexOf(onConsentChange_const), 1);
-        },
-        []
-    );
-}
-
-/** pure */
-export function getFinalitiesFromFinalityDescription(params: {
-    finalityDescription: FinalityDescription;
-}): Finality[] {
-    const { finalityDescription } = params;
-
-    const finalities: Finality[] = [];
-
-    for (const mainFinality in finalityDescription) {
-        const description = finalityDescription[mainFinality];
-
-        const { titleBySubFinality } = description as any;
-
-        if (titleBySubFinality === undefined) {
-            finalities.push(mainFinality);
-            continue;
-        }
-
-        for (const subFinality in titleBySubFinality) {
-            finalities.push(`${mainFinality}.${subFinality}`);
-        }
-    }
-
-    return finalities;
-}
-
-export function createProcessBulkConsentChange(params: {
-    finalities: Finality[];
-    getFinalityConsent: () => FinalityConsent | undefined;
-    setFinalityConsent: (params: { finalityConsent: FinalityConsent }) => void;
-}) {
-    const { finalities, getFinalityConsent, setFinalityConsent } = params;
-
-    const processBulkConsentChange: ProcessBulkConsentChange = async params => {
-        if (params.type === "grantAll") {
-            return processBulkConsentChange({
-                "type": "custom",
-                "changes": finalities.map(finality => ({
-                    finality,
-                    "isConsentGiven": true
-                }))
-            });
-        }
-
-        if (params.type === "denyAll") {
-            return processBulkConsentChange({
-                "type": "custom",
-                "changes": finalities.map(finality => ({
-                    finality,
-                    "isConsentGiven": false
-                }))
-            });
-        }
-
-        assert(params.type === "custom");
-
-        const { changes } = params;
-
-        let finalityConsentCurrent = (() => {
-            const curr = getFinalityConsent();
-
-            return curr === undefined ? createFullDenyFinalityConsent(finalities) : deepCopy(curr);
-        })();
-
-        Promise.all(
-            changes.map(async ({ finality, isConsentGiven }) => {
-                await Promise.resolve(
-                    onConsentChange_global({
-                        finality,
-                        isConsentGiven,
-                        "isConsentGiven_prev": readFinalityConsent({
-                            "finalityConsent": finalityConsentCurrent,
-                            finality
-                        })
-                    })
-                );
-
-                finalityConsentCurrent = updateFinalityConsent({
-                    "finalityConsent": finalityConsentCurrent,
-                    finality,
-                    isConsentGiven
-                });
-            })
-        );
-
-        setFinalityConsent({ "finalityConsent": finalityConsentCurrent });
-    };
-
-    processBulkConsentChange_global = processBulkConsentChange;
-
-    return { processBulkConsentChange };
-}
-
-let processBulkConsentChange_global: ProcessBulkConsentChange | undefined = undefined;
-
-export function getProcessBulkConsentChange() {
-    return { processBulkConsentChange: processBulkConsentChange_global };
-}

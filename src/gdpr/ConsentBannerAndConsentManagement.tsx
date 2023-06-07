@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useEffect, type ReactNode } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
@@ -19,14 +19,26 @@ import type {
     FinalityToFinalityConsent
 } from "./types";
 
-export type ConsentBannerAndConsentManagementProps<
-    FinalityDescription extends FinalityToFinalityDescription<string>
-> = {
-    finalityDescription: FinalityDescription;
-    onConsentChange?: OnConsentChange;
-    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
+//export type ConsentBannerAndConsentManagementProps<FinalityDescription extends FinalityToFinalityDescription<string>> = {
+//    finalityDescription: FinalityDescription;
+//    onConsentChange?: OnConsentChange;
+//    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
+//    personalDataPolicyLinkProps?: RegisteredLinkProps;
+//};
+
+type FinalityDescription = Record<
+    string,
+    { 
+        title: ReactNode; 
+        description?: ReactNode; 
+        subFinalities?: Record<string, ReactNode>; 
+    }
+>;
+
+export type ConsentBannerAndConsentManagementProps {
+    finalityDescription: ((params: { lang: string; }) => FinalityDescription) | FinalityDescription;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
-};
+}
 
 export function ConsentBannerAndConsentManagement<
     FinalityDescription extends FinalityToFinalityDescription<string>

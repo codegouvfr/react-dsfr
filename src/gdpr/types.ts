@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import { assert, type Equals } from "tsafe/assert";
 
-export type FinalityToFinalityConsent<Finality extends string> = {
+export type FinalityConsent<Finality extends string> = {
     [K in Finality as K extends `${infer _P}.${infer _C}` ? never : K]: boolean;
 } & {
     [K in Finality as K extends `${infer P}.${infer _C}` ? P : never]: Record<
@@ -34,7 +34,7 @@ export type FinalityToFinalityConsent<Finality extends string> = {
         isFullConsent: boolean;
     };
 
-    type ActualOutput = FinalityToFinalityConsent<Input>;
+    type ActualOutput = FinalityConsent<Input>;
 
     assert<Equals<ActualOutput, ExpectedOutput>>();
 }
