@@ -9,7 +9,7 @@ export type FinalityToFinalityConsent<Finality extends string> = {
         K extends `${infer _P}.${infer C}` ? C : never,
         boolean
     > & { isFullConsent: boolean };
-};
+} & { isFullConsent: boolean };
 
 {
     type Input =
@@ -31,6 +31,7 @@ export type FinalityToFinalityConsent<Finality extends string> = {
         } & {
             isFullConsent: boolean;
         };
+        isFullConsent: boolean;
     };
 
     type ActualOutput = FinalityToFinalityConsent<Input>;
@@ -38,7 +39,7 @@ export type FinalityToFinalityConsent<Finality extends string> = {
     assert<Equals<ActualOutput, ExpectedOutput>>();
 }
 
-type ExtractFinalityFromFinalityDescription<
+export type ExtractFinalityFromFinalityDescription<
     FinalityDescription extends Record<
         string,
         { title: ReactNode; subFinalities?: Record<string, ReactNode>; }
@@ -51,7 +52,7 @@ type ExtractFinalityFromFinalityDescription<
     : never;
 }[keyof FinalityDescription];
 
-namespace ExtractFinalityFromFinalityDescription {
+export  namespace ExtractFinalityFromFinalityDescription {
 
     export type SubFinalities<T> = T extends { subFinalities: infer U }
         ? U extends Record<string, any>
