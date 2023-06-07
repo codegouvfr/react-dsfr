@@ -134,8 +134,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                         "label": placeholder === undefined ? t("select an option") : placeholder,
                         "selected": true,
                         "value": "",
-                        "disabled": true,
-                        "hidden": true
+                        "disabled": true
                     },
                     ...options
                 ].map((option, index) => (
