@@ -158,9 +158,11 @@ export const Alert = memo(
                 ref={ref}
                 {...rest}
             >
-                <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>
-                    {title}
-                </HtmlTitleTag>
+                {title !== undefined && (
+                    <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>
+                        {title}
+                    </HtmlTitleTag>
+                )}
                 <p className={classes.description}>{description}</p>
                 {isClosable && (
                     <button
