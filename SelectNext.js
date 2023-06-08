@@ -41,8 +41,7 @@ function NonMemoizedNonForwardedSelect(props, ref) {
                 "label": placeholder === undefined ? t("select an option") : placeholder,
                 "selected": true,
                 "value": "",
-                "disabled": true,
-                "hidden": true
+                "disabled": true
             },
             ...options
         ].map((option, index) => (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), option.label)))),
