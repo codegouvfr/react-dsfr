@@ -158,7 +158,7 @@ export const Alert = memo(
                 ref={ref}
                 {...rest}
             >
-                {title && (
+                {title !== undefined && (
                     <HtmlTitleTag className={cx(fr.cx("fr-alert__title"), classes.title)}>
                         {title}
                     </HtmlTitleTag>
