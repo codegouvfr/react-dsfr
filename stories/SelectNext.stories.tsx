@@ -6,7 +6,7 @@ import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
     sectionName,
-    "wrappedComponent": { "SelectNex": Select },
+    "wrappedComponent": { "SelectNext": Select },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Notice.tsx)
