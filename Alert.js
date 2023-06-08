@@ -64,7 +64,7 @@ export const Alert = memo(forwardRef((props, ref) => {
         return null;
     }
     return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": "alert" }), { ref: ref }, rest),
-        React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title),
+        title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title)),
         React.createElement("p", { className: classes.description }, description),
         isClosable && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));
 }));
