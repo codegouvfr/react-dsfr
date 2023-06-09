@@ -48,7 +48,7 @@ This module is an advanced toolkit that leverage [@gouvfr/dsfr](https://github.c
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] Most components are server component ready. The others are labeled with `"use client";`
 -   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://react-dsfr.etalab.studio/).
--   [ ] All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented (21/41, [see details](COMPONENTS.md))
+-   [x] (Almost) All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are [implemented](https://react-dsfr-components.etalab.studio/)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
         be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.etalab.studio/mui-integration).
@@ -64,7 +64,7 @@ I'm working full time on this project. You can expect rapid development.
   <a href="https://react-dsfr.etalab.studio/">🚀 Get started 🚀 </a>
 </p>
 
-# What about [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
+# Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 If your project is using [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) and you're not willing to migrate to `@codegouvfr/react-dsfr` you can still benefit from some of this project features:
 
