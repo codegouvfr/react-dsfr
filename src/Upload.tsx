@@ -108,7 +108,7 @@ export const Upload = memo(
     })
 );
 
-Upload.displayName = "Upload";
+Upload.displayName = symToStr({ Upload });
 
 const { useTranslation, addUploadTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Upload }),
