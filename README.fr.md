@@ -48,7 +48,7 @@ DSFR en pur JavaScript/CSS.
 -   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
 -   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.etalab.studio/) si votre
         framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [ ] tout [les composants de référence implémentés](https://www.systeme-de-design.gouv.fr/elements-d-interface). À ce jour 20/41, [see details](COMPONENTS.md)
+-   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://react-dsfr-components.etalab.studio/).
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
          Voir la [documentation](https://react-dsfr.etalab.studio/mui-integration).
@@ -62,7 +62,7 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
   <a href="https://react-dsfr.etalab.studio/">🚀 Commencer maintenant 🚀 </a>
 </p>
 
-## À propos [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
+## Migration depuis [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieurs fonctionalités de ce dernier:
 
