@@ -69,12 +69,12 @@ export const Upload = memo(
                 )}
                 ref={ref}
             >
-                <label className="fr-label" aria-disabled={disabled} htmlFor={inputId}>
+                <label className={fr.cx("fr-label")} aria-disabled={disabled} htmlFor={inputId}>
                     {t("add_files")}
-                    <span className="fr-hint-text">{hint}</span>
+                    <span className={fr.cx("fr-hint-text")}>{hint}</span>
                 </label>
                 <input
-                    aria-describedby="file-upload-with-error-desc-error"
+                    aria-describedby={messageId}
                     aria-disabled={disabled}
                     className={cx(fr.cx("fr-upload"))}
                     disabled={disabled}
