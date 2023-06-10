@@ -35,23 +35,16 @@ type FinalityDescription = Record<
     }
 >;
 
-export type ConsentBannerAndConsentManagementProps {
+export type ConsentBannerAndConsentManagementProps = {
     finalityDescription: ((params: { lang: string; }) => FinalityDescription) | FinalityDescription;
+    processBulkConsentChanges: ProcessBulkConsentChange;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
-}
+};
 
-export function ConsentBannerAndConsentManagement<
-    FinalityDescription extends FinalityToFinalityDescription<string>
->(props: ConsentBannerAndConsentManagementProps<FinalityDescription>) {
-    const { personalDataPolicyLinkProps, finalityDescription, onConsentChange } = props;
+export function ConsentBannerAndConsentManagement(props: ConsentBannerAndConsentManagementProps) {
+    const { personalDataPolicyLinkProps, finalityDescription, processBulkConsentChanges } = props;
 
-    const { processBulkConsentChange } = createProcessBulkConsentChange({
-        "finalities": getFinalitiesFromFinalityDescription({ finalityDescription }),
-        "getFinalityConsent": () => $finalityConsent.current,
-        "setFinalityConsent": ({ finalityConsent }) => ($finalityConsent.current = finalityConsent)
-    });
 
-    useOnConsentChange({ onConsentChange });
 
     const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 

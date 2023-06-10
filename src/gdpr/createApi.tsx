@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "./types";
+import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
 import type { FooterProps } from "../Footer";
 import { getFooterPersonalDataPolicyItem, footerConsentManagementItem } from "./footerItems";
@@ -8,6 +8,8 @@ import { useGdpr, type UseGdpr } from "./useGdpr";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
 import type { GdprConsentCallback } from "./utils";
+import { FooterBottomItem } from "../Footer";
+import { symToStr } from "tsafe/symToStr";
 
 
 
@@ -19,15 +21,15 @@ export function createGdprApi<FinalityDescription extends
 >(
     params: {
         finalityDescription: ((params: { lang: string; }) => FinalityDescription) | FinalityDescription;
-        personalDataPolicyLinkProps?: RegisteredLinkProps;
         callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
+        personalDataPolicyLinkProps?: RegisteredLinkProps;
     }
 ): {
     useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>
     ConsentBannerAndConsentManagement: (props: { lang: string; }) => ReactNode;
     footerItems: {
-        personalDataPolicy: FooterProps.BottomItem.Link;
-        consentManagement: FooterProps.BottomItem.Button;
+        ConsentManagement: () => JSX.Element;
+        PersonalDataPolicy: () => JSX.Element;
     }
 } {
 
@@ -35,28 +37,36 @@ export function createGdprApi<FinalityDescription extends
 
     const { finalityDescription, personalDataPolicyLinkProps, callback } = params;
 
-    const footerItems = Object.defineProperty({
-        "consentManagement": footerConsentManagementItem,
-        "personalDataPolicy": Reflect<FooterProps.BottomItem.Link>()
-    }, "personalDataPolicy", {
-        "enumerable": true,
-        "get": (): FooterProps.BottomItem.Link => {
-            if (personalDataPolicyLinkProps === undefined) {
-                throw new Error([
-                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
-                    "you want to add a link to the personal data policy in the footer"
-                ].join(" "));
-            }
-            return getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps });
+
+    function FooterConsentManagementItem() {
+        return <FooterBottomItem bottomItem={footerConsentManagementItem} />;
+    }
+
+    FooterConsentManagementItem.displayName = symToStr({ FooterConsentManagementItem });
+
+    function FooterPersonalDataPolicyItem() {
+
+        if (personalDataPolicyLinkProps === undefined) {
+            throw new Error([
+                "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                "you want to add a link to the personal data policy in the footer"
+            ].join(" "));
         }
-    });
+
+        return <FooterBottomItem bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })} />;
+    }
+
+    FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
 
     assert(is<UseGdpr<Finality>>(useGdpr));
 
     return {
-        footerItems,
         useGdpr,
-        "ConsentBannerAndConsentManagement": null as any
+        "ConsentBannerAndConsentManagement": null as any,
+        "footerItems": {
+            "ConsentManagement": FooterConsentManagementItem,
+            "PersonalDataPolicy": FooterPersonalDataPolicyItem
+        }
     }
 
     return null as any;
@@ -65,10 +75,20 @@ export function createGdprApi<FinalityDescription extends
 
 
 /** pure */
-export function getFinalitiesFromFinalityDescription(params: {
-    finalityDescription: FinalityDescription;
-}): Finality[] {
+export function getFinalitiesFromFinalityDescription<FinalityDescription extends
+
+    Record<
+        string,
+        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode>; }
+    >
+
+
+>(params: {
+    finalityDescription: FinalityDescription
+}): ExtractFinalityFromFinalityDescription<FinalityDescription>[] {
     const { finalityDescription } = params;
+
+    type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
     const finalities: Finality[] = [];
 

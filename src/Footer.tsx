@@ -10,6 +10,7 @@ import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { typeGuard } from "tsafe/typeGuard";
 
 export type FooterProps = {
     className?: string;
@@ -18,7 +19,7 @@ export type FooterProps = {
     websiteMapLinkProps?: RegisteredLinkProps;
     accessibilityLinkProps?: RegisteredLinkProps;
     termsLinkProps?: RegisteredLinkProps;
-    bottomItems?: FooterProps.BottomItem[];
+    bottomItems?: (FooterProps.BottomItem | ReactNode)[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
@@ -83,6 +84,7 @@ export namespace FooterProps {
                 HTMLButtonElement
             >;
         };
+
     }
 
     export namespace LinkList {
@@ -200,7 +202,7 @@ export const Footer = memo(
                                                                 key={`fr-footer__top-link-${linkItemIndex}`}
                                                             >
                                                                 <Link
-                                                                    {...linkItem?.linkProps}
+                                                                    {...linkItem?.linkProps as any}
                                                                     className={fr.cx(
                                                                         "fr-footer__top-link"
                                                                     )}
@@ -388,73 +390,41 @@ export const Footer = memo(
                                 ...(websiteMapLinkProps === undefined
                                     ? []
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("website map"),
-                                              "linkProps": websiteMapLinkProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("website map"),
+                                            "linkProps": websiteMapLinkProps
+                                        })
+                                    ]),
                                 id<FooterProps.BottomItem>({
                                     "text": `${t("accessibility")}: ${t(accessibility)}`,
-                                    "linkProps": accessibilityLinkProps ?? {}
+                                    "linkProps": accessibilityLinkProps ?? {} as any
                                 }),
                                 ...(termsLinkProps === undefined
                                     ? []
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("terms"),
-                                              "linkProps": termsLinkProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("terms"),
+                                            "linkProps": termsLinkProps
+                                        })
+                                    ]),
                                 ...bottomItems
-                            ].map(({ iconId, text, buttonProps, linkProps }, i) => (
-                                <li
-                                    key={i}
-                                    className={cx(
-                                        fr.cx("fr-footer__bottom-item"),
-                                        classes.bottomItem
-                                    )}
-                                >
-                                    {(() => {
-                                        const className = cx(
-                                            fr.cx(
-                                                "fr-footer__bottom-link",
-                                                ...(iconId !== undefined
-                                                    ? ([iconId, "fr-link--icon-left"] as const)
-                                                    : [])
-                                            ),
-                                            classes.bottomLink
-                                        );
-
-                                        return linkProps !== undefined ? (
-                                            Object.keys(linkProps).length === 0 ? (
-                                                <span className={className}>{text}</span>
-                                            ) : (
-                                                <Link
-                                                    {...linkProps}
-                                                    className={cx(className, linkProps.className)}
-                                                >
-                                                    {text}
-                                                </Link>
-                                            )
-                                        ) : (
-                                            <button
-                                                {...buttonProps}
-                                                className={cx(className, buttonProps.className)}
-                                            >
-                                                {text}
-                                            </button>
-                                        );
-                                    })()}
-                                </li>
-                            ))}
+                            ].map((bottomItem, i) => !typeGuard<FooterProps.BottomItem>(bottomItem, bottomItem instanceof Object && "text" in bottomItem) ? bottomItem :
+                                <FooterBottomItem
+                                    classes={{
+                                        "root": classes.bottomItem,
+                                        "bottomLink": classes.bottomLink
+                                    }}
+                                    bottomItem={bottomItem}
+                                    key={`internally-rendered-${i}`} />
+                            )}
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
                                 {license === undefined
                                     ? t("license mention", {
-                                          "licenseUrl":
-                                              "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                                      })
+                                        "licenseUrl":
+                                            "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                                    })
                                     : license}
                             </p>
                         </div>
@@ -468,6 +438,7 @@ export const Footer = memo(
 Footer.displayName = symToStr({ Footer });
 
 export default Footer;
+
 
 const { useTranslation, addFooterTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Footer }),
@@ -524,3 +495,64 @@ addFooterTranslations({
 });
 
 export { addFooterTranslations };
+
+export type FooterBottomItemProps = {
+    className?: string;
+    bottomItem: FooterProps.BottomItem;
+    classes?: Partial<
+        Record<
+            | "root"
+            | "bottomLink",
+            string
+        >
+    >;
+};
+
+export function FooterBottomItem(props: FooterBottomItemProps): JSX.Element {
+    const { className, bottomItem, classes = {} } = props;
+
+    const { Link } = getLink();
+
+    return (
+        <li
+            className={cx(
+                fr.cx("fr-footer__bottom-item"),
+                classes.root,
+                className
+            )}
+        >
+            {(() => {
+                const className = cx(
+                    fr.cx(
+                        "fr-footer__bottom-link",
+                        ...(bottomItem.iconId !== undefined
+                            ? ([bottomItem.iconId, "fr-link--icon-left"] as const)
+                            : [])
+                    ),
+                    classes.bottomLink
+                );
+
+                return bottomItem.linkProps !== undefined ? (
+                    Object.keys(bottomItem.linkProps).length === 0 ? (
+                        <span className={className}>{bottomItem.text}</span>
+                    ) : (
+                        <Link
+                            {...bottomItem.linkProps as any}
+                            className={cx(className, bottomItem.linkProps.className)}
+                        >
+                            {bottomItem.text}
+                        </Link>
+                    )
+                ) : (
+                    <button
+                        {...bottomItem.buttonProps}
+                        className={cx(className, bottomItem.buttonProps.className)}
+                    >
+                        {bottomItem.text}
+                    </button>
+                );
+            })()}
+        </li>
+
+    );
+}

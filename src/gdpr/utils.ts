@@ -9,6 +9,17 @@ export type GdprConsentCallback<Finality extends string> = (params: {
     finalityConsent_prev: FinalityConsent<Finality> | undefined;
 }) => Promise<void> | void;
 
+export type ProcessBulkConsentChange<Finality extends string> = (params: {
+    type: "grantAll" | "denyAll";
+}
+    | {
+        type: "custom";
+        changes: {
+            finality: Finality;
+            isConsentGiven: boolean;
+        }[];
+    }) => Promise<void>;
+
 export function createProcessBulkConsentChange<Finality extends string>(params: {
     finalities: Finality[];
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
@@ -19,7 +30,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
 
     const callbacks: GdprConsentCallback<Finality>[] = [];
 
-    if( callback !== undefined ){
+    if (callback !== undefined) {
         callbacks.push(callback);
     }
 
@@ -42,18 +53,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
         );
     }
 
-    async function processBulkConsentChange(
-        params: {
-            type: "grantAll" | "denyAll";
-        }
-            | {
-                type: "custom";
-                changes: {
-                    finality: Finality;
-                    isConsentGiven: boolean;
-                }[];
-            }
-    ): Promise<void> {
+    const processBulkConsentChange: ProcessBulkConsentChange<Finality> = async params => {
 
         if (params.type === "grantAll") {
             return processBulkConsentChange({
@@ -100,8 +100,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
 
         setFinalityConsent({ finalityConsent });
 
-    }
-
+    };
 
     return { processBulkConsentChange, useRegisterCallback };
 }
