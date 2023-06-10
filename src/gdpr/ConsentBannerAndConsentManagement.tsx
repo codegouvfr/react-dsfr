@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect, useMemo, type ReactNode } from 
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
-import { modal } from "./modal";
+import { createModal } from "../Modal";
 import { symToStr } from "tsafe/symToStr";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import { type ProcessBulkConsentChanges } from "./utils";
@@ -20,10 +20,21 @@ export function createConsentBannerAndConsentManagement<
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
     const {
-        finalityDescription: finalityDescriptionOrGetFinalityDescription,
+        finalityDescription,
         processBulkConsentChanges,
         personalDataPolicyLinkProps
     } = params;
+
+    const { ConsentBanner } = createConsentBanner({
+        personalDataPolicyLinkProps,
+        processBulkConsentChanges
+    });
+
+    const { ConsentManagement, openManagementModal } = createConsentManagement({
+        finalityDescription,
+        personalDataPolicyLinkProps,
+    });
+
     function ConsentBannerAndConsentManagement(props: { lang: string }) {
         const { lang } = props;
 
@@ -36,13 +47,6 @@ export function createConsentBannerAndConsentManagement<
             setIsHydrated();
         }, []);
 
-        const finalityDescription = useMemo(
-            () =>
-                typeof finalityDescriptionOrGetFinalityDescription === "function"
-                    ? finalityDescriptionOrGetFinalityDescription({ lang })
-                    : finalityDescriptionOrGetFinalityDescription,
-            [lang]
-        );
 
         if (!isHydrated) {
             return null;
@@ -50,32 +54,52 @@ export function createConsentBannerAndConsentManagement<
 
         return (
             <>
-                <ConsentBanner
-                    processBulkConsentChanges={processBulkConsentChanges}
-                    personalDataPolicyLinkProps={personalDataPolicyLinkProps}
-                />
-                <ConsentManagement
-                    personalDataPolicyLinkProps={personalDataPolicyLinkProps}
-                    finalityDescription={finalityDescription}
-                />
+                <ConsentBanner />
+                <ConsentManagement lang={lang} />
             </>
         );
     }
 
     ConsentBannerAndConsentManagement.displayName = symToStr({ ConsentBannerAndConsentManagement });
 
-    return { ConsentBannerAndConsentManagement };
+    function FooterConsentManagementItem() {
+        return <FooterBottomItem bottomItem={footerConsentManagementItem} />;
+    }
+
+    FooterConsentManagementItem.displayName = symToStr({ FooterConsentManagementItem });
+
+    function FooterPersonalDataPolicyItem() {
+        if (personalDataPolicyLinkProps === undefined) {
+            throw new Error(
+                [
+                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                    "you want to add a link to the personal data policy in the footer"
+                ].join(" ")
+            );
+        }
+
+        return (
+            <FooterBottomItem
+                bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })}
+            />
+        );
+    }
+
+    FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
+
+
+    return { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem };
 }
 
-const { ConsentBanner } = (() => {
-    type Props<Finality extends string> = {
+function createConsentBanner<Finality extends string>(
+    params: {
         personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
         processBulkConsentChanges: ProcessBulkConsentChanges<Finality>;
-        /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
-    };
+    }
+) {
+    const { personalDataPolicyLinkProps, processBulkConsentChanges } = params;
 
-    function ConsentBanner<Finality extends string>(props: Props<Finality>) {
-        const { personalDataPolicyLinkProps, processBulkConsentChanges } = props;
+    function ConsentBanner() {
 
         const { t } = useTranslation();
 
@@ -147,21 +171,47 @@ const { ConsentBanner } = (() => {
     }
 
     return { ConsentBanner };
-})();
 
-const { ConsentManagement } = (() => {
-    type Props = {
+}
+
+function createConsentManagement<
+    FinalityDescription extends
+    Record<
+        string,
+        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+    >
+>(
+    params: {
         personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-        finalityDescription: Record<
-            string,
-            { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
-        >;
-    };
+        finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+    }
+) {
 
-    function ConsentManagement(props: Props) {
-        const { personalDataPolicyLinkProps, finalityDescription } = props;
+    const {
+
+        finalityDescription: finalityDescriptionOrGetFinalityDescription,
+        personalDataPolicyLinkProps,
+    } = params;
+
+
+    const modal = createModal({
+        "isOpenedByDefault": false,
+        "id": "fr-consent-modal"
+    });
+
+    function ConsentManagement(props: { lang: string; }) {
+
+        const { lang } = props;
 
         const { t } = useTranslation();
+
+        const finalityDescription = useMemo(
+            () =>
+                typeof finalityDescriptionOrGetFinalityDescription === "function"
+                    ? finalityDescriptionOrGetFinalityDescription({ lang })
+                    : finalityDescriptionOrGetFinalityDescription,
+            [lang]
+        );
 
         console.log("do something with", personalDataPolicyLinkProps);
         console.log("do something with", finalityDescription);
@@ -173,8 +223,14 @@ const { ConsentManagement } = (() => {
         );
     }
 
-    return { ConsentManagement };
-})();
+    function openManagementModal() {
+        modal.open();
+    }
+
+    return { ConsentManagement, openManagementModal };
+
+}
+
 
 const { useTranslation, addConsentBannerAndConsentManagementTranslations } = createComponentI18nApi(
     {

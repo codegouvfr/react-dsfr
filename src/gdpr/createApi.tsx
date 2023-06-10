@@ -19,6 +19,7 @@ export function createGdprApi<
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
     callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
+    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }): {
     useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
@@ -31,31 +32,6 @@ export function createGdprApi<
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
     const { finalityDescription, personalDataPolicyLinkProps, callback } = params;
-
-    function FooterConsentManagementItem() {
-        return <FooterBottomItem bottomItem={footerConsentManagementItem} />;
-    }
-
-    FooterConsentManagementItem.displayName = symToStr({ FooterConsentManagementItem });
-
-    function FooterPersonalDataPolicyItem() {
-        if (personalDataPolicyLinkProps === undefined) {
-            throw new Error(
-                [
-                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
-                    "you want to add a link to the personal data policy in the footer"
-                ].join(" ")
-            );
-        }
-
-        return (
-            <FooterBottomItem
-                bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })}
-            />
-        );
-    }
-
-    FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
 
     const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
 
