@@ -19,11 +19,7 @@ export function createConsentBannerAndConsentManagement<
     >;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
-    const {
-        finalityDescription,
-        processConsentChanges,
-        personalDataPolicyLinkProps
-    } = params;
+    const { finalityDescription, processConsentChanges, personalDataPolicyLinkProps } = params;
 
     const { ConsentBanner } = createConsentBanner({
         personalDataPolicyLinkProps,
@@ -32,7 +28,7 @@ export function createConsentBannerAndConsentManagement<
 
     const { ConsentManagement, openConsentManagement } = createConsentManagement({
         finalityDescription,
-        personalDataPolicyLinkProps,
+        personalDataPolicyLinkProps
     });
 
     const { FooterConsentManagementItem } = createFooterConsentManagementItem({
@@ -45,12 +41,10 @@ export function createConsentBannerAndConsentManagement<
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
         useEffect(() => {
-
             processConsentChanges({ "type": "no changes but trigger callbacks" });
 
             setIsHydrated();
         }, []);
-
 
         if (!isHydrated) {
             return null;
@@ -68,23 +62,20 @@ export function createConsentBannerAndConsentManagement<
         personalDataPolicyLinkProps
     });
 
-    return { 
-        ConsentBannerAndConsentManagement, 
-        FooterConsentManagementItem, 
-        FooterPersonalDataPolicyItem 
+    return {
+        ConsentBannerAndConsentManagement,
+        FooterConsentManagementItem,
+        FooterPersonalDataPolicyItem
     };
 }
 
-function createConsentBanner<Finality extends string>(
-    params: {
-        personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-        processConsentChanges: ProcessConsentChanges<Finality>;
-    }
-) {
+function createConsentBanner<Finality extends string>(params: {
+    personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+    processConsentChanges: ProcessConsentChanges<Finality>;
+}) {
     const { personalDataPolicyLinkProps, processConsentChanges } = params;
 
     function ConsentBanner() {
-
         const { t } = useTranslation();
 
         const [isBannerVisible, setIsBannerVisible] = useState(false);
@@ -155,36 +146,28 @@ function createConsentBanner<Finality extends string>(
     }
 
     return { ConsentBanner };
-
 }
 
 function createConsentManagement<
-    FinalityDescription extends
-    Record<
+    FinalityDescription extends Record<
         string,
         { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
     >
->(
-    params: {
-        personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-        finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    }
-) {
-
+>(params: {
+    personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+    finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+}) {
     const {
-
         finalityDescription: finalityDescriptionOrGetFinalityDescription,
-        personalDataPolicyLinkProps,
+        personalDataPolicyLinkProps
     } = params;
-
 
     const modal = createModal({
         "isOpenedByDefault": false,
         "id": "fr-consent-modal"
     });
 
-    function ConsentManagement(props: { lang: string; }) {
-
+    function ConsentManagement(props: { lang: string }) {
         const { lang } = props;
 
         const { t } = useTranslation();
@@ -212,43 +195,35 @@ function createConsentManagement<
     }
 
     return { ConsentManagement, openConsentManagement };
-
 }
 
-function createFooterConsentManagementItem(
-    params: {
-        openConsentManagement: () => void;
-    }
-) {
-
+function createFooterConsentManagementItem(params: { openConsentManagement: () => void }) {
     const { openConsentManagement } = params;
 
     function FooterConsentManagementItem() {
-
         const { t } = useTranslation();
 
-        return <FooterBottomItem bottomItem={{
-            "buttonProps": {
-                "onClick": openConsentManagement,
-            },
-            "text": t("cookies management")
-        }} />;
+        return (
+            <FooterBottomItem
+                bottomItem={{
+                    "buttonProps": {
+                        "onClick": openConsentManagement
+                    },
+                    "text": t("cookies management")
+                }}
+            />
+        );
     }
 
     return { FooterConsentManagementItem };
-
 }
 
-function createFooterPersonalDataPolicyItem(
-    params: {
-        personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-    }
-) {
-
+function createFooterPersonalDataPolicyItem(params: {
+    personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+}) {
     const { personalDataPolicyLinkProps } = params;
 
     function FooterPersonalDataPolicyItem() {
-
         const { t } = useTranslation();
 
         if (personalDataPolicyLinkProps === undefined) {
@@ -272,53 +247,51 @@ function createFooterPersonalDataPolicyItem(
     return { FooterPersonalDataPolicyItem };
 }
 
-const { useTranslation, addGdprTranslations } = createComponentI18nApi(
-    {
-        "componentName": "Gdpr",
-        "frMessages": {
-            /** cspell: disable */
-            "all services pref": "Préférences pour tous les services.",
-            "personal data cookies": "Données personnelles et cookies",
-            "accept all": "Tout accepter",
-            "accept all - title": "Autoriser tous les cookies",
-            "refuse all": "Tout refuser",
-            "refuse all - title": "Refuser tous les cookies",
-            "accept": "Accepter",
-            "refuse": "Refuser",
-            "confirm choices": "Confirmer mes choix",
-            "about cookies": (p: { hostname: string }) => `À propos des cookies sur ${p.hostname}`,
-            "welcome message": (p: {
-                personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-            }) => {
-                const { Link } = getLink();
-                return (
-                    <>
-                        Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et
-                        les services disponibles sur ce site.
-                        {p.personalDataPolicyLinkProps !== undefined && (
-                            <>
-                                {" "}
-                                Pour en savoir plus, visitez la page{" "}
-                                <Link {...p.personalDataPolicyLinkProps}>
-                                    Données personnelles et cookies
-                                </Link>
-                                .
-                            </>
-                        )}
-                        Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous
-                        souhaitez activer.
-                    </>
-                );
-            },
-            "customize": "Personnaliser",
-            "customize cookies - title": "Personnaliser les cookies",
-            "consent modal title": "Panneau de gestion des cookies",
-            "cookies management": "Gestion des cookies",
-            "personal data": "Données personnelles"
-            /** cspell: enable */
-        }
+const { useTranslation, addGdprTranslations } = createComponentI18nApi({
+    "componentName": "Gdpr",
+    "frMessages": {
+        /** cspell: disable */
+        "all services pref": "Préférences pour tous les services.",
+        "personal data cookies": "Données personnelles et cookies",
+        "accept all": "Tout accepter",
+        "accept all - title": "Autoriser tous les cookies",
+        "refuse all": "Tout refuser",
+        "refuse all - title": "Refuser tous les cookies",
+        "accept": "Accepter",
+        "refuse": "Refuser",
+        "confirm choices": "Confirmer mes choix",
+        "about cookies": (p: { hostname: string }) => `À propos des cookies sur ${p.hostname}`,
+        "welcome message": (p: {
+            personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+        }) => {
+            const { Link } = getLink();
+            return (
+                <>
+                    Bienvenue ! Nous utilisons des cookies pour améliorer votre expérience et les
+                    services disponibles sur ce site.
+                    {p.personalDataPolicyLinkProps !== undefined && (
+                        <>
+                            {" "}
+                            Pour en savoir plus, visitez la page{" "}
+                            <Link {...p.personalDataPolicyLinkProps}>
+                                Données personnelles et cookies
+                            </Link>
+                            .
+                        </>
+                    )}
+                    Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous souhaitez
+                    activer.
+                </>
+            );
+        },
+        "customize": "Personnaliser",
+        "customize cookies - title": "Personnaliser les cookies",
+        "consent modal title": "Panneau de gestion des cookies",
+        "cookies management": "Gestion des cookies",
+        "personal data": "Données personnelles"
+        /** cspell: enable */
     }
-);
+});
 
 addGdprTranslations({
     "lang": "en",

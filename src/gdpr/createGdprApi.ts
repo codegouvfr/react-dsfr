@@ -32,43 +32,40 @@ export function createGdprApi<
 
     const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
 
-    const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(
-        () => {
+    const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(() => {
+        const serializedFinalityConsent = localStorage.getItem(localStorageKey);
 
-            const serializedFinalityConsent = localStorage.getItem(localStorageKey);
-
-            if (serializedFinalityConsent === null) {
-                return undefined;
-            }
-
-            return JSON.parse(serializedFinalityConsent);
-
+        if (serializedFinalityConsent === null) {
+            return undefined;
         }
+
+        return JSON.parse(serializedFinalityConsent);
+    });
+
+    $finalityConsent.subscribe(finalityConsent =>
+        localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent))
     );
 
-    $finalityConsent.subscribe(finalityConsent => localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent)));
-
-
-    const { processConsentChanges, useRegisterCallback } =
-        createProcessConsentChanges<Finality>({
-            callback,
-            "finalities": getFinalitiesFromFinalityDescription({
-                "finalityDescription":
-                    typeof finalityDescription === "function"
-                        ? finalityDescription({ "lang": "fr" })
-                        : finalityDescription
-            }),
-            "getFinalityConsent": () => $finalityConsent.current,
-            "setFinalityConsent": ({ finalityConsent }) =>
-                ($finalityConsent.current = finalityConsent)
-        });
+    const { processConsentChanges, useRegisterCallback } = createProcessConsentChanges<Finality>({
+        callback,
+        "finalities": getFinalitiesFromFinalityDescription({
+            "finalityDescription":
+                typeof finalityDescription === "function"
+                    ? finalityDescription({ "lang": "fr" })
+                    : finalityDescription
+        }),
+        "getFinalityConsent": () => $finalityConsent.current,
+        "setFinalityConsent": ({ finalityConsent }) => ($finalityConsent.current = finalityConsent)
+    });
 
     function useFinalityConsent() {
         useRerenderOnChange($finalityConsent);
 
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
-        useEffect(() => { setIsHydrated(); }, []);
+        useEffect(() => {
+            setIsHydrated();
+        }, []);
 
         if (!isHydrated) {
             return undefined;
@@ -83,7 +80,11 @@ export function createGdprApi<
         useRegisterCallback
     });
 
-    const { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } = createConsentBannerAndConsentManagement({
+    const {
+        ConsentBannerAndConsentManagement,
+        FooterConsentManagementItem,
+        FooterPersonalDataPolicyItem
+    } = createConsentBannerAndConsentManagement({
         finalityDescription,
         personalDataPolicyLinkProps,
         processConsentChanges
