@@ -12,10 +12,10 @@ export type UseGdpr<Finality extends string> = (params: {
 
 export function createUseGdpr<Finality extends string>(params: {
     useFinalityConsent: () => FinalityConsent<Finality> | undefined;
-    processBulkConsentChange: ProcessBulkConsentChanges<Finality>;
+    processBulkConsentChanges: ProcessBulkConsentChanges<Finality>;
     useRegisterCallback: (params: { callback: GdprConsentCallback<Finality> | undefined }) => void;
 }): { useGdpr: UseGdpr<Finality> } {
-    const { useFinalityConsent, processBulkConsentChange, useRegisterCallback } = params;
+    const { useFinalityConsent, processBulkConsentChanges, useRegisterCallback } = params;
 
     const useGdprClientSide: UseGdpr<Finality> = params => {
         const { callback } = params ?? {};
@@ -25,7 +25,7 @@ export function createUseGdpr<Finality extends string>(params: {
         const finalityConsent = useFinalityConsent();
 
         const assumeConsent = useConstCallback((finality: Finality) =>
-            processBulkConsentChange({
+            processBulkConsentChanges({
                 "type": "custom",
                 "changes": [
                     {

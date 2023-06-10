@@ -23,7 +23,7 @@ export type ProcessBulkConsentChanges<Finality extends string> = (
           }
 ) => Promise<void>;
 
-export function createProcessBulkConsentChange<Finality extends string>(params: {
+export function createProcessBulkConsentChanges<Finality extends string>(params: {
     finalities: Finality[];
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
     setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality> }) => void;
@@ -56,9 +56,9 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
         );
     }
 
-    const processBulkConsentChange: ProcessBulkConsentChanges<Finality> = async params => {
+    const processBulkConsentChanges: ProcessBulkConsentChanges<Finality> = async params => {
         if (params.type === "grantAll") {
-            return processBulkConsentChange({
+            return processBulkConsentChanges({
                 "type": "custom",
                 "changes": finalities.map(finality => ({
                     finality,
@@ -68,7 +68,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
         }
 
         if (params.type === "denyAll") {
-            return processBulkConsentChange({
+            return processBulkConsentChanges({
                 "type": "custom",
                 "changes": finalities.map(finality => ({
                     finality,
@@ -111,7 +111,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
         setFinalityConsent({ finalityConsent });
     };
 
-    return { processBulkConsentChange, useRegisterCallback };
+    return { processBulkConsentChanges, useRegisterCallback };
 }
 
 /** Pure, exported for testing */

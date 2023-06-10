@@ -3,12 +3,13 @@ import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
 import { getFooterPersonalDataPolicyItem, footerConsentManagementItem } from "./footerItems";
 import { type UseGdpr, createUseGdpr } from "./useGdpr";
-import { createProcessBulkConsentChange, type GdprConsentCallback } from "./utils";
+import { createProcessBulkConsentChanges, type GdprConsentCallback } from "./utils";
 import { FooterBottomItem } from "../Footer";
 import { symToStr } from "tsafe/symToStr";
 import { createStatefulObservable } from "../tools/StatefulObservable";
 import type { FinalityConsent } from "./types";
 import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
+import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 
 export function createGdprApi<
     FinalityDescription extends Record<
@@ -75,8 +76,8 @@ export function createGdprApi<
     $finalityConsent.subscribe(finalityConsent => localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent)));
 
 
-    const { processBulkConsentChange, useRegisterCallback } =
-        createProcessBulkConsentChange<Finality>({
+    const { processBulkConsentChanges, useRegisterCallback } =
+        createProcessBulkConsentChanges<Finality>({
             callback,
             "finalities": getFinalitiesFromFinalityDescription({
                 "finalityDescription":
@@ -105,13 +106,19 @@ export function createGdprApi<
 
     const { useGdpr } = createUseGdpr({
         useFinalityConsent,
-        processBulkConsentChange,
+        processBulkConsentChanges,
         useRegisterCallback
+    });
+
+    const { ConsentBannerAndConsentManagement } = createConsentBannerAndConsentManagement({
+        finalityDescription,
+        personalDataPolicyLinkProps,
+        processBulkConsentChanges
     });
 
     return {
         useGdpr,
-        "ConsentBannerAndConsentManagement": null as any,
+        ConsentBannerAndConsentManagement,
         "footerItems": {
             "ConsentManagement": FooterConsentManagementItem,
             "PersonalDataPolicy": FooterPersonalDataPolicyItem
