@@ -56,9 +56,24 @@ export function createGdprApi<
 
     FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
 
+    const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
+
     const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(
-        () => undefined
+        () => {
+
+            const serializedFinalityConsent = localStorage.getItem(localStorageKey);
+
+            if (serializedFinalityConsent === null) {
+                return undefined;
+            }
+
+            return JSON.parse(serializedFinalityConsent);
+
+        }
     );
+
+    $finalityConsent.subscribe(finalityConsent => localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent)));
+
 
     const { processBulkConsentChange, useRegisterCallback } =
         createProcessBulkConsentChange<Finality>({
@@ -79,9 +94,7 @@ export function createGdprApi<
 
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
-        useEffect(() => {
-            setIsHydrated();
-        }, []);
+        useEffect(() => { setIsHydrated(); }, []);
 
         if (!isHydrated) {
             return undefined;
@@ -127,12 +140,12 @@ export function getFinalitiesFromFinalityDescription<
         const { titleBySubFinality } = description as any;
 
         if (titleBySubFinality === undefined) {
-            finalities.push(mainFinality);
+            finalities.push(mainFinality as Finality);
             continue;
         }
 
         for (const subFinality in titleBySubFinality) {
-            finalities.push(`${mainFinality}.${subFinality}`);
+            finalities.push(`${mainFinality}.${subFinality}` as Finality);
         }
     }
 

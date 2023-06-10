@@ -22,7 +22,7 @@ export function createUseGdpr<Finality extends string>(params: {
 
         useRegisterCallback({ callback });
 
-        const { finalityConsent } = useFinalityConsent();
+        const finalityConsent = useFinalityConsent();
 
         const assumeConsent = useConstCallback((finality: Finality) =>
             processBulkConsentChange({
