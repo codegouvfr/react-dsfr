@@ -1,11 +1,8 @@
-import React, { useReducer, useEffect, type ReactNode } from "react";
+import { useReducer, useEffect, type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
-import { getFooterPersonalDataPolicyItem, footerConsentManagementItem } from "./footerItems";
 import { type UseGdpr, createUseGdpr } from "./useGdpr";
-import { createProcessBulkConsentChanges, type GdprConsentCallback } from "./utils";
-import { FooterBottomItem } from "../Footer";
-import { symToStr } from "tsafe/symToStr";
+import { createProcessConsentChanges, type GdprConsentCallback } from "./processConsentChanges";
 import { createStatefulObservable } from "../tools/StatefulObservable";
 import type { FinalityConsent } from "./types";
 import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
@@ -52,8 +49,8 @@ export function createGdprApi<
     $finalityConsent.subscribe(finalityConsent => localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent)));
 
 
-    const { processBulkConsentChanges, useRegisterCallback } =
-        createProcessBulkConsentChanges<Finality>({
+    const { processConsentChanges, useRegisterCallback } =
+        createProcessConsentChanges<Finality>({
             callback,
             "finalities": getFinalitiesFromFinalityDescription({
                 "finalityDescription":
@@ -82,14 +79,14 @@ export function createGdprApi<
 
     const { useGdpr } = createUseGdpr({
         useFinalityConsent,
-        processBulkConsentChanges,
+        processConsentChanges,
         useRegisterCallback
     });
 
-    const { ConsentBannerAndConsentManagement } = createConsentBannerAndConsentManagement({
+    const { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } = createConsentBannerAndConsentManagement({
         finalityDescription,
         personalDataPolicyLinkProps,
-        processBulkConsentChanges
+        processConsentChanges
     });
 
     return {

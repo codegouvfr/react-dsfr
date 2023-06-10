@@ -3,9 +3,9 @@ import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
 import { createModal } from "../Modal";
-import { symToStr } from "tsafe/symToStr";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
-import { type ProcessBulkConsentChanges } from "./utils";
+import type { ProcessConsentChanges } from "./processConsentChanges";
+import { FooterBottomItem } from "../Footer";
 
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
@@ -14,25 +14,29 @@ export function createConsentBannerAndConsentManagement<
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    processBulkConsentChanges: ProcessBulkConsentChanges<
+    processConsentChanges: ProcessConsentChanges<
         ExtractFinalityFromFinalityDescription<FinalityDescription>
     >;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
     const {
         finalityDescription,
-        processBulkConsentChanges,
+        processConsentChanges,
         personalDataPolicyLinkProps
     } = params;
 
     const { ConsentBanner } = createConsentBanner({
         personalDataPolicyLinkProps,
-        processBulkConsentChanges
+        processConsentChanges
     });
 
-    const { ConsentManagement, openManagementModal } = createConsentManagement({
+    const { ConsentManagement, openConsentManagement } = createConsentManagement({
         finalityDescription,
         personalDataPolicyLinkProps,
+    });
+
+    const { FooterConsentManagementItem } = createFooterConsentManagementItem({
+        openConsentManagement
     });
 
     function ConsentBannerAndConsentManagement(props: { lang: string }) {
@@ -42,7 +46,7 @@ export function createConsentBannerAndConsentManagement<
 
         useEffect(() => {
 
-            processBulkConsentChanges({ "type": "no changes but trigger callbacks" });
+            processConsentChanges({ "type": "no changes but trigger callbacks" });
 
             setIsHydrated();
         }, []);
@@ -60,44 +64,24 @@ export function createConsentBannerAndConsentManagement<
         );
     }
 
-    ConsentBannerAndConsentManagement.displayName = symToStr({ ConsentBannerAndConsentManagement });
+    const { FooterPersonalDataPolicyItem } = createFooterPersonalDataPolicyItem({
+        personalDataPolicyLinkProps
+    });
 
-    function FooterConsentManagementItem() {
-        return <FooterBottomItem bottomItem={footerConsentManagementItem} />;
-    }
-
-    FooterConsentManagementItem.displayName = symToStr({ FooterConsentManagementItem });
-
-    function FooterPersonalDataPolicyItem() {
-        if (personalDataPolicyLinkProps === undefined) {
-            throw new Error(
-                [
-                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
-                    "you want to add a link to the personal data policy in the footer"
-                ].join(" ")
-            );
-        }
-
-        return (
-            <FooterBottomItem
-                bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })}
-            />
-        );
-    }
-
-    FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
-
-
-    return { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem };
+    return { 
+        ConsentBannerAndConsentManagement, 
+        FooterConsentManagementItem, 
+        FooterPersonalDataPolicyItem 
+    };
 }
 
 function createConsentBanner<Finality extends string>(
     params: {
         personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-        processBulkConsentChanges: ProcessBulkConsentChanges<Finality>;
+        processConsentChanges: ProcessConsentChanges<Finality>;
     }
 ) {
-    const { personalDataPolicyLinkProps, processBulkConsentChanges } = params;
+    const { personalDataPolicyLinkProps, processConsentChanges } = params;
 
     function ConsentBanner() {
 
@@ -134,7 +118,7 @@ function createConsentBanner<Finality extends string>(
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
                                 onClick={() => {
-                                    processBulkConsentChanges({ "type": "grantAll" });
+                                    processConsentChanges({ "type": "grantAll" });
                                     setIsBannerVisible(false);
                                 }}
                             >
@@ -146,7 +130,7 @@ function createConsentBanner<Finality extends string>(
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
                                 onClick={() => {
-                                    processBulkConsentChanges({ "type": "denyAll" });
+                                    processConsentChanges({ "type": "denyAll" });
                                     setIsBannerVisible(false);
                                 }}
                             >
@@ -223,18 +207,74 @@ function createConsentManagement<
         );
     }
 
-    function openManagementModal() {
+    function openConsentManagement() {
         modal.open();
     }
 
-    return { ConsentManagement, openManagementModal };
+    return { ConsentManagement, openConsentManagement };
 
 }
 
+function createFooterConsentManagementItem(
+    params: {
+        openConsentManagement: () => void;
+    }
+) {
 
-const { useTranslation, addConsentBannerAndConsentManagementTranslations } = createComponentI18nApi(
+    const { openConsentManagement } = params;
+
+    function FooterConsentManagementItem() {
+
+        const { t } = useTranslation();
+
+        return <FooterBottomItem bottomItem={{
+            "buttonProps": {
+                "onClick": openConsentManagement,
+            },
+            "text": t("cookies management")
+        }} />;
+    }
+
+    return { FooterConsentManagementItem };
+
+}
+
+function createFooterPersonalDataPolicyItem(
+    params: {
+        personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+    }
+) {
+
+    const { personalDataPolicyLinkProps } = params;
+
+    function FooterPersonalDataPolicyItem() {
+
+        const { t } = useTranslation();
+
+        if (personalDataPolicyLinkProps === undefined) {
+            throw new Error(
+                [
+                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                    "you want to add a link to the personal data policy in the footer"
+                ].join(" ")
+            );
+        }
+
+        return (
+            <FooterBottomItem
+                bottomItem={{
+                    "text": t("personal data"),
+                    "linkProps": personalDataPolicyLinkProps
+                }}
+            />
+        );
+    }
+    return { FooterPersonalDataPolicyItem };
+}
+
+const { useTranslation, addGdprTranslations } = createComponentI18nApi(
     {
-        "componentName": "ConsentBannerAndConsentManagement",
+        "componentName": "Gdpr",
         "frMessages": {
             /** cspell: disable */
             "all services pref": "Préférences pour tous les services.",
@@ -273,13 +313,14 @@ const { useTranslation, addConsentBannerAndConsentManagementTranslations } = cre
             "customize": "Personnaliser",
             "customize cookies - title": "Personnaliser les cookies",
             "consent modal title": "Panneau de gestion des cookies",
-            "cookies management": "Gestion des cookies"
+            "cookies management": "Gestion des cookies",
+            "personal data": "Données personnelles"
             /** cspell: enable */
         }
     }
 );
 
-addConsentBannerAndConsentManagementTranslations({
+addGdprTranslations({
     "lang": "en",
     "messages": {
         "all services pref": "Preferences for all services.",
@@ -314,8 +355,9 @@ addConsentBannerAndConsentManagementTranslations({
         },
         "customize": "Customize",
         "customize cookies - title": "Customize cookies",
-        "consent modal title": "Cookie management panel"
+        "consent modal title": "Cookie management panel",
+        "cookies management": "Cookies management"
     }
 });
 
-export { addConsentBannerAndConsentManagementTranslations };
+export { addGdprTranslations };

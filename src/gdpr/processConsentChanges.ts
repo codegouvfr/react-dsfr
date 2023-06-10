@@ -9,7 +9,7 @@ export type GdprConsentCallback<Finality extends string> = (params: {
     finalityConsent_prev: FinalityConsent<Finality> | undefined;
 }) => Promise<void> | void;
 
-export type ProcessBulkConsentChanges<Finality extends string> = (
+export type ProcessConsentChanges<Finality extends string> = (
     params:
         | {
               type: "grantAll" | "denyAll" | "no changes but trigger callbacks";
@@ -23,7 +23,7 @@ export type ProcessBulkConsentChanges<Finality extends string> = (
           }
 ) => Promise<void>;
 
-export function createProcessBulkConsentChanges<Finality extends string>(params: {
+export function createProcessConsentChanges<Finality extends string>(params: {
     finalities: Finality[];
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
     setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality> }) => void;
@@ -56,9 +56,9 @@ export function createProcessBulkConsentChanges<Finality extends string>(params:
         );
     }
 
-    const processBulkConsentChanges: ProcessBulkConsentChanges<Finality> = async params => {
+    const processConsentChanges: ProcessConsentChanges<Finality> = async params => {
         if (params.type === "grantAll") {
-            return processBulkConsentChanges({
+            return processConsentChanges({
                 "type": "custom",
                 "changes": finalities.map(finality => ({
                     finality,
@@ -68,7 +68,7 @@ export function createProcessBulkConsentChanges<Finality extends string>(params:
         }
 
         if (params.type === "denyAll") {
-            return processBulkConsentChanges({
+            return processConsentChanges({
                 "type": "custom",
                 "changes": finalities.map(finality => ({
                     finality,
@@ -111,7 +111,7 @@ export function createProcessBulkConsentChanges<Finality extends string>(params:
         setFinalityConsent({ finalityConsent });
     };
 
-    return { processBulkConsentChanges, useRegisterCallback };
+    return { processConsentChanges, useRegisterCallback };
 }
 
 /** Pure, exported for testing */
