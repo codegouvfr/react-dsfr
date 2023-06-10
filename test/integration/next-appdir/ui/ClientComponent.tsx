@@ -5,10 +5,21 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { useGdpr } from "../app/gdpr";
 
 export function ClientComponent() {
 
   const { isDark } = useIsDark();
+
+  const { finalityConsent } = useGdpr(
+    ({ finalityConsent, finalityConsent_prev }) => {
+
+      console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
+
+    }
+  );
+
+  console.log({ finalityConsent });
 
   return (
     <>

@@ -1,18 +1,8 @@
-import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr/bold";
+"use client";
 
-declare module "@codegouvfr/react-dsfr/gdpr/bold" {
-    interface RegisterFinality {
-        finality:
-        | "analytics"
-        | "statistics.traffic"
-        | "statistics.deviceInfo"
-        | "personalization"
-        | "advertising";
-    }
-}
+import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr";
 
-
-export const { ConsentBannerAndConsentManagement, footerConsentManagementItem, footerPersonalDataPolicyItem, useGdpr } = createGdprApi({
+export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManagementItem, FooterPersonalDataPolicyItem } = createGdprApi({
     "finalityDescription": {
         "advertising": {
             "title": "Publicité",

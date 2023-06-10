@@ -36,8 +36,8 @@ export function createConsentBannerAndConsentManagement<
         openConsentManagement
     });
 
-    function ConsentBannerAndConsentManagement(props: { lang: string }) {
-        const { lang } = props;
+    function ConsentBannerAndConsentManagement(props: { lang?: string }) {
+        const { lang = "fr" } = props;
 
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 

@@ -3,9 +3,9 @@ import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import type { FinalityConsent } from "./types";
 import type { GdprConsentCallback, ProcessConsentChanges } from "./processConsentChanges";
 
-export type UseGdpr<Finality extends string> = (params: {
-    callback?: GdprConsentCallback<Finality>;
-}) => {
+export type UseGdpr<Finality extends string> = (
+    callback?: GdprConsentCallback<Finality>
+) => {
     finalityConsent: FinalityConsent<Finality> | undefined;
     assumeConsent: (finality: Finality) => void;
 };
@@ -17,8 +17,7 @@ export function createUseGdpr<Finality extends string>(params: {
 }): { useGdpr: UseGdpr<Finality> } {
     const { useFinalityConsent, processConsentChanges, useRegisterCallback } = params;
 
-    const useGdprClientSide: UseGdpr<Finality> = params => {
-        const { callback } = params ?? {};
+    const useGdprClientSide: UseGdpr<Finality> = callback => {
 
         useRegisterCallback({ callback });
 

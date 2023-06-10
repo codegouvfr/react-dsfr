@@ -1,7 +1,7 @@
 import { useReducer, useEffect, type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
-import { type UseGdpr, createUseGdpr } from "./useGdpr";
+import { createUseGdpr } from "./useGdpr";
 import { createProcessConsentChanges, type GdprConsentCallback } from "./processConsentChanges";
 import { createStatefulObservable } from "../tools/StatefulObservable";
 import type { FinalityConsent } from "./types";
@@ -18,14 +18,7 @@ export function createGdprApi<
     callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
-}): {
-    useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
-    ConsentBannerAndConsentManagement: (props: { lang: string }) => ReactNode;
-    footerItems: {
-        ConsentManagement: () => JSX.Element;
-        PersonalDataPolicy: () => JSX.Element;
-    };
-} {
+}) {
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
     const { finalityDescription, personalDataPolicyLinkProps, callback } = params;
@@ -42,9 +35,12 @@ export function createGdprApi<
         return JSON.parse(serializedFinalityConsent);
     });
 
-    $finalityConsent.subscribe(finalityConsent =>
+    $finalityConsent.subscribe(finalityConsent => {
+        if( finalityConsent === undefined ){
+            return;
+        }
         localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent))
-    );
+    });
 
     const { processConsentChanges, useRegisterCallback } = createProcessConsentChanges<Finality>({
         callback,
@@ -93,10 +89,8 @@ export function createGdprApi<
     return {
         useGdpr,
         ConsentBannerAndConsentManagement,
-        "footerItems": {
-            "ConsentManagement": FooterConsentManagementItem,
-            "PersonalDataPolicy": FooterPersonalDataPolicyItem
-        }
+        FooterConsentManagementItem,
+        FooterPersonalDataPolicyItem
     };
 }
 

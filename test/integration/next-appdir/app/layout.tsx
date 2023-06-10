@@ -11,7 +11,7 @@ import { headerFooterDisplayItem, addDisplayTranslations } from "@codegouvfr/rea
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from "next/link";
-import { ConsentBannerAndConsentManagement, footerConsentManagementItem, footerPersonalDataPolicyItem } from "./gdpr";
+import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./gdpr";
 
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					"flexDirection": "column"
 				}}
 			>
-				<ConsentBannerAndConsentManagement />
+				<ConsentBannerAndConsentManagement lang={lang} />
 				<DsfrProvider lang={lang}>
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
@@ -99,8 +99,8 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
                 `}
 								bottomItems={[
 									headerFooterDisplayItem,
-									footerConsentManagementItem,
-									footerPersonalDataPolicyItem
+									<FooterPersonalDataPolicyItem key={0} />,
+									<FooterConsentManagementItem key={1} />
 								]}
 							/>
 						</MuiDsfrThemeProvider>
