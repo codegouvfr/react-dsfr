@@ -1,83 +1,81 @@
-"use client";
-
-import React, { useState, useReducer, useEffect, type ReactNode } from "react";
+import React, { useState, useReducer, useEffect, useMemo, type ReactNode } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
-import {
-    createProcessBulkConsentChange,
-    useOnConsentChange,
-    getFinalitiesFromFinalityDescription,
-    type ProcessBulkConsentChange,
-    type OnConsentChange
-} from "./utils";
 import { modal } from "./modal";
-import { $finalityConsent } from "./signal";
 import { symToStr } from "tsafe/symToStr";
-import type {
-    ExtractFinalityFromFinalityDescription,
-    FinalityToFinalityConsent
-} from "./types";
+import type { ExtractFinalityFromFinalityDescription } from "./types";
+import { type ProcessBulkConsentChanges } from "./utils";
 
-//export type ConsentBannerAndConsentManagementProps<FinalityDescription extends FinalityToFinalityDescription<string>> = {
-//    finalityDescription: FinalityDescription;
-//    onConsentChange?: OnConsentChange;
-//    /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
-//    personalDataPolicyLinkProps?: RegisteredLinkProps;
-//};
-
-type FinalityDescription = Record<
-    string,
-    { 
-        title: ReactNode; 
-        description?: ReactNode; 
-        subFinalities?: Record<string, ReactNode>; 
-    }
->;
-
-export type ConsentBannerAndConsentManagementProps = {
-    finalityDescription: ((params: { lang: string; }) => FinalityDescription) | FinalityDescription;
-    processBulkConsentChanges: ProcessBulkConsentChange;
+export function createConsentBannerAndConsentManagement<
+    FinalityDescription extends Record<
+        string,
+        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+    >
+>(params: {
+    finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+    processBulkConsentChanges: ProcessBulkConsentChanges<
+        ExtractFinalityFromFinalityDescription<FinalityDescription>
+    >;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
-};
+}) {
+    const {
+        finalityDescription: finalityDescriptionOrGetFinalityDescription,
+        processBulkConsentChanges,
+        personalDataPolicyLinkProps
+    } = params;
+    function ConsentBannerAndConsentManagement(props: { lang: string }) {
+        const { lang } = props;
 
-export function ConsentBannerAndConsentManagement(props: ConsentBannerAndConsentManagementProps) {
-    const { personalDataPolicyLinkProps, finalityDescription, processBulkConsentChanges } = props;
+        const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
+        useEffect(() => {
 
+            processBulkConsentChanges({ "type": "no changes but trigger callbacks" });
 
-    const [isHydrated, setIsHydrated] = useReducer(() => true, true);
+            setIsHydrated();
+        }, []);
 
-    useEffect(() => {
-        setIsHydrated();
-    }, []);
+        const finalityDescription = useMemo(
+            () =>
+                typeof finalityDescriptionOrGetFinalityDescription === "function"
+                    ? finalityDescriptionOrGetFinalityDescription({ lang })
+                    : finalityDescriptionOrGetFinalityDescription,
+            [lang]
+        );
 
-    if (!isHydrated) {
-        return null;
+        if (!isHydrated) {
+            return null;
+        }
+
+        return (
+            <>
+                <ConsentBanner
+                    processBulkConsentChanges={processBulkConsentChanges}
+                    personalDataPolicyLinkProps={personalDataPolicyLinkProps}
+                />
+                <ConsentManagement
+                    personalDataPolicyLinkProps={personalDataPolicyLinkProps}
+                    finalityDescription={finalityDescription}
+                />
+            </>
+        );
     }
 
-    return (
-        <>
-            <ConsentBanner
-                processBulkConsentChange={processBulkConsentChange}
-                personalDataPolicyLinkProps={personalDataPolicyLinkProps}
-            />
-            <ConsentManagement personalDataPolicyLinkProps={personalDataPolicyLinkProps} />
-        </>
-    );
+    ConsentBannerAndConsentManagement.displayName = symToStr({ ConsentBannerAndConsentManagement });
+
+    return { ConsentBannerAndConsentManagement };
 }
 
-export default ConsentBannerAndConsentManagement;
-
 const { ConsentBanner } = (() => {
-    type Props = {
+    type Props<Finality extends string> = {
         personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
-        processBulkConsentChange: ProcessBulkConsentChange;
+        processBulkConsentChanges: ProcessBulkConsentChanges<Finality>;
         /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     };
 
-    function ConsentBanner(props: Props) {
-        const { personalDataPolicyLinkProps, processBulkConsentChange } = props;
+    function ConsentBanner<Finality extends string>(props: Props<Finality>) {
+        const { personalDataPolicyLinkProps, processBulkConsentChanges } = props;
 
         const { t } = useTranslation();
 
@@ -112,7 +110,7 @@ const { ConsentBanner } = (() => {
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
                                 onClick={() => {
-                                    processBulkConsentChange({ "type": "grantAll" });
+                                    processBulkConsentChanges({ "type": "grantAll" });
                                     setIsBannerVisible(false);
                                 }}
                             >
@@ -124,7 +122,7 @@ const { ConsentBanner } = (() => {
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
                                 onClick={() => {
-                                    processBulkConsentChange({ "type": "denyAll" });
+                                    processBulkConsentChanges({ "type": "denyAll" });
                                     setIsBannerVisible(false);
                                 }}
                             >
@@ -153,15 +151,20 @@ const { ConsentBanner } = (() => {
 
 const { ConsentManagement } = (() => {
     type Props = {
-        personalDataPolicyLinkProps?: RegisteredLinkProps;
+        personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+        finalityDescription: Record<
+            string,
+            { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+        >;
     };
 
     function ConsentManagement(props: Props) {
-        const { personalDataPolicyLinkProps } = props;
+        const { personalDataPolicyLinkProps, finalityDescription } = props;
 
         const { t } = useTranslation();
 
         console.log("do something with", personalDataPolicyLinkProps);
+        console.log("do something with", finalityDescription);
 
         return (
             <modal.Component title={t("consent modal title")}>
@@ -175,7 +178,7 @@ const { ConsentManagement } = (() => {
 
 const { useTranslation, addConsentBannerAndConsentManagementTranslations } = createComponentI18nApi(
     {
-        "componentName": symToStr({ ConsentBannerAndConsentManagement }),
+        "componentName": "ConsentBannerAndConsentManagement",
         "frMessages": {
             /** cspell: disable */
             "all services pref": "Préférences pour tous les services.",

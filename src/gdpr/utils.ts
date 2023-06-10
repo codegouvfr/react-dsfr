@@ -9,21 +9,24 @@ export type GdprConsentCallback<Finality extends string> = (params: {
     finalityConsent_prev: FinalityConsent<Finality> | undefined;
 }) => Promise<void> | void;
 
-export type ProcessBulkConsentChange<Finality extends string> = (params: {
-    type: "grantAll" | "denyAll";
-}
-    | {
-        type: "custom";
-        changes: {
-            finality: Finality;
-            isConsentGiven: boolean;
-        }[];
-    }) => Promise<void>;
+export type ProcessBulkConsentChanges<Finality extends string> = (
+    params:
+        | {
+              type: "grantAll" | "denyAll" | "no changes but trigger callbacks";
+          }
+        | {
+              type: "custom";
+              changes: {
+                  finality: Finality;
+                  isConsentGiven: boolean;
+              }[];
+          }
+) => Promise<void>;
 
 export function createProcessBulkConsentChange<Finality extends string>(params: {
     finalities: Finality[];
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
-    setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality>; }) => void;
+    setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality> }) => void;
     callback: GdprConsentCallback<Finality> | undefined;
 }) {
     const { finalities, getFinalityConsent, setFinalityConsent, callback } = params;
@@ -53,8 +56,7 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
         );
     }
 
-    const processBulkConsentChange: ProcessBulkConsentChange<Finality> = async params => {
-
+    const processBulkConsentChange: ProcessBulkConsentChanges<Finality> = async params => {
         if (params.type === "grantAll") {
             return processBulkConsentChange({
                 "type": "custom",
@@ -75,39 +77,47 @@ export function createProcessBulkConsentChange<Finality extends string>(params: 
             });
         }
 
+        if (params.type === "no changes but trigger callbacks") {
+        }
+
         assert(params.type === "custom");
 
         const { changes } = params;
 
         const finalityConsent_prev = getFinalityConsent();
 
-        let finalityConsent = finalityConsent_prev === undefined ? createFullDenyFinalityConsent(finalities) : deepCopy(finalityConsent_prev);
+        let finalityConsent =
+            finalityConsent_prev === undefined
+                ? createFullDenyFinalityConsent(finalities)
+                : deepCopy(finalityConsent_prev);
 
         for (const { finality, isConsentGiven } of changes) {
             finalityConsent = updateFinalityConsent({
                 "finalityConsent": finalityConsent,
                 finality,
                 isConsentGiven
-            })
+            });
         }
 
         await Promise.all(
-            callbacks.map(callback => callback({
-                finalityConsent,
-                finalityConsent_prev
-            }))
+            callbacks.map(callback =>
+                callback({
+                    finalityConsent,
+                    finalityConsent_prev
+                })
+            )
         );
 
         setFinalityConsent({ finalityConsent });
-
     };
 
     return { processBulkConsentChange, useRegisterCallback };
 }
 
-
 /** Pure, exported for testing */
-export function createFullDenyFinalityConsent<Finality extends string>(finalities: Finality[]): FinalityConsent<Finality> {
+export function createFullDenyFinalityConsent<Finality extends string>(
+    finalities: Finality[]
+): FinalityConsent<Finality> {
     const finalityConsent: any = {};
 
     for (const finality of finalities) {
@@ -175,4 +185,3 @@ export function readFinalityConsent<Finality extends string>(params: {
 
     return (finalityConsent as any)[mainFinality][subFinality];
 }
-

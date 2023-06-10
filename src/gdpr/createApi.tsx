@@ -1,42 +1,35 @@
-import React, { type ReactNode } from "react";
+import React, { useReducer, useEffect, type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
-import type { FooterProps } from "../Footer";
 import { getFooterPersonalDataPolicyItem, footerConsentManagementItem } from "./footerItems";
-import { Reflect } from "tsafe/Reflect";
-import { useGdpr, type UseGdpr } from "./useGdpr";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
-import type { GdprConsentCallback } from "./utils";
+import { type UseGdpr, createUseGdpr } from "./useGdpr";
+import { createProcessBulkConsentChange, type GdprConsentCallback } from "./utils";
 import { FooterBottomItem } from "../Footer";
 import { symToStr } from "tsafe/symToStr";
+import { createStatefulObservable } from "../tools/StatefulObservable";
+import type { FinalityConsent } from "./types";
+import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 
-
-
-export function createGdprApi<FinalityDescription extends
-    Record<
+export function createGdprApi<
+    FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode>; }
+        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
     >
->(
-    params: {
-        finalityDescription: ((params: { lang: string; }) => FinalityDescription) | FinalityDescription;
-        callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
-        personalDataPolicyLinkProps?: RegisteredLinkProps;
-    }
-): {
-    useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>
-    ConsentBannerAndConsentManagement: (props: { lang: string; }) => ReactNode;
+>(params: {
+    finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+    callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
+    personalDataPolicyLinkProps?: RegisteredLinkProps;
+}): {
+    useGdpr: UseGdpr<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
+    ConsentBannerAndConsentManagement: (props: { lang: string }) => ReactNode;
     footerItems: {
         ConsentManagement: () => JSX.Element;
         PersonalDataPolicy: () => JSX.Element;
-    }
+    };
 } {
-
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
     const { finalityDescription, personalDataPolicyLinkProps, callback } = params;
-
 
     function FooterConsentManagementItem() {
         return <FooterBottomItem bottomItem={footerConsentManagementItem} />;
@@ -45,20 +38,63 @@ export function createGdprApi<FinalityDescription extends
     FooterConsentManagementItem.displayName = symToStr({ FooterConsentManagementItem });
 
     function FooterPersonalDataPolicyItem() {
-
         if (personalDataPolicyLinkProps === undefined) {
-            throw new Error([
-                "You should provide a personalDataPolicyLinkProps to createGdprApi if",
-                "you want to add a link to the personal data policy in the footer"
-            ].join(" "));
+            throw new Error(
+                [
+                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                    "you want to add a link to the personal data policy in the footer"
+                ].join(" ")
+            );
         }
 
-        return <FooterBottomItem bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })} />;
+        return (
+            <FooterBottomItem
+                bottomItem={getFooterPersonalDataPolicyItem({ personalDataPolicyLinkProps })}
+            />
+        );
     }
 
     FooterPersonalDataPolicyItem.displayName = symToStr({ FooterPersonalDataPolicyItem });
 
-    assert(is<UseGdpr<Finality>>(useGdpr));
+    const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(
+        () => undefined
+    );
+
+    const { processBulkConsentChange, useRegisterCallback } =
+        createProcessBulkConsentChange<Finality>({
+            callback,
+            "finalities": getFinalitiesFromFinalityDescription({
+                "finalityDescription":
+                    typeof finalityDescription === "function"
+                        ? finalityDescription({ "lang": "fr" })
+                        : finalityDescription
+            }),
+            "getFinalityConsent": () => $finalityConsent.current,
+            "setFinalityConsent": ({ finalityConsent }) =>
+                ($finalityConsent.current = finalityConsent)
+        });
+
+    function useFinalityConsent() {
+        useRerenderOnChange($finalityConsent);
+
+        const [isHydrated, setIsHydrated] = useReducer(() => true, true);
+
+        useEffect(() => {
+            setIsHydrated();
+        }, []);
+
+        if (!isHydrated) {
+            return undefined;
+        }
+
+        return $finalityConsent.current;
+    }
+
+    const { useGdpr } = createUseGdpr({
+        useFinalityConsent,
+        processBulkConsentChange,
+        useRegisterCallback
+    });
 
     return {
         useGdpr,
@@ -67,24 +103,17 @@ export function createGdprApi<FinalityDescription extends
             "ConsentManagement": FooterConsentManagementItem,
             "PersonalDataPolicy": FooterPersonalDataPolicyItem
         }
-    }
-
-    return null as any;
+    };
 }
 
-
-
-/** pure */
-export function getFinalitiesFromFinalityDescription<FinalityDescription extends
-
-    Record<
+/** pure, exported for testing */
+export function getFinalitiesFromFinalityDescription<
+    FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode>; }
+        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
     >
-
-
 >(params: {
-    finalityDescription: FinalityDescription
+    finalityDescription: FinalityDescription;
 }): ExtractFinalityFromFinalityDescription<FinalityDescription>[] {
     const { finalityDescription } = params;
 
@@ -109,8 +138,6 @@ export function getFinalitiesFromFinalityDescription<FinalityDescription extends
 
     return finalities;
 }
-
-
 
 /*
 const { finalityConsent } = createGdprApi({
@@ -138,7 +165,3 @@ const { finalityConsent } = createGdprApi({
     })
 });
 */
-
-
-
-
