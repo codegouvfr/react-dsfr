@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { deepCopy } from "../tools/deepCopy";
 import type { FinalityConsent } from "./types";
 import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 
 export type GdprConsentCallback<Finality extends string> = (params: {
@@ -78,6 +79,22 @@ export function createProcessConsentChanges<Finality extends string>(params: {
         }
 
         if (params.type === "no changes but trigger callbacks") {
+            const finalityConsent = getFinalityConsent();
+
+            if (finalityConsent === undefined) {
+                return;
+            }
+
+            await Promise.all(
+                callbacks.map(callback =>
+                    callback({
+                        finalityConsent,
+                        "finalityConsent_prev": finalityConsent
+                    })
+                )
+            );
+
+            return;
         }
 
         assert(params.type === "custom");
@@ -118,7 +135,9 @@ export function createProcessConsentChanges<Finality extends string>(params: {
 export function createFullDenyFinalityConsent<Finality extends string>(
     finalities: Finality[]
 ): FinalityConsent<Finality> {
-    const finalityConsent: any = {};
+    const finalityConsent: any = {
+        "isFullConsent": false
+    };
 
     for (const finality of finalities) {
         const [mainFinality, subFinality] = finality.split(".");
@@ -138,7 +157,7 @@ export function createFullDenyFinalityConsent<Finality extends string>(
 
 /** Pure, exported for testing */
 export function updateFinalityConsent<Finality extends string>(params: {
-    finalityConsent: FinalityConsent<string>;
+    finalityConsent: FinalityConsent<Finality>;
     finality: Finality;
     isConsentGiven: boolean;
 }): FinalityConsent<Finality> {
@@ -146,28 +165,50 @@ export function updateFinalityConsent<Finality extends string>(params: {
 
     const [mainFinality, subFinality] = finality.split(".");
 
+    assert(is<Finality>(mainFinality));
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { isFullConsent: _1, [mainFinality]: _2, ...restTop } = deepCopy(finalityConsent);
+
     if (subFinality === undefined) {
         return {
-            ...deepCopy(finalityConsent),
-            [mainFinality]: isConsentGiven
-        };
-    }
-
-    const obj = deepCopy((finalityConsent as any)[mainFinality]);
-
-    return {
-        ...deepCopy(finalityConsent),
-        [mainFinality]: {
-            ...obj,
-            [subFinality]: isConsentGiven,
+            ...restTop,
+            [mainFinality]: isConsentGiven,
             "isFullConsent":
                 isConsentGiven &&
-                Object.keys(obj)
-                    .filter(key => key !== subFinality && key !== "isFullConsent")
-                    .map(key => obj[key])
-                    .find(isConsentGiven => !isConsentGiven) === undefined
-        }
-    };
+                !Object.values(restTop)
+                    .map((value: any) => (typeof value === "boolean" ? value : value.isFullConsent))
+                    .includes(false)
+        } as any;
+    }
+
+    const {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        isFullConsent: _3,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        [subFinality]: _4,
+        ...rest
+    } = deepCopy((finalityConsent as any)[mainFinality]);
+
+    const isFullConsentSub =
+        isConsentGiven &&
+        !Object.keys(rest)
+            .map(key => rest[key])
+            .includes(false);
+
+    return {
+        ...restTop,
+        [mainFinality]: {
+            ...rest,
+            [subFinality]: isConsentGiven,
+            "isFullConsent": isFullConsentSub
+        },
+        "isFullConsent":
+            isFullConsentSub &&
+            !Object.values(restTop)
+                .map((value: any) => (typeof value === "boolean" ? value : value.isFullConsent))
+                .includes(false)
+    } as any;
 }
 
 /** Pure, exported for testing */

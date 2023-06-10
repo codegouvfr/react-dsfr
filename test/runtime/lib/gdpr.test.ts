@@ -2,13 +2,22 @@ import { describe, it, expect } from "vitest";
 import {
     createFullDenyFinalityConsent,
     updateFinalityConsent,
-    readFinalityConsent,
-    getFinalitiesFromFinalityDescription
-} from "../../../src/gdpr/zz_internal/utils";
+    readFinalityConsent
+} from "../../../src/gdpr/processConsentChanges";
+import { getFinalitiesFromFinalityDescription } from "../../../src/gdpr/createGdprApi";
+import type { FinalityConsent } from "../../../src/gdpr/types";
 
 describe("Testing gdpr utils", () => {
     it("createFullDenyFinalityConsent", () => {
-        const got = createFullDenyFinalityConsent([
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = createFullDenyFinalityConsent<Finality>([
             "analytics",
             "statistics.traffic",
             "statistics.deviceType",
@@ -17,7 +26,7 @@ describe("Testing gdpr utils", () => {
             "advertising"
         ]);
 
-        const expected = {
+        const expected: FinalityConsent<Finality> = {
             "analytics": false,
             "statistics": {
                 "traffic": false,
@@ -26,14 +35,23 @@ describe("Testing gdpr utils", () => {
                 "isFullConsent": false
             },
             "personalization": false,
-            "advertising": false
+            "advertising": false,
+            "isFullConsent": false
         };
 
         expect(got).toStrictEqual(expected);
     });
 
     it("updateFinalityConsent 1", () => {
-        const got = updateFinalityConsent({
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
             "finality": "statistics.traffic",
             "finalityConsent": {
                 "analytics": false,
@@ -44,12 +62,13 @@ describe("Testing gdpr utils", () => {
                     "isFullConsent": false
                 },
                 "personalization": false,
-                "advertising": false
-            } as any,
+                "advertising": false,
+                "isFullConsent": false
+            },
             "isConsentGiven": true
         });
 
-        const expected = {
+        const expected: FinalityConsent<Finality> = {
             "analytics": false,
             "statistics": {
                 "traffic": true,
@@ -58,14 +77,23 @@ describe("Testing gdpr utils", () => {
                 "isFullConsent": false
             },
             "personalization": false,
-            "advertising": false
+            "advertising": false,
+            "isFullConsent": false
         };
 
         expect(got).toStrictEqual(expected);
     });
 
     it("updateFinalityConsent 2", () => {
-        const got = updateFinalityConsent({
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
             "finality": "statistics.traffic",
             "finalityConsent": {
                 "analytics": false,
@@ -76,12 +104,13 @@ describe("Testing gdpr utils", () => {
                     "isFullConsent": false
                 },
                 "personalization": false,
-                "advertising": false
-            } as any,
+                "advertising": false,
+                "isFullConsent": false
+            },
             "isConsentGiven": true
         });
 
-        const expected = {
+        const expected: FinalityConsent<Finality> = {
             "analytics": false,
             "statistics": {
                 "traffic": true,
@@ -90,14 +119,23 @@ describe("Testing gdpr utils", () => {
                 "isFullConsent": true
             },
             "personalization": false,
-            "advertising": false
+            "advertising": false,
+            "isFullConsent": false
         };
 
         expect(got).toStrictEqual(expected);
     });
 
     it("updateFinalityConsent 3", () => {
-        const got = updateFinalityConsent({
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
             "finality": "statistics.traffic",
             "finalityConsent": {
                 "analytics": false,
@@ -108,12 +146,13 @@ describe("Testing gdpr utils", () => {
                     "isFullConsent": true
                 },
                 "personalization": false,
-                "advertising": false
-            } as any,
+                "advertising": false,
+                "isFullConsent": false
+            },
             "isConsentGiven": false
         });
 
-        const expected = {
+        const expected: FinalityConsent<Finality> = {
             "analytics": false,
             "statistics": {
                 "traffic": false,
@@ -122,34 +161,131 @@ describe("Testing gdpr utils", () => {
                 "isFullConsent": false
             },
             "personalization": false,
-            "advertising": false
+            "advertising": false,
+            "isFullConsent": false
         };
 
         expect(got).toStrictEqual(expected);
     });
 
     it("updateFinalityConsent 4", () => {
-        const got = updateFinalityConsent({
+        type Finality = "analytics" | "personalization" | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
             "finality": "personalization",
             "finalityConsent": {
                 "analytics": false,
                 "personalization": false,
-                "advertising": false
-            } as any,
+                "advertising": false,
+                "isFullConsent": false
+            },
             "isConsentGiven": true
         });
 
-        const expected = {
+        const expected: FinalityConsent<Finality> = {
             "analytics": false,
             "personalization": true,
-            "advertising": false
+            "advertising": false,
+            "isFullConsent": false
+        };
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("updateFinalityConsent 5", () => {
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
+            "finality": "statistics.traffic",
+            "finalityConsent": {
+                "analytics": true,
+                "statistics": {
+                    "traffic": false,
+                    "deviceType": true,
+                    "browser": true,
+                    "isFullConsent": false
+                },
+                "personalization": true,
+                "advertising": true,
+                "isFullConsent": false
+            },
+            "isConsentGiven": true
+        });
+
+        const expected: FinalityConsent<Finality> = {
+            "analytics": true,
+            "statistics": {
+                "traffic": true,
+                "deviceType": true,
+                "browser": true,
+                "isFullConsent": true
+            },
+            "personalization": true,
+            "advertising": true,
+            "isFullConsent": true
+        };
+
+        expect(got).toStrictEqual(expected);
+    });
+
+    it("updateFinalityConsent 6", () => {
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = updateFinalityConsent<Finality>({
+            "finality": "statistics.traffic",
+            "finalityConsent": {
+                "analytics": true,
+                "statistics": {
+                    "traffic": true,
+                    "deviceType": true,
+                    "browser": true,
+                    "isFullConsent": true
+                },
+                "personalization": true,
+                "advertising": true,
+                "isFullConsent": true
+            },
+            "isConsentGiven": false
+        });
+
+        const expected: FinalityConsent<Finality> = {
+            "analytics": true,
+            "statistics": {
+                "traffic": false,
+                "deviceType": true,
+                "browser": true,
+                "isFullConsent": false
+            },
+            "personalization": true,
+            "advertising": true,
+            "isFullConsent": false
         };
 
         expect(got).toStrictEqual(expected);
     });
 
     it("readFinalityConsent 1", () => {
-        const got = readFinalityConsent({
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = readFinalityConsent<Finality>({
             "finalityConsent": {
                 "analytics": false,
                 "statistics": {
@@ -157,9 +293,10 @@ describe("Testing gdpr utils", () => {
                     "deviceType": false,
                     "browser": false,
                     "isFullConsent": false
-                } as any,
+                },
                 "personalization": false,
-                "advertising": false
+                "advertising": false,
+                "isFullConsent": false
             },
             "finality": "statistics.traffic"
         });
@@ -170,7 +307,15 @@ describe("Testing gdpr utils", () => {
     });
 
     it("readFinalityConsent 2", () => {
-        const got = readFinalityConsent({
+        type Finality =
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising";
+
+        const got = readFinalityConsent<Finality>({
             "finalityConsent": {
                 "analytics": false,
                 "statistics": {
@@ -178,9 +323,10 @@ describe("Testing gdpr utils", () => {
                     "deviceType": false,
                     "browser": false,
                     "isFullConsent": false
-                } as any,
+                },
                 "personalization": true,
-                "advertising": false
+                "advertising": false,
+                "isFullConsent": false
             },
             "finality": "personalization"
         });
@@ -216,11 +362,9 @@ describe("Testing gdpr utils", () => {
                         "deviceInfo": "Informations sur votre appareil",
                         "traffic": "Informations sur votre navigation"
                     }
-                } as any
+                }
             }
         });
-
-        console.log(JSON.stringify(got, null, 4));
 
         const expected = [
             "analytics",

@@ -21,14 +21,15 @@ export function createConsentBannerAndConsentManagement<
 }) {
     const { finalityDescription, processConsentChanges, personalDataPolicyLinkProps } = params;
 
-    const { ConsentBanner } = createConsentBanner({
-        personalDataPolicyLinkProps,
-        processConsentChanges
-    });
-
     const { ConsentManagement, openConsentManagement } = createConsentManagement({
         finalityDescription,
         personalDataPolicyLinkProps
+    });
+
+    const { ConsentBanner } = createConsentBanner({
+        personalDataPolicyLinkProps,
+        processConsentChanges,
+        openConsentManagement
     });
 
     const { FooterConsentManagementItem } = createFooterConsentManagementItem({
@@ -72,8 +73,9 @@ export function createConsentBannerAndConsentManagement<
 function createConsentBanner<Finality extends string>(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
     processConsentChanges: ProcessConsentChanges<Finality>;
+    openConsentManagement: () => void;
 }) {
-    const { personalDataPolicyLinkProps, processConsentChanges } = params;
+    const { personalDataPolicyLinkProps, processConsentChanges, openConsentManagement } = params;
 
     function ConsentBanner() {
         const { t } = useTranslation();
@@ -132,7 +134,7 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
                                 onClick={() => {
-                                    modal.open();
+                                    openConsentManagement();
                                 }}
                                 title={t("customize cookies - title")}
                             >
