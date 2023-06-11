@@ -206,7 +206,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
   //NOTE: The lang parameter is optional and defaults to "fr"
   const lang = "fr";
   return (
-    <html {...getColorSchemeHtmlAttributes({ defaultColorScheme, lang })} >
+    <html {...getHtmlAttributes({ defaultColorScheme, lang })} >
       <head>
         <StartDsfr />
         <DsfrHead 
@@ -429,7 +429,7 @@ Add the following code in the `<head />`
 {% endcode %}
 {% endtab %}
 
-{% tab title="Next.js" %}
+{% tab title="Next.js Page Router" %}
 <pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
 import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
 import Link from "next/link";
@@ -471,7 +471,7 @@ export default withDsfr(App);
 </code></pre>
 {% endtab %}
 
-{% tab title="Next.js AppDir" %}
+{% tab title="Next.js App Router" %}
 <pre class="language-tsx" data-title="app/layout.tsx"><code class="lang-tsx">import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
 import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
