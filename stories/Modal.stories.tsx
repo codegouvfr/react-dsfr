@@ -14,10 +14,14 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
 
-**Eg.:**  
-
 \`\`\`tsx
+"use client"; 
+// NOTE for Next App Router: As long as you avoid using the useIsModalOpen hook and use 
+// modal.buttonProps instead of modal.open() the Modal component can be used as a 
+// server component (you can remove "use client";) 
+
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 
 const modal = createModal({
@@ -26,22 +30,25 @@ const modal = createModal({
 });
 
 function Home(){
+
+    const isOpen = useIsModalOpen(modal);
+
+    console.log(\`Modal is currently: \${isOpen ? "open" : "closed"}\`);
+
     return (
         <>
             {/* ... */}
             <modal.Component title="foo modal title">
                 <h1>Foo modal content</h1>
             </modal.Component>
-            <Button nativeButtonProps={fooModal.buttonProps}>Open foo modal</Button> {/* Use this if you are in a Server component (Next AppDir) and you don't want to add "use client"; just because of the the Modal */}
-            <Button onClick={fooModal.open}>Open foo modal</Button> {/* ...otherwise this works just as well and is more versatile */}
-            <Button onClick={fooModal.close}>Close foo modal</Button>
+            <Button nativeButtonProps={modal.buttonProps}>Open foo modal</Button> {/* Use this if you are in Next App Dir and you don't want to label the "use client"; the component hosting the Modal. */}
+            <Button onClick={()=> modal.open()}>Open foo modal</Button> {/* ...otherwise modal.open() works just as well and is more versatile */}
+            <Button onClick={()=> modal.close()}>Close foo modal</Button>
         </>
     );
 );
 
 \`\`\`
-
-## The Modal component
 
 `,
     "argTypes": {

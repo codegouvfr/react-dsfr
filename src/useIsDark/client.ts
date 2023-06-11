@@ -91,7 +91,7 @@ function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
             return true;
     }
 
-    assert(false);
+    assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
 
 export function startClientSideIsDarkLogic(params: {

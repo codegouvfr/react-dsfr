@@ -5,10 +5,15 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
 
 export function ClientComponent() {
 
   const { isDark } = useIsDark();
+
+  const isModalOpen = useIsModalOpen(modal);
+
+  console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
 
   return (
     <>
