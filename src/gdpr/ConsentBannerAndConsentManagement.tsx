@@ -186,8 +186,11 @@ function createConsentManagement<
         console.log("do something with", finalityDescription);
 
         return (
-            <modal.Component title={t("consent modal title")}>
-                <h1>TODO</h1>
+            <modal.Component 
+                title={t("consent modal title")}
+                onClose={() => console.log("close!")}
+            >
+                <h1>TODO!</h1>
             </modal.Component>
         );
     }
