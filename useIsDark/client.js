@@ -62,7 +62,7 @@ function getCurrentIsDarkFromHtmlAttribute() {
         case "dark":
             return true;
     }
-    assert(false);
+    assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
 export function startClientSideIsDarkLogic(params) {
     const { doPersistDarkModePreferenceWithCookie, registerEffectAction, colorSchemeExplicitlyProvidedAsParameter } = params;

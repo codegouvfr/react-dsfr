@@ -1,6 +1,6 @@
 import { type CSSProperties, type ReactNode } from "react";
-import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import { ButtonProps } from "./Button";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import { ButtonProps } from "../Button";
 export type ModalProps = {
     className?: string;
     /** Default: "medium" */
@@ -13,6 +13,7 @@ export type ModalProps = {
     iconId?: FrIconClassName | RiIconClassName;
     buttons?: [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]] | ModalProps.ActionAreaButtonProps;
     style?: CSSProperties;
+    onClose?: () => void;
 };
 export declare namespace ModalProps {
     type ActionAreaButtonProps = ButtonProps & {
@@ -45,4 +46,6 @@ export declare function createModal(params: {
     Component: (props: ModalProps) => JSX.Element;
     close: () => void;
     open: () => void;
+    isOpenedByDefault: boolean;
+    id: string;
 };
