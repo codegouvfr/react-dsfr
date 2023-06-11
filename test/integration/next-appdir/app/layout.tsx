@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 			</head>
 			<body
 				style={{
-					"height": "100vh",
+					"minHeight": "100vh",
 					"display": "flex",
 					"flexDirection": "column"
 				}}

@@ -44,9 +44,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </React.StrictMode>
 );
 
-const brandTop = <>INTITULE<br />OFFICIEL</>;
 
-const homeLinkProps = { "to": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
+
 
 function Root() {
 
@@ -61,11 +60,14 @@ function Root() {
                     description: "User tracking",
                 }
             ]} />
-            <div style={{ "height": "100vh", "display": "flex", "flexDirection": "column" }}>
+            <div style={{ "minHeight": "100vh", "display": "flex", "flexDirection": "column" }}>
                 <Header
-                    brandTop={brandTop}
+                    brandTop={<>INTITULE<br />OFFICIEL</>}
                     serviceTitle="Nom du site / service"
-                    homeLinkProps={homeLinkProps}
+                    homeLinkProps={{ 
+                        "to": "/", 
+                        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" 
+                    }}
                     quickAccessItems={[
                         headerFooterDisplayItem,
                         {
@@ -113,7 +115,6 @@ function Root() {
                     </Routes>
                 </div>
                 <Footer
-                    brandTop={brandTop}
                     accessibility="fully compliant"
                     contentDescription={`
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
@@ -122,7 +123,6 @@ function Root() {
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                         eu fugiat nulla pariatur. 
                     `}
-                    homeLinkProps={homeLinkProps}
                     bottomItems={[headerFooterDisplayItem]}
                 />
             </div>

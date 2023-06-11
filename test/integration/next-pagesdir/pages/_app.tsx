@@ -8,27 +8,12 @@ import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 import { useStyles } from "tss-react/dsfr";
 import { fr } from "@codegouvfr/react-dsfr";
 import Link from "next/link";
-import { ConsentBanner } from "@codegouvfr/react-dsfr/ConsentBanner";
-
-
-declare module "@codegouvfr/react-dsfr/ConsentBanner" {
-    interface RegisterConsentBannerFinality {
-        finality:
-        | "analytics"
-        | "statistics.traffic"
-        | "statistics.deviceInfo"
-        | "personalization"
-        | "advertising"
-    }
-}
-
 
 declare module "@codegouvfr/react-dsfr/next-pagesdir" {
     interface RegisterLink {
         Link: typeof Link;
     }
 }
-
 
 const {
     withDsfr,
@@ -56,10 +41,6 @@ const { augmentDocumentWithEmotionCache, withAppEmotionCache } = createEmotionSs
 
 export { dsfrDocumentApi, augmentDocumentWithEmotionCache };
 
-const brandTop = <>INTITULE<br />OFFICIEL</>;
-
-const homeLinkProps = { "href": "/", "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" };
-
 function App({ Component, pageProps }: AppProps) {
 
     const { css } = useStyles();
@@ -68,41 +49,22 @@ function App({ Component, pageProps }: AppProps) {
 
     return (
         <>
-            <ConsentBanner
-                finalityDescription={{
-                    "advertising": {
-                        "title": "Publicité",
-                        "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
-                    },
-                    "analytics": {
-                        "title": "Analyse",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
-                    },
-                    "personalization": {
-                        "title": "Personnalisation",
-                        "description": "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
-                    },
-                    "statistics": {
-                        "title": "Statistiques",
-                        "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-                        "titleBySubFinality": {
-                            "deviceInfo": "Informations sur votre appareil",
-                            "traffic": "Informations sur votre navigation",
-                        }
-                    }
-                }}
-            />
             <div
                 style={{
-                    "height": "100vh",
+                    "minHeight": "100vh",
                     "display": "flex",
                     "flexDirection": "column"
                 }}
             >
                 <Header
-                    brandTop={brandTop}
+                    brandTop={
+                        <>INTITULE<br />OFFICIEL</>
+                    }
                     serviceTitle="Nom du site / service"
-                    homeLinkProps={homeLinkProps}
+                    homeLinkProps={{ 
+                        "href": "/", 
+                        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" 
+                    }}
                     navigation={[
                         {
                             "text": "Home",
@@ -147,7 +109,6 @@ function App({ Component, pageProps }: AppProps) {
                     <Component {...pageProps} />
                 </div>
                 <Footer
-                    brandTop={brandTop}
                     accessibility="fully compliant"
                     contentDescription={`
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
@@ -156,7 +117,6 @@ function App({ Component, pageProps }: AppProps) {
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                         eu fugiat nulla pariatur. 
                     `}
-                    homeLinkProps={homeLinkProps}
                     bottomItems={[headerFooterDisplayItem]}
                 />
             </div>
