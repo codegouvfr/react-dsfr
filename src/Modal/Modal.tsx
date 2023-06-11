@@ -1,12 +1,12 @@
 import React, { memo, forwardRef, type CSSProperties, type ReactNode } from "react";
-import { fr } from "./fr";
-import { cx } from "./tools/cx";
+import { fr } from "../fr";
+import { cx } from "../tools/cx";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import type { Equals } from "tsafe";
-import { createComponentI18nApi } from "./i18n";
-import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import Button, { ButtonProps } from "./Button";
+import { createComponentI18nApi } from "../i18n";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import Button, { ButtonProps } from "../Button";
 import { typeGuard } from "tsafe/typeGuard";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 
@@ -24,7 +24,6 @@ export type ModalProps = {
         | [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]]
         | ModalProps.ActionAreaButtonProps;
     style?: CSSProperties;
-    onClose?: ()=> void;
 };
 
 export namespace ModalProps {
@@ -54,7 +53,6 @@ const Modal = memo(
             buttons: buttons_props,
             size = "medium",
             style,
-            onClose,
             ...rest
         } = props;
 
@@ -78,7 +76,6 @@ const Modal = memo(
                 style={style}
                 ref={ref}
                 data-fr-concealing-backdrop={concealingBackdrop}
-                onClose={onClose}
             >
                 <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-md")}>
                     <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
@@ -208,6 +205,8 @@ export function createModal(params: { isOpenedByDefault: boolean; id: string }):
     Component: (props: ModalProps) => JSX.Element;
     close: () => void;
     open: () => void;
+    isOpenedByDefault: boolean;
+    id: string;
 } {
     const { isOpenedByDefault, id } = params;
 
@@ -269,6 +268,8 @@ export function createModal(params: { isOpenedByDefault: boolean; id: string }):
         Component,
         buttonProps,
         open,
-        close
+        close,
+        isOpenedByDefault,
+        id
     };
 }

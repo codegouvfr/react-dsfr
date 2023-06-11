@@ -188,7 +188,6 @@ function createConsentManagement<
         return (
             <modal.Component 
                 title={t("consent modal title")}
-                onClose={() => console.log("close!")}
             >
                 <h1>TODO!</h1>
             </modal.Component>

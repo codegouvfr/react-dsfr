@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
 import { useGdpr } from "../app/gdpr";
+import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
 
 export function ClientComponent() {
 
@@ -20,6 +21,10 @@ export function ClientComponent() {
   );
 
   console.log({ finalityConsent });
+
+  const isModalOpen = useIsModalOpen(modal);
+
+  console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
 
   return (
     <>
