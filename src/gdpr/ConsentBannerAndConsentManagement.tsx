@@ -47,7 +47,6 @@ export function createConsentBannerAndConsentManagement<
             setIsHydrated();
         }, []);
 
-        const lang = useLang();
 
         if (!isHydrated) {
             return null;
@@ -56,7 +55,7 @@ export function createConsentBannerAndConsentManagement<
         return (
             <>
                 <ConsentBanner />
-                <ConsentManagement lang={lang} />
+                <ConsentManagement />
             </>
         );
     }
@@ -171,8 +170,9 @@ function createConsentManagement<
         "id": "fr-consent-modal"
     });
 
-    function ConsentManagement(props: { lang: string }) {
-        const { lang } = props;
+    function ConsentManagement() {
+
+        const lang = useLang();
 
         const { t } = useTranslation();
 
