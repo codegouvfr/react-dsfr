@@ -66,11 +66,16 @@ type FunctionMessageKey<
     FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
 > = Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
 
-let useLang: () => string = () => "fr";
+let useLang_glob = () => "fr";
 
 export function setUseLang(params: { useLang: () => string }) {
-    useLang = params.useLang;
+    useLang_glob = params.useLang;
 }
+
+export function useLang(){
+    return useLang_glob();
+}
+
 
 export function createComponentI18nApi<
     ComponentName extends string,

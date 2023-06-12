@@ -6,6 +6,7 @@ import { createModal } from "../Modal";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { ProcessConsentChanges } from "./processConsentChanges";
 import { FooterBottomItem } from "../Footer";
+import { useLang } from "../i18n";
 
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
@@ -36,8 +37,7 @@ export function createConsentBannerAndConsentManagement<
         openConsentManagement
     });
 
-    function ConsentBannerAndConsentManagement(props: { lang?: string }) {
-        const { lang = "fr" } = props;
+    function ConsentBannerAndConsentManagement() {
 
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
@@ -46,6 +46,8 @@ export function createConsentBannerAndConsentManagement<
 
             setIsHydrated();
         }, []);
+
+        const lang = useLang();
 
         if (!isHydrated) {
             return null;

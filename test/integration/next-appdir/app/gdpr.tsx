@@ -3,7 +3,7 @@
 import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr";
 
 export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManagementItem, FooterPersonalDataPolicyItem } = createGdprApi({
-    "finalityDescription": {
+    "finalityDescription": ({ lang }) => ({
         "advertising": {
             "title": "Publicité",
             "description": "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
@@ -24,7 +24,7 @@ export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManageme
                 "traffic": "Informations sur votre navigation",
             }
         }
-    },
+    }),
     "personalDataPolicyLinkProps": {
         "href": "/politique-de-confidentialite",
     }

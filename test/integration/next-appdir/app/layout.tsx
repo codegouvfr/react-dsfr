@@ -55,8 +55,8 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 					"flexDirection": "column"
 				}}
 			>
-				<ConsentBannerAndConsentManagement lang={lang} />
 				<DsfrProvider lang={lang}>
+					<ConsentBannerAndConsentManagement />
 					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
 						<MuiDsfrThemeProvider>
 							<Header
