@@ -126,7 +126,7 @@ I understand that the setup process for Next AppRouter can be quite complex, but
 
 The complexity arises largely due to limitations within the current Next.js App Router. For instance, it [does not support higher-order functions](https://github.com/vercel/next.js/issues/44307), lacks [a reliable sequence for applying global stylesheets](https://github.com/vercel/next.js/issues/16630), and [doesn't clearly delineate a way to run code solely on the client-side](https://github.com/vercel/next.js/issues/44367), among [other deficiencies](https://github.com/vercel/next.js/issues/created\_by/garronej).
 
-Despite the setup process not being as streamlined as one might hope, I can confidently say that react-dsfr's integration with Next App Router is as comprehensive and effective as it can be under current circumstances ([see demo](https://react-dsfr-next-appdir-demo.vercel.app/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
+Despite the setup process not being as streamlined as one might hope, the library is fully compatible with Next.js App Router ([see demo](https://react-dsfr-next-appdir-demo.vercel.app/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
 yarn add --dev sass
