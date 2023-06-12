@@ -7,6 +7,7 @@ import { createComponentI18nApi } from "./i18n";
 
 export type BackToTopProps = {
     anchor?: string;
+    /** Default: false (the back to top button is centered) */
     right?: boolean;
 };
 
