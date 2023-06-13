@@ -13,7 +13,14 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
   
-See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)`,
+See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)
+
+> Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
+> component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 
+[here](https://github.com/codegouvfr/react-dsfr/blob/703961e480eb5f8d39e571fdd64de725aa1d4ff9/test/integration/next-appdir/app/layout.tsx#L91) and 
+[here](https://github.com/codegouvfr/react-dsfr/blob/703961e480eb5f8d39e571fdd64de725aa1d4ff9/test/integration/next-appdir/ui/ClientHeaderQuickAccessItem.tsx#L1-L18).  
+
+`,
     "argTypes": {
         "brandTop": {
             "control": { "type": null },

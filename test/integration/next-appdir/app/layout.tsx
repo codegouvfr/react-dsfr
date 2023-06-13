@@ -13,6 +13,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from "next/link";
 import { ClientFooterItem } from "../ui/ClientFooterItem";
+import { ClientHeaderQuickAccessItem } from "../ui/ClientHeaderQuickAccessItem";
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
 	interface RegisterGdprServices {
@@ -86,7 +87,8 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 											href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
 										},
 										text: "Nous contacter",
-									}
+									},
+									<ClientHeaderQuickAccessItem />
 								]}
 								navigation={<Navigation />}
 							/>

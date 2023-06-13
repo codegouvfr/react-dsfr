@@ -171,13 +171,13 @@ export const Footer = memo(
         assert<Equals<keyof typeof rest, never>>();
 
         const { brandTop, homeLinkProps } = (() => {
-
             const wrap = getBrandTopAndHomeLinkProps();
 
             const brandTop = brandTop_prop ?? wrap?.brandTop;
             const homeLinkProps = homeLinkProps_prop ?? wrap?.homeLinkProps;
 
-            const exceptionMessage = " hasn't been provided to the Footer and we cannot retrieve it from the Header (it's probably client side)";
+            const exceptionMessage =
+                " hasn't been provided to the Footer and we cannot retrieve it from the Header (it's probably client side)";
 
             if (brandTop === undefined) {
                 throw new Error(symToStr({ brandTop }) + exceptionMessage);
@@ -187,10 +187,8 @@ export const Footer = memo(
                 throw new Error(symToStr({ homeLinkProps }) + exceptionMessage);
             }
 
-            return { brandTop, homeLinkProps};
-
+            return { brandTop, homeLinkProps };
         })();
-
 
         const { Link } = getLink();
 
@@ -428,11 +426,11 @@ export const Footer = memo(
                                 ...(websiteMapLinkProps === undefined
                                     ? []
                                     : [
-                                        id<FooterProps.BottomItem>({
-                                            "text": t("website map"),
-                                            "linkProps": websiteMapLinkProps
-                                        })
-                                    ]),
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("website map"),
+                                              "linkProps": websiteMapLinkProps
+                                          })
+                                      ]),
                                 id<FooterProps.BottomItem>({
                                     "text": `${t("accessibility")}: ${t(accessibility)}`,
                                     "linkProps": accessibilityLinkProps ?? {}
@@ -440,64 +438,69 @@ export const Footer = memo(
                                 ...(termsLinkProps === undefined
                                     ? []
                                     : [
-                                        id<FooterProps.BottomItem>({
-                                            "text": t("terms"),
-                                            "linkProps": termsLinkProps
-                                        })
-                                    ]),
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("terms"),
+                                              "linkProps": termsLinkProps
+                                          })
+                                      ]),
                                 ...(personalDataLinkProps === undefined
                                     ? []
                                     : [
-                                        id<FooterProps.BottomItem>({
-                                            "text": t("personal data"),
-                                            "linkProps": personalDataLinkProps
-                                        })
-                                    ]),
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("personal data"),
+                                              "linkProps": personalDataLinkProps
+                                          })
+                                      ]),
                                 ...(cookiesManagementButtonProps === undefined
                                     ? // one or the other, but not both. Priority to button for consent modal control.
-                                    cookiesManagementLinkProps === undefined
+                                      cookiesManagementLinkProps === undefined
                                         ? []
                                         : [
-                                            id<FooterProps.BottomItem>({
-                                                "text": t("cookies management"),
-                                                "linkProps": cookiesManagementLinkProps
-                                            })
-                                        ]
+                                              id<FooterProps.BottomItem>({
+                                                  "text": t("cookies management"),
+                                                  "linkProps": cookiesManagementLinkProps
+                                              })
+                                          ]
                                     : [
-                                        id<FooterProps.BottomItem>({
-                                            "text": t("cookies management"),
-                                            "buttonProps":
-                                                cookiesManagementButtonProps.nativeButtonProps
-                                        })
-                                    ]),
+                                          id<FooterProps.BottomItem>({
+                                              "text": t("cookies management"),
+                                              "buttonProps":
+                                                  cookiesManagementButtonProps.nativeButtonProps
+                                          })
+                                      ]),
                                 ...bottomItems
-                            ].map((bottomItem, i) =>
-                                <li className={cx(fr.cx("fr-footer__bottom-item"), classes.bottomItem, className)} key={i}>
-                                    {
-                                        !typeGuard<FooterProps.BottomItem>(
-                                            bottomItem,
-                                            bottomItem instanceof Object && "text" in bottomItem
-                                        ) ? (
-                                            bottomItem
-                                        ) : (
-                                            <FooterBottomItem
-                                                classes={{
-                                                    "bottomLink": classes.bottomLink
-                                                }}
-                                                bottomItem={bottomItem}
-                                            />
-                                        )
-                                    }
+                            ].map((bottomItem, i) => (
+                                <li
+                                    className={cx(
+                                        fr.cx("fr-footer__bottom-item"),
+                                        classes.bottomItem,
+                                        className
+                                    )}
+                                    key={i}
+                                >
+                                    {!typeGuard<FooterProps.BottomItem>(
+                                        bottomItem,
+                                        bottomItem instanceof Object && "text" in bottomItem
+                                    ) ? (
+                                        bottomItem
+                                    ) : (
+                                        <FooterBottomItem
+                                            classes={{
+                                                "bottomLink": classes.bottomLink
+                                            }}
+                                            bottomItem={bottomItem}
+                                        />
+                                    )}
                                 </li>
-                            )}
+                            ))}
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
                                 {license === undefined
                                     ? t("license mention", {
-                                        "licenseUrl":
-                                            "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                                    })
+                                          "licenseUrl":
+                                              "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                                      })
                                     : license}
                             </p>
                         </div>
