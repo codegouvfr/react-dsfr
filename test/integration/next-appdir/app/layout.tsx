@@ -12,6 +12,7 @@ import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from "next/link";
+import { ClientFooterItem } from "../ui/ClientFooterItem";
 
 declare module "@codegouvfr/react-dsfr/gdpr" {
 	interface RegisterGdprServices {
@@ -108,7 +109,10 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                     eu fugiat nulla pariatur. 
                 `}
-								bottomItems={[headerFooterDisplayItem]}
+								bottomItems={[
+									headerFooterDisplayItem,
+									<ClientFooterItem />
+								]}
 							/>
 						</MuiDsfrThemeProvider>
 					</NextAppDirEmotionCacheProvider>

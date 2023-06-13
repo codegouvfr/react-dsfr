@@ -11,6 +11,7 @@ import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/cla
 import { id } from "tsafe/id";
 import { ModalProps } from "./Modal";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { typeGuard } from "tsafe/typeGuard";
 
 export type FooterProps = {
     className?: string;
@@ -22,7 +23,7 @@ export type FooterProps = {
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
     cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
-    bottomItems?: FooterProps.BottomItem[];
+    bottomItems?: (FooterProps.BottomItem | ReactNode)[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
@@ -395,11 +396,11 @@ export const Footer = memo(
                                 ...(websiteMapLinkProps === undefined
                                     ? []
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("website map"),
-                                              "linkProps": websiteMapLinkProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("website map"),
+                                            "linkProps": websiteMapLinkProps
+                                        })
+                                    ]),
                                 id<FooterProps.BottomItem>({
                                     "text": `${t("accessibility")}: ${t(accessibility)}`,
                                     "linkProps": accessibilityLinkProps ?? {}
@@ -407,86 +408,64 @@ export const Footer = memo(
                                 ...(termsLinkProps === undefined
                                     ? []
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("terms"),
-                                              "linkProps": termsLinkProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("terms"),
+                                            "linkProps": termsLinkProps
+                                        })
+                                    ]),
                                 ...(personalDataLinkProps === undefined
                                     ? []
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("personal data"),
-                                              "linkProps": personalDataLinkProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("personal data"),
+                                            "linkProps": personalDataLinkProps
+                                        })
+                                    ]),
                                 ...(cookiesManagementButtonProps === undefined
                                     ? // one or the other, but not both. Priority to button for consent modal control.
-                                      cookiesManagementLinkProps === undefined
+                                    cookiesManagementLinkProps === undefined
                                         ? []
                                         : [
-                                              id<FooterProps.BottomItem>({
-                                                  "text": t("cookies management"),
-                                                  "linkProps": cookiesManagementLinkProps
-                                              })
-                                          ]
+                                            id<FooterProps.BottomItem>({
+                                                "text": t("cookies management"),
+                                                "linkProps": cookiesManagementLinkProps
+                                            })
+                                        ]
                                     : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("cookies management"),
-                                              "buttonProps":
-                                                  cookiesManagementButtonProps.nativeButtonProps
-                                          })
-                                      ]),
+                                        id<FooterProps.BottomItem>({
+                                            "text": t("cookies management"),
+                                            "buttonProps":
+                                                cookiesManagementButtonProps.nativeButtonProps
+                                        })
+                                    ]),
                                 ...bottomItems
-                            ].map(({ iconId, text, buttonProps, linkProps }, i) => (
-                                <li
-                                    key={i}
-                                    className={cx(
-                                        fr.cx("fr-footer__bottom-item"),
-                                        classes.bottomItem
-                                    )}
-                                >
-                                    {(() => {
-                                        const className = cx(
-                                            fr.cx(
-                                                "fr-footer__bottom-link",
-                                                ...(iconId !== undefined
-                                                    ? ([iconId, "fr-link--icon-left"] as const)
-                                                    : [])
-                                            ),
-                                            classes.bottomLink
-                                        );
-
-                                        return linkProps !== undefined ? (
-                                            Object.keys(linkProps).length === 0 ? (
-                                                <span className={className}>{text}</span>
-                                            ) : (
-                                                <Link
-                                                    {...linkProps}
-                                                    className={cx(className, linkProps.className)}
-                                                >
-                                                    {text}
-                                                </Link>
-                                            )
+                            ].map((bottomItem, i) =>
+                                <li className={cx(fr.cx("fr-footer__bottom-item"), classes.bottomItem, className)} key={i}>
+                                    {
+                                        !typeGuard<FooterProps.BottomItem>(
+                                            bottomItem,
+                                            bottomItem instanceof Object && "text" in bottomItem
+                                        ) ? (
+                                            bottomItem
                                         ) : (
-                                            <button
-                                                {...buttonProps}
-                                                className={cx(className, buttonProps.className)}
-                                            >
-                                                {text}
-                                            </button>
-                                        );
-                                    })()}
+                                            <FooterBottomItem
+                                                classes={{
+                                                    "bottomLink": classes.bottomLink
+                                                }}
+                                                bottomItem={bottomItem}
+                                            />
+                                        )
+                                    }
                                 </li>
-                            ))}
+                            )}
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
                                 {license === undefined
                                     ? t("license mention", {
-                                          "licenseUrl":
-                                              "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
-                                      })
+                                        "licenseUrl":
+                                            "https://github.com/etalab/licence-ouverte/blob/master/LO.md"
+                                    })
                                     : license}
                             </p>
                         </div>
@@ -557,3 +536,47 @@ addFooterTranslations({
 });
 
 export { addFooterTranslations };
+
+export type FooterBottomItemProps = {
+    className?: string;
+    bottomItem: FooterProps.BottomItem;
+    classes?: Partial<Record<"root" | "bottomLink", string>>;
+};
+
+export function FooterBottomItem(props: FooterBottomItemProps): JSX.Element {
+    const { className: className_props, bottomItem, classes = {} } = props;
+
+    const { Link } = getLink();
+
+    const className = cx(
+        fr.cx(
+            "fr-footer__bottom-link",
+            ...(bottomItem.iconId !== undefined
+                ? ([bottomItem.iconId, "fr-link--icon-left"] as const)
+                : [])
+        ),
+        classes.bottomLink,
+        classes.root,
+        className_props
+    );
+
+    return bottomItem.linkProps !== undefined ? (
+        Object.keys(bottomItem.linkProps).length === 0 ? (
+            <span className={className}>{bottomItem.text}</span>
+        ) : (
+            <Link
+                {...bottomItem.linkProps}
+                className={cx(className, bottomItem.linkProps.className)}
+            >
+                {bottomItem.text}
+            </Link>
+        )
+    ) : (
+        <button
+            {...bottomItem.buttonProps}
+            className={cx(className, bottomItem.buttonProps.className)}
+        >
+            {bottomItem.text}
+        </button>
+    );
+}
