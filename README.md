@@ -209,10 +209,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
     <html {...getHtmlAttributes({ defaultColorScheme, lang })} >
       <head>
         <StartDsfr />
-        <DsfrHead 
-            defaultColorScheme={defaultColorScheme}
-            Link={Link}
-        />
+        <DsfrHead Link={Link} />
       </head>
       <body>
         <DsfrProvider lang={lang}>
