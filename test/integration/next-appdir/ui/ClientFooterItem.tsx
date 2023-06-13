@@ -6,8 +6,12 @@ export function ClientFooterItem() {
         <FooterBottomItem
             bottomItem={{
                 iconId: "fr-icon-arrow-down-line",
-                linkProps: {
-                    href: `https://example.com`,
+                buttonProps: {
+                    onClick: ()=> {
+
+                        alert("Click on client item");
+
+                    }
                 },
                 text: "A client side bottom item",
 
