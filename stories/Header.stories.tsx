@@ -15,10 +15,6 @@ const { meta, getStory } = getStoryFactory({
   
 See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-mainnavigation)
 
-> Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
-> component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 
-[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/layout.tsx#L72) and 
-[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/LoginHeaderItem.tsx#L1-L24).  
 
 `,
     "argTypes": {
@@ -106,44 +102,57 @@ export const SimpleHeaderWithServiceTitleAndTagline = getStory({
     "serviceTagline": "baseline - précisions sur l'organisation"
 });
 
-export const HeaderWithQuickAccessItems = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+export const HeaderWithQuickAccessItems = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "quickAccessItems": [
+            {
+                "iconId": "fr-icon-add-circle-line",
+                "text": "Créer un espace",
+                "linkProps": {
+                    "href": "#"
+                }
+            },
+            {
+                "iconId": "fr-icon-mail-fill",
+                "linkProps": {
+                    "href": "mailto:contact@code.gouv.fr"
+                },
+                "text": "Contact us"
+            },
+            {
+                "iconId": "ri-account-box-line",
+                "text": "Se connecter",
+                "buttonProps": {
+                    "onClick": () => {
+                        alert("TODO: implement login");
+                    }
+                }
+            }
+        ]
     },
-    "serviceTitle": "Nom du site / service",
-    "serviceTagline": "baseline - précisions sur l'organisation",
-    "quickAccessItems": [
-        {
-            "iconId": "fr-icon-add-circle-line",
-            "text": "Créer un espace",
-            "linkProps": {
-                "href": "#"
-            }
-        },
-        {
-            "iconId": "fr-icon-lock-line",
-            "text": "Se connecter",
-            "linkProps": {
-                "href": "#"
-            }
-        },
-        {
-            "iconId": "ri-account-circle-line",
-            "text": "S’enregistrer",
-            "linkProps": {
-                "href": "#"
-            }
-        }
-    ]
-});
+    {
+        "description": `See [\\<Display \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-display) for instructions on how to integrate the Dark mode switch.  
+
+Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
+component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 
+[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/layout.tsx#L72) and 
+[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/LoginHeaderItem.tsx#L1-L24).  
+    `
+    }
+);
 
 export const HeaderWithSearchEngine = getStory({
     "brandTop": (
