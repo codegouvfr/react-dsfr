@@ -178,16 +178,16 @@
     mask-image: url("../../icons/remixicon/mail-line.svg");
 }
 
-.ri-layout-4-line::before,
-.ri-layout-4-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/layout-4-line.svg");
-    mask-image: url("../../icons/remixicon/layout-4-line.svg");
-}
-
 .fr-icon-arrow-down-line::before,
 .fr-icon-arrow-down-line::after {
     -webkit-mask-image: url("../../icons/system/arrow-down-line.svg");
     mask-image: url("../../icons/system/arrow-down-line.svg");
+}
+
+.ri-layout-4-line::before,
+.ri-layout-4-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/layout-4-line.svg");
+    mask-image: url("../../icons/remixicon/layout-4-line.svg");
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -341,14 +341,14 @@
         background-image: url("../../icons/remixicon/mail-line.svg");
     }
     
-    .ri-layout-4-line::before,
-    .ri-layout-4-line::after {
-        background-image: url("../../icons/remixicon/layout-4-line.svg");
-    }
-    
     .fr-icon-arrow-down-line::before,
     .fr-icon-arrow-down-line::after {
         background-image: url("../../icons/system/arrow-down-line.svg");
+    }
+    
+    .ri-layout-4-line::before,
+    .ri-layout-4-line::after {
+        background-image: url("../../icons/remixicon/layout-4-line.svg");
     }
     
 }
