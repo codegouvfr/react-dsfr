@@ -37,6 +37,16 @@ export type FooterProps = {
         alt: string;
     };
     license?: ReactNode;
+    /** If not provided the brandTop from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the brandTop to the Footer.
+     */
+    brandTop?: ReactNode;
+    /** If not provided the homeLinkProps from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the homeLinkProps to the Footer.
+     */
+    homeLinkProps?: RegisteredLinkProps & { title: string };
     classes?: Partial<
         Record<
             | "root"
@@ -151,6 +161,8 @@ export const Footer = memo(
             partnersLogos,
             operatorLogo,
             license,
+            brandTop: brandTop_prop,
+            homeLinkProps: homeLinkProps_prop,
             style,
             linkList,
             ...rest
@@ -158,7 +170,27 @@ export const Footer = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { brandTop, homeLinkProps } = getBrandTopAndHomeLinkProps();
+        const { brandTop, homeLinkProps } = (() => {
+
+            const wrap = getBrandTopAndHomeLinkProps();
+
+            const brandTop = brandTop_prop ?? wrap?.brandTop;
+            const homeLinkProps = homeLinkProps_prop ?? wrap?.homeLinkProps;
+
+            const exceptionMessage = " hasn't been provided to the Footer and we cannot retrieve it from the Header (it's probably client side)";
+
+            if (brandTop === undefined) {
+                throw new Error(symToStr({ brandTop }) + exceptionMessage);
+            }
+
+            if (homeLinkProps === undefined) {
+                throw new Error(symToStr({ homeLinkProps }) + exceptionMessage);
+            }
+
+            return { brandTop, homeLinkProps};
+
+        })();
+
 
         const { Link } = getLink();
 
