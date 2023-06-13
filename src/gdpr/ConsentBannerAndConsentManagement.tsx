@@ -1,12 +1,13 @@
-import React, { useState, useReducer, useEffect, useMemo, type ReactNode } from "react";
+import React, { useReducer, useEffect, useMemo, type ReactNode } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
 import { createModal } from "../Modal";
-import type { ExtractFinalityFromFinalityDescription } from "./types";
+import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "./types";
 import type { ProcessConsentChanges } from "./processConsentChanges";
 import { FooterBottomItem } from "../Footer";
 import { useLang } from "../i18n";
+import { useIsModalOpen } from "../Modal/useIsModalOpen";
 
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
@@ -15,16 +16,18 @@ export function createConsentBannerAndConsentManagement<
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+    useFinalityConsent: ()=> FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>> | undefined;
     processConsentChanges: ProcessConsentChanges<
         ExtractFinalityFromFinalityDescription<FinalityDescription>
     >;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
-    const { finalityDescription, processConsentChanges, personalDataPolicyLinkProps } = params;
+    const { finalityDescription, useFinalityConsent ,processConsentChanges, personalDataPolicyLinkProps } = params;
 
-    const { ConsentManagement, openConsentManagement } = createConsentManagement({
+    const { ConsentManagement, openConsentManagement, useIsConsentManagementOpen } = createConsentManagement({
         finalityDescription,
-        personalDataPolicyLinkProps
+        personalDataPolicyLinkProps,
+        useFinalityConsent
     });
 
     const { ConsentBanner } = createConsentBanner({
@@ -47,6 +50,9 @@ export function createConsentBannerAndConsentManagement<
             setIsHydrated();
         }, []);
 
+        const finalityConsent = useFinalityConsent();
+
+        const isConsentManagementOpen = useIsConsentManagementOpen();
 
         if (!isHydrated) {
             return null;
@@ -54,7 +60,7 @@ export function createConsentBannerAndConsentManagement<
 
         return (
             <>
-                <ConsentBanner />
+                {finalityConsent === undefined && !isConsentManagementOpen && <ConsentBanner />}
                 <ConsentManagement />
             </>
         );
@@ -81,12 +87,6 @@ function createConsentBanner<Finality extends string>(params: {
     function ConsentBanner() {
         const { t } = useTranslation();
 
-        const [isBannerVisible, setIsBannerVisible] = useState(false);
-
-        if (!isBannerVisible) {
-            return null;
-        }
-
         return (
             <>
                 <div className={fr.cx("fr-consent-banner")}>
@@ -111,10 +111,7 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
-                                onClick={() => {
-                                    processConsentChanges({ "type": "grantAll" });
-                                    setIsBannerVisible(false);
-                                }}
+                                onClick={() => processConsentChanges({ "type": "grantAll" })}
                             >
                                 {t("accept all")}
                             </button>
@@ -123,10 +120,7 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
-                                onClick={() => {
-                                    processConsentChanges({ "type": "denyAll" });
-                                    setIsBannerVisible(false);
-                                }}
+                                onClick={() => processConsentChanges({ "type": "denyAll" }) }
                             >
                                 {t("refuse all")}
                             </button>
@@ -134,9 +128,7 @@ function createConsentBanner<Finality extends string>(params: {
                         <li>
                             <button
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
-                                onClick={() => {
-                                    openConsentManagement();
-                                }}
+                                onClick={() => openConsentManagement()}
                                 title={t("customize cookies - title")}
                             >
                                 {t("customize")}
@@ -159,10 +151,12 @@ function createConsentManagement<
 >(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
+    useFinalityConsent: ()=> FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>> | undefined;
 }) {
     const {
         finalityDescription: finalityDescriptionOrGetFinalityDescription,
-        personalDataPolicyLinkProps
+        personalDataPolicyLinkProps,
+        useFinalityConsent
     } = params;
 
     const modal = createModal({
@@ -184,8 +178,12 @@ function createConsentManagement<
             [lang]
         );
 
-        console.log("do something with", personalDataPolicyLinkProps);
-        console.log("do something with", finalityDescription);
+        console.log("do something with", { personalDataPolicyLinkProps });
+        console.log("do something with", { finalityDescription });
+
+        const finalityConsent = useFinalityConsent();
+
+        console.log("do something with", { finalityConsent });
 
         return (
             <modal.Component 
@@ -200,7 +198,11 @@ function createConsentManagement<
         modal.open();
     }
 
-    return { ConsentManagement, openConsentManagement };
+    function useIsConsentManagementOpen(){
+        return useIsModalOpen(modal);
+    }
+
+    return { ConsentManagement, openConsentManagement, useIsConsentManagementOpen };
 }
 
 function createFooterConsentManagementItem(params: { openConsentManagement: () => void }) {

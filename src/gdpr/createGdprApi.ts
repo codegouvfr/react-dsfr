@@ -83,7 +83,8 @@ export function createGdprApi<
     } = createConsentBannerAndConsentManagement({
         finalityDescription,
         personalDataPolicyLinkProps,
-        processConsentChanges
+        processConsentChanges,
+        useFinalityConsent
     });
 
     return {
