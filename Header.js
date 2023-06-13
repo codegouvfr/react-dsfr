@@ -19,6 +19,7 @@ import { assert } from "tsafe/assert";
 import { MainNavigation } from "./MainNavigation";
 import { Display } from "./Display/Display";
 import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { typeGuard } from "tsafe/typeGuard";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "classes", "style"]);
@@ -30,7 +31,7 @@ export const Header = memo(forwardRef((props, ref) => {
     const searchInputId = `search-${useId()}-input`;
     const { t } = useTranslation();
     const { Link } = getLink();
-    const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (React.createElement("li", { key: i }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { className: cx(fr.cx("fr-btn", iconId), linkProps.className) }), text)) : (React.createElement("button", Object.assign({}, buttonProps, { className: cx(fr.cx("fr-btn", iconId), buttonProps.className) }), text)))))));
+    const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { quickAccessItem: quickAccessItem })))))));
     return (React.createElement(React.Fragment, null,
         React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
@@ -107,4 +108,9 @@ addHeaderTranslations({
     }
 });
 export { addHeaderTranslations };
+export function HeaderQuickAccessItem(props) {
+    const { className, quickAccessItem } = props;
+    const { Link } = getLink();
+    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, quickAccessItem.linkProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, quickAccessItem.buttonProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
+}
 //# sourceMappingURL=Header.js.map

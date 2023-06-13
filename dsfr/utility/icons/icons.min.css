@@ -178,6 +178,18 @@
     mask-image: url("../../icons/remixicon/mail-line.svg");
 }
 
+.fr-icon-arrow-down-line::before,
+.fr-icon-arrow-down-line::after {
+    -webkit-mask-image: url("../../icons/system/arrow-down-line.svg");
+    mask-image: url("../../icons/system/arrow-down-line.svg");
+}
+
+.fr-icon-article-fill::before,
+.fr-icon-article-fill::after {
+    -webkit-mask-image: url("../../icons/document/article-fill.svg");
+    mask-image: url("../../icons/document/article-fill.svg");
+}
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .fr-icon-checkbox-circle-line::before,
     .fr-icon-checkbox-circle-line::after {
@@ -327,6 +339,16 @@
     .ri-mail-line::before,
     .ri-mail-line::after {
         background-image: url("../../icons/remixicon/mail-line.svg");
+    }
+    
+    .fr-icon-arrow-down-line::before,
+    .fr-icon-arrow-down-line::after {
+        background-image: url("../../icons/system/arrow-down-line.svg");
+    }
+    
+    .fr-icon-article-fill::before,
+    .fr-icon-article-fill::after {
+        background-image: url("../../icons/document/article-fill.svg");
     }
     
 }

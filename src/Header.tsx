@@ -12,6 +12,7 @@ import type { MainNavigationProps } from "./MainNavigation";
 import { MainNavigation } from "./MainNavigation";
 import { Display } from "./Display/Display";
 import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { typeGuard } from "tsafe/typeGuard";
 
 export type HeaderProps = {
     className?: string;
@@ -21,7 +22,7 @@ export type HeaderProps = {
     serviceTagline?: ReactNode;
     navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
-    quickAccessItems?: HeaderProps.QuickAccessItem[];
+    quickAccessItems?: (HeaderProps.QuickAccessItem | ReactNode)[];
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
         /**
@@ -125,22 +126,15 @@ export const Header = memo(
 
         const quickAccessNode = (
             <ul className={fr.cx("fr-btns-group")}>
-                {quickAccessItems.map(({ iconId, text, buttonProps, linkProps }, i) => (
+                {quickAccessItems.map((quickAccessItem, i) => (
                     <li key={i}>
-                        {linkProps !== undefined ? (
-                            <Link
-                                {...linkProps}
-                                className={cx(fr.cx("fr-btn", iconId), linkProps.className)}
-                            >
-                                {text}
-                            </Link>
+                        {!typeGuard<HeaderProps.QuickAccessItem>(
+                            quickAccessItem,
+                            quickAccessItem instanceof Object && "text" in quickAccessItem
+                        ) ? (
+                            quickAccessItem
                         ) : (
-                            <button
-                                {...buttonProps}
-                                className={cx(fr.cx("fr-btn", iconId), buttonProps.className)}
-                            >
-                                {text}
-                            </button>
+                            <HeaderQuickAccessItem quickAccessItem={quickAccessItem} />
                         )}
                     </li>
                 ))}
@@ -406,3 +400,38 @@ addHeaderTranslations({
 });
 
 export { addHeaderTranslations };
+
+export type HeaderQuickAccessItemProps = {
+    className?: string;
+    quickAccessItem: HeaderProps.QuickAccessItem;
+};
+
+export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element {
+    const { className, quickAccessItem } = props;
+
+    const { Link } = getLink();
+
+    return quickAccessItem.linkProps !== undefined ? (
+        <Link
+            {...quickAccessItem.linkProps}
+            className={cx(
+                fr.cx("fr-btn", quickAccessItem.iconId),
+                quickAccessItem.linkProps.className,
+                className
+            )}
+        >
+            {quickAccessItem.text}
+        </Link>
+    ) : (
+        <button
+            {...quickAccessItem.buttonProps}
+            className={cx(
+                fr.cx("fr-btn", quickAccessItem.iconId),
+                quickAccessItem.buttonProps.className,
+                className
+            )}
+        >
+            {quickAccessItem.text}
+        </button>
+    );
+}

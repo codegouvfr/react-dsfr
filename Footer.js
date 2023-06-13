@@ -129,10 +129,9 @@ export const Footer = memo(forwardRef((props, ref) => {
                             })
                         ]),
                     ...bottomItems
-                ].map((bottomItem, i) => !typeGuard(bottomItem, bottomItem instanceof Object && "text" in bottomItem) ? (bottomItem) : (React.createElement(FooterBottomItem, { classes: {
-                        "root": classes.bottomItem,
+                ].map((bottomItem, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__bottom-item"), classes.bottomItem, className), key: i }, !typeGuard(bottomItem, bottomItem instanceof Object && "text" in bottomItem) ? (bottomItem) : (React.createElement(FooterBottomItem, { classes: {
                         "bottomLink": classes.bottomLink
-                    }, bottomItem: bottomItem, key: `internally-rendered-${i}` })))),
+                    }, bottomItem: bottomItem })))))),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy) },
                     React.createElement("p", null, license === undefined
                         ? t("license mention", {
@@ -188,13 +187,11 @@ addFooterTranslations({
 });
 export { addFooterTranslations };
 export function FooterBottomItem(props) {
-    const { className, bottomItem, classes = {} } = props;
+    const { className: className_props, bottomItem, classes = {} } = props;
     const { Link } = getLink();
-    return (React.createElement("li", { className: cx(fr.cx("fr-footer__bottom-item"), classes.root, className) }, (() => {
-        const className = cx(fr.cx("fr-footer__bottom-link", ...(bottomItem.iconId !== undefined
-            ? [bottomItem.iconId, "fr-link--icon-left"]
-            : [])), classes.bottomLink);
-        return bottomItem.linkProps !== undefined ? (Object.keys(bottomItem.linkProps).length === 0 ? (React.createElement("span", { className: className }, bottomItem.text)) : (React.createElement(Link, Object.assign({}, bottomItem.linkProps, { className: cx(className, bottomItem.linkProps.className) }), bottomItem.text))) : (React.createElement("button", Object.assign({}, bottomItem.buttonProps, { className: cx(className, bottomItem.buttonProps.className) }), bottomItem.text));
-    })()));
+    const className = cx(fr.cx("fr-footer__bottom-link", ...(bottomItem.iconId !== undefined
+        ? [bottomItem.iconId, "fr-link--icon-left"]
+        : [])), classes.bottomLink, classes.root, className_props);
+    return bottomItem.linkProps !== undefined ? (Object.keys(bottomItem.linkProps).length === 0 ? (React.createElement("span", { className: className }, bottomItem.text)) : (React.createElement(Link, Object.assign({}, bottomItem.linkProps, { className: cx(className, bottomItem.linkProps.className) }), bottomItem.text))) : (React.createElement("button", Object.assign({}, bottomItem.buttonProps, { className: cx(className, bottomItem.buttonProps.className) }), bottomItem.text));
 }
 //# sourceMappingURL=Footer.js.map
