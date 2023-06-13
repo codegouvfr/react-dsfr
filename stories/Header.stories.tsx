@@ -17,8 +17,8 @@ See also [\\<MainNavigation \\/\\>](https://react-dsfr-components.etalab.studio/
 
 > Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
 > component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 
-[here](https://github.com/codegouvfr/react-dsfr/blob/703961e480eb5f8d39e571fdd64de725aa1d4ff9/test/integration/next-appdir/app/layout.tsx#L91) and 
-[here](https://github.com/codegouvfr/react-dsfr/blob/703961e480eb5f8d39e571fdd64de725aa1d4ff9/test/integration/next-appdir/ui/ClientHeaderQuickAccessItem.tsx#L1-L18).  
+[here](https://github.com/codegouvfr/react-dsfr/blob/0b6f5b8af9de1bbc79d91cc3dd25e12d8e807fbe/test/integration/next-appdir/app/layout.tsx#L91) and 
+[here](https://github.com/codegouvfr/react-dsfr/blob/0b6f5b8af9de1bbc79d91cc3dd25e12d8e807fbe/test/integration/next-appdir/ui/ClientHeaderQuickAccessItem.tsx#L1-L25).  
 
 `,
     "argTypes": {
