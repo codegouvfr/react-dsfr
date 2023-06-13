@@ -12,7 +12,7 @@ export type FooterProps = {
     personalDataLinkProps?: RegisteredLinkProps;
     cookiesManagementLinkProps?: RegisteredLinkProps;
     cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
-    bottomItems?: FooterProps.BottomItem[];
+    bottomItems?: (FooterProps.BottomItem | ReactNode)[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
@@ -26,6 +26,18 @@ export type FooterProps = {
         alt: string;
     };
     license?: ReactNode;
+    /** If not provided the brandTop from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the brandTop to the Footer.
+     */
+    brandTop?: ReactNode;
+    /** If not provided the homeLinkProps from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the homeLinkProps to the Footer.
+     */
+    homeLinkProps?: RegisteredLinkProps & {
+        title: string;
+    };
     classes?: Partial<Record<"root" | "body" | "brand" | "content" | "contentDesc" | "contentList" | "contentItem" | "contentLink" | "bottom" | "bottomList" | "bottomItem" | "bottomLink" | "bottomCopy" | "brandLink" | "logo" | "partners" | "partnersTitle" | "partnersLogos" | "partnersMain" | "partnersLink" | "partnersSub", string>>;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
@@ -106,3 +118,9 @@ declare const addFooterTranslations: (params: {
     }>;
 }) => void;
 export { addFooterTranslations };
+export type FooterBottomItemProps = {
+    className?: string;
+    bottomItem: FooterProps.BottomItem;
+    classes?: Partial<Record<"root" | "bottomLink", string>>;
+};
+export declare function FooterBottomItem(props: FooterBottomItemProps): JSX.Element;

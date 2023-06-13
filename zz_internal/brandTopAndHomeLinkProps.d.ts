@@ -11,4 +11,4 @@ export declare function getBrandTopAndHomeLinkProps(): {
     homeLinkProps: Omit<import("react").ClassAttributes<HTMLAnchorElement> & import("react").AnchorHTMLAttributes<HTMLAnchorElement>, "children"> & {
         title: string;
     };
-};
+} | undefined;

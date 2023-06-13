@@ -18,11 +18,24 @@ import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
 import { id } from "tsafe/id";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { typeGuard } from "tsafe/typeGuard";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "style", "linkList"]);
+    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
     assert();
-    const { brandTop, homeLinkProps } = getBrandTopAndHomeLinkProps();
+    const { brandTop, homeLinkProps } = (() => {
+        const wrap = getBrandTopAndHomeLinkProps();
+        const brandTop = brandTop_prop !== null && brandTop_prop !== void 0 ? brandTop_prop : wrap === null || wrap === void 0 ? void 0 : wrap.brandTop;
+        const homeLinkProps = homeLinkProps_prop !== null && homeLinkProps_prop !== void 0 ? homeLinkProps_prop : wrap === null || wrap === void 0 ? void 0 : wrap.homeLinkProps;
+        const exceptionMessage = " hasn't been provided to the Footer and we cannot retrieve it from the Header (it's probably client side)";
+        if (brandTop === undefined) {
+            throw new Error(symToStr({ brandTop }) + exceptionMessage);
+        }
+        if (homeLinkProps === undefined) {
+            throw new Error(symToStr({ homeLinkProps }) + exceptionMessage);
+        }
+        return { brandTop, homeLinkProps };
+    })();
     const { Link } = getLink();
     const { t } = useTranslation();
     const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos !== null && partnersLogos !== void 0 ? partnersLogos : {};
@@ -116,12 +129,10 @@ export const Footer = memo(forwardRef((props, ref) => {
                             })
                         ]),
                     ...bottomItems
-                ].map(({ iconId, text, buttonProps, linkProps }, i) => (React.createElement("li", { key: i, className: cx(fr.cx("fr-footer__bottom-item"), classes.bottomItem) }, (() => {
-                    const className = cx(fr.cx("fr-footer__bottom-link", ...(iconId !== undefined
-                        ? [iconId, "fr-link--icon-left"]
-                        : [])), classes.bottomLink);
-                    return linkProps !== undefined ? (Object.keys(linkProps).length === 0 ? (React.createElement("span", { className: className }, text)) : (React.createElement(Link, Object.assign({}, linkProps, { className: cx(className, linkProps.className) }), text))) : (React.createElement("button", Object.assign({}, buttonProps, { className: cx(className, buttonProps.className) }), text));
-                })())))),
+                ].map((bottomItem, i) => !typeGuard(bottomItem, bottomItem instanceof Object && "text" in bottomItem) ? (bottomItem) : (React.createElement(FooterBottomItem, { classes: {
+                        "root": classes.bottomItem,
+                        "bottomLink": classes.bottomLink
+                    }, bottomItem: bottomItem, key: `internally-rendered-${i}` })))),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy) },
                     React.createElement("p", null, license === undefined
                         ? t("license mention", {
@@ -176,4 +187,14 @@ addFooterTranslations({
     }
 });
 export { addFooterTranslations };
+export function FooterBottomItem(props) {
+    const { className, bottomItem, classes = {} } = props;
+    const { Link } = getLink();
+    return (React.createElement("li", { className: cx(fr.cx("fr-footer__bottom-item"), classes.root, className) }, (() => {
+        const className = cx(fr.cx("fr-footer__bottom-link", ...(bottomItem.iconId !== undefined
+            ? [bottomItem.iconId, "fr-link--icon-left"]
+            : [])), classes.bottomLink);
+        return bottomItem.linkProps !== undefined ? (Object.keys(bottomItem.linkProps).length === 0 ? (React.createElement("span", { className: className }, bottomItem.text)) : (React.createElement(Link, Object.assign({}, bottomItem.linkProps, { className: cx(className, bottomItem.linkProps.className) }), bottomItem.text))) : (React.createElement("button", Object.assign({}, bottomItem.buttonProps, { className: cx(className, bottomItem.buttonProps.className) }), bottomItem.text));
+    })()));
+}
 //# sourceMappingURL=Footer.js.map
