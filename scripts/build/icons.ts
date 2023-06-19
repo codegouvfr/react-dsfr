@@ -113,23 +113,22 @@ export async function collectIcons(params: {
         })
         .filter(exclude(undefined));
 
-    const remixiconIcons = await (async () => {
-        const iconDirPath = pathJoin(remixiconDirPath, "icons");
-
-        return Promise.all(
-            (await crawl({ "dirPath": iconDirPath }))
-                .filter(filePath => filePath.endsWith(".svg"))
-                .map(async svgFilePath =>
-                    id<Icon.Remixicon>({
-                        "prefix": "ri-",
-                        "iconId": pathBasename(svgFilePath).replace(/\.svg$/, ""),
-                        "rawSvgCode": (await readFile(pathJoin(iconDirPath, svgFilePath))).toString(
-                            "utf8"
-                        )
-                    })
-                )
-        );
-    })();
+    const remixiconIcons = await Promise.all(
+        (
+            await crawl({
+                "dirPath": pathJoin(remixiconDirPath, "icons"),
+                "returnedPathsType": "absolute"
+            })
+        )
+            .filter(filePath => filePath.endsWith(".svg"))
+            .map(async svgFilePath =>
+                id<Icon.Remixicon>({
+                    "prefix": "ri-",
+                    "iconId": pathBasename(svgFilePath).replace(/\.svg$/, ""),
+                    "rawSvgCode": (await readFile(svgFilePath)).toString("utf8")
+                })
+            )
+    );
 
     return [...dsfrIcons, ...remixiconIcons];
 }
