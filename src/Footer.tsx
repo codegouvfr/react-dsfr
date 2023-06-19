@@ -33,6 +33,16 @@ export type FooterProps = {
         alt: string;
     };
     license?: ReactNode;
+    /** If not provided the brandTop from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the brandTop to the Footer.
+     */
+    brandTop?: ReactNode;
+    /** If not provided the homeLinkProps from the Header will be used,
+     *  Be aware that if your Header is not used as a server component while the Footer is
+     *  you need to provide the homeLinkProps to the Footer.
+     */
+    homeLinkProps?: RegisteredLinkProps & { title: string };
     classes?: Partial<
         Record<
             | "root"
@@ -144,6 +154,8 @@ export const Footer = memo(
             partnersLogos,
             operatorLogo,
             license,
+            brandTop: brandTop_prop,
+            homeLinkProps: homeLinkProps_prop,
             style,
             linkList,
             ...rest
@@ -151,7 +163,25 @@ export const Footer = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { brandTop, homeLinkProps } = getBrandTopAndHomeLinkProps();
+        const { brandTop, homeLinkProps } = (() => {
+            const wrap = getBrandTopAndHomeLinkProps();
+
+            const brandTop = brandTop_prop ?? wrap?.brandTop;
+            const homeLinkProps = homeLinkProps_prop ?? wrap?.homeLinkProps;
+
+            const exceptionMessage =
+                " hasn't been provided to the Footer and we cannot retrieve it from the Header (it's probably client side)";
+
+            if (brandTop === undefined) {
+                throw new Error(symToStr({ brandTop }) + exceptionMessage);
+            }
+
+            if (homeLinkProps === undefined) {
+                throw new Error(symToStr({ homeLinkProps }) + exceptionMessage);
+            }
+
+            return { brandTop, homeLinkProps };
+        })();
 
         const { Link } = getLink();
 
@@ -407,23 +437,30 @@ export const Footer = memo(
                                           })
                                       ]),
                                 ...bottomItems
-                            ].map((bottomItem, i) =>
-                                !typeGuard<FooterProps.BottomItem>(
-                                    bottomItem,
-                                    bottomItem instanceof Object && "text" in bottomItem
-                                ) ? (
-                                    bottomItem
-                                ) : (
-                                    <FooterBottomItem
-                                        classes={{
-                                            "root": classes.bottomItem,
-                                            "bottomLink": classes.bottomLink
-                                        }}
-                                        bottomItem={bottomItem}
-                                        key={`internally-rendered-${i}`}
-                                    />
-                                )
-                            )}
+                            ].map((bottomItem, i) => (
+                                <li
+                                    className={cx(
+                                        fr.cx("fr-footer__bottom-item"),
+                                        classes.bottomItem,
+                                        className
+                                    )}
+                                    key={i}
+                                >
+                                    {!typeGuard<FooterProps.BottomItem>(
+                                        bottomItem,
+                                        bottomItem instanceof Object && "text" in bottomItem
+                                    ) ? (
+                                        bottomItem
+                                    ) : (
+                                        <FooterBottomItem
+                                            classes={{
+                                                "bottomLink": classes.bottomLink
+                                            }}
+                                            bottomItem={bottomItem}
+                                        />
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                         <div className={cx(fr.cx("fr-footer__bottom-copy"), classes.bottomCopy)}>
                             <p>
@@ -509,43 +546,39 @@ export type FooterBottomItemProps = {
 };
 
 export function FooterBottomItem(props: FooterBottomItemProps): JSX.Element {
-    const { className, bottomItem, classes = {} } = props;
+    const { className: className_props, bottomItem, classes = {} } = props;
 
     const { Link } = getLink();
 
-    return (
-        <li className={cx(fr.cx("fr-footer__bottom-item"), classes.root, className)}>
-            {(() => {
-                const className = cx(
-                    fr.cx(
-                        "fr-footer__bottom-link",
-                        ...(bottomItem.iconId !== undefined
-                            ? ([bottomItem.iconId, "fr-link--icon-left"] as const)
-                            : [])
-                    ),
-                    classes.bottomLink
-                );
+    const className = cx(
+        fr.cx(
+            "fr-footer__bottom-link",
+            ...(bottomItem.iconId !== undefined
+                ? ([bottomItem.iconId, "fr-link--icon-left"] as const)
+                : [])
+        ),
+        classes.bottomLink,
+        classes.root,
+        className_props
+    );
 
-                return bottomItem.linkProps !== undefined ? (
-                    Object.keys(bottomItem.linkProps).length === 0 ? (
-                        <span className={className}>{bottomItem.text}</span>
-                    ) : (
-                        <Link
-                            {...(bottomItem.linkProps as any)}
-                            className={cx(className, bottomItem.linkProps.className)}
-                        >
-                            {bottomItem.text}
-                        </Link>
-                    )
-                ) : (
-                    <button
-                        {...bottomItem.buttonProps}
-                        className={cx(className, bottomItem.buttonProps.className)}
-                    >
-                        {bottomItem.text}
-                    </button>
-                );
-            })()}
-        </li>
+    return bottomItem.linkProps !== undefined ? (
+        Object.keys(bottomItem.linkProps).length === 0 ? (
+            <span className={className}>{bottomItem.text}</span>
+        ) : (
+            <Link
+                {...bottomItem.linkProps}
+                className={cx(className, bottomItem.linkProps.className)}
+            >
+                {bottomItem.text}
+            </Link>
+        )
+    ) : (
+        <button
+            {...bottomItem.buttonProps}
+            className={cx(className, bottomItem.buttonProps.className)}
+        >
+            {bottomItem.text}
+        </button>
     );
 }

@@ -12,6 +12,8 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from "next/link";
 import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./gdpr";
+import { ClientFooterItem } from "../ui/ClientFooterItem";
+import { ClientHeaderQuickAccessItem } from "../ui/ClientHeaderQuickAccessItem";
 
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
@@ -74,7 +76,8 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 											href: `mailto:${"joseph.garrone@code.gouv.fr"}`,
 										},
 										text: "Nous contacter",
-									}
+									},
+									<ClientHeaderQuickAccessItem />
 								]}
 								navigation={<Navigation />}
 							/>
@@ -99,8 +102,9 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
                 `}
 								bottomItems={[
 									headerFooterDisplayItem,
-									<FooterPersonalDataPolicyItem key={0} />,
-									<FooterConsentManagementItem key={1} />
+									<FooterPersonalDataPolicyItem />,
+									<FooterConsentManagementItem />,
+									<ClientFooterItem />
 								]}
 							/>
 						</MuiDsfrThemeProvider>
