@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useMemo, type ReactNode } from "react";
+import React, { useReducer, useEffect, useMemo, useState, type ReactNode } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { getLink, type RegisteredLinkProps } from "../link";
@@ -8,6 +8,7 @@ import type { ProcessConsentChanges } from "./processConsentChanges";
 import { FooterBottomItem } from "../Footer";
 import { useLang } from "../i18n";
 import { useIsModalOpen } from "../Modal/useIsModalOpen";
+import { isBrowser } from "../tools/isBrowser";
 
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
@@ -16,19 +17,27 @@ export function createConsentBannerAndConsentManagement<
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    useFinalityConsent: ()=> FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>> | undefined;
+    useFinalityConsent: () =>
+        | FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>>
+        | undefined;
     processConsentChanges: ProcessConsentChanges<
         ExtractFinalityFromFinalityDescription<FinalityDescription>
     >;
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
-    const { finalityDescription, useFinalityConsent ,processConsentChanges, personalDataPolicyLinkProps } = params;
-
-    const { ConsentManagement, openConsentManagement, useIsConsentManagementOpen } = createConsentManagement({
+    const {
         finalityDescription,
-        personalDataPolicyLinkProps,
-        useFinalityConsent
-    });
+        useFinalityConsent,
+        processConsentChanges,
+        personalDataPolicyLinkProps
+    } = params;
+
+    const { ConsentManagement, openConsentManagement, useIsConsentManagementOpen } =
+        createConsentManagement({
+            finalityDescription,
+            personalDataPolicyLinkProps,
+            useFinalityConsent
+        });
 
     const { ConsentBanner } = createConsentBanner({
         personalDataPolicyLinkProps,
@@ -41,7 +50,6 @@ export function createConsentBannerAndConsentManagement<
     });
 
     function ConsentBannerAndConsentManagement() {
-
         const [isHydrated, setIsHydrated] = useReducer(() => true, true);
 
         useEffect(() => {
@@ -87,12 +95,20 @@ function createConsentBanner<Finality extends string>(params: {
     function ConsentBanner() {
         const { t } = useTranslation();
 
+        const [hostname, setHostname] = useState("");
+
+        useEffect(() => {
+            if (!isBrowser) {
+                return;
+            }
+
+            setHostname(location.host);
+        }, []);
+
         return (
             <>
                 <div className={fr.cx("fr-consent-banner")}>
-                    <h2 className={fr.cx("fr-h6")}>
-                        {t("about cookies", { "hostname": location.host })}
-                    </h2>
+                    <h2 className={fr.cx("fr-h6")}>{t("about cookies", { hostname })}</h2>
                     <div /*className={fr.cx("fr-consent-banner__content")}*/>
                         <p className={fr.cx("fr-text--sm")}>
                             {t("welcome message", { personalDataPolicyLinkProps })}
@@ -120,7 +136,7 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
-                                onClick={() => processConsentChanges({ "type": "denyAll" }) }
+                                onClick={() => processConsentChanges({ "type": "denyAll" })}
                             >
                                 {t("refuse all")}
                             </button>
@@ -151,7 +167,9 @@ function createConsentManagement<
 >(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    useFinalityConsent: ()=> FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>> | undefined;
+    useFinalityConsent: () =>
+        | FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>>
+        | undefined;
 }) {
     const {
         finalityDescription: finalityDescriptionOrGetFinalityDescription,
@@ -165,7 +183,6 @@ function createConsentManagement<
     });
 
     function ConsentManagement() {
-
         const lang = useLang();
 
         const { t } = useTranslation();
@@ -186,9 +203,7 @@ function createConsentManagement<
         console.log("do something with", { finalityConsent });
 
         return (
-            <modal.Component 
-                title={t("consent modal title")}
-            >
+            <modal.Component title={t("consent modal title")}>
                 <h1>TODO!</h1>
             </modal.Component>
         );
@@ -198,7 +213,7 @@ function createConsentManagement<
         modal.open();
     }
 
-    function useIsConsentManagementOpen(){
+    function useIsConsentManagementOpen() {
         return useIsModalOpen(modal);
     }
 
