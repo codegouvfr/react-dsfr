@@ -27,6 +27,9 @@ export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManageme
     }),
     "personalDataPolicyLinkProps": {
         "href": "/politique-de-confidentialite",
+    },
+    "callback": async ()=> {
+        console.log("callback from gdpr hook");
     }
 });
 

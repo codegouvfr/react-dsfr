@@ -18,7 +18,7 @@ export function ClientComponent() {
 
       console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
 
-      await new Promise(resolve => setTimeout(resolve, 5000));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       console.log("done waiting");
 

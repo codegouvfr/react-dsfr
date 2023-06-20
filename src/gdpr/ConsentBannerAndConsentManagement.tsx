@@ -97,6 +97,8 @@ function createConsentBanner<Finality extends string>(params: {
 
         const [hostname, setHostname] = useState("");
 
+        const [isApplying, notifyStartApplying] = useReducer(() => true, false);
+
         useEffect(() => {
             if (!isBrowser) {
                 return;
@@ -127,7 +129,11 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
-                                onClick={() => processConsentChanges({ "type": "grantAll" })}
+                                onClick={() => {
+                                    processConsentChanges({ "type": "grantAll" });
+                                    notifyStartApplying();
+                                }}
+                                disabled={isApplying}
                             >
                                 {t("accept all")}
                             </button>
@@ -136,7 +142,11 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
-                                onClick={() => processConsentChanges({ "type": "denyAll" })}
+                                onClick={() => {
+                                    processConsentChanges({ "type": "denyAll" });
+                                    notifyStartApplying();
+                                }}
+                                disabled={isApplying}
                             >
                                 {t("refuse all")}
                             </button>
@@ -146,6 +156,7 @@ function createConsentBanner<Finality extends string>(params: {
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
                                 onClick={() => openConsentManagement()}
                                 title={t("customize cookies - title")}
+                                disabled={isApplying}
                             >
                                 {t("customize")}
                             </button>
