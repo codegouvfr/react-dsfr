@@ -50,7 +50,7 @@ export function createConsentBannerAndConsentManagement<
     });
 
     function ConsentBannerAndConsentManagement() {
-        const [isHydrated, setIsHydrated] = useReducer(() => true, true);
+        const [isHydrated, setIsHydrated] = useReducer(() => true, false);
 
         useEffect(() => {
             processConsentChanges({ "type": "no changes but trigger callbacks" });
@@ -195,16 +195,24 @@ function createConsentManagement<
             [lang]
         );
 
-        console.log("do something with", { personalDataPolicyLinkProps });
-        console.log("do something with", { finalityDescription });
-
         const finalityConsent = useFinalityConsent();
 
-        console.log("do something with", { finalityConsent });
+        // eslint-disable-next-line no-constant-condition
+        if (1 + 0 === 1 + 1) {
+            return (
+                <pre>
+                    {JSON.stringify(
+                        { finalityDescription, finalityConsent, personalDataPolicyLinkProps },
+                        null,
+                        2
+                    )}
+                </pre>
+            );
+        }
 
         return (
             <modal.Component title={t("consent modal title")}>
-                <h1>TODO!</h1>
+                <h1>TODO</h1>
             </modal.Component>
         );
     }

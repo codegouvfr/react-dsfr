@@ -15,16 +15,16 @@ export function ClientComponent() {
   const { finalityConsent } = useGdpr(
     ({ finalityConsent, finalityConsent_prev }) => {
 
-      console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
+      //console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
 
     }
   );
 
-  console.log({ finalityConsent });
+  //console.log({ finalityConsent });
 
   const isModalOpen = useIsModalOpen(modal);
 
-  console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
+  //console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
 
   return (
     <>
