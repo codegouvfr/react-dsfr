@@ -13,14 +13,21 @@ export function ClientComponent() {
   const { isDark } = useIsDark();
 
   const { finalityConsent } = useGdpr(
-    ({ finalityConsent, finalityConsent_prev }) => {
+    async ({ finalityConsent, finalityConsent_prev }) => {
 
-      //console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
+
+      console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
+
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
+      console.log("done waiting");
+
+
 
     }
   );
 
-  //console.log({ finalityConsent });
+  console.log("=========>", { finalityConsent });
 
   const isModalOpen = useIsModalOpen(modal);
 

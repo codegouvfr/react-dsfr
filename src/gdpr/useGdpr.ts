@@ -3,9 +3,7 @@ import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import type { FinalityConsent } from "./types";
 import type { GdprConsentCallback, ProcessConsentChanges } from "./processConsentChanges";
 
-export type UseGdpr<Finality extends string> = (
-    callback?: GdprConsentCallback<Finality>
-) => {
+export type UseGdpr<Finality extends string> = (callback?: GdprConsentCallback<Finality>) => {
     finalityConsent: FinalityConsent<Finality> | undefined;
     assumeConsent: (finality: Finality) => void;
 };
@@ -18,7 +16,6 @@ export function createUseGdpr<Finality extends string>(params: {
     const { useFinalityConsent, processConsentChanges, useRegisterCallback } = params;
 
     const useGdprClientSide: UseGdpr<Finality> = callback => {
-
         useRegisterCallback({ callback });
 
         const finalityConsent = useFinalityConsent();
@@ -45,7 +42,7 @@ export function createUseGdpr<Finality extends string>(params: {
         return {
             "finalityConsent": undefined,
             "assumeConsent": () => {
-                throw new Error("Cannot assume consent on server side");
+                throw new Error("Cannot assume consent on the server side");
             }
         };
     };
