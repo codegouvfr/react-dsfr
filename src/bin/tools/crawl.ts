@@ -44,12 +44,12 @@ async function crawlRec(params: {
     return [filePaths, ...recursiveCallResults].flat();
 }
 
-/** List all files in a given directory return paths relative to the dirPath */
 export async function crawl(params: {
     dirPath: string;
     getDoCrawlInDir?: (prams: { relativeDirPath: string }) => boolean | Promise<boolean>;
+    returnedPathsType: "absolute" | "relative to dirPath";
 }) {
-    const { dirPath: rootDirPath, getDoCrawlInDir = () => true } = params;
+    const { dirPath: rootDirPath, getDoCrawlInDir = () => true, returnedPathsType } = params;
 
     const filePaths = await crawlRec({
         "dirPath": rootDirPath,
@@ -57,5 +57,10 @@ export async function crawl(params: {
             getDoCrawlInDir({ "relativeDirPath": pathRelative(rootDirPath, dirPath) })
     });
 
-    return filePaths.map(filePath => pathRelative(rootDirPath, filePath));
+    switch (returnedPathsType) {
+        case "absolute":
+            return filePaths;
+        case "relative to dirPath":
+            return filePaths.map(filePath => pathRelative(rootDirPath, filePath));
+    }
 }
