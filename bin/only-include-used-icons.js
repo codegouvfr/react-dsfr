@@ -173,14 +173,15 @@ function generateIconsRawCssCode(params) {
 exports.generateIconsRawCssCode = generateIconsRawCssCode;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var packageName, cwd, dsfrDistDirPath, _a, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, onConfirmedChange, indexHtmlFilePath, indexHtml, lines_1, importDsfrIndexLine_1;
+        var codegouvfrReactDsfr, cwd, isCwdReactDsfr, dsfrDistDirPath, _a, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, onConfirmedChange, indexHtmlFilePath, indexHtml, lines_1, importDsfrIndexLine_1;
         var _this = this;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
-                    packageName = JSON.parse(fs.readFileSync((0, path_1.join)((0, getProjectRoot_1.getProjectRoot)(), "package.json")).toString("utf8"))["name"];
+                    codegouvfrReactDsfr = JSON.parse(fs.readFileSync((0, path_1.join)((0, getProjectRoot_1.getProjectRoot)(), "package.json")).toString("utf8"))["name"];
                     cwd = process.cwd();
-                    if (!((0, getProjectRoot_1.getProjectRoot)() === cwd)) return [3 /*break*/, 1];
+                    isCwdReactDsfr = (0, path_1.join)((0, getProjectRoot_1.getProjectRoot)(), "..") === cwd;
+                    if (!isCwdReactDsfr) return [3 /*break*/, 1];
                     _a = (0, path_1.join)(cwd, "dist", "dsfr");
                     return [3 /*break*/, 3];
                 case 1: return [4 /*yield*/, (function callee(n) {
@@ -196,7 +197,7 @@ function main() {
                                             cwd
                                         ], __read(new Array(n).fill("..")), false), [
                                             "node_modules"
-                                        ], false), __read(packageName.split("/")), false), [
+                                        ], false), __read(codegouvfrReactDsfr.split("/")), false), [
                                             "dsfr"
                                         ], false)), false));
                                         _b.label = 1;
@@ -229,80 +230,159 @@ function main() {
                                 var _this = this;
                                 return __generator(this, function (_b) {
                                     switch (_b.label) {
-                                        case 0: return [4 /*yield*/, (0, crawl_1.crawl)({
-                                                "dirPath": cwd,
-                                                "getDoCrawlInDir": function (_a) {
-                                                    var relativeDirPath = _a.relativeDirPath;
-                                                    return __awaiter(_this, void 0, void 0, function () {
-                                                        var parsedPackageJson, _b, _c, packageName_1;
-                                                        var e_1, _d;
-                                                        return __generator(this, function (_e) {
-                                                            switch (_e.label) {
-                                                                case 0:
-                                                                    if (relativeDirPath === "node_modules") {
-                                                                        return [2 /*return*/, true];
-                                                                    }
-                                                                    if (relativeDirPath.startsWith("node_modules".concat(path_2.sep, "@")) &&
-                                                                        relativeDirPath.split(path_2.sep).length === 2) {
-                                                                        return [2 /*return*/, true];
-                                                                    }
-                                                                    if (!(relativeDirPath.startsWith("node_modules") &&
-                                                                        (relativeDirPath.split(path_2.sep).length === 2 ||
-                                                                            (relativeDirPath.startsWith("node_modules".concat(path_2.sep, "@")) &&
-                                                                                relativeDirPath.split(path_2.sep).length === 3)))) return [3 /*break*/, 2];
-                                                                    return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(relativeDirPath, "package.json")).then(function (buff) { return JSON.parse(buff.toString("utf8")); }, function () { return undefined; })];
-                                                                case 1:
-                                                                    parsedPackageJson = _e.sent();
-                                                                    if (parsedPackageJson === undefined) {
-                                                                        return [2 /*return*/, false];
-                                                                    }
-                                                                    if (parsedPackageJson["name"] === "tss-react") {
-                                                                        return [2 /*return*/, false];
-                                                                    }
-                                                                    try {
-                                                                        for (_b = __values([
-                                                                            "@gouvfr/dsfr",
-                                                                            "@codegouvfr/react-dsfr",
-                                                                            "@dataesr/react-dsfr"
-                                                                        ]), _c = _b.next(); !_c.done; _c = _b.next()) {
-                                                                            packageName_1 = _c.value;
-                                                                            if (Object.keys(__assign(__assign(__assign({}, parsedPackageJson["dependencies"]), parsedPackageJson["devDependencies"]), parsedPackageJson["peerDependencies"])).includes(packageName_1)) {
-                                                                                return [2 /*return*/, true];
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                                                                    finally {
-                                                                        try {
-                                                                            if (_c && !_c.done && (_d = _b.return)) _d.call(_b);
-                                                                        }
-                                                                        finally { if (e_1) throw e_1.error; }
-                                                                    }
-                                                                    return [2 /*return*/, false];
-                                                                case 2:
-                                                                    if (relativeDirPath === "public".concat(path_2.sep, "dsfr")) {
-                                                                        return [2 /*return*/, false];
-                                                                    }
+                                        case 0: return [4 /*yield*/, Promise.all(isCwdReactDsfr
+                                                ? [
+                                                    (0, crawl_1.crawl)({
+                                                        "dirPath": (0, path_1.join)(cwd, "stories"),
+                                                        "returnedPathsType": "absolute"
+                                                    }),
+                                                    (0, crawl_1.crawl)({
+                                                        "dirPath": (0, path_1.join)(cwd, "src"),
+                                                        "returnedPathsType": "absolute",
+                                                        "getDoCrawlInDir": function (_a) {
+                                                            var relativeDirPath = _a.relativeDirPath;
+                                                            return __awaiter(_this, void 0, void 0, function () {
+                                                                return __generator(this, function (_b) {
                                                                     if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
                                                                         return [2 /*return*/, false];
                                                                     }
-                                                                    if ((0, path_2.dirname)(relativeDirPath).endsWith(path_1.join.apply(void 0, __spreadArray([], __read(packageName.split("/")), false)))) {
-                                                                        return [2 /*return*/, (0, path_2.basename)(relativeDirPath) === "src"];
-                                                                    }
+                                                                    return [2 /*return*/, true];
+                                                                });
+                                                            });
+                                                        }
+                                                    })
+                                                ]
+                                                : [
+                                                    (0, crawl_1.crawl)({
+                                                        "dirPath": cwd,
+                                                        "returnedPathsType": "absolute",
+                                                        "getDoCrawlInDir": function (_a) {
+                                                            var relativeDirPath = _a.relativeDirPath;
+                                                            return __awaiter(_this, void 0, void 0, function () {
+                                                                return __generator(this, function (_b) {
                                                                     if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
+                                                                        return [2 /*return*/, false];
+                                                                    }
+                                                                    if (relativeDirPath === "public".concat(path_2.sep, "dsfr")) {
                                                                         return [2 /*return*/, false];
                                                                     }
                                                                     if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
                                                                         return [2 /*return*/, false];
                                                                     }
                                                                     return [2 /*return*/, true];
+                                                                });
+                                                            });
+                                                        }
+                                                    }),
+                                                    (function () { return __awaiter(_this, void 0, void 0, function () {
+                                                        var nodeModuleDirPath;
+                                                        var _this = this;
+                                                        return __generator(this, function (_a) {
+                                                            switch (_a.label) {
+                                                                case 0: return [4 /*yield*/, (function callee(n) {
+                                                                        return __awaiter(this, void 0, void 0, function () {
+                                                                            var nodeModuleDirPath, _a;
+                                                                            return __generator(this, function (_b) {
+                                                                                switch (_b.label) {
+                                                                                    case 0:
+                                                                                        if (n >= cwd.split(path_2.sep).length) {
+                                                                                            throw new Error("Need to install node modules?");
+                                                                                        }
+                                                                                        nodeModuleDirPath = path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray(__spreadArray([cwd], __read(new Array(n).fill("..")), false), ["node_modules"], false)), false));
+                                                                                        _b.label = 1;
+                                                                                    case 1:
+                                                                                        _b.trys.push([1, 3, , 4]);
+                                                                                        return [4 /*yield*/, (0, promises_1.access)(path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray([
+                                                                                                nodeModuleDirPath
+                                                                                            ], __read(codegouvfrReactDsfr.split("/")), false)), false)))];
+                                                                                    case 2:
+                                                                                        _b.sent();
+                                                                                        return [3 /*break*/, 4];
+                                                                                    case 3:
+                                                                                        _a = _b.sent();
+                                                                                        return [2 /*return*/, callee(n + 1)];
+                                                                                    case 4: return [2 /*return*/, nodeModuleDirPath];
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                    })(0)];
+                                                                case 1:
+                                                                    nodeModuleDirPath = _a.sent();
+                                                                    return [4 /*yield*/, (0, crawl_1.crawl)({
+                                                                            "dirPath": nodeModuleDirPath,
+                                                                            "returnedPathsType": "absolute",
+                                                                            "getDoCrawlInDir": function (_a) {
+                                                                                var relativeDirPath = _a.relativeDirPath;
+                                                                                return __awaiter(_this, void 0, void 0, function () {
+                                                                                    var parsedPackageJson, _b, _c, packageName;
+                                                                                    var e_1, _d;
+                                                                                    return __generator(this, function (_e) {
+                                                                                        switch (_e.label) {
+                                                                                            case 0:
+                                                                                                if (relativeDirPath.startsWith("@") &&
+                                                                                                    relativeDirPath.split(path_2.sep).length === 1) {
+                                                                                                    return [2 /*return*/, true];
+                                                                                                }
+                                                                                                if (!(relativeDirPath.split(path_2.sep).length === 1 ||
+                                                                                                    (relativeDirPath.startsWith("@") &&
+                                                                                                        relativeDirPath.split(path_2.sep).length === 2))) return [3 /*break*/, 2];
+                                                                                                return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(nodeModuleDirPath, relativeDirPath, "package.json")).then(function (buff) { return JSON.parse(buff.toString("utf8")); }, function () { return undefined; })];
+                                                                                            case 1:
+                                                                                                parsedPackageJson = _e.sent();
+                                                                                                if (parsedPackageJson === undefined) {
+                                                                                                    return [2 /*return*/, false];
+                                                                                                }
+                                                                                                if (parsedPackageJson["name"] === "tss-react") {
+                                                                                                    return [2 /*return*/, false];
+                                                                                                }
+                                                                                                try {
+                                                                                                    for (_b = __values([
+                                                                                                        codegouvfrReactDsfr,
+                                                                                                        "@gouvfr/dsfr",
+                                                                                                        "@dataesr/react-dsfr"
+                                                                                                    ]), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                                                                                        packageName = _c.value;
+                                                                                                        if (Object.keys(__assign(__assign(__assign({}, parsedPackageJson["dependencies"]), parsedPackageJson["devDependencies"]), parsedPackageJson["peerDependencies"])).includes(packageName)) {
+                                                                                                            return [2 /*return*/, true];
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                                                                                                finally {
+                                                                                                    try {
+                                                                                                        if (_c && !_c.done && (_d = _b.return)) _d.call(_b);
+                                                                                                    }
+                                                                                                    finally { if (e_1) throw e_1.error; }
+                                                                                                }
+                                                                                                return [2 /*return*/, false];
+                                                                                            case 2:
+                                                                                                if ((0, path_2.dirname)(relativeDirPath).endsWith(path_1.join.apply(void 0, __spreadArray([], __read(codegouvfrReactDsfr.split("/")), false)))) {
+                                                                                                    return [2 /*return*/, (0, path_2.basename)(relativeDirPath) === "src"];
+                                                                                                }
+                                                                                                if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
+                                                                                                    return [2 /*return*/, false];
+                                                                                                }
+                                                                                                if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
+                                                                                                    return [2 /*return*/, false];
+                                                                                                }
+                                                                                                if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
+                                                                                                    return [2 /*return*/, false];
+                                                                                                }
+                                                                                                return [2 /*return*/, true];
+                                                                                        }
+                                                                                    });
+                                                                                });
+                                                                            }
+                                                                        })];
+                                                                case 2: return [2 /*return*/, _a.sent()];
                                                             }
                                                         });
-                                                    });
-                                                }
-                                            })];
+                                                    }); })()
+                                                ])];
                                         case 1:
-                                            candidateFilePaths = (_b.sent()).filter(function (filePath) {
+                                            candidateFilePaths = (_b.sent())
+                                                .flat()
+                                                .filter(function (filePath) {
                                                 return ["tsx", "jsx", "js", "ts", "html", "htm"].find(function (ext) {
                                                     return filePath.endsWith(".".concat(ext));
                                                 }) !== undefined;

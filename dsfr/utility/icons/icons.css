@@ -142,60 +142,6 @@
     mask-image: url("../../icons/system/fr--theme-fill.svg");
 }
 
-.fr-icon-ancient-gate-fill::before,
-.fr-icon-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/buildings/ancient-gate-fill.svg");
-    mask-image: url("../../icons/buildings/ancient-gate-fill.svg");
-}
-
-.ri-airplay-fill::before,
-.ri-airplay-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/airplay-fill.svg");
-    mask-image: url("../../icons/remixicon/airplay-fill.svg");
-}
-
-.ri-airplay-line::before,
-.ri-airplay-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/airplay-line.svg");
-    mask-image: url("../../icons/remixicon/airplay-line.svg");
-}
-
-.fr-icon-archive-fill::before,
-.fr-icon-archive-fill::after {
-    -webkit-mask-image: url("../../icons/business/archive-fill.svg");
-    mask-image: url("../../icons/business/archive-fill.svg");
-}
-
-.ri-base-station-fill::before,
-.ri-base-station-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/base-station-fill.svg");
-    mask-image: url("../../icons/remixicon/base-station-fill.svg");
-}
-
-.ri-24-hours-fill::before,
-.ri-24-hours-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/24-hours-fill.svg");
-    mask-image: url("../../icons/remixicon/24-hours-fill.svg");
-}
-
-.ri-mail-line::before,
-.ri-mail-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/mail-line.svg");
-    mask-image: url("../../icons/remixicon/mail-line.svg");
-}
-
-.fr-icon-arrow-down-line::before,
-.fr-icon-arrow-down-line::after {
-    -webkit-mask-image: url("../../icons/system/arrow-down-line.svg");
-    mask-image: url("../../icons/system/arrow-down-line.svg");
-}
-
-.ri-layout-4-line::before,
-.ri-layout-4-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/layout-4-line.svg");
-    mask-image: url("../../icons/remixicon/layout-4-line.svg");
-}
-
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .fr-icon-checkbox-circle-line::before,
     .fr-icon-checkbox-circle-line::after {
@@ -315,51 +261,6 @@
     .fr-icon-theme-fill::before,
     .fr-icon-theme-fill::after {
         background-image: url("../../icons/system/fr--theme-fill.svg");
-    }
-    
-    .fr-icon-ancient-gate-fill::before,
-    .fr-icon-ancient-gate-fill::after {
-        background-image: url("../../icons/buildings/ancient-gate-fill.svg");
-    }
-    
-    .ri-airplay-fill::before,
-    .ri-airplay-fill::after {
-        background-image: url("../../icons/remixicon/airplay-fill.svg");
-    }
-    
-    .ri-airplay-line::before,
-    .ri-airplay-line::after {
-        background-image: url("../../icons/remixicon/airplay-line.svg");
-    }
-    
-    .fr-icon-archive-fill::before,
-    .fr-icon-archive-fill::after {
-        background-image: url("../../icons/business/archive-fill.svg");
-    }
-    
-    .ri-base-station-fill::before,
-    .ri-base-station-fill::after {
-        background-image: url("../../icons/remixicon/base-station-fill.svg");
-    }
-    
-    .ri-24-hours-fill::before,
-    .ri-24-hours-fill::after {
-        background-image: url("../../icons/remixicon/24-hours-fill.svg");
-    }
-    
-    .ri-mail-line::before,
-    .ri-mail-line::after {
-        background-image: url("../../icons/remixicon/mail-line.svg");
-    }
-    
-    .fr-icon-arrow-down-line::before,
-    .fr-icon-arrow-down-line::after {
-        background-image: url("../../icons/system/arrow-down-line.svg");
-    }
-    
-    .ri-layout-4-line::before,
-    .ri-layout-4-line::after {
-        background-image: url("../../icons/remixicon/layout-4-line.svg");
     }
     
 }

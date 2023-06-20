@@ -27,7 +27,7 @@ exports.getProjectRoot = void 0;
 var fs = __importStar(require("fs"));
 var path = __importStar(require("path"));
 function getProjectRootRec(dirPath) {
-    if (fs.existsSync(path.join(dirPath, "LICENSE"))) {
+    if (fs.existsSync(path.join(dirPath, "package.json"))) {
         return dirPath;
     }
     return getProjectRootRec(path.join(dirPath, ".."));

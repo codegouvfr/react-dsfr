@@ -118,14 +118,13 @@ function crawlRec(params) {
         });
     });
 }
-/** List all files in a given directory return paths relative to the dirPath */
 function crawl(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var rootDirPath, _a, getDoCrawlInDir, filePaths;
+        var rootDirPath, _a, getDoCrawlInDir, returnedPathsType, filePaths;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    rootDirPath = params.dirPath, _a = params.getDoCrawlInDir, getDoCrawlInDir = _a === void 0 ? function () { return true; } : _a;
+                    rootDirPath = params.dirPath, _a = params.getDoCrawlInDir, getDoCrawlInDir = _a === void 0 ? function () { return true; } : _a, returnedPathsType = params.returnedPathsType;
                     return [4 /*yield*/, crawlRec({
                             "dirPath": rootDirPath,
                             "getDoCrawlInDir": function (_a) {
@@ -135,7 +134,13 @@ function crawl(params) {
                         })];
                 case 1:
                     filePaths = _b.sent();
-                    return [2 /*return*/, filePaths.map(function (filePath) { return (0, path_1.relative)(rootDirPath, filePath); })];
+                    switch (returnedPathsType) {
+                        case "absolute":
+                            return [2 /*return*/, filePaths];
+                        case "relative to dirPath":
+                            return [2 /*return*/, filePaths.map(function (filePath) { return (0, path_1.relative)(rootDirPath, filePath); })];
+                    }
+                    return [2 /*return*/];
             }
         });
     });

@@ -91,38 +91,39 @@ export function generateIconsRawCssCode(params: {
 }
 
 async function main() {
-    const packageName = JSON.parse(
+    const codegouvfrReactDsfr: string = JSON.parse(
         fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
     )["name"];
 
     const cwd = process.cwd();
 
-    const dsfrDistDirPath =
-        getProjectRoot() === cwd
-            ? pathJoin(cwd, "dist", "dsfr")
-            : await (async function callee(n: number): Promise<string> {
-                  if (n >= cwd.split(pathSep).length) {
-                      throw new Error("Need to install node modules?");
-                  }
+    const isCwdReactDsfr = pathJoin(getProjectRoot(), "..") === cwd;
 
-                  const dirPath = pathJoin(
-                      ...[
-                          cwd,
-                          ...new Array(n).fill(".."),
-                          "node_modules",
-                          ...packageName.split("/"),
-                          "dsfr"
-                      ]
-                  );
+    const dsfrDistDirPath = isCwdReactDsfr
+        ? pathJoin(cwd, "dist", "dsfr")
+        : await (async function callee(n: number): Promise<string> {
+              if (n >= cwd.split(pathSep).length) {
+                  throw new Error("Need to install node modules?");
+              }
 
-                  try {
-                      await access(dirPath);
-                  } catch {
-                      return callee(n + 1);
-                  }
+              const dirPath = pathJoin(
+                  ...[
+                      cwd,
+                      ...new Array(n).fill(".."),
+                      "node_modules",
+                      ...codegouvfrReactDsfr.split("/"),
+                      "dsfr"
+                  ]
+              );
 
-                  return dirPath;
-              })(0);
+              try {
+                  await access(dirPath);
+              } catch {
+                  return callee(n + 1);
+              }
+
+              return dirPath;
+          })(0);
 
     const icons: Icon[] = JSON.parse(
         (await readFile(pathJoin(dsfrDistDirPath, pathOfIconsJson))).toString("utf8")
@@ -130,91 +131,161 @@ async function main() {
 
     const { usedIconClassNames } = await (async function getUsedIconClassNames() {
         const candidateFilePaths = (
-            await crawl({
-                "dirPath": cwd,
-                "getDoCrawlInDir": async ({ relativeDirPath }) => {
-                    if (relativeDirPath === "node_modules") {
-                        return true;
-                    }
+            await Promise.all(
+                isCwdReactDsfr
+                    ? [
+                          crawl({
+                              "dirPath": pathJoin(cwd, "stories"),
+                              "returnedPathsType": "absolute"
+                          }),
+                          crawl({
+                              "dirPath": pathJoin(cwd, "src"),
+                              "returnedPathsType": "absolute",
+                              "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                                  if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                                      return false;
+                                  }
 
-                    if (
-                        relativeDirPath.startsWith(`node_modules${pathSep}@`) &&
-                        relativeDirPath.split(pathSep).length === 2
-                    ) {
-                        return true;
-                    }
+                                  return true;
+                              }
+                          })
+                      ]
+                    : [
+                          crawl({
+                              "dirPath": cwd,
+                              "returnedPathsType": "absolute",
+                              "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                                  if (pathBasename(relativeDirPath) === "node_modules") {
+                                      return false;
+                                  }
 
-                    if (
-                        relativeDirPath.startsWith("node_modules") &&
-                        (relativeDirPath.split(pathSep).length === 2 ||
-                            (relativeDirPath.startsWith(`node_modules${pathSep}@`) &&
-                                relativeDirPath.split(pathSep).length === 3))
-                    ) {
-                        const parsedPackageJson = await readFile(
-                            pathJoin(relativeDirPath, "package.json")
-                        ).then(
-                            buff => JSON.parse(buff.toString("utf8")),
-                            () => undefined
-                        );
+                                  if (relativeDirPath === `public${pathSep}dsfr`) {
+                                      return false;
+                                  }
 
-                        if (parsedPackageJson === undefined) {
-                            return false;
-                        }
+                                  if (pathBasename(relativeDirPath).startsWith(".")) {
+                                      return false;
+                                  }
 
-                        if (parsedPackageJson["name"] === "tss-react") {
-                            return false;
-                        }
+                                  return true;
+                              }
+                          }),
+                          (async () => {
+                              const nodeModuleDirPath = await (async function callee(
+                                  n: number
+                              ): Promise<string> {
+                                  if (n >= cwd.split(pathSep).length) {
+                                      throw new Error("Need to install node modules?");
+                                  }
 
-                        for (const packageName of [
-                            "@gouvfr/dsfr",
-                            "@codegouvfr/react-dsfr",
-                            "@dataesr/react-dsfr"
-                        ]) {
-                            if (
-                                Object.keys({
-                                    ...parsedPackageJson["dependencies"],
-                                    ...parsedPackageJson["devDependencies"],
-                                    ...parsedPackageJson["peerDependencies"]
-                                }).includes(packageName)
-                            ) {
-                                return true;
-                            }
-                        }
+                                  const nodeModuleDirPath = pathJoin(
+                                      ...[cwd, ...new Array(n).fill(".."), "node_modules"]
+                                  );
 
-                        return false;
-                    }
+                                  try {
+                                      await access(
+                                          pathJoin(
+                                              ...[
+                                                  nodeModuleDirPath,
+                                                  ...codegouvfrReactDsfr.split("/")
+                                              ]
+                                          )
+                                      );
+                                  } catch {
+                                      return callee(n + 1);
+                                  }
 
-                    if (relativeDirPath === `public${pathSep}dsfr`) {
-                        return false;
-                    }
+                                  return nodeModuleDirPath;
+                              })(0);
 
-                    if (pathBasename(relativeDirPath) === "generatedFromCss") {
-                        return false;
-                    }
+                              return await crawl({
+                                  "dirPath": nodeModuleDirPath,
+                                  "returnedPathsType": "absolute",
+                                  "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                                      if (
+                                          relativeDirPath.startsWith("@") &&
+                                          relativeDirPath.split(pathSep).length === 1
+                                      ) {
+                                          return true;
+                                      }
 
-                    if (
-                        pathDirname(relativeDirPath).endsWith(pathJoin(...packageName.split("/")))
-                    ) {
-                        return pathBasename(relativeDirPath) === "src";
-                    }
+                                      if (
+                                          relativeDirPath.split(pathSep).length === 1 ||
+                                          (relativeDirPath.startsWith("@") &&
+                                              relativeDirPath.split(pathSep).length === 2)
+                                      ) {
+                                          const parsedPackageJson = await readFile(
+                                              pathJoin(
+                                                  nodeModuleDirPath,
+                                                  relativeDirPath,
+                                                  "package.json"
+                                              )
+                                          ).then(
+                                              buff => JSON.parse(buff.toString("utf8")),
+                                              () => undefined
+                                          );
 
-                    if (pathBasename(relativeDirPath) === "node_modules") {
-                        return false;
-                    }
+                                          if (parsedPackageJson === undefined) {
+                                              return false;
+                                          }
 
-                    if (pathBasename(relativeDirPath).startsWith(".")) {
-                        return false;
-                    }
+                                          if (parsedPackageJson["name"] === "tss-react") {
+                                              return false;
+                                          }
 
-                    return true;
-                }
-            })
-        ).filter(
-            filePath =>
-                ["tsx", "jsx", "js", "ts", "html", "htm"].find(ext =>
-                    filePath.endsWith(`.${ext}`)
-                ) !== undefined
-        );
+                                          for (const packageName of [
+                                              codegouvfrReactDsfr,
+                                              "@gouvfr/dsfr",
+                                              "@dataesr/react-dsfr"
+                                          ]) {
+                                              if (
+                                                  Object.keys({
+                                                      ...parsedPackageJson["dependencies"],
+                                                      ...parsedPackageJson["devDependencies"],
+                                                      ...parsedPackageJson["peerDependencies"]
+                                                  }).includes(packageName)
+                                              ) {
+                                                  return true;
+                                              }
+                                          }
+
+                                          return false;
+                                      }
+
+                                      if (
+                                          pathDirname(relativeDirPath).endsWith(
+                                              pathJoin(...codegouvfrReactDsfr.split("/"))
+                                          )
+                                      ) {
+                                          return pathBasename(relativeDirPath) === "src";
+                                      }
+
+                                      if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                                          return false;
+                                      }
+
+                                      if (pathBasename(relativeDirPath) === "node_modules") {
+                                          return false;
+                                      }
+
+                                      if (pathBasename(relativeDirPath).startsWith(".")) {
+                                          return false;
+                                      }
+
+                                      return true;
+                                  }
+                              });
+                          })()
+                      ]
+            )
+        )
+            .flat()
+            .filter(
+                filePath =>
+                    ["tsx", "jsx", "js", "ts", "html", "htm"].find(ext =>
+                        filePath.endsWith(`.${ext}`)
+                    ) !== undefined
+            );
 
         const prefixes = { "prefixDsfr": "fr-icon-", "prefixRemixIcon": "ri-" } as const;
 
