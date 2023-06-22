@@ -225,8 +225,94 @@ function createConsentManagement<
         }
 
         return (
-            <modal.Component title={t("consent modal title")}>
-                <h1>TODO</h1>
+            <modal.Component title={t("consent modal title")} size="large">
+                <div className={fr.cx("fr-consent-manager" as any)}>
+                    <div className={fr.cx("fr-consent-service", "fr-consent-manager__header")}>
+                        <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
+                            <legend
+                                id="finality-legend"
+                                className={fr.cx("fr-consent-service__title")}
+                            >
+                                Préférences pour tous les services. <br />
+                                <a href="">Données personnelles et cookies</a>
+                            </legend>
+                            <div className={fr.cx("fr-consent-service__radios")}>
+                                <div className="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                    <button
+                                        id="consent-service__tout-accepter"
+                                        title="Tout accepter"
+                                        className="fr-btn"
+                                        data-fr-js-button-actionee="true"
+                                    >
+                                        Tout accepter
+                                    </button>{" "}
+                                    <button
+                                        id="consent-service__tout-refuser"
+                                        title="Tout refuser"
+                                        className="fr-btn fr-btn--secondary"
+                                        data-fr-js-button-actionee="true"
+                                    >
+                                        Tout refuser
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div className="fr-consent-service">
+                        <fieldset className="fr-fieldset fr-fieldset--inline">
+                            <legend
+                                aria-describedby="finality-0-desc"
+                                className="fr-consent-service__title"
+                            >
+                                Cookies obligatoires
+                            </legend>
+                            <div className="fr-consent-service__radios">
+                                <div className="fr-radio-group">
+                                    <input
+                                        checked={true}
+                                        disabled={true}
+                                        type="radio"
+                                        id="consent-finality-0-accept"
+                                        name="consent-finality-0"
+                                        data-fr-js-radio-actionee="true"
+                                    />
+                                    <label htmlFor="consent-finality-0-accept" className="fr-label">
+                                        Accepter
+                                    </label>
+                                </div>
+                                <div className="fr-radio-group">
+                                    <input
+                                        disabled={true}
+                                        type="radio"
+                                        id="consent-finality-0-refuse"
+                                        name="consent-finality-0"
+                                        data-fr-js-radio-actionee="true"
+                                    />{" "}
+                                    <label htmlFor="consent-finality-0-refuse" className="fr-label">
+                                        Refuser
+                                    </label>
+                                </div>
+                            </div>
+                            <p id="finality-0-desc" className="fr-consent-service__desc">
+                                Ce site utilise des cookies nécessaires à son bon fonctionnement qui
+                                ne peuvent pas être désactivés.
+                            </p>
+                        </fieldset>
+                    </div>
+
+                    <ul
+                        className={fr.cx(
+                            "fr-consent-manager__buttons",
+                            "fr-btns-group",
+                            "fr-btns-group--right",
+                            "fr-btns-group--inline-sm"
+                        )}
+                    >
+                        <li>
+                            <button className={fr.cx("fr-btn")}>Confirmer mes choix</button>
+                        </li>
+                    </ul>
+                </div>
             </modal.Component>
         );
     }
