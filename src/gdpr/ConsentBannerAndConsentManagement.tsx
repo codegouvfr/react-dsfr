@@ -32,7 +32,7 @@ export function createConsentBannerAndConsentManagement<
         personalDataPolicyLinkProps
     } = params;
 
-    const { ConsentManagement, openConsentManagement, useIsConsentManagementOpen } =
+    const { ConsentManagement, consentModalButtonProps, useIsConsentManagementOpen } =
         createConsentManagement({
             finalityDescription,
             personalDataPolicyLinkProps,
@@ -42,11 +42,11 @@ export function createConsentBannerAndConsentManagement<
     const { ConsentBanner } = createConsentBanner({
         personalDataPolicyLinkProps,
         processConsentChanges,
-        openConsentManagement
+        consentModalButtonProps
     });
 
     const { FooterConsentManagementItem } = createFooterConsentManagementItem({
-        openConsentManagement
+        consentModalButtonProps
     });
 
     function ConsentBannerAndConsentManagement() {
@@ -88,9 +88,12 @@ export function createConsentBannerAndConsentManagement<
 function createConsentBanner<Finality extends string>(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
     processConsentChanges: ProcessConsentChanges<Finality>;
-    openConsentManagement: () => void;
+    consentModalButtonProps: {
+        "aria-controls": string;
+        "data-fr-opened": boolean;
+    };
 }) {
-    const { personalDataPolicyLinkProps, processConsentChanges, openConsentManagement } = params;
+    const { personalDataPolicyLinkProps, processConsentChanges, consentModalButtonProps } = params;
 
     function ConsentBanner() {
         const { t } = useTranslation();
@@ -154,9 +157,9 @@ function createConsentBanner<Finality extends string>(params: {
                         <li>
                             <button
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
-                                onClick={() => openConsentManagement()}
                                 title={t("customize cookies - title")}
                                 disabled={isApplying}
+                                {...consentModalButtonProps}
                             >
                                 {t("customize")}
                             </button>
@@ -228,19 +231,22 @@ function createConsentManagement<
         );
     }
 
-    function openConsentManagement() {
-        modal.open();
-    }
+    const consentModalButtonProps = modal.buttonProps;
 
     function useIsConsentManagementOpen() {
         return useIsModalOpen(modal);
     }
 
-    return { ConsentManagement, openConsentManagement, useIsConsentManagementOpen };
+    return { ConsentManagement, consentModalButtonProps, useIsConsentManagementOpen };
 }
 
-function createFooterConsentManagementItem(params: { openConsentManagement: () => void }) {
-    const { openConsentManagement } = params;
+function createFooterConsentManagementItem(params: {
+    consentModalButtonProps: {
+        "aria-controls": string;
+        "data-fr-opened": boolean;
+    };
+}) {
+    const { consentModalButtonProps } = params;
 
     function FooterConsentManagementItem() {
         const { t } = useTranslation();
@@ -248,9 +254,7 @@ function createFooterConsentManagementItem(params: { openConsentManagement: () =
         return (
             <FooterBottomItem
                 bottomItem={{
-                    "buttonProps": {
-                        "onClick": openConsentManagement
-                    },
+                    "buttonProps": consentModalButtonProps,
                     "text": t("cookies management")
                 }}
             />
