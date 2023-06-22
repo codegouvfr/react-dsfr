@@ -4,6 +4,8 @@ description: Setup @codegouvfr/react-dsfr in your project
 
 # 🔧 Initial setup
 
+📣📣📣 Atelier BlueHat demain, vendredi 23 Juin a 11h: [Lien visio](https://code.gouv.fr/fr/bluehats/react-dsfr-2/) 📣📣📣
+
 {% embed url="https://youtu.be/5q88JgXUAY4" %}
 
 {% hint style="warning" %}
@@ -43,18 +45,16 @@ enable-pre-post-scripts=true
 
 {% tab title="Yarn Berry (a.k.a Yarn 3 or Yarn modern)" %}
 {% hint style="warning" %}
-When we say Yarn we usually refer to Yarn 1.x as most dev teams (Including me) havent upgraded to the newest version (for good reasons). &#x20;
+When we say Yarn we usually refer to Yarn 1.x as most dev teams (Including me) havent upgraded to the newest version (for good reasons).
 {% endhint %}
 
-If you want to use Yarn Berry you be aware that pre- post- scripts aren't supported. &#x20;
+If you want to use Yarn Berry you be aware that pre- post- scripts aren't supported.
 
-So you must do something like `"dev": "copy-dsfr-to-public && next dev"` (same thing for `start`) &#x20;
+So you must do something like `"dev": "copy-dsfr-to-public && next dev"` (same thing for `start`)
 
 Also you must configure it so it uses `node_modules` (sorry)
 {% endtab %}
 {% endtabs %}
-
-
 
 {% tabs %}
 {% tab title="Vite" %}
@@ -113,7 +113,7 @@ You're all set! Next step for you is to setup de integration with your routing l
 
 {% tab title="Next.js App Router" %}
 {% hint style="info" %}
-This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).&#x20;
+This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).
 
 You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
@@ -122,7 +122,7 @@ You are in this case if you have a `app/` directory at the root of your project.
 Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
 {% endembed %}
 
-I understand that the setup process for Next AppRouter can be quite complex, but please rest assured that I have made every effort to simplify it as much as possible.&#x20;
+I understand that the setup process for Next AppRouter can be quite complex, but please rest assured that I have made every effort to simplify it as much as possible.
 
 The complexity arises largely due to limitations within the current Next.js App Router. For instance, it [does not support higher-order functions](https://github.com/vercel/next.js/issues/44307), lacks [a reliable sequence for applying global stylesheets](https://github.com/vercel/next.js/issues/16630), and [doesn't clearly delineate a way to run code solely on the client-side](https://github.com/vercel/next.js/issues/44367), among [other deficiencies](https://github.com/vercel/next.js/issues/created\_by/garronej).
 
@@ -143,13 +143,13 @@ const nextConfig = {
     appDir: true,
   },
 <strong>  webpack: config => {
-</strong><strong>
-</strong><strong>    config.module.rules.push({
+</strong>
+<strong>    config.module.rules.push({
 </strong><strong>      test: /\.woff2$/,
 </strong><strong>      type: "asset/resource"
 </strong><strong>    });
-</strong><strong>
-</strong><strong>    return config;
+</strong>
+<strong>    return config;
 </strong><strong>  }
 </strong>};
 
@@ -233,7 +233,7 @@ You may experience white flashes in dev mode but not in production. 👍
 
 {% tab title="Next.js Page Router" %}
 {% hint style="info" %}
-This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup). &#x20;
+This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup).
 
 You are in this case if you have a `pages/` directory at the root of your project.
 {% endhint %}
@@ -326,7 +326,7 @@ augmentDocumentForDsfr(Document);
 
 {% tab title="Create React App" %}
 {% hint style="warning" %}
-The create-react-app project is no longer being maintained. If you are starting a new project you'll probably be beter off with Vite.&#x20;
+The create-react-app project is no longer being maintained. If you are starting a new project you'll probably be beter off with Vite.
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-cra-demo" %}
