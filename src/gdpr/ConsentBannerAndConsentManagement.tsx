@@ -36,7 +36,8 @@ export function createConsentBannerAndConsentManagement<
         createConsentManagement({
             finalityDescription,
             personalDataPolicyLinkProps,
-            useFinalityConsent
+            useFinalityConsent,
+            processConsentChanges
         });
 
     const { ConsentBanner } = createConsentBanner({
@@ -184,11 +185,15 @@ function createConsentManagement<
     useFinalityConsent: () =>
         | FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>>
         | undefined;
+    processConsentChanges: ProcessConsentChanges<
+        ExtractFinalityFromFinalityDescription<FinalityDescription>
+    >;
 }) {
     const {
         finalityDescription: finalityDescriptionOrGetFinalityDescription,
         personalDataPolicyLinkProps,
-        useFinalityConsent
+        useFinalityConsent,
+        processConsentChanges
     } = params;
 
     const modal = createModal({
@@ -213,51 +218,51 @@ function createConsentManagement<
 
         // eslint-disable-next-line no-constant-condition
         if (1 + 0 === 1 + 1) {
-            return (
-                <pre>
-                    {JSON.stringify(
-                        { finalityDescription, finalityConsent, personalDataPolicyLinkProps },
-                        null,
-                        2
-                    )}
-                </pre>
-            );
+            return <pre>{JSON.stringify({ finalityDescription, finalityConsent }, null, 2)}</pre>;
         }
 
         return (
             <modal.Component title={t("consent modal title")} size="large">
-                <div className={fr.cx("fr-consent-manager" as any)}>
+                <div>
                     <div className={fr.cx("fr-consent-service", "fr-consent-manager__header")}>
                         <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
-                            <legend
-                                id="finality-legend"
-                                className={fr.cx("fr-consent-service__title")}
-                            >
-                                Préférences pour tous les services. <br />
-                                <a href="">Données personnelles et cookies</a>
+                            <legend className={fr.cx("fr-consent-service__title")}>
+                                {t("preferences for all services", { personalDataPolicyLinkProps })}
                             </legend>
                             <div className={fr.cx("fr-consent-service__radios")}>
-                                <div className="fr-btns-group fr-btns-group--inline fr-btns-group--right">
+                                <div
+                                    className={fr.cx(
+                                        "fr-btns-group",
+                                        "fr-btns-group--inline",
+                                        "fr-btns-group--right"
+                                    )}
+                                >
                                     <button
-                                        id="consent-service__tout-accepter"
-                                        title="Tout accepter"
-                                        className="fr-btn"
-                                        data-fr-js-button-actionee="true"
+                                        title={t("accept all - title")}
+                                        className={fr.cx("fr-btn")}
+                                        onClick={async () => {
+                                            await processConsentChanges({ "type": "grantAll" });
+                                            //TODO: implement loading feedback
+                                            modal.close();
+                                        }}
                                     >
-                                        Tout accepter
+                                        {t("accept all")}
                                     </button>{" "}
                                     <button
-                                        id="consent-service__tout-refuser"
-                                        title="Tout refuser"
-                                        className="fr-btn fr-btn--secondary"
-                                        data-fr-js-button-actionee="true"
+                                        title={t("refuse all - title")}
+                                        className={fr.cx("fr-btn", "fr-btn--secondary")}
+                                        onClick={async () => {
+                                            await processConsentChanges({ "type": "denyAll" });
+                                            modal.close();
+                                        }}
                                     >
-                                        Tout refuser
+                                        {t("refuse all")}
                                     </button>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
+
                     <div className="fr-consent-service">
                         <fieldset className="fr-fieldset fr-fieldset--inline">
                             <legend
@@ -420,7 +425,23 @@ const { useTranslation, addGdprTranslations } = createComponentI18nApi({
         "customize cookies - title": "Personnaliser les cookies",
         "consent modal title": "Panneau de gestion des cookies",
         "cookies management": "Gestion des cookies",
-        "personal data": "Données personnelles"
+        "personal data": "Données personnelles",
+        "preferences for all services": (p: {
+            personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+        }) => {
+            const { Link } = getLink();
+            return (
+                <>
+                    Préférences pour tous les services.
+                    <br />
+                    {p.personalDataPolicyLinkProps !== undefined && (
+                        <Link {...p.personalDataPolicyLinkProps}>
+                            Données personnelles et cookies
+                        </Link>
+                    )}
+                </>
+            );
+        }
         /** cspell: enable */
     }
 });
@@ -461,7 +482,20 @@ addGdprTranslations({
         "customize": "Customize",
         "customize cookies - title": "Customize cookies",
         "consent modal title": "Cookie management panel",
-        "cookies management": "Cookies management"
+        "cookies management": "Cookies management",
+        "preferences for all services": (p: {
+            personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
+        }) => {
+            const { Link } = getLink();
+            return (
+                <>
+                    Preferences for all services <br />
+                    {p.personalDataPolicyLinkProps !== undefined && (
+                        <Link {...p.personalDataPolicyLinkProps}>Personal data and cookies</Link>
+                    )}
+                </>
+            );
+        }
     }
 });
 
