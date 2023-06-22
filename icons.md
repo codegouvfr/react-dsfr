@@ -2,7 +2,7 @@
 
 {% embed url="https://youtu.be/FdabjOlaCUQ" %}
 
-Icons just work, you can copy paste any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) and expect things to work.
+Icons just work, you can copy paste any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone) and expect things to work.
 
 ```jsx
 import { fr } from "@codegrouvfr/react-dsfr";
