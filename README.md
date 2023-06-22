@@ -26,12 +26,12 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
+📣📣📣 Atelier BlueHat demain, vendredi 23 Juin a 11h: [Lien visio](https://code.gouv.fr/fr/bluehats/react-dsfr-2/)  📣📣📣
+
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
 > WARNING: This Design System is only meant to be used for official French's public service websites.  
 > Its main purpose is to make it easy to identify governmental websites for citizens. [See terms](https://www.systeme-de-design.gouv.fr/cgu/).
-
-> 🗣️ Replay de l'atelier de présentation de la librairie [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 
 This module is an advanced toolkit that leverage [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
