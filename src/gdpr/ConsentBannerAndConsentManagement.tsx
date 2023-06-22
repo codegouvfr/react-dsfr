@@ -101,7 +101,9 @@ function createConsentBanner<Finality extends string>(params: {
 
         const [hostname, setHostname] = useState("");
 
-        const [isApplying, notifyStartApplying] = useReducer(() => true, false);
+        const [isProcessingChanges, setIsProcessingChanges] = useState(false);
+
+        console.log("consent banner render", { isProcessingChanges });
 
         useEffect(() => {
             if (!isBrowser) {
@@ -109,6 +111,10 @@ function createConsentBanner<Finality extends string>(params: {
             }
 
             setHostname(location.host);
+
+            return () => {
+                console.log("consent banner cleanup");
+            };
         }, []);
 
         return (
@@ -133,11 +139,12 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
-                                onClick={() => {
-                                    processConsentChanges({ "type": "grantAll" });
-                                    notifyStartApplying();
+                                onClick={async () => {
+                                    setIsProcessingChanges(true);
+                                    await processConsentChanges({ "type": "grantAll" });
+                                    setIsProcessingChanges(false);
                                 }}
-                                disabled={isApplying}
+                                disabled={isProcessingChanges}
                             >
                                 {t("accept all")}
                             </button>
@@ -147,10 +154,11 @@ function createConsentBanner<Finality extends string>(params: {
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
                                 onClick={() => {
+                                    setIsProcessingChanges(true);
                                     processConsentChanges({ "type": "denyAll" });
-                                    notifyStartApplying();
+                                    setIsProcessingChanges(false);
                                 }}
-                                disabled={isApplying}
+                                disabled={isProcessingChanges}
                             >
                                 {t("refuse all")}
                             </button>
@@ -159,7 +167,7 @@ function createConsentBanner<Finality extends string>(params: {
                             <button
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
                                 title={t("customize cookies - title")}
-                                disabled={isApplying}
+                                disabled={isProcessingChanges}
                                 {...consentModalButtonProps}
                             >
                                 {t("customize")}
@@ -216,10 +224,19 @@ function createConsentManagement<
 
         const finalityConsent = useFinalityConsent();
 
+        const [isProcessingChanges, setIsProcessingChanges] = useState(false);
+
         // eslint-disable-next-line no-constant-condition
         if (1 + 0 === 1 + 1) {
             return <pre>{JSON.stringify({ finalityDescription, finalityConsent }, null, 2)}</pre>;
         }
+
+        const createOnAcceptOrRefuseAll = (type: "grantAll" | "denyAll") => async () => {
+            setIsProcessingChanges(true);
+            await processConsentChanges({ type });
+            setIsProcessingChanges(false);
+            modal.close();
+        };
 
         return (
             <modal.Component title={t("consent modal title")} size="large">
@@ -240,21 +257,16 @@ function createConsentManagement<
                                     <button
                                         title={t("accept all - title")}
                                         className={fr.cx("fr-btn")}
-                                        onClick={async () => {
-                                            await processConsentChanges({ "type": "grantAll" });
-                                            //TODO: implement loading feedback
-                                            modal.close();
-                                        }}
+                                        onClick={createOnAcceptOrRefuseAll("grantAll")}
+                                        disabled={isProcessingChanges}
                                     >
                                         {t("accept all")}
                                     </button>{" "}
                                     <button
                                         title={t("refuse all - title")}
                                         className={fr.cx("fr-btn", "fr-btn--secondary")}
-                                        onClick={async () => {
-                                            await processConsentChanges({ "type": "denyAll" });
-                                            modal.close();
-                                        }}
+                                        disabled={isProcessingChanges}
+                                        onClick={createOnAcceptOrRefuseAll("denyAll")}
                                     >
                                         {t("refuse all")}
                                     </button>
@@ -314,7 +326,9 @@ function createConsentManagement<
                         )}
                     >
                         <li>
-                            <button className={fr.cx("fr-btn")}>Confirmer mes choix</button>
+                            <button className={fr.cx("fr-btn")} disabled={isProcessingChanges}>
+                                Confirmer mes choix
+                            </button>
                         </li>
                     </ul>
                 </div>
