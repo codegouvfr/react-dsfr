@@ -26,7 +26,7 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
-📣📣📣 Atelier BlueHat demain, vendredi 23 Juin a 11h: [Lien visio](https://code.gouv.fr/fr/bluehats/react-dsfr-2/)  📣📣📣
+📣📣📣 Atelier BlueHat demain, vendredi 23 Juin a 11h: [Lien visio](https://code.gouv.fr/fr/bluehats/react-dsfr-2/) 📣📣📣
 
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
