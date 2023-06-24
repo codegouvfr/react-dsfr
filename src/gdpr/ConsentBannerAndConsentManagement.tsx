@@ -113,18 +113,12 @@ function createConsentBanner<Finality extends string>(params: {
 
         const [isProcessingChanges, setIsProcessingChanges] = useState(false);
 
-        console.log("consent banner render", { isProcessingChanges });
-
         useEffect(() => {
             if (!isBrowser) {
                 return;
             }
 
             setHostname(location.host);
-
-            return () => {
-                console.log("consent banner cleanup");
-            };
         }, []);
 
         return (
@@ -250,17 +244,13 @@ function createConsentManagement<
                 setLocalFinalityConsent(realFinalityConsent);
             }, [realFinalityConsent]);
 
-            const { processConsentChanges } = useMemo(
-                () =>
-                    createProcessConsentChanges({
-                        "callback": undefined,
-                        finalities,
-                        "getFinalityConsent": () => localFinalityConsent,
-                        "setFinalityConsent": ({ finalityConsent }) =>
-                            setLocalFinalityConsent(finalityConsent)
-                    }),
-                []
-            );
+            const { processConsentChanges } = createProcessConsentChanges({
+                "callback": undefined,
+                finalities,
+                "getFinalityConsent": () => localFinalityConsent,
+                "setFinalityConsent": ({ finalityConsent }) =>
+                    setLocalFinalityConsent(finalityConsent)
+            });
 
             const processLocalConsentChange: (
                 params:
@@ -439,8 +429,6 @@ function createConsentManagement<
         onChange: (params: { subFinality: string | undefined; isConsentGiven: boolean }) => void;
     }) {
         const { title, description, subFinalities, finalityConsent, onChange } = props;
-
-        console.log(finalityConsent);
 
         const { legendId, descriptionId, acceptInputId, refuseInputId, subFinalityDivId } =
             (function useClosure() {
