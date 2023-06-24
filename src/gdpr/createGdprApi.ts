@@ -40,13 +40,6 @@ export function createGdprApi<
         return JSON.parse(serializedFinalityConsent);
     });
 
-    $finalityConsent.subscribe(finalityConsent => {
-        if (finalityConsent === undefined) {
-            return;
-        }
-        localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent));
-    });
-
     const finalities = getFinalitiesFromFinalityDescription({
         "finalityDescription":
             typeof finalityDescription === "function"
@@ -58,7 +51,11 @@ export function createGdprApi<
         callback,
         finalities,
         "getFinalityConsent": () => $finalityConsent.current,
-        "setFinalityConsent": ({ finalityConsent }) => ($finalityConsent.current = finalityConsent)
+        "setFinalityConsent": ({ finalityConsent, prAllCallbacksRun }) => {
+            localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent));
+
+            prAllCallbacksRun.then(() => ($finalityConsent.current = finalityConsent));
+        }
     });
 
     function useFinalityConsent() {

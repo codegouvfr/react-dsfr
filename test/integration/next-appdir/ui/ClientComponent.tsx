@@ -5,29 +5,11 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
-import { useGdpr } from "../app/gdpr";
 import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
 
 export function ClientComponent() {
 
   const { isDark } = useIsDark();
-
-  const { finalityConsent } = useGdpr(
-    async ({ finalityConsent, finalityConsent_prev }) => {
-
-
-      console.log("Callback from hook", { finalityConsent, finalityConsent_prev });
-
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      console.log("done waiting");
-
-
-
-    }
-  );
-
-  console.log("=========>", { finalityConsent });
 
   const isModalOpen = useIsModalOpen(modal);
 

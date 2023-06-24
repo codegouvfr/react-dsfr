@@ -57,7 +57,10 @@ export function finalityConsentToChanges<Finality extends string>(params: {
 export function createProcessConsentChanges<Finality extends string>(params: {
     finalities: Finality[];
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
-    setFinalityConsent: (params: { finalityConsent: FinalityConsent<Finality> }) => void;
+    setFinalityConsent: (params: {
+        finalityConsent: FinalityConsent<Finality>;
+        prAllCallbacksRun: Promise<void>;
+    }) => void;
     callback: GdprConsentCallback<Finality> | undefined;
 }) {
     const { finalities, getFinalityConsent, setFinalityConsent, callback } = params;
@@ -149,16 +152,17 @@ export function createProcessConsentChanges<Finality extends string>(params: {
             });
         }
 
-        await Promise.all(
-            callbacks.map(callback =>
-                callback({
-                    finalityConsent,
-                    finalityConsent_prev
-                })
-            )
-        );
-
-        setFinalityConsent({ finalityConsent });
+        setFinalityConsent({
+            finalityConsent,
+            "prAllCallbacksRun": Promise.all(
+                callbacks.map(callback =>
+                    callback({
+                        finalityConsent,
+                        finalityConsent_prev
+                    })
+                )
+            ).then(() => undefined)
+        });
     };
 
     return { processConsentChanges, useRegisterCallback };

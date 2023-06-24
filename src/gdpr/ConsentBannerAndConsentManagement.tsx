@@ -269,7 +269,7 @@ function createConsentManagement<
 
         const [isProcessingChanges, setIsProcessingChanges] = useState(false);
 
-        const createOnAcceptOrRefuseAll =
+        const createButtonCallback =
             (type: "grantAll" | "denyAll" | "apply local changes") => async () => {
                 setIsProcessingChanges(true);
 
@@ -310,7 +310,7 @@ function createConsentManagement<
                                     <button
                                         title={t("accept all - title")}
                                         className={fr.cx("fr-btn")}
-                                        onClick={createOnAcceptOrRefuseAll("grantAll")}
+                                        onClick={createButtonCallback("grantAll")}
                                         disabled={isProcessingChanges}
                                     >
                                         {t("accept all")}
@@ -319,7 +319,7 @@ function createConsentManagement<
                                         title={t("refuse all - title")}
                                         className={fr.cx("fr-btn", "fr-btn--secondary")}
                                         disabled={isProcessingChanges}
-                                        onClick={createOnAcceptOrRefuseAll("denyAll")}
+                                        onClick={createButtonCallback("denyAll")}
                                     >
                                         {t("refuse all")}
                                     </button>
@@ -407,7 +407,11 @@ function createConsentManagement<
                         )}
                     >
                         <li>
-                            <button className={fr.cx("fr-btn")} disabled={isProcessingChanges}>
+                            <button
+                                className={fr.cx("fr-btn")}
+                                disabled={isProcessingChanges}
+                                onClick={createButtonCallback("apply local changes")}
+                            >
                                 Confirmer mes choix
                             </button>
                         </li>

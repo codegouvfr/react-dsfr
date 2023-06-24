@@ -2,7 +2,12 @@
 
 import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr";
 
-export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManagementItem, FooterPersonalDataPolicyItem } = createGdprApi({
+export const { 
+    ConsentBannerAndConsentManagement, 
+    useGdpr, 
+    FooterConsentManagementItem, 
+    FooterPersonalDataPolicyItem 
+} = createGdprApi({
     "finalityDescription": ({ lang }) => ({
         "advertising": {
             "title": "Publicité",
