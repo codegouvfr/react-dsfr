@@ -2,7 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
     createFullDenyFinalityConsent,
     updateFinalityConsent,
-    readFinalityConsent
+    readFinalityConsent,
+    finalityConsentToChanges
 } from "../../../src/gdpr/processConsentChanges";
 import { getFinalitiesFromFinalityDescription } from "../../../src/gdpr/createGdprApi";
 import type { FinalityConsent } from "../../../src/gdpr/types";
@@ -358,7 +359,7 @@ describe("Testing gdpr utils", () => {
                     "title": "Statistiques",
                     "description":
                         "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-                    "titleBySubFinality": {
+                    "subFinalities": {
                         "deviceInfo": "Informations sur votre appareil",
                         "traffic": "Informations sur votre navigation"
                     }
@@ -375,5 +376,58 @@ describe("Testing gdpr utils", () => {
         ];
 
         expect([...got].sort()).toStrictEqual([...expected].sort());
+    });
+
+    it("finalityConsentToChanges", () => {
+        const got = finalityConsentToChanges<
+            | "analytics"
+            | "statistics.traffic"
+            | "statistics.deviceType"
+            | "statistics.browser"
+            | "personalization"
+            | "advertising"
+        >({
+            "finalityConsent": {
+                "analytics": false,
+                "statistics": {
+                    "traffic": true,
+                    "deviceType": true,
+                    "browser": false,
+                    "isFullConsent": false
+                },
+                "personalization": true,
+                "advertising": false,
+                "isFullConsent": false
+            }
+        });
+
+        const expected = [
+            {
+                "finality": "analytics",
+                "isConsentGiven": false
+            },
+            {
+                "finality": "statistics.traffic",
+                "isConsentGiven": true
+            },
+            {
+                "finality": "statistics.deviceType",
+                "isConsentGiven": true
+            },
+            {
+                "finality": "statistics.browser",
+                "isConsentGiven": false
+            },
+            {
+                "finality": "personalization",
+                "isConsentGiven": true
+            },
+            {
+                "finality": "advertising",
+                "isConsentGiven": false
+            }
+        ];
+
+        expect(got).toStrictEqual(expected);
     });
 });

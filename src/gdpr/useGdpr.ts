@@ -22,13 +22,9 @@ export function createUseGdpr<Finality extends string>(params: {
 
         const assumeConsent = useConstCallback((finality: Finality) =>
             processConsentChanges({
-                "type": "custom",
-                "changes": [
-                    {
-                        finality,
-                        "isConsentGiven": true
-                    }
-                ]
+                "type": "atomic change",
+                finality,
+                "isConsentGiven": true
             })
         );
 

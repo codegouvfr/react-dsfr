@@ -47,14 +47,16 @@ export function createGdprApi<
         localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent));
     });
 
+    const finalities = getFinalitiesFromFinalityDescription({
+        "finalityDescription":
+            typeof finalityDescription === "function"
+                ? finalityDescription({ "lang": "fr" })
+                : finalityDescription
+    });
+
     const { processConsentChanges, useRegisterCallback } = createProcessConsentChanges<Finality>({
         callback,
-        "finalities": getFinalitiesFromFinalityDescription({
-            "finalityDescription":
-                typeof finalityDescription === "function"
-                    ? finalityDescription({ "lang": "fr" })
-                    : finalityDescription
-        }),
+        finalities,
         "getFinalityConsent": () => $finalityConsent.current,
         "setFinalityConsent": ({ finalityConsent }) => ($finalityConsent.current = finalityConsent)
     });
@@ -89,7 +91,8 @@ export function createGdprApi<
         finalityDescription,
         personalDataPolicyLinkProps,
         processConsentChanges,
-        useFinalityConsent
+        useFinalityConsent,
+        finalities
     });
 
     return {
@@ -118,14 +121,14 @@ export function getFinalitiesFromFinalityDescription<
     for (const mainFinality in finalityDescription) {
         const description = finalityDescription[mainFinality];
 
-        const { titleBySubFinality } = description as any;
+        const { subFinalities } = description as any;
 
-        if (titleBySubFinality === undefined) {
+        if (subFinalities === undefined) {
             finalities.push(mainFinality as Finality);
             continue;
         }
 
-        for (const subFinality in titleBySubFinality) {
+        for (const subFinality in subFinalities) {
             finalities.push(`${mainFinality}.${subFinality}` as Finality);
         }
     }

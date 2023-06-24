@@ -16,13 +16,43 @@ export type ProcessConsentChanges<Finality extends string> = (
               type: "grantAll" | "denyAll" | "no changes but trigger callbacks";
           }
         | {
-              type: "custom";
-              changes: {
-                  finality: Finality;
-                  isConsentGiven: boolean;
-              }[];
+              type: "atomic change";
+              finality: Finality;
+              isConsentGiven: boolean;
+          }
+        | {
+              type: "new finalityConsent explicitly provided";
+              finalityConsent: FinalityConsent<Finality>;
           }
 ) => Promise<void>;
+
+/** Pure, exported for testing */
+export function finalityConsentToChanges<Finality extends string>(params: {
+    finalityConsent: FinalityConsent<Finality>;
+}): {
+    finality: Finality;
+    isConsentGiven: boolean;
+}[] {
+    return Object.entries(params.finalityConsent)
+        .filter(([subFinality]) => subFinality !== "isFullConsent")
+        .map(([finalityOrMainFinality, isConsentGivenOrObj]) =>
+            typeof isConsentGivenOrObj === "boolean"
+                ? [
+                      {
+                          "finality": finalityOrMainFinality as Finality,
+                          "isConsentGiven": isConsentGivenOrObj
+                      }
+                  ]
+                : Object.entries(isConsentGivenOrObj)
+                      .filter(([subFinality]) => subFinality !== "isFullConsent")
+                      .map(([subFinality, isConsentGiven]) => ({
+                          "finality": `${finalityOrMainFinality}.${subFinality}` as Finality,
+                          "isConsentGiven":
+                              (assert(typeof isConsentGiven === "boolean"), isConsentGiven)
+                      }))
+        )
+        .reduce((acc, curr) => [...acc, ...curr], []);
+}
 
 export function createProcessConsentChanges<Finality extends string>(params: {
     finalities: Finality[];
@@ -58,26 +88,6 @@ export function createProcessConsentChanges<Finality extends string>(params: {
     }
 
     const processConsentChanges: ProcessConsentChanges<Finality> = async params => {
-        if (params.type === "grantAll") {
-            return processConsentChanges({
-                "type": "custom",
-                "changes": finalities.map(finality => ({
-                    finality,
-                    "isConsentGiven": true
-                }))
-            });
-        }
-
-        if (params.type === "denyAll") {
-            return processConsentChanges({
-                "type": "custom",
-                "changes": finalities.map(finality => ({
-                    finality,
-                    "isConsentGiven": false
-                }))
-            });
-        }
-
         if (params.type === "no changes but trigger callbacks") {
             const finalityConsent = getFinalityConsent();
 
@@ -97,9 +107,32 @@ export function createProcessConsentChanges<Finality extends string>(params: {
             return;
         }
 
-        assert(params.type === "custom");
-
-        const { changes } = params;
+        const changes: {
+            finality: Finality;
+            isConsentGiven: boolean;
+        }[] = (() => {
+            switch (params.type) {
+                case "grantAll":
+                    return finalities.map(finality => ({
+                        finality,
+                        "isConsentGiven": true
+                    }));
+                case "denyAll":
+                    return finalities.map(finality => ({
+                        finality,
+                        "isConsentGiven": false
+                    }));
+                case "atomic change":
+                    return [
+                        {
+                            "finality": params.finality,
+                            "isConsentGiven": params.isConsentGiven
+                        }
+                    ];
+                case "new finalityConsent explicitly provided":
+                    return finalityConsentToChanges({ "finalityConsent": params.finalityConsent });
+            }
+        })();
 
         const finalityConsent_prev = getFinalityConsent();
 

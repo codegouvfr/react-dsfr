@@ -19,7 +19,7 @@ export const { ConsentBannerAndConsentManagement, useGdpr, FooterConsentManageme
         "statistics": {
             "title": "Statistiques",
             "description": "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
-            "titleBySubFinality": {
+            "subFinalities": {
                 "deviceInfo": "Informations sur votre appareil",
                 "traffic": "Informations sur votre navigation",
             }
