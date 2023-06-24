@@ -689,8 +689,8 @@ const { useTranslation, addGdprTranslations } = createComponentI18nApi({
                             .
                         </>
                     )}
-                    Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous souhaitez
-                    activer.
+                    &nbsp; Vous pouvez, à tout moment, avoir le contrôle sur les cookies que vous
+                    souhaitez activer.
                 </>
             );
         },
@@ -747,8 +747,8 @@ addGdprTranslations({
                             page.
                         </>
                     )}
-                    You can, at any time, have control over which cookies you wish to enable at any
-                    time.
+                    &nbsp; You can, at any time, have control over which cookies you wish to enable
+                    at any time.
                 </>
             );
         },
