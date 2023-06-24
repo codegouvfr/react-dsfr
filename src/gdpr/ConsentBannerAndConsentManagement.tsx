@@ -15,6 +15,7 @@ import {
     createProcessConsentChanges,
     createFullDenyFinalityConsent
 } from "./processConsentChanges";
+import { exclude } from "tsafe/exclude";
 
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
@@ -439,6 +440,8 @@ function createConsentManagement<
     }) {
         const { title, description, subFinalities, finalityConsent, onChange } = props;
 
+        console.log(finalityConsent);
+
         const { legendId, descriptionId, acceptInputId, refuseInputId, subFinalityDivId } =
             (function useClosure() {
                 const id = useId();
@@ -456,18 +459,22 @@ function createConsentManagement<
                 return { legendId, descriptionId, acceptInputId, refuseInputId, subFinalityDivId };
             })();
 
-        const macroState: "full consent" | "full refusal" | "partial consent" =
-            typeof finalityConsent === "boolean"
-                ? finalityConsent
+        const macroState = useMemo(
+            (): "full consent" | "full refusal" | "partial consent" =>
+                typeof finalityConsent === "boolean"
+                    ? finalityConsent
+                        ? "full consent"
+                        : "full refusal"
+                    : finalityConsent.isFullConsent
                     ? "full consent"
-                    : "full refusal"
-                : finalityConsent.isFullConsent
-                ? "full consent"
-                : "partial consent";
-
-        if (Date.now() < 0) {
-            console.log(subFinalities, finalityConsent, onChange);
-        }
+                    : Object.keys(finalityConsent)
+                          .filter(exclude("isFullConsent"))
+                          .map(subFinality => finalityConsent[subFinality])
+                          .includes(true)
+                    ? "partial consent"
+                    : "full refusal",
+            [finalityConsent]
+        );
 
         return (
             <div className={fr.cx("fr-consent-service")}>
@@ -512,144 +519,87 @@ function createConsentManagement<
                             {description}
                         </p>
                     )}
-                    <div className={fr.cx("fr-consent-service__collapse")}>
-                        <button
-                            className={fr.cx("fr-consent-service__collapse-btn")}
-                            aria-expanded="false"
-                            aria-describedby={legendId}
-                            aria-controls={subFinalityDivId}
-                        >
-                            Voir plus de détails
-                        </button>
-                    </div>
-                    <div
-                        className={fr.cx("fr-consent-services", "fr-collapse")}
-                        id={subFinalityDivId}
-                    >
-                        <div className={fr.cx("fr-consent-service")}>
-                            <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
-                                <legend
-                                    id="finality-1-service-1-legend"
-                                    className="fr-consent-service__title"
-                                >
-                                    Sous finalité 1
-                                </legend>
-                                <div className="fr-consent-service__radios fr-fieldset--inline">
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-1-accept"
-                                            name="consent-finality-1-service-1"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-1-accept"
-                                        >
-                                            Accepter
-                                        </label>
-                                    </div>
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-1-refuse"
-                                            name="consent-finality-1-service-1"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-1-refuse"
-                                        >
-                                            Refuser
-                                        </label>
-                                    </div>
+                    {subFinalities !== undefined &&
+                        (assert(typeof finalityConsent !== "boolean"),
+                        (
+                            <>
+                                <div className={fr.cx("fr-consent-service__collapse")}>
+                                    <button
+                                        className={fr.cx("fr-consent-service__collapse-btn")}
+                                        aria-expanded="false"
+                                        aria-describedby={legendId}
+                                        aria-controls={subFinalityDivId}
+                                    >
+                                        Voir plus de détails
+                                    </button>
                                 </div>
-                            </fieldset>
+                                <div
+                                    className={fr.cx("fr-consent-services", "fr-collapse")}
+                                    id={subFinalityDivId}
+                                >
+                                    {Object.entries(subFinalities).map(([subFinality, title]) => (
+                                        <SubConsentService
+                                            key={subFinality}
+                                            title={title}
+                                            isConsentGiven={finalityConsent[subFinality]}
+                                            onChange={({ isConsentGiven }) =>
+                                                onChange({
+                                                    subFinality,
+                                                    isConsentGiven
+                                                })
+                                            }
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        ))}
+                </fieldset>
+            </div>
+        );
+    }
+
+    function SubConsentService(props: {
+        title: ReactNode;
+        onChange: (params: { isConsentGiven: boolean }) => void;
+        isConsentGiven: boolean;
+    }) {
+        const { title, onChange, isConsentGiven } = props;
+
+        const { acceptInputId, refuseInputId } = (function useClosure() {
+            const id = useId();
+
+            const acceptInputId = `consent-finality-${id}-service-accept`;
+            const refuseInputId = `consent-finality-${id}-service-refuse`;
+
+            return { acceptInputId, refuseInputId };
+        })();
+
+        return (
+            <div className={fr.cx("fr-consent-service")}>
+                <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
+                    <legend className={fr.cx("fr-consent-service__title")}>{title}</legend>
+                    <div className="fr-consent-service__radios fr-fieldset--inline">
+                        <div className="fr-radio-group">
+                            <input
+                                type="radio"
+                                id={acceptInputId}
+                                checked={isConsentGiven}
+                                onChange={() => onChange({ "isConsentGiven": true })}
+                            />
+                            <label className={fr.cx("fr-label")} htmlFor={acceptInputId}>
+                                Accepter
+                            </label>
                         </div>
-                        <div className="fr-consent-service">
-                            <fieldset
-                                aria-labelledby="finality-1-service-2-legend finality-1-service-2-desc"
-                                role="group"
-                                className="fr-fieldset fr-fieldset--inline"
-                            >
-                                <legend
-                                    id="finality-1-service-2-legend"
-                                    className="fr-consent-service__title"
-                                    aria-describedby="finality-1-service-2-desc"
-                                >
-                                    Sous finalité 2
-                                </legend>
-                                <div className="fr-consent-service__radios fr-fieldset--inline">
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-2-accept"
-                                            name="consent-finality-1-service-2"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-2-accept"
-                                        >
-                                            Accepter
-                                        </label>
-                                    </div>
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-2-refuse"
-                                            name="consent-finality-1-service-2"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-2-refuse"
-                                        >
-                                            Refuser
-                                        </label>
-                                    </div>
-                                </div>
-                                <p
-                                    id="finality-1-service-2-desc"
-                                    className="fr-consent-service__desc"
-                                >
-                                    Ce service utilise 3 cookies.
-                                </p>
-                            </fieldset>
-                        </div>
-                        <div className="fr-consent-service">
-                            <fieldset className="fr-fieldset fr-fieldset--inline">
-                                <legend
-                                    id="finality-1-service-3-legend"
-                                    className="fr-consent-service__title"
-                                >
-                                    Sous finalité 3
-                                </legend>
-                                <div className="fr-consent-service__radios fr-fieldset--inline">
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-3-accept"
-                                            name="consent-finality-1-service-3"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-3-accept"
-                                        >
-                                            Accepter
-                                        </label>
-                                    </div>
-                                    <div className="fr-radio-group">
-                                        <input
-                                            type="radio"
-                                            id="consent-finality-1-service-3-refuse"
-                                            name="consent-finality-1-service-3"
-                                        />
-                                        <label
-                                            className="fr-label"
-                                            htmlFor="consent-finality-1-service-3-refuse"
-                                        >
-                                            Refuser
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
+                        <div className={fr.cx("fr-radio-group")}>
+                            <input
+                                type="radio"
+                                id={refuseInputId}
+                                checked={!isConsentGiven}
+                                onChange={() => onChange({ "isConsentGiven": false })}
+                            />
+                            <label className={fr.cx("fr-label")} htmlFor={refuseInputId}>
+                                Refuser
+                            </label>
                         </div>
                     </div>
                 </fieldset>
