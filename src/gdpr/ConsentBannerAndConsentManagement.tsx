@@ -327,49 +327,13 @@ function createConsentManagement<
                             </div>
                         </fieldset>
                     </div>
-
-                    <div className="fr-consent-service">
-                        <fieldset className="fr-fieldset fr-fieldset--inline">
-                            <legend
-                                aria-describedby="finality-0-desc"
-                                className="fr-consent-service__title"
-                            >
-                                Cookies obligatoires
-                            </legend>
-                            <div className="fr-consent-service__radios">
-                                <div className="fr-radio-group">
-                                    <input
-                                        checked={true}
-                                        disabled={true}
-                                        type="radio"
-                                        id="consent-finality-0-accept"
-                                        name="consent-finality-0"
-                                        data-fr-js-radio-actionee="true"
-                                    />
-                                    <label htmlFor="consent-finality-0-accept" className="fr-label">
-                                        Accepter
-                                    </label>
-                                </div>
-                                <div className="fr-radio-group">
-                                    <input
-                                        disabled={true}
-                                        type="radio"
-                                        id="consent-finality-0-refuse"
-                                        name="consent-finality-0"
-                                        data-fr-js-radio-actionee="true"
-                                    />{" "}
-                                    <label htmlFor="consent-finality-0-refuse" className="fr-label">
-                                        Refuser
-                                    </label>
-                                </div>
-                            </div>
-                            <p id="finality-0-desc" className="fr-consent-service__desc">
-                                Ce site utilise des cookies nécessaires à son bon fonctionnement qui
-                                ne peuvent pas être désactivés.
-                            </p>
-                        </fieldset>
-                    </div>
-
+                    <ConsentService
+                        title={t("mandatory cookies")}
+                        description={t("mandatory cookies - description")}
+                        finalityConsent={true}
+                        onChange={undefined}
+                        subFinalities={undefined}
+                    />
                     {objectKeys(finalityDescription)
                         .map(finality => ({
                             "finality": (assert(typeof finality === "string"), finality),
@@ -412,7 +376,7 @@ function createConsentManagement<
                                 disabled={isProcessingChanges}
                                 onClick={createOnClick("apply local changes")}
                             >
-                                Confirmer mes choix
+                                {t("confirm choices")}
                             </button>
                         </li>
                     </ul>
@@ -430,9 +394,14 @@ function createConsentManagement<
             | ({
                   isFullConsent: boolean;
               } & Record<string, boolean>);
-        onChange: (params: { subFinality: string | undefined; isConsentGiven: boolean }) => void;
+        /** Undefined when not modifiable */
+        onChange:
+            | ((params: { subFinality: string | undefined; isConsentGiven: boolean }) => void)
+            | undefined;
     }) {
         const { title, description, subFinalities, finalityConsent, onChange } = props;
+
+        const { t } = useTranslation();
 
         const { legendId, descriptionId, acceptInputId, refuseInputId, subFinalityDivId } =
             (function useClosure() {
@@ -484,12 +453,23 @@ function createConsentManagement<
                                 type="radio"
                                 id={acceptInputId}
                                 checked={macroState === "full consent"}
-                                onChange={() =>
-                                    onChange({ "subFinality": undefined, "isConsentGiven": true })
-                                }
+                                {...(() => {
+                                    if (onChange === undefined)
+                                        return {
+                                            "disabled": true
+                                        };
+
+                                    return {
+                                        "onChange": () =>
+                                            onChange({
+                                                "subFinality": undefined,
+                                                "isConsentGiven": true
+                                            })
+                                    };
+                                })()}
                             />
                             <label className="fr-label" htmlFor={acceptInputId}>
-                                Accepter
+                                {t("accept")}
                             </label>
                         </div>
                         <div className={fr.cx("fr-radio-group")}>
@@ -497,12 +477,23 @@ function createConsentManagement<
                                 type="radio"
                                 id={refuseInputId}
                                 checked={macroState === "full refusal"}
-                                onChange={() =>
-                                    onChange({ "subFinality": undefined, "isConsentGiven": false })
-                                }
+                                {...(() => {
+                                    if (onChange === undefined)
+                                        return {
+                                            "disabled": true
+                                        };
+
+                                    return {
+                                        "onChange": () =>
+                                            onChange({
+                                                "subFinality": undefined,
+                                                "isConsentGiven": false
+                                            })
+                                    };
+                                })()}
                             />
                             <label className={fr.cx("fr-label")} htmlFor={refuseInputId}>
-                                Refuser
+                                {t("refuse")}
                             </label>
                         </div>
                     </div>
@@ -513,6 +504,7 @@ function createConsentManagement<
                     )}
                     {subFinalities !== undefined &&
                         (assert(typeof finalityConsent !== "boolean"),
+                        assert(onChange !== undefined),
                         (
                             <>
                                 <div className={fr.cx("fr-consent-service__collapse")}>
@@ -522,7 +514,7 @@ function createConsentManagement<
                                         aria-describedby={legendId}
                                         aria-controls={subFinalityDivId}
                                     >
-                                        Voir plus de détails
+                                        {t("see more details")}
                                     </button>
                                 </div>
                                 <div
@@ -557,6 +549,8 @@ function createConsentManagement<
     }) {
         const { title, onChange, isConsentGiven } = props;
 
+        const { t } = useTranslation();
+
         const { acceptInputId, refuseInputId } = (function useClosure() {
             const id = useId();
 
@@ -579,7 +573,7 @@ function createConsentManagement<
                                 onChange={() => onChange({ "isConsentGiven": true })}
                             />
                             <label className={fr.cx("fr-label")} htmlFor={acceptInputId}>
-                                Accepter
+                                {t("accept")}
                             </label>
                         </div>
                         <div className={fr.cx("fr-radio-group")}>
@@ -590,7 +584,7 @@ function createConsentManagement<
                                 onChange={() => onChange({ "isConsentGiven": false })}
                             />
                             <label className={fr.cx("fr-label")} htmlFor={refuseInputId}>
-                                Refuser
+                                {t("refuse")}
                             </label>
                         </div>
                     </div>
@@ -718,7 +712,12 @@ const { useTranslation, addGdprTranslations } = createComponentI18nApi({
                     )}
                 </>
             );
-        }
+        },
+        "see more details": "Voir plus de détails",
+        "mandatory cookies": "Cookies obligatoires",
+        "mandatory cookies - description":
+            "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
+        "confirm my choices": "Confirmer mes choix"
         /** cspell: enable */
     }
 });
@@ -772,7 +771,12 @@ addGdprTranslations({
                     )}
                 </>
             );
-        }
+        },
+        "see more details": "See more details",
+        "mandatory cookies": "Mandatory cookies",
+        "mandatory cookies - description":
+            "This site uses cookies necessary for its proper functioning which cannot be deactivated.",
+        "confirm my choices": "Confirm my choices"
     }
 });
 
