@@ -4,13 +4,12 @@ import type { ReactNode } from "react";
 //See: test/types/gdpr.ts to understand theses types
 
 export type FinalityConsent<Finality extends string> = {
-    [K in Finality as K extends `${infer _P}.${infer _C}` ? never : K]: boolean;
+    readonly [K in Finality as K extends `${infer _P}.${infer _C}` ? never : K]: boolean;
 } & {
-    [K in Finality as K extends `${infer P}.${infer _C}` ? P : never]: Record<
-        K extends `${infer _P}.${infer C}` ? C : never,
-        boolean
-    > & { isFullConsent: boolean };
-} & { isFullConsent: boolean };
+    readonly [K in Finality as K extends `${infer P}.${infer _C}` ? P : never]: Readonly<
+        Record<K extends `${infer _P}.${infer C}` ? C : never, boolean>
+    > & { readonly isFullConsent: boolean };
+} & { readonly isFullConsent: boolean };
 
 export type ExtractFinalityFromFinalityDescription<
     FinalityDescription extends Record<
