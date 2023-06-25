@@ -13,7 +13,7 @@ export function ClientComponent() {
 
   const isModalOpen = useIsModalOpen(modal);
 
-  console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
+  //console.log(`Modal ${modal.id} is currently: ${isModalOpen ? "open" : "closed"}`);
 
   return (
     <>

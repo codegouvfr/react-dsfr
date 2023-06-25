@@ -2,6 +2,7 @@
 
 import { startReactDsfr } from "@codegouvfr/react-dsfr/next-appdir";
 import { defaultColorScheme } from "./defaultColorScheme";
+import { addAlertTranslations } from "@codegouvfr/react-dsfr/Alert";
 import Link from "next/link";
 
 declare module "@codegouvfr/react-dsfr/next-appdir" {
@@ -15,6 +16,13 @@ startReactDsfr({
 	Link
 });
 
-export default function StartDsfr(){
+export function StartDsfr(){
 	return null;
 }
+
+addAlertTranslations({
+    "lang": "fr",
+    "messages": {
+        "hide message": "Masquer le message (modifié)",
+    }
+});

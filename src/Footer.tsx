@@ -9,7 +9,6 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { id } from "tsafe/id";
-import { ModalProps } from "./Modal";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
 
@@ -20,9 +19,6 @@ export type FooterProps = {
     websiteMapLinkProps?: RegisteredLinkProps;
     accessibilityLinkProps?: RegisteredLinkProps;
     termsLinkProps?: RegisteredLinkProps;
-    personalDataLinkProps?: RegisteredLinkProps;
-    cookiesManagementLinkProps?: RegisteredLinkProps;
-    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
     bottomItems?: (FooterProps.BottomItem | ReactNode)[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
@@ -154,9 +150,6 @@ export const Footer = memo(
             accessibilityLinkProps,
             accessibility,
             termsLinkProps,
-            personalDataLinkProps,
-            cookiesManagementLinkProps,
-            cookiesManagementButtonProps,
             bottomItems = [],
             partnersLogos,
             operatorLogo,
@@ -238,7 +231,7 @@ export const Footer = memo(
                                                                 key={`fr-footer__top-link-${linkItemIndex}`}
                                                             >
                                                                 <Link
-                                                                    {...linkItem?.linkProps}
+                                                                    {...(linkItem?.linkProps as any)}
                                                                     className={fr.cx(
                                                                         "fr-footer__top-link"
                                                                     )}
@@ -433,7 +426,7 @@ export const Footer = memo(
                                       ]),
                                 id<FooterProps.BottomItem>({
                                     "text": `${t("accessibility")}: ${t(accessibility)}`,
-                                    "linkProps": accessibilityLinkProps ?? {}
+                                    "linkProps": accessibilityLinkProps ?? ({} as any)
                                 }),
                                 ...(termsLinkProps === undefined
                                     ? []
@@ -441,31 +434,6 @@ export const Footer = memo(
                                           id<FooterProps.BottomItem>({
                                               "text": t("terms"),
                                               "linkProps": termsLinkProps
-                                          })
-                                      ]),
-                                ...(personalDataLinkProps === undefined
-                                    ? []
-                                    : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("personal data"),
-                                              "linkProps": personalDataLinkProps
-                                          })
-                                      ]),
-                                ...(cookiesManagementButtonProps === undefined
-                                    ? // one or the other, but not both. Priority to button for consent modal control.
-                                      cookiesManagementLinkProps === undefined
-                                        ? []
-                                        : [
-                                              id<FooterProps.BottomItem>({
-                                                  "text": t("cookies management"),
-                                                  "linkProps": cookiesManagementLinkProps
-                                              })
-                                          ]
-                                    : [
-                                          id<FooterProps.BottomItem>({
-                                              "text": t("cookies management"),
-                                              "buttonProps":
-                                                  cookiesManagementButtonProps.nativeButtonProps
                                           })
                                       ]),
                                 ...bottomItems
@@ -526,7 +494,6 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "partially compliant": "partiellement conforme",
         "fully compliant": "totalement conforme",
         "terms": "Mentions légales",
-        "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
         "license mention": (p: { licenseUrl: string }) => (
             <>

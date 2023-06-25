@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { isBrowser } from "../tools/isBrowser";
 import { SsrIsDarkProvider } from "../useIsDark/server";
 import { dsfrEffect } from "./zz_internal/start";
-import { GdprStoreProvider } from "../gdpr/GdprStore";
 import { getDefaultColorSchemeClientSide } from "./zz_internal/defaultColorScheme";
 import { setUseLang } from "../i18n";
 
@@ -30,7 +29,7 @@ export function DsfrProvider(props: DsfrProviderProps) {
     }, [lang]);
 
     if (isBrowser) {
-        return <GdprStoreProvider>{children}</GdprStoreProvider>;
+        return <>{children}</>;
     }
 
     const defaultColorScheme = getDefaultColorSchemeClientSide();
