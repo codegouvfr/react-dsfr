@@ -1,121 +1,131 @@
-import * as React from "react";
-import { ConsentBanner, ConsentBannerProps, consentModalButtonProps } from "../dist/ConsentBanner";
+import React from "react";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { symToStr } from "tsafe/symToStr";
-import { ConsentBannerContent } from "../dist/ConsentBanner/ConsentBannerContent";
+import { createGdprApi } from "../dist/gdpr";
+import { localStorageKey } from "../dist/gdpr/createGdprApi";
+import { Footer } from "../dist/Footer";
+import { Button } from "../dist/Button";
+import { fr } from "../dist/fr";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": {
-        [symToStr({ ConsentBanner })]: Story
+        "ConsentBanner": Story
     },
     "description": `
-
-    WARNING: This is [a temporary implementation](https://github.com/codegouvfr/react-dsfr/pull/107#issuecomment-1517538228).
-
-Manage cookies and consent with a banner and a dedicated modal.  
-
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/gestionnaire-de-consentement),
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ConsentBanner/index.tsx)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/gdpr)
 
-Optionally, you can also use \`import { useGdprStore } from "@codegouvfr/react-dsfr/gdpr"\` to manually monitor and controls 
-the consent state.
-
-## Usage example 
-
-\`\`\`tsx
-import { Footer } from "@codegouvfr/react-dsfr/Footer";
-import { ConsentBanner, consentModalButtonProps } from "@codegouvfr/react-dsfr/ConsentBanner";
-
-// You can augment the service registry to have autocomplete when using useGdprStore
-declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices {
-        // the value can be anything (or never), but you can set true
-        // as a reminder that this service is mandatory
-        mandatory-cookie-consumer: true;
-        cookie-consumer: never;
-    }
-}
-
-function App(){
-
-    return (
-        <>
-            {/* must be on root level */}
-            <ConsentBanner
-                {/* depending on your registered Link */}
-                gdprLinkProps={{href: "#"}}
-                services={[
-                    {
-                        name: "mandatory-cookie-consumer",
-                        title: "Any service consuming 🍪",
-                        description: "As a mandatory service, user cannot disable it.",
-                        mandatory: true
-                    },
-                    {
-                        name: "cookie-consumer",
-                        title: "Any service consuming 🍪",
-                        description: "Here you can describe why this service use cookies."
-                    }
-                ]}
-                siteName={siteName}
-            />
-            {/* ... Header ...*/}
-            {/* ... your app ...*/}
-            <Footer
-                // other Footer props...
-                cookiesManagementButtonProps={consentModalButtonProps}
-            />
-        <>
-    );
-
-}
-\`\`\`
+Thorough documentation coming soon.
 `,
-    argTypes: {
-        gdprLinkProps: {
-            description: "Usually the same as FooterProps.personalDataLinkProps"
-        },
-        siteName: {
-            description: "Current website name"
-        }
-    },
-    "disabledProps": ["containerWidth"]
+    "disabledProps": ["containerWidth"],
+    "doHideImportInstruction": true
 });
 
-export default meta;
+const {
+    ConsentBannerAndConsentManagement,
+    FooterConsentManagementItem,
+    FooterPersonalDataPolicyItem,
+    useGdpr
+} = createGdprApi({
+    "finalityDescription": {
+        "advertising": {
+            "title": "Publicité",
+            "description":
+                "Nous utilisons des cookies pour vous proposer des publicités adaptées à vos centres d’intérêts et mesurer leur efficacité."
+        },
+        "analytics": {
+            "title": "Analyse",
+            "description":
+                "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+        },
+        "personalization": {
+            "title": "Personnalisation",
+            "description":
+                "Nous utilisons des cookies pour vous proposer des contenus adaptés à vos centres d’intérêts."
+        },
+        "statistics": {
+            "title": "Statistiques",
+            "description":
+                "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
+            "subFinalities": {
+                "deviceInfo": "Informations sur votre appareil",
+                "traffic": "Informations sur votre navigation"
+            }
+        }
+    },
+    "personalDataPolicyLinkProps": {
+        "href": "#",
+        "onClick": () => alert("Navigate to the page where you explain your personal data policy")
+    },
+    "consentCallback": ({ finalityConsent, finalityConsent_prev }) =>
+        alert(
+            [
+                "Opportunity to do an async operation here.",
+                "",
+                "Previously the finalityConsent object was:",
+                "",
+                finalityConsent_prev === undefined
+                    ? "undefined (the user hadn't took stance yet)"
+                    : JSON.stringify(finalityConsent_prev, null, 2),
+                "",
+                "The new finalityConsentObject is:",
+                "",
+                JSON.stringify(finalityConsent, null, 2)
+            ].join("\n")
+        )
+});
 
-const siteName = "Nom de l’entité (ministère, secrétariat d‘état, gouvernement)";
+function Story() {
+    const { finalityConsent } = useGdpr();
 
-function Story(props: ConsentBannerProps) {
     return (
         <>
-            <ConsentBanner {...props} />
-            <style>{`
-                .fr-consent-banner {
-                    position: static;
+            {finalityConsent === undefined ? (
+                <p>User hasn't given consent nor explicitly refused use of third party cookies.</p>
+            ) : (
+                <pre>{JSON.stringify({ finalityConsent }, null, 2)}</pre>
+            )}
+            <Button
+                onClick={() => {
+                    localStorage.removeItem(localStorageKey);
+
+                    location.reload();
+                }}
+                className={fr.cx("fr-mb-10v", "fr-mt-10v")}
+            >
+                Clear localStorage and reload.
+            </Button>
+
+            <ConsentBannerAndConsentManagement />
+            <Footer
+                accessibility="fully compliant"
+                contentDescription={`
+                Ce message est à remplacer par les informations de votre site.
+
+                Comme exemple de contenu, vous pouvez indiquer les informations 
+                suivantes : Le site officiel d’information administrative pour les entreprises.
+                Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+                à la gestion et au développement de votre entreprise.
+            `}
+                brandTop={
+                    <>
+                        INTITULE
+                        <br />
+                        OFFICIEL
+                    </>
                 }
-            `}</style>
-            <ConsentBannerContent {...props} consentModalButtonProps={consentModalButtonProps} />
+                homeLinkProps={{
+                    "href": "/",
+                    "title":
+                        "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+                }}
+                bottomItems={[<FooterPersonalDataPolicyItem />, <FooterConsentManagementItem />]}
+            />
         </>
     );
 }
 
-export const Default = getStory({
-    gdprLinkProps: { href: "#" },
-    services: [
-        {
-            name: "mandatory-cookie-consumer",
-            title: "Any service consuming 🍪",
-            description: "As a mandatory service, user cannot disable it.",
-            mandatory: true
-        },
-        {
-            name: "cookie-consumer",
-            title: "Any service consuming 🍪",
-            description: "Here you can describe why this service use cookies."
-        }
-    ],
-    siteName
-});
+export default meta;
+
+export const Default = getStory({});

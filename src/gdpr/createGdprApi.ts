@@ -9,6 +9,8 @@ import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 import { isBrowser } from "../tools/isBrowser";
 
+export const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
+
 export function createGdprApi<
     FinalityDescription extends Record<
         string,
@@ -25,8 +27,6 @@ export function createGdprApi<
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
     const { finalityDescription, personalDataPolicyLinkProps, consentCallback } = params;
-
-    const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
 
     const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(() => {
         if (!isBrowser) {

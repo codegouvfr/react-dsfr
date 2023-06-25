@@ -52,12 +52,6 @@ const { meta, getStory } = getStoryFactory({
         "termsLinkProps": {
             "control": { "type": null }
         },
-        "personalDataLinkProps": {
-            "control": { "type": null }
-        },
-        "cookiesManagementLinkProps": {
-            "control": { "type": null }
-        },
         "bottomItems": {
             "description":
                 "To integrate the Dark mode switch head over to the documentation of the [Display component](https://react-dsfr-components.etalab.studio/?path=/docs/components-display)"
@@ -68,6 +62,18 @@ const { meta, getStory } = getStoryFactory({
         },
         "linkList": {
             "controls": { "type": null }
+        },
+        "brandTop": {
+            "control": { "type": null },
+            "description": `In the example here it's \`<>INTITULE<br />OFFICIEL</>\`
+If you are using the DSFR Header (as you should) this prop is optional, 
+the \`brandTop\` of the \`<Header />\` will be used.`
+        },
+        "homeLinkProps": {
+            "control": { "type": null },
+            "description": `A link to the home, when the user click on the logo he must navigate to the homepage of the website
+If you are using the DSFR Header (as you should) this prop is optional, 
+the \`homeLinkProps\` of the \`<Header />\` will be used.`
         }
     }
 });
@@ -88,12 +94,6 @@ export const Default = getStory({
         "href": "#"
     },
     "termsLinkProps": {
-        "href": "#"
-    },
-    "personalDataLinkProps": {
-        "href": "#"
-    },
-    "cookiesManagementLinkProps": {
         "href": "#"
     }
 });
