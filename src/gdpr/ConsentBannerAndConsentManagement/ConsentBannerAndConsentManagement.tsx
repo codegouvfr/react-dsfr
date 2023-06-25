@@ -4,7 +4,7 @@ import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "..
 import type { ProcessConsentChanges } from "../processConsentChanges";
 import { FooterBottomItem } from "../../Footer";
 import { createConsentBanner } from "./ConsentBanner";
-import { createConsentManagement } from "./ConsentConsentManagement";
+import { createConsentManagement } from "./ConsentManagement";
 import { useTranslation } from "./translation";
 
 export function createConsentBannerAndConsentManagement<
