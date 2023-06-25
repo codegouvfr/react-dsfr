@@ -61,6 +61,7 @@ export const { useTranslation, addGdprTranslations } = createComponentI18nApi({
             );
         },
         "see more details": "Voir plus de détails",
+        "hide details": "Cacher les détails",
         "mandatory cookies": "Cookies obligatoires",
         "mandatory cookies - description":
             "Ce site utilise des cookies nécessaires à son bon fonctionnement qui ne peuvent pas être désactivés.",
@@ -120,6 +121,7 @@ addGdprTranslations({
             );
         },
         "see more details": "See more details",
+        "hide details": "Hide details",
         "mandatory cookies": "Mandatory cookies",
         "mandatory cookies - description":
             "This site uses cookies necessary for its proper functioning which cannot be deactivated.",

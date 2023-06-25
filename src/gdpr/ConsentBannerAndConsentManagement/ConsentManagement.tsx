@@ -266,6 +266,10 @@ export function createConsentManagement<
             [finalityConsent]
         );
 
+        console.log("bite");
+
+        const [isSubFinalityDivCollapsed, setIsSubFinalityDivCollapsed] = useState(true);
+
         return (
             <div className={fr.cx("fr-consent-service")}>
                 <fieldset
@@ -342,8 +346,15 @@ export function createConsentManagement<
                                         aria-expanded="false"
                                         aria-describedby={legendId}
                                         aria-controls={subFinalityDivId}
+                                        onClick={() =>
+                                            setIsSubFinalityDivCollapsed(!isSubFinalityDivCollapsed)
+                                        }
                                     >
-                                        {t("see more details")}
+                                        {t(
+                                            isSubFinalityDivCollapsed
+                                                ? "see more details"
+                                                : "hide details"
+                                        )}
                                     </button>
                                 </div>
                                 <div
