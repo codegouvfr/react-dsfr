@@ -3,7 +3,6 @@ import React, { useMemo, useEffect } from "react";
 import { isBrowser } from "../tools/isBrowser";
 import { SsrIsDarkProvider } from "../useIsDark/server";
 import { dsfrEffect } from "./zz_internal/start";
-import { GdprStoreProvider } from "../gdpr/GdprStore";
 import { getDefaultColorSchemeClientSide } from "./zz_internal/defaultColorScheme";
 import { setUseLang } from "../i18n";
 export function DsfrProvider(props) {
@@ -18,7 +17,7 @@ export function DsfrProvider(props) {
         setUseLang({ "useLang": () => lang });
     }, [lang]);
     if (isBrowser) {
-        return React.createElement(GdprStoreProvider, null, children);
+        return React.createElement(React.Fragment, null, children);
     }
     const defaultColorScheme = getDefaultColorSchemeClientSide();
     const isDark = defaultColorScheme === "dark" ? true : false;

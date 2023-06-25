@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { capitalize } from "tsafe/capitalize";
 function getLanguageBestApprox(params) {
     const { languages, languageLike } = params;
     scope: {
@@ -18,9 +19,12 @@ function getLanguageBestApprox(params) {
     }
     return undefined;
 }
-let useLang = () => "fr";
+let useLang_glob = () => "fr";
 export function setUseLang(params) {
-    useLang = params.useLang;
+    useLang_glob = params.useLang;
+}
+export function useLang() {
+    return useLang_glob();
 }
 export function createComponentI18nApi(params) {
     const { componentName, frMessages } = params;
@@ -49,7 +53,7 @@ export function createComponentI18nApi(params) {
     }
     return {
         useTranslation,
-        [`add${componentName}Translations`]: addTranslations
+        [`add${capitalize(componentName)}Translations`]: addTranslations
     };
 }
 //# sourceMappingURL=i18n.js.map

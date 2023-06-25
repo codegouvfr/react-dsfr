@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { capitalize } from "tsafe/capitalize";
 
 type ReactNode = string | JSX.Element | null;
 
@@ -65,10 +66,14 @@ type FunctionMessageKey<
     FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>
 > = Exclude<keyof FrMessages, NonFunctionMessageKey<FrMessages>>;
 
-let useLang: () => string = () => "fr";
+let useLang_glob = () => "fr";
 
 export function setUseLang(params: { useLang: () => string }) {
-    useLang = params.useLang;
+    useLang_glob = params.useLang;
+}
+
+export function useLang() {
+    return useLang_glob();
 }
 
 export function createComponentI18nApi<
@@ -80,7 +85,7 @@ export function createComponentI18nApi<
 }): {
     useTranslation: () => { t: FrMessagesToTranslationFunction<FrMessages> };
 } & Record<
-    `add${ComponentName}Translations`,
+    `add${Capitalize<ComponentName>}Translations`,
     (params: { lang: string; messages: Partial<FrMessages> }) => void
 > {
     const { componentName, frMessages } = params;
@@ -120,6 +125,6 @@ export function createComponentI18nApi<
 
     return {
         useTranslation,
-        [`add${componentName}Translations`]: addTranslations
+        [`add${capitalize(componentName)}Translations`]: addTranslations
     } as any;
 }

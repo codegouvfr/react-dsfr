@@ -1,3 +1,2 @@
-export { RegisterGdprServices, GdprService } from "./types";
-export * from "./constants";
-export { GdprStoreProvider } from "./GdprStore";
+export { createGdprApi } from "./createGdprApi";
+export { addGdprTranslations } from "./ConsentBannerAndConsentManagement";

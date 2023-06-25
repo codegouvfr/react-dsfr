@@ -12,6 +12,7 @@ type FunctionMessageKey<FrMessages extends Record<string, ReactNode | ((params: 
 export declare function setUseLang(params: {
     useLang: () => string;
 }): void;
+export declare function useLang(): string;
 export declare function createComponentI18nApi<ComponentName extends string, FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>>(params: {
     componentName: ComponentName;
     frMessages: FrMessages;
@@ -19,7 +20,7 @@ export declare function createComponentI18nApi<ComponentName extends string, FrM
     useTranslation: () => {
         t: FrMessagesToTranslationFunction<FrMessages>;
     };
-} & Record<`add${ComponentName}Translations`, (params: {
+} & Record<`add${Capitalize<ComponentName>}Translations`, (params: {
     lang: string;
     messages: Partial<FrMessages>;
 }) => void>;

@@ -1,7 +1,6 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import { ModalProps } from "./Modal";
 export type FooterProps = {
     className?: string;
     accessibility: "non compliant" | "partially compliant" | "fully compliant";
@@ -9,9 +8,6 @@ export type FooterProps = {
     websiteMapLinkProps?: RegisteredLinkProps;
     accessibilityLinkProps?: RegisteredLinkProps;
     termsLinkProps?: RegisteredLinkProps;
-    personalDataLinkProps?: RegisteredLinkProps;
-    cookiesManagementLinkProps?: RegisteredLinkProps;
-    cookiesManagementButtonProps?: ModalProps.ModalButtonProps;
     bottomItems?: (FooterProps.BottomItem | ReactNode)[];
     partnersLogos?: FooterProps.PartnersLogos;
     operatorLogo?: {
@@ -109,7 +105,6 @@ declare const addFooterTranslations: (params: {
         "partially compliant": string;
         "fully compliant": string;
         terms: string;
-        "personal data": string;
         "cookies management": string;
         "license mention": (p: {
             licenseUrl: string;

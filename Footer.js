@@ -21,7 +21,7 @@ import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkPr
 import { typeGuard } from "tsafe/typeGuard";
 /** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, personalDataLinkProps, cookiesManagementLinkProps, cookiesManagementButtonProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "personalDataLinkProps", "cookiesManagementLinkProps", "cookiesManagementButtonProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
+    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
     assert();
     const { brandTop, homeLinkProps } = (() => {
         const wrap = getBrandTopAndHomeLinkProps();
@@ -104,30 +104,6 @@ export const Footer = memo(forwardRef((props, ref) => {
                                 "linkProps": termsLinkProps
                             })
                         ]),
-                    ...(personalDataLinkProps === undefined
-                        ? []
-                        : [
-                            id({
-                                "text": t("personal data"),
-                                "linkProps": personalDataLinkProps
-                            })
-                        ]),
-                    ...(cookiesManagementButtonProps === undefined
-                        ? // one or the other, but not both. Priority to button for consent modal control.
-                            cookiesManagementLinkProps === undefined
-                                ? []
-                                : [
-                                    id({
-                                        "text": t("cookies management"),
-                                        "linkProps": cookiesManagementLinkProps
-                                    })
-                                ]
-                        : [
-                            id({
-                                "text": t("cookies management"),
-                                "buttonProps": cookiesManagementButtonProps.nativeButtonProps
-                            })
-                        ]),
                     ...bottomItems
                 ].map((bottomItem, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__bottom-item"), classes.bottomItem, className), key: i }, !typeGuard(bottomItem, bottomItem instanceof Object && "text" in bottomItem) ? (bottomItem) : (React.createElement(FooterBottomItem, { classes: {
                         "bottomLink": classes.bottomLink
@@ -152,7 +128,6 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "partially compliant": "partiellement conforme",
         "fully compliant": "totalement conforme",
         "terms": "Mentions légales",
-        "personal data": "Données personnelles",
         "cookies management": "Gestion des cookies",
         "license mention": (p) => (React.createElement(React.Fragment, null,
             "Sauf mention contraire, tous les contenus de ce site sont sous",
