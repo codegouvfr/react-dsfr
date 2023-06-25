@@ -14,6 +14,8 @@ import {
 } from "../processConsentChanges";
 import { exclude } from "tsafe/exclude";
 import { useTranslation } from "./translation";
+import { useRerenderOnChange, createStatefulObservable } from "../../tools/StatefulObservable";
+import { useConst } from "../../tools/powerhooks/useConst";
 
 export function createConsentManagement<
     FinalityDescription extends Record<
@@ -62,23 +64,28 @@ export function createConsentManagement<
         const { processLocalConsentChange, localFinalityConsent } = (function useClosure() {
             const realFinalityConsent = useFinalityConsent();
 
-            const [localFinalityConsent, setLocalFinalityConsent] = useState<
-                FinalityConsent<ExtractFinalityFromFinalityDescription<FinalityDescription>>
-            >(() => realFinalityConsent ?? createFullDenyFinalityConsent(finalities));
+            const $localFinalityConsent = useConst(() =>
+                createStatefulObservable(
+                    () => realFinalityConsent ?? createFullDenyFinalityConsent(finalities)
+                )
+            );
+
+            useRerenderOnChange($localFinalityConsent);
 
             useEffect(() => {
                 if (realFinalityConsent === undefined) {
                     return;
                 }
-                setLocalFinalityConsent(realFinalityConsent);
+
+                $localFinalityConsent.current = realFinalityConsent;
             }, [realFinalityConsent]);
 
             const { processConsentChanges } = createProcessConsentChanges({
                 "consentCallback": undefined,
                 finalities,
-                "getFinalityConsent": () => localFinalityConsent,
+                "getFinalityConsent": () => $localFinalityConsent.current,
                 "setFinalityConsent": ({ finalityConsent }) =>
-                    setLocalFinalityConsent(finalityConsent)
+                    ($localFinalityConsent.current = finalityConsent)
             });
 
             const processLocalConsentChange: (
@@ -93,7 +100,10 @@ export function createConsentManagement<
                       }
             ) => void = processConsentChanges;
 
-            return { processLocalConsentChange, localFinalityConsent };
+            return {
+                processLocalConsentChange,
+                "localFinalityConsent": $localFinalityConsent.current
+            };
         })();
 
         const [isProcessingChanges, setIsProcessingChanges] = useState(false);
@@ -175,13 +185,21 @@ export function createConsentManagement<
                                 description={wrap.description}
                                 subFinalities={wrap.subFinalities}
                                 onChange={({ subFinality, isConsentGiven }) =>
-                                    processLocalConsentChange({
-                                        "type": "atomic change",
-                                        "finality": (subFinality === undefined
-                                            ? finality
-                                            : `${finality}.${subFinality}`) as Finality,
-                                        isConsentGiven
-                                    })
+                                    (subFinality !== undefined
+                                        ? [`${finality}.${subFinality}` as Finality]
+                                        : wrap.subFinalities === undefined
+                                        ? [finality as Finality]
+                                        : Object.keys(wrap.subFinalities).map(
+                                              subFinality =>
+                                                  `${finality}.${subFinality}` as Finality
+                                          )
+                                    ).forEach(finality =>
+                                        processLocalConsentChange({
+                                            "type": "atomic change",
+                                            finality,
+                                            isConsentGiven
+                                        })
+                                    )
                                 }
                                 finalityConsent={
                                     localFinalityConsent[
@@ -265,8 +283,6 @@ export function createConsentManagement<
                     : "full refusal",
             [finalityConsent]
         );
-
-        console.log("bite");
 
         const [isSubFinalityDivCollapsed, setIsSubFinalityDivCollapsed] = useState(true);
 

@@ -72,10 +72,9 @@ export function setUseLang(params: { useLang: () => string }) {
     useLang_glob = params.useLang;
 }
 
-export function useLang(){
+export function useLang() {
     return useLang_glob();
 }
-
 
 export function createComponentI18nApi<
     ComponentName extends string,
