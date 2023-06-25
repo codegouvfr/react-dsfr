@@ -4,8 +4,6 @@ description: Setup @codegouvfr/react-dsfr in your project
 
 # 🔧 Initial setup
 
-📣📣📣 Atelier BlueHat demain, vendredi 23 Juin a 11h: [Lien visio](https://code.gouv.fr/fr/bluehats/react-dsfr-2/) 📣📣📣
-
 {% embed url="https://youtu.be/5q88JgXUAY4" %}
 
 {% hint style="warning" %}
