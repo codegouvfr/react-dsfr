@@ -13,7 +13,7 @@ export type GdprConsentCallback<Finality extends string> = (params: {
 export type ProcessConsentChanges<Finality extends string> = (
     params:
         | {
-              type: "grantAll" | "denyAll" | "no changes but trigger callbacks";
+              type: "grantAll" | "denyAll" | "no changes but trigger consent callbacks";
           }
         | {
               type: "atomic change";
@@ -59,39 +59,41 @@ export function createProcessConsentChanges<Finality extends string>(params: {
     getFinalityConsent: () => FinalityConsent<Finality> | undefined;
     setFinalityConsent: (params: {
         finalityConsent: FinalityConsent<Finality>;
-        prAllCallbacksRun: Promise<void>;
+        prAllConsentCallbacksRun: Promise<void>;
     }) => void;
-    callback: GdprConsentCallback<Finality> | undefined;
+    consentCallback: GdprConsentCallback<Finality> | undefined;
 }) {
-    const { finalities, getFinalityConsent, setFinalityConsent, callback } = params;
+    const { finalities, getFinalityConsent, setFinalityConsent, consentCallback } = params;
 
-    const callbacks: GdprConsentCallback<Finality>[] = [];
+    const consentCallbacks: GdprConsentCallback<Finality>[] = [];
 
-    if (callback !== undefined) {
-        callbacks.push(callback);
+    if (consentCallback !== undefined) {
+        consentCallbacks.push(consentCallback);
     }
 
-    function useRegisterCallback(params: { callback: GdprConsentCallback<Finality> | undefined }) {
-        const { callback } = params;
+    function useConsentCallback(params: {
+        consentCallback: GdprConsentCallback<Finality> | undefined;
+    }) {
+        const { consentCallback } = params;
 
         const onConsentChange_const = useConstCallback<GdprConsentCallback<Finality>>(params =>
-            callback?.(params)
+            consentCallback?.(params)
         );
 
-        if (!callbacks.includes(onConsentChange_const)) {
-            callbacks.push(onConsentChange_const);
+        if (!consentCallbacks.includes(onConsentChange_const)) {
+            consentCallbacks.push(onConsentChange_const);
         }
 
         useEffect(
             () => () => {
-                callbacks.splice(callbacks.indexOf(onConsentChange_const), 1);
+                consentCallbacks.splice(consentCallbacks.indexOf(onConsentChange_const), 1);
             },
             []
         );
     }
 
     const processConsentChanges: ProcessConsentChanges<Finality> = async params => {
-        if (params.type === "no changes but trigger callbacks") {
+        if (params.type === "no changes but trigger consent callbacks") {
             const finalityConsent = getFinalityConsent();
 
             if (finalityConsent === undefined) {
@@ -99,8 +101,8 @@ export function createProcessConsentChanges<Finality extends string>(params: {
             }
 
             await Promise.all(
-                callbacks.map(callback =>
-                    callback({
+                consentCallbacks.map(consentCallback =>
+                    consentCallback({
                         finalityConsent,
                         "finalityConsent_prev": finalityConsent
                     })
@@ -154,9 +156,9 @@ export function createProcessConsentChanges<Finality extends string>(params: {
 
         setFinalityConsent({
             finalityConsent,
-            "prAllCallbacksRun": Promise.all(
-                callbacks.map(callback =>
-                    callback({
+            "prAllConsentCallbacksRun": Promise.all(
+                consentCallbacks.map(consentCallback =>
+                    consentCallback({
                         finalityConsent,
                         finalityConsent_prev
                     })
@@ -165,7 +167,7 @@ export function createProcessConsentChanges<Finality extends string>(params: {
         });
     };
 
-    return { processConsentChanges, useRegisterCallback };
+    return { processConsentChanges, useConsentCallback };
 }
 
 /** Pure, exported for testing */

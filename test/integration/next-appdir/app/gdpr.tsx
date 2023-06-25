@@ -33,7 +33,13 @@ export const {
     "personalDataPolicyLinkProps": {
         "href": "/politique-de-confidentialite",
     },
-    "callback": async ()=> {
+    "consentCallback": async ({ finalityConsent, finalityConsent_prev })=> {
+
+        if( finalityConsent_prev === undefined && !finalityConsent.isFullConsent ){
+            location.reload();
+            await new Promise(()=> {/*never*/});
+        }
+
         console.log("callback from gdpr hook");
     }
 });

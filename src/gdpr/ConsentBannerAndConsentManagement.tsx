@@ -64,7 +64,7 @@ export function createConsentBannerAndConsentManagement<
         const [isHydrated, setIsHydrated] = useReducer(() => true, false);
 
         useEffect(() => {
-            processConsentChanges({ "type": "no changes but trigger callbacks" });
+            processConsentChanges({ "type": "no changes but trigger consent callbacks" });
 
             setIsHydrated();
         }, []);
@@ -245,7 +245,7 @@ function createConsentManagement<
             }, [realFinalityConsent]);
 
             const { processConsentChanges } = createProcessConsentChanges({
-                "callback": undefined,
+                "consentCallback": undefined,
                 finalities,
                 "getFinalityConsent": () => localFinalityConsent,
                 "setFinalityConsent": ({ finalityConsent }) =>
@@ -269,7 +269,7 @@ function createConsentManagement<
 
         const [isProcessingChanges, setIsProcessingChanges] = useState(false);
 
-        const createButtonCallback =
+        const createOnClick =
             (type: "grantAll" | "denyAll" | "apply local changes") => async () => {
                 setIsProcessingChanges(true);
 
@@ -310,7 +310,7 @@ function createConsentManagement<
                                     <button
                                         title={t("accept all - title")}
                                         className={fr.cx("fr-btn")}
-                                        onClick={createButtonCallback("grantAll")}
+                                        onClick={createOnClick("grantAll")}
                                         disabled={isProcessingChanges}
                                     >
                                         {t("accept all")}
@@ -319,7 +319,7 @@ function createConsentManagement<
                                         title={t("refuse all - title")}
                                         className={fr.cx("fr-btn", "fr-btn--secondary")}
                                         disabled={isProcessingChanges}
-                                        onClick={createButtonCallback("denyAll")}
+                                        onClick={createOnClick("denyAll")}
                                     >
                                         {t("refuse all")}
                                     </button>
@@ -410,7 +410,7 @@ function createConsentManagement<
                             <button
                                 className={fr.cx("fr-btn")}
                                 disabled={isProcessingChanges}
-                                onClick={createButtonCallback("apply local changes")}
+                                onClick={createOnClick("apply local changes")}
                             >
                                 Confirmer mes choix
                             </button>

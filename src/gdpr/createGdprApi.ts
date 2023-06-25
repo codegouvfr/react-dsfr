@@ -16,13 +16,15 @@ export function createGdprApi<
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    callback?: GdprConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
+    consentCallback?: GdprConsentCallback<
+        ExtractFinalityFromFinalityDescription<FinalityDescription>
+    >;
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
-    const { finalityDescription, personalDataPolicyLinkProps, callback } = params;
+    const { finalityDescription, personalDataPolicyLinkProps, consentCallback } = params;
 
     const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
 
@@ -47,14 +49,14 @@ export function createGdprApi<
                 : finalityDescription
     });
 
-    const { processConsentChanges, useRegisterCallback } = createProcessConsentChanges<Finality>({
-        callback,
+    const { processConsentChanges, useConsentCallback } = createProcessConsentChanges<Finality>({
+        consentCallback,
         finalities,
         "getFinalityConsent": () => $finalityConsent.current,
-        "setFinalityConsent": ({ finalityConsent, prAllCallbacksRun }) => {
+        "setFinalityConsent": ({ finalityConsent, prAllConsentCallbacksRun }) => {
             localStorage.setItem(localStorageKey, JSON.stringify(finalityConsent));
 
-            prAllCallbacksRun.then(() => ($finalityConsent.current = finalityConsent));
+            prAllConsentCallbacksRun.then(() => ($finalityConsent.current = finalityConsent));
         }
     });
 
@@ -77,7 +79,7 @@ export function createGdprApi<
     const { useGdpr } = createUseGdpr({
         useFinalityConsent,
         processConsentChanges,
-        useRegisterCallback
+        useConsentCallback
     });
 
     const {
