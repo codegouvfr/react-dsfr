@@ -127,9 +127,9 @@ The complexity arises largely due to limitations within the current Next.js App 
 Despite the setup process not being as streamlined as one might hope, the library is fully compatible with Next.js App Router ([see demo](https://react-dsfr-next-appdir-demo.vercel.app/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
-yarn add --dev sass
-#OR
-npm install --save-dev sass
+# Adapt for npm, pnpm...
+yarn add --save-dev sass
+yarn add @emotion/server
 ```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
@@ -239,6 +239,11 @@ You are in this case if you have a `pages/` directory at the root of your projec
 {% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
 Starter project in prod here: [https://react-dsfr-next-demo.vercel.app/](https://react-dsfr-next-demo.vercel.app/)
 {% endembed %}
+
+```bash
+# Adapt for npm, pnpm...
+yarn add @emotion/server
+```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
 const nextConfig = {
