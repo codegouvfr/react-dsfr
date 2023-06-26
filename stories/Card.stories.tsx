@@ -101,10 +101,14 @@ export const CardWithBadgeInTheHeader = getStory(
 export const CardWithBadgeInTheContent = getStory(
     {
         ...defaultProps,
-        "detail": (
+        "start": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge>LABEL BADGE</Badge>
-                <Badge severity="new">LABEL BADGE</Badge>
+                <li>
+                    <Badge>LABEL BADGE</Badge>
+                </li>
+                <li>
+                    <Badge severity="new">LABEL BADGE</Badge>
+                </li>
             </ul>
         )
     },
@@ -219,10 +223,14 @@ export const CardHorizontalWithoutImage = getStory(
         "horizontal": true,
         "size": "large",
         "imageUrl": undefined,
-        "detail": (
+        "start": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge>LABEL BADGE</Badge>
-                <Badge severity="new">LABEL BADGE</Badge>
+                <li>
+                    <Badge>LABEL BADGE</Badge>
+                </li>
+                <li>
+                    <Badge severity="new">LABEL BADGE</Badge>
+                </li>
             </ul>
         )
     },
@@ -247,10 +255,14 @@ export const CardHorizontalWithActions = getStory(
         "horizontal": true,
         "size": "large",
         "badges": [<Badge>LABEL BADGE</Badge>],
-        "detail": (
+        "start": (
             <ul className={fr.cx("fr-badges-group")}>
-                <Badge>LABEL BADGE</Badge>
-                <Badge severity="new">LABEL BADGE</Badge>
+                <li>
+                    <Badge>LABEL BADGE</Badge>
+                </li>
+                <li>
+                    <Badge severity="new">LABEL BADGE</Badge>
+                </li>
             </ul>
         ),
         "footer": (
