@@ -50,11 +50,16 @@ export function createConsentBannerAndConsentManagement<
         consentModalButtonProps
     });
 
+    let onHydrated: (() => void) | undefined = () => {
+        processConsentChanges({ "type": "no changes but trigger consent callbacks" });
+        onHydrated = undefined;
+    };
+
     function ConsentBannerAndConsentManagement() {
         const [isHydrated, setIsHydrated] = useReducer(() => true, false);
 
         useEffect(() => {
-            processConsentChanges({ "type": "no changes but trigger consent callbacks" });
+            onHydrated?.();
 
             setIsHydrated();
         }, []);
