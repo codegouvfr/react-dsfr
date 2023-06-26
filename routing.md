@@ -13,7 +13,7 @@ When registering your Link component, its props type will propagate to the react
 {% tabs %}
 {% tab title="react-router" %}
 {% hint style="warning" %}
-Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing solution.
+Warning: I do **not** recommend using [react-router](https://reactrouter.com/en/main) for any new project, consider using [type-route](https://type-route.zilch.dev/), [TanStack Router](https://tanstack.com/router/v1) or any other type safe routing library.
 {% endhint %}
 
 <pre class="language-tsx"><code class="lang-tsx">import React from "react";
@@ -39,9 +39,59 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
-Please have a look at the example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).
+Everywhere a DSFR component accepts a `xxxLinkProps` you are expected to provide an object with a `to` property because `react-router`'s`<Link />` component expects a `to` prop instead of the typical href.\
+\
+You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/vite/src/main.tsx).
 
-Notice that everywhere a `linkProps` is asked you are now expected to provide an object with a `to` property because `react-router`'s`<Link />` component expects a `to` prop instead of the typical href.
+#### Examples
+
+Client side routing
+
+```tsx
+import { Card } from "@codegouvfr/react-dsfr/Card";
+
+<Card
+  linkProps={{
+    to: "/my-page"
+  }}
+/>
+```
+
+The \<Link /> component from react-router will be used.  \
+\
+External links:
+
+```tsx
+
+linkProps={{
+  to: "https://example.com"
+  target="_blank"
+}}
+```
+
+When react-dsfr detects that the `to` points to an external website it will use a regular \<a /> Instead of the \<Link /> component. &#x20;
+
+Mailto links:
+
+```tsx
+
+linkProps={{
+  to: "mailto:contact@code.gouv.fr"
+}}
+```
+
+Same goes for the mailto links.\
+\
+Converting a link to a button
+
+```
+linkProps={{  
+  to: "#"
+  onClick: ()=> { /* ... */ }
+}}
+```
+
+React-dsfr will automatically convert the underlying HTML element into a \<button /> that looks like a link for better Accessibility. &#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
@@ -124,3 +174,4 @@ You should be able to infer what needs to be done refering to the `react-router`
 If the library you are using doesn't export a `<Link />` (like `type-route` for example) component, there isn't anything to do.
 {% endtab %}
 {% endtabs %}
+
