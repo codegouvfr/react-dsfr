@@ -57,7 +57,7 @@ Also you must configure it so it uses `node_modules` (sorry)
 {% tabs %}
 {% tab title="Vite" %}
 {% embed url="https://github.com/garronej/react-dsfr-vite-demo" %}
-Demo setup in production here: [https://react-dsfr-vite-demo.vercel.app/](https://react-dsfr-vite-demo.vercel.app/)
+Demo setup in production here: [https://vite-demo.react-dsfr.fr/](https://vite-demo.react-dsfr.fr/)
 {% endembed %}
 
 Add theses three scipts to your `package.json`:
