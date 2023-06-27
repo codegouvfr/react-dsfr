@@ -11,7 +11,7 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/navigation-principale)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/MainNavigation.tsx)  
   
-This component isn't meant to be used directly but via the [\\<Header \\/\\>](https://react-dsfr-components.etalab.studio/?path=/docs/components-header)`,
+This component isn't meant to be used directly but via the [\\<Header \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-header)`,
     "argTypes": {
         "brandTop": {
             "control": { "type": null }

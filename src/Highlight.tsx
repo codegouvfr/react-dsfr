@@ -17,7 +17,7 @@ export namespace HighlightProps {
     export type Size = "sm" | "lg";
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-highlight> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
 export const Highlight = memo(
     forwardRef<HTMLDivElement, HighlightProps>((props, ref) => {
         const { className, classes = {}, style, children, size, ...rest } = props;

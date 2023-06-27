@@ -5,7 +5,7 @@
 publiccodeYmlVersion: '0.2'
 name: '@codegouvfr/react-dsfr'
 url: 'https://github.com/codegouvfr/react-dsfr'
-landingURL: 'https://react-dsfr-components.etalab.studio/'
+landingURL: 'https://components.react-dsfr.fr/'
 releaseDate: '2022-10-05'
 developmentStatus: beta
 softwareVersion: 0.21.4
@@ -31,7 +31,7 @@ it:
     gdpr: true
 description:
   en:
-    documentation: 'https://react-dsfr.etalab.studio/'
+    documentation: 'https://guides.react-dsfr.fr/'
     shortDescription: French State Design System React integration
     longDescription: |
       This module is a wrapper/compatibility layer for
@@ -56,7 +56,7 @@ description:
       `"use client";`
 
       - [Perfect integration with all major React framework: Next.js (PagesDir
-      and AppDir), Create React App, Vue](https://react-dsfr.etalab.studio/).
+      and AppDir), Create React App, Vue](https://guides.react-dsfr.fr/).
 
       - All [the
       components](https://www.systeme-de-design.gouv.fr/elements-d-interface)
@@ -69,7 +69,7 @@ description:
       - Optional integration with [MUI](https://mui.com/). If you use MUI
       components they will be automatically adapted to look like [DSFR
       components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
-      See [documentation](https://react-dsfr.etalab.studio/mui-integration).
+      See [documentation](https://guides.react-dsfr.fr/mui-integration).
 
       - Enable CSS in JS by providing a `useTheme()` hooks that exposes the
       correct colors options and decision for the currently enabled color
@@ -78,7 +78,7 @@ description:
       - Opt-in i18n, built in text can be displayed in multiple languages and
       user can provide extra translations.
 
-      - [Support routing libraries](https://react-dsfr.etalab.studio/routing)
+      - [Support routing libraries](https://guides.react-dsfr.fr/routing)
       like react-router.
 
 

@@ -139,7 +139,7 @@ export namespace FooterProps {
     }
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-footer> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-footer> */
 export const Footer = memo(
     forwardRef<HTMLDivElement, FooterProps>((props, ref) => {
         const {

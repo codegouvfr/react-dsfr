@@ -26,7 +26,7 @@ export namespace FranceConnectButtonProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
         const { classes = {}, className, url: href, style, onClick, ...rest } = props;

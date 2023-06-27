@@ -19,9 +19,9 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://react-dsfr-components.etalab.studio">Documentation des composants</a>
+  <a href="https://components.react-dsfr.fr">Documentation des composants</a>
   -
-  <a href="https://react-dsfr.etalab.studio/">guides</a>
+  <a href="https://guides.react-dsfr.fr/">guides</a>
   -
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essai immédiat</a>
 </p>
@@ -46,31 +46,31 @@ DSFR en pur JavaScript/CSS.
 -   [x] exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), il s'agit d'une couche de compatibilité et non pas d'une implémentation alternative.
 -   [x] pas de [flash d'écran blanc lors du basculement automatique du thème clair vers le thème sombre](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
--   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.etalab.studio/) si votre
+-   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://guides.react-dsfr.fr/) si votre
         framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://react-dsfr-components.etalab.studio/).
+-   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://components.react-dsfr.fr/).
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
-         Voir la [documentation](https://react-dsfr.etalab.studio/mui-integration).
+         Voir la [documentation](https://guides.react-dsfr.fr/mui-integration).
 -   [x] permet de développer à l'aide d'outil de CSS-in-JS comme [Styled component](https://styled-components.com/), [Emotion](https://emotion.sh/docs/introduction) ou [TSS](https://www.tss-react.dev/).
 -   [x] prévoit un système de traduction pour les textes présents dans les composants (i18n).
--   [x] [s'intègre avec les librairies de routing](https://react-dsfr.etalab.studio/routing) comme [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
+-   [x] [s'intègre avec les librairies de routing](https://guides.react-dsfr.fr/routing) comme [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
 
 Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
 
 <p align="center">
-  <a href="https://react-dsfr.etalab.studio/">🚀 Commencer maintenant 🚀 </a>
+  <a href="https://guides.react-dsfr.fr/">🚀 Commencer maintenant 🚀 </a>
 </p>
 
 ## Migration depuis [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieurs fonctionalités de ce dernier:
 
--   Profitez de [l'auto complétion des classes en `fr-*`](https://react-dsfr.etalab.studio/class-names-type-safety).
--   Utilisez [le système de couleur strictement typer](https://react-dsfr.etalab.studio/css-in-js#colors).
+-   Profitez de [l'auto complétion des classes en `fr-*`](https://guides.react-dsfr.fr/class-names-type-safety).
+-   Utilisez [le système de couleur strictement typer](https://guides.react-dsfr.fr/css-in-js#colors).
 -   Utilisez le thème MUI.
--   Utilisez [le système d'espacement](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) et de
-    [point de rupture](https://react-dsfr.etalab.studio/css-in-js#fr.breakpoints).
+-   Utilisez [le système d'espacement](https://guides.react-dsfr.fr/css-in-js#fr.spacing) et de
+    [point de rupture](https://guides.react-dsfr.fr/css-in-js#fr.breakpoints).
 
 [Voici un bac à sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 

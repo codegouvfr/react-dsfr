@@ -27,7 +27,7 @@ export namespace QuoteProps {
     export type AccentColor = ExtractAccentColor<FrClassName>;
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-quote> */
 export const Quote = memo(
     forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
         const {

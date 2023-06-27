@@ -31,7 +31,7 @@ export namespace CallOutProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-callout> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-callout> */
 export const CallOut = memo(
     forwardRef<HTMLDivElement, CallOutProps>((props, ref) => {
         const {

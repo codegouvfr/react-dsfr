@@ -4,7 +4,7 @@ import { Fieldset, type FieldsetProps } from "./shared/Fieldset";
 
 export type CheckboxProps = FieldsetProps.Common;
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-checkbox> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-checkbox> */
 export const Checkbox = memo(
     forwardRef<HTMLFieldSetElement, CheckboxProps>((props, ref) => (
         <Fieldset ref={ref} type="checkbox" {...props} />

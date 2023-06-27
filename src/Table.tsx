@@ -36,7 +36,7 @@ export namespace TableProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */
+/** @see <https://components.react-dsfr.fr/?path=/docs/tableau>  */
 export const Table = memo(
     forwardRef<HTMLDivElement, TableProps>((props, ref) => {
         const {

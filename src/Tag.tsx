@@ -75,7 +75,7 @@ export namespace TagProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tag> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tag> */
 export const Tag = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement, TagProps>((props, ref) => {
         const {

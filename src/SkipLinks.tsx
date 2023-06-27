@@ -16,7 +16,7 @@ export type SkipLinksProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-skiplinks> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-skiplinks> */
 export const SkipLinks = memo(
     forwardRef<HTMLDivElement, SkipLinksProps>((props, ref) => {
         const { className, classes = {}, links, style, ...rest } = props;

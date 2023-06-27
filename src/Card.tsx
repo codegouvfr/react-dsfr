@@ -72,7 +72,7 @@ export namespace CardProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-card> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-card> */
 export const Card = memo(
     forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         const {

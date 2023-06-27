@@ -27,7 +27,7 @@ export type SearchBarProps = {
 };
 
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */
 export const SearchBar = memo(
     forwardRef<HTMLDivElement, SearchBarProps>((props, ref) => {

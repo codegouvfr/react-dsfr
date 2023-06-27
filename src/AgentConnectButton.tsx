@@ -25,7 +25,7 @@ export namespace AgentConnectButtonProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(
     forwardRef<HTMLDivElement, AgentConnectButtonProps>((props, ref) => {
         const { className, url: href, style, onClick, ...rest } = props;

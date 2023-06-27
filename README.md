@@ -19,9 +19,9 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://react-dsfr-components.etalab.studio">Components documentation</a>
+  <a href="https://components.react-dsfr.fr">Components documentation</a>
   -
-  <a href="https://react-dsfr.etalab.studio/">Guides</a>
+  <a href="https://guides.react-dsfr.fr/">Guides</a>
   -
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
@@ -45,32 +45,32 @@ This module is an advanced toolkit that leverage [@gouvfr/dsfr](https://github.c
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] Most components are server component ready. The others are labeled with `"use client";`
--   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://react-dsfr.etalab.studio/).
--   [x] (Almost) All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are [implemented](https://react-dsfr-components.etalab.studio/)
+-   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://guides.react-dsfr.fr/).
+-   [x] (Almost) All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are [implemented](https://components.react-dsfr.fr/)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
-        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.etalab.studio/mui-integration).
+        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://guides.react-dsfr.fr/mui-integration).
 -   [x] Enable CSS in JS by providing a `useColors()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
--   [x] [Support routing libraries](https://react-dsfr.etalab.studio/routing) like react-router.
+-   [x] [Support routing libraries](https://guides.react-dsfr.fr/routing) like react-router.
 
 This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
 I'm working full time on this project. You can expect rapid development.
 
 <p align="center">
-  <a href="https://react-dsfr.etalab.studio/">🚀 Get started 🚀 </a>
+  <a href="https://guides.react-dsfr.fr/">🚀 Get started 🚀 </a>
 </p>
 
 # Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 If your project is using [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) and you're not willing to migrate to `@codegouvfr/react-dsfr` you can still benefit from some of this project features:
 
--   The [`fr-*` classes autocompletion and type safety](https://react-dsfr.etalab.studio/class-names-type-safety).
--   Use [the type safe color system](https://react-dsfr.etalab.studio/css-in-js#colors).
+-   The [`fr-*` classes autocompletion and type safety](https://guides.react-dsfr.fr/class-names-type-safety).
+-   Use [the type safe color system](https://guides.react-dsfr.fr/css-in-js#colors).
 -   Use the MUI theme.
--   The [the spacing system](https://react-dsfr.etalab.studio/css-in-js#fr.spacing) and
-    [breakpoints util for building responsive UI](https://react-dsfr.etalab.studio/css-in-js#fr.breakpoints).
+-   The [the spacing system](https://guides.react-dsfr.fr/css-in-js#fr.spacing) and
+    [breakpoints util for building responsive UI](https://guides.react-dsfr.fr/css-in-js#fr.breakpoints).
 
 [Here is a playground to demonstrate it](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 

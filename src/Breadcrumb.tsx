@@ -20,7 +20,7 @@ export type BreadcrumbProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(
     forwardRef<HTMLDivElement, BreadcrumbProps>((props, ref) => {
         const {

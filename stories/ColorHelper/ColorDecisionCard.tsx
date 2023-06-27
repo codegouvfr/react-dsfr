@@ -51,10 +51,7 @@ export function ColorDecisionCard(
                     Decision path{" "}
                     <Tooltip
                         title={
-                            <a
-                                href="https://react-dsfr.etalab.studio/css-in-js#colors"
-                                target="_blank"
-                            >
+                            <a href="https://guides.react-dsfr.fr/css-in-js#colors" target="_blank">
                                 How to access the <code>theme</code> object
                             </a>
                         }
