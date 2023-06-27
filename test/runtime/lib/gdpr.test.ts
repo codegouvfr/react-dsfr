@@ -4,9 +4,9 @@ import {
     updateFinalityConsent,
     readFinalityConsent,
     finalityConsentToChanges
-} from "../../../src/gdpr/processConsentChanges";
-import { getFinalitiesFromFinalityDescription } from "../../../src/gdpr/createGdprApi";
-import type { FinalityConsent } from "../../../src/gdpr/types";
+} from "../../../src/consentManagement/processConsentChanges";
+import { getFinalitiesFromFinalityDescription } from "../../../src/consentManagement/createConsentManagement";
+import type { FinalityConsent } from "../../../src/consentManagement/types";
 
 describe("Testing gdpr utils", () => {
     it("createFullDenyFinalityConsent", () => {
