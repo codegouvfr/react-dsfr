@@ -9,8 +9,6 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
-import { useGdprStore } from "@codegouvfr/react-dsfr/useGdprStore"
-import { consentModalNativeButtonProps } from '@codegouvfr/react-dsfr/ConsentBanner';
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -68,8 +66,6 @@ export function Home() {
             </div>
             <Form />
             <TableExample />
-            <GdprStoreViewer />
-
         </>
     );
 }
@@ -207,24 +203,3 @@ function TableExample() {
 }
 
 
-export const GdprStoreViewer = () => {
-    const {consents, firstChoiceMade } = useGdprStore();
-
-    return <>
-        <ButtonsGroup inlineLayoutWhen='always' buttons={[
-            {
-                "nativeButtonProps": consentModalNativeButtonProps,
-                children: "Open Consent"
-            },
-            {
-                children: "Reset Consent",
-                priority: "secondary",
-                onClick() {
-                    localStorage.removeItem("dsfr-gdpr-consent");
-                    location.reload();
-                }
-            }
-        ]} />
-        <pre>{JSON.stringify({consents, firstChoiceMade})}</pre>
-    </>;
-}

@@ -10,8 +10,7 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { GlobalStyles } from "tss-react";
 import { fr } from "@codegouvfr/react-dsfr";
-import { GdprStoreProvider } from "@codegouvfr/react-dsfr/gdpr";
-import { ConsentBanner } from '@codegouvfr/react-dsfr/ConsentBanner';
+import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./gdpr";
 
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
@@ -21,11 +20,6 @@ declare module "@codegouvfr/react-dsfr/spa" {
     }
 }
 
-declare module "@codegouvfr/react-dsfr/gdpr" {
-    interface RegisterGdprServices {
-        matomo: never;
-    }
-}
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
@@ -52,21 +46,15 @@ function Root() {
     const location = useLocation();
 
     return (
-        <GdprStoreProvider>
-            <ConsentBanner gdprLinkProps={{ to: "/mui" }} siteName='Next Test App' services={[
-                {
-                    name: "matomo",
-                    title: "Matomo",
-                    description: "User tracking",
-                }
-            ]} />
+        <>
+            <ConsentBannerAndConsentManagement />
             <div style={{ "minHeight": "100vh", "display": "flex", "flexDirection": "column" }}>
                 <Header
                     brandTop={<>INTITULE<br />OFFICIEL</>}
                     serviceTitle="Nom du site / service"
-                    homeLinkProps={{ 
-                        "to": "/", 
-                        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)" 
+                    homeLinkProps={{
+                        "to": "/",
+                        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
                     }}
                     quickAccessItems={[
                         headerFooterDisplayItem,
@@ -123,10 +111,14 @@ function Root() {
                         Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
                         eu fugiat nulla pariatur. 
                     `}
-                    bottomItems={[headerFooterDisplayItem]}
+                    bottomItems={[
+                        headerFooterDisplayItem,
+                        <FooterPersonalDataPolicyItem />,
+                        <FooterConsentManagementItem />
+                    ]}
                 />
             </div>
-        </GdprStoreProvider>
+        </>
     );
 
 }
