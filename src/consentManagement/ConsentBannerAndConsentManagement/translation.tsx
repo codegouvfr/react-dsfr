@@ -2,8 +2,8 @@ import React from "react";
 import { createComponentI18nApi } from "../../i18n";
 import { getLink, type RegisteredLinkProps } from "../../link";
 
-export const { useTranslation, addGdprTranslations } = createComponentI18nApi({
-    "componentName": "Gdpr",
+export const { useTranslation, addConsentManagementTranslations } = createComponentI18nApi({
+    "componentName": "ConsentManagement",
     "frMessages": {
         /** cspell: disable */
         "all services pref": "Préférences pour tous les services.",
@@ -70,7 +70,7 @@ export const { useTranslation, addGdprTranslations } = createComponentI18nApi({
     }
 });
 
-addGdprTranslations({
+addConsentManagementTranslations({
     "lang": "en",
     "messages": {
         "all services pref": "Preferences for all services.",

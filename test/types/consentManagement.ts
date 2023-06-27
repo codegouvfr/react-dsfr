@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { assert, type Equals } from "tsafe/assert";
-import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "../../src/gdpr/types";
+import type {
+    ExtractFinalityFromFinalityDescription,
+    FinalityConsent
+} from "../../src/consentManagement/types";
 
 {
     type Input =

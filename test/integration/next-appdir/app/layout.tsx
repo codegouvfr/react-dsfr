@@ -11,7 +11,7 @@ import { headerFooterDisplayItem, addDisplayTranslations } from "@codegouvfr/rea
 import { fr } from "@codegouvfr/react-dsfr";
 import { Navigation } from "./Navigation";
 import Link from "next/link";
-import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./gdpr";
+import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./consentManagement";
 import { ClientFooterItem } from "../ui/ClientFooterItem";
 import { ClientHeaderQuickAccessItem } from "../ui/ClientHeaderQuickAccessItem";
 

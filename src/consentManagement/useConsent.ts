@@ -1,25 +1,25 @@
 import { isBrowser } from "../tools/isBrowser";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import type { FinalityConsent } from "./types";
-import type { GdprConsentCallback, ProcessConsentChanges } from "./processConsentChanges";
+import type { ConsentCallback, ProcessConsentChanges } from "./processConsentChanges";
 
-export type UseGdpr<Finality extends string> = (params?: {
-    consentCallback: GdprConsentCallback<Finality>;
+export type UseConsent<Finality extends string> = (params?: {
+    consentCallback: ConsentCallback<Finality>;
 }) => {
     finalityConsent: FinalityConsent<Finality> | undefined;
     assumeConsent: (finality: Finality) => void;
 };
 
-export function createUseGdpr<Finality extends string>(params: {
+export function createUseConsent<Finality extends string>(params: {
     useFinalityConsent: () => FinalityConsent<Finality> | undefined;
     processConsentChanges: ProcessConsentChanges<Finality>;
     useConsentCallback: (params: {
-        consentCallback: GdprConsentCallback<Finality> | undefined;
+        consentCallback: ConsentCallback<Finality> | undefined;
     }) => void;
-}): { useGdpr: UseGdpr<Finality> } {
+}): { useConsent: UseConsent<Finality> } {
     const { useFinalityConsent, processConsentChanges, useConsentCallback } = params;
 
-    const useGdprClientSide: UseGdpr<Finality> = params => {
+    const useConsentManagementClientSide: UseConsent<Finality> = params => {
         const { consentCallback } = params ?? {};
 
         useConsentCallback({ consentCallback });
@@ -40,7 +40,7 @@ export function createUseGdpr<Finality extends string>(params: {
         };
     };
 
-    const useGdprServerSide: UseGdpr<Finality> = () => {
+    const useConsentManagementServerSide: UseConsent<Finality> = () => {
         return {
             "finalityConsent": undefined,
             "assumeConsent": () => {
@@ -49,7 +49,7 @@ export function createUseGdpr<Finality extends string>(params: {
         };
     };
 
-    const useGdpr = isBrowser ? useGdprClientSide : useGdprServerSide;
+    const useConsent = isBrowser ? useConsentManagementClientSide : useConsentManagementServerSide;
 
-    return { useGdpr };
+    return { useConsent };
 }

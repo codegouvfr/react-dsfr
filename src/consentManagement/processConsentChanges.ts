@@ -5,7 +5,7 @@ import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 
-export type GdprConsentCallback<Finality extends string> = (params: {
+export type ConsentCallback<Finality extends string> = (params: {
     finalityConsent: FinalityConsent<Finality>;
     finalityConsent_prev: FinalityConsent<Finality> | undefined;
 }) => Promise<void> | void;
@@ -61,22 +61,22 @@ export function createProcessConsentChanges<Finality extends string>(params: {
         finalityConsent: FinalityConsent<Finality>;
         prAllConsentCallbacksRun: Promise<void>;
     }) => void;
-    consentCallback: GdprConsentCallback<Finality> | undefined;
+    consentCallback: ConsentCallback<Finality> | undefined;
 }) {
     const { finalities, getFinalityConsent, setFinalityConsent, consentCallback } = params;
 
-    const consentCallbacks: GdprConsentCallback<Finality>[] = [];
+    const consentCallbacks: ConsentCallback<Finality>[] = [];
 
     if (consentCallback !== undefined) {
         consentCallbacks.push(consentCallback);
     }
 
     function useConsentCallback(params: {
-        consentCallback: GdprConsentCallback<Finality> | undefined;
+        consentCallback: ConsentCallback<Finality> | undefined;
     }) {
         const { consentCallback } = params;
 
-        const onConsentChange_const = useConstCallback<GdprConsentCallback<Finality>>(params =>
+        const onConsentChange_const = useConstCallback<ConsentCallback<Finality>>(params =>
             consentCallback?.(params)
         );
 

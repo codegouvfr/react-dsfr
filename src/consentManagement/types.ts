@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { ReactNode } from "react";
 
-//See: test/types/gdpr.ts to understand theses types
+//See: test/types/consentManagement.ts to understand theses types
 
 export type FinalityConsent<Finality extends string> = {
     readonly [K in Finality as K extends `${infer _P}.${infer _C}` ? never : K]: boolean;

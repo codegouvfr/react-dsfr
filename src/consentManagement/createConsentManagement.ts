@@ -1,26 +1,24 @@
 import { useReducer, useEffect, type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
-import { createUseGdpr } from "./useGdpr";
-import { createProcessConsentChanges, type GdprConsentCallback } from "./processConsentChanges";
+import { createUseConsent } from "./useConsent";
+import { createProcessConsentChanges, type ConsentCallback } from "./processConsentChanges";
 import { createStatefulObservable } from "../tools/StatefulObservable";
 import type { FinalityConsent } from "./types";
 import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 import { isBrowser } from "../tools/isBrowser";
 
-export const localStorageKey = "@codegouvfr/react-dsfr gdpr finalityConsent";
+export const localStorageKey = "@codegouvfr/react-dsfr consent management finalityConsent";
 
-export function createGdprApi<
+export function createConsentManagement<
     FinalityDescription extends Record<
         string,
         { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
-    consentCallback?: GdprConsentCallback<
-        ExtractFinalityFromFinalityDescription<FinalityDescription>
-    >;
+    consentCallback?: ConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
 }) {
@@ -76,7 +74,7 @@ export function createGdprApi<
         return $finalityConsent.current;
     }
 
-    const { useGdpr } = createUseGdpr({
+    const { useConsent } = createUseConsent({
         useFinalityConsent,
         processConsentChanges,
         useConsentCallback
@@ -95,7 +93,7 @@ export function createGdprApi<
     });
 
     return {
-        useGdpr,
+        useConsent,
         ConsentBannerAndConsentManagement,
         FooterConsentManagementItem,
         FooterPersonalDataPolicyItem

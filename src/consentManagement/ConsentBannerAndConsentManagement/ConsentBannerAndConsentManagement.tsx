@@ -126,7 +126,7 @@ function createFooterPersonalDataPolicyItem(params: {
         if (personalDataPolicyLinkProps === undefined) {
             throw new Error(
                 [
-                    "You should provide a personalDataPolicyLinkProps to createGdprApi if",
+                    "You should provide a personalDataPolicyLinkProps to createConsentManagement if",
                     "you want to add a link to the personal data policy in the footer"
                 ].join(" ")
             );

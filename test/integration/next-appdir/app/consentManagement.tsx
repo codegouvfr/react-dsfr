@@ -1,13 +1,13 @@
 "use client";
 
-import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr";
+import { createConsentManagement } from "@codegouvfr/react-dsfr/consentManagement";
 
 export const { 
     ConsentBannerAndConsentManagement, 
-    useGdpr, 
     FooterConsentManagementItem, 
-    FooterPersonalDataPolicyItem 
-} = createGdprApi({
+    FooterPersonalDataPolicyItem,
+    useConsent
+} = createConsentManagement({
     "finalityDescription": ({ lang }) => ({
         "advertising": {
             "title": "Publicité",
@@ -43,7 +43,3 @@ export const {
         console.log("callback from gdpr hook");
     }
 });
-
-
-
-

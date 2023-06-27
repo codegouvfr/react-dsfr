@@ -104,6 +104,7 @@ const { getHardCodedWeight } = (() => {
         //"components",
         "components/Header",
         "components/Footer",
+        "components/consentManagement",
         "components/Alert",
         "components/Tabs",
         "components/Stepper",
