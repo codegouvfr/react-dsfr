@@ -117,14 +117,14 @@ You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-appdir-demo" %}
-Starter project in prod here: [https://react-dsfr-next-appdir-demo.vercel.app/](https://react-dsfr-next-appdir-demo.vercel.app/)
+Starter project in prod here: [https://next-demo.react-dsfr.fr/](https://next-demo.react-dsfr.fr/)
 {% endembed %}
 
 I understand that the setup process for Next AppRouter can be quite complex, but please rest assured that I have made every effort to simplify it as much as possible.
 
 The complexity arises largely due to limitations within the current Next.js App Router. For instance, it [does not support higher-order functions](https://github.com/vercel/next.js/issues/44307), lacks [a reliable sequence for applying global stylesheets](https://github.com/vercel/next.js/issues/16630), and [doesn't clearly delineate a way to run code solely on the client-side](https://github.com/vercel/next.js/issues/44367), among [other deficiencies](https://github.com/vercel/next.js/issues/created\_by/garronej).
 
-Despite the setup process not being as streamlined as one might hope, the library is fully compatible with Next.js App Router ([see demo](https://react-dsfr-next-appdir-demo.vercel.app/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
+Despite the setup process not being as streamlined as one might hope, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
 # Adapt for npm, pnpm...
