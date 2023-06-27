@@ -57,9 +57,9 @@ import { Card } from "@codegouvfr/react-dsfr/Card";
 />
 ```
 
-The \<Link /> component from react-router will be used.  \
-\
-External links:
+The `<Link />` component from react-router will be used. &#x20;
+
+#### External links:
 
 ```tsx
 
@@ -69,29 +69,28 @@ linkProps={{
 }}
 ```
 
-When react-dsfr detects that the `to` points to an external website it will use a regular \<a /> Instead of the \<Link /> component. &#x20;
+When react-dsfr detects that the `to` points to an external website it will use a regular `<a/>` Instead of the `<Link />` component. &#x20;
 
-Mailto links:
+#### Mailto links
 
 ```tsx
-
 linkProps={{
   to: "mailto:contact@code.gouv.fr"
 }}
 ```
 
-Same goes for the mailto links.\
-\
-Converting a link to a button
+Same goes for the mailto links.
 
-```
+#### Converting a link to a button
+
+```tsx
 linkProps={{  
   to: "#"
   onClick: ()=> { /* ... */ }
 }}
 ```
 
-React-dsfr will automatically convert the underlying HTML element into a \<button /> that looks like a link for better Accessibility. &#x20;
+React-dsfr will automatically convert the underlying HTML element into a `<button />` that looks like a link for better Accessibility. &#x20;
 {% endtab %}
 
 {% tab title="Next.js" %}
@@ -129,6 +128,56 @@ export default withDsfr(App);
 </code></pre>
 
 Example [here](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/next-pagesdir/pages/\_app.tsx).
+
+#### Examples
+
+Client side routing
+
+```tsx
+import { Card } from "@codegouvfr/react-dsfr/Card";
+
+<Card
+  linkProps={{
+    href: "/my-page"
+  }}
+/>
+```
+
+The `<Link />` component from react-router will be used. &#x20;
+
+#### External links:
+
+```tsx
+
+linkProps={{
+  href: "https://example.com"
+  target="_blank"
+}}
+```
+
+When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` Instead of the `<Link />` component. &#x20;
+
+#### Mailto links
+
+```tsx
+
+linkProps={{
+  to: "mailto:contact@code.gouv.fr"
+}}
+```
+
+Same goes for the mailto links.
+
+#### Converting a link to a button
+
+```tsx
+linkProps={{  
+  to: "#"
+  onClick: ()=> { /* ... */ }
+}}
+```
+
+React-dsfr will automatically convert the underlying HTML element into a `<button />` that looks like a link for better Accessibility. &#x20;
 {% endtab %}
 
 {% tab title="Next.js AppDir" %}
@@ -158,12 +207,75 @@ export default function StartDsfr(){
 	return null;
 }
 </code></pre>
+
+#### Examples
+
+Client side routing
+
+```tsx
+import { Card } from "@codegouvfr/react-dsfr/Card";
+
+<Card
+  linkProps={{
+    to: "/my-page"
+  }}
+/>
+```
+
+The `<Link />` component from react-router will be used. &#x20;
+
+#### External links:
+
+```tsx
+
+linkProps={{
+  href: "https://example.com"
+  target="_blank"
+}}
+```
+
+When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` Instead of the `<Link />` component. &#x20;
+
+#### Mailto links
+
+```tsx
+
+linkProps={{
+  href: "mailto:contact@code.gouv.fr"
+}}
+```
+
+Same goes for the mailto links.
+
+#### Converting a link to a button
+
+```tsx
+linkProps={{  
+  href: "#"
+  onClick: ()=> { /* ... */ }
+}}
+```
+
+React-dsfr will automatically convert the underlying HTML element into a `<button />` that looks like a link for better Accessibility. &#x20;
 {% endtab %}
 
 {% tab title="type-route" %}
 [type-route](https://type-route.zilch.dev/) unlike most routing library doesn't export a `<Link />` component `<a />` are used directly.
 
 In consequence there isn't anything to setup.
+
+#### Examples
+
+Client side routing
+
+```tsx
+import { Card } from "@codegouvfr/react-dsfr/Card";
+import { routes } from "...";
+
+<Card
+  linkProps={routes.myPage().link}
+/>
+```
 
 Example [here](https://github.com/codegouvfr/react-dsfr/blob/e8b78dd5ad069a322fbcc34b34b25d4ac8214e34/test/integration/cra/src/index.tsx#L33).
 {% endtab %}
@@ -175,3 +287,4 @@ If the library you are using doesn't export a `<Link />` (like `type-route` for 
 {% endtab %}
 {% endtabs %}
 
+####
