@@ -237,7 +237,7 @@ You are in this case if you have a `pages/` directory at the root of your projec
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
-Starter project in prod here: [https://react-dsfr-next-demo.vercel.app/](https://react-dsfr-next-demo.vercel.app/)
+Starter project in prod here: [https://next-pages-router.react-dsfr.fr/](https://next-pages-router.react-dsfr.fr/)
 {% endembed %}
 
 ```bash
