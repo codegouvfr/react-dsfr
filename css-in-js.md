@@ -9,7 +9,7 @@ At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/brow
 This enables to write DSFR compliant CSS in JS code, since we are able to expose function that are the equivalent of the DSFR utility classes.
 
 {% hint style="success" %}
-Checkout [the color selection tool](https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page).
+Checkout [the color selection tool](https://components.react-dsfr.fr/?path=/docs/%F0%9F%8E%A8-color-helper--page).
 {% endhint %}
 
 {% tabs %}
@@ -34,7 +34,7 @@ export const MyComponent =(props: Props) => {
 	    className={className}
 <strong>	    style={{
 </strong><strong>	        "padding": fr.spacing("10v"),
-</strong><strong>		//SEE: https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
+</strong><strong>		//SEE: https://components.react-dsfr.fr/?path=/docs/%F0%9F%8E%A8-color-helper--page
 </strong><strong>	        "backgroundColor": theme.decisions.background.alt.blueFrance.active
 </strong><strong>	    }}
 </strong>	>
@@ -95,7 +95,7 @@ MyComponent.displayName = MyComponent.name;
 const useStyles = makeStyles({ name: MyComponent.name })(theme => ({
     root: {
         padding: fr.spacing("10v"),
-        //SEE: https://react-dsfr-components.etalab.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
+        //SEE: https://components.react-dsfr.fr/?path=/docs/%F0%9F%8E%A8-color-helper--page
 	backgroundColor: theme.decisions.background.active.redMarianne.default,
 	"&:hover": {
 	  //Rules that apply when the mouse is hover
@@ -328,7 +328,7 @@ This is made possible by [options.ts](https://unpkg.com/browse/@codegouvfr/react
 {% endhint %}
 
 {% hint style="success" %}
-The is [a tool](https://react-dsfr-components.etalab.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) at your disposal to help you pick your colors.
+The is [a tool](https://components.react-dsfr.fr/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) at your disposal to help you pick your colors.
 {% endhint %}
 
 The React agnostic way:
@@ -412,7 +412,7 @@ function MyComponent(props){
 You can access the active mode (isDark: true/false) in the `theme` object. However, if you want to manually switch the mode, you can use `setIsDark(true/false)` .
 
 {% hint style="info" %}
-Consider using the [\<Display />](https://react-dsfr-components.etalab.studio/?path=/docs/components-display--default) component instead of trying to manually manage the active mode.
+Consider using the [\<Display />](https://components.react-dsfr.fr/?path=/docs/components-display--default) component instead of trying to manually manage the active mode.
 {% endhint %}
 
 ```tsx
