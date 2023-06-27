@@ -17,7 +17,7 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-alert> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-alert> */
 export const Alert = memo(forwardRef((props, ref) => {
     const { className, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosable = false, isClosed: props_isClosed, onClose } = props, rest = __rest(props, ["className", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose"]);
     assert();

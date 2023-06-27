@@ -16,7 +16,7 @@ export type StepperProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-stepper> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-stepper> */
 export const Stepper = memo(
     forwardRef<HTMLDivElement, StepperProps>((props, ref) => {
         const {

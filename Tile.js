@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tile> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tile> */
 export const Tile = memo(forwardRef((props, ref) => {
     const { className, title, linkProps, desc, imageUrl, imageAlt, imageWidth, imageHeight, horizontal = false, grey = false, classes = {}, enlargeLink = true, style } = props, rest = __rest(props, ["className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "horizontal", "grey", "classes", "enlargeLink", "style"]);
     assert();

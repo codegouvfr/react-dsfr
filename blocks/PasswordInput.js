@@ -16,7 +16,7 @@ import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { cx } from "../tools/cx";
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/blocks-passwordinput
+ * @see <https://components.react-dsfr.fr/?path=/docs/blocks-passwordinput
  * */
 export const PasswordInput = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();

@@ -18,6 +18,6 @@ export type TileProps = {
     style?: CSSProperties;
 };
 export declare namespace TileProps { }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tile> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tile> */
 export declare const Tile: React.MemoExoticComponent<React.ForwardRefExoticComponent<TileProps & React.RefAttributes<HTMLDivElement>>>;
 export default Tile;

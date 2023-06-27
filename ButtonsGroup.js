@@ -15,7 +15,7 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-buttonsgroup> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-buttonsgroup> */
 export const ButtonsGroup = memo(forwardRef((props, ref) => {
     const { className, buttonsSize = "medium", buttonsIconPosition = "left", inlineLayoutWhen = "never", alignment = "left", buttonsEquisized = false, isReverseOrder = false, buttons, style } = props, rest = __rest(props, ["className", "buttonsSize", "buttonsIconPosition", "inlineLayoutWhen", "alignment", "buttonsEquisized", "isReverseOrder", "buttons", "style"]);
     assert();

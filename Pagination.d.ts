@@ -9,7 +9,7 @@ export type PaginationProps = {
     showFirstLast?: boolean;
     getPageLinkProps: (pageNumber: number) => RegisteredLinkProps;
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-pagination> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-pagination> */
 export declare const Pagination: React.MemoExoticComponent<React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLDivElement>>>;
 declare const addPaginationTranslations: (params: {
     lang: string;

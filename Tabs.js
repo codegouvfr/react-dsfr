@@ -16,7 +16,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tabs> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tabs> */
 export const Tabs = memo(forwardRef((props, ref) => {
     const { className, label, classes = {}, tabs, selectedTabId, onTabChange, children, style } = props, rest = __rest(props, ["className", "label", "classes", "tabs", "selectedTabId", "onTabChange", "children", "style"]);
     assert();

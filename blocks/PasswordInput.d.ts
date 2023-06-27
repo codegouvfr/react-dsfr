@@ -17,7 +17,7 @@ export declare namespace PasswordInputProps {
     export {};
 }
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/blocks-passwordinput
+ * @see <https://components.react-dsfr.fr/?path=/docs/blocks-passwordinput
  * */
 export declare const PasswordInput: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<InputProps.Common, "classes" | "iconId" | "state" | "stateRelatedMessage"> & {
     classes?: Partial<Record<"input" | "label" | "root" | "checkbox", string>> | undefined;

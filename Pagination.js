@@ -56,7 +56,7 @@ const getPaginationParts = ({ count, defaultPage }) => {
         })
     ];
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-pagination> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-pagination> */
 export const Pagination = memo(forwardRef((props, ref) => {
     const { className, count, defaultPage = 1, showFirstLast = true, getPageLinkProps, classes = {}, style } = props, rest = __rest(props, ["className", "count", "defaultPage", "showFirstLast", "getPageLinkProps", "classes", "style"]);
     assert();

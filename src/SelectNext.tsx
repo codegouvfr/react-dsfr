@@ -68,7 +68,7 @@ export namespace SelectProps {
 }
 
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
  * */
 function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
     props: SelectProps<T>,

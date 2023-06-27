@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;

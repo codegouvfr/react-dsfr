@@ -45,7 +45,7 @@ export declare namespace AlertProps {
     export type Severity = ExtractSeverity<FrClassName>;
     export {};
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-alert> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-alert> */
 export declare const Alert: React.MemoExoticComponent<React.ForwardRefExoticComponent<AlertProps & React.RefAttributes<HTMLDivElement>>>;
 export default Alert;
 declare const addAlertTranslations: (params: {

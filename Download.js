@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { getLink } from "./link";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-download> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-download> */
 export const Download = memo(forwardRef((props, ref) => {
     const { className, style, details, label, linkProps, classes = {} } = props, rest = __rest(props, ["className", "style", "details", "label", "linkProps", "classes"]);
     const { Link } = getLink();

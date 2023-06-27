@@ -199,7 +199,7 @@ addModalTranslations({
 
 export { addModalTranslations };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-modal> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-modal> */
 export function createModal(params: { isOpenedByDefault: boolean; id: string }): {
     buttonProps: {
         "aria-controls": string;

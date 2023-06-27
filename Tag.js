@@ -15,7 +15,7 @@ import { cx } from "./tools/cx";
 import { getLink } from "./link";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tag> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tag> */
 export const Tag = memo(forwardRef((props, ref) => {
     const { className: prop_className, children, title, iconId, small = false, pressed, dismissible = false, linkProps, nativeButtonProps, nativeSpanProps, style, onClick } = props, rest = __rest(props, ["className", "children", "title", "iconId", "small", "pressed", "dismissible", "linkProps", "nativeButtonProps", "nativeSpanProps", "style", "onClick"]);
     assert();

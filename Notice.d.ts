@@ -25,7 +25,7 @@ export declare namespace NoticeProps {
         };
     }
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-notice> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-notice> */
 export declare const Notice: React.MemoExoticComponent<React.ForwardRefExoticComponent<NoticeProps & React.RefAttributes<HTMLDivElement>>>;
 export default Notice;
 declare const addNoticeTranslations: (params: {

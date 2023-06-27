@@ -20,7 +20,7 @@ import { MainNavigation } from "./MainNavigation";
 import { Display } from "./Display/Display";
 import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "classes", "style"]);
     assert();

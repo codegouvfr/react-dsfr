@@ -21,7 +21,7 @@ export type SummaryProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-summary> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
 export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
         const { className, links, as = "p", title, classes = {}, style, ...rest } = props;

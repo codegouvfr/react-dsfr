@@ -3,7 +3,7 @@ import { type FieldsetProps } from "./shared/Fieldset";
 export type RadioButtonsProps = FieldsetProps.Common & {
     name?: string;
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-radiobutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
 export declare const RadioButtons: React.MemoExoticComponent<React.ForwardRefExoticComponent<FieldsetProps.Common & {
     name?: string | undefined;
 } & React.RefAttributes<HTMLFieldSetElement>>>;

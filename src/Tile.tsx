@@ -31,7 +31,7 @@ export type TileProps = {
 
 export namespace TileProps {}
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tile> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tile> */
 export const Tile = memo(
     forwardRef<HTMLDivElement, TileProps>((props, ref) => {
         const {

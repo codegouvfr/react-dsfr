@@ -16,7 +16,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-accordion>  */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-accordion>  */
 export const Accordion = memo(forwardRef((props, ref) => {
     const { className, titleAs: HtmlTitleTag = "h3", label, classes = {}, style, children, expanded: expandedProp, defaultExpanded = false, onExpandedChange } = props, rest = __rest(props, ["className", "titleAs", "label", "classes", "style", "children", "expanded", "defaultExpanded", "onExpandedChange"]);
     assert();

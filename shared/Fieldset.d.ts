@@ -35,6 +35,6 @@ export declare namespace FieldsetProps {
         name?: never;
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-radiobutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
 export declare const Fieldset: React.MemoExoticComponent<React.ForwardRefExoticComponent<FieldsetProps & React.RefAttributes<HTMLFieldSetElement>>>;
 export default Fieldset;

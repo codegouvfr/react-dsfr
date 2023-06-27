@@ -49,6 +49,6 @@ export declare namespace ButtonProps {
         type?: "button" | "submit" | "reset";
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-button> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-button> */
 export declare const Button: React.MemoExoticComponent<React.ForwardRefExoticComponent<ButtonProps.Common & (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) & ((ButtonProps.AsAnchor & React.RefAttributes<HTMLAnchorElement>) | (ButtonProps.AsButton & React.RefAttributes<HTMLButtonElement>))>>;
 export default Button;

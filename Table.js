@@ -14,7 +14,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */
+/** @see <https://components.react-dsfr.fr/?path=/docs/tableau>  */
 export const Table = memo(forwardRef((props, ref) => {
     const { data, headers, caption, bordered = false, noScroll = false, fixed = false, noCaption = false, bottomCaption = false, colorVariant, className, style } = props, rest = __rest(props, ["data", "headers", "caption", "bordered", "noScroll", "fixed", "noCaption", "bottomCaption", "colorVariant", "className", "style"]);
     assert();

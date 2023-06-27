@@ -15,7 +15,7 @@ import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(forwardRef((props, ref) => {
     const { classes = {}, className, url: href, plus = false, style, onClick } = props, rest = __rest(props, ["classes", "className", "url", "plus", "style", "onClick"]);
     assert();

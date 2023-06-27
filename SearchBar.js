@@ -16,7 +16,7 @@ import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */
 export const SearchBar = memo(forwardRef((props, ref) => {
     const { className, label: label_props, nativeInputProps = {}, big = false, classes = {}, style, onButtonClick } = props, rest = __rest(props, ["className", "label", "nativeInputProps", "big", "classes", "style", "onButtonClick"]);

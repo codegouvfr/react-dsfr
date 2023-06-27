@@ -16,7 +16,7 @@ import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitch> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitch> */
 export const ToggleSwitch = memo(forwardRef((props, ref) => {
     const { className, label, helperText, defaultChecked = false, checked: props_checked, showCheckedHint = true, disabled = false, labelPosition = "right", classes = {}, onChange, inputTitle, style, name } = props, rest = __rest(props, ["className", "label", "helperText", "defaultChecked", "checked", "showCheckedHint", "disabled", "labelPosition", "classes", "onChange", "inputTitle", "style", "name"]);
     const [checked, setChecked] = useState(defaultChecked);

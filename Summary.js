@@ -16,7 +16,7 @@ import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { getLink } from "./link";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-summary> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
 export const Summary = memo(forwardRef((props, ref) => {
     const { className, links, as = "p", title, classes = {}, style } = props, rest = __rest(props, ["className", "links", "as", "title", "classes", "style"]);
     const { t } = useTranslation();

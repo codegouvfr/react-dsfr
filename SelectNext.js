@@ -17,7 +17,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
  * */
 function NonMemoizedNonForwardedSelect(props, ref) {
     const { className, label, hint, nativeSelectProps, disabled = false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);

@@ -11,7 +11,7 @@ export type BreadcrumbProps = {
     classes?: Partial<Record<"root" | "button" | "collapse" | "list" | "link" | "text", string>>;
     style?: CSSProperties;
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-breadcrumb> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-breadcrumb> */
 export declare const Breadcrumb: React.MemoExoticComponent<React.ForwardRefExoticComponent<BreadcrumbProps & React.RefAttributes<HTMLDivElement>>>;
 declare const addBreadcrumbTranslations: (params: {
     lang: string;

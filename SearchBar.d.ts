@@ -12,7 +12,7 @@ export type SearchBarProps = {
     onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */
 export declare const SearchBar: React.MemoExoticComponent<React.ForwardRefExoticComponent<SearchBarProps & React.RefAttributes<HTMLDivElement>>>;
 export default SearchBar;

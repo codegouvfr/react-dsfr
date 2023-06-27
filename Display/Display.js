@@ -22,7 +22,7 @@ export const headerFooterDisplayItem = {
         return React.createElement(Text, null);
     })()
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-display> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-display> */
 export function Display() {
     const { t } = useTranslation();
     const { getInputId } = (function useClosure() {

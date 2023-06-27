@@ -14,7 +14,7 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-radiobutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
 export const Fieldset = memo(forwardRef((props, ref) => {
     const { className, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
     assert();

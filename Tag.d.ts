@@ -45,6 +45,6 @@ export declare namespace TagProps {
         nativeSpanProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & DataAttribute;
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-tag> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-tag> */
 export declare const Tag: React.MemoExoticComponent<React.ForwardRefExoticComponent<TagProps.Common & (TagProps.WithIcon | TagProps.WithoutIcon) & ((TagProps.AsAnchor & React.RefAttributes<HTMLAnchorElement>) | (TagProps.AsButton & React.RefAttributes<HTMLButtonElement>) | (TagProps.AsSpan & React.RefAttributes<HTMLSpanElement>))>>;
 export default Tag;

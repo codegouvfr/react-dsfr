@@ -17,6 +17,6 @@ export declare namespace QuoteProps {
     export type AccentColor = ExtractAccentColor<FrClassName>;
     export {};
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-quote> */
 export declare const Quote: React.MemoExoticComponent<React.ForwardRefExoticComponent<QuoteProps & React.RefAttributes<HTMLDivElement>>>;
 export default Quote;

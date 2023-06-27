@@ -18,7 +18,7 @@ export type ToggleSwitchGroupProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitchgroup> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitchgroup> */
 export const ToggleSwitchGroup = memo<ToggleSwitchGroupProps>(props => {
     const {
         className,

@@ -32,6 +32,6 @@ export declare namespace SideMenuProps {
         export {};
     }
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-sidemenu> */
 export declare const SideMenu: React.MemoExoticComponent<React.ForwardRefExoticComponent<SideMenuProps & React.RefAttributes<HTMLDivElement>>>;
 export default SideMenu;

@@ -14,7 +14,7 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-highlight> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
 export const Highlight = memo(forwardRef((props, ref) => {
     const { className, classes = {}, style, children, size } = props, rest = __rest(props, ["className", "classes", "style", "children", "size"]);
     assert();

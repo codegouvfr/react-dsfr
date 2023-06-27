@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { getLink } from "./link";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-card> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-card> */
 export const Card = memo(forwardRef((props, ref) => {
     const { className, title, linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
     assert();

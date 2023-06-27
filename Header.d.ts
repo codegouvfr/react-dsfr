@@ -56,7 +56,7 @@ export declare namespace HeaderProps {
         };
     }
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-header> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export declare const Header: React.MemoExoticComponent<React.ForwardRefExoticComponent<HeaderProps & React.RefAttributes<HTMLDivElement>>>;
 export default Header;
 declare const addHeaderTranslations: (params: {

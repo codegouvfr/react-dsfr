@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-stepper> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-stepper> */
 export const Stepper = memo(forwardRef((props, ref) => {
     const { className, currentStep, stepCount, title, nextTitle, classes = {}, style } = props, rest = __rest(props, ["className", "currentStep", "stepCount", "title", "nextTitle", "classes", "style"]);
     assert();

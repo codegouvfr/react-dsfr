@@ -15,7 +15,7 @@ import { cx } from "./tools/cx";
 import { getLink } from "./link";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-button> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-button> */
 export const Button = memo(forwardRef((props, ref) => {
     const { className: prop_className, children, title, iconId, iconPosition = "left", priority = "primary", size = "medium", linkProps, onClick, nativeButtonProps, disabled, type, style } = props, rest = __rest(props, ["className", "children", "title", "iconId", "iconPosition", "priority", "size", "linkProps", "onClick", "nativeButtonProps", "disabled", "type", "style"]);
     assert();

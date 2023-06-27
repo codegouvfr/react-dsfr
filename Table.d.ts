@@ -23,6 +23,6 @@ export declare namespace TableProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
     export {};
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/tableau>  */
+/** @see <https://components.react-dsfr.fr/?path=/docs/tableau>  */
 export declare const Table: React.MemoExoticComponent<React.ForwardRefExoticComponent<TableProps & React.RefAttributes<HTMLDivElement>>>;
 export default Table;

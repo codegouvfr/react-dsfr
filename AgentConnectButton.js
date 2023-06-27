@@ -16,7 +16,7 @@ import { fr } from "./fr";
 import { assert } from "tsafe/assert";
 import "./assets/agentconnect.css";
 import { cx } from "./tools/cx";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(forwardRef((props, ref) => {
     const { className, url: href, style, onClick } = props, rest = __rest(props, ["className", "url", "style", "onClick"]);
     assert();

@@ -14,7 +14,7 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-quote> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-quote> */
 export const Quote = memo(forwardRef((props, ref) => {
     const { className, text, author, source, sourceUrl, imageUrl, size = "xlarge", accentColor, classes = {}, style } = props, rest = __rest(props, ["className", "text", "author", "source", "sourceUrl", "imageUrl", "size", "accentColor", "classes", "style"]);
     assert();

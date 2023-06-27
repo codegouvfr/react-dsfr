@@ -11,7 +11,7 @@ export type ToggleSwitchGroupProps = {
     toggles: [ToggleSwitchPropsWithoutSharedProps, ...ToggleSwitchPropsWithoutSharedProps[]];
     style?: CSSProperties;
 };
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitchgroup> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitchgroup> */
 export declare const ToggleSwitchGroup: React.NamedExoticComponent<ToggleSwitchGroupProps>;
 export default ToggleSwitchGroup;
 type ToggleSwitchPropsWithoutSharedProps = ToggleSwitchPropsWithoutSharedProps.Controlled | ToggleSwitchPropsWithoutSharedProps.Uncontrolled;

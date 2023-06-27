@@ -29,7 +29,7 @@ export declare namespace ToggleSwitchProps {
         inputTitle?: string;
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-toggleswitch> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitch> */
 export declare const ToggleSwitch: React.MemoExoticComponent<React.ForwardRefExoticComponent<ToggleSwitchProps & React.RefAttributes<HTMLDivElement>>>;
 declare const addToggleSwitchTranslations: (params: {
     lang: string;

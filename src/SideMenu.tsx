@@ -46,7 +46,7 @@ export namespace SideMenuProps {
     }
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-sidemenu> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(
     forwardRef<HTMLDivElement, SideMenuProps>((props, ref) => {
         const {

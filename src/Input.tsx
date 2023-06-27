@@ -62,7 +62,7 @@ export namespace InputProps {
 }
 
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */
 export const Input = memo(
     forwardRef<HTMLDivElement, InputProps>((props, ref) => {

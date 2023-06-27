@@ -20,6 +20,6 @@ export declare namespace AccordionProps {
         onExpandedChange: (expanded: boolean, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-accordion>  */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-accordion>  */
 export declare const Accordion: React.MemoExoticComponent<React.ForwardRefExoticComponent<AccordionProps & React.RefAttributes<HTMLDivElement>>>;
 export default Accordion;

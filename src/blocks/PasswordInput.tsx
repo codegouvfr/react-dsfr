@@ -39,7 +39,7 @@ export namespace PasswordInputProps {
 }
 
 /**
- * @see <https://react-dsfr-components.etalab.studio/?path=/docs/blocks-passwordinput
+ * @see <https://components.react-dsfr.fr/?path=/docs/blocks-passwordinput
  * */
 export const PasswordInput = memo(
     forwardRef<HTMLDivElement, PasswordInputProps>((props, ref) => {

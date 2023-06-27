@@ -32,6 +32,6 @@ export declare namespace ButtonsGroupProps {
         alignment?: Common["alignment"] | "between";
     };
 }
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-buttonsgroup> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-buttonsgroup> */
 export declare const ButtonsGroup: React.MemoExoticComponent<React.ForwardRefExoticComponent<ButtonsGroupProps & React.RefAttributes<HTMLUListElement>>>;
 export default ButtonsGroup;

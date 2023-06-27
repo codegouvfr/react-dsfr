@@ -45,7 +45,7 @@ export namespace ButtonsGroupProps {
     };
 }
 
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-buttonsgroup> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-buttonsgroup> */
 export const ButtonsGroup = memo(
     forwardRef<HTMLUListElement, ButtonsGroupProps>((props, ref) => {
         const {

@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { Button } from "./Button";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
-/** @see <https://react-dsfr-components.etalab.studio/?path=/docs/components-callout> */
+/** @see <https://components.react-dsfr.fr/?path=/docs/components-callout> */
 export const CallOut = memo(forwardRef((props, ref) => {
     const { className, iconId, title, buttonProps, colorVariant, classes = {}, children, style } = props, rest = __rest(props, ["className", "iconId", "title", "buttonProps", "colorVariant", "classes", "children", "style"]);
     assert();
