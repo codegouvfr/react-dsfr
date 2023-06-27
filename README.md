@@ -333,7 +333,7 @@ The create-react-app project is no longer being maintained. If you are starting 
 {% endhint %}
 
 {% embed url="https://github.com/garronej/react-dsfr-cra-demo" %}
-See demo setup in production here: [https://react-dsfr-cra-demo.vercel.app/](https://react-dsfr-cra-demo.vercel.app/)
+See demo setup in production here: [https://cra-demo.react-dsfr.fr/](https://cra-demo.react-dsfr.fr/)
 {% endembed %}
 
 Add theses three scipts to your `package.json`:
