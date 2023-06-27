@@ -1,4 +1,8 @@
 import React, { type ReactNode, type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
 
 type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -16,7 +20,30 @@ export type RegisteredLinkProps = RegisterLink extends {
 
 let Link: (
     props: RegisteredLinkProps & { children: ReactNode }
-) => ReturnType<React.FC> = props => <a {...props} />;
+) => ReturnType<React.FC> = props => {
+    const { href, ...rest } = props as { to?: string; href?: string };
+
+    button: {
+        if (href !== "#" || !("onClick" in rest)) {
+            break button;
+        }
+
+        assert(
+            is<
+                React.DetailedHTMLProps<
+                    React.ButtonHTMLAttributes<HTMLButtonElement>,
+                    HTMLButtonElement
+                >
+            >(rest)
+        );
+
+        return <button {...rest} className={cx(fr.cx("fr-link"), rest.className)} />;
+    }
+
+    return <a href={href} {...rest} />;
+};
+
+//<a {...props} />;
 
 export function setLink(params: { Link: typeof Link }): void {
     Link = props => {
@@ -26,6 +53,23 @@ export function setLink(params: { Link: typeof Link }): void {
             const target =
                 (typeof to === "string" ? to : undefined) ??
                 (typeof href === "string" ? href : undefined);
+
+            button: {
+                if (target !== "#" || !("onClick" in rest)) {
+                    break button;
+                }
+
+                assert(
+                    is<
+                        React.DetailedHTMLProps<
+                            React.ButtonHTMLAttributes<HTMLButtonElement>,
+                            HTMLButtonElement
+                        >
+                    >(rest)
+                );
+
+                return <button {...rest} className={cx(fr.cx("fr-link"), rest.className)} />;
+            }
 
             mailto: {
                 if (target === undefined || !target.startsWith("mailto:")) {

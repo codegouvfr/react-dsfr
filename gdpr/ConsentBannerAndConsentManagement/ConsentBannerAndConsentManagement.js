@@ -20,10 +20,14 @@ export function createConsentBannerAndConsentManagement(params) {
     const { FooterConsentManagementItem } = createFooterConsentManagementItem({
         consentModalButtonProps
     });
+    let onHydrated = () => {
+        processConsentChanges({ "type": "no changes but trigger consent callbacks" });
+        onHydrated = undefined;
+    };
     function ConsentBannerAndConsentManagement() {
         const [isHydrated, setIsHydrated] = useReducer(() => true, false);
         useEffect(() => {
-            processConsentChanges({ "type": "no changes but trigger consent callbacks" });
+            onHydrated === null || onHydrated === void 0 ? void 0 : onHydrated();
             setIsHydrated();
         }, []);
         const finalityConsent = useFinalityConsent();

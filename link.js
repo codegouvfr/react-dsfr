@@ -10,13 +10,35 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React from "react";
-let Link = props => React.createElement("a", Object.assign({}, props));
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
+import { assert } from "tsafe/assert";
+import { is } from "tsafe/is";
+let Link = props => {
+    const _a = props, { href } = _a, rest = __rest(_a, ["href"]);
+    button: {
+        if (href !== "#" || !("onClick" in rest)) {
+            break button;
+        }
+        assert(is(rest));
+        return React.createElement("button", Object.assign({}, rest, { className: cx(fr.cx("fr-link"), rest.className) }));
+    }
+    return React.createElement("a", Object.assign({ href: href }, rest));
+};
+//<a {...props} />;
 export function setLink(params) {
     Link = props => {
         var _a;
         {
             const _b = props, { to, href } = _b, rest = __rest(_b, ["to", "href"]);
             const target = (_a = (typeof to === "string" ? to : undefined)) !== null && _a !== void 0 ? _a : (typeof href === "string" ? href : undefined);
+            button: {
+                if (target !== "#" || !("onClick" in rest)) {
+                    break button;
+                }
+                assert(is(rest));
+                return React.createElement("button", Object.assign({}, rest, { className: cx(fr.cx("fr-link"), rest.className) }));
+            }
             mailto: {
                 if (target === undefined || !target.startsWith("mailto:")) {
                     break mailto;
