@@ -383,7 +383,7 @@ function main() {
                                             candidateFilePaths = (_b.sent())
                                                 .flat()
                                                 .filter(function (filePath) {
-                                                return ["tsx", "jsx", "js", "ts", "html", "htm"].find(function (ext) {
+                                                return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(function (ext) {
                                                     return filePath.endsWith(".".concat(ext));
                                                 }) !== undefined;
                                             });
