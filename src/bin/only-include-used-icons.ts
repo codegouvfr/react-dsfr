@@ -282,7 +282,7 @@ async function main() {
             .flat()
             .filter(
                 filePath =>
-                    ["tsx", "jsx", "js", "ts", "html", "htm"].find(ext =>
+                    ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(ext =>
                         filePath.endsWith(`.${ext}`)
                     ) !== undefined
             );
