@@ -6,7 +6,7 @@ import { getStoryFactory, logCallbacks } from "./getStory";
 const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Tabs },
-    "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglets)
+    "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglet)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tabs.tsx)  
 
 ## Uncontrolled
