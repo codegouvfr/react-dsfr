@@ -20,9 +20,10 @@ import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
-import Script from "next/script";
 import { assert } from "tsafe/assert";
 import "./assets/dsfr_plus_icons.css";
+
+const isProduction = process.env.NODE_ENV !== "development";
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -175,11 +176,13 @@ export function createNextDsfrIntegrationApi(
                                 />
                             </>
                         )}
-                        <Script
-                            dangerouslySetInnerHTML={{
-                                "__html": getScriptToRunAsap(defaultColorScheme)
-                            }}
-                        />
+                        {isProduction && (
+                            <script
+                                dangerouslySetInnerHTML={{
+                                    "__html": getScriptToRunAsap(defaultColorScheme)
+                                }}
+                            />
+                        )}
                     </Head>
                     {isBrowser ? (
                         <App {...(props as any)} />
