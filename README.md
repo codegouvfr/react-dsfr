@@ -128,7 +128,7 @@ Despite the setup process not being as streamlined as one might hope, the librar
 
 ```bash
 # Adapt for npm, pnpm...
-yarn add --save-dev sass
+yarn add --dev sass
 yarn add @emotion/server
 ```
 
