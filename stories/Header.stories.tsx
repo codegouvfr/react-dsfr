@@ -154,24 +154,44 @@ component within a \`"use client";\` directive you can use the \`<HeaderQuickAcc
     }
 );
 
-export const HeaderWithSearchEngine = getStory({
-    "brandTop": (
-        <>
-            INTITULE
-            <br />
-            OFFICIEL
-        </>
-    ),
-    "homeLinkProps": {
-        "href": "/",
-        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+export const HeaderWithSearchEngine = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+            <input
+                className={className}
+                id={id}
+                name={name}
+                placeholder={placeholder}
+                type={type}
+            />
+        )
     },
-    "serviceTitle": "Nom du site / service",
-    "serviceTagline": "baseline - précisions sur l'organisation",
-    "renderSearchInput": ({ className, id, name, placeholder, type }) => (
+    {
+        "description": `
+\`\`\`tsx
+<Header
+    ...
+    renderSearchInput={({ className, id, name, placeholder, type }) => (
         <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
-    )
-});
+    )}
+/>
+\`\`\`
+`
+    }
+);
 
 export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
     {
