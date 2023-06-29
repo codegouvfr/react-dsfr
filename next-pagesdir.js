@@ -26,9 +26,9 @@ import { getColors } from "./fr/colors";
 import { start } from "./start";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
-import Script from "next/script";
 import { assert } from "tsafe/assert";
 import "./assets/dsfr_plus_icons.css";
+const isProduction = process.env.NODE_ENV !== "development";
 function readIsDarkInCookie(cookie) {
     const parsedCookies = Object.fromEntries(cookie
         .split(/; */)
@@ -102,9 +102,9 @@ export function createNextDsfrIntegrationApi(params) {
                     React.createElement(React.Fragment, null,
                         React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
                         React.createElement("meta", { name: "theme-color", content: getColors(isDark).decisions.background.default.grey.default }))),
-                    React.createElement(Script, { dangerouslySetInnerHTML: {
+                    isProduction && (React.createElement("script", { dangerouslySetInnerHTML: {
                             "__html": getScriptToRunAsap(defaultColorScheme)
-                        } })),
+                        } }))),
                 isBrowser ? (React.createElement(App, Object.assign({}, props))) : (React.createElement(SsrIsDarkProvider, { value: isDark },
                     React.createElement(App, Object.assign({}, props))))));
         }
