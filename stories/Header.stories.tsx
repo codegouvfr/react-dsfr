@@ -11,7 +11,7 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header/Header.tsx))  
   
 See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-mainnavigation)
 
@@ -154,7 +154,47 @@ component within a \`"use client";\` directive you can use the \`<HeaderQuickAcc
     }
 );
 
-export const HeaderWithSearchEngine = getStory(
+export const WithOldSchoolSearch = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "renderSearchInput": ({ className, id, placeholder, type }) => (
+            <input className={className} id={id} placeholder={placeholder} type={type} />
+        ),
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`)
+    },
+    {
+        "description": `
+
+If you you do not plan to provide any realtime hinting to the user as he types the search query you can provide a \`onSearchButtonClick\`
+callback that will be called when the user click on the search button or press enter.
+
+\`\`\`tsx
+
+<Header
+    ...
+    renderSearchInput={({ className, id, name, placeholder, type }) => (
+        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    )}
+    onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
+/>
+\`\`\`
+`
+    }
+);
+
+export const WithModernSearch = getStory(
     {
         "brandTop": (
             <>
@@ -175,12 +215,22 @@ export const HeaderWithSearchEngine = getStory(
     },
     {
         "description": `
+
+If you want to feature a modern search experience with realtime hinting you can omit providing a \`onSearchButtonClick\` callback and instead
+make sure you provide an overlay with the search results in the the \`renderSearchInput\` function.  
+
+As to this day, the DSFR do not provide any component to help you with that, you are on your own for implementing the overlay.  
+You can achieve great result by using [MUI's autocomplete](https://mui.com/material-ui/react-autocomplete/) component.  
+[Video demo](https://youtu.be/AT3CvmY_Y7M?t=64).  
+
 \`\`\`tsx
+
 <Header
     ...
     renderSearchInput={({ className, id, name, placeholder, type }) => (
         <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
     )}
+    onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
 />
 \`\`\`
 `
