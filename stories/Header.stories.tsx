@@ -154,7 +154,7 @@ component within a \`"use client";\` directive you can use the \`<HeaderQuickAcc
     }
 );
 
-export const WithOldSchoolSearch = getStory(
+export const WithSearchBar = getStory(
     {
         "brandTop": (
             <>
@@ -184,55 +184,69 @@ callback that will be called when the user click on the search button or press e
 
 <Header
     ...
-    renderSearchInput={({ className, id, name, placeholder, type }) => (
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    renderSearchInput={({ className, id, placeholder, type }) => (
+        <input className={className} id={id} placeholder={placeholder} type={type} />
     )}
     onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
 />
 \`\`\`
-`
-    }
-);
-
-export const WithModernSearch = getStory(
-    {
-        "brandTop": (
-            <>
-                INTITULE
-                <br />
-                OFFICIEL
-            </>
-        ),
-        "homeLinkProps": {
-            "href": "/",
-            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-        },
-        "serviceTitle": "Nom du site / service",
-        "serviceTagline": "baseline - précisions sur l'organisation",
-        "renderSearchInput": ({ className, id, placeholder, type }) => (
-            <input className={className} id={id} placeholder={placeholder} type={type} />
-        )
-    },
-    {
-        "description": `
 
 If you want to feature a modern search experience with realtime hinting you can omit providing a \`onSearchButtonClick\` callback and instead
 make sure you provide an overlay with the search results in the the \`renderSearchInput\` function.  
 
-As to this day, the DSFR do not provide any component to help you with that, you are on your own for implementing the overlay.  
+As, to this day, the DSFR do not provide any component to help you with that, you are on your own for implementing the overlay.  
 You can achieve great result by using [MUI's autocomplete](https://mui.com/material-ui/react-autocomplete/) component.  
 [Video demo](https://youtu.be/AT3CvmY_Y7M?t=64).  
+If you go with MUI make sure to use the [\`<MuiDsfrProvider />\`](https://react-dsfr.etalab.studio/mui).  
 
 \`\`\`tsx
 
+import Autocomplete from "@mui/material/Autocomplete";
+import { cx } from "@codegouvfr/react-dsfr/tools/cx";
+
+type MySearchInputProps = {
+    className?: string;
+    id: string;
+    placeholder: string;
+    type: "search;
+};
+
+function MySearchInput(props: MySearchInputProps) {
+
+    const { className, id, placeholder, type } = props;
+
+    return (
+        <Autocomplete 
+            ...
+            renderInput={params => 
+                <div ref={params.InputProps.ref}>
+                    <input 
+                        {...params.inputProps} 
+                        className={cx(params.inputProps.className, className)}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                    />
+                </div>
+            }
+        />
+    );
+
+}
+
 <Header
     ...
-    renderSearchInput={({ className, id, name, placeholder, type }) => (
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    renderSearchInput={({ className, id, placeholder, type }) => (
+        <MySearchInput
+            className={className}
+            id={id}
+            placeholder={placeholder}
+            type={type}
+        />
     )}
-    onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
 />
 \`\`\`
+
 `
     }
 );
