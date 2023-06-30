@@ -10,25 +10,35 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { memo, forwardRef, useId } from "react";
-import { fr } from "./fr";
-import { createComponentI18nApi } from "./i18n";
+import { fr } from "../fr";
+import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "./tools/cx";
-import { getLink } from "./link";
+import { cx } from "../tools/cx";
+import { getLink } from "../link";
 import { assert } from "tsafe/assert";
-import { MainNavigation } from "./MainNavigation";
-import { Display } from "./Display/Display";
-import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { MainNavigation } from "../MainNavigation";
+import { Display } from "../Display/Display";
+import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
+import { SearchButton } from "./SearchButton";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
-    const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "classes", "style"]);
+    const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
     assert();
     setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
-    const menuButtonId = `button-${useId()}`;
-    const menuModalId = `modal-${useId()}`;
-    const searchModalId = `modal-${useId()}`;
-    const searchInputId = `search-${useId()}-input`;
+    const { menuButtonId, menuModalId, searchModalId, searchInputId } = (function useClosure() {
+        const id = useId();
+        const menuButtonId = `button-${id}`;
+        const menuModalId = `modal-${id}`;
+        const searchModalId = `modal-${id}`;
+        const searchInputId = `search-${id}-input`;
+        return {
+            menuButtonId,
+            menuModalId,
+            searchModalId,
+            searchInputId
+        };
+    })();
     const { t } = useTranslation();
     const { Link } = getLink();
     const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { quickAccessItem: quickAccessItem })))))));
@@ -80,7 +90,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                             "placeholder": t("search"),
                                             "type": "search"
                                         }),
-                                        React.createElement("button", { className: fr.cx("fr-btn"), title: t("search") }, t("search"))))))))))),
+                                        React.createElement(SearchButton, { searchInputId: searchInputId, onClick: onSearchButtonClick })))))))))),
             (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
                 React.createElement("div", { className: fr.cx("fr-container") },
                     React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
@@ -90,7 +100,7 @@ export const Header = memo(forwardRef((props, ref) => {
 }));
 Header.displayName = symToStr({ Header });
 export default Header;
-const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
+export const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),
     "frMessages": {
         /* spell-checker: disable */
@@ -107,7 +117,6 @@ addHeaderTranslations({
         "search": "Search"
     }
 });
-export { addHeaderTranslations };
 export function HeaderQuickAccessItem(props) {
     const { className, quickAccessItem } = props;
     const { Link } = getLink();

@@ -1,18 +1,19 @@
 import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
-import { fr } from "./fr";
-import { createComponentI18nApi } from "./i18n";
+import { fr } from "../fr";
+import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "./tools/cx";
-import { getLink } from "./link";
-import type { RegisteredLinkProps } from "./link";
+import { cx } from "../tools/cx";
+import { getLink } from "../link";
+import type { RegisteredLinkProps } from "../link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "./MainNavigation";
-import { MainNavigation } from "./MainNavigation";
-import { Display } from "./Display/Display";
-import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "../MainNavigation";
+import { MainNavigation } from "../MainNavigation";
+import { Display } from "../Display/Display";
+import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
+import { SearchButton } from "./SearchButton";
 
 export type HeaderProps = {
     className?: string;
@@ -48,6 +49,8 @@ export type HeaderProps = {
             placeholder: string;
         }
     ) => JSX.Element;
+    /** Called when the search button is clicked, only relevant when renderSearchInput is provided */
+    onSearchButtonClick?: (text: string) => void;
     classes?: Partial<
         Record<
             | "root"
@@ -107,6 +110,7 @@ export const Header = memo(
             quickAccessItems = [],
             operatorLogo,
             renderSearchInput,
+            onSearchButtonClick,
             classes = {},
             style,
             ...rest
@@ -116,10 +120,21 @@ export const Header = memo(
 
         setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
 
-        const menuButtonId = `button-${useId()}`;
-        const menuModalId = `modal-${useId()}`;
-        const searchModalId = `modal-${useId()}`;
-        const searchInputId = `search-${useId()}-input`;
+        const { menuButtonId, menuModalId, searchModalId, searchInputId } = (function useClosure() {
+            const id = useId();
+
+            const menuButtonId = `button-${id}`;
+            const menuModalId = `modal-${id}`;
+            const searchModalId = `modal-${id}`;
+            const searchInputId = `search-${id}-input`;
+
+            return {
+                menuButtonId,
+                menuModalId,
+                searchModalId,
+                searchInputId
+            };
+        })();
 
         const { t } = useTranslation();
 
@@ -325,12 +340,10 @@ export const Header = memo(
                                                             "placeholder": t("search"),
                                                             "type": "search"
                                                         })}
-                                                        <button
-                                                            className={fr.cx("fr-btn")}
-                                                            title={t("search")}
-                                                        >
-                                                            {t("search")}
-                                                        </button>
+                                                        <SearchButton
+                                                            searchInputId={searchInputId}
+                                                            onClick={onSearchButtonClick}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -381,7 +394,7 @@ Header.displayName = symToStr({ Header });
 
 export default Header;
 
-const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
+export const { useTranslation, addHeaderTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Header }),
     "frMessages": {
         /* spell-checker: disable */
@@ -399,8 +412,6 @@ addHeaderTranslations({
         "search": "Search"
     }
 });
-
-export { addHeaderTranslations };
 
 export type HeaderQuickAccessItemProps = {
     className?: string;
