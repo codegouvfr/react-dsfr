@@ -70,7 +70,7 @@ export const SearchBar = memo(
                     className={cx(fr.cx("fr-input"), classes.input, nativeInputProps.className)}
                     placeholder={label}
                     type="search"
-                    id={inputId}
+                    id={inputId} //TODO use nativeInputProps.id
                 />
                 <button className="fr-btn" title={label} onClick={onButtonClick}>
                     {label}
