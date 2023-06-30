@@ -11,7 +11,7 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
+- [See source code](https://github.com/codegouvfr/react-dsfr/tree/main/src/MainNavigation)  
   
 See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-mainnavigation)
 
