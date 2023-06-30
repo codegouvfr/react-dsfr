@@ -41,6 +41,7 @@ export type HeaderProps = {
          **/
         params: {
             id: string;
+            //TODO: Remove this parameter, it's a scoping error
             name: string;
             type: "search";
             className: string;
