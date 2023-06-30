@@ -27,8 +27,6 @@ export function SearchButton(props: SearchButtonProps) {
     const [isInputFocused, setIsInputFocused] = useState(false);
 
     useEffect(() => {
-        console.log({ searchInputId });
-
         const inputElement = document.getElementById(searchInputId);
 
         assert(inputElement !== null, `${searchInputId} should be mounted`);
@@ -41,25 +39,53 @@ export function SearchButton(props: SearchButtonProps) {
 
         setInputValue(inputElement.value);
 
-        inputElement.addEventListener("input", () => setInputValue(inputElement.value));
+        const cleanups: (() => void)[] = [];
+
+        inputElement.addEventListener(
+            "input",
+            (() => {
+                const callback = () => setInputValue(inputElement.value);
+
+                cleanups.push(() => inputElement.removeEventListener("input", callback));
+
+                return callback;
+            })()
+        );
 
         setResetInputValue(() => () => {
             inputElement.value = "";
             inputElement.dispatchEvent(new Event("input"));
         });
+
         setFocusInputElement(() => () => inputElement.focus());
 
-        if (onClick !== undefined) {
-            return;
+        if (onClick === undefined) {
+            inputElement.addEventListener(
+                "focus",
+                (() => {
+                    const callback = () => setIsInputFocused(true);
+
+                    cleanups.push(() => inputElement.removeEventListener("focus", callback));
+
+                    return callback;
+                })()
+            );
+
+            inputElement.addEventListener(
+                "blur",
+                (() => {
+                    const callback = () => setIsInputFocused(false);
+
+                    cleanups.push(() => inputElement.removeEventListener("blur", callback));
+
+                    return callback;
+                })()
+            );
         }
 
-        inputElement.addEventListener("focus", () => {
-            setIsInputFocused(true);
-        });
-
-        inputElement.addEventListener("blur", () => {
-            setIsInputFocused(false);
-        });
+        return () => {
+            cleanups.forEach(cleanup => cleanup());
+        };
     }, [searchInputId, onClick]);
 
     if (onClick === undefined && (isInputFocused || inputValue !== "")) {
