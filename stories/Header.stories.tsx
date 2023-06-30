@@ -169,14 +169,8 @@ export const HeaderWithSearchEngine = getStory(
         },
         "serviceTitle": "Nom du site / service",
         "serviceTagline": "baseline - précisions sur l'organisation",
-        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-            <input
-                className={className}
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                type={type}
-            />
+        "renderSearchInput": ({ className, id, placeholder, type }) => (
+            <input className={className} id={id} placeholder={placeholder} type={type} />
         )
     },
     {
@@ -262,14 +256,8 @@ export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
                 }
             }
         ],
-        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-            <input
-                className={className}
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                type={type}
-            />
+        "renderSearchInput": ({ className, id, placeholder, type }) => (
+            <input className={className} id={id} placeholder={placeholder} type={type} />
         )
     },
     {
@@ -304,14 +292,8 @@ export const HeaderWithVerticalOperatorLogo = getStory(
             "title":
                 "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
         },
-        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-            <input
-                className={className}
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                type={type}
-            />
+        "renderSearchInput": ({ className, id, placeholder, type }) => (
+            <input className={className} id={id} placeholder={placeholder} type={type} />
         ),
         "operatorLogo": {
             "orientation": "vertical",
@@ -327,8 +309,8 @@ export const HeaderWithVerticalOperatorLogo = getStory(
 
 <Header
     //...
-    renderSearchInput={({ className, id, name, placeholder, type }) => 
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
+    renderSearchInput={({ className, id, placeholder, type }) => 
+        <input className={className} id={id} placeholder={placeholder} type={type} />
     }
 />
         
