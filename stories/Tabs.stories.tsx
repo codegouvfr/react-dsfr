@@ -16,9 +16,9 @@ In this mode the \`Tab\` component is in charge for swapping the panel content.
 \`\`\`tsx
 <Tabs
     tabs={[
-        { "label": "Tab 1", "iconId": "fr-icon-add-line", "content": <p>Content of tab1</p> },
-        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p> },
-        { "label": "Tab 3", "content": <p>Content of tab3</p> }
+        { label: "Tab 1", iconId: "fr-icon-add-line", content: <p>Content of tab1</p> },
+        { label: "Tab 2", iconId: "fr-icon-ball-pen-fill", isDefault: true, content: <p>Content of tab2</p> },
+        { label: "Tab 3", content: <p>Content of tab3</p> }
     ]}
 />
 \`\`\`
@@ -37,9 +37,9 @@ function ControlledTabs() {
         <Tabs
             selectedTabId={selectedTabId}
             tabs={[
-                { "tabId": "tab1", "label": "Tab 1", "iconId": "fr-icon-add-line" },
-                { "tabId": "tab2", "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill" },
-                { "tabId": "tab3", "label": "Tab 3" },
+                { tabId: "tab1", label: "Tab 1", iconId: "fr-icon-add-line" },
+                { tabId: "tab2", label: "Tab 2", iconId: "fr-icon-ball-pen-fill" },
+                { tabId: "tab3", label: "Tab 3" },
             ]}
             onTabChange={setSelectedTabId}
         >
@@ -59,7 +59,12 @@ export default meta;
 export const Default = getStory({
     "tabs": [
         { "label": "Tab 1", "iconId": "fr-icon-add-line", "content": <p>Content of tab1</p> },
-        { "label": "Tab 2", "iconId": "fr-icon-ball-pen-fill", "content": <p>Content of tab2</p> },
+        {
+            "label": "Tab 2",
+            "iconId": "fr-icon-ball-pen-fill",
+            "isDefault": true,
+            "content": <p>Content of tab2</p>
+        },
         { "label": "Tab 3", "content": <p>Content of tab3</p> }
     ],
     "label": "Name of the tabs system",
