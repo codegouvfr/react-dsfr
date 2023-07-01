@@ -103,45 +103,7 @@ export const WithControlledInput = getStory(
         "description": ` 
 
 \`\`\`tsx
-
 import { SearchBar } from "@codegouvfr/react-dsfr/SearchBar";
-
-type MySearchInputProps = {
-    className?: string;
-    id: string;
-    placeholder: string;
-    type: "search";
-    search: string;
-    onSearchChange: (search: string) => void;
-};
-        
-function MySearchInput(props: MySearchInputProps) {
-        
-    const { className, id, placeholder, type, search, onSearchChange } = props;
-
-    const [
-        inputElement,
-        setInputElement
-    ] = useState<HTMLInputElement | null>(null);
-
-    return (
-        <input
-            className={className}
-            id={id}
-            placeholder={placeholder}
-            type={type}
-            value={search}
-            onChange={event => onSearchChange(event.currentTarget.value)}
-            onKeyDown={event => {
-                if (event.key === "Escape") {
-                    setInputElement?.blur();
-                }
-            }}
-        />
-    );
-        
-}
-
         
 function Root(){
         
@@ -151,21 +113,32 @@ function Root(){
         <>
             <SearchBar
                 ...
-                renderInput={({
-                    className,
-                    id,
-                    placeholder,
-                    type
-                })=>
-                    <MySearchInput
-                        className={className}
-                        id={id}
-                        placeholder={placeholder}
-                        type={type}
-                        search={search}
-                        onSearchChange={onSearchChange}
-                    />
-                }
+                renderInput={({ className, id, placeholder, type }) => {
+                    const [inputElement, setInputElement] =
+                        useState<HTMLInputElement | null>(null);
+
+                    return (
+                        <input
+                            ref={setInputElement}
+                            className={className}
+                            id={id}
+                            placeholder={placeholder}
+                            type={type}
+                            value={search}
+                            // Note: The default behavior for an input of type 'text' is to clear the input value when the escape key is pressed.
+                            // However, due to a bug in @gouvfr/dsfr the escape key event is not propagated to the input element.
+                            // As a result this onChange is not called when the escape key is pressed.
+                            onChange={event => onSearchChange(event.currentTarget.value)}
+                            // Same goes for the keydown event so this is useless but we hope the bug will be fixed soon.
+                            onKeyDown={event => {
+                                if (event.key === "Escape") {
+                                    assert(inputElement !== null);
+                                    inputElement.blur();
+                                }
+                            }}
+                        />
+                    );
+                }}
                 ...
             />
             <p>Search results for: {search}</p>
@@ -174,7 +147,6 @@ function Root(){
     );
         
 }
-        
 \`\`\`
         
 If you want to feature a modern search experience with realtime hinting you can omit providing a \`onSearchButtonClick\` callback and instead
