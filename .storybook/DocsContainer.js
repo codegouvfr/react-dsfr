@@ -8,6 +8,7 @@ import "../dist/dsfr/dsfr.css";
 import { useIsDark } from "../dist/useIsDark";
 import { startReactDsfr } from "../dist/spa";
 import { useColors } from "../dist/useColors";
+import { MuiDsfrThemeProvider } from "../dist/mui";
 
 startReactDsfr({
     "defaultColorScheme": "system",
@@ -69,7 +70,9 @@ export const DocsContainer = ({ children, context }) => {
                     }
                 }}
             >
-                {children}
+                <MuiDsfrThemeProvider>
+                    {children}
+                </MuiDsfrThemeProvider>
             </BaseContainer>
         </>
     );

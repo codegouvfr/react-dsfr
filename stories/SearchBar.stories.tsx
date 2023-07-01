@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SearchBar } from "../dist/SearchBar";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
+import { MuiSearchInput } from "./MuiSearchInput";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -51,53 +52,40 @@ import { SearchBar } from "@codegouvfr/react-dsfr/SearchBar";
     }
 );
 
-type MySearchInputProps = {
-    className?: string;
-    id: string;
-    placeholder: string;
-    type: "search";
-};
-
-function MySearchInput(props: MySearchInputProps) {
-    const { className, id, placeholder, type } = props;
-
-    const [search, onSearchChange] = useState("");
-
-    const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
-
-    return (
-        <>
-            <input
-                ref={setInputElement}
-                className={className}
-                id={id}
-                placeholder={placeholder}
-                type={type}
-                value={search}
-                onChange={event => onSearchChange(event.currentTarget.value)}
-                onKeyDown={event => {
-                    if (event.key === "Escape") {
-                        inputElement?.blur();
-                    }
-                }}
-            />
-            <p
-                style={{
-                    "position": "absolute",
-                    "top": 84
-                }}
-            >
-                Search results for: {search}
-            </p>
-        </>
-    );
-}
-
 export const WithControlledInput = getStory(
     {
-        "renderInput": ({ className, id, placeholder, type }) => (
-            <MySearchInput className={className} id={id} placeholder={placeholder} type={type} />
-        )
+        "renderInput": ({ className, id, placeholder, type }) => {
+            const [search, onSearchChange] = useState("");
+
+            const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
+
+            return (
+                <>
+                    <input
+                        ref={setInputElement}
+                        className={className}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                        value={search}
+                        onChange={event => onSearchChange(event.currentTarget.value)}
+                        onKeyDown={event => {
+                            if (event.key === "Escape") {
+                                inputElement?.blur();
+                            }
+                        }}
+                    />
+                    <p
+                        style={{
+                            "position": "absolute",
+                            "top": 84
+                        }}
+                    >
+                        Search results for: {search}
+                    </p>
+                </>
+            );
+        }
     },
     {
         "description": ` 
@@ -148,6 +136,28 @@ function Root(){
         
 }
 \`\`\`
+`
+    }
+);
+
+export const WithMuiAutocomplete = getStory(
+    {
+        "renderInput": ({ className, id, placeholder, type }) => (
+            <MuiSearchInput
+                className={className}
+                id={id}
+                placeholder={placeholder}
+                type={type}
+                value=""
+                onChange={() => {
+                    /**/
+                }}
+                results={[]}
+            />
+        )
+    },
+    {
+        "description": ` 
         
 If you want to feature a modern search experience with realtime hinting you can omit providing a \`onSearchButtonClick\` callback and instead
 make sure you provide an overlay with the search results in the the \`renderSearchInput\` function.  
@@ -176,12 +186,12 @@ function MySearchInput(props: MySearchInputProps) {
     return (
         <Autocomplete 
             ...
+            id={id}
             renderInput={params => 
                 <div ref={params.InputProps.ref}>
                     <input 
                         {...params.inputProps} 
                         className={cx(params.inputProps.className, className)}
-                        id={id}
                         placeholder={placeholder}
                         type={type}
                     />
