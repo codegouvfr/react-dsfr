@@ -126,29 +126,20 @@ function MySearchInput(props: MySearchInputProps) {
     ] = useState<HTMLInputElement | null>(null);
 
     return (
-        <>
-            <input
-                className={className}
-                id={id}
-                placeholder={placeholder}
-                type={type}
-                value={search}
-                onChange={event => onSearchChange(event.currentTarget.value)}
-                onKeyDown={event => {
-                    if (event.key === "Escape") {
-                        onSearchChange("");
-                        setInputElement?.blur();
-                    }
-                }}
-            />
-            <p
-                style={{
-                    "position": "absolute",
-                    "top": 120,
-                    "left": 0
-                }}
-            >Search results for: {search}</p>
-        </>
+        <input
+            className={className}
+            id={id}
+            placeholder={placeholder}
+            type={type}
+            value={search}
+            onChange={event => onSearchChange(event.currentTarget.value)}
+            onKeyDown={event => {
+                if (event.key === "Escape") {
+                    onSearchChange("");
+                    setInputElement?.blur();
+                }
+            }}
+        />
     );
         
 }

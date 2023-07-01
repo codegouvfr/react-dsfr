@@ -78,9 +78,7 @@ export const SearchBar = memo(
                     "type": "search",
                     "id": inputId
                 })}
-                {Date.now() === 0 && (
-                    <SearchButton searchInputId={inputId} onClick={onButtonClick} />
-                )}
+                <SearchButton searchInputId={inputId} onClick={onButtonClick} />
             </div>
         );
     })

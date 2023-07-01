@@ -6,6 +6,8 @@ import { fr } from "../fr";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
+import { observeInputValue } from "../tools/observeInputValue";
+import { id } from "tsafe/id";
 
 export type SearchButtonProps = {
     searchInputId: string;
@@ -19,16 +21,17 @@ export function SearchButton(props: SearchButtonProps) {
 
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-    const [getInputValue, setGetInputValue] = useState(() => () => "");
-
-    const [resetInputValue, setResetInputValue] = useState<() => void>(() => () => {
-        /* do nothing */
-    });
-    const [focusInputElement, setFocusInputElement] = useState<() => void>(() => () => {
-        /* do nothing */
-    });
-
-    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [{ focusInputElement, getInputValue, resetInputValue, getIsInputFocused }, setInputApi] =
+        useState(() => ({
+            "getInputValue": id<() => string>(() => ""),
+            "resetInputValue": id<() => void>(() => {
+                /* do nothing */
+            }),
+            "focusInputElement": id<() => void>(() => {
+                /* do nothing */
+            }),
+            "getIsInputFocused": id<() => boolean>(() => false)
+        }));
 
     const onClick = useConstCallback(() => {
         const inputValue = getInputValue();
@@ -55,54 +58,22 @@ export function SearchButton(props: SearchButtonProps) {
 
         assert(is<HTMLInputElement>(inputElement));
 
-        setGetInputValue(() => () => inputElement.value);
+        setInputApi({
+            "focusInputElement": () => inputElement.focus(),
+            "getInputValue": () => inputElement.value,
+            "resetInputValue": () => (inputElement.value = ""),
+            "getIsInputFocused": () => document.activeElement === inputElement
+        });
+
+        observeInputValue(inputElement, () => forceUpdate());
 
         const cleanups: (() => void)[] = [];
-
-        inputElement.addEventListener(
-            "input",
-            (() => {
-                const callback = () => {
-                    forceUpdate();
-                };
-
-                cleanups.push(() => inputElement.removeEventListener("input", callback));
-
-                return callback;
-            })()
-        );
-
-        inputElement.addEventListener(
-            "keydown",
-            (() => {
-                const callback = (event: KeyboardEvent) => {
-                    if (event.key !== "Escape") {
-                        return;
-                    }
-
-                    forceUpdate();
-                };
-
-                cleanups.push(() => inputElement.removeEventListener("keydown", callback));
-
-                return callback;
-            })()
-        );
-
-        const resetInputValue = () => {
-            inputElement.value = "";
-            inputElement.dispatchEvent(new Event("input"));
-        };
-
-        setResetInputValue(() => resetInputValue);
-
-        setFocusInputElement(() => () => inputElement.focus());
 
         if (isControlledByUser) {
             inputElement.addEventListener(
                 "focus",
                 (() => {
-                    const callback = () => setIsInputFocused(true);
+                    const callback = () => forceUpdate();
 
                     cleanups.push(() => inputElement.removeEventListener("focus", callback));
 
@@ -113,7 +84,7 @@ export function SearchButton(props: SearchButtonProps) {
             inputElement.addEventListener(
                 "blur",
                 (() => {
-                    const callback = () => setIsInputFocused(false);
+                    const callback = () => forceUpdate();
 
                     cleanups.push(() => inputElement.removeEventListener("blur", callback));
 
@@ -149,7 +120,7 @@ export function SearchButton(props: SearchButtonProps) {
                             return;
                         }
 
-                        resetInputValue();
+                        inputElement.value = "";
                         inputElement.blur();
                     };
 
@@ -165,7 +136,7 @@ export function SearchButton(props: SearchButtonProps) {
         };
     }, [searchInputId, isControlledByUser]);
 
-    if (onClick_props === undefined && (isInputFocused || getInputValue() !== "")) {
+    if (onClick_props === undefined && (getIsInputFocused() || getInputValue() !== "")) {
         return null;
     }
 
