@@ -24,7 +24,6 @@ export type ModalProps = {
         | [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]]
         | ModalProps.ActionAreaButtonProps;
     style?: CSSProperties;
-    onClose?: () => void;
 };
 
 export namespace ModalProps {
@@ -54,7 +53,6 @@ const Modal = memo(
             buttons: buttons_props,
             size = "medium",
             style,
-            onClose,
             ...rest
         } = props;
 
@@ -78,7 +76,6 @@ const Modal = memo(
                 style={style}
                 ref={ref}
                 data-fr-concealing-backdrop={concealingBackdrop}
-                onClose={onClose}
             >
                 <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-md")}>
                     <div className={fr.cx("fr-grid-row", "fr-grid-row--center")}>
