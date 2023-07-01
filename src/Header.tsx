@@ -1,20 +1,20 @@
 import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
-import { fr } from "../fr";
-import { createComponentI18nApi } from "../i18n";
+import { fr } from "./fr";
+import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "../tools/cx";
-import { getLink } from "../link";
-import type { RegisteredLinkProps } from "../link";
+import { cx } from "./tools/cx";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "../MainNavigation";
-import { MainNavigation } from "../MainNavigation";
-import { Display } from "../Display/Display";
-import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "./MainNavigation";
+import { MainNavigation } from "./MainNavigation";
+import { Display } from "./Display/Display";
+import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
-import { SearchButton } from "../SearchBar/SearchButton";
-import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
+import { SearchButton } from "./SearchBar/SearchButton";
+import { useTranslation as useSearchBarTranslation } from "./SearchBar/SearchBar";
 
 export type HeaderProps = {
     className?: string;
