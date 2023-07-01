@@ -13,7 +13,6 @@ export type ModalProps = {
     iconId?: FrIconClassName | RiIconClassName;
     buttons?: [ModalProps.ActionAreaButtonProps, ...ModalProps.ActionAreaButtonProps[]] | ModalProps.ActionAreaButtonProps;
     style?: CSSProperties;
-    onClose?: () => void;
 };
 export declare namespace ModalProps {
     type ActionAreaButtonProps = ButtonProps & {

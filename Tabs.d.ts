@@ -13,6 +13,7 @@ export declare namespace TabsProps {
             label: ReactNode;
             iconId?: FrIconClassName | RiIconClassName;
             content: ReactNode;
+            isDefault?: boolean;
         }[];
         selectedTabId?: undefined;
         onTabChange?: (params: {

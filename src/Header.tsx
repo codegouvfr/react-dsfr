@@ -1,19 +1,20 @@
 import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
-import { fr } from "../fr";
-import { createComponentI18nApi } from "../i18n";
+import { fr } from "./fr";
+import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "../tools/cx";
-import { getLink } from "../link";
-import type { RegisteredLinkProps } from "../link";
+import { cx } from "./tools/cx";
+import { getLink } from "./link";
+import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "../MainNavigation";
-import { MainNavigation } from "../MainNavigation";
-import { Display } from "../Display/Display";
-import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "./MainNavigation";
+import { MainNavigation } from "./MainNavigation";
+import { Display } from "./Display/Display";
+import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
-import { SearchButton } from "./SearchButton";
+import { SearchButton } from "./SearchBar/SearchButton";
+import { useTranslation as useSearchBarTranslation } from "./SearchBar/SearchBar";
 
 export type HeaderProps = {
     className?: string;
@@ -42,14 +43,12 @@ export type HeaderProps = {
          **/
         params: {
             id: string;
-            //TODO: Remove this parameter, it's a scoping error
-            name: string;
             type: "search";
             className: string;
             placeholder: string;
         }
     ) => JSX.Element;
-    /** Called when the search button is clicked, only relevant when renderSearchInput is provided */
+    /** Called when the search button is clicked */
     onSearchButtonClick?: (text: string) => void;
     classes?: Partial<
         Record<
@@ -118,6 +117,9 @@ export const Header = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const isSearchBarEnabled =
+            renderSearchInput !== undefined || onSearchButtonClick !== undefined;
+
         setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
 
         const { menuButtonId, menuModalId, searchModalId, searchInputId } = (function useClosure() {
@@ -137,6 +139,7 @@ export const Header = memo(
         })();
 
         const { t } = useTranslation();
+        const { t: tSearchBar } = useSearchBarTranslation();
 
         const { Link } = getLink();
 
@@ -227,14 +230,14 @@ export const Header = memo(
 
                                         {(quickAccessItems.length > 0 ||
                                             navigation !== undefined ||
-                                            renderSearchInput !== undefined) && (
+                                            isSearchBarEnabled) && (
                                             <div
                                                 className={cx(
                                                     fr.cx("fr-header__navbar"),
                                                     classes.navbar
                                                 )}
                                             >
-                                                {renderSearchInput !== undefined && (
+                                                {isSearchBarEnabled && (
                                                     <button
                                                         className={fr.cx(
                                                             "fr-btn--search",
@@ -242,9 +245,9 @@ export const Header = memo(
                                                         )}
                                                         data-fr-opened={false}
                                                         aria-controls={searchModalId}
-                                                        title={t("search")}
+                                                        title={tSearchBar("label")}
                                                     >
-                                                        {t("search")}
+                                                        {tSearchBar("label")}
                                                     </button>
                                                 )}
                                                 <button
@@ -291,8 +294,7 @@ export const Header = memo(
                                     )}
                                 </div>
 
-                                {(quickAccessItems.length > 0 ||
-                                    renderSearchInput !== undefined) && (
+                                {(quickAccessItems.length > 0 || isSearchBarEnabled) && (
                                     <div className={fr.cx("fr-header__tools")}>
                                         {quickAccessItems.length > 0 && (
                                             <div
@@ -305,7 +307,7 @@ export const Header = memo(
                                             </div>
                                         )}
 
-                                        {renderSearchInput !== undefined && (
+                                        {isSearchBarEnabled && (
                                             <div
                                                 className={fr.cx("fr-header__search", "fr-modal")}
                                                 id={searchModalId}
@@ -331,13 +333,27 @@ export const Header = memo(
                                                             className={fr.cx("fr-label")}
                                                             htmlFor={searchInputId}
                                                         >
-                                                            {t("search")}
+                                                            {tSearchBar("label")}
                                                         </label>
-                                                        {renderSearchInput({
+                                                        {(
+                                                            renderSearchInput ??
+                                                            (({
+                                                                className,
+                                                                id,
+                                                                placeholder,
+                                                                type
+                                                            }) => (
+                                                                <input
+                                                                    className={className}
+                                                                    id={id}
+                                                                    placeholder={placeholder}
+                                                                    type={type}
+                                                                />
+                                                            ))
+                                                        )({
                                                             "className": fr.cx("fr-input"),
                                                             "id": searchInputId,
-                                                            "name": searchInputId,
-                                                            "placeholder": t("search"),
+                                                            "placeholder": tSearchBar("label"),
                                                             "type": "search"
                                                         })}
                                                         <SearchButton
@@ -399,8 +415,7 @@ export const { useTranslation, addHeaderTranslations } = createComponentI18nApi(
     "frMessages": {
         /* spell-checker: disable */
         "menu": "Menu",
-        "close": "Fermer",
-        "search": "Rechercher"
+        "close": "Fermer"
         /* spell-checker: enable */
     }
 });
@@ -408,8 +423,7 @@ export const { useTranslation, addHeaderTranslations } = createComponentI18nApi(
 addHeaderTranslations({
     "lang": "en",
     "messages": {
-        "close": "Close",
-        "search": "Search"
+        "close": "Close"
     }
 });
 

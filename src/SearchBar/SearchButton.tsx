@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "./Header";
+import React, { useEffect, useState, useReducer } from "react";
+import { useTranslation } from "./SearchBar";
 import { fr } from "../fr";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
+import { observeInputValue } from "../tools/observeInputValue";
+import { id } from "tsafe/id";
 
 export type SearchButtonProps = {
     searchInputId: string;
@@ -17,18 +19,23 @@ export function SearchButton(props: SearchButtonProps) {
 
     const { t } = useTranslation();
 
-    const [inputValue, setInputValue] = useState("");
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-    const [resetInputValue, setResetInputValue] = useState<() => void>(() => () => {
-        /* do nothing */
-    });
-    const [focusInputElement, setFocusInputElement] = useState<() => void>(() => () => {
-        /* do nothing */
-    });
-
-    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [{ focusInputElement, getInputValue, resetInputValue, getIsInputFocused }, setInputApi] =
+        useState(() => ({
+            "getInputValue": id<() => string>(() => ""),
+            "resetInputValue": id<() => void>(() => {
+                /* do nothing */
+            }),
+            "focusInputElement": id<() => void>(() => {
+                /* do nothing */
+            }),
+            "getIsInputFocused": id<() => boolean>(() => false)
+        }));
 
     const onClick = useConstCallback(() => {
+        const inputValue = getInputValue();
+
         if (inputValue === "") {
             focusInputElement();
             return;
@@ -37,6 +44,8 @@ export function SearchButton(props: SearchButtonProps) {
         onClick_props?.(inputValue);
         resetInputValue();
     });
+
+    const isControlledByUser = onClick_props === undefined;
 
     useEffect(() => {
         const inputElement = document.getElementById(searchInputId);
@@ -49,53 +58,22 @@ export function SearchButton(props: SearchButtonProps) {
 
         assert(is<HTMLInputElement>(inputElement));
 
-        setInputValue(inputElement.value);
+        setInputApi({
+            "focusInputElement": () => inputElement.focus(),
+            "getInputValue": () => inputElement.value,
+            "resetInputValue": () => (inputElement.value = ""),
+            "getIsInputFocused": () => document.activeElement === inputElement
+        });
+
+        observeInputValue(inputElement, () => forceUpdate());
 
         const cleanups: (() => void)[] = [];
 
-        inputElement.addEventListener(
-            "input",
-            (() => {
-                const callback = () => setInputValue(inputElement.value);
-
-                cleanups.push(() => inputElement.removeEventListener("input", callback));
-
-                return callback;
-            })()
-        );
-
-        const resetInputValue = () => {
-            inputElement.value = "";
-            inputElement.dispatchEvent(new Event("input"));
-        };
-
-        setResetInputValue(() => resetInputValue);
-
-        setFocusInputElement(() => () => inputElement.focus());
-
-        inputElement.addEventListener(
-            "keydown",
-            (() => {
-                const callback = (event: KeyboardEvent): void => {
-                    if (event.key !== "Escape") {
-                        return;
-                    }
-
-                    resetInputValue();
-                    inputElement.blur();
-                };
-
-                cleanups.push(() => inputElement.removeEventListener("keydown", callback));
-
-                return callback;
-            })()
-        );
-
-        if (onClick_props === undefined) {
+        if (isControlledByUser) {
             inputElement.addEventListener(
                 "focus",
                 (() => {
-                    const callback = () => setIsInputFocused(true);
+                    const callback = () => forceUpdate();
 
                     cleanups.push(() => inputElement.removeEventListener("focus", callback));
 
@@ -106,14 +84,16 @@ export function SearchButton(props: SearchButtonProps) {
             inputElement.addEventListener(
                 "blur",
                 (() => {
-                    const callback = () => setIsInputFocused(false);
+                    const callback = () => forceUpdate();
 
                     cleanups.push(() => inputElement.removeEventListener("blur", callback));
 
                     return callback;
                 })()
             );
-        } else {
+        }
+
+        if (!isControlledByUser) {
             inputElement.addEventListener(
                 "keydown",
                 (() => {
@@ -131,20 +111,38 @@ export function SearchButton(props: SearchButtonProps) {
                     return callback;
                 })()
             );
+
+            inputElement.addEventListener(
+                "keydown",
+                (() => {
+                    const callback = (event: KeyboardEvent) => {
+                        if (event.key !== "Escape") {
+                            return;
+                        }
+
+                        inputElement.value = "";
+                        inputElement.blur();
+                    };
+
+                    cleanups.push(() => inputElement.removeEventListener("keydown", callback));
+
+                    return callback;
+                })()
+            );
         }
 
         return () => {
             cleanups.forEach(cleanup => cleanup());
         };
-    }, [searchInputId, onClick_props]);
+    }, [searchInputId, isControlledByUser]);
 
-    if (onClick_props === undefined && (isInputFocused || inputValue !== "")) {
+    if (onClick_props === undefined && (getIsInputFocused() || getInputValue() !== "")) {
         return null;
     }
 
     return (
-        <button className={fr.cx("fr-btn")} title={t("search")} onClick={onClick}>
-            {t("search")}
+        <button className={fr.cx("fr-btn")} title={t("label")} onClick={onClick}>
+            {t("label")}
         </button>
     );
 }

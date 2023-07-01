@@ -1,7 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
-import type { RegisteredLinkProps } from "../link";
-import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "../MainNavigation";
+import type { RegisteredLinkProps } from "./link";
+import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "./MainNavigation";
 export type HeaderProps = {
     className?: string;
     brandTop: ReactNode;
@@ -31,12 +31,11 @@ export type HeaderProps = {
      **/
     params: {
         id: string;
-        name: string;
         type: "search";
         className: string;
         placeholder: string;
     }) => JSX.Element;
-    /** Called when the search button is clicked, only relevant when renderSearchInput is provided */
+    /** Called when the search button is clicked */
     onSearchButtonClick?: (text: string) => void;
     classes?: Partial<Record<"root" | "body" | "bodyRow" | "brand" | "brandTop" | "logo" | "operator" | "navbar" | "service" | "serviceTitle" | "serviceTagline" | "toolsLinks" | "menu" | "menuLinks", string>>;
     style?: CSSProperties;
@@ -62,37 +61,30 @@ export declare namespace HeaderProps {
 export declare const Header: React.MemoExoticComponent<React.ForwardRefExoticComponent<HeaderProps & React.RefAttributes<HTMLDivElement>>>;
 export default Header;
 export declare const useTranslation: () => {
-    t: (<K extends "menu" | "search" | "close">(messageKey: K) => {
+    t: (<K extends "menu" | "close">(messageKey: K) => {
         menu: string;
         close: string;
-        search: string;
     }[K] extends (params: any) => infer R ? R : {
         menu: string;
         close: string;
-        search: string;
     }[K]) & (<K_1 extends never>(messageKey: K_1, params: {
         menu: string;
         close: string;
-        search: string;
     }[K_1] extends infer T ? T extends {
         menu: string;
         close: string;
-        search: string;
     }[K_1] ? T extends (params: any) => any ? Parameters<T>[0] : never : never : never) => {
         menu: string;
         close: string;
-        search: string;
     }[K_1] extends (params: any) => infer R_1 ? R_1 : {
         menu: string;
         close: string;
-        search: string;
     }[K_1]);
 }, addHeaderTranslations: (params: {
     lang: string;
     messages: Partial<{
         menu: string;
         close: string;
-        search: string;
     }>;
 }) => void;
 export type HeaderQuickAccessItemProps = {

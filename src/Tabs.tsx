@@ -32,6 +32,7 @@ export namespace TabsProps {
             label: ReactNode;
             iconId?: FrIconClassName | RiIconClassName;
             content: ReactNode;
+            isDefault?: boolean;
         }[];
         selectedTabId?: undefined;
         onTabChange?: (params: { tabIndex: number; tab: Uncontrolled["tabs"][number] }) => void;
@@ -69,14 +70,12 @@ export const Tabs = memo(
 
         const id = useId();
 
-        const getSelectedTabIndex = () => {
-            assert(selectedTabId !== undefined);
-            return tabs.findIndex(({ tabId }) => tabId === selectedTabId);
-        };
+        const getSelectedTabIndex = () =>
+            tabs.findIndex(tab =>
+                "content" in tab ? tab.isDefault ?? false : tab.tabId === selectedTabId
+            );
 
-        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
-            selectedTabId !== undefined ? getSelectedTabIndex : 0
-        );
+        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
 
         useEffect(() => {
             if (selectedTabId === undefined) {

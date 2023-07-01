@@ -21,11 +21,8 @@ export const Tabs = memo(forwardRef((props, ref) => {
     const { className, label, classes = {}, tabs, selectedTabId, onTabChange, children, style } = props, rest = __rest(props, ["className", "label", "classes", "tabs", "selectedTabId", "onTabChange", "children", "style"]);
     assert();
     const id = useId();
-    const getSelectedTabIndex = () => {
-        assert(selectedTabId !== undefined);
-        return tabs.findIndex(({ tabId }) => tabId === selectedTabId);
-    };
-    const [selectedTabIndex, setSelectedTabIndex] = useState(selectedTabId !== undefined ? getSelectedTabIndex : 0);
+    const getSelectedTabIndex = () => tabs.findIndex(tab => { var _a; return "content" in tab ? (_a = tab.isDefault) !== null && _a !== void 0 ? _a : false : tab.tabId === selectedTabId; });
+    const [selectedTabIndex, setSelectedTabIndex] = useState(getSelectedTabIndex);
     useEffect(() => {
         if (selectedTabId === undefined) {
             return;
