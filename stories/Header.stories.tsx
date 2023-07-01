@@ -177,6 +177,9 @@ export const WithUncontrolledSearchBar = getStory(
 If you you do not plan to provide any realtime hinting to the user as he types the search query you can provide a \`onSearchButtonClick\`
 callback that will be called when the user click on the search button or press enter.
 
+> NOTE: There is a bug in the DSFR that prevent te input to be cleared when the user press the escape key.  
+We hope it will be fixed soon.
+
 \`\`\`tsx
 
 <Header
@@ -283,14 +286,13 @@ function MySearchInput(props: MySearchInputProps) {
             placeholder={placeholder}
             type={type}
             value={search}
+            // Note: The default behavior for an input of type 'text' is to clear the input value when the escape key is pressed.
+            // However, due to a bug in @gouvfr/dsfr the escape key event is not propagated to the input element.
+            // As a result this onChange is not called when the escape key is pressed.
             onChange={event => onSearchChange(event.currentTarget.value)}
-            // A bug in @gouvfr/dsfr is currently preventing the escape key event to be propagated to the input element.
-            // As a result this onKeyDown is never called when the user press escape and thus is useless.
-            // In the current state of thing there is no way to clear the search input and lost focus in controlled mode.  
-            // We hope this issue will be resolved soon.  
+            // Same goes for the keydown event so this is useless but we hope the bug will be fixed soon.
             onKeyDown={event => {
                 if (event.key === "Escape") {
-                    onSearchChange("");
                     inputElement?.blur();
                 }
             }}

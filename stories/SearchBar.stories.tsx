@@ -77,7 +77,6 @@ function MySearchInput(props: MySearchInputProps) {
                 onChange={event => onSearchChange(event.currentTarget.value)}
                 onKeyDown={event => {
                     if (event.key === "Escape") {
-                        onSearchChange("");
                         inputElement?.blur();
                     }
                 }}
@@ -135,7 +134,6 @@ function MySearchInput(props: MySearchInputProps) {
             onChange={event => onSearchChange(event.currentTarget.value)}
             onKeyDown={event => {
                 if (event.key === "Escape") {
-                    onSearchChange("");
                     setInputElement?.blur();
                 }
             }}
