@@ -39,13 +39,9 @@ export async function start(params: Params) {
 
     (window as any).dsfr = { verbose, "mode": "react" };
 
-    console.log("do not load js");
-    //await import("./dsfr/dsfr.module" as any);
+    await import("./dsfr/dsfr.module" as any);
 
-    //const { dsfr } = window as unknown as { dsfr: { start: () => void } };
+    const { dsfr } = window as unknown as { dsfr: { start: () => void } };
 
-    //registerEffectAction(() => dsfr.start());
-    registerEffectAction(() => {
-        /*nothing*/
-    });
+    registerEffectAction(() => dsfr.start());
 }
