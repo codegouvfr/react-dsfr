@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Header } from "../dist/Header";
 import { MainNavigation } from "../dist/MainNavigation";
 import { sectionName } from "./sectionName";
@@ -154,7 +154,82 @@ component within a \`"use client";\` directive you can use the \`<HeaderQuickAcc
     }
 );
 
-export const WithSearchBar = getStory(
+export const WithUncontrolledSearchBar = getStory(
+    {
+        "brandTop": (
+            <>
+                INTITULE
+                <br />
+                OFFICIEL
+            </>
+        ),
+        "homeLinkProps": {
+            "href": "/",
+            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+        },
+        "serviceTitle": "Nom du site / service",
+        "serviceTagline": "baseline - précisions sur l'organisation",
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`)
+    },
+    {
+        "description": `
+
+If you you do not plan to provide any realtime hinting to the user as he types the search query you can provide a \`onSearchButtonClick\`
+callback that will be called when the user click on the search button or press enter.
+
+\`\`\`tsx
+
+<Header
+    ...
+    onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
+/>
+\`\`\`
+
+`
+    }
+);
+
+type MySearchInputProps = {
+    className?: string;
+    id: string;
+    placeholder: string;
+    type: "search";
+};
+
+function MySearchInput(props: MySearchInputProps) {
+    const { className, id, placeholder, type } = props;
+
+    const [search, onSearchChange] = useState("");
+
+    return (
+        <>
+            <input
+                className={className}
+                id={id}
+                placeholder={placeholder}
+                type={type}
+                value={search}
+                onChange={event => onSearchChange(event.currentTarget.value)}
+                onKeyDown={event => {
+                    if (event.key === "Escape") {
+                        onSearchChange("");
+                    }
+                }}
+            />
+            <p
+                style={{
+                    "position": "absolute",
+                    "top": 120,
+                    "left": 0
+                }}
+            >
+                Search results for: {search}
+            </p>
+        </>
+    );
+}
+
+export const WithControlledSearchBar = getStory(
     {
         "brandTop": (
             <>
@@ -170,25 +245,87 @@ export const WithSearchBar = getStory(
         "serviceTitle": "Nom du site / service",
         "serviceTagline": "baseline - précisions sur l'organisation",
         "renderSearchInput": ({ className, id, placeholder, type }) => (
-            <input className={className} id={id} placeholder={placeholder} type={type} />
-        ),
-        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`)
+            <MySearchInput className={className} id={id} placeholder={placeholder} type={type} />
+        )
     },
     {
         "description": `
 
-If you you do not plan to provide any realtime hinting to the user as he types the search query you can provide a \`onSearchButtonClick\`
-callback that will be called when the user click on the search button or press enter.
 
 \`\`\`tsx
 
-<Header
-    ...
-    renderSearchInput={({ className, id, placeholder, type }) => (
-        <input className={className} id={id} placeholder={placeholder} type={type} />
-    )}
-    onSearchButtonClick={text=> alert(\`TODO: implement search with text: \${text}\`)}
-/>
+type MySearchInputProps = {
+    className?: string;
+    id: string;
+    placeholder: string;
+    type: "search";
+    search: string;
+    onSearchChange: (search: string) => void;
+};
+
+function MySearchInput(props: MySearchInputProps) {
+
+    const { className, id, placeholder, type, search, onSearchChange } = props;
+
+    return (
+        <>
+            <input
+                className={className}
+                id={id}
+                placeholder={placeholder}
+                type={type}
+                value={search}
+                onChange={event => onSearchChange(event.currentTarget.value)}
+                onKeyDown={event => {
+                    if (event.key === "Escape") {
+                        onSearchChange("");
+                    }
+                }}
+            />
+            <p
+                style={{
+                    "position": "absolute",
+                    "top": 120,
+                    "left": 0
+                }}
+            >Search results for: {search}</p>
+        </>
+    );
+
+}
+
+function Root(){
+
+    const [search, onSearchChange] = useState("");
+
+    return (
+        <>
+            <Header
+                ...
+                renderSearchInput={({
+                    className,
+                    id,
+                    placeholder,
+                    type
+                })=>
+                    <MySearchInput
+                        className={className}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                        search={search}
+                        onSearchChange={onSearchChange}
+                    />
+                }
+                ...
+            />
+            <p>Search results for: {search}</p>
+        </>
+
+    );
+
+}
+
 \`\`\`
 
 If you want to feature a modern search experience with realtime hinting you can omit providing a \`onSearchButtonClick\` callback and instead
@@ -320,9 +457,7 @@ export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
                 }
             }
         ],
-        "renderSearchInput": ({ className, id, placeholder, type }) => (
-            <input className={className} id={id} placeholder={placeholder} type={type} />
-        )
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`)
     },
     {
         "description": `
@@ -356,9 +491,7 @@ export const HeaderWithVerticalOperatorLogo = getStory(
             "title":
                 "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
         },
-        "renderSearchInput": ({ className, id, placeholder, type }) => (
-            <input className={className} id={id} placeholder={placeholder} type={type} />
-        ),
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
         "operatorLogo": {
             "orientation": "vertical",
             "imgUrl": placeholder_9x16ImgUrl,
@@ -422,15 +555,7 @@ export const WithHorizontalOperatorLogo = getStory(
                 }
             }
         ],
-        "renderSearchInput": ({ className, id, name, placeholder, type }) => (
-            <input
-                className={className}
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                type={type}
-            />
-        ),
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
         "operatorLogo": {
             "orientation": "horizontal",
             "imgUrl": placeholder_16x9ImgUrl,

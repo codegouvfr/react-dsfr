@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "./Header";
+import { useTranslation } from "./SearchBar";
 import { fr } from "../fr";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
@@ -73,24 +73,6 @@ export function SearchButton(props: SearchButtonProps) {
 
         setFocusInputElement(() => () => inputElement.focus());
 
-        inputElement.addEventListener(
-            "keydown",
-            (() => {
-                const callback = (event: KeyboardEvent): void => {
-                    if (event.key !== "Escape") {
-                        return;
-                    }
-
-                    resetInputValue();
-                    inputElement.blur();
-                };
-
-                cleanups.push(() => inputElement.removeEventListener("keydown", callback));
-
-                return callback;
-            })()
-        );
-
         if (onClick_props === undefined) {
             inputElement.addEventListener(
                 "focus",
@@ -131,6 +113,24 @@ export function SearchButton(props: SearchButtonProps) {
                     return callback;
                 })()
             );
+
+            inputElement.addEventListener(
+                "keydown",
+                (() => {
+                    const callback = (event: KeyboardEvent) => {
+                        if (event.key !== "Escape") {
+                            return;
+                        }
+
+                        resetInputValue();
+                        inputElement.blur();
+                    };
+
+                    cleanups.push(() => inputElement.removeEventListener("keydown", callback));
+
+                    return callback;
+                })()
+            );
         }
 
         return () => {
@@ -143,8 +143,8 @@ export function SearchButton(props: SearchButtonProps) {
     }
 
     return (
-        <button className={fr.cx("fr-btn")} title={t("search")} onClick={onClick}>
-            {t("search")}
+        <button className={fr.cx("fr-btn")} title={t("label")} onClick={onClick}>
+            {t("label")}
         </button>
     );
 }
