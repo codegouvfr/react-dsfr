@@ -284,6 +284,10 @@ function MySearchInput(props: MySearchInputProps) {
             type={type}
             value={search}
             onChange={event => onSearchChange(event.currentTarget.value)}
+            // A bug in @gouvfr/dsfr is currently preventing the escape key event to be propagated to the input element.
+            // As a result this onKeyDown is never called when the user press escape and thus is useless.
+            // In the current state of thing there is no way to clear the search input and lost focus in controlled mode.  
+            // We hope this issue will be resolved soon.  
             onKeyDown={event => {
                 if (event.key === "Escape") {
                     onSearchChange("");
