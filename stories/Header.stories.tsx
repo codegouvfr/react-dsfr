@@ -200,10 +200,12 @@ function MySearchInput(props: MySearchInputProps) {
     const { className, id, placeholder, type } = props;
 
     const [search, onSearchChange] = useState("");
+    const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
 
     return (
         <>
             <input
+                ref={setInputElement}
                 className={className}
                 id={id}
                 placeholder={placeholder}
@@ -213,6 +215,7 @@ function MySearchInput(props: MySearchInputProps) {
                 onKeyDown={event => {
                     if (event.key === "Escape") {
                         onSearchChange("");
+                        inputElement?.blur();
                     }
                 }}
             />
@@ -267,9 +270,15 @@ function MySearchInput(props: MySearchInputProps) {
 
     const { className, id, placeholder, type, search, onSearchChange } = props;
 
+    const [
+        inputElement,
+        setInputElement
+    ] = useState<HTMLInputElement | null>(null);
+
     return (
         <>
             <input
+                ref={setInputElement}
                 className={className}
                 id={id}
                 placeholder={placeholder}
@@ -279,6 +288,7 @@ function MySearchInput(props: MySearchInputProps) {
                 onKeyDown={event => {
                     if (event.key === "Escape") {
                         onSearchChange("");
+                        inputElement?.blur();
                     }
                 }}
             />
