@@ -42,8 +42,14 @@ export function SearchButton(props) {
             "resetInputValue": () => (inputElement.value = ""),
             "getIsInputFocused": () => document.activeElement === inputElement
         });
-        observeInputValue(inputElement, () => forceUpdate());
         const cleanups = [];
+        {
+            const { cleanup } = observeInputValue({
+                inputElement,
+                "callback": () => forceUpdate()
+            });
+            cleanups.push(cleanup);
+        }
         if (isControlledByUser) {
             inputElement.addEventListener("focus", (() => {
                 const callback = () => forceUpdate();
@@ -73,7 +79,6 @@ export function SearchButton(props) {
                     if (event.key !== "Escape") {
                         return;
                     }
-                    inputElement.value = "";
                     inputElement.blur();
                 };
                 cleanups.push(() => inputElement.removeEventListener("keydown", callback));

@@ -65,9 +65,16 @@ export function SearchButton(props: SearchButtonProps) {
             "getIsInputFocused": () => document.activeElement === inputElement
         });
 
-        observeInputValue(inputElement, () => forceUpdate());
-
         const cleanups: (() => void)[] = [];
+
+        {
+            const { cleanup } = observeInputValue({
+                inputElement,
+                "callback": () => forceUpdate()
+            });
+
+            cleanups.push(cleanup);
+        }
 
         if (isControlledByUser) {
             inputElement.addEventListener(
@@ -120,7 +127,6 @@ export function SearchButton(props: SearchButtonProps) {
                             return;
                         }
 
-                        inputElement.value = "";
                         inputElement.blur();
                     };
 

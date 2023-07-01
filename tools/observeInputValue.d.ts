@@ -1,1 +1,6 @@
-export declare function observeInputValue(element: HTMLInputElement, callback: (value: string) => void): void;
+export declare function observeInputValue(params: {
+    inputElement: HTMLInputElement;
+    callback: () => void;
+}): {
+    cleanup: () => void;
+};
