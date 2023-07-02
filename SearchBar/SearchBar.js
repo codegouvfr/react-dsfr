@@ -16,6 +16,7 @@ import { createComponentI18nApi } from "../i18n";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
 import { SearchButton } from "./SearchButton";
+import "../assets/search-bar.css";
 /**
  * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
  * */

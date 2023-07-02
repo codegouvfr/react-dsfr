@@ -1,4 +1,3 @@
-import "../assets/search-bar-button.css";
 export type SearchButtonProps = {
     searchInputId: string;
     onClick: ((text: string) => void) | undefined;

@@ -6,6 +6,7 @@ import type { Equals } from "tsafe";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
 import { SearchButton } from "./SearchButton";
+import "../assets/search-bar.css";
 
 export type SearchBarProps = {
     className?: string;

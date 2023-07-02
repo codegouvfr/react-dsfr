@@ -1,4 +1,5 @@
 import React, { type CSSProperties } from "react";
+import "../assets/search-bar.css";
 export type SearchBarProps = {
     className?: string;
     /** Default: "Rechercher" (or translation) */

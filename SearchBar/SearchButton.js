@@ -7,8 +7,6 @@ import { is } from "tsafe/is";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { observeInputValue } from "../tools/observeInputValue";
 import { id } from "tsafe/id";
-import { cx } from "../tools/cx";
-import "../assets/search-bar-button.css";
 export function SearchButton(props) {
     const { searchInputId, onClick: onClick_props } = props;
     const { t } = useTranslation();
@@ -94,6 +92,11 @@ export function SearchButton(props) {
     if (onClick_props === undefined && (getIsInputFocused() || getInputValue() !== "")) {
         return null;
     }
-    return (React.createElement("button", { className: cx(onClick_props === undefined && "controlled-search-bar-button", fr.cx("fr-btn")), title: t("label"), onClick: onClick }, t("label")));
+    return (React.createElement("button", { className: fr.cx("fr-btn"), title: t("label"), onClick: onClick, style: onClick_props !== undefined
+            ? undefined
+            : {
+                "position": "absolute",
+                "right": 0
+            } }, t("label")));
 }
 //# sourceMappingURL=SearchButton.js.map
