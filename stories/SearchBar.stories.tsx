@@ -79,7 +79,7 @@ export const WithControlledInput = getStory(
                     <p
                         style={{
                             "position": "absolute",
-                            "top": 84
+                            "top": 43
                         }}
                     >
                         Search results for: {search}

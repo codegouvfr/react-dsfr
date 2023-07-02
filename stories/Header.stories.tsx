@@ -3,6 +3,7 @@ import { Header } from "../dist/Header";
 import { MainNavigation } from "../dist/MainNavigation";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
+import { GlobalStyles } from "tss-react";
 import placeholder_9x16ImgUrl from "./assets/placeholder.9x16.png";
 import placeholder_16x9ImgUrl from "./assets/placeholder.16x9.png";
 
@@ -207,6 +208,13 @@ function MySearchInput(props: MySearchInputProps) {
 
     return (
         <>
+            <GlobalStyles
+                styles={{
+                    ".fr-container": {
+                        "overflow": "visible"
+                    }
+                }}
+            />
             <input
                 ref={setInputElement}
                 className={className}
@@ -225,7 +233,7 @@ function MySearchInput(props: MySearchInputProps) {
             <p
                 style={{
                     "position": "absolute",
-                    "top": 120,
+                    "top": 81,
                     "left": 0
                 }}
             >
