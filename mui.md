@@ -67,6 +67,12 @@ function App() {
 
 </details>
 
+The demo setups for Vite, Next ans create-react-app all commes with MUI already setup.  \
+\
+You can find aditional informations about this tool here: &#x20;
+
+{% embed url="https://dsfr-connect.rame.fr/main/?path=/docs/dsfr-connect-utilisation-mui-v5--docs" %}
+
 ### Next.js: Improving first print
 
 In Next.js setup, on initial page load you may experience a few frames where MUI components aren't aware that the dark mode is enabled.
@@ -93,7 +99,5 @@ Be aware that the API have changed since this video was recorded.
 
 {% embed url="https://youtu.be/0n0S6PcyG28" %}
 
-{% embed url="https://github.com/garronej/react-dsfr-next-demo" %}
-Reference Next.js setup
-{% endembed %}
-
+All demo setup are preconfigured with MUI installed.  \
+\
