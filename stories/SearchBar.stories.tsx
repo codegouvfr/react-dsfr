@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { SearchBar } from "../dist/SearchBar";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { MuiSearchInput } from "./MuiSearchInput";
+import Autocomplete from "@mui/material/Autocomplete";
+import { cx } from "../dist/tools/cx";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -143,17 +144,7 @@ function Root(){
 export const WithMuiAutocomplete = getStory(
     {
         "renderInput": ({ className, id, placeholder, type }) => (
-            <MuiSearchInput
-                className={className}
-                id={id}
-                placeholder={placeholder}
-                type={type}
-                value=""
-                onChange={() => {
-                    /**/
-                }}
-                results={[]}
-            />
+            <MuiSearchInput className={className} id={id} placeholder={placeholder} type={type} />
         )
     },
     {
@@ -214,8 +205,37 @@ function MySearchInput(props: MySearchInputProps) {
     )}
 />
 \`\`\`
-
-
 `
     }
 );
+
+export type MuiSearchInputProps = {
+    className: string;
+    id: string;
+    placeholder: string;
+    type: "search";
+};
+
+const options = ["Option 1", "Option 2"];
+
+export function MuiSearchInput(props: MuiSearchInputProps) {
+    const { className, id, placeholder, type } = props;
+
+    return (
+        <Autocomplete
+            style={{ "width": "100%" }}
+            id={id}
+            options={options}
+            renderInput={params => (
+                <div ref={params.InputProps.ref}>
+                    <input
+                        {...params.inputProps}
+                        className={cx(params.inputProps.className, className)}
+                        placeholder={placeholder}
+                        type={type}
+                    />
+                </div>
+            )}
+        />
+    );
+}
