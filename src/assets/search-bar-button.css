@@ -1,0 +1,10 @@
+.controlled-search-bar-button.fr-btn {
+    position: absolute;
+    right: 24px;
+}
+
+@media (max-width:62em) {
+    .controlled-search-bar-button.fr-btn {
+        right: 16px;
+    }
+}
