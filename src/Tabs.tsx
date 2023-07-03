@@ -68,10 +68,12 @@ export const Tabs = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const getSelectedTabIndex = () =>
-            tabs.findIndex(tab =>
+        const getSelectedTabIndex = () => {
+            const index = tabs.findIndex(tab =>
                 "content" in tab ? tab.isDefault ?? false : tab.tabId === selectedTabId
             );
+            return index === -1 ? 0 : index;
+        };
 
         const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
 
