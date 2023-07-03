@@ -67,6 +67,7 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
 Ce projet est co-maintenu par des agents de différentes administrations françaises.
 
 -   [Joseph Garrone](@garronej)
+-   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
 
 ## Migration depuis [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
