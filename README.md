@@ -67,6 +67,7 @@ I'm working full time on this project. You can expect rapid development.
 This project is co-maintained by public servant from various French administrations.
 
 -   [Joseph Garrone](@garronej)
+-   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
 
 # Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
