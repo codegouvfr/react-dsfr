@@ -47,7 +47,7 @@ export namespace TabsProps {
         }[];
         selectedTabId: string;
         onTabChange: (tabId: string) => void;
-        children?: NonNullable<ReactNode>;
+        children: ReactNode;
     };
 }
 
@@ -67,8 +67,6 @@ export const Tabs = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
-
-        const id = useId();
 
         const getSelectedTabIndex = () =>
             tabs.findIndex(tab =>
@@ -96,8 +94,17 @@ export const Tabs = memo(
             }
         });
 
-        const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
-        const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
+        const { getPanelId, getTabId } = (function useClosure() {
+            const id = useId();
+
+            const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
+            const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
+
+            return {
+                getPanelId,
+                getTabId
+            };
+        })();
 
         return (
             <div className={cx(fr.cx("fr-tabs"), className)} ref={ref} style={style} {...rest}>
