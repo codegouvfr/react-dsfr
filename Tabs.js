@@ -20,8 +20,10 @@ import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
 export const Tabs = memo(forwardRef((props, ref) => {
     const { className, label, classes = {}, tabs, selectedTabId, onTabChange, children, style } = props, rest = __rest(props, ["className", "label", "classes", "tabs", "selectedTabId", "onTabChange", "children", "style"]);
     assert();
-    const id = useId();
-    const getSelectedTabIndex = () => tabs.findIndex(tab => { var _a; return "content" in tab ? (_a = tab.isDefault) !== null && _a !== void 0 ? _a : false : tab.tabId === selectedTabId; });
+    const getSelectedTabIndex = () => {
+        const index = tabs.findIndex(tab => { var _a; return "content" in tab ? (_a = tab.isDefault) !== null && _a !== void 0 ? _a : false : tab.tabId === selectedTabId; });
+        return index === -1 ? 0 : index;
+    };
     const [selectedTabIndex, setSelectedTabIndex] = useState(getSelectedTabIndex);
     useEffect(() => {
         if (selectedTabId === undefined) {
@@ -40,8 +42,15 @@ export const Tabs = memo(forwardRef((props, ref) => {
             onTabChange(tabs[tabIndex].tabId);
         }
     });
-    const getPanelId = (tabIndex) => `tabpanel-${id}-${tabIndex}-panel`;
-    const getTabId = (tabIndex) => `tabpanel-${id}-${tabIndex}`;
+    const { getPanelId, getTabId } = (function useClosure() {
+        const id = useId();
+        const getPanelId = (tabIndex) => `tabpanel-${id}-${tabIndex}-panel`;
+        const getTabId = (tabIndex) => `tabpanel-${id}-${tabIndex}`;
+        return {
+            getPanelId,
+            getTabId
+        };
+    })();
     return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-tabs"), className), ref: ref, style: style }, rest),
         React.createElement("ul", { className: fr.cx("fr-tabs__list"), role: "tablist", "aria-label": label }, tabs.map(({ label, iconId }, tabIndex) => (React.createElement("li", { key: label + (iconId !== null && iconId !== void 0 ? iconId : ""), role: "presentation" },
             React.createElement("button", { id: getTabId(tabIndex), className: cx(fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"), classes.tab), tabIndex: tabIndex === selectedTabIndex ? 0 : -1, role: "tab", "aria-selected": tabIndex === selectedTabIndex, "aria-controls": getPanelId(tabIndex), onClick: onTabClickFactory(tabIndex) }, label))))),

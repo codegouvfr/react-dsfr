@@ -30,7 +30,7 @@ export declare namespace TabsProps {
         }[];
         selectedTabId: string;
         onTabChange: (tabId: string) => void;
-        children?: NonNullable<ReactNode>;
+        children: ReactNode;
     };
 }
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-tabs> */

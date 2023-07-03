@@ -16,7 +16,6 @@ import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "../i18n";
 import Button from "../Button";
-import { typeGuard } from "tsafe/typeGuard";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 const Modal = memo(forwardRef((props, ref) => {
     const { className, id, title, children, concealingBackdrop = true, topAnchor = false, iconId, buttons: buttons_props, size = "medium", style } = props, rest = __rest(props, ["className", "id", "title", "children", "concealingBackdrop", "topAnchor", "iconId", "buttons", "size", "style"]);
@@ -101,23 +100,20 @@ export function createModal(params) {
     const hiddenControlButtonId = `${id}-hidden-control-button`;
     function Component(props) {
         return (React.createElement(React.Fragment, null,
-            React.createElement(Button, { nativeButtonProps: Object.assign(Object.assign({}, buttonProps), { "id": hiddenControlButtonId, "type": "button" }), className: fr.cx("fr-hidden") }, " "),
+            React.createElement(Button, { nativeButtonProps: Object.assign(Object.assign({}, buttonProps), { "id": hiddenControlButtonId, "type": "button", "tabIndex": -1, "aria-hidden": true }), className: fr.cx("fr-hidden") }, " "),
             React.createElement(Modal, Object.assign({}, props, { id: id }))));
     }
     Component.displayName = `${id}-modal`;
     overwriteReadonlyProp(Component, "name", Component.displayName);
     function open() {
-        const hiddenControlButton = document.getElementById(hiddenControlButtonId);
-        assert(hiddenControlButton !== null, "Modal isn't mounted");
-        hiddenControlButton.click();
+        const modalElement = document.getElementById(id);
+        // @ts-expect-error: Property 'dsfr' does not exist on type 'Window & typeof globalThis'.ts(2339)
+        window.dsfr(modalElement).modal.disclose();
     }
     function close() {
         const modalElement = document.getElementById(id);
-        assert(modalElement !== null, "Modal isn't mounted");
-        const closeButtonElement = modalElement.querySelector(`.${fr.cx("fr-btn--close")}`);
-        assert(closeButtonElement !== null);
-        assert(typeGuard(closeButtonElement, "click" in closeButtonElement), "Close button isn't a button");
-        closeButtonElement.click();
+        // @ts-expect-error: Property 'dsfr' does not exist on type 'Window & typeof globalThis'.ts(2339)
+        window.dsfr(modalElement).modal.conceal();
     }
     return {
         Component,
