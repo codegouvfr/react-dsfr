@@ -112,7 +112,8 @@ const modal = createModal({
 function Template(args: ModalProps) {
     return (
         <>
-            <Button nativeButtonProps={modal.buttonProps}>Open modal</Button>
+            <Button nativeButtonProps={modal.buttonProps}>Open modal with</Button>
+            <Button onClick={() => modal.open()}>Open modal with modal.open()</Button>
             <modal.Component {...args} />
         </>
     );

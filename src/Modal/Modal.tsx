@@ -7,7 +7,6 @@ import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "../i18n";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 import Button, { ButtonProps } from "../Button";
-import { typeGuard } from "tsafe/typeGuard";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 
 export type ModalProps = {
@@ -224,7 +223,9 @@ export function createModal(params: { isOpenedByDefault: boolean; id: string }):
                     nativeButtonProps={{
                         ...buttonProps,
                         "id": hiddenControlButtonId,
-                        "type": "button"
+                        "type": "button",
+                        "tabIndex": -1,
+                        "aria-hidden": true
                     }}
                     className={fr.cx("fr-hidden")}
                 >
@@ -240,28 +241,17 @@ export function createModal(params: { isOpenedByDefault: boolean; id: string }):
     overwriteReadonlyProp(Component as any, "name", Component.displayName);
 
     function open() {
-        const hiddenControlButton = document.getElementById(hiddenControlButtonId);
+        const modalElement = document.getElementById(id);
 
-        assert(hiddenControlButton !== null, "Modal isn't mounted");
-
-        hiddenControlButton.click();
+        // @ts-expect-error: Property 'dsfr' does not exist on type 'Window & typeof globalThis'.ts(2339)
+        window.dsfr(modalElement).modal.disclose();
     }
 
     function close() {
         const modalElement = document.getElementById(id);
 
-        assert(modalElement !== null, "Modal isn't mounted");
-
-        const closeButtonElement = modalElement.querySelector(`.${fr.cx("fr-btn--close")}`);
-
-        assert(closeButtonElement !== null);
-
-        assert(
-            typeGuard<HTMLButtonElement>(closeButtonElement, "click" in closeButtonElement),
-            "Close button isn't a button"
-        );
-
-        closeButtonElement.click();
+        // @ts-expect-error: Property 'dsfr' does not exist on type 'Window & typeof globalThis'.ts(2339)
+        window.dsfr(modalElement).modal.conceal();
     }
 
     return {
