@@ -62,6 +62,12 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
   <a href="https://guides.react-dsfr.fr/">🚀 Commencer maintenant 🚀 </a>
 </p>
 
+# Gouvernance du projet
+
+Ce projet est co-maintenu par des agents de différentes administrations françaises.
+
+-   [Joseph Garrone](@garronej)
+
 ## Migration depuis [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieurs fonctionalités de ce dernier:

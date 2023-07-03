@@ -62,6 +62,12 @@ I'm working full time on this project. You can expect rapid development.
   <a href="https://guides.react-dsfr.fr/">🚀 Get started 🚀 </a>
 </p>
 
+# Project's Governance
+
+This project is co-maintained by public servant from various French administrations.
+
+-   [Joseph Garrone](@garronej)
+
 # Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
 
 If your project is using [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) and you're not willing to migrate to `@codegouvfr/react-dsfr` you can still benefit from some of this project features:
