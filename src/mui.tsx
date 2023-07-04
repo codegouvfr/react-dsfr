@@ -199,6 +199,18 @@ export function getMuiDsfrThemeOptions(params: {
                     }
                 }
             },
+            "MuiAutocomplete": {
+                "styleOverrides": {
+                    "option": {
+                        "border": "1px solid transparent",
+                        "&.Mui-focusVisible": {
+                            "backgroundColor":
+                                decisions.background.contrast.grey.default + " !important",
+                            "border": `1px solid ${decisions.border.active.blueFrance.default}`
+                        }
+                    }
+                }
+            },
             ...(() => {
                 const nonTypedMuiComponents = {
                     "MuiDataGrid": {
