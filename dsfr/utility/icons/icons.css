@@ -46,6 +46,12 @@
     mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
+}
+
 .fr-icon-mail-fill::before,
 .fr-icon-mail-fill::after {
     -webkit-mask-image: url("../../icons/business/mail-fill.svg");
@@ -74,12 +80,6 @@
 .ri-account-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
     mask-image: url("../../icons/remixicon/account-box-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -118,16 +118,16 @@
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
 }
 
-.ri-arrow-down-s-fill::before,
-.ri-arrow-down-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-}
-
 .ri-arrow-up-s-fill::before,
 .ri-arrow-up-s-fill::after {
     -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+}
+
+.ri-arrow-down-s-fill::before,
+.ri-arrow-down-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
 }
 
 .ri-calendar-line::before,
@@ -183,6 +183,11 @@
         background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
+    }
+    
     .fr-icon-mail-fill::before,
     .fr-icon-mail-fill::after {
         background-image: url("../../icons/business/mail-fill.svg");
@@ -206,11 +211,6 @@
     .ri-account-box-line::before,
     .ri-account-box-line::after {
         background-image: url("../../icons/remixicon/account-box-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,
@@ -243,14 +243,14 @@
         background-image: url("../../icons/remixicon/clipboard-line.svg");
     }
     
-    .ri-arrow-down-s-fill::before,
-    .ri-arrow-down-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    }
-    
     .ri-arrow-up-s-fill::before,
     .ri-arrow-up-s-fill::after {
         background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    }
+    
+    .ri-arrow-down-s-fill::before,
+    .ri-arrow-down-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
     }
     
     .ri-calendar-line::before,
