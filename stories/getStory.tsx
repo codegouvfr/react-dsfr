@@ -149,7 +149,11 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                             ...(doHideImportInstruction
                                 ? []
                                 : [
-                                      `\`import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``
+                                      `\`\`\`tsx  `,
+                                      `  `,
+                                      `import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``,
+                                      ` `,
+                                      `\`\`\``
                                   ]),
                             ...(description === undefined ? [] : [description])
                         ].join("  \n")

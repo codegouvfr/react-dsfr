@@ -12,10 +12,20 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx))  
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
   
-See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-mainnavigation)
+See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-mainnavigation)  
+  
+*NOTE*: On small screens (mobile), you can click on the burger menu to open the menu modal.
+You can watch if the menu modal is open or not with the \`useIsHeaderMenuModalOpen\` hook.  
 
+\`\`\`tsx  
+
+import { useIsHeaderMenuModalOpen } from "@codegouvfr/react-dsfr/Header/useIsHeaderMenuModalOpen";
+
+const isOpen = useIsHeaderMenuModalOpen();
+
+\`\`\`  
 
 `,
     "argTypes": {
