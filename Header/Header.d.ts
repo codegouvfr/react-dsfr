@@ -1,7 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
-import type { RegisteredLinkProps } from "./link";
-import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "./MainNavigation";
+import type { RegisteredLinkProps } from "../link";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "../MainNavigation";
 export type HeaderProps = {
     className?: string;
     brandTop: ReactNode;
@@ -57,6 +57,7 @@ export declare namespace HeaderProps {
         };
     }
 }
+export declare const headerMenuModalId = "header-menu-modal";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export declare const Header: React.MemoExoticComponent<React.ForwardRefExoticComponent<HeaderProps & React.RefAttributes<HTMLDivElement>>>;
 export default Header;

@@ -1,0 +1,1 @@
+{"version":3,"file":"useIsHeaderMenuModalOpen.js","sourceRoot":"","sources":["../../src/Header/useIsHeaderMenuModalOpen.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAC7C,OAAO,EAAE,cAAc,EAAE,MAAM,yBAAyB,CAAC;AAEzD,MAAM,UAAU,wBAAwB;IACpC,OAAO,cAAc,CAAC;QAClB,IAAI,EAAE,iBAAiB;QACvB,mBAAmB,EAAE,KAAK;KAC7B,CAAC,CAAC;AACP,CAAC"}

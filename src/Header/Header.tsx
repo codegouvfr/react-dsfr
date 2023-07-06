@@ -1,20 +1,20 @@
 import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
-import { fr } from "./fr";
-import { createComponentI18nApi } from "./i18n";
+import { fr } from "../fr";
+import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "./tools/cx";
-import { getLink } from "./link";
-import type { RegisteredLinkProps } from "./link";
+import { cx } from "../tools/cx";
+import { getLink } from "../link";
+import type { RegisteredLinkProps } from "../link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import type { MainNavigationProps } from "./MainNavigation";
-import { MainNavigation } from "./MainNavigation";
-import { Display } from "./Display/Display";
-import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
+import type { MainNavigationProps } from "../MainNavigation";
+import { MainNavigation } from "../MainNavigation";
+import { Display } from "../Display/Display";
+import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
-import { SearchButton } from "./SearchBar/SearchButton";
-import { useTranslation as useSearchBarTranslation } from "./SearchBar/SearchBar";
+import { SearchButton } from "../SearchBar/SearchButton";
+import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
 
 export type HeaderProps = {
     className?: string;
@@ -96,6 +96,8 @@ export namespace HeaderProps {
     }
 }
 
+export const headerMenuModalId = "header-menu-modal";
+
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(
     forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
@@ -122,17 +124,15 @@ export const Header = memo(
 
         setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
 
-        const { menuButtonId, menuModalId, searchModalId, searchInputId } = (function useClosure() {
+        const { menuButtonId, searchModalId, searchInputId } = (function useClosure() {
             const id = useId();
 
             const menuButtonId = `button-${id}`;
-            const menuModalId = `modal-${id}`;
             const searchModalId = `modal-${id}`;
             const searchInputId = `search-${id}-input`;
 
             return {
                 menuButtonId,
-                menuModalId,
                 searchModalId,
                 searchInputId
             };
@@ -253,7 +253,7 @@ export const Header = memo(
                                                 <button
                                                     className={fr.cx("fr-btn--menu", "fr-btn")}
                                                     data-fr-opened="false"
-                                                    aria-controls={menuModalId}
+                                                    aria-controls={headerMenuModalId}
                                                     aria-haspopup="menu"
                                                     id={menuButtonId}
                                                     title={t("menu")}
@@ -372,13 +372,13 @@ export const Header = memo(
                     {(navigation !== undefined || quickAccessItems.length !== 0) && (
                         <div
                             className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
-                            id={menuModalId}
+                            id={headerMenuModalId}
                             aria-labelledby={menuButtonId}
                         >
                             <div className={fr.cx("fr-container")}>
                                 <button
                                     className={fr.cx("fr-btn--close", "fr-btn")}
-                                    aria-controls={menuModalId}
+                                    aria-controls={headerMenuModalId}
                                     title={t("close")}
                                 >
                                     {t("close")}

@@ -10,33 +10,32 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { memo, forwardRef, useId } from "react";
-import { fr } from "./fr";
-import { createComponentI18nApi } from "./i18n";
+import { fr } from "../fr";
+import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
-import { cx } from "./tools/cx";
-import { getLink } from "./link";
+import { cx } from "../tools/cx";
+import { getLink } from "../link";
 import { assert } from "tsafe/assert";
-import { MainNavigation } from "./MainNavigation";
-import { Display } from "./Display/Display";
-import { setBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
+import { MainNavigation } from "../MainNavigation";
+import { Display } from "../Display/Display";
+import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
-import { SearchButton } from "./SearchBar/SearchButton";
-import { useTranslation as useSearchBarTranslation } from "./SearchBar/SearchBar";
+import { SearchButton } from "../SearchBar/SearchButton";
+import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
+export const headerMenuModalId = "header-menu-modal";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
     assert();
     const isSearchBarEnabled = renderSearchInput !== undefined || onSearchButtonClick !== undefined;
     setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
-    const { menuButtonId, menuModalId, searchModalId, searchInputId } = (function useClosure() {
+    const { menuButtonId, searchModalId, searchInputId } = (function useClosure() {
         const id = useId();
         const menuButtonId = `button-${id}`;
-        const menuModalId = `modal-${id}`;
         const searchModalId = `modal-${id}`;
         const searchInputId = `search-${id}-input`;
         return {
             menuButtonId,
-            menuModalId,
             searchModalId,
             searchInputId
         };
@@ -73,7 +72,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                     navigation !== undefined ||
                                     isSearchBarEnabled) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
                                     isSearchBarEnabled && (React.createElement("button", { className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: tSearchBar("label") }, tSearchBar("label"))),
-                                    React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
+                                    React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": headerMenuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
                             serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service"), classes.service) },
                                 React.createElement(Link, Object.assign({}, homeLinkProps),
                                     React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
@@ -92,9 +91,9 @@ export const Header = memo(forwardRef((props, ref) => {
                                             "type": "search"
                                         }),
                                         React.createElement(SearchButton, { searchInputId: searchInputId, onClick: onSearchButtonClick })))))))))),
-            (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
+            (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: headerMenuModalId, "aria-labelledby": menuButtonId },
                 React.createElement("div", { className: fr.cx("fr-container") },
-                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
+                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": headerMenuModalId, title: t("close") }, t("close")),
                     React.createElement("div", { className: cx(fr.cx("fr-header__menu-links"), classes.menuLinks) }, quickAccessNode),
                     navigation !== undefined &&
                         (navigation instanceof Array ? (React.createElement(MainNavigation, { items: navigation })) : (navigation))))))));
