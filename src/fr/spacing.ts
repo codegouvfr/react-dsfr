@@ -12,13 +12,13 @@ export function spacing<
     Params extends Partial<
         Record<
             "topBottom" | "rightLeft" | "top" | "right" | "bottom" | "left",
-            SpacingToken | number
+            SpacingToken | number | "auto"
         >
     >
 >(
     kind: Kind,
     params: Params
-): (Params extends { topBottom: SpacingToken | number }
+): (Params extends { topBottom: SpacingToken | number | "auto" }
     ? Record<
           `${Kind}${"Top" | "Bottom"}`,
           Params["topBottom"] extends SpacingToken
@@ -26,7 +26,7 @@ export function spacing<
               : Params["topBottom"]
       >
     : {}) &
-    (Params extends { rightLeft: SpacingToken | number }
+    (Params extends { rightLeft: SpacingToken | number | "auto" }
         ? Record<
               `${Kind}${"Right" | "Left"}`,
               Params["rightLeft"] extends SpacingToken
@@ -34,7 +34,7 @@ export function spacing<
                   : Params["rightLeft"]
           >
         : {}) &
-    (Params extends { top: SpacingToken | number }
+    (Params extends { top: SpacingToken | number | "auto" }
         ? Record<
               `${Kind}Top`,
               Params["top"] extends SpacingToken
@@ -42,7 +42,7 @@ export function spacing<
                   : Params["top"]
           >
         : {}) &
-    (Params extends { right: SpacingToken | number }
+    (Params extends { right: SpacingToken | number | "auto" }
         ? Record<
               `${Kind}Right`,
               Params["right"] extends SpacingToken
@@ -50,7 +50,7 @@ export function spacing<
                   : Params["right"]
           >
         : {}) &
-    (Params extends { bottom: SpacingToken | number }
+    (Params extends { bottom: SpacingToken | number | "auto" }
         ? Record<
               `${Kind}Bottom`,
               Params["bottom"] extends SpacingToken
@@ -58,7 +58,7 @@ export function spacing<
                   : Params["bottom"]
           >
         : {}) &
-    (Params extends { left: SpacingToken | number }
+    (Params extends { left: SpacingToken | number | "auto" }
         ? Record<
               `${Kind}Left`,
               Params["left"] extends SpacingToken
@@ -71,7 +71,7 @@ export function spacing(
     params?: Partial<
         Record<
             "topBottom" | "rightLeft" | "top" | "right" | "bottom" | "left",
-            SpacingToken | number
+            SpacingToken | number | "auto"
         >
     >
 ): any {
@@ -115,7 +115,8 @@ export function spacing(
                 return;
             }
 
-            out[`${kind}${capitalize(p)}`] = typeof v === "number" ? v : spacingTokenByValue[v];
+            out[`${kind}${capitalize(p)}`] =
+                typeof v === "number" ? v : v === "auto" ? v : spacingTokenByValue[v];
         });
 
         return out;

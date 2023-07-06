@@ -71,3 +71,14 @@ import { Equals } from "tsafe";
 
     assert<Equals<typeof got, Expected>>();
 }
+
+{
+    const got = spacing("margin", { "rightLeft": "auto" });
+
+    type Expected = {
+        marginLeft: "auto";
+        marginRight: "auto";
+    };
+
+    assert<Equals<typeof got, Expected>>();
+}
