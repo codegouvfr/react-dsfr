@@ -25,7 +25,8 @@ export function spacing(kindOrToken, params) {
             if (v === undefined) {
                 return;
             }
-            out[`${kind}${capitalize(p)}`] = typeof v === "number" ? v : spacingTokenByValue[v];
+            out[`${kind}${capitalize(p)}`] =
+                typeof v === "number" ? v : v === "auto" ? v : spacingTokenByValue[v];
         });
         return out;
     }
