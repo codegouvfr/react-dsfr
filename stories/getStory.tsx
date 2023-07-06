@@ -151,12 +151,12 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                                 : [
                                       `\`\`\`tsx  `,
                                       `  `,
-                                      `import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}"\``,
+                                      `import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}";`,
                                       ` `,
                                       `\`\`\``
                                   ]),
                             ...(description === undefined ? [] : [description])
-                        ].join("  \n")
+                        ].join("\n")
                     }
                 },
                 "viewMode": "docs"
