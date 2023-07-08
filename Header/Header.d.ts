@@ -57,7 +57,7 @@ export declare namespace HeaderProps {
         };
     }
 }
-export declare const headerMenuModalId = "header-menu-modal";
+export declare const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export declare const Header: React.MemoExoticComponent<React.ForwardRefExoticComponent<HeaderProps & React.RefAttributes<HTMLDivElement>>>;
 export default Header;
