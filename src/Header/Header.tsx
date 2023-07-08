@@ -96,7 +96,7 @@ export namespace HeaderProps {
     }
 }
 
-export const headerMenuModalId = "header-menu-modal";
+export const headerMenuModalIdPrefix = "header-menu-modal";
 
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(
@@ -124,14 +124,16 @@ export const Header = memo(
 
         setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
 
-        const { menuButtonId, searchModalId, searchInputId } = (function useClosure() {
+        const { menuModalId, menuButtonId, searchModalId, searchInputId } = (function useClosure() {
             const id = useId();
 
+            const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
             const menuButtonId = `button-${id}`;
             const searchModalId = `modal-${id}`;
             const searchInputId = `search-${id}-input`;
 
             return {
+                menuModalId,
                 menuButtonId,
                 searchModalId,
                 searchInputId
@@ -253,7 +255,7 @@ export const Header = memo(
                                                 <button
                                                     className={fr.cx("fr-btn--menu", "fr-btn")}
                                                     data-fr-opened="false"
-                                                    aria-controls={headerMenuModalId}
+                                                    aria-controls={menuModalId}
                                                     aria-haspopup="menu"
                                                     id={menuButtonId}
                                                     title={t("menu")}
@@ -372,13 +374,13 @@ export const Header = memo(
                     {(navigation !== undefined || quickAccessItems.length !== 0) && (
                         <div
                             className={cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu)}
-                            id={headerMenuModalId}
+                            id={menuModalId}
                             aria-labelledby={menuButtonId}
                         >
                             <div className={fr.cx("fr-container")}>
                                 <button
                                     className={fr.cx("fr-btn--close", "fr-btn")}
-                                    aria-controls={headerMenuModalId}
+                                    aria-controls={menuModalId}
                                     title={t("close")}
                                 >
                                     {t("close")}
