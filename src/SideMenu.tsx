@@ -141,8 +141,8 @@ export const SideMenu = memo(
                                                                 ? Link
                                                                 : "button";
 
-                                                        // @ts-expect-error
                                                         return (
+                                                            // @ts-expect-error
                                                             <ComponentToUse
                                                                 aria-expanded={
                                                                     item.expandedByDefault ?? false
