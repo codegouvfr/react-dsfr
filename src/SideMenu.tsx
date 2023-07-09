@@ -42,6 +42,7 @@ export namespace SideMenuProps {
             items: Item[];
             /** Default: false */
             expandedByDefault?: boolean;
+            linkProps?: RegisteredLinkProps;
         };
     }
 }
@@ -134,23 +135,34 @@ export const SideMenu = memo(
                                         >
                                             {"items" in item ? (
                                                 <>
-                                                    <button
-                                                        aria-expanded={
-                                                            item.expandedByDefault ?? false
-                                                                ? "true"
-                                                                : "false"
-                                                        }
-                                                        aria-controls={itemId}
-                                                        {...(item.isActive && {
-                                                            ["aria-current"]: true
-                                                        })}
-                                                        className={cx(
-                                                            fr.cx("fr-sidemenu__btn"),
-                                                            classes.button
-                                                        )}
-                                                    >
-                                                        {item.text}
-                                                    </button>
+                                                    {(() => {
+                                                        const ComponentToUse =
+                                                            item.linkProps !== undefined
+                                                                ? Link
+                                                                : "button";
+
+                                                        return (
+                                                            // @ts-expect-error
+                                                            <ComponentToUse
+                                                                aria-expanded={
+                                                                    item.expandedByDefault ?? false
+                                                                        ? "true"
+                                                                        : "false"
+                                                                }
+                                                                aria-controls={itemId}
+                                                                {...(item.isActive && {
+                                                                    ["aria-current"]: true
+                                                                })}
+                                                                className={cx(
+                                                                    fr.cx("fr-sidemenu__btn"),
+                                                                    classes.button
+                                                                )}
+                                                                {...item.linkProps}
+                                                            >
+                                                                {item.text}
+                                                            </ComponentToUse>
+                                                        );
+                                                    })()}
                                                     <div
                                                         className={fr.cx("fr-collapse")}
                                                         id={itemId}

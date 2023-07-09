@@ -28,6 +28,7 @@ export declare namespace SideMenuProps {
             items: Item[];
             /** Default: false */
             expandedByDefault?: boolean;
+            linkProps?: RegisteredLinkProps;
         };
         export {};
     }

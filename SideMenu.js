@@ -41,15 +41,23 @@ export const SideMenu = memo(forwardRef((props, ref) => {
                 title !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-sidemenu__title"), classes.title), id: titleId }, title)),
                 React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, items.map((item, i) => {
                     const getItemRec = (params) => {
-                        var _a, _b;
+                        var _a;
                         const { item, key, level } = params;
                         const itemId = getItemId({ key, level });
                         return (React.createElement("li", { key: key, className: cx(fr.cx("fr-sidemenu__item"), classes.item) }, "items" in item ? (React.createElement(React.Fragment, null,
-                            React.createElement("button", Object.assign({ "aria-expanded": ((_a = item.expandedByDefault) !== null && _a !== void 0 ? _a : false)
-                                    ? "true"
-                                    : "false", "aria-controls": itemId }, (item.isActive && {
-                                ["aria-current"]: true
-                            }), { className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }), item.text),
+                            (() => {
+                                var _a;
+                                const ComponentToUse = item.linkProps !== undefined
+                                    ? Link
+                                    : "button";
+                                return (
+                                // @ts-expect-error
+                                React.createElement(ComponentToUse, Object.assign({ "aria-expanded": ((_a = item.expandedByDefault) !== null && _a !== void 0 ? _a : false)
+                                        ? "true"
+                                        : "false", "aria-controls": itemId }, (item.isActive && {
+                                    ["aria-current"]: true
+                                }), { className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }, item.linkProps), item.text));
+                            })(),
                             React.createElement("div", { className: fr.cx("fr-collapse"), id: itemId },
                                 React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, item.items.map((item, i) => getItemRec({
                                     item,
@@ -57,7 +65,7 @@ export const SideMenu = memo(forwardRef((props, ref) => {
                                     "level": level + 1
                                 })))))) : (React.createElement(Link, Object.assign({ target: "_self" }, item.linkProps, (item.isActive && {
                             ["aria-current"]: "page"
-                        }), { className: cx(fr.cx("fr-sidemenu__link"), classes.link, (_b = item.linkProps) === null || _b === void 0 ? void 0 : _b.className) }), item.text))));
+                        }), { className: cx(fr.cx("fr-sidemenu__link"), classes.link, (_a = item.linkProps) === null || _a === void 0 ? void 0 : _a.className) }), item.text))));
                     };
                     return getItemRec({
                         "key": `${i}`,
