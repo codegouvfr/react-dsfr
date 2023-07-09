@@ -3,7 +3,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Table } from "@codegouvfr/react-dsfr/Table";
-import { ButtonsGroup } from '@codegouvfr/react-dsfr/ButtonsGroup';
+import { routes } from "./router";
 
 const sideMenuItems = [
     {
@@ -55,7 +55,8 @@ const sideMenuItems = [
         linkProps: { href: "#" }
     },
     {
-        text: "Niveau 1",
+        text: "Niveau 1 (with link)",
+        linkProps: routes.home().link,
         items: [
             {
                 text: "Accès direct niveau 2",
@@ -114,10 +115,10 @@ export function Home() {
 function TableExample() {
     return (
         <Table
-            caption = "Titre du tableau"
-            colorVariant = "green-emeraude"
-            headers = {["Titre", "Titre", "Titre", "Titre", "Titre"]}
-            data = {[
+            caption="Titre du tableau"
+            colorVariant="green-emeraude"
+            headers={["Titre", "Titre", "Titre", "Titre", "Titre"]}
+            data={[
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
                 ["Donnée", "Donnée", "Donnée", "Donnée", "Donnée"],
