@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
+import { type EulerianAnalytics } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setUseLang } from "./i18n";
 import type { ColorScheme } from "./useIsDark";
+export type { EulerianAnalytics };
 export type { RegisterLink, RegisteredLinkProps };
 export declare function startReactDsfr(params: {
     defaultColorScheme: ColorScheme | "system";
@@ -13,5 +15,6 @@ export declare function startReactDsfr(params: {
     }) => ReturnType<React.FC>;
     /** Default: ()=> "fr" */
     useLang?: () => string;
+    eulerianAnalytics?: EulerianAnalytics;
 }): void;
 export { setUseLang };
