@@ -16,14 +16,12 @@ import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
 import { getAssetUrl } from "./tools/getAssetUrl";
 import { getColors } from "./fr/colors";
-import { start, type EulerianAnalytics } from "./start";
+import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
 import { assert } from "tsafe/assert";
 import "./assets/dsfr_plus_icons.css";
-
-export type { EulerianAnalytics };
 
 const isProduction = process.env.NODE_ENV !== "development";
 
@@ -43,7 +41,6 @@ export type CreateNextDsfrIntegrationApiParams = {
     doPersistDarkModePreferenceWithCookie?: boolean;
     /** Default: ()=> "fr" */
     useLang?: () => string;
-    eulerianAnalytics?: EulerianAnalytics;
 };
 
 function readIsDarkInCookie(cookie: string) {
@@ -91,8 +88,7 @@ export function createNextDsfrIntegrationApi(
         Link,
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
-        useLang,
-        eulerianAnalytics
+        useLang
     } = params;
 
     let isAfterFirstEffect = false;
@@ -110,7 +106,6 @@ export function createNextDsfrIntegrationApi(
         start({
             defaultColorScheme,
             verbose,
-            eulerianAnalytics,
             "nextParams": {
                 doPersistDarkModePreferenceWithCookie,
                 "registerEffectAction": action => {

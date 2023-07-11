@@ -4,10 +4,8 @@ import type { DocumentProps } from "next/document";
 import { data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
 import type { ColorScheme } from "./useIsDark";
 import { fontUrlByFileBasename } from "./next-appdir/zz_internal/fontUrlByFileBasename";
-import { type EulerianAnalytics } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import "./assets/dsfr_plus_icons.css";
-export type { EulerianAnalytics };
 export type { RegisterLink, RegisteredLinkProps };
 export type CreateNextDsfrIntegrationApiParams = {
     defaultColorScheme: ColorScheme | "system";
@@ -25,7 +23,6 @@ export type CreateNextDsfrIntegrationApiParams = {
     doPersistDarkModePreferenceWithCookie?: boolean;
     /** Default: ()=> "fr" */
     useLang?: () => string;
-    eulerianAnalytics?: EulerianAnalytics;
 };
 export type NextDsfrIntegrationApi = {
     withDsfr: <AppComponent extends NextComponentType<any, any, any>>(App: AppComponent) => AppComponent;

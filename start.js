@@ -1,9 +1,10 @@
 import { isBrowser } from "./tools/isBrowser";
 import { assert } from "tsafe/assert";
 import { startClientSideIsDarkLogic } from "./useIsDark/client";
+import { Deferred } from "./tools/Deferred";
 let isStarted = false;
 export async function start(params) {
-    const { defaultColorScheme, verbose, nextParams, eulerianAnalytics } = params;
+    const { defaultColorScheme, verbose, nextParams } = params;
     assert(isBrowser);
     if (isStarted) {
         return;
@@ -15,16 +16,19 @@ export async function start(params) {
         "doPersistDarkModePreferenceWithCookie": nextParams === undefined ? false : nextParams.doPersistDarkModePreferenceWithCookie,
         registerEffectAction
     });
+    // @ts-expect-error
     window.dsfr = {
         verbose,
-        "mode": "react",
-        "analytics": eulerianAnalytics
+        "mode": "react"
     };
-    await import("./dsfr/dsfr.module");
-    if (eulerianAnalytics !== undefined) {
-        await import("./dsfr/analytics/analytics.module.js");
-    }
-    const { dsfr } = window;
-    registerEffectAction(() => dsfr.start());
+    // @ts-expect-error
+    await import("./dsfr/dsfr.module.min");
+    dDsfrLoaded.resolve();
+    registerEffectAction(() => {
+        // @ts-expect-error
+        window.dsfr.start();
+    });
 }
+const dDsfrLoaded = new Deferred();
+export const prDsfrLoaded = dDsfrLoaded.pr;
 //# sourceMappingURL=start.js.map

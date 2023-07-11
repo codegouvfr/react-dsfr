@@ -47,7 +47,7 @@ function readIsDarkInCookie(cookie) {
     }
 }
 export function createNextDsfrIntegrationApi(params) {
-    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang, eulerianAnalytics } = params;
+    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang } = params;
     let isAfterFirstEffect = false;
     const actions = [];
     if (Link !== undefined) {
@@ -60,7 +60,6 @@ export function createNextDsfrIntegrationApi(params) {
         start({
             defaultColorScheme,
             verbose,
-            eulerianAnalytics,
             "nextParams": {
                 doPersistDarkModePreferenceWithCookie,
                 "registerEffectAction": action => {
