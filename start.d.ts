@@ -37,7 +37,7 @@ export type EulerianAnalytics = {
         filters: string;
     }>;
     site?: Partial<{
-        environment: "production" | "stage" | "production";
+        environment: "development" | "stage" | "production";
         entity: string;
         language: string;
         target: string;

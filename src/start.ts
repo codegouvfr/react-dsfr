@@ -83,7 +83,7 @@ export type EulerianAnalytics = {
         filters: string; // array of filters that were applied on the page (strings)
     }>;
     site?: Partial<{
-        environment: "production" | "stage" | "production"; // by default development ['development', 'stage', 'production']
+        environment: "development" | "stage" | "production"; // by default development ['development', 'stage', 'production']
         entity: string; // Entity responsible for website
         language: string; // language of the website (ISO 639-1). default to html lang
         target: string; // site target
