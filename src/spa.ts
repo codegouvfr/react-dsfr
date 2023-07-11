@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
-import { start } from "./start";
+import { start, type EulerianAnalytics } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
 import type { ColorScheme } from "./useIsDark";
+
+export type { EulerianAnalytics };
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -15,8 +17,9 @@ export function startReactDsfr(params: {
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
     /** Default: ()=> "fr" */
     useLang?: () => string;
+    eulerianAnalytics?: EulerianAnalytics;
 }) {
-    const { defaultColorScheme, verbose = false, Link, useLang } = params;
+    const { defaultColorScheme, verbose = false, Link, useLang, eulerianAnalytics } = params;
 
     if (Link !== undefined) {
         setLink({ Link });
@@ -29,6 +32,7 @@ export function startReactDsfr(params: {
     start({
         defaultColorScheme,
         verbose,
+        eulerianAnalytics,
         "nextParams": undefined
     });
 }
