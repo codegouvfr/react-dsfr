@@ -79,13 +79,16 @@ export async function startEulerianAnalytics(params: EulerianAnalyticsParams) {
     // @ts-expect-error
     await import("./dsfr/analytics/analytics.module.min");
 
+    //@ts-expect-error
+    await dsfr.analytics.readiness;
+
     return {
-        // @ts-expect-error
         "enable": () => {
+            // @ts-expect-error
             window.dsfr.analytics.opt.enable();
         },
-        // @ts-expect-error
         "disable": () => {
+            // @ts-expect-error
             window.dsfr.analytics.opt.disable();
         }
     };
