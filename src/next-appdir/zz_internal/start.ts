@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { start, type EulerianAnalytics } from "../../start";
+import { start } from "../../start";
 import type { RegisteredLinkProps } from "../../link";
 import { setLink } from "../../link";
 import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./defaultColorScheme";
@@ -14,9 +14,8 @@ export function startReactDsfr(params: {
     verbose?: boolean;
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
-    eulerianAnalytics?: EulerianAnalytics;
 }) {
-    const { defaultColorScheme, verbose = false, Link, eulerianAnalytics } = params;
+    const { defaultColorScheme, verbose = false, Link } = params;
 
     setDefaultColorSchemeClientSide({ defaultColorScheme });
 
@@ -28,7 +27,6 @@ export function startReactDsfr(params: {
         start({
             defaultColorScheme,
             verbose,
-            eulerianAnalytics,
             "nextParams": {
                 "doPersistDarkModePreferenceWithCookie": false,
                 "registerEffectAction": action => {
