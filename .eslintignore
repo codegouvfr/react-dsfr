@@ -3,4 +3,5 @@ dist/
 CHANGELOG.md
 .yarn_home/
 /test/integration/
+/storybook-static/
 

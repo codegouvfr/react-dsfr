@@ -5,3 +5,4 @@ node_modules/
 /test/integration/
 /dsfr/
 /src/fr/generatedFromCss/
+/storybook-static/
