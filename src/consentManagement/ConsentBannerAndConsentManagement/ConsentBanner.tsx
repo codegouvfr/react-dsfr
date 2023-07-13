@@ -30,9 +30,11 @@ export function createConsentBanner<Finality extends string>(params: {
             setHostname(location.host);
         }, []);
 
+        const id = "fr-consent-banner";
+
         return (
             <>
-                <div id="fr-consent-banner" className={fr.cx("fr-consent-banner")}>
+                <div id={id} className={fr.cx("fr-consent-banner")}>
                     <h2 className={fr.cx("fr-h6")}>{t("about cookies", { hostname })}</h2>
                     <div /*className={fr.cx("fr-consent-banner__content")}*/>
                         <p className={fr.cx("fr-text--sm")}>
@@ -50,6 +52,7 @@ export function createConsentBanner<Finality extends string>(params: {
                     >
                         <li>
                             <button
+                                id={`${id}-button-accept-all`}
                                 className={fr.cx("fr-btn")}
                                 title={t("accept all - title")}
                                 onClick={async () => {
@@ -64,6 +67,7 @@ export function createConsentBanner<Finality extends string>(params: {
                         </li>
                         <li>
                             <button
+                                id={`${id}-button-refuse-app`}
                                 className={fr.cx("fr-btn")}
                                 title={t("refuse all - title")}
                                 onClick={() => {
@@ -78,6 +82,7 @@ export function createConsentBanner<Finality extends string>(params: {
                         </li>
                         <li>
                             <button
+                                id={`${id}-button-customize`}
                                 className={fr.cx("fr-btn", "fr-btn--secondary")}
                                 title={t("customize cookies - title")}
                                 disabled={isProcessingChanges}

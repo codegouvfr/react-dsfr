@@ -53,6 +53,7 @@ const isOpen = useIsHeaderMenuModalOpen();
 export default meta;
 
 export const SimpleHeader = getStory({
+    "id": "fr-header-simple-header",
     "brandTop": (
         <>
             INTITULE
@@ -98,6 +99,7 @@ export const SimpleHeader = getStory({
 });
 
 export const SimpleHeaderWithServiceTitleAndTagline = getStory({
+    "id": "fr-header-simple-header-with-service-title-and-tagline",
     "brandTop": (
         <>
             INTITULE
@@ -115,6 +117,7 @@ export const SimpleHeaderWithServiceTitleAndTagline = getStory({
 
 export const HeaderWithQuickAccessItems = getStory(
     {
+        "id": "fr-header-header-with-quick-access-items",
         "brandTop": (
             <>
                 INTITULE
@@ -167,6 +170,7 @@ component within a \`"use client";\` directive you can use the \`<HeaderQuickAcc
 
 export const WithUncontrolledSearchBar = getStory(
     {
+        "id": "fr-header-with-uncontrolled-search-bar",
         "brandTop": (
             <>
                 INTITULE
@@ -255,6 +259,7 @@ function MySearchInput(props: MySearchInputProps) {
 
 export const WithControlledSearchBar = getStory(
     {
+        "id": "fr-header-with-controlled-search-bar",
         "brandTop": (
             <>
                 INTITULE
@@ -383,6 +388,7 @@ function MySearchInput(props: MySearchInputProps) {
 
 export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
     {
+        "id": "fr-header-header-with-quick-access-items-nav-items-and-search-engine",
         "brandTop": (
             <>
                 INTITULE
@@ -472,6 +478,7 @@ export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
 
 export const HeaderWithVerticalOperatorLogo = getStory(
     {
+        "id": "fr-header-header-with-vertical-operator-logo",
         "brandTop": (
             <>
                 INTITULE
@@ -512,6 +519,7 @@ export const HeaderWithVerticalOperatorLogo = getStory(
 
 export const WithHorizontalOperatorLogo = getStory(
     {
+        "id": "fr-header-with-horizontal-operator-logo",
         "brandTop": (
             <>
                 INTITULE
@@ -575,6 +583,7 @@ export const WithHorizontalOperatorLogo = getStory(
 
 export const NavigationAsCustomNode = getStory(
     {
+        "id": "fr-header-navigation-as-custom-node",
         "brandTop": (
             <>
                 INTITULE

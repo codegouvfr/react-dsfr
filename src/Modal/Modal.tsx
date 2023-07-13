@@ -198,6 +198,8 @@ export { addModalTranslations };
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-modal> */
 export function createModal(params: { isOpenedByDefault: boolean; id: string }): {
     buttonProps: {
+        /** Only for analytics, feel free to overwrite */
+        id: string;
         "aria-controls": string;
         "data-fr-opened": boolean;
     };
@@ -210,6 +212,7 @@ export function createModal(params: { isOpenedByDefault: boolean; id: string }):
     const { isOpenedByDefault, id } = params;
 
     const buttonProps = {
+        "id": `${id}-control-button`,
         "aria-controls": id,
         "data-fr-opened": isOpenedByDefault
     };

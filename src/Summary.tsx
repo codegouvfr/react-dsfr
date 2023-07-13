@@ -8,6 +8,7 @@ import { fr } from "./fr";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { generateValidHtmlId } from "./tools/generateValidHtmlId";
 
 export type SummaryProps = {
     id?: string;
@@ -70,11 +71,12 @@ export const Summary = memo(
                 )}
                 <ol>
                     {links.map(
-                        (link, idx) =>
+                        (link, i) =>
                             link.linkProps.href !== undefined && (
-                                <li key={idx}>
+                                <li key={i}>
                                     <Link
                                         {...link.linkProps}
+                                        id={link.linkProps.id ?? `${id}-link${generateValidHtmlId({ "text": link.text })}-${i}`}
                                         className={cx(
                                             fr.cx("fr-summary__link"),
                                             classes.link,
