@@ -31,7 +31,7 @@
 > WARNING: This Design System is only meant to be used for official French's public service websites.  
 > Its main purpose is to make it easy to identify governmental websites for citizens. [See terms](https://www.systeme-de-design.gouv.fr/cgu/).
 
-This module is an advanced toolkit that leverage [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
+This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
 <a href="https://youtu.be/5q88JgXUAY4">
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
@@ -62,12 +62,12 @@ I'm working full time on this project. You can expect rapid development.
   <a href="https://guides.react-dsfr.fr/">🚀 Get started 🚀 </a>
 </p>
 
-# Project's Governance
+# Governance
 
-This project is co-maintained by public servant from various French administrations.
+This project is co-maintained by public servants from various French administrations.
 
 -   [Joseph Garrone](@garronej)
--   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
+-   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
 
 # Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
@@ -106,18 +106,18 @@ npx vitest -t "Resolution of CSS variables"
 # Debugging while unit testing
 ```
 
-### Looking to contribute?
+### Want to contribute?
 
-Thank you! [Here](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md) is the contribution guide.
+Thank you! See [the contribution guide](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md).
 
 ### How to publish a new version on NPM, how to release a beta version
 
 This repo was bootstrapped form [garronej/ts-ci](https://github.com/garronej/ts-ci) have a look at the
 documentation of this starter for understanding the lifecycle of this repo.
 
-## Usecases
+## Use-cases
 
-A few project **that I know of** that uses `@codegouvfr/react-dsfr`.
+A few projects that use `@codegouvfr/react-dsfr`.
 
 -   https://sill.code.gouv.fr
 -   https://immersion-facile.beta.gouv.fr/
@@ -138,4 +138,4 @@ A few project **that I know of** that uses `@codegouvfr/react-dsfr`.
 -   https://territoiresentransitions.fr (maybe)
 
 Keep in mind that the project has been released recently so it's only natural
-that there is only a few project in production using it.
+that there is only a few projects in production using it.
