@@ -5,8 +5,10 @@ import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type SkipLinksProps = {
+    id?: string;
     className?: string;
     links: {
         label: string;
@@ -19,12 +21,20 @@ export type SkipLinksProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-skiplinks> */
 export const SkipLinks = memo(
     forwardRef<HTMLDivElement, SkipLinksProps>((props, ref) => {
-        const { className, classes = {}, links, style, ...rest } = props;
+        const { className, classes = {}, links, style, 
+        id: id_props
+        ,...rest } = props;
         const { t } = useTranslation();
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-skiplinks",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <div
+                id={id}
                 className={cx(fr.cx("fr-skiplinks"), classes.root, className)}
                 ref={ref}
                 style={style}

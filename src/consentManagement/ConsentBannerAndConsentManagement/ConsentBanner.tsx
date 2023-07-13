@@ -32,7 +32,7 @@ export function createConsentBanner<Finality extends string>(params: {
 
         return (
             <>
-                <div className={fr.cx("fr-consent-banner")}>
+                <div id="fr-consent-banner" className={fr.cx("fr-consent-banner")}>
                     <h2 className={fr.cx("fr-h6")}>{t("about cookies", { hostname })}</h2>
                     <div /*className={fr.cx("fr-consent-banner__content")}*/>
                         <p className={fr.cx("fr-text--sm")}>

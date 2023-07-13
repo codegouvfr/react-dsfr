@@ -18,6 +18,7 @@ import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBa
 
 export type HeaderProps = {
     className?: string;
+    id?: string;
     brandTop: ReactNode;
     homeLinkProps: RegisteredLinkProps & { title: string };
     serviceTitle?: ReactNode;
@@ -103,6 +104,7 @@ export const Header = memo(
     forwardRef<HTMLDivElement, HeaderProps>((props, ref) => {
         const {
             className,
+            id: id_props,
             brandTop,
             serviceTitle,
             serviceTagline,
@@ -118,6 +120,8 @@ export const Header = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = id_props ?? "fr-header";
 
         const isSearchBarEnabled =
             renderSearchInput !== undefined || onSearchButtonClick !== undefined;
@@ -167,6 +171,7 @@ export const Header = memo(
                 <Display />
                 <header
                     role="banner"
+                    id={id}
                     className={cx(fr.cx("fr-header"), classes.root, className)}
                     ref={ref}
                     style={style}
@@ -395,7 +400,7 @@ export const Header = memo(
                                 </div>
                                 {navigation !== undefined &&
                                     (navigation instanceof Array ? (
-                                        <MainNavigation items={navigation} />
+                                    <MainNavigation id={`${id}-main-navigation`} items={navigation} />
                                     ) : (
                                         navigation
                                     ))}

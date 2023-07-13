@@ -2,7 +2,6 @@ import React, {
     memo,
     forwardRef,
     ReactNode,
-    useId,
     useState,
     useEffect,
     type CSSProperties
@@ -14,11 +13,13 @@ import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type ToggleSwitchProps = ToggleSwitchProps.Controlled | ToggleSwitchProps.Uncontrolled;
 
 export namespace ToggleSwitchProps {
     export type Common = {
+        id?: string;
         className?: string;
         label: ReactNode;
         helperText?: ReactNode;
@@ -53,6 +54,7 @@ export namespace ToggleSwitchProps {
 export const ToggleSwitch = memo(
     forwardRef<HTMLDivElement, ToggleSwitchProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             label,
             helperText,
@@ -69,6 +71,15 @@ export const ToggleSwitch = memo(
             ...rest
         } = props;
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-toggle",
+            "explicitlyProvidedId": id_props
+        });
+
+        const inputId = `${id}-input`;
+
+        const hintId = `${id}-hint-text`;
+
         const [checked, setChecked] = useState(defaultChecked);
 
         useEffect(() => {
@@ -80,16 +91,6 @@ export const ToggleSwitch = memo(
         }, [defaultChecked]);
 
         assert<Equals<keyof typeof rest, never>>();
-
-        const { inputId, hintId } = (function useClosure() {
-            const id = useId();
-
-            const inputId = `toggle-${id}`;
-
-            const hintId = `toggle-${id}-hint-text`;
-
-            return { inputId, hintId };
-        })();
 
         const { t } = useTranslation();
 
@@ -106,6 +107,7 @@ export const ToggleSwitch = memo(
 
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx("fr-toggle", labelPosition === "left" && "fr-toggle--label-left"),
                     classes.root,

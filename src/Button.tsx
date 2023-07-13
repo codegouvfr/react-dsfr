@@ -5,7 +5,8 @@ import React, {
     type RefAttributes,
     type MemoExoticComponent,
     type ForwardRefExoticComponent,
-    type CSSProperties
+    type CSSProperties,
+    type ComponentProps
 } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -15,12 +16,14 @@ import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type ButtonProps = ButtonProps.Common &
     (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) &
     (ButtonProps.AsAnchor | ButtonProps.AsButton);
 export namespace ButtonProps {
     export type Common = {
+        id?: string;
         className?: string;
         /** Default primary */
         priority?: "primary" | "secondary" | "tertiary" | "tertiary no outline";
@@ -64,21 +67,19 @@ export namespace ButtonProps {
     export type AsButton = {
         linkProps?: never;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: React.DetailedHTMLProps<
-            React.ButtonHTMLAttributes<HTMLButtonElement>,
-            HTMLButtonElement
-        > &
-            Record<`data-${string}`, string | boolean | null | undefined>;
+        nativeButtonProps?: ComponentProps<"button"> & Record<`data-${string}`, string | boolean | null | undefined>;
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
     };
 }
 
+
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-button> */
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {
+            id: props_id,
             className: prop_className,
             children,
             title,
@@ -96,6 +97,11 @@ export const Button = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-button",
+            "explicitlyProvidedId": props_id
+        });
 
         const { Link } = getLink();
 
@@ -126,6 +132,7 @@ export const Button = memo(
         return linkProps !== undefined ? (
             <Link
                 {...linkProps}
+                id={props_id ?? linkProps.id ?? id}
                 title={title ?? linkProps.title}
                 className={cx(linkProps?.className, className)}
                 style={{
@@ -140,6 +147,7 @@ export const Button = memo(
         ) : (
             <button
                 {...nativeButtonProps}
+                id={props_id ?? nativeButtonProps?.id ?? id}
                 className={cx(nativeButtonProps?.className, className)}
                 style={{
                     ...nativeButtonProps?.style,

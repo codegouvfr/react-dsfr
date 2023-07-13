@@ -7,8 +7,10 @@ import type { RegisteredLinkProps } from "./link";
 import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type BreadcrumbProps = {
+    id?: string;
     className?: string;
     homeLinkProps?: RegisteredLinkProps;
     segments: {
@@ -24,6 +26,7 @@ export type BreadcrumbProps = {
 export const Breadcrumb = memo(
     forwardRef<HTMLDivElement, BreadcrumbProps>((props, ref) => {
         const {
+            id: props_id,
             className,
             homeLinkProps,
             segments,
@@ -35,6 +38,11 @@ export const Breadcrumb = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-breadcrumb",
+            "explicitlyProvidedId": props_id
+        });
+
         const { t } = useTranslation();
 
         const { Link } = getLink();
@@ -42,6 +50,7 @@ export const Breadcrumb = memo(
 
         return (
             <nav
+                id={id}
                 ref={ref}
                 role="navigation"
                 className={cx(fr.cx("fr-breadcrumb"), classes.root, className)}

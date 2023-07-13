@@ -5,8 +5,10 @@ import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { ToggleSwitch } from "./ToggleSwitch";
 import type { ToggleSwitchProps } from "./ToggleSwitch";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type ToggleSwitchGroupProps = {
+    id?: string;
     className?: string;
     /** Default: true */
     showCheckedHint?: ToggleSwitchProps["showCheckedHint"];
@@ -21,6 +23,7 @@ export type ToggleSwitchGroupProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitchgroup> */
 export const ToggleSwitchGroup = memo<ToggleSwitchGroupProps>(props => {
     const {
+        id: id_props,
         className,
         toggles,
         showCheckedHint = true,
@@ -32,8 +35,14 @@ export const ToggleSwitchGroup = memo<ToggleSwitchGroupProps>(props => {
 
     assert<Equals<keyof typeof rest, never>>();
 
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-toggle",
+        "explicitlyProvidedId": id_props
+    });
+
     return (
         <ul
+            id={id}
             className={cx(fr.cx("fr-toggle__list"), classes.root, className)}
             style={style}
             {...rest}

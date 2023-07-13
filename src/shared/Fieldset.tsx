@@ -12,12 +12,14 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 
 export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox;
 
 export namespace FieldsetProps {
     export type Common = {
         className?: string;
+        id?: string;
         classes?: Partial<Record<"root" | "legend" | "content", string>>;
         style?: CSSProperties;
         legend?: ReactNode;
@@ -61,6 +63,7 @@ export const Fieldset = memo(
     forwardRef<HTMLFieldSetElement, FieldsetProps>((props, ref) => {
         const {
             className,
+            id: id_props,
             classes = {},
             style,
             legend,
@@ -78,20 +81,18 @@ export const Fieldset = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { getInputId, legendId, errorDescId, successDescId, messagesWrapperId } =
-            (function useClosure() {
-                const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
+        const id = useAnalyticsId({
+            "defaultIdPrefix": `fr-fieldset-${type}${name_props === undefined ? "" : `-${name_props}`}`,
+            "explicitlyProvidedId": id_props
+        });
 
-                const getInputId = (i: number) => `${id}-${i}`;
+        const getInputId = (i: number) => `${id}-${i}`;
 
-                const legendId = `${id}-legend`;
+        const legendId = `${id}-legend`;
 
-                const errorDescId = `${id}-desc-error`;
-                const successDescId = `${id}-desc-valid`;
-                const messagesWrapperId = `${id}-messages`;
-
-                return { getInputId, legendId, errorDescId, successDescId, messagesWrapperId };
-            })();
+        const errorDescId = `${id}-desc-error`;
+        const successDescId = `${id}-desc-valid`;
+        const messagesWrapperId = `${id}-messages`;
 
         const radioName = (function useClosure() {
             const id = useId();
@@ -101,6 +102,7 @@ export const Fieldset = memo(
 
         return (
             <fieldset
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-fieldset",

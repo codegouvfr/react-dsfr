@@ -16,8 +16,10 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type NoticeProps = {
+    id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "title" | "close", string>>;
     title: NonNullable<ReactNode>;
@@ -52,6 +54,7 @@ export namespace NoticeProps {
 export const Notice = memo(
     forwardRef<HTMLDivElement, NoticeProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             classes = {},
             title,
@@ -63,6 +66,11 @@ export const Notice = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-notice",
+            "explicitlyProvidedId": id_props
+        });
 
         const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
 
@@ -118,6 +126,7 @@ export const Notice = memo(
 
         return (
             <div
+                id={id}
                 className={cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className)}
                 {...(refShouldSetRole.current && { "role": "notice" })}
                 ref={ref}

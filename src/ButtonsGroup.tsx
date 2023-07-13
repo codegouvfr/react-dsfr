@@ -6,11 +6,13 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type ButtonsGroupProps = ButtonsGroupProps.AlwaysStacked | ButtonsGroupProps.Inline;
 
 export namespace ButtonsGroupProps {
     export type Common = {
+        id?: string;
         className?: string;
         buttonsSize?: ButtonProps["size"];
         /** Default: left */
@@ -49,6 +51,7 @@ export namespace ButtonsGroupProps {
 export const ButtonsGroup = memo(
     forwardRef<HTMLUListElement, ButtonsGroupProps>((props, ref) => {
         const {
+            id: props_id,
             className,
             buttonsSize = "medium",
             buttonsIconPosition = "left",
@@ -62,6 +65,11 @@ export const ButtonsGroup = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-btns-group",
+            "explicitlyProvidedId": props_id
+        });
 
         const buttonsGroupClassName = cx(
             fr.cx(
@@ -97,7 +105,7 @@ export const ButtonsGroup = memo(
         );
 
         return (
-            <ul className={buttonsGroupClassName} style={style} ref={ref} {...rest}>
+            <ul id={id} className={buttonsGroupClassName} style={style} ref={ref} {...rest}>
                 {buttons.map((buttonProps, i) => (
                     <li key={i}>
                         <Button {...buttonProps} />

@@ -7,8 +7,10 @@ import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type SummaryProps = {
+    id?: string;
     className?: string;
     links: {
         text: string;
@@ -24,7 +26,9 @@ export type SummaryProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
 export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
-        const { className, links, as = "p", title, classes = {}, style, ...rest } = props;
+        const { className, links, as = "p", title, classes = {}, style, 
+        id: id_props
+        ,...rest } = props;
 
         const { t } = useTranslation();
 
@@ -35,8 +39,14 @@ export const Summary = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-summary",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <nav
+                id={id}
                 className={cx(fr.cx("fr-summary"), classes.root, className)}
                 role="navigation"
                 aria-labelledby={titleId}

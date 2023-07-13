@@ -6,8 +6,10 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type SelectProps = {
+    id?: string;
     className?: string;
     label: ReactNode;
     hint?: ReactNode;
@@ -31,6 +33,7 @@ export type SelectProps = {
 export const Select = memo(
     forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             label,
             hint,
@@ -45,11 +48,17 @@ export const Select = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-select-group",
+            "explicitlyProvidedId": id_props
+        });
+
         const selectId = `select-${useId()}`;
         const stateDescriptionId = `select-${useId()}-desc`;
 
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-select-group",

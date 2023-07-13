@@ -5,8 +5,10 @@ import type { Equals } from "tsafe";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type QuoteProps = {
+    id?: string;
     className?: string;
     text: ReactNode;
     author?: ReactNode;
@@ -31,6 +33,7 @@ export namespace QuoteProps {
 export const Quote = memo(
     forwardRef<HTMLDivElement, QuoteProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             text,
             author,
@@ -46,8 +49,14 @@ export const Quote = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-quote",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <figure
+                id={id}
                 className={cx(
                     fr.cx("fr-quote"),
                     imageUrl && fr.cx("fr-quote--column"),

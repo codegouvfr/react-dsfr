@@ -4,8 +4,10 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type HighlightProps = {
+    id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "content", string>>;
     size?: HighlightProps.Size;
@@ -20,12 +22,20 @@ export namespace HighlightProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
 export const Highlight = memo(
     forwardRef<HTMLDivElement, HighlightProps>((props, ref) => {
-        const { className, classes = {}, style, children, size, ...rest } = props;
+        const { className, classes = {}, style, children, size, 
+        id: id_props
+        , ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-highlight",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <div
+                id={id}
                 className={cx(fr.cx("fr-highlight"), classes.root, className)}
                 ref={ref}
                 style={style}

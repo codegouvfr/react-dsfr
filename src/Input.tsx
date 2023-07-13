@@ -20,6 +20,7 @@ export type InputProps = InputProps.RegularInput | InputProps.TextArea;
 export namespace InputProps {
     export type Common = {
         className?: string;
+        id?: string;
         label: ReactNode;
         hintText?: ReactNode;
         hideLabel?: boolean;
@@ -68,6 +69,7 @@ export const Input = memo(
     forwardRef<HTMLDivElement, InputProps>((props, ref) => {
         const {
             className,
+            id,
             label,
             hintText,
             hideLabel,
@@ -121,6 +123,7 @@ export const Input = memo(
                 )}
                 style={style}
                 ref={ref}
+                id={id}
                 {...rest}
             >
                 <label

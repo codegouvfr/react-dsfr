@@ -12,6 +12,7 @@ export type FranceConnectButtonProps =
 
 export namespace FranceConnectButtonProps {
     type Common = {
+        id?: string;
         className?: string;
         classes?: Partial<Record<"root" | "login" | "brand", string>>;
         style?: CSSProperties;
@@ -29,7 +30,9 @@ export namespace FranceConnectButtonProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, url: href, style, onClick, ...rest } = props;
+        const { classes = {}, className, url: href, style, onClick,
+            id: id_props
+            , ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -40,6 +43,7 @@ export const MonCompteProButton = memo(
 
         return (
             <div
+                id={id_props ?? "fr-moncomptepro"}
                 className={cx(fr.cx("fr-connect-group"), classes.root, className)}
                 style={style}
                 ref={ref}

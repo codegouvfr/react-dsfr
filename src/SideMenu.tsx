@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, type ReactNode, type CSSProperties, useId } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -6,9 +6,11 @@ import type { RegisteredLinkProps } from "./link";
 import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 //https://main--ds-gouv.netlify.app/example/component/sidemenu/
 export type SideMenuProps = {
+    id?: string;
     title?: ReactNode;
     className?: string;
     style?: CSSProperties;
@@ -51,6 +53,7 @@ export namespace SideMenuProps {
 export const SideMenu = memo(
     forwardRef<HTMLDivElement, SideMenuProps>((props, ref) => {
         const {
+            id: id_props,
             title,
             items,
             style,
@@ -67,24 +70,24 @@ export const SideMenu = memo(
 
         const { Link } = getLink();
 
-        const { wrapperId, titleId, getItemId } = (function useClosure() {
-            const id = useId();
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-sidemenu",
+            "explicitlyProvidedId": id_props
+        });
 
-            const wrapperId = `fr-sidemenu-wrapper-${id}`;
+        const collapseId = `${id}-collapse`;
 
-            const titleId = `fr-sidemenu-title-${id}`;
+        const titleId = `${id}-title`;
 
-            const getItemId = (params: { level: number; key: string }) => {
-                const { level, key } = params;
+        const getItemId = (params: { level: number; key: string }) => {
+            const { level, key } = params;
 
-                return `fr-sidemenu-item-${id}-${level}-${key}`;
-            };
-
-            return { wrapperId, titleId, getItemId };
-        })();
+            return `fr-sidemenu-item-${id}-${level}-${key}`;
+        };
 
         return (
             <nav
+                id={id}
                 {...rest}
                 ref={ref}
                 style={style}
@@ -103,12 +106,12 @@ export const SideMenu = memo(
                     <button
                         hidden
                         aria-expanded="false"
-                        aria-controls={wrapperId}
+                        aria-controls={collapseId}
                         className={cx(fr.cx("fr-sidemenu__btn"), classes.button)}
                     >
                         {burgerMenuButtonText}
                     </button>
-                    <div className={fr.cx("fr-collapse")} id={wrapperId}>
+                    <div className={fr.cx("fr-collapse")} id={collapseId}>
                         {title !== undefined && (
                             <div
                                 className={cx(fr.cx("fr-sidemenu__title"), classes.title)}

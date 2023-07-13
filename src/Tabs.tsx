@@ -16,11 +16,13 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type TabsProps = TabsProps.Uncontrolled | TabsProps.Controlled;
 
 export namespace TabsProps {
     export type Common = {
+        id?: string;
         className?: string;
         label?: string;
         classes?: Partial<Record<"root" | "tab" | "panel", string>>;
@@ -55,6 +57,7 @@ export namespace TabsProps {
 export const Tabs = memo(
     forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             label,
             classes = {},
@@ -67,6 +70,11 @@ export const Tabs = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-tabs",
+            "explicitlyProvidedId": id_props
+        });
 
         const getSelectedTabIndex = () => {
             const index = tabs.findIndex(tab =>
@@ -109,7 +117,9 @@ export const Tabs = memo(
         })();
 
         return (
-            <div className={cx(fr.cx("fr-tabs"), className)} ref={ref} style={style} {...rest}>
+            <div 
+            id={id}
+            className={cx(fr.cx("fr-tabs"), className)} ref={ref} style={style} {...rest}>
                 <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
                     {tabs.map(({ label, iconId }, tabIndex) => (
                         <li key={label + (iconId ?? "")} role="presentation">

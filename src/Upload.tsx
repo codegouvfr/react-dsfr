@@ -3,16 +3,17 @@ import React, {
     InputHTMLAttributes,
     ReactNode,
     forwardRef,
-    memo,
-    useId
+    memo
 } from "react";
 import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { Equals, assert } from "tsafe";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type UploadProps = {
+    id?: string;
     className?: string;
     /** @default false */
     disabled?: boolean;
@@ -31,24 +32,30 @@ export const Upload = memo(
     forwardRef<HTMLDivElement, UploadProps>((props, ref) => {
         const { t } = useTranslation();
         const {
+            id: id_props,
             className,
             disabled = false,
             hint = t("hint"),
             multiple = false,
             state = "default",
             stateRelatedMessage,
-            nativeInputProps = {}
+            nativeInputProps = {},
+            ...rest
         } = props;
 
-        const inputId = (function useClosure() {
-            const id = useId();
+        assert<Equals<keyof typeof rest, never>>();
 
-            return nativeInputProps.id ?? `input-${id}`;
-        })();
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-upload",
+            "explicitlyProvidedId": id_props
+        });
+
+        const inputId = nativeInputProps.id ?? `${id}-input`;
 
         const messageId = `${inputId}-desc-error`;
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-upload-group",

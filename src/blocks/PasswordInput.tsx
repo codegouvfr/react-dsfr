@@ -13,6 +13,7 @@ import { createComponentI18nApi } from "../i18n";
 import type { InputProps } from "../Input";
 import { cx } from "../tools/cx";
 import type { FrClassName } from "../fr/generatedFromCss/classNames";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 
 export type PasswordInputProps = Omit<
     InputProps.Common,
@@ -47,6 +48,7 @@ export const PasswordInput = memo(
 
         const {
             className,
+            id: id_props,
             label,
             hintText,
             hideLabel,
@@ -61,12 +63,16 @@ export const PasswordInput = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id= useAnalyticsId({
+            "explicitlyProvidedId": id_props,
+            "defaultIdPrefix": "password-input"
+        });
+
         const inputId = (function useClosure() {
             const id = useId();
 
             return nativeInputProps?.id ?? `password-${id}`;
         })();
-        const containerId = `${inputId}-container`;
         const togglePasswordShowId = `${inputId}-toggle-show`;
         const messagesGroupId = `${inputId}-messages-group`;
         const messageGroupId = `${inputId}-message-group`;
@@ -88,7 +94,7 @@ export const PasswordInput = memo(
                     classes.root,
                     className
                 )}
-                id={containerId}
+                id={id}
                 style={style}
                 ref={ref}
                 {...rest}

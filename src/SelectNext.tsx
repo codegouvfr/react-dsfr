@@ -18,8 +18,10 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type SelectProps<Options extends SelectProps.Option[]> = {
+    id?: string;
     options: Options;
     className?: string;
     label: ReactNode;
@@ -75,6 +77,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
     ref: React.LegacyRef<HTMLDivElement>
 ) {
     const {
+        id: id_props,
         className,
         label,
         hint,
@@ -89,6 +92,11 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
     } = props;
 
     assert<Equals<keyof typeof rest, never>>();
+
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-select-group",
+        "explicitlyProvidedId": id_props
+    });
 
     const { selectId, stateDescriptionId } = (function useClosure() {
         const selectIdExplicitlyProvided = nativeSelectProps?.id;
@@ -106,6 +114,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
 
     return (
         <div
+            id={id}
             className={cx(
                 fr.cx(
                     "fr-select-group",
