@@ -20,9 +20,16 @@ export type DownloadProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-download> */
 export const Download = memo(
     forwardRef<HTMLDivElement, DownloadProps>((props, ref) => {
-        const { className, style, details, label, linkProps, classes = {},
-            id: props_id
-        , ...rest } = props;
+        const {
+            className,
+            style,
+            details,
+            label,
+            linkProps,
+            classes = {},
+            id: props_id,
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 

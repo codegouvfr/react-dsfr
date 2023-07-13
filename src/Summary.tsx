@@ -26,9 +26,16 @@ export type SummaryProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
 export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
-        const { className, links, as = "p", title, classes = {}, style, 
-        id: id_props
-        ,...rest } = props;
+        const {
+            className,
+            links,
+            as = "p",
+            title,
+            classes = {},
+            style,
+            id: id_props,
+            ...rest
+        } = props;
 
         const { t } = useTranslation();
 

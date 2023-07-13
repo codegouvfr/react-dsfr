@@ -22,9 +22,7 @@ export namespace HighlightProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
 export const Highlight = memo(
     forwardRef<HTMLDivElement, HighlightProps>((props, ref) => {
-        const { className, classes = {}, style, children, size, 
-        id: id_props
-        , ...rest } = props;
+        const { className, classes = {}, style, children, size, id: id_props, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 

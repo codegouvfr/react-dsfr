@@ -49,7 +49,6 @@ export function createConsentManagement<
         return JSON.parse(serializedFinalityConsent);
     });
 
-
     const { processConsentChanges, useConsentCallback } = createProcessConsentChanges<Finality>({
         consentCallback,
         finalities,

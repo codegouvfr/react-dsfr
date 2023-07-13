@@ -92,10 +92,9 @@ export const MainNavigation = memo(
             return { getMenuId };
         })();
 
-
         const id = useAnalyticsId({
             "explicitlyProvidedId": id_props,
-            "defaultIdPrefix": "main-navigation",
+            "defaultIdPrefix": "main-navigation"
         });
 
         return (

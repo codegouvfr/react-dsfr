@@ -30,9 +30,7 @@ export namespace FranceConnectButtonProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, url: href, style, onClick,
-            id: id_props
-            , ...rest } = props;
+        const { classes = {}, className, url: href, style, onClick, id: id_props, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 

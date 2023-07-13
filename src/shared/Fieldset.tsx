@@ -82,7 +82,9 @@ export const Fieldset = memo(
         assert<Equals<keyof typeof rest, never>>();
 
         const id = useAnalyticsId({
-            "defaultIdPrefix": `fr-fieldset-${type}${name_props === undefined ? "" : `-${name_props}`}`,
+            "defaultIdPrefix": `fr-fieldset-${type}${
+                name_props === undefined ? "" : `-${name_props}`
+            }`,
             "explicitlyProvidedId": id_props
         });
 

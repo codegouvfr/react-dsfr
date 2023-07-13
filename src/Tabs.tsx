@@ -117,9 +117,13 @@ export const Tabs = memo(
         })();
 
         return (
-            <div 
-            id={id}
-            className={cx(fr.cx("fr-tabs"), className)} ref={ref} style={style} {...rest}>
+            <div
+                id={id}
+                className={cx(fr.cx("fr-tabs"), className)}
+                ref={ref}
+                style={style}
+                {...rest}
+            >
                 <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
                     {tabs.map(({ label, iconId }, tabIndex) => (
                         <li key={label + (iconId ?? "")} role="presentation">

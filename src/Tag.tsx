@@ -170,12 +170,12 @@ export const Tag = memo(
 ) as MemoExoticComponent<
     ForwardRefExoticComponent<
         TagProps.Common &
-        (TagProps.WithIcon | TagProps.WithoutIcon) &
-        (
-            | (TagProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
-            | (TagProps.AsButton & RefAttributes<HTMLButtonElement>)
-            | (TagProps.AsSpan & RefAttributes<HTMLSpanElement>)
-        )
+            (TagProps.WithIcon | TagProps.WithoutIcon) &
+            (
+                | (TagProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
+                | (TagProps.AsButton & RefAttributes<HTMLButtonElement>)
+                | (TagProps.AsSpan & RefAttributes<HTMLSpanElement>)
+            )
     >
 >;
 

@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-    forwardRef,
-    memo,
-    useState,
-    type ReactNode,
-    type CSSProperties
-} from "react";
+import React, { forwardRef, memo, useState, type ReactNode, type CSSProperties } from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";

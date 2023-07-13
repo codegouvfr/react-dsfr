@@ -67,13 +67,13 @@ export namespace ButtonProps {
     export type AsButton = {
         linkProps?: never;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: ComponentProps<"button"> & Record<`data-${string}`, string | boolean | null | undefined>;
+        nativeButtonProps?: ComponentProps<"button"> &
+            Record<`data-${string}`, string | boolean | null | undefined>;
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
     };
 }
-
 
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-button> */
 export const Button = memo(

@@ -63,7 +63,7 @@ export const PasswordInput = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const id= useAnalyticsId({
+        const id = useAnalyticsId({
             "explicitlyProvidedId": id_props,
             "defaultIdPrefix": "password-input"
         });

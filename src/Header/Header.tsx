@@ -400,7 +400,10 @@ export const Header = memo(
                                 </div>
                                 {navigation !== undefined &&
                                     (navigation instanceof Array ? (
-                                    <MainNavigation id={`${id}-main-navigation`} items={navigation} />
+                                        <MainNavigation
+                                            id={`${id}-main-navigation`}
+                                            items={navigation}
+                                        />
                                     ) : (
                                         navigation
                                     ))}

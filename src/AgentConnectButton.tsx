@@ -38,7 +38,12 @@ export const AgentConnectButton = memo(
         const Inner = onClick !== undefined ? "button" : "a";
 
         return (
-            <div id={id_props ?? "fr-agentconnect-button"} className={className} style={style} ref={ref}>
+            <div
+                id={id_props ?? "fr-agentconnect-button"}
+                className={className}
+                style={style}
+                ref={ref}
+            >
                 <span className="agentconnect-button__preload-hover" />
                 <Inner
                     className="agentconnect-button__link"

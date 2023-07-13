@@ -21,9 +21,7 @@ export type SkipLinksProps = {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-skiplinks> */
 export const SkipLinks = memo(
     forwardRef<HTMLDivElement, SkipLinksProps>((props, ref) => {
-        const { className, classes = {}, links, style, 
-        id: id_props
-        ,...rest } = props;
+        const { className, classes = {}, links, style, id: id_props, ...rest } = props;
         const { t } = useTranslation();
         assert<Equals<keyof typeof rest, never>>();
 

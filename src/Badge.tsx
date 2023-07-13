@@ -33,7 +33,7 @@ export const Badge = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const id= useAnalyticsId({
+        const id = useAnalyticsId({
             "defaultIdPrefix": "fr-badge",
             "explicitlyProvidedId": props_id
         });

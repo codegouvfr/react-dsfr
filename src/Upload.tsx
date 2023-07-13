@@ -1,10 +1,4 @@
-import React, {
-    DetailedHTMLProps,
-    InputHTMLAttributes,
-    ReactNode,
-    forwardRef,
-    memo
-} from "react";
+import React, { DetailedHTMLProps, InputHTMLAttributes, ReactNode, forwardRef, memo } from "react";
 import { createComponentI18nApi } from "./i18n";
 import { symToStr } from "tsafe/symToStr";
 import { cx } from "./tools/cx";
