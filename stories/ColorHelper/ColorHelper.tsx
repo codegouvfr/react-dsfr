@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { CallOut } from "../../dist/CallOut";
 import { colorDecisionAndCorrespondingOptions } from "../../dist/fr/generatedFromCss/colorDecisionAndCorrespondingOptions";
-import type { ColorDecisionAndCorrespondingOption } from "../../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
+import type { ColorDecisionAndCorrespondingOption } from "../../scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { fr } from "../../dist/fr";
 import { createUseDebounce } from "powerhooks/useDebounce";
 import { Fzf } from "fzf";

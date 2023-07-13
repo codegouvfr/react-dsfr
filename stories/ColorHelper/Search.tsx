@@ -91,11 +91,17 @@ export function Search(props: Props) {
                 <SearchBar
                     className={classes.searchBar}
                     label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else..."
-                    nativeInputProps={{
-                        "ref": inputElement => setInputElement(inputElement),
-                        "value": search,
-                        "onChange": event => onSearchChange(event.target.value)
-                    }}
+                    renderInput={({ className, id, placeholder, type }) =>
+                        <input
+                            ref={setInputElement}
+                            value={search}
+                            onChange={event => onSearchChange(event.target.value)}
+                            className={className}
+                            id={id}
+                            placeholder={placeholder}
+                            type={type}
+                        />
+                    }
                 />
                 <Button
                     className={classes.filterButton}

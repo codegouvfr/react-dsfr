@@ -1,5 +1,5 @@
 import React from "react";
-import type { ColorDecisionAndCorrespondingOption } from "../../src/scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
+import type { ColorDecisionAndCorrespondingOption } from "../../scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { useColors } from "../../dist/useColors";
 import { fr } from "../../dist/fr";
 import Tooltip from "@mui/material/Tooltip";
