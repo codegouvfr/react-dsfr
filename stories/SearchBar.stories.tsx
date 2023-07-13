@@ -97,37 +97,34 @@ import { SearchBar } from "@codegouvfr/react-dsfr/SearchBar";
 function Root(){
         
     const [search, onSearchChange] = useState("");
+
+    const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
         
     return (
         <>
             <SearchBar
                 ...
-                renderInput={({ className, id, placeholder, type }) => {
-                    const [inputElement, setInputElement] =
-                        useState<HTMLInputElement | null>(null);
-
-                    return (
-                        <input
-                            ref={setInputElement}
-                            className={className}
-                            id={id}
-                            placeholder={placeholder}
-                            type={type}
-                            value={search}
-                            // Note: The default behavior for an input of type 'text' is to clear the input value when the escape key is pressed.
-                            // However, due to a bug in @gouvfr/dsfr the escape key event is not propagated to the input element.
-                            // As a result this onChange is not called when the escape key is pressed.
-                            onChange={event => onSearchChange(event.currentTarget.value)}
-                            // Same goes for the keydown event so this is useless but we hope the bug will be fixed soon.
-                            onKeyDown={event => {
-                                if (event.key === "Escape") {
-                                    assert(inputElement !== null);
-                                    inputElement.blur();
-                                }
-                            }}
-                        />
-                    );
-                }}
+                renderInput={({ className, id, placeholder, type }) => 
+                    <input
+                        ref={setInputElement}
+                        className={className}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                        value={search}
+                        // Note: The default behavior for an input of type 'text' is to clear the input value when the escape key is pressed.
+                        // However, due to a bug in @gouvfr/dsfr the escape key event is not propagated to the input element.
+                        // As a result this onChange is not called when the escape key is pressed.
+                        onChange={event => onSearchChange(event.currentTarget.value)}
+                        // Same goes for the keydown event so this is useless but we hope the bug will be fixed soon.
+                        onKeyDown={event => {
+                            if (event.key === "Escape") {
+                                assert(inputElement !== null);
+                                inputElement.blur();
+                            }
+                        }}
+                    />
+                }
                 ...
             />
             <p>Search results for: {search}</p>
@@ -155,7 +152,7 @@ make sure you provide an overlay with the search results in the the \`renderSear
         
 As, to this day, the DSFR do not provide any component to help you with that, you are on your own for implementing the overlay.  
 You can achieve great result by using [MUI's autocomplete](https://mui.com/material-ui/react-autocomplete/) component.  
-[Video demo](https://youtu.be/AT3CvmY_Y7M?t=64).  
+[Implementation example](https://github.com/mui/material-ui/issues/37838).  
 If you go with MUI make sure to use the [\`<MuiDsfrProvider />\`](https://react-dsfr.etalab.studio/mui).  
         
 \`\`\`tsx
