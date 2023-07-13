@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import type { ExtractFinalityFromFinalityDescription } from "./types";
 import type { RegisteredLinkProps } from "../link";
 import { type ConsentCallback } from "./processConsentChanges";
-export declare const localStorageKey = "@codegouvfr/react-dsfr consent management finalityConsent";
+export declare const localStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
 export declare function createConsentManagement<FinalityDescription extends Record<string, {
     title: ReactNode;
     description?: ReactNode;

@@ -14,11 +14,16 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-quote> */
 export const Quote = memo(forwardRef((props, ref) => {
-    const { className, text, author, source, sourceUrl, imageUrl, size = "xlarge", accentColor, classes = {}, style } = props, rest = __rest(props, ["className", "text", "author", "source", "sourceUrl", "imageUrl", "size", "accentColor", "classes", "style"]);
+    const { id: id_props, className, text, author, source, sourceUrl, imageUrl, size = "xlarge", accentColor, classes = {}, style } = props, rest = __rest(props, ["id", "className", "text", "author", "source", "sourceUrl", "imageUrl", "size", "accentColor", "classes", "style"]);
     assert();
-    return (React.createElement("figure", { className: cx(fr.cx("fr-quote"), imageUrl && fr.cx("fr-quote--column"), accentColor && `fr-quote--${accentColor}`, classes.root, className), style: style, ref: ref },
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-quote",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("figure", { id: id, className: cx(fr.cx("fr-quote"), imageUrl && fr.cx("fr-quote--column"), accentColor && `fr-quote--${accentColor}`, classes.root, className), style: style, ref: ref },
         React.createElement("blockquote", { cite: sourceUrl },
             React.createElement("p", { className: cx(size === "large" && fr.cx("fr-text--lg"), size === "medium" && fr.cx("fr-text--md"), classes.text) },
                 "\u00AB ",

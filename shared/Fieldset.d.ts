@@ -3,6 +3,7 @@ export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox;
 export declare namespace FieldsetProps {
     type Common = {
         className?: string;
+        id?: string;
         classes?: Partial<Record<"root" | "legend" | "content", string>>;
         style?: CSSProperties;
         legend?: ReactNode;

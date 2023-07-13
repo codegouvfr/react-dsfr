@@ -5,7 +5,8 @@ import React, {
     type RefAttributes,
     type MemoExoticComponent,
     type ForwardRefExoticComponent,
-    type CSSProperties
+    type CSSProperties,
+    type ComponentProps
 } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -15,6 +16,7 @@ import type { RegisteredLinkProps } from "./link";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 type DataAttribute = Record<`data-${string}`, string | boolean | null | undefined>;
 
@@ -23,6 +25,7 @@ export type TagProps = TagProps.Common &
     (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsSpan);
 export namespace TagProps {
     export type Common = {
+        id?: string;
         className?: string;
         /** Default: false */
         small?: boolean;
@@ -55,11 +58,7 @@ export namespace TagProps {
         dismissible?: boolean;
         pressed?: boolean;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: React.DetailedHTMLProps<
-            React.ButtonHTMLAttributes<HTMLButtonElement>,
-            HTMLButtonElement
-        > &
-            DataAttribute;
+        nativeButtonProps?: ComponentProps<"button"> & DataAttribute;
     };
     export type AsSpan = {
         linkProps?: never;
@@ -67,11 +66,7 @@ export namespace TagProps {
         dismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
-        nativeSpanProps?: React.DetailedHTMLProps<
-            React.HTMLAttributes<HTMLSpanElement>,
-            HTMLSpanElement
-        > &
-            DataAttribute;
+        nativeSpanProps?: ComponentProps<"span"> & DataAttribute;
     };
 }
 
@@ -79,6 +74,7 @@ export namespace TagProps {
 export const Tag = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement, TagProps>((props, ref) => {
         const {
+            id: id_props,
             className: prop_className,
             children,
             title,
@@ -95,6 +91,11 @@ export const Tag = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-tag",
+            "explicitlyProvidedId": id_props
+        });
 
         const { Link } = getLink();
 
@@ -115,6 +116,7 @@ export const Tag = memo(
                 {linkProps !== undefined && (
                     <Link
                         {...linkProps}
+                        id={id_props ?? linkProps.id ?? id}
                         title={title ?? linkProps.title}
                         className={cx(linkProps?.className, className)}
                         style={{
@@ -130,6 +132,7 @@ export const Tag = memo(
                 {nativeButtonProps !== undefined && (
                     <button
                         {...nativeButtonProps}
+                        id={id_props ?? nativeButtonProps.id ?? id}
                         className={cx(nativeButtonProps?.className, className)}
                         style={{
                             ...nativeButtonProps?.style,
@@ -148,6 +151,7 @@ export const Tag = memo(
                 {linkProps === undefined && nativeButtonProps === undefined && (
                     <span
                         {...nativeSpanProps}
+                        id={id_props ?? nativeSpanProps?.id ?? id}
                         className={cx(nativeSpanProps?.className, className)}
                         style={{
                             ...nativeSpanProps?.style,

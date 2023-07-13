@@ -3,6 +3,7 @@ import "./assets/moncomptepro.css";
 export type FranceConnectButtonProps = FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick;
 export declare namespace FranceConnectButtonProps {
     type Common = {
+        id?: string;
         className?: string;
         classes?: Partial<Record<"root" | "login" | "brand", string>>;
         style?: CSSProperties;

@@ -5,8 +5,10 @@ import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { AlertProps } from "./Alert";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type BadgeProps = {
+    id?: string;
     className?: string;
     style?: CSSProperties;
     severity?: AlertProps.Severity | "new";
@@ -19,6 +21,7 @@ export type BadgeProps = {
 export const Badge = memo(
     forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
         const {
+            id: props_id,
             className,
             style,
             severity,
@@ -30,8 +33,14 @@ export const Badge = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-badge",
+            "explicitlyProvidedId": props_id
+        });
+
         return (
             <p
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-badge",

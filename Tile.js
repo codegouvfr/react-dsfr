@@ -15,12 +15,17 @@ import { assert } from "tsafe/assert";
 import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-tile> */
 export const Tile = memo(forwardRef((props, ref) => {
-    const { className, title, linkProps, desc, imageUrl, imageAlt, imageWidth, imageHeight, horizontal = false, grey = false, classes = {}, enlargeLink = true, style } = props, rest = __rest(props, ["className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "horizontal", "grey", "classes", "enlargeLink", "style"]);
+    const { id: id_props, className, title, linkProps, desc, imageUrl, imageAlt, imageWidth, imageHeight, horizontal = false, grey = false, classes = {}, enlargeLink = true, style } = props, rest = __rest(props, ["id", "className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "horizontal", "grey", "classes", "enlargeLink", "style"]);
     assert();
     const { Link } = getLink();
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-tile", enlargeLink && "fr-enlarge-link", horizontal && "fr-tile--horizontal", grey && "fr-tile--grey"), classes.root, className), ref: ref, style: style }, rest),
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-tile",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-tile", enlargeLink && "fr-enlarge-link", horizontal && "fr-tile--horizontal", grey && "fr-tile--grey"), classes.root, className), ref: ref, style: style }, rest),
         React.createElement("div", { className: cx(fr.cx("fr-tile__body"), classes.body) },
             React.createElement("h3", { className: cx(fr.cx("fr-tile__title"), classes.title) },
                 React.createElement(Link, Object.assign({}, linkProps, { className: cx(fr.cx("fr-tile__link"), classes.link, linkProps.className) }), title)),

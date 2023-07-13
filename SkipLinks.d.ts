@@ -1,5 +1,6 @@
 import React, { type CSSProperties } from "react";
 export type SkipLinksProps = {
+    id?: string;
     className?: string;
     links: {
         label: string;

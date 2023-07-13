@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { AlertProps } from "./Alert";
 export type BadgeProps = {
+    id?: string;
     className?: string;
     style?: CSSProperties;
     severity?: AlertProps.Severity | "new";

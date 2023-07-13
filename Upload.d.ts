@@ -1,5 +1,6 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from "react";
 export type UploadProps = {
+    id?: string;
     className?: string;
     /** @default false */
     disabled?: boolean;

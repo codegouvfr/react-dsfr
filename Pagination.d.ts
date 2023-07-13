@@ -1,6 +1,7 @@
 import React, { type CSSProperties } from "react";
 import { RegisteredLinkProps } from "./link";
 export type PaginationProps = {
+    id?: string;
     className?: string;
     count: number;
     defaultPage?: number;

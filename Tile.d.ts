@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 export type TileProps = {
+    id?: string;
     className?: string;
     title: ReactNode;
     linkProps: RegisteredLinkProps;

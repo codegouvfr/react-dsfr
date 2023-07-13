@@ -4,6 +4,7 @@ export type AgentConnectButtonProps = AgentConnectButtonProps.WithUrl | AgentCon
 export declare namespace AgentConnectButtonProps {
     type Common = {
         className?: string;
+        id?: string;
         style?: CSSProperties;
     };
     export type WithUrl = Common & {

@@ -5,8 +5,10 @@ import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type StepperProps = {
+    id?: string;
     className?: string;
     currentStep: number;
     stepCount: number;
@@ -20,6 +22,7 @@ export type StepperProps = {
 export const Stepper = memo(
     forwardRef<HTMLDivElement, StepperProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             currentStep,
             stepCount,
@@ -32,10 +35,16 @@ export const Stepper = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-stepper",
+            "explicitlyProvidedId": id_props
+        });
+
         const { t } = useTranslation();
 
         return (
             <div
+                id={id}
                 className={cx(fr.cx("fr-stepper"), classes.root, className)}
                 style={style}
                 ref={ref}

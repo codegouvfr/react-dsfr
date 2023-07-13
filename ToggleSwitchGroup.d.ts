@@ -1,6 +1,7 @@
 import React, { type CSSProperties } from "react";
 import type { ToggleSwitchProps } from "./ToggleSwitch";
 export type ToggleSwitchGroupProps = {
+    id?: string;
     className?: string;
     /** Default: true */
     showCheckedHint?: ToggleSwitchProps["showCheckedHint"];

@@ -4,6 +4,7 @@ export type InputProps = InputProps.RegularInput | InputProps.TextArea;
 export declare namespace InputProps {
     type Common = {
         className?: string;
+        id?: string;
         label: ReactNode;
         hintText?: ReactNode;
         hideLabel?: boolean;

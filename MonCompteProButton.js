@@ -18,12 +18,12 @@ import { cx } from "./tools/cx";
 import "./assets/moncomptepro.css";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(forwardRef((props, ref) => {
-    const { classes = {}, className, url: href, style, onClick } = props, rest = __rest(props, ["classes", "className", "url", "style", "onClick"]);
+    const { classes = {}, className, url: href, style, onClick, id: id_props } = props, rest = __rest(props, ["classes", "className", "url", "style", "onClick", "id"]);
     assert();
     const { t } = useTranslation();
     const Inner = onClick !== undefined ? "button" : "a";
     const innerProps = (onClick !== undefined ? { onClick } : { href });
-    return (React.createElement("div", { className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
+    return (React.createElement("div", { id: id_props !== null && id_props !== void 0 ? id_props : "fr-moncomptepro", className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
         React.createElement(Inner, Object.assign({ className: cx(fr.cx("fr-btn", "fr-connect"), "moncomptepro-button") }, innerProps),
             React.createElement("span", { className: cx(fr.cx("fr-connect__login"), classes.login) }, "S\u2019identifier avec"),
             React.createElement("span", { className: cx(fr.cx("fr-connect__brand"), classes.brand) }, "MonComptePro")),

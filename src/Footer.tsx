@@ -8,11 +8,12 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { createComponentI18nApi } from "./i18n";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
-import { id } from "tsafe/id";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
+import { id } from "tsafe/id";
 
 export type FooterProps = {
+    id?: string;
     className?: string;
     accessibility: "non compliant" | "partially compliant" | "fully compliant";
     contentDescription?: ReactNode;
@@ -143,6 +144,7 @@ export namespace FooterProps {
 export const Footer = memo(
     forwardRef<HTMLDivElement, FooterProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             classes = {},
             contentDescription,
@@ -162,6 +164,8 @@ export const Footer = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const rootId = id_props ?? "fr-footer";
 
         const { brandTop, homeLinkProps } = (() => {
             const wrap = getBrandTopAndHomeLinkProps();
@@ -191,9 +195,9 @@ export const Footer = memo(
 
         return (
             <footer
+                id={rootId}
                 className={cx(fr.cx("fr-footer"), classes.root, className)}
                 role="contentinfo"
-                id="footer"
                 ref={ref}
                 style={style}
                 {...rest}

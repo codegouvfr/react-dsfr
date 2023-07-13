@@ -1,5 +1,6 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 export type StepperProps = {
+    id?: string;
     className?: string;
     currentStep: number;
     stepCount: number;

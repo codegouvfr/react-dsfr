@@ -15,7 +15,7 @@ export function createConsentBanner(params) {
             setHostname(location.host);
         }, []);
         return (React.createElement(React.Fragment, null,
-            React.createElement("div", { className: fr.cx("fr-consent-banner") },
+            React.createElement("div", { id: "fr-consent-banner", className: fr.cx("fr-consent-banner") },
                 React.createElement("h2", { className: fr.cx("fr-h6") }, t("about cookies", { hostname })),
                 React.createElement("div", null,
                     React.createElement("p", { className: fr.cx("fr-text--sm") }, t("welcome message", { personalDataPolicyLinkProps }))),

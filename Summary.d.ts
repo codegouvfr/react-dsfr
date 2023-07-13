@@ -1,6 +1,7 @@
 import React, { type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 export type SummaryProps = {
+    id?: string;
     className?: string;
     links: {
         text: string;

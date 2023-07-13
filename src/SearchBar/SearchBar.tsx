@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId, type CSSProperties } from "react";
+import React, { memo, forwardRef, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "../i18n";
@@ -6,10 +6,12 @@ import type { Equals } from "tsafe";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
 import { SearchButton } from "./SearchButton";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 import "../assets/search-bar.css";
 
 export type SearchBarProps = {
     className?: string;
+    id?: string;
     /** Default: "Rechercher" (or translation) */
     label?: string;
     /** Default: false */
@@ -39,6 +41,7 @@ export const SearchBar = memo(
     forwardRef<HTMLDivElement, SearchBarProps>((props, ref) => {
         const {
             className,
+            id: id_props,
             label: label_props,
             big = false,
             classes = {},
@@ -56,10 +59,16 @@ export const SearchBar = memo(
 
         const label = label_props ?? t("label");
 
-        const inputId = `search-${useId()}-input`;
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-search-bar",
+            "explicitlyProvidedId": id_props
+        });
+
+        const inputId = `search-${id}-input`;
 
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx("fr-search-bar", big && "fr-search-bar--lg"),
                     classes.root,

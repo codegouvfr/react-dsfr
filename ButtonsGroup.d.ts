@@ -3,6 +3,7 @@ import { ButtonProps } from "./Button";
 export type ButtonsGroupProps = ButtonsGroupProps.AlwaysStacked | ButtonsGroupProps.Inline;
 export declare namespace ButtonsGroupProps {
     type Common = {
+        id?: string;
         className?: string;
         buttonsSize?: ButtonProps["size"];
         /** Default: left */

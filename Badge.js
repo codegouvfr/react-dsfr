@@ -14,11 +14,16 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-badge> */
 export const Badge = memo(forwardRef((props, ref) => {
-    const { className, style, severity, small: isSmall = false, noIcon = false, children } = props, rest = __rest(props, ["className", "style", "severity", "small", "noIcon", "children"]);
+    const { id: props_id, className, style, severity, small: isSmall = false, noIcon = false, children } = props, rest = __rest(props, ["id", "className", "style", "severity", "small", "noIcon", "children"]);
     assert();
-    return (React.createElement("p", Object.assign({ className: cx(fr.cx("fr-badge", severity !== undefined && `fr-badge--${severity}`, { "fr-badge--sm": isSmall }, { "fr-badge--no-icon": noIcon || severity === undefined }), className), style: style, ref: ref }, rest), children));
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-badge",
+        "explicitlyProvidedId": props_id
+    });
+    return (React.createElement("p", Object.assign({ id: id, className: cx(fr.cx("fr-badge", severity !== undefined && `fr-badge--${severity}`, { "fr-badge--sm": isSmall }, { "fr-badge--no-icon": noIcon || severity === undefined }), className), style: style, ref: ref }, rest), children));
 }));
 Badge.displayName = symToStr({ Badge });
 export default Badge;

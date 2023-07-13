@@ -25,8 +25,9 @@ import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBa
 export const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
-    const { className, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
+    const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
     assert();
+    const id = id_props !== null && id_props !== void 0 ? id_props : "fr-header";
     const isSearchBarEnabled = renderSearchInput !== undefined || onSearchButtonClick !== undefined;
     setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
     const { menuModalId, menuButtonId, searchModalId, searchInputId } = (function useClosure() {
@@ -48,7 +49,7 @@ export const Header = memo(forwardRef((props, ref) => {
     const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { quickAccessItem: quickAccessItem })))))));
     return (React.createElement(React.Fragment, null,
         React.createElement(Display, null),
-        React.createElement("header", Object.assign({ role: "banner", className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
+        React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
             React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
                 React.createElement("div", { className: fr.cx("fr-container") },
                     React.createElement("div", { className: cx(fr.cx("fr-header__body-row"), classes.bodyRow) },
@@ -98,7 +99,7 @@ export const Header = memo(forwardRef((props, ref) => {
                     React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
                     React.createElement("div", { className: cx(fr.cx("fr-header__menu-links"), classes.menuLinks) }, quickAccessNode),
                     navigation !== undefined &&
-                        (navigation instanceof Array ? (React.createElement(MainNavigation, { items: navigation })) : (navigation))))))));
+                        (navigation instanceof Array ? (React.createElement(MainNavigation, { id: `${id}-main-navigation`, items: navigation })) : (navigation))))))));
 }));
 Header.displayName = symToStr({ Header });
 export default Header;

@@ -1,5 +1,6 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 export type NoticeProps = {
+    id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "title" | "close", string>>;
     title: NonNullable<ReactNode>;

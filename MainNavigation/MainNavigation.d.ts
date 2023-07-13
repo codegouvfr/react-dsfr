@@ -4,6 +4,7 @@ import type { MenuProps } from "./Menu";
 import type { MegaMenuProps } from "./MegaMenu";
 export type MainNavigationProps = {
     className?: string;
+    id?: string;
     items: MainNavigationProps.Item[];
     classes?: Partial<Record<"root" | "list" | "item" | "link" | "btn" | "menu" | "menuList" | "megaMenu" | "megaMenuLeader" | "megaMenuCategory" | "megaMenuList", string>>;
     style?: CSSProperties;

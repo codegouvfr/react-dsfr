@@ -9,35 +9,36 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(forwardRef((props, ref) => {
-    const { title, items, style, sticky, className, fullHeight, classes = {}, align = "left", burgerMenuButtonText } = props, rest = __rest(props, ["title", "items", "style", "sticky", "className", "fullHeight", "classes", "align", "burgerMenuButtonText"]);
+    const { id: id_props, title, items, style, sticky, className, fullHeight, classes = {}, align = "left", burgerMenuButtonText } = props, rest = __rest(props, ["id", "title", "items", "style", "sticky", "className", "fullHeight", "classes", "align", "burgerMenuButtonText"]);
     assert();
     const { Link } = getLink();
-    const { wrapperId, titleId, getItemId } = (function useClosure() {
-        const id = useId();
-        const wrapperId = `fr-sidemenu-wrapper-${id}`;
-        const titleId = `fr-sidemenu-title-${id}`;
-        const getItemId = (params) => {
-            const { level, key } = params;
-            return `fr-sidemenu-item-${id}-${level}-${key}`;
-        };
-        return { wrapperId, titleId, getItemId };
-    })();
-    return (React.createElement("nav", Object.assign({}, rest, { ref: ref, style: style, "aria-labelledby": titleId, className: cx(fr.cx("fr-sidemenu", {
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-sidemenu",
+        "explicitlyProvidedId": id_props
+    });
+    const collapseId = `${id}-collapse`;
+    const titleId = `${id}-title`;
+    const getItemId = (params) => {
+        const { level, key } = params;
+        return `fr-sidemenu-item-${id}-${level}-${key}`;
+    };
+    return (React.createElement("nav", Object.assign({ id: id }, rest, { ref: ref, style: style, "aria-labelledby": titleId, className: cx(fr.cx("fr-sidemenu", {
             "fr-sidemenu--right": align === "right",
             "fr-sidemenu--sticky": sticky && !fullHeight,
             "fr-sidemenu--sticky-full-height": sticky && fullHeight
         }), classes.root, className) }),
         React.createElement("div", { className: cx(fr.cx("fr-sidemenu__inner"), classes.inner) },
-            React.createElement("button", { hidden: true, "aria-expanded": "false", "aria-controls": wrapperId, className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }, burgerMenuButtonText),
-            React.createElement("div", { className: fr.cx("fr-collapse"), id: wrapperId },
+            React.createElement("button", { hidden: true, "aria-expanded": "false", "aria-controls": collapseId, className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }, burgerMenuButtonText),
+            React.createElement("div", { className: fr.cx("fr-collapse"), id: collapseId },
                 title !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-sidemenu__title"), classes.title), id: titleId }, title)),
                 React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, items.map((item, i) => {
                     const getItemRec = (params) => {

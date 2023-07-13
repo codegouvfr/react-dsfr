@@ -2,6 +2,7 @@ import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 export type FooterProps = {
+    id?: string;
     className?: string;
     accessibility: "non compliant" | "partially compliant" | "fully compliant";
     contentDescription?: ReactNode;

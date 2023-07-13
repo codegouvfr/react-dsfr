@@ -4,6 +4,7 @@ import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/cl
 import type { MainNavigationProps } from "../MainNavigation";
 export type HeaderProps = {
     className?: string;
+    id?: string;
     brandTop: ReactNode;
     homeLinkProps: RegisteredLinkProps & {
         title: string;

@@ -1,9 +1,10 @@
-import React, { type ReactNode, type CSSProperties } from "react";
+import React, { type ReactNode, type CSSProperties, type ComponentProps } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import type { RegisteredLinkProps } from "./link";
 export type ButtonProps = ButtonProps.Common & (ButtonProps.IconOnly | ButtonProps.WithIcon | ButtonProps.WithoutIcon) & (ButtonProps.AsAnchor | ButtonProps.AsButton);
 export declare namespace ButtonProps {
     type Common = {
+        id?: string;
         className?: string;
         /** Default primary */
         priority?: "primary" | "secondary" | "tertiary" | "tertiary no outline";
@@ -43,7 +44,7 @@ export declare namespace ButtonProps {
     type AsButton = {
         linkProps?: never;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & Record<`data-${string}`, string | boolean | null | undefined>;
+        nativeButtonProps?: ComponentProps<"button"> & Record<`data-${string}`, string | boolean | null | undefined>;
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";

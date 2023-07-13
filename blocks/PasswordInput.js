@@ -15,26 +15,30 @@ import { symToStr } from "tsafe/symToStr";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { cx } from "../tools/cx";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 /**
  * @see <https://components.react-dsfr.fr/?path=/docs/blocks-passwordinput
  * */
 export const PasswordInput = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
-    const { className, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps, messagesHint = t("your password must contain") } = props, rest = __rest(props, ["className", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps", "messagesHint"]);
+    const { className, id: id_props, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps, messagesHint = t("your password must contain") } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps", "messagesHint"]);
     assert();
+    const id = useAnalyticsId({
+        "explicitlyProvidedId": id_props,
+        "defaultIdPrefix": "password-input"
+    });
     const inputId = (function useClosure() {
         var _a;
         const id = useId();
         return (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.id) !== null && _a !== void 0 ? _a : `password-${id}`;
     })();
-    const containerId = `${inputId}-container`;
     const togglePasswordShowId = `${inputId}-toggle-show`;
     const messagesGroupId = `${inputId}-messages-group`;
     const messageGroupId = `${inputId}-message-group`;
     const hasError = messages.find(({ severity }) => severity === "error") !== undefined;
     const isSuccess = messages.length !== 0 &&
         messages.find(({ severity }) => severity !== "valid") === undefined;
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-password", disabled && "fr-input-group--disabled", hasError && "fr-input-group--error", isSuccess && "fr-input-group--valid"), classes.root, className), id: containerId, style: style, ref: ref }, rest),
+    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-password", disabled && "fr-input-group--disabled", hasError && "fr-input-group--error", isSuccess && "fr-input-group--valid"), classes.root, className), id: id, style: style, ref: ref }, rest),
         React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
             label,
             hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText)),

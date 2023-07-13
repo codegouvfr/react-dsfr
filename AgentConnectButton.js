@@ -18,11 +18,11 @@ import "./assets/agentconnect.css";
 import { cx } from "./tools/cx";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(forwardRef((props, ref) => {
-    const { className, url: href, style, onClick } = props, rest = __rest(props, ["className", "url", "style", "onClick"]);
+    const { className, url: href, style, onClick, id: id_props } = props, rest = __rest(props, ["className", "url", "style", "onClick", "id"]);
     assert();
     const { t } = useTranslation();
     const Inner = onClick !== undefined ? "button" : "a";
-    return (React.createElement("div", { className: className, style: style, ref: ref },
+    return (React.createElement("div", { id: id_props !== null && id_props !== void 0 ? id_props : "fr-agentconnect-button", className: className, style: style, ref: ref },
         React.createElement("span", { className: "agentconnect-button__preload-hover" }),
         React.createElement(Inner, Object.assign({ className: "agentconnect-button__link" }, (onClick !== undefined ? { onClick } : { href }))),
         React.createElement("p", null,

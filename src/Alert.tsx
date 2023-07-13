@@ -17,9 +17,11 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type AlertProps = {
     className?: string;
+    id?: string;
     severity: AlertProps.Severity;
     /** Default h3 */
     as?: `h${2 | 3 | 4 | 5 | 6}`;
@@ -79,6 +81,7 @@ export const Alert = memo(
     forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
         const {
             className,
+            id: id_props,
             severity,
             as: HtmlTitleTag = "h3",
             classes = {},
@@ -93,6 +96,11 @@ export const Alert = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "explicitlyProvidedId": id_props,
+            "defaultIdPrefix": "fr-alert"
+        });
 
         const [isClosed, setIsClosed] = useState(props_isClosed ?? false);
 
@@ -148,6 +156,7 @@ export const Alert = memo(
 
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }),
                     classes.root,

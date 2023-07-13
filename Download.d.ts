@@ -1,6 +1,7 @@
 import React, { type CSSProperties, type ReactNode } from "react";
 import { type RegisteredLinkProps } from "./link";
 export type DownloadProps = {
+    id?: string;
     className?: string;
     style?: CSSProperties;
     details: ReactNode;

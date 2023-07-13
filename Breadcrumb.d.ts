@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 export type BreadcrumbProps = {
+    id?: string;
     className?: string;
     homeLinkProps?: RegisteredLinkProps;
     segments: {

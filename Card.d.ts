@@ -2,6 +2,7 @@ import React, { type ReactNode, type CSSProperties } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import type { RegisteredLinkProps } from "./link";
 export type CardProps = {
+    id?: string;
     className?: string;
     title: ReactNode;
     desc?: ReactNode;

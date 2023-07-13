@@ -6,8 +6,10 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { RegisteredLinkProps, getLink } from "./link";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type PaginationProps = {
+    id?: string;
     className?: string;
     count: number;
     defaultPage?: number;
@@ -62,6 +64,7 @@ const getPaginationParts = ({ count, defaultPage }: { count: number; defaultPage
 export const Pagination = memo(
     forwardRef<HTMLDivElement, PaginationProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             count,
             defaultPage = 1,
@@ -74,6 +77,11 @@ export const Pagination = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-pagination",
+            "explicitlyProvidedId": id_props
+        });
+
         const { t } = useTranslation();
 
         const { Link } = getLink();
@@ -82,6 +90,7 @@ export const Pagination = memo(
 
         return (
             <nav
+                id={id}
                 role="navigation"
                 className={cx(fr.cx("fr-pagination"), classes.root, className)}
                 aria-label={t("aria-label")}

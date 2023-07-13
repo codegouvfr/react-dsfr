@@ -2,6 +2,7 @@ import React, { ReactNode, type CSSProperties } from "react";
 export type ToggleSwitchProps = ToggleSwitchProps.Controlled | ToggleSwitchProps.Uncontrolled;
 export declare namespace ToggleSwitchProps {
     type Common = {
+        id?: string;
         className?: string;
         label: ReactNode;
         helperText?: ReactNode;

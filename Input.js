@@ -19,7 +19,7 @@ import { cx } from "./tools/cx";
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;
-    const { className, label, hintText, hideLabel, disabled = false, iconId: iconId_props, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps } = props, rest = __rest(props, ["className", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps"]);
+    const { className, id, label, hintText, hideLabel, disabled = false, iconId: iconId_props, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps"]);
     const nativeInputOrTextAreaProps = (_a = (textArea ? nativeTextAreaProps : nativeInputProps)) !== null && _a !== void 0 ? _a : {};
     const NativeInputOrTextArea = textArea ? "textarea" : "input";
     assert();
@@ -39,7 +39,7 @@ export const Input = memo(forwardRef((props, ref) => {
                     return undefined;
             }
             assert(false);
-        })()), classes.root, className), style: style, ref: ref }, rest),
+        })()), classes.root, className), style: style, ref: ref, id: id }, rest),
         React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
             label,
             hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText)),

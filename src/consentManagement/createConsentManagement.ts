@@ -9,7 +9,7 @@ import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 import { isBrowser } from "../tools/isBrowser";
 
-export const localStorageKey = "@codegouvfr/react-dsfr consent management finalityConsent";
+export const localStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
 
 export function createConsentManagement<
     FinalityDescription extends Record<
@@ -26,6 +26,15 @@ export function createConsentManagement<
 
     const { finalityDescription, personalDataPolicyLinkProps, consentCallback } = params;
 
+    const finalities = getFinalitiesFromFinalityDescription({
+        "finalityDescription":
+            typeof finalityDescription === "function"
+                ? finalityDescription({ "lang": "fr" })
+                : finalityDescription
+    });
+
+    const localStorageKey = `${localStorageKeyPrefix} ${finalities.join("-")}`;
+
     const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(() => {
         if (!isBrowser) {
             return undefined;
@@ -38,13 +47,6 @@ export function createConsentManagement<
         }
 
         return JSON.parse(serializedFinalityConsent);
-    });
-
-    const finalities = getFinalitiesFromFinalityDescription({
-        "finalityDescription":
-            typeof finalityDescription === "function"
-                ? finalityDescription({ "lang": "fr" })
-                : finalityDescription
     });
 
     const { processConsentChanges, useConsentCallback } = createProcessConsentChanges<Finality>({

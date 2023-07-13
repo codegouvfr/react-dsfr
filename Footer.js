@@ -16,13 +16,14 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { createComponentI18nApi } from "./i18n";
-import { id } from "tsafe/id";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
+import { id } from "tsafe/id";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
+    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
     assert();
+    const rootId = id_props !== null && id_props !== void 0 ? id_props : "fr-footer";
     const { brandTop, homeLinkProps } = (() => {
         const wrap = getBrandTopAndHomeLinkProps();
         const brandTop = brandTop_prop !== null && brandTop_prop !== void 0 ? brandTop_prop : wrap === null || wrap === void 0 ? void 0 : wrap.brandTop;
@@ -39,7 +40,7 @@ export const Footer = memo(forwardRef((props, ref) => {
     const { Link } = getLink();
     const { t } = useTranslation();
     const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos !== null && partnersLogos !== void 0 ? partnersLogos : {};
-    return (React.createElement("footer", Object.assign({ className: cx(fr.cx("fr-footer"), classes.root, className), role: "contentinfo", id: "footer", ref: ref, style: style }, rest),
+    return (React.createElement("footer", Object.assign({ id: rootId, className: cx(fr.cx("fr-footer"), classes.root, className), role: "contentinfo", ref: ref, style: style }, rest),
         linkList !== undefined && (React.createElement("div", { className: fr.cx("fr-footer__top") },
             React.createElement("div", { className: fr.cx("fr-container") },
                 React.createElement("div", { className: fr.cx("fr-grid-row", 

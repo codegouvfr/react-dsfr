@@ -3,6 +3,7 @@ import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/cla
 export type TabsProps = TabsProps.Uncontrolled | TabsProps.Controlled;
 export declare namespace TabsProps {
     type Common = {
+        id?: string;
         className?: string;
         label?: string;
         classes?: Partial<Record<"root" | "tab" | "panel", string>>;

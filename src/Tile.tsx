@@ -6,9 +6,11 @@ import type { RegisteredLinkProps } from "./link";
 import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 //https://main--ds-gouv.netlify.app/example/component/tile/
 export type TileProps = {
+    id?: string;
     className?: string;
     title: ReactNode;
     linkProps: RegisteredLinkProps;
@@ -35,6 +37,7 @@ export namespace TileProps {}
 export const Tile = memo(
     forwardRef<HTMLDivElement, TileProps>((props, ref) => {
         const {
+            id: id_props,
             className,
             title,
             linkProps,
@@ -55,8 +58,14 @@ export const Tile = memo(
 
         const { Link } = getLink();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-tile",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-tile",

@@ -1,5 +1,6 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 export type HighlightProps = {
+    id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "content", string>>;
     size?: HighlightProps.Size;

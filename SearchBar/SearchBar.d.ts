@@ -2,6 +2,7 @@ import React, { type CSSProperties } from "react";
 import "../assets/search-bar.css";
 export type SearchBarProps = {
     className?: string;
+    id?: string;
     /** Default: "Rechercher" (or translation) */
     label?: string;
     /** Default: false */

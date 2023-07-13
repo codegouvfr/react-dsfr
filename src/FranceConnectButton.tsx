@@ -4,6 +4,7 @@ import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { assert, type Equals } from "tsafe/assert";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type FranceConnectButtonProps =
     | FranceConnectButtonProps.WithUrl
@@ -11,6 +12,7 @@ export type FranceConnectButtonProps =
 
 export namespace FranceConnectButtonProps {
     type Common = {
+        id?: string;
         className?: string;
         /** Default: false */
         plus?: boolean;
@@ -30,9 +32,23 @@ export namespace FranceConnectButtonProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
-        const { classes = {}, className, url: href, plus = false, style, onClick, ...rest } = props;
+        const {
+            classes = {},
+            className,
+            url: href,
+            plus = false,
+            style,
+            onClick,
+            id: id_props,
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-franceconnect-button",
+            "explicitlyProvidedId": id_props
+        });
 
         const { t } = useTranslation();
 
@@ -41,6 +57,7 @@ export const FranceConnectButton = memo(
 
         return (
             <div
+                id={id}
                 className={cx(fr.cx("fr-connect-group"), classes.root, className)}
                 style={style}
                 ref={ref}

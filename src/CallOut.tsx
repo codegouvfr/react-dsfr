@@ -11,9 +11,11 @@ import type { ButtonProps } from "./Button";
 import { Button } from "./Button";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type CallOutProps = {
     className?: string;
+    id?: string;
     iconId?: FrIconClassName | RiIconClassName;
     title?: ReactNode;
     buttonProps?: ButtonProps;
@@ -35,6 +37,7 @@ export namespace CallOutProps {
 export const CallOut = memo(
     forwardRef<HTMLDivElement, CallOutProps>((props, ref) => {
         const {
+            id: props_id,
             className,
             iconId,
             title,
@@ -48,8 +51,14 @@ export const CallOut = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-callout",
+            "explicitlyProvidedId": props_id
+        });
+
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-callout",

@@ -14,11 +14,16 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
 export const Highlight = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, style, children, size } = props, rest = __rest(props, ["className", "classes", "style", "children", "size"]);
+    const { className, classes = {}, style, children, size, id: id_props } = props, rest = __rest(props, ["className", "classes", "style", "children", "size", "id"]);
     assert();
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-highlight"), classes.root, className), ref: ref, style: style }, rest),
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-highlight",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-highlight"), classes.root, className), ref: ref, style: style }, rest),
         React.createElement("p", { className: cx(fr.cx({ [`fr-text--${size}`]: size }), classes.content) }, children)));
 }));
 Highlight.displayName = symToStr({ Highlight });

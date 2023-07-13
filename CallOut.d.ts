@@ -3,6 +3,7 @@ import type { FrClassName, FrIconClassName, RiIconClassName } from "./fr/generat
 import type { ButtonProps } from "./Button";
 export type CallOutProps = {
     className?: string;
+    id?: string;
     iconId?: FrIconClassName | RiIconClassName;
     title?: ReactNode;
     buttonProps?: ButtonProps;

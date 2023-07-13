@@ -16,15 +16,20 @@ import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { getLink } from "./link";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
 export const Summary = memo(forwardRef((props, ref) => {
-    const { className, links, as = "p", title, classes = {}, style } = props, rest = __rest(props, ["className", "links", "as", "title", "classes", "style"]);
+    const { className, links, as = "p", title, classes = {}, style, id: id_props } = props, rest = __rest(props, ["className", "links", "as", "title", "classes", "style", "id"]);
     const { t } = useTranslation();
     const titleId = useId();
     const summaryTitle = title !== null && title !== void 0 ? title : t("title");
     const { Link } = getLink();
     assert();
-    return (React.createElement("nav", { className: cx(fr.cx("fr-summary"), classes.root, className), role: "navigation", "aria-labelledby": titleId, style: style, ref: ref },
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-summary",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("nav", { id: id, className: cx(fr.cx("fr-summary"), classes.root, className), role: "navigation", "aria-labelledby": titleId, style: style, ref: ref },
         React.createElement(as, {
             className: cx(fr.cx("fr-summary__title"), classes.title),
             id: titleId

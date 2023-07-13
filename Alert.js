@@ -17,10 +17,15 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-alert> */
 export const Alert = memo(forwardRef((props, ref) => {
-    const { className, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosable = false, isClosed: props_isClosed, onClose } = props, rest = __rest(props, ["className", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose"]);
+    const { className, id: id_props, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosable = false, isClosed: props_isClosed, onClose } = props, rest = __rest(props, ["className", "id", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose"]);
     assert();
+    const id = useAnalyticsId({
+        "explicitlyProvidedId": id_props,
+        "defaultIdPrefix": "fr-alert"
+    });
     const [isClosed, setIsClosed] = useState(props_isClosed !== null && props_isClosed !== void 0 ? props_isClosed : false);
     const [buttonElement, setButtonElement] = useState(null);
     const refShouldButtonGetFocus = useRef(false);
@@ -63,7 +68,7 @@ export const Alert = memo(forwardRef((props, ref) => {
     if (isClosed) {
         return null;
     }
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": "alert" }), { ref: ref }, rest),
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": "alert" }), { ref: ref }, rest),
         title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title)),
         React.createElement("p", { className: classes.description }, description),
         isClosable && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));

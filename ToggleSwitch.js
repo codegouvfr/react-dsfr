@@ -9,16 +9,23 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { memo, forwardRef, useId, useState, useEffect } from "react";
+import React, { memo, forwardRef, useState, useEffect } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitch> */
 export const ToggleSwitch = memo(forwardRef((props, ref) => {
-    const { className, label, helperText, defaultChecked = false, checked: props_checked, showCheckedHint = true, disabled = false, labelPosition = "right", classes = {}, onChange, inputTitle, style, name } = props, rest = __rest(props, ["className", "label", "helperText", "defaultChecked", "checked", "showCheckedHint", "disabled", "labelPosition", "classes", "onChange", "inputTitle", "style", "name"]);
+    const { id: id_props, className, label, helperText, defaultChecked = false, checked: props_checked, showCheckedHint = true, disabled = false, labelPosition = "right", classes = {}, onChange, inputTitle, style, name } = props, rest = __rest(props, ["id", "className", "label", "helperText", "defaultChecked", "checked", "showCheckedHint", "disabled", "labelPosition", "classes", "onChange", "inputTitle", "style", "name"]);
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-toggle",
+        "explicitlyProvidedId": id_props
+    });
+    const inputId = `${id}-input`;
+    const hintId = `${id}-hint-text`;
     const [checked, setChecked] = useState(defaultChecked);
     useEffect(() => {
         if (defaultChecked === undefined) {
@@ -27,12 +34,6 @@ export const ToggleSwitch = memo(forwardRef((props, ref) => {
         setChecked(defaultChecked);
     }, [defaultChecked]);
     assert();
-    const { inputId, hintId } = (function useClosure() {
-        const id = useId();
-        const inputId = `toggle-${id}`;
-        const hintId = `toggle-${id}-hint-text`;
-        return { inputId, hintId };
-    })();
     const { t } = useTranslation();
     const onInputChange = useConstCallback((e) => {
         const checked = e.currentTarget.checked;
@@ -44,7 +45,7 @@ export const ToggleSwitch = memo(forwardRef((props, ref) => {
             onChange(checked, e);
         }
     });
-    return (React.createElement("div", { className: cx(fr.cx("fr-toggle", labelPosition === "left" && "fr-toggle--label-left"), classes.root, className), ref: ref, style: style },
+    return (React.createElement("div", { id: id, className: cx(fr.cx("fr-toggle", labelPosition === "left" && "fr-toggle--label-left"), classes.root, className), ref: ref, style: style },
         React.createElement("input", { onChange: onInputChange, type: "checkbox", disabled: disabled || undefined, className: cx(fr.cx("fr-toggle__input"), classes.input), "aria-describedby": hintId, id: inputId, title: inputTitle, checked: props_checked !== null && props_checked !== void 0 ? props_checked : checked, name: name }),
         React.createElement("label", Object.assign({ className: cx(fr.cx("fr-toggle__label"), classes.label), htmlFor: inputId }, (showCheckedHint && {
             "data-fr-checked-label": t("checked"),

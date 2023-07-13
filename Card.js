@@ -15,12 +15,17 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { getLink } from "./link";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-card> */
 export const Card = memo(forwardRef((props, ref) => {
-    const { className, title, linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
+    const { id: props_id, className, title, linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
     assert();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-card",
+        "explicitlyProvidedId": props_id
+    });
     const { Link } = getLink();
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-card", enlargeLink && "fr-enlarge-link", horizontal && "fr-card--horizontal", (() => {
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-card", enlargeLink && "fr-enlarge-link", horizontal && "fr-card--horizontal", (() => {
             switch (size) {
                 case "large":
                     return "fr-card--lg";

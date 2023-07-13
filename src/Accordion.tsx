@@ -1,25 +1,20 @@
 "use client";
 
-import React, {
-    forwardRef,
-    memo,
-    useId,
-    useState,
-    type ReactNode,
-    type CSSProperties
-} from "react";
+import React, { forwardRef, memo, useState, type ReactNode, type CSSProperties } from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontrolled;
 
 export namespace AccordionProps {
     export type Common = {
         className?: string;
+        id?: string;
         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;
@@ -51,6 +46,7 @@ export const Accordion = memo(
     forwardRef<HTMLDivElement, AccordionProps>((props, ref) => {
         const {
             className,
+            id: id_props,
             titleAs: HtmlTitleTag = "h3",
             label,
             classes = {},
@@ -64,7 +60,12 @@ export const Accordion = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const accordionId = `accordion-${useId()}`;
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-accordion",
+            "explicitlyProvidedId": id_props
+        });
+
+        const collapseElementId = `${id}-collapse`;
 
         const [expandedState, setExpandedState] = useState(defaultExpanded);
 
@@ -88,14 +89,14 @@ export const Accordion = memo(
                     <button
                         className={fr.cx("fr-accordion__btn")}
                         aria-expanded={value}
-                        aria-controls={accordionId}
+                        aria-controls={collapseElementId}
                         onClick={onExtendButtonClick}
                         type="button"
                     >
                         {label}
                     </button>
                 </HtmlTitleTag>
-                <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={accordionId}>
+                <div className={cx(fr.cx("fr-collapse"), classes.collapse)} id={collapseElementId}>
                     {children}
                 </div>
             </section>

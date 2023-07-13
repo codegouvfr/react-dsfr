@@ -15,12 +15,17 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { getLink } from "./link";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-download> */
 export const Download = memo(forwardRef((props, ref) => {
-    const { className, style, details, label, linkProps, classes = {} } = props, rest = __rest(props, ["className", "style", "details", "label", "linkProps", "classes"]);
-    const { Link } = getLink();
+    const { className, style, details, label, linkProps, classes = {}, id: props_id } = props, rest = __rest(props, ["className", "style", "details", "label", "linkProps", "classes", "id"]);
     assert();
-    return (React.createElement("div", { className: cx(fr.cx("fr-download"), className, classes.root), style: style, ref: ref },
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-download",
+        "explicitlyProvidedId": props_id
+    });
+    const { Link } = getLink();
+    return (React.createElement("div", { id: id, className: cx(fr.cx("fr-download"), className, classes.root), style: style, ref: ref },
         React.createElement("p", { className: cx(classes.wrapper) },
             React.createElement(Link, Object.assign({}, linkProps, { download: true, className: cx(fr.cx("fr-download__link"), classes.link) }),
                 label,

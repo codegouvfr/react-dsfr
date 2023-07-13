@@ -13,6 +13,7 @@ export type AgentConnectButtonProps =
 export namespace AgentConnectButtonProps {
     type Common = {
         className?: string;
+        id?: string;
         style?: CSSProperties;
     };
     export type WithUrl = Common & {
@@ -28,7 +29,7 @@ export namespace AgentConnectButtonProps {
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
 export const AgentConnectButton = memo(
     forwardRef<HTMLDivElement, AgentConnectButtonProps>((props, ref) => {
-        const { className, url: href, style, onClick, ...rest } = props;
+        const { className, url: href, style, onClick, id: id_props, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -37,7 +38,12 @@ export const AgentConnectButton = memo(
         const Inner = onClick !== undefined ? "button" : "a";
 
         return (
-            <div className={className} style={style} ref={ref}>
+            <div
+                id={id_props ?? "fr-agentconnect-button"}
+                className={className}
+                style={style}
+                ref={ref}
+            >
                 <span className="agentconnect-button__preload-hover" />
                 <Inner
                     className="agentconnect-button__link"

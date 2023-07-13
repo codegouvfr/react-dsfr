@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties, type ForwardedRef, type DetailedHTMLProps, type SelectHTMLAttributes, type ChangeEvent } from "react";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 export type SelectProps<Options extends SelectProps.Option[]> = {
+    id?: string;
     options: Options;
     className?: string;
     label: ReactNode;

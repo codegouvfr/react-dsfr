@@ -1,10 +1,11 @@
-import React, { type ReactNode, type CSSProperties } from "react";
+import React, { type ReactNode, type CSSProperties, type ComponentProps } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import type { RegisteredLinkProps } from "./link";
 type DataAttribute = Record<`data-${string}`, string | boolean | null | undefined>;
 export type TagProps = TagProps.Common & (TagProps.WithIcon | TagProps.WithoutIcon) & (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsSpan);
 export declare namespace TagProps {
     type Common = {
+        id?: string;
         className?: string;
         /** Default: false */
         small?: boolean;
@@ -34,7 +35,7 @@ export declare namespace TagProps {
         dismissible?: boolean;
         pressed?: boolean;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
-        nativeButtonProps?: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & DataAttribute;
+        nativeButtonProps?: ComponentProps<"button"> & DataAttribute;
     };
     type AsSpan = {
         linkProps?: never;
@@ -42,7 +43,7 @@ export declare namespace TagProps {
         dismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
-        nativeSpanProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & DataAttribute;
+        nativeSpanProps?: ComponentProps<"span"> & DataAttribute;
     };
 }
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-tag> */

@@ -5,8 +5,10 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 export type TableProps = {
+    id?: string;
     data: ReactNode[][];
     className?: string;
     caption?: ReactNode;
@@ -40,6 +42,7 @@ export namespace TableProps {
 export const Table = memo(
     forwardRef<HTMLDivElement, TableProps>((props, ref) => {
         const {
+            id: id_props,
             data,
             headers,
             caption,
@@ -56,8 +59,14 @@ export const Table = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-table",
+            "explicitlyProvidedId": id_props
+        });
+
         return (
             <div
+                id={id}
                 ref={ref}
                 style={style}
                 className={cx(

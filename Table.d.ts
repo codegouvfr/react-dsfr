@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 export type TableProps = {
+    id?: string;
     data: ReactNode[][];
     className?: string;
     caption?: ReactNode;

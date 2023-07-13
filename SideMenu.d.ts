@@ -1,6 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 export type SideMenuProps = {
+    id?: string;
     title?: ReactNode;
     className?: string;
     style?: CSSProperties;

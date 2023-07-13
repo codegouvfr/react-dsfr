@@ -3,6 +3,7 @@ export type AccordionProps = AccordionProps.Controlled | AccordionProps.Uncontro
 export declare namespace AccordionProps {
     type Common = {
         className?: string;
+        id?: string;
         titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
         label: ReactNode;
         classes?: Partial<Record<"root" | "accordion" | "title" | "collapse", string>>;

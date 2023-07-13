@@ -1,5 +1,6 @@
 import React, { ReactNode, type CSSProperties } from "react";
 export type SelectProps = {
+    id?: string;
     className?: string;
     label: ReactNode;
     hint?: ReactNode;

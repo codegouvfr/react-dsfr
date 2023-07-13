@@ -2,6 +2,7 @@ import React, { type ReactNode, type CSSProperties } from "react";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 export type AlertProps = {
     className?: string;
+    id?: string;
     severity: AlertProps.Severity;
     /** Default h3 */
     as?: `h${2 | 3 | 4 | 5 | 6}`;

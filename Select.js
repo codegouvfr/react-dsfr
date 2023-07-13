@@ -15,15 +15,20 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /**
  * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
  * */
 export const Select = memo(forwardRef((props, ref) => {
-    const { className, label, hint, nativeSelectProps, disabled = false, children, state = "default", stateRelatedMessage, style } = props, rest = __rest(props, ["className", "label", "hint", "nativeSelectProps", "disabled", "children", "state", "stateRelatedMessage", "style"]);
+    const { id: id_props, className, label, hint, nativeSelectProps, disabled = false, children, state = "default", stateRelatedMessage, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "children", "state", "stateRelatedMessage", "style"]);
     assert();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-select-group",
+        "explicitlyProvidedId": id_props
+    });
     const selectId = `select-${useId()}`;
     const stateDescriptionId = `select-${useId()}-desc`;
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", (() => {
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", (() => {
             switch (state) {
                 case "error":
                     return "fr-select-group--error";

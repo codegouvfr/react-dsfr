@@ -8,9 +8,11 @@ import { fr } from "./fr";
 import type { RegisteredLinkProps } from "./link";
 import { getLink } from "./link";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 
 //https://main--ds-gouv.netlify.app/example/component/card/
 export type CardProps = {
+    id?: string;
     className?: string;
     title: ReactNode;
     desc?: ReactNode;
@@ -76,6 +78,7 @@ export namespace CardProps {
 export const Card = memo(
     forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         const {
+            id: props_id,
             className,
             title,
             linkProps,
@@ -103,10 +106,16 @@ export const Card = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
+        const id = useAnalyticsId({
+            "defaultIdPrefix": "fr-card",
+            "explicitlyProvidedId": props_id
+        });
+
         const { Link } = getLink();
 
         return (
             <div
+                id={id}
                 className={cx(
                     fr.cx(
                         "fr-card",

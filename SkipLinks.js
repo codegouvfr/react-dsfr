@@ -15,12 +15,17 @@ import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { createComponentI18nApi } from "./i18n";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-skiplinks> */
 export const SkipLinks = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, links, style } = props, rest = __rest(props, ["className", "classes", "links", "style"]);
+    const { className, classes = {}, links, style, id: id_props } = props, rest = __rest(props, ["className", "classes", "links", "style", "id"]);
     const { t } = useTranslation();
     assert();
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-skiplinks"), classes.root, className), ref: ref, style: style }, rest),
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-skiplinks",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-skiplinks"), classes.root, className), ref: ref, style: style }, rest),
         React.createElement("nav", { className: fr.cx("fr-container"), role: "navigation", "aria-label": t("label") },
             React.createElement("ul", { className: cx(fr.cx("fr-skiplinks__list"), classes.list) }, links &&
                 links.map(link => (React.createElement("li", { key: link.anchor },

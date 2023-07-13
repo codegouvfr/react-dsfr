@@ -16,14 +16,19 @@ import { getLink } from "./link";
 import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(forwardRef((props, ref) => {
-    const { className, homeLinkProps, segments, currentPageLabel, classes = {}, style } = props, rest = __rest(props, ["className", "homeLinkProps", "segments", "currentPageLabel", "classes", "style"]);
+    const { id: props_id, className, homeLinkProps, segments, currentPageLabel, classes = {}, style } = props, rest = __rest(props, ["id", "className", "homeLinkProps", "segments", "currentPageLabel", "classes", "style"]);
     assert();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-breadcrumb",
+        "explicitlyProvidedId": props_id
+    });
     const { t } = useTranslation();
     const { Link } = getLink();
     const breadcrumbId = `breadcrumb-${useId()}`;
-    return (React.createElement("nav", Object.assign({ ref: ref, role: "navigation", className: cx(fr.cx("fr-breadcrumb"), classes.root, className), style: style, "aria-label": `${t("navigation label")} :` }, rest),
+    return (React.createElement("nav", Object.assign({ id: id, ref: ref, role: "navigation", className: cx(fr.cx("fr-breadcrumb"), classes.root, className), style: style, "aria-label": `${t("navigation label")} :` }, rest),
         React.createElement("button", { className: cx(fr.cx("fr-breadcrumb__button"), classes.button), "aria-expanded": "false", "aria-controls": breadcrumbId }, t("show breadcrumb")),
         React.createElement("div", { className: cx(fr.cx("fr-collapse"), classes.collapse), id: breadcrumbId },
             React.createElement("ol", { className: cx(fr.cx("fr-breadcrumb__list"), classes.list) },

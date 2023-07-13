@@ -2,6 +2,7 @@ import React, { type CSSProperties } from "react";
 export type FranceConnectButtonProps = FranceConnectButtonProps.WithUrl | FranceConnectButtonProps.WithOnClick;
 export declare namespace FranceConnectButtonProps {
     type Common = {
+        id?: string;
         className?: string;
         /** Default: false */
         plus?: boolean;

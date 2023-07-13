@@ -16,12 +16,17 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /**
  * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
  * */
 function NonMemoizedNonForwardedSelect(props, ref) {
-    const { className, label, hint, nativeSelectProps, disabled = false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
+    const { id: id_props, className, label, hint, nativeSelectProps, disabled = false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
     assert();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-select-group",
+        "explicitlyProvidedId": id_props
+    });
     const { selectId, stateDescriptionId } = (function useClosure() {
         const selectIdExplicitlyProvided = nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.id;
         const elementId = useId();
@@ -32,7 +37,7 @@ function NonMemoizedNonForwardedSelect(props, ref) {
         return { selectId, stateDescriptionId };
     })();
     const { t } = useTranslation();
-    return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", state !== "default" && `fr-select-group--${state}`), className), ref: ref, style: style }, rest),
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", state !== "default" && `fr-select-group--${state}`), className), ref: ref, style: style }, rest),
         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
             hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),

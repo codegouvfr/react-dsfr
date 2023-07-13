@@ -11,9 +11,11 @@ import type { MenuProps } from "./Menu";
 import { Menu } from "./Menu";
 import type { MegaMenuProps } from "./MegaMenu";
 import { MegaMenu } from "./MegaMenu";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 
 export type MainNavigationProps = {
     className?: string;
+    id?: string;
     items: MainNavigationProps.Item[];
     classes?: Partial<
         Record<
@@ -74,7 +76,7 @@ export namespace MainNavigationProps {
 
 export const MainNavigation = memo(
     forwardRef<HTMLDivElement, MainNavigationProps>((props, ref) => {
-        const { className, items, classes = {}, style, ...rest } = props;
+        const { className, items, classes = {}, style, id: id_props, ...rest } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -90,8 +92,14 @@ export const MainNavigation = memo(
             return { getMenuId };
         })();
 
+        const id = useAnalyticsId({
+            "explicitlyProvidedId": id_props,
+            "defaultIdPrefix": "main-navigation"
+        });
+
         return (
             <nav
+                id={id}
                 className={cx(fr.cx("fr-nav"), classes.root, className)}
                 style={style}
                 role="navigation"

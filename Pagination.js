@@ -16,6 +16,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { getLink } from "./link";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 // naive page slicing
 const getPaginationParts = ({ count, defaultPage }) => {
     const maxVisiblePages = 10;
@@ -58,12 +59,16 @@ const getPaginationParts = ({ count, defaultPage }) => {
 };
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-pagination> */
 export const Pagination = memo(forwardRef((props, ref) => {
-    const { className, count, defaultPage = 1, showFirstLast = true, getPageLinkProps, classes = {}, style } = props, rest = __rest(props, ["className", "count", "defaultPage", "showFirstLast", "getPageLinkProps", "classes", "style"]);
+    const { id: id_props, className, count, defaultPage = 1, showFirstLast = true, getPageLinkProps, classes = {}, style } = props, rest = __rest(props, ["id", "className", "count", "defaultPage", "showFirstLast", "getPageLinkProps", "classes", "style"]);
     assert();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-pagination",
+        "explicitlyProvidedId": id_props
+    });
     const { t } = useTranslation();
     const { Link } = getLink();
     const parts = getPaginationParts({ count, defaultPage });
-    return (React.createElement("nav", { role: "navigation", className: cx(fr.cx("fr-pagination"), classes.root, className), "aria-label": t("aria-label"), style: style, ref: ref },
+    return (React.createElement("nav", { id: id, role: "navigation", className: cx(fr.cx("fr-pagination"), classes.root, className), "aria-label": t("aria-label"), style: style, ref: ref },
         React.createElement("ul", { className: cx(fr.cx("fr-pagination__list"), classes.list) },
             showFirstLast && (React.createElement("li", null,
                 React.createElement(Link, Object.assign({}, (count > 0 && defaultPage > 1 && getPageLinkProps(1)), { className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--first"), classes.link, getPageLinkProps(1).className), "aria-disabled": count > 0 && defaultPage > 1 ? true : undefined, role: "link" }), t("first page")))),

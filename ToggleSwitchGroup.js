@@ -14,11 +14,16 @@ import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { ToggleSwitch } from "./ToggleSwitch";
+import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitchgroup> */
 export const ToggleSwitchGroup = memo(props => {
-    const { className, toggles, showCheckedHint = true, labelPosition = "right", classes = {}, style } = props, rest = __rest(props, ["className", "toggles", "showCheckedHint", "labelPosition", "classes", "style"]);
+    const { id: id_props, className, toggles, showCheckedHint = true, labelPosition = "right", classes = {}, style } = props, rest = __rest(props, ["id", "className", "toggles", "showCheckedHint", "labelPosition", "classes", "style"]);
     assert();
-    return (React.createElement("ul", Object.assign({ className: cx(fr.cx("fr-toggle__list"), classes.root, className), style: style }, rest), toggles.map((toggleSwitchProps, i) => (React.createElement("li", { key: i, className: classes.li },
+    const id = useAnalyticsId({
+        "defaultIdPrefix": "fr-toggle",
+        "explicitlyProvidedId": id_props
+    });
+    return (React.createElement("ul", Object.assign({ id: id, className: cx(fr.cx("fr-toggle__list"), classes.root, className), style: style }, rest), toggles.map((toggleSwitchProps, i) => (React.createElement("li", { key: i, className: classes.li },
         React.createElement(ToggleSwitch, Object.assign({}, toggleSwitchProps, { showCheckedHint: showCheckedHint, labelPosition: labelPosition })))))));
 });
 export default ToggleSwitchGroup;

@@ -14,24 +14,25 @@ import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import { cx } from "../tools/cx";
 import { fr } from "../fr";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
 export const Fieldset = memo(forwardRef((props, ref) => {
-    const { className, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
+    const { className, id: id_props, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "id", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
     assert();
-    const { getInputId, legendId, errorDescId, successDescId, messagesWrapperId } = (function useClosure() {
-        const id = `${type}${name_props === undefined ? "" : `-${name_props}`}-${useId()}`;
-        const getInputId = (i) => `${id}-${i}`;
-        const legendId = `${id}-legend`;
-        const errorDescId = `${id}-desc-error`;
-        const successDescId = `${id}-desc-valid`;
-        const messagesWrapperId = `${id}-messages`;
-        return { getInputId, legendId, errorDescId, successDescId, messagesWrapperId };
-    })();
+    const id = useAnalyticsId({
+        "defaultIdPrefix": `fr-fieldset-${type}${name_props === undefined ? "" : `-${name_props}`}`,
+        "explicitlyProvidedId": id_props
+    });
+    const getInputId = (i) => `${id}-${i}`;
+    const legendId = `${id}-legend`;
+    const errorDescId = `${id}-desc-error`;
+    const successDescId = `${id}-desc-valid`;
+    const messagesWrapperId = `${id}-messages`;
     const radioName = (function useClosure() {
         const id = useId();
         return name_props !== null && name_props !== void 0 ? name_props : `radio-name-${id}`;
     })();
-    return (React.createElement("fieldset", Object.assign({ className: cx(fr.cx("fr-fieldset", orientation === "horizontal" && "fr-fieldset--inline", (() => {
+    return (React.createElement("fieldset", Object.assign({ id: id, className: cx(fr.cx("fr-fieldset", orientation === "horizontal" && "fr-fieldset--inline", (() => {
             switch (state) {
                 case "default":
                     return undefined;
