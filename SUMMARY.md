@@ -11,3 +11,4 @@
 * [🤝 MUI integration](mui.md)
 * [📦 Publishing a NPM modules that depends on react-dsfr](publishing-a-npm-modules-that-depends-on-react-dsfr.md)
 * [💟 Contributing](contributing.md)
+* [📊 Analytics](analytics.md)
