@@ -9,6 +9,6 @@
 * [🌎 internationalization](i18n.md)
 * [🌅 Importing assets](assets.md)
 * [🤝 MUI integration](mui.md)
+* [📊 Analytics](analytics.md)
 * [📦 Publishing a NPM modules that depends on react-dsfr](publishing-a-npm-modules-that-depends-on-react-dsfr.md)
 * [💟 Contributing](contributing.md)
-* [📊 Analytics](analytics.md)
