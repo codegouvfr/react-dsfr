@@ -1,6 +1,5 @@
 ---
-description: Setup @codegouvfr/react-dsfr in your project
-layout: landing
+description: Setup @codegouvfr/react-dsfr in your project or start from a template
 ---
 
 # 🔧 Initial setup
