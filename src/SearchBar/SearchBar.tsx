@@ -82,13 +82,15 @@ export const SearchBar = memo(
                 <label className={cx(fr.cx("fr-label"), classes.label)} htmlFor={inputId}>
                     {label}
                 </label>
+                {/* NOTE: It is crucial that renderInput be called
+                one time and only one time in each render to allow useState to be used inline*/}
                 {renderInput({
                     "className": fr.cx("fr-input"),
                     "placeholder": label,
                     "type": "search",
                     "id": inputId
                 })}
-                <SearchButton searchInputId={inputId} onClick={onButtonClick} />
+                <SearchButton id={`${id}-button`} searchInputId={inputId} onClick={onButtonClick} />
             </div>
         );
     })

@@ -94,6 +94,7 @@ export { addModalTranslations };
 export function createModal(params) {
     const { isOpenedByDefault, id } = params;
     const buttonProps = {
+        "id": `${id}-control-button`,
         "aria-controls": id,
         "data-fr-opened": isOpenedByDefault
     };

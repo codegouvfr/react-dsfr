@@ -10,12 +10,13 @@ import { observeInputValue } from "../tools/observeInputValue";
 import { id } from "tsafe/id";
 
 export type SearchButtonProps = {
+    id: string;
     searchInputId: string;
     onClick: ((text: string) => void) | undefined;
 };
 
 export function SearchButton(props: SearchButtonProps) {
-    const { searchInputId, onClick: onClick_props } = props;
+    const { searchInputId, onClick: onClick_props, id: id_props } = props;
 
     const { t } = useTranslation();
 
@@ -148,6 +149,7 @@ export function SearchButton(props: SearchButtonProps) {
 
     return (
         <button
+            id={id_props}
             className={fr.cx("fr-btn")}
             title={t("label")}
             onClick={onClick}

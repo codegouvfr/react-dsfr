@@ -17,6 +17,7 @@ export declare function createConsentManagement<FinalityDescription extends Reco
 }): {
     ConsentManagement: () => JSX.Element;
     consentModalButtonProps: {
+        id: string;
         "aria-controls": string;
         "data-fr-opened": boolean;
     };

@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef } from "react";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -24,28 +24,27 @@ export const MainNavigation = memo(forwardRef((props, ref) => {
     assert();
     const { t } = useTranslation();
     const { Link } = getLink();
-    const { getMenuId } = (function useClosure() {
-        const id = useId();
-        const getMenuId = (i) => `menu-${id}-${i}`;
-        return { getMenuId };
-    })();
     const id = useAnalyticsId({
         "explicitlyProvidedId": id_props,
         "defaultIdPrefix": "main-navigation"
     });
+    const getMenuId = (i) => `${id}-menu-${i}`;
     return (React.createElement("nav", Object.assign({ id: id, className: cx(fr.cx("fr-nav"), classes.root, className), style: style, role: "navigation", "aria-label": t("main menu"), ref: ref }, rest),
-        React.createElement("ul", { className: cx(fr.cx("fr-nav__list"), classes.list) }, items.map(({ className, text, isActive = false, linkProps, menuLinks = [], megaMenu, buttonProps = {} }, i) => (React.createElement("li", { key: i, className: cx(fr.cx("fr-nav__item"), classes.item, className) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { className: cx(fr.cx("fr-nav__link"), classes.link, linkProps.className) }, (isActive && { ["aria-current"]: "page" })), text)) : (React.createElement(React.Fragment, null,
-            React.createElement("button", Object.assign({}, buttonProps, { className: cx(fr.cx("fr-nav__btn"), buttonProps.className, classes.btn), "aria-expanded": false, "aria-controls": getMenuId(i) }, (isActive && { ["aria-current"]: true })), text),
-            menuLinks.length !== 0 && (React.createElement(Menu, { classes: {
-                    "root": cx(fr.cx("fr-collapse"), classes.root),
-                    "list": classes.menuList
-                }, links: menuLinks, id: getMenuId(i) })),
-            megaMenu !== undefined && (React.createElement(MegaMenu, { classes: {
-                    "root": cx(fr.cx("fr-collapse"), classes.megaMenu),
-                    "leader": classes.megaMenuLeader,
-                    "category": classes.megaMenuCategory,
-                    "list": classes.menuList
-                }, id: getMenuId(i), leader: megaMenu.leader, categories: megaMenu.categories }))))))))));
+        React.createElement("ul", { className: cx(fr.cx("fr-nav__list"), classes.list) }, items.map(({ className, text, isActive = false, linkProps, menuLinks = [], megaMenu, buttonProps = {} }, i) => {
+            var _a, _b;
+            return (React.createElement("li", { key: i, className: cx(fr.cx("fr-nav__item"), classes.item, className) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { id: (_a = linkProps.id) !== null && _a !== void 0 ? _a : `${id}-link-${i}`, className: cx(fr.cx("fr-nav__link"), classes.link, linkProps.className) }, (isActive && { ["aria-current"]: "page" })), text)) : (React.createElement(React.Fragment, null,
+                React.createElement("button", Object.assign({}, buttonProps, { id: (_b = buttonProps.id) !== null && _b !== void 0 ? _b : `${id}-button-${i}`, className: cx(fr.cx("fr-nav__btn"), buttonProps.className, classes.btn), "aria-expanded": false, "aria-controls": getMenuId(i) }, (isActive && { ["aria-current"]: true })), text),
+                menuLinks.length !== 0 && (React.createElement(Menu, { classes: {
+                        "root": cx(fr.cx("fr-collapse"), classes.root),
+                        "list": classes.menuList
+                    }, links: menuLinks, id: getMenuId(i) })),
+                megaMenu !== undefined && (React.createElement(MegaMenu, { classes: {
+                        "root": cx(fr.cx("fr-collapse"), classes.megaMenu),
+                        "leader": classes.megaMenuLeader,
+                        "category": classes.megaMenuCategory,
+                        "list": classes.menuList
+                    }, id: getMenuId(i), leader: megaMenu.leader, categories: megaMenu.categories }))))));
+        }))));
 }));
 MainNavigation.displayName = symToStr({ MainNavigation });
 export default MainNavigation;

@@ -70,9 +70,9 @@ export function createConsentManagement(params) {
                         React.createElement("legend", { className: fr.cx("fr-consent-service__title") }, t("preferences for all services", { personalDataPolicyLinkProps })),
                         React.createElement("div", { className: fr.cx("fr-consent-service__radios") },
                             React.createElement("div", { className: fr.cx("fr-btns-group", "fr-btns-group--inline", "fr-btns-group--right") },
-                                React.createElement("button", { title: t("accept all - title"), className: fr.cx("fr-btn"), onClick: createOnClick("grantAll"), disabled: isProcessingChanges }, t("accept all")),
+                                React.createElement("button", { id: `${modal.id}-button-accept-all`, title: t("accept all - title"), className: fr.cx("fr-btn"), onClick: createOnClick("grantAll"), disabled: isProcessingChanges }, t("accept all")),
                                 " ",
-                                React.createElement("button", { title: t("refuse all - title"), className: fr.cx("fr-btn", "fr-btn--secondary"), disabled: isProcessingChanges, onClick: createOnClick("denyAll") }, t("refuse all")))))),
+                                React.createElement("button", { id: `${modal.id}-button-refuse-all`, title: t("refuse all - title"), className: fr.cx("fr-btn", "fr-btn--secondary"), disabled: isProcessingChanges, onClick: createOnClick("denyAll") }, t("refuse all")))))),
                 React.createElement(ConsentService, { title: t("mandatory cookies"), description: t("mandatory cookies - description"), finalityConsent: true, onChange: undefined, subFinalities: undefined }),
                 objectKeys(finalityDescription)
                     .map(finality => ({
@@ -90,7 +90,7 @@ export function createConsentManagement(params) {
                     })), finalityConsent: localFinalityConsent[finality] }))),
                 React.createElement("ul", { className: fr.cx("fr-consent-manager__buttons", "fr-btns-group", "fr-btns-group--right", "fr-btns-group--inline-sm") },
                     React.createElement("li", null,
-                        React.createElement("button", { className: fr.cx("fr-btn"), disabled: isProcessingChanges, onClick: createOnClick("apply local changes") }, t("confirm choices")))))));
+                        React.createElement("button", { id: `${modal.id}-button-confirm`, className: fr.cx("fr-btn"), disabled: isProcessingChanges, onClick: createOnClick("apply local changes") }, t("confirm choices")))))));
     }
     function ConsentService(props) {
         const { title, description, subFinalities, finalityConsent, onChange } = props;

@@ -39,7 +39,7 @@ export const SearchBar = memo(forwardRef((props, ref) => {
             "type": "search",
             "id": inputId
         }),
-        React.createElement(SearchButton, { searchInputId: inputId, onClick: onButtonClick })));
+        React.createElement(SearchButton, { id: `${id}-button`, searchInputId: inputId, onClick: onButtonClick })));
 }));
 SearchBar.displayName = symToStr({ SearchBar });
 export default SearchBar;

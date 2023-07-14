@@ -8,6 +8,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import type { RegisteredLinkProps } from "../link";
 import { getLink } from "../link";
+import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 
 export type MenuProps = {
     classes?: Partial<Record<"root" | "list", string>>;
@@ -44,6 +45,12 @@ export const Menu = memo(
                         <li key={i}>
                             <Link
                                 {...linkProps}
+                                id={
+                                    linkProps.id ??
+                                    `${id}-link${generateValidHtmlId({
+                                        text
+                                    })}-${i}`
+                                }
                                 className={cx(fr.cx("fr-nav__link"), linkProps.className)}
                                 {...(isActive && { ["aria-current"]: "page" })}
                             >

@@ -1,4 +1,5 @@
 export type SearchButtonProps = {
+    id: string;
     searchInputId: string;
     onClick: ((text: string) => void) | undefined;
 };

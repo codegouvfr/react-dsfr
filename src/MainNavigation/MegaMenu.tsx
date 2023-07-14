@@ -7,6 +7,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { getLink } from "../link";
 import type { RegisteredLinkProps } from "../link";
+import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 
 export type MegaMenuProps = {
     classes?: Partial<Record<"root" | "leader" | "category" | "list", string>>;
@@ -81,6 +82,12 @@ export const MegaMenu = memo(
                                     {leader.link !== undefined && (
                                         <Link
                                             {...leader.link.linkProps}
+                                            id={
+                                                leader.link.linkProps.id ??
+                                                `${id}-leader-link${generateValidHtmlId({
+                                                    "text": leader.link.text
+                                                })}`
+                                            }
                                             className={cx(
                                                 fr.cx(
                                                     "fr-link",
@@ -107,6 +114,12 @@ export const MegaMenu = memo(
                                 >
                                     <Link
                                         {...categoryMainLink.linkProps}
+                                        id={
+                                            categoryMainLink.linkProps.id ??
+                                            `${id}-category-link${generateValidHtmlId({
+                                                "text": categoryMainLink.text
+                                            })}-${i}`
+                                        }
                                         className={cx(
                                             fr.cx("fr-nav__link"),
                                             categoryMainLink.linkProps.className
@@ -116,10 +129,16 @@ export const MegaMenu = memo(
                                     </Link>
                                 </h5>
                                 <ul className={cx(fr.cx("fr-mega-menu__list"), classes.list)}>
-                                    {links.map(({ linkProps, text, isActive }, i) => (
-                                        <li key={i}>
+                                    {links.map(({ linkProps, text, isActive }, j) => (
+                                        <li key={j}>
                                             <Link
                                                 {...linkProps}
+                                                id={
+                                                    linkProps.id ??
+                                                    `${id}-link${generateValidHtmlId({
+                                                        "text": text
+                                                    })}-${i}-${j}`
+                                                }
                                                 className={cx(
                                                     fr.cx("fr-nav__link"),
                                                     linkProps.className

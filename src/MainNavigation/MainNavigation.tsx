@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
+import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -84,18 +84,12 @@ export const MainNavigation = memo(
 
         const { Link } = getLink();
 
-        const { getMenuId } = (function useClosure() {
-            const id = useId();
-
-            const getMenuId = (i: number) => `menu-${id}-${i}`;
-
-            return { getMenuId };
-        })();
-
         const id = useAnalyticsId({
             "explicitlyProvidedId": id_props,
             "defaultIdPrefix": "main-navigation"
         });
+
+        const getMenuId = (i: number) => `${id}-menu-${i}`;
 
         return (
             <nav
@@ -128,6 +122,7 @@ export const MainNavigation = memo(
                                 {linkProps !== undefined ? (
                                     <Link
                                         {...linkProps}
+                                        id={linkProps.id ?? `${id}-link-${i}`}
                                         className={cx(
                                             fr.cx("fr-nav__link"),
                                             classes.link,
@@ -141,6 +136,7 @@ export const MainNavigation = memo(
                                     <>
                                         <button
                                             {...buttonProps}
+                                            id={buttonProps.id ?? `${id}-button-${i}`}
                                             className={cx(
                                                 fr.cx("fr-nav__btn"),
                                                 buttonProps.className,

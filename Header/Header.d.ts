@@ -1,4 +1,4 @@
-import React, { type ReactNode, type CSSProperties } from "react";
+import React, { type ReactNode, type CSSProperties, type ComponentProps } from "react";
 import type { RegisteredLinkProps } from "../link";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 import type { MainNavigationProps } from "../MainNavigation";
@@ -54,7 +54,7 @@ export declare namespace HeaderProps {
         };
         type Button = Common & {
             linkProps?: never;
-            buttonProps: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+            buttonProps: ComponentProps<"button"> & Record<`data-${string}`, string | boolean | null | undefined>;
         };
     }
 }
@@ -90,6 +90,7 @@ export declare const useTranslation: () => {
     }>;
 }) => void;
 export type HeaderQuickAccessItemProps = {
+    id?: string;
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
 };

@@ -147,6 +147,7 @@ export function createConsentManagement<
                                     )}
                                 >
                                     <button
+                                        id={`${modal.id}-button-accept-all`}
                                         title={t("accept all - title")}
                                         className={fr.cx("fr-btn")}
                                         onClick={createOnClick("grantAll")}
@@ -155,6 +156,7 @@ export function createConsentManagement<
                                         {t("accept all")}
                                     </button>{" "}
                                     <button
+                                        id={`${modal.id}-button-refuse-all`}
                                         title={t("refuse all - title")}
                                         className={fr.cx("fr-btn", "fr-btn--secondary")}
                                         disabled={isProcessingChanges}
@@ -219,6 +221,7 @@ export function createConsentManagement<
                     >
                         <li>
                             <button
+                                id={`${modal.id}-button-confirm`}
                                 className={fr.cx("fr-btn")}
                                 disabled={isProcessingChanges}
                                 onClick={createOnClick("apply local changes")}

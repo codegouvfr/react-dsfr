@@ -8,7 +8,7 @@ import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { observeInputValue } from "../tools/observeInputValue";
 import { id } from "tsafe/id";
 export function SearchButton(props) {
-    const { searchInputId, onClick: onClick_props } = props;
+    const { searchInputId, onClick: onClick_props, id: id_props } = props;
     const { t } = useTranslation();
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [{ focusInputElement, getInputValue, resetInputValue, getIsInputFocused }, setInputApi] = useState(() => ({
@@ -92,7 +92,7 @@ export function SearchButton(props) {
     if (onClick_props === undefined && (getIsInputFocused() || getInputValue() !== "")) {
         return null;
     }
-    return (React.createElement("button", { className: fr.cx("fr-btn"), title: t("label"), onClick: onClick, style: onClick_props !== undefined
+    return (React.createElement("button", { id: id_props, className: fr.cx("fr-btn"), title: t("label"), onClick: onClick, style: onClick_props !== undefined
             ? undefined
             : {
                 "position": "absolute",

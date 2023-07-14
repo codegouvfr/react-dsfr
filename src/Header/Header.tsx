@@ -1,4 +1,11 @@
-import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
+import React, {
+    memo,
+    forwardRef,
+    useId,
+    type ReactNode,
+    type CSSProperties,
+    type ComponentProps
+} from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
@@ -15,6 +22,7 @@ import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkP
 import { typeGuard } from "tsafe/typeGuard";
 import { SearchButton } from "../SearchBar/SearchButton";
 import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
+import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 
 export type HeaderProps = {
     className?: string;
@@ -89,10 +97,8 @@ export namespace HeaderProps {
 
         export type Button = Common & {
             linkProps?: never;
-            buttonProps: React.DetailedHTMLProps<
-                React.ButtonHTMLAttributes<HTMLButtonElement>,
-                HTMLButtonElement
-            >;
+            buttonProps: ComponentProps<"button"> &
+                Record<`data-${string}`, string | boolean | null | undefined>;
         };
     }
 }
@@ -123,26 +129,15 @@ export const Header = memo(
 
         const id = id_props ?? "fr-header";
 
+        const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
+        const menuButtonId = `${id}-menu-button`;
+        const searchModalId = `${id}-search-modal`;
+        const searchInputId = `${id}-search-input`;
+
         const isSearchBarEnabled =
             renderSearchInput !== undefined || onSearchButtonClick !== undefined;
 
         setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
-
-        const { menuModalId, menuButtonId, searchModalId, searchInputId } = (function useClosure() {
-            const id = useId();
-
-            const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
-            const menuButtonId = `button-${id}`;
-            const searchModalId = `modal-${id}`;
-            const searchInputId = `search-${id}-input`;
-
-            return {
-                menuModalId,
-                menuButtonId,
-                searchModalId,
-                searchInputId
-            };
-        })();
 
         const { t } = useTranslation();
         const { t: tSearchBar } = useSearchBarTranslation();
@@ -159,7 +154,13 @@ export const Header = memo(
                         ) ? (
                             quickAccessItem
                         ) : (
-                            <HeaderQuickAccessItem quickAccessItem={quickAccessItem} />
+                            <HeaderQuickAccessItem
+                                id={`${id}-quick-access-item-${generateValidHtmlId({
+                                    "fallback": "",
+                                    "text": quickAccessItem.text
+                                })}-${i}`}
+                                quickAccessItem={quickAccessItem}
+                            />
                         )}
                     </li>
                 ))}
@@ -246,6 +247,7 @@ export const Header = memo(
                                             >
                                                 {isSearchBarEnabled && (
                                                     <button
+                                                        id={`${id}-search-button`}
                                                         className={fr.cx(
                                                             "fr-btn--search",
                                                             "fr-btn"
@@ -326,6 +328,7 @@ export const Header = memo(
                                                     )}
                                                 >
                                                     <button
+                                                        id={`${id}-search-button`}
                                                         className={fr.cx("fr-btn--close", "fr-btn")}
                                                         aria-controls={searchModalId}
                                                         title={t("close")}
@@ -364,6 +367,7 @@ export const Header = memo(
                                                             "type": "search"
                                                         })}
                                                         <SearchButton
+                                                            id={`${id}-search-bar-button`}
                                                             searchInputId={searchInputId}
                                                             onClick={onSearchButtonClick}
                                                         />
@@ -384,6 +388,7 @@ export const Header = memo(
                         >
                             <div className={fr.cx("fr-container")}>
                                 <button
+                                    id={`${id}-mobile-overlay-button-close`}
                                     className={fr.cx("fr-btn--close", "fr-btn")}
                                     aria-controls={menuModalId}
                                     title={t("close")}
@@ -438,18 +443,35 @@ addHeaderTranslations({
 });
 
 export type HeaderQuickAccessItemProps = {
+    id?: string;
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
 };
 
 export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element {
-    const { className, quickAccessItem } = props;
+    const { id: id_props, className, quickAccessItem } = props;
 
     const { Link } = getLink();
+
+    const id = (function useClosure() {
+        const id = useId();
+
+        return (
+            id_props ??
+            (quickAccessItem.linkProps !== undefined
+                ? quickAccessItem.linkProps.id
+                : quickAccessItem.buttonProps.id) ??
+            `fr-header-quick-access-item${generateValidHtmlId({
+                "text": quickAccessItem.text,
+                "fallback": id
+            })}`
+        );
+    })();
 
     return quickAccessItem.linkProps !== undefined ? (
         <Link
             {...quickAccessItem.linkProps}
+            id={id}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.linkProps.className,
@@ -461,6 +483,7 @@ export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.El
     ) : (
         <button
             {...quickAccessItem.buttonProps}
+            id={id}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.buttonProps.className,

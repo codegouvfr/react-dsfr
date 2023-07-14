@@ -22,31 +22,26 @@ import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkP
 import { typeGuard } from "tsafe/typeGuard";
 import { SearchButton } from "../SearchBar/SearchButton";
 import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
+import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 export const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
     assert();
     const id = id_props !== null && id_props !== void 0 ? id_props : "fr-header";
+    const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
+    const menuButtonId = `${id}-menu-button`;
+    const searchModalId = `${id}-search-modal`;
+    const searchInputId = `${id}-search-input`;
     const isSearchBarEnabled = renderSearchInput !== undefined || onSearchButtonClick !== undefined;
     setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
-    const { menuModalId, menuButtonId, searchModalId, searchInputId } = (function useClosure() {
-        const id = useId();
-        const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
-        const menuButtonId = `button-${id}`;
-        const searchModalId = `modal-${id}`;
-        const searchInputId = `search-${id}-input`;
-        return {
-            menuModalId,
-            menuButtonId,
-            searchModalId,
-            searchInputId
-        };
-    })();
     const { t } = useTranslation();
     const { t: tSearchBar } = useSearchBarTranslation();
     const { Link } = getLink();
-    const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { quickAccessItem: quickAccessItem })))))));
+    const quickAccessNode = (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { id: `${id}-quick-access-item-${generateValidHtmlId({
+            "fallback": "",
+            "text": quickAccessItem.text
+        })}-${i}`, quickAccessItem: quickAccessItem })))))));
     return (React.createElement(React.Fragment, null,
         React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
@@ -74,7 +69,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                 (quickAccessItems.length > 0 ||
                                     navigation !== undefined ||
                                     isSearchBarEnabled) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
-                                    isSearchBarEnabled && (React.createElement("button", { className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: tSearchBar("label") }, tSearchBar("label"))),
+                                    isSearchBarEnabled && (React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: tSearchBar("label") }, tSearchBar("label"))),
                                     React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
                             serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service"), classes.service) },
                                 React.createElement(Link, Object.assign({}, homeLinkProps),
@@ -84,7 +79,7 @@ export const Header = memo(forwardRef((props, ref) => {
                             quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, quickAccessNode)),
                             isSearchBarEnabled && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId },
                                 React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
-                                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
+                                    React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
                                     React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
                                         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId }, tSearchBar("label")),
                                         (renderSearchInput !== null && renderSearchInput !== void 0 ? renderSearchInput : (({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type }))))({
@@ -93,10 +88,10 @@ export const Header = memo(forwardRef((props, ref) => {
                                             "placeholder": tSearchBar("label"),
                                             "type": "search"
                                         }),
-                                        React.createElement(SearchButton, { searchInputId: searchInputId, onClick: onSearchButtonClick })))))))))),
+                                        React.createElement(SearchButton, { id: `${id}-search-bar-button`, searchInputId: searchInputId, onClick: onSearchButtonClick })))))))))),
             (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
                 React.createElement("div", { className: fr.cx("fr-container") },
-                    React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
+                    React.createElement("button", { id: `${id}-mobile-overlay-button-close`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),
                     React.createElement("div", { className: cx(fr.cx("fr-header__menu-links"), classes.menuLinks) }, quickAccessNode),
                     navigation !== undefined &&
                         (navigation instanceof Array ? (React.createElement(MainNavigation, { id: `${id}-main-navigation`, items: navigation })) : (navigation))))))));
@@ -119,8 +114,18 @@ addHeaderTranslations({
     }
 });
 export function HeaderQuickAccessItem(props) {
-    const { className, quickAccessItem } = props;
+    const { id: id_props, className, quickAccessItem } = props;
     const { Link } = getLink();
-    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, quickAccessItem.linkProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, quickAccessItem.buttonProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
+    const id = (function useClosure() {
+        var _a;
+        const id = useId();
+        return ((_a = id_props !== null && id_props !== void 0 ? id_props : (quickAccessItem.linkProps !== undefined
+            ? quickAccessItem.linkProps.id
+            : quickAccessItem.buttonProps.id)) !== null && _a !== void 0 ? _a : `fr-header-quick-access-item${generateValidHtmlId({
+            "text": quickAccessItem.text,
+            "fallback": id
+        })}`);
+    })();
+    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, quickAccessItem.linkProps, { id: id, className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, quickAccessItem.buttonProps, { id: id, className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
 }
 //# sourceMappingURL=Header.js.map
