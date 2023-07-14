@@ -91,7 +91,7 @@ export function Search(props: Props) {
                 <SearchBar
                     className={classes.searchBar}
                     label="Filter by color code (e.g. #c9191e), CSS variable name (e.g. --text-active-red-marianne) or something else..."
-                    renderInput={({ className, id, placeholder, type }) =>
+                    renderInput={({ className, id, placeholder, type }) => (
                         <input
                             ref={setInputElement}
                             value={search}
@@ -101,7 +101,7 @@ export function Search(props: Props) {
                             placeholder={placeholder}
                             type={type}
                         />
-                    }
+                    )}
                 />
                 <Button
                     className={classes.filterButton}

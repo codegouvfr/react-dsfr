@@ -268,7 +268,6 @@ function Story() {
             )}
             <Button
                 onClick={() => {
-
                     Object.keys(localStorage)
                         .filter(key => key.startsWith(localStorageKeyPrefix))
                         .forEach(key => localStorage.removeItem(key));

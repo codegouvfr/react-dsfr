@@ -76,7 +76,12 @@ export const Summary = memo(
                                 <li key={i}>
                                     <Link
                                         {...link.linkProps}
-                                        id={link.linkProps.id ?? `${id}-link${generateValidHtmlId({ "text": link.text })}-${i}`}
+                                        id={
+                                            link.linkProps.id ??
+                                            `${id}-link${generateValidHtmlId({
+                                                "text": link.text
+                                            })}-${i}`
+                                        }
                                         className={cx(
                                             fr.cx("fr-summary__link"),
                                             classes.link,
