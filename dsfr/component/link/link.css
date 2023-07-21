@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -9,7 +9,6 @@
 .fr-link {
   --text-spacing: 0;
   --title-spacing: 0;
-  z-index: 1;
   display: inline;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -315,7 +314,86 @@
   content: none;
 }
 
+.fr-links-group--download .fr-link,
+.fr-link--download {
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0 0;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-links-group--download .fr-link::after,
+.fr-link--download::after {
+
+  --icon-size: 1rem;
+  margin-right: -0.125rem;
+  margin-left: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/download-line.svg");
+  mask-image: url("../../icons/system/download-line.svg");
+  content: "";
+  margin-bottom: 1.75rem;
+  vertical-align: calc((0.75rem - var(--icon-size)) * 0.5 - 1.75rem);
+}
+
+.fr-links-group--download .fr-link::before,
+.fr-link--download::before {
+  content: none;
+}
+
+.fr-links-group--download .fr-link .fr-link__detail,
+.fr-link--download .fr-link__detail {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  white-space: nowrap;
+  pointer-events: none;
+  cursor: text;
+}
+
+.fr-links-group--download .fr-link .fr-link__detail abbr,
+.fr-link--download .fr-link__detail abbr {
+  text-decoration: none;
+}
+
+.fr-links-group--download {
+  --ul-type: disc;
+  --ol-type: decimal;
+  --ul-start: 1rem;
+  --ol-start: 1.5rem;
+  --xl-block: 0.5rem;
+  --li-bottom: 0.25rem;
+  --xl-base: 1em;
+  --ol-content: counters(li-counter, ".") ".  ";
+}
+
+.fr-links-group--download > li {
+  display: block;
+}
+
+.fr-links-group--download .fr-link,
+.fr-links-group .fr-link--download {
+  margin-bottom: 2.5rem;
+}
+
 .fr-links-group {
+  --li-bottom: 0.5rem;
+}
+
+.fr-links-group--inline {
   --ul-type: none;
   --ol-type: none;
   --ul-start: 0;
@@ -323,17 +401,20 @@
   --xl-block: 0;
   --li-bottom: 0;
   --ol-content: none;
-  display: inline-block;
+  display: inline;
   margin: 0 -0.5rem;
 }
 
-.fr-links-group > li {
+.fr-links-group--inline > li {
   display: inline;
   line-height: 2.75rem;
 }
 
-.fr-links-group .fr-link {
+.fr-links-group--inline .fr-link {
   margin: 0 0.5rem 1rem;
+}
+
+.fr-links-group .fr-link {
   vertical-align: top;
 }
 
@@ -357,6 +438,18 @@
 .fr-links-group--lg .fr-link::before,
 .fr-links-group--lg .fr-link::after {
   --icon-size: 1.5rem;
+}
+
+.fr-links-group__title {
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  margin: var(--title-spacing);
+}
+
+.fr-links-group--bordered {
+  padding: 1.5rem 1.5rem 0.5rem;
+  box-shadow: inset 0 0 0 1px var(--border-default-grey);
 }
 
 .fr-link--close {
@@ -415,6 +508,14 @@
   margin-right: 0.5rem;
 }
 
+.fr-link__detail {
+  color: var(--text-mention-grey);
+}
+
+.fr-links-group li::marker {
+  color: var(--text-action-high-blue-france);
+}
+
 .fr-link--close:disabled,
 a.fr-link--close:not([href]) {
   color: var(--text-disabled-grey);
@@ -430,6 +531,19 @@ a.fr-link--close:not([href]) {
 }
 @media (min-width: 48em) {
   /*! media md */
+  .fr-links-group--download .fr-link,
+  .fr-links-group .fr-link--download {
+    margin-bottom: 3rem;
+  }
+
+  .fr-links-group__title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .fr-links-group--bordered {
+    padding: 2rem 2rem 0.5rem;
+  }
 
   /*! media md */
 }
@@ -487,6 +601,18 @@ a.fr-link--close:not([href]) {
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  .fr-link__detail {
+    color: #666;
+  }
+
+  .fr-links-group li::marker {
+    color: #000091;
+  }
+
+  .fr-links-group--bordered {
+    box-shadow: inset 0 0 0 1px #ddd;
   }
 
   .fr-link--close {

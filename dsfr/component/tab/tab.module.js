@@ -1,10 +1,10 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.3'
+  version: '1.10.0'
 };
 
 const api = window[config.namespace];
@@ -21,6 +21,11 @@ class TabButton extends api.core.DisclosureButton {
 
   static get instanceClassName () {
     return 'TabButton';
+  }
+
+  handleClick (e) {
+    super.handleClick(e);
+    this.focus();
   }
 
   apply (value) {
@@ -124,9 +129,26 @@ class TabPanel extends api.core.Disclosure {
   }
 
   reset () {
-    this.group.index = 0;
+    if (this.group) this.group.retrieve(true);
+  }
+
+  _electPrimaries (candidates) {
+    if (!this.group || !this.group.list) return [];
+    return super._electPrimaries(candidates).filter(candidate => this.group.list.node.contains(candidate.node));
   }
 }
+
+const TabKeys = {
+  LEFT: 'tab_keys_left',
+  RIGHT: 'tab_keys_right',
+  HOME: 'tab_keys_home',
+  END: 'tab_keys_end'
+};
+
+const TabEmission = {
+  PRESS_KEY: api.internals.ns.emission('tab', 'press_key'),
+  LIST_HEIGHT: api.internals.ns.emission('tab', 'list_height')
+};
 
 /**
 * TabGroup est la classe étendue de DiscosuresGroup
@@ -143,18 +165,23 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   init () {
     super.init();
-    this.listen('transitionend', this.transitionend.bind(this));
-    this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
-    this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
-    this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
-    this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
-    this.isRendering = true;
 
-    if (this.list) this.list.apply();
+    this.listen('transitionend', this.transitionend.bind(this));
+    this.addAscent(TabEmission.PRESS_KEY, this.pressKey.bind(this));
+    this.addAscent(TabEmission.LIST_HEIGHT, this.setListHeight.bind(this));
+    this.isRendering = true;
+  }
+
+  getIndex (defaultIndex = 0) {
+    super.getIndex(defaultIndex);
   }
 
   get list () {
     return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
+  }
+
+  setListHeight (value) {
+    this.listHeight = value;
   }
 
   transitionend (e) {
@@ -163,6 +190,26 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   get buttonHasFocus () {
     return this.members.some(member => member.buttonHasFocus);
+  }
+
+  pressKey (key) {
+    switch (key) {
+      case TabKeys.LEFT:
+        this.pressLeft();
+        break;
+
+      case TabKeys.RIGHT:
+        this.pressRight();
+        break;
+
+      case TabKeys.HOME:
+        this.pressHome();
+        break;
+
+      case TabKeys.END:
+        this.pressEnd();
+        break;
+    }
   }
 
   /**
@@ -225,7 +272,7 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   apply () {
     for (let i = 0; i < this._index; i++) this.members[i].translate(TabPanelDirection.START);
-    this.current.translate(TabPanelDirection.NONE);
+    if (this.current) this.current.translate(TabPanelDirection.NONE);
     for (let i = this._index + 1; i < this.length; i++) this.members[i].translate(TabPanelDirection.END);
     this.isPreventingTransition = false;
   }
@@ -243,12 +290,12 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   render () {
     if (this.current === null) return;
+    this.node.scrollTop = 0;
+    this.node.scrollLeft = 0;
     const paneHeight = Math.round(this.current.node.offsetHeight);
     if (this.panelHeight === paneHeight) return;
     this.panelHeight = paneHeight;
-    let listHeight = 0;
-    if (this.list) listHeight = this.list.node.offsetHeight;
-    this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
+    this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
   }
 }
 
@@ -262,11 +309,11 @@ class TabsList extends api.core.Instance {
 
   init () {
     this.listen('scroll', this.scroll.bind(this));
+    this.listenKey(api.core.KeyCodes.RIGHT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.RIGHT), true, true);
+    this.listenKey(api.core.KeyCodes.LEFT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.LEFT), true, true);
+    this.listenKey(api.core.KeyCodes.HOME, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.HOME), true, true);
+    this.listenKey(api.core.KeyCodes.END, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.END), true, true);
     this.isResizing = true;
-  }
-
-  get group () {
-    return this.element.getAscendantInstance('TabsGroup', 'TabsList');
   }
 
   focalize (btn) {
@@ -288,20 +335,18 @@ class TabsList extends api.core.Instance {
   }
 
   apply () {
-    if (!this.group) return;
     if (this._isScrolling) {
-      this.group.addClass(TabSelector.SHADOW);
+      this.addClass(TabSelector.SHADOW);
       this.scroll();
     } else {
-      this.group.removeClass(TabSelector.SHADOW_RIGHT);
-      this.group.removeClass(TabSelector.SHADOW_LEFT);
-      this.group.removeClass(TabSelector.SHADOW);
+      this.removeClass(TabSelector.SHADOW_RIGHT);
+      this.removeClass(TabSelector.SHADOW_LEFT);
+      this.removeClass(TabSelector.SHADOW);
     }
   }
 
   /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
   scroll () {
-    if (!this.group) return;
     const scrollLeft = this.node.scrollLeft;
     const isMin = scrollLeft <= SCROLL_OFFSET;
     const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET;
@@ -312,21 +357,23 @@ class TabsList extends api.core.Instance {
     const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
     if (isMin) {
-      this.group.removeClass(minSelector);
+      this.removeClass(minSelector);
     } else {
-      this.group.addClass(minSelector);
+      this.addClass(minSelector);
     }
 
     if (isMax) {
-      this.group.removeClass(maxSelector);
+      this.removeClass(maxSelector);
     } else {
-      this.group.addClass(maxSelector);
+      this.addClass(maxSelector);
     }
   }
 
   resize () {
     this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET;
-    this.setProperty('--tab-list-height', `${this.getRect().height}px`);
+    const height = this.getRect().height;
+    this.setProperty('--tabs-list-height', `${height}px`);
+    this.ascend(TabEmission.LIST_HEIGHT, height);
   }
 
   dispose () {
@@ -339,7 +386,8 @@ api.tab = {
   TabButton: TabButton,
   TabsGroup: TabsGroup,
   TabsList: TabsList,
-  TabSelector: TabSelector
+  TabSelector: TabSelector,
+  TabEmission: TabEmission
 };
 
 api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);

@@ -1,0 +1,125 @@
+/*!
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  TOOLTIP
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-tooltip {
+  --arrow-x: 0;
+  display: block;
+  max-width: min(24rem, calc((100vw - 2rem) * 2 / 3));
+  padding: 0.5rem 0.5rem 1.25rem;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0s 0.15s, visibility 0s 0.15s;
+  text-align: left;
+  background-repeat: no-repeat;
+  background-position: calc(50% + var(--arrow-x)) calc(100% - 0.5rem), calc(50% + var(--arrow-x)) calc(100% - 0.375rem), 50% calc(100% - 0.75rem), 50% calc(100% - 0.75rem);
+  background-size: 0.5rem 0.375rem, 0.5rem 0.375rem, 100% 1px, 100% calc(100% - 0.75rem);
+  color: var(--text-default-grey);
+}
+
+.fr-tooltip:not(.fr-tooltip--shown) {
+  display: none;
+  opacity: 0;
+}
+
+.fr-tooltip.fr-placement--bottom {
+  padding-top: 1.25rem;
+  padding-bottom: 0.5rem;
+  background-position-y: 0.5rem, 0.375rem, 0.75rem, 0.75rem;
+  background-image: conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
+}
+
+.fr-tooltip.fr-placement {
+  z-index: calc(var(--ground) + 1000);
+  filter: drop-shadow(var(--overlap-shadow));
+}
+
+.fr-tooltip.fr-placement--top {
+  background-image: conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
+}
+@media (min-width: 36em) {
+  /*! media sm */
+
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+
+  /*! media xl */
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .fr-tooltip {
+    position: relative;
+    color: #3a3a3a;
+  }
+
+  .fr-tooltip__btn::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/media/align-left.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-tooltip__btn::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/add-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-tooltip__btn[aria-expanded=true]::before,
+  .fr-tooltip__btn[aria-expanded=true]::after {
+    background-image: url("../../icons/system/subtract-line.svg");
+  }
+
+  ul.fr-tooltip__actions-group {
+    list-style-type: none;
+  }
+
+  ol.fr-tooltip__actions-group {
+    list-style-type: none;
+  }
+
+  ul.fr-tooltip__actions-group,
+  ol.fr-tooltip__actions-group {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .fr-tooltip .fr-modal:not(.fr-modal--opened) .fr-modal__content {
+    max-height: 9.5rem;
+  }
+
+  .fr-tooltip.fr-placement {
+    z-index: 1000;
+  }
+
+  .fr-tooltip.fr-placement--top {
+    background-image: conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, #fff 0deg, #fff 67.38deg, transparent 67.38deg), conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, #ddd 0deg, #ddd 67.38deg, transparent 67.38deg), linear-gradient(90deg, #ddd, #ddd), linear-gradient(90deg, #fff, #fff);
+  }
+
+  .fr-tooltip.fr-placement--bottom {
+    background-image: conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, #fff 0deg, #fff 67.38deg, transparent 67.38deg), conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, #ddd 0deg, #ddd 67.38deg, transparent 67.38deg), linear-gradient(90deg, #ddd, #ddd), linear-gradient(90deg, #fff, #fff);
+  }
+}

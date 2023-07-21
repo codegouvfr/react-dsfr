@@ -1,13 +1,18 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.3'
+  version: '1.10.0'
 };
 
 const api = window[config.namespace];
+
+const BreadcrumbSelector = {
+  BREADCRUMB: api.internals.ns.selector('breadcrumb'),
+  BUTTON: api.internals.ns.selector('breadcrumb__button')
+};
 
 class Breadcrumb extends api.core.Instance {
   constructor () {
@@ -81,11 +86,12 @@ class Breadcrumb extends api.core.Instance {
     if (!link) return;
     if (document.activeElement !== link) this._focus();
   }
-}
 
-const BreadcrumbSelector = {
-  BREADCRUMB: api.internals.ns.selector('breadcrumb')
-};
+  get collapsePrimary () {
+    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(BreadcrumbSelector.BUTTON));
+    return buttons[0];
+  }
+}
 
 api.breadcrumb = {
   BreadcrumbSelector: BreadcrumbSelector,

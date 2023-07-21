@@ -82,14 +82,7 @@ export const Tile = memo(
             >
                 <div className={cx(fr.cx("fr-tile__body"), classes.body)}>
                     <h3 className={cx(fr.cx("fr-tile__title"), classes.title)}>
-                        <Link
-                            {...linkProps}
-                            className={cx(
-                                fr.cx("fr-tile__link"),
-                                classes.link,
-                                linkProps.className
-                            )}
-                        >
+                        <Link {...linkProps} className={cx(classes.link, linkProps.className)}>
                             {title}
                         </Link>
                     </h3>

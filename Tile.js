@@ -28,7 +28,7 @@ export const Tile = memo(forwardRef((props, ref) => {
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-tile", enlargeLink && "fr-enlarge-link", horizontal && "fr-tile--horizontal", grey && "fr-tile--grey"), classes.root, className), ref: ref, style: style }, rest),
         React.createElement("div", { className: cx(fr.cx("fr-tile__body"), classes.body) },
             React.createElement("h3", { className: cx(fr.cx("fr-tile__title"), classes.title) },
-                React.createElement(Link, Object.assign({}, linkProps, { className: cx(fr.cx("fr-tile__link"), classes.link, linkProps.className) }), title)),
+                React.createElement(Link, Object.assign({}, linkProps, { className: cx(classes.link, linkProps.className) }), title)),
             React.createElement("p", { className: cx(fr.cx("fr-tile__desc"), classes.desc) }, desc)),
         (imageUrl !== undefined && imageUrl.length && (React.createElement("div", { className: cx(fr.cx("fr-tile__img"), classes.img) },
             React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt, width: imageWidth, height: imageHeight })))) ||

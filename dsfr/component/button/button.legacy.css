@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -92,6 +92,16 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../../icons/system/close-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--tooltip::before,
+  .fr-btn--tooltip::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/question-line.svg");
     width: 1rem;
     height: 1rem;
   }
@@ -245,7 +255,8 @@
   .fr-btn--tertiary-no-outline,
   .fr-btn--close,
   .fr-btn--display,
-  .fr-btn--fullscreen {
+  .fr-btn--fullscreen,
+  .fr-btn--tooltip {
     background-color: transparent;
     color: #000091;
   }
@@ -253,14 +264,16 @@
   .fr-btn--tertiary-no-outline:hover,
   .fr-btn--close:hover,
   .fr-btn--display:hover,
-  .fr-btn--fullscreen:hover {
+  .fr-btn--fullscreen:hover,
+  .fr-btn--tooltip:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary-no-outline:active,
   .fr-btn--close:active,
   .fr-btn--display:active,
-  .fr-btn--fullscreen:active {
+  .fr-btn--fullscreen:active,
+  .fr-btn--tooltip:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
@@ -269,9 +282,11 @@
   a.fr-btn--close:not([href]),
   a.fr-btn--display:not([href]),
   a.fr-btn--fullscreen:not([href]),
+  a.fr-btn--tooltip:not([href]),
   .fr-btn--close:disabled,
   .fr-btn--display:disabled,
-  .fr-btn--fullscreen:disabled {
+  .fr-btn--fullscreen:disabled,
+  .fr-btn--tooltip:disabled {
     color: #929292;
     background-color: transparent;
   }
@@ -281,9 +296,11 @@
   a.fr-btn--close:not([href]):hover,
   a.fr-btn--display:not([href]):hover,
   a.fr-btn--fullscreen:not([href]):hover,
+  a.fr-btn--tooltip:not([href]):hover,
   .fr-btn--close:disabled:hover,
   .fr-btn--display:disabled:hover,
-  .fr-btn--fullscreen:disabled:hover {
+  .fr-btn--fullscreen:disabled:hover,
+  .fr-btn--tooltip:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
@@ -292,9 +309,11 @@
   a.fr-btn--close:not([href]):active,
   a.fr-btn--display:not([href]):active,
   a.fr-btn--fullscreen:not([href]):active,
+  a.fr-btn--tooltip:not([href]):active,
   .fr-btn--close:disabled:active,
   .fr-btn--display:disabled:active,
-  .fr-btn--fullscreen:disabled:active {
+  .fr-btn--fullscreen:disabled:active,
+  .fr-btn--tooltip:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }

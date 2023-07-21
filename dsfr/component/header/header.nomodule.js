@@ -1,4 +1,4 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.3'
+    version: '1.10.0'
   };
 
   var api = window[config.namespace];
@@ -44,7 +44,7 @@
       var toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
       var menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
       // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-      var toolsHtmlDuplicateId = toolsHtml.replace(/(<nav[.\s\S]*-translate [.\s\S]*) id="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 id="$2' + copySuffix + '"$3');
+      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
       toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
@@ -53,7 +53,7 @@
         case api.Modes.ANGULAR:
         case api.Modes.REACT:
         case api.Modes.VUE:
-          api.inspector.warn(("header__tools-links content is different from header__menu-links content.\nAs you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:\n" + (api.header.doc)));
+          this.warn(("header__tools-links content is different from header__menu-links content.\nAs you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:\n" + (api.header.doc)));
           break;
 
         default:
@@ -87,31 +87,22 @@
     };
 
     HeaderModal.prototype.resize = function resize () {
-      if (this.isBreakpoint(api.core.Breakpoints.LG)) { this.unqualify(); }
-      else { this.qualify(); }
+      if (this.isBreakpoint(api.core.Breakpoints.LG)) { this.deactivateModal(); }
+      else { this.activateModal(); }
     };
 
-    HeaderModal.prototype.qualify = function qualify () {
-      this.setAttribute('role', 'dialog');
+    HeaderModal.prototype.activateModal = function activateModal () {
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
-      var buttons = modal.buttons;
-      var id = '';
-      for (var i = 0, list = buttons; i < list.length; i += 1) {
-        var button = list[i];
-
-        id = button.id || id;
-        if (button.isPrimary && id) { break; }
-      }
-      this.setAttribute('aria-labelledby', id);
+      modal.isEnabled = true;
       this.listen('click', this._clickHandling, { capture: true });
     };
 
-    HeaderModal.prototype.unqualify = function unqualify () {
+    HeaderModal.prototype.deactivateModal = function deactivateModal () {
       var modal = this.element.getInstance('Modal');
-      if (modal) { modal.conceal(); }
-      this.removeAttribute('role');
-      this.removeAttribute('aria-labelledby');
+      if (!modal) { return; }
+      modal.conceal();
+      modal.isEnabled = false;
       this.unlisten('click', this._clickHandling, { capture: true });
     };
 
