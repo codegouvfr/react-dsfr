@@ -332,7 +332,7 @@ make sure you provide an overlay with the search results in the the \`renderSear
 As, to this day, the DSFR do not provide any component to help you with that, you are on your own for implementing the overlay.  
 You can achieve great result by using [MUI's autocomplete](https://mui.com/material-ui/react-autocomplete/) component.  
 [Video demo](https://youtu.be/AT3CvmY_Y7M?t=64).  
-If you go with MUI make sure to use the [\`<MuiDsfrProvider />\`](https://react-dsfr.etalab.studio/mui).  
+If you go with MUI make sure to use the [\`<MuiDsfrProvider />\`](https://react-dsfr.codegouv.studio/mui).  
 
 \`\`\`tsx
 

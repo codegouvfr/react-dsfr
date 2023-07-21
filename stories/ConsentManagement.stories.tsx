@@ -18,7 +18,7 @@ const { meta, getStory } = getStoryFactory({
 
 \`src/consentManagement.tsx\` (This is a file you should create in your project)  
 
-Refer to [this section of the Guides](https://react-dsfr.etalab.studio/analytics) to see how to setup the the 
+Refer to [this section of the Guides](https://react-dsfr.codegouv.studio/analytics) to see how to setup the the 
 mandated solution for analytics in your project.  
   
 You can find a complete example setup in [the Demo repo for Next.js App Router](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/main/ui/consentManagement.tsx) 
