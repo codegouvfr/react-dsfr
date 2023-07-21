@@ -58,7 +58,7 @@ export namespace FieldsetProps {
     };
 }
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-radiobutton> */
 export const Fieldset = memo(
     forwardRef<HTMLFieldSetElement, FieldsetProps>((props, ref) => {
         const {

@@ -16,7 +16,7 @@ import { getLink } from "./link";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-tag> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tag> */
 export const Tag = memo(forwardRef((props, ref) => {
     var _a, _b, _c;
     const { id: id_props, className: prop_className, children, title, iconId, small = false, pressed, dismissible = false, linkProps, nativeButtonProps, nativeSpanProps, style, onClick } = props, rest = __rest(props, ["id", "className", "children", "title", "iconId", "small", "pressed", "dismissible", "linkProps", "nativeButtonProps", "nativeSpanProps", "style", "onClick"]);

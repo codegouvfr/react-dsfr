@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-quote> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-quote> */
 export const Quote = memo(forwardRef((props, ref) => {
     const { id: id_props, className, text, author, source, sourceUrl, imageUrl, size = "xlarge", accentColor, classes = {}, style } = props, rest = __rest(props, ["id", "className", "text", "author", "source", "sourceUrl", "imageUrl", "size", "accentColor", "classes", "style"]);
     assert();

@@ -17,6 +17,6 @@ export declare namespace CallOutProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
     export {};
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-callout> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-callout> */
 export declare const CallOut: React.MemoExoticComponent<React.ForwardRefExoticComponent<CallOutProps & React.RefAttributes<HTMLDivElement>>>;
 export default CallOut;

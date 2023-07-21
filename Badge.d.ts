@@ -9,6 +9,6 @@ export type BadgeProps = {
     noIcon?: boolean;
     children: NonNullable<ReactNode>;
 };
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-badge> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-badge> */
 export declare const Badge: React.MemoExoticComponent<React.ForwardRefExoticComponent<BadgeProps & React.RefAttributes<HTMLDivElement>>>;
 export default Badge;

@@ -16,7 +16,7 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-tile> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tile> */
 export const Tile = memo(forwardRef((props, ref) => {
     const { id: id_props, className, title, linkProps, desc, imageUrl, imageAlt, imageWidth, imageHeight, horizontal = false, grey = false, classes = {}, enlargeLink = true, style } = props, rest = __rest(props, ["id", "className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "horizontal", "grey", "classes", "enlargeLink", "style"]);
     assert();

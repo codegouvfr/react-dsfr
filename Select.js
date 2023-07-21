@@ -17,7 +17,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
 export const Select = memo(forwardRef((props, ref) => {
     const { id: id_props, className, label, hint, nativeSelectProps, disabled = false, children, state = "default", stateRelatedMessage, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "children", "state", "stateRelatedMessage", "style"]);

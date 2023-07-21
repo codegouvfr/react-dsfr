@@ -15,7 +15,7 @@ import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { ToggleSwitch } from "./ToggleSwitch";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitchgroup> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-toggleswitchgroup> */
 export const ToggleSwitchGroup = memo(props => {
     const { id: id_props, className, toggles, showCheckedHint = true, labelPosition = "right", classes = {}, style } = props, rest = __rest(props, ["id", "className", "toggles", "showCheckedHint", "labelPosition", "classes", "style"]);
     assert();

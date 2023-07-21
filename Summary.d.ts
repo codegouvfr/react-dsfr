@@ -13,7 +13,7 @@ export type SummaryProps = {
     classes?: Partial<Record<"root" | "title" | "link", string>>;
     style?: CSSProperties;
 };
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-summary> */
 export declare const Summary: React.MemoExoticComponent<React.ForwardRefExoticComponent<SummaryProps & React.RefAttributes<HTMLDivElement>>>;
 declare const addSummaryTranslations: (params: {
     lang: string;

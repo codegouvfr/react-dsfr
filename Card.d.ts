@@ -42,6 +42,6 @@ export declare namespace CardProps {
         iconId?: never;
     };
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-card> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
 export declare const Card: React.MemoExoticComponent<React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>>>;
 export default Card;

@@ -93,7 +93,7 @@ export declare namespace FooterProps {
         };
     }
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-footer> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-footer> */
 export declare const Footer: React.MemoExoticComponent<React.ForwardRefExoticComponent<FooterProps & React.RefAttributes<HTMLDivElement>>>;
 export default Footer;
 declare const addFooterTranslations: (params: {

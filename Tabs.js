@@ -17,7 +17,7 @@ import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-tabs> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tabs> */
 export const Tabs = memo(forwardRef((props, ref) => {
     const { id: id_props, className, label, classes = {}, tabs, selectedTabId, onTabChange, children, style } = props, rest = __rest(props, ["id", "className", "label", "classes", "tabs", "selectedTabId", "onTabChange", "children", "style"]);
     assert();

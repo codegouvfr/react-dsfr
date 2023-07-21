@@ -59,7 +59,7 @@ export declare namespace HeaderProps {
     }
 }
 export declare const headerMenuModalIdPrefix = "header-menu-modal";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-header> */
 export declare const Header: React.MemoExoticComponent<React.ForwardRefExoticComponent<HeaderProps & React.RefAttributes<HTMLDivElement>>>;
 export default Header;
 export declare const useTranslation: () => {

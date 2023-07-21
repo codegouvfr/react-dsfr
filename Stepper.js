@@ -16,7 +16,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-stepper> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-stepper> */
 export const Stepper = memo(forwardRef((props, ref) => {
     const { id: id_props, className, currentStep, stepCount, title, nextTitle, classes = {}, style } = props, rest = __rest(props, ["id", "className", "currentStep", "stepCount", "title", "nextTitle", "classes", "style"]);
     assert();

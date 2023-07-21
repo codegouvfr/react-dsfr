@@ -19,7 +19,7 @@ import { createComponentI18nApi } from "./i18n";
 import { getBrandTopAndHomeLinkProps } from "./zz_internal/brandTopAndHomeLinkProps";
 import { typeGuard } from "tsafe/typeGuard";
 import { id } from "tsafe/id";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-footer> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
     const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
     assert();

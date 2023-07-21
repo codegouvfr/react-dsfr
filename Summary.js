@@ -18,7 +18,7 @@ import { fr } from "./fr";
 import { getLink } from "./link";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import { generateValidHtmlId } from "./tools/generateValidHtmlId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-summary> */
 export const Summary = memo(forwardRef((props, ref) => {
     const { className, links, as = "p", title, classes = {}, style, id: id_props } = props, rest = __rest(props, ["className", "links", "as", "title", "classes", "style", "id"]);
     const { t } = useTranslation();

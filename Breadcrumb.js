@@ -17,7 +17,7 @@ import { createComponentI18nApi } from "./i18n";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-breadcrumb> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-breadcrumb> */
 export const Breadcrumb = memo(forwardRef((props, ref) => {
     const { id: props_id, className, homeLinkProps, segments, currentPageLabel, classes = {}, style } = props, rest = __rest(props, ["id", "className", "homeLinkProps", "segments", "currentPageLabel", "classes", "style"]);
     assert();

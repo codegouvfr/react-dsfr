@@ -16,7 +16,7 @@ import { Button } from "./Button";
 import { cx } from "./tools/cx";
 import { fr } from "./fr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-callout> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-callout> */
 export const CallOut = memo(forwardRef((props, ref) => {
     const { id: props_id, className, iconId, title, buttonProps, colorVariant, classes = {}, children, style } = props, rest = __rest(props, ["id", "className", "iconId", "title", "buttonProps", "colorVariant", "classes", "children", "style"]);
     assert();

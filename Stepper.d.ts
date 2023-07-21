@@ -9,7 +9,7 @@ export type StepperProps = {
     classes?: Partial<Record<"root" | "title" | "state" | "steps" | "details", string>>;
     style?: CSSProperties;
 };
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-stepper> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-stepper> */
 export declare const Stepper: React.MemoExoticComponent<React.ForwardRefExoticComponent<StepperProps & React.RefAttributes<HTMLDivElement>>>;
 declare const addStepperTranslations: (params: {
     lang: string;

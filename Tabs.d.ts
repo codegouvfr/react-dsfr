@@ -34,6 +34,6 @@ export declare namespace TabsProps {
         children: ReactNode;
     };
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-tabs> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tabs> */
 export declare const Tabs: React.MemoExoticComponent<React.ForwardRefExoticComponent<TabsProps & React.RefAttributes<HTMLDivElement>>>;
 export default Tabs;

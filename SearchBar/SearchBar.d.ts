@@ -23,7 +23,7 @@ export type SearchBarProps = {
     onButtonClick?: (text: string) => void;
 };
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-input>
  * */
 export declare const SearchBar: React.MemoExoticComponent<React.ForwardRefExoticComponent<SearchBarProps & React.RefAttributes<HTMLDivElement>>>;
 export default SearchBar;

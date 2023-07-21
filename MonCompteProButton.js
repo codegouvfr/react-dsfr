@@ -16,7 +16,7 @@ import { fr } from "./fr";
 import { assert } from "tsafe/assert";
 import { cx } from "./tools/cx";
 import "./assets/moncomptepro.css";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-franceconnectbutton> */
 export const MonCompteProButton = memo(forwardRef((props, ref) => {
     const { classes = {}, className, url: href, style, onClick, id: id_props } = props, rest = __rest(props, ["classes", "className", "url", "style", "onClick", "id"]);
     assert();

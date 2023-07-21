@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-badge> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-badge> */
 export const Badge = memo(forwardRef((props, ref) => {
     const { id: props_id, className, style, severity, small: isSmall = false, noIcon = false, children } = props, rest = __rest(props, ["id", "className", "style", "severity", "small", "noIcon", "children"]);
     assert();

@@ -24,7 +24,7 @@ import { SearchButton } from "../SearchBar/SearchButton";
 import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
 import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 export const headerMenuModalIdPrefix = "header-menu-modal";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-header> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
     const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
     assert();

@@ -90,7 +90,7 @@ addModalTranslations({
     }
 });
 export { addModalTranslations };
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-modal> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-modal> */
 export function createModal(params) {
     const { isOpenedByDefault, id } = params;
     const buttonProps = {

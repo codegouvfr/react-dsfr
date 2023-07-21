@@ -15,7 +15,7 @@ export type SelectProps = {
     style?: CSSProperties;
 };
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
 export declare const Select: React.MemoExoticComponent<React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLDivElement>>>;
 export default Select;

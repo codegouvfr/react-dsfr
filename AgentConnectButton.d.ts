@@ -17,7 +17,7 @@ export declare namespace AgentConnectButtonProps {
     };
     export {};
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-franceconnectbutton> */
 export declare const AgentConnectButton: React.MemoExoticComponent<React.ForwardRefExoticComponent<AgentConnectButtonProps & React.RefAttributes<HTMLDivElement>>>;
 export default AgentConnectButton;
 declare const addAgentConnectButtonTranslations: (params: {

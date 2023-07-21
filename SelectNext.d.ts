@@ -39,7 +39,7 @@ export declare namespace SelectProps {
     export {};
 }
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
 declare function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(props: SelectProps<T>, ref: React.LegacyRef<HTMLDivElement>): JSX.Element;
 export declare const Select: <T extends SelectProps.Option<string>[]>(props: SelectProps<T> & {

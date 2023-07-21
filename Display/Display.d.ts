@@ -1,7 +1,7 @@
 import type { HeaderProps } from "../Header";
 import type { FooterProps } from "../Footer";
 export declare const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button & FooterProps.BottomItem.Button;
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-display> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-display> */
 export declare function Display(): JSX.Element;
 export declare namespace Display {
     var displayName: "Display";

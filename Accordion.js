@@ -17,7 +17,7 @@ import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-accordion>  */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-accordion>  */
 export const Accordion = memo(forwardRef((props, ref) => {
     const { className, id: id_props, titleAs: HtmlTitleTag = "h3", label, classes = {}, style, children, expanded: expandedProp, defaultExpanded = false, onExpandedChange } = props, rest = __rest(props, ["className", "id", "titleAs", "label", "classes", "style", "children", "expanded", "defaultExpanded", "onExpandedChange"]);
     assert();

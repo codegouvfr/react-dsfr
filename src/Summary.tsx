@@ -24,7 +24,7 @@ export type SummaryProps = {
     style?: CSSProperties;
 };
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-summary> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-summary> */
 export const Summary = memo(
     forwardRef<HTMLDivElement, SummaryProps>((props, ref) => {
         const {

@@ -34,7 +34,7 @@ export declare namespace InputProps {
     };
 }
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-input>
  * */
 export declare const Input: React.MemoExoticComponent<React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLDivElement>>>;
 export default Input;

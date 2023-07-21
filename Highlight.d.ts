@@ -10,6 +10,6 @@ export type HighlightProps = {
 export declare namespace HighlightProps {
     type Size = "sm" | "lg";
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-highlight> */
 export declare const Highlight: React.MemoExoticComponent<React.ForwardRefExoticComponent<HighlightProps & React.RefAttributes<HTMLDivElement>>>;
 export default Highlight;

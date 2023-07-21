@@ -33,7 +33,7 @@ declare const addModalTranslations: (params: {
     }>;
 }) => void;
 export { addModalTranslations };
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-modal> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-modal> */
 export declare function createModal(params: {
     isOpenedByDefault: boolean;
     id: string;

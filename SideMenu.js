@@ -16,7 +16,7 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-sidemenu> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-sidemenu> */
 export const SideMenu = memo(forwardRef((props, ref) => {
     const { id: id_props, title, items, style, sticky, className, fullHeight, classes = {}, align = "left", burgerMenuButtonText } = props, rest = __rest(props, ["id", "title", "items", "style", "sticky", "className", "fullHeight", "classes", "align", "burgerMenuButtonText"]);
     assert();

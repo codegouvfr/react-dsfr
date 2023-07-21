@@ -19,7 +19,7 @@ import { SearchButton } from "./SearchButton";
 import { useAnalyticsId } from "../tools/useAnalyticsId";
 import "../assets/search-bar.css";
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-input>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-input>
  * */
 export const SearchBar = memo(forwardRef((props, ref) => {
     const { className, id: id_props, label: label_props, big = false, classes = {}, style, renderInput = ({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type })), onButtonClick } = props, rest = __rest(props, ["className", "id", "label", "big", "classes", "style", "renderInput", "onButtonClick"]);

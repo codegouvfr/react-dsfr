@@ -18,7 +18,7 @@ import { assert } from "tsafe/assert";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-notice> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
 export const Notice = memo(forwardRef((props, ref) => {
     const { id: id_props, className, classes = {}, title, isClosable = false, isClosed: props_isClosed, onClose, style } = props, rest = __rest(props, ["id", "className", "classes", "title", "isClosable", "isClosed", "onClose", "style"]);
     assert();

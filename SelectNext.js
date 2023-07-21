@@ -18,7 +18,7 @@ import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /**
- * @see <https://components.react-dsfr.fr/?path=/docs/components-select>
+ * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
 function NonMemoizedNonForwardedSelect(props, ref) {
     const { id: id_props, className, label, hint, nativeSelectProps, disabled = false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);

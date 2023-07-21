@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-highlight> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-highlight> */
 export const Highlight = memo(forwardRef((props, ref) => {
     const { className, classes = {}, style, children, size, id: id_props } = props, rest = __rest(props, ["className", "classes", "style", "children", "size", "id"]);
     assert();

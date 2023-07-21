@@ -18,7 +18,7 @@ export declare namespace FranceConnectButtonProps {
     };
     export {};
 }
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-franceconnectbutton> */
 export declare const MonCompteProButton: React.MemoExoticComponent<React.ForwardRefExoticComponent<FranceConnectButtonProps & React.RefAttributes<HTMLDivElement>>>;
 export default MonCompteProButton;
 declare const addMonCompteProButtonTranslations: (params: {
