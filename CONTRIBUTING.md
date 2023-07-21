@@ -3,7 +3,7 @@
 Would you help us implement [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)?  
 Thank you so much to anyone that would!
 
-To get you started you can check out [the `<Alert />` component](https://components.react-dsfr.fr/?path=/docs/components-alert--default).
+To get you started you can check out [the `<Alert />` component](https://components.react-dsfr.codegouv.studio/?path=/docs/components-alert--default).
 
 -   Here is it's definition from the SIG: [systeme-de-design.gouv.fr/elements-d-interface/composants/alerte](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/alerte) (Pro tip: the real source of truth for DSFR component is [here](https://main--ds-gouv.netlify.app/example/component/))
 -   Here is its implementation [src/Alert.tsx](https://github.com/codegouvfr/react-dsfr/blob/main/src/Alert.tsx)
@@ -19,7 +19,7 @@ A few things:
 -   📣 Let everyone know what component you are working on by [oppening an issue](https://github.com/codegouvfr/react-dsfr/issues).
 -   📚 You can draw inspiration from [`dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr/tree/master/src/components/interface) and the implementation of [france connect](https://github.com/france-connect/sources/tree/main/front/libs/dsfr).
 -   🔗 Use the component returned by `getLink()` instead of `<a />`. [Example in the `<Header />` component](https://github.com/codegouvfr/react-dsfr/blob/bbaf4a81d78de08d6fdcb059a9f4cb8a78ce4d5a/src/Header.tsx#L84-L87). We want to [play nice with all routing libraries](https://guides.react-dsfr.fr/integration-with-routing-libraries).
--   🕹️ When it's relevant, try to enable components to be used either in controlled or uncontrolled mode. [Example with <Tabs />](https://components.react-dsfr.fr/?path=/docs/components-tabs--default).
+-   🕹️ When it's relevant, try to enable components to be used either in controlled or uncontrolled mode. [Example with <Tabs />](https://components.react-dsfr.codegouv.studio/?path=/docs/components-tabs--default).
 -   🌎 Avoid hard coding text in JSX, use [the i18n mechanism](https://guides.react-dsfr.fr/i18n) instead. [Here is an example](https://github.com/codegouvfr/react-dsfr/blob/bbaf4a81d78de08d6fdcb059a9f4cb8a78ce4d5a/src/DarkModeSwitch.tsx#L162-L199). (Don't worry about providing translations other than French.)
 -   🍳 If you have to arbitrate between ease of use and customisability I'd encourage you to favor ease of use. People that would need a greater level of customizability can always fall back to making their own wrapper from the reference documentation using [`fr.cx()`](https://guides.react-dsfr.fr/cx).
 

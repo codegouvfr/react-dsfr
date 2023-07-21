@@ -29,7 +29,7 @@ export namespace FranceConnectButtonProps {
     };
 }
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-franceconnectbutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-franceconnectbutton> */
 export const FranceConnectButton = memo(
     forwardRef<HTMLDivElement, FranceConnectButtonProps>((props, ref) => {
         const {

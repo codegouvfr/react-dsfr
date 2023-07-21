@@ -75,7 +75,7 @@ export namespace ButtonProps {
     };
 }
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-button> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-button> */
 export const Button = memo(
     forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>((props, ref) => {
         const {

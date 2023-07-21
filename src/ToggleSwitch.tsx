@@ -43,7 +43,7 @@ export namespace ToggleSwitchProps {
     };
 }
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-toggleswitch> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-toggleswitch> */
 export const ToggleSwitch = memo(
     forwardRef<HTMLDivElement, ToggleSwitchProps>((props, ref) => {
         const {

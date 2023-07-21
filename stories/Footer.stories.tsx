@@ -54,7 +54,7 @@ const { meta, getStory } = getStoryFactory({
         },
         "bottomItems": {
             "description":
-                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://components.react-dsfr.fr/?path=/docs/components-display)"
+                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display)"
         },
         "license": {
             "description":

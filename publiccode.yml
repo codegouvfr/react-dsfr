@@ -5,7 +5,7 @@
 publiccodeYmlVersion: '0.2'
 name: '@codegouvfr/react-dsfr'
 url: 'https://github.com/codegouvfr/react-dsfr'
-landingURL: 'https://components.react-dsfr.fr/'
+landingURL: 'https://components.react-dsfr.codegouv.studio/'
 releaseDate: '2022-10-05'
 developmentStatus: beta
 softwareVersion: 0.21.4

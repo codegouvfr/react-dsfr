@@ -14,7 +14,7 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Header.tsx)  
   
-See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-mainnavigation)  
+See also [\\<MainNavigation \\/\\>](https://components.react-dsfr.codegouv.studio/?path=/docs/components-mainnavigation)  
   
 *NOTE*: On small screens (mobile), you can click on the burger menu to open the menu modal.
 You can watch if the menu modal is open or not with the \`useIsHeaderMenuModalOpen\` hook.  
@@ -44,7 +44,7 @@ const isOpen = useIsHeaderMenuModalOpen();
         },
         "quickAccessItems": {
             "description":
-                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://components.react-dsfr.fr/?path=/docs/components-display)"
+                "To integrate the Dark mode switch head over to the documentation of the [Display component](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display)"
         }
     },
     "disabledProps": ["lang"]
@@ -158,7 +158,7 @@ export const HeaderWithQuickAccessItems = getStory(
         ]
     },
     {
-        "description": `See [\\<Display \\/\\>](https://components.react-dsfr.fr/?path=/docs/components-display) for instructions on how to integrate the Dark mode switch.  
+        "description": `See [\\<Display \\/\\>](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display) for instructions on how to integrate the Dark mode switch.  
 
 Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
 component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 

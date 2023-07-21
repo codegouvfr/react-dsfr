@@ -4,7 +4,7 @@ import { Fieldset, type FieldsetProps } from "./shared/Fieldset";
 
 export type RadioButtonsProps = FieldsetProps.Common & { name?: string };
 
-/** @see <https://components.react-dsfr.fr/?path=/docs/components-radiobutton> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-radiobutton> */
 export const RadioButtons = memo(
     forwardRef<HTMLFieldSetElement, RadioButtonsProps>((props, ref) => (
         <Fieldset ref={ref} type="radio" {...props} />

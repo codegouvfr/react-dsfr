@@ -19,7 +19,7 @@
     </a>
 </p>
 <p align="center">
-  <a href="https://components.react-dsfr.fr">Documentation des composants</a>
+  <a href="https://components.react-dsfr.codegouv.studio">Documentation des composants</a>
   -
   <a href="https://react-dsfr.codegouv.studio">guides</a>
   -
@@ -48,7 +48,7 @@ DSFR en pur JavaScript/CSS.
 -   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
 -   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://guides.react-dsfr.fr/) si votre
         framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://components.react-dsfr.fr/).
+-   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://components.react-dsfr.codegouv.studio/).
 -   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
 -   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
          Voir la [documentation](https://guides.react-dsfr.fr/mui-integration).
