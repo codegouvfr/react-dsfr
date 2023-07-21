@@ -21,7 +21,7 @@
 <p align="center">
   <a href="https://components.react-dsfr.fr">Documentation des composants</a>
   -
-  <a href="https://guides.react-dsfr.fr/">guides</a>
+  <a href="https://react-dsfr.codegouv.studio">guides</a>
   -
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essai immédiat</a>
 </p>

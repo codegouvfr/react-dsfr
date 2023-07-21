@@ -21,7 +21,7 @@
 <p align="center">
   <a href="https://components.react-dsfr.fr">Components documentation</a>
   -
-  <a href="https://guides.react-dsfr.fr/">Guides</a>
+  <a href="https://react-dsfr.codegouv.studio">Guides</a>
   -
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
