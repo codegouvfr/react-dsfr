@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { join as pathJoin, relative as pathRelative, sep as pathSep } from "path";
+import {
+    join as pathJoin,
+    relative as pathRelative,
+    sep as pathSep,
+    resolve as pathResolve
+} from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import { assert } from "tsafe/assert";
@@ -130,13 +135,35 @@ import type { Equals } from "tsafe";
         fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
     }
 
-    fs.cpSync(
-        pathJoin(projectDirPath, "node_modules", "@codegouvfr", "react-dsfr", "dsfr"),
-        dsfrDirPath,
-        {
-            "recursive": true
+    (function callee(depth: number) {
+        const parentProjectDirPath = pathResolve(
+            pathJoin(...[projectDirPath, ...new Array(depth).fill("..")])
+        );
+
+        const dsfrDirPathInNodeModules = pathJoin(
+            ...[parentProjectDirPath, "node_modules", "@codegouvfr", "react-dsfr", "dsfr"]
+        );
+
+        if (!fs.existsSync(dsfrDirPathInNodeModules)) {
+            if (parentProjectDirPath === "/") {
+                console.error(
+                    [
+                        "Can't find dsfr directory",
+                        `please submit an issue about it here ${getRepoIssueUrl()}`
+                    ].join(" ")
+                );
+                process.exit(-1);
+            }
+
+            callee(depth + 1);
+
+            return;
         }
-    );
+
+        fs.cpSync(dsfrDirPathInNodeModules, dsfrDirPath, {
+            "recursive": true
+        });
+    })(0);
 })();
 
 function getRepoIssueUrl() {
