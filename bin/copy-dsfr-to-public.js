@@ -98,6 +98,15 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = require("path");
 var fs = __importStar(require("fs"));
@@ -210,9 +219,24 @@ var assert_1 = require("tsafe/assert");
                 if (fs.existsSync(dsfrDirPath)) {
                     fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
                 }
-                fs.cpSync((0, path_1.join)(projectDirPath, "node_modules", "@codegouvfr", "react-dsfr", "dsfr"), dsfrDirPath, {
-                    "recursive": true
-                });
+                (function callee(depth) {
+                    var parentProjectDirPath = (0, path_1.resolve)(path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray([projectDirPath], __read(new Array(depth).fill("..")), false)), false)));
+                    var dsfrDirPathInNodeModules = path_1.join.apply(void 0, [parentProjectDirPath, "node_modules", "@codegouvfr", "react-dsfr", "dsfr"]);
+                    if (!fs.existsSync(dsfrDirPathInNodeModules)) {
+                        if (parentProjectDirPath === "/") {
+                            console.error([
+                                "Can't find dsfr directory",
+                                "please submit an issue about it here ".concat(getRepoIssueUrl())
+                            ].join(" "));
+                            process.exit(-1);
+                        }
+                        callee(depth + 1);
+                        return;
+                    }
+                    fs.cpSync(dsfrDirPathInNodeModules, dsfrDirPath, {
+                        "recursive": true
+                    });
+                })(0);
                 return [2 /*return*/];
         }
     });
