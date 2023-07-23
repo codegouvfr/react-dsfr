@@ -2,7 +2,7 @@
 
 The components are documented individually on a separate website.
 
-{% embed url="https://components.react-dsfr.fr/?path=/story/%F0%9F%87%AB%F0%9F%87%B7-introduction--page" %}
+{% embed url="https://components.react-dsfr.codegouv.studio/?path=/story/%F0%9F%87%AB%F0%9F%87%B7-introduction--page" %}
 
 ### Customization
 
