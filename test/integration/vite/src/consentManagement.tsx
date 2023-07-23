@@ -1,13 +1,13 @@
 "use client";
 
-import { createGdprApi } from "@codegouvfr/react-dsfr/gdpr";
+import { createConsentManagement } from "@codegouvfr/react-dsfr/consentManagement";
 
 export const { 
     ConsentBannerAndConsentManagement, 
-    useGdpr, 
     FooterConsentManagementItem, 
-    FooterPersonalDataPolicyItem 
-} = createGdprApi({
+    FooterPersonalDataPolicyItem,
+    useConsent
+} = createConsentManagement({
     "finalityDescription": ({ lang }) => ({
         "advertising": {
             "title": "Publicité",
@@ -31,16 +31,15 @@ export const {
         }
     }),
     "personalDataPolicyLinkProps": {
-        "to": "#",
-        "onClick": ()=> {
-            alert("Navigate or display your data policy");
-        }
+        "to": "/politique-de-confidentialite",
     },
     "consentCallback": async ({ finalityConsent, finalityConsent_prev })=> {
-        console.log("callback from gdpr hook", { finalityConsent, finalityConsent_prev });
+
+        if( finalityConsent_prev === undefined && !finalityConsent.isFullConsent ){
+            location.reload();
+            await new Promise(()=> {/*never*/});
+        }
+
+        console.log("callback from gdpr hook");
     }
 });
-
-
-
-

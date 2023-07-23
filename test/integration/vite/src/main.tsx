@@ -10,7 +10,7 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { GlobalStyles } from "tss-react";
 import { fr } from "@codegouvfr/react-dsfr";
-import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./gdpr";
+import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./consentManagement";
 
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
