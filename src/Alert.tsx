@@ -108,6 +108,7 @@ export const Alert = memo(
 
         const refShouldButtonGetFocus = useRef(false);
         const refShouldSetRole = useRef(false);
+        const DescriptionTag = typeof description === "string" ? "p" : "div";
 
         useEffect(() => {
             if (props_isClosed === undefined) {
@@ -172,7 +173,7 @@ export const Alert = memo(
                         {title}
                     </HtmlTitleTag>
                 )}
-                <p className={classes.description}>{description}</p>
+                <DescriptionTag className={classes.description}>{description}</DescriptionTag>
                 {isClosable && (
                     <button
                         ref={setButtonElement}
