@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "0.73.0",
+  "version": "0.72.4",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
