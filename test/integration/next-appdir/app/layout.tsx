@@ -23,14 +23,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 	const lang = "fr";
 
 	return (
-		<html
-			{...getHtmlAttributes({ defaultColorScheme, lang })}
-			//NOTE: Scrollbar always visible to avoid layout shift when modal are opened
-			style={{
-				"overflow": "-moz-scrollbars-vertical",
-				"overflowY": "scroll"
-			}}
-		>
+		<html {...getHtmlAttributes({ defaultColorScheme, lang })} >
 			<head>
 				<title>Next 13 AppDir Demo DSFR setup</title>
 				<StartDsfr />

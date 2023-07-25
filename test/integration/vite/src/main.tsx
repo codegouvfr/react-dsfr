@@ -8,7 +8,6 @@ import { Footer } from "@codegouvfr/react-dsfr/Footer";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
-import { GlobalStyles } from "tss-react";
 import { fr } from "@codegouvfr/react-dsfr";
 import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./consentManagement";
 
@@ -23,15 +22,6 @@ declare module "@codegouvfr/react-dsfr/spa" {
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <GlobalStyles
-            styles={{
-                "html": {
-                    //NOTE: Always show scrollbar to avoid layout shift when modals are opened
-                    "overflow": "-moz-scrollbars-vertical",
-                    "overflowY": "scroll"
-                }
-            }}
-        />
         <BrowserRouter>
             <Root />
         </BrowserRouter>
