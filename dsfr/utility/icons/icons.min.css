@@ -1,3 +1,15 @@
+.fr-icon-checkbox-circle-line::before,
+.fr-icon-checkbox-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
+    mask-image: url("../../icons/system/checkbox-circle-line.svg");
+}
+
+.ri-ancient-gate-fill::before,
+.ri-ancient-gate-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+}
+
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -14,18 +26,6 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
-.fr-icon-checkbox-circle-line::before,
-.fr-icon-checkbox-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
-    mask-image: url("../../icons/system/checkbox-circle-line.svg");
-}
-
-.ri-ancient-gate-fill::before,
-.ri-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
 .ri-information-line::before,
@@ -118,18 +118,6 @@
     mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
-.ri-calendar-line::before,
-.ri-calendar-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/calendar-line.svg");
-    mask-image: url("../../icons/remixicon/calendar-line.svg");
-}
-
-.fr-icon-theme-fill::before,
-.fr-icon-theme-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
-    mask-image: url("../../icons/system/fr--theme-fill.svg");
-}
-
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -142,7 +130,29 @@
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
 }
 
+.ri-calendar-line::before,
+.ri-calendar-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/calendar-line.svg");
+    mask-image: url("../../icons/remixicon/calendar-line.svg");
+}
+
+.fr-icon-theme-fill::before,
+.fr-icon-theme-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
+    mask-image: url("../../icons/system/fr--theme-fill.svg");
+}
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .fr-icon-checkbox-circle-line::before,
+    .fr-icon-checkbox-circle-line::after {
+        background-image: url("../../icons/system/checkbox-circle-line.svg");
+    }
+    
+    .ri-ancient-gate-fill::before,
+    .ri-ancient-gate-fill::after {
+        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    }
+    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -156,16 +166,6 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
-    }
-    
-    .fr-icon-checkbox-circle-line::before,
-    .fr-icon-checkbox-circle-line::after {
-        background-image: url("../../icons/system/checkbox-circle-line.svg");
-    }
-    
-    .ri-ancient-gate-fill::before,
-    .ri-ancient-gate-fill::after {
-        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
     .ri-information-line::before,
@@ -243,16 +243,6 @@
         background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
-    .ri-calendar-line::before,
-    .ri-calendar-line::after {
-        background-image: url("../../icons/remixicon/calendar-line.svg");
-    }
-    
-    .fr-icon-theme-fill::before,
-    .fr-icon-theme-fill::after {
-        background-image: url("../../icons/system/fr--theme-fill.svg");
-    }
-    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -261,6 +251,16 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-calendar-line::before,
+    .ri-calendar-line::after {
+        background-image: url("../../icons/remixicon/calendar-line.svg");
+    }
+    
+    .fr-icon-theme-fill::before,
+    .fr-icon-theme-fill::after {
+        background-image: url("../../icons/system/fr--theme-fill.svg");
     }
     
 }

@@ -181,15 +181,15 @@ export const Fieldset = memo(
                                 }
                             })()}
                             className={fr.cx(
+                                "fr-message",
                                 (() => {
                                     switch (state) {
                                         case "error":
-                                            return "fr-error-text";
+                                            return "fr-message--error";
                                         case "success":
-                                            return "fr-valid-text";
+                                            return "fr-message--valid";
                                     }
-                                })(),
-                                "fr-message"
+                                })()
                             )}
                         >
                             {stateRelatedMessage}

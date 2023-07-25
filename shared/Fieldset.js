@@ -57,14 +57,14 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                     case "success":
                         return successDescId;
                 }
-            })(), className: fr.cx((() => {
+            })(), className: fr.cx("fr-message", (() => {
                 switch (state) {
                     case "error":
-                        return "fr-error-text";
+                        return "fr-message--error";
                     case "success":
-                        return "fr-valid-text";
+                        return "fr-message--valid";
                 }
-            })(), "fr-message") }, stateRelatedMessage)))));
+            })()) }, stateRelatedMessage)))));
 }));
 Fieldset.displayName = symToStr({ Fieldset });
 export default Fieldset;
