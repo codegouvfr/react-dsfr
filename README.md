@@ -124,8 +124,7 @@ Despite the setup process not being as streamlined as one might hope due to cert
 
 ```bash
 # Adapt for npm, pnpm...
-yarn add --dev sass
-yarn add @emotion/server
+yarn add @emotion/server # Only if you plan on using MUI
 ```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
