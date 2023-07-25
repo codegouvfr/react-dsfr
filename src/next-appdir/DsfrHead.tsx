@@ -8,10 +8,7 @@ import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import { getDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
 import { setLink, type RegisteredLinkProps } from "../link";
-//NOTE: As of now there is no way to enforce ordering in Next Appdir
-//See: https://github.com/vercel/next.js/issues/16630
-// @import url(...) doesn't work. Using Sass and @use is our last resort.
-import "../assets/dsfr_plus_icons.scss";
+import "../assets/dsfr_plus_icons.css";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
