@@ -123,8 +123,8 @@ Starter project in prod here: [https://next-demo.react-dsfr.fr/](https://next-de
 Despite the setup process not being as streamlined as one might hope due to certain Next specific limitations, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
-# Adapt for npm, pnpm...
-yarn add @emotion/server # Only if you plan on using MUI
+# If you plan to use MUI:  
+yarn add @mui/material @emotion/react @emotion/server @emotion/styled @mui/material @emotion/react
 ```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
@@ -228,8 +228,8 @@ Starter project in prod here: [https://next-pages-router.react-dsfr.fr/](https:/
 {% endembed %}
 
 ```bash
-# Adapt for npm, pnpm...
-yarn add @emotion/server
+# If you plan to use MUI:  
+yarn add @mui/material @emotion/react @emotion/server @emotion/styled @mui/material @emotion/react
 ```
 
 <pre class="language-javascript" data-title="next.config.js"><code class="lang-javascript">/** @type {import('next').NextConfig} */
@@ -244,7 +244,10 @@ const nextConfig = {
 </strong><strong>    return config;
 </strong><strong>  },
 </strong><strong>  //This option requires Next 13.1 or newer, if you can't update you can use this plugin instead: https://github.com/martpie/next-transpile-modules
-</strong><strong>  transpilePackages: ["@codegouvfr/react-dsfr", "tss-react"]
+</strong><strong>  transpilePackages: [
+</strong><strong>      "@codegouvfr/react-dsfr", 
+</strong><strong>      "tss-react" // This is for MUI or if you use htts://tss-react.dev
+</strong><strong>  ]
 </strong>};
 
 module.exports = nextConfig
