@@ -123,24 +123,13 @@ export const Tabs = memo(
                     targetIndex = tabs.length - 1;
                     break;
             }
-            setSelectedTabIndex(targetIndex);
+            buttonRefs.current[targetIndex]?.click();
         };
 
         React.useEffect(() => {
             const targetTabButton = buttonRefs.current[selectedTabIndex];
             if (targetTabButton) {
                 targetTabButton.focus();
-            }
-        }, [selectedTabIndex]);
-
-        React.useEffect(() => {
-            if (selectedTabId === undefined) {
-                onTabChange?.({
-                    tabIndex: selectedTabIndex,
-                    "tab": tabs[selectedTabIndex]
-                });
-            } else {
-                onTabChange(tabs[selectedTabIndex].tabId);
             }
         }, [selectedTabIndex]);
 
