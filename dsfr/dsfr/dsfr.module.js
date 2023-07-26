@@ -1,4 +1,4 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 class LogLevel {
@@ -674,75 +674,16 @@ class Element$1 {
   }
 }
 
-const RootEmission = {
-  CLICK: ns.emission('root', 'click'),
-  KEYDOWN: ns.emission('root', 'keydown'),
-  KEYUP: ns.emission('root', 'keyup')
-};
-
-const KeyCodes = {
-  TAB: {
-    id: 'tab',
-    value: 9
-  },
-  ESCAPE: {
-    id: 'escape',
-    value: 27
-  },
-  END: {
-    id: 'end',
-    value: 35
-  },
-  HOME: {
-    id: 'home',
-    value: 36
-  },
-  LEFT: {
-    id: 'left',
-    value: 37
-  },
-  UP: {
-    id: 'up',
-    value: 38
-  },
-  RIGHT: {
-    id: 'right',
-    value: 39
-  },
-  DOWN: {
-    id: 'down',
-    value: 40
-  }
-};
-
-const getKeyCode = (keyCode) => Object.values(KeyCodes).filter(entry => entry.value === keyCode)[0];
-
 class Root extends Element$1 {
   constructor () {
     super(document.documentElement, 'root');
     this.node.setAttribute(ns.attr('js'), true);
-    this.listen();
-  }
-
-  listen () {
-    // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
-    document.documentElement.addEventListener('click', this.click.bind(this), { capture: true });
-    document.documentElement.addEventListener('keydown', this.keydown.bind(this), { capture: true });
-    document.documentElement.addEventListener('keyup', this.keyup.bind(this), { capture: true });
-  }
-
-  click (e) {
-    this.emit(RootEmission.CLICK, e.target);
-  }
-
-  keydown (e) {
-    this.emit(RootEmission.KEYDOWN, getKeyCode(e.keyCode));
-  }
-
-  keyup (e) {
-    this.emit(RootEmission.KEYUP, getKeyCode(e.keyCode));
   }
 }
+
+const RootSelector = {
+  ROOT: ':root'
+};
 
 class Stage extends Module {
   constructor () {
@@ -945,14 +886,9 @@ class ScrollLocker extends Module {
     if (!this._isLocked) {
       this._isLocked = true;
       this._scrollY = window.scrollY;
-      const scrollBarGap = window.innerWidth - document.documentElement.clientWidth;
+      if (this.isLegacy) document.body.style.top = this._scrollY * -1 + 'px';
+      else document.body.style.setProperty('--scroll-top', this._scrollY * -1 + 'px');
       document.documentElement.setAttribute(ns.attr('scrolling'), 'false');
-      document.body.style.top = `${-this._scrollY}px`;
-      this.behavior = getComputedStyle(document.documentElement).getPropertyValue('scroll-behavior');
-      if (this.behavior === 'smooth') document.documentElement.style.scrollBehavior = 'auto';
-      if (scrollBarGap > 0) {
-        document.documentElement.style.setProperty('--scrollbar-width', `${scrollBarGap}px`);
-      }
     }
   }
 
@@ -960,19 +896,9 @@ class ScrollLocker extends Module {
     if (this._isLocked) {
       this._isLocked = false;
       document.documentElement.removeAttribute(ns.attr('scrolling'));
-      document.body.style.top = '';
-      window.scrollTo(0, this._scrollY);
-      if (this.behavior === 'smooth') document.documentElement.style.removeProperty('scroll-behavior');
-      document.documentElement.style.removeProperty('--scrollbar-width');
-    }
-  }
-
-  move (value) {
-    if (this._isLocked) {
-      this._scrollY += value;
-      document.body.style.top = `${-this._scrollY}px`;
-    } else {
-      window.scrollTo(0, window.scrollY + value);
+      if (this.isLegacy) document.body.style.top = '';
+      else document.body.style.removeProperty('--scroll-top');
+      window.scroll(0, this._scrollY);
     }
   }
 }
@@ -1053,46 +979,6 @@ class MouseMove extends Module {
   }
 }
 
-class Hash extends Module {
-  constructor () {
-    super('hash');
-    this.handling = this.handle.bind(this);
-    this.getLocationHash();
-  }
-
-  activate () {
-    window.addEventListener('hashchange', this.handling);
-  }
-
-  deactivate () {
-    window.removeEventListener('hashchange', this.handling);
-  }
-
-  _sanitize (hash) {
-    if (hash.charAt(0) === '#') return hash.substring(1);
-    return hash;
-  }
-
-  set hash (value) {
-    const hash = this._sanitize(value);
-    if (this._hash !== hash) window.location.hash = hash;
-  }
-
-  get hash () {
-    return this._hash;
-  }
-
-  getLocationHash () {
-    const hash = window.location.hash;
-    this._hash = this._sanitize(hash);
-  }
-
-  handle (e) {
-    this.getLocationHash();
-    this.forEach((instance) => instance.handleHash(this._hash, e));
-  }
-}
-
 class Engine {
   constructor () {
     state.create(Register);
@@ -1103,7 +989,6 @@ class Engine {
     state.create(Load);
     state.create(FontSwap);
     state.create(MouseMove);
-    state.create(Hash);
 
     const registerModule = state.getModule('register');
     this.register = registerModule.register.bind(registerModule);
@@ -1188,20 +1073,6 @@ const queryActions = (element) => {
   return element.querySelectorAll(ACTIONS_SELECTOR);
 };
 
-let counter = 0;
-
-const uniqueId = (id) => {
-  if (!document.getElementById(id)) return id;
-  let element = true;
-  const base = id;
-  while (element) {
-    counter++;
-    id = `${base}-${counter}`;
-    element = document.getElementById(id);
-  }
-  return id;
-};
-
 const dom = {};
 
 dom.addClass = addClass;
@@ -1210,7 +1081,6 @@ dom.removeClass = removeClass;
 dom.queryParentSelector = queryParentSelector;
 dom.querySelectorAllArray = querySelectorAllArray;
 dom.queryActions = queryActions;
-dom.uniqueId = uniqueId;
 
 const supportLocalStorage = () => {
   try {
@@ -1420,12 +1290,7 @@ class Instance {
     this._isScrollLocked = false;
     this._isLoading = false;
     this._isSwappingFont = false;
-    this._isEnabled = true;
-    this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
-    this._hashes = [];
-    this._hash = '';
     this._keyListenerTypes = [];
     this._keys = [];
     this.handlingKey = this.handleKey.bind(this);
@@ -1457,45 +1322,12 @@ class Instance {
       render: () => scope.render(),
       resize: () => scope.resize()
     };
-
     const proxyAccessors = {
       get node () {
         return this.node;
-      },
-      get isEnabled () {
-        return scope.isEnabled;
-      },
-      set isEnabled (value) {
-        scope.isEnabled = value;
       }
     };
-
     return completeAssign(proxy, proxyAccessors);
-  }
-
-  log (...values) {
-    values.unshift(`${this.registration.instanceClassName} #${this.id} - `);
-    inspector.log.apply(inspector, values);
-  }
-
-  debug (...values) {
-    values.unshift(`${this.registration.instanceClassName} #${this.id} - `);
-    inspector.debug.apply(inspector, values);
-  }
-
-  info (...values) {
-    values.unshift(`${this.registration.instanceClassName} #${this.id} - `);
-    inspector.info.apply(inspector, values);
-  }
-
-  warn (...values) {
-    values.unshift(`${this.registration.instanceClassName} #${this.id} - `);
-    inspector.warn.apply(inspector, values);
-  }
-
-  error (...values) {
-    values.unshift(`${this.registration.instanceClassName} #${this.id} - `);
-    inspector.error.apply(inspector, values);
   }
 
   register (selector, InstanceClass) {
@@ -1513,7 +1345,6 @@ class Instance {
     this.node.dispatchEvent(event);
   }
 
-  // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
   listen (type, closure, options) {
     if (!this._listeners[type]) this._listeners[type] = [];
     const listeners = this._listeners[type];
@@ -1543,47 +1374,13 @@ class Instance {
     this._listeners[type] = listeners.filter(listener => removal.indexOf(listener) === -1);
   }
 
-  listenClick (options) {
-    this.listen('click', this.handlingClick, options);
-  }
-
-  unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
-  }
-
-  handleClick (e) {}
-
-  set hash (value) {
-    state.getModule('hash').hash = value;
-  }
-
-  get hash () {
-    return state.getModule('hash').hash;
-  }
-
-  listenHash (hash, add) {
-    if (this._hashes.length === 0) state.add('hash', this);
-    const action = new HashAction(hash, add);
-    this._hashes = this._hashes.filter(action => action.hash !== hash);
-    this._hashes.push(action);
-  }
-
-  unlistenHash (hash) {
-    this._hashes = this._hashes.filter(action => action.hash !== hash);
-    if (this._hashes.length === 0) state.remove('hash', this);
-  }
-
-  handleHash (hash, e) {
-    for (const action of this._hashes) action.handle(hash, e);
-  }
-
-  listenKey (keyCode, closure, preventDefault = false, stopPropagation = false, type = 'down') {
+  listenKey (code, closure, preventDefault = false, stopPropagation = false, type = 'down') {
     if (this._keyListenerTypes.indexOf(type) === -1) {
       this.listen(`key${type}`, this.handlingKey);
       this._keyListenerTypes.push(type);
     }
 
-    this._keys.push(new KeyAction(type, keyCode, closure, preventDefault, stopPropagation));
+    this._keys.push(new KeyAction(type, code, closure, preventDefault, stopPropagation));
   }
 
   unlistenKey (code, closure) {
@@ -1596,12 +1393,6 @@ class Instance {
 
   handleKey (e) {
     for (const key of this._keys) key.handle(e);
-  }
-
-  get isEnabled () { return this._isEnabled; }
-
-  set isEnabled (value) {
-    this._isEnabled = value;
   }
 
   get isRendering () { return this._isRendering; }
@@ -1711,23 +1502,10 @@ class Instance {
 
   mutate (attributeNames) {}
 
-  retrieveNodeId (node, append) {
-    if (node.id) return node.id;
-    const id = uniqueId(`${this.id}-${append}`);
-    this.warn(`add id '${id}' to ${append}`);
-    node.setAttribute('id', id);
-    return id;
-  }
-
-  get isDisposed () {
-    return this._isDisposed;
-  }
-
   _dispose () {
-    this.debug(`dispose instance of ${this.registration.instanceClassName} on element [${this.element.id}]`);
+    inspector.debug(`dispose instance of ${this.registration.instanceClassName} on element [${this.element.id}]`);
     this.removeAttribute(this.registration.attribute);
     this.unlisten();
-    this._hashes = null;
     this._keys = null;
     this.isRendering = false;
     this.isResizing = false;
@@ -1746,7 +1524,6 @@ class Instance {
     for (const registration of this._registrations) state.remove('register', registration);
     this._registrations = null;
     this.registration.remove(this);
-    this._isDisposed = true;
     this.dispose();
   }
 
@@ -1840,10 +1617,6 @@ class Instance {
     this.node.focus();
   }
 
-  blur () {
-    this.node.blur();
-  }
-
   focusClosest () {
     const closest = this._focusClosest(this.node.parentNode);
     if (closest) closest.focus();
@@ -1864,20 +1637,6 @@ class Instance {
     return this.node === document.activeElement;
   }
 
-  scrollIntoView () {
-    const rect = this.getRect();
-
-    const scroll = state.getModule('lock');
-
-    if (rect.top < 0) {
-      scroll.move(rect.top - 50);
-    }
-
-    if (rect.bottom > window.innerHeight) {
-      scroll.move(rect.bottom - window.innerHeight + 50);
-    }
-  }
-
   matches (selectors) {
     return this.node.matches(selectors);
   }
@@ -1895,10 +1654,7 @@ class Instance {
   }
 
   getRect () {
-    const rect = this.node.getBoundingClientRect();
-    rect.center = rect.left + rect.width * 0.5;
-    rect.middle = rect.top + rect.height * 0.5;
-    return rect;
+    return this.node.getBoundingClientRect();
   }
 
   get isLegacy () {
@@ -1907,10 +1663,10 @@ class Instance {
 }
 
 class KeyAction {
-  constructor (type, keyCode, closure, preventDefault, stopPropagation) {
+  constructor (type, code, closure, preventDefault, stopPropagation) {
     this.type = type;
     this.eventType = `key${type}`;
-    this.keyCode = keyCode;
+    this.code = code;
     this.closure = closure;
     this.preventDefault = preventDefault === true;
     this.stopPropagation = stopPropagation === true;
@@ -1918,7 +1674,7 @@ class KeyAction {
 
   handle (e) {
     if (e.type !== this.eventType) return;
-    if (e.keyCode === this.keyCode.value) {
+    if (e.keyCode === this.code) {
       this.closure(e);
       if (this.preventDefault) {
         e.preventDefault();
@@ -1967,16 +1723,16 @@ class Listener {
   }
 }
 
-class HashAction {
-  constructor (hash, add) {
-    this.hash = hash;
-    this.add = add;
-  }
-
-  handle (hash, e) {
-    if (this.hash === hash) this.add(e);
-  }
-}
+const KeyCodes = {
+  TAB: 9,
+  ESCAPE: 27,
+  END: 35,
+  HOME: 36,
+  LEFT: 37,
+  UP: 38,
+  RIGHT: 39,
+  DOWN: 40
+};
 
 const DisclosureEvent = {
   DISCLOSE: ns.event('disclose'),
@@ -1986,11 +1742,9 @@ const DisclosureEvent = {
 const DisclosureEmission = {
   RESET: ns.emission('disclosure', 'reset'),
   ADDED: ns.emission('disclosure', 'added'),
-  RETRIEVE: ns.emission('disclosure', 'retrieve'),
   REMOVED: ns.emission('disclosure', 'removed'),
   GROUP: ns.emission('disclosure', 'group'),
-  UNGROUP: ns.emission('disclosure', 'ungroup'),
-  SPOTLIGHT: ns.emission('disclosure', 'spotlight')
+  UNGROUP: ns.emission('disclosure', 'ungroup')
 };
 
 class Disclosure extends Instance {
@@ -2001,10 +1755,7 @@ class Disclosure extends Instance {
     this.DisclosureButtonInstanceClass = DisclosureButtonInstanceClass;
     this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
     this.modifier = this._selector + '--' + this.type.id;
-    this._isPristine = true;
-    this._isRetrievingPrimaries = false;
-    this._hasRetrieved = false;
-    this._primaryButtons = [];
+    this.pristine = true;
   }
 
   static get instanceClassName () {
@@ -2015,24 +1766,9 @@ class Disclosure extends Instance {
     this.addDescent(DisclosureEmission.RESET, this.reset.bind(this));
     this.addDescent(DisclosureEmission.GROUP, this.update.bind(this));
     this.addDescent(DisclosureEmission.UNGROUP, this.update.bind(this));
-    this.addAscent(DisclosureEmission.SPOTLIGHT, this.disclose.bind(this));
     this.register(`[aria-controls="${this.id}"]`, this.DisclosureButtonInstanceClass);
     this.ascend(DisclosureEmission.ADDED);
-    this.listenHash(this.id, this._spotlight.bind(this));
     this.update();
-  }
-
-  get isEnabled () { return super.isEnabled; }
-
-  set isEnabled (value) {
-    if (this.isEnabled === value) return;
-    super.isEnabled = value;
-    if (value) this.ascend(DisclosureEmission.ADDED);
-    else this.ascend(DisclosureEmission.REMOVED);
-  }
-
-  get isPristine () {
-    return this._isPristine;
   }
 
   get proxy () {
@@ -2051,9 +1787,6 @@ class Disclosure extends Instance {
       get group () {
         const group = scope.group;
         return group ? group.proxy : null;
-      },
-      get isDisclosed () {
-        return scope.isDisclosed;
       }
     };
 
@@ -2066,7 +1799,6 @@ class Disclosure extends Instance {
 
   update () {
     this.getGroup();
-    this.retrievePrimaries();
   }
 
   getGroup () {
@@ -2089,53 +1821,46 @@ class Disclosure extends Instance {
   }
 
   disclose (withhold) {
-    if (this.isDisclosed === true || !this.isEnabled) return false;
-    this._isPristine = false;
-    this.isDisclosed = true;
+    if (this.disclosed) return false;
+    this.pristine = false;
+    this.disclosed = true;
     if (!withhold && this.group) this.group.current = this;
     return true;
   }
 
-  conceal (withhold, preventFocus = true) {
-    if (this.isDisclosed === false) return false;
+  conceal (withhold, preventFocus) {
+    if (!this.disclosed) return false;
     if (!this.type.canConceal && this.group && this.group.current === this) return false;
-    this.isDisclosed = false;
+    this.pristine = false;
+    this.disclosed = false;
     if (!withhold && this.group && this.group.current === this) this.group.current = null;
     if (!preventFocus) this.focus();
-    if (!this._isPristine) this.descend(DisclosureEmission.RESET);
+    this.descend(DisclosureEmission.RESET);
     return true;
   }
 
-  get isDisclosed () {
-    return this._isDisclosed;
+  get disclosed () {
+    return this._disclosed;
   }
 
-  set isDisclosed (value) {
-    if (this._isDisclosed === value || (!this.isEnabled && value === true)) return;
+  set disclosed (value) {
+    if (this._disclosed === value) return;
     this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this.type);
-    this._isDisclosed = value;
+    this._disclosed = value;
     if (value) this.addClass(this.modifier);
     else this.removeClass(this.modifier);
     for (let i = 0; i < this.buttons.length; i++) this.buttons[i].apply(value);
   }
 
-  get isInitiallyDisclosed () {
-    return this.primaryButtons.some(button => button.isInitiallyDisclosed);
-  }
-
-  hasRetrieved () {
-    return this._hasRetrieved;
-  }
-
   reset () {}
 
-  toggle (canDisclose) {
+  toggle (isPrimary) {
     if (!this.type.canConceal) this.disclose();
     else {
       switch (true) {
-        case !canDisclose:
-        case this.isDisclosed:
-          this.conceal(false, false);
+        case !isPrimary:
+        case this.disclosed:
+          this.conceal();
           break;
 
         default:
@@ -2145,7 +1870,8 @@ class Disclosure extends Instance {
   }
 
   get buttonHasFocus () {
-    return this.buttons.some((button) => { return button.hasFocus; });
+    if (this.buttons.some((button) => { return button.hasFocus; })) return true;
+    return false;
   }
 
   get hasFocus () {
@@ -2155,83 +1881,17 @@ class Disclosure extends Instance {
   }
 
   focus () {
-    if (this._primaryButtons.length > 0) this._primaryButtons[0].focus();
-  }
-
-  get primaryButtons () {
-    return this._primaryButtons;
-  }
-
-  retrievePrimaries () {
-    if (this._isRetrievingPrimaries) return;
-    this._isRetrievingPrimaries = true;
-    this.request(this._retrievePrimaries.bind(this));
-  }
-
-  _retrievePrimaries () {
-    this._isRetrievingPrimaries = false;
-    this._primaryButtons = this._electPrimaries(this.buttons);
-
-    if (this._hasRetrieved || this._primaryButtons.length === 0) return;
-    this.retrieved();
-    this._hasRetrieved = true;
-
-    this.applyAbility(true);
-
-    if (this.group) {
-      this.group.retrieve();
-      return;
-    }
-
-    if (this._isPristine && this.isEnabled && !this.group) {
-      switch (true) {
-        case this.hash === this.id:
-          this._spotlight();
-          break;
-
-        case this.isInitiallyDisclosed:
-          this.disclose();
-          break;
-      }
-    }
-  }
-
-  retrieved () {}
-
-  _spotlight () {
-    this.disclose();
-    this.request(() => { this.ascend(DisclosureEmission.SPOTLIGHT); });
-  }
-
-  _electPrimaries (candidates) {
-    return candidates.filter(button => button.canDisclose && !this.node.contains(button.node));
-  }
-
-  applyAbility (withhold = false) {
-    const isEnabled = !this._primaryButtons.every(button => button.isDisabled);
-
-    if (this.isEnabled === isEnabled) return;
-
-    this.isEnabled = isEnabled;
-
-    if (withhold) return;
-
-    if (!this.isEnabled && this.isDisclosed) {
-      if (this.group) this.ascend(DisclosureEmission.REMOVED);
-      else if (this.type.canConceal) this.conceal();
-    }
-
-    if (this.isEnabled) {
-      if (this.group) this.ascend(DisclosureEmission.ADDED);
-      if (this.hash === this.id) {
-        this._spotlight();
+    for (let i = 0; i < this.buttons.length; i++) {
+      const button = this.buttons[i];
+      if (button.isPrimary) {
+        button.focus();
+        return;
       }
     }
   }
 
   dispose () {
     this._group = null;
-    this._primaryButtons = null;
     super.dispose();
     this.ascend(DisclosureEmission.REMOVED);
   }
@@ -2242,32 +1902,17 @@ class DisclosureButton extends Instance {
     super();
     this.type = type;
     this.attributeName = type.ariaState ? 'aria-' + type.id : ns.attr(type.id);
-    this._canDisclose = false;
   }
 
   static get instanceClassName () {
     return 'DisclosureButton';
   }
 
-  get isPrimary () {
-    return this.registration.creator.primaryButtons.includes(this);
-  }
-
-  get canDisclose () {
-    return this._canDisclose;
-  }
-
-  get isDisabled () {
-    return this.type.canDisable && this.hasAttribute('disabled');
-  }
-
   init () {
-    this._canDisclose = this.hasAttribute(this.attributeName);
-    this._isInitiallyDisclosed = this.isDisclosed;
-    this._isContained = this.registration.creator.node.contains(this.node);
     this.controlsId = this.getAttribute('aria-controls');
-    this.registration.creator.retrievePrimaries();
-    this.listenClick();
+    this.isPrimary = this.hasAttribute(this.attributeName);
+    if (this.isPrimary && this.disclosed && this.registration.creator.pristine) this.registration.creator.disclose();
+    this.listen('click', this.click.bind(this));
   }
 
   get proxy () {
@@ -2277,51 +1922,24 @@ class DisclosureButton extends Instance {
     });
   }
 
-  handleClick (e) {
-    if (this.registration.creator) this.registration.creator.toggle(this.canDisclose);
+  click (e) {
+    if (this.registration.creator) this.registration.creator.toggle(this.isPrimary);
   }
 
   mutate (attributeNames) {
-    this._canDisclose = this.hasAttribute(this.attributeName);
-    this.registration.creator.applyAbility();
-    if (!this._isApplying && this.isPrimary && attributeNames.indexOf(this.attributeName) > -1 && this.registration.creator) {
-      if (this.isDisclosed) this.registration.creator.disclose();
+    if (this.isPrimary && attributeNames.indexOf(this.attributeName) > -1 && this.registration.creator) {
+      if (this.disclosed) this.registration.creator.disclose();
       else if (this.type.canConceal) this.registration.creator.conceal();
     }
   }
 
   apply (value) {
-    if (!this.canDisclose) return;
-    this._isApplying = true;
+    if (!this.isPrimary) return;
     this.setAttribute(this.attributeName, value);
-    this.request(() => { this._isApplying = false; });
   }
 
-  get isDisclosed () {
+  get disclosed () {
     return this.getAttribute(this.attributeName) === 'true';
-  }
-
-  get isInitiallyDisclosed () {
-    return this._isInitiallyDisclosed;
-  }
-
-  focus () {
-    super.focus();
-    this.scrollIntoView();
-  }
-
-  measure (rect) {
-    const buttonRect = this.rect;
-    this._dx = rect.x - buttonRect.x;
-    this._dy = rect.y - buttonRect.y;
-  }
-
-  get dx () {
-    return this._dx;
-  }
-
-  get dy () {
-    return this._dy;
   }
 }
 
@@ -2329,10 +1947,7 @@ class DisclosuresGroup extends Instance {
   constructor (disclosureInstanceClassName, jsAttribute) {
     super(jsAttribute);
     this.disclosureInstanceClassName = disclosureInstanceClassName;
-    this._members = [];
     this._index = -1;
-    this._isRetrieving = false;
-    this._hasRetrieved = false;
   }
 
   static get instanceClassName () {
@@ -2341,7 +1956,6 @@ class DisclosuresGroup extends Instance {
 
   init () {
     this.addAscent(DisclosureEmission.ADDED, this.update.bind(this));
-    this.addAscent(DisclosureEmission.RETRIEVE, this.retrieve.bind(this));
     this.addAscent(DisclosureEmission.REMOVED, this.update.bind(this));
     this.descend(DisclosureEmission.GROUP);
     this.update();
@@ -2381,46 +1995,12 @@ class DisclosuresGroup extends Instance {
 
   getMembers () {
     const members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-    this._members = members.filter(this.validate.bind(this)).filter(member => member.isEnabled);
-    const invalids = members.filter(member => !this._members.includes(member));
-    invalids.forEach(invalid => invalid.conceal());
-  }
-
-  retrieve (bypassPrevention = false) {
-    if (this._isRetrieving || (this._hasRetrieved && !bypassPrevention)) return;
-    this._isRetrieving = true;
-    this.request(this._retrieve.bind(this));
-  }
-
-  _retrieve () {
-    this.getMembers();
-    this._isRetrieving = false;
-    this._hasRetrieved = true;
-    if (this.hash) {
-      for (let i = 0; i < this.length; i++) {
-        const member = this.members[i];
-        if (this.hash === member.id) {
-          this.index = i;
-          this.request(() => { this.ascend(DisclosureEmission.SPOTLIGHT); });
-          return i;
-        }
-      }
-    }
-
-    for (let i = 0; i < this.length; i++) {
-      const member = this.members[i];
-      if (member.isInitiallyDisclosed) {
-        this.index = i;
-        return i;
-      }
-    }
-
-    return this.getIndex();
+    this._members = members.filter(this.validate.bind(this));
   }
 
   update () {
     this.getMembers();
-    if (this._hasRetrieved) this.getIndex();
+    this.getIndex();
   }
 
   get members () {
@@ -2431,18 +2011,14 @@ class DisclosuresGroup extends Instance {
     return this.members ? this.members.length : 0;
   }
 
-  getIndex (defaultIndex = -1) {
-    this._index = undefined;
-    let index = defaultIndex;
+  getIndex () {
+    this._index = -1;
     for (let i = 0; i < this.length; i++) {
-      if (this.members[i].isDisclosed) {
-        index = i;
-        break;
+      if (this.index > -1) this.members[i].conceal(true, true);
+      else if (this.members[i].disclosed) {
+        this.index = i;
       }
     }
-
-    this.index = index;
-    return index;
   }
 
   get index () {
@@ -2455,17 +2031,16 @@ class DisclosuresGroup extends Instance {
     for (let i = 0; i < this.length; i++) {
       const member = this.members[i];
       if (value === i) {
-        if (!member.isDisclosed) member.disclose(true);
+        member.disclose(true);
       } else {
-        if (member.isDisclosed) member.conceal(true);
+        member.conceal(true, true);
       }
     }
     this.apply();
   }
 
   get current () {
-    if (this._index === -1 || isNaN(this._index)) return null;
-    return this._members[this._index] || null;
+    return this._index === -1 ? null : this.members[this._index];
   }
 
   set current (member) {
@@ -2492,22 +2067,19 @@ const DisclosureType = {
     id: 'expanded',
     ariaState: true,
     ariaControls: true,
-    canConceal: true,
-    canDisable: true
+    canConceal: true
   },
   SELECT: {
     id: 'selected',
     ariaState: true,
     ariaControls: true,
-    canConceal: false,
-    canDisable: true
+    canConceal: false
   },
   OPENED: {
     id: 'opened',
     ariaState: false,
     ariaControls: true,
-    canConceal: true,
-    canDisable: false
+    canConceal: true
   }
 };
 
@@ -2551,7 +2123,7 @@ class Collapse extends Disclosure {
 
   transitionend (e) {
     this.removeClass(CollapseSelector.COLLAPSING);
-    if (!this.isDisclosed) {
+    if (!this.disclosed) {
       if (this.isLegacy) this.style.maxHeight = '';
       else this.style.removeProperty('--collapse-max-height');
     }
@@ -2563,7 +2135,7 @@ class Collapse extends Disclosure {
   }
 
   disclose (withhold) {
-    if (this.isDisclosed === true || !this.isEnabled) return false;
+    if (this.disclosed) return;
     this.unbound();
     this.request(() => {
       this.addClass(CollapseSelector.COLLAPSING);
@@ -2575,7 +2147,7 @@ class Collapse extends Disclosure {
   }
 
   conceal (withhold, preventFocus) {
-    if (this.isDisclosed === false) return false;
+    if (!this.disclosed) return;
     this.request(() => {
       this.addClass(CollapseSelector.COLLAPSING);
       this.adjust();
@@ -2593,23 +2165,7 @@ class Collapse extends Disclosure {
   }
 
   reset () {
-    if (!this.isPristine) this.isDisclosed = false;
-  }
-
-  _electPrimaries (candidates) {
-    const primary = this.element.parent.instances.map(instance => instance.collapsePrimary).filter(button => button !== undefined && candidates.indexOf(button) > -1);
-    if (primary.length === 1) return primary;
-    candidates = super._electPrimaries(candidates);
-    if (candidates.length === 1) return candidates;
-    const before = candidates.filter(candidate => candidate.dy >= 0);
-    if (before.length > 0) candidates = before;
-    if (candidates.length === 1) return candidates;
-    const min = Math.min(...candidates.map(candidate => candidate.dy));
-    const mins = candidates.filter(candidate => candidate.dy === min);
-    if (mins.length > 0) candidates = mins;
-    if (candidates.length === 1) return candidates;
-    candidates.sort((a, b) => Math.abs(b.dx) - Math.abs(a.dx));
-    return candidates;
+    if (!this.pristine) this.disclosed = false;
   }
 }
 
@@ -2686,11 +2242,7 @@ class Toggle extends Instance {
 
   init () {
     this.pressed = this.pressed === 'true';
-    this.listenClick();
-  }
-
-  handleClick () {
-    this.toggle();
+    this.listen('click', this.toggle.bind(this));
   }
 
   toggle () {
@@ -2724,10 +2276,6 @@ class Toggle extends Instance {
     return completeAssign(proxy, proxyAccessors);
   }
 }
-
-const RootSelector = {
-  ROOT: ':root'
-};
 
 const setAttributes = (el, attrs) => {
   Object.keys(attrs).forEach(key => el.setAttribute(key, attrs[key]));
@@ -2879,144 +2427,6 @@ const ArtworkSelector = {
   ARTWORK_USE: `${ns.selector('artwork')} use`
 };
 
-const AssessSelector = {
-  ASSESS_FILE: `${ns.attr.selector('assess-file')}`,
-  DETAIL: `${ns.attr.selector('assess-file')} [class$="__detail"], ${ns.attr.selector('assess-file')} [class*="__detail "]`
-};
-
-const AssessEmission = {
-  UPDATE: ns.emission('assess', 'update'),
-  ADDED: ns.emission('assess', 'added')
-};
-
-class AssessFile extends Instance {
-  static get instanceClassName () {
-    return 'AssessFile';
-  }
-
-  init () {
-    this.lang = this.getLang(this.node);
-    this.href = this.getAttribute('href');
-    this.hreflang = this.getAttribute('hreflang');
-    this.file = {};
-    this.gather();
-    this.addAscent(AssessEmission.ADDED, this.update.bind(this));
-    this.addDescent(AssessEmission.ADDED, this.update.bind(this));
-  }
-
-  getFileLength () {
-    if (this.href === undefined) {
-      this.length = -1;
-      return;
-    }
-
-    fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
-      this.length = response.headers.get('content-length') || -1;
-      if (this.length === -1) {
-        inspector.warn('File size unknown: ' + this.href + '\nUnable to get HTTP header: "content-length"');
-      }
-      this.gather();
-    });
-  }
-
-  mutate (attributeNames) {
-    if (attributeNames.indexOf('href') !== -1) {
-      this.href = this.getAttribute('href');
-      this.getFileLength();
-    }
-
-    if (attributeNames.indexOf('hreflang') !== -1) {
-      this.hreflang = this.getAttribute('hreflang');
-      this.gather();
-    }
-  }
-
-  gather () {
-    // TODO V2: implémenter async
-    if (this.isLegacy) this.length = -1;
-
-    if (!this.length) {
-      this.getFileLength();
-      return;
-    }
-
-    this.details = [];
-
-    if (this.href) {
-      const extension = this.parseExtension(this.href);
-      if (extension) this.details.push(extension.toUpperCase());
-    }
-
-    if (this.length !== -1) {
-      this.details.push(this.bytesToSize(this.length));
-    }
-
-    if (this.hreflang) {
-      this.details.push(this.getLangDisplayName(this.hreflang));
-    }
-
-    this.update();
-  }
-
-  update () {
-    if (!this.details) return;
-    this.descend(AssessEmission.UPDATE, this.details);
-    this.ascend(AssessEmission.UPDATE, this.details);
-  }
-
-  getLang (elem) {
-    // todo: ajouter un listener global de changement de langue
-    if (elem.lang) return elem.lang;
-    if (document.documentElement === elem) return window.navigator.language;
-    return this.getLang(elem.parentElement);
-  }
-
-  parseExtension (url) {
-    const regexExtension = /\.(\w{1,9})(?:$|[?#])/;
-    return url.match(regexExtension)[0].replace('.', '');
-  }
-
-  getLangDisplayName (locale) {
-    if (this.isLegacy) return locale;
-    const displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
-    const name = displayNames.of(locale);
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-
-  bytesToSize (bytes) {
-    if (bytes === -1) return null;
-
-    let sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
-    if (this.getAttribute(ns.attr('assess-file')) === 'bytes') {
-      sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
-    }
-
-    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
-    if (i === 0) return `${bytes} ${sizeUnits[i]}`;
-
-    const size = bytes / (1000 ** i);
-    const roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
-    const stringSize = String(roundedSize).replace('.', ',');
-
-    return `${stringSize} ${sizeUnits[i]}`;
-  }
-}
-
-class AssessDetail extends Instance {
-  static get instanceClassName () {
-    return 'AssessDetail';
-  }
-
-  init () {
-    this.addDescent(AssessEmission.UPDATE, this.update.bind(this));
-    this.ascend(AssessEmission.ADDED);
-  }
-
-  update (details) {
-    this.node.innerHTML = details.join(' - ');
-  }
-}
-
 const ratiosImg = ['32x9', '16x9', '3x2', '4x3', '1x1', '3x4', '2x3'];
 const ratiosVid = ['16x9', '4x3', '1x1'];
 
@@ -3064,402 +2474,6 @@ class Ratio extends Instance {
   }
 }
 
-const PlaceSelector = {
-  TOP: ns.selector('placement--top'),
-  RIGHT: ns.selector('placement--right'),
-  BOTTOM: ns.selector('placement--bottom'),
-  LEFT: ns.selector('placement--left')
-};
-
-const AlignSelector = {
-  START: ns.selector('placement--start'),
-  CENTER: ns.selector('placement--center'),
-  END: ns.selector('placement--end')
-};
-
-const PlacementPosition = {
-  TOP: 'place_top',
-  RIGHT: 'place_right',
-  BOTTOM: 'place_bottom',
-  LEFT: 'place_left'
-};
-
-const PlacementAlign = {
-  START: 'align_start',
-  CENTER: 'align_center',
-  END: 'align_end'
-};
-
-const PlacementMode = {
-  AUTO: 'placement_auto',
-  MANUAL: 'placement_manual'
-};
-
-class Placement extends Instance {
-  constructor (mode = PlacementMode.AUTO, places = [PlacementPosition.BOTTOM, PlacementPosition.TOP, PlacementPosition.LEFT, PlacementPosition.RIGHT], aligns = [PlacementAlign.CENTER, PlacementAlign.START, PlacementAlign.END], safeAreaMargin = 16) {
-    super();
-    this._mode = mode;
-    this._places = places;
-    this._aligns = aligns;
-    this._safeAreaMargin = safeAreaMargin;
-    this._isShown = false;
-  }
-
-  static get instanceClassName () {
-    return 'Placement';
-  }
-
-  init () {
-    this.isResizing = true;
-  }
-
-  get proxy () {
-    const scope = this;
-    const proxy = Object.assign(super.proxy, {
-      show: scope.show.bind(scope),
-      hide: scope.hide.bind(scope)
-    });
-
-    const proxyAccessors = {
-      get mode () {
-        return scope.mode;
-      },
-      set mode (value) {
-        scope.mode = value;
-      },
-      get place () {
-        return scope.place;
-      },
-      set place (value) {
-        scope.place = value;
-      },
-      get align () {
-        return scope.align;
-      },
-      set align (value) {
-        scope.align = value;
-      },
-      get isShown () {
-        return scope.isShown;
-      },
-      set isShown (value) {
-        scope.isShown = value;
-      }
-    };
-
-    return completeAssign(proxy, proxyAccessors);
-  }
-
-  get mode () {
-    return this._mode;
-  }
-
-  set mode (value) {
-    this._mode = value;
-  }
-
-  get place () {
-    return this._place;
-  }
-
-  set place (value) {
-    if (this._place === value) return;
-    switch (this._place) {
-      case PlacementPosition.TOP:
-        this.removeClass(PlaceSelector.TOP);
-        break;
-
-      case PlacementPosition.RIGHT:
-        this.removeClass(PlaceSelector.RIGHT);
-        break;
-
-      case PlacementPosition.BOTTOM:
-        this.removeClass(PlaceSelector.BOTTOM);
-        break;
-
-      case PlacementPosition.LEFT:
-        this.removeClass(PlaceSelector.LEFT);
-        break;
-    }
-    this._place = value;
-    switch (this._place) {
-      case PlacementPosition.TOP:
-        this.addClass(PlaceSelector.TOP);
-        break;
-
-      case PlacementPosition.RIGHT:
-        this.addClass(PlaceSelector.RIGHT);
-        break;
-
-      case PlacementPosition.BOTTOM:
-        this.addClass(PlaceSelector.BOTTOM);
-        break;
-
-      case PlacementPosition.LEFT:
-        this.addClass(PlaceSelector.LEFT);
-        break;
-    }
-  }
-
-  get align () {
-    return this._align;
-  }
-
-  set align (value) {
-    if (this._align === value) return;
-    switch (this._align) {
-      case PlacementAlign.START:
-        this.removeClass(AlignSelector.START);
-        break;
-
-      case PlacementAlign.CENTER:
-        this.removeClass(AlignSelector.CENTER);
-        break;
-
-      case PlacementAlign.END:
-        this.removeClass(AlignSelector.END);
-        break;
-    }
-    this._align = value;
-    switch (this._align) {
-      case PlacementAlign.START:
-        this.addClass(AlignSelector.START);
-        break;
-
-      case PlacementAlign.CENTER:
-        this.addClass(AlignSelector.CENTER);
-        break;
-
-      case PlacementAlign.END:
-        this.addClass(AlignSelector.END);
-        break;
-    }
-  }
-
-  show () {
-    this.isShown = true;
-  }
-
-  hide () {
-    this.isShown = false;
-  }
-
-  get isShown () {
-    return this._isShown;
-  }
-
-  set isShown (value) {
-    if (this._isShown === value || !this.isEnabled) return;
-    this.isRendering = value;
-    this._isShown = value;
-  }
-
-  setReferent (referent) {
-    this._referent = referent;
-  }
-
-  resize () {
-    this.safeArea = {
-      top: this._safeAreaMargin,
-      right: window.innerWidth - this._safeAreaMargin,
-      bottom: window.innerHeight - this._safeAreaMargin,
-      left: this._safeAreaMargin,
-      center: window.innerWidth * 0.5,
-      middle: window.innerHeight * 0.5
-    };
-  }
-
-  render () {
-    if (!this._referent) return;
-    this.rect = this.getRect();
-    this.referentRect = this._referent.getRect();
-
-    if (this.mode === PlacementMode.AUTO) {
-      this.place = this.getPlace();
-      switch (this.place) {
-        case PlacementPosition.TOP:
-        case PlacementPosition.BOTTOM:
-          this.align = this.getHorizontalAlign();
-          break;
-
-        case PlacementPosition.LEFT:
-        case PlacementPosition.RIGHT:
-          this.align = this.getVerticalAlign();
-      }
-    }
-
-    let x, y;
-
-    switch (this.place) {
-      case PlacementPosition.TOP:
-        y = this.referentRect.top - this.rect.height;
-        break;
-
-      case PlacementPosition.RIGHT:
-        x = this.referentRect.right;
-        break;
-
-      case PlacementPosition.BOTTOM:
-        y = this.referentRect.bottom;
-        break;
-
-      case PlacementPosition.LEFT:
-        x = this.referentRect.left - this.rect.width;
-        break;
-    }
-
-    switch (this.place) {
-      case PlacementPosition.TOP:
-      case PlacementPosition.BOTTOM:
-        switch (this.align) {
-          case PlacementAlign.CENTER:
-            x = this.referentRect.center - this.rect.width * 0.5;
-            break;
-
-          case PlacementAlign.START:
-            x = this.referentRect.left;
-            break;
-
-          case PlacementAlign.END:
-            x = this.referentRect.right - this.rect.width;
-            break;
-        }
-        break;
-
-      case PlacementPosition.RIGHT:
-      case PlacementPosition.LEFT:
-        switch (this.align) {
-          case PlacementAlign.CENTER:
-            y = this.referentRect.middle - this.rect.height * 0.5;
-            break;
-
-          case PlacementAlign.START:
-            y = this.referentRect.top;
-            break;
-
-          case PlacementAlign.END:
-            y = this.referentRect.bottom - this.rect.height;
-            break;
-        }
-        break;
-    }
-
-    if (this._x !== x || this._y !== y) {
-      this._x = (x + 0.5) | 0;
-      this._y = (y + 0.5) | 0;
-      this.node.style.transform = `translate(${this._x}px,${this._y}px)`;
-    }
-  }
-
-  getPlace () {
-    for (const place of this._places) {
-      switch (place) {
-        case PlacementPosition.TOP:
-          if (this.referentRect.top - this.rect.height > this.safeArea.top) return PlacementPosition.TOP;
-          break;
-
-        case PlacementPosition.RIGHT:
-          if (this.referentRect.right + this.rect.width < this.safeArea.right) return PlacementPosition.RIGHT;
-          break;
-
-        case PlacementPosition.BOTTOM:
-          if (this.referentRect.bottom + this.rect.height < this.safeArea.bottom) return PlacementPosition.BOTTOM;
-          break;
-
-        case PlacementPosition.LEFT:
-          if (this.referentRect.left - this.rect.width > this.safeArea.left) return PlacementPosition.LEFT;
-          break;
-      }
-    }
-
-    return this._places[0];
-  }
-
-  getHorizontalAlign () {
-    for (const align of this._aligns) {
-      switch (align) {
-        case PlacementAlign.CENTER:
-          if (this.referentRect.center - this.rect.width * 0.5 > this.safeArea.left && this.referentRect.center + this.rect.width * 0.5 < this.safeArea.right) return PlacementAlign.CENTER;
-          break;
-
-        case PlacementAlign.START:
-          if (this.referentRect.left + this.rect.width < this.safeArea.right) return PlacementAlign.START;
-          break;
-
-        case PlacementAlign.END:
-          if (this.referentRect.right - this.rect.width > this.safeArea.left) return PlacementAlign.END;
-          break;
-      }
-    }
-
-    return this._aligns[0];
-  }
-
-  getVerticalAlign () {
-    for (const align of this._aligns) {
-      switch (align) {
-        case PlacementAlign.CENTER:
-          if (this.referentRect.middle - this.rect.height * 0.5 > this.safeArea.top && this.referentRect.middle + this.rect.height * 0.5 < this.safeArea.bottom) return PlacementAlign.CENTER;
-          break;
-
-        case PlacementAlign.START:
-          if (this.referentRect.top + this.rect.height < this.safeArea.bottom) return PlacementAlign.START;
-          break;
-
-        case PlacementAlign.END:
-          if (this.referentRect.bottom - this.rect.height > this.safeArea.top) return PlacementAlign.END;
-          break;
-      }
-    }
-
-    return this._aligns[0];
-  }
-
-  dispose () {
-    this._referent = null;
-    super.dispose();
-  }
-}
-
-class PlacementReferent extends Instance {
-  constructor () {
-    super();
-    this._isShown = false;
-  }
-
-  static get instanceClassName () {
-    return 'PlacementReferent';
-  }
-
-  init () {
-    this.registration.creator.setReferent(this);
-    this._placement = this.registration.creator;
-  }
-
-  get placement () {
-    return this._placement;
-  }
-
-  get isShown () {
-    return this._isShown;
-  }
-
-  set isShown (value) {
-    if (this._isShown === value || !this.isEnabled) return;
-    this._isShown = value;
-    if (value) this.registration.creator.show();
-    else this.registration.creator.hide();
-  }
-
-  show () {
-    this.isShown = true;
-  }
-
-  hide () {
-    this.isShown = false;
-  }
-}
-
 api$1.core = {
   Instance: Instance,
   Breakpoints: Breakpoints,
@@ -3476,7 +2490,6 @@ api$1.core = {
   CollapsesGroup: CollapsesGroup,
   CollapseSelector: CollapseSelector,
   RootSelector: RootSelector,
-  RootEmission: RootEmission,
   Equisized: Equisized,
   EquisizedEmission: EquisizedEmission,
   Toggle: Toggle,
@@ -3485,24 +2498,13 @@ api$1.core = {
   InjectSvgSelector: InjectSvgSelector,
   Artwork: Artwork,
   ArtworkSelector: ArtworkSelector,
-  AssessFile: AssessFile,
-  AssessDetail: AssessDetail,
-  AssessEmission: AssessEmission,
-  AssessSelector: AssessSelector,
   Ratio: Ratio,
-  RatioSelector: RatioSelector,
-  Placement: Placement,
-  PlacementReferent: PlacementReferent,
-  PlacementAlign: PlacementAlign,
-  PlacementPosition: PlacementPosition,
-  PlacementMode: PlacementMode
+  RatioSelector: RatioSelector
 };
 
 api$1.internals.register(api$1.core.CollapseSelector.COLLAPSE, api$1.core.Collapse);
 api$1.internals.register(api$1.core.InjectSvgSelector.INJECT_SVG, api$1.core.InjectSvg);
 api$1.internals.register(api$1.core.RatioSelector.RATIO, api$1.core.Ratio);
-api$1.internals.register(api$1.core.AssessSelector.ASSESS_FILE, api$1.core.AssessFile);
-api$1.internals.register(api$1.core.AssessSelector.DETAIL, api$1.core.AssessDetail);
 
 const SchemeValue = {
   SYSTEM: 'system',
@@ -3705,27 +2707,10 @@ api.scheme = {
 
 api.internals.register(api.scheme.SchemeSelector.SCHEME, api.scheme.Scheme);
 
-const ACCORDION = api.internals.ns.selector('accordion');
-const COLLAPSE$2 = api.internals.ns.selector('collapse');
-
 const AccordionSelector = {
   GROUP: api.internals.ns.selector('accordions-group'),
-  ACCORDION: ACCORDION,
-  COLLAPSE: `${ACCORDION} > ${COLLAPSE$2}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE$2}) > ${COLLAPSE$2}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE$2}) > *:not(${ACCORDION}, ${COLLAPSE$2}) > ${COLLAPSE$2}`,
-  COLLAPSE_LEGACY: `${ACCORDION} ${COLLAPSE$2}`,
-  BUTTON: `${ACCORDION}__btn`
+  COLLAPSE: `${api.internals.ns.selector('accordion')} > ${api.internals.ns.selector('collapse')}`
 };
-
-class Accordion extends api.core.Instance {
-  static get instanceClassName () {
-    return 'Accordion';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(AccordionSelector.BUTTON));
-    return buttons[0];
-  }
-}
 
 class AccordionsGroup extends api.core.CollapsesGroup {
   static get instanceClassName () {
@@ -3733,19 +2718,16 @@ class AccordionsGroup extends api.core.CollapsesGroup {
   }
 
   validate (member) {
-    const match = member.node.matches(api.internals.legacy.isLegacy ? AccordionSelector.COLLAPSE_LEGACY : AccordionSelector.COLLAPSE);
-    return super.validate(member) && match;
+    return member.node.matches(AccordionSelector.COLLAPSE);
   }
 }
 
 api.accordion = {
-  Accordion: Accordion,
   AccordionSelector: AccordionSelector,
   AccordionsGroup: AccordionsGroup
 };
 
 api.internals.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
-api.internals.register(api.accordion.AccordionSelector.ACCORDION, api.accordion.Accordion);
 
 const ButtonSelector = {
   EQUISIZED_BUTTON: `${api.internals.ns.selector('btns-group--equisized')} ${api.internals.ns.selector('btn')}`,
@@ -3758,39 +2740,6 @@ api.button = {
 
 api.internals.register(api.button.ButtonSelector.EQUISIZED_BUTTON, api.core.Equisized);
 api.internals.register(api.button.ButtonSelector.EQUISIZED_GROUP, api.core.EquisizedsGroup);
-
-class CardDownload extends api.core.Instance {
-  static get instanceClassName () {
-    return 'CardDownload';
-  }
-
-  init () {
-    this.addAscent(api.core.AssessEmission.UPDATE, details => {
-      this.descend(api.core.AssessEmission.UPDATE, details);
-    });
-    this.addAscent(api.core.AssessEmission.ADDED, () => {
-      this.descend(api.core.AssessEmission.ADDED);
-    });
-  }
-}
-
-const CardSelector = {
-  DOWNLOAD: api.internals.ns.selector('card--download'),
-  DOWNLOAD_DETAIL: `${api.internals.ns.selector('card--download')} ${api.internals.ns.selector('card__end')} ${api.internals.ns.selector('card__detail')}`
-};
-
-api.card = {
-  CardSelector: CardSelector,
-  CardDownload: CardDownload
-};
-
-api.internals.register(api.card.CardSelector.DOWNLOAD, api.card.CardDownload);
-api.internals.register(api.card.CardSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
-
-const BreadcrumbSelector = {
-  BREADCRUMB: api.internals.ns.selector('breadcrumb'),
-  BUTTON: api.internals.ns.selector('breadcrumb__button')
-};
 
 class Breadcrumb extends api.core.Instance {
   constructor () {
@@ -3864,12 +2813,11 @@ class Breadcrumb extends api.core.Instance {
     if (!link) return;
     if (document.activeElement !== link) this._focus();
   }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(BreadcrumbSelector.BUTTON));
-    return buttons[0];
-  }
 }
+
+const BreadcrumbSelector = {
+  BREADCRUMB: api.internals.ns.selector('breadcrumb')
+};
 
 api.breadcrumb = {
   BreadcrumbSelector: BreadcrumbSelector,
@@ -3877,171 +2825,6 @@ api.breadcrumb = {
 };
 
 api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcrumb.Breadcrumb);
-
-const TooltipSelector = {
-  TOOLTIP: api.internals.ns.selector('tooltip'),
-  SHOWN: api.internals.ns.selector('tooltip--shown'),
-  BUTTON: api.internals.ns.selector('btn--tooltip')
-};
-
-const TooltipReferentState = {
-  FOCUS: 1 << 0,
-  HOVER: 1 << 1
-};
-
-class TooltipReferent extends api.core.PlacementReferent {
-  constructor () {
-    super();
-    this._state = 0;
-  }
-
-  static get instanceClassName () {
-    return 'TooltipReferent';
-  }
-
-  init () {
-    super.init();
-    this.listen('focusin', this.focusIn.bind(this));
-    this.listen('focusout', this.focusOut.bind(this));
-    if (!this.matches(TooltipSelector.BUTTON)) {
-      const mouseover = this.mouseover.bind(this);
-      this.listen('mouseover', mouseover);
-      this.placement.listen('mouseover', mouseover);
-      const mouseout = this.mouseout.bind(this);
-      this.listen('mouseout', mouseout);
-      this.placement.listen('mouseout', mouseout);
-    }
-    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
-    this.listen('click', this._click.bind(this));
-    this.addEmission(api.core.RootEmission.CLICK, this._clickOut.bind(this));
-  }
-
-  _click () {
-    this.focus();
-  }
-
-  _clickOut (target) {
-    if (!this.node.contains(target)) this.blur();
-  }
-
-  _keydown (keyCode) {
-    switch (keyCode) {
-      case api.core.KeyCodes.ESCAPE:
-        this.blur();
-        this.close();
-        break;
-    }
-  }
-
-  close () {
-    this.state = 0;
-  }
-
-  get state () {
-    return this._state;
-  }
-
-  set state (value) {
-    if (this._state === value) return;
-    this.isShown = value > 0;
-    this._state = value;
-  }
-
-  focusIn () {
-    this.state |= TooltipReferentState.FOCUS;
-  }
-
-  focusOut () {
-    this.state &= ~TooltipReferentState.FOCUS;
-  }
-
-  mouseover () {
-    this.state |= TooltipReferentState.HOVER;
-  }
-
-  mouseout () {
-    this.state &= ~TooltipReferentState.HOVER;
-  }
-}
-
-const TooltipEvent = {
-  SHOW: ns.event('show'),
-  HIDE: ns.event('hide')
-};
-
-const TooltipState = {
-  HIDDEN: 'hidden',
-  SHOWN: 'shown',
-  HIDING: 'hiding'
-};
-
-class Tooltip extends api.core.Placement {
-  constructor () {
-    super(api.core.PlacementMode.AUTO, [api.core.PlacementPosition.TOP, api.core.PlacementPosition.BOTTOM], [api.core.PlacementAlign.CENTER, api.core.PlacementAlign.START, api.core.PlacementAlign.END]);
-    this.modifier = '';
-    this._state = TooltipState.HIDDEN;
-  }
-
-  static get instanceClassName () {
-    return 'Tooltip';
-  }
-
-  init () {
-    super.init();
-    this.register(`[aria-describedby="${this.id}"]`, TooltipReferent);
-    this.listen('transitionend', this.transitionEnd.bind(this));
-  }
-
-  transitionEnd () {
-    if (this._state === TooltipState.HIDING) {
-      this._state = TooltipState.HIDDEN;
-      this.isShown = false;
-    }
-  }
-
-  get isShown () {
-    return super.isShown;
-  }
-
-  set isShown (value) {
-    if (!this.isEnabled) return;
-    switch (true) {
-      case value:
-        this._state = TooltipState.SHOWN;
-        this.addClass(TooltipSelector.SHOWN);
-        this.dispatch(TooltipEvent.SHOW);
-        super.isShown = true;
-        break;
-
-      case this.isShown && !value && this._state === TooltipState.SHOWN:
-        this._state = TooltipState.HIDING;
-        this.removeClass(TooltipSelector.SHOWN);
-        break;
-
-      case this.isShown && !value && this._state === TooltipState.HIDDEN:
-        this.dispatch(TooltipEvent.HIDE);
-        super.isShown = false;
-        break;
-    }
-  }
-
-  render () {
-    super.render();
-    let x = this.referentRect.center - this.rect.center;
-    const limit = this.rect.width * 0.5 - 8;
-    if (x < -limit) x = -limit;
-    if (x > limit) x = limit;
-    this.setProperty('--arrow-x', `${x.toFixed(2)}px`);
-  }
-}
-
-api.tooltip = {
-  Tooltip: Tooltip,
-  TooltipSelector: TooltipSelector,
-  TooltipEvent: TooltipEvent
-};
-
-api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, api.tooltip.Tooltip);
 
 class ToggleInput extends api.core.Instance {
   static get instanceClassName () {
@@ -4109,15 +2892,9 @@ api.toggle = {
 
 api.internals.register(api.toggle.ToggleSelector.STATUS_LABEL, api.toggle.ToggleStatusLabel);
 
-const ITEM$1 = api.internals.ns.selector('sidemenu__item');
-const COLLAPSE$1 = api.internals.ns.selector('collapse');
-
 const SidemenuSelector = {
   LIST: api.internals.ns.selector('sidemenu__list'),
-  COLLAPSE: `${ITEM$1} > ${COLLAPSE$1}, ${ITEM$1} > *:not(${ITEM$1}, ${COLLAPSE$1}) > ${COLLAPSE$1}, ${ITEM$1} > *:not(${ITEM$1}, ${COLLAPSE$1}) > *:not(${ITEM$1}, ${COLLAPSE$1}) > ${COLLAPSE$1}`,
-  COLLAPSE_LEGACY: `${ITEM$1} ${COLLAPSE$1}`,
-  ITEM: api.internals.ns.selector('sidemenu__item'),
-  BUTTON: api.internals.ns.selector('sidemenu__btn')
+  COLLAPSE: `${api.internals.ns.selector('sidemenu__item')} > ${api.internals.ns.selector('collapse')}`
 };
 
 class SidemenuList extends api.core.CollapsesGroup {
@@ -4126,35 +2903,21 @@ class SidemenuList extends api.core.CollapsesGroup {
   }
 
   validate (member) {
-    return super.validate(member) && member.node.matches(api.internals.legacy.isLegacy ? SidemenuSelector.COLLAPSE_LEGACY : SidemenuSelector.COLLAPSE);
-  }
-}
-
-class SidemenuItem extends api.core.Instance {
-  static get instanceClassName () {
-    return 'SidemenuItem';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(SidemenuSelector.BUTTON));
-    return buttons[0];
+    return member.node.matches(SidemenuSelector.COLLAPSE);
   }
 }
 
 api.sidemenu = {
   SidemenuList: SidemenuList,
-  SidemenuItem: SidemenuItem,
   SidemenuSelector: SidemenuSelector
 };
 
 api.internals.register(api.sidemenu.SidemenuSelector.LIST, api.sidemenu.SidemenuList);
-api.internals.register(api.sidemenu.SidemenuSelector.ITEM, api.sidemenu.SidemenuItem);
 
 const ModalSelector = {
   MODAL: api.internals.ns.selector('modal'),
   SCROLL_DIVIDER: api.internals.ns.selector('scroll-divider'),
-  BODY: api.internals.ns.selector('modal__body'),
-  TITLE: api.internals.ns.selector('modal__title')
+  BODY: api.internals.ns.selector('modal__body')
 };
 
 class ModalButton extends api.core.DisclosureButton {
@@ -4174,7 +2937,6 @@ const ModalAttribute = {
 class Modal extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-    this._isActive = false;
     this.scrolling = this.resize.bind(this, false);
     this.resizing = this.resize.bind(this, true);
   }
@@ -4185,50 +2947,15 @@ class Modal extends api.core.Disclosure {
 
   init () {
     super.init();
-    this._isDialog = this.node.tagName === 'DIALOG';
-    this.isScrolling = false;
-    this.listenClick();
-    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
-  }
-
-  _keydown (keyCode) {
-    switch (keyCode) {
-      case api.core.KeyCodes.ESCAPE:
-        this._escape();
-        break;
-    }
-  }
-
-  // TODO v2 : passer les tagName d'action en constante
-  _escape () {
-    const tagName = document.activeElement ? document.activeElement.tagName : undefined;
-
-    switch (tagName) {
-      case 'INPUT':
-      case 'LABEL':
-      case 'TEXTAREA':
-      case 'SELECT':
-      case 'AUDIO':
-      case 'VIDEO':
-        break;
-
-      default:
-        if (this.isDisclosed) {
-          this.conceal();
-          this.focus();
-        }
-    }
-  }
-
-  retrieved () {
-    this._ensureAccessibleName();
+    this.listen('click', this.click.bind(this));
+    this.listenKey(api.core.KeyCodes.ESCAPE, this.conceal.bind(this, false, false), true, true);
   }
 
   get body () {
     return this.element.getDescendantInstances('ModalBody', 'Modal')[0];
   }
 
-  handleClick (e) {
+  click (e) {
     if (e.target === this.node && this.getAttribute(ModalAttribute.CONCEALING_BACKDROP) !== 'false') this.conceal();
   }
 
@@ -4238,9 +2965,6 @@ class Modal extends api.core.Disclosure {
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
     this.setAttribute('open', 'true');
-    if (!this._isDialog) {
-      this.activateModal();
-    }
     return true;
   }
 
@@ -4250,55 +2974,7 @@ class Modal extends api.core.Disclosure {
     this.removeAttribute('aria-modal');
     this.removeAttribute('open');
     if (this.body) this.body.deactivate();
-    if (!this._isDialog) {
-      this.deactivateModal();
-    }
     return true;
-  }
-
-  get isDialog () {
-    return this._isDialog;
-  }
-
-  set isDialog (value) {
-    this._isDialog = value;
-  }
-
-  activateModal () {
-    if (this._isActive) return;
-    this._isActive = true;
-    this._hasDialogRole = this.getAttribute('role') === 'dialog';
-    if (!this._hasDialogRole) this.setAttribute('role', 'dialog');
-  }
-
-  deactivateModal () {
-    if (!this._isActive) return;
-    this._isActive = false;
-    if (!this._hasDialogRole) this.removeAttribute('role');
-  }
-
-  _setAccessibleName (node, append) {
-    const id = this.retrieveNodeId(node, append);
-    this.warn(`add reference to ${append} for accessible name (aria-labelledby)`);
-    this.setAttribute('aria-labelledby', id);
-  }
-
-  _ensureAccessibleName () {
-    if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) return;
-    this.warn('missing accessible name');
-    const title = this.node.querySelector(ModalSelector.TITLE);
-    const primary = this.primaryButtons[0];
-
-    switch (true) {
-      case title !== null:
-        this._setAccessibleName(title, 'title');
-        break;
-
-      case primary !== undefined:
-        this.warn('missing required title, fallback to primary button');
-        this._setAccessibleName(primary, 'primary');
-        break;
-    }
   }
 }
 
@@ -4607,7 +3283,7 @@ class PasswordToggle extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.toggle.bind(this));
     this.ascend(PasswordEmission.ADJUST, this.width);
     this.isSwappingFont = true;
     this._isChecked = this.isChecked;
@@ -4627,7 +3303,7 @@ class PasswordToggle extends api.core.Instance {
     this.ascend(PasswordEmission.TOGGLE, value);
   }
 
-  handleClick () {
+  toggle () {
     this.isChecked = !this._isChecked;
   }
 
@@ -4726,18 +3402,12 @@ api.internals.register(api.password.PasswordSelector.PASSWORD, api.password.Pass
 api.internals.register(api.password.PasswordSelector.TOOGLE, api.password.PasswordToggle);
 api.internals.register(api.password.PasswordSelector.LABEL, api.password.PasswordLabel);
 
-const ITEM = api.internals.ns.selector('nav__item');
-const COLLAPSE = api.internals.ns.selector('collapse');
-
 const NavigationSelector = {
   NAVIGATION: api.internals.ns.selector('nav'),
-  COLLAPSE: `${ITEM} > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}`,
-  COLLAPSE_LEGACY: `${ITEM} ${COLLAPSE}`,
-  ITEM: ITEM,
-  ITEM_RIGHT: `${ITEM}--align-right`,
-  MENU: api.internals.ns.selector('menu'),
-  BUTTON: api.internals.ns.selector('nav__btn'),
-  TRANSLATE_BUTTON: api.internals.ns.selector('translate__btn')
+  COLLAPSE: `${api.internals.ns.selector('nav__item')} > ${api.internals.ns.selector('collapse')}`,
+  ITEM: api.internals.ns.selector('nav__item'),
+  ITEM_RIGHT: api.internals.ns('nav__item--align-right'),
+  MENU: api.internals.ns.selector('menu')
 };
 
 class NavigationItem extends api.core.Instance {
@@ -4781,11 +3451,6 @@ class NavigationItem extends api.core.Instance {
     if (value) api.internals.dom.addClass(this.element.node, NavigationSelector.ITEM_RIGHT);
     else api.internals.dom.removeClass(this.element.node, NavigationSelector.ITEM_RIGHT);
   }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && (button.hasClass(NavigationSelector.BUTTON) || button.hasClass(NavigationSelector.TRANSLATE_BUTTON)));
-    return buttons[0];
-  }
 }
 
 const NavigationMousePosition = {
@@ -4805,11 +3470,11 @@ class Navigation extends api.core.CollapsesGroup {
     this.out = false;
     this.listen('focusout', this.focusOutHandler.bind(this));
     this.listen('mousedown', this.mouseDownHandler.bind(this));
-    this.listenClick({ capture: true });
+    this.listen('click', this.clickHandler.bind(this), { capture: true });
   }
 
   validate (member) {
-    return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
+    return member.element.node.matches(NavigationSelector.COLLAPSE);
   }
 
   mouseDownHandler (e) {
@@ -4862,7 +3527,7 @@ class Navigation extends api.core.CollapsesGroup {
   get index () { return super.index; }
 
   set index (value) {
-    if (value === -1 && this.current && this.current.hasFocus) this.current.focus();
+    if (value === -1 && this.current !== null && this.current.hasFocus) this.current.focus();
     super.index = value;
   }
 }
@@ -4889,11 +3554,6 @@ class TabButton extends api.core.DisclosureButton {
 
   static get instanceClassName () {
     return 'TabButton';
-  }
-
-  handleClick (e) {
-    super.handleClick(e);
-    this.focus();
   }
 
   apply (value) {
@@ -4997,26 +3657,9 @@ class TabPanel extends api.core.Disclosure {
   }
 
   reset () {
-    if (this.group) this.group.retrieve(true);
-  }
-
-  _electPrimaries (candidates) {
-    if (!this.group || !this.group.list) return [];
-    return super._electPrimaries(candidates).filter(candidate => this.group.list.node.contains(candidate.node));
+    this.group.index = 0;
   }
 }
-
-const TabKeys = {
-  LEFT: 'tab_keys_left',
-  RIGHT: 'tab_keys_right',
-  HOME: 'tab_keys_home',
-  END: 'tab_keys_end'
-};
-
-const TabEmission = {
-  PRESS_KEY: api.internals.ns.emission('tab', 'press_key'),
-  LIST_HEIGHT: api.internals.ns.emission('tab', 'list_height')
-};
 
 /**
 * TabGroup est la classe étendue de DiscosuresGroup
@@ -5033,23 +3676,18 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   init () {
     super.init();
-
     this.listen('transitionend', this.transitionend.bind(this));
-    this.addAscent(TabEmission.PRESS_KEY, this.pressKey.bind(this));
-    this.addAscent(TabEmission.LIST_HEIGHT, this.setListHeight.bind(this));
+    this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
     this.isRendering = true;
-  }
 
-  getIndex (defaultIndex = 0) {
-    super.getIndex(defaultIndex);
+    if (this.list) this.list.apply();
   }
 
   get list () {
     return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
-  }
-
-  setListHeight (value) {
-    this.listHeight = value;
   }
 
   transitionend (e) {
@@ -5058,26 +3696,6 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   get buttonHasFocus () {
     return this.members.some(member => member.buttonHasFocus);
-  }
-
-  pressKey (key) {
-    switch (key) {
-      case TabKeys.LEFT:
-        this.pressLeft();
-        break;
-
-      case TabKeys.RIGHT:
-        this.pressRight();
-        break;
-
-      case TabKeys.HOME:
-        this.pressHome();
-        break;
-
-      case TabKeys.END:
-        this.pressEnd();
-        break;
-    }
   }
 
   /**
@@ -5140,7 +3758,7 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   apply () {
     for (let i = 0; i < this._index; i++) this.members[i].translate(TabPanelDirection.START);
-    if (this.current) this.current.translate(TabPanelDirection.NONE);
+    this.current.translate(TabPanelDirection.NONE);
     for (let i = this._index + 1; i < this.length; i++) this.members[i].translate(TabPanelDirection.END);
     this.isPreventingTransition = false;
   }
@@ -5158,12 +3776,12 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   render () {
     if (this.current === null) return;
-    this.node.scrollTop = 0;
-    this.node.scrollLeft = 0;
     const paneHeight = Math.round(this.current.node.offsetHeight);
     if (this.panelHeight === paneHeight) return;
     this.panelHeight = paneHeight;
-    this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+    let listHeight = 0;
+    if (this.list) listHeight = this.list.node.offsetHeight;
+    this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
   }
 }
 
@@ -5177,11 +3795,11 @@ class TabsList extends api.core.Instance {
 
   init () {
     this.listen('scroll', this.scroll.bind(this));
-    this.listenKey(api.core.KeyCodes.RIGHT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.RIGHT), true, true);
-    this.listenKey(api.core.KeyCodes.LEFT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.LEFT), true, true);
-    this.listenKey(api.core.KeyCodes.HOME, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.HOME), true, true);
-    this.listenKey(api.core.KeyCodes.END, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.END), true, true);
     this.isResizing = true;
+  }
+
+  get group () {
+    return this.element.getAscendantInstance('TabsGroup', 'TabsList');
   }
 
   focalize (btn) {
@@ -5203,18 +3821,20 @@ class TabsList extends api.core.Instance {
   }
 
   apply () {
+    if (!this.group) return;
     if (this._isScrolling) {
-      this.addClass(TabSelector.SHADOW);
+      this.group.addClass(TabSelector.SHADOW);
       this.scroll();
     } else {
-      this.removeClass(TabSelector.SHADOW_RIGHT);
-      this.removeClass(TabSelector.SHADOW_LEFT);
-      this.removeClass(TabSelector.SHADOW);
+      this.group.removeClass(TabSelector.SHADOW_RIGHT);
+      this.group.removeClass(TabSelector.SHADOW_LEFT);
+      this.group.removeClass(TabSelector.SHADOW);
     }
   }
 
   /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
   scroll () {
+    if (!this.group) return;
     const scrollLeft = this.node.scrollLeft;
     const isMin = scrollLeft <= SCROLL_OFFSET$1;
     const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
@@ -5225,23 +3845,21 @@ class TabsList extends api.core.Instance {
     const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
     if (isMin) {
-      this.removeClass(minSelector);
+      this.group.removeClass(minSelector);
     } else {
-      this.addClass(minSelector);
+      this.group.addClass(minSelector);
     }
 
     if (isMax) {
-      this.removeClass(maxSelector);
+      this.group.removeClass(maxSelector);
     } else {
-      this.addClass(maxSelector);
+      this.group.addClass(maxSelector);
     }
   }
 
   resize () {
     this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET$1;
-    const height = this.getRect().height;
-    this.setProperty('--tabs-list-height', `${height}px`);
-    this.ascend(TabEmission.LIST_HEIGHT, height);
+    this.setProperty('--tab-list-height', `${this.getRect().height}px`);
   }
 
   dispose () {
@@ -5254,8 +3872,7 @@ api.tab = {
   TabButton: TabButton,
   TabsGroup: TabsGroup,
   TabsList: TabsList,
-  TabSelector: TabSelector,
-  TabEmission: TabEmission
+  TabSelector: TabSelector
 };
 
 api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
@@ -5394,10 +4011,10 @@ class TagDismissible extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.click.bind(this));
   }
 
-  handleClick () {
+  click () {
     this.focusClosest();
 
     switch (api.mode) {
@@ -5415,7 +4032,7 @@ class TagDismissible extends api.core.Instance {
   }
 
   verify () {
-    if (document.body.contains(this.node)) this.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
+    if (document.body.contains(this.node)) api.inspector.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
   }
 }
 
@@ -5433,58 +4050,113 @@ api.tag = {
 api.internals.register(api.tag.TagSelector.PRESSABLE, api.core.Toggle);
 api.internals.register(api.tag.TagSelector.DISMISSIBLE, api.tag.TagDismissible);
 
-const TRANSCRIPTION = api.internals.ns.selector('transcription');
-
-const TranscriptionSelector = {
-  TRANSCRIPTION: TRANSCRIPTION,
-  BUTTON: `${TRANSCRIPTION}__btn`
+const DownloadSelector = {
+  DOWNLOAD_ASSESS_FILE: `${api.internals.ns.attr.selector('assess-file')}`,
+  DOWNLOAD_DETAIL: `${api.internals.ns.selector('download__detail')}`
 };
 
-class Transcription extends api.core.Instance {
+class AssessFile extends api.core.Instance {
   static get instanceClassName () {
-    return 'Transcription';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(TranscriptionSelector.BUTTON));
-    return buttons[0];
-  }
-}
-
-api.transcription = {
-  Transcription: Transcription,
-  TranscriptionSelector: TranscriptionSelector
-};
-
-api.internals.register(api.transcription.TranscriptionSelector.TRANSCRIPTION, api.transcription.Transcription);
-
-class TileDownload extends api.core.Instance {
-  static get instanceClassName () {
-    return 'TileDownload';
+    return 'AssessFile';
   }
 
   init () {
-    this.addAscent(api.core.AssessEmission.UPDATE, details => {
-      this.descend(api.core.AssessEmission.UPDATE, details);
+    this.lang = this.getLang(this.node);
+    this.href = this.getAttribute('href');
+
+    this.hreflang = this.getAttribute('hreflang');
+    this.file = {};
+    this.detail = this.querySelector(DownloadSelector.DOWNLOAD_DETAIL);
+    this.update();
+  }
+
+  getFileLength () {
+    if (this.href === undefined) {
+      this.length = -1;
+      return;
+    }
+
+    fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
+      this.length = response.headers.get('content-length') || -1;
+      if (this.length === -1) {
+        api.inspector.warn('File size unknown: ' + this.href + '\nUnable to get HTTP header: "content-length"');
+      }
+      this.update();
     });
-    this.addAscent(api.core.AssessEmission.ADDED, () => {
-      this.descend(api.core.AssessEmission.ADDED);
-    });
+  }
+
+  update () {
+    // TODO V2: implémenter async
+    if (this.isLegacy) this.length = -1;
+
+    if (!this.length) {
+      this.getFileLength();
+      return;
+    }
+
+    const details = [];
+    if (this.detail) {
+      if (this.href) {
+        const extension = this.parseExtension(this.href);
+        if (extension) details.push(extension.toUpperCase());
+      }
+
+      if (this.length !== -1) {
+        details.push(this.bytesToSize(this.length));
+      }
+
+      if (this.hreflang) {
+        details.push(this.getLangDisplayName(this.hreflang));
+      }
+
+      this.detail.innerHTML = details.join(' - ');
+    }
+  }
+
+  getLang (elem) {
+    if (elem.lang) return elem.lang;
+    if (document.documentElement === elem) return window.navigator.language;
+    return this.getLang(elem.parentElement);
+  }
+
+  parseExtension (url) {
+    const regexExtension = /\.(\w{1,9})(?:$|[?#])/;
+    return url.match(regexExtension)[0].replace('.', '');
+  }
+
+  getLangDisplayName (locale) {
+    if (this.isLegacy) return locale;
+    const displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
+    const name = displayNames.of(locale);
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  bytesToSize (bytes) {
+    if (bytes === -1) return null;
+
+    let sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
+    if (this.getAttribute(api.internals.ns.attr('assess-file')) === 'bytes') {
+      sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+    }
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
+    if (i === 0) return `${bytes} ${sizeUnits[i]}`;
+
+    const size = bytes / (1000 ** i);
+    const roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
+    const stringSize = String(roundedSize).replace('.', ',');
+
+    return `${stringSize} ${sizeUnits[i]}`;
   }
 }
 
-const TileSelector = {
-  DOWNLOAD: api.internals.ns.selector('tile--download'),
-  DOWNLOAD_DETAIL: `${api.internals.ns.selector('tile--download')} ${api.internals.ns.selector('tile__detail')}`
+api.download = {
+  DownloadSelector: DownloadSelector,
+  AssessFile: AssessFile
+
 };
 
-api.tile = {
-  TileSelector: TileSelector,
-  TileDownload: TileDownload
-};
-
-api.internals.register(api.tile.TileSelector.DOWNLOAD, api.tile.TileDownload);
-api.internals.register(api.tile.TileSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
+api.internals.register(api.download.DownloadSelector.DOWNLOAD_ASSESS_FILE, api.download.AssessFile);
 
 const HeaderSelector = {
   HEADER: api.internals.ns.selector('header'),
@@ -5508,7 +4180,7 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
+    let toolsHtmlDuplicateId = toolsHtml.replace(/(<nav[.\s\S]*-translate [.\s\S]*) id="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 id="$2' + copySuffix + '"$3');
     toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
 
     if (toolsHtmlDuplicateId === menuHtml) return;
@@ -5517,7 +4189,7 @@ class HeaderLinks extends api.core.Instance {
       case api.Modes.ANGULAR:
       case api.Modes.REACT:
       case api.Modes.VUE:
-        this.warn(`header__tools-links content is different from header__menu-links content.
+        api.inspector.warn(`header__tools-links content is different from header__menu-links content.
 As you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:
 ${api.header.doc}`);
         break;
@@ -5543,22 +4215,29 @@ class HeaderModal extends api.core.Instance {
   }
 
   resize () {
-    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.deactivateModal();
-    else this.activateModal();
+    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.unqualify();
+    else this.qualify();
   }
 
-  activateModal () {
+  qualify () {
+    this.setAttribute('role', 'dialog');
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
-    modal.isEnabled = true;
+    const buttons = modal.buttons;
+    let id = '';
+    for (const button of buttons) {
+      id = button.id || id;
+      if (button.isPrimary && id) break;
+    }
+    this.setAttribute('aria-labelledby', id);
     this.listen('click', this._clickHandling, { capture: true });
   }
 
-  deactivateModal () {
+  unqualify () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.conceal();
-    modal.isEnabled = false;
+    if (modal) modal.conceal();
+    this.removeAttribute('role');
+    this.removeAttribute('aria-labelledby');
     this.unlisten('click', this._clickHandling, { capture: true });
   }
 

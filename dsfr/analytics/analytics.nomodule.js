@@ -1,4 +1,4 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.0'
+    version: '1.9.3'
   };
 
   var api = window[config.namespace];
@@ -463,30 +463,6 @@
     return null;
   };
 
-  var normaliseISODate = function (date) { return date.toISOString().split('T')[0]; };
-
-  var validateDate = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case value instanceof Date:
-        return normaliseISODate(value);
-
-      case typeof value === 'string': {
-        var date = new Date(value);
-        if (date.toString() !== 'Invalid Date') { return normaliseISODate(date); }
-        break;
-      }
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return null;
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Date"));
-    return null;
-  };
-
   var ActionStatus = {
     UNSTARTED: {
       id: 'unstarted',
@@ -848,7 +824,7 @@
       slices.push(slice.flat());
     }
 
-    if (this._type === PushType.COLLECTOR && this._collector.isCollecting) {
+    if (this._type === PushType.COLLECTOR) {
       var layer = this._collector.layer;
       if (slices.length > 0) {
         var slice$1 = slices.splice(0, 1)[0];
@@ -929,6 +905,29 @@
     }
   };
 
+  var Profile = {
+    VISITOR: {
+      id: 'visitor',
+      value: 'visitor'
+    },
+    LOOKER: {
+      id: 'looker',
+      value: 'looker'
+    },
+    SHOPPER: {
+      id: 'shopper',
+      value: 'shopper'
+    },
+    BUYER: {
+      id: 'buyer',
+      value: 'buyer'
+    },
+    REBUYER: {
+      id: 'rebuyer',
+      value: 'rebuyer'
+    }
+  };
+
   var Type$2 = {
     INDIVIDUAL: {
       id: 'individual',
@@ -996,9 +995,8 @@
     return this._status.id;
   };
 
-  prototypeAccessors$a.profile.set = function (value) {
-    var valid = validateString(value, 'user.profile');
-    if (valid !== null) { this._profile = valid; }
+  prototypeAccessors$a.profile.set = function (id) {
+    this._profile = Object.values(Profile).filter(function (profile) { return profile.id === id || profile.value === id; })[0];
   };
 
   prototypeAccessors$a.profile.get = function () {
@@ -1029,7 +1027,7 @@
     if (this.isNew) { layer.push('newcustomer', '1'); }
     if (this.language) { layer.push('user_language', this.language); }
     layer.push('user_login_status', this._status.value);
-    if (this._profile) { layer.push('profile', this._profile); }
+    if (this._profile) { layer.push('profile', this._profile.value); }
     if (this._type) { layer.push('user_type', this._type.value); }
     return layer;
   };
@@ -1037,6 +1035,7 @@
   Object.defineProperties( User.prototype, prototypeAccessors$a );
 
   User.Status = Status;
+  User.Profile = Profile;
   User.Type = Type$2;
 
   var Environment = {
@@ -1175,18 +1174,11 @@
 
   Site.Environment = Environment;
 
-  var CollectionState = {
-    COLLECTABLE: 'collectable',
-    COLLECTING: 'collecting',
-    COLLECTED: 'collected'
-  };
-
   var Page = function Page (config) {
     this._config = config || {};
-    this._state = CollectionState.COLLECTABLE;
   };
 
-  var prototypeAccessors$8 = { isCollecting: { configurable: true },path: { configurable: true },referrer: { configurable: true },title: { configurable: true },id: { configurable: true },author: { configurable: true },date: { configurable: true },tags: { configurable: true },name: { configurable: true },labels: { configurable: true },categories: { configurable: true },isError: { configurable: true },template: { configurable: true },segment: { configurable: true },group: { configurable: true },subtemplate: { configurable: true },theme: { configurable: true },subtheme: { configurable: true },related: { configurable: true },depth: { configurable: true },current: { configurable: true },total: { configurable: true },filters: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$8 = { path: { configurable: true },referrer: { configurable: true },title: { configurable: true },name: { configurable: true },labels: { configurable: true },categories: { configurable: true },isError: { configurable: true },template: { configurable: true },segment: { configurable: true },group: { configurable: true },subtemplate: { configurable: true },theme: { configurable: true },subtheme: { configurable: true },related: { configurable: true },depth: { configurable: true },current: { configurable: true },total: { configurable: true },filters: { configurable: true },layer: { configurable: true } };
 
   Page.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -1195,13 +1187,9 @@
     this.referrer = clear ? '' : this._config.referrer;
     this.title = clear ? '' : this._config.title;
     this.name = clear ? '' : this._config.name;
-    this.id = clear ? '' : this._config.id;
-    this.author = clear ? '' : this._config.author;
-    this.date = clear ? '' : this._config.date;
     this._labels = clear || !this._config.labels ? ['', '', '', '', ''] : this._config.labels;
-    this._labels.length = 5;
-    this._tags = clear || !this._config.tags ? [] : this._config.tags;
     this._categories = clear || !this._config.categories ? ['', '', ''] : this._config.categories;
+    this._labels.length = 5;
     this.isError = !clear && this._config.isError;
     this.template = clear ? '' : this._config.template;
     this.group = clear ? '' : this._config.group;
@@ -1216,25 +1204,9 @@
     this._filters = clear || !this._config.filters ? [] : this._config.filters;
   };
 
-  Page.prototype.collecting = function collecting () {
-    if (this._state !== CollectionState.COLLECTABLE) {
-      api.inspector.warn(("current path '" + (this.path) + "' was already collected"));
-      return false;
-    }
-    this._state = CollectionState.COLLECTING;
-    return true;
-  };
-
-  prototypeAccessors$8.isCollecting.get = function () {
-    return this._state === CollectionState.COLLECTING;
-  };
-
   prototypeAccessors$8.path.set = function (value) {
     var valid = validateString(value, 'page.path');
-    if (valid !== null) {
-      this._path = valid;
-      this._state = CollectionState.COLLECTABLE;
-    }
+    if (valid !== null) { this._path = valid; }
   };
 
   prototypeAccessors$8.path.get = function () {
@@ -1257,37 +1229,6 @@
 
   prototypeAccessors$8.title.get = function () {
     return this._title || document.title;
-  };
-
-  prototypeAccessors$8.id.set = function (value) {
-    var valid = validateString(value, 'page.id');
-    if (valid !== null) { this._id = valid; }
-  };
-
-  prototypeAccessors$8.id.get = function () {
-    return this._id;
-  };
-
-  prototypeAccessors$8.author.set = function (value) {
-    var valid = validateString(value, 'page.author');
-    if (valid !== null) { this._author = valid; }
-  };
-
-  prototypeAccessors$8.author.get = function () {
-    return this._author;
-  };
-
-  prototypeAccessors$8.date.set = function (value) {
-    var valid = validateDate(value, 'page.date');
-    if (valid !== null) { this._date = valid; }
-  };
-
-  prototypeAccessors$8.date.get = function () {
-    return this._date;
-  };
-
-  prototypeAccessors$8.tags.get = function () {
-    return this._tags;
   };
 
   prototypeAccessors$8.name.set = function (value) {
@@ -1411,22 +1352,15 @@
   };
 
   prototypeAccessors$8.layer.get = function () {
-    this._state = CollectionState.COLLECTED;
     var layer = [];
     if (this.path) { layer.push('path', normalize(this.path)); }
     if (this.referrer) { layer.push('referrer', normalize(this.referrer)); }
     if (this.title) { layer.push('page_title', normalize(this.title)); }
     if (this.name) { layer.push('page_name', normalize(this.name)); }
-    if (this.id) { layer.push('page_id', normalize(this.id)); }
-    if (this.author) { layer.push('page_author', normalize(this.author)); }
-    if (this.date) { layer.push('page_date', normalize(this.date)); }
 
     var labels = this._labels.slice(0, 5);
     labels.length = 5;
     if (labels.some(function (label) { return label; })) { layer.push('pagelabel', labels.map(function (label) { return typeof label === 'string' ? normalize(label) : ''; }).join(',')); }
-
-    var tags = this._tags;
-    if (tags.some(function (tag) { return tag; })) { layer.push('pagetag', tags.map(function (tag) { return typeof tag === 'string' ? normalize(tag) : ''; }).join(',')); }
 
     this._categories.forEach(function (category, index) {
       if (category) { layer.push(("page_category" + (index + 1)), category); }
@@ -1677,10 +1611,10 @@
 
   Object.defineProperties( Funnel.prototype, prototypeAccessors$6 );
 
-  var Location = function Location (onRouteChange, isListeningHash) {
+  var Location = function Location (onChange, isListeningHash) {
     if ( isListeningHash === void 0 ) isListeningHash = false;
 
-    this._onRouteChange = onRouteChange;
+    this._onChange = onChange;
     this._isListeningHash = isListeningHash;
     this._update();
     renderer.add(this);
@@ -1706,7 +1640,7 @@
   Location.prototype.change = function change () {
     this._referrer = this._path;
     this._update();
-    this._onRouteChange();
+    this._onChange();
   };
 
   prototypeAccessors$5.path.get = function () {
@@ -1778,11 +1712,12 @@
     this._search = new Search(config.search);
     this._funnel = new Funnel(config.funnel);
 
+    this._isCollected = false;
     this._delay = -1;
     queue.setCollector(this);
   };
 
-  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },isCollecting: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },layer: { configurable: true } };
 
   prototypeAccessors$4.page.get = function () {
     return this._page;
@@ -1805,7 +1740,7 @@
   };
 
   Collector.prototype.start = function start () {
-    var handleRouteChange = this._handleRouteChange.bind(this);
+    var handleChange = this._handleChange.bind(this);
     switch (this._collection) {
       case Collection.LOAD:
         this.collect();
@@ -1813,17 +1748,17 @@
 
       case Collection.FULL:
         this.collect();
-        this._location = new Location(handleRouteChange);
+        this._location = new Location(handleChange);
         break;
 
       case Collection.HASH:
         this.collect();
-        this._location = new Location(handleRouteChange, true);
+        this._location = new Location(handleChange, true);
         break;
     }
   };
 
-  Collector.prototype._handleRouteChange = function _handleRouteChange () {
+  Collector.prototype._handleChange = function _handleChange () {
     queue.send(true);
     this._delay = 6;
     renderer.add(this);
@@ -1833,11 +1768,12 @@
     this._delay--;
     if (this._delay < 0) {
       renderer.remove(this);
-      this._routeChanged();
+      this._changed();
     }
   };
 
-  Collector.prototype._routeChanged = function _routeChanged () {
+  Collector.prototype._changed = function _changed () {
+    this._isCollected = false;
     actions.rewind();
     this._page.referrer = this._location.referrer;
     if (this._location.hasTitle) { this._page.title = this._location.title; }
@@ -1859,16 +1795,13 @@
   };
 
   Collector.prototype.collect = function collect () {
-    if (!this.page.collecting()) { return; }
+    if (this._isCollected) { return; }
     queue.collect();
+    this._isCollected = true;
   };
 
   prototypeAccessors$4.collection.get = function () {
     return this._collection;
-  };
-
-  prototypeAccessors$4.isCollecting.get = function () {
-    return this._page.isCollecting;
   };
 
   prototypeAccessors$4.layer.get = function () {
@@ -2336,13 +2269,9 @@
     this._type = Type.COMPONENT;
     this._isValid = instance.validate(this._target);
     var selector = Array.from({ length: 6 }, function (v, i) { return ("h" + (i + 1)); }).join(',');
-    var top = Array.from(this._node.querySelectorAll(selector)).map(function (heading) { return new Heading(heading); }).sort(function (a, b) { return a.level - b.level; })[0];
-    if (top && top.level <= this._level) { this._level = top.level - 1; }
-
-    var hx = this._node.closest(selector);
-    if (hx) {
-      var heading = new Heading(hx);
-      if (heading.level <= this._level) { this._level = heading.level - 1; }
+    var heading = this._node.closest(selector);
+    if (heading) {
+      this._level = Number(heading.tagName.charAt(1)) - 1;
     }
 
     if (!isNaN(instance.level) && instance.level < this._level) { this._level = instance.level; }
@@ -2561,7 +2490,7 @@
   ActionElement.prototype.begin = function begin (data) {
       if ( data === void 0 ) data = {};
 
-    if (this._hasBegun || !this._isRatingActive) { return; }
+    if (this._hasBegun) { return; }
     this._hasBegun = true;
     if (this._type.isBeginning) { queue.appendStartingAction(this._action, data); }
   };
@@ -3090,7 +3019,7 @@
     TITLE: api.internals.ns.selector('accordion__title')
   };
 
-  var ID$C = 'accordion';
+  var ID$B = 'accordion';
 
   var AccordionButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AccordionButtonActionee () {
@@ -3130,7 +3059,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$C;
+      return ID$B;
     };
 
     Object.defineProperties( AccordionButtonActionee.prototype, prototypeAccessors );
@@ -3183,7 +3112,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$C;
+      return ID$B;
     };
 
     AccordionActionee.prototype.dispose = function dispose () {
@@ -3196,64 +3125,8 @@
     return AccordionActionee;
   }(ComponentActionee));
 
-  var integrateAccordion = function () {
-    if (api.accordion) {
-      api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
-    }
-  };
-
-  var AlertSelector = {
-    ALERT: api.internals.ns.selector('alert'),
-    TITLE: api.internals.ns.selector('alert__title')
-  };
-
-  var ID$B = 'alert';
-
-  var AlertActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function AlertActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) AlertActionee.__proto__ = ComponentActionee;
-    AlertActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    AlertActionee.prototype.constructor = AlertActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'AlertActionee';
-    };
-
-    AlertActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var alertTitle = this.node.querySelector(AlertSelector.TITLE);
-      if (alertTitle) {
-        var text = this.getFirstText(alertTitle);
-        if (text) { return text; }
-      }
-      return 'alerte';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$B;
-    };
-
-    Object.defineProperties( AlertActionee.prototype, prototypeAccessors );
-    Object.defineProperties( AlertActionee, staticAccessors );
-
-    return AlertActionee;
-  }(ComponentActionee));
-
-  var integrateAlert = function () {
-    api.internals.register(AlertSelector.ALERT, AlertActionee);
-  };
-
   var BreadcrumbSelector = {
-    LINK: ((api.internals.ns.selector('breadcrumb__link')) + ":not([aria-current])"),
+    LINK: api.internals.ns.selector('breadcrumb__link'),
     COLLAPSE: ((api.internals.ns.selector('breadcrumb')) + " " + (api.internals.ns.selector('collapse')))
   };
 
@@ -3379,65 +3252,11 @@
     return BreadcrumbLinkActionee;
   }(ComponentActionee));
 
-  var integrateBreadcrumb = function () {
-    if (api.breadcrumb) {
-      api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
-      api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
-    }
-  };
-
-  var BadgeSelector = {
-    BADGE: api.internals.ns.selector('badge')
-  };
-
-  var ID$z = 'badge';
-
-  var BadgeActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function BadgeActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) BadgeActionee.__proto__ = ComponentActionee;
-    BadgeActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    BadgeActionee.prototype.constructor = BadgeActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'BadgeActionee';
-    };
-
-    BadgeActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-
-      return 'badge';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$z;
-    };
-
-    Object.defineProperties( BadgeActionee.prototype, prototypeAccessors );
-    Object.defineProperties( BadgeActionee, staticAccessors );
-
-    return BadgeActionee;
-  }(ComponentActionee));
-
-  var integrateBadge = function () {
-    api.internals.register(BadgeSelector.BADGE, BadgeActionee);
-  };
-
   var ButtonSelector = {
     BUTTON: ((api.internals.ns.selector('btn')) + ":not(" + (api.internals.ns.selector('btn--close')) + ")")
   };
 
-  var ID$y = 'button';
+  var ID$z = 'button';
 
   var ButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ButtonActionee () {
@@ -3480,7 +3299,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$y;
+      return ID$z;
     };
 
     Object.defineProperties( ButtonActionee.prototype, prototypeAccessors );
@@ -3489,16 +3308,101 @@
     return ButtonActionee;
   }(ComponentActionee));
 
-  var integrateButton = function () {
-    api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+  var AlertSelector = {
+    ALERT: api.internals.ns.selector('alert'),
+    TITLE: api.internals.ns.selector('alert__title')
   };
+
+  var ID$y = 'alert';
+
+  var AlertActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function AlertActionee () {
+      ComponentActionee.call(this, 1);
+    }
+
+    if ( ComponentActionee ) AlertActionee.__proto__ = ComponentActionee;
+    AlertActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    AlertActionee.prototype.constructor = AlertActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'AlertActionee';
+    };
+
+    AlertActionee.prototype.init = function init () {
+      this.setImpressionType();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var alertTitle = this.node.querySelector(AlertSelector.TITLE);
+      if (alertTitle) {
+        var text = this.getFirstText(alertTitle);
+        if (text) { return text; }
+      }
+      return 'alerte';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$y;
+    };
+
+    Object.defineProperties( AlertActionee.prototype, prototypeAccessors );
+    Object.defineProperties( AlertActionee, staticAccessors );
+
+    return AlertActionee;
+  }(ComponentActionee));
+
+  var BadgeSelector = {
+    BADGE: api.internals.ns.selector('badge')
+  };
+
+  var ID$x = 'badge';
+
+  var BadgeActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function BadgeActionee () {
+      ComponentActionee.call(this, 1);
+    }
+
+    if ( ComponentActionee ) BadgeActionee.__proto__ = ComponentActionee;
+    BadgeActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    BadgeActionee.prototype.constructor = BadgeActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'BadgeActionee';
+    };
+
+    BadgeActionee.prototype.init = function init () {
+      this.setImpressionType();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var firstText = this.getFirstText();
+      if (firstText) { return firstText; }
+
+      return 'badge';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$x;
+    };
+
+    Object.defineProperties( BadgeActionee.prototype, prototypeAccessors );
+    Object.defineProperties( BadgeActionee, staticAccessors );
+
+    return BadgeActionee;
+  }(ComponentActionee));
 
   var CalloutSelector = {
     CALLOUT: api.internals.ns.selector('callout'),
     TITLE: api.internals.ns.selector('callout__title')
   };
 
-  var ID$x = 'callout';
+  var ID$w = 'callout';
 
   var CalloutActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CalloutActionee () {
@@ -3531,7 +3435,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$x;
+      return ID$w;
     };
 
     Object.defineProperties( CalloutActionee.prototype, prototypeAccessors );
@@ -3540,127 +3444,12 @@
     return CalloutActionee;
   }(ComponentActionee));
 
-  var integrateCallout = function () {
-    api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
-  };
-
-  var CardSelector = {
-    CARD: api.internals.ns.selector('card'),
-    LINK: ((api.internals.ns.selector('card__title')) + " a"),
-    TITLE: api.internals.ns.selector('card__title')
-  };
-
-  var ID$w = 'card';
-
-  var CardActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function CardActionee () {
-      ComponentActionee.call(this, 1, true);
-    }
-
-    if ( ComponentActionee ) CardActionee.__proto__ = ComponentActionee;
-    CardActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    CardActionee.prototype.constructor = CardActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'CardActionee';
-    };
-
-    CardActionee.prototype.init = function init () {
-      var link = this.node.querySelector(CardSelector.LINK);
-      if (link) {
-        this.link = link;
-        this.detectInteractionType(link);
-        this.listenClick(link);
-      } else { this.setImpressionType(); }
-    };
-
-    prototypeAccessors.label.get = function () {
-      var cardTitle = this.node.querySelector(CardSelector.TITLE);
-      if (cardTitle) {
-        var text = this.getFirstText(cardTitle);
-        if (text) { return text; }
-      }
-
-      var heading = this.getHeadingLabel();
-      if (heading) { return heading; }
-
-      return 'carte';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$w;
-    };
-
-    Object.defineProperties( CardActionee.prototype, prototypeAccessors );
-    Object.defineProperties( CardActionee, staticAccessors );
-
-    return CardActionee;
-  }(ComponentActionee));
-
-  var integrateCard = function () {
-    api.internals.register(CardSelector.CARD, CardActionee);
-  };
-
-  var CheckboxSelector = {
-    INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
-  };
-
-  var ID$v = 'checkbox';
-
-  var CheckboxActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function CheckboxActionee () {
-      ComponentActionee.call(this, 1, true);
-      this._data = {};
-    }
-
-    if ( ComponentActionee ) CheckboxActionee.__proto__ = ComponentActionee;
-    CheckboxActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    CheckboxActionee.prototype.constructor = CheckboxActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'CheckboxActionee';
-    };
-
-    CheckboxActionee.prototype.init = function init () {
-      this.detectCheckableType();
-      this.listenCheckable();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-      if (label) {
-        var text = this.getFirstText(label);
-        if (text) { return text; }
-      }
-      return 'case à cocher';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$v;
-    };
-
-    Object.defineProperties( CheckboxActionee.prototype, prototypeAccessors );
-    Object.defineProperties( CheckboxActionee, staticAccessors );
-
-    return CheckboxActionee;
-  }(ComponentActionee));
-
-  var integrateCheckbox = function () {
-    api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
-  };
-
   var ConnectSelector = {
     CONNECT: api.internals.ns.selector('connect'),
     LINK: api.internals.ns.selector('connect + * a, connect + a')
   };
 
-  var ID$u = 'connect';
+  var ID$v = 'connect';
 
   var ConnectActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ConnectActionee () {
@@ -3689,7 +3478,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$u;
+      return ID$v;
     };
 
     Object.defineProperties( ConnectActionee.prototype, prototypeAccessors );
@@ -3724,7 +3513,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$u;
+      return ID$v;
     };
 
     Object.defineProperties( ConnectLinkActionee.prototype, prototypeAccessors );
@@ -3733,57 +3522,12 @@
     return ConnectLinkActionee;
   }(ComponentActionee));
 
-  var integrateConnect = function () {
-    api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
-    api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
-  };
-
-  var ConsentSelector = {
-    BANNER: api.internals.ns.selector('consent-banner')
-  };
-
-  var ID$t = 'consent';
-
-  var ConsentActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function ConsentActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) ConsentActionee.__proto__ = ComponentActionee;
-    ConsentActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    ConsentActionee.prototype.constructor = ConsentActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'ConsentActionee';
-    };
-
-    prototypeAccessors.label.get = function () {
-      return 'gestionnaire de consentement';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$t;
-    };
-
-    Object.defineProperties( ConsentActionee.prototype, prototypeAccessors );
-    Object.defineProperties( ConsentActionee, staticAccessors );
-
-    return ConsentActionee;
-  }(ComponentActionee));
-
-  var integrateConsent = function () {
-    api.internals.register(ConsentSelector.BANNER, ConsentActionee);
-  };
-
   var ContentSelector = {
     CONTENT: api.internals.ns.selector('content-media'),
     IMG: api.internals.ns.selector('content-media__img')
   };
 
-  var ID$s = 'content-media';
+  var ID$u = 'content-media';
 
   var ContentActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ContentActionee () {
@@ -3853,7 +3597,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$s;
+      return ID$u;
     };
 
     Object.defineProperties( ContentActionee.prototype, prototypeAccessors );
@@ -3862,15 +3606,150 @@
     return ContentActionee;
   }(ComponentActionee));
 
-  var integrateContent = function () {
-    api.internals.register(ContentSelector.CONTENT, ContentActionee);
+  var ConsentSelector = {
+    BANNER: api.internals.ns.selector('consent-banner')
   };
+
+  var ID$t = 'consent';
+
+  var ConsentActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function ConsentActionee () {
+      ComponentActionee.call(this, 1);
+    }
+
+    if ( ComponentActionee ) ConsentActionee.__proto__ = ComponentActionee;
+    ConsentActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    ConsentActionee.prototype.constructor = ConsentActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'ConsentActionee';
+    };
+
+    prototypeAccessors.label.get = function () {
+      return 'gestionnaire de consentement';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$t;
+    };
+
+    Object.defineProperties( ConsentActionee.prototype, prototypeAccessors );
+    Object.defineProperties( ConsentActionee, staticAccessors );
+
+    return ConsentActionee;
+  }(ComponentActionee));
+
+  var CardSelector = {
+    CARD: api.internals.ns.selector('card'),
+    LINK: ((api.internals.ns.selector('card__title')) + " a"),
+    TITLE: api.internals.ns.selector('card__title')
+  };
+
+  var ID$s = 'card';
+
+  var CardActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function CardActionee () {
+      ComponentActionee.call(this, 1, true);
+    }
+
+    if ( ComponentActionee ) CardActionee.__proto__ = ComponentActionee;
+    CardActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    CardActionee.prototype.constructor = CardActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'CardActionee';
+    };
+
+    CardActionee.prototype.init = function init () {
+      var link = this.node.querySelector(CardSelector.LINK);
+      if (link) {
+        this.link = link;
+        this.detectInteractionType(link);
+        this.listenClick(link);
+      } else { this.setImpressionType(); }
+    };
+
+    prototypeAccessors.label.get = function () {
+      var cardTitle = this.node.querySelector(CardSelector.TITLE);
+      if (cardTitle) {
+        var text = this.getFirstText(cardTitle);
+        if (text) { return text; }
+      }
+
+      var heading = this.getHeadingLabel();
+      if (heading) { return heading; }
+
+      return 'carte';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$s;
+    };
+
+    Object.defineProperties( CardActionee.prototype, prototypeAccessors );
+    Object.defineProperties( CardActionee, staticAccessors );
+
+    return CardActionee;
+  }(ComponentActionee));
+
+  var CheckboxSelector = {
+    INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
+  };
+
+  var ID$r = 'checkbox';
+
+  var CheckboxActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function CheckboxActionee () {
+      ComponentActionee.call(this, 1, true);
+      this._data = {};
+    }
+
+    if ( ComponentActionee ) CheckboxActionee.__proto__ = ComponentActionee;
+    CheckboxActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    CheckboxActionee.prototype.constructor = CheckboxActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'CheckboxActionee';
+    };
+
+    CheckboxActionee.prototype.init = function init () {
+      this.detectCheckableType();
+      this.listenCheckable();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
+      if (label) {
+        var text = this.getFirstText(label);
+        if (text) { return text; }
+      }
+      return 'case à cocher';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$r;
+    };
+
+    Object.defineProperties( CheckboxActionee.prototype, prototypeAccessors );
+    Object.defineProperties( CheckboxActionee, staticAccessors );
+
+    return CheckboxActionee;
+  }(ComponentActionee));
 
   var DownloadSelector = {
     LINK: api.internals.ns.selector('download__link')
   };
 
-  var ID$r = 'download';
+  var ID$q = 'download';
 
   var DownloadActionee = /*@__PURE__*/(function (ComponentActionee) {
     function DownloadActionee () {
@@ -3900,7 +3779,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$r;
+      return ID$q;
     };
 
     Object.defineProperties( DownloadActionee.prototype, prototypeAccessors );
@@ -3908,60 +3787,6 @@
 
     return DownloadActionee;
   }(ComponentActionee));
-
-  var integrateDownload = function () {
-    api.internals.register(DownloadSelector.LINK, DownloadActionee);
-  };
-
-  var FollowSelector = {
-    FOLLOW: api.internals.ns.selector('follow'),
-    NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
-  };
-
-  var ID$q = 'follow';
-
-  var FollowActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function FollowActionee () {
-      ComponentActionee.call(this, 2, true);
-    }
-
-    if ( ComponentActionee ) FollowActionee.__proto__ = ComponentActionee;
-    FollowActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    FollowActionee.prototype.constructor = FollowActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'FollowActionee';
-    };
-
-    FollowActionee.prototype.init = function init () {
-      this._inputGroup = this.querySelector(FollowSelector.NEWSLETTER_INPUT_GROUP);
-      if (this._inputGroup) {
-        this.listenInputValidation(this._inputGroup, Type$1.SUBSCRIBE);
-        var input = this.element.getDescendantInstances('InputActionee', null, true)[0];
-        if (input) { input.isMuted = true; }
-      }
-    };
-
-    prototypeAccessors.label.get = function () {
-      return 'lettre d\'information et réseaux sociaux';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$q;
-    };
-
-    Object.defineProperties( FollowActionee.prototype, prototypeAccessors );
-    Object.defineProperties( FollowActionee, staticAccessors );
-
-    return FollowActionee;
-  }(ComponentActionee));
-
-  var integrateFollow = function () {
-    api.internals.register(FollowSelector.FOLLOW, FollowActionee);
-  };
 
   var FooterSelector = {
     FOOTER: api.internals.ns.selector('footer'),
@@ -4004,6 +3829,52 @@
     return FooterActionee;
   }(ComponentActionee));
 
+  var FollowSelector = {
+    FOLLOW: api.internals.ns.selector('follow'),
+    NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
+  };
+
+  var ID$o = 'follow';
+
+  var FollowActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function FollowActionee () {
+      ComponentActionee.call(this, 2, true);
+    }
+
+    if ( ComponentActionee ) FollowActionee.__proto__ = ComponentActionee;
+    FollowActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    FollowActionee.prototype.constructor = FollowActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'FollowActionee';
+    };
+
+    FollowActionee.prototype.init = function init () {
+      this._inputGroup = this.querySelector(FollowSelector.NEWSLETTER_INPUT_GROUP);
+      if (this._inputGroup) {
+        this.listenInputValidation(this._inputGroup, Type$1.SUBSCRIBE);
+        var input = this.element.getDescendantInstances('InputActionee', null, true)[0];
+        if (input) { input.isMuted = true; }
+      }
+    };
+
+    prototypeAccessors.label.get = function () {
+      return 'lettre d\'information et réseaux sociaux';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$o;
+    };
+
+    Object.defineProperties( FollowActionee.prototype, prototypeAccessors );
+    Object.defineProperties( FollowActionee, staticAccessors );
+
+    return FollowActionee;
+  }(ComponentActionee));
+
   var FooterLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function FooterLinkActionee () {
       ComponentActionee.call(this, 2);
@@ -4038,12 +3909,7 @@
     return FooterLinkActionee;
   }(ComponentActionee));
 
-  var integrateFooter = function () {
-    api.internals.register(FooterSelector.FOOTER, FooterActionee);
-    api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
-  };
-
-  var ID$o = 'header';
+  var ID$n = 'header';
 
   var HeaderActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderActionee () {
@@ -4070,7 +3936,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$o;
+      return ID$n;
     };
 
     Object.defineProperties( HeaderActionee.prototype, prototypeAccessors );
@@ -4078,6 +3944,11 @@
 
     return HeaderActionee;
   }(ComponentActionee));
+
+  var HeaderSelector = {
+    TOOLS_BUTTON: ((api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('btns-group')) + " " + (api.internals.ns.selector('btn'))),
+    MENU_BUTTON: ((api.internals.ns.selector('header__menu-links')) + " " + (api.internals.ns.selector('btns-group')) + " " + (api.internals.ns.selector('btn')))
+  };
 
   var HeaderModalButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderModalButtonActionee () {
@@ -4125,11 +3996,6 @@
 
     return HeaderModalActionee;
   }(ComponentActionee));
-
-  var HeaderSelector = {
-    TOOLS_BUTTON: ((api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('btns-group')) + " " + (api.internals.ns.selector('btn'))),
-    MENU_BUTTON: ((api.internals.ns.selector('header__menu-links')) + " " + (api.internals.ns.selector('btns-group')) + " " + (api.internals.ns.selector('btn')))
-  };
 
   var HeaderToolsButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderToolsButtonActionee () {
@@ -4179,20 +4045,11 @@
     return HeaderMenuButtonActionee;
   }(ComponentActionee));
 
-  var integrateHeader = function () {
-    if (api.header) {
-      api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
-      api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
-      api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
-      api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
-    }
-  };
-
   var HighlightSelector = {
     HIGHLIGHT: api.internals.ns.selector('highlight')
   };
 
-  var ID$n = 'highlight';
+  var ID$m = 'highlight';
 
   var HighlightActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HighlightActionee () {
@@ -4219,7 +4076,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$n;
+      return ID$m;
     };
 
     Object.defineProperties( HighlightActionee.prototype, prototypeAccessors );
@@ -4227,58 +4084,6 @@
 
     return HighlightActionee;
   }(ComponentActionee));
-
-  var integrateHighlight = function () {
-    api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
-  };
-
-  var LinkSelector = {
-    LINK: api.internals.ns.selector('link')
-  };
-
-  var ID$m = 'link';
-
-  var LinkActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function LinkActionee () {
-      ComponentActionee.call(this, 1, true);
-    }
-
-    if ( ComponentActionee ) LinkActionee.__proto__ = ComponentActionee;
-    LinkActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    LinkActionee.prototype.constructor = LinkActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'LinkActionee';
-    };
-
-    LinkActionee.prototype.init = function init () {
-      this.detectInteractionType();
-      this.listenClick();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-
-      return 'lien';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$m;
-    };
-
-    Object.defineProperties( LinkActionee.prototype, prototypeAccessors );
-    Object.defineProperties( LinkActionee, staticAccessors );
-
-    return LinkActionee;
-  }(ComponentActionee));
-
-  var integrateLink = function () {
-    api.internals.register(LinkSelector.LINK, LinkActionee);
-  };
 
   var InputSelector = {
     INPUT: api.internals.ns.selector('input-group')
@@ -4330,15 +4135,55 @@
     return InputActionee;
   }(ComponentActionee));
 
-  var integrateInput = function () {
-    api.internals.register(InputSelector.INPUT, InputActionee);
+  var LinkSelector = {
+    LINK: api.internals.ns.selector('link')
   };
+
+  var ID$k = 'link';
+
+  var LinkActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function LinkActionee () {
+      ComponentActionee.call(this, 1, true);
+    }
+
+    if ( ComponentActionee ) LinkActionee.__proto__ = ComponentActionee;
+    LinkActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    LinkActionee.prototype.constructor = LinkActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'LinkActionee';
+    };
+
+    LinkActionee.prototype.init = function init () {
+      this.detectInteractionType();
+      this.listenClick();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var firstText = this.getFirstText();
+      if (firstText) { return firstText; }
+
+      return 'lien';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$k;
+    };
+
+    Object.defineProperties( LinkActionee.prototype, prototypeAccessors );
+    Object.defineProperties( LinkActionee, staticAccessors );
+
+    return LinkActionee;
+  }(ComponentActionee));
 
   var ModalSelector = {
     TITLE: api.internals.ns.selector('modal__title')
   };
 
-  var ID$k = 'modal';
+  var ID$j = 'modal';
 
   var ModalActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ModalActionee () {
@@ -4385,7 +4230,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$k;
+      return ID$j;
     };
 
     Object.defineProperties( ModalActionee.prototype, prototypeAccessors );
@@ -4394,10 +4239,9 @@
     return ModalActionee;
   }(ComponentActionee));
 
-  var integrateModal = function () {
-    if (api.modal) {
-      api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
-    }
+  var NavigationSelector = {
+    LINK: api.internals.ns.selector('nav__link'),
+    BUTTON: api.internals.ns.selector('nav__btn')
   };
 
   var NavigationActionee = /*@__PURE__*/(function (ComponentActionee) {
@@ -4424,51 +4268,6 @@
     Object.defineProperties( NavigationActionee, staticAccessors );
 
     return NavigationActionee;
-  }(ComponentActionee));
-
-  var NavigationSelector = {
-    LINK: api.internals.ns.selector('nav__link'),
-    BUTTON: api.internals.ns.selector('nav__btn')
-  };
-
-  var ID$j = 'navigation';
-
-  var NavigationLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function NavigationLinkActionee () {
-      ComponentActionee.call(this, 2);
-    }
-
-    if ( ComponentActionee ) NavigationLinkActionee.__proto__ = ComponentActionee;
-    NavigationLinkActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    NavigationLinkActionee.prototype.constructor = NavigationLinkActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'NavigationLinkActionee';
-    };
-
-    NavigationLinkActionee.prototype.init = function init () {
-      this.detectInteractionType();
-      this.listenClick();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-
-      return 'lien de navigation';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$j;
-    };
-
-    Object.defineProperties( NavigationLinkActionee.prototype, prototypeAccessors );
-    Object.defineProperties( NavigationLinkActionee, staticAccessors );
-
-    return NavigationLinkActionee;
   }(ComponentActionee));
 
   var NavigationSectionActionee = /*@__PURE__*/(function (ComponentActionee) {
@@ -4517,20 +4316,52 @@
     return NavigationSectionActionee;
   }(ComponentActionee));
 
-  var integrateNavigation = function () {
-    if (api.navigation) {
-      api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
-      api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
-      api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+  var ID$i = 'navigation';
+
+  var NavigationLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function NavigationLinkActionee () {
+      ComponentActionee.call(this, 2);
     }
-  };
+
+    if ( ComponentActionee ) NavigationLinkActionee.__proto__ = ComponentActionee;
+    NavigationLinkActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    NavigationLinkActionee.prototype.constructor = NavigationLinkActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'NavigationLinkActionee';
+    };
+
+    NavigationLinkActionee.prototype.init = function init () {
+      this.detectInteractionType();
+      this.listenClick();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var firstText = this.getFirstText();
+      if (firstText) { return firstText; }
+
+      return 'lien de navigation';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$i;
+    };
+
+    Object.defineProperties( NavigationLinkActionee.prototype, prototypeAccessors );
+    Object.defineProperties( NavigationLinkActionee, staticAccessors );
+
+    return NavigationLinkActionee;
+  }(ComponentActionee));
 
   var NoticeSelector = {
     NOTICE: api.internals.ns.selector('notice'),
     TITLE: api.internals.ns.selector('notice__title')
   };
 
-  var ID$i = 'notice';
+  var ID$h = 'notice';
 
   var NoticeActionee = /*@__PURE__*/(function (ComponentActionee) {
     function NoticeActionee () {
@@ -4563,7 +4394,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$i;
+      return ID$h;
     };
 
     Object.defineProperties( NoticeActionee.prototype, prototypeAccessors );
@@ -4571,10 +4402,6 @@
 
     return NoticeActionee;
   }(ComponentActionee));
-
-  var integrateNotice = function () {
-    api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-  };
 
   var PaginationSelector = {
     PAGINATION: api.internals.ns.selector('pagination'),
@@ -4585,7 +4412,7 @@
     CURRENT: '[aria-current="page"]'
   };
 
-  var ID$h = 'pagination';
+  var ID$g = 'pagination';
 
   var PaginationActionee = /*@__PURE__*/(function (ComponentActionee) {
     function PaginationActionee () {
@@ -4612,7 +4439,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$h;
+      return ID$g;
     };
 
     PaginationActionee.prototype.setPagination = function setPagination () {
@@ -4688,62 +4515,6 @@
     return PaginationLinkActionee;
   }(ComponentActionee));
 
-  var integratePagination = function () {
-    api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
-    api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
-  };
-
-  var QuoteSelector = {
-    QUOTE: api.internals.ns.selector('quote')
-  };
-
-  var ID$g = 'quote';
-
-  var QuoteActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function QuoteActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) QuoteActionee.__proto__ = ComponentActionee;
-    QuoteActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    QuoteActionee.prototype.constructor = QuoteActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'QuoteActionee';
-    };
-
-    QuoteActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var blockquote = this.node.querySelector('blockquote');
-      if (blockquote) {
-        var firstText = this.getFirstText(blockquote);
-        if (firstText) {
-          return firstText;
-        }
-      }
-      return 'citation';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$g;
-    };
-
-    Object.defineProperties( QuoteActionee.prototype, prototypeAccessors );
-    Object.defineProperties( QuoteActionee, staticAccessors );
-
-    return QuoteActionee;
-  }(ComponentActionee));
-
-  var integrateQuote = function () {
-    api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
-  };
-
   var RadioSelector = {
     INPUT: api.internals.ns.selector('radio-group [type="radio"]')
   };
@@ -4806,15 +4577,58 @@
     return RadioActionee;
   }(ComponentActionee));
 
-  var integrateRadio = function () {
-    api.internals.register(RadioSelector.INPUT, RadioActionee);
+  var QuoteSelector = {
+    QUOTE: api.internals.ns.selector('quote')
   };
+
+  var ID$e = 'quote';
+
+  var QuoteActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function QuoteActionee () {
+      ComponentActionee.call(this, 1);
+    }
+
+    if ( ComponentActionee ) QuoteActionee.__proto__ = ComponentActionee;
+    QuoteActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    QuoteActionee.prototype.constructor = QuoteActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'QuoteActionee';
+    };
+
+    QuoteActionee.prototype.init = function init () {
+      this.setImpressionType();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var blockquote = this.node.querySelector('blockquote');
+      if (blockquote) {
+        var firstText = this.getFirstText(blockquote);
+        if (firstText) {
+          return firstText;
+        }
+      }
+      return 'citation';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$e;
+    };
+
+    Object.defineProperties( QuoteActionee.prototype, prototypeAccessors );
+    Object.defineProperties( QuoteActionee, staticAccessors );
+
+    return QuoteActionee;
+  }(ComponentActionee));
 
   var SearchSelector = {
     SEARCH_BAR: api.internals.ns.selector('search-bar')
   };
 
-  var ID$e = 'search';
+  var ID$d = 'search';
 
   var SearchActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SearchActionee () {
@@ -4841,7 +4655,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$e;
+      return ID$d;
     };
 
     Object.defineProperties( SearchActionee.prototype, prototypeAccessors );
@@ -4850,15 +4664,11 @@
     return SearchActionee;
   }(ComponentActionee));
 
-  var integrateSearch = function () {
-    api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
-  };
-
   var SelectSelector = {
     SELECT: api.internals.ns.selector('select')
   };
 
-  var ID$d = 'select';
+  var ID$c = 'select';
 
   var SelectActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SelectActionee () {
@@ -4899,7 +4709,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$d;
+      return ID$c;
     };
 
     Object.defineProperties( SelectActionee.prototype, prototypeAccessors );
@@ -4907,60 +4717,6 @@
 
     return SelectActionee;
   }(ComponentActionee));
-
-  var integrateSelect = function () {
-    api.internals.register(SelectSelector.SELECT, SelectActionee);
-  };
-
-  var ShareSelector = {
-    SHARE: api.internals.ns.selector('share'),
-    TITLE: api.internals.ns.selector('share__title')
-  };
-
-  var ID$c = 'share';
-
-  var ShareActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function ShareActionee () {
-      ComponentActionee.call(this, 1, true);
-    }
-
-    if ( ComponentActionee ) ShareActionee.__proto__ = ComponentActionee;
-    ShareActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    ShareActionee.prototype.constructor = ShareActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'ShareActionee';
-    };
-
-    ShareActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var title = this.querySelector(ShareSelector.TITLE);
-      if (title) {
-        var firstText = this.getFirstText(title);
-        if (firstText) { return firstText; }
-      }
-      return 'boutons de partage';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$c;
-    };
-
-    Object.defineProperties( ShareActionee.prototype, prototypeAccessors );
-    Object.defineProperties( ShareActionee, staticAccessors );
-
-    return ShareActionee;
-  }(ComponentActionee));
-
-  var integrateShare = function () {
-    api.internals.register(ShareSelector.SHARE, ShareActionee);
-  };
 
   var SidemenuSelector = {
     SIDEMENU: api.internals.ns.selector('sidemenu'),
@@ -5090,19 +4846,57 @@
     return SidemenuSectionActionee;
   }(ComponentActionee));
 
-  var integrateSidemenu = function () {
-    if (api.sidemenu) {
-      api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
-      api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
-      api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
-    }
+  var ShareSelector = {
+    SHARE: api.internals.ns.selector('share'),
+    TITLE: api.internals.ns.selector('share__title')
   };
+
+  var ID$a = 'share';
+
+  var ShareActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function ShareActionee () {
+      ComponentActionee.call(this, 1, true);
+    }
+
+    if ( ComponentActionee ) ShareActionee.__proto__ = ComponentActionee;
+    ShareActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    ShareActionee.prototype.constructor = ShareActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'ShareActionee';
+    };
+
+    ShareActionee.prototype.init = function init () {
+      this.setImpressionType();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var title = this.querySelector(ShareSelector.TITLE);
+      if (title) {
+        var firstText = this.getFirstText(title);
+        if (firstText) { return firstText; }
+      }
+      return 'boutons de partage';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$a;
+    };
+
+    Object.defineProperties( ShareActionee.prototype, prototypeAccessors );
+    Object.defineProperties( ShareActionee, staticAccessors );
+
+    return ShareActionee;
+  }(ComponentActionee));
 
   var StepperSelector = {
     STEPPER: api.internals.ns.selector('stepper')
   };
 
-  var ID$a = 'stepper';
+  var ID$9 = 'stepper';
 
   var StepperActionee = /*@__PURE__*/(function (ComponentActionee) {
     function StepperActionee () {
@@ -5129,7 +4923,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$a;
+      return ID$9;
     };
 
     Object.defineProperties( StepperActionee.prototype, prototypeAccessors );
@@ -5137,10 +4931,6 @@
 
     return StepperActionee;
   }(ComponentActionee));
-
-  var integrateStepper = function () {
-    api.internals.register(StepperSelector.STEPPER, StepperActionee);
-  };
 
   var SummarySelector = {
     SUMMARY: api.internals.ns.selector('summary'),
@@ -5180,7 +4970,7 @@
     return SummaryActionee;
   }(ComponentActionee));
 
-  var ID$9 = 'summary';
+  var ID$8 = 'summary';
 
   var SummaryLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SummaryLinkActionee () {
@@ -5210,7 +5000,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$9;
+      return ID$8;
     };
 
     Object.defineProperties( SummaryLinkActionee.prototype, prototypeAccessors );
@@ -5256,13 +5046,7 @@
     return SummarySectionActionee;
   }(ComponentActionee));
 
-  var integrateSummary = function () {
-    api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
-    api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
-    api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
-  };
-
-  var ID$8 = 'tab';
+  var ID$7 = 'tab';
 
   var TabButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TabButtonActionee () {
@@ -5297,7 +5081,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$8;
+      return ID$7;
     };
 
     Object.defineProperties( TabButtonActionee.prototype, prototypeAccessors );
@@ -5348,7 +5132,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$8;
+      return ID$7;
     };
 
     Object.defineProperties( TabActionee.prototype, prototypeAccessors );
@@ -5357,17 +5141,11 @@
     return TabActionee;
   }(ComponentActionee));
 
-  var integrateTab = function () {
-    if (api.tab) {
-      api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
-    }
-  };
-
   var TableSelector = {
     TABLE: api.internals.ns.selector('table')
   };
 
-  var ID$7 = 'table';
+  var ID$6 = 'table';
 
   var TableActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TableActionee () {
@@ -5399,7 +5177,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$7;
+      return ID$6;
     };
 
     Object.defineProperties( TableActionee.prototype, prototypeAccessors );
@@ -5407,76 +5185,6 @@
 
     return TableActionee;
   }(ComponentActionee));
-
-  var integrateTable = function () {
-    api.internals.register(TableSelector.TABLE, TableActionee);
-  };
-
-  var TagSelector = {
-    TAG: api.internals.ns.selector('tag'),
-    PRESSABLE: '[aria-pressed]',
-    DISMISSIBLE: ("" + (api.internals.ns.selector('tag--dismiss', '')))
-  };
-
-  var ID$6 = 'tag';
-
-  var TagActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function TagActionee () {
-      ComponentActionee.call(this, 2, true);
-    }
-
-    if ( ComponentActionee ) TagActionee.__proto__ = ComponentActionee;
-    TagActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    TagActionee.prototype.constructor = TagActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'TagActionee';
-    };
-
-    TagActionee.prototype.init = function init () {
-      switch (true) {
-        case this.detectPressableType():
-          this.listenPressable();
-          break;
-
-        case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
-          this.setDismissType();
-          this.listenClick();
-          break;
-
-        case this.isInteractive:
-          this.detectInteractionType();
-          this.listenClick();
-          break;
-
-        default:
-          this.setImpressionType();
-      }
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-
-      return 'tag';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$6;
-    };
-
-    Object.defineProperties( TagActionee.prototype, prototypeAccessors );
-    Object.defineProperties( TagActionee, staticAccessors );
-
-    return TagActionee;
-  }(ComponentActionee));
-
-  var integrateTag = function () {
-    api.internals.register(TagSelector.TAG, TagActionee);
-  };
 
   var TileSelector = {
     TILE: api.internals.ns.selector('tile'),
@@ -5531,10 +5239,6 @@
     return TileActionee;
   }(ComponentActionee));
 
-  var integrateTile = function () {
-    api.internals.register(TileSelector.TILE, TileActionee);
-  };
-
   var ToggleSelector = {
     INPUT: api.internals.ns.selector('toggle [type="checkbox"]')
   };
@@ -5583,60 +5287,72 @@
     return ToggleActionee;
   }(ComponentActionee));
 
-  var integrateToggle = function () {
-    api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+  var TagSelector = {
+    TAG: api.internals.ns.selector('tag'),
+    PRESSABLE: '[aria-pressed]',
+    DISMISSIBLE: ("" + (api.internals.ns.selector('tag--dismiss', '')))
   };
 
-  var ID$3 = 'tooltip';
+  var ID$3 = 'tag';
 
-  var TooltipActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function TooltipActionee () {
-      ComponentActionee.call(this, 1);
+  var TagActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function TagActionee () {
+      ComponentActionee.call(this, 2, true);
     }
 
-    if ( ComponentActionee ) TooltipActionee.__proto__ = ComponentActionee;
-    TooltipActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    TooltipActionee.prototype.constructor = TooltipActionee;
+    if ( ComponentActionee ) TagActionee.__proto__ = ComponentActionee;
+    TagActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    TagActionee.prototype.constructor = TagActionee;
 
     var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
-      return 'TooltipActionee';
+      return 'TagActionee';
     };
 
-    TooltipActionee.prototype.init = function init () {
-      this.setImpressionType();
+    TagActionee.prototype.init = function init () {
+      switch (true) {
+        case this.detectPressableType():
+          this.listenPressable();
+          break;
+
+        case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
+          this.setDismissType();
+          this.listenClick();
+          break;
+
+        case this.isInteractive:
+          this.detectInteractionType();
+          this.listenClick();
+          break;
+
+        default:
+          this.setImpressionType();
+      }
     };
 
     prototypeAccessors.label.get = function () {
-      return 'information contextuelle';
+      var firstText = this.getFirstText();
+      if (firstText) { return firstText; }
+
+      return 'tag';
     };
 
     prototypeAccessors.component.get = function () {
       return ID$3;
     };
 
-    Object.defineProperties( TooltipActionee.prototype, prototypeAccessors );
-    Object.defineProperties( TooltipActionee, staticAccessors );
+    Object.defineProperties( TagActionee.prototype, prototypeAccessors );
+    Object.defineProperties( TagActionee, staticAccessors );
 
-    return TooltipActionee;
+    return TagActionee;
   }(ComponentActionee));
 
-  var integrateTooltip = function () {
-    if (api.tooltip) {
-      api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, TooltipActionee);
-    }
-  };
-
-  var TRANSCRIPTION = api.internals.ns.selector('transcription');
-  var COLLAPSE$1 = api.internals.ns.selector('collapse');
-
   var TranscriptionSelector = {
-    TRANSCRIPTION: TRANSCRIPTION,
-    COLLAPSE: (TRANSCRIPTION + " > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1),
-    COLLAPSE_LEGACY: (TRANSCRIPTION + " " + COLLAPSE$1),
-    TITLE: (TRANSCRIPTION + "__title")
+    TRANSCRIPTION: api.internals.ns.selector('transcription'),
+    COLLAPSE: ((api.internals.ns.selector('transcription')) + " " + (api.internals.ns.selector('collapse'))),
+    TITLE: api.internals.ns.selector('transcription__title')
   };
 
   var ID$2 = 'transcription';
@@ -5741,17 +5457,8 @@
     return TranscriptionActionee;
   }(ComponentActionee));
 
-  var integrateTranscription = function () {
-    api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
-  };
-
-  var TRANSLATE = api.internals.ns.selector('translate');
-  var COLLAPSE = api.internals.ns.selector('collapse');
-
   var TranslateSelector = {
-    BUTTON: (TRANSLATE + "__btn"),
-    COLLAPSE: (TRANSLATE + " > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE),
-    COLLAPSE_LEGACY: (TRANSLATE + " " + COLLAPSE)
+    BUTTON: api.internals.ns.selector('translate__btn')
   };
 
   var ID$1 = 'translate';
@@ -5845,10 +5552,6 @@
     return TranslateActionee;
   }(ComponentActionee));
 
-  var integrateTranslate = function () {
-    api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
-  };
-
   var UploadSelector = {
     UPLOAD: api.internals.ns.selector('upload')
   };
@@ -5902,50 +5605,109 @@
     return UploadActionee;
   }(ComponentActionee));
 
-  var integrateUpload = function () {
-    api.internals.register(UploadSelector.UPLOAD, UploadActionee);
-  };
-
   var integrateComponents = function () {
-    integrateAccordion();
-    integrateBreadcrumb();
-    integrateAlert();
-    integrateBadge();
-    integrateButton();
-    integrateCallout();
-    integrateConnect();
-    integrateConsent();
-    integrateContent();
-    integrateCard();
-    integrateInput();
-    integrateCheckbox();
-    integrateDownload();
-    integrateFooter();
-    integrateFollow();
-    integrateHeader();
-    integrateHighlight();
-    integrateLink();
-    integrateModal();
-    integrateNavigation();
-    integrateNotice();
-    integratePagination();
-    integrateQuote();
-    integrateRadio();
-    integrateSearch();
-    integrateSelect();
-    integrateShare();
-    integrateSidemenu();
-    integrateStepper();
-    integrateSummary();
-    integrateTab();
-    integrateTable();
-    integrateTag();
-    integrateTile();
-    integrateToggle();
-    integrateTooltip();
-    integrateTranscription();
-    integrateTranslate();
-    integrateUpload();
+    if (api.accordion) {
+      api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
+    }
+
+    if (api.breadcrumb) {
+      api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
+      api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
+    }
+
+    api.internals.register(AlertSelector.ALERT, AlertActionee);
+
+    api.internals.register(BadgeSelector.BADGE, BadgeActionee);
+
+    api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+
+    api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
+
+    api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
+    api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
+
+    api.internals.register(ContentSelector.CONTENT, ContentActionee);
+
+    api.internals.register(ConsentSelector.BANNER, ConsentActionee);
+
+    api.internals.register(CardSelector.CARD, CardActionee);
+
+    api.internals.register(InputSelector.INPUT, InputActionee);
+
+    api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
+
+    api.internals.register(DownloadSelector.LINK, DownloadActionee);
+
+    api.internals.register(FooterSelector.FOOTER, FooterActionee);
+    api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
+
+    api.internals.register(FollowSelector.FOLLOW, FollowActionee);
+
+    if (api.header) {
+      api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
+      api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
+      api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
+      api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
+    }
+
+    api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
+
+    api.internals.register(LinkSelector.LINK, LinkActionee);
+
+    if (api.modal) {
+      api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
+    }
+
+    if (api.navigation) {
+      api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
+      api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
+      api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+    }
+
+    api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
+
+    api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
+    api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
+
+    api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
+
+    api.internals.register(RadioSelector.INPUT, RadioActionee);
+
+    api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
+
+    api.internals.register(SelectSelector.SELECT, SelectActionee);
+
+    if (api.sidemenu) {
+      api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
+      api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
+      api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
+    }
+
+    api.internals.register(ShareSelector.SHARE, ShareActionee);
+
+    api.internals.register(StepperSelector.STEPPER, StepperActionee);
+
+    api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
+    api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
+    api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
+
+    if (api.tab) {
+      api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
+    }
+
+    api.internals.register(TableSelector.TABLE, TableActionee);
+
+    api.internals.register(TagSelector.TAG, TagActionee);
+
+    api.internals.register(TileSelector.TILE, TileActionee);
+
+    api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+
+    api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
+
+    api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
+
+    api.internals.register(UploadSelector.UPLOAD, UploadActionee);
   };
 
   // import './core/core';

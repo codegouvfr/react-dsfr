@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .fr-background-default--grey {
@@ -544,82 +544,6 @@
 
   .fr-background-flat--grey {
     background-color: #3a3a3a !important;
-  }
-
-  .fr-background-flat--blue-france {
-    background-color: #000091 !important;
-  }
-
-  .fr-background-flat--red-marianne {
-    background-color: #c9191e !important;
-  }
-
-  .fr-background-flat--green-tilleul-verveine {
-    background-color: #66673d !important;
-  }
-
-  .fr-background-flat--green-bourgeon {
-    background-color: #447049 !important;
-  }
-
-  .fr-background-flat--green-emeraude {
-    background-color: #297254 !important;
-  }
-
-  .fr-background-flat--green-menthe {
-    background-color: #37635f !important;
-  }
-
-  .fr-background-flat--green-archipel {
-    background-color: #006a6f !important;
-  }
-
-  .fr-background-flat--blue-ecume {
-    background-color: #2f4077 !important;
-  }
-
-  .fr-background-flat--blue-cumulus {
-    background-color: #3558a2 !important;
-  }
-
-  .fr-background-flat--purple-glycine {
-    background-color: #6e445a !important;
-  }
-
-  .fr-background-flat--pink-macaron {
-    background-color: #8d533e !important;
-  }
-
-  .fr-background-flat--pink-tuile {
-    background-color: #a94645 !important;
-  }
-
-  .fr-background-flat--yellow-tournesol {
-    background-color: #716043 !important;
-  }
-
-  .fr-background-flat--yellow-moutarde {
-    background-color: #695240 !important;
-  }
-
-  .fr-background-flat--orange-terre-battue {
-    background-color: #755348 !important;
-  }
-
-  .fr-background-flat--brown-cafe-creme {
-    background-color: #685c48 !important;
-  }
-
-  .fr-background-flat--brown-caramel {
-    background-color: #845d48 !important;
-  }
-
-  .fr-background-flat--brown-opera {
-    background-color: #745b47 !important;
-  }
-
-  .fr-background-flat--beige-gris-galet {
-    background-color: #6a6156 !important;
   }
 
   .fr-background-flat--info {

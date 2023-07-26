@@ -1,4 +1,4 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.0'
+    version: '1.9.3'
   };
 
   var api = window[config.namespace];
@@ -15,8 +15,7 @@
   var ModalSelector = {
     MODAL: api.internals.ns.selector('modal'),
     SCROLL_DIVIDER: api.internals.ns.selector('scroll-divider'),
-    BODY: api.internals.ns.selector('modal__body'),
-    TITLE: api.internals.ns.selector('modal__title')
+    BODY: api.internals.ns.selector('modal__body')
   };
 
   var ModalButton = /*@__PURE__*/(function (superclass) {
@@ -46,7 +45,6 @@
   var Modal = /*@__PURE__*/(function (superclass) {
     function Modal () {
       superclass.call(this, api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-      this._isActive = false;
       this.scrolling = this.resize.bind(this, false);
       this.resizing = this.resize.bind(this, true);
     }
@@ -55,7 +53,7 @@
     Modal.prototype = Object.create( superclass && superclass.prototype );
     Modal.prototype.constructor = Modal;
 
-    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true } };
+    var prototypeAccessors = { body: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -64,50 +62,15 @@
 
     Modal.prototype.init = function init () {
       superclass.prototype.init.call(this);
-      this._isDialog = this.node.tagName === 'DIALOG';
-      this.isScrolling = false;
-      this.listenClick();
-      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
-    };
-
-    Modal.prototype._keydown = function _keydown (keyCode) {
-      switch (keyCode) {
-        case api.core.KeyCodes.ESCAPE:
-          this._escape();
-          break;
-      }
-    };
-
-    // TODO v2 : passer les tagName d'action en constante
-    Modal.prototype._escape = function _escape () {
-      var tagName = document.activeElement ? document.activeElement.tagName : undefined;
-
-      switch (tagName) {
-        case 'INPUT':
-        case 'LABEL':
-        case 'TEXTAREA':
-        case 'SELECT':
-        case 'AUDIO':
-        case 'VIDEO':
-          break;
-
-        default:
-          if (this.isDisclosed) {
-            this.conceal();
-            this.focus();
-          }
-      }
-    };
-
-    Modal.prototype.retrieved = function retrieved () {
-      this._ensureAccessibleName();
+      this.listen('click', this.click.bind(this));
+      this.listenKey(api.core.KeyCodes.ESCAPE, this.conceal.bind(this, false, false), true, true);
     };
 
     prototypeAccessors.body.get = function () {
       return this.element.getDescendantInstances('ModalBody', 'Modal')[0];
     };
 
-    Modal.prototype.handleClick = function handleClick (e) {
+    Modal.prototype.click = function click (e) {
       if (e.target === this.node && this.getAttribute(ModalAttribute.CONCEALING_BACKDROP) !== 'false') { this.conceal(); }
     };
 
@@ -117,9 +80,6 @@
       this.isScrollLocked = true;
       this.setAttribute('aria-modal', 'true');
       this.setAttribute('open', 'true');
-      if (!this._isDialog) {
-        this.activateModal();
-      }
       return true;
     };
 
@@ -129,55 +89,7 @@
       this.removeAttribute('aria-modal');
       this.removeAttribute('open');
       if (this.body) { this.body.deactivate(); }
-      if (!this._isDialog) {
-        this.deactivateModal();
-      }
       return true;
-    };
-
-    prototypeAccessors.isDialog.get = function () {
-      return this._isDialog;
-    };
-
-    prototypeAccessors.isDialog.set = function (value) {
-      this._isDialog = value;
-    };
-
-    Modal.prototype.activateModal = function activateModal () {
-      if (this._isActive) { return; }
-      this._isActive = true;
-      this._hasDialogRole = this.getAttribute('role') === 'dialog';
-      if (!this._hasDialogRole) { this.setAttribute('role', 'dialog'); }
-    };
-
-    Modal.prototype.deactivateModal = function deactivateModal () {
-      if (!this._isActive) { return; }
-      this._isActive = false;
-      if (!this._hasDialogRole) { this.removeAttribute('role'); }
-    };
-
-    Modal.prototype._setAccessibleName = function _setAccessibleName (node, append) {
-      var id = this.retrieveNodeId(node, append);
-      this.warn(("add reference to " + append + " for accessible name (aria-labelledby)"));
-      this.setAttribute('aria-labelledby', id);
-    };
-
-    Modal.prototype._ensureAccessibleName = function _ensureAccessibleName () {
-      if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) { return; }
-      this.warn('missing accessible name');
-      var title = this.node.querySelector(ModalSelector.TITLE);
-      var primary = this.primaryButtons[0];
-
-      switch (true) {
-        case title !== null:
-          this._setAccessibleName(title, 'title');
-          break;
-
-        case primary !== undefined:
-          this.warn('missing required title, fallback to primary button');
-          this._setAccessibleName(primary, 'primary');
-          break;
-      }
     };
 
     Object.defineProperties( Modal.prototype, prototypeAccessors );

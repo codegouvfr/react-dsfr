@@ -1,4 +1,4 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.0'
+    version: '1.9.3'
   };
 
   var api = window[config.namespace];
@@ -31,11 +31,6 @@
 
     staticAccessors.instanceClassName.get = function () {
       return 'TabButton';
-    };
-
-    TabButton.prototype.handleClick = function handleClick (e) {
-      superclass.prototype.handleClick.call(this, e);
-      this.focus();
     };
 
     TabButton.prototype.apply = function apply (value) {
@@ -151,14 +146,7 @@
     };
 
     TabPanel.prototype.reset = function reset () {
-      if (this.group) { this.group.retrieve(true); }
-    };
-
-    TabPanel.prototype._electPrimaries = function _electPrimaries (candidates) {
-      var this$1$1 = this;
-
-      if (!this.group || !this.group.list) { return []; }
-      return superclass.prototype._electPrimaries.call(this, candidates).filter(function (candidate) { return this$1$1.group.list.node.contains(candidate.node); });
+      this.group.index = 0;
     };
 
     Object.defineProperties( TabPanel.prototype, prototypeAccessors );
@@ -166,18 +154,6 @@
 
     return TabPanel;
   }(api.core.Disclosure));
-
-  var TabKeys = {
-    LEFT: 'tab_keys_left',
-    RIGHT: 'tab_keys_right',
-    HOME: 'tab_keys_home',
-    END: 'tab_keys_end'
-  };
-
-  var TabEmission = {
-    PRESS_KEY: api.internals.ns.emission('tab', 'press_key'),
-    LIST_HEIGHT: api.internals.ns.emission('tab', 'list_height')
-  };
 
   /**
   * TabGroup est la classe étendue de DiscosuresGroup
@@ -201,25 +177,18 @@
 
     TabsGroup.prototype.init = function init () {
       superclass.prototype.init.call(this);
-
       this.listen('transitionend', this.transitionend.bind(this));
-      this.addAscent(TabEmission.PRESS_KEY, this.pressKey.bind(this));
-      this.addAscent(TabEmission.LIST_HEIGHT, this.setListHeight.bind(this));
+      this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
+      this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
+      this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
+      this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
       this.isRendering = true;
-    };
 
-    TabsGroup.prototype.getIndex = function getIndex (defaultIndex) {
-      if ( defaultIndex === void 0 ) defaultIndex = 0;
-
-      superclass.prototype.getIndex.call(this, defaultIndex);
+      if (this.list) { this.list.apply(); }
     };
 
     prototypeAccessors.list.get = function () {
       return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
-    };
-
-    TabsGroup.prototype.setListHeight = function setListHeight (value) {
-      this.listHeight = value;
     };
 
     TabsGroup.prototype.transitionend = function transitionend (e) {
@@ -228,26 +197,6 @@
 
     prototypeAccessors.buttonHasFocus.get = function () {
       return this.members.some(function (member) { return member.buttonHasFocus; });
-    };
-
-    TabsGroup.prototype.pressKey = function pressKey (key) {
-      switch (key) {
-        case TabKeys.LEFT:
-          this.pressLeft();
-          break;
-
-        case TabKeys.RIGHT:
-          this.pressRight();
-          break;
-
-        case TabKeys.HOME:
-          this.pressHome();
-          break;
-
-        case TabKeys.END:
-          this.pressEnd();
-          break;
-      }
     };
 
     /**
@@ -306,7 +255,7 @@
 
     TabsGroup.prototype.apply = function apply () {
       for (var i = 0; i < this._index; i++) { this.members[i].translate(TabPanelDirection.START); }
-      if (this.current) { this.current.translate(TabPanelDirection.NONE); }
+      this.current.translate(TabPanelDirection.NONE);
       for (var i$1 = this._index + 1; i$1 < this.length; i$1++) { this.members[i$1].translate(TabPanelDirection.END); }
       this.isPreventingTransition = false;
     };
@@ -324,12 +273,12 @@
 
     TabsGroup.prototype.render = function render () {
       if (this.current === null) { return; }
-      this.node.scrollTop = 0;
-      this.node.scrollLeft = 0;
       var paneHeight = Math.round(this.current.node.offsetHeight);
       if (this.panelHeight === paneHeight) { return; }
       this.panelHeight = paneHeight;
-      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+      var listHeight = 0;
+      if (this.list) { listHeight = this.list.node.offsetHeight; }
+      this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
     };
 
     Object.defineProperties( TabsGroup.prototype, prototypeAccessors );
@@ -350,7 +299,7 @@
     TabsList.prototype = Object.create( superclass && superclass.prototype );
     TabsList.prototype.constructor = TabsList;
 
-    var prototypeAccessors = { isScrolling: { configurable: true } };
+    var prototypeAccessors = { group: { configurable: true },isScrolling: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -359,11 +308,11 @@
 
     TabsList.prototype.init = function init () {
       this.listen('scroll', this.scroll.bind(this));
-      this.listenKey(api.core.KeyCodes.RIGHT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.RIGHT), true, true);
-      this.listenKey(api.core.KeyCodes.LEFT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.LEFT), true, true);
-      this.listenKey(api.core.KeyCodes.HOME, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.HOME), true, true);
-      this.listenKey(api.core.KeyCodes.END, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.END), true, true);
       this.isResizing = true;
+    };
+
+    prototypeAccessors.group.get = function () {
+      return this.element.getAscendantInstance('TabsGroup', 'TabsList');
     };
 
     TabsList.prototype.focalize = function focalize (btn) {
@@ -385,18 +334,20 @@
     };
 
     TabsList.prototype.apply = function apply () {
+      if (!this.group) { return; }
       if (this._isScrolling) {
-        this.addClass(TabSelector.SHADOW);
+        this.group.addClass(TabSelector.SHADOW);
         this.scroll();
       } else {
-        this.removeClass(TabSelector.SHADOW_RIGHT);
-        this.removeClass(TabSelector.SHADOW_LEFT);
-        this.removeClass(TabSelector.SHADOW);
+        this.group.removeClass(TabSelector.SHADOW_RIGHT);
+        this.group.removeClass(TabSelector.SHADOW_LEFT);
+        this.group.removeClass(TabSelector.SHADOW);
       }
     };
 
     /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
     TabsList.prototype.scroll = function scroll () {
+      if (!this.group) { return; }
       var scrollLeft = this.node.scrollLeft;
       var isMin = scrollLeft <= SCROLL_OFFSET;
       var max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET;
@@ -407,23 +358,21 @@
       var maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
       if (isMin) {
-        this.removeClass(minSelector);
+        this.group.removeClass(minSelector);
       } else {
-        this.addClass(minSelector);
+        this.group.addClass(minSelector);
       }
 
       if (isMax) {
-        this.removeClass(maxSelector);
+        this.group.removeClass(maxSelector);
       } else {
-        this.addClass(maxSelector);
+        this.group.addClass(maxSelector);
       }
     };
 
     TabsList.prototype.resize = function resize () {
       this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET;
-      var height = this.getRect().height;
-      this.setProperty('--tabs-list-height', (height + "px"));
-      this.ascend(TabEmission.LIST_HEIGHT, height);
+      this.setProperty('--tab-list-height', ((this.getRect().height) + "px"));
     };
 
     TabsList.prototype.dispose = function dispose () {
@@ -441,8 +390,7 @@
     TabButton: TabButton,
     TabsGroup: TabsGroup,
     TabsList: TabsList,
-    TabSelector: TabSelector,
-    TabEmission: TabEmission
+    TabSelector: TabSelector
   };
 
   api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);

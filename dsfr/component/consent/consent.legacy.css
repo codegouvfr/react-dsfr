@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -62,9 +62,5 @@
   .fr-consent-service:last-of-type,
   .fr-consent-service .fr-consent-service {
     box-shadow: none;
-  }
-
-  .fr-consent-service .fr-consent-service__collapse-btn {
-    color: #000091;
   }
 }

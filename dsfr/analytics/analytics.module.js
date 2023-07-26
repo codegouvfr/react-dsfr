@@ -1,10 +1,10 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
@@ -441,28 +441,6 @@ const validateGeography = (value, name, allowNull = true) => {
   return null;
 };
 
-const normaliseISODate = (date) => date.toISOString().split('T')[0];
-
-const validateDate = (value, name, allowNull = true) => {
-  switch (true) {
-    case value instanceof Date:
-      return normaliseISODate(value);
-
-    case typeof value === 'string': {
-      const date = new Date(value);
-      if (date.toString() !== 'Invalid Date') return normaliseISODate(date);
-      break;
-    }
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return null;
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Date`);
-  return null;
-};
-
 const ActionStatus = {
   UNSTARTED: {
     id: 'unstarted',
@@ -812,7 +790,7 @@ class Queue {
       slices.push(slice.flat());
     }
 
-    if (this._type === PushType.COLLECTOR && this._collector.isCollecting) {
+    if (this._type === PushType.COLLECTOR) {
       const layer = this._collector.layer;
       if (slices.length > 0) {
         const slice = slices.splice(0, 1)[0];
@@ -892,6 +870,29 @@ const Status = {
   }
 };
 
+const Profile = {
+  VISITOR: {
+    id: 'visitor',
+    value: 'visitor'
+  },
+  LOOKER: {
+    id: 'looker',
+    value: 'looker'
+  },
+  SHOPPER: {
+    id: 'shopper',
+    value: 'shopper'
+  },
+  BUYER: {
+    id: 'buyer',
+    value: 'buyer'
+  },
+  REBUYER: {
+    id: 'rebuyer',
+    value: 'rebuyer'
+  }
+};
+
 const Type$2 = {
   INDIVIDUAL: {
     id: 'individual',
@@ -952,9 +953,8 @@ class User {
     return this._status.id;
   }
 
-  set profile (value) {
-    const valid = validateString(value, 'user.profile');
-    if (valid !== null) this._profile = valid;
+  set profile (id) {
+    this._profile = Object.values(Profile).filter(profile => profile.id === id || profile.value === id)[0];
   }
 
   get profile () {
@@ -985,13 +985,14 @@ class User {
     if (this.isNew) layer.push('newcustomer', '1');
     if (this.language) layer.push('user_language', this.language);
     layer.push('user_login_status', this._status.value);
-    if (this._profile) layer.push('profile', this._profile);
+    if (this._profile) layer.push('profile', this._profile.value);
     if (this._type) layer.push('user_type', this._type.value);
     return layer;
   }
 }
 
 User.Status = Status;
+User.Profile = Profile;
 User.Type = Type$2;
 
 const Environment = {
@@ -1126,16 +1127,9 @@ class Site {
 
 Site.Environment = Environment;
 
-const CollectionState = {
-  COLLECTABLE: 'collectable',
-  COLLECTING: 'collecting',
-  COLLECTED: 'collected'
-};
-
 class Page {
   constructor (config) {
     this._config = config || {};
-    this._state = CollectionState.COLLECTABLE;
   }
 
   reset (clear = false) {
@@ -1143,13 +1137,9 @@ class Page {
     this.referrer = clear ? '' : this._config.referrer;
     this.title = clear ? '' : this._config.title;
     this.name = clear ? '' : this._config.name;
-    this.id = clear ? '' : this._config.id;
-    this.author = clear ? '' : this._config.author;
-    this.date = clear ? '' : this._config.date;
     this._labels = clear || !this._config.labels ? ['', '', '', '', ''] : this._config.labels;
-    this._labels.length = 5;
-    this._tags = clear || !this._config.tags ? [] : this._config.tags;
     this._categories = clear || !this._config.categories ? ['', '', ''] : this._config.categories;
+    this._labels.length = 5;
     this.isError = !clear && this._config.isError;
     this.template = clear ? '' : this._config.template;
     this.group = clear ? '' : this._config.group;
@@ -1164,25 +1154,9 @@ class Page {
     this._filters = clear || !this._config.filters ? [] : this._config.filters;
   }
 
-  collecting () {
-    if (this._state !== CollectionState.COLLECTABLE) {
-      api.inspector.warn(`current path '${this.path}' was already collected`);
-      return false;
-    }
-    this._state = CollectionState.COLLECTING;
-    return true;
-  }
-
-  get isCollecting () {
-    return this._state === CollectionState.COLLECTING;
-  }
-
   set path (value) {
     const valid = validateString(value, 'page.path');
-    if (valid !== null) {
-      this._path = valid;
-      this._state = CollectionState.COLLECTABLE;
-    }
+    if (valid !== null) this._path = valid;
   }
 
   get path () {
@@ -1205,37 +1179,6 @@ class Page {
 
   get title () {
     return this._title || document.title;
-  }
-
-  set id (value) {
-    const valid = validateString(value, 'page.id');
-    if (valid !== null) this._id = valid;
-  }
-
-  get id () {
-    return this._id;
-  }
-
-  set author (value) {
-    const valid = validateString(value, 'page.author');
-    if (valid !== null) this._author = valid;
-  }
-
-  get author () {
-    return this._author;
-  }
-
-  set date (value) {
-    const valid = validateDate(value, 'page.date');
-    if (valid !== null) this._date = valid;
-  }
-
-  get date () {
-    return this._date;
-  }
-
-  get tags () {
-    return this._tags;
   }
 
   set name (value) {
@@ -1359,22 +1302,15 @@ class Page {
   }
 
   get layer () {
-    this._state = CollectionState.COLLECTED;
     const layer = [];
     if (this.path) layer.push('path', normalize(this.path));
     if (this.referrer) layer.push('referrer', normalize(this.referrer));
     if (this.title) layer.push('page_title', normalize(this.title));
     if (this.name) layer.push('page_name', normalize(this.name));
-    if (this.id) layer.push('page_id', normalize(this.id));
-    if (this.author) layer.push('page_author', normalize(this.author));
-    if (this.date) layer.push('page_date', normalize(this.date));
 
     const labels = this._labels.slice(0, 5);
     labels.length = 5;
     if (labels.some(label => label)) layer.push('pagelabel', labels.map(label => typeof label === 'string' ? normalize(label) : '').join(','));
-
-    const tags = this._tags;
-    if (tags.some(tag => tag)) layer.push('pagetag', tags.map(tag => typeof tag === 'string' ? normalize(tag) : '').join(','));
 
     this._categories.forEach((category, index) => {
       if (category) layer.push(`page_category${index + 1}`, category);
@@ -1617,8 +1553,8 @@ class Funnel {
 }
 
 class Location {
-  constructor (onRouteChange, isListeningHash = false) {
-    this._onRouteChange = onRouteChange;
+  constructor (onChange, isListeningHash = false) {
+    this._onChange = onChange;
     this._isListeningHash = isListeningHash;
     this._update();
     renderer.add(this);
@@ -1642,7 +1578,7 @@ class Location {
   change () {
     this._referrer = this._path;
     this._update();
-    this._onRouteChange();
+    this._onChange();
   }
 
   get path () {
@@ -1714,6 +1650,7 @@ class Collector {
     this._search = new Search(config.search);
     this._funnel = new Funnel(config.funnel);
 
+    this._isCollected = false;
     this._delay = -1;
     queue.setCollector(this);
   }
@@ -1739,7 +1676,7 @@ class Collector {
   }
 
   start () {
-    const handleRouteChange = this._handleRouteChange.bind(this);
+    const handleChange = this._handleChange.bind(this);
     switch (this._collection) {
       case Collection.LOAD:
         this.collect();
@@ -1747,17 +1684,17 @@ class Collector {
 
       case Collection.FULL:
         this.collect();
-        this._location = new Location(handleRouteChange);
+        this._location = new Location(handleChange);
         break;
 
       case Collection.HASH:
         this.collect();
-        this._location = new Location(handleRouteChange, true);
+        this._location = new Location(handleChange, true);
         break;
     }
   }
 
-  _handleRouteChange () {
+  _handleChange () {
     queue.send(true);
     this._delay = 6;
     renderer.add(this);
@@ -1767,11 +1704,12 @@ class Collector {
     this._delay--;
     if (this._delay < 0) {
       renderer.remove(this);
-      this._routeChanged();
+      this._changed();
     }
   }
 
-  _routeChanged () {
+  _changed () {
+    this._isCollected = false;
     actions.rewind();
     this._page.referrer = this._location.referrer;
     if (this._location.hasTitle) this._page.title = this._location.title;
@@ -1791,16 +1729,13 @@ class Collector {
   }
 
   collect () {
-    if (!this.page.collecting()) return;
+    if (this._isCollected) return;
     queue.collect();
+    this._isCollected = true;
   }
 
   get collection () {
     return this._collection;
-  }
-
-  get isCollecting () {
-    return this._page.isCollecting;
   }
 
   get layer () {
@@ -2254,13 +2189,9 @@ class Member {
     this._type = Type.COMPONENT;
     this._isValid = instance.validate(this._target);
     const selector = Array.from({ length: 6 }, (v, i) => `h${i + 1}`).join(',');
-    const top = Array.from(this._node.querySelectorAll(selector)).map(heading => new Heading(heading)).sort((a, b) => a.level - b.level)[0];
-    if (top && top.level <= this._level) this._level = top.level - 1;
-
-    const hx = this._node.closest(selector);
-    if (hx) {
-      const heading = new Heading(hx);
-      if (heading.level <= this._level) this._level = heading.level - 1;
+    const heading = this._node.closest(selector);
+    if (heading) {
+      this._level = Number(heading.tagName.charAt(1)) - 1;
     }
 
     if (!isNaN(instance.level) && instance.level < this._level) this._level = instance.level;
@@ -2465,7 +2396,7 @@ class ActionElement {
   }
 
   begin (data = {}) {
-    if (this._hasBegun || !this._isRatingActive) return;
+    if (this._hasBegun) return;
     this._hasBegun = true;
     if (this._type.isBeginning) queue.appendStartingAction(this._action, data);
   }
@@ -2935,7 +2866,7 @@ const AccordionSelector = {
   TITLE: api.internals.ns.selector('accordion__title')
 };
 
-const ID$C = 'accordion';
+const ID$B = 'accordion';
 
 class AccordionButtonActionee extends ComponentActionee {
   constructor () {
@@ -2968,7 +2899,7 @@ class AccordionButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$C;
+    return ID$B;
   }
 }
 
@@ -3009,7 +2940,7 @@ class AccordionActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$C;
+    return ID$B;
   }
 
   dispose () {
@@ -3017,52 +2948,8 @@ class AccordionActionee extends ComponentActionee {
   }
 }
 
-const integrateAccordion = () => {
-  if (api.accordion) {
-    api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
-  }
-};
-
-const AlertSelector = {
-  ALERT: api.internals.ns.selector('alert'),
-  TITLE: api.internals.ns.selector('alert__title')
-};
-
-const ID$B = 'alert';
-
-class AlertActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'AlertActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const alertTitle = this.node.querySelector(AlertSelector.TITLE);
-    if (alertTitle) {
-      const text = this.getFirstText(alertTitle);
-      if (text) return text;
-    }
-    return 'alerte';
-  }
-
-  get component () {
-    return ID$B;
-  }
-}
-
-const integrateAlert = () => {
-  api.internals.register(AlertSelector.ALERT, AlertActionee);
-};
-
 const BreadcrumbSelector = {
-  LINK: `${api.internals.ns.selector('breadcrumb__link')}:not([aria-current])`,
+  LINK: api.internals.ns.selector('breadcrumb__link'),
   COLLAPSE: `${api.internals.ns.selector('breadcrumb')} ${api.internals.ns.selector('collapse')}`
 };
 
@@ -3152,53 +3039,11 @@ class BreadcrumbLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateBreadcrumb = () => {
-  if (api.breadcrumb) {
-    api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
-    api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
-  }
-};
-
-const BadgeSelector = {
-  BADGE: api.internals.ns.selector('badge')
-};
-
-const ID$z = 'badge';
-
-class BadgeActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'BadgeActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-
-    return 'badge';
-  }
-
-  get component () {
-    return ID$z;
-  }
-}
-
-const integrateBadge = () => {
-  api.internals.register(BadgeSelector.BADGE, BadgeActionee);
-};
-
 const ButtonSelector = {
   BUTTON: `${api.internals.ns.selector('btn')}:not(${api.internals.ns.selector('btn--close')})`
 };
 
-const ID$y = 'button';
+const ID$z = 'button';
 
 class ButtonActionee extends ComponentActionee {
   constructor () {
@@ -3234,20 +3079,81 @@ class ButtonActionee extends ComponentActionee {
   }
 
   get component () {
+    return ID$z;
+  }
+}
+
+const AlertSelector = {
+  ALERT: api.internals.ns.selector('alert'),
+  TITLE: api.internals.ns.selector('alert__title')
+};
+
+const ID$y = 'alert';
+
+class AlertActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'AlertActionee';
+  }
+
+  init () {
+    this.setImpressionType();
+  }
+
+  get label () {
+    const alertTitle = this.node.querySelector(AlertSelector.TITLE);
+    if (alertTitle) {
+      const text = this.getFirstText(alertTitle);
+      if (text) return text;
+    }
+    return 'alerte';
+  }
+
+  get component () {
     return ID$y;
   }
 }
 
-const integrateButton = () => {
-  api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+const BadgeSelector = {
+  BADGE: api.internals.ns.selector('badge')
 };
+
+const ID$x = 'badge';
+
+class BadgeActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'BadgeActionee';
+  }
+
+  init () {
+    this.setImpressionType();
+  }
+
+  get label () {
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'badge';
+  }
+
+  get component () {
+    return ID$x;
+  }
+}
 
 const CalloutSelector = {
   CALLOUT: api.internals.ns.selector('callout'),
   TITLE: api.internals.ns.selector('callout__title')
 };
 
-const ID$x = 'callout';
+const ID$w = 'callout';
 
 class CalloutActionee extends ComponentActionee {
   constructor () {
@@ -3273,107 +3179,16 @@ class CalloutActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$x;
-  }
-}
-
-const integrateCallout = () => {
-  api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
-};
-
-const CardSelector = {
-  CARD: api.internals.ns.selector('card'),
-  LINK: `${api.internals.ns.selector('card__title')} a`,
-  TITLE: api.internals.ns.selector('card__title')
-};
-
-const ID$w = 'card';
-
-class CardActionee extends ComponentActionee {
-  constructor () {
-    super(1, true);
-  }
-
-  static get instanceClassName () {
-    return 'CardActionee';
-  }
-
-  init () {
-    const link = this.node.querySelector(CardSelector.LINK);
-    if (link) {
-      this.link = link;
-      this.detectInteractionType(link);
-      this.listenClick(link);
-    } else this.setImpressionType();
-  }
-
-  get label () {
-    const cardTitle = this.node.querySelector(CardSelector.TITLE);
-    if (cardTitle) {
-      const text = this.getFirstText(cardTitle);
-      if (text) return text;
-    }
-
-    const heading = this.getHeadingLabel();
-    if (heading) return heading;
-
-    return 'carte';
-  }
-
-  get component () {
     return ID$w;
   }
 }
-
-const integrateCard = () => {
-  api.internals.register(CardSelector.CARD, CardActionee);
-};
-
-const CheckboxSelector = {
-  INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
-};
-
-const ID$v = 'checkbox';
-
-class CheckboxActionee extends ComponentActionee {
-  constructor () {
-    super(1, true);
-    this._data = {};
-  }
-
-  static get instanceClassName () {
-    return 'CheckboxActionee';
-  }
-
-  init () {
-    this.detectCheckableType();
-    this.listenCheckable();
-  }
-
-  get label () {
-    const label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
-    if (label) {
-      const text = this.getFirstText(label);
-      if (text) return text;
-    }
-    return 'case à cocher';
-  }
-
-  get component () {
-    return ID$v;
-  }
-}
-
-const integrateCheckbox = () => {
-  api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
-};
 
 const ConnectSelector = {
   CONNECT: api.internals.ns.selector('connect'),
   LINK: api.internals.ns.selector('connect + * a, connect + a')
 };
 
-const ID$u = 'connect';
+const ID$v = 'connect';
 
 class ConnectActionee extends ComponentActionee {
   constructor () {
@@ -3395,7 +3210,7 @@ class ConnectActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$u;
+    return ID$v;
   }
 }
 
@@ -3418,49 +3233,16 @@ class ConnectLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$u;
+    return ID$v;
   }
 }
-
-const integrateConnect = () => {
-  api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
-  api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
-};
-
-const ConsentSelector = {
-  BANNER: api.internals.ns.selector('consent-banner')
-};
-
-const ID$t = 'consent';
-
-class ConsentActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'ConsentActionee';
-  }
-
-  get label () {
-    return 'gestionnaire de consentement';
-  }
-
-  get component () {
-    return ID$t;
-  }
-}
-
-const integrateConsent = () => {
-  api.internals.register(ConsentSelector.BANNER, ConsentActionee);
-};
 
 const ContentSelector = {
   CONTENT: api.internals.ns.selector('content-media'),
   IMG: api.internals.ns.selector('content-media__img')
 };
 
-const ID$s = 'content-media';
+const ID$u = 'content-media';
 
 class ContentActionee extends ComponentActionee {
   constructor () {
@@ -3523,19 +3305,118 @@ class ContentActionee extends ComponentActionee {
   }
 
   get component () {
+    return ID$u;
+  }
+}
+
+const ConsentSelector = {
+  BANNER: api.internals.ns.selector('consent-banner')
+};
+
+const ID$t = 'consent';
+
+class ConsentActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'ConsentActionee';
+  }
+
+  get label () {
+    return 'gestionnaire de consentement';
+  }
+
+  get component () {
+    return ID$t;
+  }
+}
+
+const CardSelector = {
+  CARD: api.internals.ns.selector('card'),
+  LINK: `${api.internals.ns.selector('card__title')} a`,
+  TITLE: api.internals.ns.selector('card__title')
+};
+
+const ID$s = 'card';
+
+class CardActionee extends ComponentActionee {
+  constructor () {
+    super(1, true);
+  }
+
+  static get instanceClassName () {
+    return 'CardActionee';
+  }
+
+  init () {
+    const link = this.node.querySelector(CardSelector.LINK);
+    if (link) {
+      this.link = link;
+      this.detectInteractionType(link);
+      this.listenClick(link);
+    } else this.setImpressionType();
+  }
+
+  get label () {
+    const cardTitle = this.node.querySelector(CardSelector.TITLE);
+    if (cardTitle) {
+      const text = this.getFirstText(cardTitle);
+      if (text) return text;
+    }
+
+    const heading = this.getHeadingLabel();
+    if (heading) return heading;
+
+    return 'carte';
+  }
+
+  get component () {
     return ID$s;
   }
 }
 
-const integrateContent = () => {
-  api.internals.register(ContentSelector.CONTENT, ContentActionee);
+const CheckboxSelector = {
+  INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
 };
+
+const ID$r = 'checkbox';
+
+class CheckboxActionee extends ComponentActionee {
+  constructor () {
+    super(1, true);
+    this._data = {};
+  }
+
+  static get instanceClassName () {
+    return 'CheckboxActionee';
+  }
+
+  init () {
+    this.detectCheckableType();
+    this.listenCheckable();
+  }
+
+  get label () {
+    const label = this.node.parentNode.querySelector(api.internals.ns.selector('label'));
+    if (label) {
+      const text = this.getFirstText(label);
+      if (text) return text;
+    }
+    return 'case à cocher';
+  }
+
+  get component () {
+    return ID$r;
+  }
+}
 
 const DownloadSelector = {
   LINK: api.internals.ns.selector('download__link')
 };
 
-const ID$r = 'download';
+const ID$q = 'download';
 
 class DownloadActionee extends ComponentActionee {
   constructor () {
@@ -3558,51 +3439,9 @@ class DownloadActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$r;
-  }
-}
-
-const integrateDownload = () => {
-  api.internals.register(DownloadSelector.LINK, DownloadActionee);
-};
-
-const FollowSelector = {
-  FOLLOW: api.internals.ns.selector('follow'),
-  NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
-};
-
-const ID$q = 'follow';
-
-class FollowActionee extends ComponentActionee {
-  constructor () {
-    super(2, true);
-  }
-
-  static get instanceClassName () {
-    return 'FollowActionee';
-  }
-
-  init () {
-    this._inputGroup = this.querySelector(FollowSelector.NEWSLETTER_INPUT_GROUP);
-    if (this._inputGroup) {
-      this.listenInputValidation(this._inputGroup, Type$1.SUBSCRIBE);
-      const input = this.element.getDescendantInstances('InputActionee', null, true)[0];
-      if (input) input.isMuted = true;
-    }
-  }
-
-  get label () {
-    return 'lettre d\'information et réseaux sociaux';
-  }
-
-  get component () {
     return ID$q;
   }
 }
-
-const integrateFollow = () => {
-  api.internals.register(FollowSelector.FOLLOW, FollowActionee);
-};
 
 const FooterSelector = {
   FOOTER: api.internals.ns.selector('footer'),
@@ -3633,6 +3472,40 @@ class FooterActionee extends ComponentActionee {
   }
 }
 
+const FollowSelector = {
+  FOLLOW: api.internals.ns.selector('follow'),
+  NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
+};
+
+const ID$o = 'follow';
+
+class FollowActionee extends ComponentActionee {
+  constructor () {
+    super(2, true);
+  }
+
+  static get instanceClassName () {
+    return 'FollowActionee';
+  }
+
+  init () {
+    this._inputGroup = this.querySelector(FollowSelector.NEWSLETTER_INPUT_GROUP);
+    if (this._inputGroup) {
+      this.listenInputValidation(this._inputGroup, Type$1.SUBSCRIBE);
+      const input = this.element.getDescendantInstances('InputActionee', null, true)[0];
+      if (input) input.isMuted = true;
+    }
+  }
+
+  get label () {
+    return 'lettre d\'information et réseaux sociaux';
+  }
+
+  get component () {
+    return ID$o;
+  }
+}
+
 class FooterLinkActionee extends ComponentActionee {
   constructor () {
     super(2);
@@ -3655,12 +3528,7 @@ class FooterLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateFooter = () => {
-  api.internals.register(FooterSelector.FOOTER, FooterActionee);
-  api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
-};
-
-const ID$o = 'header';
+const ID$n = 'header';
 
 class HeaderActionee extends ComponentActionee {
   constructor () {
@@ -3680,9 +3548,14 @@ class HeaderActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$o;
+    return ID$n;
   }
 }
+
+const HeaderSelector = {
+  TOOLS_BUTTON: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')} ${api.internals.ns.selector('btn')}`,
+  MENU_BUTTON: `${api.internals.ns.selector('header__menu-links')} ${api.internals.ns.selector('btns-group')} ${api.internals.ns.selector('btn')}`
+};
 
 class HeaderModalButtonActionee extends ComponentActionee {
   constructor () {
@@ -3711,11 +3584,6 @@ class HeaderModalActionee extends ComponentActionee {
   }
 }
 
-const HeaderSelector = {
-  TOOLS_BUTTON: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')} ${api.internals.ns.selector('btn')}`,
-  MENU_BUTTON: `${api.internals.ns.selector('header__menu-links')} ${api.internals.ns.selector('btns-group')} ${api.internals.ns.selector('btn')}`
-};
-
 class HeaderToolsButtonActionee extends ComponentActionee {
   constructor () {
     super(4);
@@ -3740,20 +3608,11 @@ class HeaderMenuButtonActionee extends ComponentActionee {
   }
 }
 
-const integrateHeader = () => {
-  if (api.header) {
-    api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
-    api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
-    api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
-    api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
-  }
-};
-
 const HighlightSelector = {
   HIGHLIGHT: api.internals.ns.selector('highlight')
 };
 
-const ID$n = 'highlight';
+const ID$m = 'highlight';
 
 class HighlightActionee extends ComponentActionee {
   constructor () {
@@ -3773,49 +3632,9 @@ class HighlightActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$n;
-  }
-}
-
-const integrateHighlight = () => {
-  api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
-};
-
-const LinkSelector = {
-  LINK: api.internals.ns.selector('link')
-};
-
-const ID$m = 'link';
-
-class LinkActionee extends ComponentActionee {
-  constructor () {
-    super(1, true);
-  }
-
-  static get instanceClassName () {
-    return 'LinkActionee';
-  }
-
-  init () {
-    this.detectInteractionType();
-    this.listenClick();
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-
-    return 'lien';
-  }
-
-  get component () {
     return ID$m;
   }
 }
-
-const integrateLink = () => {
-  api.internals.register(LinkSelector.LINK, LinkActionee);
-};
 
 const InputSelector = {
   INPUT: api.internals.ns.selector('input-group')
@@ -3855,15 +3674,43 @@ class InputActionee extends ComponentActionee {
   }
 }
 
-const integrateInput = () => {
-  api.internals.register(InputSelector.INPUT, InputActionee);
+const LinkSelector = {
+  LINK: api.internals.ns.selector('link')
 };
+
+const ID$k = 'link';
+
+class LinkActionee extends ComponentActionee {
+  constructor () {
+    super(1, true);
+  }
+
+  static get instanceClassName () {
+    return 'LinkActionee';
+  }
+
+  init () {
+    this.detectInteractionType();
+    this.listenClick();
+  }
+
+  get label () {
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien';
+  }
+
+  get component () {
+    return ID$k;
+  }
+}
 
 const ModalSelector = {
   TITLE: api.internals.ns.selector('modal__title')
 };
 
-const ID$k = 'modal';
+const ID$j = 'modal';
 
 class ModalActionee extends ComponentActionee {
   constructor () {
@@ -3903,14 +3750,13 @@ class ModalActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$k;
+    return ID$j;
   }
 }
 
-const integrateModal = () => {
-  if (api.modal) {
-    api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
-  }
+const NavigationSelector = {
+  LINK: api.internals.ns.selector('nav__link'),
+  BUTTON: api.internals.ns.selector('nav__btn')
 };
 
 class NavigationActionee extends ComponentActionee {
@@ -3924,39 +3770,6 @@ class NavigationActionee extends ComponentActionee {
 
   get label () {
     return 'navigation';
-  }
-}
-
-const NavigationSelector = {
-  LINK: api.internals.ns.selector('nav__link'),
-  BUTTON: api.internals.ns.selector('nav__btn')
-};
-
-const ID$j = 'navigation';
-
-class NavigationLinkActionee extends ComponentActionee {
-  constructor () {
-    super(2);
-  }
-
-  static get instanceClassName () {
-    return 'NavigationLinkActionee';
-  }
-
-  init () {
-    this.detectInteractionType();
-    this.listenClick();
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-
-    return 'lien de navigation';
-  }
-
-  get component () {
-    return ID$j;
   }
 }
 
@@ -3994,20 +3807,40 @@ class NavigationSectionActionee extends ComponentActionee {
   }
 }
 
-const integrateNavigation = () => {
-  if (api.navigation) {
-    api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
-    api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
-    api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+const ID$i = 'navigation';
+
+class NavigationLinkActionee extends ComponentActionee {
+  constructor () {
+    super(2);
   }
-};
+
+  static get instanceClassName () {
+    return 'NavigationLinkActionee';
+  }
+
+  init () {
+    this.detectInteractionType();
+    this.listenClick();
+  }
+
+  get label () {
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien de navigation';
+  }
+
+  get component () {
+    return ID$i;
+  }
+}
 
 const NoticeSelector = {
   NOTICE: api.internals.ns.selector('notice'),
   TITLE: api.internals.ns.selector('notice__title')
 };
 
-const ID$i = 'notice';
+const ID$h = 'notice';
 
 class NoticeActionee extends ComponentActionee {
   constructor () {
@@ -4033,13 +3866,9 @@ class NoticeActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$i;
+    return ID$h;
   }
 }
-
-const integrateNotice = () => {
-  api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-};
 
 const PaginationSelector = {
   PAGINATION: api.internals.ns.selector('pagination'),
@@ -4050,7 +3879,7 @@ const PaginationSelector = {
   CURRENT: '[aria-current="page"]'
 };
 
-const ID$h = 'pagination';
+const ID$g = 'pagination';
 
 class PaginationActionee extends ComponentActionee {
   constructor () {
@@ -4070,7 +3899,7 @@ class PaginationActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$h;
+    return ID$g;
   }
 
   setPagination () {
@@ -4129,50 +3958,6 @@ class PaginationLinkActionee extends ComponentActionee {
   }
 }
 
-const integratePagination = () => {
-  api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
-  api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
-};
-
-const QuoteSelector = {
-  QUOTE: api.internals.ns.selector('quote')
-};
-
-const ID$g = 'quote';
-
-class QuoteActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'QuoteActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const blockquote = this.node.querySelector('blockquote');
-    if (blockquote) {
-      const firstText = this.getFirstText(blockquote);
-      if (firstText) {
-        return firstText;
-      }
-    }
-    return 'citation';
-  }
-
-  get component () {
-    return ID$g;
-  }
-}
-
-const integrateQuote = () => {
-  api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
-};
-
 const RadioSelector = {
   INPUT: api.internals.ns.selector('radio-group [type="radio"]')
 };
@@ -4223,15 +4008,46 @@ class RadioActionee extends ComponentActionee {
   }
 }
 
-const integrateRadio = () => {
-  api.internals.register(RadioSelector.INPUT, RadioActionee);
+const QuoteSelector = {
+  QUOTE: api.internals.ns.selector('quote')
 };
+
+const ID$e = 'quote';
+
+class QuoteActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'QuoteActionee';
+  }
+
+  init () {
+    this.setImpressionType();
+  }
+
+  get label () {
+    const blockquote = this.node.querySelector('blockquote');
+    if (blockquote) {
+      const firstText = this.getFirstText(blockquote);
+      if (firstText) {
+        return firstText;
+      }
+    }
+    return 'citation';
+  }
+
+  get component () {
+    return ID$e;
+  }
+}
 
 const SearchSelector = {
   SEARCH_BAR: api.internals.ns.selector('search-bar')
 };
 
-const ID$e = 'search';
+const ID$d = 'search';
 
 class SearchActionee extends ComponentActionee {
   constructor () {
@@ -4251,19 +4067,15 @@ class SearchActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$e;
+    return ID$d;
   }
 }
-
-const integrateSearch = () => {
-  api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
-};
 
 const SelectSelector = {
   SELECT: api.internals.ns.selector('select')
 };
 
-const ID$d = 'select';
+const ID$c = 'select';
 
 class SelectActionee extends ComponentActionee {
   constructor () {
@@ -4297,51 +4109,9 @@ class SelectActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$d;
-  }
-}
-
-const integrateSelect = () => {
-  api.internals.register(SelectSelector.SELECT, SelectActionee);
-};
-
-const ShareSelector = {
-  SHARE: api.internals.ns.selector('share'),
-  TITLE: api.internals.ns.selector('share__title')
-};
-
-const ID$c = 'share';
-
-class ShareActionee extends ComponentActionee {
-  constructor () {
-    super(1, true);
-  }
-
-  static get instanceClassName () {
-    return 'ShareActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const title = this.querySelector(ShareSelector.TITLE);
-    if (title) {
-      const firstText = this.getFirstText(title);
-      if (firstText) return firstText;
-    }
-    return 'boutons de partage';
-  }
-
-  get component () {
     return ID$c;
   }
 }
-
-const integrateShare = () => {
-  api.internals.register(ShareSelector.SHARE, ShareActionee);
-};
 
 const SidemenuSelector = {
   SIDEMENU: api.internals.ns.selector('sidemenu'),
@@ -4435,19 +4205,45 @@ class SidemenuSectionActionee extends ComponentActionee {
   }
 }
 
-const integrateSidemenu = () => {
-  if (api.sidemenu) {
-    api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
-    api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
-    api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
-  }
+const ShareSelector = {
+  SHARE: api.internals.ns.selector('share'),
+  TITLE: api.internals.ns.selector('share__title')
 };
+
+const ID$a = 'share';
+
+class ShareActionee extends ComponentActionee {
+  constructor () {
+    super(1, true);
+  }
+
+  static get instanceClassName () {
+    return 'ShareActionee';
+  }
+
+  init () {
+    this.setImpressionType();
+  }
+
+  get label () {
+    const title = this.querySelector(ShareSelector.TITLE);
+    if (title) {
+      const firstText = this.getFirstText(title);
+      if (firstText) return firstText;
+    }
+    return 'boutons de partage';
+  }
+
+  get component () {
+    return ID$a;
+  }
+}
 
 const StepperSelector = {
   STEPPER: api.internals.ns.selector('stepper')
 };
 
-const ID$a = 'stepper';
+const ID$9 = 'stepper';
 
 class StepperActionee extends ComponentActionee {
   constructor () {
@@ -4467,13 +4263,9 @@ class StepperActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$a;
+    return ID$9;
   }
 }
-
-const integrateStepper = () => {
-  api.internals.register(StepperSelector.STEPPER, StepperActionee);
-};
 
 const SummarySelector = {
   SUMMARY: api.internals.ns.selector('summary'),
@@ -4501,7 +4293,7 @@ class SummaryActionee extends ComponentActionee {
   }
 }
 
-const ID$9 = 'summary';
+const ID$8 = 'summary';
 
 class SummaryLinkActionee extends ComponentActionee {
   constructor () {
@@ -4524,7 +4316,7 @@ class SummaryLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$9;
+    return ID$8;
   }
 }
 
@@ -4553,13 +4345,7 @@ class SummarySectionActionee extends ComponentActionee {
   }
 }
 
-const integrateSummary = () => {
-  api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
-  api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
-  api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
-};
-
-const ID$8 = 'tab';
+const ID$7 = 'tab';
 
 class TabButtonActionee extends ComponentActionee {
   constructor () {
@@ -4587,7 +4373,7 @@ class TabButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$8;
+    return ID$7;
   }
 }
 
@@ -4626,21 +4412,15 @@ class TabActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$8;
+    return ID$7;
   }
 }
-
-const integrateTab = () => {
-  if (api.tab) {
-    api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
-  }
-};
 
 const TableSelector = {
   TABLE: api.internals.ns.selector('table')
 };
 
-const ID$7 = 'table';
+const ID$6 = 'table';
 
 class TableActionee extends ComponentActionee {
   constructor () {
@@ -4665,67 +4445,9 @@ class TableActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$7;
-  }
-}
-
-const integrateTable = () => {
-  api.internals.register(TableSelector.TABLE, TableActionee);
-};
-
-const TagSelector = {
-  TAG: api.internals.ns.selector('tag'),
-  PRESSABLE: '[aria-pressed]',
-  DISMISSIBLE: `${api.internals.ns.selector('tag--dismiss', '')}`
-};
-
-const ID$6 = 'tag';
-
-class TagActionee extends ComponentActionee {
-  constructor () {
-    super(2, true);
-  }
-
-  static get instanceClassName () {
-    return 'TagActionee';
-  }
-
-  init () {
-    switch (true) {
-      case this.detectPressableType():
-        this.listenPressable();
-        break;
-
-      case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
-        this.setDismissType();
-        this.listenClick();
-        break;
-
-      case this.isInteractive:
-        this.detectInteractionType();
-        this.listenClick();
-        break;
-
-      default:
-        this.setImpressionType();
-    }
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-
-    return 'tag';
-  }
-
-  get component () {
     return ID$6;
   }
 }
-
-const integrateTag = () => {
-  api.internals.register(TagSelector.TAG, TagActionee);
-};
 
 const TileSelector = {
   TILE: api.internals.ns.selector('tile'),
@@ -4768,10 +4490,6 @@ class TileActionee extends ComponentActionee {
   }
 }
 
-const integrateTile = () => {
-  api.internals.register(TileSelector.TILE, TileActionee);
-};
-
 const ToggleSelector = {
   INPUT: api.internals.ns.selector('toggle [type="checkbox"]')
 };
@@ -4808,27 +4526,49 @@ class ToggleActionee extends ComponentActionee {
   }
 }
 
-const integrateToggle = () => {
-  api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+const TagSelector = {
+  TAG: api.internals.ns.selector('tag'),
+  PRESSABLE: '[aria-pressed]',
+  DISMISSIBLE: `${api.internals.ns.selector('tag--dismiss', '')}`
 };
 
-const ID$3 = 'tooltip';
+const ID$3 = 'tag';
 
-class TooltipActionee extends ComponentActionee {
+class TagActionee extends ComponentActionee {
   constructor () {
-    super(1);
+    super(2, true);
   }
 
   static get instanceClassName () {
-    return 'TooltipActionee';
+    return 'TagActionee';
   }
 
   init () {
-    this.setImpressionType();
+    switch (true) {
+      case this.detectPressableType():
+        this.listenPressable();
+        break;
+
+      case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
+        this.setDismissType();
+        this.listenClick();
+        break;
+
+      case this.isInteractive:
+        this.detectInteractionType();
+        this.listenClick();
+        break;
+
+      default:
+        this.setImpressionType();
+    }
   }
 
   get label () {
-    return 'information contextuelle';
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'tag';
   }
 
   get component () {
@@ -4836,20 +4576,10 @@ class TooltipActionee extends ComponentActionee {
   }
 }
 
-const integrateTooltip = () => {
-  if (api.tooltip) {
-    api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, TooltipActionee);
-  }
-};
-
-const TRANSCRIPTION = api.internals.ns.selector('transcription');
-const COLLAPSE$1 = api.internals.ns.selector('collapse');
-
 const TranscriptionSelector = {
-  TRANSCRIPTION: TRANSCRIPTION,
-  COLLAPSE: `${TRANSCRIPTION} > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > ${COLLAPSE$1}`,
-  COLLAPSE_LEGACY: `${TRANSCRIPTION} ${COLLAPSE$1}`,
-  TITLE: `${TRANSCRIPTION}__title`
+  TRANSCRIPTION: api.internals.ns.selector('transcription'),
+  COLLAPSE: `${api.internals.ns.selector('transcription')} ${api.internals.ns.selector('collapse')}`,
+  TITLE: api.internals.ns.selector('transcription__title')
 };
 
 const ID$2 = 'transcription';
@@ -4930,17 +4660,8 @@ class TranscriptionActionee extends ComponentActionee {
   }
 }
 
-const integrateTranscription = () => {
-  api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
-};
-
-const TRANSLATE = api.internals.ns.selector('translate');
-const COLLAPSE = api.internals.ns.selector('collapse');
-
 const TranslateSelector = {
-  BUTTON: `${TRANSLATE}__btn`,
-  COLLAPSE: `${TRANSLATE} > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}`,
-  COLLAPSE_LEGACY: `${TRANSLATE} ${COLLAPSE}`
+  BUTTON: api.internals.ns.selector('translate__btn')
 };
 
 const ID$1 = 'translate';
@@ -5010,10 +4731,6 @@ class TranslateActionee extends ComponentActionee {
   }
 }
 
-const integrateTranslate = () => {
-  api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
-};
-
 const UploadSelector = {
   UPLOAD: api.internals.ns.selector('upload')
 };
@@ -5055,50 +4772,109 @@ class UploadActionee extends ComponentActionee {
   }
 }
 
-const integrateUpload = () => {
-  api.internals.register(UploadSelector.UPLOAD, UploadActionee);
-};
-
 const integrateComponents = () => {
-  integrateAccordion();
-  integrateBreadcrumb();
-  integrateAlert();
-  integrateBadge();
-  integrateButton();
-  integrateCallout();
-  integrateConnect();
-  integrateConsent();
-  integrateContent();
-  integrateCard();
-  integrateInput();
-  integrateCheckbox();
-  integrateDownload();
-  integrateFooter();
-  integrateFollow();
-  integrateHeader();
-  integrateHighlight();
-  integrateLink();
-  integrateModal();
-  integrateNavigation();
-  integrateNotice();
-  integratePagination();
-  integrateQuote();
-  integrateRadio();
-  integrateSearch();
-  integrateSelect();
-  integrateShare();
-  integrateSidemenu();
-  integrateStepper();
-  integrateSummary();
-  integrateTab();
-  integrateTable();
-  integrateTag();
-  integrateTile();
-  integrateToggle();
-  integrateTooltip();
-  integrateTranscription();
-  integrateTranslate();
-  integrateUpload();
+  if (api.accordion) {
+    api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
+  }
+
+  if (api.breadcrumb) {
+    api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
+    api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
+  }
+
+  api.internals.register(AlertSelector.ALERT, AlertActionee);
+
+  api.internals.register(BadgeSelector.BADGE, BadgeActionee);
+
+  api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+
+  api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
+
+  api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
+  api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
+
+  api.internals.register(ContentSelector.CONTENT, ContentActionee);
+
+  api.internals.register(ConsentSelector.BANNER, ConsentActionee);
+
+  api.internals.register(CardSelector.CARD, CardActionee);
+
+  api.internals.register(InputSelector.INPUT, InputActionee);
+
+  api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
+
+  api.internals.register(DownloadSelector.LINK, DownloadActionee);
+
+  api.internals.register(FooterSelector.FOOTER, FooterActionee);
+  api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
+
+  api.internals.register(FollowSelector.FOLLOW, FollowActionee);
+
+  if (api.header) {
+    api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
+    api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
+    api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
+    api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
+  }
+
+  api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
+
+  api.internals.register(LinkSelector.LINK, LinkActionee);
+
+  if (api.modal) {
+    api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
+  }
+
+  if (api.navigation) {
+    api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
+    api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
+    api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+  }
+
+  api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
+
+  api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
+  api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
+
+  api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
+
+  api.internals.register(RadioSelector.INPUT, RadioActionee);
+
+  api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
+
+  api.internals.register(SelectSelector.SELECT, SelectActionee);
+
+  if (api.sidemenu) {
+    api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
+    api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
+    api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
+  }
+
+  api.internals.register(ShareSelector.SHARE, ShareActionee);
+
+  api.internals.register(StepperSelector.STEPPER, StepperActionee);
+
+  api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
+  api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
+  api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
+
+  if (api.tab) {
+    api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
+  }
+
+  api.internals.register(TableSelector.TABLE, TableActionee);
+
+  api.internals.register(TagSelector.TAG, TagActionee);
+
+  api.internals.register(TileSelector.TILE, TileActionee);
+
+  api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+
+  api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
+
+  api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
+
+  api.internals.register(UploadSelector.UPLOAD, UploadActionee);
 };
 
 // import './core/core';

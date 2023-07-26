@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -9,6 +9,7 @@
 .fr-download__link {
   --text-spacing: 0;
   --title-spacing: 0;
+  z-index: 1;
   display: inline;
   color: var(--text-action-high-blue-france);
 }
@@ -28,7 +29,6 @@
   overflow: initial;
   max-width: 100%;
   max-height: none;
-  font-weight: 400;
 }
 
 .fr-download .fr-download__link::after {
@@ -93,7 +93,7 @@
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.75rem;
-  color: var(--text-action-high-blue-france);
+  color: var(--text-title-grey);
 }
 
 .fr-download--card .fr-download__link::after {

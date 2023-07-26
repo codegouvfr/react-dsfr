@@ -1,11 +1,11 @@
 # tile
 
+La tuile est un raccourci ou point d’entrée qui redirige les utilisateurs vers des pages de contenu. Elle fait généralement partie d'une collection ou liste de tuiles similaires. La tuile n’est jamais présentée de manière isolée.
+
 ## Dépendances
 ```shell
 tile
 └─ core
-└─ link
-└─ button
 ```
 
 ## Utilisation
@@ -14,16 +14,9 @@ Afin d’utiliser le composant `tile`, il est nécessaire d’ajouter les fichie
 <html>
   <head>
     <link href="css/core/core.min.css" rel="stylesheet">
-    <link href="css/link/link.min.css" rel="stylesheet">
-    <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/tile/tile.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/tile/tile.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/tile/tile.nomodule.min.js" ></script>
   </body>
 </html>
 ```

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -90,7 +90,7 @@
   font-size: 0.875rem;
   line-height: 1.5rem;
 
-  --text-spacing: 0.75rem 0 0.5rem 0;
+  --text-spacing: 0.75rem 0 0.75rem 0;
 }
 
 .fr-consent-service__collapse {
@@ -159,14 +159,12 @@
 .fr-consent-service .fr-consent-service__collapse-btn {
   --text-spacing: 0;
   --title-spacing: 0;
+  z-index: 1;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   width: -moz-fit-content;
   width: fit-content;
-
-  --underline-img: none;
-  --hover-tint: var(--hover);
   background: transparent;
   padding: 0;
   color: inherit;
@@ -178,7 +176,6 @@
   background-repeat: no-repeat, no-repeat;
   transition: background-size 0s;
   background-size: var(--underline-hover-width) calc(var(--underline-thickness) * 2), var(--underline-idle-width) var(--underline-thickness);
-  color: var(--text-action-high-blue-france);
 }
 
 .fr-consent-service .fr-consent-service__collapse-btn::before,
@@ -266,11 +263,13 @@
 .fr-consent-service .fr-consent-service {
   box-shadow: none;
 }
+
 @media (min-width: 36em) {
   /*! media sm */
 
   /*! media sm */
 }
+
 @media (min-width: 48em) {
   /*! media md */
   .fr-consent-banner {
@@ -308,7 +307,7 @@
   }
 
   .fr-consent-service__desc {
-    --text-spacing: 0.25rem 1.5rem 0.5rem 0;
+    --text-spacing: 0.25rem 1.5rem 0.75rem 0;
     width: 60%;
   }
 
@@ -333,6 +332,7 @@
 
   /*! media md */
 }
+
 @media (min-width: 62em) {
   /*! media lg */
   .fr-consent-manager__header .fr-consent-service__title {
@@ -347,6 +347,7 @@
 
   /*! media lg */
 }
+
 @media (min-width: 78em) {
   /*! media xl */
   .fr-consent-manager__header .fr-consent-service__title {
@@ -359,6 +360,7 @@
 
   /*! media xl */
 }
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .fr-consent-service__collapse .fr-consent-service__collapse-btn {
     text-decoration: underline;
@@ -408,9 +410,5 @@
   .fr-consent-service:last-of-type,
   .fr-consent-service .fr-consent-service {
     box-shadow: none;
-  }
-
-  .fr-consent-service .fr-consent-service__collapse-btn {
-    color: #000091;
   }
 }

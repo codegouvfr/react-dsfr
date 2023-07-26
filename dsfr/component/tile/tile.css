@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -9,15 +9,41 @@
 .fr-tile {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   --text-spacing: 0;
-  --title-spacing: 0 0 0.25rem;
-  background-size: 100% 1px, 1px 100%, 1px 100%, 100% 1px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 0 100%, 0 0, 100% 0, 100% 0;
-  padding: 2rem 2rem 2.25rem;
-  text-align: center;
+  --title-spacing: 0 0 0.5rem;
+
+  /**
+   * Forcer la hauteur à 100% pour que les tuiles aient la même hauteur dans le contexte de la grille
+   */
+
+  /**
+   * Conteneur pour l'image, on force les dimensions à 80x80 tout en permettant de mettre une image
+   * ne respectant pas cette taille :
+   * Si l'image est plus grande, elle sera croppée afin de ne jamais dépasser 80x80.
+   * Si l'image est plus petite, elle sera centrée, en hauteur, en largeur ou bien les deux.
+   */
+
+  /**
+   * Partie de la tuile contenant le titre (obligatoire) et la description (optionnel)
+   */
+
+  /**
+   * Titre de la tuile
+   */
+
+  /**
+   * Description de la tuile
+   */
+  /**
+  * Modificateur vertical à partir du breakpoint md -> horizontal en dessous du breakpoint md
+  **/
+
+  /**
+  * Modificateur horizontal à partir du breakpoint md -> vertical en dessous du breakpoint md
+  **/
+  box-shadow: inset 0 0 0 1px var(--border-default-grey), inset 0 -0.25rem 0 0 var(--border-plain-blue-france);
   background-color: var(--background-default-grey);
 
   --idle: transparent;
@@ -29,352 +55,19 @@
   height: 100%;
 }
 
-.fr-tile.fr-enlarge-link:hover .fr-tile__pictogram {
+.fr-tile__link {
+  display: inline-flex;
+
+  --underline-img: none;
+  width: 100%;
+}
+
+.fr-tile.fr-enlarge-link:hover .fr-tile__img {
   --brightness: calc(100% + var(--brighten) * 10%);
 }
 
-.fr-tile.fr-enlarge-link:active .fr-tile__pictogram {
+.fr-tile.fr-enlarge-link:active .fr-tile__img {
   --brightness: calc(100% + var(--brighten) * 20%);
-}
-
-.fr-tile__header {
-  order: 1;
-  margin-bottom: 1rem;
-}
-
-.fr-tile__pictogram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 5rem;
-  height: 5rem;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.fr-tile__pictogram > svg {
-  width: 100%;
-  height: 100%;
-}
-
-.fr-tile__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-
-.fr-tile__body {
-  height: 100%;
-  order: 2;
-  flex: 1 1 auto;
-}
-
-.fr-tile.fr-enlarge-link .fr-tile__title a::after {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
-  mask-image: url("../../icons/system/arrow-right-line.svg");
-  --icon-size: 1.5rem;
-  content: "";
-  position: absolute;
-  right: 2rem;
-  bottom: 2.25rem;
-}
-
-.fr-tile.fr-enlarge-link.fr-tile--no-icon .fr-tile__title a::after {
-  content: none;
-}
-
-.fr-tile__title {
-  font-weight: 700;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  margin-bottom: 0.5rem;
-  order: 2;
-  color: var(--text-title-grey);
-}
-
-.fr-tile__title::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background-position: 0 100%;
-  background-size: 100% 0.25rem;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
-}
-
-.fr-tile__title a::before {
-  background-position: 0 100%;
-  background-size: 100% 0.25rem;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france));
-}
-
-.fr-tile__title [target=_blank]::after {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/external-link-line.svg");
-  mask-image: url("../../icons/system/external-link-line.svg");
-  --icon-size: 1rem;
-  content: "";
-}
-
-.fr-tile__desc {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  flex: 1 1 auto;
-  order: 3;
-}
-
-.fr-tile__start {
-  order: 1;
-  margin-bottom: 0.75rem;
-}
-
-.fr-tile__start .fr-badges-group,
-.fr-tile__start .fr-tags-group {
-  margin-bottom: -0.5rem;
-}
-
-.fr-tile__detail {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  margin-bottom: 0;
-  margin-top: 0.75rem;
-  order: 4;
-}
-
-.fr-tile__detail[class^=fr-icon-]::before,
-.fr-tile__detail[class*=" fr-icon-"]::before,
-.fr-tile__detail[class^=fr-fi-]::before,
-.fr-tile__detail[class*=" fr-fi-"]::before {
-  --icon-size: 1rem;
-  margin-right: 0.5rem;
-}
-
-.fr-tile.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__content {
-  padding-bottom: 2.5rem;
-}
-
-.fr-tile--sm {
-  padding: 1.5rem 1.5rem 1.75rem;
-}
-
-.fr-tile--sm .fr-badge {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-  min-height: 1.125rem;
-  padding: 0 0.375rem;
-}
-
-.fr-tile--sm .fr-badge::before,
-.fr-tile--sm .fr-badge::after {
-  --icon-size: 0.75rem;
-}
-
-.fr-tile--sm .fr-tag {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-  min-height: 1.5rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.75rem;
-}
-
-.fr-tile--sm .fr-tag::before,
-.fr-tile--sm .fr-tag::after {
-  --icon-size: 0.75rem;
-}
-
-.fr-tile--sm .fr-tile__title {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  margin-bottom: 0.25rem;
-}
-
-.fr-tile--sm .fr-tile__title a::after {
-  --icon-size: 1rem;
-}
-
-.fr-tile--sm .fr-tile__desc {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-}
-
-.fr-tile--sm .fr-tile__start {
-  margin-bottom: 0.5rem;
-}
-
-.fr-tile--sm .fr-tile__pictogram {
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
-.fr-tile--sm.fr-tile--horizontal .fr-tile__header {
-  margin-right: 1.5rem;
-}
-
-.fr-tile--sm.fr-tile--horizontal .fr-tile__pictogram {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.fr-tile--sm.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__title a::after {
-  --icon-size: 1rem;
-  position: absolute;
-  right: 1.5rem;
-  bottom: 1.75rem;
-}
-
-.fr-tile--sm.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__content {
-  padding-bottom: 2rem;
-}
-
-.fr-tile--horizontal,
-.fr-tile--download {
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  text-align: left;
-}
-
-.fr-tile--horizontal .fr-tile__header,
-.fr-tile--download .fr-tile__header {
-  margin-right: 2rem;
-  margin-bottom: 0;
-}
-
-.fr-tile--horizontal .fr-tile__pictogram,
-.fr-tile--download .fr-tile__pictogram {
-  width: 4rem;
-  height: 4rem;
-}
-
-.fr-tile--horizontal .fr-tile__content,
-.fr-tile--download .fr-tile__content {
-  align-items: flex-start;
-}
-
-.fr-tile--horizontal:not(.fr-tile--no-icon) .fr-tile__detail,
-.fr-tile--download:not(.fr-tile--no-icon) .fr-tile__detail {
-  padding-right: 2rem;
-  margin-bottom: -2.5rem;
-  margin-top: 1.25rem;
-}
-
-.fr-tile--horizontal:not(.fr-tile--no-icon) .fr-tile__content,
-.fr-tile--download:not(.fr-tile--no-icon) .fr-tile__content {
-  padding-bottom: 2.5rem;
-}
-
-.fr-tile--horizontal:not(.fr-tile--no-icon).fr-tile--sm .fr-tile__detail,
-.fr-tile--download:not(.fr-tile--no-icon).fr-tile--sm .fr-tile__detail {
-  padding-right: 2rem;
-  margin-bottom: -2rem;
-  margin-top: 0.75rem;
-}
-
-.fr-tile--horizontal:not(.fr-tile--no-icon).fr-tile--sm .fr-tile__content,
-.fr-tile--download:not(.fr-tile--no-icon).fr-tile--sm .fr-tile__content {
-  padding-bottom: 2rem;
-}
-
-.fr-tile.fr-tile--download .fr-tile__title a::after {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/download-line.svg");
-  mask-image: url("../../icons/system/download-line.svg");
-  content: "";
-}
-
-.fr-tile:not(.fr-tile--no-border):not(.fr-tile--shadow) {
-  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
-}
-
-.fr-tile--grey {
-  background-color: var(--background-contrast-grey);
-
-  --idle: transparent;
-  --hover: var(--background-contrast-grey-hover);
-  --active: var(--background-contrast-grey-active);
-}
-
-.fr-tile--shadow {
-  z-index: calc(var(--ground) + 500);
-  background-color: var(--background-raised-grey);
-
-  --idle: transparent;
-  --hover: var(--background-raised-grey-hover);
-  --active: var(--background-raised-grey-active);
-  filter: drop-shadow(var(--raised-shadow));
-}
-
-.fr-tile--shadow.fr-tile--grey {
-  background-color: var(--background-contrast-raised-grey);
-
-  --idle: transparent;
-  --hover: var(--background-contrast-raised-grey-hover);
-  --active: var(--background-contrast-raised-grey-active);
-}
-
-.fr-tile--no-background {
-  background-color: transparent;
-
-  --hover: inherit;
-  --active: inherit;
-}
-
-.fr-tile__title:disabled,
-a.fr-tile__title:not([href]) {
-  color: var(--text-disabled-grey);
-  background-color: var(--background-disabled-grey);
-
-  --idle: transparent;
-  --hover: var(--background-disabled-grey-hover);
-  --active: var(--background-disabled-grey-active);
-}
-
-.fr-tile__title a {
-  color: var(--text-action-high-blue-france);
-}
-
-.fr-tile__title a:not([href]) {
-  color: var(--text-disabled-grey);
-}
-
-.fr-tile__title a:not([href])::before {
-  background-image: linear-gradient(0deg, var(--border-disabled-grey), var(--border-disabled-grey));
 }
 
 .fr-tile__img {
@@ -384,24 +77,107 @@ a.fr-tile__title:not([href]) {
   flex-shrink: 0;
   width: 5rem;
   height: 5rem;
-  margin: 0 auto 1.5rem;
+  margin: 2rem auto 0;
   overflow: hidden;
   filter: brightness(var(--brightness));
+
+  /**
+   * Dans le cas d'un svg inline sans largeur et hauteur spécifiées, on lui attribue une largeur de 100%.
+   */
 }
 
 .fr-tile__img > svg {
   width: 100%;
-  height: 100%;
 }
 
-.fr-tile__body > .fr-tile__desc {
-  padding-bottom: 2.5rem;
+.fr-tile__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.fr-tile__title {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.fr-tile__desc {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/**
+ * Modificateur tuile horizontale
+ **/
+
+.fr-tile--horizontal {
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 .fr-tile--horizontal .fr-tile__img {
   width: 3rem;
   height: 3rem;
-  margin: 0 1.5rem 0 0;
+  margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.fr-tile--horizontal .fr-tile__body {
+  align-items: flex-start;
+  padding: 0;
+  margin: 1.5rem;
+  text-align: left;
+}
+
+.fr-tile--vertical-md {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.fr-tile--vertical-md .fr-tile__img {
+  width: 3rem;
+  height: 3rem;
+  margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.fr-tile--vertical-md .fr-tile__body {
+  align-items: flex-start;
+  padding: 0;
+  margin: 1.5rem;
+  text-align: left;
+}
+
+.fr-tile--horizontal-md {
+  flex-direction: column-reverse;
+}
+
+.fr-tile--horizontal-md .fr-tile__img {
+  width: 5rem;
+  height: 5rem;
+  margin: 2rem auto 0;
+}
+
+.fr-tile--horizontal-md .fr-tile__img + .fr-tile__body {
+  min-height: initial;
+}
+
+.fr-tile--horizontal-md .fr-tile__body {
+  align-items: center;
+  padding: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.fr-tile--grey {
+  background-color: var(--background-contrast-grey);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-grey-hover);
+  --active: var(--background-contrast-grey-active);
 }
 @media (min-width: 36em) {
   /*! media sm */
@@ -410,86 +186,64 @@ a.fr-tile__title:not([href]) {
 }
 @media (min-width: 48em) {
   /*! media md */
-  .fr-tile__title {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .fr-tile--vertical\@md {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-
-  .fr-tile--vertical\@md .fr-tile__header {
-    margin-bottom: 1rem;
-    margin-right: 0 !important;
-  }
-
-  .fr-tile--vertical\@md .fr-tile__pictogram {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  .fr-tile--vertical\@md .fr-tile__content {
-    align-items: center;
-  }
-
-  .fr-tile--vertical\@md .fr-tile__detail {
-    margin-top: 0.75rem;
-  }
-
-  .fr-tile--vertical\@md.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__content {
-    padding-bottom: 2.5rem;
-  }
-
-  .fr-tile--vertical\@md.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__detail {
-    margin-bottom: 0;
-    padding-right: 0;
+  .fr-tile__body {
+    padding: 1.5rem;
   }
 
   .fr-tile--horizontal .fr-tile__img {
     width: 5rem;
     height: 5rem;
-    margin: 0 2rem 0 0;
+    margin: 2rem 0 2rem 2rem;
+  }
+
+  .fr-tile--horizontal .fr-tile__body {
+    margin: 2rem;
+  }
+
+  .fr-tile--vertical-md .fr-tile__img {
+    width: 5rem;
+    height: 5rem;
+    margin: 2rem auto 0;
+  }
+
+  .fr-tile--vertical-md .fr-tile__body {
+    align-items: center;
+    padding: 1.5rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .fr-tile--vertical-md {
+    flex-direction: column-reverse;
+    align-items: initial;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__img + .fr-tile__body {
+    padding: 0;
+    margin: 2rem;
+    min-height: 5rem;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__img {
+    margin: 2rem 0 2rem 2rem;
+  }
+
+  .fr-tile--horizontal-md .fr-tile__body {
+    align-items: flex-start;
+    padding: 0;
+    margin: 2rem;
+    text-align: left;
+  }
+
+  .fr-tile--horizontal-md {
+    flex-direction: row-reverse;
+    align-items: center;
   }
 
   /*! media md */
 }
 @media (min-width: 62em) {
   /*! media lg */
-  .fr-tile--vertical\@lg {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
-
-  .fr-tile--vertical\@lg .fr-tile__header {
-    margin-bottom: 1rem;
-    margin-right: 0 !important;
-  }
-
-  .fr-tile--vertical\@lg .fr-tile__pictogram {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  .fr-tile--vertical\@lg .fr-tile__content {
-    align-items: center;
-  }
-
-  .fr-tile--vertical\@lg .fr-tile__detail {
-    margin-top: 0.75rem;
-  }
-
-  .fr-tile--vertical\@lg.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__content {
-    padding-bottom: 2.5rem;
-  }
-
-  .fr-tile--vertical\@lg.fr-enlarge-link:not(.fr-tile--no-icon) .fr-tile__detail {
-    margin-bottom: 0;
-    padding-right: 0;
-  }
 
   /*! media lg */
 }
@@ -502,11 +256,6 @@ a.fr-tile__title:not([href]) {
   /**
   * Correctif de la largeur du texte dans la tuile
   */
-  .fr-tile--download .fr-tile__body,
-  .fr-tile--horizontal .fr-tile__body {
-    flex-basis: 100%;
-  }
-
   .fr-tile__body,
   .fr-tile__body > * {
     max-width: 100%;
@@ -514,128 +263,18 @@ a.fr-tile__title:not([href]) {
 
   .fr-tile__title {
     margin: 0 0 0.5rem;
-    max-width: 100%;
-    color: #161616;
-  }
-
-  .fr-tile__title a::after {
-    background-color: transparent;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../../icons/system/arrow-right-line.svg");
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .fr-tile__title [target=_blank]::after {
-    background-color: transparent;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../../icons/system/external-link-line.svg");
-    width: 1rem;
-    height: 1rem;
   }
 
   .fr-tile__desc {
     margin: 0;
-    max-width: 100%;
-  }
-
-  .fr-tile__start,
-  .fr-tile__detail {
-    max-width: 100%;
-  }
-
-  .fr-tile--download .fr-tile__title a::after {
-    background-color: transparent;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../../icons/system/download-line.svg");
-  }
-
-  .fr-tile.fr-enlarge-link .fr-tile__title a {
-    text-decoration: none;
-  }
-
-  .fr-tile.fr-enlarge-link .fr-tile__title a::after {
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: transparent;
-  }
-
-  .fr-tile--sm .fr-tile__title a::after {
-    width: 1rem;
-    height: 1rem;
   }
 
   .fr-tile {
+    box-shadow: inset 0 0 0 1px #ddd, inset 0 -0.25rem 0 0 #000091;
     background-color: #fff;
-  }
-
-  .fr-tile:not(.fr-tile--no-border):not(.fr-tile--shadow) {
-    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
   }
 
   .fr-tile--grey {
     background-color: #eee;
-  }
-
-  .fr-tile--shadow {
-    z-index: 500;
-    background-color: #fff;
-  }
-
-  .fr-tile--shadow.fr-tile--grey {
-    background-color: #eee;
-  }
-
-  .fr-tile--no-background {
-    background-color: transparent;
-  }
-
-  .fr-tile--no-background:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-tile--no-background:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-tile__title:disabled,
-  a.fr-tile__title:not([href]) {
-    color: #929292;
-    background-color: #e5e5e5;
-  }
-
-  .fr-tile__title::before {
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-tile__title a {
-    color: #000091;
-  }
-
-  .fr-tile__title a::before {
-    background-image: linear-gradient(0deg, #000091, #000091);
-  }
-
-  .fr-tile__title a:not([href]) {
-    color: #929292;
-  }
-
-  .fr-tile__title a:not([href])::before {
-    background-image: linear-gradient(0deg, #e5e5e5, #e5e5e5);
-  }
-}
-@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
-  .fr-tile--download.fr-tile--vertical\@md .fr-tile__body,
-  .fr-tile--horizontal.fr-tile--vertical\@md .fr-tile__body {
-    flex-basis: auto;
-  }
-}
-@media (-ms-high-contrast: none) and (min-width: 62em), (-ms-high-contrast: active) and (min-width: 62em) {
-  .fr-tile--download.fr-tile--vertical\@lg .fr-tile__body,
-  .fr-tile--horizontal.fr-tile--vertical\@lg .fr-tile__body {
-    flex-basis: auto;
   }
 }

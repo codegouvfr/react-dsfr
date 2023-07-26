@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -43,7 +43,7 @@
 }
 
 .fr-fieldset__legend {
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   margin-left: -0.25rem;
@@ -65,24 +65,29 @@
 }
 
 .fr-fieldset--valid,
+.fr-fieldset--valid .fr-fieldset__legend,
+.fr-fieldset--error,
+.fr-fieldset--error .fr-fieldset__legend,
+.fr-fieldset--info,
+.fr-fieldset--info .fr-fieldset__legend {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.fr-fieldset--valid,
 .fr-fieldset--error,
 .fr-fieldset--info {
-  background-repeat: no-repeat;
-  background-position: 0 -2.25rem;
-  background-size: 2px calc(100% + 1.25rem);
+  background-size: 2px calc(100% - 1rem);
 }
 
 .fr-fieldset--valid .fr-fieldset__legend,
 .fr-fieldset--error .fr-fieldset__legend,
 .fr-fieldset--info .fr-fieldset__legend {
-  background-repeat: no-repeat;
-  background-position: 0 0;
   background-size: 2px 100%;
 }
 
 .fr-fieldset__element {
   flex: 1 1 100%;
-  max-width: 100%;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-bottom: 1rem;
@@ -97,28 +102,22 @@
   flex-grow: 1;
 }
 
-.fr-fieldset__element--year {
+.fr-fieldset__element--year,
+.fr-fieldset__element--postal {
   flex: 0 0 8rem;
 }
 
-.fr-fieldset__element--year:not(.fr-fieldset__element--inline) {
+.fr-fieldset__element--year:not(.fr-fieldset__element--inline),
+.fr-fieldset__element--postal:not(.fr-fieldset__element--inline) {
   margin-right: calc(100% - 8rem);
 }
 
-.fr-fieldset__element--postal {
-  flex: 0 0 16rem;
-}
-
-.fr-fieldset__element--postal:not(.fr-fieldset__element--inline) {
-  margin-right: calc(100% - 16rem);
-}
-
 .fr-fieldset__element--number {
-  flex: 0 0 6rem;
+  flex: 0 0 5.5rem;
 }
 
 .fr-fieldset__element--number:not(.fr-fieldset__element--inline) {
-  margin-right: calc(100% - 6rem);
+  margin-right: calc(100% - 5.5rem);
 }
 
 .fr-fieldset__legend > h1:last-child::after,
@@ -153,31 +152,15 @@
 }
 
 .fr-message {
-  --comma: ", ";
-  --content: var(--comma);
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   font-size: 0.75rem;
   line-height: 1.25rem;
   margin: 0 0 0.25rem 0;
 }
 
-.fr-message::after {
-  content: var(--content);
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap; /* added line */
-  border: 0;
-}
-
 .fr-message:last-child {
-  --comma: ". ";
   margin-bottom: 0;
 }
 
@@ -195,7 +178,6 @@
   content: "";
   display: inline-block;
   margin-right: 0.25rem;
-  margin-top: 0.125rem;
 }
 
 .fr-message--error::before {
@@ -232,11 +214,8 @@
 }
 
 .fr-select-group--disabled label,
-.fr-select-group--disabled .fr-hint-text,
 .fr-input-group--disabled label,
-.fr-input-group--disabled .fr-hint-text,
-.fr-upload-group--disabled label,
-.fr-upload-group--disabled .fr-hint-text {
+.fr-upload-group--disabled label {
   color: var(--text-disabled-grey);
 }
 
@@ -275,14 +254,7 @@
 }
 
 .fr-fieldset:disabled .fr-label,
-.fr-fieldset:disabled .fr-hint-text,
 .fr-fieldset:disabled .fr-fieldset__legend {
-  color: var(--text-disabled-grey);
-}
-
-.fr-fieldset input:disabled + label,
-.fr-fieldset input:disabled + label .fr-hint-text,
-.fr-fieldset input:disabled + label + .fr-hint-text {
   color: var(--text-disabled-grey);
 }
 
@@ -355,7 +327,7 @@
   display: inline-flex;
 }
 
-.fr-fieldset--inline .fr-radio-group:not(:last-child) {
+.fr-fieldset--inline .fr-radio-group:not(:last-child) input[type=radio] + label {
   margin-right: 1.75rem;
 }
 
@@ -363,7 +335,15 @@
   margin-top: 0;
 }
 
+.fr-fieldset--inline .fr-radio-group:first-child input[type=radio] + label {
+  margin-top: 0;
+}
+
 .fr-fieldset--inline .fr-radio-group:last-child {
+  margin-bottom: 0;
+}
+
+.fr-fieldset--inline .fr-radio-group:last-child input[type=radio] + label {
   margin-bottom: 0;
 }
 
@@ -375,7 +355,7 @@
 
 .fr-fieldset__content .fr-radio-group:first-child,
 .fr-fieldset__content .fr-checkbox-group:first-child {
-  margin-top: -0.75rem;
+  margin-top: -1rem;
 }
 
 .fr-fieldset__content .fr-radio-group label,
@@ -383,9 +363,9 @@
   padding: 0.75rem 0;
 }
 
-.fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] + label::before,
-.fr-fieldset__content .fr-checkbox-group input[type=checkbox] + label::before {
-  top: 0.75rem;
+.fr-fieldset__content .fr-radio-group label::before,
+.fr-fieldset__content .fr-checkbox-group label::before {
+  margin-top: 0.75rem;
 }
 
 .fr-fieldset__content + .fr-error-text,
@@ -393,7 +373,6 @@
 .fr-fieldset__content + .fr-info-text {
   margin-top: 0;
   margin-left: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .fr-error-text,

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -31,20 +31,16 @@
     text-decoration: none;
   }
 
-  [href][href],
-  [href] [href],
-  .fr-reset-link[href],
-  .fr-reset-link [href] {
+  [href],
+  .fr-reset-link {
     text-decoration: underline;
   }
 
-  .fr-raw-link[href],
-  .fr-raw-link [href] {
+  .fr-raw-link {
     text-decoration: none;
   }
 
-  .fr-raw-link[href]::after,
-  .fr-raw-link [href]::after {
+  .fr-reset-link::after {
     content: none;
   }
 
@@ -77,16 +73,6 @@
     padding-left: 1rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0 0 1.5rem;
-    color: #161616;
   }
 
   [class^=fr-icon-]::before,
@@ -226,10 +212,6 @@
     fill: #aea397;
   }
 
-  [disabled] .fr-artwork * {
-    fill: #929292;
-  }
-
   .fr-h6,
   .fr-h5,
   .fr-h4,
@@ -241,6 +223,15 @@
   .fr-display-md,
   .fr-display-lg,
   .fr-display-xl {
+    color: #161616;
+  }
+
+  h6,
+  h5,
+  h4,
+  h3,
+  h2,
+  h1 {
     color: #161616;
   }
 

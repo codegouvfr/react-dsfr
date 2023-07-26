@@ -1,10 +1,10 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
@@ -19,10 +19,10 @@ class TagDismissible extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.click.bind(this));
   }
 
-  handleClick () {
+  click () {
     this.focusClosest();
 
     switch (api.mode) {
@@ -40,7 +40,7 @@ class TagDismissible extends api.core.Instance {
   }
 
   verify () {
-    if (document.body.contains(this.node)) this.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
+    if (document.body.contains(this.node)) api.inspector.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
   }
 }
 

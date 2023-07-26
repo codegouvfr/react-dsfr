@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -9,6 +9,7 @@
 .fr-btn {
   --text-spacing: 0;
   --title-spacing: 0;
+  z-index: 1;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -799,36 +800,6 @@
   content: none;
 }
 
-.fr-btn--tooltip {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 2rem;
-  max-height: 2rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.fr-btn--tooltip::before {
-  --icon-size: 1rem;
-  margin-left: 0;
-  margin-right: 0.5rem;
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/question-line.svg");
-  mask-image: url("../../icons/system/question-line.svg");
-  content: "";
-}
-
 .fr-btn--fullscreen {
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -939,8 +910,7 @@ a.fr-btn--tertiary:not([href]) {
 .fr-btn--tertiary-no-outline,
 .fr-btn--close,
 .fr-btn--display,
-.fr-btn--fullscreen,
-.fr-btn--tooltip {
+.fr-btn--fullscreen {
   background-color: transparent;
 
   --hover: inherit;
@@ -953,11 +923,9 @@ a.fr-btn--tertiary-no-outline:not([href]),
 a.fr-btn--close:not([href]),
 a.fr-btn--display:not([href]),
 a.fr-btn--fullscreen:not([href]),
-a.fr-btn--tooltip:not([href]),
 .fr-btn--close:disabled,
 .fr-btn--display:disabled,
-.fr-btn--fullscreen:disabled,
-.fr-btn--tooltip:disabled {
+.fr-btn--fullscreen:disabled {
   color: var(--text-disabled-grey);
   background-color: transparent;
 
@@ -1118,16 +1086,6 @@ a.fr-btn--tooltip:not([href]),
     height: 1rem;
   }
 
-  .fr-btn--tooltip::before,
-  .fr-btn--tooltip::after {
-    background-color: transparent;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../../icons/system/question-line.svg");
-    width: 1rem;
-    height: 1rem;
-  }
-
   .fr-btn--fullscreen::before,
   .fr-btn--fullscreen::after {
     background-color: transparent;
@@ -1277,8 +1235,7 @@ a.fr-btn--tooltip:not([href]),
   .fr-btn--tertiary-no-outline,
   .fr-btn--close,
   .fr-btn--display,
-  .fr-btn--fullscreen,
-  .fr-btn--tooltip {
+  .fr-btn--fullscreen {
     background-color: transparent;
     color: #000091;
   }
@@ -1286,16 +1243,14 @@ a.fr-btn--tooltip:not([href]),
   .fr-btn--tertiary-no-outline:hover,
   .fr-btn--close:hover,
   .fr-btn--display:hover,
-  .fr-btn--fullscreen:hover,
-  .fr-btn--tooltip:hover {
+  .fr-btn--fullscreen:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary-no-outline:active,
   .fr-btn--close:active,
   .fr-btn--display:active,
-  .fr-btn--fullscreen:active,
-  .fr-btn--tooltip:active {
+  .fr-btn--fullscreen:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
@@ -1304,11 +1259,9 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--close:not([href]),
   a.fr-btn--display:not([href]),
   a.fr-btn--fullscreen:not([href]),
-  a.fr-btn--tooltip:not([href]),
   .fr-btn--close:disabled,
   .fr-btn--display:disabled,
-  .fr-btn--fullscreen:disabled,
-  .fr-btn--tooltip:disabled {
+  .fr-btn--fullscreen:disabled {
     color: #929292;
     background-color: transparent;
   }
@@ -1318,11 +1271,9 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--close:not([href]):hover,
   a.fr-btn--display:not([href]):hover,
   a.fr-btn--fullscreen:not([href]):hover,
-  a.fr-btn--tooltip:not([href]):hover,
   .fr-btn--close:disabled:hover,
   .fr-btn--display:disabled:hover,
-  .fr-btn--fullscreen:disabled:hover,
-  .fr-btn--tooltip:disabled:hover {
+  .fr-btn--fullscreen:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
@@ -1331,11 +1282,9 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--close:not([href]):active,
   a.fr-btn--display:not([href]):active,
   a.fr-btn--fullscreen:not([href]):active,
-  a.fr-btn--tooltip:not([href]):active,
   .fr-btn--close:disabled:active,
   .fr-btn--display:disabled:active,
-  .fr-btn--fullscreen:disabled:active,
-  .fr-btn--tooltip:disabled:active {
+  .fr-btn--fullscreen:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -8,9 +8,9 @@
 \* ˍˍˍˍˍˍˍˍˍ */
 .fr-select {
   display: block;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   border-radius: 0.25rem 0.25rem 0 0;
   font-size: 1rem;
@@ -28,9 +28,11 @@
   box-shadow: inset 0 -2px 0 0 var(--border-plain-grey);
 
   --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23161616' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
-  background-image: var(--data-uri-svg); /**
-* Mixin pour gérer l'état disabled
-*/
+  background-image: var(--data-uri-svg);
+
+  /**
+  * Mixin pour gérer l'état disabled
+  */
 
   /**
   * On applique un style lorsque la valeur est automatiquement remplie par le navigateur
@@ -38,28 +40,8 @@
   */
 }
 
-.fr-select-group {
-  position: relative;
-}
-
 .fr-select-group .fr-message:first-child {
   margin-top: 0.5rem;
-}
-
-.fr-select-group--valid::before,
-.fr-select-group--error::before,
-.fr-select-group--info::before {
-  content: "";
-  display: block;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: -0.75rem;
-  bottom: 0;
-  left: -0.75rem;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 0.125rem 100%;
 }
 
 :root[data-fr-theme=dark] .fr-select {
@@ -74,18 +56,6 @@
 .fr-fieldset--error .fr-select,
 .fr-select-group--error .fr-select {
   box-shadow: inset 0 -2px 0 0 var(--border-plain-error);
-}
-
-.fr-select-group--error::before {
-  background-image: linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error));
-}
-
-.fr-select-group--valid::before {
-  background-image: linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success));
-}
-
-.fr-select-group--info::before {
-  background-image: linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info));
 }
 
 .fr-select:disabled {

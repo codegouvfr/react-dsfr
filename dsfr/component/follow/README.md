@@ -6,9 +6,8 @@ Le bloc "Lettre d'information et Réseaux Sociaux" est composé d'un bloc permet
 ```shell
 follow
 └─ core
-└─ alert
-└─ button
 └─ input
+└─ button
 ```
 
 ## Utilisation
@@ -17,9 +16,8 @@ Afin d’utiliser le composant `follow`, il est nécessaire d’ajouter les fich
 <html>
   <head>
     <link href="css/core/core.min.css" rel="stylesheet">
-    <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/form/form.min.css" rel="stylesheet">
-    <link href="css/alert/alert.min.css" rel="stylesheet">
+    <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/input/input.min.css" rel="stylesheet">
     <link href="css/follow/follow.min.css" rel="stylesheet">
   </head>

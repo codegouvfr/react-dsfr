@@ -48,10 +48,10 @@ Afin d’utiliser le composant `core`, il est nécessaire d’ajouter les fichie
 
 Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-identite-de-l-etat/typographie) sur le module Typographie
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone) sur le module Icônes
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) sur le module Icônes
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone-de-favoris) sur le module Icônes de favoris - Favicon
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/icones-de-favoris) sur le module Icônes de favoris - Favicon
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/medias) sur le module Médias fondamentaux
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/contenu-medias) sur le module Médias fondamentaux
 
 Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/grille-et-points-de-rupture) sur le module Grille

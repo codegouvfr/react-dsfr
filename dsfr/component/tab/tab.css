@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -31,7 +31,7 @@
   background-size: 0 2px, 1px 0, 1px 0, 100% 1px;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-position: 0 0, 0 calc(100% - 1px), 100% calc(100% - 1px), 100% 100%;
-  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
   box-shadow: 0 2px 0 0 var(--background-default-grey);
 }
 
@@ -160,6 +160,12 @@
 
 .fr-tabs__tab[aria-selected=true] {
   background-size: 100% 2px, 1px calc(100% - 1px), 1px calc(100% - 1px), 0 1px;
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+  color: var(--text-active-blue-france);
 }
 
 .fr-tabs__panel {
@@ -218,7 +224,7 @@
 * Ombres ajoutées en Js si le contenu est plus grand que le conteneur
 */
 .fr-tabs__shadow {
-  --tabs-list-height: 3rem;
+  --tab-list-height: 3rem;
 
   /**
   * Modifier ombre à gauche
@@ -233,7 +239,7 @@
   **/
 }
 
-.fr-tabs__shadow::before {
+.fr-tabs__shadow > .fr-tabs__list::before {
   content: "";
   display: block;
   position: absolute;
@@ -242,25 +248,25 @@
   left: 0;
   z-index: 2;
   box-shadow: inset 0 0 0 0 rgba(22, 22, 22, 0), inset 0 0 0 0 rgba(22, 22, 22, 0);
-  height: calc(var(--tabs-list-height) - 8px);
+  height: calc(var(--tab-list-height) - 8px);
   opacity: 0.8;
   pointer-events: none;
   transition: box-shadow 0.3s;
 }
 
-.fr-tabs__shadow--left::before {
+.fr-tabs__shadow--left > .fr-tabs__list::before {
   box-shadow: inset 2rem 0 1.5rem -2rem #161616, inset 0 0 0 0 rgba(22, 22, 22, 0);
 }
 
-.fr-tabs__shadow--right::before {
+.fr-tabs__shadow--right > .fr-tabs__list::before {
   box-shadow: inset 0 0 0 0 rgba(22, 22, 22, 0), inset -2rem 0 1.5rem -2rem #161616;
 }
 
-.fr-tabs__shadow--left.fr-tabs__shadow--right::before {
+.fr-tabs__shadow--left.fr-tabs__shadow--right > .fr-tabs__list::before {
   box-shadow: inset 2rem 0 1.5rem -2rem #161616, inset -2rem 0 1.5rem -2rem #161616;
 }
 
-:root[data-fr-theme=dark] .fr-tabs__shadow::before {
+:root[data-fr-theme=dark] .fr-tabs__shadow > .fr-tabs__list::before {
   opacity: 1;
 }
 
@@ -271,16 +277,6 @@
   --hover: var(--background-action-low-blue-france-hover);
   --active: var(--background-action-low-blue-france-active);
   color: var(--text-action-high-grey);
-}
-
-.fr-tabs__tab[aria-selected=true]:not(:disabled) {
-  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
-  background-color: var(--background-default-grey);
-
-  --idle: transparent;
-  --hover: var(--background-default-grey-hover);
-  --active: var(--background-default-grey-active);
-  color: var(--text-active-blue-france);
 }
 
 .fr-tabs__tab:disabled {
@@ -325,6 +321,9 @@
   /*! media xl */
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /**
+  * Reset liste à puce
+  */
   .fr-tabs ul {
     list-style-type: none;
   }
@@ -338,30 +337,6 @@
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
-  }
-
-  .fr-tabs::before {
-    position: absolute;
-    top: 3rem;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
-  }
-
-  .fr-tabs .fr-tabs__list {
-    padding: 0.25rem 0.75rem;
-  }
-
-  .fr-tabs__tab::before,
-  .fr-tabs__tab::after {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .fr-tabs__panel {
-    padding: 0 0.1px;
-    left: 0;
   }
 
   ul {
@@ -383,25 +358,16 @@
     text-decoration: underline;
   }
 
-  .fr-tabs__panel > * {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .fr-tabs__panel > *:first-child {
-    margin-top: 0.75rem;
-  }
-
-  .fr-tabs__panel > *:last-child {
-    margin-bottom: 1rem;
-  }
-
   .fr-tabs {
     box-shadow: inset 0 -1px 0 0 #ddd;
   }
 
+  .fr-tabs::before {
+    box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+  }
+
   .fr-tabs__tab {
-    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
     box-shadow: 0 2px 0 0 #fff;
   }
 
@@ -410,8 +376,7 @@
     color: #161616;
   }
 
-  .fr-tabs__tab[aria-selected=true]:not(:disabled) {
-    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
+  .fr-tabs__tab[aria-selected=true] {
     background-color: #fff;
     color: #000091;
   }
@@ -419,19 +384,5 @@
   .fr-tabs__tab:disabled {
     color: #929292;
     background-color: #e5e5e5;
-  }
-}
-@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
-  .fr-tabs__panel > * {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-
-  .fr-tabs__panel > *:first-child {
-    margin-top: 1.75rem;
-  }
-
-  .fr-tabs__panel > *:last-child {
-    margin-bottom: 2rem;
   }
 }

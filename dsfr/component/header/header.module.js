@@ -1,10 +1,10 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
@@ -31,7 +31,7 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
+    let toolsHtmlDuplicateId = toolsHtml.replace(/(<nav[.\s\S]*-translate [.\s\S]*) id="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 id="$2' + copySuffix + '"$3');
     toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
 
     if (toolsHtmlDuplicateId === menuHtml) return;
@@ -40,7 +40,7 @@ class HeaderLinks extends api.core.Instance {
       case api.Modes.ANGULAR:
       case api.Modes.REACT:
       case api.Modes.VUE:
-        this.warn(`header__tools-links content is different from header__menu-links content.
+        api.inspector.warn(`header__tools-links content is different from header__menu-links content.
 As you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:
 ${api.header.doc}`);
         break;
@@ -66,22 +66,29 @@ class HeaderModal extends api.core.Instance {
   }
 
   resize () {
-    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.deactivateModal();
-    else this.activateModal();
+    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.unqualify();
+    else this.qualify();
   }
 
-  activateModal () {
+  qualify () {
+    this.setAttribute('role', 'dialog');
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
-    modal.isEnabled = true;
+    const buttons = modal.buttons;
+    let id = '';
+    for (const button of buttons) {
+      id = button.id || id;
+      if (button.isPrimary && id) break;
+    }
+    this.setAttribute('aria-labelledby', id);
     this.listen('click', this._clickHandling, { capture: true });
   }
 
-  deactivateModal () {
+  unqualify () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.conceal();
-    modal.isEnabled = false;
+    if (modal) modal.conceal();
+    this.removeAttribute('role');
+    this.removeAttribute('aria-labelledby');
     this.unlisten('click', this._clickHandling, { capture: true });
   }
 

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -261,6 +261,8 @@
 }
 
 .fr-footer__bottom-list {
+  flex-wrap: wrap;
+  align-items: center;
   padding: 0.5rem 0 1rem;
   width: 100%;
   margin: 0;

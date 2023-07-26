@@ -1,10 +1,10 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
@@ -20,7 +20,7 @@ class PasswordToggle extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.toggle.bind(this));
     this.ascend(PasswordEmission.ADJUST, this.width);
     this.isSwappingFont = true;
     this._isChecked = this.isChecked;
@@ -40,7 +40,7 @@ class PasswordToggle extends api.core.Instance {
     this.ascend(PasswordEmission.TOGGLE, value);
   }
 
-  handleClick () {
+  toggle () {
     this.isChecked = !this._isChecked;
   }
 

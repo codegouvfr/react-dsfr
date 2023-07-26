@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -72,7 +72,7 @@
 }
 
 .fr-sidemenu__list .fr-sidemenu__list {
-  margin: 0 1rem 1rem;
+  margin: 0 0.5rem 1.5rem;
   font-weight: 400;
 }
 
@@ -120,7 +120,7 @@
 
 .fr-sidemenu__inner > .fr-collapse {
   margin: -0.25rem 0.75rem 0;
-  padding: 0.25rem 0.75rem 0;
+  padding: 0.25rem 0.25rem 0;
 }
 
 /**
@@ -133,7 +133,7 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0.5rem;
   font-size: 1rem;
   line-height: 1.5rem;
   text-align: left;
@@ -141,7 +141,7 @@
 
   --hover-tint: var(--hover);
   --active-tint: var(--active);
-  color: var(--text-action-high-blue-france);
+  color: var(--text-action-high-grey);
 }
 
 .fr-sidemenu__link[aria-current]::before,
@@ -202,7 +202,7 @@
  */
 .fr-sidemenu__inner > .fr-sidemenu__btn {
   width: 100%;
-  font-weight: 500;
+  font-weight: normal;
 
   /**
   * Ajout de l'icône de menu en mode mobile (provisoire)
@@ -230,11 +230,6 @@
   margin-right: 0.5rem;
 }
 
-.fr-sidemenu__item .fr-sidemenu__link,
-.fr-sidemenu__item .fr-sidemenu__btn {
-  color: var(--text-default-grey);
-}
-
 .fr-sidemenu__item:first-child::before {
   box-shadow: inset 0 -1px 0 0 var(--border-default-grey);
 }
@@ -246,14 +241,6 @@
 .fr-sidemenu__link[aria-current],
 .fr-sidemenu__btn[aria-current] {
   color: var(--text-active-blue-france);
-}
-
-.fr-sidemenu__btn[aria-expanded=true] {
-  background-color: var(--background-open-blue-france);
-
-  --idle: transparent;
-  --hover: var(--background-open-blue-france-hover);
-  --active: var(--background-open-blue-france-active);
 }
 @media (min-width: 36em) {
   /*! media sm */
@@ -278,6 +265,10 @@
     /**
      * Modificateur pour que le sidemenu soit à la fois sticky et prenne toute la hauteur de la page
      */
+
+    /**
+     * Modificateur pour avoir une bordure tout autour du sidemenu
+     */
     box-shadow: none;
   }
 
@@ -295,7 +286,12 @@
   }
 
   .fr-sidemenu__list .fr-sidemenu__list {
-    margin: 0 1rem 1rem;
+    margin: 0 1rem;
+  }
+
+  .fr-sidemenu__list .fr-sidemenu__list .fr-sidemenu__list .fr-sidemenu__link,
+  .fr-sidemenu__list .fr-sidemenu__list .fr-sidemenu__list .fr-sidemenu__btn {
+    padding: 0.75rem 0.5rem;
   }
 
   .fr-sidemenu__list {
@@ -360,6 +356,15 @@
     height: 100%;
   }
 
+  .fr-sidemenu--full-border .fr-sidemenu__title {
+    padding-top: 0.5rem;
+  }
+
+  .fr-sidemenu--full-border .fr-sidemenu__inner {
+    padding: 0.5rem 1rem;
+    box-shadow: inset 0 0 0 1px var(--border-default-grey);
+  }
+
   .fr-sidemenu__link,
   .fr-sidemenu__btn {
     margin: 0;
@@ -367,7 +372,7 @@
   }
 
   .fr-sidemenu__btn[aria-expanded] {
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    padding: 0.75rem 2rem 0.75rem 0.5rem;
   }
 
   .fr-sidemenu__btn[aria-expanded]::after {
@@ -432,11 +437,6 @@
     box-shadow: inset 0 -1px 0 0 #ddd;
   }
 
-  .fr-sidemenu__item .fr-sidemenu__link,
-  .fr-sidemenu__item .fr-sidemenu__btn {
-    color: #3a3a3a;
-  }
-
   .fr-sidemenu__item::before {
     box-shadow: 0 -1px 0 0 #ddd, inset 0 -1px 0 0 #ddd;
   }
@@ -451,7 +451,7 @@
 
   .fr-sidemenu__link,
   .fr-sidemenu__btn {
-    color: #000091;
+    color: #161616;
   }
 
   .fr-sidemenu__link[aria-current],
@@ -462,10 +462,6 @@
   .fr-sidemenu__link[aria-current]::before,
   .fr-sidemenu__btn[aria-current]::before {
     background-color: #000091;
-  }
-
-  .fr-sidemenu__btn[aria-expanded=true] {
-    background-color: #e3e3fd;
   }
 }
 @media (min-width: 48em) and (-ms-high-contrast: none), (min-width: 48em) and (-ms-high-contrast: active) {
@@ -483,5 +479,9 @@
 
   .fr-sidemenu--right .fr-sidemenu__inner {
     box-shadow: inset 1px 0 0 0 #ddd;
+  }
+
+  .fr-sidemenu--full-border .fr-sidemenu__inner {
+    box-shadow: inset 0 0 0 1px #ddd;
   }
 }

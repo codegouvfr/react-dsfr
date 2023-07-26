@@ -1,35 +1,18 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.0'
+  version: '1.9.3'
 };
 
 const api = window[config.namespace];
 
-const ACCORDION = api.internals.ns.selector('accordion');
-const COLLAPSE$2 = api.internals.ns.selector('collapse');
-
 const AccordionSelector = {
   GROUP: api.internals.ns.selector('accordions-group'),
-  ACCORDION: ACCORDION,
-  COLLAPSE: `${ACCORDION} > ${COLLAPSE$2}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE$2}) > ${COLLAPSE$2}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE$2}) > *:not(${ACCORDION}, ${COLLAPSE$2}) > ${COLLAPSE$2}`,
-  COLLAPSE_LEGACY: `${ACCORDION} ${COLLAPSE$2}`,
-  BUTTON: `${ACCORDION}__btn`
+  COLLAPSE: `${api.internals.ns.selector('accordion')} > ${api.internals.ns.selector('collapse')}`
 };
-
-class Accordion extends api.core.Instance {
-  static get instanceClassName () {
-    return 'Accordion';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(AccordionSelector.BUTTON));
-    return buttons[0];
-  }
-}
 
 class AccordionsGroup extends api.core.CollapsesGroup {
   static get instanceClassName () {
@@ -37,19 +20,16 @@ class AccordionsGroup extends api.core.CollapsesGroup {
   }
 
   validate (member) {
-    const match = member.node.matches(api.internals.legacy.isLegacy ? AccordionSelector.COLLAPSE_LEGACY : AccordionSelector.COLLAPSE);
-    return super.validate(member) && match;
+    return member.node.matches(AccordionSelector.COLLAPSE);
   }
 }
 
 api.accordion = {
-  Accordion: Accordion,
   AccordionSelector: AccordionSelector,
   AccordionsGroup: AccordionsGroup
 };
 
 api.internals.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
-api.internals.register(api.accordion.AccordionSelector.ACCORDION, api.accordion.Accordion);
 
 const ButtonSelector = {
   EQUISIZED_BUTTON: `${api.internals.ns.selector('btns-group--equisized')} ${api.internals.ns.selector('btn')}`,
@@ -62,39 +42,6 @@ api.button = {
 
 api.internals.register(api.button.ButtonSelector.EQUISIZED_BUTTON, api.core.Equisized);
 api.internals.register(api.button.ButtonSelector.EQUISIZED_GROUP, api.core.EquisizedsGroup);
-
-class CardDownload extends api.core.Instance {
-  static get instanceClassName () {
-    return 'CardDownload';
-  }
-
-  init () {
-    this.addAscent(api.core.AssessEmission.UPDATE, details => {
-      this.descend(api.core.AssessEmission.UPDATE, details);
-    });
-    this.addAscent(api.core.AssessEmission.ADDED, () => {
-      this.descend(api.core.AssessEmission.ADDED);
-    });
-  }
-}
-
-const CardSelector = {
-  DOWNLOAD: api.internals.ns.selector('card--download'),
-  DOWNLOAD_DETAIL: `${api.internals.ns.selector('card--download')} ${api.internals.ns.selector('card__end')} ${api.internals.ns.selector('card__detail')}`
-};
-
-api.card = {
-  CardSelector: CardSelector,
-  CardDownload: CardDownload
-};
-
-api.internals.register(api.card.CardSelector.DOWNLOAD, api.card.CardDownload);
-api.internals.register(api.card.CardSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
-
-const BreadcrumbSelector = {
-  BREADCRUMB: api.internals.ns.selector('breadcrumb'),
-  BUTTON: api.internals.ns.selector('breadcrumb__button')
-};
 
 class Breadcrumb extends api.core.Instance {
   constructor () {
@@ -168,12 +115,11 @@ class Breadcrumb extends api.core.Instance {
     if (!link) return;
     if (document.activeElement !== link) this._focus();
   }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(BreadcrumbSelector.BUTTON));
-    return buttons[0];
-  }
 }
+
+const BreadcrumbSelector = {
+  BREADCRUMB: api.internals.ns.selector('breadcrumb')
+};
 
 api.breadcrumb = {
   BreadcrumbSelector: BreadcrumbSelector,
@@ -181,190 +127,6 @@ api.breadcrumb = {
 };
 
 api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcrumb.Breadcrumb);
-
-const TooltipSelector = {
-  TOOLTIP: api.internals.ns.selector('tooltip'),
-  SHOWN: api.internals.ns.selector('tooltip--shown'),
-  BUTTON: api.internals.ns.selector('btn--tooltip')
-};
-
-const TooltipReferentState = {
-  FOCUS: 1 << 0,
-  HOVER: 1 << 1
-};
-
-class TooltipReferent extends api.core.PlacementReferent {
-  constructor () {
-    super();
-    this._state = 0;
-  }
-
-  static get instanceClassName () {
-    return 'TooltipReferent';
-  }
-
-  init () {
-    super.init();
-    this.listen('focusin', this.focusIn.bind(this));
-    this.listen('focusout', this.focusOut.bind(this));
-    if (!this.matches(TooltipSelector.BUTTON)) {
-      const mouseover = this.mouseover.bind(this);
-      this.listen('mouseover', mouseover);
-      this.placement.listen('mouseover', mouseover);
-      const mouseout = this.mouseout.bind(this);
-      this.listen('mouseout', mouseout);
-      this.placement.listen('mouseout', mouseout);
-    }
-    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
-    this.listen('click', this._click.bind(this));
-    this.addEmission(api.core.RootEmission.CLICK, this._clickOut.bind(this));
-  }
-
-  _click () {
-    this.focus();
-  }
-
-  _clickOut (target) {
-    if (!this.node.contains(target)) this.blur();
-  }
-
-  _keydown (keyCode) {
-    switch (keyCode) {
-      case api.core.KeyCodes.ESCAPE:
-        this.blur();
-        this.close();
-        break;
-    }
-  }
-
-  close () {
-    this.state = 0;
-  }
-
-  get state () {
-    return this._state;
-  }
-
-  set state (value) {
-    if (this._state === value) return;
-    this.isShown = value > 0;
-    this._state = value;
-  }
-
-  focusIn () {
-    this.state |= TooltipReferentState.FOCUS;
-  }
-
-  focusOut () {
-    this.state &= ~TooltipReferentState.FOCUS;
-  }
-
-  mouseover () {
-    this.state |= TooltipReferentState.HOVER;
-  }
-
-  mouseout () {
-    this.state &= ~TooltipReferentState.HOVER;
-  }
-}
-
-const ns = name => `${config.prefix}-${name}`;
-
-ns.selector = (name, notation) => {
-  if (notation === undefined) notation = '.';
-  return `${notation}${ns(name)}`;
-};
-
-ns.attr = (name) => `data-${ns(name)}`;
-
-ns.attr.selector = (name, value) => {
-  let result = ns.attr(name);
-  if (value !== undefined) result += `="${value}"`;
-  return `[${result}]`;
-};
-
-ns.event = (type) => `${config.namespace}.${type}`;
-
-ns.emission = (domain, type) => `emission:${domain}.${type}`;
-
-const TooltipEvent = {
-  SHOW: ns.event('show'),
-  HIDE: ns.event('hide')
-};
-
-const TooltipState = {
-  HIDDEN: 'hidden',
-  SHOWN: 'shown',
-  HIDING: 'hiding'
-};
-
-class Tooltip extends api.core.Placement {
-  constructor () {
-    super(api.core.PlacementMode.AUTO, [api.core.PlacementPosition.TOP, api.core.PlacementPosition.BOTTOM], [api.core.PlacementAlign.CENTER, api.core.PlacementAlign.START, api.core.PlacementAlign.END]);
-    this.modifier = '';
-    this._state = TooltipState.HIDDEN;
-  }
-
-  static get instanceClassName () {
-    return 'Tooltip';
-  }
-
-  init () {
-    super.init();
-    this.register(`[aria-describedby="${this.id}"]`, TooltipReferent);
-    this.listen('transitionend', this.transitionEnd.bind(this));
-  }
-
-  transitionEnd () {
-    if (this._state === TooltipState.HIDING) {
-      this._state = TooltipState.HIDDEN;
-      this.isShown = false;
-    }
-  }
-
-  get isShown () {
-    return super.isShown;
-  }
-
-  set isShown (value) {
-    if (!this.isEnabled) return;
-    switch (true) {
-      case value:
-        this._state = TooltipState.SHOWN;
-        this.addClass(TooltipSelector.SHOWN);
-        this.dispatch(TooltipEvent.SHOW);
-        super.isShown = true;
-        break;
-
-      case this.isShown && !value && this._state === TooltipState.SHOWN:
-        this._state = TooltipState.HIDING;
-        this.removeClass(TooltipSelector.SHOWN);
-        break;
-
-      case this.isShown && !value && this._state === TooltipState.HIDDEN:
-        this.dispatch(TooltipEvent.HIDE);
-        super.isShown = false;
-        break;
-    }
-  }
-
-  render () {
-    super.render();
-    let x = this.referentRect.center - this.rect.center;
-    const limit = this.rect.width * 0.5 - 8;
-    if (x < -limit) x = -limit;
-    if (x > limit) x = limit;
-    this.setProperty('--arrow-x', `${x.toFixed(2)}px`);
-  }
-}
-
-api.tooltip = {
-  Tooltip: Tooltip,
-  TooltipSelector: TooltipSelector,
-  TooltipEvent: TooltipEvent
-};
-
-api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, api.tooltip.Tooltip);
 
 class ToggleInput extends api.core.Instance {
   static get instanceClassName () {
@@ -432,15 +194,9 @@ api.toggle = {
 
 api.internals.register(api.toggle.ToggleSelector.STATUS_LABEL, api.toggle.ToggleStatusLabel);
 
-const ITEM$1 = api.internals.ns.selector('sidemenu__item');
-const COLLAPSE$1 = api.internals.ns.selector('collapse');
-
 const SidemenuSelector = {
   LIST: api.internals.ns.selector('sidemenu__list'),
-  COLLAPSE: `${ITEM$1} > ${COLLAPSE$1}, ${ITEM$1} > *:not(${ITEM$1}, ${COLLAPSE$1}) > ${COLLAPSE$1}, ${ITEM$1} > *:not(${ITEM$1}, ${COLLAPSE$1}) > *:not(${ITEM$1}, ${COLLAPSE$1}) > ${COLLAPSE$1}`,
-  COLLAPSE_LEGACY: `${ITEM$1} ${COLLAPSE$1}`,
-  ITEM: api.internals.ns.selector('sidemenu__item'),
-  BUTTON: api.internals.ns.selector('sidemenu__btn')
+  COLLAPSE: `${api.internals.ns.selector('sidemenu__item')} > ${api.internals.ns.selector('collapse')}`
 };
 
 class SidemenuList extends api.core.CollapsesGroup {
@@ -449,35 +205,21 @@ class SidemenuList extends api.core.CollapsesGroup {
   }
 
   validate (member) {
-    return super.validate(member) && member.node.matches(api.internals.legacy.isLegacy ? SidemenuSelector.COLLAPSE_LEGACY : SidemenuSelector.COLLAPSE);
-  }
-}
-
-class SidemenuItem extends api.core.Instance {
-  static get instanceClassName () {
-    return 'SidemenuItem';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(SidemenuSelector.BUTTON));
-    return buttons[0];
+    return member.node.matches(SidemenuSelector.COLLAPSE);
   }
 }
 
 api.sidemenu = {
   SidemenuList: SidemenuList,
-  SidemenuItem: SidemenuItem,
   SidemenuSelector: SidemenuSelector
 };
 
 api.internals.register(api.sidemenu.SidemenuSelector.LIST, api.sidemenu.SidemenuList);
-api.internals.register(api.sidemenu.SidemenuSelector.ITEM, api.sidemenu.SidemenuItem);
 
 const ModalSelector = {
   MODAL: api.internals.ns.selector('modal'),
   SCROLL_DIVIDER: api.internals.ns.selector('scroll-divider'),
-  BODY: api.internals.ns.selector('modal__body'),
-  TITLE: api.internals.ns.selector('modal__title')
+  BODY: api.internals.ns.selector('modal__body')
 };
 
 class ModalButton extends api.core.DisclosureButton {
@@ -497,7 +239,6 @@ const ModalAttribute = {
 class Modal extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-    this._isActive = false;
     this.scrolling = this.resize.bind(this, false);
     this.resizing = this.resize.bind(this, true);
   }
@@ -508,50 +249,15 @@ class Modal extends api.core.Disclosure {
 
   init () {
     super.init();
-    this._isDialog = this.node.tagName === 'DIALOG';
-    this.isScrolling = false;
-    this.listenClick();
-    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
-  }
-
-  _keydown (keyCode) {
-    switch (keyCode) {
-      case api.core.KeyCodes.ESCAPE:
-        this._escape();
-        break;
-    }
-  }
-
-  // TODO v2 : passer les tagName d'action en constante
-  _escape () {
-    const tagName = document.activeElement ? document.activeElement.tagName : undefined;
-
-    switch (tagName) {
-      case 'INPUT':
-      case 'LABEL':
-      case 'TEXTAREA':
-      case 'SELECT':
-      case 'AUDIO':
-      case 'VIDEO':
-        break;
-
-      default:
-        if (this.isDisclosed) {
-          this.conceal();
-          this.focus();
-        }
-    }
-  }
-
-  retrieved () {
-    this._ensureAccessibleName();
+    this.listen('click', this.click.bind(this));
+    this.listenKey(api.core.KeyCodes.ESCAPE, this.conceal.bind(this, false, false), true, true);
   }
 
   get body () {
     return this.element.getDescendantInstances('ModalBody', 'Modal')[0];
   }
 
-  handleClick (e) {
+  click (e) {
     if (e.target === this.node && this.getAttribute(ModalAttribute.CONCEALING_BACKDROP) !== 'false') this.conceal();
   }
 
@@ -561,9 +267,6 @@ class Modal extends api.core.Disclosure {
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
     this.setAttribute('open', 'true');
-    if (!this._isDialog) {
-      this.activateModal();
-    }
     return true;
   }
 
@@ -573,55 +276,7 @@ class Modal extends api.core.Disclosure {
     this.removeAttribute('aria-modal');
     this.removeAttribute('open');
     if (this.body) this.body.deactivate();
-    if (!this._isDialog) {
-      this.deactivateModal();
-    }
     return true;
-  }
-
-  get isDialog () {
-    return this._isDialog;
-  }
-
-  set isDialog (value) {
-    this._isDialog = value;
-  }
-
-  activateModal () {
-    if (this._isActive) return;
-    this._isActive = true;
-    this._hasDialogRole = this.getAttribute('role') === 'dialog';
-    if (!this._hasDialogRole) this.setAttribute('role', 'dialog');
-  }
-
-  deactivateModal () {
-    if (!this._isActive) return;
-    this._isActive = false;
-    if (!this._hasDialogRole) this.removeAttribute('role');
-  }
-
-  _setAccessibleName (node, append) {
-    const id = this.retrieveNodeId(node, append);
-    this.warn(`add reference to ${append} for accessible name (aria-labelledby)`);
-    this.setAttribute('aria-labelledby', id);
-  }
-
-  _ensureAccessibleName () {
-    if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) return;
-    this.warn('missing accessible name');
-    const title = this.node.querySelector(ModalSelector.TITLE);
-    const primary = this.primaryButtons[0];
-
-    switch (true) {
-      case title !== null:
-        this._setAccessibleName(title, 'title');
-        break;
-
-      case primary !== undefined:
-        this.warn('missing required title, fallback to primary button');
-        this._setAccessibleName(primary, 'primary');
-        break;
-    }
   }
 }
 
@@ -930,7 +585,7 @@ class PasswordToggle extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.toggle.bind(this));
     this.ascend(PasswordEmission.ADJUST, this.width);
     this.isSwappingFont = true;
     this._isChecked = this.isChecked;
@@ -950,7 +605,7 @@ class PasswordToggle extends api.core.Instance {
     this.ascend(PasswordEmission.TOGGLE, value);
   }
 
-  handleClick () {
+  toggle () {
     this.isChecked = !this._isChecked;
   }
 
@@ -1049,18 +704,12 @@ api.internals.register(api.password.PasswordSelector.PASSWORD, api.password.Pass
 api.internals.register(api.password.PasswordSelector.TOOGLE, api.password.PasswordToggle);
 api.internals.register(api.password.PasswordSelector.LABEL, api.password.PasswordLabel);
 
-const ITEM = api.internals.ns.selector('nav__item');
-const COLLAPSE = api.internals.ns.selector('collapse');
-
 const NavigationSelector = {
   NAVIGATION: api.internals.ns.selector('nav'),
-  COLLAPSE: `${ITEM} > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}`,
-  COLLAPSE_LEGACY: `${ITEM} ${COLLAPSE}`,
-  ITEM: ITEM,
-  ITEM_RIGHT: `${ITEM}--align-right`,
-  MENU: api.internals.ns.selector('menu'),
-  BUTTON: api.internals.ns.selector('nav__btn'),
-  TRANSLATE_BUTTON: api.internals.ns.selector('translate__btn')
+  COLLAPSE: `${api.internals.ns.selector('nav__item')} > ${api.internals.ns.selector('collapse')}`,
+  ITEM: api.internals.ns.selector('nav__item'),
+  ITEM_RIGHT: api.internals.ns('nav__item--align-right'),
+  MENU: api.internals.ns.selector('menu')
 };
 
 class NavigationItem extends api.core.Instance {
@@ -1104,11 +753,6 @@ class NavigationItem extends api.core.Instance {
     if (value) api.internals.dom.addClass(this.element.node, NavigationSelector.ITEM_RIGHT);
     else api.internals.dom.removeClass(this.element.node, NavigationSelector.ITEM_RIGHT);
   }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && (button.hasClass(NavigationSelector.BUTTON) || button.hasClass(NavigationSelector.TRANSLATE_BUTTON)));
-    return buttons[0];
-  }
 }
 
 const NavigationMousePosition = {
@@ -1128,11 +772,11 @@ class Navigation extends api.core.CollapsesGroup {
     this.out = false;
     this.listen('focusout', this.focusOutHandler.bind(this));
     this.listen('mousedown', this.mouseDownHandler.bind(this));
-    this.listenClick({ capture: true });
+    this.listen('click', this.clickHandler.bind(this), { capture: true });
   }
 
   validate (member) {
-    return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
+    return member.element.node.matches(NavigationSelector.COLLAPSE);
   }
 
   mouseDownHandler (e) {
@@ -1185,7 +829,7 @@ class Navigation extends api.core.CollapsesGroup {
   get index () { return super.index; }
 
   set index (value) {
-    if (value === -1 && this.current && this.current.hasFocus) this.current.focus();
+    if (value === -1 && this.current !== null && this.current.hasFocus) this.current.focus();
     super.index = value;
   }
 }
@@ -1212,11 +856,6 @@ class TabButton extends api.core.DisclosureButton {
 
   static get instanceClassName () {
     return 'TabButton';
-  }
-
-  handleClick (e) {
-    super.handleClick(e);
-    this.focus();
   }
 
   apply (value) {
@@ -1320,26 +959,9 @@ class TabPanel extends api.core.Disclosure {
   }
 
   reset () {
-    if (this.group) this.group.retrieve(true);
-  }
-
-  _electPrimaries (candidates) {
-    if (!this.group || !this.group.list) return [];
-    return super._electPrimaries(candidates).filter(candidate => this.group.list.node.contains(candidate.node));
+    this.group.index = 0;
   }
 }
-
-const TabKeys = {
-  LEFT: 'tab_keys_left',
-  RIGHT: 'tab_keys_right',
-  HOME: 'tab_keys_home',
-  END: 'tab_keys_end'
-};
-
-const TabEmission = {
-  PRESS_KEY: api.internals.ns.emission('tab', 'press_key'),
-  LIST_HEIGHT: api.internals.ns.emission('tab', 'list_height')
-};
 
 /**
 * TabGroup est la classe étendue de DiscosuresGroup
@@ -1356,23 +978,18 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   init () {
     super.init();
-
     this.listen('transitionend', this.transitionend.bind(this));
-    this.addAscent(TabEmission.PRESS_KEY, this.pressKey.bind(this));
-    this.addAscent(TabEmission.LIST_HEIGHT, this.setListHeight.bind(this));
+    this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
+    this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
     this.isRendering = true;
-  }
 
-  getIndex (defaultIndex = 0) {
-    super.getIndex(defaultIndex);
+    if (this.list) this.list.apply();
   }
 
   get list () {
     return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
-  }
-
-  setListHeight (value) {
-    this.listHeight = value;
   }
 
   transitionend (e) {
@@ -1381,26 +998,6 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   get buttonHasFocus () {
     return this.members.some(member => member.buttonHasFocus);
-  }
-
-  pressKey (key) {
-    switch (key) {
-      case TabKeys.LEFT:
-        this.pressLeft();
-        break;
-
-      case TabKeys.RIGHT:
-        this.pressRight();
-        break;
-
-      case TabKeys.HOME:
-        this.pressHome();
-        break;
-
-      case TabKeys.END:
-        this.pressEnd();
-        break;
-    }
   }
 
   /**
@@ -1463,7 +1060,7 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   apply () {
     for (let i = 0; i < this._index; i++) this.members[i].translate(TabPanelDirection.START);
-    if (this.current) this.current.translate(TabPanelDirection.NONE);
+    this.current.translate(TabPanelDirection.NONE);
     for (let i = this._index + 1; i < this.length; i++) this.members[i].translate(TabPanelDirection.END);
     this.isPreventingTransition = false;
   }
@@ -1481,12 +1078,12 @@ class TabsGroup extends api.core.DisclosuresGroup {
 
   render () {
     if (this.current === null) return;
-    this.node.scrollTop = 0;
-    this.node.scrollLeft = 0;
     const paneHeight = Math.round(this.current.node.offsetHeight);
     if (this.panelHeight === paneHeight) return;
     this.panelHeight = paneHeight;
-    this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+    let listHeight = 0;
+    if (this.list) listHeight = this.list.node.offsetHeight;
+    this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
   }
 }
 
@@ -1500,11 +1097,11 @@ class TabsList extends api.core.Instance {
 
   init () {
     this.listen('scroll', this.scroll.bind(this));
-    this.listenKey(api.core.KeyCodes.RIGHT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.RIGHT), true, true);
-    this.listenKey(api.core.KeyCodes.LEFT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.LEFT), true, true);
-    this.listenKey(api.core.KeyCodes.HOME, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.HOME), true, true);
-    this.listenKey(api.core.KeyCodes.END, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.END), true, true);
     this.isResizing = true;
+  }
+
+  get group () {
+    return this.element.getAscendantInstance('TabsGroup', 'TabsList');
   }
 
   focalize (btn) {
@@ -1526,18 +1123,20 @@ class TabsList extends api.core.Instance {
   }
 
   apply () {
+    if (!this.group) return;
     if (this._isScrolling) {
-      this.addClass(TabSelector.SHADOW);
+      this.group.addClass(TabSelector.SHADOW);
       this.scroll();
     } else {
-      this.removeClass(TabSelector.SHADOW_RIGHT);
-      this.removeClass(TabSelector.SHADOW_LEFT);
-      this.removeClass(TabSelector.SHADOW);
+      this.group.removeClass(TabSelector.SHADOW_RIGHT);
+      this.group.removeClass(TabSelector.SHADOW_LEFT);
+      this.group.removeClass(TabSelector.SHADOW);
     }
   }
 
   /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
   scroll () {
+    if (!this.group) return;
     const scrollLeft = this.node.scrollLeft;
     const isMin = scrollLeft <= SCROLL_OFFSET$1;
     const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
@@ -1548,23 +1147,21 @@ class TabsList extends api.core.Instance {
     const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
     if (isMin) {
-      this.removeClass(minSelector);
+      this.group.removeClass(minSelector);
     } else {
-      this.addClass(minSelector);
+      this.group.addClass(minSelector);
     }
 
     if (isMax) {
-      this.removeClass(maxSelector);
+      this.group.removeClass(maxSelector);
     } else {
-      this.addClass(maxSelector);
+      this.group.addClass(maxSelector);
     }
   }
 
   resize () {
     this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET$1;
-    const height = this.getRect().height;
-    this.setProperty('--tabs-list-height', `${height}px`);
-    this.ascend(TabEmission.LIST_HEIGHT, height);
+    this.setProperty('--tab-list-height', `${this.getRect().height}px`);
   }
 
   dispose () {
@@ -1577,8 +1174,7 @@ api.tab = {
   TabButton: TabButton,
   TabsGroup: TabsGroup,
   TabsList: TabsList,
-  TabSelector: TabSelector,
-  TabEmission: TabEmission
+  TabSelector: TabSelector
 };
 
 api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
@@ -1717,10 +1313,10 @@ class TagDismissible extends api.core.Instance {
   }
 
   init () {
-    this.listenClick();
+    this.listen('click', this.click.bind(this));
   }
 
-  handleClick () {
+  click () {
     this.focusClosest();
 
     switch (api.mode) {
@@ -1738,7 +1334,7 @@ class TagDismissible extends api.core.Instance {
   }
 
   verify () {
-    if (document.body.contains(this.node)) this.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
+    if (document.body.contains(this.node)) api.inspector.warn(`a TagDismissible has just been dismissed and should be removed from the dom. In ${api.mode} mode, the api doesn't handle dom modification. An event ${TagEvent.DISMISS} is dispatched by the element to trigger the removal`);
   }
 }
 
@@ -1756,58 +1352,113 @@ api.tag = {
 api.internals.register(api.tag.TagSelector.PRESSABLE, api.core.Toggle);
 api.internals.register(api.tag.TagSelector.DISMISSIBLE, api.tag.TagDismissible);
 
-const TRANSCRIPTION = api.internals.ns.selector('transcription');
-
-const TranscriptionSelector = {
-  TRANSCRIPTION: TRANSCRIPTION,
-  BUTTON: `${TRANSCRIPTION}__btn`
+const DownloadSelector = {
+  DOWNLOAD_ASSESS_FILE: `${api.internals.ns.attr.selector('assess-file')}`,
+  DOWNLOAD_DETAIL: `${api.internals.ns.selector('download__detail')}`
 };
 
-class Transcription extends api.core.Instance {
+class AssessFile extends api.core.Instance {
   static get instanceClassName () {
-    return 'Transcription';
-  }
-
-  get collapsePrimary () {
-    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(TranscriptionSelector.BUTTON));
-    return buttons[0];
-  }
-}
-
-api.transcription = {
-  Transcription: Transcription,
-  TranscriptionSelector: TranscriptionSelector
-};
-
-api.internals.register(api.transcription.TranscriptionSelector.TRANSCRIPTION, api.transcription.Transcription);
-
-class TileDownload extends api.core.Instance {
-  static get instanceClassName () {
-    return 'TileDownload';
+    return 'AssessFile';
   }
 
   init () {
-    this.addAscent(api.core.AssessEmission.UPDATE, details => {
-      this.descend(api.core.AssessEmission.UPDATE, details);
+    this.lang = this.getLang(this.node);
+    this.href = this.getAttribute('href');
+
+    this.hreflang = this.getAttribute('hreflang');
+    this.file = {};
+    this.detail = this.querySelector(DownloadSelector.DOWNLOAD_DETAIL);
+    this.update();
+  }
+
+  getFileLength () {
+    if (this.href === undefined) {
+      this.length = -1;
+      return;
+    }
+
+    fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
+      this.length = response.headers.get('content-length') || -1;
+      if (this.length === -1) {
+        api.inspector.warn('File size unknown: ' + this.href + '\nUnable to get HTTP header: "content-length"');
+      }
+      this.update();
     });
-    this.addAscent(api.core.AssessEmission.ADDED, () => {
-      this.descend(api.core.AssessEmission.ADDED);
-    });
+  }
+
+  update () {
+    // TODO V2: implémenter async
+    if (this.isLegacy) this.length = -1;
+
+    if (!this.length) {
+      this.getFileLength();
+      return;
+    }
+
+    const details = [];
+    if (this.detail) {
+      if (this.href) {
+        const extension = this.parseExtension(this.href);
+        if (extension) details.push(extension.toUpperCase());
+      }
+
+      if (this.length !== -1) {
+        details.push(this.bytesToSize(this.length));
+      }
+
+      if (this.hreflang) {
+        details.push(this.getLangDisplayName(this.hreflang));
+      }
+
+      this.detail.innerHTML = details.join(' - ');
+    }
+  }
+
+  getLang (elem) {
+    if (elem.lang) return elem.lang;
+    if (document.documentElement === elem) return window.navigator.language;
+    return this.getLang(elem.parentElement);
+  }
+
+  parseExtension (url) {
+    const regexExtension = /\.(\w{1,9})(?:$|[?#])/;
+    return url.match(regexExtension)[0].replace('.', '');
+  }
+
+  getLangDisplayName (locale) {
+    if (this.isLegacy) return locale;
+    const displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
+    const name = displayNames.of(locale);
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+
+  bytesToSize (bytes) {
+    if (bytes === -1) return null;
+
+    let sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
+    if (this.getAttribute(api.internals.ns.attr('assess-file')) === 'bytes') {
+      sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+    }
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
+    if (i === 0) return `${bytes} ${sizeUnits[i]}`;
+
+    const size = bytes / (1000 ** i);
+    const roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
+    const stringSize = String(roundedSize).replace('.', ',');
+
+    return `${stringSize} ${sizeUnits[i]}`;
   }
 }
 
-const TileSelector = {
-  DOWNLOAD: api.internals.ns.selector('tile--download'),
-  DOWNLOAD_DETAIL: `${api.internals.ns.selector('tile--download')} ${api.internals.ns.selector('tile__detail')}`
+api.download = {
+  DownloadSelector: DownloadSelector,
+  AssessFile: AssessFile
+
 };
 
-api.tile = {
-  TileSelector: TileSelector,
-  TileDownload: TileDownload
-};
-
-api.internals.register(api.tile.TileSelector.DOWNLOAD, api.tile.TileDownload);
-api.internals.register(api.tile.TileSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
+api.internals.register(api.download.DownloadSelector.DOWNLOAD_ASSESS_FILE, api.download.AssessFile);
 
 const HeaderSelector = {
   HEADER: api.internals.ns.selector('header'),
@@ -1831,7 +1482,7 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
+    let toolsHtmlDuplicateId = toolsHtml.replace(/(<nav[.\s\S]*-translate [.\s\S]*) id="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 id="$2' + copySuffix + '"$3');
     toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
 
     if (toolsHtmlDuplicateId === menuHtml) return;
@@ -1840,7 +1491,7 @@ class HeaderLinks extends api.core.Instance {
       case api.Modes.ANGULAR:
       case api.Modes.REACT:
       case api.Modes.VUE:
-        this.warn(`header__tools-links content is different from header__menu-links content.
+        api.inspector.warn(`header__tools-links content is different from header__menu-links content.
 As you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:
 ${api.header.doc}`);
         break;
@@ -1866,22 +1517,29 @@ class HeaderModal extends api.core.Instance {
   }
 
   resize () {
-    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.deactivateModal();
-    else this.activateModal();
+    if (this.isBreakpoint(api.core.Breakpoints.LG)) this.unqualify();
+    else this.qualify();
   }
 
-  activateModal () {
+  qualify () {
+    this.setAttribute('role', 'dialog');
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
-    modal.isEnabled = true;
+    const buttons = modal.buttons;
+    let id = '';
+    for (const button of buttons) {
+      id = button.id || id;
+      if (button.isPrimary && id) break;
+    }
+    this.setAttribute('aria-labelledby', id);
     this.listen('click', this._clickHandling, { capture: true });
   }
 
-  deactivateModal () {
+  unqualify () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.conceal();
-    modal.isEnabled = false;
+    if (modal) modal.conceal();
+    this.removeAttribute('role');
+    this.removeAttribute('aria-labelledby');
     this.unlisten('click', this._clickHandling, { capture: true });
   }
 

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -28,12 +28,12 @@
 .fr-transcription__btn {
   --text-spacing: 0;
   --title-spacing: 0;
+  z-index: 1;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   width: -moz-fit-content;
   width: fit-content;
-  font-weight: 500;
   font-size: 1rem;
   line-height: 1.5rem;
   min-height: 3rem;
@@ -65,12 +65,11 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/arrow-down-s-line.svg");
-  mask-image: url("../../icons/system/arrow-down-s-line.svg");
+  -webkit-mask-image: url("../../icons/system/add-line.svg");
+  mask-image: url("../../icons/system/add-line.svg");
   content: "";
   margin-right: 0;
   margin-left: auto;
-  transition: transform 0.3s;
 }
 
 .fr-transcription__btn::before {
@@ -91,7 +90,8 @@
 }
 
 .fr-transcription__btn[aria-expanded=true]::after {
-  transform: rotate(-180deg);
+  -webkit-mask-image: url("../../icons/system/subtract-line.svg");
+  mask-image: url("../../icons/system/subtract-line.svg");
 }
 
 .fr-transcription__content::before {
@@ -194,11 +194,6 @@
   margin-left: 1rem;
 }
 
-.fr-transcription .fr-collapse {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
 .fr-transcription .fr-collapse--expanded {
   margin: 0 0.0625rem;
 }
@@ -270,14 +265,6 @@
 .fr-transcription .fr-modal--opened .fr-transcription__footer {
   display: none;
 }
-
-.fr-transcription__btn[aria-expanded=true] {
-  background-color: var(--background-open-blue-france);
-
-  --idle: transparent;
-  --hover: var(--background-open-blue-france-hover);
-  --active: var(--background-open-blue-france-active);
-}
 @media (min-width: 36em) {
   /*! media sm */
 
@@ -316,13 +303,14 @@
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url("../../icons/system/arrow-down-s-line.svg");
+    background-image: url("../../icons/system/add-line.svg");
     width: 1rem;
     height: 1rem;
   }
 
+  .fr-transcription__btn[aria-expanded=true]::before,
   .fr-transcription__btn[aria-expanded=true]::after {
-    transform: rotate(-180deg);
+    background-image: url("../../icons/system/subtract-line.svg");
   }
 
   ul.fr-transcription__actions-group {
@@ -350,10 +338,6 @@
 
   .fr-transcription__btn {
     color: #000091;
-  }
-
-  .fr-transcription__btn[aria-expanded=true] {
-    background-color: #e3e3fd;
   }
 
   .fr-transcription__content::before {

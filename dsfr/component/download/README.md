@@ -1,6 +1,6 @@
 # download
 
-Ce composant est déprécié. La fonctionnalité "téléchargement de fichier" est maintenant disponible directement sur le composant carte et le composant lien.
+Ce composant permet aux utilisateurs de télécharger un ou plusieurs fichiers.
 
 ## Dépendances
 ```shell
@@ -17,6 +17,11 @@ Afin d’utiliser le composant `download`, il est nécessaire d’ajouter les fi
     <link href="css/download/download.min.css" rel="stylesheet">
   </head>
   <body>
+    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" href="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
+    <script type="module" href="js/download/download.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/download/download.nomodule.min.js" ></script>
   </body>
 </html>
 ```

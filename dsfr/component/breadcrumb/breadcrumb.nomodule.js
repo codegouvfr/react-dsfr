@@ -1,4 +1,4 @@
-/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,15 +7,10 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.0'
+    version: '1.9.3'
   };
 
   var api = window[config.namespace];
-
-  var BreadcrumbSelector = {
-    BREADCRUMB: api.internals.ns.selector('breadcrumb'),
-    BUTTON: api.internals.ns.selector('breadcrumb__button')
-  };
 
   var Breadcrumb = /*@__PURE__*/(function (superclass) {
     function Breadcrumb () {
@@ -28,7 +23,7 @@
     Breadcrumb.prototype = Object.create( superclass && superclass.prototype );
     Breadcrumb.prototype.constructor = Breadcrumb;
 
-    var prototypeAccessors = { proxy: { configurable: true },links: { configurable: true },collapse: { configurable: true },collapsePrimary: { configurable: true } };
+    var prototypeAccessors = { proxy: { configurable: true },links: { configurable: true },collapse: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -97,16 +92,15 @@
       if (document.activeElement !== link) { this._focus(); }
     };
 
-    prototypeAccessors.collapsePrimary.get = function () {
-      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && button.hasClass(BreadcrumbSelector.BUTTON); });
-      return buttons[0];
-    };
-
     Object.defineProperties( Breadcrumb.prototype, prototypeAccessors );
     Object.defineProperties( Breadcrumb, staticAccessors );
 
     return Breadcrumb;
   }(api.core.Instance));
+
+  var BreadcrumbSelector = {
+    BREADCRUMB: api.internals.ns.selector('breadcrumb')
+  };
 
   api.breadcrumb = {
     BreadcrumbSelector: BreadcrumbSelector,

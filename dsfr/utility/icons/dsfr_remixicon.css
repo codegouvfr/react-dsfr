@@ -977,21 +977,6 @@
   content: "";
 }
 
-.fr-tile__detail[class^=ri-]::before,
-.fr-tile__detail[class*=" ri-"]::before,
-.fr-tile__detail[class^=fr-fi-]::before,
-.fr-tile__detail[class*=" fr-fi-"]::before {
-  --icon-size: 1rem;
-  margin-right: 0.5rem;
-}
-
-.fr-input-wrap[class^=ri-] .fr-input,
-.fr-input-wrap[class*=" ri-"] .fr-input,
-.fr-input-wrap[class^=fr-fi-] .fr-input,
-.fr-input-wrap[class*=" fr-fi-"] .fr-input {
-  padding-right: 2.5rem;
-}
-
 .fr-input-wrap[class^=ri-]::before,
 .fr-input-wrap[class*=" ri-"]::before,
 .fr-input-wrap[class^=fr-fi-]::before,

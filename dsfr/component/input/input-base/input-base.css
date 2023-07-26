@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -13,6 +13,14 @@
   font-size: 1rem;
   line-height: 1.5rem;
   padding: 0.5rem 1rem;
+
+  /**
+   * Style du placeholder
+   */
+
+  /**
+   * On applique une hauteur maximale si l'élément n'est pas un textarea
+   */
   color: var(--text-label-grey);
   background-color: var(--background-contrast-grey);
 
@@ -20,10 +28,6 @@
   --hover: var(--background-contrast-grey-hover);
   --active: var(--background-contrast-grey-active);
   box-shadow: inset 0 -2px 0 0 var(--border-plain-grey);
-}
-
-.fr-input:not(textarea) {
-  max-height: 2.5rem;
 }
 
 .fr-input::placeholder {
@@ -39,6 +43,10 @@
   --idle: transparent;
   --hover: var(--text-label-grey-hover);
   --active: var(--text-label-grey-active);
+}
+
+.fr-input:not(textarea) {
+  max-height: 2.5rem;
 }
 
 .fr-input[type=date] {
@@ -62,16 +70,12 @@
   }
 }
 
+/**
+ * Ajout d'un wrapper quand on a besoin de mettre une icône
+ */
 .fr-input-wrap {
   position: relative;
   display: block;
-}
-
-.fr-input-wrap[class^=fr-icon-] .fr-input,
-.fr-input-wrap[class*=" fr-icon-"] .fr-input,
-.fr-input-wrap[class^=fr-fi-] .fr-input,
-.fr-input-wrap[class*=" fr-fi-"] .fr-input {
-  padding-right: 2.5rem;
 }
 
 .fr-input-wrap[class^=fr-icon-]::before,
@@ -87,51 +91,26 @@
   pointer-events: none;
 }
 
-.fr-input-wrap--addon,
-.fr-input-wrap--action {
+.fr-input-wrap--addon {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
 
-.fr-input-wrap--addon > *:first-child:not(:last-child) {
-  border-radius: 0.25rem 0 0 0;
+.fr-input-wrap .fr-input {
+  padding-right: 2.5rem;
 }
 
-.fr-input-wrap--addon > *:last-child:not(:first-child) {
-  border-radius: 0 0.25rem 0 0;
-}
-
-.fr-input-wrap--action .fr-btn {
-  margin-left: 1rem;
+.fr-input-wrap > *:first-child:not(:last-child).fr-input {
+  padding-right: 1rem;
 }
 
 .fr-input-wrap + .fr-hint-text {
   margin-top: 1rem;
 }
 
-.fr-input-group {
-  position: relative;
-}
-
 .fr-input-group .fr-message:first-child {
   margin-top: 0.5rem;
-}
-
-.fr-input-group--valid::before,
-.fr-input-group--error::before,
-.fr-input-group--info::before {
-  content: "";
-  display: block;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: -0.75rem;
-  bottom: 0;
-  left: -0.75rem;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 0.125rem 100%;
 }
 
 textarea.fr-input {
@@ -181,19 +160,7 @@ textarea.fr-input {
   box-shadow: inset 0 -2px 0 0 var(--border-plain-error);
 }
 
-.fr-input-group--error::before {
-  background-image: linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error));
-}
-
-.fr-input-group--valid::before {
-  background-image: linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success));
-}
-
-.fr-input-group--info::before {
-  background-image: linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info));
-}
-
-.fr-input-wrap--addon > *:not(:last-child).fr-input:not(.fr-input--valid):not(.fr-input--error) {
+.fr-input-wrap > *:not(:last-child).fr-input:not(.fr-input--valid):not(.fr-input--error) {
   box-shadow: inset 0 -2px 0 0 var(--border-action-high-blue-france);
 }
 @media (min-width: 36em) {
@@ -203,6 +170,13 @@ textarea.fr-input {
 }
 @media (min-width: 48em) {
   /*! media md */
+  .fr-input-wrap > *:first-child:not(:last-child) {
+    border-radius: 0.25rem 0 0 0;
+  }
+
+  .fr-input-wrap > *:last-child:not(:first-child) {
+    border-radius: 0 0.25rem 0 0;
+  }
 
   /*! media md */
 }
@@ -263,19 +237,7 @@ textarea.fr-input {
     box-shadow: inset 0 -2px 0 0 #ce0500;
   }
 
-  .fr-input-group--error::before {
-    background-image: linear-gradient(0deg, #ce0500, #ce0500);
-  }
-
-  .fr-input-group--valid::before {
-    background-image: linear-gradient(0deg, #18753c, #18753c);
-  }
-
-  .fr-input-group--info::before {
-    background-image: linear-gradient(0deg, #0063cb, #0063cb);
-  }
-
-  .fr-input-wrap--addon > *:not(:last-child).fr-input:not(.fr-input--valid):not(.fr-input--error) {
+  .fr-input-wrap > *:not(:last-child).fr-input:not(.fr-input--valid):not(.fr-input--error) {
     box-shadow: inset 0 -2px 0 0 #000091;
   }
 }
