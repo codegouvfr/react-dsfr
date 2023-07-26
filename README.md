@@ -123,6 +123,7 @@ Starter project in prod here: [https://next-demo.react-dsfr.fr/](https://next-de
 Despite the setup process not being as streamlined as one might hope due to certain Next specific limitations, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
+yarn add --dev sass
 # If you plan to use MUI:  
 yarn add @mui/material @emotion/react @emotion/server @emotion/styled @mui/material @emotion/react
 ```
