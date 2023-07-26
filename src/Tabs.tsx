@@ -83,13 +83,14 @@ export const Tabs = memo(
             return index === -1 ? 0 : index;
         };
 
+        const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+
         const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
 
         useEffect(() => {
             if (selectedTabId === undefined) {
                 return;
             }
-
             setSelectedTabIndex(getSelectedTabIndex());
         }, [selectedTabId]);
 
@@ -103,6 +104,45 @@ export const Tabs = memo(
                 onTabChange(tabs[tabIndex].tabId);
             }
         });
+
+        const onKeyboardNavigation = (
+            event: React.KeyboardEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLUListElement>
+        ) => {
+            let targetIndex = selectedTabIndex;
+            switch (event.key) {
+                case "ArrowRight":
+                    targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
+                    break;
+                case "ArrowLeft":
+                    targetIndex = selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
+                    break;
+                case "Home":
+                    targetIndex = 0;
+                    break;
+                case "End":
+                    targetIndex = tabs.length - 1;
+                    break;
+            }
+            setSelectedTabIndex(targetIndex);
+        };
+
+        React.useEffect(() => {
+            const targetTabButton = buttonRefs.current[selectedTabIndex];
+            if (targetTabButton) {
+                targetTabButton.focus();
+            }
+        }, [selectedTabIndex]);
+
+        React.useEffect(() => {
+            if (selectedTabId === undefined) {
+                onTabChange?.({
+                    tabIndex: selectedTabIndex,
+                    "tab": tabs[selectedTabIndex]
+                });
+            } else {
+                onTabChange(tabs[selectedTabIndex].tabId);
+            }
+        }, [selectedTabIndex]);
 
         const { getPanelId, getTabId } = (function useClosure() {
             const id = useId();
@@ -124,10 +164,16 @@ export const Tabs = memo(
                 style={style}
                 {...rest}
             >
-                <ul className={fr.cx("fr-tabs__list")} role="tablist" aria-label={label}>
+                <ul
+                    className={fr.cx("fr-tabs__list")}
+                    role="tablist"
+                    aria-label={label}
+                    onKeyDownCapture={e => onKeyboardNavigation(e)}
+                >
                     {tabs.map(({ label, iconId }, tabIndex) => (
                         <li key={label + (iconId ?? "")} role="presentation">
                             <button
+                                ref={button => (buttonRefs.current[tabIndex] = button)}
                                 id={getTabId(tabIndex)}
                                 className={cx(
                                     fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"),
