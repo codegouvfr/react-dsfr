@@ -18,9 +18,7 @@ Example Enabling Eulerian in Next.js App Router
 
 You may refer to the documentation of the consentManagement utility via the following link:
 
-{% embed url="https://components.react-dsfr.fr/?path=/docs/components-consentmanagement--default" %}
-consentManagement utility documentation
-{% endembed %}
+{% embed url="https://components.react-dsfr.codegouv.studio/?path=/docs/components-consentmanagement--default" %}
 
 To operate effectively, Eulerian requires certain parameters, which are provided upon initial registration on the Eulerian platform. This example includes only those. For a complete list and descriptions of accepted parameters, refer to the following link:
 

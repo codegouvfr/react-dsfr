@@ -55,7 +55,7 @@ export const MyComponent =(props: Props) => {
 {% endtab %}
 
 {% tab title="TSS (recommended)" %}
-### tss-react
+#### tss-react
 
 {% embed url="https://tss-react.dev" %}
 Dynamic CSS-in-TS syle engine
@@ -434,9 +434,9 @@ function MyComponent(){
 
 ### useBreakpointsValues()
 
-It returns the values in pixel of the different breakpoint ("xs", "md", "lg", "xl") based on the current root font size. &#x20;
+It returns the values in pixel of the different breakpoint ("xs", "md", "lg", "xl") based on the current root font size.
 
-It can be used to do stuffs like this, geting the number of column of a responsive layout in JavaScript: &#x20;
+It can be used to do stuffs like this, geting the number of column of a responsive layout in JavaScript:
 
 ```tsx
 import { useBreakpointsValues } from "@codegouvfr/react-dsfr/useBreakpointsValues";
@@ -466,11 +466,11 @@ function useColumnCount(){
 ```
 
 {% hint style="warning" %}
-Be carefull though, favor using `fr.breakpoints` over client size mesurement and computation. &#x20;
+Be carefull though, favor using `fr.breakpoints` over client size mesurement and computation.
 
-On the backend you can't know ahead of time the size of the screen of your users so this kind of approach will result in a flickering in SSR setups. &#x20;
+On the backend you can't know ahead of time the size of the screen of your users so this kind of approach will result in a flickering in SSR setups.
 
-For example, your backend has no clue the size of the device making the request so it renders for a 1080p screen but the device making the request was, in fact, an iPhone and the first print is fully broken, the app becomes usable only after hydratation. &#x20;
+For example, your backend has no clue the size of the device making the request so it renders for a 1080p screen but the device making the request was, in fact, an iPhone and the first print is fully broken, the app becomes usable only after hydratation.
 
-Long story short, use this only if you are building an SPA. &#x20;
+Long story short, use this only if you are building an SPA.
 {% endhint %}
