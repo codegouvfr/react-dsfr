@@ -27,7 +27,7 @@
 </p>
 
 > ATTENTION: Ce design système a uniquement vocation à être utilisé pour des sites officiels de l'état.  
-> Son but est de rendre la parole de l'état clairement identifiable. [Consulter le CGU](https://www.systeme-de-design.gouv.fr/cgu/)
+> Son but est de rendre la parole de l'état clairement identifiable. [Consulter le CGU](https://www.systeme-de-design.gouv.fr/utilisation-et-organisation/perimetre-d-application)
 
 > 🗣️ L'enregistrement de l'atelier de présentation de la librairie est disponible [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
 

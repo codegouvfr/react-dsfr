@@ -31,7 +31,7 @@
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
 > WARNING: This Design System is only meant to be used for official French's public service websites.  
-> Its main purpose is to make it easy to identify governmental websites for citizens. [See terms](https://www.systeme-de-design.gouv.fr/cgu/).
+> Its main purpose is to make it easy to identify governmental websites for citizens. [See terms](https://www.systeme-de-design.gouv.fr/utilisation-et-organisation/perimetre-d-application).
 
 This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS implementation of the DSFR.
 
