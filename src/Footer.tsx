@@ -98,17 +98,9 @@ export namespace FooterProps {
     }
 
     export namespace LinkList {
-        export type List = [Column, Column?, Column?, Column?, Column?, Column?];
-        export type Links = [
-            LinkList.Link,
-            LinkList.Link?,
-            LinkList.Link?,
-            LinkList.Link?,
-            LinkList.Link?,
-            LinkList.Link?,
-            LinkList.Link?,
-            LinkList.Link?
-        ];
+        export type List = Column[];
+        export type Links = LinkList.Link[];
+        
         export interface Column {
             categoryName?: string;
             links: Links;
