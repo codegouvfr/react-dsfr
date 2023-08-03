@@ -1,4 +1,4 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.3'
+    version: '1.10.0'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -772,22 +772,81 @@
 
   Object.defineProperties( Element.prototype, prototypeAccessors$3 );
 
+  var RootEmission = {
+    CLICK: ns.emission('root', 'click'),
+    KEYDOWN: ns.emission('root', 'keydown'),
+    KEYUP: ns.emission('root', 'keyup')
+  };
+
+  var KeyCodes = {
+    TAB: {
+      id: 'tab',
+      value: 9
+    },
+    ESCAPE: {
+      id: 'escape',
+      value: 27
+    },
+    END: {
+      id: 'end',
+      value: 35
+    },
+    HOME: {
+      id: 'home',
+      value: 36
+    },
+    LEFT: {
+      id: 'left',
+      value: 37
+    },
+    UP: {
+      id: 'up',
+      value: 38
+    },
+    RIGHT: {
+      id: 'right',
+      value: 39
+    },
+    DOWN: {
+      id: 'down',
+      value: 40
+    }
+  };
+
+  var getKeyCode = function (keyCode) { return Object.values(KeyCodes).filter(function (entry) { return entry.value === keyCode; })[0]; };
+
   var Root = /*@__PURE__*/(function (Element) {
     function Root () {
       Element.call(this, document.documentElement, 'root');
       this.node.setAttribute(ns.attr('js'), true);
+      this.listen();
     }
 
     if ( Element ) Root.__proto__ = Element;
     Root.prototype = Object.create( Element && Element.prototype );
     Root.prototype.constructor = Root;
 
+    Root.prototype.listen = function listen () {
+      // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
+      document.documentElement.addEventListener('click', this.click.bind(this), { capture: true });
+      document.documentElement.addEventListener('keydown', this.keydown.bind(this), { capture: true });
+      document.documentElement.addEventListener('keyup', this.keyup.bind(this), { capture: true });
+    };
+
+    Root.prototype.click = function click (e) {
+      this.emit(RootEmission.CLICK, e.target);
+    };
+
+    Root.prototype.keydown = function keydown (e) {
+      this.emit(RootEmission.KEYDOWN, getKeyCode(e.keyCode));
+    };
+
+    Root.prototype.keyup = function keyup (e) {
+      this.emit(RootEmission.KEYUP, getKeyCode(e.keyCode));
+    };
+
     return Root;
   }(Element));
-
-  var RootSelector = {
-    ROOT: ':root'
-  };
 
   var Stage = /*@__PURE__*/(function (Module) {
     function Stage () {
@@ -1042,9 +1101,14 @@
       if (!this._isLocked) {
         this._isLocked = true;
         this._scrollY = window.scrollY;
-        if (this.isLegacy) { document.body.style.top = this._scrollY * -1 + 'px'; }
-        else { document.body.style.setProperty('--scroll-top', this._scrollY * -1 + 'px'); }
+        var scrollBarGap = window.innerWidth - document.documentElement.clientWidth;
         document.documentElement.setAttribute(ns.attr('scrolling'), 'false');
+        document.body.style.top = (-this._scrollY) + "px";
+        this.behavior = getComputedStyle(document.documentElement).getPropertyValue('scroll-behavior');
+        if (this.behavior === 'smooth') { document.documentElement.style.scrollBehavior = 'auto'; }
+        if (scrollBarGap > 0) {
+          document.documentElement.style.setProperty('--scrollbar-width', (scrollBarGap + "px"));
+        }
       }
     };
 
@@ -1052,9 +1116,19 @@
       if (this._isLocked) {
         this._isLocked = false;
         document.documentElement.removeAttribute(ns.attr('scrolling'));
-        if (this.isLegacy) { document.body.style.top = ''; }
-        else { document.body.style.removeProperty('--scroll-top'); }
-        window.scroll(0, this._scrollY);
+        document.body.style.top = '';
+        window.scrollTo(0, this._scrollY);
+        if (this.behavior === 'smooth') { document.documentElement.style.removeProperty('scroll-behavior'); }
+        document.documentElement.style.removeProperty('--scrollbar-width');
+      }
+    };
+
+    ScrollLocker.prototype.move = function move (value) {
+      if (this._isLocked) {
+        this._scrollY += value;
+        document.body.style.top = (-this._scrollY) + "px";
+      } else {
+        window.scrollTo(0, window.scrollY + value);
       }
     };
 
@@ -1159,6 +1233,58 @@
     return MouseMove;
   }(Module));
 
+  var Hash = /*@__PURE__*/(function (Module) {
+    function Hash () {
+      Module.call(this, 'hash');
+      this.handling = this.handle.bind(this);
+      this.getLocationHash();
+    }
+
+    if ( Module ) Hash.__proto__ = Module;
+    Hash.prototype = Object.create( Module && Module.prototype );
+    Hash.prototype.constructor = Hash;
+
+    var prototypeAccessors = { hash: { configurable: true } };
+
+    Hash.prototype.activate = function activate () {
+      window.addEventListener('hashchange', this.handling);
+    };
+
+    Hash.prototype.deactivate = function deactivate () {
+      window.removeEventListener('hashchange', this.handling);
+    };
+
+    Hash.prototype._sanitize = function _sanitize (hash) {
+      if (hash.charAt(0) === '#') { return hash.substring(1); }
+      return hash;
+    };
+
+    prototypeAccessors.hash.set = function (value) {
+      var hash = this._sanitize(value);
+      if (this._hash !== hash) { window.location.hash = hash; }
+    };
+
+    prototypeAccessors.hash.get = function () {
+      return this._hash;
+    };
+
+    Hash.prototype.getLocationHash = function getLocationHash () {
+      var hash = window.location.hash;
+      this._hash = this._sanitize(hash);
+    };
+
+    Hash.prototype.handle = function handle (e) {
+      var this$1$1 = this;
+
+      this.getLocationHash();
+      this.forEach(function (instance) { return instance.handleHash(this$1$1._hash, e); });
+    };
+
+    Object.defineProperties( Hash.prototype, prototypeAccessors );
+
+    return Hash;
+  }(Module));
+
   var Engine = function Engine () {
     state.create(Register);
     state.create(Stage);
@@ -1168,6 +1294,7 @@
     state.create(Load);
     state.create(FontSwap);
     state.create(MouseMove);
+    state.create(Hash);
 
     var registerModule = state.getModule('register');
     this.register = registerModule.register.bind(registerModule);
@@ -1257,6 +1384,20 @@
     return element.querySelectorAll(ACTIONS_SELECTOR);
   };
 
+  var counter = 0;
+
+  var uniqueId = function (id) {
+    if (!document.getElementById(id)) { return id; }
+    var element = true;
+    var base = id;
+    while (element) {
+      counter++;
+      id = base + "-" + counter;
+      element = document.getElementById(id);
+    }
+    return id;
+  };
+
   var dom = {};
 
   dom.addClass = addClass;
@@ -1265,6 +1406,7 @@
   dom.queryParentSelector = queryParentSelector;
   dom.querySelectorAllArray = querySelectorAllArray;
   dom.queryActions = queryActions;
+  dom.uniqueId = uniqueId;
 
   var supportLocalStorage = function () {
     try {
@@ -1478,7 +1620,12 @@
     this._isScrollLocked = false;
     this._isLoading = false;
     this._isSwappingFont = false;
+    this._isEnabled = true;
+    this._isDisposed = false;
     this._listeners = {};
+    this.handlingClick = this.handleClick.bind(this);
+    this._hashes = [];
+    this._hash = '';
     this._keyListenerTypes = [];
     this._keys = [];
     this.handlingKey = this.handleKey.bind(this);
@@ -1489,7 +1636,7 @@
     this._nexts = [];
   };
 
-  var prototypeAccessors = { proxy: { configurable: true },isRendering: { configurable: true },isResizing: { configurable: true },isScrollLocked: { configurable: true },isLoading: { configurable: true },isSwappingFont: { configurable: true },isMouseMoving: { configurable: true },style: { configurable: true },classNames: { configurable: true },hasFocus: { configurable: true },isLegacy: { configurable: true } };
+  var prototypeAccessors = { proxy: { configurable: true },hash: { configurable: true },isEnabled: { configurable: true },isRendering: { configurable: true },isResizing: { configurable: true },isScrollLocked: { configurable: true },isLoading: { configurable: true },isSwappingFont: { configurable: true },isMouseMoving: { configurable: true },isDisposed: { configurable: true },style: { configurable: true },classNames: { configurable: true },hasFocus: { configurable: true },isLegacy: { configurable: true } };
   var staticAccessors = { instanceClassName: { configurable: true } };
 
   staticAccessors.instanceClassName.get = function () {
@@ -1513,12 +1660,60 @@
       render: function () { return scope.render(); },
       resize: function () { return scope.resize(); }
     };
+
     var proxyAccessors = {
       get node () {
         return this.node;
+      },
+      get isEnabled () {
+        return scope.isEnabled;
+      },
+      set isEnabled (value) {
+        scope.isEnabled = value;
       }
     };
+
     return completeAssign(proxy, proxyAccessors);
+  };
+
+  Instance.prototype.log = function log () {
+      var values = [], len = arguments.length;
+      while ( len-- ) values[ len ] = arguments[ len ];
+
+    values.unshift(((this.registration.instanceClassName) + " #" + (this.id) + " - "));
+    inspector.log.apply(inspector, values);
+  };
+
+  Instance.prototype.debug = function debug () {
+      var values = [], len = arguments.length;
+      while ( len-- ) values[ len ] = arguments[ len ];
+
+    values.unshift(((this.registration.instanceClassName) + " #" + (this.id) + " - "));
+    inspector.debug.apply(inspector, values);
+  };
+
+  Instance.prototype.info = function info () {
+      var values = [], len = arguments.length;
+      while ( len-- ) values[ len ] = arguments[ len ];
+
+    values.unshift(((this.registration.instanceClassName) + " #" + (this.id) + " - "));
+    inspector.info.apply(inspector, values);
+  };
+
+  Instance.prototype.warn = function warn () {
+      var values = [], len = arguments.length;
+      while ( len-- ) values[ len ] = arguments[ len ];
+
+    values.unshift(((this.registration.instanceClassName) + " #" + (this.id) + " - "));
+    inspector.warn.apply(inspector, values);
+  };
+
+  Instance.prototype.error = function error () {
+      var values = [], len = arguments.length;
+      while ( len-- ) values[ len ] = arguments[ len ];
+
+    values.unshift(((this.registration.instanceClassName) + " #" + (this.id) + " - "));
+    inspector.error.apply(inspector, values);
   };
 
   Instance.prototype.register = function register (selector, InstanceClass) {
@@ -1540,6 +1735,7 @@
     this.node.dispatchEvent(event);
   };
 
+  // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
   Instance.prototype.listen = function listen (type, closure, options) {
     if (!this._listeners[type]) { this._listeners[type] = []; }
     var listeners = this._listeners[type];
@@ -1571,7 +1767,45 @@
     this._listeners[type] = listeners.filter(function (listener) { return removal.indexOf(listener) === -1; });
   };
 
-  Instance.prototype.listenKey = function listenKey (code, closure, preventDefault, stopPropagation, type) {
+  Instance.prototype.listenClick = function listenClick (options) {
+    this.listen('click', this.handlingClick, options);
+  };
+
+  Instance.prototype.unlistenClick = function unlistenClick (options) {
+    this.unlisten('click', this.handlingClick, options);
+  };
+
+  Instance.prototype.handleClick = function handleClick (e) {};
+
+  prototypeAccessors.hash.set = function (value) {
+    state.getModule('hash').hash = value;
+  };
+
+  prototypeAccessors.hash.get = function () {
+    return state.getModule('hash').hash;
+  };
+
+  Instance.prototype.listenHash = function listenHash (hash, add) {
+    if (this._hashes.length === 0) { state.add('hash', this); }
+    var action = new HashAction(hash, add);
+    this._hashes = this._hashes.filter(function (action) { return action.hash !== hash; });
+    this._hashes.push(action);
+  };
+
+  Instance.prototype.unlistenHash = function unlistenHash (hash) {
+    this._hashes = this._hashes.filter(function (action) { return action.hash !== hash; });
+    if (this._hashes.length === 0) { state.remove('hash', this); }
+  };
+
+  Instance.prototype.handleHash = function handleHash (hash, e) {
+    for (var i = 0, list = this._hashes; i < list.length; i += 1) {
+        var action = list[i];
+
+        action.handle(hash, e);
+      }
+  };
+
+  Instance.prototype.listenKey = function listenKey (keyCode, closure, preventDefault, stopPropagation, type) {
       if ( preventDefault === void 0 ) preventDefault = false;
       if ( stopPropagation === void 0 ) stopPropagation = false;
       if ( type === void 0 ) type = 'down';
@@ -1581,7 +1815,7 @@
       this._keyListenerTypes.push(type);
     }
 
-    this._keys.push(new KeyAction(type, code, closure, preventDefault, stopPropagation));
+    this._keys.push(new KeyAction(type, keyCode, closure, preventDefault, stopPropagation));
   };
 
   Instance.prototype.unlistenKey = function unlistenKey (code, closure) {
@@ -1600,6 +1834,12 @@
 
         key.handle(e);
       }
+  };
+
+  prototypeAccessors.isEnabled.get = function () { return this._isEnabled; };
+
+  prototypeAccessors.isEnabled.set = function (value) {
+    this._isEnabled = value;
   };
 
   prototypeAccessors.isRendering.get = function () { return this._isRendering; };
@@ -1713,10 +1953,23 @@
 
   Instance.prototype.mutate = function mutate (attributeNames) {};
 
+  Instance.prototype.retrieveNodeId = function retrieveNodeId (node, append) {
+    if (node.id) { return node.id; }
+    var id = uniqueId(((this.id) + "-" + append));
+    this.warn(("add id '" + id + "' to " + append));
+    node.setAttribute('id', id);
+    return id;
+  };
+
+  prototypeAccessors.isDisposed.get = function () {
+    return this._isDisposed;
+  };
+
   Instance.prototype._dispose = function _dispose () {
-    inspector.debug(("dispose instance of " + (this.registration.instanceClassName) + " on element [" + (this.element.id) + "]"));
+    this.debug(("dispose instance of " + (this.registration.instanceClassName) + " on element [" + (this.element.id) + "]"));
     this.removeAttribute(this.registration.attribute);
     this.unlisten();
+    this._hashes = null;
     this._keys = null;
     this.isRendering = false;
     this.isResizing = false;
@@ -1739,6 +1992,7 @@
       }
     this._registrations = null;
     this.registration.remove(this);
+    this._isDisposed = true;
     this.dispose();
   };
 
@@ -1832,6 +2086,10 @@
     this.node.focus();
   };
 
+  Instance.prototype.blur = function blur () {
+    this.node.blur();
+  };
+
   Instance.prototype.focusClosest = function focusClosest () {
     var closest = this._focusClosest(this.node.parentNode);
     if (closest) { closest.focus(); }
@@ -1852,6 +2110,20 @@
     return this.node === document.activeElement;
   };
 
+  Instance.prototype.scrollIntoView = function scrollIntoView () {
+    var rect = this.getRect();
+
+    var scroll = state.getModule('lock');
+
+    if (rect.top < 0) {
+      scroll.move(rect.top - 50);
+    }
+
+    if (rect.bottom > window.innerHeight) {
+      scroll.move(rect.bottom - window.innerHeight + 50);
+    }
+  };
+
   Instance.prototype.matches = function matches (selectors) {
     return this.node.matches(selectors);
   };
@@ -1869,7 +2141,10 @@
   };
 
   Instance.prototype.getRect = function getRect () {
-    return this.node.getBoundingClientRect();
+    var rect = this.node.getBoundingClientRect();
+    rect.center = rect.left + rect.width * 0.5;
+    rect.middle = rect.top + rect.height * 0.5;
+    return rect;
   };
 
   prototypeAccessors.isLegacy.get = function () {
@@ -1879,10 +2154,10 @@
   Object.defineProperties( Instance.prototype, prototypeAccessors );
   Object.defineProperties( Instance, staticAccessors );
 
-  var KeyAction = function KeyAction (type, code, closure, preventDefault, stopPropagation) {
+  var KeyAction = function KeyAction (type, keyCode, closure, preventDefault, stopPropagation) {
     this.type = type;
     this.eventType = "key" + type;
-    this.code = code;
+    this.keyCode = keyCode;
     this.closure = closure;
     this.preventDefault = preventDefault === true;
     this.stopPropagation = stopPropagation === true;
@@ -1890,7 +2165,7 @@
 
   KeyAction.prototype.handle = function handle (e) {
     if (e.type !== this.eventType) { return; }
-    if (e.keyCode === this.code) {
+    if (e.keyCode === this.keyCode.value) {
       this.closure(e);
       if (this.preventDefault) {
         e.preventDefault();
@@ -1943,15 +2218,13 @@
 
   Object.defineProperties( Listener.prototype, prototypeAccessors$1 );
 
-  var KeyCodes = {
-    TAB: 9,
-    ESCAPE: 27,
-    END: 35,
-    HOME: 36,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40
+  var HashAction = function HashAction (hash, add) {
+    this.hash = hash;
+    this.add = add;
+  };
+
+  HashAction.prototype.handle = function handle (hash, e) {
+    if (this.hash === hash) { this.add(e); }
   };
 
   var DisclosureEvent = {
@@ -1962,9 +2235,11 @@
   var DisclosureEmission = {
     RESET: ns.emission('disclosure', 'reset'),
     ADDED: ns.emission('disclosure', 'added'),
+    RETRIEVE: ns.emission('disclosure', 'retrieve'),
     REMOVED: ns.emission('disclosure', 'removed'),
     GROUP: ns.emission('disclosure', 'group'),
-    UNGROUP: ns.emission('disclosure', 'ungroup')
+    UNGROUP: ns.emission('disclosure', 'ungroup'),
+    SPOTLIGHT: ns.emission('disclosure', 'spotlight')
   };
 
   var Disclosure = /*@__PURE__*/(function (Instance) {
@@ -1975,14 +2250,17 @@
       this.DisclosureButtonInstanceClass = DisclosureButtonInstanceClass;
       this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
       this.modifier = this._selector + '--' + this.type.id;
-      this.pristine = true;
+      this._isPristine = true;
+      this._isRetrievingPrimaries = false;
+      this._hasRetrieved = false;
+      this._primaryButtons = [];
     }
 
     if ( Instance ) Disclosure.__proto__ = Instance;
     Disclosure.prototype = Object.create( Instance && Instance.prototype );
     Disclosure.prototype.constructor = Disclosure;
 
-    var prototypeAccessors = { proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },disclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true } };
+    var prototypeAccessors = { isEnabled: { configurable: true },isPristine: { configurable: true },proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true },primaryButtons: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -1993,9 +2271,24 @@
       this.addDescent(DisclosureEmission.RESET, this.reset.bind(this));
       this.addDescent(DisclosureEmission.GROUP, this.update.bind(this));
       this.addDescent(DisclosureEmission.UNGROUP, this.update.bind(this));
+      this.addAscent(DisclosureEmission.SPOTLIGHT, this.disclose.bind(this));
       this.register(("[aria-controls=\"" + (this.id) + "\"]"), this.DisclosureButtonInstanceClass);
       this.ascend(DisclosureEmission.ADDED);
+      this.listenHash(this.id, this._spotlight.bind(this));
       this.update();
+    };
+
+    prototypeAccessors.isEnabled.get = function () { return Instance.prototype.isEnabled; };
+
+    prototypeAccessors.isEnabled.set = function (value) {
+      if (this.isEnabled === value) { return; }
+      Instance.prototype.isEnabled = value;
+      if (value) { this.ascend(DisclosureEmission.ADDED); }
+      else { this.ascend(DisclosureEmission.REMOVED); }
+    };
+
+    prototypeAccessors.isPristine.get = function () {
+      return this._isPristine;
     };
 
     prototypeAccessors.proxy.get = function () {
@@ -2014,6 +2307,9 @@
         get group () {
           var group = scope.group;
           return group ? group.proxy : null;
+        },
+        get isDisclosed () {
+          return scope.isDisclosed;
         }
       };
 
@@ -2026,6 +2322,7 @@
 
     Disclosure.prototype.update = function update () {
       this.getGroup();
+      this.retrievePrimaries();
     };
 
     Disclosure.prototype.getGroup = function getGroup () {
@@ -2048,46 +2345,55 @@
     };
 
     Disclosure.prototype.disclose = function disclose (withhold) {
-      if (this.disclosed) { return false; }
-      this.pristine = false;
-      this.disclosed = true;
+      if (this.isDisclosed === true || !this.isEnabled) { return false; }
+      this._isPristine = false;
+      this.isDisclosed = true;
       if (!withhold && this.group) { this.group.current = this; }
       return true;
     };
 
     Disclosure.prototype.conceal = function conceal (withhold, preventFocus) {
-      if (!this.disclosed) { return false; }
+      if ( preventFocus === void 0 ) preventFocus = true;
+
+      if (this.isDisclosed === false) { return false; }
       if (!this.type.canConceal && this.group && this.group.current === this) { return false; }
-      this.pristine = false;
-      this.disclosed = false;
+      this.isDisclosed = false;
       if (!withhold && this.group && this.group.current === this) { this.group.current = null; }
       if (!preventFocus) { this.focus(); }
-      this.descend(DisclosureEmission.RESET);
+      if (!this._isPristine) { this.descend(DisclosureEmission.RESET); }
       return true;
     };
 
-    prototypeAccessors.disclosed.get = function () {
-      return this._disclosed;
+    prototypeAccessors.isDisclosed.get = function () {
+      return this._isDisclosed;
     };
 
-    prototypeAccessors.disclosed.set = function (value) {
-      if (this._disclosed === value) { return; }
+    prototypeAccessors.isDisclosed.set = function (value) {
+      if (this._isDisclosed === value || (!this.isEnabled && value === true)) { return; }
       this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this.type);
-      this._disclosed = value;
+      this._isDisclosed = value;
       if (value) { this.addClass(this.modifier); }
       else { this.removeClass(this.modifier); }
       for (var i = 0; i < this.buttons.length; i++) { this.buttons[i].apply(value); }
     };
 
+    prototypeAccessors.isInitiallyDisclosed.get = function () {
+      return this.primaryButtons.some(function (button) { return button.isInitiallyDisclosed; });
+    };
+
+    Disclosure.prototype.hasRetrieved = function hasRetrieved () {
+      return this._hasRetrieved;
+    };
+
     Disclosure.prototype.reset = function reset () {};
 
-    Disclosure.prototype.toggle = function toggle (isPrimary) {
+    Disclosure.prototype.toggle = function toggle (canDisclose) {
       if (!this.type.canConceal) { this.disclose(); }
       else {
         switch (true) {
-          case !isPrimary:
-          case this.disclosed:
-            this.conceal();
+          case !canDisclose:
+          case this.isDisclosed:
+            this.conceal(false, false);
             break;
 
           default:
@@ -2097,8 +2403,7 @@
     };
 
     prototypeAccessors.buttonHasFocus.get = function () {
-      if (this.buttons.some(function (button) { return button.hasFocus; })) { return true; }
-      return false;
+      return this.buttons.some(function (button) { return button.hasFocus; });
     };
 
     prototypeAccessors.hasFocus.get = function () {
@@ -2108,17 +2413,89 @@
     };
 
     Disclosure.prototype.focus = function focus () {
-      for (var i = 0; i < this.buttons.length; i++) {
-        var button = this.buttons[i];
-        if (button.isPrimary) {
-          button.focus();
-          return;
+      if (this._primaryButtons.length > 0) { this._primaryButtons[0].focus(); }
+    };
+
+    prototypeAccessors.primaryButtons.get = function () {
+      return this._primaryButtons;
+    };
+
+    Disclosure.prototype.retrievePrimaries = function retrievePrimaries () {
+      if (this._isRetrievingPrimaries) { return; }
+      this._isRetrievingPrimaries = true;
+      this.request(this._retrievePrimaries.bind(this));
+    };
+
+    Disclosure.prototype._retrievePrimaries = function _retrievePrimaries () {
+      this._isRetrievingPrimaries = false;
+      this._primaryButtons = this._electPrimaries(this.buttons);
+
+      if (this._hasRetrieved || this._primaryButtons.length === 0) { return; }
+      this.retrieved();
+      this._hasRetrieved = true;
+
+      this.applyAbility(true);
+
+      if (this.group) {
+        this.group.retrieve();
+        return;
+      }
+
+      if (this._isPristine && this.isEnabled && !this.group) {
+        switch (true) {
+          case this.hash === this.id:
+            this._spotlight();
+            break;
+
+          case this.isInitiallyDisclosed:
+            this.disclose();
+            break;
+        }
+      }
+    };
+
+    Disclosure.prototype.retrieved = function retrieved () {};
+
+    Disclosure.prototype._spotlight = function _spotlight () {
+      var this$1$1 = this;
+
+      this.disclose();
+      this.request(function () { this$1$1.ascend(DisclosureEmission.SPOTLIGHT); });
+    };
+
+    Disclosure.prototype._electPrimaries = function _electPrimaries (candidates) {
+      var this$1$1 = this;
+
+      return candidates.filter(function (button) { return button.canDisclose && !this$1$1.node.contains(button.node); });
+    };
+
+    Disclosure.prototype.applyAbility = function applyAbility (withhold) {
+      if ( withhold === void 0 ) withhold = false;
+
+      var isEnabled = !this._primaryButtons.every(function (button) { return button.isDisabled; });
+
+      if (this.isEnabled === isEnabled) { return; }
+
+      this.isEnabled = isEnabled;
+
+      if (withhold) { return; }
+
+      if (!this.isEnabled && this.isDisclosed) {
+        if (this.group) { this.ascend(DisclosureEmission.REMOVED); }
+        else if (this.type.canConceal) { this.conceal(); }
+      }
+
+      if (this.isEnabled) {
+        if (this.group) { this.ascend(DisclosureEmission.ADDED); }
+        if (this.hash === this.id) {
+          this._spotlight();
         }
       }
     };
 
     Disclosure.prototype.dispose = function dispose () {
       this._group = null;
+      this._primaryButtons = null;
       Instance.prototype.dispose.call(this);
       this.ascend(DisclosureEmission.REMOVED);
     };
@@ -2134,24 +2511,39 @@
       Instance.call(this);
       this.type = type;
       this.attributeName = type.ariaState ? 'aria-' + type.id : ns.attr(type.id);
+      this._canDisclose = false;
     }
 
     if ( Instance ) DisclosureButton.__proto__ = Instance;
     DisclosureButton.prototype = Object.create( Instance && Instance.prototype );
     DisclosureButton.prototype.constructor = DisclosureButton;
 
-    var prototypeAccessors = { proxy: { configurable: true },disclosed: { configurable: true } };
+    var prototypeAccessors = { isPrimary: { configurable: true },canDisclose: { configurable: true },isDisabled: { configurable: true },proxy: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },dx: { configurable: true },dy: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
       return 'DisclosureButton';
     };
 
+    prototypeAccessors.isPrimary.get = function () {
+      return this.registration.creator.primaryButtons.includes(this);
+    };
+
+    prototypeAccessors.canDisclose.get = function () {
+      return this._canDisclose;
+    };
+
+    prototypeAccessors.isDisabled.get = function () {
+      return this.type.canDisable && this.hasAttribute('disabled');
+    };
+
     DisclosureButton.prototype.init = function init () {
+      this._canDisclose = this.hasAttribute(this.attributeName);
+      this._isInitiallyDisclosed = this.isDisclosed;
+      this._isContained = this.registration.creator.node.contains(this.node);
       this.controlsId = this.getAttribute('aria-controls');
-      this.isPrimary = this.hasAttribute(this.attributeName);
-      if (this.isPrimary && this.disclosed && this.registration.creator.pristine) { this.registration.creator.disclose(); }
-      this.listen('click', this.click.bind(this));
+      this.registration.creator.retrievePrimaries();
+      this.listenClick();
     };
 
     prototypeAccessors.proxy.get = function () {
@@ -2161,24 +2553,53 @@
       });
     };
 
-    DisclosureButton.prototype.click = function click (e) {
-      if (this.registration.creator) { this.registration.creator.toggle(this.isPrimary); }
+    DisclosureButton.prototype.handleClick = function handleClick (e) {
+      if (this.registration.creator) { this.registration.creator.toggle(this.canDisclose); }
     };
 
     DisclosureButton.prototype.mutate = function mutate (attributeNames) {
-      if (this.isPrimary && attributeNames.indexOf(this.attributeName) > -1 && this.registration.creator) {
-        if (this.disclosed) { this.registration.creator.disclose(); }
+      this._canDisclose = this.hasAttribute(this.attributeName);
+      this.registration.creator.applyAbility();
+      if (!this._isApplying && this.isPrimary && attributeNames.indexOf(this.attributeName) > -1 && this.registration.creator) {
+        if (this.isDisclosed) { this.registration.creator.disclose(); }
         else if (this.type.canConceal) { this.registration.creator.conceal(); }
       }
     };
 
     DisclosureButton.prototype.apply = function apply (value) {
-      if (!this.isPrimary) { return; }
+      var this$1$1 = this;
+
+      if (!this.canDisclose) { return; }
+      this._isApplying = true;
       this.setAttribute(this.attributeName, value);
+      this.request(function () { this$1$1._isApplying = false; });
     };
 
-    prototypeAccessors.disclosed.get = function () {
+    prototypeAccessors.isDisclosed.get = function () {
       return this.getAttribute(this.attributeName) === 'true';
+    };
+
+    prototypeAccessors.isInitiallyDisclosed.get = function () {
+      return this._isInitiallyDisclosed;
+    };
+
+    DisclosureButton.prototype.focus = function focus () {
+      Instance.prototype.focus.call(this);
+      this.scrollIntoView();
+    };
+
+    DisclosureButton.prototype.measure = function measure (rect) {
+      var buttonRect = this.rect;
+      this._dx = rect.x - buttonRect.x;
+      this._dy = rect.y - buttonRect.y;
+    };
+
+    prototypeAccessors.dx.get = function () {
+      return this._dx;
+    };
+
+    prototypeAccessors.dy.get = function () {
+      return this._dy;
     };
 
     Object.defineProperties( DisclosureButton.prototype, prototypeAccessors );
@@ -2191,7 +2612,10 @@
     function DisclosuresGroup (disclosureInstanceClassName, jsAttribute) {
       Instance.call(this, jsAttribute);
       this.disclosureInstanceClassName = disclosureInstanceClassName;
+      this._members = [];
       this._index = -1;
+      this._isRetrieving = false;
+      this._hasRetrieved = false;
     }
 
     if ( Instance ) DisclosuresGroup.__proto__ = Instance;
@@ -2207,6 +2631,7 @@
 
     DisclosuresGroup.prototype.init = function init () {
       this.addAscent(DisclosureEmission.ADDED, this.update.bind(this));
+      this.addAscent(DisclosureEmission.RETRIEVE, this.retrieve.bind(this));
       this.addAscent(DisclosureEmission.REMOVED, this.update.bind(this));
       this.descend(DisclosureEmission.GROUP);
       this.update();
@@ -2245,13 +2670,53 @@
     };
 
     DisclosuresGroup.prototype.getMembers = function getMembers () {
+      var this$1$1 = this;
+
       var members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-      this._members = members.filter(this.validate.bind(this));
+      this._members = members.filter(this.validate.bind(this)).filter(function (member) { return member.isEnabled; });
+      var invalids = members.filter(function (member) { return !this$1$1._members.includes(member); });
+      invalids.forEach(function (invalid) { return invalid.conceal(); });
+    };
+
+    DisclosuresGroup.prototype.retrieve = function retrieve (bypassPrevention) {
+      if ( bypassPrevention === void 0 ) bypassPrevention = false;
+
+      if (this._isRetrieving || (this._hasRetrieved && !bypassPrevention)) { return; }
+      this._isRetrieving = true;
+      this.request(this._retrieve.bind(this));
+    };
+
+    DisclosuresGroup.prototype._retrieve = function _retrieve () {
+      var this$1$1 = this;
+
+      this.getMembers();
+      this._isRetrieving = false;
+      this._hasRetrieved = true;
+      if (this.hash) {
+        for (var i = 0; i < this.length; i++) {
+          var member = this.members[i];
+          if (this.hash === member.id) {
+            this.index = i;
+            this.request(function () { this$1$1.ascend(DisclosureEmission.SPOTLIGHT); });
+            return i;
+          }
+        }
+      }
+
+      for (var i$1 = 0; i$1 < this.length; i$1++) {
+        var member$1 = this.members[i$1];
+        if (member$1.isInitiallyDisclosed) {
+          this.index = i$1;
+          return i$1;
+        }
+      }
+
+      return this.getIndex();
     };
 
     DisclosuresGroup.prototype.update = function update () {
       this.getMembers();
-      this.getIndex();
+      if (this._hasRetrieved) { this.getIndex(); }
     };
 
     prototypeAccessors.members.get = function () {
@@ -2262,14 +2727,20 @@
       return this.members ? this.members.length : 0;
     };
 
-    DisclosuresGroup.prototype.getIndex = function getIndex () {
-      this._index = -1;
+    DisclosuresGroup.prototype.getIndex = function getIndex (defaultIndex) {
+      if ( defaultIndex === void 0 ) defaultIndex = -1;
+
+      this._index = undefined;
+      var index = defaultIndex;
       for (var i = 0; i < this.length; i++) {
-        if (this.index > -1) { this.members[i].conceal(true, true); }
-        else if (this.members[i].disclosed) {
-          this.index = i;
+        if (this.members[i].isDisclosed) {
+          index = i;
+          break;
         }
       }
+
+      this.index = index;
+      return index;
     };
 
     prototypeAccessors.index.get = function () {
@@ -2282,16 +2753,17 @@
       for (var i = 0; i < this.length; i++) {
         var member = this.members[i];
         if (value === i) {
-          member.disclose(true);
+          if (!member.isDisclosed) { member.disclose(true); }
         } else {
-          member.conceal(true, true);
+          if (member.isDisclosed) { member.conceal(true); }
         }
       }
       this.apply();
     };
 
     prototypeAccessors.current.get = function () {
-      return this._index === -1 ? null : this.members[this._index];
+      if (this._index === -1 || isNaN(this._index)) { return null; }
+      return this._members[this._index] || null;
     };
 
     prototypeAccessors.current.set = function (member) {
@@ -2323,19 +2795,22 @@
       id: 'expanded',
       ariaState: true,
       ariaControls: true,
-      canConceal: true
+      canConceal: true,
+      canDisable: true
     },
     SELECT: {
       id: 'selected',
       ariaState: true,
       ariaControls: true,
-      canConceal: false
+      canConceal: false,
+      canDisable: true
     },
     OPENED: {
       id: 'opened',
       ariaState: false,
       ariaControls: true,
-      canConceal: true
+      canConceal: true,
+      canDisable: false
     }
   };
 
@@ -2395,7 +2870,7 @@
 
     Collapse.prototype.transitionend = function transitionend (e) {
       this.removeClass(CollapseSelector.COLLAPSING);
-      if (!this.disclosed) {
+      if (!this.isDisclosed) {
         if (this.isLegacy) { this.style.maxHeight = ''; }
         else { this.style.removeProperty('--collapse-max-height'); }
       }
@@ -2409,7 +2884,7 @@
     Collapse.prototype.disclose = function disclose (withhold) {
       var this$1$1 = this;
 
-      if (this.disclosed) { return; }
+      if (this.isDisclosed === true || !this.isEnabled) { return false; }
       this.unbound();
       this.request(function () {
         this$1$1.addClass(CollapseSelector.COLLAPSING);
@@ -2423,7 +2898,7 @@
     Collapse.prototype.conceal = function conceal (withhold, preventFocus) {
       var this$1$1 = this;
 
-      if (!this.disclosed) { return; }
+      if (this.isDisclosed === false) { return false; }
       this.request(function () {
         this$1$1.addClass(CollapseSelector.COLLAPSING);
         this$1$1.adjust();
@@ -2441,7 +2916,23 @@
     };
 
     Collapse.prototype.reset = function reset () {
-      if (!this.pristine) { this.disclosed = false; }
+      if (!this.isPristine) { this.isDisclosed = false; }
+    };
+
+    Collapse.prototype._electPrimaries = function _electPrimaries (candidates) {
+      var primary = this.element.parent.instances.map(function (instance) { return instance.collapsePrimary; }).filter(function (button) { return button !== undefined && candidates.indexOf(button) > -1; });
+      if (primary.length === 1) { return primary; }
+      candidates = Disclosure.prototype._electPrimaries.call(this, candidates);
+      if (candidates.length === 1) { return candidates; }
+      var before = candidates.filter(function (candidate) { return candidate.dy >= 0; });
+      if (before.length > 0) { candidates = before; }
+      if (candidates.length === 1) { return candidates; }
+      var min = Math.min.apply(Math, candidates.map(function (candidate) { return candidate.dy; }));
+      var mins = candidates.filter(function (candidate) { return candidate.dy === min; });
+      if (mins.length > 0) { candidates = mins; }
+      if (candidates.length === 1) { return candidates; }
+      candidates.sort(function (a, b) { return Math.abs(b.dx) - Math.abs(a.dx); });
+      return candidates;
     };
 
     Object.defineProperties( Collapse, staticAccessors );
@@ -2571,7 +3062,11 @@
 
     Toggle.prototype.init = function init () {
       this.pressed = this.pressed === 'true';
-      this.listen('click', this.toggle.bind(this));
+      this.listenClick();
+    };
+
+    Toggle.prototype.handleClick = function handleClick () {
+      this.toggle();
     };
 
     Toggle.prototype.toggle = function toggle () {
@@ -2610,6 +3105,10 @@
 
     return Toggle;
   }(Instance));
+
+  var RootSelector = {
+    ROOT: ':root'
+  };
 
   var setAttributes = function (el, attrs) {
     Object.keys(attrs).forEach(function (key) { return el.setAttribute(key, attrs[key]); });
@@ -2797,6 +3296,174 @@
     ARTWORK_USE: ((ns.selector('artwork')) + " use")
   };
 
+  var AssessSelector = {
+    ASSESS_FILE: ("" + (ns.attr.selector('assess-file'))),
+    DETAIL: ((ns.attr.selector('assess-file')) + " [class$=\"__detail\"], " + (ns.attr.selector('assess-file')) + " [class*=\"__detail \"]")
+  };
+
+  var AssessEmission = {
+    UPDATE: ns.emission('assess', 'update'),
+    ADDED: ns.emission('assess', 'added')
+  };
+
+  var AssessFile = /*@__PURE__*/(function (Instance) {
+    function AssessFile () {
+      Instance.apply(this, arguments);
+    }
+
+    if ( Instance ) AssessFile.__proto__ = Instance;
+    AssessFile.prototype = Object.create( Instance && Instance.prototype );
+    AssessFile.prototype.constructor = AssessFile;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'AssessFile';
+    };
+
+    AssessFile.prototype.init = function init () {
+      this.lang = this.getLang(this.node);
+      this.href = this.getAttribute('href');
+      this.hreflang = this.getAttribute('hreflang');
+      this.file = {};
+      this.gather();
+      this.addAscent(AssessEmission.ADDED, this.update.bind(this));
+      this.addDescent(AssessEmission.ADDED, this.update.bind(this));
+    };
+
+    AssessFile.prototype.getFileLength = function getFileLength () {
+      var this$1$1 = this;
+
+      if (this.href === undefined) {
+        this.length = -1;
+        return;
+      }
+
+      fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(function (response) {
+        this$1$1.length = response.headers.get('content-length') || -1;
+        if (this$1$1.length === -1) {
+          inspector.warn('File size unknown: ' + this$1$1.href + '\nUnable to get HTTP header: "content-length"');
+        }
+        this$1$1.gather();
+      });
+    };
+
+    AssessFile.prototype.mutate = function mutate (attributeNames) {
+      if (attributeNames.indexOf('href') !== -1) {
+        this.href = this.getAttribute('href');
+        this.getFileLength();
+      }
+
+      if (attributeNames.indexOf('hreflang') !== -1) {
+        this.hreflang = this.getAttribute('hreflang');
+        this.gather();
+      }
+    };
+
+    AssessFile.prototype.gather = function gather () {
+      // TODO V2: implémenter async
+      if (this.isLegacy) { this.length = -1; }
+
+      if (!this.length) {
+        this.getFileLength();
+        return;
+      }
+
+      this.details = [];
+
+      if (this.href) {
+        var extension = this.parseExtension(this.href);
+        if (extension) { this.details.push(extension.toUpperCase()); }
+      }
+
+      if (this.length !== -1) {
+        this.details.push(this.bytesToSize(this.length));
+      }
+
+      if (this.hreflang) {
+        this.details.push(this.getLangDisplayName(this.hreflang));
+      }
+
+      this.update();
+    };
+
+    AssessFile.prototype.update = function update () {
+      if (!this.details) { return; }
+      this.descend(AssessEmission.UPDATE, this.details);
+      this.ascend(AssessEmission.UPDATE, this.details);
+    };
+
+    AssessFile.prototype.getLang = function getLang (elem) {
+      // todo: ajouter un listener global de changement de langue
+      if (elem.lang) { return elem.lang; }
+      if (document.documentElement === elem) { return window.navigator.language; }
+      return this.getLang(elem.parentElement);
+    };
+
+    AssessFile.prototype.parseExtension = function parseExtension (url) {
+      var regexExtension = /\.(\w{1,9})(?:$|[?#])/;
+      return url.match(regexExtension)[0].replace('.', '');
+    };
+
+    AssessFile.prototype.getLangDisplayName = function getLangDisplayName (locale) {
+      if (this.isLegacy) { return locale; }
+      var displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
+      var name = displayNames.of(locale);
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    };
+
+    AssessFile.prototype.bytesToSize = function bytesToSize (bytes) {
+      if (bytes === -1) { return null; }
+
+      var sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
+      if (this.getAttribute(ns.attr('assess-file')) === 'bytes') {
+        sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+      }
+
+      var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
+      if (i === 0) { return (bytes + " " + (sizeUnits[i])); }
+
+      var size = bytes / (Math.pow( 1000, i ));
+      var roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
+      var stringSize = String(roundedSize).replace('.', ',');
+
+      return (stringSize + " " + (sizeUnits[i]));
+    };
+
+    Object.defineProperties( AssessFile, staticAccessors );
+
+    return AssessFile;
+  }(Instance));
+
+  var AssessDetail = /*@__PURE__*/(function (Instance) {
+    function AssessDetail () {
+      Instance.apply(this, arguments);
+    }
+
+    if ( Instance ) AssessDetail.__proto__ = Instance;
+    AssessDetail.prototype = Object.create( Instance && Instance.prototype );
+    AssessDetail.prototype.constructor = AssessDetail;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'AssessDetail';
+    };
+
+    AssessDetail.prototype.init = function init () {
+      this.addDescent(AssessEmission.UPDATE, this.update.bind(this));
+      this.ascend(AssessEmission.ADDED);
+    };
+
+    AssessDetail.prototype.update = function update (details) {
+      this.node.innerHTML = details.join(' - ');
+    };
+
+    Object.defineProperties( AssessDetail, staticAccessors );
+
+    return AssessDetail;
+  }(Instance));
+
   var ratiosImg = ['32x9', '16x9', '3x2', '4x3', '1x1', '3x4', '2x3'];
   var ratiosVid = ['16x9', '4x3', '1x1'];
 
@@ -2858,6 +3525,437 @@
     return Ratio;
   }(Instance));
 
+  var PlaceSelector = {
+    TOP: ns.selector('placement--top'),
+    RIGHT: ns.selector('placement--right'),
+    BOTTOM: ns.selector('placement--bottom'),
+    LEFT: ns.selector('placement--left')
+  };
+
+  var AlignSelector = {
+    START: ns.selector('placement--start'),
+    CENTER: ns.selector('placement--center'),
+    END: ns.selector('placement--end')
+  };
+
+  var PlacementPosition = {
+    TOP: 'place_top',
+    RIGHT: 'place_right',
+    BOTTOM: 'place_bottom',
+    LEFT: 'place_left'
+  };
+
+  var PlacementAlign = {
+    START: 'align_start',
+    CENTER: 'align_center',
+    END: 'align_end'
+  };
+
+  var PlacementMode = {
+    AUTO: 'placement_auto',
+    MANUAL: 'placement_manual'
+  };
+
+  var Placement = /*@__PURE__*/(function (Instance) {
+    function Placement (mode, places, aligns, safeAreaMargin) {
+      if ( mode === void 0 ) mode = PlacementMode.AUTO;
+      if ( places === void 0 ) places = [PlacementPosition.BOTTOM, PlacementPosition.TOP, PlacementPosition.LEFT, PlacementPosition.RIGHT];
+      if ( aligns === void 0 ) aligns = [PlacementAlign.CENTER, PlacementAlign.START, PlacementAlign.END];
+      if ( safeAreaMargin === void 0 ) safeAreaMargin = 16;
+
+      Instance.call(this);
+      this._mode = mode;
+      this._places = places;
+      this._aligns = aligns;
+      this._safeAreaMargin = safeAreaMargin;
+      this._isShown = false;
+    }
+
+    if ( Instance ) Placement.__proto__ = Instance;
+    Placement.prototype = Object.create( Instance && Instance.prototype );
+    Placement.prototype.constructor = Placement;
+
+    var prototypeAccessors = { proxy: { configurable: true },mode: { configurable: true },place: { configurable: true },align: { configurable: true },isShown: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'Placement';
+    };
+
+    Placement.prototype.init = function init () {
+      this.isResizing = true;
+    };
+
+    prototypeAccessors.proxy.get = function () {
+      var scope = this;
+      var proxy = Object.assign.call(this, Instance.prototype.proxy, {
+        show: scope.show.bind(scope),
+        hide: scope.hide.bind(scope)
+      });
+
+      var proxyAccessors = {
+        get mode () {
+          return scope.mode;
+        },
+        set mode (value) {
+          scope.mode = value;
+        },
+        get place () {
+          return scope.place;
+        },
+        set place (value) {
+          scope.place = value;
+        },
+        get align () {
+          return scope.align;
+        },
+        set align (value) {
+          scope.align = value;
+        },
+        get isShown () {
+          return scope.isShown;
+        },
+        set isShown (value) {
+          scope.isShown = value;
+        }
+      };
+
+      return completeAssign(proxy, proxyAccessors);
+    };
+
+    prototypeAccessors.mode.get = function () {
+      return this._mode;
+    };
+
+    prototypeAccessors.mode.set = function (value) {
+      this._mode = value;
+    };
+
+    prototypeAccessors.place.get = function () {
+      return this._place;
+    };
+
+    prototypeAccessors.place.set = function (value) {
+      if (this._place === value) { return; }
+      switch (this._place) {
+        case PlacementPosition.TOP:
+          this.removeClass(PlaceSelector.TOP);
+          break;
+
+        case PlacementPosition.RIGHT:
+          this.removeClass(PlaceSelector.RIGHT);
+          break;
+
+        case PlacementPosition.BOTTOM:
+          this.removeClass(PlaceSelector.BOTTOM);
+          break;
+
+        case PlacementPosition.LEFT:
+          this.removeClass(PlaceSelector.LEFT);
+          break;
+      }
+      this._place = value;
+      switch (this._place) {
+        case PlacementPosition.TOP:
+          this.addClass(PlaceSelector.TOP);
+          break;
+
+        case PlacementPosition.RIGHT:
+          this.addClass(PlaceSelector.RIGHT);
+          break;
+
+        case PlacementPosition.BOTTOM:
+          this.addClass(PlaceSelector.BOTTOM);
+          break;
+
+        case PlacementPosition.LEFT:
+          this.addClass(PlaceSelector.LEFT);
+          break;
+      }
+    };
+
+    prototypeAccessors.align.get = function () {
+      return this._align;
+    };
+
+    prototypeAccessors.align.set = function (value) {
+      if (this._align === value) { return; }
+      switch (this._align) {
+        case PlacementAlign.START:
+          this.removeClass(AlignSelector.START);
+          break;
+
+        case PlacementAlign.CENTER:
+          this.removeClass(AlignSelector.CENTER);
+          break;
+
+        case PlacementAlign.END:
+          this.removeClass(AlignSelector.END);
+          break;
+      }
+      this._align = value;
+      switch (this._align) {
+        case PlacementAlign.START:
+          this.addClass(AlignSelector.START);
+          break;
+
+        case PlacementAlign.CENTER:
+          this.addClass(AlignSelector.CENTER);
+          break;
+
+        case PlacementAlign.END:
+          this.addClass(AlignSelector.END);
+          break;
+      }
+    };
+
+    Placement.prototype.show = function show () {
+      this.isShown = true;
+    };
+
+    Placement.prototype.hide = function hide () {
+      this.isShown = false;
+    };
+
+    prototypeAccessors.isShown.get = function () {
+      return this._isShown;
+    };
+
+    prototypeAccessors.isShown.set = function (value) {
+      if (this._isShown === value || !this.isEnabled) { return; }
+      this.isRendering = value;
+      this._isShown = value;
+    };
+
+    Placement.prototype.setReferent = function setReferent (referent) {
+      this._referent = referent;
+    };
+
+    Placement.prototype.resize = function resize () {
+      this.safeArea = {
+        top: this._safeAreaMargin,
+        right: window.innerWidth - this._safeAreaMargin,
+        bottom: window.innerHeight - this._safeAreaMargin,
+        left: this._safeAreaMargin,
+        center: window.innerWidth * 0.5,
+        middle: window.innerHeight * 0.5
+      };
+    };
+
+    Placement.prototype.render = function render () {
+      if (!this._referent) { return; }
+      this.rect = this.getRect();
+      this.referentRect = this._referent.getRect();
+
+      if (this.mode === PlacementMode.AUTO) {
+        this.place = this.getPlace();
+        switch (this.place) {
+          case PlacementPosition.TOP:
+          case PlacementPosition.BOTTOM:
+            this.align = this.getHorizontalAlign();
+            break;
+
+          case PlacementPosition.LEFT:
+          case PlacementPosition.RIGHT:
+            this.align = this.getVerticalAlign();
+        }
+      }
+
+      var x, y;
+
+      switch (this.place) {
+        case PlacementPosition.TOP:
+          y = this.referentRect.top - this.rect.height;
+          break;
+
+        case PlacementPosition.RIGHT:
+          x = this.referentRect.right;
+          break;
+
+        case PlacementPosition.BOTTOM:
+          y = this.referentRect.bottom;
+          break;
+
+        case PlacementPosition.LEFT:
+          x = this.referentRect.left - this.rect.width;
+          break;
+      }
+
+      switch (this.place) {
+        case PlacementPosition.TOP:
+        case PlacementPosition.BOTTOM:
+          switch (this.align) {
+            case PlacementAlign.CENTER:
+              x = this.referentRect.center - this.rect.width * 0.5;
+              break;
+
+            case PlacementAlign.START:
+              x = this.referentRect.left;
+              break;
+
+            case PlacementAlign.END:
+              x = this.referentRect.right - this.rect.width;
+              break;
+          }
+          break;
+
+        case PlacementPosition.RIGHT:
+        case PlacementPosition.LEFT:
+          switch (this.align) {
+            case PlacementAlign.CENTER:
+              y = this.referentRect.middle - this.rect.height * 0.5;
+              break;
+
+            case PlacementAlign.START:
+              y = this.referentRect.top;
+              break;
+
+            case PlacementAlign.END:
+              y = this.referentRect.bottom - this.rect.height;
+              break;
+          }
+          break;
+      }
+
+      if (this._x !== x || this._y !== y) {
+        this._x = (x + 0.5) | 0;
+        this._y = (y + 0.5) | 0;
+        this.node.style.transform = "translate(" + (this._x) + "px," + (this._y) + "px)";
+      }
+    };
+
+    Placement.prototype.getPlace = function getPlace () {
+      for (var i = 0, list = this._places; i < list.length; i += 1) {
+        var place = list[i];
+
+        switch (place) {
+          case PlacementPosition.TOP:
+            if (this.referentRect.top - this.rect.height > this.safeArea.top) { return PlacementPosition.TOP; }
+            break;
+
+          case PlacementPosition.RIGHT:
+            if (this.referentRect.right + this.rect.width < this.safeArea.right) { return PlacementPosition.RIGHT; }
+            break;
+
+          case PlacementPosition.BOTTOM:
+            if (this.referentRect.bottom + this.rect.height < this.safeArea.bottom) { return PlacementPosition.BOTTOM; }
+            break;
+
+          case PlacementPosition.LEFT:
+            if (this.referentRect.left - this.rect.width > this.safeArea.left) { return PlacementPosition.LEFT; }
+            break;
+        }
+      }
+
+      return this._places[0];
+    };
+
+    Placement.prototype.getHorizontalAlign = function getHorizontalAlign () {
+      for (var i = 0, list = this._aligns; i < list.length; i += 1) {
+        var align = list[i];
+
+        switch (align) {
+          case PlacementAlign.CENTER:
+            if (this.referentRect.center - this.rect.width * 0.5 > this.safeArea.left && this.referentRect.center + this.rect.width * 0.5 < this.safeArea.right) { return PlacementAlign.CENTER; }
+            break;
+
+          case PlacementAlign.START:
+            if (this.referentRect.left + this.rect.width < this.safeArea.right) { return PlacementAlign.START; }
+            break;
+
+          case PlacementAlign.END:
+            if (this.referentRect.right - this.rect.width > this.safeArea.left) { return PlacementAlign.END; }
+            break;
+        }
+      }
+
+      return this._aligns[0];
+    };
+
+    Placement.prototype.getVerticalAlign = function getVerticalAlign () {
+      for (var i = 0, list = this._aligns; i < list.length; i += 1) {
+        var align = list[i];
+
+        switch (align) {
+          case PlacementAlign.CENTER:
+            if (this.referentRect.middle - this.rect.height * 0.5 > this.safeArea.top && this.referentRect.middle + this.rect.height * 0.5 < this.safeArea.bottom) { return PlacementAlign.CENTER; }
+            break;
+
+          case PlacementAlign.START:
+            if (this.referentRect.top + this.rect.height < this.safeArea.bottom) { return PlacementAlign.START; }
+            break;
+
+          case PlacementAlign.END:
+            if (this.referentRect.bottom - this.rect.height > this.safeArea.top) { return PlacementAlign.END; }
+            break;
+        }
+      }
+
+      return this._aligns[0];
+    };
+
+    Placement.prototype.dispose = function dispose () {
+      this._referent = null;
+      Instance.prototype.dispose.call(this);
+    };
+
+    Object.defineProperties( Placement.prototype, prototypeAccessors );
+    Object.defineProperties( Placement, staticAccessors );
+
+    return Placement;
+  }(Instance));
+
+  var PlacementReferent = /*@__PURE__*/(function (Instance) {
+    function PlacementReferent () {
+      Instance.call(this);
+      this._isShown = false;
+    }
+
+    if ( Instance ) PlacementReferent.__proto__ = Instance;
+    PlacementReferent.prototype = Object.create( Instance && Instance.prototype );
+    PlacementReferent.prototype.constructor = PlacementReferent;
+
+    var prototypeAccessors = { placement: { configurable: true },isShown: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'PlacementReferent';
+    };
+
+    PlacementReferent.prototype.init = function init () {
+      this.registration.creator.setReferent(this);
+      this._placement = this.registration.creator;
+    };
+
+    prototypeAccessors.placement.get = function () {
+      return this._placement;
+    };
+
+    prototypeAccessors.isShown.get = function () {
+      return this._isShown;
+    };
+
+    prototypeAccessors.isShown.set = function (value) {
+      if (this._isShown === value || !this.isEnabled) { return; }
+      this._isShown = value;
+      if (value) { this.registration.creator.show(); }
+      else { this.registration.creator.hide(); }
+    };
+
+    PlacementReferent.prototype.show = function show () {
+      this.isShown = true;
+    };
+
+    PlacementReferent.prototype.hide = function hide () {
+      this.isShown = false;
+    };
+
+    Object.defineProperties( PlacementReferent.prototype, prototypeAccessors );
+    Object.defineProperties( PlacementReferent, staticAccessors );
+
+    return PlacementReferent;
+  }(Instance));
+
   api$1.core = {
     Instance: Instance,
     Breakpoints: Breakpoints,
@@ -2874,6 +3972,7 @@
     CollapsesGroup: CollapsesGroup,
     CollapseSelector: CollapseSelector,
     RootSelector: RootSelector,
+    RootEmission: RootEmission,
     Equisized: Equisized,
     EquisizedEmission: EquisizedEmission,
     Toggle: Toggle,
@@ -2882,13 +3981,24 @@
     InjectSvgSelector: InjectSvgSelector,
     Artwork: Artwork,
     ArtworkSelector: ArtworkSelector,
+    AssessFile: AssessFile,
+    AssessDetail: AssessDetail,
+    AssessEmission: AssessEmission,
+    AssessSelector: AssessSelector,
     Ratio: Ratio,
-    RatioSelector: RatioSelector
+    RatioSelector: RatioSelector,
+    Placement: Placement,
+    PlacementReferent: PlacementReferent,
+    PlacementAlign: PlacementAlign,
+    PlacementPosition: PlacementPosition,
+    PlacementMode: PlacementMode
   };
 
   api$1.internals.register(api$1.core.CollapseSelector.COLLAPSE, api$1.core.Collapse);
   api$1.internals.register(api$1.core.InjectSvgSelector.INJECT_SVG, api$1.core.InjectSvg);
   api$1.internals.register(api$1.core.RatioSelector.RATIO, api$1.core.Ratio);
+  api$1.internals.register(api$1.core.AssessSelector.ASSESS_FILE, api$1.core.AssessFile);
+  api$1.internals.register(api$1.core.AssessSelector.DETAIL, api$1.core.AssessDetail);
 
   /* legacy code here */
   api$1.internals.legacy.setLegacy();

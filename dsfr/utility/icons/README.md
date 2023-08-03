@@ -23,4 +23,4 @@ Afin d’utiliser le composant `icons`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) sur le module Utilitaires d'icônes
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone) sur le module Utilitaires d'icônes

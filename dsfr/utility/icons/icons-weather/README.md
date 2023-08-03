@@ -23,4 +23,4 @@ Afin d’utiliser le composant `icons-weather`, il est nécessaire d’ajouter l
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) sur le module Icônes Weather
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone) sur le module Icônes Weather

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -26,7 +26,7 @@
 .fr-search-bar .fr-input {
   margin: 0;
   border-radius: 0.25rem 0 0;
-  max-height: none;
+  max-height: 2.5rem;
 
   /* TODO: intégrer la croix en background pour effacer la search bar
   &::-webkit-search-cancel-button {
@@ -115,6 +115,10 @@
     --icon-size: 1.5rem;
     margin-left: -0.1875rem;
     margin-right: 0.5rem;
+  }
+
+  .fr-search-bar--lg .fr-input {
+    max-height: 3rem;
   }
 
   /*! media md */

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -14,17 +14,7 @@
   /*! media xl */
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .fr-card::before {
-    background-color: transparent;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../../icons/system/arrow-right-line.svg");
-    width: 1.5rem;
-    height: 1.5rem;
-    color: #000091;
-  }
-
-  .fr-card--no-icon::before {
+  .fr-card--no-icon::after {
     content: none;
   }
 
@@ -33,9 +23,22 @@
     flex: 1 0 auto;
   }
 
+  .fr-card__title a::after {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-right-line.svg");
+    width: 1rem;
+    height: 1rem;
+    background-color: transparent;
+  }
+
   .fr-card__title [target=_blank]::after {
-    width: 2rem;
-    height: 2rem;
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/external-link-line.svg");
+    width: 1rem;
+    height: 1rem;
   }
 
   .fr-card__detail::before {
@@ -43,8 +46,41 @@
     height: 1rem;
   }
 
-  .fr-card--horizontal .fr-card__body {
-    flex-basis: 100%;
+  .fr-card--download .fr-tile__title a::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/download-line.svg");
+  }
+
+  .fr-card.fr-enlarge-link .fr-card__title a {
+    text-decoration: none;
+  }
+
+  .fr-card.fr-enlarge-link .fr-card__title a::after {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: transparent;
+  }
+
+  .fr-card--sm.fr-enlarge-link .fr-card__title a::after {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-card--sm .fr-card__title a::after {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-card--lg.fr-enlarge-link .fr-card__title a::after {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .fr-card--lg .fr-card__title a::after {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .fr-card > .fr-card__img {
@@ -56,7 +92,7 @@
   }
 
   .fr-card:not(.fr-card--no-border):not(.fr-card--shadow) {
-    box-shadow: 0 0 0 1px #ddd;
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
   }
 
   .fr-card--grey {
@@ -84,11 +120,33 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
 
+  .fr-card--download:not(.fr-card--no-background) .fr-card__header {
+    background-color: #f6f6f6;
+  }
+
   .fr-card__detail {
     color: #666;
   }
 
   .fr-card__title {
     color: #161616;
+  }
+
+  .fr-card__title a[href] {
+    color: #000091;
+  }
+
+  .fr-card__title:disabled,
+  a.fr-card__title:not([href]) {
+    color: #929292;
+    background-color: #e5e5e5;
+  }
+}
+@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
+  .fr-card--download .fr-card__body,
+  .fr-card--horizontal .fr-card__body,
+  .fr-card--horizontal-half .fr-card__body,
+  .fr-card--horizontal-tier .fr-card__body {
+    flex-basis: 100%;
   }
 }

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 .fr-background-default--grey {
   background-color: var(--background-default-grey) !important;
@@ -363,6 +363,82 @@
 
 .fr-background-flat--grey {
   background-color: var(--background-flat-grey) !important;
+}
+
+.fr-background-flat--blue-france {
+  background-color: var(--background-flat-blue-france) !important;
+}
+
+.fr-background-flat--red-marianne {
+  background-color: var(--background-flat-red-marianne) !important;
+}
+
+.fr-background-flat--green-tilleul-verveine {
+  background-color: var(--background-flat-green-tilleul-verveine) !important;
+}
+
+.fr-background-flat--green-bourgeon {
+  background-color: var(--background-flat-green-bourgeon) !important;
+}
+
+.fr-background-flat--green-emeraude {
+  background-color: var(--background-flat-green-emeraude) !important;
+}
+
+.fr-background-flat--green-menthe {
+  background-color: var(--background-flat-green-menthe) !important;
+}
+
+.fr-background-flat--green-archipel {
+  background-color: var(--background-flat-green-archipel) !important;
+}
+
+.fr-background-flat--blue-ecume {
+  background-color: var(--background-flat-blue-ecume) !important;
+}
+
+.fr-background-flat--blue-cumulus {
+  background-color: var(--background-flat-blue-cumulus) !important;
+}
+
+.fr-background-flat--purple-glycine {
+  background-color: var(--background-flat-purple-glycine) !important;
+}
+
+.fr-background-flat--pink-macaron {
+  background-color: var(--background-flat-pink-macaron) !important;
+}
+
+.fr-background-flat--pink-tuile {
+  background-color: var(--background-flat-pink-tuile) !important;
+}
+
+.fr-background-flat--yellow-tournesol {
+  background-color: var(--background-flat-yellow-tournesol) !important;
+}
+
+.fr-background-flat--yellow-moutarde {
+  background-color: var(--background-flat-yellow-moutarde) !important;
+}
+
+.fr-background-flat--orange-terre-battue {
+  background-color: var(--background-flat-orange-terre-battue) !important;
+}
+
+.fr-background-flat--brown-cafe-creme {
+  background-color: var(--background-flat-brown-cafe-creme) !important;
+}
+
+.fr-background-flat--brown-caramel {
+  background-color: var(--background-flat-brown-caramel) !important;
+}
+
+.fr-background-flat--brown-opera {
+  background-color: var(--background-flat-brown-opera) !important;
+}
+
+.fr-background-flat--beige-gris-galet {
+  background-color: var(--background-flat-beige-gris-galet) !important;
 }
 
 .fr-background-flat--info {

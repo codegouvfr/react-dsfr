@@ -246,6 +246,63 @@ export function getColorDecisions(
             "grey": {
               "default": colorOptions.grey._200_850.default
             },
+            "blueFrance": {
+              "default": colorOptions.blueFrance.sun113_625.default
+            },
+            "redMarianne": {
+              "default": colorOptions.redMarianne._425_625.default
+            },
+            "greenTilleulVerveine": {
+              "default": colorOptions.greenTilleulVerveine.sun418moon817.default
+            },
+            "greenBourgeon": {
+              "default": colorOptions.greenBourgeon.sun425moon759.default
+            },
+            "greenEmeraude": {
+              "default": colorOptions.greenEmeraude.sun425moon753.default
+            },
+            "greenMenthe": {
+              "default": colorOptions.greenMenthe.sun373moon652.default
+            },
+            "greenArchipel": {
+              "default": colorOptions.greenArchipel.sun391moon716.default
+            },
+            "blueEcume": {
+              "default": colorOptions.blueEcume.sun247moon675.default
+            },
+            "blueCumulus": {
+              "default": colorOptions.blueCumulus.sun368moon732.default
+            },
+            "purpleGlycine": {
+              "default": colorOptions.purpleGlycine.sun319moon630.default
+            },
+            "pinkMacaron": {
+              "default": colorOptions.pinkMacaron.sun406moon833.default
+            },
+            "pinkTuile": {
+              "default": colorOptions.pinkTuile.sun425moon750.default
+            },
+            "yellowTournesol": {
+              "default": colorOptions.yellowTournesol.sun407moon922.default
+            },
+            "yellowMoutarde": {
+              "default": colorOptions.yellowMoutarde.sun348moon860.default
+            },
+            "orangeTerreBattue": {
+              "default": colorOptions.orangeTerreBattue.sun370moon672.default
+            },
+            "brownCafeCreme": {
+              "default": colorOptions.brownCafeCreme.sun383moon885.default
+            },
+            "brownCaramel": {
+              "default": colorOptions.brownCaramel.sun425moon901.default
+            },
+            "brownOpera": {
+              "default": colorOptions.brownOpera.sun395moon820.default
+            },
+            "beigeGrisGalet": {
+              "default": colorOptions.beigeGrisGalet.sun407moon821.default
+            },
             "info": {
               "default": colorOptions.info._425_625.default
             },

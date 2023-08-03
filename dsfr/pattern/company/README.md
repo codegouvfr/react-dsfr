@@ -1,6 +1,6 @@
 # company
 
-La demande de renseignement sur la société permet d’aider un utilisateur à saisir ses renseignements concernant sa société.
+La demande de renseignement sur la société permet d’aider un utilisateur à saisir les renseignements concernant sa société.
 
 ## Dépendances
 ```shell

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -8,6 +8,7 @@
 \* ˍˍˍˍˍˍˍˍˍ */
 .fr-radio-group {
   position: relative;
+  max-width: max-content;
 }
 
 .fr-radio-group input[type=radio] {
@@ -19,32 +20,31 @@
 }
 
 .fr-radio-group input[type=radio] + label {
-  position: relative;
   -webkit-tap-highlight-color: transparent;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-left: 2rem;
+  padding-left: 2rem;
+  background-position: calc(-0.25rem + 1px) calc(-0.25rem + 1px), calc(-0.25rem + 1px) calc(-0.25rem + 1px);
+  background-size: 1.875rem 1.875rem, 1.875rem 1.875rem;
+  background-repeat: no-repeat, no-repeat;
+  background-image: radial-gradient(transparent 10px, var(--background-action-high-blue-france) 11px, transparent 12px);
+}
+
+.fr-radio-group input[type=radio] + label::before {
+  content: "";
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  top: 0;
+  border-radius: 1.5rem;
+  margin-left: -2rem;
 }
 
 .fr-radio-group input[type=radio] + label .fr-hint-text {
   margin: 0;
   width: 100%;
-}
-
-.fr-radio-group input[type=radio] + label::before {
-  content: "";
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: -2rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 12px var(--background-default-grey), inset 0 0 0 12px var(--background-action-high-blue-france);
 }
 
 .fr-radio-group--sm input[type=radio] {
@@ -54,19 +54,26 @@
 }
 
 .fr-radio-group--sm input[type=radio] + label {
-  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+  background-position: calc(-0.125rem + 1px) calc(0.25rem - 1px), calc(-0.125rem + 1px) calc(0.25rem - 1px);
+  background-size: 1.125rem 1.125rem, 1.125rem 1.125rem;
+  background-image: radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px);
 }
 
 .fr-radio-group--sm input[type=radio] + label::before {
-  left: -1.5rem;
+  top: 0.25rem;
   width: 1rem;
   height: 1rem;
-  margin-top: 0.25rem;
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+  border-radius: 1rem;
+  margin-left: -1.5rem;
 }
 
 .fr-radio-rich {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
 }
 
 .fr-radio-rich input[type=radio] {
@@ -79,16 +86,20 @@
 .fr-radio-rich input[type=radio] + label {
   padding-left: 3.5rem;
   margin-left: 0;
-  min-height: 5.5rem;
+  align-self: stretch;
+  min-height: 5rem;
   width: 100%;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-right: 6.5rem;
+  padding-right: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
-  box-shadow: inset 0 0 0 1px var(--border-default-grey);
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1.125rem 1.125rem, 1.125rem 1.125rem;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 1.75rem 50%, 1.75rem 50%;
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px);
   background-color: var(--background-default-grey);
 
   --idle: transparent;
@@ -97,22 +108,21 @@
 }
 
 .fr-radio-rich input[type=radio] + label::before {
-  width: 1rem;
-  height: 1rem;
+  content: "";
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 1.75rem;
-  margin-top: -0.5rem;
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  border-radius: 0;
 }
 
 .fr-radio-rich input[type=radio] + label .fr-hint-text {
   margin-left: 0;
-}
-
-.fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__img,
-.fr-radio-rich input[type=radio][disabled] ~ .fr-radio-rich__img {
-  filter: grayscale(1);
 }
 
 .fr-radio-rich input[type=radio]:not(:disabled) ~ label {
@@ -128,32 +138,40 @@
   background-color: var(--active-tint);
 }
 
-.fr-radio-rich input[type=radio]:not(:disabled) ~ label:hover ~ .fr-radio-rich__img {
-  --brightness: calc(100% + var(--brighten) * 10%);
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:hover + .fr-radio-rich__pictogram {
+  background-color: var(--hover);
 }
 
-.fr-radio-rich input[type=radio]:not(:disabled) ~ label:active ~ .fr-radio-rich__img {
-  --brightness: calc(100% + var(--brighten) * 20%);
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:active + .fr-radio-rich__pictogram {
+  background-color: var(--active);
 }
 
-.fr-radio-rich__img {
-  filter: brightness(var(--brightness));
-  padding-left: 0.25rem;
-  width: 5.25rem;
-  height: 5rem;
-  position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+.fr-radio-rich__pictogram {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: -1px;
+  padding: 0.25rem;
+  width: 5.5rem;
+  min-width: 5.5rem;
+  align-self: stretch;
   pointer-events: none;
-  box-shadow: inset 1px 0 0 0 var(--border-default-grey);
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px calc(100% - 0.5rem);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 0 100%, 100% 0, 0 0.25rem;
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
 }
 
-.fr-radio-rich__img img,
-.fr-radio-rich__img svg {
-  max-width: 5rem;
-  object-fit: cover;
+.fr-radio-rich__pictogram img,
+.fr-radio-rich__pictogram svg {
+  max-width: 3.5rem;
+  max-height: 3.5rem;
 }
 
 .fr-control > .fr-radio-rich.fr-radio-group {
@@ -161,82 +179,178 @@
   margin-bottom: 0;
 }
 
-.fr-radio-group input[type=radio]:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 12px var(--background-default-grey), inset 0 0 0 12px var(--text-disabled-grey);
+.fr-radio-group input[type=radio]:disabled + label {
+  background-image: radial-gradient(transparent 10px, var(--background-disabled-grey) 11px, transparent 12px);
 }
 
-.fr-radio-group input[type=radio]:checked + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 6px var(--background-default-grey), inset 0 0 0 12px var(--background-action-high-blue-france);
+.fr-radio-group input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 10px, var(--background-action-high-blue-france) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
 }
 
-.fr-radio-group input[type=radio]:checked:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 6px var(--background-default-grey), inset 0 0 0 12px var(--text-disabled-grey);
+.fr-radio-group input[type=radio]:checked:disabled + label {
+  background-image: radial-gradient(transparent 10px, var(--background-disabled-grey) 11px, transparent 12px), radial-gradient(var(--background-disabled-grey) 5px, transparent 6px);
 }
 
-.fr-radio-group--sm input[type=radio]:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 8px var(--background-disabled-grey), inset 0 0 0 8px var(--text-disabled-grey);
+.fr-fieldset--error .fr-radio-group input[type=radio] + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-error) 11px, transparent 12px);
 }
 
-.fr-radio-group--sm input[type=radio]:checked + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+.fr-fieldset--error .fr-radio-group input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-error) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
 }
 
-.fr-radio-group--sm input[type=radio]:checked:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 4px var(--background-disabled-grey), inset 0 0 0 8px var(--text-disabled-grey);
+.fr-fieldset--valid .fr-radio-group input[type=radio] + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-success) 11px, transparent 12px);
 }
 
-.fr-radio-rich input[type=radio]:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 8px var(--background-default-grey), inset 0 0 0 8px var(--text-disabled-grey);
+.fr-fieldset--valid .fr-radio-group input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-success) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+}
+
+.fr-fieldset--info .fr-radio-group input[type=radio] + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-info) 11px, transparent 12px);
+}
+
+.fr-fieldset--info .fr-radio-group input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 10px, var(--border-plain-info) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+}
+
+.fr-fieldset .fr-radio-group input[type=radio]:disabled + label {
+  background-image: radial-gradient(transparent 10px, var(--background-disabled-grey) 11px, transparent 12px);
+}
+
+.fr-fieldset .fr-radio-group input[type=radio]:disabled:checked + label {
+  background-image: radial-gradient(transparent 10px, var(--background-disabled-grey) 11px, transparent 12px), radial-gradient(var(--background-disabled-grey) 5px, transparent 6px);
+}
+
+.fr-radio-group--sm input[type=radio]:disabled + label {
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px);
+}
+
+.fr-radio-group--sm input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-radio-group--sm input[type=radio]:checked:disabled + label {
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+}
+
+.fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px);
+}
+
+.fr-fieldset--error .fr-radio-group--sm input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-fieldset--valid .fr-radio-group--sm input[type=radio] + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px);
+}
+
+.fr-fieldset--valid .fr-radio-group--sm input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-fieldset--info .fr-radio-group--sm input[type=radio] + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px);
+}
+
+.fr-fieldset--info .fr-radio-group--sm input[type=radio]:checked + label {
+  background-image: radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-fieldset .fr-radio-group--sm input[type=radio]:disabled + label {
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px);
+}
+
+.fr-fieldset .fr-radio-group--sm input[type=radio]:disabled:checked + label {
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
+}
+
+.fr-radio-rich input[type=radio]:disabled + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px);
+}
+
+.fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__pictogram svg * {
+  fill: var(--text-disabled-grey);
 }
 
 .fr-radio-rich input[type=radio]:checked + label {
-  box-shadow: inset 0 0 0 1px var(--border-action-high-blue-france);
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
 }
 
-.fr-radio-rich input[type=radio]:checked + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-action-high-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--background-action-high-blue-france);
+.fr-radio-rich input[type=radio]:checked ~ .fr-radio-rich__pictogram {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
 
 .fr-radio-rich input[type=radio]:checked:disabled + label {
-  box-shadow: inset 0 0 0 1px var(--text-disabled-grey);
+  background-image: linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
 }
 
-.fr-radio-rich input[type=radio]:checked:disabled + label::before {
-  box-shadow: inset 0 0 0 1px var(--border-disabled-grey), inset 0 0 0 4px var(--background-default-grey), inset 0 0 0 8px var(--text-disabled-grey);
+.fr-radio-rich input[type=radio]:checked:disabled ~ .fr-radio-rich__pictogram {
+  background-image: linear-gradient(0deg, var(--background-disabled-grey), var(--background-disabled-grey)), linear-gradient(0deg, var(--background-disabled-grey), var(--background-disabled-grey)), linear-gradient(0deg, var(--background-disabled-grey), var(--background-disabled-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
 
-.fr-fieldset .fr-fieldset__content .fr-radio-group--sm label::before {
-  margin-top: 1rem;
+.fr-fieldset--error .fr-radio-rich input[type=radio] + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px);
 }
 
-.fr-fieldset .fr-fieldset__content .fr-radio-rich:first-child input[type=radio] + label {
-  margin-top: 0.75rem;
+.fr-fieldset--error .fr-radio-rich input[type=radio]:checked + label {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
 }
 
-.fr-fieldset .fr-fieldset__content .fr-radio-rich input[type=radio] + label {
+.fr-fieldset--valid .fr-radio-rich input[type=radio] + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px);
+}
+
+.fr-fieldset--valid .fr-radio-rich input[type=radio]:checked + label {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-fieldset--info .fr-radio-rich input[type=radio] + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px);
+}
+
+.fr-fieldset--info .fr-radio-rich input[type=radio]:checked + label {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+}
+
+.fr-fieldset .fr-radio-rich input[type=radio]:disabled + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px);
+}
+
+.fr-fieldset .fr-radio-rich input[type=radio]:disabled:checked + label {
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] + label {
+  background-position: calc(-0.25rem + 1px) calc(0.5rem + 1px), calc(-0.25rem + 1px) calc(0.5rem + 1px);
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-group--sm:not(.fr-radio-rich) input[type=radio] + label {
+  background-position: calc(-0.125rem + 1px) calc(1rem - 1px), calc(-0.125rem + 1px) calc(1rem - 1px);
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-rich {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.fr-fieldset .fr-fieldset__content .fr-radio-rich:last-child input[type=radio] + label {
+.fr-fieldset .fr-fieldset__content .fr-radio-rich:last-child {
   margin-bottom: 0.75rem;
 }
 
-.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:not(:last-child) input[type=radio] + label {
+.fr-fieldset .fr-fieldset__content .fr-radio-rich:first-child {
+  margin-top: 0;
+}
+
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:not(:last-child) {
   margin-right: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
-.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:not(:last-child) .fr-radio-rich__img {
-  right: 1rem;
-}
-
-.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:last-child {
-  margin-bottom: 0;
-}
-
-.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:last-child input[type=radio] + label {
-  margin-bottom: 0.75rem;
+.fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:first-child {
+  margin-top: 0.75rem;
 }
 
 .fr-fieldset--inline .fr-fieldset__content .fr-radio-rich:first-child .fr-radio-rich__img {
@@ -247,8 +361,56 @@
   top: 0.75rem;
 }
 
-.fr-fieldset--inline .fr-hint-text + .fr-fieldset__content .fr-radio-rich:first-child input[type=radio] + label {
+.fr-fieldset--inline .fr-hint-text + .fr-fieldset__content .fr-radio-rich:first-child {
   margin-top: 1.5rem;
+}
+
+.fr-radio-rich__img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: -1px;
+  padding: 0.25rem;
+  width: 5.5rem;
+  min-width: 5.5rem;
+  align-self: stretch;
+  pointer-events: none;
+  background-size: 100% 1px, 100% 1px, 1px 100%, 1px calc(100% - 0.5rem);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 0 100%, 100% 0, 0 0.25rem;
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-radio-rich__img img,
+.fr-radio-rich__img svg {
+  max-width: 3.5rem;
+  max-height: 3.5rem;
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:hover + .fr-radio-rich__img {
+  background-color: var(--hover);
+}
+
+.fr-radio-rich input[type=radio]:not(:disabled) ~ label:active + .fr-radio-rich__img {
+  background-color: var(--active);
+}
+
+.fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__img svg * {
+  fill: var(--text-disabled-grey);
+}
+
+.fr-radio-rich input[type=radio]:checked ~ .fr-radio-rich__img {
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
+}
+
+.fr-radio-rich input[type=radio]:checked:disabled ~ .fr-radio-rich__img {
+  background-image: linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--text-disabled-grey), var(--text-disabled-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey));
 }
 @media (min-width: 36em) {
   /*! media sm */

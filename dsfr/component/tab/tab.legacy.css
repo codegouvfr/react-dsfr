@@ -1,8 +1,6 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
-@charset "UTF-8";
-
 .fr-tabs {
   /**
   * Tab button
@@ -21,9 +19,6 @@
   /*! media xl */
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
-  * Reset liste à puce
-  */
   .fr-tabs ul {
     list-style-type: none;
   }
@@ -37,6 +32,30 @@
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  .fr-tabs::before {
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+  }
+
+  .fr-tabs .fr-tabs__list {
+    padding: 0.25rem 0.75rem;
+  }
+
+  .fr-tabs__tab::before,
+  .fr-tabs__tab::after {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-tabs__panel {
+    padding: 0 0.1px;
+    left: 0;
   }
 
   ul {
@@ -58,16 +77,25 @@
     text-decoration: underline;
   }
 
+  .fr-tabs__panel > * {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .fr-tabs__panel > *:first-child {
+    margin-top: 0.75rem;
+  }
+
+  .fr-tabs__panel > *:last-child {
+    margin-bottom: 1rem;
+  }
+
   .fr-tabs {
     box-shadow: inset 0 -1px 0 0 #ddd;
   }
 
-  .fr-tabs::before {
-    box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
-  }
-
   .fr-tabs__tab {
-    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
     box-shadow: 0 2px 0 0 #fff;
   }
 
@@ -76,7 +104,8 @@
     color: #161616;
   }
 
-  .fr-tabs__tab[aria-selected=true] {
+  .fr-tabs__tab[aria-selected=true]:not(:disabled) {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
     background-color: #fff;
     color: #000091;
   }
@@ -84,5 +113,19 @@
   .fr-tabs__tab:disabled {
     color: #929292;
     background-color: #e5e5e5;
+  }
+}
+@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
+  .fr-tabs__panel > * {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .fr-tabs__panel > *:first-child {
+    margin-top: 1.75rem;
+  }
+
+  .fr-tabs__panel > *:last-child {
+    margin-bottom: 2rem;
   }
 }

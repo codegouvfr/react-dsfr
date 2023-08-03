@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -27,6 +27,10 @@
 }
 
 .fr-follow__newsletter .fr-input-group {
+  margin-bottom: 1rem;
+}
+
+.fr-follow__newsletter .fr-hint-text {
   margin-bottom: 0;
 }
 
@@ -52,10 +56,13 @@
 .fr-follow__newsletter .fr-input-wrap .fr-input {
   margin-bottom: 1rem;
   margin-top: 0;
+  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .fr-follow__newsletter .fr-input-wrap .fr-btn {
   justify-content: center;
+  width: 100%;
+  border-radius: 0;
 }
 
 .fr-follow__newsletter .fr-messages-group {
@@ -411,12 +418,17 @@
 }
 @media (min-width: 36em) {
   /*! media sm */
-  .fr-follow__newsletter .fr-input-wrap {
-    flex-direction: row;
+  .fr-follow__newsletter .fr-input-group {
+    margin-bottom: 0.5rem;
   }
 
   .fr-follow__newsletter .fr-input-wrap .fr-btn {
+    width: auto;
     border-radius: 0 0.25rem 0 0;
+  }
+
+  .fr-follow__newsletter .fr-input-wrap {
+    flex-direction: row;
   }
 
   .fr-follow__newsletter .fr-input-wrap .fr-input {

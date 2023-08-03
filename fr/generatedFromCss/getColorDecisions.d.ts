@@ -238,6 +238,63 @@ export declare function getColorDecisions(params: {
             readonly grey: {
                 readonly default: "#cecece" | "#3a3a3a";
             };
+            readonly blueFrance: {
+                readonly default: "#8585f6" | "#000091";
+            };
+            readonly redMarianne: {
+                readonly default: "#f95c5e" | "#c9191e";
+            };
+            readonly greenTilleulVerveine: {
+                readonly default: "#d8c634" | "#66673d";
+            };
+            readonly greenBourgeon: {
+                readonly default: "#99c221" | "#447049";
+            };
+            readonly greenEmeraude: {
+                readonly default: "#34cb6a" | "#297254";
+            };
+            readonly greenMenthe: {
+                readonly default: "#21ab8e" | "#37635f";
+            };
+            readonly greenArchipel: {
+                readonly default: "#34bab5" | "#006a6f";
+            };
+            readonly blueEcume: {
+                readonly default: "#869ece" | "#2f4077";
+            };
+            readonly blueCumulus: {
+                readonly default: "#7ab1e8" | "#3558a2";
+            };
+            readonly purpleGlycine: {
+                readonly default: "#ce70cc" | "#6e445a";
+            };
+            readonly pinkMacaron: {
+                readonly default: "#ffb7ae" | "#8d533e";
+            };
+            readonly pinkTuile: {
+                readonly default: "#ff9575" | "#a94645";
+            };
+            readonly yellowTournesol: {
+                readonly default: "#ffe552" | "#716043";
+            };
+            readonly yellowMoutarde: {
+                readonly default: "#ffca00" | "#695240";
+            };
+            readonly orangeTerreBattue: {
+                readonly default: "#ff732c" | "#755348";
+            };
+            readonly brownCafeCreme: {
+                readonly default: "#ecd7a2" | "#685c48";
+            };
+            readonly brownCaramel: {
+                readonly default: "#fbd8ab" | "#845d48";
+            };
+            readonly brownOpera: {
+                readonly default: "#e6be92" | "#745b47";
+            };
+            readonly beigeGrisGalet: {
+                readonly default: "#d0c3b7" | "#6a6156";
+            };
             readonly info: {
                 readonly default: "#518fff" | "#0063cb";
             };

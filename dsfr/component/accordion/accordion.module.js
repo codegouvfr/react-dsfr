@@ -1,18 +1,35 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.9.3'
+  version: '1.10.0'
 };
 
 const api = window[config.namespace];
 
+const ACCORDION = api.internals.ns.selector('accordion');
+const COLLAPSE = api.internals.ns.selector('collapse');
+
 const AccordionSelector = {
   GROUP: api.internals.ns.selector('accordions-group'),
-  COLLAPSE: `${api.internals.ns.selector('accordion')} > ${api.internals.ns.selector('collapse')}`
+  ACCORDION: ACCORDION,
+  COLLAPSE: `${ACCORDION} > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE}) > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE}) > *:not(${ACCORDION}, ${COLLAPSE}) > ${COLLAPSE}`,
+  COLLAPSE_LEGACY: `${ACCORDION} ${COLLAPSE}`,
+  BUTTON: `${ACCORDION}__btn`
 };
+
+class Accordion extends api.core.Instance {
+  static get instanceClassName () {
+    return 'Accordion';
+  }
+
+  get collapsePrimary () {
+    const buttons = this.element.children.map(child => child.getInstance('CollapseButton')).filter(button => button !== null && button.hasClass(AccordionSelector.BUTTON));
+    return buttons[0];
+  }
+}
 
 class AccordionsGroup extends api.core.CollapsesGroup {
   static get instanceClassName () {
@@ -20,14 +37,17 @@ class AccordionsGroup extends api.core.CollapsesGroup {
   }
 
   validate (member) {
-    return member.node.matches(AccordionSelector.COLLAPSE);
+    const match = member.node.matches(api.internals.legacy.isLegacy ? AccordionSelector.COLLAPSE_LEGACY : AccordionSelector.COLLAPSE);
+    return super.validate(member) && match;
   }
 }
 
 api.accordion = {
+  Accordion: Accordion,
   AccordionSelector: AccordionSelector,
   AccordionsGroup: AccordionsGroup
 };
 
 api.internals.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
+api.internals.register(api.accordion.AccordionSelector.ACCORDION, api.accordion.Accordion);
 //# sourceMappingURL=accordion.module.js.map

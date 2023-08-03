@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -14,76 +14,182 @@
   /*! media xl */
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .fr-fieldset--inline .fr-radio-rich:last-child input[type=radio] + label {
-    margin-bottom: 0.5rem !important;
+  .fr-radio-group input[type=radio] + label {
+    background-image: radial-gradient(transparent 10px, #000091 11px, transparent 12px);
   }
 
-  .fr-radio-rich input[type=radio] + .fr-label {
-    height: 1px;
+  .fr-radio-group input[type=radio]:disabled + label {
+    background-image: radial-gradient(transparent 10px, #e5e5e5 11px, transparent 12px);
   }
 
-  .fr-radio-group input[type=radio] + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 12px #fff, inset 0 0 0 12px #000091;
+  .fr-radio-group input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 10px, #000091 11px, transparent 12px), radial-gradient(#000091 5px, transparent 6px);
   }
 
-  .fr-radio-group input[type=radio]:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 12px #fff, inset 0 0 0 12px #929292;
+  .fr-radio-group input[type=radio]:checked:disabled + label {
+    background-image: radial-gradient(transparent 10px, #e5e5e5 11px, transparent 12px), radial-gradient(#e5e5e5 5px, transparent 6px);
   }
 
-  .fr-radio-group input[type=radio]:checked + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 6px #fff, inset 0 0 0 12px #000091;
+  .fr-fieldset--error .fr-radio-group input[type=radio] + label {
+    background-image: radial-gradient(transparent 10px, #ce0500 11px, transparent 12px);
   }
 
-  .fr-radio-group input[type=radio]:checked:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 6px #fff, inset 0 0 0 12px #929292;
+  .fr-fieldset--error .fr-radio-group input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 10px, #ce0500 11px, transparent 12px), radial-gradient(#000091 5px, transparent 6px);
   }
 
-  .fr-radio-group--sm input[type=radio] + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  .fr-fieldset--valid .fr-radio-group input[type=radio] + label {
+    background-image: radial-gradient(transparent 10px, #18753c 11px, transparent 12px);
   }
 
-  .fr-radio-group--sm input[type=radio]:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #e5e5e5, inset 0 0 0 8px #929292;
+  .fr-fieldset--valid .fr-radio-group input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 10px, #18753c 11px, transparent 12px), radial-gradient(#000091 5px, transparent 6px);
   }
 
-  .fr-radio-group--sm input[type=radio]:checked + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  .fr-fieldset--info .fr-radio-group input[type=radio] + label {
+    background-image: radial-gradient(transparent 10px, #0063cb 11px, transparent 12px);
   }
 
-  .fr-radio-group--sm input[type=radio]:checked:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #e5e5e5, inset 0 0 0 8px #929292;
+  .fr-fieldset--info .fr-radio-group input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 10px, #0063cb 11px, transparent 12px), radial-gradient(#000091 5px, transparent 6px);
   }
 
-  .fr-radio-rich__img {
-    box-shadow: inset 1px 0 0 0 #ddd;
+  .fr-fieldset .fr-radio-group input[type=radio]:disabled + label {
+    background-image: radial-gradient(transparent 10px, #e5e5e5 11px, transparent 12px);
   }
 
-  .fr-radio-rich input[type=radio] + label {
-    box-shadow: inset 0 0 0 1px #ddd;
+  .fr-fieldset .fr-radio-group input[type=radio]:disabled:checked + label {
+    background-image: radial-gradient(transparent 10px, #e5e5e5 11px, transparent 12px), radial-gradient(#e5e5e5 5px, transparent 6px);
+  }
+
+  .fr-radio-group--sm input[type=radio] + label {
+    background-image: radial-gradient(transparent 6px, #000091 7px, transparent 8px);
+  }
+
+  .fr-radio-group--sm input[type=radio]:disabled + label {
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px);
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 6px, #000091 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-radio-group--sm input[type=radio]:checked:disabled + label {
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+  }
+
+  .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
+    background-image: radial-gradient(transparent 6px, #ce0500 7px, transparent 8px);
+  }
+
+  .fr-fieldset--error .fr-radio-group--sm input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 6px, #ce0500 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset--valid .fr-radio-group--sm input[type=radio] + label {
+    background-image: radial-gradient(transparent 6px, #18753c 7px, transparent 8px);
+  }
+
+  .fr-fieldset--valid .fr-radio-group--sm input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 6px, #18753c 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset--info .fr-radio-group--sm input[type=radio] + label {
+    background-image: radial-gradient(transparent 6px, #0063cb 7px, transparent 8px);
+  }
+
+  .fr-fieldset--info .fr-radio-group--sm input[type=radio]:checked + label {
+    background-image: radial-gradient(transparent 6px, #0063cb 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset .fr-radio-group--sm input[type=radio]:disabled + label {
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px);
+  }
+
+  .fr-fieldset .fr-radio-group--sm input[type=radio]:disabled:checked + label {
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#e5e5e5 3px, transparent 4px);
+  }
+
+  .fr-radio-rich__pictogram {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
     background-color: #fff;
   }
 
-  .fr-radio-rich input[type=radio] + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 8px #fff, inset 0 0 0 8px #000091;
+  .fr-radio-rich input[type=radio] + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #000091 7px, transparent 8px);
+    background-color: #fff;
   }
 
-  .fr-radio-rich input[type=radio]:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 8px #fff, inset 0 0 0 8px #929292;
+  .fr-radio-rich input[type=radio]:disabled + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px);
+  }
+
+  .fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__pictogram svg * {
+    fill: #929292;
   }
 
   .fr-radio-rich input[type=radio]:checked + label {
-    box-shadow: inset 0 0 0 1px #000091;
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), radial-gradient(transparent 6px, #000091 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
   }
 
-  .fr-radio-rich input[type=radio]:checked + label::before {
-    box-shadow: inset 0 0 0 1px #161616, inset 0 0 0 4px #fff, inset 0 0 0 8px #000091;
+  .fr-radio-rich input[type=radio]:checked ~ .fr-radio-rich__pictogram {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd);
   }
 
   .fr-radio-rich input[type=radio]:checked:disabled + label {
-    box-shadow: inset 0 0 0 1px #929292;
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#e5e5e5 3px, transparent 4px);
   }
 
-  .fr-radio-rich input[type=radio]:checked:disabled + label::before {
-    box-shadow: inset 0 0 0 1px #e5e5e5, inset 0 0 0 4px #fff, inset 0 0 0 8px #929292;
+  .fr-radio-rich input[type=radio]:checked:disabled ~ .fr-radio-rich__pictogram {
+    background-image: linear-gradient(0deg, #e5e5e5, #e5e5e5), linear-gradient(0deg, #e5e5e5, #e5e5e5), linear-gradient(0deg, #e5e5e5, #e5e5e5), linear-gradient(0deg, #ddd, #ddd);
+  }
+
+  .fr-fieldset--error .fr-radio-rich input[type=radio] + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #ce0500 7px, transparent 8px);
+  }
+
+  .fr-fieldset--error .fr-radio-rich input[type=radio]:checked + label {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), radial-gradient(transparent 6px, #ce0500 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset--valid .fr-radio-rich input[type=radio] + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #18753c 7px, transparent 8px);
+  }
+
+  .fr-fieldset--valid .fr-radio-rich input[type=radio]:checked + label {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), radial-gradient(transparent 6px, #18753c 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset--info .fr-radio-rich input[type=radio] + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #0063cb 7px, transparent 8px);
+  }
+
+  .fr-fieldset--info .fr-radio-rich input[type=radio]:checked + label {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), radial-gradient(transparent 6px, #0063cb 7px, transparent 8px), radial-gradient(#000091 3px, transparent 4px);
+  }
+
+  .fr-fieldset .fr-radio-rich input[type=radio]:disabled + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px);
+  }
+
+  .fr-fieldset .fr-radio-rich input[type=radio]:disabled:checked + label {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#e5e5e5 3px, transparent 4px);
+  }
+
+  .fr-radio-rich__img {
+    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
+    background-color: #fff;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__img svg * {
+    fill: #929292;
+  }
+
+  .fr-radio-rich input[type=radio]:checked ~ .fr-radio-rich__img {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd);
+  }
+
+  .fr-radio-rich input[type=radio]:checked:disabled ~ .fr-radio-rich__img {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #ddd, #ddd);
   }
 }

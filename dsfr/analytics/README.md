@@ -10,10 +10,10 @@ analytics
 └─ breadcrumb
 └─ sidemenu
 └─ tab
+└─ tooltip
 └─ display
 └─ table
 └─ tag
-└─ download
 └─ toggle
 └─ modal
 └─ navigation
@@ -50,12 +50,12 @@ Afin d’utiliser le composant `analytics`, il est nécessaire d’ajouter les f
     <script type="text/javascript" nomodule href="js/password/password.nomodule.min.js" ></script>
     <script type="module" href="js/tab/tab.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/tab/tab.nomodule.min.js" ></script>
+    <script type="module" href="js/tooltip/tooltip.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/tooltip/tooltip.nomodule.min.js" ></script>
     <script type="module" href="js/table/table.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/table/table.nomodule.min.js" ></script>
     <script type="module" href="js/tag/tag.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/tag/tag.nomodule.min.js" ></script>
-    <script type="module" href="js/download/download.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/download/download.nomodule.min.js" ></script>
     <script type="module" href="js/header/header.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/header/header.nomodule.min.js" ></script>
     <script type="module" href="js/display/display.module.min.js" ></script>

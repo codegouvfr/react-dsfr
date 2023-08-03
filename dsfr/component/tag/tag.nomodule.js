@@ -1,4 +1,4 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.3'
+    version: '1.10.0'
   };
 
   var api = window[config.namespace];
@@ -32,10 +32,10 @@
     };
 
     TagDismissible.prototype.init = function init () {
-      this.listen('click', this.click.bind(this));
+      this.listenClick();
     };
 
-    TagDismissible.prototype.click = function click () {
+    TagDismissible.prototype.handleClick = function handleClick () {
       this.focusClosest();
 
       switch (api.mode) {
@@ -53,7 +53,7 @@
     };
 
     TagDismissible.prototype.verify = function verify () {
-      if (document.body.contains(this.node)) { api.inspector.warn(("a TagDismissible has just been dismissed and should be removed from the dom. In " + (api.mode) + " mode, the api doesn't handle dom modification. An event " + (TagEvent.DISMISS) + " is dispatched by the element to trigger the removal")); }
+      if (document.body.contains(this.node)) { this.warn(("a TagDismissible has just been dismissed and should be removed from the dom. In " + (api.mode) + " mode, the api doesn't handle dom modification. An event " + (TagEvent.DISMISS) + " is dispatched by the element to trigger the removal")); }
     };
 
     Object.defineProperties( TagDismissible, staticAccessors );

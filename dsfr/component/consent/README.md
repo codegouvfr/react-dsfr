@@ -10,8 +10,8 @@ consent
 └─ form
 └─ radio
 └─ button
-└─ transcription
 └─ modal
+└─ transcription
 ```
 
 ## Utilisation

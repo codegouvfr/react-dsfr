@@ -1,4 +1,4 @@
-/*! DSFR v1.9.3 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,15 +7,48 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.9.3'
+    version: '1.10.0'
   };
 
   var api = window[config.namespace];
 
+  var ACCORDION = api.internals.ns.selector('accordion');
+  var COLLAPSE$2 = api.internals.ns.selector('collapse');
+
   var AccordionSelector = {
     GROUP: api.internals.ns.selector('accordions-group'),
-    COLLAPSE: ((api.internals.ns.selector('accordion')) + " > " + (api.internals.ns.selector('collapse')))
+    ACCORDION: ACCORDION,
+    COLLAPSE: (ACCORDION + " > " + COLLAPSE$2 + ", " + ACCORDION + " > *:not(" + ACCORDION + ", " + COLLAPSE$2 + ") > " + COLLAPSE$2 + ", " + ACCORDION + " > *:not(" + ACCORDION + ", " + COLLAPSE$2 + ") > *:not(" + ACCORDION + ", " + COLLAPSE$2 + ") > " + COLLAPSE$2),
+    COLLAPSE_LEGACY: (ACCORDION + " " + COLLAPSE$2),
+    BUTTON: (ACCORDION + "__btn")
   };
+
+  var Accordion = /*@__PURE__*/(function (superclass) {
+    function Accordion () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) Accordion.__proto__ = superclass;
+    Accordion.prototype = Object.create( superclass && superclass.prototype );
+    Accordion.prototype.constructor = Accordion;
+
+    var prototypeAccessors = { collapsePrimary: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'Accordion';
+    };
+
+    prototypeAccessors.collapsePrimary.get = function () {
+      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && button.hasClass(AccordionSelector.BUTTON); });
+      return buttons[0];
+    };
+
+    Object.defineProperties( Accordion.prototype, prototypeAccessors );
+    Object.defineProperties( Accordion, staticAccessors );
+
+    return Accordion;
+  }(api.core.Instance));
 
   var AccordionsGroup = /*@__PURE__*/(function (superclass) {
     function AccordionsGroup () {
@@ -33,7 +66,8 @@
     };
 
     AccordionsGroup.prototype.validate = function validate (member) {
-      return member.node.matches(AccordionSelector.COLLAPSE);
+      var match = member.node.matches(api.internals.legacy.isLegacy ? AccordionSelector.COLLAPSE_LEGACY : AccordionSelector.COLLAPSE);
+      return superclass.prototype.validate.call(this, member) && match;
     };
 
     Object.defineProperties( AccordionsGroup, staticAccessors );
@@ -42,11 +76,13 @@
   }(api.core.CollapsesGroup));
 
   api.accordion = {
+    Accordion: Accordion,
     AccordionSelector: AccordionSelector,
     AccordionsGroup: AccordionsGroup
   };
 
   api.internals.register(api.accordion.AccordionSelector.GROUP, api.accordion.AccordionsGroup);
+  api.internals.register(api.accordion.AccordionSelector.ACCORDION, api.accordion.Accordion);
 
   var ButtonSelector = {
     EQUISIZED_BUTTON: ((api.internals.ns.selector('btns-group--equisized')) + " " + (api.internals.ns.selector('btn'))),
@@ -60,6 +96,55 @@
   api.internals.register(api.button.ButtonSelector.EQUISIZED_BUTTON, api.core.Equisized);
   api.internals.register(api.button.ButtonSelector.EQUISIZED_GROUP, api.core.EquisizedsGroup);
 
+  var CardDownload = /*@__PURE__*/(function (superclass) {
+    function CardDownload () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) CardDownload.__proto__ = superclass;
+    CardDownload.prototype = Object.create( superclass && superclass.prototype );
+    CardDownload.prototype.constructor = CardDownload;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'CardDownload';
+    };
+
+    CardDownload.prototype.init = function init () {
+      var this$1$1 = this;
+
+      this.addAscent(api.core.AssessEmission.UPDATE, function (details) {
+        this$1$1.descend(api.core.AssessEmission.UPDATE, details);
+      });
+      this.addAscent(api.core.AssessEmission.ADDED, function () {
+        this$1$1.descend(api.core.AssessEmission.ADDED);
+      });
+    };
+
+    Object.defineProperties( CardDownload, staticAccessors );
+
+    return CardDownload;
+  }(api.core.Instance));
+
+  var CardSelector = {
+    DOWNLOAD: api.internals.ns.selector('card--download'),
+    DOWNLOAD_DETAIL: ((api.internals.ns.selector('card--download')) + " " + (api.internals.ns.selector('card__end')) + " " + (api.internals.ns.selector('card__detail')))
+  };
+
+  api.card = {
+    CardSelector: CardSelector,
+    CardDownload: CardDownload
+  };
+
+  api.internals.register(api.card.CardSelector.DOWNLOAD, api.card.CardDownload);
+  api.internals.register(api.card.CardSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
+
+  var BreadcrumbSelector = {
+    BREADCRUMB: api.internals.ns.selector('breadcrumb'),
+    BUTTON: api.internals.ns.selector('breadcrumb__button')
+  };
+
   var Breadcrumb = /*@__PURE__*/(function (superclass) {
     function Breadcrumb () {
       superclass.call(this);
@@ -71,7 +156,7 @@
     Breadcrumb.prototype = Object.create( superclass && superclass.prototype );
     Breadcrumb.prototype.constructor = Breadcrumb;
 
-    var prototypeAccessors = { proxy: { configurable: true },links: { configurable: true },collapse: { configurable: true } };
+    var prototypeAccessors = { proxy: { configurable: true },links: { configurable: true },collapse: { configurable: true },collapsePrimary: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -140,15 +225,16 @@
       if (document.activeElement !== link) { this._focus(); }
     };
 
+    prototypeAccessors.collapsePrimary.get = function () {
+      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && button.hasClass(BreadcrumbSelector.BUTTON); });
+      return buttons[0];
+    };
+
     Object.defineProperties( Breadcrumb.prototype, prototypeAccessors );
     Object.defineProperties( Breadcrumb, staticAccessors );
 
     return Breadcrumb;
   }(api.core.Instance));
-
-  var BreadcrumbSelector = {
-    BREADCRUMB: api.internals.ns.selector('breadcrumb')
-  };
 
   api.breadcrumb = {
     BreadcrumbSelector: BreadcrumbSelector,
@@ -156,6 +242,214 @@
   };
 
   api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcrumb.Breadcrumb);
+
+  var TooltipSelector = {
+    TOOLTIP: api.internals.ns.selector('tooltip'),
+    SHOWN: api.internals.ns.selector('tooltip--shown'),
+    BUTTON: api.internals.ns.selector('btn--tooltip')
+  };
+
+  var TooltipReferentState = {
+    FOCUS: 1 << 0,
+    HOVER: 1 << 1
+  };
+
+  var TooltipReferent = /*@__PURE__*/(function (superclass) {
+    function TooltipReferent () {
+      superclass.call(this);
+      this._state = 0;
+    }
+
+    if ( superclass ) TooltipReferent.__proto__ = superclass;
+    TooltipReferent.prototype = Object.create( superclass && superclass.prototype );
+    TooltipReferent.prototype.constructor = TooltipReferent;
+
+    var prototypeAccessors = { state: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TooltipReferent';
+    };
+
+    TooltipReferent.prototype.init = function init () {
+      superclass.prototype.init.call(this);
+      this.listen('focusin', this.focusIn.bind(this));
+      this.listen('focusout', this.focusOut.bind(this));
+      if (!this.matches(TooltipSelector.BUTTON)) {
+        var mouseover = this.mouseover.bind(this);
+        this.listen('mouseover', mouseover);
+        this.placement.listen('mouseover', mouseover);
+        var mouseout = this.mouseout.bind(this);
+        this.listen('mouseout', mouseout);
+        this.placement.listen('mouseout', mouseout);
+      }
+      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
+      this.listen('click', this._click.bind(this));
+      this.addEmission(api.core.RootEmission.CLICK, this._clickOut.bind(this));
+    };
+
+    TooltipReferent.prototype._click = function _click () {
+      this.focus();
+    };
+
+    TooltipReferent.prototype._clickOut = function _clickOut (target) {
+      if (!this.node.contains(target)) { this.blur(); }
+    };
+
+    TooltipReferent.prototype._keydown = function _keydown (keyCode) {
+      switch (keyCode) {
+        case api.core.KeyCodes.ESCAPE:
+          this.blur();
+          this.close();
+          break;
+      }
+    };
+
+    TooltipReferent.prototype.close = function close () {
+      this.state = 0;
+    };
+
+    prototypeAccessors.state.get = function () {
+      return this._state;
+    };
+
+    prototypeAccessors.state.set = function (value) {
+      if (this._state === value) { return; }
+      this.isShown = value > 0;
+      this._state = value;
+    };
+
+    TooltipReferent.prototype.focusIn = function focusIn () {
+      this.state |= TooltipReferentState.FOCUS;
+    };
+
+    TooltipReferent.prototype.focusOut = function focusOut () {
+      this.state &= ~TooltipReferentState.FOCUS;
+    };
+
+    TooltipReferent.prototype.mouseover = function mouseover () {
+      this.state |= TooltipReferentState.HOVER;
+    };
+
+    TooltipReferent.prototype.mouseout = function mouseout () {
+      this.state &= ~TooltipReferentState.HOVER;
+    };
+
+    Object.defineProperties( TooltipReferent.prototype, prototypeAccessors );
+    Object.defineProperties( TooltipReferent, staticAccessors );
+
+    return TooltipReferent;
+  }(api.core.PlacementReferent));
+
+  var ns = function (name) { return ((config.prefix) + "-" + name); };
+
+  ns.selector = function (name, notation) {
+    if (notation === undefined) { notation = '.'; }
+    return ("" + notation + (ns(name)));
+  };
+
+  ns.attr = function (name) { return ("data-" + (ns(name))); };
+
+  ns.attr.selector = function (name, value) {
+    var result = ns.attr(name);
+    if (value !== undefined) { result += "=\"" + value + "\""; }
+    return ("[" + result + "]");
+  };
+
+  ns.event = function (type) { return ((config.namespace) + "." + type); };
+
+  ns.emission = function (domain, type) { return ("emission:" + domain + "." + type); };
+
+  var TooltipEvent = {
+    SHOW: ns.event('show'),
+    HIDE: ns.event('hide')
+  };
+
+  var TooltipState = {
+    HIDDEN: 'hidden',
+    SHOWN: 'shown',
+    HIDING: 'hiding'
+  };
+
+  var Tooltip = /*@__PURE__*/(function (superclass) {
+    function Tooltip () {
+      superclass.call(this, api.core.PlacementMode.AUTO, [api.core.PlacementPosition.TOP, api.core.PlacementPosition.BOTTOM], [api.core.PlacementAlign.CENTER, api.core.PlacementAlign.START, api.core.PlacementAlign.END]);
+      this.modifier = '';
+      this._state = TooltipState.HIDDEN;
+    }
+
+    if ( superclass ) Tooltip.__proto__ = superclass;
+    Tooltip.prototype = Object.create( superclass && superclass.prototype );
+    Tooltip.prototype.constructor = Tooltip;
+
+    var prototypeAccessors = { isShown: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'Tooltip';
+    };
+
+    Tooltip.prototype.init = function init () {
+      superclass.prototype.init.call(this);
+      this.register(("[aria-describedby=\"" + (this.id) + "\"]"), TooltipReferent);
+      this.listen('transitionend', this.transitionEnd.bind(this));
+    };
+
+    Tooltip.prototype.transitionEnd = function transitionEnd () {
+      if (this._state === TooltipState.HIDING) {
+        this._state = TooltipState.HIDDEN;
+        this.isShown = false;
+      }
+    };
+
+    prototypeAccessors.isShown.get = function () {
+      return superclass.prototype.isShown;
+    };
+
+    prototypeAccessors.isShown.set = function (value) {
+      if (!this.isEnabled) { return; }
+      switch (true) {
+        case value:
+          this._state = TooltipState.SHOWN;
+          this.addClass(TooltipSelector.SHOWN);
+          this.dispatch(TooltipEvent.SHOW);
+          superclass.prototype.isShown = true;
+          break;
+
+        case this.isShown && !value && this._state === TooltipState.SHOWN:
+          this._state = TooltipState.HIDING;
+          this.removeClass(TooltipSelector.SHOWN);
+          break;
+
+        case this.isShown && !value && this._state === TooltipState.HIDDEN:
+          this.dispatch(TooltipEvent.HIDE);
+          superclass.prototype.isShown = false;
+          break;
+      }
+    };
+
+    Tooltip.prototype.render = function render () {
+      superclass.prototype.render.call(this);
+      var x = this.referentRect.center - this.rect.center;
+      var limit = this.rect.width * 0.5 - 8;
+      if (x < -limit) { x = -limit; }
+      if (x > limit) { x = limit; }
+      this.setProperty('--arrow-x', ((x.toFixed(2)) + "px"));
+    };
+
+    Object.defineProperties( Tooltip.prototype, prototypeAccessors );
+    Object.defineProperties( Tooltip, staticAccessors );
+
+    return Tooltip;
+  }(api.core.Placement));
+
+  api.tooltip = {
+    Tooltip: Tooltip,
+    TooltipSelector: TooltipSelector,
+    TooltipEvent: TooltipEvent
+  };
+
+  api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, api.tooltip.Tooltip);
 
   var ToggleInput = /*@__PURE__*/(function (superclass) {
     function ToggleInput () {
@@ -255,9 +549,15 @@
 
   api.internals.register(api.toggle.ToggleSelector.STATUS_LABEL, api.toggle.ToggleStatusLabel);
 
+  var ITEM$1 = api.internals.ns.selector('sidemenu__item');
+  var COLLAPSE$1 = api.internals.ns.selector('collapse');
+
   var SidemenuSelector = {
     LIST: api.internals.ns.selector('sidemenu__list'),
-    COLLAPSE: ((api.internals.ns.selector('sidemenu__item')) + " > " + (api.internals.ns.selector('collapse')))
+    COLLAPSE: (ITEM$1 + " > " + COLLAPSE$1 + ", " + ITEM$1 + " > *:not(" + ITEM$1 + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1 + ", " + ITEM$1 + " > *:not(" + ITEM$1 + ", " + COLLAPSE$1 + ") > *:not(" + ITEM$1 + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1),
+    COLLAPSE_LEGACY: (ITEM$1 + " " + COLLAPSE$1),
+    ITEM: api.internals.ns.selector('sidemenu__item'),
+    BUTTON: api.internals.ns.selector('sidemenu__btn')
   };
 
   var SidemenuList = /*@__PURE__*/(function (superclass) {
@@ -276,7 +576,7 @@
     };
 
     SidemenuList.prototype.validate = function validate (member) {
-      return member.node.matches(SidemenuSelector.COLLAPSE);
+      return superclass.prototype.validate.call(this, member) && member.node.matches(api.internals.legacy.isLegacy ? SidemenuSelector.COLLAPSE_LEGACY : SidemenuSelector.COLLAPSE);
     };
 
     Object.defineProperties( SidemenuList, staticAccessors );
@@ -284,17 +584,47 @@
     return SidemenuList;
   }(api.core.CollapsesGroup));
 
+  var SidemenuItem = /*@__PURE__*/(function (superclass) {
+    function SidemenuItem () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) SidemenuItem.__proto__ = superclass;
+    SidemenuItem.prototype = Object.create( superclass && superclass.prototype );
+    SidemenuItem.prototype.constructor = SidemenuItem;
+
+    var prototypeAccessors = { collapsePrimary: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'SidemenuItem';
+    };
+
+    prototypeAccessors.collapsePrimary.get = function () {
+      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && button.hasClass(SidemenuSelector.BUTTON); });
+      return buttons[0];
+    };
+
+    Object.defineProperties( SidemenuItem.prototype, prototypeAccessors );
+    Object.defineProperties( SidemenuItem, staticAccessors );
+
+    return SidemenuItem;
+  }(api.core.Instance));
+
   api.sidemenu = {
     SidemenuList: SidemenuList,
+    SidemenuItem: SidemenuItem,
     SidemenuSelector: SidemenuSelector
   };
 
   api.internals.register(api.sidemenu.SidemenuSelector.LIST, api.sidemenu.SidemenuList);
+  api.internals.register(api.sidemenu.SidemenuSelector.ITEM, api.sidemenu.SidemenuItem);
 
   var ModalSelector = {
     MODAL: api.internals.ns.selector('modal'),
     SCROLL_DIVIDER: api.internals.ns.selector('scroll-divider'),
-    BODY: api.internals.ns.selector('modal__body')
+    BODY: api.internals.ns.selector('modal__body'),
+    TITLE: api.internals.ns.selector('modal__title')
   };
 
   var ModalButton = /*@__PURE__*/(function (superclass) {
@@ -324,6 +654,7 @@
   var Modal = /*@__PURE__*/(function (superclass) {
     function Modal () {
       superclass.call(this, api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
+      this._isActive = false;
       this.scrolling = this.resize.bind(this, false);
       this.resizing = this.resize.bind(this, true);
     }
@@ -332,7 +663,7 @@
     Modal.prototype = Object.create( superclass && superclass.prototype );
     Modal.prototype.constructor = Modal;
 
-    var prototypeAccessors = { body: { configurable: true } };
+    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -341,15 +672,50 @@
 
     Modal.prototype.init = function init () {
       superclass.prototype.init.call(this);
-      this.listen('click', this.click.bind(this));
-      this.listenKey(api.core.KeyCodes.ESCAPE, this.conceal.bind(this, false, false), true, true);
+      this._isDialog = this.node.tagName === 'DIALOG';
+      this.isScrolling = false;
+      this.listenClick();
+      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
+    };
+
+    Modal.prototype._keydown = function _keydown (keyCode) {
+      switch (keyCode) {
+        case api.core.KeyCodes.ESCAPE:
+          this._escape();
+          break;
+      }
+    };
+
+    // TODO v2 : passer les tagName d'action en constante
+    Modal.prototype._escape = function _escape () {
+      var tagName = document.activeElement ? document.activeElement.tagName : undefined;
+
+      switch (tagName) {
+        case 'INPUT':
+        case 'LABEL':
+        case 'TEXTAREA':
+        case 'SELECT':
+        case 'AUDIO':
+        case 'VIDEO':
+          break;
+
+        default:
+          if (this.isDisclosed) {
+            this.conceal();
+            this.focus();
+          }
+      }
+    };
+
+    Modal.prototype.retrieved = function retrieved () {
+      this._ensureAccessibleName();
     };
 
     prototypeAccessors.body.get = function () {
       return this.element.getDescendantInstances('ModalBody', 'Modal')[0];
     };
 
-    Modal.prototype.click = function click (e) {
+    Modal.prototype.handleClick = function handleClick (e) {
       if (e.target === this.node && this.getAttribute(ModalAttribute.CONCEALING_BACKDROP) !== 'false') { this.conceal(); }
     };
 
@@ -359,6 +725,9 @@
       this.isScrollLocked = true;
       this.setAttribute('aria-modal', 'true');
       this.setAttribute('open', 'true');
+      if (!this._isDialog) {
+        this.activateModal();
+      }
       return true;
     };
 
@@ -368,7 +737,55 @@
       this.removeAttribute('aria-modal');
       this.removeAttribute('open');
       if (this.body) { this.body.deactivate(); }
+      if (!this._isDialog) {
+        this.deactivateModal();
+      }
       return true;
+    };
+
+    prototypeAccessors.isDialog.get = function () {
+      return this._isDialog;
+    };
+
+    prototypeAccessors.isDialog.set = function (value) {
+      this._isDialog = value;
+    };
+
+    Modal.prototype.activateModal = function activateModal () {
+      if (this._isActive) { return; }
+      this._isActive = true;
+      this._hasDialogRole = this.getAttribute('role') === 'dialog';
+      if (!this._hasDialogRole) { this.setAttribute('role', 'dialog'); }
+    };
+
+    Modal.prototype.deactivateModal = function deactivateModal () {
+      if (!this._isActive) { return; }
+      this._isActive = false;
+      if (!this._hasDialogRole) { this.removeAttribute('role'); }
+    };
+
+    Modal.prototype._setAccessibleName = function _setAccessibleName (node, append) {
+      var id = this.retrieveNodeId(node, append);
+      this.warn(("add reference to " + append + " for accessible name (aria-labelledby)"));
+      this.setAttribute('aria-labelledby', id);
+    };
+
+    Modal.prototype._ensureAccessibleName = function _ensureAccessibleName () {
+      if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) { return; }
+      this.warn('missing accessible name');
+      var title = this.node.querySelector(ModalSelector.TITLE);
+      var primary = this.primaryButtons[0];
+
+      switch (true) {
+        case title !== null:
+          this._setAccessibleName(title, 'title');
+          break;
+
+        case primary !== undefined:
+          this.warn('missing required title, fallback to primary button');
+          this._setAccessibleName(primary, 'primary');
+          break;
+      }
     };
 
     Object.defineProperties( Modal.prototype, prototypeAccessors );
@@ -721,7 +1138,7 @@
     };
 
     PasswordToggle.prototype.init = function init () {
-      this.listen('click', this.toggle.bind(this));
+      this.listenClick();
       this.ascend(PasswordEmission.ADJUST, this.width);
       this.isSwappingFont = true;
       this._isChecked = this.isChecked;
@@ -741,7 +1158,7 @@
       this.ascend(PasswordEmission.TOGGLE, value);
     };
 
-    PasswordToggle.prototype.toggle = function toggle () {
+    PasswordToggle.prototype.handleClick = function handleClick () {
       this.isChecked = !this._isChecked;
     };
 
@@ -889,12 +1306,18 @@
   api.internals.register(api.password.PasswordSelector.TOOGLE, api.password.PasswordToggle);
   api.internals.register(api.password.PasswordSelector.LABEL, api.password.PasswordLabel);
 
+  var ITEM = api.internals.ns.selector('nav__item');
+  var COLLAPSE = api.internals.ns.selector('collapse');
+
   var NavigationSelector = {
     NAVIGATION: api.internals.ns.selector('nav'),
-    COLLAPSE: ((api.internals.ns.selector('nav__item')) + " > " + (api.internals.ns.selector('collapse'))),
-    ITEM: api.internals.ns.selector('nav__item'),
-    ITEM_RIGHT: api.internals.ns('nav__item--align-right'),
-    MENU: api.internals.ns.selector('menu')
+    COLLAPSE: (ITEM + " > " + COLLAPSE + ", " + ITEM + " > *:not(" + ITEM + ", " + COLLAPSE + ") > " + COLLAPSE + ", " + ITEM + " > *:not(" + ITEM + ", " + COLLAPSE + ") > *:not(" + ITEM + ", " + COLLAPSE + ") > " + COLLAPSE),
+    COLLAPSE_LEGACY: (ITEM + " " + COLLAPSE),
+    ITEM: ITEM,
+    ITEM_RIGHT: (ITEM + "--align-right"),
+    MENU: api.internals.ns.selector('menu'),
+    BUTTON: api.internals.ns.selector('nav__btn'),
+    TRANSLATE_BUTTON: api.internals.ns.selector('translate__btn')
   };
 
   var NavigationItem = /*@__PURE__*/(function (superclass) {
@@ -907,7 +1330,7 @@
     NavigationItem.prototype = Object.create( superclass && superclass.prototype );
     NavigationItem.prototype.constructor = NavigationItem;
 
-    var prototypeAccessors = { isRightAligned: { configurable: true } };
+    var prototypeAccessors = { isRightAligned: { configurable: true },collapsePrimary: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -946,6 +1369,11 @@
       else { api.internals.dom.removeClass(this.element.node, NavigationSelector.ITEM_RIGHT); }
     };
 
+    prototypeAccessors.collapsePrimary.get = function () {
+      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && (button.hasClass(NavigationSelector.BUTTON) || button.hasClass(NavigationSelector.TRANSLATE_BUTTON)); });
+      return buttons[0];
+    };
+
     Object.defineProperties( NavigationItem.prototype, prototypeAccessors );
     Object.defineProperties( NavigationItem, staticAccessors );
 
@@ -980,11 +1408,11 @@
       this.out = false;
       this.listen('focusout', this.focusOutHandler.bind(this));
       this.listen('mousedown', this.mouseDownHandler.bind(this));
-      this.listen('click', this.clickHandler.bind(this), { capture: true });
+      this.listenClick({ capture: true });
     };
 
     Navigation.prototype.validate = function validate (member) {
-      return member.element.node.matches(NavigationSelector.COLLAPSE);
+      return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
     Navigation.prototype.mouseDownHandler = function mouseDownHandler (e) {
@@ -1037,7 +1465,7 @@
     prototypeAccessors.index.get = function () { return superclass.prototype.index; };
 
     prototypeAccessors.index.set = function (value) {
-      if (value === -1 && this.current !== null && this.current.hasFocus) { this.current.focus(); }
+      if (value === -1 && this.current && this.current.hasFocus) { this.current.focus(); }
       superclass.prototype.index = value;
     };
 
@@ -1076,6 +1504,11 @@
 
     staticAccessors.instanceClassName.get = function () {
       return 'TabButton';
+    };
+
+    TabButton.prototype.handleClick = function handleClick (e) {
+      superclass.prototype.handleClick.call(this, e);
+      this.focus();
     };
 
     TabButton.prototype.apply = function apply (value) {
@@ -1191,7 +1624,14 @@
     };
 
     TabPanel.prototype.reset = function reset () {
-      this.group.index = 0;
+      if (this.group) { this.group.retrieve(true); }
+    };
+
+    TabPanel.prototype._electPrimaries = function _electPrimaries (candidates) {
+      var this$1$1 = this;
+
+      if (!this.group || !this.group.list) { return []; }
+      return superclass.prototype._electPrimaries.call(this, candidates).filter(function (candidate) { return this$1$1.group.list.node.contains(candidate.node); });
     };
 
     Object.defineProperties( TabPanel.prototype, prototypeAccessors );
@@ -1199,6 +1639,18 @@
 
     return TabPanel;
   }(api.core.Disclosure));
+
+  var TabKeys = {
+    LEFT: 'tab_keys_left',
+    RIGHT: 'tab_keys_right',
+    HOME: 'tab_keys_home',
+    END: 'tab_keys_end'
+  };
+
+  var TabEmission = {
+    PRESS_KEY: api.internals.ns.emission('tab', 'press_key'),
+    LIST_HEIGHT: api.internals.ns.emission('tab', 'list_height')
+  };
 
   /**
   * TabGroup est la classe étendue de DiscosuresGroup
@@ -1222,18 +1674,25 @@
 
     TabsGroup.prototype.init = function init () {
       superclass.prototype.init.call(this);
-      this.listen('transitionend', this.transitionend.bind(this));
-      this.listenKey(api.core.KeyCodes.RIGHT, this.pressRight.bind(this), true, true);
-      this.listenKey(api.core.KeyCodes.LEFT, this.pressLeft.bind(this), true, true);
-      this.listenKey(api.core.KeyCodes.HOME, this.pressHome.bind(this), true, true);
-      this.listenKey(api.core.KeyCodes.END, this.pressEnd.bind(this), true, true);
-      this.isRendering = true;
 
-      if (this.list) { this.list.apply(); }
+      this.listen('transitionend', this.transitionend.bind(this));
+      this.addAscent(TabEmission.PRESS_KEY, this.pressKey.bind(this));
+      this.addAscent(TabEmission.LIST_HEIGHT, this.setListHeight.bind(this));
+      this.isRendering = true;
+    };
+
+    TabsGroup.prototype.getIndex = function getIndex (defaultIndex) {
+      if ( defaultIndex === void 0 ) defaultIndex = 0;
+
+      superclass.prototype.getIndex.call(this, defaultIndex);
     };
 
     prototypeAccessors.list.get = function () {
       return this.element.getDescendantInstances('TabsList', 'TabsGroup', true)[0];
+    };
+
+    TabsGroup.prototype.setListHeight = function setListHeight (value) {
+      this.listHeight = value;
     };
 
     TabsGroup.prototype.transitionend = function transitionend (e) {
@@ -1242,6 +1701,26 @@
 
     prototypeAccessors.buttonHasFocus.get = function () {
       return this.members.some(function (member) { return member.buttonHasFocus; });
+    };
+
+    TabsGroup.prototype.pressKey = function pressKey (key) {
+      switch (key) {
+        case TabKeys.LEFT:
+          this.pressLeft();
+          break;
+
+        case TabKeys.RIGHT:
+          this.pressRight();
+          break;
+
+        case TabKeys.HOME:
+          this.pressHome();
+          break;
+
+        case TabKeys.END:
+          this.pressEnd();
+          break;
+      }
     };
 
     /**
@@ -1300,7 +1779,7 @@
 
     TabsGroup.prototype.apply = function apply () {
       for (var i = 0; i < this._index; i++) { this.members[i].translate(TabPanelDirection.START); }
-      this.current.translate(TabPanelDirection.NONE);
+      if (this.current) { this.current.translate(TabPanelDirection.NONE); }
       for (var i$1 = this._index + 1; i$1 < this.length; i$1++) { this.members[i$1].translate(TabPanelDirection.END); }
       this.isPreventingTransition = false;
     };
@@ -1318,12 +1797,12 @@
 
     TabsGroup.prototype.render = function render () {
       if (this.current === null) { return; }
+      this.node.scrollTop = 0;
+      this.node.scrollLeft = 0;
       var paneHeight = Math.round(this.current.node.offsetHeight);
       if (this.panelHeight === paneHeight) { return; }
       this.panelHeight = paneHeight;
-      var listHeight = 0;
-      if (this.list) { listHeight = this.list.node.offsetHeight; }
-      this.style.setProperty('--tabs-height', (this.panelHeight + listHeight) + 'px');
+      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
     };
 
     Object.defineProperties( TabsGroup.prototype, prototypeAccessors );
@@ -1344,7 +1823,7 @@
     TabsList.prototype = Object.create( superclass && superclass.prototype );
     TabsList.prototype.constructor = TabsList;
 
-    var prototypeAccessors = { group: { configurable: true },isScrolling: { configurable: true } };
+    var prototypeAccessors = { isScrolling: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -1353,11 +1832,11 @@
 
     TabsList.prototype.init = function init () {
       this.listen('scroll', this.scroll.bind(this));
+      this.listenKey(api.core.KeyCodes.RIGHT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.RIGHT), true, true);
+      this.listenKey(api.core.KeyCodes.LEFT, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.LEFT), true, true);
+      this.listenKey(api.core.KeyCodes.HOME, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.HOME), true, true);
+      this.listenKey(api.core.KeyCodes.END, this.ascend.bind(this, TabEmission.PRESS_KEY, TabKeys.END), true, true);
       this.isResizing = true;
-    };
-
-    prototypeAccessors.group.get = function () {
-      return this.element.getAscendantInstance('TabsGroup', 'TabsList');
     };
 
     TabsList.prototype.focalize = function focalize (btn) {
@@ -1379,20 +1858,18 @@
     };
 
     TabsList.prototype.apply = function apply () {
-      if (!this.group) { return; }
       if (this._isScrolling) {
-        this.group.addClass(TabSelector.SHADOW);
+        this.addClass(TabSelector.SHADOW);
         this.scroll();
       } else {
-        this.group.removeClass(TabSelector.SHADOW_RIGHT);
-        this.group.removeClass(TabSelector.SHADOW_LEFT);
-        this.group.removeClass(TabSelector.SHADOW);
+        this.removeClass(TabSelector.SHADOW_RIGHT);
+        this.removeClass(TabSelector.SHADOW_LEFT);
+        this.removeClass(TabSelector.SHADOW);
       }
     };
 
     /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
     TabsList.prototype.scroll = function scroll () {
-      if (!this.group) { return; }
       var scrollLeft = this.node.scrollLeft;
       var isMin = scrollLeft <= SCROLL_OFFSET$1;
       var max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
@@ -1403,21 +1880,23 @@
       var maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
       if (isMin) {
-        this.group.removeClass(minSelector);
+        this.removeClass(minSelector);
       } else {
-        this.group.addClass(minSelector);
+        this.addClass(minSelector);
       }
 
       if (isMax) {
-        this.group.removeClass(maxSelector);
+        this.removeClass(maxSelector);
       } else {
-        this.group.addClass(maxSelector);
+        this.addClass(maxSelector);
       }
     };
 
     TabsList.prototype.resize = function resize () {
       this.isScrolling = this.node.scrollWidth > this.node.clientWidth + SCROLL_OFFSET$1;
-      this.setProperty('--tab-list-height', ((this.getRect().height) + "px"));
+      var height = this.getRect().height;
+      this.setProperty('--tabs-list-height', (height + "px"));
+      this.ascend(TabEmission.LIST_HEIGHT, height);
     };
 
     TabsList.prototype.dispose = function dispose () {
@@ -1435,7 +1914,8 @@
     TabButton: TabButton,
     TabsGroup: TabsGroup,
     TabsList: TabsList,
-    TabSelector: TabSelector
+    TabSelector: TabSelector,
+    TabEmission: TabEmission
   };
 
   api.internals.register(api.tab.TabSelector.PANEL, api.tab.TabPanel);
@@ -1628,10 +2108,10 @@
     };
 
     TagDismissible.prototype.init = function init () {
-      this.listen('click', this.click.bind(this));
+      this.listenClick();
     };
 
-    TagDismissible.prototype.click = function click () {
+    TagDismissible.prototype.handleClick = function handleClick () {
       this.focusClosest();
 
       switch (api.mode) {
@@ -1649,7 +2129,7 @@
     };
 
     TagDismissible.prototype.verify = function verify () {
-      if (document.body.contains(this.node)) { api.inspector.warn(("a TagDismissible has just been dismissed and should be removed from the dom. In " + (api.mode) + " mode, the api doesn't handle dom modification. An event " + (TagEvent.DISMISS) + " is dispatched by the element to trigger the removal")); }
+      if (document.body.contains(this.node)) { this.warn(("a TagDismissible has just been dismissed and should be removed from the dom. In " + (api.mode) + " mode, the api doesn't handle dom modification. An event " + (TagEvent.DISMISS) + " is dispatched by the element to trigger the removal")); }
     };
 
     Object.defineProperties( TagDismissible, staticAccessors );
@@ -1671,129 +2151,90 @@
   api.internals.register(api.tag.TagSelector.PRESSABLE, api.core.Toggle);
   api.internals.register(api.tag.TagSelector.DISMISSIBLE, api.tag.TagDismissible);
 
-  var DownloadSelector = {
-    DOWNLOAD_ASSESS_FILE: ("" + (api.internals.ns.attr.selector('assess-file'))),
-    DOWNLOAD_DETAIL: ("" + (api.internals.ns.selector('download__detail')))
+  var TRANSCRIPTION = api.internals.ns.selector('transcription');
+
+  var TranscriptionSelector = {
+    TRANSCRIPTION: TRANSCRIPTION,
+    BUTTON: (TRANSCRIPTION + "__btn")
   };
 
-  var AssessFile = /*@__PURE__*/(function (superclass) {
-    function AssessFile () {
+  var Transcription = /*@__PURE__*/(function (superclass) {
+    function Transcription () {
       superclass.apply(this, arguments);
     }
 
-    if ( superclass ) AssessFile.__proto__ = superclass;
-    AssessFile.prototype = Object.create( superclass && superclass.prototype );
-    AssessFile.prototype.constructor = AssessFile;
+    if ( superclass ) Transcription.__proto__ = superclass;
+    Transcription.prototype = Object.create( superclass && superclass.prototype );
+    Transcription.prototype.constructor = Transcription;
+
+    var prototypeAccessors = { collapsePrimary: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'Transcription';
+    };
+
+    prototypeAccessors.collapsePrimary.get = function () {
+      var buttons = this.element.children.map(function (child) { return child.getInstance('CollapseButton'); }).filter(function (button) { return button !== null && button.hasClass(TranscriptionSelector.BUTTON); });
+      return buttons[0];
+    };
+
+    Object.defineProperties( Transcription.prototype, prototypeAccessors );
+    Object.defineProperties( Transcription, staticAccessors );
+
+    return Transcription;
+  }(api.core.Instance));
+
+  api.transcription = {
+    Transcription: Transcription,
+    TranscriptionSelector: TranscriptionSelector
+  };
+
+  api.internals.register(api.transcription.TranscriptionSelector.TRANSCRIPTION, api.transcription.Transcription);
+
+  var TileDownload = /*@__PURE__*/(function (superclass) {
+    function TileDownload () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TileDownload.__proto__ = superclass;
+    TileDownload.prototype = Object.create( superclass && superclass.prototype );
+    TileDownload.prototype.constructor = TileDownload;
 
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
-      return 'AssessFile';
+      return 'TileDownload';
     };
 
-    AssessFile.prototype.init = function init () {
-      this.lang = this.getLang(this.node);
-      this.href = this.getAttribute('href');
-
-      this.hreflang = this.getAttribute('hreflang');
-      this.file = {};
-      this.detail = this.querySelector(DownloadSelector.DOWNLOAD_DETAIL);
-      this.update();
-    };
-
-    AssessFile.prototype.getFileLength = function getFileLength () {
+    TileDownload.prototype.init = function init () {
       var this$1$1 = this;
 
-      if (this.href === undefined) {
-        this.length = -1;
-        return;
-      }
-
-      fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(function (response) {
-        this$1$1.length = response.headers.get('content-length') || -1;
-        if (this$1$1.length === -1) {
-          api.inspector.warn('File size unknown: ' + this$1$1.href + '\nUnable to get HTTP header: "content-length"');
-        }
-        this$1$1.update();
+      this.addAscent(api.core.AssessEmission.UPDATE, function (details) {
+        this$1$1.descend(api.core.AssessEmission.UPDATE, details);
+      });
+      this.addAscent(api.core.AssessEmission.ADDED, function () {
+        this$1$1.descend(api.core.AssessEmission.ADDED);
       });
     };
 
-    AssessFile.prototype.update = function update () {
-      // TODO V2: implémenter async
-      if (this.isLegacy) { this.length = -1; }
+    Object.defineProperties( TileDownload, staticAccessors );
 
-      if (!this.length) {
-        this.getFileLength();
-        return;
-      }
-
-      var details = [];
-      if (this.detail) {
-        if (this.href) {
-          var extension = this.parseExtension(this.href);
-          if (extension) { details.push(extension.toUpperCase()); }
-        }
-
-        if (this.length !== -1) {
-          details.push(this.bytesToSize(this.length));
-        }
-
-        if (this.hreflang) {
-          details.push(this.getLangDisplayName(this.hreflang));
-        }
-
-        this.detail.innerHTML = details.join(' - ');
-      }
-    };
-
-    AssessFile.prototype.getLang = function getLang (elem) {
-      if (elem.lang) { return elem.lang; }
-      if (document.documentElement === elem) { return window.navigator.language; }
-      return this.getLang(elem.parentElement);
-    };
-
-    AssessFile.prototype.parseExtension = function parseExtension (url) {
-      var regexExtension = /\.(\w{1,9})(?:$|[?#])/;
-      return url.match(regexExtension)[0].replace('.', '');
-    };
-
-    AssessFile.prototype.getLangDisplayName = function getLangDisplayName (locale) {
-      if (this.isLegacy) { return locale; }
-      var displayNames = new Intl.DisplayNames([this.lang], { type: 'language' });
-      var name = displayNames.of(locale);
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    };
-
-    AssessFile.prototype.bytesToSize = function bytesToSize (bytes) {
-      if (bytes === -1) { return null; }
-
-      var sizeUnits = ['octets', 'ko', 'Mo', 'Go', 'To'];
-      if (this.getAttribute(api.internals.ns.attr('assess-file')) === 'bytes') {
-        sizeUnits = ['bytes', 'KB', 'MB', 'GB', 'TB'];
-      }
-
-      var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1000)), 10);
-      if (i === 0) { return (bytes + " " + (sizeUnits[i])); }
-
-      var size = bytes / (Math.pow( 1000, i ));
-      var roundedSize = Math.round((size + Number.EPSILON) * 100) / 100; // arrondi a 2 décimal
-      var stringSize = String(roundedSize).replace('.', ',');
-
-      return (stringSize + " " + (sizeUnits[i]));
-    };
-
-    Object.defineProperties( AssessFile, staticAccessors );
-
-    return AssessFile;
+    return TileDownload;
   }(api.core.Instance));
 
-  api.download = {
-    DownloadSelector: DownloadSelector,
-    AssessFile: AssessFile
-
+  var TileSelector = {
+    DOWNLOAD: api.internals.ns.selector('tile--download'),
+    DOWNLOAD_DETAIL: ((api.internals.ns.selector('tile--download')) + " " + (api.internals.ns.selector('tile__detail')))
   };
 
-  api.internals.register(api.download.DownloadSelector.DOWNLOAD_ASSESS_FILE, api.download.AssessFile);
+  api.tile = {
+    TileSelector: TileSelector,
+    TileDownload: TileDownload
+  };
+
+  api.internals.register(api.tile.TileSelector.DOWNLOAD, api.tile.TileDownload);
+  api.internals.register(api.tile.TileSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
 
   var HeaderSelector = {
     HEADER: api.internals.ns.selector('header'),
@@ -1827,7 +2268,7 @@
       var toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
       var menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
       // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-      var toolsHtmlDuplicateId = toolsHtml.replace(/(<nav[.\s\S]*-translate [.\s\S]*) id="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 id="$2' + copySuffix + '"$3');
+      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
       toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
@@ -1836,7 +2277,7 @@
         case api.Modes.ANGULAR:
         case api.Modes.REACT:
         case api.Modes.VUE:
-          api.inspector.warn(("header__tools-links content is different from header__menu-links content.\nAs you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:\n" + (api.header.doc)));
+          this.warn(("header__tools-links content is different from header__menu-links content.\nAs you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:\n" + (api.header.doc)));
           break;
 
         default:
@@ -1870,31 +2311,22 @@
     };
 
     HeaderModal.prototype.resize = function resize () {
-      if (this.isBreakpoint(api.core.Breakpoints.LG)) { this.unqualify(); }
-      else { this.qualify(); }
+      if (this.isBreakpoint(api.core.Breakpoints.LG)) { this.deactivateModal(); }
+      else { this.activateModal(); }
     };
 
-    HeaderModal.prototype.qualify = function qualify () {
-      this.setAttribute('role', 'dialog');
+    HeaderModal.prototype.activateModal = function activateModal () {
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
-      var buttons = modal.buttons;
-      var id = '';
-      for (var i = 0, list = buttons; i < list.length; i += 1) {
-        var button = list[i];
-
-        id = button.id || id;
-        if (button.isPrimary && id) { break; }
-      }
-      this.setAttribute('aria-labelledby', id);
+      modal.isEnabled = true;
       this.listen('click', this._clickHandling, { capture: true });
     };
 
-    HeaderModal.prototype.unqualify = function unqualify () {
+    HeaderModal.prototype.deactivateModal = function deactivateModal () {
       var modal = this.element.getInstance('Modal');
-      if (modal) { modal.conceal(); }
-      this.removeAttribute('role');
-      this.removeAttribute('aria-labelledby');
+      if (!modal) { return; }
+      modal.conceal();
+      modal.isEnabled = false;
       this.unlisten('click', this._clickHandling, { capture: true });
     };
 
