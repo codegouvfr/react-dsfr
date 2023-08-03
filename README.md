@@ -26,8 +26,6 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">Playground</a>
 </p>
 
-> 📣 `@codegouvfr/react-dsfr` is still using `@gouvfr/dsfr@1.9.3` but worry not, we'll update to `1.10` in the next few days.
-
 👉 Version française du README [ici](https://github.com/codegouvfr/react-dsfr/blob/main/README.fr.md).
 
 > WARNING: This Design System is only meant to be used for official French's public service websites.  
