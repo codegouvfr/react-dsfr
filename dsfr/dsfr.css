@@ -26496,7 +26496,7 @@ a.fr-password__btn:not([href]) {
   }
 
   .fr-radio-group--sm input[type=radio]:checked:disabled + label {
-    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#E5E5E5 3px, transparent 4px);
   }
 
   .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
