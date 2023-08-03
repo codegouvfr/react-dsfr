@@ -44,16 +44,9 @@ import { patchCssForMui } from "./patchCssForMui";
                 (() => {
                     let dsfrCssRaw = fs.readFileSync(cssFilePath).toString("utf8");
 
-                    dsfrCssRaw = dsfrCssRaw.replace(
-                        /(\$color#2)/,
-                        "var(--background-disabled-grey)"
-                    );
-
-                    // replace the first occurence of $color#2 by #E5E5E5
-                    dsfrCssRaw = dsfrCssRaw.replace(
-                        /(\$color#2)/,
-                        "var(--background-disabled-grey)"
-                    );
+                    for (const value of ["var(--background-disabled-grey)", "#E5E5E5"]) {
+                        dsfrCssRaw = dsfrCssRaw.replace(/(\$color#2)/, value);
+                    }
 
                     return dsfrCssRaw;
                 })(),
