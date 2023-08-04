@@ -83,6 +83,7 @@ export const Upload = memo(
                     multiple={multiple}
                     name={inputId}
                     type="file"
+                    {...nativeInputProps}
                 />
                 {state !== "default" && (
                     <p
