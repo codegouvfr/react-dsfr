@@ -89,6 +89,14 @@ export function setLink(params: { Link: typeof Link }): void {
 
                 return <a href={target} target="_blank" {...rest} />;
             }
+
+            anchor: {
+                if (target === undefined || !target.startsWith("#")) {
+                    break anchor;
+                }
+
+                return <a href={target} {...rest} />;
+            }
         }
 
         return <params.Link {...props} />;
