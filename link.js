@@ -52,6 +52,12 @@ export function setLink(params) {
                 }
                 return React.createElement("a", Object.assign({ href: target, target: "_blank" }, rest));
             }
+            anchor: {
+                if (target === undefined || !target.startsWith("#")) {
+                    break anchor;
+                }
+                return React.createElement("a", Object.assign({ href: target }, rest));
+            }
         }
         return React.createElement(params.Link, Object.assign({}, props));
     };
