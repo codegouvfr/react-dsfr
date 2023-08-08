@@ -174,9 +174,7 @@ export default Select;
 const { useTranslation, addSelectTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Select }),
     "frMessages": {
-        /* spell-checker: disable */
-        "select an option": "Selectioner une option"
-        /* spell-checker: enable */
+        "select an option": "Sélectionner une option"
     }
 });
 
