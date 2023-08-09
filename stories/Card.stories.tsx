@@ -18,6 +18,15 @@ const { meta, getStory } = getStoryFactory({
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Card.tsx)`,
     "argTypes": {
         "title": { "description": `Required.` },
+        titleAs: {
+            "description": `Heading level`,
+            "options": (() => {
+                const headings = ["h2", "h3", "h4", "h5", "h6"] as const;
+                assert<Equals<typeof headings[number] | undefined, CardProps["titleAs"]>>();
+                return headings;
+            })(),
+            "control": { "type": "radio" }
+        },
         "desc": { "description": `` },
         linkProps: {
             "description": `Required only if enlargeLink is true. The Card Link props.`
@@ -30,9 +39,7 @@ const { meta, getStory } = getStoryFactory({
             "description": "Card title text sizing",
             "options": (() => {
                 const sizes = ["small", "medium", "large"] as const;
-
                 assert<Equals<typeof sizes[number] | undefined, CardProps["size"]>>();
-
                 return sizes;
             })(),
             "control": { "type": "radio" }
@@ -49,6 +56,7 @@ export default meta;
 const defaultProps = {
     "enlargeLink": true as const,
     "title": "Intitulé de la carte (sur lequel se trouve le lien)",
+    "titleAs": "h3" as const,
     "linkProps": {
         "href": "#"
     },
