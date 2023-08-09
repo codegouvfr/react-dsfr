@@ -55,7 +55,7 @@ export const Input = memo(forwardRef((props, ref) => {
                             return undefined;
                     }
                     assert(false);
-                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
+                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const iconId = iconId_props !== null && iconId_props !== void 0 ? iconId_props : ((nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) === "date" ? "ri-calendar-line" : undefined);
             return iconId === undefined ? (nativeInputOrTextArea) : (React.createElement("div", { className: fr.cx("fr-input-wrap", iconId) }, nativeInputOrTextArea));
         })(),
