@@ -5,6 +5,7 @@ export type CardProps = {
     id?: string;
     className?: string;
     title: ReactNode;
+    titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
     desc?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;

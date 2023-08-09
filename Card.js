@@ -18,7 +18,7 @@ import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
 export const Card = memo(forwardRef((props, ref) => {
-    const { id: props_id, className, title, linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
+    const { id: props_id, className, title, titleAs: HtmlTitleTag = "h3", linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-card",
@@ -37,7 +37,7 @@ export const Card = memo(forwardRef((props, ref) => {
         })(), !background && "fr-card--no-background", !border && "fr-card--no-border", shadow && "fr-card--shadow", grey && "fr-card--grey", iconId !== undefined && iconId), classes.root, className), style: style, ref: ref }, rest),
         React.createElement("div", { className: cx(fr.cx("fr-card__body"), classes.body) },
             React.createElement("div", { className: cx(fr.cx("fr-card__content"), classes.content) },
-                React.createElement("h3", { className: cx(fr.cx("fr-card__title"), classes.title) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { className: cx(linkProps.className, classes.link) }), title)) : (title)),
+                React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-card__title"), classes.title) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { className: cx(linkProps.className, classes.link) }), title)) : (title)),
                 desc !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-card__desc"), classes.desc) }, desc)),
                 React.createElement("div", { className: cx(fr.cx("fr-card__start"), classes.start) },
                     start,
