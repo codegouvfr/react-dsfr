@@ -332,6 +332,7 @@ export const Footer = memo(
                                             )}
                                             target="_blank"
                                             href={`https://${domain}`}
+                                            title={`${domain} - ouvre une nouvelle fenêtre`}
                                         >
                                             {domain}
                                         </a>
@@ -502,7 +503,11 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "license mention": (p: { licenseUrl: string }) => (
             <>
                 Sauf mention contraire, tous les contenus de ce site sont sous{" "}
-                <a href={p.licenseUrl} target="_blank">
+                <a
+                    href={p.licenseUrl}
+                    target="_blank"
+                    title="licence etalab-2.0 - ouvre une nouvelle fenêtre"
+                >
                     licence etalab-2.0
                 </a>
             </>
@@ -524,7 +529,11 @@ addFooterTranslations({
         "license mention": p => (
             <>
                 Unless stated otherwise, all content of this website is under the{" "}
-                <a href={p.licenseUrl} target="_blank">
+                <a
+                    href={p.licenseUrl}
+                    target="_blank"
+                    title="etalab-2.0 license - open a new window"
+                >
                     etalab-2.0 license
                 </a>
             </>
