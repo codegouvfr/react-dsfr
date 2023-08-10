@@ -332,7 +332,7 @@ export const Footer = memo(
                                             )}
                                             target="_blank"
                                             href={`https://${domain}`}
-                                            title={`${domain} - ouvre une nouvelle fenêtre`}
+                                            title={`${domain} - ${t("open new window")}`}
                                         >
                                             {domain}
                                         </a>
