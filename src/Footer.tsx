@@ -512,7 +512,8 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
                 </a>
             </>
         ),
-        "our partners": "Nos partenaires"
+        "our partners": "Nos partenaires",
+        "open new window": "ouvre une nouvelle fenêtre"
         /* spell-checker: enable */
     }
 });
@@ -537,7 +538,8 @@ addFooterTranslations({
                     etalab-2.0 license
                 </a>
             </>
-        )
+        ),
+        "open new window": "open new window"
     }
 });
 
