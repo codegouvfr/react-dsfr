@@ -81,7 +81,7 @@ In Next.js setup, on initial page load you may experience a few frames where MUI
 
 <figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption><p>After idratation it switches to dark mode</p></figcaption></figure>
 
-You can eradicate theses few frames on subsequent page load by telling Next.js to perform SSR in the correct color scheme for the user:
+You can eradicate these few frames on subsequent page load by telling Next.js to perform SSR in the correct color scheme for the user:
 
 <pre class="language-tsx" data-title="_app.tsx"><code class="lang-tsx">const { withDsfr, dsfrDocumentApi } = createNextDsfrIntegrationApi({
   defaultColorScheme: 'system',
