@@ -4,7 +4,7 @@ description: Compatibility with solutions like styled-components, emotion and TS
 
 # 💅 CSS in JS
 
-At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular, its colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.24.0/src/fr/generatedFromCss/getColorOptions.ts) and [decisions](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts), the [spacing stystem](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) and the [breakpoints values](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts).
+At build time `react-dsfr` parses the official [dsfr.css](https://unpkg.com/browse/@gouvfr/dsfr/dist/dsfr/dsfr.css) files and spits out a typed JavaScript representation of the DSFR. In particular, its colors [options](https://unpkg.com/browse/@codegouvfr/react-dsfr@0.24.0/src/fr/generatedFromCss/getColorOptions.ts) and [decisions](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/getColorDecisions.ts), the [spacing system](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/spacing.ts) and the [breakpoints values](https://unpkg.com/browse/@codegouvfr/react-dsfr/src/fr/generatedFromCss/breakpoints.ts).
 
 This enables to write DSFR compliant CSS in JS code, since we are able to expose function that are the equivalent of the DSFR utility classes.
 
@@ -62,7 +62,7 @@ Dynamic CSS-in-TS syle engine
 {% endembed %}
 
 ```bash
-# Deppendencies to install even if never user directly:  
+# Dependencies to install even if never used directly:
 yarn add tss-react @emotion/react
 ```
 
@@ -156,7 +156,7 @@ Advantages of tss-react over other CSS in JS solutions
 {% embed url="https://styled-components.com/" %}
 
 {% hint style="info" %}
-[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API wise so I give the example with Emotion since it has a better MUI integration.
+[styled-component](https://styled-components.com/) and [@emotion/styled](https://emotion.sh/docs/styled) are equivalent API-wise so I give the example with Emotion since it has a better MUI integration.
 {% endhint %}
 
 {% code title="index.tsx" %}
@@ -328,7 +328,7 @@ This is made possible by [options.ts](https://unpkg.com/browse/@codegouvfr/react
 {% endhint %}
 
 {% hint style="success" %}
-The is [a tool](https://components.react-dsfr.codegouv.studio/?path=/docs/%25F0%259F%258E%25A8-color-resolver--page) at your disposal to help you pick your colors.
+There is [a tool](https://components.react-dsfr.codegouv.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page) at your disposal to help you pick your colors.
 {% endhint %}
 
 The React agnostic way:
@@ -423,8 +423,8 @@ function MyComponent(){
     const { isDark, setIsDark } = useIsDark();
     
     //isDark is a boolean that is true if the App is currently in dark mode.
-    
-    //Calling setIsDark(true) will swith the app in dark mode. 
+
+    //Calling setIsDark(true) will switch the app in dark mode.
     //calling setIsDark("system") will set to whatever mode is signaled as prefered
     //by the user browser
 
@@ -470,7 +470,7 @@ Be carefull though, favor using `fr.breakpoints` over client size mesurement and
 
 On the backend you can't know ahead of time the size of the screen of your users so this kind of approach will result in a flickering in SSR setups.
 
-For example, your backend has no clue the size of the device making the request so it renders for a 1080p screen but the device making the request was, in fact, an iPhone and the first print is fully broken, the app becomes usable only after hydratation.
+For example, your backend has no clue the size of the device making the request so it renders for a 1080p screen but the device making the request was, in fact, an iPhone and the first print is fully broken, the app becomes usable only after hydration.
 
 Long story short, use this only if you are building an SPA.
 {% endhint %}

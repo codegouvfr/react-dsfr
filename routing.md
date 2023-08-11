@@ -4,9 +4,9 @@ description: Like react-router or Next.js file system based route.
 
 # 🔀 Integration with routing libs
 
-Depending of the framework or routing library you are using, links between pages are not handled the same way.
+Depending on the framework or routing library you are using, links between pages are not handled the same way.
 
-Usually, you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` knows about it so that whenever a link is needed in a DSFR component, you can provide the correct props for you `<Link />` component.
+Usually, you'll have a `<Link />` component provided by your routing library of choice. You need to let `react-dsfr` know about it so that whenever a link is needed in a DSFR component, you can provide the correct props for your `<Link />` component.
 
 When registering your Link component, its props type will propagate to the react-dsfr API.
 
@@ -155,7 +155,7 @@ linkProps={{
 }}
 ```
 
-When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` Instead of the `<Link />` component. &#x20;
+When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` instead of the `<Link />` component. &#x20;
 
 #### Mailto links
 
@@ -234,7 +234,7 @@ linkProps={{
 }}
 ```
 
-When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` Instead of the `<Link />` component. &#x20;
+When react-dsfr detects that the `href` points to an external website it will use a regular `<a/>` instead of the `<Link />` component. &#x20;
 
 #### Mailto links
 
@@ -260,7 +260,7 @@ React-dsfr will automatically convert the underlying HTML element into a `<butto
 {% endtab %}
 
 {% tab title="type-route" %}
-[type-route](https://type-route.zilch.dev/) unlike most routing library doesn't export a `<Link />` component `<a />` are used directly.
+[type-route](https://type-route.zilch.dev/) unlike most routing library doesn't export a `<Link />` component, `<a />` are used directly.
 
 In consequence there isn't anything to setup.
 

@@ -60,7 +60,7 @@ Also you must configure it so it uses `node_modules` (sorry)
 Demo setup in production here: [https://vite-demo.react-dsfr.fr/](https://vite-demo.react-dsfr.fr/)
 {% endembed %}
 
-Add theses three scipts to your `package.json`:
+Add these three scripts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
 <strong>    "postinstall": "copy-dsfr-to-public",
@@ -102,7 +102,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 );
 </code></pre>
 
-You're all set! Next step for you is to setup de integration with your routing library (react-router for example)
+You're all set! Next step for you is to setup the integration with your routing library (react-router for example).
 
 {% content-ref url="routing.md" %}
 [routing.md](routing.md)
@@ -120,7 +120,7 @@ You are in this case if you have a `app/` directory at the root of your project.
 Starter project in prod here: [https://next-demo.react-dsfr.fr/](https://next-demo.react-dsfr.fr/)
 {% endembed %}
 
-Despite the setup process not being as streamlined as one might hope due to certain Next specific limitations, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), thoses that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
+Despite the setup process not being as streamlined as one might hope due to certain Next specific limitations, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), those that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
 ```bash
 yarn add --dev sass
@@ -327,7 +327,7 @@ The create-react-app project is no longer being maintained. If you are starting 
 See demo setup in production here: [https://cra-demo.react-dsfr.fr/](https://cra-demo.react-dsfr.fr/)
 {% endembed %}
 
-Add theses three scipts to your `package.json`:
+Add these three scripts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
     ...
@@ -387,13 +387,13 @@ You're all set! Next step for you is to setup de integration with your routing l
 {% endtab %}
 
 {% tab title="Other" %}
-Your framwork isn't supported? let's [get in touch](https://github.com/codegouvfr/dsfr-react)!
+Your framework isn't supported? Let's [get in touch](https://github.com/codegouvfr/dsfr-react)!
 {% endtab %}
 {% endtabs %}
 
 ### Avoiding or flash of unstyled text (FOUT)
 
-You can avoid having a flash of unstiled text by preloading the font variant used on your homepage.(look in the network tab of your browser dev tool what are the font downloaded initially).
+You can avoid having a flash of unstyled text by preloading the font variant used on your homepage (look in the network tab of your browser dev tools what are the font downloaded initially).
 
 {% tabs %}
 {% tab title="Create React App" %}
