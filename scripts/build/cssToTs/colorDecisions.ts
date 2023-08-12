@@ -253,9 +253,9 @@ export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
     });
 
     return [
-        `export function getColorDecisions(`,
+        `export function getColorDecisions<Format extends "css var" | "hex">(`,
         `    params: {`,
-        `        colorOptions: ColorOptions;`,
+        `        colorOptions: ColorOptions<Format>;`,
         `    }`,
         `) {`,
         ``,

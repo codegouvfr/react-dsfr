@@ -381,7 +381,7 @@ export const parseColorOptions = memoize((rawCssCode: string): ColorOption[] => 
         .filter(exclude(undefined));
 });
 
-export function generateGetColorOptionsTsCode(rawCssCode: string) {
+export function generateGetColorOptionsHexTsCode(rawCssCode: string) {
     const colorOptions = parseColorOptions(rawCssCode);
 
     const obj: any = {};
@@ -425,7 +425,7 @@ export function generateGetColorOptionsTsCode(rawCssCode: string) {
     });
 
     return [
-        `export function getColorOptions(`,
+        `export function getColorOptionsHex(`,
         `    params: {`,
         `        isDark: boolean;`,
         `    }`,
@@ -446,6 +446,46 @@ export function generateGetColorOptionsTsCode(rawCssCode: string) {
             .join("\n"),
         `    } as const;`,
         `}`
+    ].join("\n");
+}
+
+export function generateColorOptionsTsCode(rawCssCode: string) {
+    const colorOptions = parseColorOptions(rawCssCode);
+
+    const obj: any = {};
+
+    colorOptions.forEach(colorOption => {
+        const value = `var(${colorOption.colorOptionName})`;
+
+        function req(obj: any, path: readonly string[]): void {
+            const [propertyName, ...pathRest] = path;
+
+            if (pathRest.length === 0) {
+                obj[propertyName] = value;
+                return;
+            }
+
+            if (obj[propertyName] === undefined) {
+                obj[propertyName] = {};
+            }
+
+            req(obj[propertyName], pathRest);
+        }
+
+        req(obj, colorOption.themePath);
+    });
+
+    return [
+        ``,
+        `export const colorOptions= {`,
+        JSON.stringify(obj, null, 2)
+            .replace(/^{\n/, "")
+            .replace(/\n}$/, "")
+            .split("\n")
+            .map(line => line.replace(/^[ ]{2}/, ""))
+            .map(line => `    ${line}`)
+            .join("\n"),
+        `} as const;`
     ].join("\n");
 }
 

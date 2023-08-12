@@ -1,6 +1,6 @@
 import { generateBreakpointsTsCode } from "./breakpoints";
 import { generateGetColorDecisionsTsCode } from "./colorDecisions";
-import { generateGetColorOptionsTsCode } from "./colorOptions";
+import { generateGetColorOptionsHexTsCode, generateColorOptionsTsCode } from "./colorOptions";
 import { getProjectRoot } from "../../../src/bin/tools/getProjectRoot";
 import { generateTypographyTsCode } from "./typography";
 import { generateSpacingTsCode } from "./spacing";
@@ -26,17 +26,32 @@ export function cssToTs(params: {
         )}, please don't edit.`
     ].join("\n");
 
-    const targetOptionFilePath = pathJoin(generatedDirPath, "getColorOptions.ts");
+    const targetGetColorOptionsHexFilePath = pathJoin(generatedDirPath, "getColorOptionsHex.ts");
 
     fs.writeFileSync(
-        targetOptionFilePath,
+        targetGetColorOptionsHexFilePath,
+        Buffer.from(
+            [warningMessage, ``, generateGetColorOptionsHexTsCode(rawDsfrCssCode), ``].join("\n"),
+            "utf8"
+        )
+    );
+
+    const targetColorOptionsFilePath = pathJoin(generatedDirPath, "colorOptions.ts");
+
+    fs.writeFileSync(
+        targetColorOptionsFilePath,
         Buffer.from(
             [
                 warningMessage,
                 ``,
-                generateGetColorOptionsTsCode(rawDsfrCssCode),
+                `import type { getColorOptionsHex } from "./${pathBasename(
+                    targetGetColorOptionsHexFilePath
+                ).replace(/\.ts$/, "")}";`,
                 ``,
-                `export type ColorOptions = ReturnType<typeof getColorOptions>;`,
+                generateColorOptionsTsCode(rawDsfrCssCode),
+                ``,
+                `export type ColorOptions<Format extends "css var" | "hex"= "css var"> = `,
+                `  Format extends "css var" ? typeof colorOptions : ReturnType<typeof getColorOptionsHex>;`,
                 ``
             ].join("\n"),
             "utf8"
@@ -48,14 +63,37 @@ export function cssToTs(params: {
         Buffer.from(
             [
                 warningMessage,
-                `import type { ColorOptions } from "./${pathBasename(targetOptionFilePath).replace(
-                    /\.ts$/,
-                    ""
-                )}";`,
+                `import type { ColorOptions } from "./${pathBasename(
+                    targetColorOptionsFilePath
+                ).replace(/\.ts$/, "")}";`,
                 ``,
-                generateGetColorDecisionsTsCode(rawDsfrCssCode),
+                generateGetColorDecisionsTsCode(rawDsfrCssCode).replace(
+                    "export function getColorDecisions",
+                    "function getColorDecisions_noReturnType"
+                ),
                 ``,
-                `export type ColorDecisions = ReturnType<typeof getColorDecisions>;`,
+                `type IsHex<T> = T extends \`#\${string}\` ? T : never;`,
+                ``,
+                `type OnlyHex<T> = {`,
+                `    [K in keyof T]: T[K] extends string ? IsHex<T[K]> : OnlyHex<T[K]>`,
+                `};`,
+                ``,
+                `type IsCssVar<T> = T extends \`var(--\${string})\` ? T : never;`,
+                `type OnlyCssVar<T> = {`,
+                `    [K in keyof T]: T[K] extends string ? IsCssVar<T[K]> : OnlyCssVar<T[K]>`,
+                `};`,
+                ``,
+                `export type ColorDecisions<Format extends "css var" | "hex" = "css var"> =`,
+                `    Format extends "css var" ? OnlyCssVar<ReturnType<typeof getColorDecisions_noReturnType>> :`,
+                `    OnlyHex<ReturnType<typeof getColorDecisions_noReturnType>>;`,
+                ``,
+                `export function getColorDecisions<Format extends "css var" | "hex">(params: {`,
+                `    colorOptions: ColorOptions<Format>;`,
+                ``,
+                `}): ColorDecisions<Format> {`,
+                `    // ${"@"}ts-expect-error: We are intentionally sacrificing internal type safety for a more accurate type annotation.`,
+                `    return getColorDecisions_noReturnType(params);`,
+                `}`,
                 ``
             ].join("\n"),
             "utf8"
