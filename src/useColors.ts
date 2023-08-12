@@ -37,5 +37,9 @@ import { fr } from "./fr";
 export function useColors() {
     const { isDark } = useIsDark();
 
-    return fr.colors.getHex({ isDark });
+    return {
+        isDark,
+        "options": fr.colors.options,
+        "decisions": fr.colors.decisions
+    };
 }
