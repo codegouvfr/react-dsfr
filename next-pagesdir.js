@@ -22,7 +22,7 @@ import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
 import { getAssetUrl } from "./tools/getAssetUrl";
-import { getColors } from "./fr/colors";
+import { fr } from "./fr";
 import { start } from "./start";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
@@ -101,7 +101,8 @@ export function createNextDsfrIntegrationApi(params) {
                     !isBrowser && ( //NOTE: On browser we handle this manually
                     React.createElement(React.Fragment, null,
                         React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
-                        React.createElement("meta", { name: "theme-color", content: getColors(isDark).decisions.background.default.grey.default }))),
+                        React.createElement("meta", { name: "theme-color", content: fr.colors.getHex({ isDark }).decisions.background.default
+                                .grey.default }))),
                     isProduction && (React.createElement("script", { dangerouslySetInnerHTML: {
                             "__html": getScriptToRunAsap(defaultColorScheme)
                         } }))),

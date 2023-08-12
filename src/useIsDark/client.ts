@@ -1,7 +1,7 @@
 import { assert } from "tsafe/assert";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
-import { getColors } from "../fr/colors";
+import { fr } from "../fr";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 
 export type ColorScheme = "light" | "dark";
@@ -248,7 +248,9 @@ export function startClientSideIsDarkLogic(params: {
 
             element.name = name;
 
-            element.content = getColors(isDark).decisions.background.default.grey.default;
+            element.content = fr.colors.getHex({
+                isDark
+            }).decisions.background.default.grey.default;
 
             document.head.appendChild(element);
         };

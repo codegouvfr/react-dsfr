@@ -3,7 +3,9 @@ export type { BreakpointKeys } from "./breakpoints";
 import { spacing } from "./spacing";
 export type { SpacingToken } from "./spacing";
 export type { FrCxArg } from "./cx";
-export type { ColorTheme } from "./colors";
+export type { Colors } from "./colors";
+export type { ColorOptions } from "./generatedFromCss/colorOptions";
+export type { ColorDecisions } from "./generatedFromCss/getColorDecisions";
 export type { FrClassName, FrIconClassName, RiIconClassName } from "./generatedFromCss/classNames";
 export declare const fr: {
     breakpoints: {
@@ -16,7 +18,7 @@ export declare const fr: {
     };
     spacing: typeof spacing;
     cx: (...args: import("./cx").FrCxArg[]) => string;
-    getColors: (isDark: boolean) => import("./colors").ColorTheme;
+    colors: import("./colors").Colors;
     typography: readonly [{
         readonly selector: "h6";
         readonly style: {

@@ -2,13 +2,13 @@ export * from "./colors";
 import { breakpoints } from "./breakpoints";
 import { spacing } from "./spacing";
 import { cx } from "./cx";
-import { getColors } from "./colors";
+import { colors } from "./colors";
 import { typography } from "./generatedFromCss/typography";
 export const fr = {
     breakpoints,
     spacing,
     cx,
-    getColors,
+    colors,
     typography
 };
 //# sourceMappingURL=index.js.map

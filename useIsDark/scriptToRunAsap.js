@@ -1,5 +1,5 @@
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
-import { getColors } from "../fr/colors";
+import { fr } from "../fr";
 export const getScriptToRunAsap = (defaultColorScheme) => `
 {
 
@@ -90,7 +90,7 @@ export const getScriptToRunAsap = (defaultColorScheme) => `
 
         element.name = name;
 
-        element.content = isDark ? "${getColors(true).decisions.background.default.grey.default}" : "${getColors(false).decisions.background.default.grey.default}";
+        element.content = isDark ? "${fr.colors.getHex({ "isDark": true }).decisions.background.default.grey.default}" : "${fr.colors.getHex({ "isDark": false }).decisions.background.default.grey.default}";
 
         document.head.appendChild(element);
 

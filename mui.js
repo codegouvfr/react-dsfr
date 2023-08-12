@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo } from "react";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { getColors } from "./fr/colors";
+import { fr } from "./fr";
 import { useIsDark } from "./useIsDark";
 import { typography } from "./fr/generatedFromCss/typography";
 import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
@@ -12,7 +12,7 @@ import { id } from "tsafe/id";
 import { useBreakpointsValues } from "./useBreakpointsValues";
 export function getMuiDsfrThemeOptions(params) {
     const { isDark, breakpointsValues } = params;
-    const { options, decisions } = getColors(isDark);
+    const { options, decisions } = fr.colors.getHex({ isDark });
     return {
         "shape": {
             "borderRadius": 0
@@ -158,7 +158,8 @@ export function getMuiDsfrThemeOptions(params) {
             }, "MuiStepIcon": {
                 "styleOverrides": {
                     "text": {
-                        "fill": getColors(true).decisions.text.title.grey.default
+                        "fill": fr.colors.getHex({ "isDark": true }).decisions.text.title.grey
+                            .default
                     }
                 }
             }, "MuiTablePagination": {
@@ -243,8 +244,8 @@ export function createMuiDsfrThemeProvider(params) {
             return augmentMuiTheme === undefined
                 ? nonAugmentedMuiTheme
                 : augmentMuiTheme({
-                    "frColorTheme": getColors(isDark),
-                    nonAugmentedMuiTheme
+                    nonAugmentedMuiTheme,
+                    isDark
                 });
         }, [isDark]);
         return React.createElement(MuiThemeProvider, { theme: theme }, children);

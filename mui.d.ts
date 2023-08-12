@@ -1,6 +1,5 @@
 import { type ReactNode } from "react";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
-import type { ColorTheme } from "./fr/colors";
 import { type BreakpointsValues } from "./useBreakpointsValues";
 export declare function getMuiDsfrThemeOptions(params: {
     isDark: boolean;
@@ -29,7 +28,7 @@ export declare function createMuiDsfrThemeProvider(params: {
          * That is to say before augmentation.
          **/
         nonAugmentedMuiTheme: MuiTheme;
-        frColorTheme: ColorTheme;
+        isDark: boolean;
     }) => MuiTheme;
 }): {
     MuiDsfrThemeProvider: (props: {

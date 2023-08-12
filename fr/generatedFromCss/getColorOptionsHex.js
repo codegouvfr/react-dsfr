@@ -1,5 +1,5 @@
 // This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
-export function getColorOptions(params) {
+export function getColorOptionsHex(params) {
     const { isDark } = params;
     return {
         "grey": {
@@ -664,4 +664,4 @@ export function getColorOptions(params) {
         }
     };
 }
-//# sourceMappingURL=getColorOptions.js.map
+//# sourceMappingURL=getColorOptionsHex.js.map

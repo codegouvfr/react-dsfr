@@ -1,4 +1,4 @@
-export declare function getColorOptions(params: {
+export declare function getColorOptionsHex(params: {
     isDark: boolean;
 }): {
     readonly grey: {
@@ -662,4 +662,3 @@ export declare function getColorOptions(params: {
         };
     };
 };
-export type ColorOptions = ReturnType<typeof getColorOptions>;

@@ -5,8 +5,7 @@ import React, { useMemo, type ReactNode } from "react";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import type { Shadows } from "@mui/material/styles";
-import { getColors } from "./fr/colors";
-import type { ColorTheme } from "./fr/colors";
+import { fr } from "./fr";
 import { useIsDark } from "./useIsDark";
 import { typography } from "./fr/generatedFromCss/typography";
 import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
@@ -21,7 +20,7 @@ export function getMuiDsfrThemeOptions(params: {
 }): ThemeOptions {
     const { isDark, breakpointsValues } = params;
 
-    const { options, decisions } = getColors(isDark);
+    const { options, decisions } = fr.colors.getHex({ isDark });
 
     return {
         "shape": {
@@ -179,7 +178,8 @@ export function getMuiDsfrThemeOptions(params: {
             "MuiStepIcon": {
                 "styleOverrides": {
                     "text": {
-                        "fill": getColors(true).decisions.text.title.grey.default
+                        "fill": fr.colors.getHex({ "isDark": true }).decisions.text.title.grey
+                            .default
                     }
                 }
             },
@@ -274,7 +274,7 @@ export function createMuiDsfrThemeProvider(params: {
          * That is to say before augmentation.
          **/
         nonAugmentedMuiTheme: MuiTheme;
-        frColorTheme: ColorTheme;
+        isDark: boolean;
     }) => MuiTheme;
 }) {
     const { augmentMuiTheme, useIsDark: useIsDark_props = useIsDark } = params;
@@ -297,8 +297,8 @@ export function createMuiDsfrThemeProvider(params: {
             return augmentMuiTheme === undefined
                 ? nonAugmentedMuiTheme
                 : augmentMuiTheme({
-                      "frColorTheme": getColors(isDark),
-                      nonAugmentedMuiTheme
+                      nonAugmentedMuiTheme,
+                      isDark
                   });
         }, [isDark]);
 

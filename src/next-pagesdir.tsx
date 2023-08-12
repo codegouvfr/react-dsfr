@@ -15,7 +15,7 @@ import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";
 import { getAssetUrl } from "./tools/getAssetUrl";
-import { getColors } from "./fr/colors";
+import { fr } from "./fr";
 import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
@@ -171,7 +171,8 @@ export function createNextDsfrIntegrationApi(
                                 <meta
                                     name="theme-color"
                                     content={
-                                        getColors(isDark).decisions.background.default.grey.default
+                                        fr.colors.getHex({ isDark }).decisions.background.default
+                                            .grey.default
                                     }
                                 />
                             </>

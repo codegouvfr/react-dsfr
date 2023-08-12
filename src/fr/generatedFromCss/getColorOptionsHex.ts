@@ -1,6 +1,6 @@
 // This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
 
-export function getColorOptions(
+export function getColorOptionsHex(
     params: {
         isDark: boolean;
     }
@@ -671,5 +671,3 @@ export function getColorOptions(
         }
     } as const;
 }
-
-export type ColorOptions = ReturnType<typeof getColorOptions>;
