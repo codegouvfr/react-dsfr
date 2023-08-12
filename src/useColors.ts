@@ -1,9 +1,17 @@
 "use client";
 
 import { useIsDark } from "./useIsDark";
-import { fr } from "./fr";
+import { fr, type ColorOptions, type ColorDecisions } from "./fr";
 
-/** @deprecated: A hook is no longer required to get the colors.
+export type ColorTheme = {
+    isDark: boolean;
+    options: ColorOptions<"css var">;
+    decisions: ColorDecisions<"css var">;
+};
+
+/**
+ * A hook is no longer required to get the colors, this will soon be deprecated
+ * when the documentation is updated to reflect the new way of getting the colors.
  *
  *  Before you would do:
  * ```ts
@@ -34,7 +42,7 @@ import { fr } from "./fr";
  * theme.decisions.background.default.grey.default
  * ```
  **/
-export function useColors() {
+export function useColors(): ColorTheme {
     const { isDark } = useIsDark();
 
     return {

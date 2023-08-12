@@ -1,7 +1,9 @@
 "use client";
 import { useIsDark } from "./useIsDark";
 import { fr } from "./fr";
-/** @deprecated: A hook is no longer required to get the colors.
+/**
+ * A hook is no longer required to get the colors, this will soon be deprecated
+ * when the documentation is updated to reflect the new way of getting the colors.
  *
  *  Before you would do:
  * ```ts
