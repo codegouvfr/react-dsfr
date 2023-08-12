@@ -15,6 +15,7 @@ export type CardProps = {
     id?: string;
     className?: string;
     title: ReactNode;
+    titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
     desc?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
@@ -81,6 +82,7 @@ export const Card = memo(
             id: props_id,
             className,
             title,
+            titleAs: HtmlTitleTag = "h3",
             linkProps,
             desc,
             imageUrl,
@@ -146,7 +148,7 @@ export const Card = memo(
             >
                 <div className={cx(fr.cx("fr-card__body"), classes.body)}>
                     <div className={cx(fr.cx("fr-card__content"), classes.content)}>
-                        <h3 className={cx(fr.cx("fr-card__title"), classes.title)}>
+                        <HtmlTitleTag className={cx(fr.cx("fr-card__title"), classes.title)}>
                             {linkProps !== undefined ? (
                                 <Link
                                     {...linkProps}
@@ -157,7 +159,7 @@ export const Card = memo(
                             ) : (
                                 title
                             )}
-                        </h3>
+                        </HtmlTitleTag>
                         {desc !== undefined && (
                             <p className={cx(fr.cx("fr-card__desc"), classes.desc)}>{desc}</p>
                         )}
