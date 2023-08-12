@@ -1,7 +1,13 @@
 "use client";
 
 import { useIsDark } from "./useIsDark";
-import { fr } from "./fr";
+import { fr, type ColorOptions, type ColorDecisions } from "./fr";
+
+export type ColorTheme = {
+    isDark: boolean;
+    options: ColorOptions<"css var">;
+    decisions: ColorDecisions<"css var">;
+};
 
 /** @deprecated: A hook is no longer required to get the colors.
  *
@@ -34,7 +40,7 @@ import { fr } from "./fr";
  * theme.decisions.background.default.grey.default
  * ```
  **/
-export function useColors() {
+export function useColors(): ColorTheme {
     const { isDark } = useIsDark();
 
     return {
