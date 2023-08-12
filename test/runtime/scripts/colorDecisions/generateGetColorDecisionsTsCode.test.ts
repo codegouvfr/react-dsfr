@@ -35,9 +35,9 @@ it("Generates the correct TS code for breakpoints", () => {
 `;
 
     const expected = `
-export function getColorDecisions(
+export function getColorDecisions<Format extends "css var" | "hex">(
     params: {
-        colorOptions: ColorOptions;
+        colorOptions: ColorOptions<Format>;
     }
 ) {
 
