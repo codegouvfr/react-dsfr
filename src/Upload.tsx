@@ -128,7 +128,7 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
 addUploadTranslations({
     lang: "en",
     messages: {
-        "add_file": "Add file",
+        "add file": "Add file",
         "add_files": "Add files",
         "hint": "Maximum size : 500 Mo. Supported formats : jpg, png, pdf. Many files possible."
     }
