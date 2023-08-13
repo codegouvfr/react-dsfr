@@ -119,7 +119,7 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
     "frMessages": {
         /* spell-checker: disable */
         "add file": "Ajouter un fichier",
-        "add_files": "Ajouter des fichiers",
+        "add files": "Ajouter des fichiers",
         "hint": "Taille maximale : 500 Mo. Formats supportés : jpg, png, pdf. Plusieurs fichiers possibles."
         /* spell-checker: enable */
     }
