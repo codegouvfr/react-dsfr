@@ -118,7 +118,7 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Upload }),
     "frMessages": {
         /* spell-checker: disable */
-        "add_file": "Ajouter un fichier",
+        "add file": "Ajouter un fichier",
         "add_files": "Ajouter des fichiers",
         "hint": "Taille maximale : 500 Mo. Formats supportés : jpg, png, pdf. Plusieurs fichiers possibles."
         /* spell-checker: enable */
