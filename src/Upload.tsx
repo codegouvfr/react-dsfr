@@ -14,6 +14,7 @@ export type UploadProps = {
     hint?: string;
     /** @default false */
     multiple?: boolean;
+    label?: ReactNode;
     /** @default "default" */
     state?: "success" | "error" | "default";
     /** The message won't be displayed if state is "default" */
@@ -31,6 +32,7 @@ export const Upload = memo(
             disabled = false,
             hint = t("hint"),
             multiple = false,
+            label = multiple ? t("add files") : t("add file"),
             state = "default",
             stateRelatedMessage,
             nativeInputProps = {},
@@ -71,7 +73,7 @@ export const Upload = memo(
                 ref={ref}
             >
                 <label className={fr.cx("fr-label")} aria-disabled={disabled} htmlFor={inputId}>
-                    {t("add_files")}
+                    {label}
                     <span className={fr.cx("fr-hint-text")}>{hint}</span>
                 </label>
                 <input
@@ -116,7 +118,8 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Upload }),
     "frMessages": {
         /* spell-checker: disable */
-        "add_files": "Ajouter des fichiers",
+        "add file": "Ajouter un fichier",
+        "add files": "Ajouter des fichiers",
         "hint": "Taille maximale : 500 Mo. Formats supportés : jpg, png, pdf. Plusieurs fichiers possibles."
         /* spell-checker: enable */
     }
@@ -125,7 +128,8 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
 addUploadTranslations({
     lang: "en",
     messages: {
-        "add_files": "Add files",
+        "add file": "Add file",
+        "add files": "Add files",
         "hint": "Maximum size : 500 Mo. Supported formats : jpg, png, pdf. Many files possible."
     }
 });
