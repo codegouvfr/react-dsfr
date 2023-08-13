@@ -14,6 +14,10 @@ const { meta, getStory } = getStoryFactory({
         "disabled": {
             "control": { "type": "boolean" }
         },
+        "label": {
+            "description": "By default : Ajouter un fichier / des fichiers",
+            "control": { "type": "text" }
+        },
         "state": {
             "options": (() => {
                 const options = ["default", "success", "error"] as const;
@@ -44,6 +48,7 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
+    "label": undefined,
     "hint": "Texte de description",
     "state": "default",
     "stateRelatedMessage": "Text de validation / d'explication de l'erreur",
@@ -72,4 +77,8 @@ export const WithHint = getStory({
 
 export const Multiple = getStory({
     "multiple": true
+});
+
+export const WithCustomLabel = getStory({
+    "label": "Téléversez votre image de profil"
 });
