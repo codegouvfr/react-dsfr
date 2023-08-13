@@ -73,7 +73,7 @@ export const Footer = memo(forwardRef((props, ref) => {
                         "service-public.fr",
                         "data.gouv.fr"
                     ].map((domain, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__content-item"), classes.contentItem), key: i },
-                        React.createElement("a", { className: cx(fr.cx("fr-footer__content-link"), classes.contentLink), target: "_blank", href: `https://${domain}` }, domain))))))),
+                        React.createElement("a", { className: cx(fr.cx("fr-footer__content-link"), classes.contentLink), target: "_blank", href: `https://${domain}`, title: `${domain} - ${t("open new window")}` }, domain))))))),
             partnersLogos !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners"), classes.partners) },
                 React.createElement("h4", { className: cx(fr.cx("fr-footer__partners-title"), classes.partnersTitle) }, t("our partners")),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__partners-logos"), classes.partnersLogos) },
@@ -133,8 +133,9 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "license mention": (p) => (React.createElement(React.Fragment, null,
             "Sauf mention contraire, tous les contenus de ce site sont sous",
             " ",
-            React.createElement("a", { href: p.licenseUrl, target: "_blank" }, "licence etalab-2.0"))),
-        "our partners": "Nos partenaires"
+            React.createElement("a", { href: p.licenseUrl, target: "_blank", title: "licence etalab-2.0 - ouvre une nouvelle fen\u00EAtre" }, "licence etalab-2.0"))),
+        "our partners": "Nos partenaires",
+        "open new window": "ouvre une nouvelle fenêtre"
         /* spell-checker: enable */
     }
 });
@@ -150,7 +151,8 @@ addFooterTranslations({
         "license mention": p => (React.createElement(React.Fragment, null,
             "Unless stated otherwise, all content of this website is under the",
             " ",
-            React.createElement("a", { href: p.licenseUrl, target: "_blank" }, "etalab-2.0 license")))
+            React.createElement("a", { href: p.licenseUrl, target: "_blank", title: "etalab-2.0 license - open a new window" }, "etalab-2.0 license"))),
+        "open new window": "open new window"
     }
 });
 addFooterTranslations({

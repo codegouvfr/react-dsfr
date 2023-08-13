@@ -111,6 +111,7 @@ declare const addFooterTranslations: (params: {
             licenseUrl: string;
         }) => JSX.Element;
         "our partners": string;
+        "open new window": string;
     }>;
 }) => void;
 export { addFooterTranslations };
