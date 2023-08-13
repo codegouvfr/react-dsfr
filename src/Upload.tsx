@@ -32,7 +32,7 @@ export const Upload = memo(
             disabled = false,
             hint = t("hint"),
             multiple = false,
-            label = multiple ? t("add_files") : t("add_file"),
+            label = multiple ? t("add files") : t("add file"),
             state = "default",
             stateRelatedMessage,
             nativeInputProps = {},
