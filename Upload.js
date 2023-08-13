@@ -19,7 +19,7 @@ import { useAnalyticsId } from "./tools/useAnalyticsId";
 export const Upload = memo(forwardRef((props, ref) => {
     var _a;
     const { t } = useTranslation();
-    const { id: id_props, className, disabled = false, hint = t("hint"), multiple = false, state = "default", stateRelatedMessage, nativeInputProps = {} } = props, rest = __rest(props, ["id", "className", "disabled", "hint", "multiple", "state", "stateRelatedMessage", "nativeInputProps"]);
+    const { id: id_props, className, disabled = false, hint = t("hint"), multiple = false, label = multiple ? t("add files") : t("add file"), state = "default", stateRelatedMessage, nativeInputProps = {} } = props, rest = __rest(props, ["id", "className", "disabled", "hint", "multiple", "label", "state", "stateRelatedMessage", "nativeInputProps"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-upload",
@@ -39,7 +39,7 @@ export const Upload = memo(forwardRef((props, ref) => {
             assert(false);
         })()), className), ref: ref },
         React.createElement("label", { className: fr.cx("fr-label"), "aria-disabled": disabled, htmlFor: inputId },
-            t("add_files"),
+            label,
             React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),
         React.createElement("input", Object.assign({ "aria-describedby": messageId, "aria-disabled": disabled, className: cx(fr.cx("fr-upload")), disabled: disabled, id: inputId, multiple: multiple, name: inputId, type: "file" }, nativeInputProps)),
         state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
@@ -57,7 +57,8 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
     "componentName": symToStr({ Upload }),
     "frMessages": {
         /* spell-checker: disable */
-        "add_files": "Ajouter des fichiers",
+        "add file": "Ajouter un fichier",
+        "add files": "Ajouter des fichiers",
         "hint": "Taille maximale : 500 Mo. Formats supportés : jpg, png, pdf. Plusieurs fichiers possibles."
         /* spell-checker: enable */
     }
@@ -65,7 +66,8 @@ const { useTranslation, addUploadTranslations } = createComponentI18nApi({
 addUploadTranslations({
     lang: "en",
     messages: {
-        "add_files": "Add files",
+        "add file": "Add file",
+        "add files": "Add files",
         "hint": "Maximum size : 500 Mo. Supported formats : jpg, png, pdf. Many files possible."
     }
 });

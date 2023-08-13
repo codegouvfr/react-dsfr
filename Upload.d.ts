@@ -7,6 +7,7 @@ export type UploadProps = {
     hint?: string;
     /** @default false */
     multiple?: boolean;
+    label?: ReactNode;
     /** @default "default" */
     state?: "success" | "error" | "default";
     /** The message won't be displayed if state is "default" */
