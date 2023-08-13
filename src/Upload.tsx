@@ -129,7 +129,7 @@ addUploadTranslations({
     lang: "en",
     messages: {
         "add file": "Add file",
-        "add_files": "Add files",
+        "add files": "Add files",
         "hint": "Maximum size : 500 Mo. Supported formats : jpg, png, pdf. Many files possible."
     }
 });
