@@ -1,20 +1,21 @@
 import React from "react";
 import type { ColorDecisionAndCorrespondingOption } from "../../scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
-import { useColors } from "../../dist/useColors";
 import { fr } from "../../dist/fr";
 import Tooltip from "@mui/material/Tooltip";
 import { useStyles } from "./makeStyles";
 import { CopyToClipboardButton } from "./CopyToClipboardButton";
 import { Accordion } from "../../dist/Accordion";
+import { Evt } from "evt";
+import { useConst } from "powerhooks/useConst";
 
 export function ColorDecisionCard(
     props: { className?: string } & ColorDecisionAndCorrespondingOption
 ) {
     const { className, colorDecisionName, themePath, colorOption } = props;
 
-    const theme = useColors();
-
     const { cx, css } = useStyles();
+
+    const evtCopyToClipboardButtonAction = useConst(() => Evt.create<"trigger click">());
 
     return (
         <div
@@ -22,9 +23,9 @@ export function ColorDecisionCard(
                 css({
                     "borderWidth": 2,
                     "borderStyle": "solid",
-                    "borderColor": theme.decisions.border.default.grey.default,
+                    "borderColor": fr.colors.decisions.border.default.grey.default,
                     "&:hover": {
-                        "borderColor": theme.decisions.border.plain.grey.default
+                        "borderColor": fr.colors.decisions.border.plain.grey.default
                     },
                     "boxShadow": "0px 6px 10px 0px rgba(0,0,0,0.07)",
                     "padding": fr.spacing("4v")
@@ -35,20 +36,11 @@ export function ColorDecisionCard(
             <div>
                 <span
                     style={{
-                        "color": theme.decisions.text.mention.grey.default
+                        "color": fr.colors.decisions.text.mention.grey.default
                     }}
                 >
-                    CSS variable:{" "}
-                </span>
-                &nbsp;<code>{colorDecisionName}</code>
-            </div>
-            <div style={{ "marginTop": fr.spacing("3v") }}>
-                <span
-                    style={{
-                        "color": theme.decisions.text.mention.grey.default
-                    }}
-                >
-                    Decision path{" "}
+                    Color Decision path
+                    {/*
                     <Tooltip
                         title={
                             <a href="https://guides.react-dsfr.fr/css-in-js#colors" target="_blank">
@@ -60,14 +52,50 @@ export function ColorDecisionCard(
                     >
                         <i className={fr.cx("ri-information-line")} />
                     </Tooltip>{" "}
+                    */}
                     :
-                </span>{" "}
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <code>
-                    theme.decisions.<strong>{themePath.join(".")}</strong>
+                    <Tooltip
+                        title={
+                            <code
+                                style={{
+                                    "fontSize": "1.2em"
+                                }}
+                            >
+                                var({colorDecisionName})
+                            </code>
+                        }
+                        placement="top-end"
+                    >
+                        <span
+                            style={{ "display": "inline-block", "cursor": "pointer" }}
+                            onClick={() => evtCopyToClipboardButtonAction.post("trigger click")}
+                        >
+                            fr.colors.decisions.<strong>{themePath.join(".")}</strong>
+                        </span>
+                    </Tooltip>
                 </code>
                 <CopyToClipboardButton
                     textToCopy={["theme", "decisions", ...themePath].join(".")}
+                    evtAction={evtCopyToClipboardButtonAction}
                 />
+            </div>
+            <div
+                style={{
+                    "marginTop": fr.spacing("3v")
+                }}
+            >
+                <span
+                    style={{
+                        "color": fr.colors.decisions.text.mention.grey.default
+                    }}
+                >
+                    CSS variable name:
+                </span>
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                <code>{colorDecisionName}</code>
             </div>
 
             <div style={{ "marginTop": fr.spacing("2v") }}>
@@ -79,7 +107,7 @@ export function ColorDecisionCard(
                     <>
                         <span
                             style={{
-                                "color": theme.decisions.text.mention.grey.default
+                                "color": fr.colors.decisions.text.mention.grey.default
                             }}
                         >
                             Dark mode:{" "}
@@ -88,7 +116,7 @@ export function ColorDecisionCard(
                         &nbsp; &nbsp;
                         <span
                             style={{
-                                "color": theme.decisions.text.mention.grey.default
+                                "color": fr.colors.decisions.text.mention.grey.default
                             }}
                         >
                             Light mode:{" "}
@@ -104,7 +132,7 @@ export function ColorDecisionCard(
                 <p>
                     <span
                         style={{
-                            "color": theme.decisions.text.mention.grey.default
+                            "color": fr.colors.decisions.text.mention.grey.default
                         }}
                     >
                         CSS variable:{" "}
@@ -118,7 +146,7 @@ export function ColorDecisionCard(
                 >
                     <span
                         style={{
-                            "color": theme.decisions.text.mention.grey.default
+                            "color": fr.colors.decisions.text.mention.grey.default
                         }}
                     >
                         Option path:{" "}
@@ -135,8 +163,6 @@ export function ColorDecisionCard(
 function ColoredSquare(props: { hexColorCode: string }) {
     const { hexColorCode } = props;
 
-    const theme = useColors();
-
     return (
         <div
             style={{
@@ -150,7 +176,7 @@ function ColoredSquare(props: { hexColorCode: string }) {
                     "display": "inline-block",
                     "borderWidth": 2,
                     "borderStyle": "solid",
-                    "borderColor": theme.decisions.border.default.grey.default,
+                    "borderColor": fr.colors.decisions.border.default.grey.default,
                     "width": 30,
                     "height": 30,
                     "backgroundColor": hexColorCode,

@@ -3,18 +3,37 @@ import { Button } from "../../dist/Button";
 import { useStyles } from "./makeStyles";
 import { fr } from "../../dist";
 import { assert } from "tsafe/assert";
+import { type NonPostableEvt } from "evt";
+import { useEvt } from "evt/hooks";
 
 type Props = {
     className?: string;
     textToCopy: string;
+    evtAction: NonPostableEvt<"trigger click">;
 };
 
 export function CopyToClipboardButton(props: Props) {
-    const { className, textToCopy } = props;
+    const { className, textToCopy, evtAction } = props;
 
     const { css, cx, theme } = useStyles();
 
     const [isCopiedFeedbackShown, setIsCopiedFeedbackShown] = useState(false);
+
+    const onButtonClick = () => {
+        copyToClipboard(textToCopy);
+        setIsCopiedFeedbackShown(true);
+    };
+
+    useEvt(
+        ctx => {
+            evtAction.attach(
+                action => action === "trigger click",
+                ctx,
+                () => onButtonClick()
+            );
+        },
+        [evtAction]
+    );
 
     useEffect(() => {
         if (!isCopiedFeedbackShown) {
@@ -68,10 +87,7 @@ export function CopyToClipboardButton(props: Props) {
                     iconId={"ri-clipboard-line"}
                     priority="tertiary no outline"
                     title="Copy to clipboard"
-                    onClick={() => {
-                        copyToClipboard(textToCopy);
-                        setIsCopiedFeedbackShown(true);
-                    }}
+                    onClick={onButtonClick}
                 />
             )}
         </div>
