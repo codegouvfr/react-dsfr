@@ -166,7 +166,7 @@ export type ColorDecision = {
     optionThemePath: readonly string[];
 };
 
-export const parseColorDecision = memoize((rawCssCode: string): ColorDecision[] => {
+export const parseColorDecisions = memoize((rawCssCode: string): ColorDecision[] => {
     const { parseColorDecisionName } = createParseColorDecisionName(rawCssCode);
 
     const parsedCss = parseCss(rawCssCode);
@@ -217,12 +217,12 @@ export const parseColorDecision = memoize((rawCssCode: string): ColorDecision[] 
         .filter(exclude(undefined));
 });
 
-export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
+export function generateGetColorDecisionsHexTsCode(rawCssCode: string): string {
     const obj: any = {};
 
     const keyValues: Record<string, string> = {};
 
-    parseColorDecision(rawCssCode).forEach(colorDecision => {
+    parseColorDecisions(rawCssCode).forEach(colorDecision => {
         const value = (() => {
             const hash = crypto
                 .createHash("sha256")
@@ -253,9 +253,9 @@ export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
     });
 
     return [
-        `export function getColorDecisions<Format extends "css var" | "hex">(`,
+        `export function getColorDecisionsHex(`,
         `    params: {`,
-        `        colorOptions: ColorOptions<Format>;`,
+        `        colorOptions: ColorOptions<"hex">;`,
         `    }`,
         `) {`,
         ``,
@@ -274,5 +274,45 @@ export function generateGetColorDecisionsTsCode(rawCssCode: string): string {
             .join("\n"),
         `    } as const;`,
         `}`
+    ].join("\n");
+}
+
+export function generateColorDecisionsTsCode(rawCssCode: string) {
+    const colorDecisions = parseColorDecisions(rawCssCode);
+
+    const obj: any = {};
+
+    colorDecisions.forEach(colorDecision => {
+        const value = `var(${colorDecision.colorDecisionName})`;
+
+        function req(obj: any, path: readonly string[]): void {
+            const [propertyName, ...pathRest] = path;
+
+            if (pathRest.length === 0) {
+                obj[propertyName] = value;
+                return;
+            }
+
+            if (obj[propertyName] === undefined) {
+                obj[propertyName] = {};
+            }
+
+            req(obj[propertyName], pathRest);
+        }
+
+        req(obj, colorDecision.themePath);
+    });
+
+    return [
+        ``,
+        `export const colorDecisions= {`,
+        JSON.stringify(obj, null, 2)
+            .replace(/^{\n/, "")
+            .replace(/\n}$/, "")
+            .split("\n")
+            .map(line => line.replace(/^[ ]{2}/, ""))
+            .map(line => `    ${line}`)
+            .join("\n"),
+        `} as const;`
     ].join("\n");
 }

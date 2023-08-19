@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { generateGetColorDecisionsTsCode } from "../../../../scripts/build/cssToTs/colorDecisions";
+import { generateGetColorDecisionsHexTsCode } from "../../../../scripts/build/cssToTs/colorDecisions";
 
 it("Generates the correct TS code for breakpoints", () => {
     const input = `
@@ -35,9 +35,9 @@ it("Generates the correct TS code for breakpoints", () => {
 `;
 
     const expected = `
-export function getColorDecisions<Format extends "css var" | "hex">(
+export function getColorDecisionsHex(
     params: {
-        colorOptions: ColorOptions<Format>;
+        colorOptions: ColorOptions<"hex">;
     }
 ) {
 
@@ -72,7 +72,7 @@ export function getColorDecisions<Format extends "css var" | "hex">(
     } as const;
 }`.replace(/^\n/, "");
 
-    const got = generateGetColorDecisionsTsCode(input);
+    const got = generateGetColorDecisionsHexTsCode(input);
 
     expect(got).toBe(expected);
 });

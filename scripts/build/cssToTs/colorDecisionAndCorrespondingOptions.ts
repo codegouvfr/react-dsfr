@@ -1,5 +1,5 @@
 import { parseColorOptions } from "./colorOptions";
-import { parseColorDecision } from "./colorDecisions";
+import { parseColorDecisions } from "./colorDecisions";
 import { exclude } from "tsafe/exclude";
 import type { ColorDecision } from "./colorDecisions";
 import type { ColorOption } from "./colorOptions";
@@ -12,7 +12,7 @@ export type ColorDecisionAndCorrespondingOption = Omit<ColorDecision, "optionThe
 export function generateColorDecisionAndCorrespondingOptionsTsCode(rawCssCode: string): string {
     const colorOptions = parseColorOptions(rawCssCode);
 
-    const colorDecisionAndCorrespondingOptions = parseColorDecision(rawCssCode)
+    const colorDecisionAndCorrespondingOptions = parseColorDecisions(rawCssCode)
         .map(colorDecision => {
             const colorOption = colorOptions.find(
                 colorOption =>

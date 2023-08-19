@@ -1,5 +1,5 @@
 import { generateBreakpointsTsCode } from "./breakpoints";
-import { generateGetColorDecisionsTsCode } from "./colorDecisions";
+import { generateGetColorDecisionsHexTsCode, generateColorDecisionsTsCode } from "./colorDecisions";
 import { generateGetColorOptionsHexTsCode, generateColorOptionsTsCode } from "./colorOptions";
 import { getProjectRoot } from "../../../src/bin/tools/getProjectRoot";
 import { generateTypographyTsCode } from "./typography";
@@ -58,8 +58,13 @@ export function cssToTs(params: {
         )
     );
 
+    const targetGetColorDecisionsHexFilePath = pathJoin(
+        generatedDirPath,
+        "getColorDecisionsHex.ts"
+    );
+
     fs.writeFileSync(
-        pathJoin(generatedDirPath, "getColorDecisions.ts"),
+        targetGetColorDecisionsHexFilePath,
         Buffer.from(
             [
                 warningMessage,
@@ -67,33 +72,29 @@ export function cssToTs(params: {
                     targetColorOptionsFilePath
                 ).replace(/\.ts$/, "")}";`,
                 ``,
-                generateGetColorDecisionsTsCode(rawDsfrCssCode).replace(
-                    "export function getColorDecisions",
-                    "function getColorDecisions_noReturnType"
-                ),
+                generateGetColorDecisionsHexTsCode(rawDsfrCssCode),
+                ``
+            ].join("\n"),
+            "utf8"
+        )
+    );
+
+    const targetColorDecisionsFilePath = pathJoin(generatedDirPath, "colorDecisions.ts");
+
+    fs.writeFileSync(
+        targetColorDecisionsFilePath,
+        Buffer.from(
+            [
+                warningMessage,
                 ``,
-                `type IsHex<T> = T extends \`#\${string}\` ? T : never;`,
+                `import type { getColorDecisionsHex } from "./${pathBasename(
+                    targetGetColorDecisionsHexFilePath
+                ).replace(/\.ts$/, "")}";`,
                 ``,
-                `type OnlyHex<T> = {`,
-                `    [K in keyof T]: T[K] extends string ? IsHex<T[K]> : OnlyHex<T[K]>`,
-                `};`,
+                generateColorDecisionsTsCode(rawDsfrCssCode),
                 ``,
-                `type IsCssVar<T> = T extends \`var(--\${string})\` ? T : never;`,
-                `type OnlyCssVar<T> = {`,
-                `    [K in keyof T]: T[K] extends string ? IsCssVar<T[K]> : OnlyCssVar<T[K]>`,
-                `};`,
-                ``,
-                `export type ColorDecisions<Format extends "css var" | "hex" = "css var"> =`,
-                `    Format extends "css var" ? OnlyCssVar<ReturnType<typeof getColorDecisions_noReturnType>> :`,
-                `    OnlyHex<ReturnType<typeof getColorDecisions_noReturnType>>;`,
-                ``,
-                `export function getColorDecisions<Format extends "css var" | "hex">(params: {`,
-                `    colorOptions: ColorOptions<Format>;`,
-                ``,
-                `}): ColorDecisions<Format> {`,
-                `    // ${"@"}ts-expect-error: We are intentionally sacrificing internal type safety for a more accurate type annotation.`,
-                `    return getColorDecisions_noReturnType(params);`,
-                `}`,
+                `export type ColorDecisions<Format extends "css var" | "hex"= "css var"> = `,
+                `  Format extends "css var" ? typeof colorDecisions : ReturnType<typeof getColorDecisionsHex>;`,
                 ``
             ].join("\n"),
             "utf8"

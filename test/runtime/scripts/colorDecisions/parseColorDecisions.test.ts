@@ -1,5 +1,5 @@
 import { it, expect } from "vitest";
-import { parseColorDecision } from "../../../../scripts/build/cssToTs/colorDecisions";
+import { parseColorDecisions } from "../../../../scripts/build/cssToTs/colorDecisions";
 import type { ColorDecision } from "../../../../scripts/build/cssToTs/colorDecisions";
 
 it("Color decisions to be successfully parsed", () => {
@@ -35,7 +35,7 @@ it("Color decisions to be successfully parsed", () => {
 @media (min-width: 78em) { }
 `;
 
-    const got = parseColorDecision(rawCssCode);
+    const got = parseColorDecisions(rawCssCode);
 
     const expected: ColorDecision[] = [
         {
