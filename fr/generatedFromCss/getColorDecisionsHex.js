@@ -1,4 +1,4 @@
-function getColorDecisions_noReturnType(params) {
+export function getColorDecisionsHex(params) {
     const { colorOptions } = params;
     return {
         "background": {
@@ -1436,8 +1436,4 @@ function getColorDecisions_noReturnType(params) {
         }
     };
 }
-export function getColorDecisions(params) {
-    // @ts-expect-error: We are intentionally sacrificing internal type safety for a more accurate type annotation.
-    return getColorDecisions_noReturnType(params);
-}
-//# sourceMappingURL=getColorDecisions.js.map
+//# sourceMappingURL=getColorDecisionsHex.js.map

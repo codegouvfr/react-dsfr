@@ -1,9 +1,9 @@
 // This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
 import type { ColorOptions } from "./colorOptions";
 
-function getColorDecisions_noReturnType<Format extends "css var" | "hex">(
+export function getColorDecisionsHex(
     params: {
-        colorOptions: ColorOptions<Format>;
+        colorOptions: ColorOptions<"hex">;
     }
 ) {
 
@@ -1444,27 +1444,4 @@ function getColorDecisions_noReturnType<Format extends "css var" | "hex">(
           }
         }
     } as const;
-}
-
-type IsHex<T> = T extends `#${string}` ? T : never;
-
-type OnlyHex<T> = {
-    [K in keyof T]: T[K] extends string ? IsHex<T[K]> : OnlyHex<T[K]>
-};
-
-type IsCssVar<T> = T extends `var(--${string})` ? T : never;
-type OnlyCssVar<T> = {
-    [K in keyof T]: T[K] extends string ? IsCssVar<T[K]> : OnlyCssVar<T[K]>
-};
-
-export type ColorDecisions<Format extends "css var" | "hex" = "css var"> =
-    Format extends "css var" ? OnlyCssVar<ReturnType<typeof getColorDecisions_noReturnType>> :
-    OnlyHex<ReturnType<typeof getColorDecisions_noReturnType>>;
-
-export function getColorDecisions<Format extends "css var" | "hex">(params: {
-    colorOptions: ColorOptions<Format>;
-
-}): ColorDecisions<Format> {
-    // @ts-expect-error: We are intentionally sacrificing internal type safety for a more accurate type annotation.
-    return getColorDecisions_noReturnType(params);
 }

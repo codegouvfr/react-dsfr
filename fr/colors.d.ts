@@ -1,5 +1,5 @@
 import { type ColorOptions } from "./generatedFromCss/colorOptions";
-import { type ColorDecisions } from "./generatedFromCss/getColorDecisions";
+import { type ColorDecisions } from "./generatedFromCss/colorDecisions";
 export type Colors = {
     options: ColorOptions<"css var">;
     decisions: ColorDecisions<"css var">;

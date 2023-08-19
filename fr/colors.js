@@ -1,13 +1,14 @@
 import { colorOptions } from "./generatedFromCss/colorOptions";
 import { getColorOptionsHex } from "./generatedFromCss/getColorOptionsHex";
-import { getColorDecisions } from "./generatedFromCss/getColorDecisions";
+import { colorDecisions } from "./generatedFromCss/colorDecisions";
+import { getColorDecisionsHex } from "./generatedFromCss/getColorDecisionsHex";
 export const colors = {
     "options": colorOptions,
-    "decisions": getColorDecisions({ colorOptions }),
+    "decisions": colorDecisions,
     "getHex": (() => {
         const getHex = ({ isDark }) => {
             const options = getColorOptionsHex({ isDark });
-            const decisions = getColorDecisions({ colorOptions });
+            const decisions = getColorDecisionsHex({ "colorOptions": options });
             return {
                 options,
                 decisions

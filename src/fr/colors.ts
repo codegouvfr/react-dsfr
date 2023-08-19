@@ -1,6 +1,7 @@
 import { colorOptions, type ColorOptions } from "./generatedFromCss/colorOptions";
 import { getColorOptionsHex } from "./generatedFromCss/getColorOptionsHex";
-import { getColorDecisions, type ColorDecisions } from "./generatedFromCss/getColorDecisions";
+import { colorDecisions, type ColorDecisions } from "./generatedFromCss/colorDecisions";
+import { getColorDecisionsHex } from "./generatedFromCss/getColorDecisionsHex";
 
 export type Colors = {
     options: ColorOptions<"css var">;
@@ -13,12 +14,12 @@ export type Colors = {
 
 export const colors: Colors = {
     "options": colorOptions,
-    "decisions": getColorDecisions({ colorOptions }),
+    "decisions": colorDecisions,
     "getHex": (() => {
         const getHex: Colors["getHex"] = ({ isDark }) => {
             const options = getColorOptionsHex({ isDark });
 
-            const decisions = getColorDecisions({ colorOptions });
+            const decisions = getColorDecisionsHex({ "colorOptions": options });
 
             return {
                 options,

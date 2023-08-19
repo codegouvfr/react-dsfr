@@ -1,7 +1,7 @@
 export declare const typography: readonly [{
     readonly selector: "h6";
     readonly style: {
-        readonly [x: string]: "1.5rem" | 700 | "1.125rem" | "var(--title-spacing)" | "var(--text-title-grey)" | {
+        readonly [x: string]: "var(--text-title-grey)" | "1.5rem" | 700 | "1.125rem" | "var(--title-spacing)" | {
             readonly fontSize: "1.25rem";
             readonly lineHeight: "1.75rem";
         };
@@ -14,7 +14,7 @@ export declare const typography: readonly [{
 }, {
     readonly selector: "h5";
     readonly style: {
-        readonly [x: string]: "1.25rem" | "1.75rem" | 700 | "var(--title-spacing)" | "var(--text-title-grey)" | {
+        readonly [x: string]: "var(--text-title-grey)" | "1.25rem" | "1.75rem" | 700 | "var(--title-spacing)" | {
             readonly fontSize: "1.375rem";
             readonly lineHeight: "1.75rem";
         };
@@ -27,7 +27,7 @@ export declare const typography: readonly [{
 }, {
     readonly selector: "h4";
     readonly style: {
-        readonly [x: string]: "1.75rem" | 700 | "var(--title-spacing)" | "var(--text-title-grey)" | "1.375rem" | {
+        readonly [x: string]: "var(--text-title-grey)" | "1.75rem" | 700 | "var(--title-spacing)" | "1.375rem" | {
             readonly fontSize: "1.5rem";
             readonly lineHeight: "2rem";
         };
@@ -40,7 +40,7 @@ export declare const typography: readonly [{
 }, {
     readonly selector: "h3";
     readonly style: {
-        readonly [x: string]: "1.5rem" | "2rem" | 700 | "var(--title-spacing)" | "var(--text-title-grey)" | {
+        readonly [x: string]: "var(--text-title-grey)" | "1.5rem" | "2rem" | 700 | "var(--title-spacing)" | {
             readonly fontSize: "1.75rem";
             readonly lineHeight: "2.25rem";
         };
@@ -53,7 +53,7 @@ export declare const typography: readonly [{
 }, {
     readonly selector: "h2";
     readonly style: {
-        readonly [x: string]: "1.75rem" | "2.25rem" | 700 | "var(--title-spacing)" | "var(--text-title-grey)" | {
+        readonly [x: string]: "var(--text-title-grey)" | "1.75rem" | "2.25rem" | 700 | "var(--title-spacing)" | {
             readonly fontSize: "2rem";
             readonly lineHeight: "2.5rem";
         };
@@ -66,7 +66,7 @@ export declare const typography: readonly [{
 }, {
     readonly selector: "h1";
     readonly style: {
-        readonly [x: string]: "2rem" | "2.5rem" | 700 | "var(--title-spacing)" | "var(--text-title-grey)" | {
+        readonly [x: string]: "var(--text-title-grey)" | "2rem" | "2.5rem" | 700 | "var(--title-spacing)" | {
             readonly fontSize: "2.5rem";
             readonly lineHeight: "3rem";
         };

@@ -7,7 +7,7 @@ import { cx } from "./cx";
 export type { FrCxArg } from "./cx";
 export type { Colors } from "./colors";
 export type { ColorOptions } from "./generatedFromCss/colorOptions";
-export type { ColorDecisions } from "./generatedFromCss/getColorDecisions";
+export type { ColorDecisions } from "./generatedFromCss/colorDecisions";
 import { colors } from "./colors";
 export type { FrClassName, FrIconClassName, RiIconClassName } from "./generatedFromCss/classNames";
 import { typography } from "./generatedFromCss/typography";
