@@ -9,7 +9,6 @@ export const colors = {
             const options = getColorOptionsHex({ isDark });
             const decisions = getColorDecisions({ colorOptions });
             return {
-                isDark,
                 options,
                 decisions
             };

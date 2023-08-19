@@ -107,7 +107,7 @@
     "remixicon": "^3.2.0",
     "storybook-dark-mode": "^1.1.2",
     "ts-node": "^10.9.1",
-    "tss-react": "^4.8.6",
+    "tss-react": "^4.9.0",
     "type-route": "^1.0.1",
     "typescript": "^4.9.1",
     "vitest": "^0.24.3"

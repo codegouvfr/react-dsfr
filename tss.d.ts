@@ -3,8 +3,8 @@
 export declare const makeStyles: <Params = void, RuleNameSubsetReferencableInNestedSelectors extends string = never>(params?: {
     name?: string | Record<string, unknown> | undefined;
     uniqId?: string | undefined;
-} | undefined) => <RuleName_2 extends string>(cssObjectByRuleNameOrGetCssObjectByRuleName: Record<RuleName_2, import("tss-react").CSSObject> | ((theme: import("./useColors").ColorTheme, params: Params, classes: Record<RuleNameSubsetReferencableInNestedSelectors, string>) => Record<RuleNameSubsetReferencableInNestedSelectors | RuleName_2, import("tss-react").CSSObject>)) => (params: Params, styleOverrides?: {
-    props: any;
+} | undefined) => <RuleName_2 extends string>(cssObjectByRuleNameOrGetCssObjectByRuleName: Record<RuleName_2, import("tss-react").CSSObject> | ((theme: import("./useColors").ColorTheme, params: Params, classes: Record<RuleNameSubsetReferencableInNestedSelectors, string>) => Record<RuleNameSubsetReferencableInNestedSelectors | RuleName_2, import("tss-react").CSSObject>)) => (params: Params, muiStyleOverridesParams?: {
+    props: Record<string, unknown>;
     ownerState?: Record<string, unknown> | undefined;
 } | undefined) => {
     classes: Record<RuleName_2, string>;

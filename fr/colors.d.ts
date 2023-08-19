@@ -6,7 +6,6 @@ export type Colors = {
     getHex: (params: {
         isDark: boolean;
     }) => {
-        isDark: boolean;
         options: ColorOptions<"hex">;
         decisions: ColorDecisions<"hex">;
     };
