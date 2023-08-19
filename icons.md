@@ -25,7 +25,7 @@ But on top of that, all icons from [Remixicon](https://remixicon.com/) are suppo
 
 You can go and search for a keyword:
 
-<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption><p>Searching for "download" on remixicon.com</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption><p>Searching for "download" on remixicon.com</p></figcaption></figure>
 
 When you find something fitting, you can copy paste the class name ( starting with `ri-` ) and use it anywhere you would have used a `.fr-icon-xxxx` ! 🚀
 

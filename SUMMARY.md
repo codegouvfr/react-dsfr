@@ -3,6 +3,7 @@
 * [🔧 Initial setup](README.md)
 * [🔀 Integration with routing libs](routing.md)
 * [🦺 Class names type safety](class-names-type-safety.md)
+* [🎨 Colors](colors.md)
 * [🧩 Components](components.md)
 * [☑ Icons](icons.md)
 * [💅 CSS in JS](css-in-js.md)
