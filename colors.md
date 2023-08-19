@@ -8,5 +8,7 @@ To assist you in effortlessly navigating through the DSFR color palette and sele
 Color picker tool
 {% endembed %}
 
-
+{% embed url="https://youtu.be/DAcioU4Q1kM" %}
+Tutorial
+{% endembed %}
 
