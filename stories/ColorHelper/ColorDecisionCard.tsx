@@ -177,7 +177,7 @@ export function ColorDecisionCard(
                         Option path:{" "}
                     </span>{" "}
                     <code>
-                        theme.options.<strong>{colorOption.themePath.join(".")}</strong>
+                        fr.colors.options.<strong>{colorOption.themePath.join(".")}</strong>
                     </code>
                 </p>
             </Accordion>
