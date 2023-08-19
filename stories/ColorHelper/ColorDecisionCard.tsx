@@ -2,7 +2,7 @@ import React from "react";
 import type { ColorDecisionAndCorrespondingOption } from "../../scripts/build/cssToTs/colorDecisionAndCorrespondingOptions";
 import { fr } from "../../dist/fr";
 import Tooltip from "@mui/material/Tooltip";
-import { useStyles } from "./makeStyles";
+import { useStyles } from "tss-react";
 import { CopyToClipboardButton } from "./CopyToClipboardButton";
 import { Accordion } from "../../dist/Accordion";
 import { Evt } from "evt";
@@ -39,29 +39,20 @@ export function ColorDecisionCard(
                         "color": fr.colors.decisions.text.mention.grey.default
                     }}
                 >
-                    Color Decision path
-                    {/*
-                    <Tooltip
-                        title={
-                            <a href="https://guides.react-dsfr.fr/css-in-js#colors" target="_blank">
-                                How to access the <code>theme</code> object
-                            </a>
-                        }
-                        placement="top"
-                        arrow
-                    >
-                        <i className={fr.cx("ri-information-line")} />
-                    </Tooltip>{" "}
-                    */}
-                    :
+                    Color Decision path :
                 </span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <code>
                     <Tooltip
+                        classes={{
+                            tooltip: css({
+                                "maxWidth": "none"
+                            })
+                        }}
                         title={
                             <code
                                 style={{
-                                    "fontSize": "1.2em"
+                                    "fontSize": "1.7em"
                                 }}
                             >
                                 var({colorDecisionName})
@@ -78,7 +69,7 @@ export function ColorDecisionCard(
                     </Tooltip>
                 </code>
                 <CopyToClipboardButton
-                    textToCopy={["theme", "decisions", ...themePath].join(".")}
+                    textToCopy={["fr", "colors", "decisions", ...themePath].join(".")}
                     evtAction={evtCopyToClipboardButtonAction}
                 />
             </div>
@@ -101,32 +92,66 @@ export function ColorDecisionCard(
             <div style={{ "marginTop": fr.spacing("2v") }}>
                 {typeof colorOption.color === "string" ? (
                     <>
-                        <span>Colors: </span>: <ColoredSquare hexColorCode={colorOption.color} />
+                        <span
+                            style={{
+                                "color": fr.colors.decisions.text.mention.grey.default
+                            }}
+                        >
+                            Hex color code: &nbsp;
+                            <Tooltip
+                                title={
+                                    "This decision resolve the the same hex color code in both dark and light mode"
+                                }
+                                placement="top"
+                                arrow
+                            >
+                                <i className={fr.cx("ri-information-line")} />
+                            </Tooltip>
+                        </span>
+                        &nbsp; &nbsp; &nbsp;
+                        <ColoredSquare
+                            hexColorCode={colorOption.color}
+                            isDark={false}
+                            themePath={themePath}
+                        />
                     </>
                 ) : (
                     <>
                         <span
                             style={{
-                                "color": fr.colors.decisions.text.mention.grey.default
+                                "color": fr.colors.decisions.text.mention.grey.default,
+                                "marginRight": 2
                             }}
                         >
-                            Dark mode:{" "}
+                            Dark mode:
                         </span>
-                        <ColoredSquare hexColorCode={colorOption.color.dark} />
                         &nbsp; &nbsp;
+                        <ColoredSquare
+                            hexColorCode={colorOption.color.dark}
+                            themePath={themePath}
+                            isDark={true}
+                        />
+                        <br />
                         <span
                             style={{
-                                "color": fr.colors.decisions.text.mention.grey.default
+                                "display": "inline-block",
+                                "color": fr.colors.decisions.text.mention.grey.default,
+                                "marginTop": fr.spacing("5v")
                             }}
                         >
-                            Light mode:{" "}
+                            Light mode:
                         </span>
-                        <ColoredSquare hexColorCode={colorOption.color.light} />
+                        &nbsp; &nbsp;
+                        <ColoredSquare
+                            hexColorCode={colorOption.color.light}
+                            themePath={themePath}
+                            isDark={false}
+                        />
                     </>
                 )}
             </div>
             <Accordion
-                className={css({ "marginTop": fr.spacing("4v") })}
+                className={css({ "marginTop": fr.spacing("5v") })}
                 label="Corresponding color option"
             >
                 <p>
@@ -160,30 +185,69 @@ export function ColorDecisionCard(
     );
 }
 
-function ColoredSquare(props: { hexColorCode: string }) {
-    const { hexColorCode } = props;
+function ColoredSquare(props: {
+    hexColorCode: string;
+    themePath: readonly string[];
+    isDark: boolean;
+}) {
+    const { hexColorCode, themePath, isDark } = props;
+
+    const { css } = useStyles();
+
+    const evtCopyToClipboardButtonAction = useConst(() => Evt.create<"trigger click">());
+
+    const codeToGetHex = `fr.colors.getHex({ isDark: ${
+        isDark ? "true" : "false"
+    } }).decisions${themePath.join(".")}`;
 
     return (
-        <div
-            style={{
-                display: "inline"
+        <Tooltip
+            classes={{
+                tooltip: css({
+                    "maxWidth": "none"
+                })
             }}
+            title={
+                <code
+                    style={{
+                        "fontSize": "1.5em"
+                    }}
+                >
+                    {codeToGetHex}
+                </code>
+            }
+            placement="top"
+            arrow
         >
-            <code>{hexColorCode}</code>
-            &nbsp;
-            <div
-                style={{
-                    "display": "inline-block",
-                    "borderWidth": 2,
-                    "borderStyle": "solid",
-                    "borderColor": fr.colors.decisions.border.default.grey.default,
-                    "width": 30,
-                    "height": 30,
-                    "backgroundColor": hexColorCode,
-                    "position": "relative",
-                    "top": 8
-                }}
-            />
-        </div>
+            <div style={{ "display": "inline-block" }}>
+                <div
+                    style={{
+                        display: "inline-block"
+                    }}
+                    onClick={() => evtCopyToClipboardButtonAction.post("trigger click")}
+                >
+                    <div
+                        style={{
+                            "display": "inline-block",
+                            "borderWidth": 2,
+                            "borderStyle": "solid",
+                            "borderColor": fr.colors.decisions.border.default.grey.default,
+                            "width": 30,
+                            "height": 30,
+                            "backgroundColor": hexColorCode,
+                            "position": "relative",
+                            "top": 8
+                        }}
+                    />
+                    &nbsp; &nbsp;
+                    <code>{hexColorCode}</code>
+                </div>
+
+                <CopyToClipboardButton
+                    textToCopy={codeToGetHex}
+                    evtAction={evtCopyToClipboardButtonAction}
+                />
+            </div>
+        </Tooltip>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../../dist/Button";
-import { useStyles } from "./makeStyles";
+import { useStyles } from "tss-react";
 import { fr } from "../../dist";
 import { assert } from "tsafe/assert";
 import { type NonPostableEvt } from "evt";
@@ -15,7 +15,7 @@ type Props = {
 export function CopyToClipboardButton(props: Props) {
     const { className, textToCopy, evtAction } = props;
 
-    const { css, cx, theme } = useStyles();
+    const { css, cx } = useStyles();
 
     const [isCopiedFeedbackShown, setIsCopiedFeedbackShown] = useState(false);
 
@@ -65,7 +65,7 @@ export function CopyToClipboardButton(props: Props) {
                     <i
                         className={cx(
                             fr.cx("fr-icon-check-line"),
-                            css({ "color": theme.decisions.text.default.success.default })
+                            css({ "color": fr.colors.decisions.text.default.success.default })
                         )}
                     />
                     <span
@@ -75,7 +75,7 @@ export function CopyToClipboardButton(props: Props) {
                             }
                         })}
                     >
-                        &nbsp; Copied to clipboard!
+                        &nbsp; Path copied!
                     </span>
                 </p>
             ) : (

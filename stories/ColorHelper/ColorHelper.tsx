@@ -9,7 +9,7 @@ import { MuiDsfrThemeProvider } from "../../dist/mui";
 import { Search } from "./Search";
 import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
-import { useStyles } from "./makeStyles";
+import { useStyles } from "tss-react";
 import type { Props as SearchProps } from "./Search";
 import { useEffectOnValueChange } from "powerhooks/useEffectOnValueChange";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
@@ -93,9 +93,8 @@ export function ColorHelper() {
                     This tool help you find the perfect DSFR color decision for your usecase.
                     <br />
                     <br />
-                    If you have the hex code (e.g. <code>#c9191e</code>) of a color that you know
-                    belong to the DSFR palette you can use the filter to find to which decision it
-                    corresponds.
+                    Use se search filters to the DSFR compliant color decision that best fit your
+                    needs.
                 </CallOut>
                 <Search
                     evtAction={evtSearchAction}

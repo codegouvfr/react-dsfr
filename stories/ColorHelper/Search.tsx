@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "./makeStyles";
+import { tss } from "tss-react";
 import { SearchBar } from "../../dist/SearchBar";
 import { Button } from "../../dist/Button";
 import { fr } from "../../dist/fr";
@@ -66,7 +66,7 @@ export function Search(props: Props) {
         [evtAction, inputElement, searchBarWrapperElement]
     );
 
-    const [areFiltersOpen, setAreFiltersOpen] = useState(false);
+    const [areFiltersOpen, setAreFiltersOpen] = useState(true);
 
     useEffectOnValueChange(() => {
         if (areFiltersOpen) {
@@ -168,8 +168,10 @@ export function Search(props: Props) {
     );
 }
 
-const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Search } })(
-    (theme, { filterWrapperMaxHeight }) => ({
+const useStyles = tss
+    .withName({ Search })
+    .withParams<{ filterWrapperMaxHeight: number }>()
+    .create(({ filterWrapperMaxHeight }) => ({
         "root": {
             "display": "flex",
             "paddingTop": fr.spacing("6v")
@@ -178,11 +180,11 @@ const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Sea
             "flex": 1
         },
         "filterButton": {
-            "backgroundColor": theme.decisions.background.actionLow.blueFrance.default,
+            "backgroundColor": fr.colors.decisions.background.actionLow.blueFrance.default,
             "&&&:hover": {
-                "backgroundColor": theme.decisions.background.actionLow.blueFrance.hover
+                "backgroundColor": fr.colors.decisions.background.actionLow.blueFrance.hover
             },
-            "color": theme.decisions.text.actionHigh.blueFrance.default,
+            "color": fr.colors.decisions.text.actionHigh.blueFrance.default,
             "marginLeft": fr.spacing("4v")
         },
         "filtersWrapper": {
@@ -190,13 +192,14 @@ const useStyles = makeStyles<{ filterWrapperMaxHeight: number }>({ "name": { Sea
             "maxHeight": filterWrapperMaxHeight,
             "overflow": "hidden",
             "display": "flex",
-            "marginTop": fr.spacing("4v"),
             "& > *": {
                 "flex": 1,
                 ...fr.spacing("padding", {
                     "rightLeft": "4v"
                 })
-            }
+            },
+            ...fr.spacing("margin", {
+                "topBottom": "9v"
+            })
         }
-    })
-);
+    }));

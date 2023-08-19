@@ -6,7 +6,6 @@ export type Colors = {
     options: ColorOptions<"css var">;
     decisions: ColorDecisions<"css var">;
     getHex: (params: { isDark: boolean }) => {
-        isDark: boolean;
         options: ColorOptions<"hex">;
         decisions: ColorDecisions<"hex">;
     };
@@ -22,7 +21,6 @@ export const colors: Colors = {
             const decisions = getColorDecisions({ colorOptions });
 
             return {
-                isDark,
                 options,
                 decisions
             };
