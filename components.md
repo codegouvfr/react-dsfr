@@ -20,8 +20,3 @@ Every component of react-dsfr accepts an optional `classes` property that enable
 
 <figure><img src=".gitbook/assets/image (9).png" alt=""><figcaption><p>After</p></figcaption></figure>
 
-### In depth customization
-
-If you need customization beyond what the props
-
-#### Ad

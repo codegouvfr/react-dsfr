@@ -14,10 +14,9 @@ Checkout [the color selection tool](https://components.react-dsfr.codegouv.studi
 
 {% tabs %}
 {% tab title="Native" %}
-You can use the style props on native react components but you won't be able to use the fr.spacing utility that enable to write responsive code.
+You can use the style props on native react components but you won't be able to use the `fr.breakpoint` utility that enable to write responsive code.
 
 <pre class="language-tsx"><code class="lang-tsx"><strong>import { fr } from "@codegouvfr/react-dsfr";
-</strong><strong>import { useColors } from "@codegouvfr/react-dsfr/useColors";
 </strong>
 export type Props = {
     className?: string;
@@ -27,22 +26,20 @@ export const MyComponent =(props: Props) => {
 
     const { className } = props;
     
-<strong>    const theme = useColors();
-</strong>
     return (
 	&#x3C;div 
 	    className={className}
 <strong>	    style={{
-</strong><strong>	        "padding": fr.spacing("10v"),
+</strong><strong>	        padding: fr.spacing("10v"),
 </strong><strong>		//SEE: https://components.react-dsfr.codegouv.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
-</strong><strong>	        "backgroundColor": theme.decisions.background.alt.blueFrance.active
+</strong><strong>	        backgroundColor: fr.colors.decisions.background.alt.blueFrance.active
 </strong><strong>	    }}
 </strong>	>
 	    &#x3C;span 
-	        className={fr.cx("fr-p-1v")}
-	        style={{
-	            ...fr.spacing("margin", { "topBottom": "3v" })
-	        }}
+<strong>	        className={fr.cx("fr-p-1v")}
+</strong>	        style={{
+<strong>	            ...fr.spacing("margin", { "topBottom": "3v" })
+</strong>	        }}
 	    >
 	        Hello World
 	    &#x3C;/span>
@@ -55,7 +52,7 @@ export const MyComponent =(props: Props) => {
 {% endtab %}
 
 {% tab title="TSS (recommended)" %}
-#### tss-react
+**tss-react**
 
 {% embed url="https://tss-react.dev" %}
 Dynamic CSS-in-TS syle engine
@@ -67,7 +64,8 @@ yarn add tss-react @emotion/react
 ```
 
 ```tsx
-import { makeStyles } from "tss-react/dsfr";
+import { useState } from "react";
+import { tss } from "tss-react/dsfr";
 //NOTE: If you get "SyntaxError: Cannot use import statement outside a module" add tss-react here in your next.config.js: https://github.com/garronej/react-dsfr-next-demo/blob/43ecfa03d5416f2446b6867af65c7e3c7e7e41ef/next.config.js#L14 
 
 export type Props = {
@@ -77,11 +75,18 @@ export type Props = {
 export const MyComponent =(props: Props) => {
 
     const { className } = props;
+    
+    const [counter, setCounter]= useState(0)
 
-    const { classes, cx } = useStyles();
+    const { classes, cx } = useStyles({
+        isClicked: couter > 0
+    });
 
     return (
-	<div className={cx(classes.root, className)}>
+	<div 
+	    className={cx(classes.root, className)}
+	    onClick={()=> setCounter(counter+1)}
+	>
 	    <span className={cx(fr.cx("fr-p-1v"), classes.innerText)} >
 	        Hello World
 	    </span>
@@ -92,35 +97,36 @@ export const MyComponent =(props: Props) => {
 
 MyComponent.displayName = MyComponent.name;
 
-const useStyles = makeStyles({ name: MyComponent.name })(theme => ({
-    root: {
-        padding: fr.spacing("10v"),
-        //SEE: https://components.react-dsfr.codegouv.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
-	backgroundColor: theme.decisions.background.active.redMarianne.default,
-	"&:hover": {
-	  //Rules that apply when the mouse is hover
-	  backgroundColor: theme.decisions.background.active.redMarianne.hover
-	},
-	[fr.breakpoints.up("md")]: {
-	    //Rules that applies only when the screen is md or up
-	}
-    },
-    innerText: {
-	...fr.spacing("margin", { topBottom: "3v" })
-    }
-});
+const useStyles = tss
+	.withName(MyComponent.name)
+	.withParams<{ isClicked: boolean; }>()
+	.create(({ isClicked })=> ({
+	    root: {
+                padding: fr.spacing("10v"),
+                //SEE: https://components.react-dsfr.codegouv.studio/?path=/docs/%F0%9F%8E%A8-color-helper--page
+	        backgroundColor: fr.colors.decisions.background.active.redMarianne.default,
+	        "&:hover": {
+	            //Rules that apply when the mouse is hover
+	            backgroundColor: fr.colors.decisions.background.active.redMarianne.hover
+	        },
+	        [fr.breakpoints.up("md")]: {
+	            //Rules that applies only when the screen is md or up
+	        },
+		border: !isClicked ? undefined : `1px solid ${fr.colors.decisions.border.active.blueFrance.default}`
+            },
+            innerText: {
+	        ...fr.spacing("margin", { topBottom: "3v" })
+            }
+        }));
 ```
 
 You can also use TSS to apply global styles:
 
 ```tsx
-// Some code
-import { useStyles } from "@codegouvfr/react-dsfr/tss";
 import { GlobalStyles } from "tss-react";
+import { fr } from "@codegouvfr/react-dsfr";
 
 function App(){
-
-    const { theme }= useStyles();
 
     return (
         <>
@@ -133,7 +139,7 @@ function App(){
                         margin: 0,
                         borderWidth: 20,
                         borderStyle: "solid",
-                        borderColor: theme.decisions.border.actionHigh.success.default
+                        borderColor: fr.colors.decisions.border.actionHigh.success.default
                     }
                 }}
             />
@@ -162,14 +168,14 @@ Advantages of tss-react over other CSS in JS solutions
 {% code title="index.tsx" %}
 ```tsx
 import { ThemeProvider } from '@emotion/react'
-import { useColors } from "@codegouvfr/react-dsfr";
+import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 
 function Root(){
 
-    const colors = useColors();
+    const { isDark } = useIsDark();
 
     return (
-        <ThemeProvider theme={colors}>
+        <ThemeProvider theme={{ isDark }}>
             <App />
         </ThemeProvider>
     );
@@ -202,9 +208,13 @@ export function MyComponentNotStyled(props: Props){
 
 export const MyComponent = MyComponentNotStyled`
   padding: ${fr.spacing("10v")};
-  background-color: ${({ theme })=> theme.decisions.background.alt.blueFrance.active};
+  background-color: ${fr.colors.decisions.background.alt.blueFrance.active};
+  /* 
+  You can also use HEX values of colors instead of var(--xxx) with:
+  background-color: ${({ theme: { isDark } })=> fr.colors.getHex({ isDark }).decisions.background.alt.blueFrance.active};
+  */
   ${fr.breakpoints.up("md")}: {
-    background-color: ${({ theme })=> theme.decisions.background.alt.beigeGrisGalet.active};
+    background-color: ${fr.colors.decisions.background.alt.beigeGrisGalet.active};
   }
   & > span {
     margin-top: ${fr.spacing("3v")};
