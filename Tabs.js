@@ -29,6 +29,7 @@ export const Tabs = memo(forwardRef((props, ref) => {
         const index = tabs.findIndex(tab => { var _a; return "content" in tab ? (_a = tab.isDefault) !== null && _a !== void 0 ? _a : false : tab.tabId === selectedTabId; });
         return index === -1 ? 0 : index;
     };
+    const buttonRefs = React.useRef([]);
     const [selectedTabIndex, setSelectedTabIndex] = useState(getSelectedTabIndex);
     useEffect(() => {
         if (selectedTabId === undefined) {
@@ -47,6 +48,31 @@ export const Tabs = memo(forwardRef((props, ref) => {
             onTabChange(tabs[tabIndex].tabId);
         }
     });
+    const onKeyboardNavigation = (event) => {
+        var _a;
+        let targetIndex = selectedTabIndex;
+        switch (event.key) {
+            case "ArrowRight":
+                targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
+                break;
+            case "ArrowLeft":
+                targetIndex = selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
+                break;
+            case "Home":
+                targetIndex = 0;
+                break;
+            case "End":
+                targetIndex = tabs.length - 1;
+                break;
+        }
+        (_a = buttonRefs.current[targetIndex]) === null || _a === void 0 ? void 0 : _a.click();
+    };
+    React.useEffect(() => {
+        const targetTabButton = buttonRefs.current[selectedTabIndex];
+        if (targetTabButton) {
+            targetTabButton.focus();
+        }
+    }, [selectedTabIndex]);
     const { getPanelId, getTabId } = (function useClosure() {
         const id = useId();
         const getPanelId = (tabIndex) => `tabpanel-${id}-${tabIndex}-panel`;
@@ -57,8 +83,8 @@ export const Tabs = memo(forwardRef((props, ref) => {
         };
     })();
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-tabs"), className), ref: ref, style: style }, rest),
-        React.createElement("ul", { className: fr.cx("fr-tabs__list"), role: "tablist", "aria-label": label }, tabs.map(({ label, iconId }, tabIndex) => (React.createElement("li", { key: label + (iconId !== null && iconId !== void 0 ? iconId : ""), role: "presentation" },
-            React.createElement("button", { id: getTabId(tabIndex), className: cx(fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"), classes.tab), tabIndex: tabIndex === selectedTabIndex ? 0 : -1, role: "tab", "aria-selected": tabIndex === selectedTabIndex, "aria-controls": getPanelId(tabIndex), onClick: onTabClickFactory(tabIndex) }, label))))),
+        React.createElement("ul", { className: fr.cx("fr-tabs__list"), role: "tablist", "aria-label": label, onKeyDownCapture: e => onKeyboardNavigation(e) }, tabs.map(({ label, iconId }, tabIndex) => (React.createElement("li", { key: label + (iconId !== null && iconId !== void 0 ? iconId : ""), role: "presentation" },
+            React.createElement("button", { ref: button => (buttonRefs.current[tabIndex] = button), id: getTabId(tabIndex), className: cx(fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"), classes.tab), tabIndex: tabIndex === selectedTabIndex ? 0 : -1, role: "tab", "aria-selected": tabIndex === selectedTabIndex, "aria-controls": getPanelId(tabIndex), onClick: onTabClickFactory(tabIndex) }, label))))),
         selectedTabId === undefined ? (tabs.map(({ content }, tabIndex) => (React.createElement("div", { key: tabIndex, id: getPanelId(tabIndex), className: cx(fr.cx("fr-tabs__panel", `fr-tabs__panel${tabIndex === selectedTabIndex ? "--selected" : ""}`), classes.panel), role: "tabpanel", "aria-labelledby": getTabId(tabIndex), tabIndex: 0 }, content)))) : (React.createElement("div", { id: getPanelId(selectedTabIndex), className: cx(fr.cx("fr-tabs__panel", "fr-tabs__panel--selected"), classes.panel), role: "tabpanel", "aria-labelledby": getTabId(selectedTabIndex), tabIndex: 0 }, children))));
 }));
 Tabs.displayName = symToStr({ Tabs });
