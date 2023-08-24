@@ -46,12 +46,6 @@
     mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
 .fr-icon-mail-fill::before,
 .fr-icon-mail-fill::after {
     -webkit-mask-image: url("../../icons/business/mail-fill.svg");
@@ -80,6 +74,12 @@
 .ri-account-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
     mask-image: url("../../icons/remixicon/account-box-line.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -183,11 +183,6 @@
         background-image: url("../../icons/remixicon/information-line.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
     .fr-icon-mail-fill::before,
     .fr-icon-mail-fill::after {
         background-image: url("../../icons/business/mail-fill.svg");
@@ -211,6 +206,11 @@
     .ri-account-box-line::before,
     .ri-account-box-line::after {
         background-image: url("../../icons/remixicon/account-box-line.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,
