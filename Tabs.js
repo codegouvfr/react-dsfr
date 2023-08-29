@@ -49,30 +49,28 @@ export const Tabs = memo(forwardRef((props, ref) => {
         }
     });
     const onKeyboardNavigation = (event) => {
-        var _a;
-        let targetIndex = selectedTabIndex;
-        switch (event.key) {
-            case "ArrowRight":
-                targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
-                break;
-            case "ArrowLeft":
-                targetIndex = selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
-                break;
-            case "Home":
-                targetIndex = 0;
-                break;
-            case "End":
-                targetIndex = tabs.length - 1;
-                break;
+        var _a, _b;
+        if (selectedTabId !== undefined) {
+            let targetIndex = selectedTabIndex;
+            switch (event.key) {
+                case "ArrowRight":
+                    targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
+                    break;
+                case "ArrowLeft":
+                    targetIndex =
+                        selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
+                    break;
+                case "Home":
+                    targetIndex = 0;
+                    break;
+                case "End":
+                    targetIndex = tabs.length - 1;
+                    break;
+            }
+            (_a = buttonRefs.current[targetIndex]) === null || _a === void 0 ? void 0 : _a.click();
+            (_b = buttonRefs.current[targetIndex]) === null || _b === void 0 ? void 0 : _b.focus();
         }
-        (_a = buttonRefs.current[targetIndex]) === null || _a === void 0 ? void 0 : _a.click();
     };
-    React.useEffect(() => {
-        const targetTabButton = buttonRefs.current[selectedTabIndex];
-        if (targetTabButton) {
-            targetTabButton.focus();
-        }
-    }, [selectedTabIndex]);
     const { getPanelId, getTabId } = (function useClosure() {
         const id = useId();
         const getPanelId = (tabIndex) => `tabpanel-${id}-${tabIndex}-panel`;
