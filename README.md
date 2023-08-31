@@ -124,6 +124,7 @@ A few projects that use `@codegouvfr/react-dsfr`.
 -   https://refugies.info/fr
 -   https://www.mediateur-public.fr/
 -   https://signal.conso.gouv.fr/
+-   https://observatoire.numerique.gouv.fr/
 -   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
 -   https://github.com/DISIC/observatoire.numerique.gouv.fr
 -   https://github.com/DISIC/monfranceconnect
