@@ -122,6 +122,10 @@ Starter project in prod here: [https://next-demo.react-dsfr.fr/](https://next-de
 
 Despite the setup process not being as streamlined as one might hope due to certain Next specific limitations, the library is fully compatible with Next.js App Router ([see demo](https://next-demo.react-dsfr.fr/)). Most component featured in this toolkit are [RSC ready](https://nextjs.org/docs/getting-started/react-essentials#server-components), those that are not are labeled using [the `"use client"` directive](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).
 
+{% hint style="info" %}
+You may experience white flashes in dev mode but not in production. 👍
+{% endhint %}
+
 ```bash
 yarn add --dev sass
 # If you plan to use MUI:  
@@ -210,10 +214,6 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 
 {% hint style="success" %}
 Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.tss-react.dev/ssr/next.js#app-dir).
-{% endhint %}
-
-{% hint style="info" %}
-You may experience white flashes in dev mode but not in production. 👍
 {% endhint %}
 {% endtab %}
 
