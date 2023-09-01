@@ -465,14 +465,14 @@ export default withDsfr(App);
 {% tab title="Next.js App Router" %}
 <pre class="language-tsx" data-title="app/layout.tsx"><code class="lang-tsx">import { DsfrHead } from "@codegouvfr/react-dsfr/next-appdir/DsfrHead";
 import { DsfrProvider } from "@codegouvfr/react-dsfr/next-appdir/DsfrProvider";
-import { getColorSchemeHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getColorSchemeHtmlAttributes";
+import { getHtmlAttributes } from "@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes";
 import StartDsfr from "./StartDsfr";
 import { defaultColorScheme } from "./defaultColorScheme";
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
 
   return (
-    &#x3C;html {...getColorSchemeHtmlAttributes({ defaultColorScheme })} >
+    &#x3C;html {...getHtmlAttributes({ defaultColorScheme })} >
       &#x3C;head>
         &#x3C;StartDsfr />
         &#x3C;DsfrHead 
