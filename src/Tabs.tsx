@@ -108,30 +108,27 @@ export const Tabs = memo(
         const onKeyboardNavigation = (
             event: React.KeyboardEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLUListElement>
         ) => {
-            let targetIndex = selectedTabIndex;
-            switch (event.key) {
-                case "ArrowRight":
-                    targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
-                    break;
-                case "ArrowLeft":
-                    targetIndex = selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
-                    break;
-                case "Home":
-                    targetIndex = 0;
-                    break;
-                case "End":
-                    targetIndex = tabs.length - 1;
-                    break;
+            if (selectedTabId !== undefined) {
+                let targetIndex = selectedTabIndex;
+                switch (event.key) {
+                    case "ArrowRight":
+                        targetIndex = selectedTabIndex < tabs.length - 1 ? selectedTabIndex + 1 : 0;
+                        break;
+                    case "ArrowLeft":
+                        targetIndex =
+                            selectedTabIndex === 0 ? tabs.length - 1 : selectedTabIndex - 1;
+                        break;
+                    case "Home":
+                        targetIndex = 0;
+                        break;
+                    case "End":
+                        targetIndex = tabs.length - 1;
+                        break;
+                }
+                buttonRefs.current[targetIndex]?.click();
+                buttonRefs.current[targetIndex]?.focus();
             }
-            buttonRefs.current[targetIndex]?.click();
         };
-
-        React.useEffect(() => {
-            const targetTabButton = buttonRefs.current[selectedTabIndex];
-            if (targetTabButton) {
-                targetTabButton.focus();
-            }
-        }, [selectedTabIndex]);
 
         const { getPanelId, getTabId } = (function useClosure() {
             const id = useId();

@@ -121,11 +121,12 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few projects that use `@codegouvfr/react-dsfr`.
 
--   https://sill.code.gouv.fr
+-   https://code.gouv.fr/sill
 -   https://immersion-facile.beta.gouv.fr/
 -   https://refugies.info/fr
 -   https://www.mediateur-public.fr/
 -   https://signal.conso.gouv.fr/
+-   https://observatoire.numerique.gouv.fr/
 -   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
 -   https://github.com/DISIC/observatoire.numerique.gouv.fr
 -   https://github.com/DISIC/monfranceconnect
