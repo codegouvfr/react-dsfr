@@ -82,6 +82,8 @@ Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react
 
 [Voici un bac à sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 
+> 💡 Besoin de pages de connexion au DSFR? Allez voir [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
+
 ## Development
 
 ```bash

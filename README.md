@@ -82,6 +82,8 @@ If your project is using [`@dataesr/react-dsfr`](https://github.com/dataesr/reac
 
 [Here is a playground to demonstrate it](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
 
+> 💡 Need ready to use, DSFR compliant login and register pages? Checkout [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
+
 ## Development
 
 ```bash
