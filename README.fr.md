@@ -70,18 +70,6 @@ Ce projet est co-maintenu par des agents de différentes administrations frança
 -   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
 
-## Migration depuis [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
-
-Si votre projet utilise [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) et que vous n'êtes pas enclin a migrer ver `@codegouvfr/react-dsfr` vous pouvez tout de même profiter de plusieurs fonctionalités de ce dernier:
-
--   Profitez de [l'auto complétion des classes en `fr-*`](https://guides.react-dsfr.fr/class-names-type-safety).
--   Utilisez [le système de couleur strictement typer](https://guides.react-dsfr.fr/css-in-js#colors).
--   Utilisez le thème MUI.
--   Utilisez [le système d'espacement](https://guides.react-dsfr.fr/css-in-js#fr.spacing) et de
-    [point de rupture](https://guides.react-dsfr.fr/css-in-js#fr.breakpoints).
-
-[Voici un bac à sable pour expérimenter](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
-
 > 💡 Besoin de pages de connexion au DSFR? Allez voir [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 ## Development

@@ -70,18 +70,6 @@ This project is co-maintained by public servants from various French administrat
 -   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
 
-# Migrating from [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr)?
-
-If your project is using [`@dataesr/react-dsfr`](https://github.com/dataesr/react-dsfr) and you're not willing to migrate to `@codegouvfr/react-dsfr` you can still benefit from some of this project features:
-
--   The [`fr-*` classes autocompletion and type safety](https://guides.react-dsfr.fr/class-names-type-safety).
--   Use [the type safe color system](https://guides.react-dsfr.fr/css-in-js#colors).
--   Use the MUI theme.
--   The [the spacing system](https://guides.react-dsfr.fr/css-in-js#fr.spacing) and
-    [breakpoints util for building responsive UI](https://guides.react-dsfr.fr/css-in-js#fr.breakpoints).
-
-[Here is a playground to demonstrate it](https://stackblitz.com/edit/react-ts-fph9bh?file=App.tsx).
-
 > 💡 Need ready to use, DSFR compliant login and register pages? Checkout [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 ## Development
