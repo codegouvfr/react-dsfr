@@ -55,8 +55,7 @@ This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
 -   [x] [Support routing libraries](https://guides.react-dsfr.fr/routing) like react-router.
 
-This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
-I'm working full time on this project. You can expect rapid development.
+> 💡 Need ready to use, DSFR compliant login and register pages? Checkout [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 <p align="center">
   <a href="https://guides.react-dsfr.fr/">🚀 Get started 🚀 </a>
@@ -64,13 +63,13 @@ I'm working full time on this project. You can expect rapid development.
 
 # Governance
 
+This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
+
 This project is co-maintained by public servants from various French administrations.
 
 -   [Joseph Garrone](@garronej)
 -   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
-
-> 💡 Need ready to use, DSFR compliant login and register pages? Checkout [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 ## Development
 

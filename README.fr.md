@@ -56,7 +56,7 @@ DSFR en pur JavaScript/CSS.
 -   [x] prévoit un système de traduction pour les textes présents dans les composants (i18n).
 -   [x] [s'intègre avec les librairies de routing](https://guides.react-dsfr.fr/routing) comme [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
 
-Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
+> 💡 Besoin de pages de connexion au DSFR? Allez voir [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 <p align="center">
   <a href="https://guides.react-dsfr.fr/">🚀 Commencer maintenant 🚀 </a>
@@ -64,13 +64,13 @@ Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), l
 
 # Gouvernance du projet
 
+Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
+
 Ce projet est co-maintenu par des agents de différentes administrations françaises.
 
 -   [Joseph Garrone](@garronej)
 -   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
-
-> 💡 Besoin de pages de connexion au DSFR? Allez voir [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 ## Development
 
