@@ -144,7 +144,7 @@ export const Header = memo(
 
         const { Link } = getLink();
 
-        const quickAccessNode = (
+        const quickAccessNode = (fromModal: boolean) => (
             <ul className={fr.cx("fr-btns-group")}>
                 {quickAccessItems.map((quickAccessItem, i) => (
                     <li key={i}>
@@ -158,7 +158,7 @@ export const Header = memo(
                                 id={`${id}-quick-access-item-${generateValidHtmlId({
                                     "fallback": "",
                                     "text": quickAccessItem.text
-                                })}-${i}`}
+                                })}-${i}-${fromModal ? "modal" : "navbar"}`}
                                 quickAccessItem={quickAccessItem}
                             />
                         )}
@@ -312,7 +312,7 @@ export const Header = memo(
                                                     classes.toolsLinks
                                                 )}
                                             >
-                                                {quickAccessNode}
+                                                {quickAccessNode(false)}
                                             </div>
                                         )}
 
@@ -401,7 +401,7 @@ export const Header = memo(
                                         classes.menuLinks
                                     )}
                                 >
-                                    {quickAccessNode}
+                                    {quickAccessNode(true)}
                                 </div>
                                 {navigation !== undefined &&
                                     (navigation instanceof Array ? (
