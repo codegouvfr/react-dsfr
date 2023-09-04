@@ -144,7 +144,7 @@ export const Header = memo(
 
         const { Link } = getLink();
 
-        const quickAccessNode = (
+        const getQuickAccessNode = (suffix: string | null = null) => (
             <ul className={fr.cx("fr-btns-group")}>
                 {quickAccessItems.map((quickAccessItem, i) => (
                     <li key={i}>
@@ -157,7 +157,7 @@ export const Header = memo(
                             <HeaderQuickAccessItem
                                 id={`${id}-quick-access-item-${generateValidHtmlId({
                                     "fallback": "",
-                                    "text": quickAccessItem.text
+                                    "text": `${quickAccessItem.text}${suffix ? `-${suffix}` : ""}`
                                 })}-${i}`}
                                 quickAccessItem={quickAccessItem}
                             />
@@ -312,7 +312,7 @@ export const Header = memo(
                                                     classes.toolsLinks
                                                 )}
                                             >
-                                                {quickAccessNode}
+                                                {getQuickAccessNode()}
                                             </div>
                                         )}
 
@@ -401,7 +401,7 @@ export const Header = memo(
                                         classes.menuLinks
                                     )}
                                 >
-                                    {quickAccessNode}
+                                    {getQuickAccessNode("mobile")}
                                 </div>
                                 {navigation !== undefined &&
                                     (navigation instanceof Array ? (
