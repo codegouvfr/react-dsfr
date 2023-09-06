@@ -34,11 +34,24 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
         value?: Options[number]["value"];
         onChange?: (
             e: Omit<ChangeEvent<HTMLSelectElement>, "target" | "currentTarget"> & {
-                target: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
+                target: Omit<EventTarget & HTMLSelectElement, "value" | "selectedOptions"> & {
                     value: Options[number]["value"];
+                    selectedOptions: HTMLCollectionOf<
+                        Omit<HTMLOptionElement, "value"> & {
+                            value: Options[number]["value"];
+                        }
+                    >;
                 };
-                currentTarget: Omit<ChangeEvent<HTMLSelectElement>, "value"> & {
+                currentTarget: Omit<
+                    EventTarget & HTMLSelectElement,
+                    "value" | "selectedOptions"
+                > & {
                     value: Options[number]["value"];
+                    selectedOptions: HTMLCollectionOf<
+                        Omit<HTMLOptionElement, "value"> & {
+                            value: Options[number]["value"];
+                        }
+                    >;
                 };
             }
         ) => void;

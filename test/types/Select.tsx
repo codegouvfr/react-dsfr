@@ -262,3 +262,37 @@ import { assert, type Equals } from "tsafe";
         }}
     />;
 }
+
+{
+    const dogOrCatOptions = [
+        {
+            value: "dog",
+            label: "Dog"
+        },
+        {
+            value: "cat",
+            label: "Cat"
+        }
+    ] as const;
+
+    type DogOrCat = typeof dogOrCatOptions[number]["value"];
+    type SelectTarget = Omit<EventTarget & HTMLSelectElement, "value" | "selectedOptions"> & {
+        value: DogOrCat;
+        selectedOptions: HTMLCollectionOf<Omit<HTMLOptionElement, "value"> & { value: DogOrCat }>;
+    };
+    <Select
+        label="Dog or cat person?"
+        options={[...dogOrCatOptions]}
+        placeholder="Select an option"
+        nativeSelectProps={{
+            "onChange": event => {
+                assert<Equals<typeof event["currentTarget"], SelectTarget>>();
+                assert<Equals<typeof event["target"], SelectTarget>>();
+                const selectedValues = Array.from(event.target.selectedOptions).map(
+                    option => option.value
+                );
+                assert<Equals<typeof selectedValues, DogOrCat[]>>;
+            }
+        }}
+    />;
+}
