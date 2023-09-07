@@ -19,7 +19,7 @@ import { cx } from "./tools/cx";
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;
-    const { className, id, label, hintText, hideLabel, disabled = false, iconId: iconId_props, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps"]);
+    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps"]);
     const nativeInputOrTextAreaProps = (_a = (textArea ? nativeTextAreaProps : nativeInputProps)) !== null && _a !== void 0 ? _a : {};
     const NativeInputOrTextArea = textArea ? "textarea" : "input";
     assert();
@@ -56,7 +56,6 @@ export const Input = memo(forwardRef((props, ref) => {
                     }
                     assert(false);
                 })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
-            const iconId = iconId_props !== null && iconId_props !== void 0 ? iconId_props : ((nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) === "date" ? "ri-calendar-line" : undefined);
             return iconId === undefined ? (nativeInputOrTextArea) : (React.createElement("div", { className: fr.cx("fr-input-wrap", iconId) }, nativeInputOrTextArea));
         })(),
         state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
