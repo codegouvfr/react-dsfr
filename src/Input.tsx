@@ -74,7 +74,7 @@ export const Input = memo(
             hintText,
             hideLabel,
             disabled = false,
-            iconId: iconId_props,
+            iconId,
             classes = {},
             style,
             state = "default",
@@ -160,10 +160,6 @@ export const Input = memo(
                             id={inputId}
                         />
                     );
-
-                    const iconId =
-                        iconId_props ??
-                        (nativeInputProps?.type === "date" ? "ri-calendar-line" : undefined);
 
                     return iconId === undefined ? (
                         nativeInputOrTextArea
