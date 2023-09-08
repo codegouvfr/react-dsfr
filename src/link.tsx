@@ -87,7 +87,7 @@ export function setLink(params: { Link: typeof Link }): void {
                     break external_links;
                 }
 
-                return <a href={target} target="_blank" {...rest} />;
+                return <a href={target} target="_blank" rel="noreferrer" {...rest} />;
             }
 
             anchor: {

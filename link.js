@@ -50,7 +50,7 @@ export function setLink(params) {
                     (!target.startsWith("//") && !/^https?:\/\//.test(target))) {
                     break external_links;
                 }
-                return React.createElement("a", Object.assign({ href: target, target: "_blank" }, rest));
+                return React.createElement("a", Object.assign({ href: target, target: "_blank", rel: "noreferrer" }, rest));
             }
             anchor: {
                 if (target === undefined || !target.startsWith("#")) {
