@@ -40,6 +40,7 @@ export declare namespace ButtonProps {
         nativeButtonProps?: never;
         disabled?: never;
         type?: never;
+        value?: never;
     };
     type AsButton = {
         linkProps?: never;
@@ -48,6 +49,7 @@ export declare namespace ButtonProps {
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
+        value?: string;
     };
 }
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-button> */
