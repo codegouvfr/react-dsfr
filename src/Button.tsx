@@ -72,6 +72,7 @@ export namespace ButtonProps {
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
+        value?: string
     };
 }
 
