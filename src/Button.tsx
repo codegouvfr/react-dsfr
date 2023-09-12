@@ -63,6 +63,7 @@ export namespace ButtonProps {
         nativeButtonProps?: never;
         disabled?: never;
         type?: never;
+        value?: never;
     };
     export type AsButton = {
         linkProps?: never;
@@ -72,7 +73,7 @@ export namespace ButtonProps {
         disabled?: boolean;
         /** Default "button" */
         type?: "button" | "submit" | "reset";
-        value?: string
+        value?: string;
     };
 }
 
@@ -94,6 +95,7 @@ export const Button = memo(
             disabled,
             type,
             style,
+            value,
             ...rest
         } = props;
 
@@ -159,6 +161,7 @@ export const Button = memo(
                 onClick={onClick ?? nativeButtonProps?.onClick}
                 disabled={disabled ?? nativeButtonProps?.disabled}
                 ref={ref as React.ForwardedRef<HTMLButtonElement>}
+                value={value}
                 {...rest}
             >
                 {children}
