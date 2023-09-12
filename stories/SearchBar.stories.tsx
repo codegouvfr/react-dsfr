@@ -29,7 +29,7 @@ const { meta, getStory } = getStoryFactory({
 
 export default meta;
 
-export const Default = getStory(
+export const DefaultUncontrolled = getStory(
     {
         "label": undefined,
         "onButtonClick": text => alert(`TODO: implement search with text: ${text}`)
@@ -52,6 +52,12 @@ import { SearchBar } from "@codegouvfr/react-dsfr/SearchBar";
 `
     }
 );
+
+export const BigUncontrolled = getStory({
+    "label": undefined,
+    "onButtonClick": text => alert(`TODO: implement search with text: ${text}`),
+    "big": true
+});
 
 export const WithControlledInput = getStory(
     {
