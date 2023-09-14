@@ -41,6 +41,8 @@ export type CreateNextDsfrIntegrationApiParams = {
     doPersistDarkModePreferenceWithCookie?: boolean;
     /** Default: ()=> "fr" */
     useLang?: () => string;
+    nonce?: string;
+    trustedTypesPolicyName?: string;
 };
 
 function readIsDarkInCookie(cookie: string) {
@@ -88,7 +90,9 @@ export function createNextDsfrIntegrationApi(
         Link,
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
-        useLang
+        useLang,
+        nonce,
+        trustedTypesPolicyName
     } = params;
 
     let isAfterFirstEffect = false;
@@ -165,9 +169,10 @@ export function createNextDsfrIntegrationApi(
                         />
                         {!isBrowser && ( //NOTE: On browser we handle this manually
                             <>
-                                <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
-                                    isDark ? "dark" : "light"
-                                }; }`}</style>
+                                <style
+                                    nonce={nonce}
+                                    id={rootColorSchemeStyleTagId}
+                                >{`:root { color-scheme: ${isDark ? "dark" : "light"}; }`}</style>
                                 <meta
                                     name="theme-color"
                                     content={
@@ -179,8 +184,13 @@ export function createNextDsfrIntegrationApi(
                         )}
                         {isProduction && (
                             <script
+                                nonce={nonce}
                                 dangerouslySetInnerHTML={{
-                                    "__html": getScriptToRunAsap(defaultColorScheme)
+                                    "__html": getScriptToRunAsap({
+                                        defaultColorScheme,
+                                        nonce,
+                                        trustedTypesPolicyName
+                                    })
                                 }}
                             />
                         )}

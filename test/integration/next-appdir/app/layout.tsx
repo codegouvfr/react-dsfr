@@ -41,6 +41,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 						//"Spectral-Regular",
 						//"Spectral-ExtraBold"
 					]}
+					nonce='coucoucoucoucouc'
 				/>
 			</head>
 			<body

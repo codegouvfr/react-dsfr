@@ -14,8 +14,10 @@ export function startReactDsfr(params: {
     verbose?: boolean;
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    nonce?: string;
+    trustedTypesPolicyName?: string;
 }) {
-    const { defaultColorScheme, verbose = false, Link } = params;
+    const { defaultColorScheme, verbose = false, Link, nonce, trustedTypesPolicyName } = params;
 
     setDefaultColorSchemeClientSide({ defaultColorScheme });
 
@@ -36,7 +38,9 @@ export function startReactDsfr(params: {
                         actions.push(action);
                     }
                 }
-            }
+            },
+            nonce,
+            trustedTypesPolicyName
         });
     }
 }

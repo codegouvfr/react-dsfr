@@ -13,7 +13,8 @@ declare module "@codegouvfr/react-dsfr/next-appdir" {
 
 startReactDsfr({ 
 	defaultColorScheme, 
-	Link
+	Link,
+    nonce: "coucoucoucoucouc"
 });
 
 export function StartDsfr(){

@@ -20,12 +20,14 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    nonce?: string;
+    trustedTypesPolicyName?: string;
 };
 
 const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const { preloadFonts = [], Link } = props;
+    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName } = props;
 
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
@@ -55,7 +57,14 @@ export function DsfrHead(props: DsfrHeadProps) {
             <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
             {isProduction && (
                 <script
-                    dangerouslySetInnerHTML={{ "__html": getScriptToRunAsap(defaultColorScheme) }}
+                    nonce={nonce}
+                    dangerouslySetInnerHTML={{
+                        "__html": getScriptToRunAsap({
+                            defaultColorScheme,
+                            nonce,
+                            trustedTypesPolicyName
+                        })
+                    }}
                 />
             )}
         </>

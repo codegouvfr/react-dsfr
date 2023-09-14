@@ -98,11 +98,15 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
+    nonce?: string;
+    trustedTypesPolicyName?: string;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
-        colorSchemeExplicitlyProvidedAsParameter
+        colorSchemeExplicitlyProvidedAsParameter,
+        nonce,
+        trustedTypesPolicyName = "react-dsfr"
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -174,6 +178,14 @@ export function startClientSideIsDarkLogic(params: {
 
     ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
 
+    const trustedTypes = (window as any).trustedTypes;
+    const sanitizer =
+        typeof trustedTypes !== "undefined"
+            ? trustedTypes.createPolicy(trustedTypesPolicyName, { createHTML: (s: string) => s })
+            : {
+                  createHTML: (s: string) => s
+              };
+
     $clientSideIsDark.current = clientSideIsDark;
 
     [data_fr_scheme, data_fr_theme].forEach(attr =>
@@ -228,7 +240,13 @@ export function startClientSideIsDarkLogic(params: {
 
             element.id = rootColorSchemeStyleTagId;
 
-            element.innerHTML = `:root { color-scheme: ${isDark ? "dark" : "light"}; }`;
+            if (nonce !== undefined) {
+                element.setAttribute("nonce", nonce);
+            }
+
+            element.innerHTML = sanitizer.createHTML(
+                `:root { color-scheme: ${isDark ? "dark" : "light"}; }`
+            );
 
             document.head.appendChild(element);
         };
