@@ -63,6 +63,7 @@ export type HeaderProps = {
         Record<
             | "root"
             | "body"
+            | "container"
             | "bodyRow"
             | "brand"
             | "brandTop"
