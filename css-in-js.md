@@ -443,7 +443,7 @@ function MyComponent(){
 }
 ```
 
-### usePxBreakpointsValues()
+### useBreakpointsValuesPx()
 
 It returns the values in pixel of the different breakpoint ("xs", "md", "lg", "xl") based on the current root font size.
 
