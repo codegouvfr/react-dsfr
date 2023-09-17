@@ -319,7 +319,8 @@ function MyComponent() {
                 // will be colors.decisions.background.alt.blueFrance.default.
                 [fr.breakpoints.up("md")]: {
                     backgroundColor: theme.decisions.background.alt.blueFrance.default
-                }
+                },
+                maxWidth: fr.breakpoints.values.xl
             })}
         />
     );
@@ -442,7 +443,7 @@ function MyComponent(){
 }
 ```
 
-### useBreakpointsValues()
+### usePxBreakpointsValues()
 
 It returns the values in pixel of the different breakpoint ("xs", "md", "lg", "xl") based on the current root font size.
 
