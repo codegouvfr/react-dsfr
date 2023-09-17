@@ -1,4 +1,4 @@
-import { BreakpointsValues as values, BreakpointsValuesUnit as unit, breakpointKeys as keys } from "./generatedFromCss/breakpoints";
+import { breakpointsValues as values, breakpointsValuesUnit as unit, breakpointKeys as keys } from "./generatedFromCss/breakpoints";
 import { assert } from "tsafe/assert";
 import { getBaseFontSizePx } from "../tools/getBaseFontSizePx";
 const epsilon = 0.003125;
@@ -24,18 +24,37 @@ export const breakpoints = {
             .between(key, keys[keys.indexOf(key) + 1])
             .replace("@media", "@media not all and");
     },
+    "values": (() => {
+        const out = Object.assign(Object.assign(Object.assign(Object.assign({}, (() => {
+            const key = "sm";
+            return { [key]: `${values[key]}${unit}` };
+        })()), (() => {
+            const key = "md";
+            return { [key]: `${values[key]}${unit}` };
+        })()), (() => {
+            const key = "lg";
+            return { [key]: `${values[key]}${unit}` };
+        })()), (() => {
+            const key = "xl";
+            return { [key]: `${values[key]}${unit}` };
+        })());
+        assert();
+        return out;
+    })(),
     /**
      * Returns the breakpoint values in px.
      *
      * Warning: It reflects the values at a given time, if the root font size changes so will the breakpointsValues.
      * Plus this function is rather expensive to call.
      * If you're in react you should use the
-     * import { useBreakpointsValues } from "@codegouvfr/react-dsfr/useBreakpointsValues";
+     * import { useBreakpointsValuesPx } from "@codegouvfr/react-dsfr/useBreakpointsValuesPx";
      */
-    "getBreakpointsValues": () => {
+    "getPxValues": () => {
         assert();
         const factor = getBaseFontSizePx();
         return Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value * factor]));
-    }
+    },
+    /** @deprecated use breakpoints.values if you're ok with getting the value in em or breakpoints.getPxValues() if you want the value in pixel */
+    "getBreakpointsValues": () => breakpoints.getPxValues()
 };
 //# sourceMappingURL=breakpoints.js.map

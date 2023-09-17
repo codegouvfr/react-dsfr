@@ -1,8 +1,9 @@
 import { useReducer, useEffect, useMemo } from "react";
 import { assert } from "tsafe/assert";
 import { breakpoints } from "./fr/breakpoints";
-/** @deprecated Use import { useBreakpointsValuesPx } from "@codegouvfr/react-dsfr/useBreakpointsValuesPx"; instead */
-export function useBreakpointsValues() {
+/** Return the breakpoint values in px, the values ger refreshed
+ *  when the base font size change.  */
+export function useBreakpointsValuesPx() {
     const [breakpointsValuesDependency, triggerRefresh] = useReducer(() => ({}), {});
     useEffect(() => {
         const htmlElement = document.querySelector("html");
@@ -28,7 +29,7 @@ export function useBreakpointsValues() {
             observer.disconnect();
         };
     }, []);
-    const breakpointsValues = useMemo(() => breakpoints.getBreakpointsValues(), [breakpointsValuesDependency]);
+    const breakpointsValues = useMemo(() => breakpoints.getPxValues(), [breakpointsValuesDependency]);
     return { breakpointsValues };
 }
-//# sourceMappingURL=useBreakpointsValues.js.map
+//# sourceMappingURL=useBreakpointsValuesPx.js.map

@@ -1,7 +1,7 @@
-export declare const BreakpointsValuesUnit = "em";
+export declare const breakpointsValuesUnit = "em";
 export declare const breakpointKeys: readonly ["xs", "sm", "md", "lg", "xl"];
 export type BreakpointKeys = typeof breakpointKeys[number];
-export declare const BreakpointsValues: {
+export declare const breakpointsValues: {
     readonly xs: 0;
     readonly sm: 36;
     readonly md: 48;

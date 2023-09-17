@@ -14,6 +14,13 @@ export declare const fr: {
         between: (start: "xs" | "sm" | "md" | "lg" | "xl", end: "xs" | "sm" | "md" | "lg" | "xl") => `@media (min-width:0em) and (max-width:${number}em)` | `@media (min-width:36em) and (max-width:${number}em)` | `@media (min-width:48em) and (max-width:${number}em)` | `@media (min-width:62em) and (max-width:${number}em)` | `@media (min-width:78em) and (max-width:${number}em)`;
         only: (key: "xs" | "sm" | "md" | "lg" | "xl") => "@media (min-width:36em)" | "@media (min-width:48em)" | "@media (min-width:62em)" | "@media (min-width:78em)" | `@media (min-width:0em) and (max-width:${number}em)` | `@media (min-width:36em) and (max-width:${number}em)` | `@media (min-width:48em) and (max-width:${number}em)` | `@media (min-width:62em) and (max-width:${number}em)` | `@media (min-width:78em) and (max-width:${number}em)`;
         not: (key: "xs" | "sm" | "md" | "lg" | "xl") => string;
+        values: {
+            xl: "78em";
+            lg: "62em";
+            md: "48em";
+            sm: "36em";
+        };
+        getPxValues: () => import("./breakpoints").BreakpointsValues;
         getBreakpointsValues: () => import("./breakpoints").BreakpointsValues;
     };
     spacing: typeof spacing;

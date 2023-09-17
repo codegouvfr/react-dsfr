@@ -1,8 +1,8 @@
 // This file is generated automatically by scripts/build/cssToTs/cssToTs.ts, please don't edit.
 import { assert } from "tsafe/assert";
-export const BreakpointsValuesUnit = "em";
+export const breakpointsValuesUnit = "em";
 export const breakpointKeys = ["xs", "sm", "md", "lg", "xl"];
-export const BreakpointsValues = {
+export const breakpointsValues = {
     "xs": 0,
     "sm": 36,
     "md": 48,

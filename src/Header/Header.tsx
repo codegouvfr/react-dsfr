@@ -63,6 +63,7 @@ export type HeaderProps = {
         Record<
             | "root"
             | "body"
+            | "container"
             | "bodyRow"
             | "brand"
             | "brandTop"
@@ -179,7 +180,7 @@ export const Header = memo(
                     {...rest}
                 >
                     <div className={cx(fr.cx("fr-header__body" as any), classes.body)}>
-                        <div className={fr.cx("fr-container")}>
+                        <div className={cx(fr.cx("fr-container"), classes.container)}>
                             <div className={cx(fr.cx("fr-header__body-row"), classes.bodyRow)}>
                                 <div
                                     className={cx(

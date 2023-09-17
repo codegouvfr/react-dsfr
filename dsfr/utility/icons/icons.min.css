@@ -1,15 +1,3 @@
-.fr-icon-checkbox-circle-line::before,
-.fr-icon-checkbox-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
-    mask-image: url("../../icons/system/checkbox-circle-line.svg");
-}
-
-.ri-ancient-gate-fill::before,
-.ri-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-}
-
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -26,6 +14,18 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
+.fr-icon-checkbox-circle-line::before,
+.fr-icon-checkbox-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
+    mask-image: url("../../icons/system/checkbox-circle-line.svg");
+}
+
+.ri-ancient-gate-fill::before,
+.ri-ancient-gate-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
 .ri-information-line::before,
@@ -137,16 +137,6 @@
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .fr-icon-checkbox-circle-line::before,
-    .fr-icon-checkbox-circle-line::after {
-        background-image: url("../../icons/system/checkbox-circle-line.svg");
-    }
-    
-    .ri-ancient-gate-fill::before,
-    .ri-ancient-gate-fill::after {
-        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    }
-    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -160,6 +150,16 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
+    .fr-icon-checkbox-circle-line::before,
+    .fr-icon-checkbox-circle-line::after {
+        background-image: url("../../icons/system/checkbox-circle-line.svg");
+    }
+    
+    .ri-ancient-gate-fill::before,
+    .ri-ancient-gate-fill::after {
+        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
     .ri-information-line::before,

@@ -38,7 +38,7 @@ export type HeaderProps = {
     }) => JSX.Element;
     /** Called when the search button is clicked */
     onSearchButtonClick?: (text: string) => void;
-    classes?: Partial<Record<"root" | "body" | "bodyRow" | "brand" | "brandTop" | "logo" | "operator" | "navbar" | "service" | "serviceTitle" | "serviceTagline" | "toolsLinks" | "menu" | "menuLinks", string>>;
+    classes?: Partial<Record<"root" | "body" | "container" | "bodyRow" | "brand" | "brandTop" | "logo" | "operator" | "navbar" | "service" | "serviceTitle" | "serviceTagline" | "toolsLinks" | "menu" | "menuLinks", string>>;
     style?: CSSProperties;
 };
 export declare namespace HeaderProps {

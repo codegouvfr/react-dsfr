@@ -46,7 +46,7 @@ export const Header = memo(forwardRef((props, ref) => {
         React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
             React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
-                React.createElement("div", { className: fr.cx("fr-container") },
+                React.createElement("div", { className: cx(fr.cx("fr-container"), classes.container) },
                     React.createElement("div", { className: cx(fr.cx("fr-header__body-row"), classes.bodyRow) },
                         React.createElement("div", { className: cx(fr.cx("fr-header__brand", "fr-enlarge-link"), classes.brand) },
                             React.createElement("div", { className: cx(fr.cx("fr-header__brand-top"), classes.brandTop) },
