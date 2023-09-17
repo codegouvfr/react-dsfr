@@ -4,8 +4,9 @@ import { breakpoints, type BreakpointKeys, type BreakpointsValues } from "./fr/b
 
 export type { BreakpointKeys, BreakpointsValues };
 
-/** @deprecated Use import { useBreakpointsValuesPx } from "@codegouvfr/react-dsfr/useBreakpointsValuesPx"; instead */
-export function useBreakpointsValues() {
+/** Return the breakpoint values in px, the values ger refreshed
+ *  when the base font size change.  */
+export function useBreakpointsValuesPx() {
     const [breakpointsValuesDependency, triggerRefresh] = useReducer(() => ({}), {});
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export function useBreakpointsValues() {
     }, []);
 
     const breakpointsValues = useMemo(
-        () => breakpoints.getBreakpointsValues(),
+        () => breakpoints.getPxValues(),
         [breakpointsValuesDependency]
     );
 
