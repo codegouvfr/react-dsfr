@@ -77,12 +77,10 @@ export const breakpoints = {
         return out;
     })(),
     "valuesUnit": unit,
-    "emValues": (()=>{
-
+    "emValues": (() => {
         assert<Equals<typeof unit, "em">>();
 
         return values;
-
     })(),
     /**
      * Returns the breakpoint values in px.
