@@ -18,7 +18,7 @@
         "test": "vitest",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "bun run lint:check --fix",
-        "_format": "prettier '**/*.{ts,tsx,json,md}'",
+        "_format": "npx prettier '**/*.{ts,tsx,json,md}'",
         "format": "bun run _format --write",
         "format:check": "bun run _format --list-different",
         "storybook": "bun run build && bun run only-include-used-icons && start-storybook -p 6006",
