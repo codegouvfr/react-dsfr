@@ -91,7 +91,7 @@ function MyComponent(){
             "options": (() => {
                 const options = ["success", "error", "default"] as const;
 
-                assert<Equals<typeof options[number], NonNullable<SelectProps["state"]>>>();
+                assert<Equals<(typeof options)[number], NonNullable<SelectProps["state"]>>>();
 
                 return options;
             })(),

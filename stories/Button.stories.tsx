@@ -20,7 +20,7 @@ const { meta, getStory } = getStoryFactory({
                     "tertiary no outline"
                 ] as const;
 
-                assert<Equals<typeof options[number], NonNullable<ButtonProps["priority"]>>>();
+                assert<Equals<(typeof options)[number], NonNullable<ButtonProps["priority"]>>>();
 
                 return options;
             })(),
@@ -30,7 +30,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["small", "medium", "large"] as const;
 
-                assert<Equals<typeof options[number], NonNullable<ButtonProps["size"]>>>();
+                assert<Equals<(typeof options)[number], NonNullable<ButtonProps["size"]>>>();
 
                 return options;
             })(),
@@ -41,7 +41,9 @@ const { meta, getStory } = getStoryFactory({
                 const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
 
                 assert<
-                    typeof options[number] extends NonNullable<ButtonProps["iconId"]> ? true : false
+                    (typeof options)[number] extends NonNullable<ButtonProps["iconId"]>
+                        ? true
+                        : false
                 >();
 
                 return options;
@@ -52,7 +54,9 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["left", "right"] as const;
 
-                assert<Equals<typeof options[number], NonNullable<ButtonProps["iconPosition"]>>>();
+                assert<
+                    Equals<(typeof options)[number], NonNullable<ButtonProps["iconPosition"]>>
+                >();
 
                 return options;
             })(),

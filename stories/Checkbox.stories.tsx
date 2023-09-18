@@ -22,7 +22,9 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["horizontal", "vertical"] as const;
 
-                assert<Equals<typeof options[number] | undefined, CheckboxProps["orientation"]>>();
+                assert<
+                    Equals<(typeof options)[number] | undefined, CheckboxProps["orientation"]>
+                >();
 
                 return options;
             })(),
@@ -33,7 +35,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["success", "error", "default"] as const;
 
-                assert<Equals<typeof options[number] | undefined, CheckboxProps["state"]>>();
+                assert<Equals<(typeof options)[number] | undefined, CheckboxProps["state"]>>();
 
                 return options;
             })(),

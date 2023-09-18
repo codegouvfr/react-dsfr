@@ -89,7 +89,7 @@ export function getMuiDsfrThemeOptions(params: {
             }
         } as const,
         "typography": (() => {
-            const getBySelector = (selector: typeof typography[number]["selector"]) => {
+            const getBySelector = (selector: (typeof typography)[number]["selector"]) => {
                 const variant = typography.find(variant => variant.selector === selector);
                 assert(variant !== undefined);
 

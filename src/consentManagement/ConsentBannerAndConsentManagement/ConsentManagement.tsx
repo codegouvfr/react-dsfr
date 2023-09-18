@@ -33,7 +33,7 @@ export function createConsentManagement<
     >;
     finalities: ExtractFinalityFromFinalityDescription<FinalityDescription>[];
 }) {
-    type Finality = typeof finalities[number];
+    type Finality = (typeof finalities)[number];
 
     const {
         finalityDescription: finalityDescriptionOrGetFinalityDescription,

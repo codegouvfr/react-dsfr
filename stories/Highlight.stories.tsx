@@ -15,7 +15,7 @@ const { meta, getStory } = getStoryFactory<HighlightProps>({
             options: (() => {
                 const sizes = ["sm", "lg"] as const;
 
-                assert<Equals<typeof sizes[number], HighlightProps.Size>>();
+                assert<Equals<(typeof sizes)[number], HighlightProps.Size>>();
 
                 return [null, ...sizes];
             })(),

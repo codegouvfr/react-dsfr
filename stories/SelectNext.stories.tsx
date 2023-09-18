@@ -173,9 +173,9 @@ function MyComponent(){
 
                 assert<
                     Equals<
-                        typeof options[number],
+                        (typeof options)[number],
                         NonNullable<
-                            SelectProps<SelectProps.Option<typeof options[number]>[]>["state"]
+                            SelectProps<SelectProps.Option<(typeof options)[number]>[]>["state"]
                         >
                     >
                 >();
@@ -216,7 +216,7 @@ const myFakeValueSet = [
     "66a9d7ac-9b25-4e52-9de3-4b7238135b39"
 ] as const;
 
-type MyFakeValue = typeof myFakeValueSet[number];
+type MyFakeValue = (typeof myFakeValueSet)[number];
 
 const optionsWithTypedValues: SelectProps.Option<MyFakeValue>[] = myFakeValueSet.map(fakeValue => ({
     value: fakeValue,

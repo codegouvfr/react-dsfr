@@ -10,7 +10,7 @@ import { same } from "evt/tools/inDepth/same";
 
 const orderedColorScheme = ["light", "dark"] as const;
 
-assert<Equals<typeof orderedColorScheme[number], ColorScheme>>();
+assert<Equals<(typeof orderedColorScheme)[number], ColorScheme>>();
 
 export type CssVariableValue = Record<
     "root" | keyof MediaQueryByBreakpoint,
@@ -30,7 +30,7 @@ export const createGetCssVariable = memoize((rawCssCode: string) => {
 
         const orderedBreakpoints = ["root", "sm", "md", "lg", "xl"] as const;
 
-        assert<Equals<typeof orderedBreakpoints[number], keyof typeof rulesByBreakpoint>>();
+        assert<Equals<(typeof orderedBreakpoints)[number], keyof typeof rulesByBreakpoint>>();
 
         orderedBreakpoints.forEach(breakpoint => {
             const rules = rulesByBreakpoint[breakpoint];

@@ -9,8 +9,8 @@
         "preview": "vite preview",
         "copy-dsfr-to-public": "node node_modules/@codegouvfr/react-dsfr/bin/copy-dsfr-to-public.js",
         "only-include-used-icons": "node node_modules/@codegouvfr/react-dsfr/bin/only-include-used-icons.js",
-        "predev": "yarn copy-dsfr-to-public && yarn only-include-used-icons",
-        "prebuild": "yarn copy-dsfr-to-public && yarn only-include-used-icons"
+        "predev": "bun run copy-dsfr-to-public && bun run only-include-used-icons",
+        "prebuild": "bun run copy-dsfr-to-public && bun run only-include-used-icons"
     },
     "dependencies": {
         "react": "18.2.0",

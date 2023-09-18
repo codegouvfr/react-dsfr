@@ -51,31 +51,33 @@ This will enable you to see your react-dsfr changes in your main project.
 cd ~/github
 git clone https://github.com/ORG/YOUR-PROJECT-USING-REACT-DSFR
 cd YOUR-PROJECT-USING-REACT-DSFR
-yarn # or npm install or pnpm install depending of what you are using...
+bun install # or npm install or yarn install depending of what you are using (you might run into problem with pnpm)...
 
 cd ~/github
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
-yarn
-yarn build
-yarn link-external YOUR-PROJECT-USING-REACT-DSFR
-npx tsc -w -p src # Leave this running if you want hot reload.
+bun install
+bun run build
+bun run link-external YOUR-PROJECT-USING-REACT-DSFR
+bunx tsc -w -p src # Leave this running if you want hot reload.
 ```
 
 ## Linking a working version of `@gouvfr/dsfr` (For the SIG)
+
+(If you don't have bun you can replace `bun` by `yarn` in every commands)
 
 ```bash
 cd ~/github
 git clone http://github.com/gouvernementfr/dsfr
 cd dsfr
 # git checkout my-working-branch
-yarn
-yarn build --clean
-yarn link
+bun install
+bun run build --clean
+bun link
 cd ~/github/react-dsfr
-yarn
-yarn link @gouvfr/dsfr
-yarn build
+bun install
+bun link @gouvfr/dsfr
+bun run build
 ```
 
 Now `~/github/react-dsfr/node_modules/@gouvfr/dsfr` links to `~/github/@gouvfr/dsfr`.

@@ -60,7 +60,7 @@ const { meta, getStory } = getStoryFactory({
                     undefined
                 ] as const;
 
-                assert<Equals<typeof options[number], TableProps["colorVariant"]>>();
+                assert<Equals<(typeof options)[number], TableProps["colorVariant"]>>();
 
                 return options;
             })(),

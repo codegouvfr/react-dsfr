@@ -15,7 +15,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["success", "warning", "info", "error", "new", undefined] as const;
 
-                assert<Equals<typeof options[number], BadgeProps["severity"]>>();
+                assert<Equals<(typeof options)[number], BadgeProps["severity"]>>();
 
                 return options;
             })(),

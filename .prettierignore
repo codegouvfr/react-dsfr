@@ -1,7 +1,7 @@
 node_modules/
 /dist/
 /CHANGELOG.md
-/.yarn_home/
+/.bun_home/
 /test/integration/
 /dsfr/
 /src/fr/generatedFromCss/

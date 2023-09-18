@@ -32,11 +32,9 @@ fs.mkdirSync(yarnHomeDirPath);
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = [
-        "yarn",
-        "link",
-        ...(targetModuleName !== undefined ? [targetModuleName] : [])
-    ].join(" ");
+    const cmd = ["bun", "link", ...(targetModuleName !== undefined ? [targetModuleName] : [])].join(
+        " "
+    );
 
     console.log(`$ cd ${pathRelative(projectDirPath, cwd) || "."} && ${cmd}`);
 
@@ -51,7 +49,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 
 const testAppNames = ["cra", "vite", "next-pagesdir", "next-appdir"] as const;
 
-const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
+const getTestAppPath = (testAppName: (typeof testAppNames)[number]) =>
     pathJoin(projectDirPath, "test", "integration", testAppName);
 
 testAppNames.forEach(testAppName =>

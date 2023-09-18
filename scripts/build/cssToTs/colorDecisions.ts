@@ -13,11 +13,11 @@ import memoize from "memoizee";
 
 const contexts = ["background", "text", "border", "artwork"] as const;
 
-type Context = typeof contexts[number];
+type Context = (typeof contexts)[number];
 
 const variants = ["high", "low"] as const;
 
-type Variant = typeof variants[number];
+type Variant = (typeof variants)[number];
 
 export type ParsedColorDecisionName = {
     context: Context;

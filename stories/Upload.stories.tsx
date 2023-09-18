@@ -22,7 +22,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["default", "success", "error"] as const;
 
-                assert<Equals<typeof options[number] | undefined, UploadProps["state"]>>();
+                assert<Equals<(typeof options)[number] | undefined, UploadProps["state"]>>();
 
                 return options;
             })(),

@@ -37,7 +37,7 @@ const { meta, getStory } = getStoryFactory({
                     "fully compliant"
                 ] as const;
 
-                assert<Equals<typeof accessibility[number], FooterProps["accessibility"]>>();
+                assert<Equals<(typeof accessibility)[number], FooterProps["accessibility"]>>();
 
                 return accessibility;
             })(),

@@ -77,21 +77,21 @@ Ce projet est co-maintenu par des agents de différentes administrations frança
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
-yarn
+bun install
 
 # Démarrer Storybook
-yarn storybook
+bun run storybook
 
 # Démarrer les applications de test
-yarn start-cra
-yarn start-vite
-yarn start-next-pagesdir
-yarn start-next-appdir
+bun run start-cra
+bun run start-vite
+bun run start-next-pagesdir
+bun run start-next-appdir
 
 # Executer tout les tests unitaires (test/runtime):
-yarn test
+bun run test
 # Executer, par exemple, uniquement le test test/runtime/cssVariable.test.ts
-npx vitest -t "Resolution of CSS variables"
+bunx vitest -t "Resolution of CSS variables"
 ```
 
 ### Vous cherchez comment contribuer?

@@ -58,7 +58,7 @@ function ControlledToggleSwitch() {
 
                     assert<
                         Equals<
-                            typeof options[number] | undefined,
+                            (typeof options)[number] | undefined,
                             ToggleSwitchProps["labelPosition"]
                         >
                     >();

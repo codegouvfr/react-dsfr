@@ -8,8 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "only-include-used-icons": "node node_modules/@codegouvfr/react-dsfr/bin/only-include-used-icons.js",
-        "predev": "yarn only-include-used-icons",
-        "prebuild": "yarn only-include-used-icons"
+        "predev": "bun run only-include-used-icons",
+        "prebuild": "bun run only-include-used-icons"
     },
     "dependencies": {
         "next": "13.4.4",

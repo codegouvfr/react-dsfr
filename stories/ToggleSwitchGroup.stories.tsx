@@ -21,7 +21,7 @@ const { meta, getStory } = getStoryFactory({
 
                     assert<
                         Equals<
-                            typeof options[number] | undefined,
+                            (typeof options)[number] | undefined,
                             ToggleSwitchGroupProps["labelPosition"]
                         >
                     >();

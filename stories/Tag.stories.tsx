@@ -22,7 +22,7 @@ const { meta, getStory } = getStoryFactory({
                 type AllIconIds = NonNullable<TagProps["iconId"]>;
 
                 assert<
-                    Equals<typeof options[number], Extract<AllIconIds, typeof options[number]>>
+                    Equals<(typeof options)[number], Extract<AllIconIds, (typeof options)[number]>>
                 >();
 
                 return options;

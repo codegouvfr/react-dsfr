@@ -113,7 +113,7 @@ function MyComponent(){
                 const options = ["horizontal", "vertical"] as const;
 
                 assert<
-                    Equals<typeof options[number] | undefined, RadioButtonsProps["orientation"]>
+                    Equals<(typeof options)[number] | undefined, RadioButtonsProps["orientation"]>
                 >();
 
                 return options;
@@ -125,7 +125,7 @@ function MyComponent(){
             "options": (() => {
                 const options = ["success", "error", "default"] as const;
 
-                assert<Equals<typeof options[number] | undefined, RadioButtonsProps["state"]>>();
+                assert<Equals<(typeof options)[number] | undefined, RadioButtonsProps["state"]>>();
 
                 return options;
             })(),

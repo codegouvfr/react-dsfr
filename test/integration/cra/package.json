@@ -29,8 +29,8 @@
         "eject": "react-scripts eject",
         "copy-dsfr-to-public": "node node_modules/@codegouvfr/react-dsfr/bin/copy-dsfr-to-public.js",
         "only-include-used-icons": "node node_modules/@codegouvfr/react-dsfr/bin/only-include-used-icons.js",
-        "prestart": "yarn copy-dsfr-to-public && yarn only-include-used-icons",
-        "prebuild": "yarn copy-dsfr-to-public && yarn only-include-used-icons"
+        "prestart": "bun run copy-dsfr-to-public && bun run only-include-used-icons",
+        "prebuild": "bun run copy-dsfr-to-public && bun run only-include-used-icons"
     },
     "eslintConfig": {
         "extends": [

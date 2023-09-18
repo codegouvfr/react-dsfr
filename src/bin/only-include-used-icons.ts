@@ -289,7 +289,7 @@ async function main() {
 
         const prefixes = { "prefixDsfr": "fr-icon-", "prefixRemixIcon": "ri-" } as const;
 
-        assert<Equals<typeof prefixes[keyof typeof prefixes], Icon["prefix"]>>();
+        assert<Equals<(typeof prefixes)[keyof typeof prefixes], Icon["prefix"]>>();
 
         const { prefixDsfr, prefixRemixIcon, ...rest } = prefixes;
 

@@ -38,7 +38,7 @@ const { meta, getStory } = getStoryFactory({
                     undefined
                 ] as const;
 
-                assert<Equals<typeof options[number], CallOutProps["colorVariant"]>>();
+                assert<Equals<(typeof options)[number], CallOutProps["colorVariant"]>>();
 
                 return options;
             })(),
@@ -53,7 +53,7 @@ const { meta, getStory } = getStoryFactory({
                     undefined
                 ] as const;
 
-                assert<typeof options[number] extends CallOutProps["iconId"] ? true : false>();
+                assert<(typeof options)[number] extends CallOutProps["iconId"] ? true : false>();
 
                 return options;
             })(),

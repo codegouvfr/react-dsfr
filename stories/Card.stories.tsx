@@ -22,7 +22,7 @@ const { meta, getStory } = getStoryFactory({
             "description": `Heading level`,
             "options": (() => {
                 const headings = ["h2", "h3", "h4", "h5", "h6"] as const;
-                assert<Equals<typeof headings[number] | undefined, CardProps["titleAs"]>>();
+                assert<Equals<(typeof headings)[number] | undefined, CardProps["titleAs"]>>();
                 return headings;
             })(),
             "control": { "type": "radio" }
@@ -39,7 +39,7 @@ const { meta, getStory } = getStoryFactory({
             "description": "Card title text sizing",
             "options": (() => {
                 const sizes = ["small", "medium", "large"] as const;
-                assert<Equals<typeof sizes[number] | undefined, CardProps["size"]>>();
+                assert<Equals<(typeof sizes)[number] | undefined, CardProps["size"]>>();
                 return sizes;
             })(),
             "control": { "type": "radio" }

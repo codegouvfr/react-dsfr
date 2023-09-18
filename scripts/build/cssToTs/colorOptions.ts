@@ -17,7 +17,7 @@ export type ColorScheme = "light" | "dark";
 export type Variant = "main" | "sun" | "moon";
 
 export const states = ["hover", "active"] as const;
-export type State = typeof states[number];
+export type State = (typeof states)[number];
 
 export type BrightnessIndex = {
     value: number;

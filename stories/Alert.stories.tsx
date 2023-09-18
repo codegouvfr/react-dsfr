@@ -15,7 +15,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const severities = ["success", "warning", "info", "error"] as const;
 
-                assert<Equals<typeof severities[number], AlertProps["severity"]>>();
+                assert<Equals<(typeof severities)[number], AlertProps["severity"]>>();
 
                 return severities;
             })(),

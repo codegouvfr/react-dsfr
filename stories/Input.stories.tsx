@@ -19,7 +19,9 @@ const { meta, getStory } = getStoryFactory({
                 const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
 
                 assert<
-                    typeof options[number] extends NonNullable<InputProps["iconId"]> ? true : false
+                    (typeof options)[number] extends NonNullable<InputProps["iconId"]>
+                        ? true
+                        : false
                 >();
 
                 return options;
@@ -30,7 +32,7 @@ const { meta, getStory } = getStoryFactory({
             "options": (() => {
                 const options = ["default", "success", "error"] as const;
 
-                assert<Equals<typeof options[number] | undefined, InputProps["state"]>>();
+                assert<Equals<(typeof options)[number] | undefined, InputProps["state"]>>();
 
                 return options;
             })(),

@@ -39,14 +39,14 @@ import { assert, type Equals } from "tsafe";
 {
     const values = ["foo", "bar", "baz"] as const;
 
-    type Value = typeof values[number];
+    type Value = (typeof values)[number];
 
     <Select
         label="Label"
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], Value>>();
+                assert<Equals<(typeof event)["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -60,14 +60,14 @@ import { assert, type Equals } from "tsafe";
 {
     const values = ["foo", "bar", "baz"] as const;
 
-    type Value = typeof values[number];
+    type Value = (typeof values)[number];
 
     <Select
         label="Label"
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], Value>>();
+                assert<Equals<(typeof event)["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -81,14 +81,14 @@ import { assert, type Equals } from "tsafe";
 {
     const values = ["foo", "bar", "baz"] as const;
 
-    type Value = typeof values[number];
+    type Value = (typeof values)[number];
 
     <Select<SelectProps.Option<Value>[]>
         label="Label"
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], Value>>();
+                assert<Equals<(typeof event)["target"]["value"], Value>>();
             }
         }}
         options={values.map(value => ({
@@ -102,7 +102,7 @@ import { assert, type Equals } from "tsafe";
 {
     const values = ["foo", "bar", "baz"] as const;
 
-    type Value = typeof values[number];
+    type Value = (typeof values)[number];
 
     <Select<SelectProps.Option<Value>[]>
         label="Label"
@@ -110,7 +110,7 @@ import { assert, type Equals } from "tsafe";
             //@ts-expect-error
             "value": "not foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], Value>>();
+                assert<Equals<(typeof event)["target"]["value"], Value>>();
             }
         }}
         //@ts-expect-error
@@ -130,7 +130,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], string>>();
+                assert<Equals<(typeof event)["target"]["value"], string>>();
             }
         }}
         options={values.map(value => ({
@@ -149,7 +149,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": "foo",
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], string>>();
+                assert<Equals<(typeof event)["target"]["value"], string>>();
             }
         }}
         options={values.map(value => ({
@@ -183,7 +183,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": undefined,
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], Value>>();
+                assert<Equals<(typeof event)["target"]["value"], Value>>();
             }
         }}
         options={options}
@@ -199,7 +199,7 @@ import { assert, type Equals } from "tsafe";
         nativeSelectProps={{
             "value": undefined,
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], typeof values[number]>>();
+                assert<Equals<(typeof event)["target"]["value"], (typeof values)[number]>>();
             }
         }}
         options={values.map(value => ({
@@ -222,7 +222,7 @@ import { assert, type Equals } from "tsafe";
         }
     ] as const;
 
-    type DogOrCat = typeof dogOrCatOptions[number]["value"];
+    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
 
     <Select
         label="Dog or cat person?"
@@ -230,7 +230,7 @@ import { assert, type Equals } from "tsafe";
         placeholder="Select an option"
         nativeSelectProps={{
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], DogOrCat>>();
+                assert<Equals<(typeof event)["target"]["value"], DogOrCat>>();
             }
         }}
     />;
@@ -248,7 +248,7 @@ import { assert, type Equals } from "tsafe";
         }
     ] as const;
 
-    type DogOrCat = typeof dogOrCatOptions[number]["value"];
+    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
 
     <Select
         label="Dog or cat person?"
@@ -257,7 +257,7 @@ import { assert, type Equals } from "tsafe";
         placeholder="Select an option"
         nativeSelectProps={{
             "onChange": event => {
-                assert<Equals<typeof event["target"]["value"], DogOrCat>>();
+                assert<Equals<(typeof event)["target"]["value"], DogOrCat>>();
             }
         }}
     />;
@@ -275,7 +275,7 @@ import { assert, type Equals } from "tsafe";
         }
     ] as const;
 
-    type DogOrCat = typeof dogOrCatOptions[number]["value"];
+    type DogOrCat = (typeof dogOrCatOptions)[number]["value"];
     type SelectTarget = Omit<EventTarget & HTMLSelectElement, "value" | "selectedOptions"> & {
         value: DogOrCat;
         selectedOptions: HTMLCollectionOf<Omit<HTMLOptionElement, "value"> & { value: DogOrCat }>;
@@ -286,8 +286,8 @@ import { assert, type Equals } from "tsafe";
         placeholder="Select an option"
         nativeSelectProps={{
             "onChange": event => {
-                assert<Equals<typeof event["currentTarget"], SelectTarget>>();
-                assert<Equals<typeof event["target"], SelectTarget>>();
+                assert<Equals<(typeof event)["currentTarget"], SelectTarget>>();
+                assert<Equals<(typeof event)["target"], SelectTarget>>();
                 const selectedValues = Array.from(event.target.selectedOptions).map(
                     option => option.value
                 );

@@ -21,7 +21,7 @@ const { meta, getStory } = getStoryFactory({
 
                 assert<
                     Equals<
-                        typeof options[number] | undefined,
+                        (typeof options)[number] | undefined,
                         ButtonsGroupProps["inlineLayoutWhen"]
                     >
                 >();
@@ -46,7 +46,7 @@ const { meta, getStory } = getStoryFactory({
                 const options = ["left", "center", "right", "between"] as const;
 
                 assert<
-                    Equals<typeof options[number] | undefined, ButtonsGroupProps["alignment"]>
+                    Equals<(typeof options)[number] | undefined, ButtonsGroupProps["alignment"]>
                 >();
 
                 return options;
@@ -59,7 +59,7 @@ const { meta, getStory } = getStoryFactory({
                 const options = ["small", "medium", "large"] as const;
 
                 assert<
-                    Equals<typeof options[number] | undefined, ButtonsGroupProps["buttonsSize"]>
+                    Equals<(typeof options)[number] | undefined, ButtonsGroupProps["buttonsSize"]>
                 >();
 
                 return options;
@@ -75,7 +75,7 @@ const { meta, getStory } = getStoryFactory({
 
                 assert<
                     Equals<
-                        typeof options[number] | undefined,
+                        (typeof options)[number] | undefined,
                         ButtonsGroupProps["buttonsIconPosition"]
                     >
                 >();

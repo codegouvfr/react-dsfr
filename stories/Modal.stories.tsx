@@ -63,7 +63,7 @@ function Home(){
             "options": (() => {
                 const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
 
-                assert<typeof options[number] extends ModalProps["iconId"] ? true : false>();
+                assert<(typeof options)[number] extends ModalProps["iconId"] ? true : false>();
 
                 return options;
             })(),
@@ -73,7 +73,7 @@ function Home(){
             "options": (() => {
                 const options = ["small", "medium", "large"] as const;
 
-                assert<Equals<typeof options[number] | undefined, ModalProps["size"]>>();
+                assert<Equals<(typeof options)[number] | undefined, ModalProps["size"]>>();
 
                 return options;
             })(),
