@@ -478,6 +478,9 @@ async function main() {
     }
 }
 
-if (require.main === module) {
+// In bun module is undefined we only use node to actually run this script
+// so it's okay do do that (look at the first line of this file)
+// Todo: remove 'typeof module !== undefined &&' when bun will be able to run this script.
+if (typeof module !== "undefined" && require.main === module) {
     main();
 }
