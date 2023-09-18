@@ -14,8 +14,9 @@ jobs:
     if: ${{ !github.event.created && github.repository != 'garronej/ts-ci' }}
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
     - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - run: bun install --frozen-lockfile
     - name: If this step fails run 'bun run format' then commit again.
       run: bun run format:check
@@ -28,6 +29,8 @@ jobs:
       with:
         fetch-depth: 0
     - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - run: bun install --frozen-lockfile
     - run: bun run build
     - run: bun run test
@@ -38,10 +41,9 @@ jobs:
     needs: test
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18'
     - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - run: bun install --frozen-lockfile
     - run: bun run build-storybook -o ./build_storybook
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
@@ -109,6 +111,8 @@ jobs:
       with:
         registry-url: https://registry.npmjs.org/
     - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
     - run: bun install --frozen-lockfile
     - run: bun run build --npm
     - run: bunx -y -p denoify@1.5.1 enable_short_npm_import_path
