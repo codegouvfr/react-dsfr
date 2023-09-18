@@ -7,6 +7,7 @@
         "url": "git://github.com/codegouvfr/react-dsfr.git"
     },
     "scripts": {
+        "prepare": "husky install",
         "build": "ts-node -T scripts/build",
         "_link": "ts-node -T scripts/link-in-integration-apps.ts",
         "link-external": "ts-node -T scripts/link-in-external-project.ts",
@@ -35,11 +36,6 @@
         "*.{ts,tsx,json,md}": [
             "prettier --write"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged -v"
-        }
     },
     "author": {
         "name": "u/garronej"
@@ -94,7 +90,7 @@
         "eslint-plugin-storybook": "^0.6.7",
         "evt": "^2.4.2",
         "fzf": "^0.5.1",
-        "husky": "^4.3.8",
+        "husky": "^8.0.0",
         "lint-staged": "^11.0.0",
         "memoizee": "^0.4.15",
         "next": "13.4.4",
