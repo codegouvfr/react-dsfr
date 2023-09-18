@@ -16,7 +16,7 @@
         "dayjs": "^1.11.6",
         "@codegouvfr/react-dsfr": "file:../../../dist"
     },
-    "lldevDependencies": {
+    "devDependencies": {
         "@types/node": "^16.7.13",
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",

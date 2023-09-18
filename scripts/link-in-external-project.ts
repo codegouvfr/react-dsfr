@@ -30,9 +30,11 @@ fs.mkdirSync(yarnHomeDirPath);
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = ["bun", "link", ...(targetModuleName !== undefined ? [targetModuleName] : [])].join(
-        " "
-    );
+    const cmd = [
+        "yarn",
+        "link",
+        ...(targetModuleName !== undefined ? [targetModuleName] : [])
+    ].join(" ");
 
     console.log(`$ cd ${pathRelative(rootDirPath, cwd) || "."} && ${cmd}`);
 

@@ -9,7 +9,7 @@ const projectDirPath = getProjectRoot();
 
 const commonThirdPartyDeps = (() => {
     const namespaceModuleNames: string[] = ["@emotion", "@mui"];
-    const standaloneModuleNames = ["react", "@types/react"];
+    const standaloneModuleNames = ["react", "react-dom", "@types/react"];
 
     return [
         ...namespaceModuleNames
@@ -32,9 +32,11 @@ fs.mkdirSync(yarnHomeDirPath);
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = ["bun", "link", ...(targetModuleName !== undefined ? [targetModuleName] : [])].join(
-        " "
-    );
+    const cmd = [
+        "yarn",
+        "link",
+        ...(targetModuleName !== undefined ? [targetModuleName] : [])
+    ].join(" ");
 
     console.log(`$ cd ${pathRelative(projectDirPath, cwd) || "."} && ${cmd}`);
 
