@@ -9,7 +9,7 @@ const projectDirPath = getProjectRoot();
 
 const commonThirdPartyDeps = (() => {
     const namespaceModuleNames: string[] = ["@emotion", "@mui"];
-    const standaloneModuleNames = ["react", "@types/react"];
+    const standaloneModuleNames = ["react", "react-dom", "@types/react"];
 
     return [
         ...namespaceModuleNames
