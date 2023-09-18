@@ -15,10 +15,19 @@ export declare const fr: {
         only: (key: "xs" | "sm" | "md" | "lg" | "xl") => "@media (min-width:36em)" | "@media (min-width:48em)" | "@media (min-width:62em)" | "@media (min-width:78em)" | `@media (min-width:0em) and (max-width:${number}em)` | `@media (min-width:36em) and (max-width:${number}em)` | `@media (min-width:48em) and (max-width:${number}em)` | `@media (min-width:62em) and (max-width:${number}em)` | `@media (min-width:78em) and (max-width:${number}em)`;
         not: (key: "xs" | "sm" | "md" | "lg" | "xl") => string;
         values: {
-            xl: "78em";
-            lg: "62em";
-            md: "48em";
-            sm: "36em";
+            readonly xl: "78em";
+            readonly lg: "62em";
+            readonly md: "48em";
+            readonly sm: "36em";
+            readonly xs: "0em";
+        };
+        valuesUnit: string;
+        emValues: {
+            readonly xs: 0;
+            readonly sm: 36;
+            readonly md: 48;
+            readonly lg: 62;
+            readonly xl: 78;
         };
         getPxValues: () => import("./breakpoints").BreakpointsValues;
         getBreakpointsValues: () => import("./breakpoints").BreakpointsValues;

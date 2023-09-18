@@ -25,7 +25,10 @@ export const breakpoints = {
             .replace("@media", "@media not all and");
     },
     "values": (() => {
-        const out = Object.assign(Object.assign(Object.assign(Object.assign({}, (() => {
+        const out = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (() => {
+            const key = "xs";
+            return { [key]: `${values[key]}${unit}` };
+        })()), (() => {
             const key = "sm";
             return { [key]: `${values[key]}${unit}` };
         })()), (() => {
@@ -40,6 +43,11 @@ export const breakpoints = {
         })());
         assert();
         return out;
+    })(),
+    "valuesUnit": unit,
+    "emValues": (() => {
+        assert();
+        return values;
     })(),
     /**
      * Returns the breakpoint values in px.

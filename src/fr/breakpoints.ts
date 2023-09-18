@@ -46,6 +46,11 @@ export const breakpoints = {
     "values": (() => {
         const out = {
             ...(() => {
+                const key = "xs" satisfies BreakpointKeys;
+
+                return { [key]: `${values[key]}${unit}` as const };
+            })(),
+            ...(() => {
                 const key = "sm" satisfies BreakpointKeys;
 
                 return { [key]: `${values[key]}${unit}` as const };
@@ -65,11 +70,17 @@ export const breakpoints = {
 
                 return { [key]: `${values[key]}${unit}` as const };
             })()
-        };
+        } as const;
 
-        assert<Equals<keyof typeof out | "xs", BreakpointKeys>>();
+        assert<Equals<keyof typeof out, BreakpointKeys>>();
 
         return out;
+    })(),
+    "valuesUnit": unit,
+    "emValues": (() => {
+        assert<Equals<typeof unit, "em">>();
+
+        return values;
     })(),
     /**
      * Returns the breakpoint values in px.
