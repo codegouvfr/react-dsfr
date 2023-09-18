@@ -20,22 +20,13 @@ jobs:
     - name: If this step fails run 'bun run format' then commit again.
       run: bun run format:check
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     needs: test_format
-    strategy:
-      matrix:
-        #node: [ '16', '17' ]
-        node: [ '20' ]
-        #os: [ windows-latest, ubuntu-latest ]
-        os: [ ubuntu-latest ]
-    name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
+    name: Running tests
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node }}
     - uses: oven-sh/setup-bun@v1
     - run: bun install --frozen-lockfile
     - run: bun run build
