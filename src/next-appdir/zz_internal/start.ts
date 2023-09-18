@@ -8,16 +8,22 @@ import { isBrowser } from "../../tools/isBrowser";
 let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
 
-export function startReactDsfr(params: {
+export async function startReactDsfr(params: {
     defaultColorScheme: DefaultColorScheme;
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
-    nonce?: string;
+    checkNonce?: boolean;
     trustedTypesPolicyName?: string;
 }) {
-    const { defaultColorScheme, verbose = false, Link, nonce, trustedTypesPolicyName } = params;
+    const {
+        defaultColorScheme,
+        verbose = false,
+        Link,
+        checkNonce,
+        trustedTypesPolicyName
+    } = params;
 
     setDefaultColorSchemeClientSide({ defaultColorScheme });
 
@@ -39,7 +45,7 @@ export function startReactDsfr(params: {
                     }
                 }
             },
-            nonce,
+            checkNonce,
             trustedTypesPolicyName
         });
     }

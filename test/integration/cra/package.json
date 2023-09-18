@@ -8,7 +8,6 @@
         "react-scripts": "5.0.1",
         "type-route": "^0.7.2",
         "@mui/material": "^5.13.3",
-        "tss-react": "^4.8.6",
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.10.16",

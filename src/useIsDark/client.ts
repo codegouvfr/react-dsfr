@@ -98,14 +98,14 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
-    nonce?: string;
+    checkNonce?: boolean;
     trustedTypesPolicyName?: string;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
         colorSchemeExplicitlyProvidedAsParameter,
-        nonce,
+        checkNonce,
         trustedTypesPolicyName = "react-dsfr"
     } = params;
 
@@ -119,8 +119,7 @@ export function startClientSideIsDarkLogic(params: {
             return {
                 "clientSideIsDark": isDarkFromHtmlAttribute,
                 "ssrWasPerformedWithIsDark":
-                    ((window as any).ssrWasPerformedWithIsDark as boolean | undefined) ??
-                    isDarkFromHtmlAttribute
+                    window.ssrWasPerformedWithIsDark ?? isDarkFromHtmlAttribute
             };
         }
 
@@ -234,13 +233,17 @@ export function startClientSideIsDarkLogic(params: {
 
     {
         const setRootColorScheme = (isDark: boolean) => {
+            const nonce = window.ssrNonce;
+            if (checkNonce && !nonce) {
+                return;
+            }
             document.getElementById(rootColorSchemeStyleTagId)?.remove();
 
             const element = document.createElement("style");
 
             element.id = rootColorSchemeStyleTagId;
 
-            if (nonce !== undefined) {
+            if (nonce) {
                 element.setAttribute("nonce", nonce);
             }
 

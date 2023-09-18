@@ -14,9 +14,18 @@ import Link from "next/link";
 import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./consentManagement";
 import { ClientFooterItem } from "../ui/ClientFooterItem";
 import { ClientHeaderQuickAccessItem } from "../ui/ClientHeaderQuickAccessItem";
+import { headers } from "next/headers";
+import { getScriptNonceFromHeader } from "next/dist/server/app-render/get-script-nonce-from-header"; // or use your own implementation
+import style from "./main.module.css";
+import { cx } from '@codegouvfr/react-dsfr/tools/cx';
 
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
+	const csp = headers().get("Content-Security-Policy");
+	let nonce: string | undefined;
+	if (csp) {
+		nonce = getScriptNonceFromHeader(csp);
+	}
 
 	//NOTE: If we had i18n setup we would get lang from the props.
 	//See https://github.com/vercel/next.js/blob/canary/examples/app-dir-i18n-routing/app/%5Blang%5D/layout.tsx
@@ -41,19 +50,13 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 						//"Spectral-Regular",
 						//"Spectral-ExtraBold"
 					]}
-					nonce='coucoucoucoucouc'
+					nonce={nonce}
 				/>
 			</head>
-			<body
-				style={{
-					"minHeight": "100vh",
-					"display": "flex",
-					"flexDirection": "column"
-				}}
-			>
+			<body>
 				<DsfrProvider lang={lang}>
 					<ConsentBannerAndConsentManagement />
-					<NextAppDirEmotionCacheProvider options={{ "key": "css" }}>
+					<NextAppDirEmotionCacheProvider options={{ "key": "css", nonce, prepend: true }}>
 						<MuiDsfrThemeProvider>
 							<Header
 								brandTop={<>INTITULE<br />OFFICIEL</>}
@@ -75,14 +78,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 								]}
 								navigation={<Navigation />}
 							/>
-							<div style={{
-								"flex": 1,
-								"margin": "auto",
-								"maxWidth": 1000,
-								...fr.spacing("padding", {
-									"topBottom": "10v"
-								})
-							}}>
+							<div className={cx(style.container)}>
 								{children}
 							</div>
 							<Footer

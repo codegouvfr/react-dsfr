@@ -15,7 +15,7 @@ export function startReactDsfr(params: {
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
     /** Default: ()=> "fr" */
     useLang?: () => string;
-    nonce?: string;
+    checkNonce?: boolean;
     trustedTypesPolicyName?: string;
 }) {
     const {
@@ -23,7 +23,7 @@ export function startReactDsfr(params: {
         verbose = false,
         Link,
         useLang,
-        nonce,
+        checkNonce,
         trustedTypesPolicyName
     } = params;
 
@@ -39,7 +39,7 @@ export function startReactDsfr(params: {
         defaultColorScheme,
         verbose,
         "nextParams": undefined,
-        nonce,
+        checkNonce,
         trustedTypesPolicyName
     });
 }

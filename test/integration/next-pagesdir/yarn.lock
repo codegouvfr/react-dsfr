@@ -86,7 +86,7 @@
     to-fast-properties "^2.0.0"
 
 "@codegouvfr/react-dsfr@file:../../../dist":
-  version "0.58.2"
+  version "0.75.8"
   dependencies:
     tsafe "^1.6.3"
 
@@ -2451,10 +2451,10 @@ tslib@^2.4.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
   integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
-tss-react@^4.8.6:
-  version "4.8.6"
-  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.8.6.tgz#c1d9ede44474e3119bb21ef6ef7ae4057cbee751"
-  integrity sha512-+ucvy+SLFUUxd3zA3QS9Q7bo5FerR8VIUOHieyvYYMoBqtpVinnOA0aTOSXcSdl4lqjFc/9gNA5x0B5iIWk7hA==
+tss-react@^4.9.1:
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/tss-react/-/tss-react-4.9.1.tgz#0d220c26f8c7df133564c355394a9999b549ab99"
+  integrity sha512-pSvjM9FJpPUTqEPdiPPMnkLBdZLBTZ3pzxfOut5NjY1/wWHlTKl+oK2yvKJ6jATMcJZcw55vHuPgynWLFZKSOQ==
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"

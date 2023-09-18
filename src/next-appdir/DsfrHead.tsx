@@ -55,18 +55,25 @@ export function DsfrHead(props: DsfrHeadProps) {
             <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
             <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
             <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
-            {isProduction && (
-                <script
-                    nonce={nonce}
-                    dangerouslySetInnerHTML={{
-                        "__html": getScriptToRunAsap({
-                            defaultColorScheme,
-                            nonce,
-                            trustedTypesPolicyName
-                        })
-                    }}
-                />
-            )}
+            <script
+                suppressHydrationWarning
+                nonce={nonce}
+                dangerouslySetInnerHTML={{
+                    "__html": getScriptToRunAsap({
+                        defaultColorScheme,
+                        nonce,
+                        trustedTypesPolicyName
+                    })
+                }}
+            />
+            <script
+                suppressHydrationWarning
+                key="nonce-setter"
+                nonce={nonce}
+                dangerouslySetInnerHTML={{
+                    __html: `window.ssrNonce = "${nonce}";`
+                }}
+            />
         </>
     );
 }

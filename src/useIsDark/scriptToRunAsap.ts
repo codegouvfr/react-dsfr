@@ -8,6 +8,13 @@ type GetScriptToRunAsap = (props: {
     trustedTypesPolicyName?: string;
 }) => string;
 
+declare global {
+    interface Window {
+        ssrWasPerformedWithIsDark?: boolean;
+        ssrNonce?: string;
+    }
+}
+
 // TODO enhance to use DOMPurify with trustedTypes
 export const getScriptToRunAsap: GetScriptToRunAsap = ({
     defaultColorScheme,
@@ -17,7 +24,7 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
 {
 
     window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
-	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}", { createHTML: s => s }) : {
+	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}-asap", { createHTML: s => s }) : {
 		createHTML: s => s,
 	};
     

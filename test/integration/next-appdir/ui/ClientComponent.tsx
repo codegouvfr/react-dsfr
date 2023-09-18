@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { createModal } from "@codegouvfr/react-dsfr/Modal";
-import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
+import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
 import { useIsHeaderMenuModalOpen } from "@codegouvfr/react-dsfr/Header/useIsHeaderMenuModalOpen";
 
 export function ClientComponent() {
