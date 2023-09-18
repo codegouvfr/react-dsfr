@@ -7,7 +7,7 @@ import { getProjectRoot } from "../src/bin/tools/getProjectRoot";
 const rootDirPath = getProjectRoot();
 
 const commonThirdPartyDeps = (() => {
-    const namespaceModuleNames = ["@emotion"];
+    const namespaceModuleNames = ["@emotion", "@mui"];
     const standaloneModuleNames = ["react", "@types/react"];
 
     return [
@@ -22,7 +22,7 @@ const commonThirdPartyDeps = (() => {
     ];
 })();
 
-const yarnHomeDirPath = pathJoin(rootDirPath, ".yarn_home");
+const yarnHomeDirPath = pathJoin(rootDirPath, ".bun_home");
 
 fs.rmSync(yarnHomeDirPath, { "recursive": true, "force": true });
 fs.mkdirSync(yarnHomeDirPath);
@@ -31,7 +31,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
     const cmd = [
-        "yarn",
+        "bun",
         "link",
         ...(targetModuleName !== undefined ? [targetModuleName] : [])
     ].join(" ");
@@ -70,7 +70,7 @@ if (testAppPaths.length === 0) {
     process.exit(-1);
 }
 
-testAppPaths.forEach(testAppPath => execSync("yarn install", { "cwd": testAppPath }));
+testAppPaths.forEach(testAppPath => execSync("bun install", { "cwd": testAppPath }));
 
 console.log("=== Linking common dependencies ===");
 

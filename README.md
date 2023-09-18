@@ -76,21 +76,21 @@ This project is co-maintained by public servants from various French administrat
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
-yarn
+bun install -y
 
 # Starting storybook
-yarn storybook
+bun run storybook
 
 # Starting test apps
-yarn start-cra  # For testing in in a Create React App setup
-yarn start-vite # For testing in a Vite setup
-yarn start-next-pagesdir # For testing in a Next.js 13 PagesDir setup (the default setup)
-yarn start-next-appdir # For testing in a Next.js 13 AppDir setup
+bun run start-cra  # For testing in in a Create React App setup
+bun run start-vite # For testing in a Vite setup
+bun run start-next-pagesdir # For testing in a Next.js 13 PagesDir setup (the default setup)
+bun run start-next-appdir # For testing in a Next.js 13 AppDir setup
 
 # Run all unit test (test/runtime):
-yarn test
+bun run test
 # Run only test/runtime/cssVariable.test.ts (for example)
-npx vitest -t "Resolution of CSS variables"
+bunx vitest -t "Resolution of CSS variables"
 
 # Debugging while unit testing
 ```

@@ -3,7 +3,7 @@ Run the App:
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
-yarn
-yarn start-next-pagesdir
+bun install
+bun run start-next-pagesdir
 ```
 

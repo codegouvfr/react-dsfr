@@ -23,7 +23,7 @@ const commonThirdPartyDeps = (() => {
     ];
 })();
 
-const yarnHomeDirPath = pathJoin(projectDirPath, ".yarn_home");
+const yarnHomeDirPath = pathJoin(projectDirPath, ".bun_home");
 
 fs.rmSync(yarnHomeDirPath, { "recursive": true, "force": true });
 
@@ -55,7 +55,7 @@ const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
     pathJoin(projectDirPath, "test", "integration", testAppName);
 
 testAppNames.forEach(testAppName =>
-    execSync("yarn install", { "cwd": getTestAppPath(testAppName) })
+    execSync("bun install", { "cwd": getTestAppPath(testAppName) })
 );
 
 console.log("=== Linking common dependencies ===");

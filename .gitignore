@@ -42,7 +42,7 @@ jspm_packages
 .DS_Store
 
 /dist
-/.yarn_home
+/.bun_home
 /dsfr
 /src/fr/generatedFromCss
 /storybook-static
