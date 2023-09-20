@@ -16,3 +16,12 @@ export type UploadProps = {
     nativeInputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 };
 export declare const Upload: React.MemoExoticComponent<React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<HTMLDivElement>>>;
+declare const addUploadTranslations: (params: {
+    lang: string;
+    messages: Partial<{
+        "add file": string;
+        "add files": string;
+        hint: string;
+    }>;
+}) => void;
+export { addUploadTranslations };
