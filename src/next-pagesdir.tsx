@@ -182,7 +182,7 @@ export function createNextDsfrIntegrationApi(
                                 />
                             </>
                         )}
-                        {isProduction && (
+                        {isProduction && !isBrowser && (
                             <script
                                 nonce={nonce}
                                 dangerouslySetInnerHTML={{
