@@ -133,3 +133,5 @@ addUploadTranslations({
         "hint": "Maximum size : 500 Mo. Supported formats : jpg, png, pdf. Many files possible."
     }
 });
+
+export { addUploadTranslations };
