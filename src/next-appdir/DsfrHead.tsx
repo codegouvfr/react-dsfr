@@ -12,6 +12,8 @@ import { setLink, type RegisteredLinkProps } from "../link";
 //See: https://github.com/vercel/next.js/issues/16630
 // @import url(...) doesn't work. Using Sass and @use is our last resort.
 import "../assets/dsfr_plus_icons.scss";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
+import { type startReactDsfr } from "./zz_internal/start";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
@@ -20,7 +22,22 @@ export type DsfrHeadProps = {
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default: <a /> */
     Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    /**
+     * When set, the value will be used as the nonce attribute of subsequent script tags.
+     *
+     * Don't forget to add `checkNonce: true` in {@link startReactDsfr} options.
+     *
+     * @see https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/nonce
+     */
     nonce?: string;
+    /**
+     * Enable Trusted Types with a custom policy name.
+     *
+     * Don't forget to add `trustedTypesPolicyName` in {@link startReactDsfr} options.
+     *
+     * @see https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types
+     * @default "react-dsfr"
+     */
     trustedTypesPolicyName?: string;
 };
 

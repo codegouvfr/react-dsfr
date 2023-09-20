@@ -41,7 +41,22 @@ export type CreateNextDsfrIntegrationApiParams = {
     doPersistDarkModePreferenceWithCookie?: boolean;
     /** Default: ()=> "fr" */
     useLang?: () => string;
-    nonce?: string;
+    /**
+     * Enable Trusted Types with a custom policy name.
+     *
+     * `<trustedTypesPolicyName>` and `<trustedTypesPolicyName>-asap` should be set in your Content-Security-Policy header.
+     *
+     * For example:
+     * ```txt
+     * With a policy name of "react-dsfr":
+     * Content-Security-Policy:
+     *  require-trusted-types-for 'script';
+     *  trusted-types react-dsfr react-dsfr-asap nextjs nextjs#bundler;
+     * ```
+     *
+     * @see https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types
+     * @default "react-dsfr"
+     */
     trustedTypesPolicyName?: string;
 };
 
@@ -91,7 +106,6 @@ export function createNextDsfrIntegrationApi(
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
         useLang,
-        nonce,
         trustedTypesPolicyName
     } = params;
 
@@ -169,10 +183,9 @@ export function createNextDsfrIntegrationApi(
                         />
                         {!isBrowser && ( //NOTE: On browser we handle this manually
                             <>
-                                <style
-                                    nonce={nonce}
-                                    id={rootColorSchemeStyleTagId}
-                                >{`:root { color-scheme: ${isDark ? "dark" : "light"}; }`}</style>
+                                <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
+                                    isDark ? "dark" : "light"
+                                }; }`}</style>
                                 <meta
                                     name="theme-color"
                                     content={
@@ -184,11 +197,9 @@ export function createNextDsfrIntegrationApi(
                         )}
                         {isProduction && !isBrowser && (
                             <script
-                                nonce={nonce}
                                 dangerouslySetInnerHTML={{
                                     "__html": getScriptToRunAsap({
                                         defaultColorScheme,
-                                        nonce,
                                         trustedTypesPolicyName
                                     })
                                 }}
