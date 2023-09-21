@@ -20,6 +20,8 @@ Every component of react-dsfr accepts an optional `classes` property that enable
 
 <figure><img src=".gitbook/assets/image (9).png" alt=""><figcaption><p>After</p></figcaption></figure>
 
+### Creating a custom component
+
 {% embed url="https://youtu.be/9uaPv-Q9fe4" %}
 Cusomizing a component - NOTE: theme.decisions... is now fr.colors.decisions...
 {% endembed %}
