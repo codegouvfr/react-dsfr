@@ -6,6 +6,7 @@ import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./defa
 import { isBrowser } from "../../tools/isBrowser";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
 import { type DsfrHead } from "../DsfrHead";
+import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../../tools/trustedTypesPolicy/config";
 
 let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
@@ -21,7 +22,7 @@ export function startReactDsfr(params: {
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/nonce
      */
-    checkNonce?: boolean;
+    doCheckNonce?: boolean;
     /**
      * Enable Trusted Types with a custom policy name.
      *
@@ -38,6 +39,7 @@ export function startReactDsfr(params: {
      * ```
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types
+     * @see {@link DEFAULT_TRUSTED_TYPES_POLICY_NAME}
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
@@ -46,8 +48,8 @@ export function startReactDsfr(params: {
         defaultColorScheme,
         verbose = false,
         Link,
-        checkNonce,
-        trustedTypesPolicyName
+        doCheckNonce = false,
+        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
     } = params;
 
     setDefaultColorSchemeClientSide({ defaultColorScheme });
@@ -70,7 +72,7 @@ export function startReactDsfr(params: {
                     }
                 }
             },
-            checkNonce,
+            doCheckNonce,
             trustedTypesPolicyName
         });
     }

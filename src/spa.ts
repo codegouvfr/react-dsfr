@@ -4,6 +4,7 @@ import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
 import { setUseLang } from "./i18n";
 import type { ColorScheme } from "./useIsDark";
+import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "./tools/trustedTypesPolicy/config";
 
 export type { RegisterLink, RegisteredLinkProps };
 
@@ -35,6 +36,7 @@ export function startReactDsfr(params: {
      * ```
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types
+     * @see {@link DEFAULT_TRUSTED_TYPES_POLICY_NAME}
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
@@ -45,7 +47,7 @@ export function startReactDsfr(params: {
         Link,
         useLang,
         nonce,
-        trustedTypesPolicyName
+        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
     } = params;
 
     if (Link !== undefined) {
@@ -56,8 +58,8 @@ export function startReactDsfr(params: {
         setUseLang({ useLang });
     }
 
-    const checkNonce = !!nonce;
-    if (checkNonce) {
+    const doCheckNonce = !!nonce; // handle undefined and empty string
+    if (doCheckNonce) {
         window.ssrNonce = nonce;
     }
 
@@ -65,7 +67,7 @@ export function startReactDsfr(params: {
         defaultColorScheme,
         verbose,
         "nextParams": undefined,
-        checkNonce,
+        doCheckNonce,
         trustedTypesPolicyName
     });
 }

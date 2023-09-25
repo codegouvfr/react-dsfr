@@ -3,6 +3,7 @@ import { createStatefulObservable, useRerenderOnChange } from "../tools/Stateful
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { fr } from "../fr";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
+import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 export type ColorScheme = "light" | "dark";
 
@@ -98,15 +99,15 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
-    checkNonce?: boolean;
+    doCheckNonce?: boolean;
     trustedTypesPolicyName?: string;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
         colorSchemeExplicitlyProvidedAsParameter,
-        checkNonce,
-        trustedTypesPolicyName = "react-dsfr"
+        doCheckNonce = false,
+        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -234,7 +235,7 @@ export function startClientSideIsDarkLogic(params: {
     {
         const setRootColorScheme = (isDark: boolean) => {
             const nonce = window.ssrNonce;
-            if (checkNonce && !nonce) {
+            if (doCheckNonce && !nonce) {
                 return;
             }
             document.getElementById(rootColorSchemeStyleTagId)?.remove();

@@ -1,6 +1,7 @@
 import type { ColorScheme } from "./client";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 import { fr } from "../fr";
+import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 type GetScriptToRunAsap = (props: {
     defaultColorScheme: ColorScheme | "system";
@@ -19,7 +20,7 @@ declare global {
 export const getScriptToRunAsap: GetScriptToRunAsap = ({
     defaultColorScheme,
     nonce,
-    trustedTypesPolicyName = "react-dsfr"
+    trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
 }) => `
 {
 

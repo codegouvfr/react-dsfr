@@ -14,6 +14,7 @@ import { setLink, type RegisteredLinkProps } from "../link";
 import "../assets/dsfr_plus_icons.scss";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
 import { type startReactDsfr } from "./zz_internal/start";
+import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
@@ -25,7 +26,7 @@ export type DsfrHeadProps = {
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
-     * Don't forget to add `checkNonce: true` in {@link startReactDsfr} options.
+     * Don't forget to add `doCheckNonce: true` in {@link startReactDsfr} options.
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/nonce
      */
@@ -36,6 +37,7 @@ export type DsfrHeadProps = {
      * Don't forget to add `trustedTypesPolicyName` in {@link startReactDsfr} options.
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types
+     * @see {@link DEFAULT_TRUSTED_TYPES_POLICY_NAME}
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
@@ -44,7 +46,12 @@ export type DsfrHeadProps = {
 const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName } = props;
+    const {
+        preloadFonts = [],
+        Link,
+        nonce,
+        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
+    } = props;
 
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
