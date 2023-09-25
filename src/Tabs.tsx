@@ -157,7 +157,7 @@ export const Tabs = memo(
                     onKeyDownCapture={e => onKeyboardNavigation(e)}
                 >
                     {tabs.map(({ label, iconId }, tabIndex) => (
-                        <li key={label + (iconId ?? "")} role="presentation">
+                        <li key={tabIndex} role="presentation">
                             <button
                                 ref={button => (buttonRefs.current[tabIndex] = button)}
                                 id={getTabId(tabIndex)}
