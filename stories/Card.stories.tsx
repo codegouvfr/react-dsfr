@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, type CardProps } from "../dist/Card";
 import { Badge } from "../dist/Badge";
+import { Tag } from "../dist/Tag";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
@@ -33,7 +34,20 @@ const { meta, getStory } = getStoryFactory({
         },
         enlargeLink: {
             "description": `Set to false to restrict the link area to the Card title only.`,
+            defaultValue: false,
             "control": { "type": "boolean" }
+        },
+        iconId: {
+            "options": (() => {
+                const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
+
+                assert<
+                    typeof options[number] extends NonNullable<CardProps["iconId"]> ? true : false
+                >();
+
+                return options;
+            })(),
+            "control": { "type": "radio" }
         },
         size: {
             "description": "Card title text sizing",
@@ -42,10 +56,58 @@ const { meta, getStory } = getStoryFactory({
                 assert<Equals<typeof sizes[number] | undefined, CardProps["size"]>>();
                 return sizes;
             })(),
+            defaultValue: "medium",
             "control": { "type": "radio" }
         },
         imageUrl: {
             "description": "Use any image URL, or none"
+        },
+        imageAlt: {
+            "description": "Alternative text for the image"
+        },
+        badge: {
+            description: "Badge in the header"
+        },
+        start: {
+            description:
+                "Zone containing either tags group or badges group (not both) located above the card title"
+        },
+        detail: {
+            description: "Hint text about the `start` zone"
+        },
+        end: {
+            description: "Extra details or actions below the card content"
+        },
+        endDetail: {
+            description: "Hint text about the `end` zone"
+        },
+        footer: {
+            description: "Footer"
+        },
+        horizontal: {
+            description: "Horizontal alignment",
+            defaultValue: false,
+            type: "boolean"
+        },
+        background: {
+            description: "Card with opaque background",
+            defaultValue: true,
+            type: "boolean"
+        },
+        border: {
+            description: "Card with border",
+            defaultValue: true,
+            type: "boolean"
+        },
+        shadow: {
+            description: "Card with shadow",
+            defaultValue: false,
+            type: "boolean"
+        },
+        grey: {
+            description: "Card content zone with grey background",
+            defaultValue: false,
+            type: "boolean"
         }
     },
     "disabledProps": ["lang"]
@@ -101,12 +163,12 @@ export const CardWithImageRatio = getStory(
 export const CardWithBadgeInTheHeader = getStory(
     {
         ...defaultProps,
-        "badges": [<Badge>LABEL BADGE</Badge>, <Badge severity="new">LABEL BADGE</Badge>]
+        "badge": <Badge>LABEL BADGE</Badge>
     },
-    { "description": "Carte verticale avec badge dans l'image" }
+    { "description": "Carte verticale avec un badge dans l'image" }
 );
 
-export const CardWithBadgeInTheContent = getStory(
+export const CardWithBadgesInTheContent = getStory(
     {
         ...defaultProps,
         "start": (
@@ -120,13 +182,54 @@ export const CardWithBadgeInTheContent = getStory(
             </ul>
         )
     },
-    { "description": "Carte verticale avec badges dans le contenu" }
+    { "description": "Carte verticale avec plusieurs badges dans le contenu" }
+);
+
+export const CardWithBadgeInTheHeaderAndTagsInTheContent = getStory(
+    {
+        ...defaultProps,
+        "badge": <Badge severity="new">LABEL BADGE</Badge>,
+        "start": (
+            <ul className={fr.cx("fr-tags-group")}>
+                <li>
+                    <Tag>LABEL TAG 1</Tag>
+                </li>
+                <li>
+                    <Tag>LABEL TAG 2</Tag>
+                </li>
+            </ul>
+        )
+    },
+    {
+        "description":
+            "Carte verticale avec un badge dans l'image et plusieurs tags dans le contenu"
+    }
+);
+
+export const CardWithTagsInTheContent = getStory(
+    {
+        ...defaultProps,
+        "start": (
+            <ul className={fr.cx("fr-tags-group")}>
+                <li>
+                    <Tag>LABEL TAG 1</Tag>
+                </li>
+                <li>
+                    <Tag>LABEL TAG 2</Tag>
+                </li>
+            </ul>
+        )
+    },
+    { "description": "Carte verticale avec plusieurs tags dans le contenu" }
 );
 
 export const CardWithDetail = getStory(
     {
         ...defaultProps,
-        "detail": "détail(optionnel)"
+        "detail": "détail(optionnel)",
+        "classes": {
+            detail: fr.cx("fr-icon-warning-fill")
+        }
     },
     { "description": "Carte verticale avec détail" }
 );
@@ -262,14 +365,14 @@ export const CardHorizontalWithActions = getStory(
         "enlargeLink": false,
         "horizontal": true,
         "size": "large",
-        "badges": [<Badge>LABEL BADGE</Badge>],
+        "badge": <Badge>LABEL BADGE</Badge>,
         "start": (
-            <ul className={fr.cx("fr-badges-group")}>
+            <ul className={fr.cx("fr-tags-group")}>
                 <li>
-                    <Badge>LABEL BADGE</Badge>
+                    <Tag>LABEL TAG 1</Tag>
                 </li>
                 <li>
-                    <Badge severity="new">LABEL BADGE</Badge>
+                    <Tag>LABEL TAG 2</Tag>
                 </li>
             </ul>
         ),

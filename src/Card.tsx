@@ -23,7 +23,7 @@ export type CardProps = {
     detail?: ReactNode;
     end?: ReactNode;
     endDetail?: ReactNode;
-    badges?: ReactNode[]; // todo: restrict to badge component ? these badges are display on the image
+    badge?: ReactNode;
     /** where actions can be placed */
     footer?: ReactNode;
     /** Default: "medium", only affect the text */
@@ -52,7 +52,7 @@ export type CardProps = {
             | "detail"
             | "end"
             | "endDetail"
-            | "badges"
+            | "badge"
             | "footer",
             string
         >
@@ -91,7 +91,7 @@ export const Card = memo(
             detail,
             end,
             endDetail,
-            badges,
+            badge,
             footer,
             horizontal = false,
             size = "medium",
@@ -194,11 +194,9 @@ export const Card = memo(
                                 alt={imageAlt}
                             />
                         </div>
-                        {badges !== undefined && badges.length && (
-                            <ul className={cx(fr.cx("fr-badges-group"), classes.badges)}>
-                                {badges.map((badge, i) => (
-                                    <li key={i}>{badge}</li>
-                                ))}
+                        {badge && (
+                            <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>
+                                <li>{badge}</li>
                             </ul>
                         )}
                     </div>
