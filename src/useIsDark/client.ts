@@ -3,7 +3,6 @@ import { createStatefulObservable, useRerenderOnChange } from "../tools/Stateful
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { fr } from "../fr";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
-import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 export type ColorScheme = "light" | "dark";
 
@@ -99,15 +98,15 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
-    doCheckNonce?: boolean;
-    trustedTypesPolicyName?: string;
+    doCheckNonce: boolean;
+    trustedTypesPolicyName: string;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
         colorSchemeExplicitlyProvidedAsParameter,
         doCheckNonce = false,
-        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
+        trustedTypesPolicyName
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {

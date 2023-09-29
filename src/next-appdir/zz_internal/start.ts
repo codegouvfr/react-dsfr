@@ -6,7 +6,6 @@ import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./defa
 import { isBrowser } from "../../tools/isBrowser";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
 import { type DsfrHead } from "../DsfrHead";
-import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../../tools/trustedTypesPolicy/config";
 
 let isAfterFirstEffect = false;
 const actions: (() => void)[] = [];
@@ -21,6 +20,7 @@ export function startReactDsfr(params: {
      * When true, the nonce of the script tag will be checked, fetched from {@link DsfrHead} component and injected in react-dsfr scripts.
      *
      * @see https://developer.mozilla.org/fr/docs/Web/HTML/Global_attributes/nonce
+     * @default false
      */
     doCheckNonce?: boolean;
     /**
@@ -49,7 +49,7 @@ export function startReactDsfr(params: {
         verbose = false,
         Link,
         doCheckNonce = false,
-        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
+        trustedTypesPolicyName = "react-dsfr"
     } = params;
 
     setDefaultColorSchemeClientSide({ defaultColorScheme });
@@ -62,6 +62,8 @@ export function startReactDsfr(params: {
         start({
             defaultColorScheme,
             verbose,
+            doCheckNonce,
+            trustedTypesPolicyName,
             "nextParams": {
                 "doPersistDarkModePreferenceWithCookie": false,
                 "registerEffectAction": action => {
@@ -71,9 +73,7 @@ export function startReactDsfr(params: {
                         actions.push(action);
                     }
                 }
-            },
-            doCheckNonce,
-            trustedTypesPolicyName
+            }
         });
     }
 }

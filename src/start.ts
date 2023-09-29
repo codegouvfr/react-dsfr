@@ -3,7 +3,6 @@ import { assert } from "tsafe/assert";
 import type { ColorScheme } from "./useIsDark";
 import { startClientSideIsDarkLogic } from "./useIsDark/client";
 import { Deferred } from "./tools/Deferred";
-import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "./tools/trustedTypesPolicy/config";
 
 type Params = {
     defaultColorScheme: ColorScheme | "system";
@@ -14,20 +13,15 @@ type Params = {
               registerEffectAction: (effect: () => void) => void;
           }
         | undefined;
-    doCheckNonce?: boolean;
-    trustedTypesPolicyName?: string;
+    doCheckNonce: boolean;
+    trustedTypesPolicyName: string;
 };
 
 let isStarted = false;
 
 export async function start(params: Params) {
-    const {
-        defaultColorScheme,
-        verbose,
-        nextParams,
-        doCheckNonce = false,
-        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
-    } = params;
+    const { defaultColorScheme, verbose, nextParams, doCheckNonce, trustedTypesPolicyName } =
+        params;
 
     assert(isBrowser);
 

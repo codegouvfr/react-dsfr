@@ -8,13 +8,13 @@ import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import { getDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
 import { setLink, type RegisteredLinkProps } from "../link";
+import { assert } from "tsafe/assert";
 //NOTE: As of now there is no way to enforce ordering in Next Appdir
 //See: https://github.com/vercel/next.js/issues/16630
 // @import url(...) doesn't work. Using Sass and @use is our last resort.
 import "../assets/dsfr_plus_icons.scss";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
 import { type startReactDsfr } from "./zz_internal/start";
-import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
@@ -46,12 +46,9 @@ export type DsfrHeadProps = {
 const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const {
-        preloadFonts = [],
-        Link,
-        nonce,
-        trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
-    } = props;
+    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName = "react-dsfr" } = props;
+
+    assert(nonce !== "", "nonce cannot be an empty string");
 
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
@@ -90,14 +87,16 @@ export function DsfrHead(props: DsfrHeadProps) {
                     })
                 }}
             />
-            <script
-                suppressHydrationWarning
-                key="nonce-setter"
-                nonce={nonce}
-                dangerouslySetInnerHTML={{
-                    __html: `window.ssrNonce = "${nonce}";`
-                }}
-            />
+            {nonce !== undefined && (
+                <script
+                    suppressHydrationWarning
+                    key="nonce-setter"
+                    nonce={nonce}
+                    dangerouslySetInnerHTML={{
+                        __html: `window.ssrNonce = "${nonce}";`
+                    }}
+                />
+            )}
         </>
     );
 }

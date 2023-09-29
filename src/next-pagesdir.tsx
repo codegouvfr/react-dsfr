@@ -106,7 +106,7 @@ export function createNextDsfrIntegrationApi(
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
         useLang,
-        trustedTypesPolicyName
+        trustedTypesPolicyName = "react-dsfr"
     } = params;
 
     let isAfterFirstEffect = false;
@@ -124,6 +124,8 @@ export function createNextDsfrIntegrationApi(
         start({
             defaultColorScheme,
             verbose,
+            "doCheckNonce": false,
+            trustedTypesPolicyName,
             "nextParams": {
                 doPersistDarkModePreferenceWithCookie,
                 "registerEffectAction": action => {
@@ -200,7 +202,8 @@ export function createNextDsfrIntegrationApi(
                                 dangerouslySetInnerHTML={{
                                     "__html": getScriptToRunAsap({
                                         defaultColorScheme,
-                                        trustedTypesPolicyName
+                                        trustedTypesPolicyName,
+                                        "nonce": undefined
                                     })
                                 }}
                             />

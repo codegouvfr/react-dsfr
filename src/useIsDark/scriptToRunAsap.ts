@@ -1,12 +1,11 @@
 import type { ColorScheme } from "./client";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 import { fr } from "../fr";
-import { DEFAULT_TRUSTED_TYPES_POLICY_NAME } from "../tools/trustedTypesPolicy/config";
 
 type GetScriptToRunAsap = (props: {
     defaultColorScheme: ColorScheme | "system";
-    nonce?: string;
-    trustedTypesPolicyName?: string;
+    nonce: string | undefined;
+    trustedTypesPolicyName: string;
 }) => string;
 
 declare global {
@@ -19,8 +18,8 @@ declare global {
 // TODO enhance to use DOMPurify with trustedTypes
 export const getScriptToRunAsap: GetScriptToRunAsap = ({
     defaultColorScheme,
-    nonce,
-    trustedTypesPolicyName = DEFAULT_TRUSTED_TYPES_POLICY_NAME
+    nonce = "",
+    trustedTypesPolicyName
 }) => `
 {
 
