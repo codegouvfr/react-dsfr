@@ -217,7 +217,7 @@ Yes MUI is supported in AppDir thanks to TSS. [See instructions](https://docs.ts
 {% endhint %}
 {% endtab %}
 
-{% tab title="Next.js Page Router" %}
+{% tab title="Next.js Pages Router" %}
 {% hint style="info" %}
 This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup).
 
@@ -396,70 +396,23 @@ Your framework isn't supported? Let's [get in touch](https://github.com/codegouv
 You can avoid having a flash of unstyled text by preloading the font variant used on your homepage (look in the network tab of your browser dev tools what are the font downloaded initially).
 
 {% tabs %}
-{% tab title="Create React App" %}
-Add the following code in the `<head />`
+{% tab title="Vite" %}
+Add the following tags in the `<head />`
 
-{% code title="public/index.html" %}
-```ejs
-<%
-[
-  //"Marianne-Light",
-  //"Marianne-Light_Italic",
-  "Marianne-Regular",
-  //"Marianne-Regular_Italic",
-  "Marianne-Medium",
-  //"Marianne-Medium_Italic",
-  "Marianne-Bold",
-  //"Marianne-Bold_Italic",
-  //"Spectral-Regular",
-  //"Spectral-ExtraBold"
-].forEach(function(name){ %>
-  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
-<% }); %>
+{% code title="index.html" %}
+```html
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
+<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
+<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
 ```
 {% endcode %}
-{% endtab %}
-
-{% tab title="Next.js Page Router" %}
-<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
-import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
-import Link from "next/link";
-
-// Only in TypeScript projects
-declare module "@codegouvfr/react-dsfr/next-pagesdir" {
-    interface RegisterLink { 
-        Link: typeof Link;
-    }
-}
-
-const { 
-    withDsfr,
-    dsfrDocumentApi
-} = createNextDsfrIntegrationApi({
-    defaultColorScheme: "system",
-    Link,
-<strong>    preloadFonts: [
-</strong><strong>  	//"Marianne-Light",
-</strong><strong>        //"Marianne-Light_Italic",
-</strong><strong>	"Marianne-Regular",
-</strong><strong>	//"Marianne-Regular_Italic",
-</strong><strong>	"Marianne-Medium",
-</strong><strong>	//"Marianne-Medium_Italic",
-</strong><strong>	"Marianne-Bold",
-</strong><strong>	//"Marianne-Bold_Italic",
-</strong><strong>	//"Spectral-Regular",
-</strong><strong>	//"Spectral-ExtraBold"
-</strong><strong>    ]
-</strong>});
-
-export { dsfrDocumentApi };
-
-function App({ Component, pageProps }: AppProps) {
-    return &#x3C;Component {...pageProps} />;
-}
-
-export default withDsfr(App);
-</code></pre>
 {% endtab %}
 
 {% tab title="Next.js App Router" %}
@@ -502,21 +455,68 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 </code></pre>
 {% endtab %}
 
-{% tab title="Vite" %}
-Add the following tags in the `<head />`
+{% tab title="Next.js Pages Router" %}
+<pre class="language-tsx" data-title="pages/_app.tsx"><code class="lang-tsx">import type { AppProps } from "next/app";
+import { createNextDsfrIntegrationApi } from "@codegouvfr/react-dsfr/next-pagesdir";
+import Link from "next/link";
 
-{% code title="index.html" %}
-```html
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Light_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Regular.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Regular_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Medium.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Medium_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<link rel="preload" href="/dsfr/fonts/Marianne-Bold.woff2" as="font" crossorigin="anonymous" />
-<!--<link rel="preload" href="/dsfr/fonts/Marianne-Bold_Italic.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-Regular.woff2" as="font" crossorigin="anonymous" />-->
-<!--<link rel="preload" href="/dsfr/fonts/Spectral-ExtraBold.woff2" as="font" crossorigin="anonymous" />-->
+// Only in TypeScript projects
+declare module "@codegouvfr/react-dsfr/next-pagesdir" {
+    interface RegisterLink { 
+        Link: typeof Link;
+    }
+}
+
+const { 
+    withDsfr,
+    dsfrDocumentApi
+} = createNextDsfrIntegrationApi({
+    defaultColorScheme: "system",
+    Link,
+<strong>    preloadFonts: [
+</strong><strong>  	//"Marianne-Light",
+</strong><strong>        //"Marianne-Light_Italic",
+</strong><strong>	"Marianne-Regular",
+</strong><strong>	//"Marianne-Regular_Italic",
+</strong><strong>	"Marianne-Medium",
+</strong><strong>	//"Marianne-Medium_Italic",
+</strong><strong>	"Marianne-Bold",
+</strong><strong>	//"Marianne-Bold_Italic",
+</strong><strong>	//"Spectral-Regular",
+</strong><strong>	//"Spectral-ExtraBold"
+</strong><strong>    ]
+</strong>});
+
+export { dsfrDocumentApi };
+
+function App({ Component, pageProps }: AppProps) {
+    return &#x3C;Component {...pageProps} />;
+}
+
+export default withDsfr(App);
+</code></pre>
+{% endtab %}
+
+{% tab title="Create React App" %}
+Add the following code in the `<head />`
+
+{% code title="public/index.html" %}
+```ejs
+<%
+[
+  //"Marianne-Light",
+  //"Marianne-Light_Italic",
+  "Marianne-Regular",
+  //"Marianne-Regular_Italic",
+  "Marianne-Medium",
+  //"Marianne-Medium_Italic",
+  "Marianne-Bold",
+  //"Marianne-Bold_Italic",
+  //"Spectral-Regular",
+  //"Spectral-ExtraBold"
+].forEach(function(name){ %>
+  <link rel="preload" href="%PUBLIC_URL%/dsfr/fonts/<%=name%>.woff2" as="font" crossorigin="anonymous" />
+<% }); %>
 ```
 {% endcode %}
 {% endtab %}
