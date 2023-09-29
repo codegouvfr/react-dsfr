@@ -1,15 +1,3 @@
-.fr-icon-arrow-right-line::before,
-.fr-icon-arrow-right-line::after {
-    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
-    mask-image: url("../../icons/system/arrow-right-line.svg");
-}
-
-.fr-icon-warning-fill::before,
-.fr-icon-warning-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
-    mask-image: url("../../icons/system/fr--warning-fill.svg");
-}
-
 .fr-icon-checkbox-circle-line::before,
 .fr-icon-checkbox-circle-line::after {
     -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
@@ -20,6 +8,18 @@
 .ri-ancient-gate-fill::after {
     -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+}
+
+.fr-icon-arrow-right-line::before,
+.fr-icon-arrow-right-line::after {
+    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
+    mask-image: url("../../icons/system/arrow-right-line.svg");
+}
+
+.fr-icon-warning-fill::before,
+.fr-icon-warning-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+    mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
 .ri-information-line::before,
@@ -44,6 +44,30 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
+.fr-icon-ball-pen-fill::before,
+.fr-icon-ball-pen-fill::after {
+    -webkit-mask-image: url("../../icons/design/ball-pen-fill.svg");
+    mask-image: url("../../icons/design/ball-pen-fill.svg");
+}
+
+.fr-icon-add-line::before,
+.fr-icon-add-line::after {
+    -webkit-mask-image: url("../../icons/system/add-line.svg");
+    mask-image: url("../../icons/system/add-line.svg");
+}
+
+.ri-check-line::before,
+.ri-check-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
+    mask-image: url("../../icons/remixicon/check-line.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -76,46 +100,10 @@
     mask-image: url("../../icons/remixicon/account-box-line.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
-.ri-check-line::before,
-.ri-check-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
-    mask-image: url("../../icons/remixicon/check-line.svg");
-}
-
-.fr-icon-ball-pen-fill::before,
-.fr-icon-ball-pen-fill::after {
-    -webkit-mask-image: url("../../icons/design/ball-pen-fill.svg");
-    mask-image: url("../../icons/design/ball-pen-fill.svg");
-}
-
-.fr-icon-add-line::before,
-.fr-icon-add-line::after {
-    -webkit-mask-image: url("../../icons/system/add-line.svg");
-    mask-image: url("../../icons/system/add-line.svg");
-}
-
 .ri-palette-line::before,
 .ri-palette-line::after {
     -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
     mask-image: url("../../icons/remixicon/palette-line.svg");
-}
-
-.ri-arrow-down-s-fill::before,
-.ri-arrow-down-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-}
-
-.ri-arrow-up-s-fill::before,
-.ri-arrow-up-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
 .fr-icon-check-line::before,
@@ -130,6 +118,18 @@
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
 }
 
+.ri-arrow-down-s-fill::before,
+.ri-arrow-down-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+}
+
+.ri-arrow-up-s-fill::before,
+.ri-arrow-up-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+}
+
 .fr-icon-theme-fill::before,
 .fr-icon-theme-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
@@ -137,16 +137,6 @@
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .fr-icon-arrow-right-line::before,
-    .fr-icon-arrow-right-line::after {
-        background-image: url("../../icons/system/arrow-right-line.svg");
-    }
-    
-    .fr-icon-warning-fill::before,
-    .fr-icon-warning-fill::after {
-        background-image: url("../../icons/system/fr--warning-fill.svg");
-    }
-    
     .fr-icon-checkbox-circle-line::before,
     .fr-icon-checkbox-circle-line::after {
         background-image: url("../../icons/system/checkbox-circle-line.svg");
@@ -155,6 +145,16 @@
     .ri-ancient-gate-fill::before,
     .ri-ancient-gate-fill::after {
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    }
+    
+    .fr-icon-arrow-right-line::before,
+    .fr-icon-arrow-right-line::after {
+        background-image: url("../../icons/system/arrow-right-line.svg");
+    }
+    
+    .fr-icon-warning-fill::before,
+    .fr-icon-warning-fill::after {
+        background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
     .ri-information-line::before,
@@ -175,6 +175,26 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
+    .fr-icon-ball-pen-fill::before,
+    .fr-icon-ball-pen-fill::after {
+        background-image: url("../../icons/design/ball-pen-fill.svg");
+    }
+    
+    .fr-icon-add-line::before,
+    .fr-icon-add-line::after {
+        background-image: url("../../icons/system/add-line.svg");
+    }
+    
+    .ri-check-line::before,
+    .ri-check-line::after {
+        background-image: url("../../icons/remixicon/check-line.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -202,39 +222,9 @@
         background-image: url("../../icons/remixicon/account-box-line.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
-    .ri-check-line::before,
-    .ri-check-line::after {
-        background-image: url("../../icons/remixicon/check-line.svg");
-    }
-    
-    .fr-icon-ball-pen-fill::before,
-    .fr-icon-ball-pen-fill::after {
-        background-image: url("../../icons/design/ball-pen-fill.svg");
-    }
-    
-    .fr-icon-add-line::before,
-    .fr-icon-add-line::after {
-        background-image: url("../../icons/system/add-line.svg");
-    }
-    
     .ri-palette-line::before,
     .ri-palette-line::after {
         background-image: url("../../icons/remixicon/palette-line.svg");
-    }
-    
-    .ri-arrow-down-s-fill::before,
-    .ri-arrow-down-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    }
-    
-    .ri-arrow-up-s-fill::before,
-    .ri-arrow-up-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
     .fr-icon-check-line::before,
@@ -245,6 +235,16 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-arrow-down-s-fill::before,
+    .ri-arrow-down-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    }
+    
+    .ri-arrow-up-s-fill::before,
+    .ri-arrow-up-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
     .fr-icon-theme-fill::before,

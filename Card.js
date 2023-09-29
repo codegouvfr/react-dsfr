@@ -18,7 +18,7 @@ import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
 export const Card = memo(forwardRef((props, ref) => {
-    const { id: props_id, className, title, titleAs: HtmlTitleTag = "h3", linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badges, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badges", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
+    const { id: props_id, className, title, titleAs: HtmlTitleTag = "h3", linkProps, desc, imageUrl, imageAlt, start, detail, end, endDetail, badge, footer, horizontal = false, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "desc", "imageUrl", "imageAlt", "start", "detail", "end", "endDetail", "badge", "footer", "horizontal", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-card",
@@ -49,7 +49,8 @@ export const Card = memo(forwardRef((props, ref) => {
         imageUrl !== undefined && imageUrl.length && (React.createElement("div", { className: cx(fr.cx("fr-card__header"), classes.header) },
             React.createElement("div", { className: cx(fr.cx("fr-card__img"), classes.img) },
                 React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt })),
-            badges !== undefined && badges.length && (React.createElement("ul", { className: cx(fr.cx("fr-badges-group"), classes.badges) }, badges.map((badge, i) => (React.createElement("li", { key: i }, badge)))))))));
+            badge && (React.createElement("ul", { className: cx(fr.cx("fr-badges-group"), classes.badge) },
+                React.createElement("li", null, badge)))))));
 }));
 Card.displayName = symToStr({ Card });
 export default Card;

@@ -13,7 +13,7 @@ export type CardProps = {
     detail?: ReactNode;
     end?: ReactNode;
     endDetail?: ReactNode;
-    badges?: ReactNode[];
+    badge?: ReactNode;
     /** where actions can be placed */
     footer?: ReactNode;
     /** Default: "medium", only affect the text */
@@ -26,7 +26,7 @@ export type CardProps = {
     background?: boolean;
     border?: boolean;
     grey?: boolean;
-    classes?: Partial<Record<"root" | "title" | "card" | "link" | "body" | "content" | "desc" | "header" | "img" | "imgTag" | "start" | "detail" | "end" | "endDetail" | "badges" | "footer", string>>;
+    classes?: Partial<Record<"root" | "title" | "card" | "link" | "body" | "content" | "desc" | "header" | "img" | "imgTag" | "start" | "detail" | "end" | "endDetail" | "badge" | "footer", string>>;
     style?: CSSProperties;
     /** Default false */
     horizontal?: boolean;
