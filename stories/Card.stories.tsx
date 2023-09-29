@@ -19,7 +19,7 @@ const { meta, getStory } = getStoryFactory({
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Card.tsx)`,
     "argTypes": {
         "title": { "description": `Required.` },
-        titleAs: {
+        "titleAs": {
             "description": `Heading level`,
             "options": (() => {
                 const headings = ["h2", "h3", "h4", "h5", "h6"] as const;
@@ -29,15 +29,15 @@ const { meta, getStory } = getStoryFactory({
             "control": { "type": "radio" }
         },
         "desc": { "description": `` },
-        linkProps: {
+        "linkProps": {
             "description": `Required only if enlargeLink is true. The Card Link props.`
         },
-        enlargeLink: {
+        "enlargeLink": {
             "description": `Set to false to restrict the link area to the Card title only.`,
-            defaultValue: false,
+            "defaultValue": false,
             "control": { "type": "boolean" }
         },
-        iconId: {
+        "iconId": {
             "options": (() => {
                 const options = ["fr-icon-checkbox-circle-line", "ri-ancient-gate-fill"] as const;
 
@@ -49,65 +49,65 @@ const { meta, getStory } = getStoryFactory({
             })(),
             "control": { "type": "radio" }
         },
-        size: {
+        "size": {
             "description": "Card title text sizing",
             "options": (() => {
                 const sizes = ["small", "medium", "large"] as const;
                 assert<Equals<typeof sizes[number] | undefined, CardProps["size"]>>();
                 return sizes;
             })(),
-            defaultValue: "medium",
+            "defaultValue": "medium",
             "control": { "type": "radio" }
         },
-        imageUrl: {
+        "imageUrl": {
             "description": "Use any image URL, or none"
         },
-        imageAlt: {
+        "imageAlt": {
             "description": "Alternative text for the image"
         },
-        badge: {
-            description: "Badge in the header"
+        "badge": {
+            "description": "Badge in the header"
         },
-        start: {
-            description:
+        "start": {
+            "description":
                 "Zone containing either tags group or badges group (not both) located above the card title"
         },
-        detail: {
-            description: "Hint text about the `start` zone"
+        "detail": {
+            "description": "Hint text about the `start` zone"
         },
-        end: {
-            description: "Extra details or actions below the card content"
+        "end": {
+            "description": "Extra details or actions below the card content"
         },
-        endDetail: {
-            description: "Hint text about the `end` zone"
+        "endDetail": {
+            "description": "Hint text about the `end` zone"
         },
-        footer: {
-            description: "Footer"
+        "footer": {
+            "description": "Footer"
         },
-        horizontal: {
-            description: "Horizontal alignment",
-            defaultValue: false,
-            type: "boolean"
+        "horizontal": {
+            "description": "Horizontal alignment",
+            "defaultValue": false,
+            "type": "boolean"
         },
-        background: {
-            description: "Card with opaque background",
-            defaultValue: true,
-            type: "boolean"
+        "background": {
+            "description": "Card with opaque background",
+            "defaultValue": true,
+            "type": "boolean"
         },
-        border: {
-            description: "Card with border",
-            defaultValue: true,
-            type: "boolean"
+        "border": {
+            "description": "Card with border",
+            "defaultValue": true,
+            "type": "boolean"
         },
-        shadow: {
-            description: "Card with shadow",
-            defaultValue: false,
-            type: "boolean"
+        "shadow": {
+            "description": "Card with shadow",
+            "defaultValue": false,
+            "type": "boolean"
         },
-        grey: {
-            description: "Card content zone with grey background",
-            defaultValue: false,
-            type: "boolean"
+        "grey": {
+            "description": "Card content zone with grey background",
+            "defaultValue": false,
+            "type": "boolean"
         }
     },
     "disabledProps": ["lang"]
