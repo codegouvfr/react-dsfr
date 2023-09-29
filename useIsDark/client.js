@@ -65,7 +65,7 @@ function getCurrentIsDarkFromHtmlAttribute() {
     assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
 export function startClientSideIsDarkLogic(params) {
-    const { doPersistDarkModePreferenceWithCookie, registerEffectAction, colorSchemeExplicitlyProvidedAsParameter } = params;
+    const { doPersistDarkModePreferenceWithCookie, registerEffectAction, colorSchemeExplicitlyProvidedAsParameter, doCheckNonce = false, trustedTypesPolicyName } = params;
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = (() => {
         var _a, _b, _c;
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
@@ -114,6 +114,12 @@ export function startClientSideIsDarkLogic(params) {
         };
     })();
     ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
+    const trustedTypes = window.trustedTypes;
+    const sanitizer = typeof trustedTypes !== "undefined"
+        ? trustedTypes.createPolicy(trustedTypesPolicyName, { createHTML: (s) => s })
+        : {
+            createHTML: (s) => s
+        };
     $clientSideIsDark.current = clientSideIsDark;
     [data_fr_scheme, data_fr_theme].forEach(attr => document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light"));
     new MutationObserver(() => {
@@ -147,10 +153,17 @@ export function startClientSideIsDarkLogic(params) {
     {
         const setRootColorScheme = (isDark) => {
             var _a;
+            const nonce = window.ssrNonce;
+            if (doCheckNonce && !nonce) {
+                return;
+            }
             (_a = document.getElementById(rootColorSchemeStyleTagId)) === null || _a === void 0 ? void 0 : _a.remove();
             const element = document.createElement("style");
             element.id = rootColorSchemeStyleTagId;
-            element.innerHTML = `:root { color-scheme: ${isDark ? "dark" : "light"}; }`;
+            if (nonce) {
+                element.setAttribute("nonce", nonce);
+            }
+            element.innerHTML = sanitizer.createHTML(`:root { color-scheme: ${isDark ? "dark" : "light"}; }`);
             document.head.appendChild(element);
         };
         setRootColorScheme($clientSideIsDark.current);

@@ -47,7 +47,7 @@ function readIsDarkInCookie(cookie) {
     }
 }
 export function createNextDsfrIntegrationApi(params) {
-    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang } = params;
+    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang, trustedTypesPolicyName = "react-dsfr" } = params;
     let isAfterFirstEffect = false;
     const actions = [];
     if (Link !== undefined) {
@@ -60,6 +60,8 @@ export function createNextDsfrIntegrationApi(params) {
         start({
             defaultColorScheme,
             verbose,
+            "doCheckNonce": false,
+            trustedTypesPolicyName,
             "nextParams": {
                 doPersistDarkModePreferenceWithCookie,
                 "registerEffectAction": action => {
@@ -103,8 +105,12 @@ export function createNextDsfrIntegrationApi(params) {
                         React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
                         React.createElement("meta", { name: "theme-color", content: fr.colors.getHex({ isDark }).decisions.background.default
                                 .grey.default }))),
-                    isProduction && (React.createElement("script", { dangerouslySetInnerHTML: {
-                            "__html": getScriptToRunAsap(defaultColorScheme)
+                    isProduction && !isBrowser && (React.createElement("script", { dangerouslySetInnerHTML: {
+                            "__html": getScriptToRunAsap({
+                                defaultColorScheme,
+                                trustedTypesPolicyName,
+                                "nonce": undefined
+                            })
                         } }))),
                 isBrowser ? (React.createElement(App, Object.assign({}, props))) : (React.createElement(SsrIsDarkProvider, { value: isDark },
                     React.createElement(App, Object.assign({}, props))))));

@@ -8,4 +8,6 @@ export declare function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
+    doCheckNonce: boolean;
+    trustedTypesPolicyName: string;
 }): void;

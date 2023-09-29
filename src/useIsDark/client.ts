@@ -98,11 +98,15 @@ export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
     colorSchemeExplicitlyProvidedAsParameter: ColorScheme | "system";
+    doCheckNonce: boolean;
+    trustedTypesPolicyName: string;
 }) {
     const {
         doPersistDarkModePreferenceWithCookie,
         registerEffectAction,
-        colorSchemeExplicitlyProvidedAsParameter
+        colorSchemeExplicitlyProvidedAsParameter,
+        doCheckNonce = false,
+        trustedTypesPolicyName
     } = params;
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -115,8 +119,7 @@ export function startClientSideIsDarkLogic(params: {
             return {
                 "clientSideIsDark": isDarkFromHtmlAttribute,
                 "ssrWasPerformedWithIsDark":
-                    ((window as any).ssrWasPerformedWithIsDark as boolean | undefined) ??
-                    isDarkFromHtmlAttribute
+                    window.ssrWasPerformedWithIsDark ?? isDarkFromHtmlAttribute
             };
         }
 
@@ -174,6 +177,14 @@ export function startClientSideIsDarkLogic(params: {
 
     ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
 
+    const trustedTypes = (window as any).trustedTypes;
+    const sanitizer =
+        typeof trustedTypes !== "undefined"
+            ? trustedTypes.createPolicy(trustedTypesPolicyName, { createHTML: (s: string) => s })
+            : {
+                  createHTML: (s: string) => s
+              };
+
     $clientSideIsDark.current = clientSideIsDark;
 
     [data_fr_scheme, data_fr_theme].forEach(attr =>
@@ -222,13 +233,23 @@ export function startClientSideIsDarkLogic(params: {
 
     {
         const setRootColorScheme = (isDark: boolean) => {
+            const nonce = window.ssrNonce;
+            if (doCheckNonce && !nonce) {
+                return;
+            }
             document.getElementById(rootColorSchemeStyleTagId)?.remove();
 
             const element = document.createElement("style");
 
             element.id = rootColorSchemeStyleTagId;
 
-            element.innerHTML = `:root { color-scheme: ${isDark ? "dark" : "light"}; }`;
+            if (nonce) {
+                element.setAttribute("nonce", nonce);
+            }
+
+            element.innerHTML = sanitizer.createHTML(
+                `:root { color-scheme: ${isDark ? "dark" : "light"}; }`
+            );
 
             document.head.appendChild(element);
         };

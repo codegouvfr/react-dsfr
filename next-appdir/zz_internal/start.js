@@ -5,7 +5,7 @@ import { isBrowser } from "../../tools/isBrowser";
 let isAfterFirstEffect = false;
 const actions = [];
 export function startReactDsfr(params) {
-    const { defaultColorScheme, verbose = false, Link } = params;
+    const { defaultColorScheme, verbose = false, Link, doCheckNonce = false, trustedTypesPolicyName = "react-dsfr" } = params;
     setDefaultColorSchemeClientSide({ defaultColorScheme });
     if (Link !== undefined) {
         setLink({ Link });
@@ -14,6 +14,8 @@ export function startReactDsfr(params) {
         start({
             defaultColorScheme,
             verbose,
+            doCheckNonce,
+            trustedTypesPolicyName,
             "nextParams": {
                 "doPersistDarkModePreferenceWithCookie": false,
                 "registerEffectAction": action => {

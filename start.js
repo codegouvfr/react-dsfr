@@ -4,7 +4,7 @@ import { startClientSideIsDarkLogic } from "./useIsDark/client";
 import { Deferred } from "./tools/Deferred";
 let isStarted = false;
 export async function start(params) {
-    const { defaultColorScheme, verbose, nextParams } = params;
+    const { defaultColorScheme, verbose, nextParams, doCheckNonce, trustedTypesPolicyName } = params;
     assert(isBrowser);
     if (isStarted) {
         return;
@@ -14,7 +14,9 @@ export async function start(params) {
     startClientSideIsDarkLogic({
         "colorSchemeExplicitlyProvidedAsParameter": defaultColorScheme,
         "doPersistDarkModePreferenceWithCookie": nextParams === undefined ? false : nextParams.doPersistDarkModePreferenceWithCookie,
-        registerEffectAction
+        registerEffectAction,
+        doCheckNonce,
+        trustedTypesPolicyName
     });
     // @ts-expect-error
     window.dsfr = {

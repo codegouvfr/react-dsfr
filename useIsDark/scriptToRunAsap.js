@@ -1,9 +1,13 @@
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 import { fr } from "../fr";
-export const getScriptToRunAsap = (defaultColorScheme) => `
+// TODO enhance to use DOMPurify with trustedTypes
+export const getScriptToRunAsap = ({ defaultColorScheme, nonce = "", trustedTypesPolicyName }) => `
 {
 
     window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
+	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}-asap", { createHTML: s => s }) : {
+		createHTML: s => s,
+	};
     
     const isDark = (() => {
     
@@ -68,9 +72,13 @@ export const getScriptToRunAsap = (defaultColorScheme) => `
 
         element = document.createElement("style");
 
+		if ("${nonce}" !== "") {
+			element.setAttribute("nonce", "${nonce}");
+		}
+
         element.id = "${rootColorSchemeStyleTagId}";
 
-        element.innerHTML = \`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`;
+        element.innerHTML = sanitizer.createHTML(\`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`);
 
         document.head.appendChild(element);
 
