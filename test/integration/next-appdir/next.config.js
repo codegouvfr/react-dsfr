@@ -2,10 +2,6 @@
 const nextConfig = {
   reactStrictMode: false, // Recommended for the `pages` directory, default in `app`.
   swcMinify: true,
-  experimental: {
-    // Required:
-    appDir: true,
-  },
   webpack: config => {
 
     config.module.rules.push({

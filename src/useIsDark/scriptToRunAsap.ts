@@ -2,10 +2,31 @@ import type { ColorScheme } from "./client";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 import { fr } from "../fr";
 
-export const getScriptToRunAsap = (defaultColorScheme: ColorScheme | "system") => `
+type GetScriptToRunAsap = (props: {
+    defaultColorScheme: ColorScheme | "system";
+    nonce: string | undefined;
+    trustedTypesPolicyName: string;
+}) => string;
+
+declare global {
+    interface Window {
+        ssrWasPerformedWithIsDark?: boolean;
+        ssrNonce?: string;
+    }
+}
+
+// TODO enhance to use DOMPurify with trustedTypes
+export const getScriptToRunAsap: GetScriptToRunAsap = ({
+    defaultColorScheme,
+    nonce = "",
+    trustedTypesPolicyName
+}) => `
 {
 
     window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
+	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}-asap", { createHTML: s => s }) : {
+		createHTML: s => s,
+	};
     
     const isDark = (() => {
     
@@ -70,9 +91,13 @@ export const getScriptToRunAsap = (defaultColorScheme: ColorScheme | "system") =
 
         element = document.createElement("style");
 
+		if ("${nonce}" !== "") {
+			element.setAttribute("nonce", "${nonce}");
+		}
+
         element.id = "${rootColorSchemeStyleTagId}";
 
-        element.innerHTML = \`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`;
+        element.innerHTML = sanitizer.createHTML(\`:root { color-scheme: \${isDark ? "dark" : "light"}; }\`);
 
         document.head.appendChild(element);
 

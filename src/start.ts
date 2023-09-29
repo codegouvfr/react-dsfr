@@ -13,12 +13,15 @@ type Params = {
               registerEffectAction: (effect: () => void) => void;
           }
         | undefined;
+    doCheckNonce: boolean;
+    trustedTypesPolicyName: string;
 };
 
 let isStarted = false;
 
 export async function start(params: Params) {
-    const { defaultColorScheme, verbose, nextParams } = params;
+    const { defaultColorScheme, verbose, nextParams, doCheckNonce, trustedTypesPolicyName } =
+        params;
 
     assert(isBrowser);
 
@@ -35,7 +38,9 @@ export async function start(params: Params) {
         "colorSchemeExplicitlyProvidedAsParameter": defaultColorScheme,
         "doPersistDarkModePreferenceWithCookie":
             nextParams === undefined ? false : nextParams.doPersistDarkModePreferenceWithCookie,
-        registerEffectAction
+        registerEffectAction,
+        doCheckNonce,
+        trustedTypesPolicyName
     });
 
     // @ts-expect-error

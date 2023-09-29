@@ -110,6 +110,8 @@ A few projects that use `@codegouvfr/react-dsfr`.
 
 -   https://code.gouv.fr/sill
 -   https://immersion-facile.beta.gouv.fr/
+-   https://egapro.travail.gouv.fr/
+-   https://maisondelautisme.gouv.fr/
 -   https://refugies.info/fr
 -   https://www.mediateur-public.fr/
 -   https://signal.conso.gouv.fr/
