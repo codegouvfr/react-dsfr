@@ -194,7 +194,7 @@ export const Card = memo(
                                 alt={imageAlt}
                             />
                         </div>
-                        {badge && (
+                        {badge !== undefined && (
                             <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>
                                 <li>{badge}</li>
                             </ul>

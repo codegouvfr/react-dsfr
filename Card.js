@@ -49,7 +49,7 @@ export const Card = memo(forwardRef((props, ref) => {
         imageUrl !== undefined && imageUrl.length && (React.createElement("div", { className: cx(fr.cx("fr-card__header"), classes.header) },
             React.createElement("div", { className: cx(fr.cx("fr-card__img"), classes.img) },
                 React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt })),
-            badge && (React.createElement("ul", { className: cx(fr.cx("fr-badges-group"), classes.badge) },
+            badge !== undefined && (React.createElement("ul", { className: cx(fr.cx("fr-badges-group"), classes.badge) },
                 React.createElement("li", null, badge)))))));
 }));
 Card.displayName = symToStr({ Card });
