@@ -34,27 +34,6 @@ import { patchCssForMui } from "./patchCssForMui";
         "recursive": true
     });
 
-    //Hack for @gouvfr/dsfr v1.10
-    for (const basename of ["dsfr.css", "dsfr.min.css"]) {
-        const cssFilePath = pathJoin(dsfrDirPath, basename);
-
-        fs.writeFileSync(
-            cssFilePath,
-            Buffer.from(
-                (() => {
-                    let dsfrCssRaw = fs.readFileSync(cssFilePath).toString("utf8");
-
-                    for (const value of ["var(--background-disabled-grey)", "#E5E5E5"]) {
-                        dsfrCssRaw = dsfrCssRaw.replace(/(\$color#2)/, value);
-                    }
-
-                    return dsfrCssRaw;
-                })(),
-                "utf8"
-            )
-        );
-    }
-
     const rawDsfrCssCode = fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8");
 
     fs.writeFileSync(
