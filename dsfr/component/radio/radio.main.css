@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -232,7 +232,7 @@
 }
 
 .fr-radio-group--sm input[type=radio]:checked:disabled + label {
-  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
 }
 
 .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {

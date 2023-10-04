@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -3258,7 +3258,7 @@
   }
 
   .fr-radio-group--sm input[type=radio]:checked:disabled + label {
-    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#e5e5e5 3px, transparent 4px);
   }
 
   .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
@@ -3921,16 +3921,24 @@
     background-image: url("../icons/logo/facebook-circle-line.svg");
   }
 
-  .fr-share .fr-btn--twitter::before {
-    background-image: url("../icons/logo/twitter-line.svg");
-  }
-
   .fr-share .fr-btn--linkedin::before {
     background-image: url("../icons/logo/linkedin-box-line.svg");
   }
 
   .fr-share .fr-btn--mastodon::before {
     background-image: url("../icons/logo/mastodon-line.svg");
+  }
+
+  .fr-share .fr-btn--threads::before {
+    background-image: url("../icons/logo/threads-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter::before {
+    background-image: url("../icons/logo/twitter-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter-x::before {
+    background-image: url("../icons/logo/twitter-x-line.svg");
   }
 
   .fr-share .fr-btn--mail::before {
@@ -4470,36 +4478,28 @@
     max-width: 100%;
   }
 
-  .fr-follow .fr-btn--facebook::before {
-    background-image: url("../icons/logo/facebook-circle-fill.svg");
-  }
-
-  .fr-follow .fr-btn--twitter::before {
-    background-image: url("../icons/logo/twitter-fill.svg");
-  }
-
-  .fr-follow .fr-btn--linkedin::before {
-    background-image: url("../icons/logo/linkedin-box-fill.svg");
-  }
-
-  .fr-follow .fr-btn--youtube::before {
-    background-image: url("../icons/logo/youtube-fill.svg");
-  }
-
   .fr-follow .fr-btn--dailymotion::before {
     background-image: url("../icons/logo/fr--dailymotion-fill.svg");
   }
 
-  .fr-follow .fr-btn--instagram::before {
-    background-image: url("../icons/logo/instagram-fill.svg");
+  .fr-follow .fr-btn--facebook::before {
+    background-image: url("../icons/logo/facebook-circle-fill.svg");
   }
 
   .fr-follow .fr-btn--github::before {
     background-image: url("../icons/logo/github-fill.svg");
   }
 
-  .fr-follow .fr-btn--tiktok::before {
-    background-image: url("../icons/logo/fr--tiktok-fill.svg");
+  .fr-follow .fr-btn--instagram::before {
+    background-image: url("../icons/logo/instagram-fill.svg");
+  }
+
+  .fr-follow .fr-btn--linkedin::before {
+    background-image: url("../icons/logo/linkedin-box-fill.svg");
+  }
+
+  .fr-follow .fr-btn--mastodon::before {
+    background-image: url("../icons/logo/mastodon-fill.svg");
   }
 
   .fr-follow .fr-btn--snapchat::before {
@@ -4510,16 +4510,32 @@
     background-image: url("../icons/logo/telegram-fill.svg");
   }
 
+  .fr-follow .fr-btn--threads::before {
+    background-image: url("../icons/logo/threads-fill.svg");
+  }
+
+  .fr-follow .fr-btn--tiktok::before {
+    background-image: url("../icons/logo/fr--tiktok-fill.svg");
+  }
+
   .fr-follow .fr-btn--twitch::before {
     background-image: url("../icons/logo/twitch-fill.svg");
+  }
+
+  .fr-follow .fr-btn--twitter::before {
+    background-image: url("../icons/logo/twitter-fill.svg");
+  }
+
+  .fr-follow .fr-btn--twitter-x::before {
+    background-image: url("../icons/logo/twitter-x-fill.svg");
   }
 
   .fr-follow .fr-btn--vimeo::before {
     background-image: url("../icons/logo/vimeo-fill.svg");
   }
 
-  .fr-follow .fr-btn--mastodon::before {
-    background-image: url("../icons/logo/mastodon-fill.svg");
+  .fr-follow .fr-btn--youtube::before {
+    background-image: url("../icons/logo/youtube-fill.svg");
   }
 
   .fr-follow .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -28,10 +28,6 @@
   --icon-size: 1rem;
   margin-right: -0.125rem;
   margin-left: 0.5rem;
-}
-
-.fr-link[target=_blank]::before {
-  content: none;
 }
 
 .fr-link--icon-left[class^=fr-icon-],
@@ -106,10 +102,6 @@
   margin-left: 0.5rem;
 }
 
-.fr-link--xs[target=_blank]::before {
-  content: none;
-}
-
 .fr-link--xs.fr-link--icon-left[class^=fr-icon-],
 .fr-link--xs.fr-link--icon-left[class*=" fr-icon-"],
 .fr-link--xs.fr-link--icon-left[class^=fr-fi-],
@@ -182,10 +174,6 @@
   margin-left: 0.5rem;
 }
 
-.fr-link--sm[target=_blank]::before {
-  content: none;
-}
-
 .fr-link--sm.fr-link--icon-left[class^=fr-icon-],
 .fr-link--sm.fr-link--icon-left[class*=" fr-icon-"],
 .fr-link--sm.fr-link--icon-left[class^=fr-fi-],
@@ -256,10 +244,6 @@
   --icon-size: 1.5rem;
   margin-right: -0.1875rem;
   margin-left: 0.5rem;
-}
-
-.fr-link--lg[target=_blank]::before {
-  content: none;
 }
 
 .fr-link--lg.fr-link--icon-left[class^=fr-icon-],
@@ -354,11 +338,11 @@
 .fr-links-group--download .fr-link .fr-link__detail,
 .fr-link--download .fr-link__detail {
   position: absolute;
-  top: calc(100% + 0.25rem);
   left: 0;
   font-size: 0.75rem;
   line-height: 1.25rem;
   font-weight: 400;
+  margin-top: 1.75rem;
   white-space: nowrap;
   pointer-events: none;
   cursor: text;
@@ -414,10 +398,6 @@
   margin: 0 0.5rem 1rem;
 }
 
-.fr-links-group .fr-link {
-  vertical-align: top;
-}
-
 .fr-links-group--sm .fr-link {
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -427,6 +407,10 @@
 .fr-links-group--sm .fr-link::before,
 .fr-links-group--sm .fr-link::after {
   --icon-size: 1rem;
+}
+
+.fr-links-group--sm .fr-link:not(.fr-link--download) {
+  vertical-align: top;
 }
 
 .fr-links-group--lg .fr-link {

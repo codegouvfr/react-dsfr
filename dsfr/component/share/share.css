@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -78,11 +78,6 @@
   mask-image: url("../../icons/logo/facebook-circle-line.svg");
 }
 
-.fr-btn--twitter::before {
-  -webkit-mask-image: url("../../icons/logo/twitter-line.svg");
-  mask-image: url("../../icons/logo/twitter-line.svg");
-}
-
 .fr-btn--linkedin::before {
   -webkit-mask-image: url("../../icons/logo/linkedin-box-line.svg");
   mask-image: url("../../icons/logo/linkedin-box-line.svg");
@@ -91,6 +86,21 @@
 .fr-btn--mastodon::before {
   -webkit-mask-image: url("../../icons/logo/mastodon-line.svg");
   mask-image: url("../../icons/logo/mastodon-line.svg");
+}
+
+.fr-btn--threads::before {
+  -webkit-mask-image: url("../../icons/logo/threads-line.svg");
+  mask-image: url("../../icons/logo/threads-line.svg");
+}
+
+.fr-btn--twitter::before {
+  -webkit-mask-image: url("../../icons/logo/twitter-line.svg");
+  mask-image: url("../../icons/logo/twitter-line.svg");
+}
+
+.fr-btn--twitter-x::before {
+  -webkit-mask-image: url("../../icons/logo/twitter-x-line.svg");
+  mask-image: url("../../icons/logo/twitter-x-line.svg");
 }
 
 .fr-btn--mail::before {
@@ -365,16 +375,24 @@ a.fr-share__link:not([href]) {
     background-image: url("../../icons/logo/facebook-circle-line.svg");
   }
 
-  .fr-share .fr-btn--twitter::before {
-    background-image: url("../../icons/logo/twitter-line.svg");
-  }
-
   .fr-share .fr-btn--linkedin::before {
     background-image: url("../../icons/logo/linkedin-box-line.svg");
   }
 
   .fr-share .fr-btn--mastodon::before {
     background-image: url("../../icons/logo/mastodon-line.svg");
+  }
+
+  .fr-share .fr-btn--threads::before {
+    background-image: url("../../icons/logo/threads-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter::before {
+    background-image: url("../../icons/logo/twitter-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter-x::before {
+    background-image: url("../../icons/logo/twitter-x-line.svg");
   }
 
   .fr-share .fr-btn--mail::before {

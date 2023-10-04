@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -194,6 +194,16 @@
     background-image: url("../../../icons/logo/telegram-line.svg");
   }
 
+  .fr-icon-threads-fill::before,
+  .fr-icon-threads-fill::after {
+    background-image: url("../../../icons/logo/threads-fill.svg");
+  }
+
+  .fr-icon-threads-line::before,
+  .fr-icon-threads-line::after {
+    background-image: url("../../../icons/logo/threads-line.svg");
+  }
+
   .fr-icon-twitch-fill::before,
   .fr-icon-twitch-fill::after {
     background-image: url("../../../icons/logo/twitch-fill.svg");
@@ -212,6 +222,16 @@
   .fr-icon-twitter-line::before,
   .fr-icon-twitter-line::after {
     background-image: url("../../../icons/logo/twitter-line.svg");
+  }
+
+  .fr-icon-twitter-x-fill::before,
+  .fr-icon-twitter-x-fill::after {
+    background-image: url("../../../icons/logo/twitter-x-fill.svg");
+  }
+
+  .fr-icon-twitter-x-line::before,
+  .fr-icon-twitter-x-line::after {
+    background-image: url("../../../icons/logo/twitter-x-line.svg");
   }
 
   .fr-icon-vimeo-fill::before,

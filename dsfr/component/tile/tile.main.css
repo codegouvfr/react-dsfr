@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -71,19 +71,9 @@
   flex: 1 1 auto;
 }
 
+.fr-tile.fr-enlarge-link .fr-tile__title a::before,
 .fr-tile.fr-enlarge-link .fr-tile__title a::after {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
-  mask-image: url("../../icons/system/arrow-right-line.svg");
   --icon-size: 1.5rem;
-  content: "";
   position: absolute;
   right: 2rem;
   bottom: 2.25rem;
@@ -127,6 +117,21 @@
   background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france));
 }
 
+.fr-tile__title a::after {
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
+  mask-image: url("../../icons/system/arrow-right-line.svg");
+  --icon-size: 1.5rem;
+  content: "";
+}
+
 .fr-tile__title [target=_blank]::after {
   flex: 0 0 auto;
   display: inline-block;
@@ -138,7 +143,6 @@
   mask-size: 100% 100%;
   -webkit-mask-image: url("../../icons/system/external-link-line.svg");
   mask-image: url("../../icons/system/external-link-line.svg");
-  --icon-size: 1rem;
   content: "";
 }
 

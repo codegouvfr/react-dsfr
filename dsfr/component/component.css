@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -730,10 +730,6 @@
   margin-left: 0.5rem;
 }
 
-.fr-btn[target=_blank]::before {
-  content: none;
-}
-
 .fr-btn--align-on-content {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -850,10 +846,6 @@
   margin-left: 0.5rem;
 }
 
-.fr-btn--sm[target=_blank]::before {
-  content: none;
-}
-
 .fr-btn--sm.fr-btn--align-on-content {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -968,10 +960,6 @@
   --icon-size: 1.5rem;
   margin-right: -0.1875rem;
   margin-left: 0.5rem;
-}
-
-.fr-btn--lg[target=_blank]::before {
-  content: none;
 }
 
 .fr-btn--lg.fr-btn--align-on-content {
@@ -2766,10 +2754,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   margin-left: 0.5rem;
 }
 
-.fr-link[target=_blank]::before {
-  content: none;
-}
-
 .fr-link--icon-left[class^=fr-icon-],
 .fr-link--icon-left[class*=" fr-icon-"],
 .fr-link--icon-left[class^=fr-fi-],
@@ -2840,10 +2824,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   --icon-size: 0.75rem;
   margin-right: -0.09375rem;
   margin-left: 0.5rem;
-}
-
-.fr-link--xs[target=_blank]::before {
-  content: none;
 }
 
 .fr-link--xs.fr-link--icon-left[class^=fr-icon-],
@@ -2918,10 +2898,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   margin-left: 0.5rem;
 }
 
-.fr-link--sm[target=_blank]::before {
-  content: none;
-}
-
 .fr-link--sm.fr-link--icon-left[class^=fr-icon-],
 .fr-link--sm.fr-link--icon-left[class*=" fr-icon-"],
 .fr-link--sm.fr-link--icon-left[class^=fr-fi-],
@@ -2992,10 +2968,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   --icon-size: 1.5rem;
   margin-right: -0.1875rem;
   margin-left: 0.5rem;
-}
-
-.fr-link--lg[target=_blank]::before {
-  content: none;
 }
 
 .fr-link--lg.fr-link--icon-left[class^=fr-icon-],
@@ -3090,11 +3062,11 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
 .fr-links-group--download .fr-link .fr-link__detail,
 .fr-link--download .fr-link__detail {
   position: absolute;
-  top: calc(100% + 0.25rem);
   left: 0;
   font-size: 0.75rem;
   line-height: 1.25rem;
   font-weight: 400;
+  margin-top: 1.75rem;
   white-space: nowrap;
   pointer-events: none;
   cursor: text;
@@ -3150,10 +3122,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   margin: 0 0.5rem 1rem;
 }
 
-.fr-links-group .fr-link {
-  vertical-align: top;
-}
-
 .fr-links-group--sm .fr-link {
   font-size: 0.875rem;
   line-height: 1.5rem;
@@ -3163,6 +3131,10 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
 .fr-links-group--sm .fr-link::before,
 .fr-links-group--sm .fr-link::after {
   --icon-size: 1rem;
+}
+
+.fr-links-group--sm .fr-link:not(.fr-link--download) {
+  vertical-align: top;
 }
 
 .fr-links-group--lg .fr-link {
@@ -5145,10 +5117,6 @@ a.fr-pagination__link:not([aria-current]):not([href]) {
   margin-left: 0.25rem;
 }
 
-.fr-tag[target=_blank]::before {
-  content: none;
-}
-
 .fr-tag--icon-left[class^=fr-icon-],
 .fr-tag--icon-left[class*=" fr-icon-"],
 .fr-tag--icon-left[class^=fr-fi-],
@@ -5194,10 +5162,6 @@ a.fr-pagination__link:not([aria-current]):not([href]) {
   --icon-size: 0.75rem;
   margin-right: -0.09375rem;
   margin-left: 0.25rem;
-}
-
-.fr-tag--sm[target=_blank]::before {
-  content: none;
 }
 
 .fr-tag--sm.fr-tag--icon-left[class^=fr-icon-],
@@ -6335,7 +6299,7 @@ input[type=button].fr-tag:disabled {
 }
 
 .fr-radio-group--sm input[type=radio]:checked:disabled + label {
-  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
 }
 
 .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
@@ -8270,11 +8234,6 @@ a.fr-card__title:not([href]) {
   mask-image: url("../icons/logo/facebook-circle-line.svg");
 }
 
-.fr-btn--twitter::before {
-  -webkit-mask-image: url("../icons/logo/twitter-line.svg");
-  mask-image: url("../icons/logo/twitter-line.svg");
-}
-
 .fr-btn--linkedin::before {
   -webkit-mask-image: url("../icons/logo/linkedin-box-line.svg");
   mask-image: url("../icons/logo/linkedin-box-line.svg");
@@ -8283,6 +8242,21 @@ a.fr-card__title:not([href]) {
 .fr-btn--mastodon::before {
   -webkit-mask-image: url("../icons/logo/mastodon-line.svg");
   mask-image: url("../icons/logo/mastodon-line.svg");
+}
+
+.fr-btn--threads::before {
+  -webkit-mask-image: url("../icons/logo/threads-line.svg");
+  mask-image: url("../icons/logo/threads-line.svg");
+}
+
+.fr-btn--twitter::before {
+  -webkit-mask-image: url("../icons/logo/twitter-line.svg");
+  mask-image: url("../icons/logo/twitter-line.svg");
+}
+
+.fr-btn--twitter-x::before {
+  -webkit-mask-image: url("../icons/logo/twitter-x-line.svg");
+  mask-image: url("../icons/logo/twitter-x-line.svg");
 }
 
 .fr-btn--mail::before {
@@ -8982,19 +8956,9 @@ a.fr-share__link:not([href]) {
   flex: 1 1 auto;
 }
 
+.fr-tile.fr-enlarge-link .fr-tile__title a::before,
 .fr-tile.fr-enlarge-link .fr-tile__title a::after {
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
-  background-color: currentColor;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-image: url("../icons/system/arrow-right-line.svg");
-  mask-image: url("../icons/system/arrow-right-line.svg");
   --icon-size: 1.5rem;
-  content: "";
   position: absolute;
   right: 2rem;
   bottom: 2.25rem;
@@ -9038,6 +9002,21 @@ a.fr-share__link:not([href]) {
   background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france));
 }
 
+.fr-tile__title a::after {
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../icons/system/arrow-right-line.svg");
+  mask-image: url("../icons/system/arrow-right-line.svg");
+  --icon-size: 1.5rem;
+  content: "";
+}
+
 .fr-tile__title [target=_blank]::after {
   flex: 0 0 auto;
   display: inline-block;
@@ -9049,7 +9028,6 @@ a.fr-share__link:not([href]) {
   mask-size: 100% 100%;
   -webkit-mask-image: url("../icons/system/external-link-line.svg");
   mask-image: url("../icons/system/external-link-line.svg");
-  --icon-size: 1rem;
   content: "";
 }
 
@@ -10492,34 +10470,14 @@ textarea.fr-input {
   box-shadow: 0 -1px 0 0 var(--border-default-blue-france);
 }
 
-.fr-follow .fr-btn--facebook::before {
-  -webkit-mask-image: url("../icons/logo/facebook-circle-fill.svg");
-  mask-image: url("../icons/logo/facebook-circle-fill.svg");
-}
-
-.fr-follow .fr-btn--twitter::before {
-  -webkit-mask-image: url("../icons/logo/twitter-fill.svg");
-  mask-image: url("../icons/logo/twitter-fill.svg");
-}
-
-.fr-follow .fr-btn--linkedin::before {
-  -webkit-mask-image: url("../icons/logo/linkedin-box-fill.svg");
-  mask-image: url("../icons/logo/linkedin-box-fill.svg");
-}
-
-.fr-follow .fr-btn--youtube::before {
-  -webkit-mask-image: url("../icons/logo/youtube-fill.svg");
-  mask-image: url("../icons/logo/youtube-fill.svg");
-}
-
 .fr-follow .fr-btn--dailymotion::before {
   -webkit-mask-image: url("../icons/logo/fr--dailymotion-fill.svg");
   mask-image: url("../icons/logo/fr--dailymotion-fill.svg");
 }
 
-.fr-follow .fr-btn--instagram::before {
-  -webkit-mask-image: url("../icons/logo/instagram-fill.svg");
-  mask-image: url("../icons/logo/instagram-fill.svg");
+.fr-follow .fr-btn--facebook::before {
+  -webkit-mask-image: url("../icons/logo/facebook-circle-fill.svg");
+  mask-image: url("../icons/logo/facebook-circle-fill.svg");
 }
 
 .fr-follow .fr-btn--github::before {
@@ -10527,9 +10485,19 @@ textarea.fr-input {
   mask-image: url("../icons/logo/github-fill.svg");
 }
 
-.fr-follow .fr-btn--tiktok::before {
-  -webkit-mask-image: url("../icons/logo/fr--tiktok-fill.svg");
-  mask-image: url("../icons/logo/fr--tiktok-fill.svg");
+.fr-follow .fr-btn--instagram::before {
+  -webkit-mask-image: url("../icons/logo/instagram-fill.svg");
+  mask-image: url("../icons/logo/instagram-fill.svg");
+}
+
+.fr-follow .fr-btn--linkedin::before {
+  -webkit-mask-image: url("../icons/logo/linkedin-box-fill.svg");
+  mask-image: url("../icons/logo/linkedin-box-fill.svg");
+}
+
+.fr-follow .fr-btn--mastodon::before {
+  -webkit-mask-image: url("../icons/logo/mastodon-fill.svg");
+  mask-image: url("../icons/logo/mastodon-fill.svg");
 }
 
 .fr-follow .fr-btn--snapchat::before {
@@ -10542,9 +10510,29 @@ textarea.fr-input {
   mask-image: url("../icons/logo/telegram-fill.svg");
 }
 
+.fr-follow .fr-btn--threads::before {
+  -webkit-mask-image: url("../icons/logo/threads-fill.svg");
+  mask-image: url("../icons/logo/threads-fill.svg");
+}
+
+.fr-follow .fr-btn--tiktok::before {
+  -webkit-mask-image: url("../icons/logo/fr--tiktok-fill.svg");
+  mask-image: url("../icons/logo/fr--tiktok-fill.svg");
+}
+
 .fr-follow .fr-btn--twitch::before {
   -webkit-mask-image: url("../icons/logo/twitch-fill.svg");
   mask-image: url("../icons/logo/twitch-fill.svg");
+}
+
+.fr-follow .fr-btn--twitter::before {
+  -webkit-mask-image: url("../icons/logo/twitter-fill.svg");
+  mask-image: url("../icons/logo/twitter-fill.svg");
+}
+
+.fr-follow .fr-btn--twitter-x::before {
+  -webkit-mask-image: url("../icons/logo/twitter-x-fill.svg");
+  mask-image: url("../icons/logo/twitter-x-fill.svg");
 }
 
 .fr-follow .fr-btn--vimeo::before {
@@ -10552,9 +10540,9 @@ textarea.fr-input {
   mask-image: url("../icons/logo/vimeo-fill.svg");
 }
 
-.fr-follow .fr-btn--mastodon::before {
-  -webkit-mask-image: url("../icons/logo/mastodon-fill.svg");
-  mask-image: url("../icons/logo/mastodon-fill.svg");
+.fr-follow .fr-btn--youtube::before {
+  -webkit-mask-image: url("../icons/logo/youtube-fill.svg");
+  mask-image: url("../icons/logo/youtube-fill.svg");
 }
 
 .fr-follow .fr-links-group {
@@ -15860,7 +15848,7 @@ a.fr-password__btn:not([href]) {
   }
 
   .fr-radio-group--sm input[type=radio]:checked:disabled + label {
-    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient($color#2 3px, transparent 4px);
+    background-image: radial-gradient(transparent 6px, #e5e5e5 7px, transparent 8px), radial-gradient(#e5e5e5 3px, transparent 4px);
   }
 
   .fr-fieldset--error .fr-radio-group--sm input[type=radio] + label {
@@ -16523,16 +16511,24 @@ a.fr-password__btn:not([href]) {
     background-image: url("../icons/logo/facebook-circle-line.svg");
   }
 
-  .fr-share .fr-btn--twitter::before {
-    background-image: url("../icons/logo/twitter-line.svg");
-  }
-
   .fr-share .fr-btn--linkedin::before {
     background-image: url("../icons/logo/linkedin-box-line.svg");
   }
 
   .fr-share .fr-btn--mastodon::before {
     background-image: url("../icons/logo/mastodon-line.svg");
+  }
+
+  .fr-share .fr-btn--threads::before {
+    background-image: url("../icons/logo/threads-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter::before {
+    background-image: url("../icons/logo/twitter-line.svg");
+  }
+
+  .fr-share .fr-btn--twitter-x::before {
+    background-image: url("../icons/logo/twitter-x-line.svg");
   }
 
   .fr-share .fr-btn--mail::before {
@@ -17072,36 +17068,28 @@ a.fr-password__btn:not([href]) {
     max-width: 100%;
   }
 
-  .fr-follow .fr-btn--facebook::before {
-    background-image: url("../icons/logo/facebook-circle-fill.svg");
-  }
-
-  .fr-follow .fr-btn--twitter::before {
-    background-image: url("../icons/logo/twitter-fill.svg");
-  }
-
-  .fr-follow .fr-btn--linkedin::before {
-    background-image: url("../icons/logo/linkedin-box-fill.svg");
-  }
-
-  .fr-follow .fr-btn--youtube::before {
-    background-image: url("../icons/logo/youtube-fill.svg");
-  }
-
   .fr-follow .fr-btn--dailymotion::before {
     background-image: url("../icons/logo/fr--dailymotion-fill.svg");
   }
 
-  .fr-follow .fr-btn--instagram::before {
-    background-image: url("../icons/logo/instagram-fill.svg");
+  .fr-follow .fr-btn--facebook::before {
+    background-image: url("../icons/logo/facebook-circle-fill.svg");
   }
 
   .fr-follow .fr-btn--github::before {
     background-image: url("../icons/logo/github-fill.svg");
   }
 
-  .fr-follow .fr-btn--tiktok::before {
-    background-image: url("../icons/logo/fr--tiktok-fill.svg");
+  .fr-follow .fr-btn--instagram::before {
+    background-image: url("../icons/logo/instagram-fill.svg");
+  }
+
+  .fr-follow .fr-btn--linkedin::before {
+    background-image: url("../icons/logo/linkedin-box-fill.svg");
+  }
+
+  .fr-follow .fr-btn--mastodon::before {
+    background-image: url("../icons/logo/mastodon-fill.svg");
   }
 
   .fr-follow .fr-btn--snapchat::before {
@@ -17112,16 +17100,32 @@ a.fr-password__btn:not([href]) {
     background-image: url("../icons/logo/telegram-fill.svg");
   }
 
+  .fr-follow .fr-btn--threads::before {
+    background-image: url("../icons/logo/threads-fill.svg");
+  }
+
+  .fr-follow .fr-btn--tiktok::before {
+    background-image: url("../icons/logo/fr--tiktok-fill.svg");
+  }
+
   .fr-follow .fr-btn--twitch::before {
     background-image: url("../icons/logo/twitch-fill.svg");
+  }
+
+  .fr-follow .fr-btn--twitter::before {
+    background-image: url("../icons/logo/twitter-fill.svg");
+  }
+
+  .fr-follow .fr-btn--twitter-x::before {
+    background-image: url("../icons/logo/twitter-x-fill.svg");
   }
 
   .fr-follow .fr-btn--vimeo::before {
     background-image: url("../icons/logo/vimeo-fill.svg");
   }
 
-  .fr-follow .fr-btn--mastodon::before {
-    background-image: url("../icons/logo/mastodon-fill.svg");
+  .fr-follow .fr-btn--youtube::before {
+    background-image: url("../icons/logo/youtube-fill.svg");
   }
 
   .fr-follow .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
