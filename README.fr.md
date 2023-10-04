@@ -64,7 +64,7 @@ DSFR en pur JavaScript/CSS.
 
 # Gouvernance du projet
 
-Ce travail est un produit de [CodeGouvFr](https://communs.numerique.gouv.fr/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
+Ce travail est un produit de [CodeGouvFr](https://code.gouv.fr/fr/mission/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
 
 Ce projet est co-maintenu par des agents de différentes administrations françaises.
 

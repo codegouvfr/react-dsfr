@@ -63,7 +63,7 @@ This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.
 
 # Governance
 
-This module is a product of [Etalab's Free and open source software pole](https://communs.numerique.gouv.fr/a-propos/).
+This module is a product of [Etalab's Free and open source software pole](https://code.gouv.fr/en/mission/).
 
 This project is co-maintained by public servants from various French administrations.
 
