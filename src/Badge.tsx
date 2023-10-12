@@ -14,6 +14,8 @@ export type BadgeProps = {
     severity?: AlertProps.Severity | "new";
     small?: boolean;
     noIcon?: boolean;
+    /** Default: "p" */
+    as?: "p" | "span";
     children: NonNullable<ReactNode>;
 };
 
@@ -23,6 +25,7 @@ export const Badge = memo(
         const {
             id: props_id,
             className,
+            as = "p",
             style,
             severity,
             small: isSmall = false,
@@ -38,10 +41,10 @@ export const Badge = memo(
             "explicitlyProvidedId": props_id
         });
 
-        return (
-            <p
-                id={id}
-                className={cx(
+        return React.createElement(
+            as,
+            {
+                className: cx(
                     fr.cx(
                         "fr-badge",
                         severity !== undefined && `fr-badge--${severity}`,
@@ -49,13 +52,13 @@ export const Badge = memo(
                         { "fr-badge--no-icon": noIcon || severity === undefined }
                     ),
                     className
-                )}
-                style={style}
-                ref={ref}
-                {...rest}
-            >
-                {children}
-            </p>
+                ),
+                id,
+                style,
+                ref,
+                ...rest
+            },
+            <>{children}</>
         );
     })
 );

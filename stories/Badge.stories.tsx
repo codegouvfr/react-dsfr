@@ -29,6 +29,18 @@ const { meta, getStory } = getStoryFactory({
             "type": { "name": "boolean" },
             "description": "Set small badge size (`sm`) when true"
         },
+        "as": {
+            "options": (() => {
+                const options = ["p", "span", undefined] as const;
+
+                assert<Equals<typeof options[number], BadgeProps["as"]>>();
+
+                return options;
+            })(),
+            "control": { type: "select", labels: { null: "default p element" } },
+            "description":
+                "You can specify a 'span' element instead of default 'p' if the badge is inside a `<p>`."
+        },
         "children": {
             "type": { "name": "string", "required": true },
             "description": "Label to display on the badge"
