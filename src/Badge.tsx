@@ -44,7 +44,7 @@ export const Badge = memo(
         return React.createElement(
             as,
             {
-                className: cx(
+                "className": cx(
                     fr.cx(
                         "fr-badge",
                         severity !== undefined && `fr-badge--${severity}`,
