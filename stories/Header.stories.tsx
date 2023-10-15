@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../dist/Header";
+import { Badge } from "../dist/Badge";
 import { MainNavigation } from "../dist/MainNavigation";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -113,6 +114,29 @@ export const SimpleHeaderWithServiceTitleAndTagline = getStory({
     },
     "serviceTitle": "Nom du site / service",
     "serviceTagline": "baseline - précisions sur l'organisation"
+});
+
+export const SimpleHeaderWithServiceTitleAndBetaBadge = getStory({
+    "id": "fr-header-simple-header-with-service-title-and-tagline",
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "serviceTitle": (
+        <>
+            Nom du site / service{" "}
+            <Badge noIcon severity="success" as="span">
+                Beta
+            </Badge>
+        </>
+    )
 });
 
 export const HeaderWithQuickAccessItems = getStory(
