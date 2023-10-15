@@ -7,6 +7,8 @@ export type BadgeProps = {
     severity?: AlertProps.Severity | "new";
     small?: boolean;
     noIcon?: boolean;
+    /** Default: "p" */
+    as?: "p" | "span";
     children: NonNullable<ReactNode>;
 };
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-badge> */
