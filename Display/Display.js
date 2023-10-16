@@ -43,7 +43,7 @@ export function Display() {
                             t(`${theme} theme`),
                             theme === "system" && (React.createElement("span", { className: fr.cx("fr-hint-text") }, t("system theme hint")))),
                         React.createElement("div", { className: fr.cx("fr-radio-rich__img") },
-                            React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", 
+                            React.createElement("svg", { "aria-hidden": "true", xmlns: "http://www.w3.org/2000/svg", 
                                 //className={fr.cx("fr-artwork")}
                                 width: "80px", height: "80px", viewBox: "0 0 80 80" }, [
                                 "artwork-decorative",

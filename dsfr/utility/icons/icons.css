@@ -10,24 +10,6 @@
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
-.fr-icon-arrow-right-line::before,
-.fr-icon-arrow-right-line::after {
-    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
-    mask-image: url("../../icons/system/arrow-right-line.svg");
-}
-
-.fr-icon-warning-fill::before,
-.fr-icon-warning-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
-    mask-image: url("../../icons/system/fr--warning-fill.svg");
-}
-
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
-}
-
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -44,6 +26,24 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
+}
+
+.fr-icon-arrow-right-line::before,
+.fr-icon-arrow-right-line::after {
+    -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
+    mask-image: url("../../icons/system/arrow-right-line.svg");
+}
+
+.fr-icon-warning-fill::before,
+.fr-icon-warning-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+    mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -100,10 +100,16 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
-.fr-icon-theme-fill::before,
-.fr-icon-theme-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
-    mask-image: url("../../icons/system/fr--theme-fill.svg");
+.ri-arrow-down-s-fill::before,
+.ri-arrow-down-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+}
+
+.ri-arrow-up-s-fill::before,
+.ri-arrow-up-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
 .fr-icon-check-line::before,
@@ -124,16 +130,10 @@
     mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
-.ri-arrow-down-s-fill::before,
-.ri-arrow-down-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-}
-
-.ri-arrow-up-s-fill::before,
-.ri-arrow-up-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+.fr-icon-theme-fill::before,
+.fr-icon-theme-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
+    mask-image: url("../../icons/system/fr--theme-fill.svg");
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -145,21 +145,6 @@
     .ri-ancient-gate-fill::before,
     .ri-ancient-gate-fill::after {
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    }
-    
-    .fr-icon-arrow-right-line::before,
-    .fr-icon-arrow-right-line::after {
-        background-image: url("../../icons/system/arrow-right-line.svg");
-    }
-    
-    .fr-icon-warning-fill::before,
-    .fr-icon-warning-fill::after {
-        background-image: url("../../icons/system/fr--warning-fill.svg");
-    }
-    
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
     }
     
     .fr-icon-chat-check-fill::before,
@@ -175,6 +160,21 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
+    }
+    
+    .fr-icon-arrow-right-line::before,
+    .fr-icon-arrow-right-line::after {
+        background-image: url("../../icons/system/arrow-right-line.svg");
+    }
+    
+    .fr-icon-warning-fill::before,
+    .fr-icon-warning-fill::after {
+        background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -222,9 +222,14 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
-    .fr-icon-theme-fill::before,
-    .fr-icon-theme-fill::after {
-        background-image: url("../../icons/system/fr--theme-fill.svg");
+    .ri-arrow-down-s-fill::before,
+    .ri-arrow-down-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    }
+    
+    .ri-arrow-up-s-fill::before,
+    .ri-arrow-up-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
     .fr-icon-check-line::before,
@@ -242,14 +247,9 @@
         background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
-    .ri-arrow-down-s-fill::before,
-    .ri-arrow-down-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    }
-    
-    .ri-arrow-up-s-fill::before,
-    .ri-arrow-up-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    .fr-icon-theme-fill::before,
+    .fr-icon-theme-fill::after {
+        background-image: url("../../icons/system/fr--theme-fill.svg");
     }
     
 }

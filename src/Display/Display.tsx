@@ -76,6 +76,7 @@ export function Display() {
                                     </label>
                                     <div className={fr.cx("fr-radio-rich__img")}>
                                         <svg
+                                            aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg"
                                             //className={fr.cx("fr-artwork")}
                                             width="80px"
