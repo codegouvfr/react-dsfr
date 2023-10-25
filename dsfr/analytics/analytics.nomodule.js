@@ -1,4 +1,4 @@
-/*! DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.1'
+    version: '1.10.2'
   };
 
   var api = window[config.namespace];
@@ -31,7 +31,7 @@
     this._configure();
   };
 
-  var prototypeAccessors$f = { isDisabled: { configurable: true } };
+  var prototypeAccessors$e = { isDisabled: { configurable: true } };
 
   Opt.prototype._configure = function _configure () {
     var scope = this;
@@ -39,7 +39,7 @@
     window[TOGGLE] = this.toggle.bind(this);
   };
 
-  prototypeAccessors$f.isDisabled.get = function () {
+  prototypeAccessors$e.isDisabled.get = function () {
     return localStorage.getItem(key);
   };
 
@@ -58,7 +58,7 @@
     localStorage.setItem(key, '1');
   };
 
-  Object.defineProperties( Opt.prototype, prototypeAccessors$f );
+  Object.defineProperties( Opt.prototype, prototypeAccessors$e );
 
   var opt = new Opt();
 
@@ -75,13 +75,13 @@
     });
   };
 
-  var prototypeAccessors$e = { id: { configurable: true },store: { configurable: true } };
+  var prototypeAccessors$d = { id: { configurable: true },store: { configurable: true } };
 
-  prototypeAccessors$e.id.get = function () {
+  prototypeAccessors$d.id.get = function () {
     return this._id;
   };
 
-  prototypeAccessors$e.store.get = function () {
+  prototypeAccessors$d.store.get = function () {
     return this._store;
   };
 
@@ -140,7 +140,7 @@
     this._resolve();
   };
 
-  Object.defineProperties( Init.prototype, prototypeAccessors$e );
+  Object.defineProperties( Init.prototype, prototypeAccessors$d );
 
   /*
   (function(e, a) {
@@ -328,385 +328,6 @@
     ACTION_PARAMETER: 'actionparam'
   };
 
-  var ActionMode = {
-    IN: 'in',
-    OUT: 'out',
-    NONE: 'none'
-  };
-
-  /*  '["\'<>*$&~`|\\\\?^~]'; */
-  var RESTRICTED = {
-    '0x0022': '＂',
-    '0x0024': '＄',
-    '0x0026': '＆',
-    '0x0027': '＇',
-    '0x002a': '＊',
-    '0x002c': '，',
-    '0x003c': '＜',
-    '0x003e': '＞',
-    '0x003f': '？',
-    '0x005c': '＼',
-    '0x005e': '＾',
-    '0x0060': '｀',
-    '0x007c': '｜',
-    '0x007e': '～'
-  };
-
-  // import TABLE from './unicode-table';
-
-  var charCodeHex = function (char) {
-    var code = char.charCodeAt(0).toString(16);
-    return '0x0000'.slice(0, -code.length) + code;
-  };
-
-  var normalize = function (text) {
-    if (!text) { return text; }
-    // text = [...text].map(char => TABLE[charCodeHex(char)] || char).join('');
-    text = [].concat( text ).map(function (char) { return RESTRICTED[charCodeHex(char)] || char; }).join('');
-    text = text.replace(/\s+/g, ' ').replace(/\s/g, '_');
-    text = text.toLowerCase();
-    return text;
-  };
-
-  var validateString = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case typeof value === 'number':
-        return ("" + value);
-
-      case typeof value === 'string':
-        return value;
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return '';
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a String"));
-    return null;
-  };
-
-  var validateNumber = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case !isNaN(value):
-        return value;
-
-      case typeof value === 'string' && !isNaN(Number(value)):
-        return Number(value);
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return -1;
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Number"));
-    return null;
-  };
-
-  var validateBoolean = function (value, name) {
-    switch (true) {
-      case typeof value === 'boolean':
-        return value;
-
-      case typeof value === 'string' && value.toLowerCase() === 'true':
-      case value === '1':
-      case value === 1:
-        return true;
-
-      case typeof value === 'string' && value.toLowerCase() === 'false':
-      case value === '0':
-      case value === 0:
-        return false;
-
-      case value === undefined:
-      case value === null:
-        return value;
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Boolean"));
-    return null;
-  };
-
-  var validateLang = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case typeof value === 'string' && /^[A-Za-z]{2}$|^[A-Za-z]{2}[-_]/.test(value):
-        return value.split(/[-_]/)[0].toLowerCase();
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return '';
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting language as a String following ISO 639-1 format"));
-    return null;
-  };
-
-  var validateGeography = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case typeof value === 'string':
-        if (!/^FR-[A-Z0-9]{2,3}$/.test(value)) { api.inspector.warn(("value '" + value + "' set at analytics." + name + " with wrong format. Geographic location should be a String following ISO 3166-2:FR format")); }
-        return value;
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return '';
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting geographic location as a String following ISO 3166-2:FR format"));
-    return null;
-  };
-
-  var normaliseISODate = function (date) { return date.toISOString().split('T')[0]; };
-
-  var validateDate = function (value, name, allowNull) {
-    if ( allowNull === void 0 ) allowNull = true;
-
-    switch (true) {
-      case value instanceof Date:
-        return normaliseISODate(value);
-
-      case typeof value === 'string': {
-        var date = new Date(value);
-        if (date.toString() !== 'Invalid Date') { return normaliseISODate(date); }
-        break;
-      }
-
-      case value === undefined && allowNull:
-      case value === null && allowNull:
-        return null;
-    }
-
-    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Date"));
-    return null;
-  };
-
-  var ActionStatus = {
-    UNSTARTED: {
-      id: 'unstarted',
-      value: -1
-    },
-    STARTED: {
-      id: 'started',
-      value: 1
-    },
-    ENDED: {
-      id: 'ended',
-      value: 2
-    },
-    SINGULAR: {
-      id: 'singular',
-      value: 3
-    }
-  };
-
-  var getParametersLayer = function (data) {
-    return Object.entries(data).map(function (ref) {
-      var key = ref[0];
-      var value = ref[1];
-
-      return ['actionpname', normalize(key), 'actionpvalue', normalize(value)];
-    }).flat();
-  };
-
-  var Action = function Action (name) {
-    this._isMuted = false;
-    this._name = name;
-    this._status = ActionStatus.UNSTARTED;
-    this._labels = [];
-    this._parameters = {};
-  };
-
-  var prototypeAccessors$d = { isMuted: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },_base: { configurable: true } };
-
-  prototypeAccessors$d.isMuted.get = function () {
-    return this._isMuted;
-  };
-
-  prototypeAccessors$d.isMuted.set = function (value) {
-    this._isMuted = value;
-  };
-
-  prototypeAccessors$d.isSingular.get = function () {
-    return this._status === ActionStatus.SINGULAR;
-  };
-
-  prototypeAccessors$d.status.get = function () {
-    return this._status;
-  };
-
-  prototypeAccessors$d.name.get = function () {
-    return this._name;
-  };
-
-  prototypeAccessors$d.labels.get = function () {
-    return this._labels;
-  };
-
-  prototypeAccessors$d.reference.get = function () {
-    return this._reference;
-  };
-
-  prototypeAccessors$d.parameters.get = function () {
-    return this._parameters;
-  };
-
-  Action.prototype.singularize = function singularize () {
-    this._status = ActionStatus.SINGULAR;
-  };
-
-  Action.prototype.rewind = function rewind () {
-    switch (this._status) {
-      case ActionStatus.STARTED:
-      case ActionStatus.ENDED:
-        this._status = ActionStatus.UNSTARTED;
-    }
-  };
-
-  Action.prototype.addParameter = function addParameter (key, value) {
-    this._parameters[key] = value;
-  };
-
-  Action.prototype.removeParameter = function removeParameter (key) {
-    delete this._parameters[key];
-  };
-
-  prototypeAccessors$d.reference.set = function (value) {
-    var valid = validateString(value, ("action " + (this._name)));
-    if (valid !== null) { this._reference = valid; }
-  };
-
-  prototypeAccessors$d._base.get = function () {
-    return ['actionname', this._name];
-  };
-
-  Action.prototype._getLayer = function _getLayer (mode, data) {
-      if ( data === void 0 ) data = {};
-
-    if (this._isMuted) { return []; }
-    var layer = this._base;
-    switch (mode) {
-      case ActionMode.IN:
-      case ActionMode.OUT:
-        layer.push('actionmode', mode);
-        break;
-    }
-
-    var labels = this._labels.slice(0, 5);
-    labels.length = 5;
-    if (labels.some(function (label) { return label; })) { layer.push('actionlabel', labels.map(function (label) { return typeof label === 'string' ? normalize(label) : ''; }).join(',')); }
-
-    if (this._reference) { layer.push('actionref', this._reference); }
-
-    layer.push.apply(layer, getParametersLayer(Object.assign(this._parameters, data || {})));
-    return layer;
-  };
-
-  Action.prototype.start = function start (data) {
-    var mode;
-    switch (this._status) {
-      case ActionStatus.UNSTARTED:
-        mode = ActionMode.IN;
-        this._status = ActionStatus.STARTED;
-        break;
-
-      case ActionStatus.SINGULAR:
-        mode = ActionMode.NONE;
-        break;
-
-      default:
-        api.inspector.error(("unexpected start on action " + (this._name) + " with status " + (this._status.id)));
-        return [];
-    }
-    return this._getLayer(mode, data);
-  };
-
-  Action.prototype.end = function end (data) {
-    var mode;
-    switch (this._status) {
-      case ActionStatus.STARTED:
-        mode = ActionMode.OUT;
-        this._status = ActionStatus.ENDED;
-        break;
-
-      case ActionStatus.UNSTARTED:
-      case ActionStatus.ENDED:
-        mode = ActionMode.NONE;
-        this._status = ActionStatus.ENDED;
-        break;
-
-      case ActionStatus.SINGULAR:
-        mode = ActionMode.NONE;
-        break;
-    }
-    return this._getLayer(mode, data);
-  };
-
-  Action.prototype.resume = function resume (data) {
-    if (this._isMuted) { return []; }
-    if (this._status.value >= ActionStatus.ENDED.value) {
-      api.inspector.error(("unexpected resuming on action " + (this._name) + " with status " + (this._status.id)));
-      return [];
-    }
-    var layer = this._base;
-    if (data) { layer.push.apply(layer, getParametersLayer(data)); }
-    return layer;
-  };
-
-  Object.defineProperties( Action.prototype, prototypeAccessors$d );
-
-  var Actions = function Actions () {
-    this._actions = [];
-    this._isRatingEnabled = false;
-  };
-
-  var prototypeAccessors$c = { isRatingEnabled: { configurable: true } };
-
-  Actions.prototype.configure = function configure (config) {
-    this._isRatingEnabled = config.enableRating === true;
-  };
-
-  prototypeAccessors$c.isRatingEnabled.get = function () {
-    return this._isRatingEnabled;
-  };
-
-  Actions.prototype.rewind = function rewind () {
-    this._actions.forEach(function (action) { return action.rewind(); });
-  };
-
-  Actions.prototype.getAction = function getAction (name) {
-    var action = this._actions.filter(function (action) { return action.name === name; })[0];
-    if (!action) {
-      action = new Action(name);
-      this._actions.push(action);
-    }
-    return action;
-  };
-
-  Actions.prototype.hasAction = function hasAction (name) {
-    return this._actions.some(function (action) { return action.name === name; });
-  };
-
-  Actions.prototype.remove = function remove (action) {
-    var index = this._actions.indexOf(action);
-    if (index === -1) { return false; }
-    this._actions.splice(index, 1);
-    return true;
-  };
-
-  Object.defineProperties( Actions.prototype, prototypeAccessors$c );
-
-  Actions.ActionMode = ActionMode;
-
-  var actions = new Actions();
-  Actions.instance = actions;
-
   var Renderer = function Renderer () {
     this._renderables = [];
     this._rendering = this.render.bind(this);
@@ -889,23 +510,23 @@
 
   var Debug = function Debug () {};
 
-  var prototypeAccessors$b = { debugger: { configurable: true },isActive: { configurable: true } };
+  var prototypeAccessors$c = { debugger: { configurable: true },isActive: { configurable: true } };
 
-  prototypeAccessors$b.debugger.get = function () {
+  prototypeAccessors$c.debugger.get = function () {
     return window._oEa;
   };
 
-  prototypeAccessors$b.isActive.get = function () {
+  prototypeAccessors$c.isActive.get = function () {
     if (!this.debugger) { return false; }
     return this.debugger._dbg === '1';
   };
 
-  prototypeAccessors$b.isActive.set = function (value) {
+  prototypeAccessors$c.isActive.set = function (value) {
     if (!this.debugger || this.isActive === value) { return; }
     this.debugger.debug(value ? 1 : 0);
   };
 
-  Object.defineProperties( Debug.prototype, prototypeAccessors$b );
+  Object.defineProperties( Debug.prototype, prototypeAccessors$c );
 
   var debug = new Debug();
 
@@ -940,11 +561,164 @@
     }
   };
 
+  /*  '["\'<>*$&~`|\\\\?^~]'; */
+  var RESTRICTED = {
+    '0x0022': '＂',
+    '0x0024': '＄',
+    '0x0026': '＆',
+    '0x0027': '＇',
+    '0x002a': '＊',
+    '0x002c': '，',
+    '0x003c': '＜',
+    '0x003e': '＞',
+    '0x003f': '？',
+    '0x005c': '＼',
+    '0x005e': '＾',
+    '0x0060': '｀',
+    '0x007c': '｜',
+    '0x007e': '～'
+  };
+
+  // import TABLE from './unicode-table';
+
+  var charCodeHex = function (char) {
+    var code = char.charCodeAt(0).toString(16);
+    return '0x0000'.slice(0, -code.length) + code;
+  };
+
+  var normalize = function (text) {
+    if (!text) { return text; }
+    // text = [...text].map(char => TABLE[charCodeHex(char)] || char).join('');
+    text = [].concat( text ).map(function (char) { return RESTRICTED[charCodeHex(char)] || char; }).join('');
+    text = text.replace(/\s+/g, ' ').replace(/\s/g, '_');
+    text = text.toLowerCase();
+    return text;
+  };
+
+  var validateString = function (value, name, allowNull) {
+    if ( allowNull === void 0 ) allowNull = true;
+
+    switch (true) {
+      case typeof value === 'number':
+        return ("" + value);
+
+      case typeof value === 'string':
+        return value;
+
+      case value === undefined && allowNull:
+      case value === null && allowNull:
+        return '';
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a String"));
+    return null;
+  };
+
+  var validateNumber = function (value, name, allowNull) {
+    if ( allowNull === void 0 ) allowNull = true;
+
+    switch (true) {
+      case !isNaN(value):
+        return value;
+
+      case typeof value === 'string' && !isNaN(Number(value)):
+        return Number(value);
+
+      case value === undefined && allowNull:
+      case value === null && allowNull:
+        return -1;
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Number"));
+    return null;
+  };
+
+  var validateBoolean = function (value, name) {
+    switch (true) {
+      case typeof value === 'boolean':
+        return value;
+
+      case typeof value === 'string' && value.toLowerCase() === 'true':
+      case value === '1':
+      case value === 1:
+        return true;
+
+      case typeof value === 'string' && value.toLowerCase() === 'false':
+      case value === '0':
+      case value === 0:
+        return false;
+
+      case value === undefined:
+      case value === null:
+        return value;
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Boolean"));
+    return null;
+  };
+
+  var validateLang = function (value, name, allowNull) {
+    if ( allowNull === void 0 ) allowNull = true;
+
+    switch (true) {
+      case typeof value === 'string' && /^[A-Za-z]{2}$|^[A-Za-z]{2}[-_]/.test(value):
+        return value.split(/[-_]/)[0].toLowerCase();
+
+      case value === undefined && allowNull:
+      case value === null && allowNull:
+        return '';
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting language as a String following ISO 639-1 format"));
+    return null;
+  };
+
+  var validateGeography = function (value, name, allowNull) {
+    if ( allowNull === void 0 ) allowNull = true;
+
+    switch (true) {
+      case typeof value === 'string':
+        if (!/^FR-[A-Z0-9]{2,3}$/.test(value)) { api.inspector.warn(("value '" + value + "' set at analytics." + name + " with wrong format. Geographic location should be a String following ISO 3166-2:FR format")); }
+        return value;
+
+      case value === undefined && allowNull:
+      case value === null && allowNull:
+        return '';
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting geographic location as a String following ISO 3166-2:FR format"));
+    return null;
+  };
+
+  var normaliseISODate = function (date) { return date.toISOString().split('T')[0]; };
+
+  var validateDate = function (value, name, allowNull) {
+    if ( allowNull === void 0 ) allowNull = true;
+
+    switch (true) {
+      case value instanceof Date:
+        return normaliseISODate(value);
+
+      case typeof value === 'string': {
+        var date = new Date(value);
+        if (date.toString() !== 'Invalid Date') { return normaliseISODate(date); }
+        break;
+      }
+
+      case value === undefined && allowNull:
+      case value === null && allowNull:
+        return null;
+    }
+
+    api.inspector.warn(("unexpected value '" + value + "' set at analytics." + name + ". Expecting a Date"));
+    return null;
+  };
+
   var User = function User (config) {
     this._config = config || {};
   };
 
-  var prototypeAccessors$a = { uid: { configurable: true },email: { configurable: true },isNew: { configurable: true },status: { configurable: true },profile: { configurable: true },language: { configurable: true },type: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$b = { uid: { configurable: true },email: { configurable: true },isNew: { configurable: true },status: { configurable: true },profile: { configurable: true },language: { configurable: true },type: { configurable: true },layer: { configurable: true } };
 
   User.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -973,56 +747,56 @@
     this.status = Status.CONNECTED;
   };
 
-  prototypeAccessors$a.uid.get = function () {
+  prototypeAccessors$b.uid.get = function () {
     return this._uid;
   };
 
-  prototypeAccessors$a.email.get = function () {
+  prototypeAccessors$b.email.get = function () {
     return this._email;
   };
 
-  prototypeAccessors$a.isNew.get = function () {
+  prototypeAccessors$b.isNew.get = function () {
     return this._isNew;
   };
 
-  prototypeAccessors$a.status.set = function (id) {
+  prototypeAccessors$b.status.set = function (id) {
       var this$1$1 = this;
 
     var stati = Object.values(Status).filter(function (status) { return status.isConnected === this$1$1._isConnected; });
     this._status = stati.filter(function (status) { return status.id === id || status.value === id; })[0] || stati.filter(function (status) { return status.isDefault; })[0];
   };
 
-  prototypeAccessors$a.status.get = function () {
+  prototypeAccessors$b.status.get = function () {
     return this._status.id;
   };
 
-  prototypeAccessors$a.profile.set = function (value) {
+  prototypeAccessors$b.profile.set = function (value) {
     var valid = validateString(value, 'user.profile');
     if (valid !== null) { this._profile = valid; }
   };
 
-  prototypeAccessors$a.profile.get = function () {
+  prototypeAccessors$b.profile.get = function () {
     return this._profile.id;
   };
 
-  prototypeAccessors$a.language.set = function (value) {
+  prototypeAccessors$b.language.set = function (value) {
     var valid = validateLang(value, 'user.language');
     if (valid !== null) { this._language = valid; }
   };
 
-  prototypeAccessors$a.language.get = function () {
+  prototypeAccessors$b.language.get = function () {
     return this._language || navigator.language;
   };
 
-  prototypeAccessors$a.type.set = function (id) {
+  prototypeAccessors$b.type.set = function (id) {
     this._type = Object.values(Type$2).filter(function (type) { return type.id === id || type.value === id; })[0];
   };
 
-  prototypeAccessors$a.type.get = function () {
+  prototypeAccessors$b.type.get = function () {
     return this._type.id;
   };
 
-  prototypeAccessors$a.layer.get = function () {
+  prototypeAccessors$b.layer.get = function () {
     var layer = [];
     if (this.uid) { layer.push('uid', normalize(this.uid)); }
     if (this.email) { layer.push('email', normalize(this.email)); }
@@ -1034,7 +808,7 @@
     return layer;
   };
 
-  Object.defineProperties( User.prototype, prototypeAccessors$a );
+  Object.defineProperties( User.prototype, prototypeAccessors$b );
 
   User.Status = Status;
   User.Type = Type$2;
@@ -1058,7 +832,7 @@
     this._config = config || {};
   };
 
-  var prototypeAccessors$9 = { environment: { configurable: true },entity: { configurable: true },language: { configurable: true },target: { configurable: true },type: { configurable: true },region: { configurable: true },department: { configurable: true },api: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$a = { environment: { configurable: true },entity: { configurable: true },language: { configurable: true },target: { configurable: true },type: { configurable: true },region: { configurable: true },department: { configurable: true },api: { configurable: true },layer: { configurable: true } };
 
   Site.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -1073,7 +847,7 @@
     this._api = api.version;
   };
 
-  prototypeAccessors$9.environment.set = function (value) {
+  prototypeAccessors$a.environment.set = function (value) {
     switch (value) {
       case Environment.PRODUCTION.id:
       case Environment.PRODUCTION.value:
@@ -1095,69 +869,69 @@
     }
   };
 
-  prototypeAccessors$9.environment.get = function () {
+  prototypeAccessors$a.environment.get = function () {
     return this._environment ? this._environment.id : Environment.DEVELOPMENT.id;
   };
 
-  prototypeAccessors$9.entity.set = function (value) {
+  prototypeAccessors$a.entity.set = function (value) {
     var valid = validateString(value, 'site.entity');
     if (valid !== null) { this._entity = valid; }
   };
 
-  prototypeAccessors$9.entity.get = function () {
+  prototypeAccessors$a.entity.get = function () {
     return this._entity;
   };
 
-  prototypeAccessors$9.language.set = function (value) {
+  prototypeAccessors$a.language.set = function (value) {
     var valid = validateLang(value, 'site.language');
     if (valid !== null) { this._language = valid; }
   };
 
-  prototypeAccessors$9.language.get = function () {
+  prototypeAccessors$a.language.get = function () {
     return this._language || document.documentElement.lang;
   };
 
-  prototypeAccessors$9.target.set = function (value) {
+  prototypeAccessors$a.target.set = function (value) {
     var valid = validateString(value, 'site.target');
     if (valid !== null) { this._target = valid; }
   };
 
-  prototypeAccessors$9.target.get = function () {
+  prototypeAccessors$a.target.get = function () {
     return this._target;
   };
 
-  prototypeAccessors$9.type.set = function (value) {
+  prototypeAccessors$a.type.set = function (value) {
     var valid = validateString(value, 'site.type');
     if (valid !== null) { this._type = valid; }
   };
 
-  prototypeAccessors$9.type.get = function () {
+  prototypeAccessors$a.type.get = function () {
     return this._type;
   };
 
-  prototypeAccessors$9.region.set = function (value) {
+  prototypeAccessors$a.region.set = function (value) {
     var valid = validateGeography(value, 'site.region');
     if (valid !== null) { this._region = valid; }
   };
 
-  prototypeAccessors$9.region.get = function () {
+  prototypeAccessors$a.region.get = function () {
     return this._region;
   };
 
-  prototypeAccessors$9.department.set = function (value) {
+  prototypeAccessors$a.department.set = function (value) {
     var valid = validateGeography(value, 'site.department');
     if (valid !== null) { this._department = valid; }
   };
 
-  prototypeAccessors$9.department.get = function () {
+  prototypeAccessors$a.department.get = function () {
     return this._department;
   };
 
-  prototypeAccessors$9.api.get = function () {
+  prototypeAccessors$a.api.get = function () {
     return this._api;
   };
 
-  prototypeAccessors$9.layer.get = function () {
+  prototypeAccessors$a.layer.get = function () {
     var layer = [];
     layer.push('site_environment', this._environment.value);
     if (this.entity) { layer.push('site_entity', normalize(this.entity)); }
@@ -1171,9 +945,51 @@
     return layer;
   };
 
-  Object.defineProperties( Site.prototype, prototypeAccessors$9 );
+  Object.defineProperties( Site.prototype, prototypeAccessors$a );
 
   Site.Environment = Environment;
+
+  var Inventory = {
+    accordion: api.internals.ns.selector('accordion'),
+    alert: api.internals.ns.selector('alert'),
+    badge: api.internals.ns.selector('badge'),
+    breadcrumb: api.internals.ns.selector('breadcrumb'),
+    button: api.internals.ns.selector('btn'),
+    callout: api.internals.ns.selector('callout'),
+    card: api.internals.ns.selector('card'),
+    checkbox: api.internals.ns.selector('checkbox-group'),
+    connect: api.internals.ns.selector('connect'),
+    consent: api.internals.ns.selector('consent-banner'),
+    content: api.internals.ns.selector('content-media'),
+    download: api.internals.ns.selector('download'),
+    follow: api.internals.ns.selector('follow'),
+    footer: api.internals.ns.selector('footer'),
+    header: api.internals.ns.selector('header'),
+    highlight: api.internals.ns.selector('highlight'),
+    input: api.internals.ns.selector('input-group'),
+    link: api.internals.ns.selector('link'),
+    modal: api.internals.ns.selector('modal'),
+    navigation: api.internals.ns.selector('nav'),
+    notice: api.internals.ns.selector('notice'),
+    pagination: api.internals.ns.selector('pagination'),
+    quote: api.internals.ns.selector('quote'),
+    radio: api.internals.ns.selector('radio-group'),
+    search: api.internals.ns.selector('search-bar'),
+    select: api.internals.ns.selector('select'),
+    share: api.internals.ns.selector('share'),
+    sidemenu: api.internals.ns.selector('sidemenu'),
+    stepper: api.internals.ns.selector('stepper'),
+    summary: api.internals.ns.selector('summary'),
+    tab: api.internals.ns.selector('tabs'),
+    table: api.internals.ns.selector('table'),
+    tag: api.internals.ns.selector('tag'),
+    tile: api.internals.ns.selector('tile'),
+    toggle: api.internals.ns.selector('toggle'),
+    tooltip: api.internals.ns.selector('tooltip'),
+    transcription: api.internals.ns.selector('transcription'),
+    translate: api.internals.ns.selector('translate'),
+    upload: api.internals.ns.selector('upload-group')
+  };
 
   var CollectionState = {
     COLLECTABLE: 'collectable',
@@ -1186,7 +1002,7 @@
     this._state = CollectionState.COLLECTABLE;
   };
 
-  var prototypeAccessors$8 = { isCollecting: { configurable: true },path: { configurable: true },referrer: { configurable: true },title: { configurable: true },id: { configurable: true },author: { configurable: true },date: { configurable: true },tags: { configurable: true },name: { configurable: true },labels: { configurable: true },categories: { configurable: true },isError: { configurable: true },template: { configurable: true },segment: { configurable: true },group: { configurable: true },subtemplate: { configurable: true },theme: { configurable: true },subtheme: { configurable: true },related: { configurable: true },depth: { configurable: true },current: { configurable: true },total: { configurable: true },filters: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$9 = { isCollecting: { configurable: true },path: { configurable: true },referrer: { configurable: true },title: { configurable: true },id: { configurable: true },author: { configurable: true },date: { configurable: true },tags: { configurable: true },name: { configurable: true },labels: { configurable: true },categories: { configurable: true },isError: { configurable: true },template: { configurable: true },segment: { configurable: true },group: { configurable: true },subtemplate: { configurable: true },theme: { configurable: true },subtheme: { configurable: true },related: { configurable: true },depth: { configurable: true },current: { configurable: true },total: { configurable: true },filters: { configurable: true },layer: { configurable: true } };
 
   Page.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -1225,11 +1041,11 @@
     return true;
   };
 
-  prototypeAccessors$8.isCollecting.get = function () {
+  prototypeAccessors$9.isCollecting.get = function () {
     return this._state === CollectionState.COLLECTING;
   };
 
-  prototypeAccessors$8.path.set = function (value) {
+  prototypeAccessors$9.path.set = function (value) {
     var valid = validateString(value, 'page.path');
     if (valid !== null) {
       this._path = valid;
@@ -1237,180 +1053,180 @@
     }
   };
 
-  prototypeAccessors$8.path.get = function () {
+  prototypeAccessors$9.path.get = function () {
     return this._path || ("" + (document.location.pathname) + (document.location.search));
   };
 
-  prototypeAccessors$8.referrer.set = function (value) {
+  prototypeAccessors$9.referrer.set = function (value) {
     var valid = validateString(value, 'page.referrer');
     if (valid !== null) { this._referrer = valid; }
   };
 
-  prototypeAccessors$8.referrer.get = function () {
+  prototypeAccessors$9.referrer.get = function () {
     return this._referrer;
   };
 
-  prototypeAccessors$8.title.set = function (value) {
+  prototypeAccessors$9.title.set = function (value) {
     var valid = validateString(value, 'page.title');
     if (valid !== null) { this._title = valid; }
   };
 
-  prototypeAccessors$8.title.get = function () {
+  prototypeAccessors$9.title.get = function () {
     return this._title || document.title;
   };
 
-  prototypeAccessors$8.id.set = function (value) {
+  prototypeAccessors$9.id.set = function (value) {
     var valid = validateString(value, 'page.id');
     if (valid !== null) { this._id = valid; }
   };
 
-  prototypeAccessors$8.id.get = function () {
+  prototypeAccessors$9.id.get = function () {
     return this._id;
   };
 
-  prototypeAccessors$8.author.set = function (value) {
+  prototypeAccessors$9.author.set = function (value) {
     var valid = validateString(value, 'page.author');
     if (valid !== null) { this._author = valid; }
   };
 
-  prototypeAccessors$8.author.get = function () {
+  prototypeAccessors$9.author.get = function () {
     return this._author;
   };
 
-  prototypeAccessors$8.date.set = function (value) {
+  prototypeAccessors$9.date.set = function (value) {
     var valid = validateDate(value, 'page.date');
     if (valid !== null) { this._date = valid; }
   };
 
-  prototypeAccessors$8.date.get = function () {
+  prototypeAccessors$9.date.get = function () {
     return this._date;
   };
 
-  prototypeAccessors$8.tags.get = function () {
+  prototypeAccessors$9.tags.get = function () {
     return this._tags;
   };
 
-  prototypeAccessors$8.name.set = function (value) {
+  prototypeAccessors$9.name.set = function (value) {
     var valid = validateString(value, 'page.name');
     if (valid !== null) { this._name = valid; }
   };
 
-  prototypeAccessors$8.name.get = function () {
+  prototypeAccessors$9.name.get = function () {
     return this._name || this.title;
   };
 
-  prototypeAccessors$8.labels.get = function () {
+  prototypeAccessors$9.labels.get = function () {
     return this._labels;
   };
 
-  prototypeAccessors$8.categories.get = function () {
+  prototypeAccessors$9.categories.get = function () {
     return this._categories;
   };
 
-  prototypeAccessors$8.isError.set = function (value) {
+  prototypeAccessors$9.isError.set = function (value) {
     var valid = validateBoolean(value, 'page.isError');
     if (valid !== null) { this._isError = valid; }
   };
 
-  prototypeAccessors$8.isError.get = function () {
+  prototypeAccessors$9.isError.get = function () {
     return this._isError;
   };
 
-  prototypeAccessors$8.template.set = function (value) {
+  prototypeAccessors$9.template.set = function (value) {
     var valid = validateString(value, 'page.template');
     if (valid !== null) { this._template = valid; }
   };
 
-  prototypeAccessors$8.template.get = function () {
+  prototypeAccessors$9.template.get = function () {
     return this._template || 'autres';
   };
 
-  prototypeAccessors$8.segment.set = function (value) {
+  prototypeAccessors$9.segment.set = function (value) {
     var valid = validateString(value, 'page.segment');
     if (valid !== null) { this._segment = valid; }
   };
 
-  prototypeAccessors$8.segment.get = function () {
+  prototypeAccessors$9.segment.get = function () {
     return this._segment || this.template;
   };
 
-  prototypeAccessors$8.group.set = function (value) {
+  prototypeAccessors$9.group.set = function (value) {
     var valid = validateString(value, 'page.group');
     if (valid !== null) { this._group = valid; }
   };
 
-  prototypeAccessors$8.group.get = function () {
+  prototypeAccessors$9.group.get = function () {
     return this._group || this.template;
   };
 
-  prototypeAccessors$8.subtemplate.set = function (value) {
+  prototypeAccessors$9.subtemplate.set = function (value) {
     var valid = validateString(value, 'page.subtemplate');
     if (valid !== null) { this._subtemplate = valid; }
   };
 
-  prototypeAccessors$8.subtemplate.get = function () {
+  prototypeAccessors$9.subtemplate.get = function () {
     return this._subtemplate;
   };
 
-  prototypeAccessors$8.theme.set = function (value) {
+  prototypeAccessors$9.theme.set = function (value) {
     var valid = validateString(value, 'page.theme');
     if (valid !== null) { this._theme = valid; }
   };
 
-  prototypeAccessors$8.theme.get = function () {
+  prototypeAccessors$9.theme.get = function () {
     return this._theme;
   };
 
-  prototypeAccessors$8.subtheme.set = function (value) {
+  prototypeAccessors$9.subtheme.set = function (value) {
     var valid = validateString(value, 'page.subtheme');
     if (valid !== null) { this._subtheme = valid; }
   };
 
-  prototypeAccessors$8.subtheme.get = function () {
+  prototypeAccessors$9.subtheme.get = function () {
     return this._subtheme;
   };
 
-  prototypeAccessors$8.related.set = function (value) {
+  prototypeAccessors$9.related.set = function (value) {
     var valid = validateString(value, 'page.related');
     if (valid !== null) { this._related = valid; }
   };
 
-  prototypeAccessors$8.related.get = function () {
+  prototypeAccessors$9.related.get = function () {
     return this._related;
   };
 
-  prototypeAccessors$8.depth.set = function (value) {
+  prototypeAccessors$9.depth.set = function (value) {
     var valid = validateNumber(value, 'page.depth');
     if (valid !== null) { this._depth = valid; }
   };
 
-  prototypeAccessors$8.depth.get = function () {
+  prototypeAccessors$9.depth.get = function () {
     return this._depth;
   };
 
-  prototypeAccessors$8.current.set = function (value) {
+  prototypeAccessors$9.current.set = function (value) {
     var valid = validateNumber(value, 'page.current');
     if (valid !== null) { this._current = valid; }
   };
 
-  prototypeAccessors$8.current.get = function () {
+  prototypeAccessors$9.current.get = function () {
     return this._current;
   };
 
-  prototypeAccessors$8.total.set = function (value) {
+  prototypeAccessors$9.total.set = function (value) {
     var valid = validateNumber(value, 'page.total');
     if (valid !== null) { this._total = valid; }
   };
 
-  prototypeAccessors$8.total.get = function () {
+  prototypeAccessors$9.total.get = function () {
     return this._total;
   };
 
-  prototypeAccessors$8.filters.get = function () {
+  prototypeAccessors$9.filters.get = function () {
     return this._filters;
   };
 
-  prototypeAccessors$8.layer.get = function () {
+  prototypeAccessors$9.layer.get = function () {
     this._state = CollectionState.COLLECTED;
     var layer = [];
     if (this.path) { layer.push('path', normalize(this.path)); }
@@ -1420,6 +1236,9 @@
     if (this.id) { layer.push('page_id', normalize(this.id)); }
     if (this.author) { layer.push('page_author', normalize(this.author)); }
     if (this.date) { layer.push('page_date', normalize(this.date)); }
+
+    var components = Object.keys(Inventory).map(function (id) { return document.querySelector(Inventory[id]) !== null ? id : null; }).filter(function (id) { return id !== null; }).join(',');
+    if (components) { layer.push('page_components', components); }
 
     var labels = this._labels.slice(0, 5);
     labels.length = 5;
@@ -1457,7 +1276,7 @@
     return layer;
   };
 
-  Object.defineProperties( Page.prototype, prototypeAccessors$8 );
+  Object.defineProperties( Page.prototype, prototypeAccessors$9 );
 
   var Method = {
     STANDARD: {
@@ -1475,7 +1294,7 @@
     this._config = config || {};
   };
 
-  var prototypeAccessors$7 = { engine: { configurable: true },results: { configurable: true },terms: { configurable: true },category: { configurable: true },theme: { configurable: true },type: { configurable: true },method: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$8 = { engine: { configurable: true },results: { configurable: true },terms: { configurable: true },category: { configurable: true },theme: { configurable: true },type: { configurable: true },method: { configurable: true },layer: { configurable: true } };
 
   Search.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -1489,71 +1308,71 @@
     this.method = clear ? undefined : this._config.method;
   };
 
-  prototypeAccessors$7.engine.set = function (value) {
+  prototypeAccessors$8.engine.set = function (value) {
     var valid = validateString(value, 'search.engine');
     if (valid !== null) { this._engine = valid; }
   };
 
-  prototypeAccessors$7.engine.get = function () {
+  prototypeAccessors$8.engine.get = function () {
     return this._engine;
   };
 
-  prototypeAccessors$7.results.set = function (value) {
+  prototypeAccessors$8.results.set = function (value) {
     var valid = validateNumber(value, 'search.results');
     if (valid !== null) { this._results = valid; }
   };
 
-  prototypeAccessors$7.results.get = function () {
+  prototypeAccessors$8.results.get = function () {
     return this._results;
   };
 
-  prototypeAccessors$7.terms.set = function (value) {
+  prototypeAccessors$8.terms.set = function (value) {
     var valid = validateString(value, 'search.terms');
     if (valid !== null) { this._terms = valid; }
   };
 
-  prototypeAccessors$7.terms.get = function () {
+  prototypeAccessors$8.terms.get = function () {
     return this._terms;
   };
 
-  prototypeAccessors$7.category.set = function (value) {
+  prototypeAccessors$8.category.set = function (value) {
     var valid = validateString(value, 'search.category');
     if (valid !== null) { this._category = valid; }
   };
 
-  prototypeAccessors$7.category.get = function () {
+  prototypeAccessors$8.category.get = function () {
     return this._category;
   };
 
-  prototypeAccessors$7.theme.set = function (value) {
+  prototypeAccessors$8.theme.set = function (value) {
     var valid = validateString(value, 'search.theme');
     if (valid !== null) { this._theme = valid; }
   };
 
-  prototypeAccessors$7.theme.get = function () {
+  prototypeAccessors$8.theme.get = function () {
     return this._theme;
   };
 
-  prototypeAccessors$7.type.set = function (value) {
+  prototypeAccessors$8.type.set = function (value) {
     var valid = validateString(value, 'search.type');
     if (valid !== null) { this._type = valid; }
     this._type = value;
   };
 
-  prototypeAccessors$7.type.get = function () {
+  prototypeAccessors$8.type.get = function () {
     return this._type;
   };
 
-  prototypeAccessors$7.method.set = function (id) {
+  prototypeAccessors$8.method.set = function (id) {
     var methods = Object.values(Method);
     this._method = methods.filter(function (method) { return method.id === id || method.value === id; })[0] || methods.filter(function (method) { return method.isDefault; })[0];
   };
 
-  prototypeAccessors$7.method.get = function () {
+  prototypeAccessors$8.method.get = function () {
     return this._method;
   };
 
-  prototypeAccessors$7.layer.get = function () {
+  prototypeAccessors$8.layer.get = function () {
     var layer = [];
     if (this.engine) { layer.push('isearchengine', normalize(this.engine)); }
     if (this.results > -1) { layer.push('isearchresults', this.results); }
@@ -1565,7 +1384,7 @@
     return layer;
   };
 
-  Object.defineProperties( Search.prototype, prototypeAccessors$7 );
+  Object.defineProperties( Search.prototype, prototypeAccessors$8 );
 
   Search.Method = Method;
 
@@ -1573,7 +1392,7 @@
     this._config = config || {};
   };
 
-  var prototypeAccessors$6 = { id: { configurable: true },type: { configurable: true },name: { configurable: true },step: { configurable: true },current: { configurable: true },total: { configurable: true },objective: { configurable: true },error: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$7 = { id: { configurable: true },type: { configurable: true },name: { configurable: true },step: { configurable: true },current: { configurable: true },total: { configurable: true },objective: { configurable: true },error: { configurable: true },layer: { configurable: true } };
 
   Funnel.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -1588,81 +1407,81 @@
     this.error = clear ? undefined : this._config.error;
   };
 
-  prototypeAccessors$6.id.set = function (value) {
+  prototypeAccessors$7.id.set = function (value) {
     var valid = validateString(value, 'funnel.id');
     if (valid !== null) { this._id = valid; }
   };
 
-  prototypeAccessors$6.id.get = function () {
+  prototypeAccessors$7.id.get = function () {
     return this._id;
   };
 
-  prototypeAccessors$6.type.set = function (value) {
+  prototypeAccessors$7.type.set = function (value) {
     var valid = validateString(value, 'funnel.type');
     if (valid !== null) { this._type = valid; }
   };
 
-  prototypeAccessors$6.type.get = function () {
+  prototypeAccessors$7.type.get = function () {
     return this._type;
   };
 
-  prototypeAccessors$6.name.set = function (value) {
+  prototypeAccessors$7.name.set = function (value) {
     var valid = validateString(value, 'funnel.name');
     if (valid !== null) { this._name = valid; }
   };
 
-  prototypeAccessors$6.name.get = function () {
+  prototypeAccessors$7.name.get = function () {
     return this._name;
   };
 
-  prototypeAccessors$6.step.set = function (value) {
+  prototypeAccessors$7.step.set = function (value) {
     var valid = validateString(value, 'funnel.step');
     if (valid !== null) { this._step = valid; }
   };
 
-  prototypeAccessors$6.step.get = function () {
+  prototypeAccessors$7.step.get = function () {
     return this._step;
   };
 
-  prototypeAccessors$6.current.set = function (value) {
+  prototypeAccessors$7.current.set = function (value) {
     var valid = validateNumber(value, 'funnel.current');
     if (valid !== null) { this._current = valid; }
   };
 
-  prototypeAccessors$6.current.get = function () {
+  prototypeAccessors$7.current.get = function () {
     return this._current;
   };
 
-  prototypeAccessors$6.total.set = function (value) {
+  prototypeAccessors$7.total.set = function (value) {
     var valid = validateNumber(value, 'funnel.total');
     if (valid !== null) { this._total = valid; }
   };
 
-  prototypeAccessors$6.total.get = function () {
+  prototypeAccessors$7.total.get = function () {
     return this._total;
   };
 
-  prototypeAccessors$6.objective.set = function (value) {
+  prototypeAccessors$7.objective.set = function (value) {
     var valid = validateString(value, 'funnel.objective');
     if (valid !== null) { this._objective = valid; }
     this._objective = value;
   };
 
-  prototypeAccessors$6.objective.get = function () {
+  prototypeAccessors$7.objective.get = function () {
     return this._objective;
   };
 
-  prototypeAccessors$6.error.set = function (value) {
+  prototypeAccessors$7.error.set = function (value) {
     var valid = validateString(value, 'funnel.error');
     if (valid !== null) { this._error = valid; }
     this._error = value;
   };
 
-  prototypeAccessors$6.error.get = function () {
+  prototypeAccessors$7.error.get = function () {
     return this._error;
   };
 
-  prototypeAccessors$6.layer.get = function () {
+  prototypeAccessors$7.layer.get = function () {
     var layer = [];
     if (this.id) { layer.push('funnel_id', normalize(this.id)); }
     if (this.type) { layer.push('funnel_type', normalize(this.type)); }
@@ -1675,7 +1494,233 @@
     return layer;
   };
 
-  Object.defineProperties( Funnel.prototype, prototypeAccessors$6 );
+  Object.defineProperties( Funnel.prototype, prototypeAccessors$7 );
+
+  var ActionMode = {
+    IN: 'in',
+    OUT: 'out',
+    NONE: 'none'
+  };
+
+  var ActionStatus = {
+    UNSTARTED: {
+      id: 'unstarted',
+      value: -1
+    },
+    STARTED: {
+      id: 'started',
+      value: 1
+    },
+    SINGULAR: {
+      id: 'singular',
+      value: 2
+    },
+    ENDED: {
+      id: 'ended',
+      value: 3
+    }
+  };
+
+  var getParametersLayer = function (data) {
+    return Object.entries(data).map(function (ref) {
+      var key = ref[0];
+      var value = ref[1];
+
+      return ['actionpname', normalize(key), 'actionpvalue', normalize(value)];
+    }).flat();
+  };
+
+  var Action = function Action (name) {
+    this._isMuted = false;
+    this._name = name;
+    this._status = ActionStatus.UNSTARTED;
+    this._labels = [];
+    this._parameters = {};
+    this._sentData = [];
+  };
+
+  var prototypeAccessors$6 = { isMuted: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },mode: { configurable: true },_base: { configurable: true } };
+
+  prototypeAccessors$6.isMuted.get = function () {
+    return this._isMuted;
+  };
+
+  prototypeAccessors$6.isMuted.set = function (value) {
+    this._isMuted = value;
+  };
+
+  prototypeAccessors$6.isSingular.get = function () {
+    return this._status === ActionStatus.SINGULAR;
+  };
+
+  prototypeAccessors$6.status.get = function () {
+    return this._status;
+  };
+
+  prototypeAccessors$6.name.get = function () {
+    return this._name;
+  };
+
+  prototypeAccessors$6.labels.get = function () {
+    return this._labels;
+  };
+
+  prototypeAccessors$6.reference.get = function () {
+    return this._reference;
+  };
+
+  prototypeAccessors$6.parameters.get = function () {
+    return this._parameters;
+  };
+
+  prototypeAccessors$6.mode.get = function () {
+    return this._mode;
+  };
+
+  Action.prototype.singularize = function singularize () {
+    this._status = ActionStatus.SINGULAR;
+  };
+
+  Action.prototype.rewind = function rewind () {
+    this._sentData = [];
+    this._status = ActionStatus.UNSTARTED;
+  };
+
+  Action.prototype.addParameter = function addParameter (key, value) {
+    this._parameters[key] = value;
+  };
+
+  Action.prototype.removeParameter = function removeParameter (key) {
+    delete this._parameters[key];
+  };
+
+  prototypeAccessors$6.reference.set = function (value) {
+    var valid = validateString(value, ("action " + (this._name)));
+    if (valid !== null) { this._reference = valid; }
+  };
+
+  prototypeAccessors$6._base.get = function () {
+    return ['actionname', this._name];
+  };
+
+  Action.prototype._getLayer = function _getLayer (data) {
+      if ( data === void 0 ) data = {};
+
+    if (this._isMuted) { return []; }
+
+    if (this._mode !== ActionMode.IN) { this._sentData.push(JSON.stringify(data)); }
+
+    var layer = this._base;
+    switch (this._mode) {
+      case ActionMode.IN:
+      case ActionMode.OUT:
+        layer.push('actionmode', this._mode);
+        break;
+    }
+
+    var labels = this._labels.slice(0, 5);
+    labels.length = 5;
+    if (labels.some(function (label) { return label; })) { layer.push('actionlabel', labels.map(function (label) { return typeof label === 'string' ? normalize(label) : ''; }).join(',')); }
+
+    if (this._reference) { layer.push('actionref', this._reference); }
+
+    layer.push.apply(layer, getParametersLayer(Object.assign(this._parameters, data || {})));
+    return layer;
+  };
+
+  Action.prototype.start = function start (data) {
+    switch (this._status) {
+      case ActionStatus.UNSTARTED:
+        this._mode = ActionMode.IN;
+        this._status = ActionStatus.STARTED;
+        break;
+
+      case ActionStatus.SINGULAR:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      default:
+        api.inspector.error(("unexpected start on action " + (this._name) + " with status " + (this._status.id)));
+        return [];
+    }
+    return this._getLayer(data);
+  };
+
+  Action.prototype.end = function end (data) {
+    switch (this._status) {
+      case ActionStatus.STARTED:
+        this._mode = ActionMode.OUT;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.UNSTARTED:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.SINGULAR:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.ENDED:
+        if (this._sentData.includes(JSON.stringify(data))) { return []; }
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      default:
+        return [];
+    }
+    return this._getLayer(data);
+  };
+
+  Action.prototype.resume = function resume (data) {
+    if (this._isMuted) { return []; }
+    if (this._status.value >= ActionStatus.ENDED.value) {
+      api.inspector.error(("unexpected resuming on action " + (this._name) + " with status " + (this._status.id)));
+      return [];
+    }
+    var layer = this._base;
+    if (data) { layer.push.apply(layer, getParametersLayer(data)); }
+    return layer;
+  };
+
+  Object.defineProperties( Action.prototype, prototypeAccessors$6 );
+
+  var Actions = function Actions () {
+    this._actions = [];
+  };
+
+  Actions.prototype.rewind = function rewind () {
+    this._actions.forEach(function (action) { return action.rewind(); });
+  };
+
+  Actions.prototype.getAction = function getAction (name) {
+    var action = this._actions.filter(function (action) { return action.name === name; })[0];
+    if (!action) {
+      action = new Action(name);
+      this._actions.push(action);
+    }
+    return action;
+  };
+
+  Actions.prototype.hasAction = function hasAction (name) {
+    return this._actions.some(function (action) { return action.name === name; });
+  };
+
+  Actions.prototype.remove = function remove (action) {
+    var index = this._actions.indexOf(action);
+    if (index === -1) { return false; }
+    this._actions.splice(index, 1);
+    return true;
+  };
+
+  Actions.ActionMode = ActionMode;
+
+  var actions = new Actions();
+  Actions.instance = actions;
 
   var Location = function Location (onRouteChange, isListeningHash) {
     if ( isListeningHash === void 0 ) isListeningHash = false;
@@ -1940,7 +1985,6 @@
     this._cmp = new ConsentManagerPlatform(this._config.cmp);
     this._collector = new Collector(this._config);
     this._collector.reset();
-    actions.configure(this._config);
 
     this._isReady = true;
     this._resolve();
@@ -2490,10 +2534,11 @@
 
   Object.defineProperties( Hierarchy.prototype, prototypeAccessors$1 );
 
-  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRatingActive) {
+  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRating) {
     if ( category === void 0 ) category = '';
     if ( title === void 0 ) title = null;
     if ( parameters === void 0 ) parameters = {};
+    if ( isRating === void 0 ) isRating = false;
 
     this._node = node;
     this._type = type;
@@ -2502,7 +2547,7 @@
     this._title = title;
     this._category = category;
     this._parameters = parameters;
-    this._isRatingActive = isRatingActive;
+    this._isRating = isRating;
     this._hasBegun = false;
 
     // this._init();
@@ -2561,9 +2606,9 @@
   ActionElement.prototype.begin = function begin (data) {
       if ( data === void 0 ) data = {};
 
-    if (this._hasBegun || !this._isRatingActive) { return; }
+    if (this._hasBegun) { return; }
     this._hasBegun = true;
-    if (this._type.isBeginning) { queue.appendStartingAction(this._action, data); }
+    if (this._type.isBeginning && (this._type.isSingular || this._isRating)) { queue.appendStartingAction(this._action, data); }
   };
 
   ActionElement.prototype.act = function act (data) {
@@ -2584,12 +2629,11 @@
 
   Object.defineProperties( ActionElement.prototype, prototypeAccessors );
 
-  ActionElement.isRatingEnabled = false;
+  var RATING_ATTRIBUTE = api.internals.ns.attr('analytics-rating');
 
   var Actionee = /*@__PURE__*/(function (superclass) {
-    function Actionee (priority, isRatingActive, category, title) {
+    function Actionee (priority, category, title) {
       if ( priority === void 0 ) priority = -1;
-      if ( isRatingActive === void 0 ) isRatingActive = false;
       if ( category === void 0 ) category = '';
       if ( title === void 0 ) title = null;
 
@@ -2601,7 +2645,6 @@
       this._parameters = {};
       this._data = {};
       this._isMuted = false;
-      this._isRatingActive = isRatingActive;
     }
 
     if ( superclass ) Actionee.__proto__ = superclass;
@@ -2651,16 +2694,21 @@
       superclass.prototype._config.call(this, element, registration);
 
       if (this._type === null) {
+        this._sort(element);
         this._isMuted = true;
         return;
       }
 
-      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this._isRatingActive);
+      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this.hasAttribute(RATING_ATTRIBUTE));
       if (this._isMuted) { this._actionElement.isMuted = true; }
 
       this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
 
-      var actionees = element.instances.filter(function (instance) { return instance.isActionee && instance.type; }).sort(function (a, b) { return b.priority - a.priority; });
+      this._sort(element);
+    };
+
+    Actionee.prototype._sort = function _sort (element) {
+      var actionees = element.instances.filter(function (instance) { return instance.isActionee; }).sort(function (a, b) { return b.priority - a.priority; });
       if (actionees.length <= 1) { return; }
       actionees.forEach(function (actionee, index) { actionee.isMuted = index > 0; });
     };
@@ -2925,11 +2973,10 @@
   };
 
   var ComponentActionee = /*@__PURE__*/(function (Actionee) {
-    function ComponentActionee (priority, isRatingActive) {
+    function ComponentActionee (priority) {
       if ( priority === void 0 ) priority = -1;
-      if ( isRatingActive === void 0 ) isRatingActive = false;
 
-      Actionee.call(this, priority, isRatingActive, 'dsfr_component');
+      Actionee.call(this, priority, 'dsfr_component');
     }
 
     if ( Actionee ) ComponentActionee.__proto__ = Actionee;
@@ -3006,13 +3053,15 @@
     };
 
     ComponentActionee.prototype._actValidatedInput = function _actValidatedInput () {
-      var this$1$1 = this;
-
       if (this._isActingValidatedInput) { return; }
       this._isActingValidatedInput = true;
       if (this._isSendingInputValue) { this.value = this._validatedInput.value.trim(); }
       this.act();
-      this.request(function () { this$1$1._isActingValidatedInput = false; });
+      this.request(this._actedValidatedInput.bind(this));
+    };
+
+    ComponentActionee.prototype._actedValidatedInput = function _actedValidatedInput () {
+      this._isActingValidatedInput = false;
     };
 
     ComponentActionee.prototype.setCheckType = function setCheckType () {
@@ -3090,7 +3139,7 @@
     TITLE: api.internals.ns.selector('accordion__title')
   };
 
-  var ID$C = 'accordion';
+  var ID$x = 'accordion';
 
   var AccordionButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AccordionButtonActionee () {
@@ -3109,17 +3158,11 @@
     };
 
     AccordionButtonActionee.prototype.init = function init () {
-      this.setClickType();
-      this.id = this.node.id || this.registration.creator.node.id;
-      this.listenClick();
+      this.isMuted = true;
     };
 
     prototypeAccessors.button.get = function () {
       return this.element.getInstance('CollapseButton');
-    };
-
-    AccordionButtonActionee.prototype.handleClick = function handleClick () {
-      if (this.button && !this.button.disclosed) { this.act(); }
     };
 
     prototypeAccessors.label.get = function () {
@@ -3130,7 +3173,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$C;
+      return ID$x;
     };
 
     Object.defineProperties( AccordionButtonActionee.prototype, prototypeAccessors );
@@ -3141,7 +3184,7 @@
 
   var AccordionActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AccordionActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) AccordionActionee.__proto__ = ComponentActionee;
@@ -3183,7 +3226,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$C;
+      return ID$x;
     };
 
     AccordionActionee.prototype.dispose = function dispose () {
@@ -3207,7 +3250,7 @@
     TITLE: api.internals.ns.selector('alert__title')
   };
 
-  var ID$B = 'alert';
+  var ID$w = 'alert';
 
   var AlertActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AlertActionee () {
@@ -3225,10 +3268,6 @@
       return 'AlertActionee';
     };
 
-    AlertActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       var alertTitle = this.node.querySelector(AlertSelector.TITLE);
       if (alertTitle) {
@@ -3239,7 +3278,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$B;
+      return ID$w;
     };
 
     Object.defineProperties( AlertActionee.prototype, prototypeAccessors );
@@ -3257,46 +3296,7 @@
     COLLAPSE: ((api.internals.ns.selector('breadcrumb')) + " " + (api.internals.ns.selector('collapse')))
   };
 
-  var BreadcrumbButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function BreadcrumbButtonActionee () {
-      ComponentActionee.call(this, 2);
-    }
-
-    if ( ComponentActionee ) BreadcrumbButtonActionee.__proto__ = ComponentActionee;
-    BreadcrumbButtonActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    BreadcrumbButtonActionee.prototype.constructor = BreadcrumbButtonActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'BreadcrumbButtonActionee';
-    };
-
-    BreadcrumbButtonActionee.prototype.init = function init () {
-      if (this.isBreakpoint(api.core.Breakpoints.MD)) { return; }
-      this.setClickType();
-      this.id = this.node.id || this.registration.creator.node.id;
-      this.listenClick();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-      return 'voir le fil d\'ariane';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return null;
-    };
-
-    Object.defineProperties( BreadcrumbButtonActionee.prototype, prototypeAccessors );
-    Object.defineProperties( BreadcrumbButtonActionee, staticAccessors );
-
-    return BreadcrumbButtonActionee;
-  }(ComponentActionee));
-
-  var ID$A = 'breadcrumb';
+  var ID$v = 'breadcrumb';
 
   var BreadcrumbActionee = /*@__PURE__*/(function (ComponentActionee) {
     function BreadcrumbActionee () {
@@ -3314,22 +3314,12 @@
       return 'BreadcrumbActionee';
     };
 
-    BreadcrumbActionee.prototype.init = function init () {
-      if (!this.isBreakpoint(api.core.Breakpoints.MD)) {
-        this.setDiscloseType();
-        this.register(("[aria-controls=\"" + (this.id) + "\"]"), BreadcrumbButtonActionee);
-        this.listenDisclose();
-      } else {
-        this.setImpressionType();
-      }
-    };
-
     prototypeAccessors.label.get = function () {
       return 'fil d\'ariane';
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$A;
+      return ID$v;
     };
 
     Object.defineProperties( BreadcrumbActionee.prototype, prototypeAccessors );
@@ -3386,62 +3376,15 @@
     }
   };
 
-  var BadgeSelector = {
-    BADGE: api.internals.ns.selector('badge')
-  };
-
-  var ID$z = 'badge';
-
-  var BadgeActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function BadgeActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) BadgeActionee.__proto__ = ComponentActionee;
-    BadgeActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    BadgeActionee.prototype.constructor = BadgeActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'BadgeActionee';
-    };
-
-    BadgeActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var firstText = this.getFirstText();
-      if (firstText) { return firstText; }
-
-      return 'badge';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$z;
-    };
-
-    Object.defineProperties( BadgeActionee.prototype, prototypeAccessors );
-    Object.defineProperties( BadgeActionee, staticAccessors );
-
-    return BadgeActionee;
-  }(ComponentActionee));
-
-  var integrateBadge = function () {
-    api.internals.register(BadgeSelector.BADGE, BadgeActionee);
-  };
-
   var ButtonSelector = {
     BUTTON: ((api.internals.ns.selector('btn')) + ":not(" + (api.internals.ns.selector('btn--close')) + ")")
   };
 
-  var ID$y = 'button';
+  var ID$u = 'button';
 
   var ButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ButtonActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
       this._data = {};
     }
 
@@ -3480,7 +3423,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$y;
+      return ID$u;
     };
 
     Object.defineProperties( ButtonActionee.prototype, prototypeAccessors );
@@ -3498,7 +3441,7 @@
     TITLE: api.internals.ns.selector('callout__title')
   };
 
-  var ID$x = 'callout';
+  var ID$t = 'callout';
 
   var CalloutActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CalloutActionee () {
@@ -3516,10 +3459,6 @@
       return 'CalloutActionee';
     };
 
-    CalloutActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       var calloutTitle = this.node.querySelector(CalloutSelector.TITLE);
       if (calloutTitle) {
@@ -3531,7 +3470,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$x;
+      return ID$t;
     };
 
     Object.defineProperties( CalloutActionee.prototype, prototypeAccessors );
@@ -3550,11 +3489,11 @@
     TITLE: api.internals.ns.selector('card__title')
   };
 
-  var ID$w = 'card';
+  var ID$s = 'card';
 
   var CardActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CardActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) CardActionee.__proto__ = ComponentActionee;
@@ -3574,7 +3513,7 @@
         this.link = link;
         this.detectInteractionType(link);
         this.listenClick(link);
-      } else { this.setImpressionType(); }
+      }
     };
 
     prototypeAccessors.label.get = function () {
@@ -3591,7 +3530,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$w;
+      return ID$s;
     };
 
     Object.defineProperties( CardActionee.prototype, prototypeAccessors );
@@ -3608,11 +3547,11 @@
     INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
   };
 
-  var ID$v = 'checkbox';
+  var ID$r = 'checkbox';
 
   var CheckboxActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CheckboxActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
       this._data = {};
     }
 
@@ -3642,7 +3581,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$v;
+      return ID$r;
     };
 
     Object.defineProperties( CheckboxActionee.prototype, prototypeAccessors );
@@ -3660,11 +3599,11 @@
     LINK: api.internals.ns.selector('connect + * a, connect + a')
   };
 
-  var ID$u = 'connect';
+  var ID$q = 'connect';
 
   var ConnectActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ConnectActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) ConnectActionee.__proto__ = ComponentActionee;
@@ -3689,7 +3628,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$u;
+      return ID$q;
     };
 
     Object.defineProperties( ConnectActionee.prototype, prototypeAccessors );
@@ -3724,7 +3663,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$u;
+      return ID$q;
     };
 
     Object.defineProperties( ConnectLinkActionee.prototype, prototypeAccessors );
@@ -3742,7 +3681,7 @@
     BANNER: api.internals.ns.selector('consent-banner')
   };
 
-  var ID$t = 'consent';
+  var ID$p = 'consent';
 
   var ConsentActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ConsentActionee () {
@@ -3765,7 +3704,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$t;
+      return ID$p;
     };
 
     Object.defineProperties( ConsentActionee.prototype, prototypeAccessors );
@@ -3778,103 +3717,15 @@
     api.internals.register(ConsentSelector.BANNER, ConsentActionee);
   };
 
-  var ContentSelector = {
-    CONTENT: api.internals.ns.selector('content-media'),
-    IMG: api.internals.ns.selector('content-media__img')
-  };
-
-  var ID$s = 'content-media';
-
-  var ContentActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function ContentActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) ContentActionee.__proto__ = ComponentActionee;
-    ContentActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    ContentActionee.prototype.constructor = ContentActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'ContentActionee';
-    };
-
-    ContentActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    ContentActionee.prototype._getImageLabel = function _getImageLabel () {
-      var contentImg = this.querySelector(ContentSelector.IMG);
-      if (!contentImg) { return false; }
-      var img = contentImg.getElementsByTagName('img')[0];
-      if (img) {
-        var alt = img.getAttribute('alt');
-        if (alt) { return alt; }
-        var ariaLabel = img.getAttribute('aria-label');
-        if (ariaLabel) { return ariaLabel; }
-      }
-      var svg = contentImg.getElementsByTagName('svg')[0];
-      if (svg) {
-        var ariaLabel$1 = svg.getAttribute('aria-label');
-        if (ariaLabel$1) { return ariaLabel$1; }
-        var title = svg.querySelector('title');
-        if (title) {
-          var textContent = title.textContent;
-          if (textContent) { return textContent.trim(); }
-        }
-      }
-      return false;
-    };
-
-    prototypeAccessors.label.get = function () {
-      var ariaLabel = this.getAttribute('aria-label');
-      if (ariaLabel) { return ariaLabel; }
-
-      var imageLabel = this._getImageLabel();
-      if (imageLabel) { return imageLabel; }
-
-      var iframe = this.querySelector('iframe');
-      if (iframe) {
-        var title = iframe.getAttribute('title');
-        if (title) { return title; }
-        var ariaLabel$1 = iframe.getAttribute('aria-label');
-        if (ariaLabel$1) { return ariaLabel$1; }
-      }
-
-      var video = this.querySelector('video');
-      if (video) {
-        var ariaLabel$2 = video.getAttribute('aria-label');
-        if (ariaLabel$2) { return ariaLabel$2; }
-      }
-
-      return 'contenu média';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$s;
-    };
-
-    Object.defineProperties( ContentActionee.prototype, prototypeAccessors );
-    Object.defineProperties( ContentActionee, staticAccessors );
-
-    return ContentActionee;
-  }(ComponentActionee));
-
-  var integrateContent = function () {
-    api.internals.register(ContentSelector.CONTENT, ContentActionee);
-  };
-
   var DownloadSelector = {
     LINK: api.internals.ns.selector('download__link')
   };
 
-  var ID$r = 'download';
+  var ID$o = 'download';
 
   var DownloadActionee = /*@__PURE__*/(function (ComponentActionee) {
     function DownloadActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) DownloadActionee.__proto__ = ComponentActionee;
@@ -3900,7 +3751,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$r;
+      return ID$o;
     };
 
     Object.defineProperties( DownloadActionee.prototype, prototypeAccessors );
@@ -3918,11 +3769,11 @@
     NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
   };
 
-  var ID$q = 'follow';
+  var ID$n = 'follow';
 
   var FollowActionee = /*@__PURE__*/(function (ComponentActionee) {
     function FollowActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) FollowActionee.__proto__ = ComponentActionee;
@@ -3950,7 +3801,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$q;
+      return ID$n;
     };
 
     Object.defineProperties( FollowActionee.prototype, prototypeAccessors );
@@ -3968,7 +3819,7 @@
     FOOTER_LINKS: ((api.internals.ns.selector('footer')) + " a[href], " + (api.internals.ns.selector('footer')) + " button")
   };
 
-  var ID$p = 'footer';
+  var ID$m = 'footer';
 
   var FooterActionee = /*@__PURE__*/(function (ComponentActionee) {
     function FooterActionee () {
@@ -3986,16 +3837,12 @@
       return 'FooterActionee';
     };
 
-    FooterActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       return 'pied de page';
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$p;
+      return ID$m;
     };
 
     Object.defineProperties( FooterActionee.prototype, prototypeAccessors );
@@ -4043,7 +3890,7 @@
     api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
   };
 
-  var ID$o = 'header';
+  var ID$l = 'header';
 
   var HeaderActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderActionee () {
@@ -4061,16 +3908,12 @@
       return 'HeaderActionee';
     };
 
-    HeaderActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       return 'en-tête';
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$o;
+      return ID$l;
     };
 
     Object.defineProperties( HeaderActionee.prototype, prototypeAccessors );
@@ -4101,7 +3944,7 @@
 
   var HeaderModalActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderModalActionee () {
-      ComponentActionee.call(this, null, 0);
+      ComponentActionee.call(this, 0);
     }
 
     if ( ComponentActionee ) HeaderModalActionee.__proto__ = ComponentActionee;
@@ -4192,7 +4035,7 @@
     HIGHLIGHT: api.internals.ns.selector('highlight')
   };
 
-  var ID$n = 'highlight';
+  var ID$k = 'highlight';
 
   var HighlightActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HighlightActionee () {
@@ -4210,16 +4053,12 @@
       return 'HighlightActionee';
     };
 
-    HighlightActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       return 'mise en exergue';
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$n;
+      return ID$k;
     };
 
     Object.defineProperties( HighlightActionee.prototype, prototypeAccessors );
@@ -4236,11 +4075,11 @@
     LINK: api.internals.ns.selector('link')
   };
 
-  var ID$m = 'link';
+  var ID$j = 'link';
 
   var LinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function LinkActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) LinkActionee.__proto__ = ComponentActionee;
@@ -4267,7 +4106,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$m;
+      return ID$j;
     };
 
     Object.defineProperties( LinkActionee.prototype, prototypeAccessors );
@@ -4284,7 +4123,7 @@
     INPUT: api.internals.ns.selector('input-group')
   };
 
-  var ID$l = 'input';
+  var ID$i = 'input';
 
   var InputActionee = /*@__PURE__*/(function (ComponentActionee) {
     function InputActionee () {
@@ -4303,7 +4142,6 @@
     };
 
     InputActionee.prototype.init = function init () {
-      this.setImpressionType();
       this._input = this.querySelector(api.internals.ns.selector('input'));
       this._label = this.querySelector(api.internals.ns.selector('label'));
       this._inputWrap = this.querySelector(api.internals.ns.selector('input-wrap'));
@@ -4321,7 +4159,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$l;
+      return ID$i;
     };
 
     Object.defineProperties( InputActionee.prototype, prototypeAccessors );
@@ -4338,11 +4176,11 @@
     TITLE: api.internals.ns.selector('modal__title')
   };
 
-  var ID$k = 'modal';
+  var ID$h = 'modal';
 
   var ModalActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ModalActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) ModalActionee.__proto__ = ComponentActionee;
@@ -4385,7 +4223,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$k;
+      return ID$h;
     };
 
     Object.defineProperties( ModalActionee.prototype, prototypeAccessors );
@@ -4431,7 +4269,7 @@
     BUTTON: api.internals.ns.selector('nav__btn')
   };
 
-  var ID$j = 'navigation';
+  var ID$g = 'navigation';
 
   var NavigationLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function NavigationLinkActionee () {
@@ -4462,7 +4300,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$j;
+      return ID$g;
     };
 
     Object.defineProperties( NavigationLinkActionee.prototype, prototypeAccessors );
@@ -4525,57 +4363,6 @@
     }
   };
 
-  var NoticeSelector = {
-    NOTICE: api.internals.ns.selector('notice'),
-    TITLE: api.internals.ns.selector('notice__title')
-  };
-
-  var ID$i = 'notice';
-
-  var NoticeActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function NoticeActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) NoticeActionee.__proto__ = ComponentActionee;
-    NoticeActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    NoticeActionee.prototype.constructor = NoticeActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'NoticeActionee';
-    };
-
-    NoticeActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      var noticeTitle = this.node.querySelector(NoticeSelector.TITLE);
-      if (noticeTitle) {
-        var firstText = this.getFirstText(noticeTitle);
-        if (firstText) { return firstText; }
-      }
-
-      return 'bandeau d\'information importante';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$i;
-    };
-
-    Object.defineProperties( NoticeActionee.prototype, prototypeAccessors );
-    Object.defineProperties( NoticeActionee, staticAccessors );
-
-    return NoticeActionee;
-  }(ComponentActionee));
-
-  var integrateNotice = function () {
-    api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-  };
-
   var PaginationSelector = {
     PAGINATION: api.internals.ns.selector('pagination'),
     LINK: api.internals.ns.selector('pagination__link'),
@@ -4585,7 +4372,7 @@
     CURRENT: '[aria-current="page"]'
   };
 
-  var ID$h = 'pagination';
+  var ID$f = 'pagination';
 
   var PaginationActionee = /*@__PURE__*/(function (ComponentActionee) {
     function PaginationActionee () {
@@ -4612,7 +4399,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$h;
+      return ID$f;
     };
 
     PaginationActionee.prototype.setPagination = function setPagination () {
@@ -4697,7 +4484,7 @@
     QUOTE: api.internals.ns.selector('quote')
   };
 
-  var ID$g = 'quote';
+  var ID$e = 'quote';
 
   var QuoteActionee = /*@__PURE__*/(function (ComponentActionee) {
     function QuoteActionee () {
@@ -4715,10 +4502,6 @@
       return 'QuoteActionee';
     };
 
-    QuoteActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       var blockquote = this.node.querySelector('blockquote');
       if (blockquote) {
@@ -4731,7 +4514,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$g;
+      return ID$e;
     };
 
     Object.defineProperties( QuoteActionee.prototype, prototypeAccessors );
@@ -4754,11 +4537,11 @@
     LEGEND: api.internals.ns.selector('fieldset__legend')
   };
 
-  var ID$f = 'radio';
+  var ID$d = 'radio';
 
   var RadioActionee = /*@__PURE__*/(function (ComponentActionee) {
     function RadioActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
       this._data = {};
     }
 
@@ -4797,7 +4580,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$f;
+      return ID$d;
     };
 
     Object.defineProperties( RadioActionee.prototype, prototypeAccessors );
@@ -4814,11 +4597,11 @@
     SEARCH_BAR: api.internals.ns.selector('search-bar')
   };
 
-  var ID$e = 'search';
+  var ID$c = 'search';
 
   var SearchActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SearchActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) SearchActionee.__proto__ = ComponentActionee;
@@ -4841,7 +4624,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$e;
+      return ID$c;
     };
 
     Object.defineProperties( SearchActionee.prototype, prototypeAccessors );
@@ -4858,11 +4641,11 @@
     SELECT: api.internals.ns.selector('select')
   };
 
-  var ID$d = 'select';
+  var ID$b = 'select';
 
   var SelectActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SelectActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
       this._data = {};
     }
 
@@ -4899,7 +4682,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$d;
+      return ID$b;
     };
 
     Object.defineProperties( SelectActionee.prototype, prototypeAccessors );
@@ -4917,11 +4700,11 @@
     TITLE: api.internals.ns.selector('share__title')
   };
 
-  var ID$c = 'share';
+  var ID$a = 'share';
 
   var ShareActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ShareActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) ShareActionee.__proto__ = ComponentActionee;
@@ -4935,10 +4718,6 @@
       return 'ShareActionee';
     };
 
-    ShareActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       var title = this.querySelector(ShareSelector.TITLE);
       if (title) {
@@ -4949,7 +4728,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$c;
+      return ID$a;
     };
 
     Object.defineProperties( ShareActionee.prototype, prototypeAccessors );
@@ -5005,7 +4784,7 @@
     return SidemenuActionee;
   }(ComponentActionee));
 
-  var ID$b = 'sidemenu';
+  var ID$9 = 'sidemenu';
 
   var SidemenuLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SidemenuLinkActionee () {
@@ -5036,7 +4815,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$b;
+      return ID$9;
     };
 
     Object.defineProperties( SidemenuLinkActionee.prototype, prototypeAccessors );
@@ -5098,50 +4877,6 @@
     }
   };
 
-  var StepperSelector = {
-    STEPPER: api.internals.ns.selector('stepper')
-  };
-
-  var ID$a = 'stepper';
-
-  var StepperActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function StepperActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) StepperActionee.__proto__ = ComponentActionee;
-    StepperActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    StepperActionee.prototype.constructor = StepperActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'StepperActionee';
-    };
-
-    StepperActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      return 'indicateur d\'étapes';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$a;
-    };
-
-    Object.defineProperties( StepperActionee.prototype, prototypeAccessors );
-    Object.defineProperties( StepperActionee, staticAccessors );
-
-    return StepperActionee;
-  }(ComponentActionee));
-
-  var integrateStepper = function () {
-    api.internals.register(StepperSelector.STEPPER, StepperActionee);
-  };
-
   var SummarySelector = {
     SUMMARY: api.internals.ns.selector('summary'),
     LINK: api.internals.ns.selector('summary__link'),
@@ -5180,7 +4915,7 @@
     return SummaryActionee;
   }(ComponentActionee));
 
-  var ID$9 = 'summary';
+  var ID$8 = 'summary';
 
   var SummaryLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function SummaryLinkActionee () {
@@ -5210,7 +4945,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$9;
+      return ID$8;
     };
 
     Object.defineProperties( SummaryLinkActionee.prototype, prototypeAccessors );
@@ -5262,7 +4997,7 @@
     api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
   };
 
-  var ID$8 = 'tab';
+  var ID$7 = 'tab';
 
   var TabButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TabButtonActionee () {
@@ -5281,13 +5016,7 @@
     };
 
     TabButtonActionee.prototype.init = function init () {
-      this.setClickType();
-      this.id = this.node.id || this.registration.creator.node.id;
-      this.listen('click', this.click.bind(this), { capture: true });
-    };
-
-    TabButtonActionee.prototype.click = function click () {
-      this.act();
+      this.isMuted = true;
     };
 
     prototypeAccessors.label.get = function () {
@@ -5297,7 +5026,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$8;
+      return ID$7;
     };
 
     Object.defineProperties( TabButtonActionee.prototype, prototypeAccessors );
@@ -5308,7 +5037,7 @@
 
   var TabActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TabActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) TabActionee.__proto__ = ComponentActionee;
@@ -5348,7 +5077,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$8;
+      return ID$7;
     };
 
     Object.defineProperties( TabActionee.prototype, prototypeAccessors );
@@ -5367,7 +5096,7 @@
     TABLE: api.internals.ns.selector('table')
   };
 
-  var ID$7 = 'table';
+  var ID$6 = 'table';
 
   var TableActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TableActionee () {
@@ -5385,10 +5114,6 @@
       return 'TableActionee';
     };
 
-    TableActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
     prototypeAccessors.label.get = function () {
       var caption = this.node.querySelector('caption');
       if (caption) {
@@ -5399,7 +5124,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$7;
+      return ID$6;
     };
 
     Object.defineProperties( TableActionee.prototype, prototypeAccessors );
@@ -5418,11 +5143,11 @@
     DISMISSIBLE: ("" + (api.internals.ns.selector('tag--dismiss', '')))
   };
 
-  var ID$6 = 'tag';
+  var ID$5 = 'tag';
 
   var TagActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TagActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) TagActionee.__proto__ = ComponentActionee;
@@ -5451,9 +5176,6 @@
           this.detectInteractionType();
           this.listenClick();
           break;
-
-        default:
-          this.setImpressionType();
       }
     };
 
@@ -5465,7 +5187,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$6;
+      return ID$5;
     };
 
     Object.defineProperties( TagActionee.prototype, prototypeAccessors );
@@ -5480,15 +5202,15 @@
 
   var TileSelector = {
     TILE: api.internals.ns.selector('tile'),
-    LINK: ("" + (api.internals.ns.selector('tile__link'))),
+    LINK: ((api.internals.ns.selector('tile__title')) + " a"),
     TITLE: api.internals.ns.selector('tile__title')
   };
 
-  var ID$5 = 'tile';
+  var ID$4 = 'tile';
 
   var TileActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TileActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) TileActionee.__proto__ = ComponentActionee;
@@ -5508,7 +5230,7 @@
         this.link = link;
         this.detectInteractionType(link);
         this.listenClick(link);
-      } else { this.setImpressionType(); }
+      }
     };
 
     prototypeAccessors.label.get = function () {
@@ -5522,7 +5244,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$5;
+      return ID$4;
     };
 
     Object.defineProperties( TileActionee.prototype, prototypeAccessors );
@@ -5539,11 +5261,11 @@
     INPUT: api.internals.ns.selector('toggle [type="checkbox"]')
   };
 
-  var ID$4 = 'toggle';
+  var ID$3 = 'toggle';
 
   var ToggleActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ToggleActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
       this._data = {};
     }
 
@@ -5574,7 +5296,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$4;
+      return ID$3;
     };
 
     Object.defineProperties( ToggleActionee.prototype, prototypeAccessors );
@@ -5585,48 +5307,6 @@
 
   var integrateToggle = function () {
     api.internals.register(ToggleSelector.INPUT, ToggleActionee);
-  };
-
-  var ID$3 = 'tooltip';
-
-  var TooltipActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function TooltipActionee () {
-      ComponentActionee.call(this, 1);
-    }
-
-    if ( ComponentActionee ) TooltipActionee.__proto__ = ComponentActionee;
-    TooltipActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    TooltipActionee.prototype.constructor = TooltipActionee;
-
-    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'TooltipActionee';
-    };
-
-    TooltipActionee.prototype.init = function init () {
-      this.setImpressionType();
-    };
-
-    prototypeAccessors.label.get = function () {
-      return 'information contextuelle';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$3;
-    };
-
-    Object.defineProperties( TooltipActionee.prototype, prototypeAccessors );
-    Object.defineProperties( TooltipActionee, staticAccessors );
-
-    return TooltipActionee;
-  }(ComponentActionee));
-
-  var integrateTooltip = function () {
-    if (api.tooltip) {
-      api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, TooltipActionee);
-    }
   };
 
   var TRANSCRIPTION = api.internals.ns.selector('transcription');
@@ -5658,18 +5338,11 @@
     };
 
     TranscriptionButtonActionee.prototype.init = function init () {
-      this.setClickType();
-      this.id = this.node.id || this.registration.creator.node.id;
-      this.listenClick();
+      this.isMuted = true;
     };
 
     prototypeAccessors.button.get = function () {
       return this.element.getInstance('CollapseButton');
-    };
-
-    TranscriptionButtonActionee.prototype.handleClick = function handleClick () {
-      var button = this.button;
-      if (button && !button.disclosed) { this.act(); }
     };
 
     prototypeAccessors.label.get = function () {
@@ -5690,7 +5363,7 @@
 
   var TranscriptionActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TranscriptionActionee () {
-      ComponentActionee.call(this, 2, true);
+      ComponentActionee.call(this, 2);
     }
 
     if ( ComponentActionee ) TranscriptionActionee.__proto__ = ComponentActionee;
@@ -5756,53 +5429,6 @@
 
   var ID$1 = 'translate';
 
-  var TranslateButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
-    function TranslateButtonActionee () {
-      ComponentActionee.call(this, 2);
-    }
-
-    if ( ComponentActionee ) TranslateButtonActionee.__proto__ = ComponentActionee;
-    TranslateButtonActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
-    TranslateButtonActionee.prototype.constructor = TranslateButtonActionee;
-
-    var prototypeAccessors = { button: { configurable: true },label: { configurable: true },component: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'TranslateButtonActionee';
-    };
-
-    TranslateButtonActionee.prototype.init = function init () {
-      this.setClickType();
-      this.id = this.node.id || this.registration.creator.node.id;
-      this.listenClick();
-    };
-
-    prototypeAccessors.button.get = function () {
-      return this.element.getInstance('CollapseButton');
-    };
-
-    TranslateButtonActionee.prototype.handleClick = function handleClick () {
-      var button = this.button;
-      if (button && !button.disclosed) { this.act(); }
-    };
-
-    prototypeAccessors.label.get = function () {
-      var label = this.getInteractionLabel();
-      if (label) { return label; }
-      return 'bouton sélecteur de langue';
-    };
-
-    prototypeAccessors.component.get = function () {
-      return ID$1;
-    };
-
-    Object.defineProperties( TranslateButtonActionee.prototype, prototypeAccessors );
-    Object.defineProperties( TranslateButtonActionee, staticAccessors );
-
-    return TranslateButtonActionee;
-  }(ComponentActionee));
-
   var TranslateActionee = /*@__PURE__*/(function (ComponentActionee) {
     function TranslateActionee () {
       ComponentActionee.call(this, 2);
@@ -5817,12 +5443,6 @@
 
     staticAccessors.instanceClassName.get = function () {
       return 'TranslateActionee';
-    };
-
-    TranslateActionee.prototype.init = function init () {
-      this.setDiscloseType();
-      this.register(("[aria-controls=\"" + (this.id) + "\"]"), TranslateButtonActionee);
-      this.listenDisclose();
     };
 
     prototypeAccessors.label.get = function () {
@@ -5845,8 +5465,49 @@
     return TranslateActionee;
   }(ComponentActionee));
 
+  var TranslateButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function TranslateButtonActionee () {
+      ComponentActionee.call(this, 2);
+    }
+
+    if ( ComponentActionee ) TranslateButtonActionee.__proto__ = ComponentActionee;
+    TranslateButtonActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    TranslateButtonActionee.prototype.constructor = TranslateButtonActionee;
+
+    var prototypeAccessors = { button: { configurable: true },label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TranslateButtonActionee';
+    };
+
+    TranslateButtonActionee.prototype.init = function init () {
+      this.isMuted = true;
+    };
+
+    prototypeAccessors.button.get = function () {
+      return this.element.getInstance('CollapseButton');
+    };
+
+    prototypeAccessors.label.get = function () {
+      var label = this.getInteractionLabel();
+      if (label) { return label; }
+      return 'bouton sélecteur de langue';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$1;
+    };
+
+    Object.defineProperties( TranslateButtonActionee.prototype, prototypeAccessors );
+    Object.defineProperties( TranslateButtonActionee, staticAccessors );
+
+    return TranslateButtonActionee;
+  }(ComponentActionee));
+
   var integrateTranslate = function () {
     api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
+    api.internals.register(TranslateSelector.BUTTON, TranslateButtonActionee);
   };
 
   var UploadSelector = {
@@ -5857,7 +5518,7 @@
 
   var UploadActionee = /*@__PURE__*/(function (ComponentActionee) {
     function UploadActionee () {
-      ComponentActionee.call(this, 1, true);
+      ComponentActionee.call(this, 1);
     }
 
     if ( ComponentActionee ) UploadActionee.__proto__ = ComponentActionee;
@@ -5910,12 +5571,12 @@
     integrateAccordion();
     integrateBreadcrumb();
     integrateAlert();
-    integrateBadge();
+    // integrateBadge();
     integrateButton();
     integrateCallout();
     integrateConnect();
     integrateConsent();
-    integrateContent();
+    // integrateContent();
     integrateCard();
     integrateInput();
     integrateCheckbox();
@@ -5927,7 +5588,7 @@
     integrateLink();
     integrateModal();
     integrateNavigation();
-    integrateNotice();
+    // integrateNotice();
     integratePagination();
     integrateQuote();
     integrateRadio();
@@ -5935,14 +5596,14 @@
     integrateSelect();
     integrateShare();
     integrateSidemenu();
-    integrateStepper();
+    // integrateStepper();
     integrateSummary();
     integrateTab();
     integrateTable();
     integrateTag();
     integrateTile();
     integrateToggle();
-    integrateTooltip();
+    // integrateTooltip();
     integrateTranscription();
     integrateTranslate();
     integrateUpload();

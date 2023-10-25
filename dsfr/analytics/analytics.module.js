@@ -1,10 +1,10 @@
-/*! DSFR v1.10.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.1'
+  version: '1.10.2'
 };
 
 const api = window[config.namespace];
@@ -314,364 +314,6 @@ const PushType = {
   ACTION_PARAMETER: 'actionparam'
 };
 
-const ActionMode = {
-  IN: 'in',
-  OUT: 'out',
-  NONE: 'none'
-};
-
-/*  '["\'<>*$&~`|\\\\?^~]'; */
-var RESTRICTED = {
-  '0x0022': '＂',
-  '0x0024': '＄',
-  '0x0026': '＆',
-  '0x0027': '＇',
-  '0x002a': '＊',
-  '0x002c': '，',
-  '0x003c': '＜',
-  '0x003e': '＞',
-  '0x003f': '？',
-  '0x005c': '＼',
-  '0x005e': '＾',
-  '0x0060': '｀',
-  '0x007c': '｜',
-  '0x007e': '～'
-};
-
-// import TABLE from './unicode-table';
-
-const charCodeHex = (char) => {
-  const code = char.charCodeAt(0).toString(16);
-  return '0x0000'.slice(0, -code.length) + code;
-};
-
-const normalize = (text) => {
-  if (!text) return text;
-  // text = [...text].map(char => TABLE[charCodeHex(char)] || char).join('');
-  text = [...text].map(char => RESTRICTED[charCodeHex(char)] || char).join('');
-  text = text.replace(/\s+/g, ' ').replace(/\s/g, '_');
-  text = text.toLowerCase();
-  return text;
-};
-
-const validateString = (value, name, allowNull = true) => {
-  switch (true) {
-    case typeof value === 'number':
-      return `${value}`;
-
-    case typeof value === 'string':
-      return value;
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return '';
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a String`);
-  return null;
-};
-
-const validateNumber = (value, name, allowNull = true) => {
-  switch (true) {
-    case !isNaN(value):
-      return value;
-
-    case typeof value === 'string' && !isNaN(Number(value)):
-      return Number(value);
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return -1;
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Number`);
-  return null;
-};
-
-const validateBoolean = (value, name) => {
-  switch (true) {
-    case typeof value === 'boolean':
-      return value;
-
-    case typeof value === 'string' && value.toLowerCase() === 'true':
-    case value === '1':
-    case value === 1:
-      return true;
-
-    case typeof value === 'string' && value.toLowerCase() === 'false':
-    case value === '0':
-    case value === 0:
-      return false;
-
-    case value === undefined:
-    case value === null:
-      return value;
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Boolean`);
-  return null;
-};
-
-const validateLang = (value, name, allowNull = true) => {
-  switch (true) {
-    case typeof value === 'string' && /^[A-Za-z]{2}$|^[A-Za-z]{2}[-_]/.test(value):
-      return value.split(/[-_]/)[0].toLowerCase();
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return '';
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting language as a String following ISO 639-1 format`);
-  return null;
-};
-
-const validateGeography = (value, name, allowNull = true) => {
-  switch (true) {
-    case typeof value === 'string':
-      if (!/^FR-[A-Z0-9]{2,3}$/.test(value)) api.inspector.warn(`value '${value}' set at analytics.${name} with wrong format. Geographic location should be a String following ISO 3166-2:FR format`);
-      return value;
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return '';
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting geographic location as a String following ISO 3166-2:FR format`);
-  return null;
-};
-
-const normaliseISODate = (date) => date.toISOString().split('T')[0];
-
-const validateDate = (value, name, allowNull = true) => {
-  switch (true) {
-    case value instanceof Date:
-      return normaliseISODate(value);
-
-    case typeof value === 'string': {
-      const date = new Date(value);
-      if (date.toString() !== 'Invalid Date') return normaliseISODate(date);
-      break;
-    }
-
-    case value === undefined && allowNull:
-    case value === null && allowNull:
-      return null;
-  }
-
-  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Date`);
-  return null;
-};
-
-const ActionStatus = {
-  UNSTARTED: {
-    id: 'unstarted',
-    value: -1
-  },
-  STARTED: {
-    id: 'started',
-    value: 1
-  },
-  ENDED: {
-    id: 'ended',
-    value: 2
-  },
-  SINGULAR: {
-    id: 'singular',
-    value: 3
-  }
-};
-
-const getParametersLayer = (data) => {
-  return Object.entries(data).map(([key, value]) => ['actionpname', normalize(key), 'actionpvalue', normalize(value)]).flat();
-};
-
-class Action {
-  constructor (name) {
-    this._isMuted = false;
-    this._name = name;
-    this._status = ActionStatus.UNSTARTED;
-    this._labels = [];
-    this._parameters = {};
-  }
-
-  get isMuted () {
-    return this._isMuted;
-  }
-
-  set isMuted (value) {
-    this._isMuted = value;
-  }
-
-  get isSingular () {
-    return this._status === ActionStatus.SINGULAR;
-  }
-
-  get status () {
-    return this._status;
-  }
-
-  get name () {
-    return this._name;
-  }
-
-  get labels () {
-    return this._labels;
-  }
-
-  get reference () {
-    return this._reference;
-  }
-
-  get parameters () {
-    return this._parameters;
-  }
-
-  singularize () {
-    this._status = ActionStatus.SINGULAR;
-  }
-
-  rewind () {
-    switch (this._status) {
-      case ActionStatus.STARTED:
-      case ActionStatus.ENDED:
-        this._status = ActionStatus.UNSTARTED;
-    }
-  }
-
-  addParameter (key, value) {
-    this._parameters[key] = value;
-  }
-
-  removeParameter (key) {
-    delete this._parameters[key];
-  }
-
-  set reference (value) {
-    const valid = validateString(value, `action ${this._name}`);
-    if (valid !== null) this._reference = valid;
-  }
-
-  get _base () {
-    return ['actionname', this._name];
-  }
-
-  _getLayer (mode, data = {}) {
-    if (this._isMuted) return [];
-    const layer = this._base;
-    switch (mode) {
-      case ActionMode.IN:
-      case ActionMode.OUT:
-        layer.push('actionmode', mode);
-        break;
-    }
-
-    const labels = this._labels.slice(0, 5);
-    labels.length = 5;
-    if (labels.some(label => label)) layer.push('actionlabel', labels.map(label => typeof label === 'string' ? normalize(label) : '').join(','));
-
-    if (this._reference) layer.push('actionref', this._reference);
-
-    layer.push.apply(layer, getParametersLayer(Object.assign(this._parameters, data || {})));
-    return layer;
-  }
-
-  start (data) {
-    let mode;
-    switch (this._status) {
-      case ActionStatus.UNSTARTED:
-        mode = ActionMode.IN;
-        this._status = ActionStatus.STARTED;
-        break;
-
-      case ActionStatus.SINGULAR:
-        mode = ActionMode.NONE;
-        break;
-
-      default:
-        api.inspector.error(`unexpected start on action ${this._name} with status ${this._status.id}`);
-        return [];
-    }
-    return this._getLayer(mode, data);
-  }
-
-  end (data) {
-    let mode;
-    switch (this._status) {
-      case ActionStatus.STARTED:
-        mode = ActionMode.OUT;
-        this._status = ActionStatus.ENDED;
-        break;
-
-      case ActionStatus.UNSTARTED:
-      case ActionStatus.ENDED:
-        mode = ActionMode.NONE;
-        this._status = ActionStatus.ENDED;
-        break;
-
-      case ActionStatus.SINGULAR:
-        mode = ActionMode.NONE;
-        break;
-    }
-    return this._getLayer(mode, data);
-  }
-
-  resume (data) {
-    if (this._isMuted) return [];
-    if (this._status.value >= ActionStatus.ENDED.value) {
-      api.inspector.error(`unexpected resuming on action ${this._name} with status ${this._status.id}`);
-      return [];
-    }
-    const layer = this._base;
-    if (data) layer.push.apply(layer, getParametersLayer(data));
-    return layer;
-  }
-}
-
-class Actions {
-  constructor () {
-    this._actions = [];
-    this._isRatingEnabled = false;
-  }
-
-  configure (config) {
-    this._isRatingEnabled = config.enableRating === true;
-  }
-
-  get isRatingEnabled () {
-    return this._isRatingEnabled;
-  }
-
-  rewind () {
-    this._actions.forEach(action => action.rewind());
-  }
-
-  getAction (name) {
-    let action = this._actions.filter(action => action.name === name)[0];
-    if (!action) {
-      action = new Action(name);
-      this._actions.push(action);
-    }
-    return action;
-  }
-
-  hasAction (name) {
-    return this._actions.some(action => action.name === name);
-  }
-
-  remove (action) {
-    const index = this._actions.indexOf(action);
-    if (index === -1) return false;
-    this._actions.splice(index, 1);
-    return true;
-  }
-}
-
-Actions.ActionMode = ActionMode;
-
-const actions = new Actions();
-Actions.instance = actions;
-
 class Renderer {
   constructor () {
     this._renderables = [];
@@ -903,6 +545,149 @@ const Type$2 = {
   }
 };
 
+/*  '["\'<>*$&~`|\\\\?^~]'; */
+var RESTRICTED = {
+  '0x0022': '＂',
+  '0x0024': '＄',
+  '0x0026': '＆',
+  '0x0027': '＇',
+  '0x002a': '＊',
+  '0x002c': '，',
+  '0x003c': '＜',
+  '0x003e': '＞',
+  '0x003f': '？',
+  '0x005c': '＼',
+  '0x005e': '＾',
+  '0x0060': '｀',
+  '0x007c': '｜',
+  '0x007e': '～'
+};
+
+// import TABLE from './unicode-table';
+
+const charCodeHex = (char) => {
+  const code = char.charCodeAt(0).toString(16);
+  return '0x0000'.slice(0, -code.length) + code;
+};
+
+const normalize = (text) => {
+  if (!text) return text;
+  // text = [...text].map(char => TABLE[charCodeHex(char)] || char).join('');
+  text = [...text].map(char => RESTRICTED[charCodeHex(char)] || char).join('');
+  text = text.replace(/\s+/g, ' ').replace(/\s/g, '_');
+  text = text.toLowerCase();
+  return text;
+};
+
+const validateString = (value, name, allowNull = true) => {
+  switch (true) {
+    case typeof value === 'number':
+      return `${value}`;
+
+    case typeof value === 'string':
+      return value;
+
+    case value === undefined && allowNull:
+    case value === null && allowNull:
+      return '';
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a String`);
+  return null;
+};
+
+const validateNumber = (value, name, allowNull = true) => {
+  switch (true) {
+    case !isNaN(value):
+      return value;
+
+    case typeof value === 'string' && !isNaN(Number(value)):
+      return Number(value);
+
+    case value === undefined && allowNull:
+    case value === null && allowNull:
+      return -1;
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Number`);
+  return null;
+};
+
+const validateBoolean = (value, name) => {
+  switch (true) {
+    case typeof value === 'boolean':
+      return value;
+
+    case typeof value === 'string' && value.toLowerCase() === 'true':
+    case value === '1':
+    case value === 1:
+      return true;
+
+    case typeof value === 'string' && value.toLowerCase() === 'false':
+    case value === '0':
+    case value === 0:
+      return false;
+
+    case value === undefined:
+    case value === null:
+      return value;
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Boolean`);
+  return null;
+};
+
+const validateLang = (value, name, allowNull = true) => {
+  switch (true) {
+    case typeof value === 'string' && /^[A-Za-z]{2}$|^[A-Za-z]{2}[-_]/.test(value):
+      return value.split(/[-_]/)[0].toLowerCase();
+
+    case value === undefined && allowNull:
+    case value === null && allowNull:
+      return '';
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting language as a String following ISO 639-1 format`);
+  return null;
+};
+
+const validateGeography = (value, name, allowNull = true) => {
+  switch (true) {
+    case typeof value === 'string':
+      if (!/^FR-[A-Z0-9]{2,3}$/.test(value)) api.inspector.warn(`value '${value}' set at analytics.${name} with wrong format. Geographic location should be a String following ISO 3166-2:FR format`);
+      return value;
+
+    case value === undefined && allowNull:
+    case value === null && allowNull:
+      return '';
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting geographic location as a String following ISO 3166-2:FR format`);
+  return null;
+};
+
+const normaliseISODate = (date) => date.toISOString().split('T')[0];
+
+const validateDate = (value, name, allowNull = true) => {
+  switch (true) {
+    case value instanceof Date:
+      return normaliseISODate(value);
+
+    case typeof value === 'string': {
+      const date = new Date(value);
+      if (date.toString() !== 'Invalid Date') return normaliseISODate(date);
+      break;
+    }
+
+    case value === undefined && allowNull:
+    case value === null && allowNull:
+      return null;
+  }
+
+  api.inspector.warn(`unexpected value '${value}' set at analytics.${name}. Expecting a Date`);
+  return null;
+};
+
 class User {
   constructor (config) {
     this._config = config || {};
@@ -1125,6 +910,48 @@ class Site {
 }
 
 Site.Environment = Environment;
+
+const Inventory = {
+  accordion: api.internals.ns.selector('accordion'),
+  alert: api.internals.ns.selector('alert'),
+  badge: api.internals.ns.selector('badge'),
+  breadcrumb: api.internals.ns.selector('breadcrumb'),
+  button: api.internals.ns.selector('btn'),
+  callout: api.internals.ns.selector('callout'),
+  card: api.internals.ns.selector('card'),
+  checkbox: api.internals.ns.selector('checkbox-group'),
+  connect: api.internals.ns.selector('connect'),
+  consent: api.internals.ns.selector('consent-banner'),
+  content: api.internals.ns.selector('content-media'),
+  download: api.internals.ns.selector('download'),
+  follow: api.internals.ns.selector('follow'),
+  footer: api.internals.ns.selector('footer'),
+  header: api.internals.ns.selector('header'),
+  highlight: api.internals.ns.selector('highlight'),
+  input: api.internals.ns.selector('input-group'),
+  link: api.internals.ns.selector('link'),
+  modal: api.internals.ns.selector('modal'),
+  navigation: api.internals.ns.selector('nav'),
+  notice: api.internals.ns.selector('notice'),
+  pagination: api.internals.ns.selector('pagination'),
+  quote: api.internals.ns.selector('quote'),
+  radio: api.internals.ns.selector('radio-group'),
+  search: api.internals.ns.selector('search-bar'),
+  select: api.internals.ns.selector('select'),
+  share: api.internals.ns.selector('share'),
+  sidemenu: api.internals.ns.selector('sidemenu'),
+  stepper: api.internals.ns.selector('stepper'),
+  summary: api.internals.ns.selector('summary'),
+  tab: api.internals.ns.selector('tabs'),
+  table: api.internals.ns.selector('table'),
+  tag: api.internals.ns.selector('tag'),
+  tile: api.internals.ns.selector('tile'),
+  toggle: api.internals.ns.selector('toggle'),
+  tooltip: api.internals.ns.selector('tooltip'),
+  transcription: api.internals.ns.selector('transcription'),
+  translate: api.internals.ns.selector('translate'),
+  upload: api.internals.ns.selector('upload-group')
+};
 
 const CollectionState = {
   COLLECTABLE: 'collectable',
@@ -1368,6 +1195,9 @@ class Page {
     if (this.id) layer.push('page_id', normalize(this.id));
     if (this.author) layer.push('page_author', normalize(this.author));
     if (this.date) layer.push('page_date', normalize(this.date));
+
+    const components = Object.keys(Inventory).map(id => document.querySelector(Inventory[id]) !== null ? id : null).filter(id => id !== null).join(',');
+    if (components) layer.push('page_components', components);
 
     const labels = this._labels.slice(0, 5);
     labels.length = 5;
@@ -1615,6 +1445,225 @@ class Funnel {
     return layer;
   }
 }
+
+const ActionMode = {
+  IN: 'in',
+  OUT: 'out',
+  NONE: 'none'
+};
+
+const ActionStatus = {
+  UNSTARTED: {
+    id: 'unstarted',
+    value: -1
+  },
+  STARTED: {
+    id: 'started',
+    value: 1
+  },
+  SINGULAR: {
+    id: 'singular',
+    value: 2
+  },
+  ENDED: {
+    id: 'ended',
+    value: 3
+  }
+};
+
+const getParametersLayer = (data) => {
+  return Object.entries(data).map(([key, value]) => ['actionpname', normalize(key), 'actionpvalue', normalize(value)]).flat();
+};
+
+class Action {
+  constructor (name) {
+    this._isMuted = false;
+    this._name = name;
+    this._status = ActionStatus.UNSTARTED;
+    this._labels = [];
+    this._parameters = {};
+    this._sentData = [];
+  }
+
+  get isMuted () {
+    return this._isMuted;
+  }
+
+  set isMuted (value) {
+    this._isMuted = value;
+  }
+
+  get isSingular () {
+    return this._status === ActionStatus.SINGULAR;
+  }
+
+  get status () {
+    return this._status;
+  }
+
+  get name () {
+    return this._name;
+  }
+
+  get labels () {
+    return this._labels;
+  }
+
+  get reference () {
+    return this._reference;
+  }
+
+  get parameters () {
+    return this._parameters;
+  }
+
+  get mode () {
+    return this._mode;
+  }
+
+  singularize () {
+    this._status = ActionStatus.SINGULAR;
+  }
+
+  rewind () {
+    this._sentData = [];
+    this._status = ActionStatus.UNSTARTED;
+  }
+
+  addParameter (key, value) {
+    this._parameters[key] = value;
+  }
+
+  removeParameter (key) {
+    delete this._parameters[key];
+  }
+
+  set reference (value) {
+    const valid = validateString(value, `action ${this._name}`);
+    if (valid !== null) this._reference = valid;
+  }
+
+  get _base () {
+    return ['actionname', this._name];
+  }
+
+  _getLayer (data = {}) {
+    if (this._isMuted) return [];
+
+    if (this._mode !== ActionMode.IN) this._sentData.push(JSON.stringify(data));
+
+    const layer = this._base;
+    switch (this._mode) {
+      case ActionMode.IN:
+      case ActionMode.OUT:
+        layer.push('actionmode', this._mode);
+        break;
+    }
+
+    const labels = this._labels.slice(0, 5);
+    labels.length = 5;
+    if (labels.some(label => label)) layer.push('actionlabel', labels.map(label => typeof label === 'string' ? normalize(label) : '').join(','));
+
+    if (this._reference) layer.push('actionref', this._reference);
+
+    layer.push.apply(layer, getParametersLayer(Object.assign(this._parameters, data || {})));
+    return layer;
+  }
+
+  start (data) {
+    switch (this._status) {
+      case ActionStatus.UNSTARTED:
+        this._mode = ActionMode.IN;
+        this._status = ActionStatus.STARTED;
+        break;
+
+      case ActionStatus.SINGULAR:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      default:
+        api.inspector.error(`unexpected start on action ${this._name} with status ${this._status.id}`);
+        return [];
+    }
+    return this._getLayer(data);
+  }
+
+  end (data) {
+    switch (this._status) {
+      case ActionStatus.STARTED:
+        this._mode = ActionMode.OUT;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.UNSTARTED:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.SINGULAR:
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      case ActionStatus.ENDED:
+        if (this._sentData.includes(JSON.stringify(data))) return [];
+        this._mode = ActionMode.NONE;
+        this._status = ActionStatus.ENDED;
+        break;
+
+      default:
+        return [];
+    }
+    return this._getLayer(data);
+  }
+
+  resume (data) {
+    if (this._isMuted) return [];
+    if (this._status.value >= ActionStatus.ENDED.value) {
+      api.inspector.error(`unexpected resuming on action ${this._name} with status ${this._status.id}`);
+      return [];
+    }
+    const layer = this._base;
+    if (data) layer.push.apply(layer, getParametersLayer(data));
+    return layer;
+  }
+}
+
+class Actions {
+  constructor () {
+    this._actions = [];
+  }
+
+  rewind () {
+    this._actions.forEach(action => action.rewind());
+  }
+
+  getAction (name) {
+    let action = this._actions.filter(action => action.name === name)[0];
+    if (!action) {
+      action = new Action(name);
+      this._actions.push(action);
+    }
+    return action;
+  }
+
+  hasAction (name) {
+    return this._actions.some(action => action.name === name);
+  }
+
+  remove (action) {
+    const index = this._actions.indexOf(action);
+    if (index === -1) return false;
+    this._actions.splice(index, 1);
+    return true;
+  }
+}
+
+Actions.ActionMode = ActionMode;
+
+const actions = new Actions();
+Actions.instance = actions;
 
 class Location {
   constructor (onRouteChange, isListeningHash = false) {
@@ -1868,7 +1917,6 @@ class Analytics {
     this._cmp = new ConsentManagerPlatform(this._config.cmp);
     this._collector = new Collector(this._config);
     this._collector.reset();
-    actions.configure(this._config);
 
     this._isReady = true;
     this._resolve();
@@ -2404,7 +2452,7 @@ class Hierarchy {
 }
 
 class ActionElement {
-  constructor (node, type, id, category = '', title = null, parameters = {}, isRatingActive) {
+  constructor (node, type, id, category = '', title = null, parameters = {}, isRating = false) {
     this._node = node;
     this._type = type;
     this._id = id || this._node.id;
@@ -2412,7 +2460,7 @@ class ActionElement {
     this._title = title;
     this._category = category;
     this._parameters = parameters;
-    this._isRatingActive = isRatingActive;
+    this._isRating = isRating;
     this._hasBegun = false;
 
     // this._init();
@@ -2465,9 +2513,9 @@ class ActionElement {
   }
 
   begin (data = {}) {
-    if (this._hasBegun || !this._isRatingActive) return;
+    if (this._hasBegun) return;
     this._hasBegun = true;
-    if (this._type.isBeginning) queue.appendStartingAction(this._action, data);
+    if (this._type.isBeginning && (this._type.isSingular || this._isRating)) queue.appendStartingAction(this._action, data);
   }
 
   act (data = {}) {
@@ -2484,10 +2532,10 @@ class ActionElement {
   }
 }
 
-ActionElement.isRatingEnabled = false;
+const RATING_ATTRIBUTE = api.internals.ns.attr('analytics-rating');
 
 class Actionee extends api.core.Instance {
-  constructor (priority = -1, isRatingActive = false, category = '', title = null) {
+  constructor (priority = -1, category = '', title = null) {
     super();
     this._type = null;
     this._priority = priority;
@@ -2496,7 +2544,6 @@ class Actionee extends api.core.Instance {
     this._parameters = {};
     this._data = {};
     this._isMuted = false;
-    this._isRatingActive = isRatingActive;
   }
 
   static get instanceClassName () {
@@ -2539,16 +2586,21 @@ class Actionee extends api.core.Instance {
     super._config(element, registration);
 
     if (this._type === null) {
+      this._sort(element);
       this._isMuted = true;
       return;
     }
 
-    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this._isRatingActive);
+    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this.hasAttribute(RATING_ATTRIBUTE));
     if (this._isMuted) this._actionElement.isMuted = true;
 
     this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
 
-    const actionees = element.instances.filter(instance => instance.isActionee && instance.type).sort((a, b) => b.priority - a.priority);
+    this._sort(element);
+  }
+
+  _sort (element) {
+    const actionees = element.instances.filter(instance => instance.isActionee).sort((a, b) => b.priority - a.priority);
     if (actionees.length <= 1) return;
     actionees.forEach((actionee, index) => { actionee.isMuted = index > 0; });
   }
@@ -2790,8 +2842,8 @@ const ButtonEmission = {
 };
 
 class ComponentActionee extends Actionee {
-  constructor (priority = -1, isRatingActive = false) {
-    super(priority, isRatingActive, 'dsfr_component');
+  constructor (priority = -1) {
+    super(priority, 'dsfr_component');
   }
 
   static get instanceClassName () {
@@ -2862,7 +2914,11 @@ class ComponentActionee extends Actionee {
     this._isActingValidatedInput = true;
     if (this._isSendingInputValue) this.value = this._validatedInput.value.trim();
     this.act();
-    this.request(() => { this._isActingValidatedInput = false; });
+    this.request(this._actedValidatedInput.bind(this));
+  }
+
+  _actedValidatedInput () {
+    this._isActingValidatedInput = false;
   }
 
   setCheckType () {
@@ -2935,7 +2991,7 @@ const AccordionSelector = {
   TITLE: api.internals.ns.selector('accordion__title')
 };
 
-const ID$C = 'accordion';
+const ID$x = 'accordion';
 
 class AccordionButtonActionee extends ComponentActionee {
   constructor () {
@@ -2947,17 +3003,11 @@ class AccordionButtonActionee extends ComponentActionee {
   }
 
   init () {
-    this.setClickType();
-    this.id = this.node.id || this.registration.creator.node.id;
-    this.listenClick();
+    this.isMuted = true;
   }
 
   get button () {
     return this.element.getInstance('CollapseButton');
-  }
-
-  handleClick () {
-    if (this.button && !this.button.disclosed) this.act();
   }
 
   get label () {
@@ -2968,13 +3018,13 @@ class AccordionButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$C;
+    return ID$x;
   }
 }
 
 class AccordionActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -3009,7 +3059,7 @@ class AccordionActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$C;
+    return ID$x;
   }
 
   dispose () {
@@ -3028,7 +3078,7 @@ const AlertSelector = {
   TITLE: api.internals.ns.selector('alert__title')
 };
 
-const ID$B = 'alert';
+const ID$w = 'alert';
 
 class AlertActionee extends ComponentActionee {
   constructor () {
@@ -3037,10 +3087,6 @@ class AlertActionee extends ComponentActionee {
 
   static get instanceClassName () {
     return 'AlertActionee';
-  }
-
-  init () {
-    this.setImpressionType();
   }
 
   get label () {
@@ -3053,7 +3099,7 @@ class AlertActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$B;
+    return ID$w;
   }
 }
 
@@ -3066,34 +3112,7 @@ const BreadcrumbSelector = {
   COLLAPSE: `${api.internals.ns.selector('breadcrumb')} ${api.internals.ns.selector('collapse')}`
 };
 
-class BreadcrumbButtonActionee extends ComponentActionee {
-  constructor () {
-    super(2);
-  }
-
-  static get instanceClassName () {
-    return 'BreadcrumbButtonActionee';
-  }
-
-  init () {
-    if (this.isBreakpoint(api.core.Breakpoints.MD)) return;
-    this.setClickType();
-    this.id = this.node.id || this.registration.creator.node.id;
-    this.listenClick();
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-    return 'voir le fil d\'ariane';
-  }
-
-  get component () {
-    return null;
-  }
-}
-
-const ID$A = 'breadcrumb';
+const ID$v = 'breadcrumb';
 
 class BreadcrumbActionee extends ComponentActionee {
   constructor () {
@@ -3104,22 +3123,12 @@ class BreadcrumbActionee extends ComponentActionee {
     return 'BreadcrumbActionee';
   }
 
-  init () {
-    if (!this.isBreakpoint(api.core.Breakpoints.MD)) {
-      this.setDiscloseType();
-      this.register(`[aria-controls="${this.id}"]`, BreadcrumbButtonActionee);
-      this.listenDisclose();
-    } else {
-      this.setImpressionType();
-    }
-  }
-
   get label () {
     return 'fil d\'ariane';
   }
 
   get component () {
-    return ID$A;
+    return ID$v;
   }
 }
 
@@ -3159,50 +3168,15 @@ const integrateBreadcrumb = () => {
   }
 };
 
-const BadgeSelector = {
-  BADGE: api.internals.ns.selector('badge')
-};
-
-const ID$z = 'badge';
-
-class BadgeActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'BadgeActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const firstText = this.getFirstText();
-    if (firstText) return firstText;
-
-    return 'badge';
-  }
-
-  get component () {
-    return ID$z;
-  }
-}
-
-const integrateBadge = () => {
-  api.internals.register(BadgeSelector.BADGE, BadgeActionee);
-};
-
 const ButtonSelector = {
   BUTTON: `${api.internals.ns.selector('btn')}:not(${api.internals.ns.selector('btn--close')})`
 };
 
-const ID$y = 'button';
+const ID$u = 'button';
 
 class ButtonActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
     this._data = {};
   }
 
@@ -3234,7 +3208,7 @@ class ButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$y;
+    return ID$u;
   }
 }
 
@@ -3247,7 +3221,7 @@ const CalloutSelector = {
   TITLE: api.internals.ns.selector('callout__title')
 };
 
-const ID$x = 'callout';
+const ID$t = 'callout';
 
 class CalloutActionee extends ComponentActionee {
   constructor () {
@@ -3256,10 +3230,6 @@ class CalloutActionee extends ComponentActionee {
 
   static get instanceClassName () {
     return 'CalloutActionee';
-  }
-
-  init () {
-    this.setImpressionType();
   }
 
   get label () {
@@ -3273,7 +3243,7 @@ class CalloutActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$x;
+    return ID$t;
   }
 }
 
@@ -3287,11 +3257,11 @@ const CardSelector = {
   TITLE: api.internals.ns.selector('card__title')
 };
 
-const ID$w = 'card';
+const ID$s = 'card';
 
 class CardActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -3304,7 +3274,7 @@ class CardActionee extends ComponentActionee {
       this.link = link;
       this.detectInteractionType(link);
       this.listenClick(link);
-    } else this.setImpressionType();
+    }
   }
 
   get label () {
@@ -3321,7 +3291,7 @@ class CardActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$w;
+    return ID$s;
   }
 }
 
@@ -3333,11 +3303,11 @@ const CheckboxSelector = {
   INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
 };
 
-const ID$v = 'checkbox';
+const ID$r = 'checkbox';
 
 class CheckboxActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
     this._data = {};
   }
 
@@ -3360,7 +3330,7 @@ class CheckboxActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$v;
+    return ID$r;
   }
 }
 
@@ -3373,11 +3343,11 @@ const ConnectSelector = {
   LINK: api.internals.ns.selector('connect + * a, connect + a')
 };
 
-const ID$u = 'connect';
+const ID$q = 'connect';
 
 class ConnectActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -3395,7 +3365,7 @@ class ConnectActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$u;
+    return ID$q;
   }
 }
 
@@ -3418,7 +3388,7 @@ class ConnectLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$u;
+    return ID$q;
   }
 }
 
@@ -3431,7 +3401,7 @@ const ConsentSelector = {
   BANNER: api.internals.ns.selector('consent-banner')
 };
 
-const ID$t = 'consent';
+const ID$p = 'consent';
 
 class ConsentActionee extends ComponentActionee {
   constructor () {
@@ -3447,7 +3417,7 @@ class ConsentActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$t;
+    return ID$p;
   }
 }
 
@@ -3455,91 +3425,15 @@ const integrateConsent = () => {
   api.internals.register(ConsentSelector.BANNER, ConsentActionee);
 };
 
-const ContentSelector = {
-  CONTENT: api.internals.ns.selector('content-media'),
-  IMG: api.internals.ns.selector('content-media__img')
-};
-
-const ID$s = 'content-media';
-
-class ContentActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'ContentActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  _getImageLabel () {
-    const contentImg = this.querySelector(ContentSelector.IMG);
-    if (!contentImg) return false;
-    const img = contentImg.getElementsByTagName('img')[0];
-    if (img) {
-      const alt = img.getAttribute('alt');
-      if (alt) return alt;
-      const ariaLabel = img.getAttribute('aria-label');
-      if (ariaLabel) return ariaLabel;
-    }
-    const svg = contentImg.getElementsByTagName('svg')[0];
-    if (svg) {
-      const ariaLabel = svg.getAttribute('aria-label');
-      if (ariaLabel) return ariaLabel;
-      const title = svg.querySelector('title');
-      if (title) {
-        const textContent = title.textContent;
-        if (textContent) return textContent.trim();
-      }
-    }
-    return false;
-  }
-
-  get label () {
-    const ariaLabel = this.getAttribute('aria-label');
-    if (ariaLabel) return ariaLabel;
-
-    const imageLabel = this._getImageLabel();
-    if (imageLabel) return imageLabel;
-
-    const iframe = this.querySelector('iframe');
-    if (iframe) {
-      const title = iframe.getAttribute('title');
-      if (title) return title;
-      const ariaLabel = iframe.getAttribute('aria-label');
-      if (ariaLabel) return ariaLabel;
-    }
-
-    const video = this.querySelector('video');
-    if (video) {
-      const ariaLabel = video.getAttribute('aria-label');
-      if (ariaLabel) return ariaLabel;
-    }
-
-    return 'contenu média';
-  }
-
-  get component () {
-    return ID$s;
-  }
-}
-
-const integrateContent = () => {
-  api.internals.register(ContentSelector.CONTENT, ContentActionee);
-};
-
 const DownloadSelector = {
   LINK: api.internals.ns.selector('download__link')
 };
 
-const ID$r = 'download';
+const ID$o = 'download';
 
 class DownloadActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -3558,7 +3452,7 @@ class DownloadActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$r;
+    return ID$o;
   }
 }
 
@@ -3571,11 +3465,11 @@ const FollowSelector = {
   NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
 };
 
-const ID$q = 'follow';
+const ID$n = 'follow';
 
 class FollowActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -3596,7 +3490,7 @@ class FollowActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$q;
+    return ID$n;
   }
 }
 
@@ -3609,7 +3503,7 @@ const FooterSelector = {
   FOOTER_LINKS: `${api.internals.ns.selector('footer')} a[href], ${api.internals.ns.selector('footer')} button`
 };
 
-const ID$p = 'footer';
+const ID$m = 'footer';
 
 class FooterActionee extends ComponentActionee {
   constructor () {
@@ -3620,16 +3514,12 @@ class FooterActionee extends ComponentActionee {
     return 'FooterActionee';
   }
 
-  init () {
-    this.setImpressionType();
-  }
-
   get label () {
     return 'pied de page';
   }
 
   get component () {
-    return ID$p;
+    return ID$m;
   }
 }
 
@@ -3660,7 +3550,7 @@ const integrateFooter = () => {
   api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
 };
 
-const ID$o = 'header';
+const ID$l = 'header';
 
 class HeaderActionee extends ComponentActionee {
   constructor () {
@@ -3671,16 +3561,12 @@ class HeaderActionee extends ComponentActionee {
     return 'HeaderActionee';
   }
 
-  init () {
-    this.setImpressionType();
-  }
-
   get label () {
     return 'en-tête';
   }
 
   get component () {
-    return ID$o;
+    return ID$l;
   }
 }
 
@@ -3696,7 +3582,7 @@ class HeaderModalButtonActionee extends ComponentActionee {
 
 class HeaderModalActionee extends ComponentActionee {
   constructor () {
-    super(null, 0);
+    super(0);
   }
 
   static get instanceClassName () {
@@ -3753,7 +3639,7 @@ const HighlightSelector = {
   HIGHLIGHT: api.internals.ns.selector('highlight')
 };
 
-const ID$n = 'highlight';
+const ID$k = 'highlight';
 
 class HighlightActionee extends ComponentActionee {
   constructor () {
@@ -3764,16 +3650,12 @@ class HighlightActionee extends ComponentActionee {
     return 'HighlightActionee';
   }
 
-  init () {
-    this.setImpressionType();
-  }
-
   get label () {
     return 'mise en exergue';
   }
 
   get component () {
-    return ID$n;
+    return ID$k;
   }
 }
 
@@ -3785,11 +3667,11 @@ const LinkSelector = {
   LINK: api.internals.ns.selector('link')
 };
 
-const ID$m = 'link';
+const ID$j = 'link';
 
 class LinkActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -3809,7 +3691,7 @@ class LinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$m;
+    return ID$j;
   }
 }
 
@@ -3821,7 +3703,7 @@ const InputSelector = {
   INPUT: api.internals.ns.selector('input-group')
 };
 
-const ID$l = 'input';
+const ID$i = 'input';
 
 class InputActionee extends ComponentActionee {
   constructor () {
@@ -3833,7 +3715,6 @@ class InputActionee extends ComponentActionee {
   }
 
   init () {
-    this.setImpressionType();
     this._input = this.querySelector(api.internals.ns.selector('input'));
     this._label = this.querySelector(api.internals.ns.selector('label'));
     this._inputWrap = this.querySelector(api.internals.ns.selector('input-wrap'));
@@ -3851,7 +3732,7 @@ class InputActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$l;
+    return ID$i;
   }
 }
 
@@ -3863,11 +3744,11 @@ const ModalSelector = {
   TITLE: api.internals.ns.selector('modal__title')
 };
 
-const ID$k = 'modal';
+const ID$h = 'modal';
 
 class ModalActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -3903,7 +3784,7 @@ class ModalActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$k;
+    return ID$h;
   }
 }
 
@@ -3932,7 +3813,7 @@ const NavigationSelector = {
   BUTTON: api.internals.ns.selector('nav__btn')
 };
 
-const ID$j = 'navigation';
+const ID$g = 'navigation';
 
 class NavigationLinkActionee extends ComponentActionee {
   constructor () {
@@ -3956,7 +3837,7 @@ class NavigationLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$j;
+    return ID$g;
   }
 }
 
@@ -4002,45 +3883,6 @@ const integrateNavigation = () => {
   }
 };
 
-const NoticeSelector = {
-  NOTICE: api.internals.ns.selector('notice'),
-  TITLE: api.internals.ns.selector('notice__title')
-};
-
-const ID$i = 'notice';
-
-class NoticeActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'NoticeActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    const noticeTitle = this.node.querySelector(NoticeSelector.TITLE);
-    if (noticeTitle) {
-      const firstText = this.getFirstText(noticeTitle);
-      if (firstText) return firstText;
-    }
-
-    return 'bandeau d\'information importante';
-  }
-
-  get component () {
-    return ID$i;
-  }
-}
-
-const integrateNotice = () => {
-  api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-};
-
 const PaginationSelector = {
   PAGINATION: api.internals.ns.selector('pagination'),
   LINK: api.internals.ns.selector('pagination__link'),
@@ -4050,7 +3892,7 @@ const PaginationSelector = {
   CURRENT: '[aria-current="page"]'
 };
 
-const ID$h = 'pagination';
+const ID$f = 'pagination';
 
 class PaginationActionee extends ComponentActionee {
   constructor () {
@@ -4070,7 +3912,7 @@ class PaginationActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$h;
+    return ID$f;
   }
 
   setPagination () {
@@ -4138,7 +3980,7 @@ const QuoteSelector = {
   QUOTE: api.internals.ns.selector('quote')
 };
 
-const ID$g = 'quote';
+const ID$e = 'quote';
 
 class QuoteActionee extends ComponentActionee {
   constructor () {
@@ -4147,10 +3989,6 @@ class QuoteActionee extends ComponentActionee {
 
   static get instanceClassName () {
     return 'QuoteActionee';
-  }
-
-  init () {
-    this.setImpressionType();
   }
 
   get label () {
@@ -4165,7 +4003,7 @@ class QuoteActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$g;
+    return ID$e;
   }
 }
 
@@ -4183,11 +4021,11 @@ const FormSelector = {
   LEGEND: api.internals.ns.selector('fieldset__legend')
 };
 
-const ID$f = 'radio';
+const ID$d = 'radio';
 
 class RadioActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
     this._data = {};
   }
 
@@ -4219,7 +4057,7 @@ class RadioActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$f;
+    return ID$d;
   }
 }
 
@@ -4231,11 +4069,11 @@ const SearchSelector = {
   SEARCH_BAR: api.internals.ns.selector('search-bar')
 };
 
-const ID$e = 'search';
+const ID$c = 'search';
 
 class SearchActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -4251,7 +4089,7 @@ class SearchActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$e;
+    return ID$c;
   }
 }
 
@@ -4263,11 +4101,11 @@ const SelectSelector = {
   SELECT: api.internals.ns.selector('select')
 };
 
-const ID$d = 'select';
+const ID$b = 'select';
 
 class SelectActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
     this._data = {};
   }
 
@@ -4297,7 +4135,7 @@ class SelectActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$d;
+    return ID$b;
   }
 }
 
@@ -4310,19 +4148,15 @@ const ShareSelector = {
   TITLE: api.internals.ns.selector('share__title')
 };
 
-const ID$c = 'share';
+const ID$a = 'share';
 
 class ShareActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
     return 'ShareActionee';
-  }
-
-  init () {
-    this.setImpressionType();
   }
 
   get label () {
@@ -4335,7 +4169,7 @@ class ShareActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$c;
+    return ID$a;
   }
 }
 
@@ -4374,7 +4208,7 @@ class SidemenuActionee extends ComponentActionee {
   }
 }
 
-const ID$b = 'sidemenu';
+const ID$9 = 'sidemenu';
 
 class SidemenuLinkActionee extends ComponentActionee {
   constructor () {
@@ -4398,7 +4232,7 @@ class SidemenuLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$b;
+    return ID$9;
   }
 }
 
@@ -4443,38 +4277,6 @@ const integrateSidemenu = () => {
   }
 };
 
-const StepperSelector = {
-  STEPPER: api.internals.ns.selector('stepper')
-};
-
-const ID$a = 'stepper';
-
-class StepperActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'StepperActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    return 'indicateur d\'étapes';
-  }
-
-  get component () {
-    return ID$a;
-  }
-}
-
-const integrateStepper = () => {
-  api.internals.register(StepperSelector.STEPPER, StepperActionee);
-};
-
 const SummarySelector = {
   SUMMARY: api.internals.ns.selector('summary'),
   LINK: api.internals.ns.selector('summary__link'),
@@ -4501,7 +4303,7 @@ class SummaryActionee extends ComponentActionee {
   }
 }
 
-const ID$9 = 'summary';
+const ID$8 = 'summary';
 
 class SummaryLinkActionee extends ComponentActionee {
   constructor () {
@@ -4524,7 +4326,7 @@ class SummaryLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$9;
+    return ID$8;
   }
 }
 
@@ -4559,7 +4361,7 @@ const integrateSummary = () => {
   api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
 };
 
-const ID$8 = 'tab';
+const ID$7 = 'tab';
 
 class TabButtonActionee extends ComponentActionee {
   constructor () {
@@ -4571,13 +4373,7 @@ class TabButtonActionee extends ComponentActionee {
   }
 
   init () {
-    this.setClickType();
-    this.id = this.node.id || this.registration.creator.node.id;
-    this.listen('click', this.click.bind(this), { capture: true });
-  }
-
-  click () {
-    this.act();
+    this.isMuted = true;
   }
 
   get label () {
@@ -4587,13 +4383,13 @@ class TabButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$8;
+    return ID$7;
   }
 }
 
 class TabActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -4626,7 +4422,7 @@ class TabActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$8;
+    return ID$7;
   }
 }
 
@@ -4640,7 +4436,7 @@ const TableSelector = {
   TABLE: api.internals.ns.selector('table')
 };
 
-const ID$7 = 'table';
+const ID$6 = 'table';
 
 class TableActionee extends ComponentActionee {
   constructor () {
@@ -4649,10 +4445,6 @@ class TableActionee extends ComponentActionee {
 
   static get instanceClassName () {
     return 'TableActionee';
-  }
-
-  init () {
-    this.setImpressionType();
   }
 
   get label () {
@@ -4665,7 +4457,7 @@ class TableActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$7;
+    return ID$6;
   }
 }
 
@@ -4679,11 +4471,11 @@ const TagSelector = {
   DISMISSIBLE: `${api.internals.ns.selector('tag--dismiss', '')}`
 };
 
-const ID$6 = 'tag';
+const ID$5 = 'tag';
 
 class TagActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -4705,9 +4497,6 @@ class TagActionee extends ComponentActionee {
         this.detectInteractionType();
         this.listenClick();
         break;
-
-      default:
-        this.setImpressionType();
     }
   }
 
@@ -4719,7 +4508,7 @@ class TagActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$6;
+    return ID$5;
   }
 }
 
@@ -4729,15 +4518,15 @@ const integrateTag = () => {
 
 const TileSelector = {
   TILE: api.internals.ns.selector('tile'),
-  LINK: `${api.internals.ns.selector('tile__link')}`,
+  LINK: `${api.internals.ns.selector('tile__title')} a`,
   TITLE: api.internals.ns.selector('tile__title')
 };
 
-const ID$5 = 'tile';
+const ID$4 = 'tile';
 
 class TileActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -4750,7 +4539,7 @@ class TileActionee extends ComponentActionee {
       this.link = link;
       this.detectInteractionType(link);
       this.listenClick(link);
-    } else this.setImpressionType();
+    }
   }
 
   get label () {
@@ -4764,7 +4553,7 @@ class TileActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$5;
+    return ID$4;
   }
 }
 
@@ -4776,11 +4565,11 @@ const ToggleSelector = {
   INPUT: api.internals.ns.selector('toggle [type="checkbox"]')
 };
 
-const ID$4 = 'toggle';
+const ID$3 = 'toggle';
 
 class ToggleActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
     this._data = {};
   }
 
@@ -4804,42 +4593,12 @@ class ToggleActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$4;
+    return ID$3;
   }
 }
 
 const integrateToggle = () => {
   api.internals.register(ToggleSelector.INPUT, ToggleActionee);
-};
-
-const ID$3 = 'tooltip';
-
-class TooltipActionee extends ComponentActionee {
-  constructor () {
-    super(1);
-  }
-
-  static get instanceClassName () {
-    return 'TooltipActionee';
-  }
-
-  init () {
-    this.setImpressionType();
-  }
-
-  get label () {
-    return 'information contextuelle';
-  }
-
-  get component () {
-    return ID$3;
-  }
-}
-
-const integrateTooltip = () => {
-  if (api.tooltip) {
-    api.internals.register(api.tooltip.TooltipSelector.TOOLTIP, TooltipActionee);
-  }
 };
 
 const TRANSCRIPTION = api.internals.ns.selector('transcription');
@@ -4864,18 +4623,11 @@ class TranscriptionButtonActionee extends ComponentActionee {
   }
 
   init () {
-    this.setClickType();
-    this.id = this.node.id || this.registration.creator.node.id;
-    this.listenClick();
+    this.isMuted = true;
   }
 
   get button () {
     return this.element.getInstance('CollapseButton');
-  }
-
-  handleClick () {
-    const button = this.button;
-    if (button && !button.disclosed) this.act();
   }
 
   get label () {
@@ -4891,7 +4643,7 @@ class TranscriptionButtonActionee extends ComponentActionee {
 
 class TranscriptionActionee extends ComponentActionee {
   constructor () {
-    super(2, true);
+    super(2);
   }
 
   static get instanceClassName () {
@@ -4945,41 +4697,6 @@ const TranslateSelector = {
 
 const ID$1 = 'translate';
 
-class TranslateButtonActionee extends ComponentActionee {
-  constructor () {
-    super(2);
-  }
-
-  static get instanceClassName () {
-    return 'TranslateButtonActionee';
-  }
-
-  init () {
-    this.setClickType();
-    this.id = this.node.id || this.registration.creator.node.id;
-    this.listenClick();
-  }
-
-  get button () {
-    return this.element.getInstance('CollapseButton');
-  }
-
-  handleClick () {
-    const button = this.button;
-    if (button && !button.disclosed) this.act();
-  }
-
-  get label () {
-    const label = this.getInteractionLabel();
-    if (label) return label;
-    return 'bouton sélecteur de langue';
-  }
-
-  get component () {
-    return ID$1;
-  }
-}
-
 class TranslateActionee extends ComponentActionee {
   constructor () {
     super(2);
@@ -4987,12 +4704,6 @@ class TranslateActionee extends ComponentActionee {
 
   static get instanceClassName () {
     return 'TranslateActionee';
-  }
-
-  init () {
-    this.setDiscloseType();
-    this.register(`[aria-controls="${this.id}"]`, TranslateButtonActionee);
-    this.listenDisclose();
   }
 
   get label () {
@@ -5010,8 +4721,37 @@ class TranslateActionee extends ComponentActionee {
   }
 }
 
+class TranslateButtonActionee extends ComponentActionee {
+  constructor () {
+    super(2);
+  }
+
+  static get instanceClassName () {
+    return 'TranslateButtonActionee';
+  }
+
+  init () {
+    this.isMuted = true;
+  }
+
+  get button () {
+    return this.element.getInstance('CollapseButton');
+  }
+
+  get label () {
+    const label = this.getInteractionLabel();
+    if (label) return label;
+    return 'bouton sélecteur de langue';
+  }
+
+  get component () {
+    return ID$1;
+  }
+}
+
 const integrateTranslate = () => {
   api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
+  api.internals.register(TranslateSelector.BUTTON, TranslateButtonActionee);
 };
 
 const UploadSelector = {
@@ -5022,7 +4762,7 @@ const ID = 'upload';
 
 class UploadActionee extends ComponentActionee {
   constructor () {
-    super(1, true);
+    super(1);
   }
 
   static get instanceClassName () {
@@ -5063,12 +4803,12 @@ const integrateComponents = () => {
   integrateAccordion();
   integrateBreadcrumb();
   integrateAlert();
-  integrateBadge();
+  // integrateBadge();
   integrateButton();
   integrateCallout();
   integrateConnect();
   integrateConsent();
-  integrateContent();
+  // integrateContent();
   integrateCard();
   integrateInput();
   integrateCheckbox();
@@ -5080,7 +4820,7 @@ const integrateComponents = () => {
   integrateLink();
   integrateModal();
   integrateNavigation();
-  integrateNotice();
+  // integrateNotice();
   integratePagination();
   integrateQuote();
   integrateRadio();
@@ -5088,14 +4828,14 @@ const integrateComponents = () => {
   integrateSelect();
   integrateShare();
   integrateSidemenu();
-  integrateStepper();
+  // integrateStepper();
   integrateSummary();
   integrateTab();
   integrateTable();
   integrateTag();
   integrateTile();
   integrateToggle();
-  integrateTooltip();
+  // integrateTooltip();
   integrateTranscription();
   integrateTranslate();
   integrateUpload();
