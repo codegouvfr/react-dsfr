@@ -7,7 +7,7 @@ import FaviconIco from "../dsfr/favicon/favicon.ico";
 import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import { getDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
-import { setLink, type RegisteredLinkProps } from "../link";
+import { setLink, RegisteredLinkProps } from "../link";
 import { assert } from "tsafe/assert";
 //NOTE: As of now there is no way to enforce ordering in Next Appdir
 //See: https://github.com/vercel/next.js/issues/16630
@@ -22,7 +22,7 @@ export type DsfrHeadProps = {
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default: <a /> */
-    Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    Link?: React.ComponentType<RegisteredLinkProps & { children: ReactNode }>;
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
