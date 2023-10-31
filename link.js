@@ -25,7 +25,6 @@ let Link = props => {
     }
     return React.createElement("a", Object.assign({ href: href }, rest));
 };
-//<a {...props} />;
 export function setLink(params) {
     Link = props => {
         var _a;

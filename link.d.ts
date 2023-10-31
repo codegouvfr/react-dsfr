@@ -6,15 +6,15 @@ export interface RegisterLink {
 export type RegisteredLinkProps = RegisterLink extends {
     Link: infer Link;
 } ? Omit<UnpackProps<Link>, "children"> : Omit<HTMLAnchorProps, "children">;
-declare let Link: (props: RegisteredLinkProps & {
+declare let Link: React.ComponentType<RegisteredLinkProps & {
     children: ReactNode;
-}) => ReturnType<React.FC>;
+}>;
 export declare function setLink(params: {
     Link: typeof Link;
 }): void;
 export declare function getLink(): {
-    Link: (props: Omit<HTMLAnchorProps, "children"> & {
+    Link: React.ComponentType<Omit<HTMLAnchorProps, "children"> & {
         children: React.ReactNode;
-    }) => React.ReactElement<any, any> | null;
+    }>;
 };
 export {};

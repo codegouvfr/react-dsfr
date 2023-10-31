@@ -8,9 +8,9 @@ export declare function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: (props: RegisteredLinkProps & {
+    Link?: React.ComponentType<RegisteredLinkProps & {
         children: ReactNode;
-    }) => ReturnType<React.FC>;
+    }>;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**

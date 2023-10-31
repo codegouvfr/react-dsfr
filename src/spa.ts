@@ -13,7 +13,7 @@ export function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: (props: RegisteredLinkProps & { children: ReactNode }) => ReturnType<React.FC>;
+    Link?: React.ComponentType<RegisteredLinkProps & { children: ReactNode }>;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**

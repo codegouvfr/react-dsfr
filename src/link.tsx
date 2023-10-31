@@ -17,9 +17,7 @@ export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
     ? Omit<UnpackProps<Link>, "children">
     : Omit<HTMLAnchorProps, "children">;
 
-let Link: (
-    props: RegisteredLinkProps & { children: ReactNode }
-) => ReturnType<React.FC> = props => {
+let Link: React.ComponentType<RegisteredLinkProps & { children: ReactNode }> = props => {
     const { href, ...rest } = props as { to?: string; href?: string };
 
     button: {
@@ -41,8 +39,6 @@ let Link: (
 
     return <a href={href} {...rest} />;
 };
-
-//<a {...props} />;
 
 export function setLink(params: { Link: typeof Link }): void {
     Link = props => {

@@ -6,9 +6,9 @@ export declare function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: (props: RegisteredLinkProps & {
+    Link?: React.ComponentType<RegisteredLinkProps & {
         children: ReactNode;
-    }) => ReturnType<React.FC>;
+    }>;
     /**
      * When true, the nonce of the script tag will be checked, fetched from {@link DsfrHead} component and injected in react-dsfr scripts.
      *

@@ -12,9 +12,9 @@ export type CreateNextDsfrIntegrationApiParams = {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: (props: RegisteredLinkProps & {
+    Link?: React.ComponentType<RegisteredLinkProps & {
         children: ReactNode;
-    }) => ReturnType<React.FC>;
+    }>;
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */
