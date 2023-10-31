@@ -11,7 +11,7 @@ type HTMLAnchorProps = DetailedHTMLProps<
 >;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RegisterLink { }
+export interface RegisterLink {}
 
 export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
     ? Omit<UnpackProps<Link>, "children">
