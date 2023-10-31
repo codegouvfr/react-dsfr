@@ -1,4 +1,3 @@
-import React, { type ReactNode } from "react";
 import type { NextComponentType } from "next";
 import type { DocumentProps } from "next/document";
 import { data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
@@ -12,9 +11,9 @@ export type CreateNextDsfrIntegrationApiParams = {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & {
-        children: ReactNode;
-    }>;
+    Link?: RegisterLink extends {
+        Link: infer Link;
+    } ? Link : undefined;
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */

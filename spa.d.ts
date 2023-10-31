@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setUseLang } from "./i18n";
 import type { ColorScheme } from "./useIsDark";
@@ -8,9 +7,9 @@ export declare function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & {
-        children: ReactNode;
-    }>;
+    Link?: RegisterLink extends {
+        Link: infer Link;
+    } ? Link : undefined;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**

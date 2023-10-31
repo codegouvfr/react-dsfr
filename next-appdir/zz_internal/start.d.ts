@@ -1,14 +1,13 @@
-import type { ReactNode } from "react";
-import type { RegisteredLinkProps } from "../../link";
+import type { RegisterLink } from "../../link";
 import { type DefaultColorScheme } from "./defaultColorScheme";
 export declare function startReactDsfr(params: {
     defaultColorScheme: DefaultColorScheme;
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & {
-        children: ReactNode;
-    }>;
+    Link?: RegisterLink extends {
+        Link: infer Link;
+    } ? Link : undefined;
     /**
      * When true, the nonce of the script tag will be checked, fetched from {@link DsfrHead} component and injected in react-dsfr scripts.
      *

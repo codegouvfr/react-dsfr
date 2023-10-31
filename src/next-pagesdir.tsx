@@ -1,4 +1,4 @@
-import React, { useEffect, type ReactNode } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import type { NextComponentType } from "next";
 import DefaultApp from "next/app";
@@ -32,7 +32,7 @@ export type CreateNextDsfrIntegrationApiParams = {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & { children: ReactNode }>;
+    Link?: RegisterLink extends { Link: infer Link } ? Link : undefined;
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */

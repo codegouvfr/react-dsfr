@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { start } from "./start";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import { setLink } from "./link";
@@ -13,7 +12,7 @@ export function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & { children: ReactNode }>;
+    Link?: RegisterLink extends { Link: infer Link } ? Link : undefined;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**

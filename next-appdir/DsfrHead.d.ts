@@ -1,6 +1,5 @@
-import React, { type ReactNode } from "react";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
-import { RegisteredLinkProps } from "../link";
+import { type RegisterLink } from "../link";
 import "../assets/dsfr_plus_icons.scss";
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
@@ -8,9 +7,9 @@ export type DsfrHeadProps = {
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
     /** Default: <a /> */
-    Link?: React.ComponentType<RegisteredLinkProps & {
-        children: ReactNode;
-    }>;
+    Link?: RegisterLink extends {
+        Link: infer Link;
+    } ? Link : undefined;
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
