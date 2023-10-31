@@ -3,6 +3,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import { is } from "tsafe/is";
+import type { UnpackProps } from "./tools/UnpackProps";
 
 type HTMLAnchorProps = DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -12,10 +13,8 @@ type HTMLAnchorProps = DetailedHTMLProps<
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RegisterLink {}
 
-export type RegisteredLinkProps = RegisterLink extends {
-    Link: (props: infer LinkProps) => any;
-}
-    ? Omit<LinkProps, "children">
+export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
+    ? Omit<UnpackProps<Link>, "children">
     : Omit<HTMLAnchorProps, "children">;
 
 let Link: (
