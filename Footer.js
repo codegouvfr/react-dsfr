@@ -131,7 +131,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "terms": "Mentions légales",
         "cookies management": "Gestion des cookies",
         "license mention": (p) => (React.createElement(React.Fragment, null,
-            "Sauf mention contraire, tous les contenus de ce site sont sous",
+            "Sauf mention explicite de propri\u00E9t\u00E9 intellectuelle d\u00E9tenue par des tiers, les contenus de ce site sont propos\u00E9s sous",
             " ",
             React.createElement("a", { href: p.licenseUrl, target: "_blank", title: "licence etalab-2.0 - ouvre une nouvelle fen\u00EAtre" }, "licence etalab-2.0"))),
         "our partners": "Nos partenaires",
