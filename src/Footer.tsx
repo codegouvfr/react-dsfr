@@ -502,7 +502,8 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "cookies management": "Gestion des cookies",
         "license mention": (p: { licenseUrl: string }) => (
             <>
-                Sauf mention contraire, tous les contenus de ce site sont sous{" "}
+                Sauf mention explicite de propriété intellectuelle détenue par des tiers, les
+                contenus de ce site sont proposés sous{" "}
                 <a
                     href={p.licenseUrl}
                     target="_blank"
