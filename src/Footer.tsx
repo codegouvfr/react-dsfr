@@ -366,8 +366,12 @@ export const Footer = memo(
                                     {mainPartnersLogo !== undefined && (
                                         <a
                                             href={mainPartnersLogo.href}
+                                            target="_blank"
+                                            title={`${mainPartnersLogo.href} - ${t(
+                                                "open new window"
+                                            )}`}
                                             className={cx(
-                                                fr.cx("fr-footer__partners-link"),
+                                                fr.cx("fr-footer__partners-link", "fr-raw-link"),
                                                 classes.partnersLink
                                             )}
                                         >
@@ -395,8 +399,15 @@ export const Footer = memo(
                                                 <li key={i}>
                                                     <a
                                                         href={logo.href}
+                                                        target="_blank"
+                                                        title={`${logo.href} - ${t(
+                                                            "open new window"
+                                                        )}`}
                                                         className={cx(
-                                                            fr.cx("fr-footer__partners-link"),
+                                                            fr.cx(
+                                                                "fr-footer__partners-link",
+                                                                "fr-raw-link"
+                                                            ),
                                                             classes.partnersLink
                                                         )}
                                                     >

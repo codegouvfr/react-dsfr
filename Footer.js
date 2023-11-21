@@ -77,11 +77,11 @@ export const Footer = memo(forwardRef((props, ref) => {
             partnersLogos !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners"), classes.partners) },
                 React.createElement("h4", { className: cx(fr.cx("fr-footer__partners-title"), classes.partnersTitle) }, t("our partners")),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__partners-logos"), classes.partnersLogos) },
-                    React.createElement("div", { className: cx(fr.cx("fr-footer__partners-main"), classes.partnersMain) }, mainPartnersLogo !== undefined && (React.createElement("a", { href: mainPartnersLogo.href, className: cx(fr.cx("fr-footer__partners-link"), classes.partnersLink) },
+                    React.createElement("div", { className: cx(fr.cx("fr-footer__partners-main"), classes.partnersMain) }, mainPartnersLogo !== undefined && (React.createElement("a", { href: mainPartnersLogo.href, target: "_blank", title: `${mainPartnersLogo.href} - ${t("open new window")}`, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) },
                         React.createElement("img", { alt: mainPartnersLogo.alt, style: { height: "5.625rem" }, src: mainPartnersLogo.imgUrl, className: cx(fr.cx("fr-footer__logo"), classes.logo) })))),
                     subPartnersLogos.length !== 0 && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners-sub"), classes.partnersSub) },
                         React.createElement("ul", null, subPartnersLogos.map((logo, i) => (React.createElement("li", { key: i },
-                            React.createElement("a", { href: logo.href, className: cx(fr.cx("fr-footer__partners-link"), classes.partnersLink) },
+                            React.createElement("a", { href: logo.href, target: "_blank", title: `${logo.href} - ${t("open new window")}`, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) },
                                 React.createElement("img", { alt: logo.alt, src: logo.imgUrl, style: { "height": "5.625rem" }, className: cx(fr.cx("fr-footer__logo"), classes.logo) }))))))))))),
             React.createElement("div", { className: cx(fr.cx("fr-footer__bottom"), classes.bottom) },
                 React.createElement("ul", { className: cx(fr.cx("fr-footer__bottom-list"), classes.bottomList) }, [
