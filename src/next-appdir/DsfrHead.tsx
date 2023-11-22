@@ -41,12 +41,26 @@ export type DsfrHeadProps = {
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
+
+    /**
+     * Disable Marianne favicon import.
+     * Enable this option if you want to use your own favicon.
+     *
+     * @default false
+     */
+    doDisableFavicon?: boolean;
 };
 
 const isProduction = process.env.NODE_ENV !== "development";
 
 export function DsfrHead(props: DsfrHeadProps) {
-    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName = "react-dsfr" } = props;
+    const {
+        preloadFonts = [],
+        Link,
+        nonce,
+        trustedTypesPolicyName = "react-dsfr",
+        doDisableFavicon = false
+    } = props;
 
     assert(nonce !== "", "nonce cannot be an empty string");
 
@@ -73,9 +87,13 @@ export function DsfrHead(props: DsfrHeadProps) {
                             crossOrigin="anonymous"
                         />
                     ))}
-            <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
-            <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
-            <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
+            {!doDisableFavicon && (
+                <>
+                    <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
+                    <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
+                    <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
+                </>
+            )}
             <script
                 suppressHydrationWarning
                 nonce={nonce}
