@@ -39,6 +39,13 @@ export type CreateNextDsfrIntegrationApiParams = {
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
+    /**
+     * Disable Marianne favicon import.
+     * Enable this option if you want to use your own favicon.
+     *
+     * @default false
+     */
+    doDisableFavicon?: boolean;
 };
 export type NextDsfrIntegrationApi = {
     withDsfr: <AppComponent extends NextComponentType<any, any, any>>(App: AppComponent) => AppComponent;

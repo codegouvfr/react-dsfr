@@ -28,5 +28,12 @@ export type DsfrHeadProps = {
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
+    /**
+     * Disable Marianne favicon import.
+     * Enable this option if you want to use your own favicon.
+     *
+     * @default false
+     */
+    doDisableFavicon?: boolean;
 };
 export declare function DsfrHead(props: DsfrHeadProps): JSX.Element;

@@ -58,6 +58,13 @@ export type CreateNextDsfrIntegrationApiParams = {
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
+    /**
+     * Disable Marianne favicon import.
+     * Enable this option if you want to use your own favicon.
+     *
+     * @default false
+     */
+    doDisableFavicon?: boolean;
 };
 
 function readIsDarkInCookie(cookie: string) {
@@ -106,7 +113,8 @@ export function createNextDsfrIntegrationApi(
         preloadFonts = [],
         doPersistDarkModePreferenceWithCookie = false,
         useLang,
-        trustedTypesPolicyName = "react-dsfr"
+        trustedTypesPolicyName = "react-dsfr",
+        doDisableFavicon = false
     } = params;
 
     let isAfterFirstEffect = false;
@@ -176,13 +184,21 @@ export function createNextDsfrIntegrationApi(
                                         crossOrigin="anonymous"
                                     />
                                 ))}
-                        <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
-                        <link rel="icon" href={getAssetUrl(FaviconSvg)} type="image/svg+xml" />
-                        <link
-                            rel="shortcut icon"
-                            href={getAssetUrl(FaviconIco)}
-                            type="image/x-icon"
-                        />
+                        {!doDisableFavicon && (
+                            <>
+                                <link rel="apple-touch-icon" href={getAssetUrl(AppleTouchIcon)} />
+                                <link
+                                    rel="icon"
+                                    href={getAssetUrl(FaviconSvg)}
+                                    type="image/svg+xml"
+                                />
+                                <link
+                                    rel="shortcut icon"
+                                    href={getAssetUrl(FaviconIco)}
+                                    type="image/x-icon"
+                                />
+                            </>
+                        )}
                         {!isBrowser && ( //NOTE: On browser we handle this manually
                             <>
                                 <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${

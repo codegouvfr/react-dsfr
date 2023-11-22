@@ -15,7 +15,7 @@ import { assert } from "tsafe/assert";
 import "../assets/dsfr_plus_icons.scss";
 const isProduction = process.env.NODE_ENV !== "development";
 export function DsfrHead(props) {
-    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName = "react-dsfr" } = props;
+    const { preloadFonts = [], Link, nonce, trustedTypesPolicyName = "react-dsfr", doDisableFavicon = false } = props;
     assert(nonce !== "", "nonce cannot be an empty string");
     const defaultColorScheme = getDefaultColorSchemeServerSide();
     useMemo(() => {
@@ -29,9 +29,10 @@ export function DsfrHead(props) {
                 .filter(fileBasename => preloadFonts.includes(fileBasename))
                 .map(fileBasename => fontUrlByFileBasename[fileBasename])
                 .map(url => (React.createElement("link", { key: url, rel: "preload", href: url, as: "font", crossOrigin: "anonymous" }))),
-        React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
-        React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
-        React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }),
+        !doDisableFavicon && (React.createElement(React.Fragment, null,
+            React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
+            React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
+            React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }))),
         React.createElement("script", { suppressHydrationWarning: true, nonce: nonce, dangerouslySetInnerHTML: {
                 "__html": getScriptToRunAsap({
                     defaultColorScheme,

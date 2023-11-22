@@ -47,7 +47,7 @@ function readIsDarkInCookie(cookie) {
     }
 }
 export function createNextDsfrIntegrationApi(params) {
-    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang, trustedTypesPolicyName = "react-dsfr" } = params;
+    const { defaultColorScheme, verbose = false, Link, preloadFonts = [], doPersistDarkModePreferenceWithCookie = false, useLang, trustedTypesPolicyName = "react-dsfr", doDisableFavicon = false } = params;
     let isAfterFirstEffect = false;
     const actions = [];
     if (Link !== undefined) {
@@ -97,9 +97,10 @@ export function createNextDsfrIntegrationApi(params) {
                             .filter(fileBasename => preloadFonts.includes(fileBasename))
                             .map(fileBasename => fontUrlByFileBasename[fileBasename])
                             .map(url => (React.createElement("link", { key: url, rel: "preload", href: url, as: "font", crossOrigin: "anonymous" }))),
-                    React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
-                    React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
-                    React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }),
+                    !doDisableFavicon && (React.createElement(React.Fragment, null,
+                        React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
+                        React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
+                        React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }))),
                     !isBrowser && ( //NOTE: On browser we handle this manually
                     React.createElement(React.Fragment, null,
                         React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
