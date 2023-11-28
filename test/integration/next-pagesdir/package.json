@@ -18,12 +18,12 @@
         "@emotion/react": "^11.10.5",
         "@emotion/server": "^11.10.0",
         "tss-react": "^4.9.1",
-        "@mui/material": "^5.13.3",
-        "@mui/icons-material": "^5.11.16",
+        "@mui/material": "^5.14.18",
+        "@mui/icons-material": "^5.14.18",
         "@emotion/styled": "^11.10.5",
         "dayjs": "^1.11.6",
-        "@mui/x-date-pickers": "^5.0.9",
-        "@mui/x-data-grid": "^5.17.14",
+        "@mui/x-date-pickers": "^6.18.2",
+        "@mui/x-data-grid": "^6.18.2",
         "@codegouvfr/react-dsfr": "file:../../../dist"
     },
     "devDependencies": {

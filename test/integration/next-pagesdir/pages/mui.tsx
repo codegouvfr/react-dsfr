@@ -639,6 +639,7 @@ const { DataGridDemo } = (() => {
 			<div style={{ width: 800 }} >
 			<Box sx={{ height: 400, mt: 7, width: "100%" }}>
 				<DataGrid
+					getRowClassName={()=> "caca"}
 					rows={rows}
 					columns={columns}
 					pageSize={5}

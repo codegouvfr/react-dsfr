@@ -188,6 +188,10 @@ export function getMuiDsfrThemeOptions(params: {
                     "displayedRows": {
                         //Fixes: https://user-images.githubusercontent.com/6702424/206063347-65e7d13c-3dea-410c-a0e0-51cf214deba0.png
                         "margin": "unset"
+                    },
+                    "selectLabel": {
+                        //Fixes: https://github.com/codegouvfr/react-dsfr/assets/6702424/678a7f69-d4e8-4897-85f0-65c605b46900
+                        "margin": "unset"
                     }
                 }
             },
@@ -215,25 +219,89 @@ export function getMuiDsfrThemeOptions(params: {
                 const nonTypedMuiComponents = {
                     "MuiDataGrid": {
                         "styleOverrides": {
+                            "root": (() => {
+                                const set = new WeakSet<Function>();
+
+                                const borderNone = {
+                                    "border": "none"
+                                };
+
+                                return (params: {
+                                    ownerState?: {
+                                        getRowClassName?: (params: {
+                                            indexRelativeToCurrentPage: number;
+                                        }) => string;
+                                    };
+                                }) => {
+                                    const { ownerState } = params;
+
+                                    if (ownerState === undefined) {
+                                        return borderNone;
+                                    }
+
+                                    if (
+                                        ownerState.getRowClassName === undefined ||
+                                        !set.has(ownerState.getRowClassName)
+                                    ) {
+                                        const originalGetRowClassName = ownerState.getRowClassName;
+
+                                        ownerState.getRowClassName = params => {
+                                            const { indexRelativeToCurrentPage } = params;
+
+                                            const parityClassName =
+                                                indexRelativeToCurrentPage % 2 === 0
+                                                    ? "even"
+                                                    : "odd";
+
+                                            const className = originalGetRowClassName?.(params);
+
+                                            return className === undefined
+                                                ? parityClassName
+                                                : `${parityClassName} ${className}`;
+                                        };
+
+                                        set.add(ownerState.getRowClassName);
+                                    }
+
+                                    return borderNone;
+                                };
+                            })(),
                             "columnHeaders": {
                                 "backgroundColor": decisions.background.contrast.grey.default,
+                                "&&": {
                                 "borderColor": decisions.border.plain.grey.default,
                                 "borderPosition": "bottom",
                                 "borderWidth": 2
-                            },
-                            "row": {
-                                "&:nth-of-type(2n)": {
-                                    "backgroundColor": decisions.background.contrast.grey.default,
-                                    "&:hover": {
-                                        "backgroundColor": decisions.background.contrast.grey.hover
-                                    }
-                                },
-                                "&:nth-of-type(odd)": {
-                                    "backgroundColor": decisions.background.alt.grey.default,
-                                    "&:hover": {
-                                        "backgroundColor": decisions.background.alt.grey.hover
-                                    }
                                 }
+                            },
+                            "row": () => {
+                                const hoveredAndSelected = {
+                                    "&.Mui-hovered": {
+                                        "backgroundColor": fr.colors.decisions.background.contrast.grey.hover
+                                    },
+                                    "&.Mui-selected": {
+                                        "backgroundColor": fr.colors.decisions.background.contrast.grey.active
+                                    },
+                                };
+
+                                return {
+                                    "&.even": {
+                                        "backgroundColor":
+                                            decisions.background.contrast.grey.default,
+                                        "&:hover": {
+                                            "backgroundColor":
+                                                decisions.background.contrast.grey.hover
+                                        },
+                                        ...hoveredAndSelected
+                                    },
+                                    "&.odd": {
+                                        "backgroundColor": decisions.background.alt.grey.default,
+                                        "&:hover": {
+                                            "backgroundColor": decisions.background.alt.grey.hover
+                                        },
+                                        ...hoveredAndSelected
+                                    }
+                                };
                             },
                             "columnSeparator": {
                                 "display": "none"
