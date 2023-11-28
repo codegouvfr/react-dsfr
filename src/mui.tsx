@@ -269,19 +269,21 @@ export function getMuiDsfrThemeOptions(params: {
                             "columnHeaders": {
                                 "backgroundColor": decisions.background.contrast.grey.default,
                                 "&&": {
-                                "borderColor": decisions.border.plain.grey.default,
-                                "borderPosition": "bottom",
-                                "borderWidth": 2
+                                    "borderColor": decisions.border.plain.grey.default,
+                                    "borderPosition": "bottom",
+                                    "borderWidth": 2
                                 }
                             },
                             "row": () => {
                                 const hoveredAndSelected = {
                                     "&.Mui-hovered": {
-                                        "backgroundColor": fr.colors.decisions.background.contrast.grey.hover
+                                        "backgroundColor":
+                                            fr.colors.decisions.background.contrast.grey.hover
                                     },
                                     "&.Mui-selected": {
-                                        "backgroundColor": fr.colors.decisions.background.contrast.grey.active
-                                    },
+                                        "backgroundColor":
+                                            fr.colors.decisions.background.contrast.grey.active
+                                    }
                                 };
 
                                 return {
