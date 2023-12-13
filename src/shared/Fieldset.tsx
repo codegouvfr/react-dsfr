@@ -14,9 +14,20 @@ import { cx } from "../tools/cx";
 import { fr } from "../fr";
 import { useAnalyticsId } from "../tools/useAnalyticsId";
 
-export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox;
+export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox | FieldsetProps.RadioRich;
 
 export namespace FieldsetProps {
+    export type RegularOption = {
+        label: ReactNode;
+        hintText?: ReactNode;
+        nativeInputProps: DetailedHTMLProps<
+            InputHTMLAttributes<HTMLInputElement>,
+            HTMLInputElement
+        >;
+    };
+    export type RadioRichOption = RegularOption & {
+        illustration: ReactNode;
+    };
     export type Common = {
         className?: string;
         id?: string;
@@ -24,14 +35,7 @@ export namespace FieldsetProps {
         style?: CSSProperties;
         legend?: ReactNode;
         hintText?: ReactNode;
-        options: {
-            label: ReactNode;
-            hintText?: ReactNode;
-            nativeInputProps: DetailedHTMLProps<
-                InputHTMLAttributes<HTMLInputElement>,
-                HTMLInputElement
-            >;
-        }[];
+
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
         /** Default: "default" */
@@ -50,11 +54,22 @@ export namespace FieldsetProps {
     export type Radio = Common & {
         type: "radio";
         name?: string;
+        rich?: false;
+        options: RegularOption[];
     };
 
     export type Checkbox = Common & {
         type: "checkbox";
         name?: never;
+        rich?: false;
+        options: RegularOption[];
+    };
+
+    export type RadioRich = Common & {
+        type: "radio";
+        name?: string;
+        rich: true;
+        options: RadioRichOption[];
     };
 }
 
@@ -76,6 +91,7 @@ export const Fieldset = memo(
             type,
             name: name_props,
             small = false,
+            rich,
             ...rest
         } = props;
 
@@ -147,7 +163,11 @@ export const Fieldset = memo(
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
                     {options.map(({ label, hintText, nativeInputProps }, i) => (
                         <div
-                            className={fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`)}
+                            className={fr.cx(
+                                `fr-${type}-group`,
+                                rich && "fr-radio-rich",
+                                small && `fr-${type}-group--sm`
+                            )}
                             key={i}
                         >
                             <input
@@ -162,6 +182,11 @@ export const Fieldset = memo(
                                     <span className={fr.cx("fr-hint-text")}>{hintText}</span>
                                 )}
                             </label>
+                            {rich && (
+                                <div className={fr.cx("fr-radio-rich__img")}>
+                                    {options[i].illustration}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
