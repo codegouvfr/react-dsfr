@@ -4,8 +4,7 @@ import React, {
     forwardRef,
     type ReactNode,
     type CSSProperties,
-    type InputHTMLAttributes,
-    type DetailedHTMLProps
+    type ComponentProps
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -27,11 +26,9 @@ export namespace FieldsetProps {
         options: {
             label: ReactNode;
             hintText?: ReactNode;
-            nativeInputProps: DetailedHTMLProps<
-                InputHTMLAttributes<HTMLInputElement>,
-                HTMLInputElement
-            >;
+            nativeInputProps: ComponentProps<"input">;
         }[];
+
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
         /** Default: "default" */
@@ -47,9 +44,12 @@ export namespace FieldsetProps {
         small?: boolean;
     };
 
-    export type Radio = Common & {
+    export type Radio = Omit<Common, "options"> & {
         type: "radio";
         name?: string;
+        options: (Common["options"][number] & {
+            illustration?: ReactNode;
+        })[];
     };
 
     export type Checkbox = Common & {
@@ -78,6 +78,10 @@ export const Fieldset = memo(
             small = false,
             ...rest
         } = props;
+
+        const isRichRadio =
+            type === "radio" &&
+            options.find(options => options.illustration !== undefined) !== undefined;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -145,9 +149,13 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps }, i) => (
+                    {options.map(({ label, hintText, nativeInputProps, ...rest }, i) => (
                         <div
-                            className={fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`)}
+                            className={fr.cx(
+                                `fr-${type}-group`,
+                                isRichRadio && "fr-radio-rich",
+                                small && `fr-${type}-group--sm`
+                            )}
                             key={i}
                         >
                             <input
@@ -162,6 +170,11 @@ export const Fieldset = memo(
                                     <span className={fr.cx("fr-hint-text")}>{hintText}</span>
                                 )}
                             </label>
+                            {"illustration" in rest && (
+                                <div className={fr.cx("fr-radio-rich__img")}>
+                                    {rest.illustration}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
