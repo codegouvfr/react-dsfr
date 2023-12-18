@@ -4,8 +4,7 @@ import React, {
     forwardRef,
     type ReactNode,
     type CSSProperties,
-    type InputHTMLAttributes,
-    type DetailedHTMLProps
+    type ComponentProps
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -14,20 +13,9 @@ import { cx } from "../tools/cx";
 import { fr } from "../fr";
 import { useAnalyticsId } from "../tools/useAnalyticsId";
 
-export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox | FieldsetProps.RadioRich;
+export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox;
 
 export namespace FieldsetProps {
-    export type RegularOption = {
-        label: ReactNode;
-        hintText?: ReactNode;
-        nativeInputProps: DetailedHTMLProps<
-            InputHTMLAttributes<HTMLInputElement>,
-            HTMLInputElement
-        >;
-    };
-    export type RadioRichOption = RegularOption & {
-        illustration: ReactNode;
-    };
     export type Common = {
         className?: string;
         id?: string;
@@ -35,6 +23,11 @@ export namespace FieldsetProps {
         style?: CSSProperties;
         legend?: ReactNode;
         hintText?: ReactNode;
+        options: {
+            label: ReactNode;
+            hintText?: ReactNode;
+            nativeInputProps: ComponentProps<"input">;
+        }[];
 
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
@@ -51,25 +44,30 @@ export namespace FieldsetProps {
         small?: boolean;
     };
 
-    export type Radio = Common & {
-        type: "radio";
-        name?: string;
-        rich?: false;
-        options: RegularOption[];
-    };
+    export type Radio = Radio.Regular | Radio.Rich;
+
+    export namespace Radio {
+        type CommonRadio = Common & {
+            type: "radio";
+            name?: string;
+        };
+
+        export type Regular = CommonRadio & {
+            rich?: false;
+        };
+
+        export type Rich = CommonRadio & {
+            rich: true;
+            options: (Common["options"][number] & {
+                illustration: ReactNode;
+            })[];
+        };
+    }
 
     export type Checkbox = Common & {
         type: "checkbox";
         name?: never;
-        rich?: false;
-        options: RegularOption[];
-    };
-
-    export type RadioRich = Common & {
-        type: "radio";
-        name?: string;
-        rich: true;
-        options: RadioRichOption[];
+        rich?: never;
     };
 }
 
@@ -165,7 +163,7 @@ export const Fieldset = memo(
                         <div
                             className={fr.cx(
                                 `fr-${type}-group`,
-                                rich && "fr-radio-rich",
+                                !!rich && "fr-radio-rich",
                                 small && `fr-${type}-group--sm`
                             )}
                             key={i}
@@ -182,7 +180,7 @@ export const Fieldset = memo(
                                     <span className={fr.cx("fr-hint-text")}>{hintText}</span>
                                 )}
                             </label>
-                            {rich && (
+                            {!!rich && (
                                 <div className={fr.cx("fr-radio-rich__img")}>
                                     {options[i].illustration}
                                 </div>

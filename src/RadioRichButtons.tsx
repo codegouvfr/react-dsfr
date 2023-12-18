@@ -2,7 +2,7 @@ import React, { memo, forwardRef } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { Fieldset, type FieldsetProps } from "./shared/Fieldset";
 
-export type RadioRichButtonsProps = Omit<FieldsetProps.RadioRich, "type" | "rich">;
+export type RadioRichButtonsProps = Omit<FieldsetProps.Radio.Rich, "type" | "rich">;
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-radiorichbutton> */
 export const RadioRichButtons = memo(
