@@ -24,7 +24,7 @@ export const Select = memo(forwardRef((props, ref) => {
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-select-group",
-        "explicitlyProvidedId": id_props
+        "explicitlyProvidedId": id_props !== null && id_props !== void 0 ? id_props : nativeSelectProps.id
     });
     const selectId = `select-${useId()}`;
     const stateDescriptionId = `select-${useId()}-desc`;

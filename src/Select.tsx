@@ -50,7 +50,7 @@ export const Select = memo(
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-select-group",
-            "explicitlyProvidedId": id_props
+            "explicitlyProvidedId": id_props ?? nativeSelectProps.id
         });
 
         const selectId = `select-${useId()}`;
