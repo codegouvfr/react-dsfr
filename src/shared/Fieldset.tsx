@@ -44,30 +44,17 @@ export namespace FieldsetProps {
         small?: boolean;
     };
 
-    export type Radio = Radio.Regular | Radio.Rich;
-
-    export namespace Radio {
-        type CommonRadio = Common & {
-            type: "radio";
-            name?: string;
-        };
-
-        export type Regular = CommonRadio & {
-            rich?: false;
-        };
-
-        export type Rich = CommonRadio & {
-            rich: true;
-            options: (Common["options"][number] & {
-                illustration: ReactNode;
-            })[];
-        };
-    }
+    export type Radio = Omit<Common, "options"> & {
+        type: "radio";
+        name?: string;
+        options: (Common["options"][number] & {
+            illustration?: ReactNode;
+        })[];
+    };
 
     export type Checkbox = Common & {
         type: "checkbox";
         name?: never;
-        rich?: never;
     };
 }
 
@@ -89,9 +76,12 @@ export const Fieldset = memo(
             type,
             name: name_props,
             small = false,
-            rich,
             ...rest
         } = props;
+
+        const isRichRadio =
+            type === "radio" &&
+            options.find(options => options.illustration !== undefined) !== undefined;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -159,11 +149,11 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps }, i) => (
+                    {options.map(({ label, hintText, nativeInputProps, ...rest }, i) => (
                         <div
                             className={fr.cx(
                                 `fr-${type}-group`,
-                                !!rich && "fr-radio-rich",
+                                isRichRadio && "fr-radio-rich",
                                 small && `fr-${type}-group--sm`
                             )}
                             key={i}
@@ -180,9 +170,9 @@ export const Fieldset = memo(
                                     <span className={fr.cx("fr-hint-text")}>{hintText}</span>
                                 )}
                             </label>
-                            {!!rich && (
+                            {"illustration" in rest && (
                                 <div className={fr.cx("fr-radio-rich__img")}>
-                                    {options[i].illustration}
+                                    {rest.illustration}
                                 </div>
                             )}
                         </div>

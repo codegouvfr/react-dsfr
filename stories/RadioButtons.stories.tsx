@@ -1,3 +1,4 @@
+import React from "react";
 import { RadioButtons, type RadioButtonsProps } from "../dist/RadioButtons";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -383,4 +384,34 @@ export const Small = getStory({
             }
         }
     ]
+});
+
+export const Rich = getStory({
+    "legend": "Légende pour l’ensemble de champs",
+    "name": "radio",
+    "options": [
+        {
+            "label": "Label radio",
+            "nativeInputProps": {
+                "value": "value1"
+            },
+            "illustration": <img src="https://placehold.it/100x100" alt="illustration" />
+        },
+        {
+            "label": "Label radio 2",
+            "nativeInputProps": {
+                "value": "value2"
+            },
+            "illustration": <img src="https://placehold.it/100x100" alt="illustration" />
+        },
+        {
+            "label": "Label radio 3",
+            "nativeInputProps": {
+                "value": "value3"
+            },
+            "illustration": <img src="https://placehold.it/100x100" alt="illustration" />
+        }
+    ],
+    "state": "default",
+    "stateRelatedMessage": "State description"
 });
