@@ -1,6 +1,6 @@
 import { type RegisteredLinkProps } from "../../link";
 export declare const useTranslation: () => {
-    t: (<K extends "accept" | "cookies management" | "all services pref" | "personal data cookies" | "accept all" | "accept all - title" | "refuse all" | "refuse all - title" | "refuse" | "confirm choices" | "customize" | "customize cookies - title" | "consent modal title" | "personal data" | "see more details" | "hide details" | "mandatory cookies" | "mandatory cookies - description" | "confirm my choices">(messageKey: K) => {
+    t: (<K extends "cookies management" | "accept" | "all services pref" | "personal data cookies" | "accept all" | "accept all - title" | "refuse all" | "refuse all - title" | "refuse" | "confirm choices" | "customize" | "customize cookies - title" | "consent modal title" | "personal data" | "see more details" | "hide details" | "mandatory cookies" | "mandatory cookies - description" | "confirm my choices">(messageKey: K) => {
         /** cspell: disable */
         "all services pref": string;
         "personal data cookies": string;

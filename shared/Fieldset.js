@@ -18,6 +18,8 @@ import { useAnalyticsId } from "../tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-radiobutton> */
 export const Fieldset = memo(forwardRef((props, ref) => {
     const { className, id: id_props, classes = {}, style, legend, hintText, options, orientation = "vertical", state = "default", stateRelatedMessage, disabled = false, type, name: name_props, small = false } = props, rest = __rest(props, ["className", "id", "classes", "style", "legend", "hintText", "options", "orientation", "state", "stateRelatedMessage", "disabled", "type", "name", "small"]);
+    const isRichRadio = type === "radio" &&
+        options.find(options => options.illustration !== undefined) !== undefined;
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": `fr-fieldset-${type}${name_props === undefined ? "" : `-${name_props}`}`,
@@ -45,11 +47,15 @@ export const Fieldset = memo(forwardRef((props, ref) => {
         legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },
             legend,
             hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
-        React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map(({ label, hintText, nativeInputProps }, i) => (React.createElement("div", { className: fr.cx(`fr-${type}-group`, small && `fr-${type}-group--sm`), key: i },
-            React.createElement("input", Object.assign({ type: type, id: getInputId(i), name: radioName }, nativeInputProps)),
-            React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
-                label,
-                hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText))))))),
+        React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map((_a, i) => {
+            var { label, hintText, nativeInputProps } = _a, rest = __rest(_a, ["label", "hintText", "nativeInputProps"]);
+            return (React.createElement("div", { className: fr.cx(`fr-${type}-group`, isRichRadio && "fr-radio-rich", small && `fr-${type}-group--sm`), key: i },
+                React.createElement("input", Object.assign({ type: type, id: getInputId(i), name: radioName }, nativeInputProps)),
+                React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
+                    label,
+                    hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText))),
+                "illustration" in rest && (React.createElement("div", { className: fr.cx("fr-radio-rich__img") }, rest.illustration))));
+        })),
         React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesWrapperId, "aria-live": "assertive" }, stateRelatedMessage !== undefined && (React.createElement("p", { id: (() => {
                 switch (state) {
                     case "error":

@@ -1,4 +1,4 @@
-import React, { type ReactNode, type CSSProperties, type InputHTMLAttributes, type DetailedHTMLProps } from "react";
+import React, { type ReactNode, type CSSProperties, type ComponentProps } from "react";
 export type FieldsetProps = FieldsetProps.Radio | FieldsetProps.Checkbox;
 export declare namespace FieldsetProps {
     type Common = {
@@ -11,7 +11,7 @@ export declare namespace FieldsetProps {
         options: {
             label: ReactNode;
             hintText?: ReactNode;
-            nativeInputProps: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+            nativeInputProps: ComponentProps<"input">;
         }[];
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
@@ -27,9 +27,12 @@ export declare namespace FieldsetProps {
         /** default: false */
         small?: boolean;
     };
-    type Radio = Common & {
+    type Radio = Omit<Common, "options"> & {
         type: "radio";
         name?: string;
+        options: (Common["options"][number] & {
+            illustration?: ReactNode;
+        })[];
     };
     type Checkbox = Common & {
         type: "checkbox";
