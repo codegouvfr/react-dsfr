@@ -24,9 +24,15 @@ export const Select = memo(forwardRef((props, ref) => {
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-select-group",
-        "explicitlyProvidedId": id_props !== null && id_props !== void 0 ? id_props : nativeSelectProps.id
+        "explicitlyProvidedId": id_props
     });
-    const selectId = `select-${useId()}`;
+    const selectId = (function useClosure() {
+        const id = useId();
+        if (nativeSelectProps.id !== undefined) {
+            return nativeSelectProps.id;
+        }
+        return `select-${id}`;
+    })();
     const stateDescriptionId = `select-${useId()}-desc`;
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", (() => {
             switch (state) {
