@@ -50,10 +50,19 @@ export const Select = memo(
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-select-group",
-            "explicitlyProvidedId": id_props ?? nativeSelectProps.id
+            "explicitlyProvidedId": id_props
         });
 
-        const selectId = `select-${useId()}`;
+        const selectId = (function useClosure() {
+            const id = useId();
+
+            if (nativeSelectProps.id !== undefined) {
+                return nativeSelectProps.id;
+            }
+
+            return `select-${id}`;
+        })();
+
         const stateDescriptionId = `select-${useId()}-desc`;
 
         return (
