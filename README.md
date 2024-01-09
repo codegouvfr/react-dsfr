@@ -70,6 +70,7 @@ This project is co-maintained by public servants from various French administrat
 -   [Joseph Garrone](@garronej)
 -   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
+-   [Enguerran Weiss](@enguerranws) - Plateforme de l'Inclusion
 
 ## Development
 

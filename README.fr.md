@@ -71,6 +71,7 @@ Ce projet est co-maintenu par des agents de différentes administrations frança
 -   [Joseph Garrone](@garronej)
 -   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
+-   [Enguerran Weiss](@enguerranws) - Plateforme de l'Inclusion
 
 ## Development
 
