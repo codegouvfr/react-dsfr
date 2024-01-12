@@ -25,6 +25,7 @@ export type FollowProps = {
             | "newsletter-title"
             | "newsletter-desc"
             | "newsletter-form-wrapper"
+            | "newsletter-form-hint"
             | "social-col"
             | "social"
             | "social-title"
@@ -33,13 +34,83 @@ export type FollowProps = {
             CxArg
         >
     >;
-    social?: FollowProps.Social;
     style?: CSSProperties;
     newsletter?: FollowProps.Newsletter;
-};
+    social?: FollowProps.Social;
+} & (FollowProps.EitherNewsletter | FollowProps.EitherSocial | FollowProps.EitherBoth);
 
 //https://main--ds-gouv.netlify.app/example/component/follow/
 export namespace FollowProps {
+    export type EitherNewsletter = {
+        newsletter: Newsletter;
+        social?: Social;
+    };
+
+    export type EitherSocial = {
+        newsletter?: Newsletter;
+        social: Social;
+    };
+
+    export type EitherBoth = {
+        newsletter: Newsletter;
+        social: Social;
+    };
+
+    export type TitleAs = {
+        title?: ReactNode;
+        /**
+         * Display only. The tag will stay `h2`.
+         *
+         * @default "h5"
+         */
+        titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
+    };
+
+    export type NewsletterForm = {
+        /** Bound props to display success alert */
+        success: boolean;
+        successMessage?: NonNullable<ReactNode>;
+        /**
+         * @example
+         * ```tsx
+         * <Newsletter
+         *    newsletter={{
+         *       form: {
+         *         formComponent: ({ children }) => <form action="">{children}</form>,
+         *       },
+         *   }}
+         * />
+         * ```
+         */
+        formComponent: <TProps extends PropsWithChildren>({ children }: TProps) => React.ReactNode;
+        consentHint?: ReactNode;
+        inputProps?: Partial<Omit<InputProps.RegularInput, "addon">>;
+    };
+
+    export type NewsletterWithForm = {
+        /** "Subscribe" button */
+        buttonProps: ButtonProps.Common &
+            ButtonProps.AsButton &
+            // optional children
+            Partial<ButtonProps.WithoutIcon>;
+        /** When using a form */
+        form: NewsletterForm;
+    };
+
+    export type NewsletterWithoutForm = {
+        /** "Subscribe" button */
+        buttonProps: ButtonProps.Common &
+            (ButtonProps.AsButton | ButtonProps.AsAnchor) &
+            // optional children
+            Partial<ButtonProps.WithoutIcon>;
+        /** When using a form */
+        form?: never;
+    };
+
+    export type Newsletter = TitleAs & {
+        desc?: ReactNode;
+    } & (NewsletterWithForm | NewsletterWithoutForm);
+
     /**
      * From DSFR `$follow-icons` + `copy` and `mail`
      */
@@ -62,16 +133,6 @@ export namespace FollowProps {
         | "vimeo"
         | "youtube";
 
-    type TitleAs = {
-        title?: ReactNode;
-        /**
-         * Display only. The tag will stay `h2`.
-         *
-         * @default "h5"
-         */
-        titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
-    };
-
     export type SocialButton = {
         type: SocialType;
         linkProps: RegisteredLinkProps;
@@ -79,38 +140,6 @@ export namespace FollowProps {
 
     export type Social = TitleAs & {
         buttons: [SocialButton, ...SocialButton[]];
-    };
-
-    export type NewsletterForm = {
-        /** Bound props to display success alert */
-        success: boolean;
-        successMessage?: NonNullable<ReactNode>;
-        /**
-         * @example
-         * ```tsx
-         * <Newsletter
-         *    newsletter={{
-         *       form: {
-         *         formComponent: ({ children }) => <form action="">{children}</form>,
-         *       },
-         *   }}
-         * />
-         * ```
-         */
-        formComponent: <TProps extends PropsWithChildren>({ children }: TProps) => React.ReactNode;
-        consentHint?: ReactNode;
-        inputProps: Omit<InputProps.RegularInput, "addon">;
-    };
-
-    export type Newsletter = TitleAs & {
-        desc?: ReactNode;
-        /** "Subscribe" button */
-        buttonProps: ButtonProps.Common &
-            ButtonProps.AsButton &
-            // optional children
-            Partial<ButtonProps.WithoutIcon>;
-        /** When using a form */
-        form?: NewsletterForm;
     };
 }
 
@@ -149,100 +178,113 @@ const FollowNewsletter = (
                         </p>
                     )}
                 </div>
-            </div>
-            {form !== undefined
-                ? (() => {
-                      const {
-                          success,
-                          consentHint,
-                          formComponent,
-                          inputProps,
-                          successMessage = t("your registration has been processed"),
-                          ...restForm
-                      } = form;
-                      assert<Equals<keyof typeof restForm, never>>();
+                <div>
+                    {form !== undefined
+                        ? (() => {
+                              const {
+                                  success,
+                                  consentHint = t("consent hint"),
+                                  formComponent,
+                                  inputProps = {},
+                                  successMessage = t("your registration has been processed"),
+                                  ...restForm
+                              } = form;
+                              assert<Equals<keyof typeof restForm, never>>();
 
-                      if (success)
-                          return (
-                              <Alert
-                                  severity="success"
-                                  description={successMessage}
-                                  title={
-                                      // force default size without title
-                                      undefined as unknown as string
-                                  }
-                              />
-                          );
+                              if (success)
+                                  return (
+                                      <Alert
+                                          severity="success"
+                                          description={successMessage}
+                                          title={
+                                              // force default size without title
+                                              undefined as unknown as string
+                                          }
+                                      />
+                                  );
 
-                      // prepare inputProps with default values
-                      const {
-                          label: inputLabel = t("your email address"),
-                          hintText: inputHintText = consentHint ?? t("consent hint"),
-                          nativeInputProps: {
-                              title: inputTitle = t("your email address"),
-                              placeholder: inputPlaceholder = t("your email address"),
-                              autoComplete: inputAutoComplete = "email",
-                              type: inputType = "email",
-                              ...nativeInputProps
-                          } = {},
-                          ...restInputProps
-                      } = inputProps;
-
-                      // prepare buttonProps with default values
-                      const {
-                          children: buttonContent = t("subscribe"),
-                          title: buttonTitle = t("subscribe to our newsletter (2)"),
-                          type: buttonType = "button",
-                          ...restButtonProps
-                      } = buttonProps;
-
-                      // use wrapper to add form
-                      return formComponent({
-                          children: (
-                              <Input
-                                  label={inputLabel}
-                                  hintText={inputHintText}
-                                  nativeInputProps={{
-                                      title: inputTitle,
-                                      placeholder: inputPlaceholder,
-                                      autoComplete: inputAutoComplete,
-                                      type: inputType,
+                              // prepare inputProps with default values
+                              const {
+                                  label: inputLabel = t("your email address"),
+                                  hintText: inputHintText = consentHint,
+                                  nativeInputProps: {
+                                      title: inputTitle = t("your email address"),
+                                      placeholder: inputPlaceholder = t("your email address"),
+                                      autoComplete: inputAutoComplete = "email",
+                                      type: inputType = "email",
                                       ...nativeInputProps
-                                  }}
-                                  {...restInputProps}
-                                  addon={
-                                      <Button
-                                          {...restButtonProps}
-                                          title={buttonTitle}
-                                          type={buttonType}
-                                      >
-                                          {buttonContent}
-                                      </Button>
-                                  }
-                              />
-                          )
-                      });
-                  })()
-                : (() => {
-                      const {
-                          children: buttonContent = t("subscribe"),
-                          title: buttonTitle = t("subscribe to our newsletter (2)"),
-                          ...restButtonProps
-                      } = buttonProps;
+                                  } = {},
+                                  ...restInputProps
+                              } = inputProps;
 
-                      return (
-                          <ButtonsGroup
-                              inlineLayoutWhen="md and up"
-                              buttons={[
-                                  {
-                                      children: buttonContent,
-                                      title: buttonTitle,
-                                      ...restButtonProps
-                                  }
-                              ]}
-                          />
-                      );
-                  })()}
+                              // prepare buttonProps with default values
+                              const {
+                                  children: buttonContent = t("subscribe"),
+                                  title: buttonTitle = t("subscribe to our newsletter (2)"),
+                                  type: buttonType = "button",
+                                  ...restButtonProps
+                              } = buttonProps;
+
+                              // use wrapper to add form
+                              return formComponent({
+                                  children: (
+                                      <>
+                                          <Input
+                                              label={inputLabel}
+                                              nativeInputProps={{
+                                                  title: inputTitle,
+                                                  placeholder: inputPlaceholder,
+                                                  autoComplete: inputAutoComplete,
+                                                  type: inputType,
+                                                  ...nativeInputProps
+                                              }}
+                                              {...restInputProps}
+                                              addon={
+                                                  <Button
+                                                      {...restButtonProps}
+                                                      title={buttonTitle}
+                                                      type={buttonType}
+                                                  >
+                                                      {buttonContent}
+                                                  </Button>
+                                              }
+                                          />
+                                          {inputHintText !== undefined && (
+                                              <p
+                                                  className={cx(
+                                                      fr.cx("fr-hint-text"),
+                                                      classes["newsletter-form-hint"]
+                                                  )}
+                                              >
+                                                  {inputHintText}
+                                              </p>
+                                          )}
+                                      </>
+                                  )
+                              });
+                          })()
+                        : (() => {
+                              const {
+                                  children: buttonContent = t("subscribe"),
+                                  title: buttonTitle = t("subscribe to our newsletter (2)"),
+                                  ...restButtonProps
+                              } = buttonProps;
+
+                              return (
+                                  <ButtonsGroup
+                                      inlineLayoutWhen="md and up"
+                                      buttons={[
+                                          {
+                                              children: buttonContent,
+                                              title: buttonTitle,
+                                              ...restButtonProps
+                                          }
+                                      ]}
+                                  />
+                              );
+                          })()}
+                </div>
+            </div>
         </div>
     );
 };
