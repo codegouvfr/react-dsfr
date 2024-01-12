@@ -310,6 +310,24 @@ export const CardHorizontal = getStory(
     { "description": "Carte horizontale", "defaultContainerWidth": 700 }
 );
 
+export const CardHorizontalTierRatio = getStory(
+    {
+        ...defaultProps,
+        "horizontal": true,
+        ratio: "33/66"
+    },
+    { "description": "Carte horizontale", "defaultContainerWidth": 700 }
+);
+
+export const CardHorizontalHalfRatio = getStory(
+    {
+        ...defaultProps,
+        "horizontal": true,
+        ratio: "50/50"
+    },
+    { "description": "Carte horizontale", "defaultContainerWidth": 700 }
+);
+
 export const CardHorizontalSM = getStory(
     {
         ...defaultProps,

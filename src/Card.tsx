@@ -58,9 +58,8 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
-    /** Default false */
-    horizontal?: boolean;
-} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
+} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
+    (CardProps.Horizontal | CardProps.Vertical);
 
 export namespace CardProps {
     export type EnlargedLink = {
@@ -72,6 +71,18 @@ export namespace CardProps {
         enlargeLink?: false;
         linkProps?: RegisteredLinkProps;
         iconId?: never;
+    };
+
+    export type Horizontal = {
+        /** Default false */
+        horizontal: true;
+        ratio?: "33/66" | "50/50";
+    };
+
+    export type Vertical = {
+        /** Default false */
+        horizontal?: false;
+        ratio?: never;
     };
 }
 
@@ -94,6 +105,7 @@ export const Card = memo(
             badge,
             footer,
             horizontal = false,
+            ratio,
             size = "medium",
             classes = {},
             enlargeLink = false,
@@ -123,6 +135,9 @@ export const Card = memo(
                         "fr-card",
                         enlargeLink && "fr-enlarge-link",
                         horizontal && "fr-card--horizontal",
+                        horizontal &&
+                            ratio !== undefined &&
+                            `fr-card--horizontal-${ratio === "33/66" ? "tier" : "half"}`,
                         (() => {
                             switch (size) {
                                 case "large":
