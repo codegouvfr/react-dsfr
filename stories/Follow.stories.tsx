@@ -1,9 +1,7 @@
 import { Follow, type FollowProps } from "../dist/Follow";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import type { ArgType } from "@storybook/addons";
 import { action } from "@storybook/addon-actions";
-import { assert, Equals } from "tsafe";
 import React from "react";
 
 const { meta, getStory } = getStoryFactory<FollowProps>({
