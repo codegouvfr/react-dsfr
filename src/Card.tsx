@@ -17,13 +17,10 @@ export type CardProps = {
     title: ReactNode;
     titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
     desc?: ReactNode;
-    imageUrl?: string;
-    imageAlt?: string;
     start?: ReactNode;
     detail?: ReactNode;
     end?: ReactNode;
     endDetail?: ReactNode;
-    badge?: ReactNode;
     /** where actions can be placed */
     footer?: ReactNode;
     /** Default: "medium", only affect the text */
@@ -59,7 +56,8 @@ export type CardProps = {
     >;
     style?: CSSProperties;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
-    (CardProps.Horizontal | CardProps.Vertical);
+    (CardProps.Horizontal | CardProps.Vertical) &
+    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
 
 export namespace CardProps {
     export type EnlargedLink = {
@@ -84,6 +82,27 @@ export namespace CardProps {
         horizontal?: false;
         ratio?: never;
     };
+
+    export type WithImageLink = {
+        badge?: ReactNode;
+        imageUrl: string;
+        imageAlt: string;
+        imageComponent?: never;
+    };
+
+    export type WithImageComponent = {
+        badge?: ReactNode;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent: ReactNode;
+    };
+
+    export type WithoutImage = {
+        badge?: never;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent?: never;
+    };
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
@@ -98,6 +117,7 @@ export const Card = memo(
             desc,
             imageUrl,
             imageAlt,
+            imageComponent,
             start,
             detail,
             end,
@@ -208,6 +228,18 @@ export const Card = memo(
                                 src={imageUrl}
                                 alt={imageAlt}
                             />
+                        </div>
+                        {badge !== undefined && (
+                            <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>
+                                <li>{badge}</li>
+                            </ul>
+                        )}
+                    </div>
+                )}
+                {imageComponent !== undefined && (
+                    <div className={cx(fr.cx("fr-card__header"), classes.header)}>
+                        <div className={cx(fr.cx("fr-card__img"), classes.img)}>
+                            {imageComponent}
                         </div>
                         {badge !== undefined && (
                             <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>
