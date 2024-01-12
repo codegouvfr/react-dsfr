@@ -23,55 +23,6 @@ const { meta, getStory } = getStoryFactory<FollowProps>({
 
 export default meta;
 
-export const Default = getStory({
-    newsletter: {
-        buttonProps: {
-            onClick: action("Default onClick")
-        },
-        form: {
-            formComponent: ({ children }) => <form action="#">{children}</form>,
-            inputProps: {
-                label: undefined
-            },
-            success: false
-        }
-    },
-    social: {
-        buttons: [
-            {
-                type: "facebook",
-                linkProps: {
-                    href: "#facebook"
-                }
-            },
-            {
-                type: "twitter-x",
-                linkProps: {
-                    href: "#twitter"
-                }
-            },
-            {
-                type: "linkedin",
-                linkProps: {
-                    href: "#linkedin"
-                }
-            },
-            {
-                type: "instagram",
-                linkProps: {
-                    href: "#instagram"
-                }
-            },
-            {
-                type: "youtube",
-                linkProps: {
-                    href: "#youtube"
-                }
-            }
-        ]
-    }
-});
-
 const defaultSocialButtons: [FollowProps.SocialButton, ...FollowProps.SocialButton[]] = [
     {
         type: "facebook",
@@ -104,6 +55,24 @@ const defaultSocialButtons: [FollowProps.SocialButton, ...FollowProps.SocialButt
         }
     }
 ];
+
+export const Default = getStory({
+    newsletter: {
+        buttonProps: {
+            onClick: action("Default onClick")
+        },
+        form: {
+            formComponent: ({ children }) => <form action="#">{children}</form>,
+            inputProps: {
+                label: undefined
+            },
+            success: false
+        }
+    },
+    social: {
+        buttons: defaultSocialButtons
+    }
+});
 
 export const SocialOnly = getStory({
     social: {
