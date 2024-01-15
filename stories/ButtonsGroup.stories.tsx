@@ -88,7 +88,7 @@ const { meta, getStory } = getStoryFactory({
             "control": { "type": "select" }
         },
         "buttons": {
-            "description": `An array of ButtonProps (at least 2, RGAA)`,
+            "description": `An array of ButtonProps (at least 1)`,
             "control": { "type": null }
         }
     },
