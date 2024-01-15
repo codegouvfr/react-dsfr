@@ -17,7 +17,7 @@ import { useAnalyticsId } from "../tools/useAnalyticsId";
 
 export type PasswordInputProps = Omit<
     InputProps.Common,
-    "state" | "stateRelatedMessage" | "iconId" | "classes"
+    "state" | "stateRelatedMessage" | "iconId" | "classes" | "addon"
 > & {
     classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
     /** Default "Your password must contain:", if empty string the hint wont be displayed */

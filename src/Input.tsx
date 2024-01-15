@@ -35,6 +35,7 @@ export namespace InputProps {
         state?: "success" | "error" | "default";
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
+        addon?: ReactNode;
     };
 
     export type RegularInput = Common & {
@@ -82,6 +83,7 @@ export const Input = memo(
             textArea = false,
             nativeTextAreaProps,
             nativeInputProps,
+            addon,
             ...rest
         } = props;
 
@@ -115,7 +117,6 @@ export const Input = memo(
                                 case "default":
                                     return undefined;
                             }
-                            assert<Equals<typeof state, never>>(false);
                         })()
                     ),
                     classes.root,
@@ -149,7 +150,6 @@ export const Input = memo(
                                             case "default":
                                                 return undefined;
                                         }
-                                        assert<Equals<typeof state, never>>(false);
                                     })()
                                 ),
                                 classes.nativeInputOrTextArea
@@ -161,12 +161,21 @@ export const Input = memo(
                         />
                     );
 
-                    return iconId === undefined ? (
-                        nativeInputOrTextArea
-                    ) : (
-                        <div className={fr.cx("fr-input-wrap", iconId)}>
+                    const hasIcon = iconId !== undefined;
+                    const hasAddon = addon !== undefined;
+                    return hasIcon || hasAddon ? (
+                        <div
+                            className={fr.cx(
+                                "fr-input-wrap",
+                                hasIcon && iconId,
+                                hasAddon && "fr-input-wrap--addon"
+                            )}
+                        >
                             {nativeInputOrTextArea}
+                            {hasAddon && addon}
                         </div>
+                    ) : (
+                        nativeInputOrTextArea
                     );
                 })()}
                 {state !== "default" && (
@@ -181,7 +190,6 @@ export const Input = memo(
                                         case "success":
                                             return "fr-valid-text";
                                     }
-                                    assert<Equals<typeof state, never>>(false);
                                 })()
                             ),
                             classes.message

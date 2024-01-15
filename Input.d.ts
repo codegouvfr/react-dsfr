@@ -17,6 +17,7 @@ export declare namespace InputProps {
         state?: "success" | "error" | "default";
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
+        addon?: ReactNode;
     };
     type RegularInput = Common & {
         /** Default: false */

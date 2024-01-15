@@ -19,7 +19,7 @@ import { cx } from "./tools/cx";
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;
-    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps"]);
+    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps, addon } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps", "addon"]);
     const nativeInputOrTextAreaProps = (_a = (textArea ? nativeTextAreaProps : nativeInputProps)) !== null && _a !== void 0 ? _a : {};
     const NativeInputOrTextArea = textArea ? "textarea" : "input";
     assert();
@@ -38,7 +38,6 @@ export const Input = memo(forwardRef((props, ref) => {
                 case "default":
                     return undefined;
             }
-            assert(false);
         })()), classes.root, className), style: style, ref: ref, id: id }, rest),
         React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
             label,
@@ -54,9 +53,12 @@ export const Input = memo(forwardRef((props, ref) => {
                         case "default":
                             return undefined;
                     }
-                    assert(false);
                 })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
-            return iconId === undefined ? (nativeInputOrTextArea) : (React.createElement("div", { className: fr.cx("fr-input-wrap", iconId) }, nativeInputOrTextArea));
+            const hasIcon = iconId !== undefined;
+            const hasAddon = addon !== undefined;
+            return hasIcon || hasAddon ? (React.createElement("div", { className: fr.cx("fr-input-wrap", hasIcon && iconId, hasAddon && "fr-input-wrap--addon") },
+                nativeInputOrTextArea,
+                hasAddon && addon)) : (nativeInputOrTextArea);
         })(),
         state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
                 switch (state) {
@@ -65,7 +67,6 @@ export const Input = memo(forwardRef((props, ref) => {
                     case "success":
                         return "fr-valid-text";
                 }
-                assert(false);
             })()), classes.message) }, stateRelatedMessage))));
 }));
 Input.displayName = symToStr({ Input });
