@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -75,7 +75,7 @@
 
 .fr-quote__author {
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.5rem;
 
   --text-spacing: 0 0 0.25rem;
@@ -97,8 +97,6 @@
 }
 
 .fr-quote cite {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
   font-style: italic;
 }
 
@@ -112,16 +110,13 @@
   --ol-content: none;
 }
 
-.fr-quote figcaption li {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-}
-
 .fr-quote figcaption .fr-quote__source {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
 }
 
 .fr-quote figcaption .fr-quote__source li {
@@ -220,7 +215,7 @@
   }
 
   .fr-quote--column {
-    margin-left: 13rem;
+    margin-left: 13.5rem;
     min-height: 13rem;
   }
 
@@ -239,7 +234,7 @@
   .fr-quote__image {
     position: absolute;
     top: 50%;
-    left: -13rem;
+    left: -13.5rem;
     width: 11.5rem;
     height: 11.5rem;
     margin-top: -5.75rem;

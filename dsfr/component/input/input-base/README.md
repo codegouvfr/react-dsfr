@@ -27,4 +27,4 @@ Afin d’utiliser le composant `input-base`, il est nécessaire d’ajouter les 
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/champ-de-saisie) sur le module Champ de saisie
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/adresse-electronique) sur le module Champ de saisie

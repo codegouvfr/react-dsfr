@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -29,7 +29,7 @@
   background-position: calc(-0.25rem + 1px) calc(-0.25rem + 1px), calc(-0.25rem + 1px) calc(-0.25rem + 1px);
   background-size: 1.875rem 1.875rem, 1.875rem 1.875rem;
   background-repeat: no-repeat, no-repeat;
-  background-image: radial-gradient(transparent 10px, var(--background-action-high-blue-france) 11px, transparent 12px);
+  background-image: radial-gradient(transparent 10px, var(--border-action-high-blue-france) 11px, transparent 12px);
 }
 
 .fr-radio-group input[type=radio] + label::before {
@@ -57,7 +57,7 @@
   padding-left: 1.5rem;
   background-position: calc(-0.125rem + 1px) calc(0.25rem - 1px), calc(-0.125rem + 1px) calc(0.25rem - 1px);
   background-size: 1.125rem 1.125rem, 1.125rem 1.125rem;
-  background-image: radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px);
+  background-image: radial-gradient(transparent 6px, var(--border-action-high-blue-france) 7px, transparent 8px);
 }
 
 .fr-radio-group--sm input[type=radio] + label::before {
@@ -99,7 +99,7 @@
   background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1.125rem 1.125rem, 1.125rem 1.125rem;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   background-position: 0 0, 100% 0, 0 100%, 0 0, 1.75rem 50%, 1.75rem 50%;
-  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px);
+  background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--border-action-high-blue-france) 7px, transparent 8px);
   background-color: var(--background-default-grey);
 
   --idle: transparent;
@@ -184,7 +184,7 @@
 }
 
 .fr-radio-group input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 10px, var(--background-action-high-blue-france) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+  background-image: radial-gradient(transparent 10px, var(--border-active-blue-france) 11px, transparent 12px), radial-gradient(var(--background-active-blue-france) 5px, transparent 6px);
 }
 
 .fr-radio-group input[type=radio]:checked:disabled + label {
@@ -196,7 +196,7 @@
 }
 
 .fr-fieldset--error .fr-radio-group input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 10px, var(--border-plain-error) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+  background-image: radial-gradient(transparent 10px, var(--border-plain-error) 11px, transparent 12px), radial-gradient(var(--background-active-blue-france) 5px, transparent 6px);
 }
 
 .fr-fieldset--valid .fr-radio-group input[type=radio] + label {
@@ -204,7 +204,7 @@
 }
 
 .fr-fieldset--valid .fr-radio-group input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 10px, var(--border-plain-success) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+  background-image: radial-gradient(transparent 10px, var(--border-plain-success) 11px, transparent 12px), radial-gradient(var(--background-active-blue-france) 5px, transparent 6px);
 }
 
 .fr-fieldset--info .fr-radio-group input[type=radio] + label {
@@ -212,7 +212,7 @@
 }
 
 .fr-fieldset--info .fr-radio-group input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 10px, var(--border-plain-info) 11px, transparent 12px), radial-gradient(var(--background-action-high-blue-france) 5px, transparent 6px);
+  background-image: radial-gradient(transparent 10px, var(--border-plain-info) 11px, transparent 12px), radial-gradient(var(--background-active-blue-france) 5px, transparent 6px);
 }
 
 .fr-fieldset .fr-radio-group input[type=radio]:disabled + label {
@@ -228,7 +228,7 @@
 }
 
 .fr-radio-group--sm input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--border-active-blue-france) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-radio-group--sm input[type=radio]:checked:disabled + label {
@@ -240,7 +240,7 @@
 }
 
 .fr-fieldset--error .fr-radio-group--sm input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset--valid .fr-radio-group--sm input[type=radio] + label {
@@ -248,7 +248,7 @@
 }
 
 .fr-fieldset--valid .fr-radio-group--sm input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset--info .fr-radio-group--sm input[type=radio] + label {
@@ -256,7 +256,7 @@
 }
 
 .fr-fieldset--info .fr-radio-group--sm input[type=radio]:checked + label {
-  background-image: radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset .fr-radio-group--sm input[type=radio]:disabled + label {
@@ -276,7 +276,7 @@
 }
 
 .fr-radio-rich input[type=radio]:checked + label {
-  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--background-action-high-blue-france) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), linear-gradient(0deg, var(--border-active-blue-france), var(--border-active-blue-france)), radial-gradient(transparent 6px, var(--border-active-blue-france) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-radio-rich input[type=radio]:checked ~ .fr-radio-rich__pictogram {
@@ -296,7 +296,7 @@
 }
 
 .fr-fieldset--error .fr-radio-rich input[type=radio]:checked + label {
-  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-error) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset--valid .fr-radio-rich input[type=radio] + label {
@@ -304,7 +304,7 @@
 }
 
 .fr-fieldset--valid .fr-radio-rich input[type=radio]:checked + label {
-  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-success) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset--info .fr-radio-rich input[type=radio] + label {
@@ -312,7 +312,7 @@
 }
 
 .fr-fieldset--info .fr-radio-rich input[type=radio]:checked + label {
-  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-action-high-blue-france) 3px, transparent 4px);
+  background-image: linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), linear-gradient(0deg, var(--background-action-high-blue-france), var(--background-action-high-blue-france)), radial-gradient(transparent 6px, var(--border-plain-info) 7px, transparent 8px), radial-gradient(var(--background-active-blue-france) 3px, transparent 4px);
 }
 
 .fr-fieldset .fr-radio-rich input[type=radio]:disabled + label {

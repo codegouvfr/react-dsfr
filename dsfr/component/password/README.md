@@ -33,3 +33,7 @@ Afin d’utiliser le composant `password`, il est nécessaire d’ajouter les fi
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mot-de-passe) sur le module Mot de passe

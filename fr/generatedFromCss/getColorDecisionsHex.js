@@ -847,6 +847,11 @@ export function getColorDecisionsHex(params) {
                 "grey": {
                     "default": colorOptions.grey._625_425.default
                 }
+            },
+            "blackWhite": {
+                "grey": {
+                    "default": colorOptions.grey._0_1000.default
+                }
             }
         },
         "border": {

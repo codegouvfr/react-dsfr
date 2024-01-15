@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
- */@media (min-width:36em){
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */.fr-translate .fr-translate__btn[aria-expanded=true]:hover{background-color:var(--hover-tint)}.fr-translate .fr-translate__btn[aria-expanded=true]:active{background-color:var(--active-tint)}@media (min-width:36em){
   /*! media sm */}@media (min-width:48em){
   /*! media md */}@media (min-width:62em){
-  /*! media lg */.fr-translate .fr-translate__btn[aria-expanded=true]:hover{background-color:var(--hover-tint)}.fr-translate .fr-translate__btn[aria-expanded=true]:active{background-color:var(--active-tint)}}@media (min-width:78em){
-  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-translate .fr-translate__btn:before{background-image:url(../../icons/editor/translate-2.svg)}.fr-translate .fr-translate__btn:after,.fr-translate .fr-translate__btn:before{background-color:transparent;background-repeat:no-repeat;background-size:100%;height:1rem;width:1rem}.fr-translate .fr-translate__btn:after{background-image:url(../../icons/system/arrow-down-s-line.svg)}.fr-translate__menu .fr-translate__language{box-shadow:none}}@media (min-width:62em) and (-ms-high-contrast:active),(min-width:62em) and (-ms-high-contrast:none){.fr-translate .fr-translate__btn[aria-expanded=true]{background-color:#e3e3fd;color:#000091}}
+  /*! media lg */}@media (min-width:78em){
+  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-translate .fr-translate__btn:before{background-image:url(../../icons/editor/translate-2.svg)}.fr-translate .fr-translate__btn:after,.fr-translate .fr-translate__btn:before{background-color:transparent;background-repeat:no-repeat;background-size:100%;height:1rem;width:1rem}.fr-translate .fr-translate__btn:after{background-image:url(../../icons/system/arrow-down-s-line.svg)}.fr-translate .fr-translate__btn[aria-expanded=true]{background-color:#e3e3fd;color:#000091}.fr-translate__menu .fr-translate__language{box-shadow:none}}

@@ -1,10 +1,10 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.2'
+  version: '1.11.0'
 };
 
 const api = window[config.namespace];
@@ -14,7 +14,7 @@ const COLLAPSE = api.internals.ns.selector('collapse');
 
 const NavigationSelector = {
   NAVIGATION: api.internals.ns.selector('nav'),
-  COLLAPSE: `${ITEM} > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}, ${COLLAPSE}) > *:not(${ITEM}, ${COLLAPSE}) > ${COLLAPSE}`,
+  COLLAPSE: `${ITEM} > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}):not(${COLLAPSE}) > ${COLLAPSE}, ${ITEM} > *:not(${ITEM}):not(${COLLAPSE}) > *:not(${ITEM}):not(${COLLAPSE}) > ${COLLAPSE}`,
   COLLAPSE_LEGACY: `${ITEM} ${COLLAPSE}`,
   ITEM: ITEM,
   ITEM_RIGHT: `${ITEM}--align-right`,

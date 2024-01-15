@@ -36,3 +36,7 @@ Afin d’utiliser le composant `display`, il est nécessaire d’ajouter les fic
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/parametre-d-affichage) sur le module Paramètre d'affichage

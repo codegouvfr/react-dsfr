@@ -28,4 +28,4 @@ Afin d’utiliser le composant `tab`, il est nécessaire d’ajouter les fichier
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglets) sur le module Onglets
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglet) sur le module Onglets

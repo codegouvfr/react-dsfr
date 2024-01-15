@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -13,6 +13,9 @@
   --title-spacing: 0 0 0.5rem;
   --text-spacing: 0;
   margin: 0 0 1.5rem;
+  background-size: 0.25rem 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
 
   /**
    * Inclusion de l'icône (optionnel)
@@ -26,7 +29,7 @@
   --idle: transparent;
   --hover: var(--background-contrast-grey-hover);
   --active: var(--background-contrast-grey-active);
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-france);
+  background-image: linear-gradient(0deg, var(--border-default-blue-france), var(--border-default-blue-france));
 }
 
 .fr-callout[class^=fr-icon-]::before,
@@ -58,7 +61,7 @@
 }
 
 .fr-callout--green-tilleul-verveine {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-tilleul-verveine);
+  background-image: linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine));
   background-color: var(--background-contrast-green-tilleul-verveine);
 
   --idle: transparent;
@@ -67,7 +70,7 @@
 }
 
 .fr-callout--green-bourgeon {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-bourgeon);
+  background-image: linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon));
   background-color: var(--background-contrast-green-bourgeon);
 
   --idle: transparent;
@@ -76,7 +79,7 @@
 }
 
 .fr-callout--green-emeraude {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-emeraude);
+  background-image: linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude));
   background-color: var(--background-contrast-green-emeraude);
 
   --idle: transparent;
@@ -85,7 +88,7 @@
 }
 
 .fr-callout--green-menthe {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-menthe);
+  background-image: linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe));
   background-color: var(--background-contrast-green-menthe);
 
   --idle: transparent;
@@ -94,7 +97,7 @@
 }
 
 .fr-callout--green-archipel {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-archipel);
+  background-image: linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel));
   background-color: var(--background-contrast-green-archipel);
 
   --idle: transparent;
@@ -103,7 +106,7 @@
 }
 
 .fr-callout--blue-ecume {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-ecume);
+  background-image: linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume));
   background-color: var(--background-contrast-blue-ecume);
 
   --idle: transparent;
@@ -112,7 +115,7 @@
 }
 
 .fr-callout--blue-cumulus {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-cumulus);
+  background-image: linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus));
   background-color: var(--background-contrast-blue-cumulus);
 
   --idle: transparent;
@@ -121,7 +124,7 @@
 }
 
 .fr-callout--purple-glycine {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-purple-glycine);
+  background-image: linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine));
   background-color: var(--background-contrast-purple-glycine);
 
   --idle: transparent;
@@ -130,7 +133,7 @@
 }
 
 .fr-callout--pink-macaron {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-macaron);
+  background-image: linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron));
   background-color: var(--background-contrast-pink-macaron);
 
   --idle: transparent;
@@ -139,7 +142,7 @@
 }
 
 .fr-callout--pink-tuile {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-tuile);
+  background-image: linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile));
   background-color: var(--background-contrast-pink-tuile);
 
   --idle: transparent;
@@ -148,7 +151,7 @@
 }
 
 .fr-callout--yellow-tournesol {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-tournesol);
+  background-image: linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol));
   background-color: var(--background-contrast-yellow-tournesol);
 
   --idle: transparent;
@@ -157,7 +160,7 @@
 }
 
 .fr-callout--yellow-moutarde {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-moutarde);
+  background-image: linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde));
   background-color: var(--background-contrast-yellow-moutarde);
 
   --idle: transparent;
@@ -166,7 +169,7 @@
 }
 
 .fr-callout--orange-terre-battue {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-orange-terre-battue);
+  background-image: linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue));
   background-color: var(--background-contrast-orange-terre-battue);
 
   --idle: transparent;
@@ -175,7 +178,7 @@
 }
 
 .fr-callout--brown-cafe-creme {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-cafe-creme);
+  background-image: linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme));
   background-color: var(--background-contrast-brown-cafe-creme);
 
   --idle: transparent;
@@ -184,7 +187,7 @@
 }
 
 .fr-callout--brown-caramel {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-caramel);
+  background-image: linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel));
   background-color: var(--background-contrast-brown-caramel);
 
   --idle: transparent;
@@ -193,7 +196,7 @@
 }
 
 .fr-callout--brown-opera {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-opera);
+  background-image: linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera));
   background-color: var(--background-contrast-brown-opera);
 
   --idle: transparent;
@@ -202,7 +205,7 @@
 }
 
 .fr-callout--beige-gris-galet {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-beige-gris-galet);
+  background-image: linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet));
   background-color: var(--background-contrast-beige-gris-galet);
 
   --idle: transparent;
@@ -264,7 +267,7 @@
 
   .fr-callout {
     background-color: #eee;
-    box-shadow: inset 0.25rem 0 0 0 #6a6af4;
+    background-image: linear-gradient(0deg, #6a6af4, #6a6af4);
   }
 
   .fr-callout::before {
@@ -272,87 +275,187 @@
   }
 
   .fr-callout--green-tilleul-verveine {
-    box-shadow: inset 0.25rem 0 0 0 #b7a73f;
+    background-image: linear-gradient(0deg, #b7a73f, #b7a73f);
     background-color: #fceeac;
   }
 
   .fr-callout--green-bourgeon {
-    box-shadow: inset 0.25rem 0 0 0 #68a532;
+    background-image: linear-gradient(0deg, #68a532, #68a532);
     background-color: #c9fcac;
   }
 
   .fr-callout--green-emeraude {
-    box-shadow: inset 0.25rem 0 0 0 #00a95f;
+    background-image: linear-gradient(0deg, #00a95f, #00a95f);
     background-color: #c3fad5;
   }
 
   .fr-callout--green-menthe {
-    box-shadow: inset 0.25rem 0 0 0 #009081;
+    background-image: linear-gradient(0deg, #009081, #009081);
     background-color: #bafaee;
   }
 
   .fr-callout--green-archipel {
-    box-shadow: inset 0.25rem 0 0 0 #009099;
+    background-image: linear-gradient(0deg, #009099, #009099);
     background-color: #c7f6fc;
   }
 
   .fr-callout--blue-ecume {
-    box-shadow: inset 0.25rem 0 0 0 #465f9d;
+    background-image: linear-gradient(0deg, #465f9d, #465f9d);
     background-color: #e9edfe;
   }
 
   .fr-callout--blue-cumulus {
-    box-shadow: inset 0.25rem 0 0 0 #417dc4;
+    background-image: linear-gradient(0deg, #417dc4, #417dc4);
     background-color: #e6eefe;
   }
 
   .fr-callout--purple-glycine {
-    box-shadow: inset 0.25rem 0 0 0 #a558a0;
+    background-image: linear-gradient(0deg, #a558a0, #a558a0);
     background-color: #fee7fc;
   }
 
   .fr-callout--pink-macaron {
-    box-shadow: inset 0.25rem 0 0 0 #e18b76;
+    background-image: linear-gradient(0deg, #e18b76, #e18b76);
     background-color: #fee9e6;
   }
 
   .fr-callout--pink-tuile {
-    box-shadow: inset 0.25rem 0 0 0 #ce614a;
+    background-image: linear-gradient(0deg, #ce614a, #ce614a);
     background-color: #fee9e7;
   }
 
   .fr-callout--yellow-tournesol {
-    box-shadow: inset 0.25rem 0 0 0 #c8aa39;
+    background-image: linear-gradient(0deg, #c8aa39, #c8aa39);
     background-color: #feecc2;
   }
 
   .fr-callout--yellow-moutarde {
-    box-shadow: inset 0.25rem 0 0 0 #c3992a;
+    background-image: linear-gradient(0deg, #c3992a, #c3992a);
     background-color: #feebd0;
   }
 
   .fr-callout--orange-terre-battue {
-    box-shadow: inset 0.25rem 0 0 0 #e4794a;
+    background-image: linear-gradient(0deg, #e4794a, #e4794a);
     background-color: #fee9e5;
   }
 
   .fr-callout--brown-cafe-creme {
-    box-shadow: inset 0.25rem 0 0 0 #d1b781;
+    background-image: linear-gradient(0deg, #d1b781, #d1b781);
     background-color: #f7ecdb;
   }
 
   .fr-callout--brown-caramel {
-    box-shadow: inset 0.25rem 0 0 0 #c08c65;
+    background-image: linear-gradient(0deg, #c08c65, #c08c65);
     background-color: #f7ebe5;
   }
 
   .fr-callout--brown-opera {
-    box-shadow: inset 0.25rem 0 0 0 #bd987a;
+    background-image: linear-gradient(0deg, #bd987a, #bd987a);
     background-color: #f7ece4;
   }
 
   .fr-callout--beige-gris-galet {
-    box-shadow: inset 0.25rem 0 0 0 #aea397;
+    background-image: linear-gradient(0deg, #aea397, #aea397);
+    background-color: #f3ede5;
+  }
+}
+
+@media print {
+  .fr-callout {
+    background-color: #eee;
+    background-image: linear-gradient(0deg, #6a6af4, #6a6af4);
+  }
+
+  .fr-callout::before {
+    color: #161616;
+  }
+
+  .fr-callout__title {
+    color: #161616;
+  }
+
+  .fr-callout--green-tilleul-verveine {
+    background-image: linear-gradient(0deg, #b7a73f, #b7a73f);
+    background-color: #fceeac;
+  }
+
+  .fr-callout--green-bourgeon {
+    background-image: linear-gradient(0deg, #68a532, #68a532);
+    background-color: #c9fcac;
+  }
+
+  .fr-callout--green-emeraude {
+    background-image: linear-gradient(0deg, #00a95f, #00a95f);
+    background-color: #c3fad5;
+  }
+
+  .fr-callout--green-menthe {
+    background-image: linear-gradient(0deg, #009081, #009081);
+    background-color: #bafaee;
+  }
+
+  .fr-callout--green-archipel {
+    background-image: linear-gradient(0deg, #009099, #009099);
+    background-color: #c7f6fc;
+  }
+
+  .fr-callout--blue-ecume {
+    background-image: linear-gradient(0deg, #465f9d, #465f9d);
+    background-color: #e9edfe;
+  }
+
+  .fr-callout--blue-cumulus {
+    background-image: linear-gradient(0deg, #417dc4, #417dc4);
+    background-color: #e6eefe;
+  }
+
+  .fr-callout--purple-glycine {
+    background-image: linear-gradient(0deg, #a558a0, #a558a0);
+    background-color: #fee7fc;
+  }
+
+  .fr-callout--pink-macaron {
+    background-image: linear-gradient(0deg, #e18b76, #e18b76);
+    background-color: #fee9e6;
+  }
+
+  .fr-callout--pink-tuile {
+    background-image: linear-gradient(0deg, #ce614a, #ce614a);
+    background-color: #fee9e7;
+  }
+
+  .fr-callout--yellow-tournesol {
+    background-image: linear-gradient(0deg, #c8aa39, #c8aa39);
+    background-color: #feecc2;
+  }
+
+  .fr-callout--yellow-moutarde {
+    background-image: linear-gradient(0deg, #c3992a, #c3992a);
+    background-color: #feebd0;
+  }
+
+  .fr-callout--orange-terre-battue {
+    background-image: linear-gradient(0deg, #e4794a, #e4794a);
+    background-color: #fee9e5;
+  }
+
+  .fr-callout--brown-cafe-creme {
+    background-image: linear-gradient(0deg, #d1b781, #d1b781);
+    background-color: #f7ecdb;
+  }
+
+  .fr-callout--brown-caramel {
+    background-image: linear-gradient(0deg, #c08c65, #c08c65);
+    background-color: #f7ebe5;
+  }
+
+  .fr-callout--brown-opera {
+    background-image: linear-gradient(0deg, #bd987a, #bd987a);
+    background-color: #f7ece4;
+  }
+
+  .fr-callout--beige-gris-galet {
+    background-image: linear-gradient(0deg, #aea397, #aea397);
     background-color: #f3ede5;
   }
 }

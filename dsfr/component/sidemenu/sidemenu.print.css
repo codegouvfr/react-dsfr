@@ -1,0 +1,75 @@
+/*!
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@media print {
+  .fr-sidemenu {
+    box-shadow: inset 0 -1px 0 0 #ddd, inset 0 1px 0 0 #ddd;
+
+    /*
+    @include elevation.elevate(raised, (legacy:$legacy));
+    @include respond-from(md) {
+      @include elevation.drop((legacy:$legacy));
+    }
+     */
+    display: none;
+  }
+
+  .fr-sidemenu__title {
+    color: #161616;
+    box-shadow: inset 0 -1px 0 0 #ddd;
+  }
+
+  .fr-sidemenu__item .fr-sidemenu__link,
+  .fr-sidemenu__item .fr-sidemenu__btn {
+    color: #161616;
+  }
+
+  .fr-sidemenu__item::before {
+    box-shadow: 0 -1px 0 0 #ddd, inset 0 -1px 0 0 #ddd;
+  }
+
+  .fr-sidemenu__item:first-child::before {
+    box-shadow: inset 0 -1px 0 0 #ddd;
+  }
+
+  .fr-sidemenu__item:last-child::before {
+    box-shadow: 0 -1px 0 0 #ddd;
+  }
+
+  .fr-sidemenu__link,
+  .fr-sidemenu__btn {
+    color: #000091;
+  }
+
+  .fr-sidemenu__link[aria-current]:not([aria-current=false]),
+  .fr-sidemenu__btn[aria-current]:not([aria-current=false]) {
+    color: #000091;
+  }
+
+  .fr-sidemenu__link[aria-current]:not([aria-current=false])::before,
+  .fr-sidemenu__btn[aria-current]:not([aria-current=false])::before {
+    background-color: #000091;
+  }
+
+  .fr-sidemenu__btn[aria-expanded=true] {
+    background-color: #e3e3fd;
+  }
+}
+@media print and (min-width: 48em) and (-ms-high-contrast: none), print and (min-width: 48em) and (-ms-high-contrast: active) {
+  .fr-sidemenu {
+    box-shadow: none;
+  }
+
+  .fr-sidemenu__title {
+    box-shadow: none;
+  }
+}
+@media print and (min-width: 48em) {
+  .fr-sidemenu__inner {
+    box-shadow: inset -1px 0 0 0 #ddd;
+  }
+
+  .fr-sidemenu--right .fr-sidemenu__inner {
+    box-shadow: inset 1px 0 0 0 #ddd;
+  }
+}

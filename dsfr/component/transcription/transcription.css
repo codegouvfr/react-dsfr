@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -142,11 +142,10 @@
   flex-wrap: nowrap;
 }
 
-.fr-transcription__actions-group > li {
+.fr-transcription__actions-group > li,
+.fr-transcription__actions-group > div {
   width: 100%;
-  display: inline-flex;
   max-width: 100%;
-  width: auto;
 }
 
 .fr-transcription__actions-group .fr-btn {
@@ -165,6 +164,12 @@
   max-height: none;
   margin-bottom: 0;
   margin-right: 0;
+}
+
+.fr-transcription__actions-group > li {
+  display: inline-flex;
+  max-width: 100%;
+  width: auto;
 }
 
 .fr-transcription__actions-group .fr-btn::after {
@@ -366,5 +371,34 @@
 
   .fr-transcription .fr-modal:not(.fr-modal--opened)::before {
     box-shadow: inset 0 1px 0 0 #ddd;
+  }
+}
+@media print {
+  .fr-transcription::before {
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-transcription__btn {
+    color: #000091;
+  }
+
+  .fr-transcription__btn[aria-expanded=true] {
+    background-color: #e3e3fd;
+  }
+
+  .fr-transcription__content::before {
+    box-shadow: inset 0 1px 0 0 #ddd;
+  }
+
+  .fr-transcription__footer::before {
+    box-shadow: inset 0 1px 0 0 #ddd;
+  }
+
+  .fr-transcription .fr-modal:not(.fr-modal--opened)::before {
+    box-shadow: inset 0 1px 0 0 #ddd;
+  }
+
+  .fr-transcription {
+    display: none;
   }
 }

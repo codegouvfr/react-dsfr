@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -88,7 +88,7 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   content: "";
   margin-left: 0.25rem;
   margin-right: 0.25rem;
-  vertical-align: calc((1.05rem - var(--icon-size)) * 0.5);
+  vertical-align: -0.0625em;
 }
 
 .fr-breadcrumb__link {
@@ -112,12 +112,12 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
   --underline-hover-width: var(--underline-max-width);
 }
 
-.fr-breadcrumb__link[aria-current] {
+.fr-breadcrumb__link[aria-current]:not([aria-current=false]) {
   pointer-events: none;
   cursor: default;
 
   --underline-img: none;
-  color: var(--text-active-grey);
+  color: var(--text-default-grey);
 }
 @media (min-width: 36em) {
   /*! media sm */
@@ -142,7 +142,7 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
     transform: none;
     visibility: inherit;
     overflow: visible;
-    max-height: initial;
+    max-height: none;
   }
 
   .fr-breadcrumb .fr-collapse::before {
@@ -184,7 +184,8 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
     margin-bottom: 0;
   }
 
-  .fr-breadcrumb__link:not([aria-current])::after {
+  .fr-breadcrumb__link:not([aria-current])::after,
+  .fr-breadcrumb__link[aria-current=false]::after {
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -197,7 +198,17 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
     color: #666;
   }
 
-  .fr-breadcrumb__link[aria-current] {
-    color: #161616;
+  .fr-breadcrumb__link[aria-current]:not([aria-current=false]) {
+    color: #3a3a3a;
+  }
+}
+@media print {
+  .fr-breadcrumb {
+    color: #666;
+    display: none;
+  }
+
+  .fr-breadcrumb__link[aria-current]:not([aria-current=false]) {
+    color: #3a3a3a;
   }
 }

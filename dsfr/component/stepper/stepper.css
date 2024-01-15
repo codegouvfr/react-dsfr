@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -15,6 +15,8 @@
 }
 
 .fr-stepper__title {
+  display: flex;
+  flex-direction: column-reverse;
   font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.5rem;
@@ -58,14 +60,15 @@
 }
 
 .fr-stepper__steps {
-  --default-outer: calc((100% + 6px) / var(--steps));
-  --default-inner: calc(var(--default-outer) - 6px);
-  --active-outer: calc((100% + 6px) / var(--current-step));
-  --active-inner: calc(var(--active-outer) - 6px);
+  --stepper-size: 0.5rem;
+  --default-outer: calc((100% + var(--stepper-size)) / var(--steps));
+  --default-inner: calc(var(--default-outer) - var(--stepper-size));
+  --active-outer: calc((100% + var(--stepper-size)) / var(--current-step));
+  --active-inner: calc(var(--active-outer) - var(--stepper-size));
   width: 100%;
-  height: 6px;
+  height: var(--stepper-size);
   background-repeat: no-repeat;
-  background-size: calc((100% + 6px) * var(--current-step) / var(--steps) - 6px) 100%, 100% 100%;
+  background-size: calc((100% + var(--stepper-size)) * var(--current-step) / var(--steps) - var(--stepper-size)) 100%, 100% 100%;
   background-position: 0 0, 0 0;
 
   --current-step: 0;
@@ -179,5 +182,28 @@
 
   .fr-stepper__details {
     color: #666;
+  }
+}
+@media print {
+  .fr-stepper__title {
+    color: #161616;
+  }
+
+  .fr-stepper__state {
+    color: #666;
+  }
+
+  .fr-stepper__details {
+    color: #666;
+  }
+
+  .fr-stepper__steps {
+    background-image: repeating-linear-gradient(to right, #000091 0, #000091 var(--active-inner), transparent var(--active-inner), transparent var(--active-outer)), repeating-linear-gradient(to right, #eee 0, #eee var(--default-inner), transparent var(--default-inner), transparent var(--default-outer));
+  }
+
+  .fr-stepper__state,
+  .fr-stepper__details {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }

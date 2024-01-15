@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -13,6 +13,9 @@
   --title-spacing: 0 0 0.5rem;
   --text-spacing: 0;
   margin: 0 0 1.5rem;
+  background-size: 0.25rem 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
 
   /**
    * Inclusion de l'icône (optionnel)
@@ -26,7 +29,7 @@
   --idle: transparent;
   --hover: var(--background-contrast-grey-hover);
   --active: var(--background-contrast-grey-active);
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-france);
+  background-image: linear-gradient(0deg, var(--border-default-blue-france), var(--border-default-blue-france));
 }
 
 .fr-callout[class^=fr-icon-]::before,
@@ -58,7 +61,7 @@
 }
 
 .fr-callout--green-tilleul-verveine {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-tilleul-verveine);
+  background-image: linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine));
   background-color: var(--background-contrast-green-tilleul-verveine);
 
   --idle: transparent;
@@ -67,7 +70,7 @@
 }
 
 .fr-callout--green-bourgeon {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-bourgeon);
+  background-image: linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon));
   background-color: var(--background-contrast-green-bourgeon);
 
   --idle: transparent;
@@ -76,7 +79,7 @@
 }
 
 .fr-callout--green-emeraude {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-emeraude);
+  background-image: linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude));
   background-color: var(--background-contrast-green-emeraude);
 
   --idle: transparent;
@@ -85,7 +88,7 @@
 }
 
 .fr-callout--green-menthe {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-menthe);
+  background-image: linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe));
   background-color: var(--background-contrast-green-menthe);
 
   --idle: transparent;
@@ -94,7 +97,7 @@
 }
 
 .fr-callout--green-archipel {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-green-archipel);
+  background-image: linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel));
   background-color: var(--background-contrast-green-archipel);
 
   --idle: transparent;
@@ -103,7 +106,7 @@
 }
 
 .fr-callout--blue-ecume {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-ecume);
+  background-image: linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume));
   background-color: var(--background-contrast-blue-ecume);
 
   --idle: transparent;
@@ -112,7 +115,7 @@
 }
 
 .fr-callout--blue-cumulus {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-blue-cumulus);
+  background-image: linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus));
   background-color: var(--background-contrast-blue-cumulus);
 
   --idle: transparent;
@@ -121,7 +124,7 @@
 }
 
 .fr-callout--purple-glycine {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-purple-glycine);
+  background-image: linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine));
   background-color: var(--background-contrast-purple-glycine);
 
   --idle: transparent;
@@ -130,7 +133,7 @@
 }
 
 .fr-callout--pink-macaron {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-macaron);
+  background-image: linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron));
   background-color: var(--background-contrast-pink-macaron);
 
   --idle: transparent;
@@ -139,7 +142,7 @@
 }
 
 .fr-callout--pink-tuile {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-pink-tuile);
+  background-image: linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile));
   background-color: var(--background-contrast-pink-tuile);
 
   --idle: transparent;
@@ -148,7 +151,7 @@
 }
 
 .fr-callout--yellow-tournesol {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-tournesol);
+  background-image: linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol));
   background-color: var(--background-contrast-yellow-tournesol);
 
   --idle: transparent;
@@ -157,7 +160,7 @@
 }
 
 .fr-callout--yellow-moutarde {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-yellow-moutarde);
+  background-image: linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde));
   background-color: var(--background-contrast-yellow-moutarde);
 
   --idle: transparent;
@@ -166,7 +169,7 @@
 }
 
 .fr-callout--orange-terre-battue {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-orange-terre-battue);
+  background-image: linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue));
   background-color: var(--background-contrast-orange-terre-battue);
 
   --idle: transparent;
@@ -175,7 +178,7 @@
 }
 
 .fr-callout--brown-cafe-creme {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-cafe-creme);
+  background-image: linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme));
   background-color: var(--background-contrast-brown-cafe-creme);
 
   --idle: transparent;
@@ -184,7 +187,7 @@
 }
 
 .fr-callout--brown-caramel {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-caramel);
+  background-image: linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel));
   background-color: var(--background-contrast-brown-caramel);
 
   --idle: transparent;
@@ -193,7 +196,7 @@
 }
 
 .fr-callout--brown-opera {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-brown-opera);
+  background-image: linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera));
   background-color: var(--background-contrast-brown-opera);
 
   --idle: transparent;
@@ -202,7 +205,7 @@
 }
 
 .fr-callout--beige-gris-galet {
-  box-shadow: inset 0.25rem 0 0 0 var(--border-default-beige-gris-galet);
+  background-image: linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet));
   background-color: var(--background-contrast-beige-gris-galet);
 
   --idle: transparent;

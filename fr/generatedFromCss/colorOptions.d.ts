@@ -61,6 +61,9 @@ export declare const colorOptions: {
         readonly _625_425: {
             readonly default: "var(--grey-625-425)";
         };
+        readonly _0_1000: {
+            readonly default: "var(--grey-0-1000)";
+        };
         readonly _900_175: {
             readonly default: "var(--grey-900-175)";
         };

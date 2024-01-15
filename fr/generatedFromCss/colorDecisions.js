@@ -846,6 +846,11 @@ export const colorDecisions = {
             "grey": {
                 "default": "var(--text-disabled-grey)"
             }
+        },
+        "blackWhite": {
+            "grey": {
+                "default": "var(--text-black-white-grey)"
+            }
         }
     },
     "border": {

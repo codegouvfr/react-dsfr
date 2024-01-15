@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -40,6 +40,7 @@
 .fr-card__body {
   display: flex;
   flex-direction: column;
+  height: 100%;
   flex: 1 1 auto;
   order: 2;
   padding: 0 2rem;
@@ -99,19 +100,6 @@
   margin: 0 -2rem;
 }
 
-.fr-card__content .fr-tag {
-  font-size: 0.75rem;
-  line-height: 1.25rem;
-  min-height: 1.5rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.75rem;
-}
-
-.fr-card__content .fr-tag::before,
-.fr-card__content .fr-tag::after {
-  --icon-size: 0.75rem;
-}
-
 .fr-card__title {
   order: 2;
   font-size: 1.25rem;
@@ -134,6 +122,7 @@
   mask-image: url("../../icons/system/arrow-right-line.svg");
   --icon-size: 1rem;
   content: "";
+  margin-left: 0.5rem;
 }
 
 .fr-card__title [target=_blank]::after {
@@ -234,6 +223,19 @@
   --icon-size: 0.75rem;
 }
 
+.fr-card--sm .fr-card__header .fr-tag {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  min-height: 1.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.fr-card--sm .fr-card__header .fr-tag::before,
+.fr-card--sm .fr-card__header .fr-tag::after {
+  --icon-size: 0.75rem;
+}
+
 .fr-card--sm .fr-card__content {
   padding: 1.5rem;
 }
@@ -247,6 +249,19 @@
 
 .fr-card--sm .fr-card__content .fr-badge::before,
 .fr-card--sm .fr-card__content .fr-badge::after {
+  --icon-size: 0.75rem;
+}
+
+.fr-card--sm .fr-card__content .fr-tag {
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  min-height: 1.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.75rem;
+}
+
+.fr-card--sm .fr-card__content .fr-tag::before,
+.fr-card--sm .fr-card__content .fr-tag::after {
   --icon-size: 0.75rem;
 }
 
@@ -302,19 +317,6 @@
 
 .fr-card--lg .fr-card__content {
   padding: 2.5rem;
-}
-
-.fr-card--lg .fr-card__content .fr-tag {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-}
-
-.fr-card--lg .fr-card__content .fr-tag::before,
-.fr-card--lg .fr-card__content .fr-tag::after {
-  --icon-size: 1rem;
 }
 
 .fr-card--lg .fr-card__title {

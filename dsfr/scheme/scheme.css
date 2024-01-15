@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -39,6 +39,7 @@
   --grey-50-1000: #fff;
   --grey-425-625: #929292;
   --grey-625-425: #666;
+  --grey-0-1000: #fff;
   --grey-900-175: #353535;
   --blue-france-975-75: #1b1b35;
   --blue-france-975-75-hover: #3a3a68;

@@ -11841,6 +11841,34 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         };
     };
 }, {
+    readonly colorDecisionName: "--text-black-white-grey";
+    readonly themePath: readonly ["text", "blackWhite", "grey", "default"];
+    readonly parsedColorDecisionName: {
+        readonly context: "text";
+        readonly colorName: "grey";
+        readonly usage: "blackWhite";
+    };
+    readonly colorOption: {
+        readonly colorOptionName: "--grey-0-1000";
+        readonly themePath: readonly ["grey", "_0_1000", "default"];
+        readonly color: {
+            readonly light: "#0";
+            readonly dark: "#ffffff";
+        };
+        readonly parsedColorOptionName: {
+            readonly colorName: "grey";
+            readonly brightness: {
+                readonly isInvariant: false;
+                readonly light: {
+                    readonly value: 0;
+                };
+                readonly dark: {
+                    readonly value: 1000;
+                };
+            };
+        };
+    };
+}, {
     readonly colorDecisionName: "--border-default-grey";
     readonly themePath: readonly ["border", "default", "grey", "default"];
     readonly parsedColorDecisionName: {

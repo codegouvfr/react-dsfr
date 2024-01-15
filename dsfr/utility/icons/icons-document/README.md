@@ -23,4 +23,4 @@ Afin d’utiliser le composant `icons-document`, il est nécessaire d’ajouter 
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone) sur le module Icônes Document
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icones) sur le module Icônes Document

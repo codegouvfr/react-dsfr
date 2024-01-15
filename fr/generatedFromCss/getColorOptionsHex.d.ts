@@ -62,6 +62,9 @@ export declare function getColorOptionsHex(params: {
         readonly _625_425: {
             readonly default: "#929292" | "#666666";
         };
+        readonly _0_1000: {
+            readonly default: "#ffffff" | "#0";
+        };
         readonly _900_175: {
             readonly default: "#353535" | "#dddddd";
         };

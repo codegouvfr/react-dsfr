@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -17,9 +17,9 @@
   line-height: 1.5rem;
   padding: 0.5rem 2.5rem 0.5rem 1rem;
   background-repeat: no-repeat;
-  background-position: calc(100% - 0.5rem) 50%;
-  background-size: 1.5rem 1.5rem;
-  color: var(--text-title-grey);
+  background-position: calc(100% - 1rem) 50%;
+  background-size: 1rem 1rem;
+  color: var(--text-default-grey);
   background-color: var(--background-contrast-grey);
 
   --idle: transparent;
@@ -28,9 +28,11 @@
   box-shadow: inset 0 -2px 0 0 var(--border-plain-grey);
 
   --data-uri-svg: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 24 24' ><path fill='%23161616' d='M12,13.1l5-4.9l1.4,1.4L12,15.9L5.6,9.5l1.4-1.4L12,13.1z'/></svg>");
-  background-image: var(--data-uri-svg); /**
-* Mixin pour gérer l'état disabled
-*/
+  background-image: var(--data-uri-svg);
+
+  /**
+  * Mixin pour gérer l'état disabled
+  */
 
   /**
   * On applique un style lorsque la valeur est automatiquement remplie par le navigateur
@@ -43,7 +45,7 @@
 }
 
 .fr-select-group .fr-message:first-child {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .fr-select-group--valid::before,

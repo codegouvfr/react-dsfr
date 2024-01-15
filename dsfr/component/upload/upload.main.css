@@ -1,0 +1,53 @@
+/*!
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  UPLOAD
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-upload-group .fr-label .fr-hint-text {
+  margin-top: 0.75rem;
+}
+
+.fr-upload-group .fr-label + .fr-upload {
+  margin-top: 1rem;
+}
+
+.fr-upload-group .fr-message:first-child {
+  margin-top: 0.5rem;
+}
+
+.fr-upload {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  width: 100%;
+  display: inline-flex;
+  margin: 0;
+}
+
+.fr-upload:disabled::-webkit-file-upload-button {
+  outline-style: none;
+  cursor: not-allowed;
+}
+
+.fr-upload::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  font: inherit;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+@media (min-width: 36em) {
+  /*! media sm */
+}
+@media (min-width: 48em) {
+  /*! media md */
+}
+@media (min-width: 62em) {
+  /*! media lg */
+}
+@media (min-width: 78em) {
+  /*! media xl */
+}

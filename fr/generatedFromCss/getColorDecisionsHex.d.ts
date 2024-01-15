@@ -849,6 +849,11 @@ export declare function getColorDecisionsHex(params: {
                 readonly default: "#929292" | "#666666";
             };
         };
+        readonly blackWhite: {
+            readonly grey: {
+                readonly default: "#ffffff" | "#0";
+            };
+        };
     };
     readonly border: {
         readonly default: {

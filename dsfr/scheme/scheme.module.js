@@ -1,10 +1,10 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.2'
+  version: '1.11.0'
 };
 
 const api = window[config.namespace];
@@ -167,7 +167,7 @@ class Scheme extends api.core.Instance {
     if (this.isListening) return;
     this.isListening = true;
     this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    this.mediaQuery.addEventListener('change', this.changing);
+    if (this.mediaQuery.addEventListener) this.mediaQuery.addEventListener('change', this.changing);
     this.change();
   }
 

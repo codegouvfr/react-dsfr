@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -98,6 +98,10 @@
   .fr-share .fr-btn:disabled:active,
   .fr-share a.fr-btn:not([href]):active {
     background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-share__text {
+    color: #666;
   }
 
   .fr-share__link {

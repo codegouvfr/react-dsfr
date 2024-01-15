@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -73,14 +73,14 @@
   color: var(--text-action-high-grey);
 }
 
-.fr-nav__link[aria-current],
-.fr-nav__btn[aria-current] {
+.fr-nav__link[aria-current]:not([aria-current=false]),
+.fr-nav__btn[aria-current]:not([aria-current=false]) {
   position: relative;
   color: var(--text-active-blue-france);
 }
 
-.fr-nav__link[aria-current]::before,
-.fr-nav__btn[aria-current]::before {
+.fr-nav__link[aria-current]:not([aria-current=false])::before,
+.fr-nav__btn[aria-current]:not([aria-current=false])::before {
   content: "";
   display: block;
   position: absolute;
@@ -100,7 +100,7 @@
   display: block;
 }
 
-.fr-nav__link[aria-current]:not([href]) {
+.fr-nav__link:not([href])[aria-current]:not([aria-current=false]) {
   pointer-events: none;
   cursor: default;
 }
@@ -188,6 +188,22 @@
   --title-spacing: 0 0 0.5rem;
 }
 
+.fr-mega-menu__leader .fr-link {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding: 0 0;
+}
+
+.fr-mega-menu__leader .fr-link::before,
+.fr-mega-menu__leader .fr-link::after {
+  --icon-size: 1rem;
+}
+
+.fr-mega-menu__leader p {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
 .fr-mega-menu__category {
   font-weight: 700;
 }
@@ -217,7 +233,7 @@
   --idle: transparent;
   --hover: var(--background-open-blue-france-hover);
   --active: var(--background-open-blue-france-active);
-  color: var(--text-active-blue-france);
+  color: var(--text-action-high-blue-france);
 }
 
 .fr-nav__item:first-child::before {
@@ -258,10 +274,10 @@
     font-weight: normal;
   }
 
-  .fr-nav__list > .fr-nav__link[aria-current]::before,
-  .fr-nav__list > .fr-nav__btn[aria-current]::before,
-  .fr-nav__list > * > .fr-nav__link[aria-current]::before,
-  .fr-nav__list > * > .fr-nav__btn[aria-current]::before {
+  .fr-nav__list > .fr-nav__link[aria-current]:not([aria-current=false])::before,
+  .fr-nav__list > .fr-nav__btn[aria-current]:not([aria-current=false])::before,
+  .fr-nav__list > * > .fr-nav__link[aria-current]:not([aria-current=false])::before,
+  .fr-nav__list > * > .fr-nav__btn[aria-current]:not([aria-current=false])::before {
     position: absolute;
     top: auto;
     bottom: 0;
@@ -365,7 +381,6 @@
 
   .fr-mega-menu .fr-btn--close {
     display: flex;
-    margin-right: 0;
   }
 
   .fr-mega-menu .fr-nav__link {
@@ -373,6 +388,7 @@
   }
 
   .fr-mega-menu__leader {
+    margin-top: -1.25rem;
     padding-top: 0;
   }
 

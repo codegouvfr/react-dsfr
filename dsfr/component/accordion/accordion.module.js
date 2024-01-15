@@ -1,10 +1,10 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.2'
+  version: '1.11.0'
 };
 
 const api = window[config.namespace];
@@ -15,7 +15,7 @@ const COLLAPSE = api.internals.ns.selector('collapse');
 const AccordionSelector = {
   GROUP: api.internals.ns.selector('accordions-group'),
   ACCORDION: ACCORDION,
-  COLLAPSE: `${ACCORDION} > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE}) > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}, ${COLLAPSE}) > *:not(${ACCORDION}, ${COLLAPSE}) > ${COLLAPSE}`,
+  COLLAPSE: `${ACCORDION} > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}):not(${COLLAPSE}) > ${COLLAPSE}, ${ACCORDION} > *:not(${ACCORDION}):not(${COLLAPSE}) > *:not(${ACCORDION}):not(${COLLAPSE}) > ${COLLAPSE}`,
   COLLAPSE_LEGACY: `${ACCORDION} ${COLLAPSE}`,
   BUTTON: `${ACCORDION}__btn`
 };

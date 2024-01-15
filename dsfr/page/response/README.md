@@ -24,3 +24,7 @@ Afin d’utiliser le composant `response`, il est nécessaire d’ajouter les fi
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/modeles/page-d-erreurs) sur le module Codes de Statut HTML

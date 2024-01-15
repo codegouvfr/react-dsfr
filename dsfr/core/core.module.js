@@ -1,4 +1,4 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.2'
+  version: '1.11.0'
 };
 
 class LogLevel {
@@ -1149,7 +1149,20 @@ const colors = new Colors();
 
 const sanitize = (className) => className.charAt(0) === '.' ? className.substr(1) : className;
 
-const getClassNames = (element) => element.className ? element.className.split(' ') : [];
+const getClassNames = (element) => {
+  switch (true) {
+    case !element.className:
+      return [];
+
+    case typeof element.className === 'string':
+      return element.className.split(' ');
+
+    case typeof element.className.baseVal === 'string':
+      return element.className.baseVal.split(' ');
+  }
+
+  return [];
+};
 
 const modifyClass = (element, className, remove) => {
   className = sanitize(className);
@@ -1202,15 +1215,65 @@ const uniqueId = (id) => {
   return id;
 };
 
-const dom = {};
+const dom = {
+  addClass: addClass,
+  hasClass: hasClass,
+  removeClass: removeClass,
+  queryParentSelector: queryParentSelector,
+  querySelectorAllArray: querySelectorAllArray,
+  queryActions: queryActions,
+  uniqueId: uniqueId
+};
 
-dom.addClass = addClass;
-dom.hasClass = hasClass;
-dom.removeClass = removeClass;
-dom.queryParentSelector = queryParentSelector;
-dom.querySelectorAllArray = querySelectorAllArray;
-dom.queryActions = queryActions;
-dom.uniqueId = uniqueId;
+class DataURISVG {
+  constructor (width = 0, height = 0) {
+    this._width = width;
+    this._height = height;
+    this._content = '';
+  }
+
+  get width () {
+    return this._width;
+  }
+
+  set width (value) {
+    this._width = value;
+  }
+
+  get height () {
+    return this._height;
+  }
+
+  set height (value) {
+    this._height = value;
+  }
+
+  get content () {
+    return this._content;
+  }
+
+  set content (value) {
+    this._content = value;
+  }
+
+  getDataURI (isLegacy = false) {
+    let svg = `<svg xmlns='http://www.w3.org/2000/svg' viewbox='0 0 ${this._width} ${this._height}' width='${this._width}px' height='${this._height}px'>${this._content}</svg>`;
+
+    svg = svg.replace(/#/gi, '%23');
+    if (isLegacy) {
+      svg = svg.replace(/</gi, '%3C');
+      svg = svg.replace(/>/gi, '%3E');
+      svg = svg.replace(/"/gi, '\'');
+      svg = svg.replace(/{/gi, '%7B');
+      svg = svg.replace(/}/gi, '%7D');
+    }
+    return `data:image/svg+xml;charset=utf8,${svg}`;
+  }
+}
+
+const image = {
+  DataURISVG: DataURISVG
+};
 
 const supportLocalStorage = () => {
   try {
@@ -1225,19 +1288,18 @@ const supportAspectRatio = () => {
   return CSS.supports('aspect-ratio: 16 / 9');
 };
 
-const support = {};
-
-support.supportLocalStorage = supportLocalStorage;
-
-support.supportAspectRatio = supportAspectRatio;
+const support = {
+  supportLocalStorage: supportLocalStorage,
+  supportAspectRatio: supportAspectRatio
+};
 
 const TransitionSelector = {
   NONE: ns.selector('transition-none')
 };
 
-const selector = {};
-
-selector.TransitionSelector = TransitionSelector;
+const selector = {
+  TransitionSelector: TransitionSelector
+};
 
 /**
  * Copy properties from multiple sources including accessors.
@@ -1280,9 +1342,9 @@ const completeAssign = (target, ...sources) => {
   return target;
 };
 
-const property = {};
-
-property.completeAssign = completeAssign;
+const property = {
+  completeAssign: completeAssign
+};
 
 /**
  * Return an object of query params or null
@@ -1315,6 +1377,7 @@ legacy.setLegacy = () => {
 
 internals.legacy = legacy;
 internals.dom = dom;
+internals.image = image;
 internals.support = support;
 internals.motion = selector;
 internals.property = property;
@@ -1562,6 +1625,7 @@ class Instance {
   }
 
   listenHash (hash, add) {
+    if (!this._hashes) return;
     if (this._hashes.length === 0) state.add('hash', this);
     const action = new HashAction(hash, add);
     this._hashes = this._hashes.filter(action => action.hash !== hash);
@@ -1569,11 +1633,13 @@ class Instance {
   }
 
   unlistenHash (hash) {
+    if (!this._hashes) return;
     this._hashes = this._hashes.filter(action => action.hash !== hash);
     if (this._hashes.length === 0) state.remove('hash', this);
   }
 
   handleHash (hash, e) {
+    if (!this._hashes) return;
     for (const action of this._hashes) action.handle(hash, e);
   }
 
@@ -1727,6 +1793,7 @@ class Instance {
     this.debug(`dispose instance of ${this.registration.instanceClassName} on element [${this.element.id}]`);
     this.removeAttribute(this.registration.attribute);
     this.unlisten();
+    state.remove('hash', this);
     this._hashes = null;
     this._keys = null;
     this.isRendering = false;
@@ -1736,6 +1803,7 @@ class Instance {
     this.isScrollLocked = false;
     this.isLoading = false;
     this.isSwappingFont = false;
+    this.isMouseMoving = false;
     this._emitter.dispose();
     this._emitter = null;
     this._ascent.dispose();

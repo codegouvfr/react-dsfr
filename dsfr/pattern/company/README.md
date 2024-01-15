@@ -19,3 +19,7 @@ Afin d’utiliser le composant `company`, il est nécessaire d’ajouter les fic
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/societe) sur le module Bloc fonctionnel de société

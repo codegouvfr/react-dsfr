@@ -1,4 +1,4 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     this.modules = {};
   };
 
-  var prototypeAccessors$8 = { isActive: { configurable: true },isLegacy: { configurable: true } };
+  var prototypeAccessors$9 = { isActive: { configurable: true },isLegacy: { configurable: true } };
 
   State.prototype.create = function create (ModuleClass) {
     var module = new ModuleClass();
@@ -26,11 +26,11 @@
     this.modules[type].remove(item);
   };
 
-  prototypeAccessors$8.isActive.get = function () {
+  prototypeAccessors$9.isActive.get = function () {
     return this._isActive;
   };
 
-  prototypeAccessors$8.isActive.set = function (value) {
+  prototypeAccessors$9.isActive.set = function (value) {
       var this$1$1 = this;
 
     if (value === this._isActive) { return; }
@@ -53,16 +53,16 @@
     }
   };
 
-  prototypeAccessors$8.isLegacy.get = function () {
+  prototypeAccessors$9.isLegacy.get = function () {
     return this._isLegacy;
   };
 
-  prototypeAccessors$8.isLegacy.set = function (value) {
+  prototypeAccessors$9.isLegacy.set = function (value) {
     if (value === this._isLegacy) { return; }
     this._isLegacy = value;
   };
 
-  Object.defineProperties( State.prototype, prototypeAccessors$8 );
+  Object.defineProperties( State.prototype, prototypeAccessors$9 );
 
   var state = new State();
 
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.2'
+    version: '1.11.0'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -92,7 +92,7 @@
     }
   };
 
-  var prototypeAccessors$7 = { color: { configurable: true } };
+  var prototypeAccessors$8 = { color: { configurable: true } };
 
   LogLevel.prototype.log = function log () {
       var values = [], len = arguments.length;
@@ -112,11 +112,11 @@
     this.logger.apply(console, message.getMessage());
   };
 
-  prototypeAccessors$7.color.get = function () {
+  prototypeAccessors$8.color.get = function () {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? this.dark : this.light;
   };
 
-  Object.defineProperties( LogLevel.prototype, prototypeAccessors$7 );
+  Object.defineProperties( LogLevel.prototype, prototypeAccessors$8 );
 
   var Message = function Message (domain) {
     this.inputs = ['%c'];
@@ -236,7 +236,7 @@
     this.preventManipulation = false;
   };
 
-  var prototypeAccessors$6 = { mode: { configurable: true } };
+  var prototypeAccessors$7 = { mode: { configurable: true } };
 
   Options.prototype.configure = function configure (settings, start, query) {
       if ( settings === void 0 ) settings = {};
@@ -264,7 +264,7 @@
     this.mode = settings.mode || Modes.AUTO;
   };
 
-  prototypeAccessors$6.mode.set = function (value) {
+  prototypeAccessors$7.mode.set = function (value) {
     switch (value) {
       case Modes.AUTO:
         this.preventManipulation = false;
@@ -306,7 +306,7 @@
     inspector.info(("mode set to " + value));
   };
 
-  prototypeAccessors$6.mode.get = function () {
+  prototypeAccessors$7.mode.get = function () {
     return this._mode;
   };
 
@@ -315,7 +315,7 @@
     this.startCallback();
   };
 
-  Object.defineProperties( Options.prototype, prototypeAccessors$6 );
+  Object.defineProperties( Options.prototype, prototypeAccessors$7 );
 
   var options = new Options();
 
@@ -323,7 +323,7 @@
     this._collection = [];
   };
 
-  var prototypeAccessors$5 = { length: { configurable: true },collection: { configurable: true } };
+  var prototypeAccessors$6 = { length: { configurable: true },collection: { configurable: true } };
 
   Collection.prototype.forEach = function forEach (callback) {
     this._collection.forEach(callback);
@@ -333,7 +333,7 @@
     return this._collection.map(callback);
   };
 
-  prototypeAccessors$5.length.get = function () {
+  prototypeAccessors$6.length.get = function () {
     return this._collection.length;
   };
 
@@ -374,11 +374,11 @@
     return clone;
   };
 
-  prototypeAccessors$5.collection.get = function () {
+  prototypeAccessors$6.collection.get = function () {
     return this._collection;
   };
 
-  Object.defineProperties( Collection.prototype, prototypeAccessors$5 );
+  Object.defineProperties( Collection.prototype, prototypeAccessors$6 );
 
   var Module = /*@__PURE__*/(function (Collection) {
     function Module (type) {
@@ -444,7 +444,7 @@
     this._attribute = ns.attr(("js-" + dashed));
   };
 
-  var prototypeAccessors$4 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
+  var prototypeAccessors$5 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
 
   Registration.prototype.getInstanceClassNames = function getInstanceClassNames (InstanceClass) {
     var prototype = Object.getPrototypeOf(InstanceClass);
@@ -487,23 +487,23 @@
     this.creator = null;
   };
 
-  prototypeAccessors$4.instanceClassName.get = function () {
+  prototypeAccessors$5.instanceClassName.get = function () {
     return this._instanceClassName;
   };
 
-  prototypeAccessors$4.instanceClassNames.get = function () {
+  prototypeAccessors$5.instanceClassNames.get = function () {
     return this._instanceClassNames;
   };
 
-  prototypeAccessors$4.property.get = function () {
+  prototypeAccessors$5.property.get = function () {
     return this._property;
   };
 
-  prototypeAccessors$4.attribute.get = function () {
+  prototypeAccessors$5.attribute.get = function () {
     return this._attribute;
   };
 
-  Object.defineProperties( Registration.prototype, prototypeAccessors$4 );
+  Object.defineProperties( Registration.prototype, prototypeAccessors$5 );
 
   var Register = /*@__PURE__*/(function (Module) {
     function Register () {
@@ -552,9 +552,9 @@
     this._projects = [];
   };
 
-  var prototypeAccessors$3 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
+  var prototypeAccessors$4 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
 
-  prototypeAccessors$3.proxy.get = function () {
+  prototypeAccessors$4.proxy.get = function () {
     var scope = this;
     if (!this._proxy) {
       this._proxy = {
@@ -576,7 +576,7 @@
     return this._proxy;
   };
 
-  prototypeAccessors$3.html.get = function () {
+  prototypeAccessors$4.html.get = function () {
     if (!this.node || !this.node.outerHTML) { return ''; }
     var end = this.node.outerHTML.indexOf('>');
     return this.node.outerHTML.substring(0, end + 1);
@@ -614,19 +614,19 @@
     if (this._proxy) { delete this._proxy[instance.registration.property]; }
   };
 
-  prototypeAccessors$3.parent.get = function () {
+  prototypeAccessors$4.parent.get = function () {
     return this._parent;
   };
 
-  prototypeAccessors$3.ascendants.get = function () {
+  prototypeAccessors$4.ascendants.get = function () {
     return [this.parent ].concat( this.parent.ascendants);
   };
 
-  prototypeAccessors$3.children.get = function () {
+  prototypeAccessors$4.children.get = function () {
     return this._children;
   };
 
-  prototypeAccessors$3.descendants.get = function () {
+  prototypeAccessors$4.descendants.get = function () {
     var descendants = [].concat( this._children );
     this._children.forEach(function (child) { return descendants.push.apply(descendants, child.descendants); });
     return descendants;
@@ -770,7 +770,7 @@
     for (var i = this.instances.length - 1; i > -1; i--) { this.instances[i].examine(attributeNames); }
   };
 
-  Object.defineProperties( Element.prototype, prototypeAccessors$3 );
+  Object.defineProperties( Element.prototype, prototypeAccessors$4 );
 
   var RootEmission = {
     CLICK: ns.emission('root', 'click'),
@@ -1300,9 +1300,9 @@
     this.register = registerModule.register.bind(registerModule);
   };
 
-  var prototypeAccessors$2 = { isActive: { configurable: true } };
+  var prototypeAccessors$3 = { isActive: { configurable: true } };
 
-  prototypeAccessors$2.isActive.get = function () {
+  prototypeAccessors$3.isActive.get = function () {
     return state.isActive;
   };
 
@@ -1316,7 +1316,7 @@
     state.isActive = false;
   };
 
-  Object.defineProperties( Engine.prototype, prototypeAccessors$2 );
+  Object.defineProperties( Engine.prototype, prototypeAccessors$3 );
 
   var engine = new Engine();
 
@@ -1345,7 +1345,20 @@
 
   var sanitize = function (className) { return className.charAt(0) === '.' ? className.substr(1) : className; };
 
-  var getClassNames = function (element) { return element.className ? element.className.split(' ') : []; };
+  var getClassNames = function (element) {
+    switch (true) {
+      case !element.className:
+        return [];
+
+      case typeof element.className === 'string':
+        return element.className.split(' ');
+
+      case typeof element.className.baseVal === 'string':
+        return element.className.baseVal.split(' ');
+    }
+
+    return [];
+  };
 
   var modifyClass = function (element, className, remove) {
     className = sanitize(className);
@@ -1398,15 +1411,72 @@
     return id;
   };
 
-  var dom = {};
+  var dom = {
+    addClass: addClass,
+    hasClass: hasClass,
+    removeClass: removeClass,
+    queryParentSelector: queryParentSelector,
+    querySelectorAllArray: querySelectorAllArray,
+    queryActions: queryActions,
+    uniqueId: uniqueId
+  };
 
-  dom.addClass = addClass;
-  dom.hasClass = hasClass;
-  dom.removeClass = removeClass;
-  dom.queryParentSelector = queryParentSelector;
-  dom.querySelectorAllArray = querySelectorAllArray;
-  dom.queryActions = queryActions;
-  dom.uniqueId = uniqueId;
+  var DataURISVG = function DataURISVG (width, height) {
+    if ( width === void 0 ) width = 0;
+    if ( height === void 0 ) height = 0;
+
+    this._width = width;
+    this._height = height;
+    this._content = '';
+  };
+
+  var prototypeAccessors$2 = { width: { configurable: true },height: { configurable: true },content: { configurable: true } };
+
+  prototypeAccessors$2.width.get = function () {
+    return this._width;
+  };
+
+  prototypeAccessors$2.width.set = function (value) {
+    this._width = value;
+  };
+
+  prototypeAccessors$2.height.get = function () {
+    return this._height;
+  };
+
+  prototypeAccessors$2.height.set = function (value) {
+    this._height = value;
+  };
+
+  prototypeAccessors$2.content.get = function () {
+    return this._content;
+  };
+
+  prototypeAccessors$2.content.set = function (value) {
+    this._content = value;
+  };
+
+  DataURISVG.prototype.getDataURI = function getDataURI (isLegacy) {
+      if ( isLegacy === void 0 ) isLegacy = false;
+
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewbox='0 0 " + (this._width) + " " + (this._height) + "' width='" + (this._width) + "px' height='" + (this._height) + "px'>" + (this._content) + "</svg>";
+
+    svg = svg.replace(/#/gi, '%23');
+    if (isLegacy) {
+      svg = svg.replace(/</gi, '%3C');
+      svg = svg.replace(/>/gi, '%3E');
+      svg = svg.replace(/"/gi, '\'');
+      svg = svg.replace(/{/gi, '%7B');
+      svg = svg.replace(/}/gi, '%7D');
+    }
+    return ("data:image/svg+xml;charset=utf8," + svg);
+  };
+
+  Object.defineProperties( DataURISVG.prototype, prototypeAccessors$2 );
+
+  var image = {
+    DataURISVG: DataURISVG
+  };
 
   var supportLocalStorage = function () {
     try {
@@ -1421,19 +1491,18 @@
     return CSS.supports('aspect-ratio: 16 / 9');
   };
 
-  var support = {};
-
-  support.supportLocalStorage = supportLocalStorage;
-
-  support.supportAspectRatio = supportAspectRatio;
+  var support = {
+    supportLocalStorage: supportLocalStorage,
+    supportAspectRatio: supportAspectRatio
+  };
 
   var TransitionSelector = {
     NONE: ns.selector('transition-none')
   };
 
-  var selector = {};
-
-  selector.TransitionSelector = TransitionSelector;
+  var selector = {
+    TransitionSelector: TransitionSelector
+  };
 
   /**
    * Copy properties from multiple sources including accessors.
@@ -1479,9 +1548,9 @@
     return target;
   };
 
-  var property = {};
-
-  property.completeAssign = completeAssign;
+  var property = {
+    completeAssign: completeAssign
+  };
 
   /**
    * Return an object of query params or null
@@ -1514,6 +1583,7 @@
 
   internals.legacy = legacy;
   internals.dom = dom;
+  internals.image = image;
   internals.support = support;
   internals.motion = selector;
   internals.property = property;
@@ -1786,6 +1856,7 @@
   };
 
   Instance.prototype.listenHash = function listenHash (hash, add) {
+    if (!this._hashes) { return; }
     if (this._hashes.length === 0) { state.add('hash', this); }
     var action = new HashAction(hash, add);
     this._hashes = this._hashes.filter(function (action) { return action.hash !== hash; });
@@ -1793,11 +1864,13 @@
   };
 
   Instance.prototype.unlistenHash = function unlistenHash (hash) {
+    if (!this._hashes) { return; }
     this._hashes = this._hashes.filter(function (action) { return action.hash !== hash; });
     if (this._hashes.length === 0) { state.remove('hash', this); }
   };
 
   Instance.prototype.handleHash = function handleHash (hash, e) {
+    if (!this._hashes) { return; }
     for (var i = 0, list = this._hashes; i < list.length; i += 1) {
         var action = list[i];
 
@@ -1969,6 +2042,7 @@
     this.debug(("dispose instance of " + (this.registration.instanceClassName) + " on element [" + (this.element.id) + "]"));
     this.removeAttribute(this.registration.attribute);
     this.unlisten();
+    state.remove('hash', this);
     this._hashes = null;
     this._keys = null;
     this.isRendering = false;
@@ -1978,6 +2052,7 @@
     this.isScrollLocked = false;
     this.isLoading = false;
     this.isSwappingFont = false;
+    this.isMouseMoving = false;
     this._emitter.dispose();
     this._emitter = null;
     this._ascent.dispose();

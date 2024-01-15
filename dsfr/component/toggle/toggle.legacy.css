@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -31,6 +31,10 @@
   .fr-toggle__list {
     list-style: none;
     padding: 0;
+  }
+
+  .fr-toggle label {
+    color: #161616;
   }
 
   .fr-toggle label::before {

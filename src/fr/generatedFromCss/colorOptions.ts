@@ -65,6 +65,9 @@ export const colorOptions= {
       "_625_425": {
         "default": "var(--grey-625-425)"
       },
+      "_0_1000": {
+        "default": "var(--grey-0-1000)"
+      },
       "_900_175": {
         "default": "var(--grey-900-175)"
       }

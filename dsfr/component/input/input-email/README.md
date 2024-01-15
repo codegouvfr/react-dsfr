@@ -22,3 +22,7 @@ Afin d’utiliser le composant `input-email`, il est nécessaire d’ajouter les
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/adresse-electronique) sur le module Bloc fonctionnel d'adresse électronique

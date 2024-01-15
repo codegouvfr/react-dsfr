@@ -43,3 +43,7 @@ Afin d’utiliser le composant `register`, il est nécessaire d’ajouter les fi
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/modeles/page-de-creation-de-compte) sur le module Pages de création de compte

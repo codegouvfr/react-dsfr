@@ -25,4 +25,4 @@ Afin d’utiliser le composant `skiplink`, il est nécessaire d’ajouter les fi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/liens-d-evitement) sur le module Liens d'évitement
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/lien-d-evitement) sur le module Liens d'évitement

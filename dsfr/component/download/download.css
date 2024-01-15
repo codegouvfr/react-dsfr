@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -97,16 +97,12 @@
 }
 
 .fr-download--card .fr-download__link::after {
+  --icon-size: 1rem;
   position: absolute;
   right: 1.5rem;
   bottom: 1.5rem;
   margin: 0;
   color: var(--text-action-high-blue-france);
-}
-
-.fr-download--card .fr-download__link::after::before,
-.fr-download--card .fr-download__link::after::after {
-  --icon-size: 1rem;
 }
 
 .fr-download--card .fr-download__desc {
@@ -125,18 +121,8 @@
 .fr-download--card .fr-download__detail[class*=" fr-icon-"]::before,
 .fr-download--card .fr-download__detail[class^=fr-fi-]::before,
 .fr-download--card .fr-download__detail[class*=" fr-fi-"]::before {
-  margin-right: 0.5rem;
-}
-
-.fr-download--card .fr-download__detail[class^=fr-icon-]::before::before,
-.fr-download--card .fr-download__detail[class^=fr-icon-]::before::after,
-.fr-download--card .fr-download__detail[class*=" fr-icon-"]::before::before,
-.fr-download--card .fr-download__detail[class*=" fr-icon-"]::before::after,
-.fr-download--card .fr-download__detail[class^=fr-fi-]::before::before,
-.fr-download--card .fr-download__detail[class^=fr-fi-]::before::after,
-.fr-download--card .fr-download__detail[class*=" fr-fi-"]::before::before,
-.fr-download--card .fr-download__detail[class*=" fr-fi-"]::before::after {
   --icon-size: 1rem;
+  margin-right: 0.5rem;
 }
 
 .fr-downloads-group__title {
@@ -186,13 +172,9 @@
   }
 
   .fr-download--card .fr-download__link::after {
+    --icon-size: 1.5rem;
     bottom: 2rem;
     right: 2rem;
-  }
-
-  .fr-download--card .fr-download__link::after::before,
-  .fr-download--card .fr-download__link::after::after {
-    --icon-size: 1.5rem;
   }
 
   .fr-download--card .fr-download__desc {

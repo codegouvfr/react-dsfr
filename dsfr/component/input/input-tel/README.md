@@ -22,3 +22,7 @@ Afin d’utiliser le composant `input-tel`, il est nécessaire d’ajouter les f
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/numero-de-telephone) sur le module Bloc fonctionnel de numéro de téléphone

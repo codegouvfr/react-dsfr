@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -12,7 +12,10 @@
 
   --title-spacing: 0 0 0.25rem;
   --text-spacing: 0 0 0.25rem;
-  box-shadow: inset 0 0 0 1px var(--border-plain-grey), inset 2.5rem 0 0 0 var(--background-flat-grey);
+  background-size: 100% 1px, 1px 100%, 100% 1px, 2.5rem 100%;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
+  background-repeat: no-repeat, no-repeat no-repeat, no-repeat;
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--background-flat-grey), var(--background-flat-grey));
 }
 
 .fr-alert::before {
@@ -41,7 +44,7 @@
 .fr-alert .fr-btn--close {
   position: absolute;
   top: 0.25rem;
-  right: 1.25rem;
+  right: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.5rem;
   min-height: 2rem;
@@ -145,19 +148,19 @@
 }
 
 .fr-alert--info {
-  box-shadow: inset 0 0 0 1px var(--border-plain-info), inset 2.5rem 0 0 0 var(--background-flat-info);
+  background-image: linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info)), linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info)), linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info)), linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info)), linear-gradient(0deg, var(--background-flat-info), var(--background-flat-info));
 }
 
 .fr-alert--error {
-  box-shadow: inset 0 0 0 1px var(--border-plain-error), inset 2.5rem 0 0 0 var(--background-flat-error);
+  background-image: linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error)), linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error)), linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error)), linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error)), linear-gradient(0deg, var(--background-flat-error), var(--background-flat-error));
 }
 
 .fr-alert--success {
-  box-shadow: inset 0 0 0 1px var(--border-plain-success), inset 2.5rem 0 0 0 var(--background-flat-success);
+  background-image: linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success)), linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success)), linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success)), linear-gradient(0deg, var(--border-plain-success), var(--border-plain-success)), linear-gradient(0deg, var(--background-flat-success), var(--background-flat-success));
 }
 
 .fr-alert--warning {
-  box-shadow: inset 0 0 0 1px var(--border-plain-warning), inset 2.5rem 0 0 0 var(--background-flat-warning);
+  background-image: linear-gradient(0deg, var(--border-plain-warning), var(--border-plain-warning)), linear-gradient(0deg, var(--border-plain-warning), var(--border-plain-warning)), linear-gradient(0deg, var(--border-plain-warning), var(--border-plain-warning)), linear-gradient(0deg, var(--border-plain-warning), var(--border-plain-warning)), linear-gradient(0deg, var(--background-flat-warning), var(--background-flat-warning));
 }
 @media (min-width: 36em) {
   /*! media sm */
@@ -241,7 +244,7 @@
   }
 
   .fr-alert {
-    box-shadow: inset 0 0 0 1px #3a3a3a, inset 2.5rem 0 0 0 #3a3a3a;
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
   .fr-alert::before {
@@ -249,18 +252,43 @@
   }
 
   .fr-alert--info {
-    box-shadow: inset 0 0 0 1px #0063cb, inset 2.5rem 0 0 0 #0063cb;
+    background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
   }
 
   .fr-alert--error {
-    box-shadow: inset 0 0 0 1px #ce0500, inset 2.5rem 0 0 0 #ce0500;
+    background-image: linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500);
   }
 
   .fr-alert--success {
-    box-shadow: inset 0 0 0 1px #18753c, inset 2.5rem 0 0 0 #18753c;
+    background-image: linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c);
   }
 
   .fr-alert--warning {
-    box-shadow: inset 0 0 0 1px #b34000, inset 2.5rem 0 0 0 #b34000;
+    background-image: linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000);
+  }
+}
+@media print {
+  .fr-alert {
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
+  }
+
+  .fr-alert::before {
+    color: #fff;
+  }
+
+  .fr-alert--info {
+    background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
+  }
+
+  .fr-alert--error {
+    background-image: linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500);
+  }
+
+  .fr-alert--success {
+    background-image: linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c);
+  }
+
+  .fr-alert--warning {
+    background-image: linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000);
   }
 }

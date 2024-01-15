@@ -19,3 +19,7 @@ Afin d’utiliser le composant `date`, il est nécessaire d’ajouter les fichie
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/date-unique) sur le module Bloc fonctionnel de date unique

@@ -39,3 +39,7 @@ Afin d’utiliser le composant `login`, il est nécessaire d’ajouter les fichi
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/modeles/page-de-connexion) sur le module Pages de connexion

@@ -847,6 +847,11 @@ export declare const colorDecisions: {
                 readonly default: "var(--text-disabled-grey)";
             };
         };
+        readonly blackWhite: {
+            readonly grey: {
+                readonly default: "var(--text-black-white-grey)";
+            };
+        };
     };
     readonly border: {
         readonly default: {

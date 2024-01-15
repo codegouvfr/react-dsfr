@@ -26,4 +26,4 @@ Afin d’utiliser le composant `tooltip`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/information-contextuelle) sur le module Information contextuelle et Infobulle
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/infobulle) sur le module Information contextuelle et Infobulle

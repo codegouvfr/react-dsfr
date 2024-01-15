@@ -15805,6 +15805,44 @@ export const colorDecisionAndCorrespondingOptions= [
         }
     },
     {
+        "colorDecisionName": "--text-black-white-grey",
+        "themePath": [
+            "text",
+            "blackWhite",
+            "grey",
+            "default"
+        ],
+        "parsedColorDecisionName": {
+            "context": "text",
+            "colorName": "grey",
+            "usage": "blackWhite"
+        },
+        "colorOption": {
+            "colorOptionName": "--grey-0-1000",
+            "themePath": [
+                "grey",
+                "_0_1000",
+                "default"
+            ],
+            "color": {
+                "light": "#0",
+                "dark": "#ffffff"
+            },
+            "parsedColorOptionName": {
+                "colorName": "grey",
+                "brightness": {
+                    "isInvariant": false,
+                    "light": {
+                        "value": 0
+                    },
+                    "dark": {
+                        "value": 1000
+                    }
+                }
+            }
+        }
+    },
+    {
         "colorDecisionName": "--border-default-grey",
         "themePath": [
             "border",

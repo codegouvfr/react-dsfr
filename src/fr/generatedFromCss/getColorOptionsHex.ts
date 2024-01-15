@@ -70,6 +70,9 @@ export function getColorOptionsHex(
           "_625_425": {
             "default": isDark ? "#666666" : "#929292"
           },
+          "_0_1000": {
+            "default": isDark ? "#ffffff" : "#0"
+          },
           "_900_175": {
             "default": isDark ? "#353535" : "#dddddd"
           }

@@ -1,10 +1,10 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.10.2'
+  version: '1.11.0'
 };
 
 const api = window[config.namespace];
@@ -378,6 +378,7 @@ class Queue {
   }
 
   appendStartingAction (action, data) {
+    if (!this._collector.isActionEnabled && !action.isForced) return;
     if (!action || this._startingActions.some(queued => queued.test(action))) {
       api.inspector.log('appendStartingAction exists or null', action);
       return;
@@ -388,6 +389,7 @@ class Queue {
   }
 
   appendEndingAction (action, data) {
+    if (!this._collector.isActionEnabled && !action.isForced) return;
     if (!action || this._endingActions.some(queued => queued.test(action))) {
       api.inspector.log('appendEndingAction exists or null', action);
       return;
@@ -1478,6 +1480,7 @@ const getParametersLayer = (data) => {
 class Action {
   constructor (name) {
     this._isMuted = false;
+    this._isForced = false;
     this._name = name;
     this._status = ActionStatus.UNSTARTED;
     this._labels = [];
@@ -1491,6 +1494,14 @@ class Action {
 
   set isMuted (value) {
     this._isMuted = value;
+  }
+
+  get isForced () {
+    return this._isForced;
+  }
+
+  set isForced (value) {
+    this._isForced = value;
   }
 
   get isSingular () {
@@ -1757,6 +1768,8 @@ class Collector {
         }
     }
 
+    this._isActionEnabled = config.isActionEnabled === 'false' || config.isActionEnabled;
+
     this._user = new User(config.user);
     this._site = new Site(config.site);
     this._page = new Page(config.page);
@@ -1850,6 +1863,14 @@ class Collector {
 
   get isCollecting () {
     return this._page.isCollecting;
+  }
+
+  get isActionEnabled () {
+    return this._isActionEnabled;
+  }
+
+  set isActionEnabled (value) {
+    this._isActionEnabled = value;
   }
 
   get layer () {
@@ -1955,6 +1976,14 @@ class Analytics {
 
   get collection () {
     return this._collector.collection;
+  }
+
+  get isActionEnabled () {
+    return this._collector.isActionEnabled;
+  }
+
+  set isActionEnabled (value) {
+    this._collector.isActionEnabled = value;
   }
 
   get isDebugging () {
@@ -2452,7 +2481,7 @@ class Hierarchy {
 }
 
 class ActionElement {
-  constructor (node, type, id, category = '', title = null, parameters = {}, isRating = false) {
+  constructor (node, type, id, category = '', title = null, parameters = {}, isRating = false, isForced = false) {
     this._node = node;
     this._type = type;
     this._id = id || this._node.id;
@@ -2461,6 +2490,7 @@ class ActionElement {
     this._category = category;
     this._parameters = parameters;
     this._isRating = isRating;
+    this._isForced = isForced;
     this._hasBegun = false;
 
     // this._init();
@@ -2481,6 +2511,7 @@ class ActionElement {
     if (this._type.isSingular) this._action.singularize();
     Object.keys(this._parameters).forEach(key => this._action.addParameter(key, this._parameters[key]));
     this._action.isMuted = this._isMuted;
+    this._action.isForced = this._isForced;
 
     this._action.labels[0] = this._type.id;
     this._action.labels[1] = this._hierarchy.globalComponent;
@@ -2532,10 +2563,13 @@ class ActionElement {
   }
 }
 
-const RATING_ATTRIBUTE = api.internals.ns.attr('analytics-rating');
+const ActionAttributes = {
+  RATING: api.internals.ns.attr('analytics-rating'),
+  ACTION: api.internals.ns.attr('analytics-action')
+};
 
 class Actionee extends api.core.Instance {
-  constructor (priority = -1, category = '', title = null) {
+  constructor (priority = -1, category = '', title = null, isForced = false) {
     super();
     this._type = null;
     this._priority = priority;
@@ -2544,6 +2578,7 @@ class Actionee extends api.core.Instance {
     this._parameters = {};
     this._data = {};
     this._isMuted = false;
+    this._isForced = isForced;
   }
 
   static get instanceClassName () {
@@ -2591,7 +2626,7 @@ class Actionee extends api.core.Instance {
       return;
     }
 
-    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this.hasAttribute(RATING_ATTRIBUTE));
+    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this.getAttribute(ActionAttributes.ACTION) || this._title, this._parameters, this.hasAttribute(ActionAttributes.RATING), this.hasAttribute(ActionAttributes.ACTION) || this._isForced);
     if (this._isMuted) this._actionElement.isMuted = true;
 
     this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
@@ -2792,7 +2827,7 @@ class Actionee extends api.core.Instance {
 
 class AttributeActionee extends Actionee {
   constructor () {
-    super(100);
+    super(100, '', null, true);
   }
 
   static get instanceClassName () {
@@ -3253,7 +3288,7 @@ const integrateCallout = () => {
 
 const CardSelector = {
   CARD: api.internals.ns.selector('card'),
-  LINK: `${api.internals.ns.selector('card__title')} a`,
+  LINK: `${api.internals.ns.selector('card__title')} a, ${api.internals.ns.selector('card__title')} button`,
   TITLE: api.internals.ns.selector('card__title')
 };
 
@@ -4518,7 +4553,7 @@ const integrateTag = () => {
 
 const TileSelector = {
   TILE: api.internals.ns.selector('tile'),
-  LINK: `${api.internals.ns.selector('tile__title')} a`,
+  LINK: `${api.internals.ns.selector('tile__title')} a, ${api.internals.ns.selector('tile__title')} button`,
   TITLE: api.internals.ns.selector('tile__title')
 };
 
@@ -4606,7 +4641,7 @@ const COLLAPSE$1 = api.internals.ns.selector('collapse');
 
 const TranscriptionSelector = {
   TRANSCRIPTION: TRANSCRIPTION,
-  COLLAPSE: `${TRANSCRIPTION} > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > *:not(${TRANSCRIPTION}, ${COLLAPSE$1}) > ${COLLAPSE$1}`,
+  COLLAPSE: `${TRANSCRIPTION} > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}):not(${COLLAPSE$1}) > ${COLLAPSE$1}, ${TRANSCRIPTION} > *:not(${TRANSCRIPTION}):not(${COLLAPSE$1}) > *:not(${TRANSCRIPTION}):not(${COLLAPSE$1}) > ${COLLAPSE$1}`,
   COLLAPSE_LEGACY: `${TRANSCRIPTION} ${COLLAPSE$1}`,
   TITLE: `${TRANSCRIPTION}__title`
 };
@@ -4691,7 +4726,7 @@ const COLLAPSE = api.internals.ns.selector('collapse');
 
 const TranslateSelector = {
   BUTTON: `${TRANSLATE}__btn`,
-  COLLAPSE: `${TRANSLATE} > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}`,
+  COLLAPSE: `${TRANSLATE} > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}):not(${COLLAPSE}) > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}`,
   COLLAPSE_LEGACY: `${TRANSLATE} ${COLLAPSE}`
 };
 

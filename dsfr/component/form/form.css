@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -52,7 +52,7 @@
   line-height: 1.5rem;
   font-weight: 700;
   width: 100%;
-  color: var(--text-title-grey);
+  color: var(--text-label-grey);
 }
 
 .fr-fieldset__legend--regular {
@@ -174,6 +174,7 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap; /* added line */
   border: 0;
+  display: block;
 }
 
 .fr-message:last-child {
@@ -209,24 +210,27 @@
 }
 
 .fr-message--info::before {
-  -webkit-mask-image: url("../../icons/system/information-fill.svg");
-  mask-image: url("../../icons/system/information-fill.svg");
+  -webkit-mask-image: url("../../icons/system/fr--info-fill.svg");
+  mask-image: url("../../icons/system/fr--info-fill.svg");
 }
 
 .fr-select-group--valid label,
 .fr-input-group--valid label,
+.fr-range-group--valid label,
 .fr-upload-group--valid label {
   color: var(--text-default-success);
 }
 
 .fr-select-group--error label,
 .fr-input-group--error label,
+.fr-range-group--error label,
 .fr-upload-group--error label {
   color: var(--text-default-error);
 }
 
 .fr-select-group--info label,
 .fr-input-group--info label,
+.fr-range-group--info label,
 .fr-upload-group--info label {
   color: var(--text-default-info);
 }
@@ -235,6 +239,8 @@
 .fr-select-group--disabled .fr-hint-text,
 .fr-input-group--disabled label,
 .fr-input-group--disabled .fr-hint-text,
+.fr-range-group--disabled label,
+.fr-range-group--disabled .fr-hint-text,
 .fr-upload-group--disabled label,
 .fr-upload-group--disabled .fr-hint-text {
   color: var(--text-disabled-grey);
@@ -331,7 +337,7 @@
   align-items: baseline;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: -0.75rem 0 0 0.5rem;
+  margin: -0.75rem 0.5rem 0 0.5rem;
 }
 
 .fr-fieldset--inline .fr-checkbox-group {
@@ -369,7 +375,7 @@
 
 .fr-fieldset__content {
   position: relative;
-  margin-left: 0.5rem;
+  margin: 0 0.5rem;
   width: 100%;
 }
 
@@ -447,8 +453,8 @@
 }
 
 .fr-info-text::before {
-  -webkit-mask-image: url("../../icons/system/information-fill.svg");
-  mask-image: url("../../icons/system/information-fill.svg");
+  -webkit-mask-image: url("../../icons/system/fr--info-fill.svg");
+  mask-image: url("../../icons/system/fr--info-fill.svg");
 }
 
 .fr-error-text {
@@ -528,25 +534,28 @@
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url("../../icons/system/information-fill.svg");
+    background-image: url("../../icons/system/fr--info-fill.svg");
     width: 1rem;
     height: 1rem;
   }
 
   .fr-select-group--valid label,
   .fr-input-group--valid label,
+  .fr-range-group--valid label,
   .fr-upload-group--valid label {
     color: #18753c;
   }
 
   .fr-select-group--error label,
   .fr-input-group--error label,
+  .fr-range-group--error label,
   .fr-upload-group--error label {
     color: #ce0500;
   }
 
   .fr-select-group--info label,
   .fr-input-group--info label,
+  .fr-range-group--info label,
   .fr-upload-group--info label {
     color: #0063cb;
   }
@@ -555,6 +564,8 @@
   .fr-select-group--disabled .fr-hint-text,
   .fr-input-group--disabled label,
   .fr-input-group--disabled .fr-hint-text,
+  .fr-range-group--disabled label,
+  .fr-range-group--disabled .fr-hint-text,
   .fr-upload-group--disabled label,
   .fr-upload-group--disabled .fr-hint-text {
     color: #929292;
@@ -682,5 +693,124 @@
 
   .fr-fieldset--info .fr-fieldset__content::before {
     box-shadow: inset 2px 0 0 0 #0063cb;
+  }
+}
+@media print {
+  .fr-select-group--valid label,
+  .fr-input-group--valid label,
+  .fr-range-group--valid label,
+  .fr-upload-group--valid label {
+    color: #18753c;
+  }
+
+  .fr-select-group--error label,
+  .fr-input-group--error label,
+  .fr-range-group--error label,
+  .fr-upload-group--error label {
+    color: #ce0500;
+  }
+
+  .fr-select-group--info label,
+  .fr-input-group--info label,
+  .fr-range-group--info label,
+  .fr-upload-group--info label {
+    color: #0063cb;
+  }
+
+  .fr-select-group--disabled label,
+  .fr-select-group--disabled .fr-hint-text,
+  .fr-input-group--disabled label,
+  .fr-input-group--disabled .fr-hint-text,
+  .fr-range-group--disabled label,
+  .fr-range-group--disabled .fr-hint-text,
+  .fr-upload-group--disabled label,
+  .fr-upload-group--disabled .fr-hint-text {
+    color: #929292;
+  }
+
+  .fr-label {
+    color: #161616;
+  }
+
+  .fr-label--error {
+    color: #ce0500;
+  }
+
+  .fr-label--success {
+    color: #18753c;
+  }
+
+  .fr-label--info {
+    color: #0063cb;
+  }
+
+  .fr-label--disabled,
+  .fr-label--disabled .fr-hint-text {
+    color: #929292;
+  }
+
+  .fr-hint-text,
+  .fr-message {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .fr-message--error {
+    color: #ce0500;
+  }
+
+  .fr-message--valid {
+    color: #18753c;
+  }
+
+  .fr-message--info {
+    color: #0063cb;
+  }
+
+  .fr-fieldset:disabled .fr-label,
+  .fr-fieldset:disabled .fr-hint-text,
+  .fr-fieldset:disabled .fr-fieldset__legend {
+    color: #929292;
+  }
+
+  .fr-fieldset input:disabled + label,
+  .fr-fieldset input:disabled + label .fr-hint-text,
+  .fr-fieldset input:disabled + label + .fr-hint-text {
+    color: #929292;
+  }
+
+  .fr-fieldset__legend {
+    color: #161616;
+  }
+
+  .fr-fieldset--error,
+  .fr-fieldset--error .fr-fieldset__legend {
+    background-image: linear-gradient(0deg, #ce0500, #ce0500);
+  }
+
+  .fr-fieldset--error .fr-fieldset__legend,
+  .fr-fieldset--error .fr-label {
+    color: #ce0500;
+  }
+
+  .fr-fieldset--valid,
+  .fr-fieldset--valid .fr-fieldset__legend {
+    background-image: linear-gradient(0deg, #18753c, #18753c);
+  }
+
+  .fr-fieldset--valid .fr-fieldset__legend,
+  .fr-fieldset--valid .fr-label {
+    color: #18753c;
+  }
+
+  .fr-fieldset--info,
+  .fr-fieldset--info .fr-fieldset__legend {
+    background-image: linear-gradient(0deg, #0063cb, #0063cb);
+  }
+
+  .fr-fieldset--info .fr-fieldset__legend,
+  .fr-fieldset--info .fr-label {
+    color: #0063cb;
   }
 }

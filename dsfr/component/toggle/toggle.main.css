@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -38,11 +38,12 @@
 .fr-toggle label {
   --toggle-status-width: auto;
   display: inline-flex;
-  width: calc(100% - 2.5rem);
+  width: calc(100% - 2rem);
   min-height: 1.5rem;
   font-size: 1rem;
   line-height: 1.5rem;
   -webkit-tap-highlight-color: transparent;
+  color: var(--text-label-grey);
 }
 
 .fr-toggle label[data-fr-unchecked-label][data-fr-checked-label] {
@@ -64,7 +65,7 @@
   display: block;
   flex-shrink: 0;
   height: calc(1.25rem + 1px);
-  padding-top: 1.5rem;
+  padding-top: 1.75rem;
   font-size: 0.75rem;
   line-height: 1.25rem;
   border-radius: 0.75rem;
@@ -124,7 +125,7 @@
 .fr-toggle--label-left .fr-toggle__label {
   justify-content: space-between;
   padding-left: 0;
-  width: calc(100% - 2.5rem);
+  width: calc(100% - 2rem);
   flex: 1;
 }
 

@@ -19,3 +19,7 @@ Afin d’utiliser le composant `civility`, il est nécessaire d’ajouter les fi
   </body>
 </html>
 ```
+
+## Documentation
+
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/blocs-fonctionnels/civilite) sur le module Bloc fonctionnel de civilité

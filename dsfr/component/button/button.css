@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -428,7 +428,8 @@
   */
 }
 
-.fr-btns-group > li {
+.fr-btns-group > li,
+.fr-btns-group > div {
   width: 100%;
   max-width: 100%;
 }
@@ -762,7 +763,6 @@
   max-height: none;
   display: flex;
   margin-left: auto;
-  margin-right: -1rem;
 }
 
 .fr-btn--close::after {
@@ -876,6 +876,87 @@
   content: "";
 }
 
+.fr-btn--account {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-btn--account::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/user/account-circle-fill.svg");
+  mask-image: url("../../icons/user/account-circle-fill.svg");
+  content: "";
+}
+
+.fr-btn--team {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-btn--team::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/user/team-line.svg");
+  mask-image: url("../../icons/user/team-line.svg");
+  content: "";
+}
+
+.fr-btn--briefcase {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: initial;
+  max-width: 100%;
+  max-height: none;
+}
+
+.fr-btn--briefcase::before {
+  --icon-size: 1rem;
+  margin-left: -0.125rem;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/business/briefcase-fill.svg");
+  mask-image: url("../../icons/business/briefcase-fill.svg");
+  content: "";
+}
+
 .fr-btn:disabled,
 a.fr-btn:not([href]) {
   color: var(--text-disabled-grey);
@@ -905,7 +986,8 @@ a.fr-btn--secondary:not([href]) {
   --active: inherit;
 }
 
-.fr-btn--tertiary {
+.fr-btn--tertiary,
+.fr-btn--account {
   background-color: transparent;
 
   --hover: inherit;
@@ -915,7 +997,9 @@ a.fr-btn--secondary:not([href]) {
 }
 
 .fr-btn--tertiary:disabled,
-a.fr-btn--tertiary:not([href]) {
+a.fr-btn--tertiary:not([href]),
+a.fr-btn--account:not([href]),
+.fr-btn--account:disabled {
   color: var(--text-disabled-grey);
   box-shadow: inset 0 0 0 1px var(--border-disabled-grey);
   background-color: transparent;
@@ -928,7 +1012,9 @@ a.fr-btn--tertiary:not([href]) {
 .fr-btn--close,
 .fr-btn--display,
 .fr-btn--fullscreen,
-.fr-btn--tooltip {
+.fr-btn--tooltip,
+.fr-btn--briefcase,
+.fr-btn--team {
   background-color: transparent;
 
   --hover: inherit;
@@ -942,10 +1028,14 @@ a.fr-btn--close:not([href]),
 a.fr-btn--display:not([href]),
 a.fr-btn--fullscreen:not([href]),
 a.fr-btn--tooltip:not([href]),
+a.fr-btn--briefcase:not([href]),
+a.fr-btn--team:not([href]),
 .fr-btn--close:disabled,
 .fr-btn--display:disabled,
 .fr-btn--fullscreen:disabled,
-.fr-btn--tooltip:disabled {
+.fr-btn--tooltip:disabled,
+.fr-btn--briefcase:disabled,
+.fr-btn--team:disabled {
   color: var(--text-disabled-grey);
   background-color: transparent;
 
@@ -1031,6 +1121,10 @@ a.fr-btn--tooltip:not([href]),
     background-repeat: no-repeat;
     width: 1rem;
     height: 1rem;
+  }
+
+  .fr-btn[href] {
+    text-decoration: none;
   }
 
   .fr-btn[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
@@ -1136,6 +1230,36 @@ a.fr-btn--tooltip:not([href]),
     height: 1rem;
   }
 
+  .fr-btn--briefcase::before,
+  .fr-btn--briefcase::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/business/briefcase-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--account::before,
+  .fr-btn--account::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/user/account-circle-fill.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--team::before,
+  .fr-btn--team::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/user/team-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
   ul.fr-btns-group {
     list-style-type: none;
   }
@@ -1231,34 +1355,43 @@ a.fr-btn--tooltip:not([href]),
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  .fr-btn--tertiary {
+  .fr-btn--tertiary,
+  .fr-btn--account {
     background-color: transparent;
     color: #000091;
     box-shadow: inset 0 0 0 1px #ddd;
   }
 
-  .fr-btn--tertiary:hover {
+  .fr-btn--tertiary:hover,
+  .fr-btn--account:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  .fr-btn--tertiary:active {
+  .fr-btn--tertiary:active,
+  .fr-btn--account:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
   .fr-btn--tertiary:disabled,
-  a.fr-btn--tertiary:not([href]) {
+  a.fr-btn--tertiary:not([href]),
+  a.fr-btn--account:not([href]),
+  .fr-btn--account:disabled {
     color: #929292;
     box-shadow: inset 0 0 0 1px #e5e5e5;
     background-color: transparent;
   }
 
   .fr-btn--tertiary:disabled:hover,
-  a.fr-btn--tertiary:not([href]):hover {
+  a.fr-btn--tertiary:not([href]):hover,
+  a.fr-btn--account:not([href]):hover,
+  .fr-btn--account:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary:disabled:active,
-  a.fr-btn--tertiary:not([href]):active {
+  a.fr-btn--tertiary:not([href]):active,
+  a.fr-btn--account:not([href]):active,
+  .fr-btn--account:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
@@ -1266,7 +1399,9 @@ a.fr-btn--tooltip:not([href]),
   .fr-btn--close,
   .fr-btn--display,
   .fr-btn--fullscreen,
-  .fr-btn--tooltip {
+  .fr-btn--tooltip,
+  .fr-btn--briefcase,
+  .fr-btn--team {
     background-color: transparent;
     color: #000091;
   }
@@ -1275,7 +1410,9 @@ a.fr-btn--tooltip:not([href]),
   .fr-btn--close:hover,
   .fr-btn--display:hover,
   .fr-btn--fullscreen:hover,
-  .fr-btn--tooltip:hover {
+  .fr-btn--tooltip:hover,
+  .fr-btn--briefcase:hover,
+  .fr-btn--team:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
@@ -1283,7 +1420,9 @@ a.fr-btn--tooltip:not([href]),
   .fr-btn--close:active,
   .fr-btn--display:active,
   .fr-btn--fullscreen:active,
-  .fr-btn--tooltip:active {
+  .fr-btn--tooltip:active,
+  .fr-btn--briefcase:active,
+  .fr-btn--team:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
@@ -1293,10 +1432,14 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--display:not([href]),
   a.fr-btn--fullscreen:not([href]),
   a.fr-btn--tooltip:not([href]),
+  a.fr-btn--briefcase:not([href]),
+  a.fr-btn--team:not([href]),
   .fr-btn--close:disabled,
   .fr-btn--display:disabled,
   .fr-btn--fullscreen:disabled,
-  .fr-btn--tooltip:disabled {
+  .fr-btn--tooltip:disabled,
+  .fr-btn--briefcase:disabled,
+  .fr-btn--team:disabled {
     color: #929292;
     background-color: transparent;
   }
@@ -1307,10 +1450,14 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--display:not([href]):hover,
   a.fr-btn--fullscreen:not([href]):hover,
   a.fr-btn--tooltip:not([href]):hover,
+  a.fr-btn--briefcase:not([href]):hover,
+  a.fr-btn--team:not([href]):hover,
   .fr-btn--close:disabled:hover,
   .fr-btn--display:disabled:hover,
   .fr-btn--fullscreen:disabled:hover,
-  .fr-btn--tooltip:disabled:hover {
+  .fr-btn--tooltip:disabled:hover,
+  .fr-btn--briefcase:disabled:hover,
+  .fr-btn--team:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
@@ -1320,10 +1467,241 @@ a.fr-btn--tooltip:not([href]),
   a.fr-btn--display:not([href]):active,
   a.fr-btn--fullscreen:not([href]):active,
   a.fr-btn--tooltip:not([href]):active,
+  a.fr-btn--briefcase:not([href]):active,
+  a.fr-btn--team:not([href]):active,
   .fr-btn--close:disabled:active,
   .fr-btn--display:disabled:active,
   .fr-btn--fullscreen:disabled:active,
-  .fr-btn--tooltip:disabled:active {
+  .fr-btn--tooltip:disabled:active,
+  .fr-btn--briefcase:disabled:active,
+  .fr-btn--team:disabled:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+@media print {
+  .fr-btn {
+    background-color: #000091;
+    color: #f5f5fe;
+  }
+
+  .fr-btn:hover {
+    background-color: #1212ff;
+  }
+
+  .fr-btn:active {
+    background-color: #2323ff;
+  }
+
+  .fr-btn:disabled,
+  a.fr-btn:not([href]) {
+    color: #929292;
+    background-color: #e5e5e5;
+  }
+
+  .fr-btn--secondary {
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #000091;
+  }
+
+  .fr-btn--secondary:disabled,
+  a.fr-btn--secondary:not([href]) {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+  }
+
+  .fr-btn--tertiary,
+  .fr-btn--account {
+    color: #000091;
+    box-shadow: inset 0 0 0 1px #ddd;
+  }
+
+  .fr-btn--tertiary:disabled,
+  a.fr-btn--tertiary:not([href]),
+  a.fr-btn--account:not([href]),
+  .fr-btn--account:disabled {
+    color: #929292;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+  }
+
+  .fr-btn--tertiary-no-outline,
+  .fr-btn--close,
+  .fr-btn--display,
+  .fr-btn--fullscreen,
+  .fr-btn--tooltip,
+  .fr-btn--briefcase,
+  .fr-btn--team {
+    color: #000091;
+  }
+
+  .fr-btn--tertiary-no-outline:disabled,
+  a.fr-btn--tertiary-no-outline:not([href]),
+  a.fr-btn--close:not([href]),
+  a.fr-btn--display:not([href]),
+  a.fr-btn--fullscreen:not([href]),
+  a.fr-btn--tooltip:not([href]),
+  a.fr-btn--briefcase:not([href]),
+  a.fr-btn--team:not([href]),
+  .fr-btn--close:disabled,
+  .fr-btn--display:disabled,
+  .fr-btn--fullscreen:disabled,
+  .fr-btn--tooltip:disabled,
+  .fr-btn--briefcase:disabled,
+  .fr-btn--team:disabled {
+    color: #929292;
+  }
+
+  .fr-btn--secondary,
+  .fr-btn--tertiary,
+  .fr-btn--tertiary-no-outline,
+  .fr-btn--close,
+  .fr-btn--display,
+  .fr-btn--fullscreen,
+  .fr-btn--tooltip {
+    background-color: transparent;
+  }
+}
+@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
+  .fr-btn--secondary {
+    background-color: transparent;
+  }
+
+  .fr-btn--secondary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--secondary:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--secondary:disabled,
+  a.fr-btn--secondary:not([href]) {
+    background-color: transparent;
+  }
+
+  .fr-btn--secondary:disabled:hover,
+  a.fr-btn--secondary:not([href]):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--secondary:disabled:active,
+  a.fr-btn--secondary:not([href]):active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary,
+  .fr-btn--account {
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary:hover,
+  .fr-btn--account:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary:active,
+  .fr-btn--account:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary:disabled,
+  a.fr-btn--tertiary:not([href]),
+  a.fr-btn--account:not([href]),
+  .fr-btn--account:disabled {
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary:disabled:hover,
+  a.fr-btn--tertiary:not([href]):hover,
+  a.fr-btn--account:not([href]):hover,
+  .fr-btn--account:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary:disabled:active,
+  a.fr-btn--tertiary:not([href]):active,
+  a.fr-btn--account:not([href]):active,
+  .fr-btn--account:disabled:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary-no-outline,
+  .fr-btn--close,
+  .fr-btn--display,
+  .fr-btn--fullscreen,
+  .fr-btn--tooltip,
+  .fr-btn--briefcase,
+  .fr-btn--team {
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary-no-outline:hover,
+  .fr-btn--close:hover,
+  .fr-btn--display:hover,
+  .fr-btn--fullscreen:hover,
+  .fr-btn--tooltip:hover,
+  .fr-btn--briefcase:hover,
+  .fr-btn--team:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary-no-outline:active,
+  .fr-btn--close:active,
+  .fr-btn--display:active,
+  .fr-btn--fullscreen:active,
+  .fr-btn--tooltip:active,
+  .fr-btn--briefcase:active,
+  .fr-btn--team:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-btn--tertiary-no-outline:disabled,
+  a.fr-btn--tertiary-no-outline:not([href]),
+  a.fr-btn--close:not([href]),
+  a.fr-btn--display:not([href]),
+  a.fr-btn--fullscreen:not([href]),
+  a.fr-btn--tooltip:not([href]),
+  a.fr-btn--briefcase:not([href]),
+  a.fr-btn--team:not([href]),
+  .fr-btn--close:disabled,
+  .fr-btn--display:disabled,
+  .fr-btn--fullscreen:disabled,
+  .fr-btn--tooltip:disabled,
+  .fr-btn--briefcase:disabled,
+  .fr-btn--team:disabled {
+    background-color: transparent;
+  }
+
+  .fr-btn--tertiary-no-outline:disabled:hover,
+  a.fr-btn--tertiary-no-outline:not([href]):hover,
+  a.fr-btn--close:not([href]):hover,
+  a.fr-btn--display:not([href]):hover,
+  a.fr-btn--fullscreen:not([href]):hover,
+  a.fr-btn--tooltip:not([href]):hover,
+  a.fr-btn--briefcase:not([href]):hover,
+  a.fr-btn--team:not([href]):hover,
+  .fr-btn--close:disabled:hover,
+  .fr-btn--display:disabled:hover,
+  .fr-btn--fullscreen:disabled:hover,
+  .fr-btn--tooltip:disabled:hover,
+  .fr-btn--briefcase:disabled:hover,
+  .fr-btn--team:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .fr-btn--tertiary-no-outline:disabled:active,
+  a.fr-btn--tertiary-no-outline:not([href]):active,
+  a.fr-btn--close:not([href]):active,
+  a.fr-btn--display:not([href]):active,
+  a.fr-btn--fullscreen:not([href]):active,
+  a.fr-btn--tooltip:not([href]):active,
+  a.fr-btn--briefcase:not([href]):active,
+  a.fr-btn--team:not([href]):active,
+  .fr-btn--close:disabled:active,
+  .fr-btn--display:disabled:active,
+  .fr-btn--fullscreen:disabled:active,
+  .fr-btn--tooltip:disabled:active,
+  .fr-btn--briefcase:disabled:active,
+  .fr-btn--team:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }

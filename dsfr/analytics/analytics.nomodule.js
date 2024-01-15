@@ -1,4 +1,4 @@
-/*! DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.10.2'
+    version: '1.11.0'
   };
 
   var api = window[config.namespace];
@@ -391,6 +391,7 @@
   };
 
   Queue.prototype.appendStartingAction = function appendStartingAction (action, data) {
+    if (!this._collector.isActionEnabled && !action.isForced) { return; }
     if (!action || this._startingActions.some(function (queued) { return queued.test(action); })) {
       api.inspector.log('appendStartingAction exists or null', action);
       return;
@@ -401,6 +402,7 @@
   };
 
   Queue.prototype.appendEndingAction = function appendEndingAction (action, data) {
+    if (!this._collector.isActionEnabled && !action.isForced) { return; }
     if (!action || this._endingActions.some(function (queued) { return queued.test(action); })) {
       api.inspector.log('appendEndingAction exists or null', action);
       return;
@@ -1532,6 +1534,7 @@
 
   var Action = function Action (name) {
     this._isMuted = false;
+    this._isForced = false;
     this._name = name;
     this._status = ActionStatus.UNSTARTED;
     this._labels = [];
@@ -1539,7 +1542,7 @@
     this._sentData = [];
   };
 
-  var prototypeAccessors$6 = { isMuted: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },mode: { configurable: true },_base: { configurable: true } };
+  var prototypeAccessors$6 = { isMuted: { configurable: true },isForced: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },mode: { configurable: true },_base: { configurable: true } };
 
   prototypeAccessors$6.isMuted.get = function () {
     return this._isMuted;
@@ -1547,6 +1550,14 @@
 
   prototypeAccessors$6.isMuted.set = function (value) {
     this._isMuted = value;
+  };
+
+  prototypeAccessors$6.isForced.get = function () {
+    return this._isForced;
+  };
+
+  prototypeAccessors$6.isForced.set = function (value) {
+    this._isForced = value;
   };
 
   prototypeAccessors$6.isSingular.get = function () {
@@ -1817,6 +1828,8 @@
         }
     }
 
+    this._isActionEnabled = config.isActionEnabled === 'false' || config.isActionEnabled;
+
     this._user = new User(config.user);
     this._site = new Site(config.site);
     this._page = new Page(config.page);
@@ -1827,7 +1840,7 @@
     queue.setCollector(this);
   };
 
-  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },isCollecting: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },isCollecting: { configurable: true },isActionEnabled: { configurable: true },layer: { configurable: true } };
 
   prototypeAccessors$4.page.get = function () {
     return this._page;
@@ -1916,6 +1929,14 @@
     return this._page.isCollecting;
   };
 
+  prototypeAccessors$4.isActionEnabled.get = function () {
+    return this._isActionEnabled;
+  };
+
+  prototypeAccessors$4.isActionEnabled.set = function (value) {
+    this._isActionEnabled = value;
+  };
+
   prototypeAccessors$4.layer.get = function () {
     return ( this._user.layer ).concat( this._site.layer,
       this._page.layer,
@@ -1940,7 +1961,7 @@
     this._configure();
   };
 
-  var prototypeAccessors$3 = { isReady: { configurable: true },readiness: { configurable: true },page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },cmp: { configurable: true },opt: { configurable: true },collection: { configurable: true },isDebugging: { configurable: true } };
+  var prototypeAccessors$3 = { isReady: { configurable: true },readiness: { configurable: true },page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },cmp: { configurable: true },opt: { configurable: true },collection: { configurable: true },isActionEnabled: { configurable: true },isDebugging: { configurable: true } };
 
   Analytics.prototype._configure = function _configure () {
     switch (true) {
@@ -2023,6 +2044,14 @@
 
   prototypeAccessors$3.collection.get = function () {
     return this._collector.collection;
+  };
+
+  prototypeAccessors$3.isActionEnabled.get = function () {
+    return this._collector.isActionEnabled;
+  };
+
+  prototypeAccessors$3.isActionEnabled.set = function (value) {
+    this._collector.isActionEnabled = value;
   };
 
   prototypeAccessors$3.isDebugging.get = function () {
@@ -2534,11 +2563,12 @@
 
   Object.defineProperties( Hierarchy.prototype, prototypeAccessors$1 );
 
-  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRating) {
+  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRating, isForced) {
     if ( category === void 0 ) category = '';
     if ( title === void 0 ) title = null;
     if ( parameters === void 0 ) parameters = {};
     if ( isRating === void 0 ) isRating = false;
+    if ( isForced === void 0 ) isForced = false;
 
     this._node = node;
     this._type = type;
@@ -2548,6 +2578,7 @@
     this._category = category;
     this._parameters = parameters;
     this._isRating = isRating;
+    this._isForced = isForced;
     this._hasBegun = false;
 
     // this._init();
@@ -2572,6 +2603,7 @@
     if (this._type.isSingular) { this._action.singularize(); }
     Object.keys(this._parameters).forEach(function (key) { return this$1$1._action.addParameter(key, this$1$1._parameters[key]); });
     this._action.isMuted = this._isMuted;
+    this._action.isForced = this._isForced;
 
     this._action.labels[0] = this._type.id;
     this._action.labels[1] = this._hierarchy.globalComponent;
@@ -2629,13 +2661,17 @@
 
   Object.defineProperties( ActionElement.prototype, prototypeAccessors );
 
-  var RATING_ATTRIBUTE = api.internals.ns.attr('analytics-rating');
+  var ActionAttributes = {
+    RATING: api.internals.ns.attr('analytics-rating'),
+    ACTION: api.internals.ns.attr('analytics-action')
+  };
 
   var Actionee = /*@__PURE__*/(function (superclass) {
-    function Actionee (priority, category, title) {
+    function Actionee (priority, category, title, isForced) {
       if ( priority === void 0 ) priority = -1;
       if ( category === void 0 ) category = '';
       if ( title === void 0 ) title = null;
+      if ( isForced === void 0 ) isForced = false;
 
       superclass.call(this);
       this._type = null;
@@ -2645,6 +2681,7 @@
       this._parameters = {};
       this._data = {};
       this._isMuted = false;
+      this._isForced = isForced;
     }
 
     if ( superclass ) Actionee.__proto__ = superclass;
@@ -2699,7 +2736,7 @@
         return;
       }
 
-      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this._title, this._parameters, this.hasAttribute(RATING_ATTRIBUTE));
+      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this.getAttribute(ActionAttributes.ACTION) || this._title, this._parameters, this.hasAttribute(ActionAttributes.RATING), this.hasAttribute(ActionAttributes.ACTION) || this._isForced);
       if (this._isMuted) { this._actionElement.isMuted = true; }
 
       this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
@@ -2913,7 +2950,7 @@
 
   var AttributeActionee = /*@__PURE__*/(function (Actionee) {
     function AttributeActionee () {
-      Actionee.call(this, 100);
+      Actionee.call(this, 100, '', null, true);
     }
 
     if ( Actionee ) AttributeActionee.__proto__ = Actionee;
@@ -3485,7 +3522,7 @@
 
   var CardSelector = {
     CARD: api.internals.ns.selector('card'),
-    LINK: ((api.internals.ns.selector('card__title')) + " a"),
+    LINK: ((api.internals.ns.selector('card__title')) + " a, " + (api.internals.ns.selector('card__title')) + " button"),
     TITLE: api.internals.ns.selector('card__title')
   };
 
@@ -5202,7 +5239,7 @@
 
   var TileSelector = {
     TILE: api.internals.ns.selector('tile'),
-    LINK: ((api.internals.ns.selector('tile__title')) + " a"),
+    LINK: ((api.internals.ns.selector('tile__title')) + " a, " + (api.internals.ns.selector('tile__title')) + " button"),
     TITLE: api.internals.ns.selector('tile__title')
   };
 
@@ -5314,7 +5351,7 @@
 
   var TranscriptionSelector = {
     TRANSCRIPTION: TRANSCRIPTION,
-    COLLAPSE: (TRANSCRIPTION + " > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > *:not(" + TRANSCRIPTION + ", " + COLLAPSE$1 + ") > " + COLLAPSE$1),
+    COLLAPSE: (TRANSCRIPTION + " > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + "):not(" + COLLAPSE$1 + ") > " + COLLAPSE$1 + ", " + TRANSCRIPTION + " > *:not(" + TRANSCRIPTION + "):not(" + COLLAPSE$1 + ") > *:not(" + TRANSCRIPTION + "):not(" + COLLAPSE$1 + ") > " + COLLAPSE$1),
     COLLAPSE_LEGACY: (TRANSCRIPTION + " " + COLLAPSE$1),
     TITLE: (TRANSCRIPTION + "__title")
   };
@@ -5423,7 +5460,7 @@
 
   var TranslateSelector = {
     BUTTON: (TRANSLATE + "__btn"),
-    COLLAPSE: (TRANSLATE + " > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE),
+    COLLAPSE: (TRANSLATE + " > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + "):not(" + COLLAPSE + ") > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE),
     COLLAPSE_LEGACY: (TRANSLATE + " " + COLLAPSE)
   };
 

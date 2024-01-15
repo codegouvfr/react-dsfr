@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.10.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -66,7 +66,7 @@
   white-space: nowrap;
 }
 
-.fr-translate__language[aria-current] {
+.fr-translate__language[aria-current]:not([aria-current=false]) {
   display: none;
 }
 
@@ -83,6 +83,23 @@
   padding: 0;
 }
 
+.fr-translate .fr-translate__btn[aria-expanded=true] {
+  color: var(--text-active-blue-france);
+  background-color: var(--background-open-blue-france);
+
+  --idle: transparent;
+  --hover: var(--background-open-blue-france-hover);
+  --active: var(--background-open-blue-france-active);
+}
+
+.fr-translate .fr-translate__btn[aria-expanded=true]:hover {
+  background-color: var(--hover-tint);
+}
+
+.fr-translate .fr-translate__btn[aria-expanded=true]:active {
+  background-color: var(--active-tint);
+}
+
 .fr-translate__menu .fr-translate__language {
   box-shadow: none;
 }
@@ -97,7 +114,6 @@
   .fr-translate .fr-translate__btn {
     min-height: auto;
     width: auto;
-    margin-bottom: 1rem;
     font-size: 0.875rem;
     line-height: 1.5rem;
     padding: 0.25rem 0.75rem;
@@ -112,13 +128,12 @@
     --icon-size: 1rem;
   }
 
-  .fr-translate__language[aria-current] {
+  .fr-translate__language[aria-current]:not([aria-current=false]) {
     display: inline-flex;
   }
 
   .fr-translate__menu {
     margin: -0.25rem -1rem 0;
-    top: calc(100% - 1rem);
   }
 
   .fr-translate .fr-menu__list {
@@ -129,23 +144,6 @@
 
   .fr-btns-group .fr-translate__menu {
     margin: -1.25rem -0.75rem 0;
-  }
-
-  .fr-translate .fr-translate__btn[aria-expanded=true] {
-    color: var(--text-active-blue-france);
-    background-color: var(--background-open-blue-france);
-
-    --idle: transparent;
-    --hover: var(--background-open-blue-france-hover);
-    --active: var(--background-open-blue-france-active);
-  }
-
-  .fr-translate .fr-translate__btn[aria-expanded=true]:hover {
-    background-color: var(--hover-tint);
-  }
-
-  .fr-translate .fr-translate__btn[aria-expanded=true]:active {
-    background-color: var(--active-tint);
   }
 }
 @media (min-width: 78em) {
