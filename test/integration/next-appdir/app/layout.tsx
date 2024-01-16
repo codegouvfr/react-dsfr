@@ -18,6 +18,7 @@ import { headers } from "next/headers";
 import { getScriptNonceFromHeader } from "next/dist/server/app-render/get-script-nonce-from-header"; // or use your own implementation
 import style from "./main.module.css";
 import { cx } from '@codegouvfr/react-dsfr/tools/cx';
+import { Follow } from './Follow';
 
 
 export default function RootLayout({ children }: { children: JSX.Element; }) {
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: JSX.Element; }) {
 							<div className={cx(style.container)}>
 								{children}
 							</div>
+							<Follow />
 							<Footer
 								accessibility="fully compliant"
 								contentDescription={`

@@ -3,6 +3,8 @@ import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
+import Button from "../dist/Button";
+import React from "react";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -130,4 +132,9 @@ export const WithPlaceholder = getStory({
     "nativeInputProps": {
         "placeholder": "https://"
     }
+});
+
+export const WithButtonAddon = getStory({
+    "label": "Label champs de saisie",
+    "addon": <Button>Valider</Button>
 });
