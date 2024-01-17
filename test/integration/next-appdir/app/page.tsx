@@ -1,5 +1,7 @@
 import { ClientComponent } from "#/ui/ClientComponent";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
+import { Range } from "@codegouvfr/react-dsfr/Range";
+import { SegmentedControl } from "@codegouvfr/react-dsfr/SegmentedControl";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 import { Summary } from "@codegouvfr/react-dsfr/Summary";
@@ -158,6 +160,18 @@ export default function Page() {
                 burgerMenuButtonText="Dans cette rubrique"
             />
             <TableExample />
+            <SegmentedControl legend="Légende" hideLegend segments={[
+                {
+                    label: "Libellé",
+                },
+                {
+                    label: "Libellé",
+                },
+                {
+                    label: "Libellé",
+                },
+            ]} />
+            <Range label="Label" hintText="Texte de description additionnel, valeur de 0 à 100." min={0} max={100} double step={10} prefix="~" suffix=" %" />
         </>
     );
 

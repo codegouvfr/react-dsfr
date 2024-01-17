@@ -19,30 +19,46 @@ export type SegmentedControlProps = {
     className?: string;
     name?: string;
     classes?: Partial<
-        Record<"root" | "legend" | "elements" | "element-each" | "element-each__label", CxArg>
+        Record<
+            "root" | "legend" | "hintText" | "elements" | "element-each" | "element-each__label",
+            CxArg
+        >
     >;
     style?: CSSProperties;
+    /** default: false */
     small?: boolean;
-    legend?: ReactNode;
     /**
      * Minimum 1, Maximum 5.
      *
      * All with icon or all without icon.
      */
     segments: SegmentedControlProps.Segments;
-} & (SegmentedControlProps.WithInlineLegend | SegmentedControlProps.WithHiddenLegend);
+} & (
+    | SegmentedControlProps.WithLegend
+    | SegmentedControlProps.WithInlineLegend
+    | SegmentedControlProps.WithHiddenLegend
+);
 
 //https://main--ds-gouv.netlify.app/example/component/segmented/
 export namespace SegmentedControlProps {
+    export type WithLegend = {
+        inlineLegend?: boolean;
+        legend: ReactNode;
+        hintText?: ReactNode;
+        hideLegend?: boolean;
+    };
+
     export type WithInlineLegend = {
         inlineLegend: true;
         legend: ReactNode;
+        hintText?: ReactNode;
         hideLegend?: never;
     };
 
     export type WithHiddenLegend = {
         inlineLegend?: never;
         legend?: ReactNode;
+        hintText?: never;
         hideLegend: true;
     };
 
@@ -83,11 +99,12 @@ export const SegmentedControl = memo(
             className,
             classes = {},
             style,
-            small,
+            small = false,
             segments,
             hideLegend,
             inlineLegend,
             legend,
+            hintText,
             ...rest
         } = props;
 
@@ -133,6 +150,11 @@ export const SegmentedControl = memo(
                         )}
                     >
                         {legend}
+                        {hintText !== undefined && (
+                            <span className={cx(fr.cx("fr-hint-text"), classes.hintText)}>
+                                {hintText}
+                            </span>
+                        )}
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-segmented__elements"), classes.elements)}>
