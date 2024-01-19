@@ -7,13 +7,10 @@ export type CardProps = {
     title: ReactNode;
     titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
     desc?: ReactNode;
-    imageUrl?: string;
-    imageAlt?: string;
     start?: ReactNode;
     detail?: ReactNode;
     end?: ReactNode;
     endDetail?: ReactNode;
-    badge?: ReactNode;
     /** where actions can be placed */
     footer?: ReactNode;
     /** Default: "medium", only affect the text */
@@ -28,9 +25,7 @@ export type CardProps = {
     grey?: boolean;
     classes?: Partial<Record<"root" | "title" | "card" | "link" | "body" | "content" | "desc" | "header" | "img" | "imgTag" | "start" | "detail" | "end" | "endDetail" | "badge" | "footer", string>>;
     style?: CSSProperties;
-    /** Default false */
-    horizontal?: boolean;
-} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
+} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) & (CardProps.Horizontal | CardProps.Vertical) & (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
 export declare namespace CardProps {
     type EnlargedLink = {
         enlargeLink: true;
@@ -41,6 +36,34 @@ export declare namespace CardProps {
         enlargeLink?: false;
         linkProps?: RegisteredLinkProps;
         iconId?: never;
+    };
+    type Horizontal = {
+        /** Default false */
+        horizontal: true;
+        ratio?: "33/66" | "50/50";
+    };
+    type Vertical = {
+        /** Default false */
+        horizontal?: false;
+        ratio?: never;
+    };
+    type WithImageLink = {
+        badge?: ReactNode;
+        imageUrl: string;
+        imageAlt: string;
+        imageComponent?: never;
+    };
+    type WithImageComponent = {
+        badge?: ReactNode;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent: ReactNode;
+    };
+    type WithoutImage = {
+        badge?: never;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent?: never;
     };
 }
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
