@@ -17,13 +17,10 @@ export type CardProps = {
     title: ReactNode;
     titleAs?: `h${2 | 3 | 4 | 5 | 6}`;
     desc?: ReactNode;
-    imageUrl?: string;
-    imageAlt?: string;
     start?: ReactNode;
     detail?: ReactNode;
     end?: ReactNode;
     endDetail?: ReactNode;
-    badge?: ReactNode;
     /** where actions can be placed */
     footer?: ReactNode;
     /** Default: "medium", only affect the text */
@@ -58,9 +55,9 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
-    /** Default false */
-    horizontal?: boolean;
-} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink);
+} & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
+    (CardProps.Horizontal | CardProps.Vertical) &
+    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
 
 export namespace CardProps {
     export type EnlargedLink = {
@@ -72,6 +69,39 @@ export namespace CardProps {
         enlargeLink?: false;
         linkProps?: RegisteredLinkProps;
         iconId?: never;
+    };
+
+    export type Horizontal = {
+        /** Default false */
+        horizontal: true;
+        ratio?: "33/66" | "50/50";
+    };
+
+    export type Vertical = {
+        /** Default false */
+        horizontal?: false;
+        ratio?: never;
+    };
+
+    export type WithImageLink = {
+        badge?: ReactNode;
+        imageUrl: string;
+        imageAlt: string;
+        imageComponent?: never;
+    };
+
+    export type WithImageComponent = {
+        badge?: ReactNode;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent: ReactNode;
+    };
+
+    export type WithoutImage = {
+        badge?: never;
+        imageUrl?: never;
+        imageAlt?: never;
+        imageComponent?: never;
     };
 }
 
@@ -87,6 +117,7 @@ export const Card = memo(
             desc,
             imageUrl,
             imageAlt,
+            imageComponent,
             start,
             detail,
             end,
@@ -94,6 +125,7 @@ export const Card = memo(
             badge,
             footer,
             horizontal = false,
+            ratio,
             size = "medium",
             classes = {},
             enlargeLink = false,
@@ -123,6 +155,9 @@ export const Card = memo(
                         "fr-card",
                         enlargeLink && "fr-enlarge-link",
                         horizontal && "fr-card--horizontal",
+                        horizontal &&
+                            ratio !== undefined &&
+                            `fr-card--horizontal-${ratio === "33/66" ? "tier" : "half"}`,
                         (() => {
                             switch (size) {
                                 case "large":
@@ -193,6 +228,18 @@ export const Card = memo(
                                 src={imageUrl}
                                 alt={imageAlt}
                             />
+                        </div>
+                        {badge !== undefined && (
+                            <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>
+                                <li>{badge}</li>
+                            </ul>
+                        )}
+                    </div>
+                )}
+                {imageComponent !== undefined && (
+                    <div className={cx(fr.cx("fr-card__header"), classes.header)}>
+                        <div className={cx(fr.cx("fr-card__img"), classes.img)}>
+                            {imageComponent}
                         </div>
                         {badge !== undefined && (
                             <ul className={cx(fr.cx("fr-badges-group"), classes.badge)}>

@@ -12,7 +12,7 @@ const { meta, getStory } = getStoryFactory({
     "description": `\`import { createModal } from "@codegouvfr/react-dsfr/Modal";\` (Click **show code** for usage details)
 
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal/Modal.tsx)
 
 \`\`\`tsx
 "use client"; 

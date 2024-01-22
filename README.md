@@ -131,6 +131,7 @@ A few projects that use `@codegouvfr/react-dsfr`.
 -   https://github.com/inclusion-numerique/mediature
 -   https://territoiresentransitions.fr (maybe)
 -   https://potentiel.beta.gouv.fr
+-   https://diagoriente.beta.gouv.fr
 
 Keep in mind that the project has been released recently so it's only natural
 that there is only a few projects in production using it.
