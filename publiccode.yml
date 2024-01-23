@@ -31,7 +31,7 @@ it:
     gdpr: true
 description:
   en:
-    documentation: 'https://guides.react-dsfr.fr/'
+    documentation: 'https://react-dsfr.codegouv.studio/'
     shortDescription: French State Design System React integration
     longDescription: |
       This module is a wrapper/compatibility layer for
@@ -56,7 +56,7 @@ description:
       `"use client";`
 
       - [Perfect integration with all major React framework: Next.js (PagesDir
-      and AppDir), Create React App, Vue](https://guides.react-dsfr.fr/).
+      and AppDir), Create React App, Vue](https://react-dsfr.codegouv.studio/).
 
       - All [the
       components](https://www.systeme-de-design.gouv.fr/elements-d-interface)
@@ -69,7 +69,7 @@ description:
       - Optional integration with [MUI](https://mui.com/). If you use MUI
       components they will be automatically adapted to look like [DSFR
       components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
-      See [documentation](https://guides.react-dsfr.fr/mui-integration).
+      See [documentation](https://react-dsfr.codegouv.studio/mui-integration).
 
       - Enable CSS in JS by providing a `useTheme()` hooks that exposes the
       correct colors options and decision for the currently enabled color
@@ -78,7 +78,7 @@ description:
       - Opt-in i18n, built in text can be displayed in multiple languages and
       user can provide extra translations.
 
-      - [Support routing libraries](https://guides.react-dsfr.fr/routing)
+      - [Support routing libraries](https://react-dsfr.codegouv.studio/routing)
       like react-router.
 
 
