@@ -38,6 +38,7 @@ export type FooterProps = {
     classes?: Partial<Record<"root" | "body" | "brand" | "content" | "contentDesc" | "contentList" | "contentItem" | "contentLink" | "bottom" | "bottomList" | "bottomItem" | "bottomLink" | "bottomCopy" | "brandLink" | "logo" | "partners" | "partnersTitle" | "partnersLogos" | "partnersMain" | "partnersLink" | "partnersSub", string>>;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
+    domains?: string[];
 };
 export declare namespace FooterProps {
     type BottomItem = BottomItem.Link | BottomItem.Button;

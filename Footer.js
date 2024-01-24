@@ -21,7 +21,12 @@ import { typeGuard } from "tsafe/typeGuard";
 import { id } from "tsafe/id";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList"]);
+    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList, domains = [
+        "legifrance.gouv.fr",
+        "gouvernement.fr",
+        "service-public.fr",
+        "data.gouv.fr"
+    ] } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList", "domains"]);
     assert();
     const rootId = id_props !== null && id_props !== void 0 ? id_props : "fr-footer";
     const { brandTop, homeLinkProps } = (() => {
@@ -67,12 +72,7 @@ export const Footer = memo(forwardRef((props, ref) => {
                             })(), src: operatorLogo.imgUrl, alt: operatorLogo.alt })))),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__content"), classes.content) },
                     contentDescription !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-footer__content-desc"), classes.contentDesc) }, contentDescription)),
-                    React.createElement("ul", { className: cx(fr.cx("fr-footer__content-list"), classes.contentList) }, [
-                        "legifrance.gouv.fr",
-                        "gouvernement.fr",
-                        "service-public.fr",
-                        "data.gouv.fr"
-                    ].map((domain, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__content-item"), classes.contentItem), key: i },
+                    React.createElement("ul", { className: cx(fr.cx("fr-footer__content-list"), classes.contentList) }, domains.map((domain, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__content-item"), classes.contentItem), key: i },
                         React.createElement("a", { className: cx(fr.cx("fr-footer__content-link"), classes.contentLink), target: "_blank", href: `https://${domain}`, title: `${domain} - ${t("open new window")}` }, domain))))))),
             partnersLogos !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners"), classes.partners) },
                 React.createElement("h4", { className: cx(fr.cx("fr-footer__partners-title"), classes.partnersTitle) }, t("our partners")),
