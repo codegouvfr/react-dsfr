@@ -93,8 +93,6 @@ yarn start-next-appdir # For testing in a Next.js 13 AppDir setup
 yarn test
 # Run only test/runtime/cssVariable.test.ts (for example)
 npx vitest -t "Resolution of CSS variables"
-
-# Debugging while unit testing
 ```
 
 ### Want to contribute?
@@ -110,7 +108,7 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few projects that use `@codegouvfr/react-dsfr`.
 
--   https://code.gouv.fr/sill
+-   [https://code.gouv.fr/sill](https://sill-preprod.lab.sspcloud.fr/)
 -   https://cartes.gouv.fr
 -   https://immersion-facile.beta.gouv.fr/
 -   https://egapro.travail.gouv.fr/
@@ -133,6 +131,3 @@ A few projects that use `@codegouvfr/react-dsfr`.
 -   https://territoiresentransitions.fr (maybe)
 -   https://potentiel.beta.gouv.fr
 -   https://diagoriente.beta.gouv.fr
-
-Keep in mind that the project has been released recently so it's only natural
-that there is only a few projects in production using it.

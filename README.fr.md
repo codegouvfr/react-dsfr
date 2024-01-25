@@ -26,45 +26,42 @@
   <a href="https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx">essai immédiat</a>
 </p>
 
-> ATTENTION: Ce design système a uniquement vocation à être utilisé pour des sites officiels de l'état.  
-> Son but est de rendre la parole de l'état clairement identifiable. [Consulter le CGU](https://www.systeme-de-design.gouv.fr/utilisation-et-organisation/perimetre-d-application)
+> AVERTISSEMENT : Ce système de conception est uniquement destiné à être utilisé pour les sites web officiels des services publics français.  
+> Son objectif principal est de faciliter l'identification des sites gouvernementaux par les citoyens. [Voir les conditions](https://www.systeme-de-design.gouv.fr/utilisation-et-organisation/perimetre-d-application).
 
-> 🗣️ L'enregistrement de l'atelier de présentation de la librairie est disponible [ici](https://bbb-dinum-scalelite.visio.education.fr/playback/presentation/2.3/22298bc9d93b53540248207bc3f9e31260f3b4f1-1670578779094).
-
-Ce module NPM est une surcouche de compatibilité React pour [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), l'implémentation officielle de référence du
-DSFR en pur JavaScript/CSS.
+Ce module est une boîte à outils avancée qui tire parti de [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), l'implémentation en JS/CSS vanilla du DSFR.
 
 <a href="https://youtu.be/5q88JgXUAY4">
   <img width="1712" alt="image" src="https://user-images.githubusercontent.com/6702424/224423044-c1823249-eab6-4844-af43-d059c01416af.png">
 </a>
 
-> Bien que cette bibliothèque soit écrite en TypeScript, l'utilisation de TypeScript dans votre application est facultative (mais recommandée car elle présente des avantages exceptionnels pour vous et votre base de code).
+> Bien que ce module soit écrit en TypeScript, l'utilisation de TypeScript dans votre application est optionnelle (mais recommandée car elle apporte des avantages exceptionnels à la fois pour vous et votre base de code).
 
--   [x] une interface de programmation strictement typée et bien documentée.
--   [x] Garantie d'être toujours à jour avec les [dernières évolutions du DSFR](https://www.systeme-de-design.gouv.fr/).
-        Une grande partie du code et du typage est généré procéduralement à partir de la feuille de style de référence: [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
--   [x] exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr), il s'agit d'une couche de compatibilité et non pas d'une implémentation alternative.
--   [x] pas de [flash d'écran blanc lors du basculement automatique du thème clair vers le thème sombre](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
--   [x] la plupart des composants peuvent être rendus directement sur le serveur (voir [RSC](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)). Les autres sont étiquetés `"use client";`.
--   [x] [Intégration clef en main pour les différents frameworks de développement: vite, Next.js, y compris la version beta de Next 13 (configuration AppDir) et Create React App](https://react-dsfr.codegouv.studio/) si votre
-        framework n'est pas supporté, il suffit de demander notre **il manque un mot là** , nous avons pour but de couvrir tous les cas d'usage effectifs.
--   [x] (Presque) tout [les composants de référence](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémenté](https://components.react-dsfr.codegouv.studio/).
--   [x] seulement le code des composants que vous utilisez effectivement sera inclus dans votre projet final.
--   [x] Intégration facultative avec [MUI](https://mui.com/). Si vous utilisez des composants MUI ils seront automatiquement adaptés pour ressembler à des composants DSFR.  
-         Voir la [documentation](https://react-dsfr.codegouv.studio/mui-integration).
--   [x] permet de développer à l'aide d'outil de CSS-in-JS comme [Styled component](https://styled-components.com/), [Emotion](https://emotion.sh/docs/introduction) ou [TSS](https://www.tss-react.dev/).
--   [x] prévoit un système de traduction pour les textes présents dans les composants (i18n).
--   [x] [s'intègre avec les librairies de routing](https://react-dsfr.codegouv.studio/routing) comme [React Router](https://reactrouter.com/en/main), [TanStack Router](https://tanstack.com/router/v1) ou encore [Type route](https://type-route.zilch.dev/).
+-   [x] API entièrement TypeSafe, bien documentée.
+-   [x] Toujours à jour avec les dernières évolutions du DSFR.
+        Code et Types générés à partir de [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
+-   [x] Exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
+-   [x] Pas de [flash blanc lors du rechargement dans la configuration SSR](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
+-   [x] La plupart des composants sont prêts pour les composants serveur. Les autres sont étiquetés avec `"use client";`
+-   [x] [Intégration parfaite avec tous les principaux frameworks React : Next.js (PagesDir et AppDir), Create React App, Vue](https://react-dsfr.codegouv.studio/).
+-   [x] (Presque) Tous [les composants](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémentés](https://components.react-dsfr.codegouv.studio/)
+-   [x] Trois distributions modulables, choisissez les composants que vous importez. (Ce n'est pas tout dans un gros bundle .js)
+-   [x] Intégration optionnelle avec [MUI](https://mui.com/). Si vous utilisez des composants MUI, ils seront
+        automatiquement adaptés pour ressembler aux [composants DSFR](https://www.systeme-de-design.gouv.fr/elements-d-interface). Voir [documentation](https://react-dsfr.codegouv.studio/mui-integration).
+-   [x] Activez CSS in JS en fournissant un hook `useColors()` qui expose les bonnes options de couleurs et décisions
+        pour le schéma de couleurs actuellement activé.
+-   [x] i18n en option, les textes intégrés peuvent être affichés en plusieurs langues et l'utilisateur peut fournir des traductions supplémentaires.
+-   [x] [Support des bibliothèques de routage](https://react-dsfr.codegouv.studio/routing) comme react-router.
 
-> 💡 Besoin de pages de connexion au DSFR? Allez voir [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
+> 💡 Besoin de pages de connexion et d'inscription prêtes à l'emploi et conformes au DSFR ? Consultez [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 <p align="center">
-  <a href="https://react-dsfr.codegouv.studio/">🚀 Commencer maintenant 🚀 </a>
+  <a href="https://react-dsfr.codegouv.studio/">🚀 Commencez ici 🚀 </a>
 </p>
 
 # Gouvernance
 
-Ce module est un produit du pôle logiciel libre et open source d'[Etalab](https://code.gouv.fr/en/mission/).
+Ce module est un produit du pôle Logiciel libre et open source d'[Etalab](https://code.gouv.fr/en/mission/).
 
 Ce projet est co-maintenu par des fonctionnaires de diverses administrations françaises :
 
@@ -74,33 +71,61 @@ Ce projet est co-maintenu par des fonctionnaires de diverses administrations fra
 
 Il est également co-maintenu par [Joseph Garrone](https://github.com/garronej), l'auteur original.
 
-## Development
+## Développement
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
 yarn
 
-# Démarrer Storybook
+# Démarrer storybook
 yarn storybook
 
 # Démarrer les applications de test
-yarn start-cra
-yarn start-vite
-yarn start-next-pagesdir
-yarn start-next-appdir
+yarn start-cra  # Pour tester dans une configuration Create React App
+yarn start-vite # Pour tester dans une configuration Vite
+yarn start-next-pagesdir # Pour tester dans une configuration Next.js 13 PagesDir (la configuration par défaut)
+yarn start-next-appdir # Pour tester dans une configuration Next.js 13 AppDir
 
-# Executer tout les tests unitaires (test/runtime):
+# Exécuter tous les tests unitaires (test/runtime):
 yarn test
-# Executer, par exemple, uniquement le test test/runtime/cssVariable.test.ts
+# Exécuter uniquement test/runtime/cssVariable.test.ts (par exemple)
 npx vitest -t "Resolution of CSS variables"
 ```
 
-### Vous cherchez comment contribuer?
+### Vous voulez contribuer ?
 
-Tout d'abord, merci ! Voici [le guide de contribution](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md).
+Merci ! Voir [le guide de contribution](https://github.com/codegouvfr/react-dsfr/blob/main/CONTRIBUTING.md).
 
-### Comment publier une nouvelle version sur NPM
+### Comment publier une nouvelle version sur NPM, comment sortir une version bêta
 
-Ce dépôt a été mis en place avec [garronej/ts-ci](https://github.com/garronej/ts-ci).
-Vous pouvez vous référer à la documentation de TS-CI pour comprendre le cycle de vie de ce projet.
+Ce dépôt a été initialisé à partir de [garronej/ts-ci](https://github.com/garronej/ts-ci), consultez la
+documentation de ce starter pour comprendre le cycle de vie de ce dépôt.
+
+## Cas d'utilisation
+
+Quelques projets qui utilisent `@codegouvfr/react-dsfr`.
+
+-   [https://code.gouv.fr/sill](https://sill-preprod.lab.sspcloud.fr/)
+-   https://cartes.gouv.fr
+-   https://immersion-facile.beta.gouv.fr/
+-   https://egapro.travail.gouv.fr/
+-   https://maisondelautisme.gouv.fr/
+-   https://refugies.info/fr
+-   https://www.mediateur-public.fr/
+-   https://signal.conso.gouv.fr/
+-   https://observatoire.numerique.gouv.fr/
+-   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
+-   https://github.com/DISIC/observatoire.numerique.gouv.fr
+-   https://github.com/DISIC/monfranceconnect
+-   https://github.com/InseeFr/Lunatic-DSFR
+-   https://github.com/EIG6-Geocommuns/lidarviz-front
+-   https://github.com/EIG6-Geocommuns/geocommuns-core
+-   https://github.com/SocialGouv/bpco-site
+-   https://github.com/EIG6-ArtificIA/predictia_front
+-   https://github.com/BaseAdresseNationale/bal-admin
+-   https://github.com/etalab/sill-web
+-   https://github.com/inclusion-numerique/mediature
+-   https://territoiresentransitions.fr (peut-être)
+-   https://potentiel.beta.gouv.fr
+-   https://diagoriente.beta.gouv.fr
