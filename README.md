@@ -65,12 +65,13 @@ This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.
 
 This module is a product of [Etalab's Free and open source software pole](https://code.gouv.fr/en/mission/).
 
-This project is co-maintained by public servants from various French administrations.
+This project is co-maintained by public servants from various French administrations:
 
--   [Joseph Garrone](@garronej)
 -   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](@ddecrulle) - Insee
 -   [Enguerran Weiss](@enguerranws) - Plateforme de l'Inclusion
+
+It is also co-maintained [Joseph Garrone](@garronej), the original author.
 
 ## Development
 
