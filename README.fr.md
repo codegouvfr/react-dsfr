@@ -62,16 +62,17 @@ DSFR en pur JavaScript/CSS.
   <a href="https://react-dsfr.codegouv.studio/">🚀 Commencer maintenant 🚀 </a>
 </p>
 
-# Gouvernance du projet
+# Gouvernance
 
-Ce travail est un produit de [CodeGouvFr](https://code.gouv.fr/fr/mission/), la mission logiciel libre de [la direction interministérielle du numérique](https://www.numerique.gouv.fr/dinum/) (DINUM).
+Ce module est un produit du pôle logiciel libre et open source d'[Etalab](https://code.gouv.fr/en/mission/).
 
-Ce projet est co-maintenu par des agents de différentes administrations françaises.
+Ce projet est co-maintenu par des fonctionnaires de diverses administrations françaises :
 
--   [Joseph Garrone](@garronej)
--   [Julien Bouquillon](@revolunet) - DNUM des ministeres sociaux
--   [Dylan DECRULLE](@ddecrulle) - Insee
--   [Enguerran Weiss](@enguerranws) - Plateforme de l'Inclusion
+-   [Julien Bouquillon](https://github.com/revolunet) - DNUM des ministères sociaux
+-   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
+-   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
+
+Il est également co-maintenu par [Joseph Garrone](https://github.com/garronej), l'auteur original.
 
 ## Development
 
