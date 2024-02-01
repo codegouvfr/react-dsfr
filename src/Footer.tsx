@@ -271,7 +271,7 @@ export const Footer = memo(
                         >
                             {(() => {
                                 const children = (
-                                    <p className={fr.cx("fr-logo", classes.logo)}>{brandTop}</p>
+                                    <p className={cx(fr.cx("fr-logo"), classes.logo)}>{brandTop}</p>
                                 );
 
                                 return operatorLogo !== undefined ? (
