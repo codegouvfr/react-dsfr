@@ -35,7 +35,7 @@ export type FooterProps = {
     homeLinkProps?: RegisteredLinkProps & {
         title: string;
     };
-    classes?: Partial<Record<"root" | "body" | "brand" | "content" | "contentDesc" | "contentList" | "contentItem" | "contentLink" | "bottom" | "bottomList" | "bottomItem" | "bottomLink" | "bottomCopy" | "brandLink" | "logo" | "partners" | "partnersTitle" | "partnersLogos" | "partnersMain" | "partnersLink" | "partnersSub", string>>;
+    classes?: Partial<Record<"root" | "body" | "brand" | "content" | "contentDesc" | "contentList" | "contentItem" | "contentLink" | "bottom" | "bottomList" | "bottomItem" | "bottomLink" | "bottomCopy" | "brandLink" | "logo" | "operatorLogo" | "partners" | "partnersTitle" | "partnersLogos" | "partnersMain" | "partnersLink" | "partnersSub", string>>;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
     domains?: string[];

@@ -61,6 +61,7 @@ export type FooterProps = {
             | "bottomCopy"
             | "brandLink"
             | "logo"
+            | "operatorLogo"
             | "partners"
             | "partnersTitle"
             | "partnersLogos"
@@ -269,7 +270,9 @@ export const Footer = memo(
                             )}
                         >
                             {(() => {
-                                const children = <p className={fr.cx("fr-logo")}>{brandTop}</p>;
+                                const children = (
+                                    <p className={cx(fr.cx("fr-logo"), classes.logo)}>{brandTop}</p>
+                                );
 
                                 return operatorLogo !== undefined ? (
                                     children
@@ -287,7 +290,10 @@ export const Footer = memo(
                                     )}
                                 >
                                     <img
-                                        className={cx(fr.cx("fr-footer__logo"), classes.logo)}
+                                        className={cx(
+                                            fr.cx("fr-footer__logo"),
+                                            classes.operatorLogo
+                                        )}
                                         style={(() => {
                                             switch (operatorLogo.orientation) {
                                                 case "vertical":

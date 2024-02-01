@@ -58,11 +58,11 @@ export const Footer = memo(forwardRef((props, ref) => {
             React.createElement("div", { className: cx(fr.cx("fr-footer__body"), classes.body) },
                 React.createElement("div", { className: cx(fr.cx("fr-footer__brand", "fr-enlarge-link"), classes.brand) },
                     (() => {
-                        const children = React.createElement("p", { className: fr.cx("fr-logo") }, brandTop);
+                        const children = (React.createElement("p", { className: cx(fr.cx("fr-logo"), classes.logo) }, brandTop));
                         return operatorLogo !== undefined ? (children) : (React.createElement(Link, Object.assign({}, homeLinkProps), children));
                     })(),
                     operatorLogo !== undefined && (React.createElement(Link, Object.assign({}, homeLinkProps, { className: cx(fr.cx("fr-footer__brand-link"), classes.brandLink, homeLinkProps.className) }),
-                        React.createElement("img", { className: cx(fr.cx("fr-footer__logo"), classes.logo), style: (() => {
+                        React.createElement("img", { className: cx(fr.cx("fr-footer__logo"), classes.operatorLogo), style: (() => {
                                 switch (operatorLogo.orientation) {
                                     case "vertical":
                                         return { "width": "3.5rem" };
