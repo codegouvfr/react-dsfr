@@ -6,7 +6,7 @@ const { meta, getStory } = getStoryFactory<SkipLinksProps>({
     sectionName,
     wrappedComponent: { SkipLinks },
     description: `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/liens-d-evitement)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/lien-d-evitement)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SkipLinks.tsx)`
 });
 

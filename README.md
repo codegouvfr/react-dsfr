@@ -45,32 +45,33 @@ This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.
 -   [x] Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] Most components are server component ready. The others are labeled with `"use client";`
--   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://guides.react-dsfr.fr/).
+-   [x] [Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue](https://react-dsfr.codegouv.studio/).
 -   [x] (Almost) All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are [implemented](https://components.react-dsfr.codegouv.studio/)
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
-        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://guides.react-dsfr.fr/mui-integration).
+        be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.codegouv.studio/mui-integration).
 -   [x] Enable CSS in JS by providing a `useColors()` hooks that exposes the correct colors options and decision
         for the currently enabled color scheme.
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
--   [x] [Support routing libraries](https://guides.react-dsfr.fr/routing) like react-router.
+-   [x] [Support routing libraries](https://react-dsfr.codegouv.studio/routing) like react-router.
 
 > 💡 Need ready to use, DSFR compliant login and register pages? Checkout [keycloak-theme-dsfr](https://github.com/codegouvfr/keycloak-theme-dsfr).
 
 <p align="center">
-  <a href="https://guides.react-dsfr.fr/">🚀 Get started 🚀 </a>
+  <a href="https://react-dsfr.codegouv.studio/">🚀 Get started 🚀 </a>
 </p>
 
 # Governance
 
 This module is a product of [Etalab's Free and open source software pole](https://code.gouv.fr/en/mission/).
 
-This project is co-maintained by public servants from various French administrations.
+This project is co-maintained by public servants from various French administrations:
 
--   [Joseph Garrone](@garronej)
--   [Julien Bouquillon](@revolunet) - DNUM des ministères sociaux
--   [Dylan DECRULLE](@ddecrulle) - Insee
--   [Enguerran Weiss](@enguerranws) - Plateforme de l'Inclusion
+-   [Julien Bouquillon](https://github.com/revolunet) - DNUM des ministères sociaux
+-   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
+-   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
+
+It is also co-maintained [Joseph Garrone](https://github.com/garronej), the original author.
 
 ## Development
 
@@ -92,8 +93,6 @@ yarn start-next-appdir # For testing in a Next.js 13 AppDir setup
 yarn test
 # Run only test/runtime/cssVariable.test.ts (for example)
 npx vitest -t "Resolution of CSS variables"
-
-# Debugging while unit testing
 ```
 
 ### Want to contribute?
@@ -109,7 +108,7 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few projects that use `@codegouvfr/react-dsfr`.
 
--   https://code.gouv.fr/sill
+-   [https://code.gouv.fr/sill](https://sill-preprod.lab.sspcloud.fr/)
 -   https://cartes.gouv.fr
 -   https://immersion-facile.beta.gouv.fr/
 -   https://egapro.travail.gouv.fr/
@@ -131,6 +130,4 @@ A few projects that use `@codegouvfr/react-dsfr`.
 -   https://github.com/inclusion-numerique/mediature
 -   https://territoiresentransitions.fr (maybe)
 -   https://potentiel.beta.gouv.fr
-
-Keep in mind that the project has been released recently so it's only natural
-that there is only a few projects in production using it.
+-   https://diagoriente.beta.gouv.fr

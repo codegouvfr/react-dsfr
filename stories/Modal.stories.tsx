@@ -12,7 +12,7 @@ const { meta, getStory } = getStoryFactory({
     "description": `\`import { createModal } from "@codegouvfr/react-dsfr/Modal";\` (Click **show code** for usage details)
 
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal.tsx)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal/Modal.tsx)
 
 \`\`\`tsx
 "use client"; 
@@ -41,9 +41,9 @@ function Home(){
             <modal.Component title="foo modal title">
                 <h1>Foo modal content</h1>
             </modal.Component>
-            <Button nativeButtonProps={modal.buttonProps}>Open foo modal</Button> {/* Use this if you are in Next App Dir and you don't want to label the "use client"; the component hosting the Modal. */}
-            <Button onClick={()=> modal.open()}>Open foo modal</Button> {/* ...otherwise modal.open() works just as well and is more versatile */}
-            <Button onClick={()=> modal.close()}>Close foo modal</Button>
+            <Button nativeButtonProps={modal.buttonProps}>Open modal (stateless approach)</Button> {/* Use this if you are in Next App Dir and you don't want to label the "use client"; the component hosting the Modal. */}
+            <Button onClick={()=> modal.open()}>Open modal with modal.open()</Button> {/* ...otherwise modal.open() works just as well and is more versatile */}
+            {/* You can also call modal.close() to programmatically close the modal */}
         </>
     );
 );
@@ -112,7 +112,7 @@ const modal = createModal({
 function Template(args: ModalProps) {
     return (
         <>
-            <Button nativeButtonProps={modal.buttonProps}>Open modal with</Button>
+            <Button nativeButtonProps={modal.buttonProps}>Open modal (stateless approach)</Button>
             <Button onClick={() => modal.open()}>Open modal with modal.open()</Button>
             <modal.Component {...args} />
         </>

@@ -7,6 +7,9 @@ import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
+import artworkOvoidSvgUrl from "../dist/dsfr/artwork/background/ovoid.svg";
+import artworkTechnicalErrorSvgUrl from "../dist/dsfr/artwork/pictograms/system/technical-error.svg";
+
 import { fr } from "../dist";
 
 const { meta, getStory } = getStoryFactory({
@@ -151,7 +154,7 @@ export const CardWithShadow = getStory(
 );
 
 export const CardWithoutImage = getStory(
-    { ...defaultProps, "imageUrl": undefined },
+    { ...defaultProps },
     { "description": "Carte sans image" }
 );
 
@@ -310,6 +313,24 @@ export const CardHorizontal = getStory(
     { "description": "Carte horizontale", "defaultContainerWidth": 700 }
 );
 
+export const CardHorizontalTierRatio = getStory(
+    {
+        ...defaultProps,
+        "horizontal": true,
+        ratio: "33/66"
+    },
+    { "description": "Carte horizontale", "defaultContainerWidth": 700 }
+);
+
+export const CardHorizontalHalfRatio = getStory(
+    {
+        ...defaultProps,
+        "horizontal": true,
+        ratio: "50/50"
+    },
+    { "description": "Carte horizontale", "defaultContainerWidth": 700 }
+);
+
 export const CardHorizontalSM = getStory(
     {
         ...defaultProps,
@@ -333,7 +354,6 @@ export const CardHorizontalWithoutImage = getStory(
         ...defaultProps,
         "horizontal": true,
         "size": "large",
-        "imageUrl": undefined,
         "start": (
             <ul className={fr.cx("fr-badges-group")}>
                 <li>
@@ -353,8 +373,7 @@ export const CardHorizontalWithoutImageAndEnlargeLink = getStory(
         ...defaultProps,
         "horizontal": true,
         "enlargeLink": false,
-        "size": "large",
-        "imageUrl": undefined
+        "size": "large"
     },
     { "description": "Carte horizontale sans image", "defaultContainerWidth": 900 }
 );
@@ -414,3 +433,38 @@ export const CardNoLink = getStory(
     },
     { "description": "Carte horizontale sans lien", "defaultContainerWidth": 900 }
 );
+
+export const CardWithImageComponent = getStory({
+    ...defaultProps,
+    enlargeLink: false,
+    imageUrl: undefined,
+    imageAlt: undefined,
+    imageComponent: (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="fr-responsive-img fr-artwork"
+            aria-hidden="true"
+            viewBox="0 0 160 200"
+        >
+            <use className="fr-artwork-motif" href={`${artworkOvoidSvgUrl}#artwork-motif`}></use>
+            <use
+                className="fr-artwork-background"
+                href={`${artworkOvoidSvgUrl}#artwork-background`}
+            ></use>
+            <g transform="translate(40, 60)">
+                <use
+                    className="fr-artwork-decorative"
+                    href={`${artworkTechnicalErrorSvgUrl}#artwork-decorative`}
+                ></use>
+                <use
+                    className="fr-artwork-minor"
+                    href={`${artworkTechnicalErrorSvgUrl}#artwork-minor`}
+                ></use>
+                <use
+                    className="fr-artwork-major"
+                    href={`${artworkTechnicalErrorSvgUrl}#artwork-major`}
+                ></use>
+            </g>
+        </svg>
+    )
+});

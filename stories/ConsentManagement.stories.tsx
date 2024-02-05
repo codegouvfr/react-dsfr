@@ -22,7 +22,7 @@ Refer to [this section of the Guides](https://react-dsfr.codegouv.studio/analyti
 mandated solution for analytics in your project.  
   
 You can find a complete example setup in [the Demo repo for Next.js App Router](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/main/ui/consentManagement.tsx) 
-which is live [here](https://next-demo.react-dsfr.fr/). You should be able to easily adapt it to other meta frameworks (Vite, Next Pages Router, CRA).
+which is live [here](https://stackblitz.com/edit/nextjs-j2wba3?file=pages/index.tsx). You should be able to easily adapt it to other meta frameworks (Vite, Next Pages Router, CRA).
   
 \`\`\`tsx
 "use client";
