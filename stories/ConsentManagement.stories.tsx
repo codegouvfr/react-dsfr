@@ -3,6 +3,7 @@ import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { createConsentManagement } from "../dist/consentManagement";
 import { localStorageKeyPrefix } from "../dist/consentManagement/createConsentManagement";
+import { Placeholder } from "../dist/consentManagement/Placeholder";
 import { Footer } from "../dist/Footer";
 import { Button } from "../dist/Button";
 import { fr } from "../dist/fr";
@@ -263,7 +264,7 @@ const {
 });
 
 function Story() {
-    const { finalityConsent } = useConsent();
+    const { finalityConsent, assumeConsent } = useConsent();
 
     return (
         <>
@@ -271,6 +272,14 @@ function Story() {
                 <p>User hasn't given consent nor explicitly refused use of third party cookies.</p>
             ) : (
                 <pre>{JSON.stringify({ finalityConsent }, null, 2)}</pre>
+            )}
+            {finalityConsent && finalityConsent.analytics === false && (
+                <Placeholder
+                    title="Analytics are not enabled"
+                    description="We use cookies to measure the audience of our site and improve its content."
+                    onGranted={() => assumeConsent("analytics")}
+                    titleAs="span"
+                />
             )}
             <Button
                 onClick={() => {
