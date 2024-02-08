@@ -43,7 +43,7 @@ Ce module est une boîte à outils avancée qui tire parti de [@gouvfr/dsfr](htt
 -   [x] Exactement le même aspect et ressenti qu'avec [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 -   [x] Pas de [flash blanc lors du rechargement dans la configuration SSR](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 -   [x] La plupart des composants sont prêts pour les composants serveur. Les autres sont étiquetés avec `"use client";`
--   [x] [Intégration parfaite avec tous les principaux frameworks React : Next.js (PagesDir et AppDir), Create React App, Vue](https://react-dsfr.codegouv.studio/).
+-   [x] [Intégration parfaite avec tous les principaux frameworks React : Next.js (PagesDir et AppDir), Create React App, Vite](https://react-dsfr.codegouv.studio/).
 -   [x] (Presque) Tous [les composants](https://www.systeme-de-design.gouv.fr/elements-d-interface) sont [implémentés](https://components.react-dsfr.codegouv.studio/)
 -   [x] Trois distributions modulables, choisissez les composants que vous importez. (Ce n'est pas tout dans un gros bundle .js)
 -   [x] Intégration optionnelle avec [MUI](https://mui.com/). Si vous utilisez des composants MUI, ils seront
