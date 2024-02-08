@@ -11,9 +11,11 @@ export function useIsModalOpen(modal, callbacks) {
         const cleanups = [];
         const observeDialogHtmlElement = (element) => {
             const onConceal = () => {
-                var _a, _b;
                 setIsModalOpen(false);
-                (_b = (_a = getCurrentCallbacks()) === null || _a === void 0 ? void 0 : _a.onConceal) === null || _b === void 0 ? void 0 : _b.call(_a);
+                setTimeout(() => {
+                    var _a, _b;
+                    (_b = (_a = getCurrentCallbacks()) === null || _a === void 0 ? void 0 : _a.onConceal) === null || _b === void 0 ? void 0 : _b.call(_a);
+                }, 0);
             };
             const onDisclose = () => {
                 var _a, _b;

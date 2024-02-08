@@ -24,7 +24,9 @@ export function useIsModalOpen(
         const observeDialogHtmlElement = (element: HTMLElement) => {
             const onConceal = () => {
                 setIsModalOpen(false);
-                getCurrentCallbacks()?.onConceal?.();
+                setTimeout(() => {
+                    getCurrentCallbacks()?.onConceal?.();
+                }, 0);
             };
             const onDisclose = () => {
                 setIsModalOpen(true);
