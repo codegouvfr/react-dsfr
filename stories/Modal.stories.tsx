@@ -46,7 +46,7 @@ function Home(){
             {/* You can also call modal.close() to programmatically close the modal */}
         </>
     );
-);
+}
 \`\`\`
 
 You can also register callbacks to be called when the modal is opened or closed:  
@@ -60,6 +60,10 @@ useIsModalOpen(
     }
 );
 \`\`\`
+
+To create a Dialog component, something that you would use to ask the user a question, like "Do you want to proceed?", you can implement this pattern:  
+- [Component](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/cra/src/MyDialog.tsx), 
+- [Usage](https://github.com/codegouvfr/react-dsfr/blob/d5c0f304ed3416c8d10bba83e7a075a304d2caa0/test/integration/cra/src/Home.tsx#L117-L132). 
 
 `,
     "argTypes": {
@@ -124,6 +128,7 @@ function Template(args: ModalProps) {
     return (
         <>
             <Button nativeButtonProps={modal.buttonProps}>Open modal (stateless approach)</Button>
+            &nbsp; - or - &nbsp;
             <Button onClick={() => modal.open()}>Open modal with modal.open()</Button>
             <modal.Component {...args} />
         </>
