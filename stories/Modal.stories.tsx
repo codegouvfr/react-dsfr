@@ -47,7 +47,18 @@ function Home(){
         </>
     );
 );
+\`\`\`
 
+You can also register callbacks to be called when the modal is opened or closed:  
+
+\`\`\`tsx
+useIsModalOpen(
+    modal,
+    {
+        onClose: ()=> console.log("modal closed"),
+        onOpen: ()=> console.log("modal opened")
+    }
+);
 \`\`\`
 
 `,
