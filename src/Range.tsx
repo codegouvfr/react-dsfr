@@ -1,12 +1,11 @@
 "use client";
 
 import React, {
-    CSSProperties,
-    DetailedHTMLProps,
+    type CSSProperties,
     forwardRef,
-    InputHTMLAttributes,
     memo,
-    ReactNode
+    type ReactNode,
+    type ComponentProps
 } from "react";
 import { assert, Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
