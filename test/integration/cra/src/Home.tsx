@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { SideMenu } from "@codegouvfr/react-dsfr/SideMenu";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 import { routes } from "./router";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+import { MyDialog, type DialogParams, type DialogResponse } from "./MyDialog";
 
 const sideMenuItems = [
     {
@@ -77,6 +80,10 @@ const sideMenuItems = [
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
 
+    const [myDialogActions] = useState<{
+        open?: (params: DialogParams) => Promise<DialogResponse>
+    }>({});
+
     return (
         <>
             <Alert
@@ -106,8 +113,23 @@ export function Home() {
                 title="Titre de rubrique"
                 burgerMenuButtonText="Dans cette rubrique"
             />
-
             <TableExample />
+            <Button
+                type="button"
+                onClick={async () => {
+
+                    const response = await myDialogActions.open!({
+                        title: "Ma question",
+                        body: "Voulez-vous continuer ?",
+                    });
+
+                    alert(`Continuer: ${response.doProceed ? "oui" : "non"}`);
+
+                }}
+            >
+                Open Dialog 
+            </Button>
+            <MyDialog actions={myDialogActions} />
         </>
     );
 }

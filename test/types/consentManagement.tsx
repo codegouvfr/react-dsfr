@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
 import { assert, type Equals } from "tsafe/assert";
 import type {
     ExtractFinalityFromFinalityDescription,
     FinalityConsent
 } from "../../src/consentManagement/types";
+import { Placeholder } from "../../src/consentManagement/Placeholder";
 
 {
     type Input =
@@ -15,17 +17,17 @@ import type {
         | "advertising";
 
     type ExpectedOutput = {
-        analytics: boolean;
-        personalization: boolean;
-        advertising: boolean;
-        statistics: {
-            traffic: boolean;
-            deviceType: boolean;
-            browser: boolean;
+        readonly analytics: boolean;
+        readonly personalization: boolean;
+        readonly advertising: boolean;
+        readonly statistics: {
+            readonly traffic: boolean;
+            readonly deviceType: boolean;
+            readonly browser: boolean;
         } & {
-            isFullConsent: boolean;
+            readonly isFullConsent: boolean;
         };
-        isFullConsent: boolean;
+        readonly isFullConsent: boolean;
     };
 
     type ActualOutput = FinalityConsent<Input>;
@@ -73,4 +75,21 @@ import type {
     type Got = ExtractFinalityFromFinalityDescription<Input>;
 
     assert<Equals<Got, Expected>>();
+}
+
+{
+    <Placeholder
+        title="Instagram"
+        description="We use cookies to display Instagram content."
+        onGranted={() => console.log("clicked on enable button")}
+    />;
+}
+
+{
+    <Placeholder
+        title="Instagram"
+        description="We use cookies to display Instagram content."
+        onGranted={() => console.log("clicked on enable button")}
+        titleAs="h2"
+    />;
 }

@@ -3,18 +3,35 @@
 import { useEffect, useState } from "react";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
+import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 
-export function useIsModalOpen(modal: { isOpenedByDefault: boolean; id: string }): boolean {
+export function useIsModalOpen(
+    modal: { isOpenedByDefault: boolean; id: string },
+    callbacks?: {
+        onConceal?: () => void;
+        onDisclose?: () => void;
+    }
+): boolean {
     const { id, isOpenedByDefault } = modal;
 
     const [isModalOpen, setIsModalOpen] = useState(isOpenedByDefault);
+
+    const getCurrentCallbacks = useConstCallback(() => callbacks);
 
     useEffect(() => {
         const cleanups: (() => void)[] = [];
 
         const observeDialogHtmlElement = (element: HTMLElement) => {
-            const onConceal = () => setIsModalOpen(false);
-            const onDisclose = () => setIsModalOpen(true);
+            const onConceal = () => {
+                setIsModalOpen(false);
+                setTimeout(() => {
+                    getCurrentCallbacks()?.onConceal?.();
+                }, 0);
+            };
+            const onDisclose = () => {
+                setIsModalOpen(true);
+                getCurrentCallbacks()?.onDisclose?.();
+            };
 
             element.addEventListener("dsfr.conceal", onConceal);
             element.addEventListener("dsfr.disclose", onDisclose);

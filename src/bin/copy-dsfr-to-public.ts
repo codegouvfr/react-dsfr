@@ -29,65 +29,80 @@ import type { Equals } from "tsafe";
         return undefined;
     })();
 
-    const publicDirPath =
-        viteConfigFilePath !== undefined
-            ? await (async function getVitePublicDirPath() {
-                  const viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
+    const publicDirPath = await (async () => {
+        command_line_argument: {
+            const arg = process.argv[2];
 
-                  if (!viteConfig.includes("publicDir")) {
-                      return pathJoin(projectDirPath, "public");
-                  }
+            if (arg === undefined) {
+                break command_line_argument;
+            }
 
-                  const [, afterPublicDir] = viteConfig.split(/\s["']?publicDir["']?\s*:/);
+            return arg;
+        }
 
-                  for (let indexEnd = 0; indexEnd < afterPublicDir.length; indexEnd++) {
-                      const {
-                          default: path,
-                          basename,
-                          dirname,
-                          delimiter,
-                          extname,
-                          format,
-                          isAbsolute,
-                          join,
-                          normalize,
-                          parse,
-                          posix,
-                          relative,
-                          resolve,
-                          sep,
-                          toNamespacedPath,
-                          win32,
-                          ...rest
-                      } = await import("path");
-                      assert<Equals<keyof typeof rest, never>>();
+        read_from_vite_config: {
+            if (viteConfigFilePath === undefined) {
+                break read_from_vite_config;
+            }
 
-                      const part = afterPublicDir
-                          .substring(0, indexEnd)
-                          .replace(/__dirname/g, `"${projectDirPath}"`);
+            const viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
 
-                      let candidate: string;
+            if (!viteConfig.includes("publicDir")) {
+                return pathJoin(projectDirPath, "public");
+            }
 
-                      try {
-                          candidate = eval(part);
-                      } catch {
-                          continue;
-                      }
+            const [, afterPublicDir] = viteConfig.split(/\s["']?publicDir["']?\s*:/);
 
-                      if (typeof candidate !== "string") {
-                          continue;
-                      }
+            for (let indexEnd = 0; indexEnd < afterPublicDir.length; indexEnd++) {
+                const {
+                    default: path,
+                    basename,
+                    dirname,
+                    delimiter,
+                    extname,
+                    format,
+                    isAbsolute,
+                    join,
+                    normalize,
+                    parse,
+                    posix,
+                    relative,
+                    resolve,
+                    sep,
+                    toNamespacedPath,
+                    win32,
+                    ...rest
+                } = await import("path");
+                assert<Equals<keyof typeof rest, never>>();
 
-                      return candidate;
-                  }
+                const part = afterPublicDir
+                    .substring(0, indexEnd)
+                    .replace(/__dirname/g, `"${projectDirPath}"`);
 
-                  console.error(
-                      `Can't parse the vite configuration please open an issue about it ${getRepoIssueUrl()}`
-                  );
+                let candidate: string;
 
-                  process.exit(-1);
-              })()
-            : pathJoin(projectDirPath, "public");
+                try {
+                    candidate = eval(part);
+                } catch {
+                    continue;
+                }
+
+                if (typeof candidate !== "string") {
+                    continue;
+                }
+
+                return candidate;
+            }
+
+            console.error(
+                `Can't parse the vite configuration please open an issue about it ${getRepoIssueUrl()}`
+            );
+
+            process.exit(-1);
+        }
+
+        return pathJoin(projectDirPath, "public");
+    })();
 
     edit_gitignore: {
         const gitignoreFilePath = pathJoin(projectDirPath, ".gitignore");
