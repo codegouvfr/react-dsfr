@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.0'
+    version: '1.11.1'
   };
 
   var api = window[config.namespace];
@@ -834,7 +834,7 @@
     this._config = config || {};
   };
 
-  var prototypeAccessors$a = { environment: { configurable: true },entity: { configurable: true },language: { configurable: true },target: { configurable: true },type: { configurable: true },region: { configurable: true },department: { configurable: true },api: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$a = { environment: { configurable: true },entity: { configurable: true },language: { configurable: true },target: { configurable: true },type: { configurable: true },region: { configurable: true },department: { configurable: true },version: { configurable: true },api: { configurable: true },layer: { configurable: true } };
 
   Site.prototype.reset = function reset (clear) {
       if ( clear === void 0 ) clear = false;
@@ -846,6 +846,7 @@
     this.type = clear ? undefined : this._config.type;
     this.region = clear ? undefined : this._config.region;
     this.department = clear ? undefined : this._config.department;
+    this.version = clear ? undefined : this._config.version;
     this._api = api.version;
   };
 
@@ -929,6 +930,15 @@
     return this._department;
   };
 
+  prototypeAccessors$a.version.set = function (value) {
+    var valid = validateString(value, 'site.version');
+    if (valid !== null) { this._version = valid; }
+  };
+
+  prototypeAccessors$a.version.get = function () {
+    return this._version;
+  };
+
   prototypeAccessors$a.api.get = function () {
     return this._api;
   };
@@ -943,6 +953,7 @@
     if (this.type) { layer.push('site_type', normalize(this.type)); }
     if (this.region) { layer.push('site_region', this.region); }
     if (this.department) { layer.push('site_department', this.department); }
+    if (this.version) { layer.push('site_version', this.version); }
     if (this.api) { layer.push('api_version', this.api); }
     return layer;
   };
@@ -2811,9 +2822,8 @@
     Actionee.prototype.listenClick = function listenClick (target) {
       if (target) {
         this._clickTarget = target;
-        this._clickHandler = this.handleClick.bind(this);
-        this._clickTarget.addEventListener('click', this._clickHandler, { capture: true });
-      } else { this.listen('click', this.handleClick.bind(this), { capture: true }); }
+        this._clickTarget.addEventListener('click', this.handlingClick, { capture: true });
+      } else { this.listenClick({ capture: true }); }
     };
 
     Actionee.prototype.handleClick = function handleClick () {
@@ -2937,7 +2947,7 @@
 
     Actionee.prototype.dispose = function dispose () {
       if (this._clickTarget) {
-        this._clickTarget.removeEventListener('click', this._clickHandler);
+        this._clickTarget.removeEventListener('click', this.handlingClick);
       }
       superclass.prototype.dispose.call(this);
     };
@@ -3081,8 +3091,8 @@
       var button = this.element.getDescendantInstances('ButtonActionee', null, true)[0];
       if (button) { button.isMuted = true; }
       this._validatedInput = node.querySelector('input');
-      this._inputValidationHandler = this._handleInputValidation.bind(this);
-      if (this._validatedInput) { this._validatedInput.addEventListener('keydown', this._inputValidationHandler); }
+      this._handlingInputValidation = this._handleInputValidation.bind(this);
+      if (this._validatedInput) { this._validatedInput.addEventListener('keydown', this._handlingInputValidation); }
     };
 
     ComponentActionee.prototype._handleInputValidation = function _handleInputValidation (e) {
@@ -3159,7 +3169,7 @@
 
     ComponentActionee.prototype.dispose = function dispose () {
       if (this._validatedInput) {
-        this._validatedInput.removeEventListener('keydown', this._inputValidationHandler);
+        this._validatedInput.removeEventListener('keydown', this._handlingInputValidation);
       }
 
       Actionee.prototype.dispose.call(this);

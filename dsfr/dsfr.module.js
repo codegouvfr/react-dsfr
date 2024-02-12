@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.0'
+  version: '1.11.1'
 };
 
 class LogLevel {
@@ -2393,6 +2393,11 @@ class DisclosureButton extends Instance {
   }
 }
 
+const DisclosureSelector = {
+  PREVENT_CONCEAL: ns.attr.selector('prevent-conceal'),
+  GROUP: ns.attr('group')
+};
+
 class DisclosuresGroup extends Instance {
   constructor (disclosureInstanceClassName, jsAttribute) {
     super(jsAttribute);
@@ -2401,6 +2406,7 @@ class DisclosuresGroup extends Instance {
     this._index = -1;
     this._isRetrieving = false;
     this._hasRetrieved = false;
+    this._isGrouped = true;
   }
 
   static get instanceClassName () {
@@ -2412,6 +2418,7 @@ class DisclosuresGroup extends Instance {
     this.addAscent(DisclosureEmission.RETRIEVE, this.retrieve.bind(this));
     this.addAscent(DisclosureEmission.REMOVED, this.update.bind(this));
     this.descend(DisclosureEmission.GROUP);
+    this._isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
     this.update();
   }
 
@@ -2437,6 +2444,12 @@ class DisclosuresGroup extends Instance {
       },
       get hasFocus () {
         return scope.hasFocus;
+      },
+      set isGrouped (value) {
+        scope.isGrouped = value;
+      },
+      get isGrouped () {
+        return scope.isGrouped;
       }
     };
 
@@ -2525,7 +2538,7 @@ class DisclosuresGroup extends Instance {
       if (value === i) {
         if (!member.isDisclosed) member.disclose(true);
       } else {
-        if (member.isDisclosed) member.conceal(true);
+        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) member.conceal(true);
       }
     }
     this.apply();
@@ -2544,6 +2557,28 @@ class DisclosuresGroup extends Instance {
     const current = this.current;
     if (current) return current.hasFocus;
     return false;
+  }
+
+  set isGrouped (value) {
+    const isGrouped = !!value;
+    if (this._isGrouped === isGrouped) return;
+    this._isGrouped = isGrouped;
+    this.setAttribute(DisclosureSelector.GROUP, !!value);
+    this.update();
+  }
+
+  get isGrouped () {
+    return this._isGrouped;
+  }
+
+  get canUngroup () {
+    return false;
+  }
+
+  mutate (attributesNames) {
+    if (attributesNames.includes(DisclosureSelector.GROUP)) {
+      this.isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
+    }
   }
 
   apply () {}
@@ -2577,10 +2612,6 @@ const DisclosureType = {
     canConceal: true,
     canDisable: false
   }
-};
-
-const DisclosureSelector = {
-  PREVENT_CONCEAL: ns.attr.selector('prevent-conceal')
 };
 
 class CollapseButton extends DisclosureButton {
@@ -2688,6 +2719,10 @@ class CollapsesGroup extends DisclosuresGroup {
 
   static get instanceClassName () {
     return 'CollapsesGroup';
+  }
+
+  get canUngroup () {
+    return true;
   }
 }
 
@@ -4944,29 +4979,34 @@ class Navigation extends api.core.CollapsesGroup {
     super.init();
     this.clicked = false;
     this.out = false;
-    this.listen('focusout', this.focusOutHandler.bind(this));
-    this.listen('mousedown', this.mouseDownHandler.bind(this));
+    this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
+    this.listen('mousedown', this.handleMouseDown.bind(this));
     this.listenClick({ capture: true });
+    this.isResizing = true;
   }
 
   validate (member) {
     return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
   }
 
-  mouseDownHandler (e) {
+  handleMouseDown (e) {
     if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) return;
     this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
     this.requestPosition();
   }
 
-  clickHandler (e) {
-    if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) this.index = -1;
+  handleClick (e) {
+    if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
+      this.index = -1;
+    }
   }
 
-  focusOutHandler (e) {
+  _handleRootClick (target) {
     if (!this.isBreakpoint(api.core.Breakpoints.LG)) return;
-    this.out = true;
-    this.requestPosition();
+    if (!this.node.contains(target)) {
+      this.out = true;
+      this.requestPosition();
+    }
   }
 
   requestPosition () {
@@ -5005,6 +5045,14 @@ class Navigation extends api.core.CollapsesGroup {
   set index (value) {
     if (value === -1 && this.current && this.current.hasFocus) this.current.focus();
     super.index = value;
+  }
+
+  get canUngroup () {
+    return !this.isBreakpoint(api.core.Breakpoints.LG);
+  }
+
+  resize () {
+    this.update();
   }
 }
 
@@ -6225,8 +6273,21 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
+    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
+    if (toolsHtmlIdList) {
+      // on a besoin d'échapper les backslash dans la chaine de caractère
+      // eslint-disable-next-line no-useless-escape
+      toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
+    }
+    const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
     let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-    toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
+    if (toolsHtmlAriaControlList) {
+      for (const element of toolsHtmlAriaControlList) {
+        const ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
+        if (toolsHtmlIdList.includes(ariaControlsValue)) {
+          toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`aria-controls="${ariaControlsValue}"`, `aria-controls="${ariaControlsValue + copySuffix}"`);
+        }      }
+    }
 
     if (toolsHtmlDuplicateId === menuHtml) return;
 
@@ -6246,11 +6307,6 @@ ${api.header.doc}`);
 }
 
 class HeaderModal extends api.core.Instance {
-  constructor () {
-    super();
-    this._clickHandling = this.clickHandler.bind(this);
-  }
-
   static get instanceClassName () {
     return 'HeaderModal';
   }
@@ -6268,7 +6324,7 @@ class HeaderModal extends api.core.Instance {
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
     modal.isEnabled = true;
-    this.listen('click', this._clickHandling, { capture: true });
+    this.listenClick({ capture: true });
   }
 
   deactivateModal () {
@@ -6276,10 +6332,10 @@ class HeaderModal extends api.core.Instance {
     if (!modal) return;
     modal.conceal();
     modal.isEnabled = false;
-    this.unlisten('click', this._clickHandling, { capture: true });
+    this.unlistenClick({ capture: true });
   }
 
-  clickHandler (e) {
+  handleClick (e) {
     if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
       const modal = this.element.getInstance('Modal');
       modal.conceal();

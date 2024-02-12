@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -32,16 +32,21 @@
   padding-top: 1.25rem;
   padding-bottom: 0.5rem;
   background-position-y: 0.5rem, 0.375rem, 0.75rem, 0.75rem;
-  background-image: conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
 }
 
 .fr-tooltip.fr-placement {
   z-index: calc(var(--ground) + 1000);
   filter: drop-shadow(var(--overlap-shadow));
+  background-image: linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
 }
+@supports (background: conic-gradient(white, black)) {
+  .fr-tooltip.fr-placement--top {
+    background-image: conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
+  }
 
-.fr-tooltip.fr-placement--top {
-  background-image: conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
+  .fr-tooltip.fr-placement--bottom {
+    background-image: conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--background-overlap-grey) 0deg, var(--background-overlap-grey) 67.38deg, transparent 67.38deg), conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, var(--border-default-grey) 0deg, var(--border-default-grey) 67.38deg, transparent 67.38deg), linear-gradient(90deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(90deg, var(--background-overlap-grey), var(--background-overlap-grey));
+  }
 }
 @media (min-width: 36em) {
   /*! media sm */

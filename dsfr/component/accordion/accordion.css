@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -29,6 +29,10 @@
   display: block;
   font-size: unset;
   line-height: unset;
+}
+
+.fr-accordion:focus-within {
+  z-index: 1;
 }
 
 .fr-accordion__btn {

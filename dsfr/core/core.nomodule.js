@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.0'
+    version: '1.11.1'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -2683,6 +2683,11 @@
     return DisclosureButton;
   }(Instance));
 
+  var DisclosureSelector = {
+    PREVENT_CONCEAL: ns.attr.selector('prevent-conceal'),
+    GROUP: ns.attr('group')
+  };
+
   var DisclosuresGroup = /*@__PURE__*/(function (Instance) {
     function DisclosuresGroup (disclosureInstanceClassName, jsAttribute) {
       Instance.call(this, jsAttribute);
@@ -2691,13 +2696,14 @@
       this._index = -1;
       this._isRetrieving = false;
       this._hasRetrieved = false;
+      this._isGrouped = true;
     }
 
     if ( Instance ) DisclosuresGroup.__proto__ = Instance;
     DisclosuresGroup.prototype = Object.create( Instance && Instance.prototype );
     DisclosuresGroup.prototype.constructor = DisclosuresGroup;
 
-    var prototypeAccessors = { proxy: { configurable: true },members: { configurable: true },length: { configurable: true },index: { configurable: true },current: { configurable: true },hasFocus: { configurable: true } };
+    var prototypeAccessors = { proxy: { configurable: true },members: { configurable: true },length: { configurable: true },index: { configurable: true },current: { configurable: true },hasFocus: { configurable: true },isGrouped: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -2709,6 +2715,7 @@
       this.addAscent(DisclosureEmission.RETRIEVE, this.retrieve.bind(this));
       this.addAscent(DisclosureEmission.REMOVED, this.update.bind(this));
       this.descend(DisclosureEmission.GROUP);
+      this._isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
       this.update();
     };
 
@@ -2734,6 +2741,12 @@
         },
         get hasFocus () {
           return scope.hasFocus;
+        },
+        set isGrouped (value) {
+          scope.isGrouped = value;
+        },
+        get isGrouped () {
+          return scope.isGrouped;
         }
       };
 
@@ -2830,7 +2843,7 @@
         if (value === i) {
           if (!member.isDisclosed) { member.disclose(true); }
         } else {
-          if (member.isDisclosed) { member.conceal(true); }
+          if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) { member.conceal(true); }
         }
       }
       this.apply();
@@ -2849,6 +2862,28 @@
       var current = this.current;
       if (current) { return current.hasFocus; }
       return false;
+    };
+
+    prototypeAccessors.isGrouped.set = function (value) {
+      var isGrouped = !!value;
+      if (this._isGrouped === isGrouped) { return; }
+      this._isGrouped = isGrouped;
+      this.setAttribute(DisclosureSelector.GROUP, !!value);
+      this.update();
+    };
+
+    prototypeAccessors.isGrouped.get = function () {
+      return this._isGrouped;
+    };
+
+    prototypeAccessors.canUngroup.get = function () {
+      return false;
+    };
+
+    DisclosuresGroup.prototype.mutate = function mutate (attributesNames) {
+      if (attributesNames.includes(DisclosureSelector.GROUP)) {
+        this.isGrouped = this.getAttribute(DisclosureSelector.GROUP) !== 'false';
+      }
     };
 
     DisclosuresGroup.prototype.apply = function apply () {};
@@ -2887,10 +2922,6 @@
       canConceal: true,
       canDisable: false
     }
-  };
-
-  var DisclosureSelector = {
-    PREVENT_CONCEAL: ns.attr.selector('prevent-conceal')
   };
 
   var CollapseButton = /*@__PURE__*/(function (DisclosureButton) {
@@ -3024,12 +3055,18 @@
     CollapsesGroup.prototype = Object.create( DisclosuresGroup && DisclosuresGroup.prototype );
     CollapsesGroup.prototype.constructor = CollapsesGroup;
 
+    var prototypeAccessors = { canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
       return 'CollapsesGroup';
     };
 
+    prototypeAccessors.canUngroup.get = function () {
+      return true;
+    };
+
+    Object.defineProperties( CollapsesGroup.prototype, prototypeAccessors );
     Object.defineProperties( CollapsesGroup, staticAccessors );
 
     return CollapsesGroup;

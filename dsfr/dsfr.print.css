@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 @media print {
@@ -669,12 +669,8 @@
     display: none;
   }
 
-  .fr-tooltip.fr-placement--top {
-    background-image: conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, #fff 0deg, #fff 67.38deg, transparent 67.38deg), conic-gradient(from -33.69deg at 50% 100%, transparent 0deg, #ddd 0deg, #ddd 67.38deg, transparent 67.38deg), linear-gradient(90deg, #ddd, #ddd), linear-gradient(90deg, #fff, #fff);
-  }
-
-  .fr-tooltip.fr-placement--bottom {
-    background-image: conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, #fff 0deg, #fff 67.38deg, transparent 67.38deg), conic-gradient(from 146.31deg at 50% 0%, transparent 0deg, #ddd 0deg, #ddd 67.38deg, transparent 67.38deg), linear-gradient(90deg, #ddd, #ddd), linear-gradient(90deg, #fff, #fff);
+  .fr-tooltip.fr-placement {
+    background-image: linear-gradient(90deg, #fff, #fff);
   }
 
   .fr-link {

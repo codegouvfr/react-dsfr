@@ -1,10 +1,10 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.0'
+  version: '1.11.1'
 };
 
 const api = window[config.namespace];
@@ -809,6 +809,7 @@ class Site {
     this.type = clear ? undefined : this._config.type;
     this.region = clear ? undefined : this._config.region;
     this.department = clear ? undefined : this._config.department;
+    this.version = clear ? undefined : this._config.version;
     this._api = api.version;
   }
 
@@ -892,6 +893,15 @@ class Site {
     return this._department;
   }
 
+  set version (value) {
+    const valid = validateString(value, 'site.version');
+    if (valid !== null) this._version = valid;
+  }
+
+  get version () {
+    return this._version;
+  }
+
   get api () {
     return this._api;
   }
@@ -906,6 +916,7 @@ class Site {
     if (this.type) layer.push('site_type', normalize(this.type));
     if (this.region) layer.push('site_region', this.region);
     if (this.department) layer.push('site_department', this.department);
+    if (this.version) layer.push('site_version', this.version);
     if (this.api) layer.push('api_version', this.api);
     return layer;
   }
@@ -2701,9 +2712,8 @@ class Actionee extends api.core.Instance {
   listenClick (target) {
     if (target) {
       this._clickTarget = target;
-      this._clickHandler = this.handleClick.bind(this);
-      this._clickTarget.addEventListener('click', this._clickHandler, { capture: true });
-    } else this.listen('click', this.handleClick.bind(this), { capture: true });
+      this._clickTarget.addEventListener('click', this.handlingClick, { capture: true });
+    } else this.listenClick({ capture: true });
   }
 
   handleClick () {
@@ -2819,7 +2829,7 @@ class Actionee extends api.core.Instance {
 
   dispose () {
     if (this._clickTarget) {
-      this._clickTarget.removeEventListener('click', this._clickHandler);
+      this._clickTarget.removeEventListener('click', this.handlingClick);
     }
     super.dispose();
   }
@@ -2936,8 +2946,8 @@ class ComponentActionee extends Actionee {
     const button = this.element.getDescendantInstances('ButtonActionee', null, true)[0];
     if (button) button.isMuted = true;
     this._validatedInput = node.querySelector('input');
-    this._inputValidationHandler = this._handleInputValidation.bind(this);
-    if (this._validatedInput) this._validatedInput.addEventListener('keydown', this._inputValidationHandler);
+    this._handlingInputValidation = this._handleInputValidation.bind(this);
+    if (this._validatedInput) this._validatedInput.addEventListener('keydown', this._handlingInputValidation);
   }
 
   _handleInputValidation (e) {
@@ -3014,7 +3024,7 @@ class ComponentActionee extends Actionee {
 
   dispose () {
     if (this._validatedInput) {
-      this._validatedInput.removeEventListener('keydown', this._inputValidationHandler);
+      this._validatedInput.removeEventListener('keydown', this._handlingInputValidation);
     }
 
     super.dispose();

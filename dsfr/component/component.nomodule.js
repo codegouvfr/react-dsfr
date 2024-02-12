@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.0'
+    version: '1.11.1'
   };
 
   var api = window[config.namespace];
@@ -1496,7 +1496,7 @@
     Navigation.prototype = Object.create( superclass && superclass.prototype );
     Navigation.prototype.constructor = Navigation;
 
-    var prototypeAccessors = { index: { configurable: true } };
+    var prototypeAccessors = { index: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -1507,29 +1507,34 @@
       superclass.prototype.init.call(this);
       this.clicked = false;
       this.out = false;
-      this.listen('focusout', this.focusOutHandler.bind(this));
-      this.listen('mousedown', this.mouseDownHandler.bind(this));
+      this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
+      this.listen('mousedown', this.handleMouseDown.bind(this));
       this.listenClick({ capture: true });
+      this.isResizing = true;
     };
 
     Navigation.prototype.validate = function validate (member) {
       return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
-    Navigation.prototype.mouseDownHandler = function mouseDownHandler (e) {
+    Navigation.prototype.handleMouseDown = function handleMouseDown (e) {
       if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) { return; }
       this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
       this.requestPosition();
     };
 
-    Navigation.prototype.clickHandler = function clickHandler (e) {
-      if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) { this.index = -1; }
+    Navigation.prototype.handleClick = function handleClick (e) {
+      if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
+        this.index = -1;
+      }
     };
 
-    Navigation.prototype.focusOutHandler = function focusOutHandler (e) {
+    Navigation.prototype._handleRootClick = function _handleRootClick (target) {
       if (!this.isBreakpoint(api.core.Breakpoints.LG)) { return; }
-      this.out = true;
-      this.requestPosition();
+      if (!this.node.contains(target)) {
+        this.out = true;
+        this.requestPosition();
+      }
     };
 
     Navigation.prototype.requestPosition = function requestPosition () {
@@ -1568,6 +1573,14 @@
     prototypeAccessors.index.set = function (value) {
       if (value === -1 && this.current && this.current.hasFocus) { this.current.focus(); }
       superclass.prototype.index = value;
+    };
+
+    prototypeAccessors.canUngroup.get = function () {
+      return !this.isBreakpoint(api.core.Breakpoints.LG);
+    };
+
+    Navigation.prototype.resize = function resize () {
+      this.update();
     };
 
     Object.defineProperties( Navigation.prototype, prototypeAccessors );
@@ -3067,8 +3080,23 @@
       var toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
       var menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
       // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
+      var toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
+      if (toolsHtmlIdList) {
+        // on a besoin d'échapper les backslash dans la chaine de caractère
+        // eslint-disable-next-line no-useless-escape
+        toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
+      }
+      var toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
       var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-      toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
+      if (toolsHtmlAriaControlList) {
+        for (var i = 0, list = toolsHtmlAriaControlList; i < list.length; i += 1) {
+          var element = list[i];
+
+          var ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
+          if (toolsHtmlIdList.includes(ariaControlsValue)) {
+            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(("aria-controls=\"" + ariaControlsValue + "\""), ("aria-controls=\"" + (ariaControlsValue + copySuffix) + "\""));
+          }      }
+      }
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
 
@@ -3091,8 +3119,7 @@
 
   var HeaderModal = /*@__PURE__*/(function (superclass) {
     function HeaderModal () {
-      superclass.call(this);
-      this._clickHandling = this.clickHandler.bind(this);
+      superclass.apply(this, arguments);
     }
 
     if ( superclass ) HeaderModal.__proto__ = superclass;
@@ -3118,7 +3145,7 @@
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
       modal.isEnabled = true;
-      this.listen('click', this._clickHandling, { capture: true });
+      this.listenClick({ capture: true });
     };
 
     HeaderModal.prototype.deactivateModal = function deactivateModal () {
@@ -3126,10 +3153,10 @@
       if (!modal) { return; }
       modal.conceal();
       modal.isEnabled = false;
-      this.unlisten('click', this._clickHandling, { capture: true });
+      this.unlistenClick({ capture: true });
     };
 
-    HeaderModal.prototype.clickHandler = function clickHandler (e) {
+    HeaderModal.prototype.handleClick = function handleClick (e) {
       if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
         var modal = this.element.getInstance('Modal');
         modal.conceal();

@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.0'
+    version: '1.11.1'
   };
 
   var api = window[config.namespace];
@@ -44,8 +44,23 @@
       var toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
       var menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
       // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
+      var toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
+      if (toolsHtmlIdList) {
+        // on a besoin d'échapper les backslash dans la chaine de caractère
+        // eslint-disable-next-line no-useless-escape
+        toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
+      }
+      var toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
       var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-      toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
+      if (toolsHtmlAriaControlList) {
+        for (var i = 0, list = toolsHtmlAriaControlList; i < list.length; i += 1) {
+          var element = list[i];
+
+          var ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
+          if (toolsHtmlIdList.includes(ariaControlsValue)) {
+            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(("aria-controls=\"" + ariaControlsValue + "\""), ("aria-controls=\"" + (ariaControlsValue + copySuffix) + "\""));
+          }      }
+      }
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
 
@@ -68,8 +83,7 @@
 
   var HeaderModal = /*@__PURE__*/(function (superclass) {
     function HeaderModal () {
-      superclass.call(this);
-      this._clickHandling = this.clickHandler.bind(this);
+      superclass.apply(this, arguments);
     }
 
     if ( superclass ) HeaderModal.__proto__ = superclass;
@@ -95,7 +109,7 @@
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
       modal.isEnabled = true;
-      this.listen('click', this._clickHandling, { capture: true });
+      this.listenClick({ capture: true });
     };
 
     HeaderModal.prototype.deactivateModal = function deactivateModal () {
@@ -103,10 +117,10 @@
       if (!modal) { return; }
       modal.conceal();
       modal.isEnabled = false;
-      this.unlisten('click', this._clickHandling, { capture: true });
+      this.unlistenClick({ capture: true });
     };
 
-    HeaderModal.prototype.clickHandler = function clickHandler (e) {
+    HeaderModal.prototype.handleClick = function handleClick (e) {
       if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
         var modal = this.element.getInstance('Modal');
         modal.conceal();

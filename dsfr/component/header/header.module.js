@@ -1,10 +1,10 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.0'
+  version: '1.11.1'
 };
 
 const api = window[config.namespace];
@@ -31,8 +31,21 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
+    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
+    if (toolsHtmlIdList) {
+      // on a besoin d'échapper les backslash dans la chaine de caractère
+      // eslint-disable-next-line no-useless-escape
+      toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
+    }
+    const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
     let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-    toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(/(<nav[.\s\S]*-translate [.\s\S]*) aria-controls="(.*?)"([.\s\S]*<\/nav>)/gm, '$1 aria-controls="$2' + copySuffix + '"$3');
+    if (toolsHtmlAriaControlList) {
+      for (const element of toolsHtmlAriaControlList) {
+        const ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
+        if (toolsHtmlIdList.includes(ariaControlsValue)) {
+          toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`aria-controls="${ariaControlsValue}"`, `aria-controls="${ariaControlsValue + copySuffix}"`);
+        }      }
+    }
 
     if (toolsHtmlDuplicateId === menuHtml) return;
 
@@ -52,11 +65,6 @@ ${api.header.doc}`);
 }
 
 class HeaderModal extends api.core.Instance {
-  constructor () {
-    super();
-    this._clickHandling = this.clickHandler.bind(this);
-  }
-
   static get instanceClassName () {
     return 'HeaderModal';
   }
@@ -74,7 +82,7 @@ class HeaderModal extends api.core.Instance {
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
     modal.isEnabled = true;
-    this.listen('click', this._clickHandling, { capture: true });
+    this.listenClick({ capture: true });
   }
 
   deactivateModal () {
@@ -82,10 +90,10 @@ class HeaderModal extends api.core.Instance {
     if (!modal) return;
     modal.conceal();
     modal.isEnabled = false;
-    this.unlisten('click', this._clickHandling, { capture: true });
+    this.unlistenClick({ capture: true });
   }
 
-  clickHandler (e) {
+  handleClick (e) {
     if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
       const modal = this.element.getInstance('Modal');
       modal.conceal();

@@ -1,4 +1,4 @@
-/*! DSFR v1.11.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.0'
+    version: '1.11.1'
   };
 
   var api = window[config.namespace];
@@ -101,7 +101,7 @@
     Navigation.prototype = Object.create( superclass && superclass.prototype );
     Navigation.prototype.constructor = Navigation;
 
-    var prototypeAccessors = { index: { configurable: true } };
+    var prototypeAccessors = { index: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -112,29 +112,34 @@
       superclass.prototype.init.call(this);
       this.clicked = false;
       this.out = false;
-      this.listen('focusout', this.focusOutHandler.bind(this));
-      this.listen('mousedown', this.mouseDownHandler.bind(this));
+      this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
+      this.listen('mousedown', this.handleMouseDown.bind(this));
       this.listenClick({ capture: true });
+      this.isResizing = true;
     };
 
     Navigation.prototype.validate = function validate (member) {
       return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
-    Navigation.prototype.mouseDownHandler = function mouseDownHandler (e) {
+    Navigation.prototype.handleMouseDown = function handleMouseDown (e) {
       if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) { return; }
       this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
       this.requestPosition();
     };
 
-    Navigation.prototype.clickHandler = function clickHandler (e) {
-      if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) { this.index = -1; }
+    Navigation.prototype.handleClick = function handleClick (e) {
+      if (e.target.matches('a, button') && !e.target.matches('[aria-controls]') && !e.target.matches(api.core.DisclosureSelector.PREVENT_CONCEAL)) {
+        this.index = -1;
+      }
     };
 
-    Navigation.prototype.focusOutHandler = function focusOutHandler (e) {
+    Navigation.prototype._handleRootClick = function _handleRootClick (target) {
       if (!this.isBreakpoint(api.core.Breakpoints.LG)) { return; }
-      this.out = true;
-      this.requestPosition();
+      if (!this.node.contains(target)) {
+        this.out = true;
+        this.requestPosition();
+      }
     };
 
     Navigation.prototype.requestPosition = function requestPosition () {
@@ -173,6 +178,14 @@
     prototypeAccessors.index.set = function (value) {
       if (value === -1 && this.current && this.current.hasFocus) { this.current.focus(); }
       superclass.prototype.index = value;
+    };
+
+    prototypeAccessors.canUngroup.get = function () {
+      return !this.isBreakpoint(api.core.Breakpoints.LG);
+    };
+
+    Navigation.prototype.resize = function resize () {
+      this.update();
     };
 
     Object.defineProperties( Navigation.prototype, prototypeAccessors );

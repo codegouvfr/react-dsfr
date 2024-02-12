@@ -113,9 +113,9 @@ var fs = __importStar(require("fs"));
 var getProjectRoot_1 = require("./tools/getProjectRoot");
 var assert_1 = require("tsafe/assert");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var projectDirPath, viteConfigFilePath, publicDirPath, _a, gitignoreFilePath, gitignoreRaw, pathToIgnore_1, dsfrDirPath;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var projectDirPath, viteConfigFilePath, publicDirPath, gitignoreFilePath, gitignoreRaw, pathToIgnore_1, dsfrDirPath;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 projectDirPath = process.cwd();
                 viteConfigFilePath = (function () {
@@ -139,59 +139,61 @@ var assert_1 = require("tsafe/assert");
                     }
                     return undefined;
                 })();
-                if (!(viteConfigFilePath !== undefined)) return [3 /*break*/, 2];
-                return [4 /*yield*/, (function getVitePublicDirPath() {
-                        return __awaiter(this, void 0, void 0, function () {
-                            var viteConfig, _a, afterPublicDir, indexEnd, _b, path, basename, dirname, delimiter, extname, format, isAbsolute, join, normalize, parse, posix, relative, resolve, sep, toNamespacedPath, win32, rest, part, candidate;
-                            return __generator(this, function (_c) {
-                                switch (_c.label) {
-                                    case 0:
-                                        viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
-                                        if (!viteConfig.includes("publicDir")) {
-                                            return [2 /*return*/, (0, path_1.join)(projectDirPath, "public")];
+                return [4 /*yield*/, (function () { return __awaiter(void 0, void 0, void 0, function () {
+                        var arg, viteConfig, _a, afterPublicDir, indexEnd, _b, path, basename, dirname, delimiter, extname, format, isAbsolute, join, normalize, parse, posix, relative, resolve, sep, toNamespacedPath, win32, rest, part, candidate;
+                        return __generator(this, function (_c) {
+                            switch (_c.label) {
+                                case 0:
+                                    command_line_argument: {
+                                        arg = process.argv[2];
+                                        if (arg === undefined) {
+                                            break command_line_argument;
                                         }
-                                        _a = __read(viteConfig.split(/\s["']?publicDir["']?\s*:/), 2), afterPublicDir = _a[1];
-                                        indexEnd = 0;
-                                        _c.label = 1;
-                                    case 1:
-                                        if (!(indexEnd < afterPublicDir.length)) return [3 /*break*/, 4];
-                                        return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("path")); })];
-                                    case 2:
-                                        _b = _c.sent(), path = _b.default, basename = _b.basename, dirname = _b.dirname, delimiter = _b.delimiter, extname = _b.extname, format = _b.format, isAbsolute = _b.isAbsolute, join = _b.join, normalize = _b.normalize, parse = _b.parse, posix = _b.posix, relative = _b.relative, resolve = _b.resolve, sep = _b.sep, toNamespacedPath = _b.toNamespacedPath, win32 = _b.win32, rest = __rest(_b, ["default", "basename", "dirname", "delimiter", "extname", "format", "isAbsolute", "join", "normalize", "parse", "posix", "relative", "resolve", "sep", "toNamespacedPath", "win32"]);
-                                        (0, assert_1.assert)();
-                                        part = afterPublicDir
-                                            .substring(0, indexEnd)
-                                            .replace(/__dirname/g, "\"".concat(projectDirPath, "\""));
-                                        candidate = void 0;
-                                        try {
-                                            candidate = eval(part);
-                                        }
-                                        catch (_d) {
-                                            return [3 /*break*/, 3];
-                                        }
-                                        if (typeof candidate !== "string") {
-                                            return [3 /*break*/, 3];
-                                        }
-                                        return [2 /*return*/, candidate];
-                                    case 3:
-                                        indexEnd++;
-                                        return [3 /*break*/, 1];
-                                    case 4:
-                                        console.error("Can't parse the vite configuration please open an issue about it ".concat(getRepoIssueUrl()));
-                                        process.exit(-1);
-                                        return [2 /*return*/];
-                                }
-                            });
+                                        return [2 /*return*/, arg];
+                                    }
+                                    if (viteConfigFilePath === undefined) {
+                                        return [3 /*break*/, 5];
+                                    }
+                                    viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
+                                    if (!viteConfig.includes("publicDir")) {
+                                        return [2 /*return*/, (0, path_1.join)(projectDirPath, "public")];
+                                    }
+                                    _a = __read(viteConfig.split(/\s["']?publicDir["']?\s*:/), 2), afterPublicDir = _a[1];
+                                    indexEnd = 0;
+                                    _c.label = 1;
+                                case 1:
+                                    if (!(indexEnd < afterPublicDir.length)) return [3 /*break*/, 4];
+                                    return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("path")); })];
+                                case 2:
+                                    _b = _c.sent(), path = _b.default, basename = _b.basename, dirname = _b.dirname, delimiter = _b.delimiter, extname = _b.extname, format = _b.format, isAbsolute = _b.isAbsolute, join = _b.join, normalize = _b.normalize, parse = _b.parse, posix = _b.posix, relative = _b.relative, resolve = _b.resolve, sep = _b.sep, toNamespacedPath = _b.toNamespacedPath, win32 = _b.win32, rest = __rest(_b, ["default", "basename", "dirname", "delimiter", "extname", "format", "isAbsolute", "join", "normalize", "parse", "posix", "relative", "resolve", "sep", "toNamespacedPath", "win32"]);
+                                    (0, assert_1.assert)();
+                                    part = afterPublicDir
+                                        .substring(0, indexEnd)
+                                        .replace(/__dirname/g, "\"".concat(projectDirPath, "\""));
+                                    candidate = void 0;
+                                    try {
+                                        candidate = eval(part);
+                                    }
+                                    catch (_d) {
+                                        return [3 /*break*/, 3];
+                                    }
+                                    if (typeof candidate !== "string") {
+                                        return [3 /*break*/, 3];
+                                    }
+                                    return [2 /*return*/, candidate];
+                                case 3:
+                                    indexEnd++;
+                                    return [3 /*break*/, 1];
+                                case 4:
+                                    console.error("Can't parse the vite configuration please open an issue about it ".concat(getRepoIssueUrl()));
+                                    process.exit(-1);
+                                    _c.label = 5;
+                                case 5: return [2 /*return*/, (0, path_1.join)(projectDirPath, "public")];
+                            }
                         });
-                    })()];
+                    }); })()];
             case 1:
-                _a = _b.sent();
-                return [3 /*break*/, 3];
-            case 2:
-                _a = (0, path_1.join)(projectDirPath, "public");
-                _b.label = 3;
-            case 3:
-                publicDirPath = _a;
+                publicDirPath = _a.sent();
                 edit_gitignore: {
                     gitignoreFilePath = (0, path_1.join)(projectDirPath, ".gitignore");
                     if (!fs.existsSync(gitignoreFilePath)) {

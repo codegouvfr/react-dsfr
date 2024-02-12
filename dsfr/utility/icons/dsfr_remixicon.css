@@ -1051,44 +1051,6 @@
   content: "";
 }
 
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=ri-],
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" ri-"],
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-],
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"] {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
-  overflow: initial;
-  max-width: 100%;
-  max-height: none;
-}
-
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=ri-]::before,
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" ri-"]::before,
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before {
-  --icon-size: 1rem;
-  margin-left: -0.125rem;
-  margin-right: 0.5rem;
-}
-
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
-  font-size: 0.875rem;
-  line-height: 1.5rem;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
-  overflow: initial;
-  max-width: 100%;
-  max-height: none;
-}
-
-.fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
-  --icon-size: 1rem;
-  margin-left: -0.125rem;
-  margin-right: 0.5rem;
-}
-
 .fr-header__tools-links > .fr-btn[class^=ri-],
 .fr-header__tools-links > .fr-btn[class*=" ri-"],
 .fr-header__tools-links > .fr-btn[class^=fr-fi-],
@@ -1125,6 +1087,21 @@
   --icon-size: 1rem;
   margin-left: -0.125rem;
   margin-right: 0.5rem;
+}
+
+.fr-header .fr-header__menu-links .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=ri-],
+.fr-header .fr-header__menu-links .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" ri-"],
+.fr-header .fr-header__menu-links .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-],
+.fr-header .fr-header__menu-links .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"] {
+  min-height: 3rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fr-header .fr-header__menu-links .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
+  min-height: 3rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .fr-header .fr-links-group .fr-link:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
@@ -1168,6 +1145,46 @@
   .fr-callout[class^=fr-fi-]::before,
   .fr-callout[class*=" fr-fi-"]::before {
     margin: -1rem 0 1rem -2rem;
+  }
+}
+
+@media (min-width: 62em) {
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=ri-],
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" ri-"],
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-],
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"] {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    min-height: 2rem;
+    padding: 0.25rem 0.75rem;
+    overflow: initial;
+    max-width: 100%;
+    max-height: none;
+  }
+
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=ri-]::before,
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" ri-"]::before,
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class^=fr-fi-]::before,
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn[class*=" fr-fi-"]::before {
+    --icon-size: 1rem;
+    margin-left: -0.125rem;
+    margin-right: 0.5rem;
+  }
+
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    min-height: 2rem;
+    padding: 0.25rem 0.75rem;
+    overflow: initial;
+    max-width: 100%;
+    max-height: none;
+  }
+
+  .fr-header .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg):not([class^=fr-btns-group--icon-]):not([class*=" fr-btns-group--icon-"]) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    --icon-size: 1rem;
+    margin-left: -0.125rem;
+    margin-right: 0.5rem;
   }
 }
 
