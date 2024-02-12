@@ -4,14 +4,22 @@ module.exports = {
         "../stories/*.stories.@(ts|tsx)",
         "../stories/blocks/*.stories.@(ts|tsx)"
     ],
+
     "addons": [
         "@storybook/addon-links",
         "@storybook/addon-essentials",
         "storybook-dark-mode",
-        "@storybook/addon-a11y"
+        "@storybook/addon-a11y",
+        "@storybook/addon-mdx-gfm"
     ],
-    "core": {
-        "builder": "webpack5"
+
+    "staticDirs": ["../dist", "./static"],
+
+    core: {
+        builder: "@storybook/builder-vite"
     },
-    "staticDirs": ["../dist", "./static"]
+
+    docs: {
+        autodocs: true
+    }
 };
