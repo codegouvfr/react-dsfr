@@ -1,16 +1,15 @@
 import {
-    CSSProperties,
-    DetailedHTMLProps,
+    type ComponentProps,
+    type CSSProperties,
     forwardRef,
-    InputHTMLAttributes,
     memo,
-    ReactNode,
+    type ReactNode,
     useId
 } from "react";
-import { assert, Equals } from "tsafe";
-import { fr, FrIconClassName, RiIconClassName } from "./fr";
+import { assert, type Equals } from "tsafe";
+import { fr, type FrIconClassName, type RiIconClassName } from "./fr";
 import React from "react";
-import { CxArg } from "tss-react";
+import { type CxArg } from "tss-react";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 
@@ -64,10 +63,7 @@ export namespace SegmentedControlProps {
 
     export type Segment = {
         label: ReactNode;
-        nativeInputProps?: DetailedHTMLProps<
-            InputHTMLAttributes<HTMLInputElement>,
-            HTMLInputElement
-        >;
+        nativeInputProps?: ComponentProps<"input">;
         iconId?: FrIconClassName | RiIconClassName;
     };
 

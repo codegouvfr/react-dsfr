@@ -7,9 +7,9 @@ import React, {
     type ReactNode,
     type ComponentProps
 } from "react";
-import { assert, Equals } from "tsafe";
+import { assert, type Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
-import { CxArg } from "tss-react";
+import { type CxArg } from "tss-react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
@@ -55,10 +55,7 @@ export type RangeProps = {
 
 //https://main--ds-gouv.netlify.app/example/component/range/
 export namespace RangeProps {
-    type NativeInputProps = DetailedHTMLProps<
-        InputHTMLAttributes<HTMLInputElement>,
-        HTMLInputElement
-    >;
+    type NativeInputProps = ComponentProps<"input">;
 
     export type AsSingle = {
         double?: never;
