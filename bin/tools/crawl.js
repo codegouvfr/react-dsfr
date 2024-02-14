@@ -80,29 +80,34 @@ function crawlRec(params) {
                     return [4 /*yield*/, (0, promises_2.realpath)(dirPath)];
                 case 1: return [4 /*yield*/, _c.apply(void 0, [_d.sent()])];
                 case 2: return [4 /*yield*/, _b.apply(_a, [(_d.sent()).map(function (fileOrDirectoryBasename) { return __awaiter(_this, void 0, void 0, function () {
-                            var fileOrDirectoryPath, _a, dirPath_1, _b, _c, filePath;
-                            return __generator(this, function (_d) {
-                                switch (_d.label) {
+                            var fileOrDirectoryPath, fileOrDirectoryPath_realpath, dirPath_1, _a, _b, filePath;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
                                     case 0:
                                         fileOrDirectoryPath = (0, path_1.join)(dirPath, fileOrDirectoryBasename);
-                                        _a = promises_1.lstat;
-                                        return [4 /*yield*/, (0, promises_2.realpath)(fileOrDirectoryPath)];
-                                    case 1: return [4 /*yield*/, _a.apply(void 0, [_d.sent()])];
+                                        return [4 /*yield*/, (0, promises_2.realpath)(fileOrDirectoryPath).catch(function () { return undefined; })];
+                                    case 1:
+                                        fileOrDirectoryPath_realpath = _c.sent();
+                                        if (fileOrDirectoryPath_realpath === undefined) {
+                                            // NOTE: Broken symlink
+                                            return [2 /*return*/];
+                                        }
+                                        return [4 /*yield*/, (0, promises_1.lstat)(fileOrDirectoryPath_realpath)];
                                     case 2:
-                                        if (!(_d.sent()).isDirectory()) return [3 /*break*/, 5];
+                                        if (!(_c.sent()).isDirectory()) return [3 /*break*/, 5];
                                         dirPath_1 = fileOrDirectoryPath;
                                         return [4 /*yield*/, getDoCrawlInDir({ dirPath: dirPath_1 })];
                                     case 3:
-                                        if (!(_d.sent())) {
+                                        if (!(_c.sent())) {
                                             return [2 /*return*/];
                                         }
-                                        _c = (_b = recursiveCallResults).push;
+                                        _b = (_a = recursiveCallResults).push;
                                         return [4 /*yield*/, crawlRec({
                                                 dirPath: dirPath_1,
                                                 getDoCrawlInDir: getDoCrawlInDir
                                             })];
                                     case 4:
-                                        _c.apply(_b, [_d.sent()]);
+                                        _b.apply(_a, [_c.sent()]);
                                         return [2 /*return*/];
                                     case 5:
                                         filePath = fileOrDirectoryPath;

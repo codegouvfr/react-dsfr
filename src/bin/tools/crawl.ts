@@ -18,7 +18,16 @@ async function crawlRec(params: {
         ).map(async fileOrDirectoryBasename => {
             const fileOrDirectoryPath = pathJoin(dirPath, fileOrDirectoryBasename);
 
-            if ((await lstat(await fsRealpath(fileOrDirectoryPath))).isDirectory()) {
+            const fileOrDirectoryPath_realpath = await fsRealpath(fileOrDirectoryPath).catch(
+                () => undefined
+            );
+
+            if (fileOrDirectoryPath_realpath === undefined) {
+                // NOTE: Broken symlink
+                return;
+            }
+
+            if ((await lstat(fileOrDirectoryPath_realpath)).isDirectory()) {
                 const dirPath = fileOrDirectoryPath;
 
                 if (!(await getDoCrawlInDir({ dirPath }))) {
