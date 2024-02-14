@@ -5,7 +5,7 @@ import * as fs from "fs";
 import { join as pathJoin } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile, rm, access, stat } from "fs/promises";
+import { writeFile, readFile, rm, access } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import type { Equals } from "tsafe";
@@ -321,10 +321,6 @@ async function main() {
 
         await Promise.all(
             candidateFilePaths.map(async candidateFilePath => {
-                if ((await stat(candidateFilePath)).isSymbolicLink()) {
-                    return;
-                }
-
                 const rawFileContent = (await readFile(candidateFilePath)).toString("utf8");
 
                 [
