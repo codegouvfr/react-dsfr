@@ -415,8 +415,13 @@ function main() {
                                                     var rawFileContent;
                                                     return __generator(this, function (_a) {
                                                         switch (_a.label) {
-                                                            case 0: return [4 /*yield*/, (0, promises_1.readFile)(candidateFilePath)];
+                                                            case 0: return [4 /*yield*/, (0, promises_1.stat)(candidateFilePath)];
                                                             case 1:
+                                                                if ((_a.sent()).isSymbolicLink()) {
+                                                                    return [2 /*return*/];
+                                                                }
+                                                                return [4 /*yield*/, (0, promises_1.readFile)(candidateFilePath)];
+                                                            case 2:
                                                                 rawFileContent = (_a.sent()).toString("utf8");
                                                                 __spreadArray(__spreadArray([], __read((!rawFileContent.includes(prefixDsfr) ? [] : availableDsfrIconClassNames)), false), __read((!rawFileContent.includes(prefixRemixIcon)
                                                                     ? []
