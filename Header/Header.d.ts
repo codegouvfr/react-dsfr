@@ -22,8 +22,14 @@ export type HeaderProps = {
          * If "horizontal": 16x9
          */
         imgUrl: string;
-        /** Textual alternative of the image, it MUST include the text present in the image*/
+        /** Textual alternative of the image, it MUST include the text present in the image */
         alt: string;
+        /**
+         * Custom link props, if not provided, the operator logo will be wrapped in a link that points to the home page
+         */
+        linkProps?: RegisteredLinkProps & {
+            title: string;
+        };
     };
     renderSearchInput?: (
     /**

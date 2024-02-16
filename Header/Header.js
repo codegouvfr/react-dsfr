@@ -42,36 +42,40 @@ export const Header = memo(forwardRef((props, ref) => {
             "fallback": "",
             "text": `${quickAccessItem.text}${suffix ? `-${suffix}` : ""}`
         })}-${i}`, quickAccessItem: quickAccessItem })))))));
+    const hasOperatorLink = (operatorLogo === null || operatorLogo === void 0 ? void 0 : operatorLogo.linkProps) !== undefined;
     return (React.createElement(React.Fragment, null,
         React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
             React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
                 React.createElement("div", { className: cx(fr.cx("fr-container"), classes.container) },
                     React.createElement("div", { className: cx(fr.cx("fr-header__body-row"), classes.bodyRow) },
-                        React.createElement("div", { className: cx(fr.cx("fr-header__brand", "fr-enlarge-link"), classes.brand) },
+                        React.createElement("div", { className: cx(fr.cx("fr-header__brand", !hasOperatorLink && "fr-enlarge-link"), classes.brand) },
                             React.createElement("div", { className: cx(fr.cx("fr-header__brand-top"), classes.brandTop) },
                                 React.createElement("div", { className: cx(fr.cx("fr-header__logo"), classes.logo) }, (() => {
                                     const children = (React.createElement("p", { className: fr.cx("fr-logo") }, brandTop));
                                     return serviceTitle !== undefined ? (children) : (React.createElement(Link, Object.assign({}, homeLinkProps), children));
                                 })()),
-                                operatorLogo !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__operator"), classes.operator) },
-                                    React.createElement(Link, Object.assign({}, homeLinkProps),
-                                        React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.operator), style: (() => {
-                                                switch (operatorLogo.orientation) {
-                                                    case "vertical":
-                                                        return { "width": "3.5rem" };
-                                                    case "horizontal":
-                                                        return {
-                                                            "maxWidth": "9.0625rem"
-                                                        };
-                                                }
-                                            })(), src: operatorLogo.imgUrl, alt: operatorLogo.alt })))),
+                                operatorLogo !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__operator", hasOperatorLink && "fr-enlarge-link"), classes.operator) }, (() => {
+                                    const children = (React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.operator), style: (() => {
+                                            switch (operatorLogo.orientation) {
+                                                case "vertical":
+                                                    return {
+                                                        "width": "3.5rem"
+                                                    };
+                                                case "horizontal":
+                                                    return {
+                                                        "maxWidth": "9.0625rem"
+                                                    };
+                                            }
+                                        })(), src: operatorLogo.imgUrl, alt: operatorLogo.alt }));
+                                    return hasOperatorLink ? (React.createElement(Link, Object.assign({}, operatorLogo.linkProps), children)) : (children);
+                                })())),
                                 (quickAccessItems.length > 0 ||
                                     navigation !== undefined ||
                                     isSearchBarEnabled) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
                                     isSearchBarEnabled && (React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: tSearchBar("label") }, tSearchBar("label"))),
                                     React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
-                            serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service"), classes.service) },
+                            serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service", hasOperatorLink && "fr-enlarge-link"), classes.service) },
                                 React.createElement(Link, Object.assign({}, homeLinkProps),
                                     React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
                                 serviceTagline !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-header__service-tagline"), classes.serviceTagline) }, serviceTagline))))),
