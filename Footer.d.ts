@@ -89,8 +89,14 @@ export declare namespace FooterProps {
         };
         type Logo = {
             alt: string;
-            href: string;
+            /**
+             * @deprecated use linkProps instead
+             */
+            href?: string;
             imgUrl: string;
+            linkProps?: RegisteredLinkProps & {
+                title: string;
+            };
         };
     }
 }

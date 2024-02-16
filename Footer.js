@@ -77,12 +77,22 @@ export const Footer = memo(forwardRef((props, ref) => {
             partnersLogos !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners"), classes.partners) },
                 React.createElement("h4", { className: cx(fr.cx("fr-footer__partners-title"), classes.partnersTitle) }, t("our partners")),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__partners-logos"), classes.partnersLogos) },
-                    React.createElement("div", { className: cx(fr.cx("fr-footer__partners-main"), classes.partnersMain) }, mainPartnersLogo !== undefined && (React.createElement("a", { href: mainPartnersLogo.href, target: "_blank", title: `${mainPartnersLogo.href} - ${t("open new window")}`, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) },
-                        React.createElement("img", { alt: mainPartnersLogo.alt, style: { height: "5.625rem" }, src: mainPartnersLogo.imgUrl, className: cx(fr.cx("fr-footer__logo"), classes.logo) })))),
+                    React.createElement("div", { className: cx(fr.cx("fr-footer__partners-main"), classes.partnersMain) }, mainPartnersLogo !== undefined &&
+                        (() => {
+                            var _a, _b;
+                            const children = (React.createElement("img", { alt: mainPartnersLogo.alt, style: { height: "5.625rem" }, src: mainPartnersLogo.imgUrl, className: cx(fr.cx("fr-footer__logo"), classes.logo) }));
+                            const hasLinkProps = mainPartnersLogo.linkProps !== undefined ||
+                                mainPartnersLogo.href !== undefined;
+                            return hasLinkProps ? (React.createElement(Link, Object.assign({}, mainPartnersLogo.linkProps, { href: (_a = mainPartnersLogo.href) !== null && _a !== void 0 ? _a : (_b = mainPartnersLogo.linkProps) === null || _b === void 0 ? void 0 : _b.href, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) }), children)) : (children);
+                        })()),
                     subPartnersLogos.length !== 0 && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners-sub"), classes.partnersSub) },
-                        React.createElement("ul", null, subPartnersLogos.map((logo, i) => (React.createElement("li", { key: i },
-                            React.createElement("a", { href: logo.href, target: "_blank", title: `${logo.href} - ${t("open new window")}`, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) },
-                                React.createElement("img", { alt: logo.alt, src: logo.imgUrl, style: { "height": "5.625rem" }, className: cx(fr.cx("fr-footer__logo"), classes.logo) }))))))))))),
+                        React.createElement("ul", null, subPartnersLogos.map((logo, i) => {
+                            var _a, _b;
+                            const children = (React.createElement("img", { alt: logo.alt, src: logo.imgUrl, style: { "height": "5.625rem" }, className: cx(fr.cx("fr-footer__logo"), classes.logo) }));
+                            const hasLinkProps = logo.linkProps !== undefined ||
+                                logo.href !== undefined;
+                            return (React.createElement("li", { key: i }, hasLinkProps ? (React.createElement(Link, Object.assign({}, logo.linkProps, { href: (_a = logo.href) !== null && _a !== void 0 ? _a : (_b = logo.linkProps) === null || _b === void 0 ? void 0 : _b.href, className: cx(fr.cx("fr-footer__partners-link", "fr-raw-link"), classes.partnersLink) }), children)) : (children)));
+                        }))))))),
             React.createElement("div", { className: cx(fr.cx("fr-footer__bottom"), classes.bottom) },
                 React.createElement("ul", { className: cx(fr.cx("fr-footer__bottom-list"), classes.bottomList) }, [
                     ...(websiteMapLinkProps === undefined
