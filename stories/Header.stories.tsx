@@ -500,110 +500,124 @@ export const HeaderWithQuickAccessItemsNavItemsAndSearchEngine = getStory(
     }
 );
 
-export const HeaderWithVerticalOperatorLogo = getStory(
-    {
-        "id": "fr-header-header-with-vertical-operator-logo",
-        "brandTop": (
-            <>
-                INTITULE
-                <br />
-                OFFICIEL
-            </>
-        ),
-        "homeLinkProps": {
-            "href": "/",
+export const HeaderWithVerticalOperatorLogo = getStory({
+    "id": "fr-header-header-with-vertical-operator-logo",
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title":
+            "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
+    },
+    "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
+    "operatorLogo": {
+        "orientation": "vertical",
+        "imgUrl": placeholder_9x16ImgUrl,
+        "alt": "[À MODIFIER - texte alternatif de l’image]"
+    }
+});
+
+export const WithHorizontalOperatorLogo = getStory({
+    "id": "fr-header-with-horizontal-operator-logo",
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "serviceTitle": "Nom du site / service",
+    "serviceTagline": "baseline - précisions sur l'organisation",
+    "quickAccessItems": [
+        {
+            "iconId": "fr-icon-add-circle-line",
+            "text": "Créer un espace",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-lock-line",
+            "text": "Se connecter",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-account-line",
+            "text": "S’enregistrer",
+            "linkProps": {
+                "href": "#"
+            }
+        }
+    ],
+    "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
+    "operatorLogo": {
+        "orientation": "horizontal",
+        "imgUrl": placeholder_16x9ImgUrl,
+        "alt": "[À MODIFIER - texte alternatif de l’image]"
+    }
+});
+
+export const WithOperatorLogoWithLink = getStory({
+    "id": "fr-header-with-operator-logo-with-link",
+    "brandTop": (
+        <>
+            INTITULE
+            <br />
+            OFFICIEL
+        </>
+    ),
+    "homeLinkProps": {
+        "href": "/",
+        "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
+    },
+    "serviceTitle": "Nom du site / service",
+    "serviceTagline": "baseline - précisions sur l'organisation",
+    "quickAccessItems": [
+        {
+            "iconId": "fr-icon-add-circle-line",
+            "text": "Créer un espace",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-lock-line",
+            "text": "Se connecter",
+            "linkProps": {
+                "href": "#"
+            }
+        },
+        {
+            "iconId": "fr-icon-account-line",
+            "text": "S’enregistrer",
+            "linkProps": {
+                "href": "#"
+            }
+        }
+    ],
+    "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
+    "operatorLogo": {
+        "orientation": "horizontal",
+        "imgUrl": placeholder_16x9ImgUrl,
+        "alt": "[À MODIFIER - texte alternatif de l’image]",
+        "linkProps": {
+            "href": "#",
             "title":
                 "Accueil - [À MODIFIER - texte alternatif de l’image : nom de l'opérateur ou du site serviciel] - République Française"
-        },
-        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
-        "operatorLogo": {
-            "orientation": "vertical",
-            "imgUrl": placeholder_9x16ImgUrl,
-            "alt": "[À MODIFIER - texte alternatif de l’image]"
         }
-    },
-
-    {
-        "description": `
-
-\`\`\`tsx
-
-<Header
-    //...
-    renderSearchInput={({ className, id, placeholder, type }) => 
-        <input className={className} id={id} placeholder={placeholder} type={type} />
     }
-/>
-        
-\`\`\`
-    
-    `
-    }
-);
-
-export const WithHorizontalOperatorLogo = getStory(
-    {
-        "id": "fr-header-with-horizontal-operator-logo",
-        "brandTop": (
-            <>
-                INTITULE
-                <br />
-                OFFICIEL
-            </>
-        ),
-        "homeLinkProps": {
-            "href": "/",
-            "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
-        },
-        "serviceTitle": "Nom du site / service",
-        "serviceTagline": "baseline - précisions sur l'organisation",
-        "quickAccessItems": [
-            {
-                "iconId": "fr-icon-add-circle-line",
-                "text": "Créer un espace",
-                "linkProps": {
-                    "href": "#"
-                }
-            },
-            {
-                "iconId": "fr-icon-lock-line",
-                "text": "Se connecter",
-                "linkProps": {
-                    "href": "#"
-                }
-            },
-            {
-                "iconId": "fr-icon-account-line",
-                "text": "S’enregistrer",
-                "linkProps": {
-                    "href": "#"
-                }
-            }
-        ],
-        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
-        "operatorLogo": {
-            "orientation": "horizontal",
-            "imgUrl": placeholder_16x9ImgUrl,
-            "alt": "[À MODIFIER - texte alternatif de l’image]"
-        }
-    },
-    {
-        "description": `
-
-\`\`\`tsx
-
-<Header
-    //...
-    renderSearchInput={({ className, id, name, placeholder, type }) => 
-        <input className={className} id={id} name={name} placeholder={placeholder} type={type} />
-    }
-/>
-        
-\`\`\`
-    
-    `
-    }
-);
+});
 
 export const NavigationAsCustomNode = getStory(
     {

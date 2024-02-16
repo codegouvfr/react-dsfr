@@ -42,8 +42,12 @@ export type HeaderProps = {
          * If "horizontal": 16x9
          */
         imgUrl: string;
-        /** Textual alternative of the image, it MUST include the text present in the image*/
+        /** Textual alternative of the image, it MUST include the text present in the image */
         alt: string;
+        /**
+         * Custom link props, if not provided, the operator logo will be wrapped in a link that points to the home page
+         */
+        linkProps?: RegisteredLinkProps & { title: string };
     };
     renderSearchInput?: (
         /**
@@ -168,6 +172,8 @@ export const Header = memo(
             </ul>
         );
 
+        const hasOperatorLink = operatorLogo?.linkProps !== undefined;
+
         return (
             <>
                 <Display />
@@ -184,7 +190,10 @@ export const Header = memo(
                             <div className={cx(fr.cx("fr-header__body-row"), classes.bodyRow)}>
                                 <div
                                     className={cx(
-                                        fr.cx("fr-header__brand", "fr-enlarge-link"),
+                                        fr.cx(
+                                            "fr-header__brand",
+                                            !hasOperatorLink && "fr-enlarge-link"
+                                        ),
                                         classes.brand
                                     )}
                                 >
@@ -210,30 +219,45 @@ export const Header = memo(
                                         {operatorLogo !== undefined && (
                                             <div
                                                 className={cx(
-                                                    fr.cx("fr-header__operator"),
+                                                    fr.cx(
+                                                        "fr-header__operator",
+                                                        hasOperatorLink && "fr-enlarge-link"
+                                                    ),
                                                     classes.operator
                                                 )}
                                             >
-                                                <Link {...homeLinkProps}>
-                                                    <img
-                                                        className={cx(
-                                                            fr.cx("fr-responsive-img"),
-                                                            classes.operator
-                                                        )}
-                                                        style={(() => {
-                                                            switch (operatorLogo.orientation) {
-                                                                case "vertical":
-                                                                    return { "width": "3.5rem" };
-                                                                case "horizontal":
-                                                                    return {
-                                                                        "maxWidth": "9.0625rem"
-                                                                    };
-                                                            }
-                                                        })()}
-                                                        src={operatorLogo.imgUrl}
-                                                        alt={operatorLogo.alt}
-                                                    />
-                                                </Link>
+                                                {(() => {
+                                                    const children = (
+                                                        <img
+                                                            className={cx(
+                                                                fr.cx("fr-responsive-img"),
+                                                                classes.operator
+                                                            )}
+                                                            style={(() => {
+                                                                switch (operatorLogo.orientation) {
+                                                                    case "vertical":
+                                                                        return {
+                                                                            "width": "3.5rem"
+                                                                        };
+                                                                    case "horizontal":
+                                                                        return {
+                                                                            "maxWidth": "9.0625rem"
+                                                                        };
+                                                                }
+                                                            })()}
+                                                            src={operatorLogo.imgUrl}
+                                                            alt={operatorLogo.alt}
+                                                        />
+                                                    );
+
+                                                    return hasOperatorLink ? (
+                                                        <Link {...operatorLogo.linkProps}>
+                                                            {children}
+                                                        </Link>
+                                                    ) : (
+                                                        children
+                                                    );
+                                                })()}
                                             </div>
                                         )}
 
@@ -276,7 +300,10 @@ export const Header = memo(
                                     {serviceTitle !== undefined && (
                                         <div
                                             className={cx(
-                                                fr.cx("fr-header__service"),
+                                                fr.cx(
+                                                    "fr-header__service",
+                                                    hasOperatorLink && "fr-enlarge-link"
+                                                ),
                                                 classes.service
                                             )}
                                         >
