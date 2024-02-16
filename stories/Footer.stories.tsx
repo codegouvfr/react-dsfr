@@ -164,18 +164,17 @@ export const WithPartners = getStory({
     `,
     "partnersLogos": {
         "main": {
-            "href": "#",
             "imgUrl": placeholder_16x9ImgUrl,
-            "alt": "[À MODIFIER - texte alternatif de l’image]"
+            "alt": "[À MODIFIER - texte alternatif de l’image]",
+            "linkProps": { "href": "#", "title": "Lien vers le site du partenaire" }
         },
         "sub": [
             {
-                "href": "#",
                 "imgUrl": placeholder_16x9ImgUrl,
-                "alt": "[À MODIFIER - texte alternatif de l’image]"
+                "alt": "[À MODIFIER - texte alternatif de l’image]",
+                "linkProps": { "href": "#", "title": "Lien vers le site du partenaire" }
             },
             {
-                "href": "#",
                 "imgUrl": placeholder_16x9ImgUrl,
                 "alt": "[À MODIFIER - texte alternatif de l’image]"
             }

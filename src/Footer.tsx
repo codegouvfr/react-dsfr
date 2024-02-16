@@ -136,8 +136,12 @@ export namespace FooterProps {
 
         export type Logo = {
             alt: string;
-            href: string;
+            /**
+             * @deprecated use linkProps instead
+             */
+            href?: string;
             imgUrl: string;
+            linkProps?: RegisteredLinkProps & { title: string };
         };
     }
 }
@@ -371,29 +375,45 @@ export const Footer = memo(
                                         classes.partnersMain
                                     )}
                                 >
-                                    {mainPartnersLogo !== undefined && (
-                                        <a
-                                            href={mainPartnersLogo.href}
-                                            target="_blank"
-                                            title={`${mainPartnersLogo.href} - ${t(
-                                                "open new window"
-                                            )}`}
-                                            className={cx(
-                                                fr.cx("fr-footer__partners-link", "fr-raw-link"),
-                                                classes.partnersLink
-                                            )}
-                                        >
-                                            <img
-                                                alt={mainPartnersLogo.alt}
-                                                style={{ height: "5.625rem" }}
-                                                src={mainPartnersLogo.imgUrl}
-                                                className={cx(
-                                                    fr.cx("fr-footer__logo"),
-                                                    classes.logo
-                                                )}
-                                            />
-                                        </a>
-                                    )}
+                                    {mainPartnersLogo !== undefined &&
+                                        (() => {
+                                            const children = (
+                                                <img
+                                                    alt={mainPartnersLogo.alt}
+                                                    style={{ height: "5.625rem" }} // should not be hardcoded. Can conflict with ContentSecurityPolicy when "unsafe-inline" is not allowed
+                                                    src={mainPartnersLogo.imgUrl}
+                                                    className={cx(
+                                                        fr.cx("fr-footer__logo"),
+                                                        classes.logo
+                                                    )}
+                                                />
+                                            );
+
+                                            const hasLinkProps =
+                                                mainPartnersLogo.linkProps !== undefined ||
+                                                mainPartnersLogo.href !== undefined;
+
+                                            return hasLinkProps ? (
+                                                <Link
+                                                    {...mainPartnersLogo.linkProps}
+                                                    href={
+                                                        mainPartnersLogo.href ??
+                                                        mainPartnersLogo.linkProps?.href
+                                                    }
+                                                    className={cx(
+                                                        fr.cx(
+                                                            "fr-footer__partners-link",
+                                                            "fr-raw-link"
+                                                        ),
+                                                        classes.partnersLink
+                                                    )}
+                                                >
+                                                    {children}
+                                                </Link>
+                                            ) : (
+                                                children
+                                            );
+                                        })()}
                                 </div>
                                 {subPartnersLogos.length !== 0 && (
                                     <div
@@ -403,34 +423,48 @@ export const Footer = memo(
                                         )}
                                     >
                                         <ul>
-                                            {subPartnersLogos.map((logo, i) => (
-                                                <li key={i}>
-                                                    <a
-                                                        href={logo.href}
-                                                        target="_blank"
-                                                        title={`${logo.href} - ${t(
-                                                            "open new window"
-                                                        )}`}
+                                            {subPartnersLogos.map((logo, i) => {
+                                                const children = (
+                                                    <img
+                                                        alt={logo.alt}
+                                                        src={logo.imgUrl}
+                                                        style={{ "height": "5.625rem" }} // should not be hardcoded. Can conflict with ContentSecurityPolicy when "unsafe-inline" is not allowed
                                                         className={cx(
-                                                            fr.cx(
-                                                                "fr-footer__partners-link",
-                                                                "fr-raw-link"
-                                                            ),
-                                                            classes.partnersLink
+                                                            fr.cx("fr-footer__logo"),
+                                                            classes.logo
                                                         )}
-                                                    >
-                                                        <img
-                                                            alt={logo.alt}
-                                                            src={logo.imgUrl}
-                                                            style={{ "height": "5.625rem" }}
-                                                            className={cx(
-                                                                fr.cx("fr-footer__logo"),
-                                                                classes.logo
-                                                            )}
-                                                        />
-                                                    </a>
-                                                </li>
-                                            ))}
+                                                    />
+                                                );
+
+                                                const hasLinkProps =
+                                                    logo.linkProps !== undefined ||
+                                                    logo.href !== undefined;
+
+                                                return (
+                                                    <li key={i}>
+                                                        {hasLinkProps ? (
+                                                            <Link
+                                                                {...logo.linkProps}
+                                                                href={
+                                                                    logo.href ??
+                                                                    logo.linkProps?.href
+                                                                }
+                                                                className={cx(
+                                                                    fr.cx(
+                                                                        "fr-footer__partners-link",
+                                                                        "fr-raw-link"
+                                                                    ),
+                                                                    classes.partnersLink
+                                                                )}
+                                                            >
+                                                                {children}
+                                                            </Link>
+                                                        ) : (
+                                                            children
+                                                        )}
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
                                     </div>
                                 )}
