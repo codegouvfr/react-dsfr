@@ -34,7 +34,7 @@ export async function readPublicDirPath(params: { projectDirPath: string }): Pro
         if (
             !viteConfig
                 .split(/\r?\n/)
-                .filter(line => !line.startsWith("//"))
+                .filter(line => !line.trim().startsWith("//"))
                 .join("\n")
                 .includes("publicDir")
         ) {
