@@ -31,7 +31,13 @@ export async function readPublicDirPath(params: { projectDirPath: string }): Pro
 
         const viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
 
-        if (!viteConfig.includes("publicDir")) {
+        if (
+            !viteConfig
+                .split(/\r?\n/)
+                .filter(line => !line.startsWith("//"))
+                .join("\n")
+                .includes("publicDir")
+        ) {
             break read_from_vite_config;
         }
 
