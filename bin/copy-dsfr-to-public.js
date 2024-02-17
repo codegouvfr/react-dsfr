@@ -1,6 +1,15 @@
 #!/usr/bin/env node
 "use strict";
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/**
+ * This script is ran with `npx copy-dsfr-to-public`
+ * It takes two optional arguments:
+ * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
+ *   This can be used in monorepos to specify the react project directory.
+ * - `--publicDir <path>` to specify the public directory.
+ *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
+ *   In other projects we will assume it's <project root>/public.
+ *   This path is expressed relative to the project directory.
+ */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -60,28 +69,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -107,93 +94,62 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = require("path");
 var fs = __importStar(require("fs"));
 var getProjectRoot_1 = require("./tools/getProjectRoot");
-var assert_1 = require("tsafe/assert");
+var yargs_parser_1 = __importDefault(require("yargs-parser"));
+var getAbsoluteAndInOsFormatPath_1 = require("./tools/getAbsoluteAndInOsFormatPath");
+var readPublicDirPath_1 = require("./readPublicDirPath");
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var projectDirPath, viteConfigFilePath, publicDirPath, gitignoreFilePath, gitignoreRaw, pathToIgnore_1, dsfrDirPath;
+    var argv, projectDirPath, publicDirPath, gitignoreFilePath, gitignoreRaw, pathToIgnore_1, dsfrDirPath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                projectDirPath = process.cwd();
-                viteConfigFilePath = (function () {
-                    var e_1, _a;
-                    try {
-                        for (var _b = __values([".js", ".ts"]), _c = _b.next(); !_c.done; _c = _b.next()) {
-                            var ext = _c.value;
-                            var candidateFilePath = (0, path_1.join)(projectDirPath, "vite.config".concat(ext));
-                            if (!fs.existsSync(candidateFilePath)) {
-                                continue;
-                            }
-                            return candidateFilePath;
+                argv = (0, yargs_parser_1.default)(process.argv.slice(2));
+                projectDirPath = (function () {
+                    read_from_argv: {
+                        var arg = argv["projectDir"];
+                        if (arg === undefined) {
+                            break read_from_argv;
                         }
+                        return (0, getAbsoluteAndInOsFormatPath_1.getAbsoluteAndInOsFormatPath)({ "pathIsh": arg, "cwd": process.cwd() });
                     }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                    return undefined;
+                    return process.cwd();
                 })();
                 return [4 /*yield*/, (function () { return __awaiter(void 0, void 0, void 0, function () {
-                        var arg, viteConfig, _a, afterPublicDir, indexEnd, _b, path, basename, dirname, delimiter, extname, format, isAbsolute, join, normalize, parse, posix, relative, resolve, sep, toNamespacedPath, win32, rest, part, candidate;
-                        return __generator(this, function (_c) {
-                            switch (_c.label) {
+                        var arg, publicDirPath_1;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
                                 case 0:
-                                    command_line_argument: {
-                                        arg = process.argv[2];
+                                    read_from_argv: {
+                                        arg = argv["publicDir"];
                                         if (arg === undefined) {
-                                            break command_line_argument;
+                                            break read_from_argv;
                                         }
-                                        return [2 /*return*/, arg];
+                                        publicDirPath_1 = (0, getAbsoluteAndInOsFormatPath_1.getAbsoluteAndInOsFormatPath)({
+                                            "pathIsh": arg,
+                                            "cwd": projectDirPath
+                                        });
+                                        if (!fs.existsSync(publicDirPath_1)) {
+                                            fs.mkdirSync(publicDirPath_1, { "recursive": true });
+                                        }
+                                        return [2 /*return*/, publicDirPath_1];
                                     }
-                                    if (viteConfigFilePath === undefined) {
-                                        return [3 /*break*/, 5];
-                                    }
-                                    viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
-                                    if (!viteConfig.includes("publicDir")) {
-                                        return [2 /*return*/, (0, path_1.join)(projectDirPath, "public")];
-                                    }
-                                    _a = __read(viteConfig.split(/\s["']?publicDir["']?\s*:/), 2), afterPublicDir = _a[1];
-                                    indexEnd = 0;
-                                    _c.label = 1;
-                                case 1:
-                                    if (!(indexEnd < afterPublicDir.length)) return [3 /*break*/, 4];
-                                    return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("path")); })];
-                                case 2:
-                                    _b = _c.sent(), path = _b.default, basename = _b.basename, dirname = _b.dirname, delimiter = _b.delimiter, extname = _b.extname, format = _b.format, isAbsolute = _b.isAbsolute, join = _b.join, normalize = _b.normalize, parse = _b.parse, posix = _b.posix, relative = _b.relative, resolve = _b.resolve, sep = _b.sep, toNamespacedPath = _b.toNamespacedPath, win32 = _b.win32, rest = __rest(_b, ["default", "basename", "dirname", "delimiter", "extname", "format", "isAbsolute", "join", "normalize", "parse", "posix", "relative", "resolve", "sep", "toNamespacedPath", "win32"]);
-                                    (0, assert_1.assert)();
-                                    part = afterPublicDir
-                                        .substring(0, indexEnd)
-                                        .replace(/__dirname/g, "\"".concat(projectDirPath, "\""));
-                                    candidate = void 0;
-                                    try {
-                                        candidate = eval(part);
-                                    }
-                                    catch (_d) {
-                                        return [3 /*break*/, 3];
-                                    }
-                                    if (typeof candidate !== "string") {
-                                        return [3 /*break*/, 3];
-                                    }
-                                    return [2 /*return*/, candidate];
-                                case 3:
-                                    indexEnd++;
-                                    return [3 /*break*/, 1];
-                                case 4:
-                                    console.error("Can't parse the vite configuration please open an issue about it ".concat(getRepoIssueUrl()));
-                                    process.exit(-1);
-                                    _c.label = 5;
-                                case 5: return [2 /*return*/, (0, path_1.join)(projectDirPath, "public")];
+                                    return [4 /*yield*/, (0, readPublicDirPath_1.readPublicDirPath)({ projectDirPath: projectDirPath })];
+                                case 1: return [2 /*return*/, _a.sent()];
                             }
                         });
                     }); })()];
             case 1:
                 publicDirPath = _a.sent();
+                if (!fs.existsSync(publicDirPath)) {
+                    console.error("Can't locate your public directory, use the --public option to specify it.");
+                    process.exit(-1);
+                }
                 edit_gitignore: {
                     gitignoreFilePath = (0, path_1.join)(projectDirPath, ".gitignore");
                     if (!fs.existsSync(gitignoreFilePath)) {
@@ -205,17 +161,6 @@ var assert_1 = require("tsafe/assert");
                         break edit_gitignore;
                     }
                     fs.writeFileSync(gitignoreFilePath, Buffer.from("".concat(gitignoreRaw, "\n").concat(pathToIgnore_1, "\n"), "utf8"));
-                }
-                if (!fs.existsSync(publicDirPath)) {
-                    if (viteConfigFilePath === undefined) {
-                        console.error([
-                            "There is no public/ directory in the current working directory, we don't know your framework",
-                            "you are not calling this script at the right location or we don't know your React framework",
-                            "please submit an issue about it here ".concat(getRepoIssueUrl())
-                        ].join(" "));
-                        process.exit(-1);
-                    }
-                    fs.mkdirSync(publicDirPath, { "recursive": true });
                 }
                 dsfrDirPath = (0, path_1.join)(publicDirPath, "dsfr");
                 if (fs.existsSync(dsfrDirPath)) {
