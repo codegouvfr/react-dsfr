@@ -115,7 +115,7 @@ jobs:
       with:
         registry-url: https://registry.npmjs.org/
     - uses: bahmutov/npm-install@v1
-    - run: yarn build --npm
+    - run: yarn build --prePublish
     - run: npx -y -p denoify@1.5.1 enable_short_npm_import_path
       env:
         DRY_RUN: "0"

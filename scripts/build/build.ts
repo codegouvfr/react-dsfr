@@ -9,16 +9,13 @@ import {
     pathOfIconsJson
 } from "../../src/bin/only-include-used-icons";
 import * as child_process from "child_process";
-import { oppa } from "oppa";
 import { patchCssForMui } from "./patchCssForMui";
+import yargsParser from "yargs-parser";
 
 (async () => {
-    const { args } = oppa()
-        .add({
-            "name": "npm",
-            "type": "boolean"
-        })
-        .parse();
+    const argv = yargsParser(process.argv.slice(2));
+
+    const isPrePublish = argv["prePublish"] === true;
 
     const projectRootDirPath = getProjectRoot();
 
@@ -122,7 +119,12 @@ import { patchCssForMui } from "./patchCssForMui";
     }
 
     //NOTE: From here it's only for local linking, required for storybook and running integration apps.
-    if (!args.npm) {
+
+    local_testing: {
+        if (isPrePublish) {
+            break local_testing;
+        }
+
         fs.writeFileSync(
             pathJoin(distDirPath, "package.json"),
             Buffer.from(
@@ -149,6 +151,7 @@ import { patchCssForMui } from "./patchCssForMui";
         );
 
         fs.cpSync(dsfrDirPath, pathJoin(distDirPath, "dsfr"), { "recursive": true });
+        fs.rmSync(dsfrDirPath, { "recursive": true });
         fs.cpSync(pathJoin(projectRootDirPath, "src"), pathJoin(distDirPath, "src"), {
             "recursive": true
         });

@@ -1,14 +1,37 @@
 #!/usr/bin/env node
 
+/**
+ * This script is ran with `npx only-include-used-icons`
+ * It scans your codebase to find which icons are used and only include those in the final build.
+ * Do do that it patches the node_modules/@codegouvfr/react-dsfr/dist/utility/icons/icons.css file
+ * and the public/dsfr/utility/icons/icons.css file (if applicable, not in Next.js for example).
+ * The script can figure out where your node_modules and public directories are.
+ *
+ * There are two optional arguments that you can use:
+ * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
+ *   This can be used in monorepos to specify the react project directory.
+ * - `--publicDir <path>` to specify the public directory.
+ *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
+ *   In other projects we will assume it's <project root>/public.
+ *   This path is expressed relative to the project directory.
+ *   It is assumed that there is a dsfr directory in the public directory (copied over using the
+ *   `npx copy-dsfr-to-public` script).
+ * - `--silent` to disable console.log
+ */
+
 import { getProjectRoot } from "./tools/getProjectRoot";
 import * as fs from "fs";
-import { join as pathJoin } from "path";
+import { join as pathJoin, relative as pathRelative } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile, rm, access } from "fs/promises";
+import { writeFile, readFile, rm } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import type { Equals } from "tsafe";
+import yargsParser from "yargs-parser";
+import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPath";
+import { readPublicDirPath } from "./readPublicDirPath";
+import { existsAsync } from "./tools/fs.existsAsync";
 
 export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
 
@@ -91,75 +114,163 @@ export function generateIconsRawCssCode(params: {
 }
 
 async function main() {
+    const argv = yargsParser(process.argv.slice(2));
+
+    const projectDirPath: string = (() => {
+        read_from_argv: {
+            const arg = argv["projectDir"];
+
+            if (arg === undefined) {
+                break read_from_argv;
+            }
+
+            return getAbsoluteAndInOsFormatPath({ "pathIsh": arg, "cwd": process.cwd() });
+        }
+
+        return process.cwd();
+    })();
+
+    const publicDirPath = await (async () => {
+        read_from_argv: {
+            const arg = argv["publicDir"];
+
+            if (arg === undefined) {
+                break read_from_argv;
+            }
+
+            const publicDirPath = getAbsoluteAndInOsFormatPath({
+                "pathIsh": arg,
+                "cwd": projectDirPath
+            });
+
+            if (!fs.existsSync(publicDirPath)) {
+                fs.mkdirSync(publicDirPath, { "recursive": true });
+            }
+
+            return publicDirPath;
+        }
+
+        const publicDirPath = await readPublicDirPath({ projectDirPath });
+
+        return publicDirPath;
+    })();
+
+    const log = argv["silent"] === true ? undefined : console.log;
+
+    const dsfrDistInPublicDirPath = (() => {
+        const dsfrDistInPublicDirPath = pathJoin(publicDirPath, "dsfr");
+
+        if (!fs.existsSync(dsfrDistInPublicDirPath)) {
+            return undefined;
+        }
+
+        return dsfrDistInPublicDirPath;
+    })();
+
+    if (dsfrDistInPublicDirPath !== undefined) {
+        log?.(`Public directory is ${pathRelative(projectDirPath, publicDirPath)}`);
+    }
+
     const codegouvfrReactDsfr: string = JSON.parse(
         fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
     )["name"];
 
-    const cwd = process.cwd();
+    const isProjectPathReactDsfr = await (async () => {
+        const packageJsonFilePath = pathJoin(projectDirPath, "package.json");
 
-    const isCwdReactDsfr = pathJoin(getProjectRoot(), "..") === cwd;
+        if (!(await existsAsync(packageJsonFilePath))) {
+            return false;
+        }
 
-    const dsfrDistDirPath = isCwdReactDsfr
-        ? pathJoin(cwd, "dist", "dsfr")
+        const packageJson = JSON.parse((await readFile(packageJsonFilePath)).toString("utf8"));
+
+        return packageJson["name"] === codegouvfrReactDsfr;
+    })();
+
+    const nodeModulesDirPath = isProjectPathReactDsfr
+        ? undefined
         : await (async function callee(n: number): Promise<string> {
-              if (n >= cwd.split(pathSep).length) {
+              if (n >= projectDirPath.split(pathSep).length) {
                   throw new Error("Need to install node modules?");
               }
 
-              const dirPath = pathJoin(
-                  ...[
-                      cwd,
-                      ...new Array(n).fill(".."),
-                      "node_modules",
-                      ...codegouvfrReactDsfr.split("/"),
-                      "dsfr"
-                  ]
+              const nodeModulesDirPath = pathJoin(
+                  ...[projectDirPath, ...new Array(n).fill(".."), "node_modules"]
               );
 
-              try {
-                  await access(dirPath);
-              } catch {
+              const doesExist = await existsAsync(
+                  pathJoin(...[nodeModulesDirPath, ...codegouvfrReactDsfr.split("/")])
+              );
+
+              if (!doesExist) {
                   return callee(n + 1);
               }
 
-              return dirPath;
+              return nodeModulesDirPath;
           })(0);
 
+    if (nodeModulesDirPath !== undefined) {
+        log?.(
+            `node_modules directory where ${codegouvfrReactDsfr} is installed in ${pathRelative(
+                projectDirPath,
+                nodeModulesDirPath
+            )}`
+        );
+    }
+
+    const dsfrDistInNodeModulesDirPath =
+        nodeModulesDirPath === undefined
+            ? undefined
+            : pathJoin(...[nodeModulesDirPath, ...codegouvfrReactDsfr.split("/"), "dsfr"]);
+
+    const nonUndefinedDsfrDirPath = dsfrDistInNodeModulesDirPath ?? dsfrDistInPublicDirPath;
+
+    assert(nonUndefinedDsfrDirPath !== undefined, "Nothing to patch");
+
     const icons: Icon[] = JSON.parse(
-        (await readFile(pathJoin(dsfrDistDirPath, pathOfIconsJson))).toString("utf8")
+        (await readFile(pathJoin(nonUndefinedDsfrDirPath, pathOfIconsJson))).toString("utf8")
     );
 
     const { usedIconClassNames } = await (async function getUsedIconClassNames() {
         const candidateFilePaths = (
             await Promise.all(
-                isCwdReactDsfr
+                isProjectPathReactDsfr
                     ? [
                           crawl({
-                              "dirPath": pathJoin(cwd, "stories"),
-                              "returnedPathsType": "absolute"
-                          }),
-                          crawl({
-                              "dirPath": pathJoin(cwd, "src"),
+                              "dirPath": pathJoin(projectDirPath, "src"),
                               "returnedPathsType": "absolute",
                               "getDoCrawlInDir": async ({ relativeDirPath }) => {
                                   if (pathBasename(relativeDirPath) === "generatedFromCss") {
                                       return false;
                                   }
 
+                                  if (pathBasename(relativeDirPath) === "bin") {
+                                      return false;
+                                  }
+
                                   return true;
                               }
+                          }),
+                          crawl({
+                              "dirPath": pathJoin(projectDirPath, "stories"),
+                              "returnedPathsType": "absolute"
                           })
                       ]
                     : [
                           crawl({
-                              "dirPath": cwd,
+                              "dirPath": projectDirPath,
                               "returnedPathsType": "absolute",
                               "getDoCrawlInDir": async ({ relativeDirPath }) => {
                                   if (pathBasename(relativeDirPath) === "node_modules") {
                                       return false;
                                   }
 
-                                  if (relativeDirPath === `public${pathSep}dsfr`) {
+                                  if (
+                                      await existsAsync(
+                                          pathJoin(projectDirPath, relativeDirPath, pathOfIconsJson)
+                                      )
+                                  ) {
+                                      // We don't want to search in public/dsfr
                                       return false;
                                   }
 
@@ -170,112 +281,85 @@ async function main() {
                                   return true;
                               }
                           }),
-                          (async () => {
-                              const nodeModuleDirPath = await (async function callee(
-                                  n: number
-                              ): Promise<string> {
-                                  if (n >= cwd.split(pathSep).length) {
-                                      throw new Error("Need to install node modules?");
-                                  }
+                          nodeModulesDirPath === undefined
+                              ? []
+                              : crawl({
+                                    "dirPath": nodeModulesDirPath,
+                                    "returnedPathsType": "absolute",
+                                    "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                                        if (
+                                            relativeDirPath.startsWith("@") &&
+                                            relativeDirPath.split(pathSep).length === 1
+                                        ) {
+                                            return true;
+                                        }
 
-                                  const nodeModuleDirPath = pathJoin(
-                                      ...[cwd, ...new Array(n).fill(".."), "node_modules"]
-                                  );
+                                        if (
+                                            relativeDirPath.split(pathSep).length === 1 ||
+                                            (relativeDirPath.startsWith("@") &&
+                                                relativeDirPath.split(pathSep).length === 2)
+                                        ) {
+                                            const parsedPackageJson = await readFile(
+                                                pathJoin(
+                                                    nodeModulesDirPath,
+                                                    relativeDirPath,
+                                                    "package.json"
+                                                )
+                                            ).then(
+                                                buff => JSON.parse(buff.toString("utf8")),
+                                                () => undefined
+                                            );
 
-                                  try {
-                                      await access(
-                                          pathJoin(
-                                              ...[
-                                                  nodeModuleDirPath,
-                                                  ...codegouvfrReactDsfr.split("/")
-                                              ]
-                                          )
-                                      );
-                                  } catch {
-                                      return callee(n + 1);
-                                  }
+                                            if (parsedPackageJson === undefined) {
+                                                return false;
+                                            }
 
-                                  return nodeModuleDirPath;
-                              })(0);
+                                            if (parsedPackageJson["name"] === "tss-react") {
+                                                return false;
+                                            }
 
-                              return await crawl({
-                                  "dirPath": nodeModuleDirPath,
-                                  "returnedPathsType": "absolute",
-                                  "getDoCrawlInDir": async ({ relativeDirPath }) => {
-                                      if (
-                                          relativeDirPath.startsWith("@") &&
-                                          relativeDirPath.split(pathSep).length === 1
-                                      ) {
-                                          return true;
-                                      }
+                                            for (const packageName of [
+                                                codegouvfrReactDsfr,
+                                                "@gouvfr/dsfr",
+                                                "@dataesr/react-dsfr"
+                                            ]) {
+                                                if (
+                                                    Object.keys({
+                                                        ...parsedPackageJson["dependencies"],
+                                                        ...parsedPackageJson["devDependencies"],
+                                                        ...parsedPackageJson["peerDependencies"]
+                                                    }).includes(packageName)
+                                                ) {
+                                                    return true;
+                                                }
+                                            }
 
-                                      if (
-                                          relativeDirPath.split(pathSep).length === 1 ||
-                                          (relativeDirPath.startsWith("@") &&
-                                              relativeDirPath.split(pathSep).length === 2)
-                                      ) {
-                                          const parsedPackageJson = await readFile(
-                                              pathJoin(
-                                                  nodeModuleDirPath,
-                                                  relativeDirPath,
-                                                  "package.json"
-                                              )
-                                          ).then(
-                                              buff => JSON.parse(buff.toString("utf8")),
-                                              () => undefined
-                                          );
+                                            return false;
+                                        }
 
-                                          if (parsedPackageJson === undefined) {
-                                              return false;
-                                          }
+                                        if (
+                                            pathDirname(relativeDirPath).endsWith(
+                                                pathJoin(...codegouvfrReactDsfr.split("/"))
+                                            )
+                                        ) {
+                                            return pathBasename(relativeDirPath) === "src";
+                                        }
 
-                                          if (parsedPackageJson["name"] === "tss-react") {
-                                              return false;
-                                          }
+                                        if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                                            return false;
+                                        }
 
-                                          for (const packageName of [
-                                              codegouvfrReactDsfr,
-                                              "@gouvfr/dsfr",
-                                              "@dataesr/react-dsfr"
-                                          ]) {
-                                              if (
-                                                  Object.keys({
-                                                      ...parsedPackageJson["dependencies"],
-                                                      ...parsedPackageJson["devDependencies"],
-                                                      ...parsedPackageJson["peerDependencies"]
-                                                  }).includes(packageName)
-                                              ) {
-                                                  return true;
-                                              }
-                                          }
+                                        if (pathBasename(relativeDirPath) === "node_modules") {
+                                            return false;
+                                        }
 
-                                          return false;
-                                      }
+                                        if (pathBasename(relativeDirPath).startsWith(".")) {
+                                            return false;
+                                        }
 
-                                      if (
-                                          pathDirname(relativeDirPath).endsWith(
-                                              pathJoin(...codegouvfrReactDsfr.split("/"))
-                                          )
-                                      ) {
-                                          return pathBasename(relativeDirPath) === "src";
-                                      }
-
-                                      if (pathBasename(relativeDirPath) === "generatedFromCss") {
-                                          return false;
-                                      }
-
-                                      if (pathBasename(relativeDirPath) === "node_modules") {
-                                          return false;
-                                      }
-
-                                      if (pathBasename(relativeDirPath).startsWith(".")) {
-                                          return false;
-                                      }
-
-                                      return true;
-                                  }
-                              });
-                          })()
+                                        return true;
+                                    }
+                                })
                       ]
             )
         )
@@ -333,6 +417,10 @@ async function main() {
                         return;
                     }
 
+                    log?.(
+                        `Found ${className} in ${pathRelative(projectDirPath, candidateFilePath)}`
+                    );
+
                     setUsedIconClassNames.add(className);
                 });
             })
@@ -340,6 +428,14 @@ async function main() {
 
         return { "usedIconClassNames": Array.from(setUsedIconClassNames) };
     })();
+
+    if (usedIconClassNames.length > 300) {
+        console.warn(
+            `There is probably an error in the only-include-used-icons script, including ${usedIconClassNames.length} icons!`
+        );
+    }
+
+    log?.(`Found ${usedIconClassNames.length} used icons.`);
 
     const usedIcons = usedIconClassNames.map(className => {
         const icon = icons.find(({ prefix, iconId }) => `${prefix}${iconId}` === className);
@@ -354,7 +450,7 @@ async function main() {
             "patchedRawCssCodeForCompatWithRemixIcon": fs
                 .readFileSync(
                     pathJoin(
-                        dsfrDistDirPath,
+                        nonUndefinedDsfrDirPath,
                         pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist
                     )
                 )
@@ -365,117 +461,56 @@ async function main() {
     );
 
     const onConfirmedChange = async () => {
-        const nextCacheDir = pathJoin(cwd, ".next", "cache");
+        const nextCacheDir = pathJoin(projectDirPath, ".next", "cache");
 
         if (!fs.existsSync(nextCacheDir)) {
             return;
         }
 
-        rm(nextCacheDir, { "recursive": true, "force": true });
+        await rm(nextCacheDir, { "recursive": true, "force": true });
     };
 
-    [dsfrDistDirPath, pathJoin(cwd, "public", "dsfr")].forEach(async dsfrDistDirPath => {
-        const cssFilePaths = ["icons.css", "icons.min.css"].map(cssFileBasename =>
-            pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename)
-        );
-
-        if (cssFilePaths.some(cssFilePath => !fs.existsSync(cssFilePath))) {
-            return;
-        }
-
-        const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
-
-        if (!fs.existsSync(remixiconDirPath)) {
-            fs.mkdirSync(remixiconDirPath);
-        }
-
-        usedIcons
-            .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
-            .filter(exclude(undefined))
-            .map(({ iconId, rawSvgCode }) =>
-                writeFile(
-                    pathJoin(remixiconDirPath, `${iconId}.svg`),
-                    Buffer.from(rawSvgCode, "utf8")
-                )
+    [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
+        .filter(exclude(undefined))
+        .forEach(async dsfrDistDirPath => {
+            const cssFilePaths = ["icons.css", "icons.min.css"].map(cssFileBasename =>
+                pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename)
             );
 
-        cssFilePaths.forEach(async filePath => {
-            const currentCode = await readFile(filePath);
-
-            if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
+            if (cssFilePaths.some(cssFilePath => !fs.existsSync(cssFilePath))) {
                 return;
             }
 
-            onConfirmedChange();
+            const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
-            writeFile(filePath, rawIconCssCodeBuffer);
+            if (!fs.existsSync(remixiconDirPath)) {
+                fs.mkdirSync(remixiconDirPath);
+            }
+
+            usedIcons
+                .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
+                .filter(exclude(undefined))
+                .map(({ iconId, rawSvgCode }) =>
+                    writeFile(
+                        pathJoin(remixiconDirPath, `${iconId}.svg`),
+                        Buffer.from(rawSvgCode, "utf8")
+                    )
+                );
+
+            cssFilePaths.forEach(async filePath => {
+                log?.(`Patching ${pathRelative(projectDirPath, filePath)}`);
+
+                const currentCode = await readFile(filePath);
+
+                if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
+                    return;
+                }
+
+                onConfirmedChange();
+
+                writeFile(filePath, rawIconCssCodeBuffer);
+            });
         });
-    });
-
-    // Make sure icon css is imported before main css.
-    // In the doc prior to first of june 2023, we instructed to import first the main css and then the icon css.
-    // Since @gouvfr/dsfr@1.9.ish it has to be the opposite.
-    // We auto correct the order here.
-    reorder_css_imports: {
-        const indexHtmlFilePath = (() => {
-            let out = pathJoin(cwd, "public", "index.html");
-
-            if (fs.existsSync(out)) {
-                return out;
-            }
-
-            out = pathJoin(cwd, "index.html");
-
-            if (fs.existsSync(out)) {
-                return out;
-            }
-
-            return undefined;
-        })();
-
-        if (indexHtmlFilePath === undefined) {
-            break reorder_css_imports;
-        }
-
-        const indexHtml = fs.readFileSync(indexHtmlFilePath).toString("utf8");
-
-        const lines = indexHtml.split("\n");
-
-        const importDsfrIndexLine = lines.findIndex(line =>
-            /<link.+href=["'](.*?%PUBLIC_URL%)?\/dsfr\/dsfr.min.css["']/.test(line)
-        );
-
-        if (importDsfrIndexLine === -1) {
-            break reorder_css_imports;
-        }
-
-        if (
-            !/<link.+href=["'](%PUBLIC_URL%)?\/dsfr\/utility\/icons\/icons\.min\.css["']/.test(
-                lines[importDsfrIndexLine + 1]
-            )
-        ) {
-            break reorder_css_imports;
-        }
-
-        fs.writeFileSync(
-            indexHtmlFilePath,
-            Buffer.from(
-                lines
-                    .map((line, i) => {
-                        switch (i) {
-                            case importDsfrIndexLine:
-                                return lines[importDsfrIndexLine + 1];
-                            case importDsfrIndexLine + 1:
-                                return lines[importDsfrIndexLine];
-                            default:
-                                return line;
-                        }
-                    })
-                    .join("\n"),
-                "utf8"
-            )
-        );
-    }
 }
 
 if (require.main === module) {

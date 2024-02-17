@@ -1,5 +1,15 @@
 #!/usr/bin/env node
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/**
+ * This script is ran with `npx copy-dsfr-to-public`
+ * It takes two optional arguments:
+ * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
+ *   This can be used in monorepos to specify the react project directory.
+ * - `--publicDir <path>` to specify the public directory.
+ *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
+ *   In other projects we will assume it's <project root>/public.
+ *   This path is expressed relative to the project directory.
+ */
 
 import {
     join as pathJoin,
@@ -9,100 +19,54 @@ import {
 } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
+import yargsParser from "yargs-parser";
+import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPath";
+import { readPublicDirPath } from "./readPublicDirPath";
 
 (async () => {
-    const projectDirPath = process.cwd();
+    const argv = yargsParser(process.argv.slice(2));
 
-    const viteConfigFilePath = (() => {
-        for (const ext of [".js", ".ts"]) {
-            const candidateFilePath = pathJoin(projectDirPath, `vite.config${ext}`);
+    const projectDirPath: string = (() => {
+        read_from_argv: {
+            const arg = argv["projectDir"];
 
-            if (!fs.existsSync(candidateFilePath)) {
-                continue;
+            if (arg === undefined) {
+                break read_from_argv;
             }
 
-            return candidateFilePath;
+            return getAbsoluteAndInOsFormatPath({ "pathIsh": arg, "cwd": process.cwd() });
         }
 
-        return undefined;
+        return process.cwd();
     })();
 
     const publicDirPath = await (async () => {
-        command_line_argument: {
-            const arg = process.argv[2];
+        read_from_argv: {
+            const arg = argv["publicDir"];
 
             if (arg === undefined) {
-                break command_line_argument;
+                break read_from_argv;
             }
 
-            return arg;
+            const publicDirPath = getAbsoluteAndInOsFormatPath({
+                "pathIsh": arg,
+                "cwd": projectDirPath
+            });
+
+            if (!fs.existsSync(publicDirPath)) {
+                fs.mkdirSync(publicDirPath, { "recursive": true });
+            }
+
+            return publicDirPath;
         }
 
-        read_from_vite_config: {
-            if (viteConfigFilePath === undefined) {
-                break read_from_vite_config;
-            }
-
-            const viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
-
-            if (!viteConfig.includes("publicDir")) {
-                return pathJoin(projectDirPath, "public");
-            }
-
-            const [, afterPublicDir] = viteConfig.split(/\s["']?publicDir["']?\s*:/);
-
-            for (let indexEnd = 0; indexEnd < afterPublicDir.length; indexEnd++) {
-                const {
-                    default: path,
-                    basename,
-                    dirname,
-                    delimiter,
-                    extname,
-                    format,
-                    isAbsolute,
-                    join,
-                    normalize,
-                    parse,
-                    posix,
-                    relative,
-                    resolve,
-                    sep,
-                    toNamespacedPath,
-                    win32,
-                    ...rest
-                } = await import("path");
-                assert<Equals<keyof typeof rest, never>>();
-
-                const part = afterPublicDir
-                    .substring(0, indexEnd)
-                    .replace(/__dirname/g, `"${projectDirPath}"`);
-
-                let candidate: string;
-
-                try {
-                    candidate = eval(part);
-                } catch {
-                    continue;
-                }
-
-                if (typeof candidate !== "string") {
-                    continue;
-                }
-
-                return candidate;
-            }
-
-            console.error(
-                `Can't parse the vite configuration please open an issue about it ${getRepoIssueUrl()}`
-            );
-
-            process.exit(-1);
-        }
-
-        return pathJoin(projectDirPath, "public");
+        return await readPublicDirPath({ projectDirPath });
     })();
+
+    if (!fs.existsSync(publicDirPath)) {
+        console.error(`Can't locate your public directory, use the --public option to specify it.`);
+        process.exit(-1);
+    }
 
     edit_gitignore: {
         const gitignoreFilePath = pathJoin(projectDirPath, ".gitignore");
@@ -126,22 +90,6 @@ import type { Equals } from "tsafe";
             gitignoreFilePath,
             Buffer.from(`${gitignoreRaw}\n${pathToIgnore}\n`, "utf8")
         );
-    }
-
-    if (!fs.existsSync(publicDirPath)) {
-        if (viteConfigFilePath === undefined) {
-            console.error(
-                [
-                    "There is no public/ directory in the current working directory, we don't know your framework",
-                    "you are not calling this script at the right location or we don't know your React framework",
-                    `please submit an issue about it here ${getRepoIssueUrl()}`
-                ].join(" ")
-            );
-
-            process.exit(-1);
-        }
-
-        fs.mkdirSync(publicDirPath, { "recursive": true });
     }
 
     const dsfrDirPath = pathJoin(publicDirPath, "dsfr");
