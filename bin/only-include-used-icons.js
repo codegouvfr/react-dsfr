@@ -305,7 +305,7 @@ function main() {
                 case 5:
                     nodeModulesDirPath = _a;
                     if (nodeModulesDirPath !== undefined) {
-                        log === null || log === void 0 ? void 0 : log("node_modules directory where ".concat(codegouvfrReactDsfr, " is installed in ").concat((0, path_1.relative)(projectDirPath, nodeModulesDirPath)));
+                        log === null || log === void 0 ? void 0 : log("".concat(codegouvfrReactDsfr, " is installed in ").concat((0, path_1.relative)(projectDirPath, nodeModulesDirPath)));
                     }
                     dsfrDistInNodeModulesDirPath = nodeModulesDirPath === undefined
                         ? undefined

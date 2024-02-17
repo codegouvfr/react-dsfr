@@ -136,7 +136,11 @@ function readPublicDirPath(params) {
                         return [3 /*break*/, 5];
                     }
                     viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
-                    if (!viteConfig.includes("publicDir")) {
+                    if (!viteConfig
+                        .split(/\r?\n/)
+                        .filter(function (line) { return !line.startsWith("//"); })
+                        .join("\n")
+                        .includes("publicDir")) {
                         return [3 /*break*/, 5];
                     }
                     _a = __read(viteConfig.split(/\s["']?publicDir["']?\s*:/), 2), afterPublicDir = _a[1];

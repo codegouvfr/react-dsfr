@@ -211,7 +211,7 @@ async function main() {
 
     if (nodeModulesDirPath !== undefined) {
         log?.(
-            `node_modules directory where ${codegouvfrReactDsfr} is installed in ${pathRelative(
+            `${codegouvfrReactDsfr} is installed in ${pathRelative(
                 projectDirPath,
                 nodeModulesDirPath
             )}`
