@@ -138,7 +138,7 @@ function readPublicDirPath(params) {
                     viteConfig = fs.readFileSync(viteConfigFilePath).toString("utf8");
                     if (!viteConfig
                         .split(/\r?\n/)
-                        .filter(function (line) { return !line.startsWith("//"); })
+                        .filter(function (line) { return !line.trim().startsWith("//"); })
                         .join("\n")
                         .includes("publicDir")) {
                         return [3 /*break*/, 5];
