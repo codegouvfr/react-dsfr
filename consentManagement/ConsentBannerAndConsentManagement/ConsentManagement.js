@@ -149,7 +149,7 @@ export function createConsentManagement(params) {
                             };
                         })())),
                         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: refuseInputId }, t("refuse")))),
-                description !== undefined && (React.createElement("p", { id: "finality-1-desc", className: "fr-consent-service__desc" }, description)),
+                description !== undefined && (React.createElement("p", { className: fr.cx("fr-consent-service__desc") }, description)),
                 subFinalities !== undefined &&
                     (assert(typeof finalityConsent !== "boolean"),
                         assert(onChange !== undefined),

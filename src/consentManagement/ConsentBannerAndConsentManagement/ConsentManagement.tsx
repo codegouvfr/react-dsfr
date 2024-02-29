@@ -350,9 +350,7 @@ export function createConsentManagement<
                         </div>
                     </div>
                     {description !== undefined && (
-                        <p id="finality-1-desc" className="fr-consent-service__desc">
-                            {description}
-                        </p>
+                        <p className={fr.cx("fr-consent-service__desc")}>{description}</p>
                     )}
                     {subFinalities !== undefined &&
                         (assert(typeof finalityConsent !== "boolean"),
