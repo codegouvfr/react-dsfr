@@ -38,12 +38,6 @@ export function setLink(params) {
                 assert(is(rest));
                 return React.createElement("button", Object.assign({}, rest, { className: cx(fr.cx("fr-link"), rest.className) }));
             }
-            mailto: {
-                if (target === undefined || !target.startsWith("mailto:")) {
-                    break mailto;
-                }
-                return React.createElement("a", Object.assign({ href: target }, rest));
-            }
             external_links: {
                 if (target === undefined ||
                     (!target.startsWith("//") && !/^https?:\/\//.test(target))) {
@@ -54,6 +48,14 @@ export function setLink(params) {
             anchor: {
                 if (target === undefined || !target.startsWith("#")) {
                     break anchor;
+                }
+                return React.createElement("a", Object.assign({ href: target }, rest));
+            }
+            uri_scheme: {
+                // Check if the 'target' starts with a valid URI scheme (e.g., 'mailto:', 'tel:', 'skype:', 'facetime:', etc.)
+                const regex = /^[a-z]+:/;
+                if (target === undefined || !regex.test(target)) {
+                    break uri_scheme;
                 }
                 return React.createElement("a", Object.assign({ href: target }, rest));
             }

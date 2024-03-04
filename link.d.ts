@@ -6,7 +6,7 @@ export interface RegisterLink {
 export type RegisteredLinkProps = RegisterLink extends {
     Link: infer Link;
 } ? Omit<UnpackProps<Link>, "children"> | (Omit<HTMLAnchorProps, "children" | "href"> & {
-    href: `mailto:${string}` | `//${string}` | `https://${string}` | `http://${string}` | `#${string}`;
+    href: string;
 }) : Omit<HTMLAnchorProps, "children">;
 declare let Link: React.ComponentType<RegisteredLinkProps & {
     children: ReactNode;
