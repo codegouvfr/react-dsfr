@@ -18,11 +18,11 @@ export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
           | Omit<UnpackProps<Link>, "children">
           | (Omit<HTMLAnchorProps, "children" | "href"> & {
                 href:
-                    | `mailto:${string}`
                     | `//${string}`
                     | `https://${string}`
                     | `http://${string}`
-                    | `#${string}`;
+                    | `#${string}`
+                    | `${string}:${string}`;
             })
     : Omit<HTMLAnchorProps, "children">;
 
@@ -75,14 +75,6 @@ export function setLink(params: { Link: typeof Link }): void {
                 return <button {...rest} className={cx(fr.cx("fr-link"), rest.className)} />;
             }
 
-            mailto: {
-                if (target === undefined || !target.startsWith("mailto:")) {
-                    break mailto;
-                }
-
-                return <a href={target} {...rest} />;
-            }
-
             external_links: {
                 if (
                     target === undefined ||
@@ -97,6 +89,15 @@ export function setLink(params: { Link: typeof Link }): void {
             anchor: {
                 if (target === undefined || !target.startsWith("#")) {
                     break anchor;
+                }
+
+                return <a href={target} {...rest} />;
+            }
+
+            external_actions: {
+                const regex = /^[^:]+:[^:]+$/;
+                if (target === undefined || !regex.test(target)) {
+                    break external_actions;
                 }
 
                 return <a href={target} {...rest} />;
