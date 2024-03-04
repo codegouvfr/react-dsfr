@@ -7,9 +7,15 @@ import type { Equals } from "tsafe";
 const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
     sectionName,
     "wrappedComponent": { "SelectNext": Select },
+    "doHideImportInstruction": true,
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Notice.tsx)
+\`\`\`tsx
+
+import { Select } from "@codegouvfr/react-dsfr/SelectNext";
+
+\`\`\`
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/liste-deroulante)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SelectNext.tsx)
 
 > NOTE: This component is still in beta, it may change in the future.
 
