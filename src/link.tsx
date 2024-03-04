@@ -22,7 +22,7 @@ export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
                     | `https://${string}`
                     | `http://${string}`
                     | `#${string}`
-                    | `${string}:${string}`;
+                    | string; // to handle mailto:mail@domain.fr or tel:0123456789  ...
             })
     : Omit<HTMLAnchorProps, "children">;
 
@@ -94,10 +94,11 @@ export function setLink(params: { Link: typeof Link }): void {
                 return <a href={target} {...rest} />;
             }
 
-            external_actions: {
-                const regex = /^[^:]+:[^:]+$/;
+            uri_scheme: {
+                // Check if the 'target' starts with a valid URI scheme (e.g., 'mailto:', 'tel:', 'skype:', 'facetime:', etc.)
+                const regex = /^[a-z]+:/;
                 if (target === undefined || !regex.test(target)) {
-                    break external_actions;
+                    break uri_scheme;
                 }
 
                 return <a href={target} {...rest} />;
