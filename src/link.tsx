@@ -17,12 +17,7 @@ export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
     ?
           | Omit<UnpackProps<Link>, "children">
           | (Omit<HTMLAnchorProps, "children" | "href"> & {
-                href:
-                    | `//${string}`
-                    | `https://${string}`
-                    | `http://${string}`
-                    | `#${string}`
-                    | string; // to handle mailto:mail@domain.fr or tel:0123456789  ...
+                href: string;
             })
     : Omit<HTMLAnchorProps, "children">;
 
