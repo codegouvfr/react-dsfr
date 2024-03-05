@@ -205,12 +205,18 @@ export function getMuiDsfrThemeOptions(params: {
             },
             "MuiAutocomplete": {
                 "styleOverrides": {
+                    "listbox": {
+                        "padding": 0
+                    },
                     "option": {
-                        "border": "1px solid transparent",
+                        "padding": `${fr.spacing("2w")} !important`,
+                        "&.Mui-focused": {
+                            "backgroundColor":
+                                decisions.background.open.blueFrance.default + " !important"
+                        },
                         "&.Mui-focusVisible": {
                             "backgroundColor":
-                                decisions.background.contrast.grey.default + " !important",
-                            "border": `1px solid ${decisions.border.active.blueFrance.default}`
+                                decisions.background.open.blueFrance.default + " !important"
                         }
                     }
                 }
@@ -331,6 +337,7 @@ export function createMuiDsfrTheme(
     params: { isDark: boolean; breakpointsValues: BreakpointsValues },
     ...args: object[]
 ): MuiTheme {
+    console.log("test");
     const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
 
     return muiTheme;
