@@ -22,7 +22,7 @@ import "../assets/search-bar.css";
  * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-input>
  * */
 export const SearchBar = memo(forwardRef((props, ref) => {
-    const { className, id: id_props, label: label_props, big = false, classes = {}, style, renderInput = ({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type })), onButtonClick } = props, rest = __rest(props, ["className", "id", "label", "big", "classes", "style", "renderInput", "onButtonClick"]);
+    const { className, id: id_props, label: label_props, big = false, classes = {}, style, renderInput = ({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type })), clearInputOnSearch = false, allowEmptySearch = false, onButtonClick } = props, rest = __rest(props, ["className", "id", "label", "big", "classes", "style", "renderInput", "clearInputOnSearch", "allowEmptySearch", "onButtonClick"]);
     assert();
     const { t } = useTranslation();
     const label = label_props !== null && label_props !== void 0 ? label_props : t("label");
@@ -39,7 +39,7 @@ export const SearchBar = memo(forwardRef((props, ref) => {
             "type": "search",
             "id": inputId
         }),
-        React.createElement(SearchButton, { id: `${id}-button`, searchInputId: inputId, onClick: onButtonClick })));
+        React.createElement(SearchButton, { clearInputOnSearch: clearInputOnSearch, id: `${id}-button`, searchInputId: inputId, allowEmptySearch: allowEmptySearch, onClick: onButtonClick })));
 }));
 SearchBar.displayName = symToStr({ SearchBar });
 export default SearchBar;

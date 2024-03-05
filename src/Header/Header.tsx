@@ -63,6 +63,10 @@ export type HeaderProps = {
     ) => JSX.Element;
     /** Called when the search button is clicked */
     onSearchButtonClick?: (text: string) => void;
+    /** Default: false */
+    clearSearchInputOnSearch?: boolean;
+    /** Default: false */
+    allowEmptySearch?: boolean;
     classes?: Partial<
         Record<
             | "root"
@@ -124,6 +128,8 @@ export const Header = memo(
             quickAccessItems = [],
             operatorLogo,
             renderSearchInput,
+            clearSearchInputOnSearch = false,
+            allowEmptySearch = false,
             onSearchButtonClick,
             classes = {},
             style,
@@ -398,6 +404,10 @@ export const Header = memo(
                                                             id={`${id}-search-bar-button`}
                                                             searchInputId={searchInputId}
                                                             onClick={onSearchButtonClick}
+                                                            clearInputOnSearch={
+                                                                clearSearchInputOnSearch
+                                                            }
+                                                            allowEmptySearch={allowEmptySearch}
                                                         />
                                                     </div>
                                                 </div>

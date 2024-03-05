@@ -26,7 +26,7 @@ import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 export const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
-    const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "onSearchButtonClick", "classes", "style"]);
+    const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, clearSearchInputOnSearch = false, allowEmptySearch = false, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "clearSearchInputOnSearch", "allowEmptySearch", "onSearchButtonClick", "classes", "style"]);
     assert();
     const id = id_props !== null && id_props !== void 0 ? id_props : "fr-header";
     const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
@@ -92,7 +92,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                             "placeholder": tSearchBar("label"),
                                             "type": "search"
                                         }),
-                                        React.createElement(SearchButton, { id: `${id}-search-bar-button`, searchInputId: searchInputId, onClick: onSearchButtonClick })))))))))),
+                                        React.createElement(SearchButton, { id: `${id}-search-bar-button`, searchInputId: searchInputId, onClick: onSearchButtonClick, clearInputOnSearch: clearSearchInputOnSearch, allowEmptySearch: allowEmptySearch })))))))))),
             (navigation !== undefined || quickAccessItems.length !== 0) && (React.createElement("div", { className: cx(fr.cx("fr-header__menu", "fr-modal"), classes.menu), id: menuModalId, "aria-labelledby": menuButtonId },
                 React.createElement("div", { className: fr.cx("fr-container") },
                     React.createElement("button", { id: `${id}-mobile-overlay-button-close`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": menuModalId, title: t("close") }, t("close")),

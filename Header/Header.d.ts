@@ -44,6 +44,10 @@ export type HeaderProps = {
     }) => JSX.Element;
     /** Called when the search button is clicked */
     onSearchButtonClick?: (text: string) => void;
+    /** Default: false */
+    clearSearchInputOnSearch?: boolean;
+    /** Default: false */
+    allowEmptySearch?: boolean;
     classes?: Partial<Record<"root" | "body" | "container" | "bodyRow" | "brand" | "brandTop" | "logo" | "operator" | "navbar" | "service" | "serviceTitle" | "serviceTagline" | "toolsLinks" | "menu" | "menuLinks", string>>;
     style?: CSSProperties;
 };

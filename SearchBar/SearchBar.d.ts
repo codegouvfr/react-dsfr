@@ -20,6 +20,10 @@ export type SearchBarProps = {
         className: string;
         placeholder: string;
     }) => JSX.Element;
+    /** Default: false */
+    clearInputOnSearch?: boolean;
+    /** Default: false */
+    allowEmptySearch?: boolean;
     onButtonClick?: (text: string) => void;
 };
 /**
