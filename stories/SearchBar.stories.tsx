@@ -25,6 +25,11 @@ const { meta, getStory } = getStoryFactory({
                 "Default: false, if true the input value will be cleared when the user click on the search button or press enter",
             "control": { "type": "boolean" }
         },
+        "allowEmptySearch": {
+            "description":
+                "Default: false, if true the user will be able to search with an empty input, otherwise clicking ont the search button or pressing enter will focus the input",
+            "control": { "type": "boolean" }
+        },
         "renderInput": {
             "description": `Optional: To control the input yourself`,
             "control": { "type": null }

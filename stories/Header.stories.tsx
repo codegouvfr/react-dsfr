@@ -56,6 +56,11 @@ const isOpen = useIsHeaderMenuModalOpen();
             "description":
                 "Default: false, if true the search input value will be cleared when the user click on the search button or press enter",
             "control": { "type": "boolean" }
+        },
+        "allowEmptySearch": {
+            "description":
+                "Default: false, if true the user will be able to search with an empty input, otherwise clicking ont the search button or pressing enter will focus the input",
+            "control": { "type": "boolean" }
         }
     },
     "disabledProps": ["lang"]
@@ -106,7 +111,8 @@ export const SimpleHeader = getStory({
                 "target": "_self"
             }
         }
-    ]
+    ],
+    "onSearchButtonClick": undefined
 });
 
 export const SimpleHeaderWithServiceTitleAndTagline = getStory({
@@ -123,7 +129,8 @@ export const SimpleHeaderWithServiceTitleAndTagline = getStory({
         "title": "Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)"
     },
     "serviceTitle": "Nom du site / service",
-    "serviceTagline": "baseline - précisions sur l'organisation"
+    "serviceTagline": "baseline - précisions sur l'organisation",
+    "onSearchButtonClick": undefined
 });
 
 export const SimpleHeaderWithServiceTitleAndBetaBadge = getStory({
@@ -146,7 +153,8 @@ export const SimpleHeaderWithServiceTitleAndBetaBadge = getStory({
                 Beta
             </Badge>
         </>
-    )
+    ),
+    "onSearchButtonClick": undefined
 });
 
 export const HeaderWithQuickAccessItems = getStory(
@@ -189,7 +197,8 @@ export const HeaderWithQuickAccessItems = getStory(
                     }
                 }
             }
-        ]
+        ],
+        "onSearchButtonClick": undefined
     },
     {
         "description": `See [\\<Display \\/\\>](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display) for instructions on how to integrate the Dark mode switch.  
@@ -218,13 +227,17 @@ export const WithUncontrolledSearchBar = getStory(
         },
         "serviceTitle": "Nom du site / service",
         "serviceTagline": "baseline - précisions sur l'organisation",
-        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`)
+        "onSearchButtonClick": text => alert(`TODO: implement search with text: ${text}`),
+        "clearSearchInputOnSearch": true,
+        "allowEmptySearch": true
     },
     {
         "description": `
 
 If you you do not plan to provide any realtime hinting to the user as he types the search query you can provide a \`onSearchButtonClick\`
 callback that will be called when the user click on the search button or press enter.
+
+You can also have a use the \`clearSearchInputOnSearch\` and \`allowEmptySearch\` props to control the behavior of the search input.  
 
 > NOTE: There is a bug in the DSFR that prevent te input to be cleared when the user press the escape key.  
 We hope it will be fixed soon.

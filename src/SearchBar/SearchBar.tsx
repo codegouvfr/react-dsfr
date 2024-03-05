@@ -32,6 +32,8 @@ export type SearchBarProps = {
     ) => JSX.Element;
     /** Default: false */
     clearInputOnSearch?: boolean;
+    /** Default: false */
+    allowEmptySearch?: boolean;
     onButtonClick?: (text: string) => void;
 };
 
@@ -51,6 +53,7 @@ export const SearchBar = memo(
                 <input className={className} id={id} placeholder={placeholder} type={type} />
             ),
             clearInputOnSearch = false,
+            allowEmptySearch = false,
             onButtonClick,
             ...rest
         } = props;
@@ -96,6 +99,7 @@ export const SearchBar = memo(
                     clearInputOnSearch={clearInputOnSearch}
                     id={`${id}-button`}
                     searchInputId={inputId}
+                    allowEmptySearch={allowEmptySearch}
                     onClick={onButtonClick}
                 />
             </div>

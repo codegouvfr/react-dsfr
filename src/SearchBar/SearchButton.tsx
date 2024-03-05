@@ -13,11 +13,18 @@ export type SearchButtonProps = {
     id: string;
     searchInputId: string;
     clearInputOnSearch: boolean;
+    allowEmptySearch: boolean;
     onClick: ((text: string) => void) | undefined;
 };
 
 export function SearchButton(props: SearchButtonProps) {
-    const { searchInputId, clearInputOnSearch, onClick: onClick_props, id: id_props } = props;
+    const {
+        searchInputId,
+        clearInputOnSearch,
+        allowEmptySearch,
+        onClick: onClick_props,
+        id: id_props
+    } = props;
 
     const { t } = useTranslation();
 
@@ -38,7 +45,7 @@ export function SearchButton(props: SearchButtonProps) {
     const onClick = useConstCallback(() => {
         const inputValue = getInputValue();
 
-        if (inputValue === "") {
+        if (!allowEmptySearch && inputValue === "") {
             focusInputElement();
             return;
         }
