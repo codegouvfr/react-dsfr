@@ -20,6 +20,11 @@ const { meta, getStory } = getStoryFactory({
             "description": "Default: 'Rechercher' (or translation)",
             "control": { "type": "text" }
         },
+        "clearInputOnSearch": {
+            "description":
+                "Default: false, if true the input value will be cleared when the user click on the search button or press enter",
+            "control": { "type": "boolean" }
+        },
         "renderInput": {
             "description": `Optional: To control the input yourself`,
             "control": { "type": null }

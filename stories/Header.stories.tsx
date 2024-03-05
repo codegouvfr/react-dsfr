@@ -46,6 +46,16 @@ const isOpen = useIsHeaderMenuModalOpen();
         "quickAccessItems": {
             "description":
                 "To integrate the Dark mode switch head over to the documentation of the [Display component](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display)"
+        },
+        "onSearchButtonClick": {
+            "description":
+                "Optional, callback called when the user click on the search button or press enter",
+            "control": { "type": null }
+        },
+        "clearSearchInputOnSearch": {
+            "description":
+                "Default: false, if true the search input value will be cleared when the user click on the search button or press enter",
+            "control": { "type": "boolean" }
         }
     },
     "disabledProps": ["lang"]

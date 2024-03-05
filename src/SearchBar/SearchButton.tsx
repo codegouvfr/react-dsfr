@@ -12,11 +12,12 @@ import { id } from "tsafe/id";
 export type SearchButtonProps = {
     id: string;
     searchInputId: string;
+    clearInputOnSearch: boolean;
     onClick: ((text: string) => void) | undefined;
 };
 
 export function SearchButton(props: SearchButtonProps) {
-    const { searchInputId, onClick: onClick_props, id: id_props } = props;
+    const { searchInputId, clearInputOnSearch, onClick: onClick_props, id: id_props } = props;
 
     const { t } = useTranslation();
 
@@ -43,7 +44,9 @@ export function SearchButton(props: SearchButtonProps) {
         }
 
         onClick_props?.(inputValue);
-        resetInputValue();
+        if (clearInputOnSearch) {
+            resetInputValue();
+        }
     });
 
     const isControlledByUser = onClick_props === undefined;
