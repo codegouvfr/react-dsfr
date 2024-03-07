@@ -338,7 +338,7 @@ export function createMuiDsfrTheme(
     ...args: object[]
 ): MuiTheme {
     const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
-    
+
     return muiTheme;
 }
 

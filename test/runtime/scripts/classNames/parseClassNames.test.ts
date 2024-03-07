@@ -1,3 +1,4 @@
+/* eslint no-useless-escape: 0 */
 import { it, expect } from "vitest";
 import { parseClassNames } from "../../../../scripts/build/cssToTs/classNames";
 
@@ -24,6 +25,11 @@ it("Parsing of fr classnames", () => {
   color: #3a3a3a;
 }
 
+.fr-tile--vertical\@md {
+  display: flex;
+  flex-direction: column;
+}
+
 @supports (aspect-ratio: 16/9) {
   .fr-ratio-32x9 {
     aspect-ratio: 3.5555555556 !important;
@@ -33,7 +39,6 @@ it("Parsing of fr classnames", () => {
     aspect-ratio: 1.7777777778 !important;
   }
 }
-
 
 @media (min-width: 36em) { }
 @media (min-width: 48em) { }
@@ -50,6 +55,7 @@ it("Parsing of fr classnames", () => {
         "fr-col",
         "fr-header__navbar",
         "fr-btn--menu",
+        "fr-tile--vertical@md",
         "fr-ratio-32x9",
         "fr-ratio-16x9"
     ];
