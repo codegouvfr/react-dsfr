@@ -9,11 +9,9 @@ export const parseClassNames = memoize((rawCssCode: string): string[] => {
 
     objectKeys(rulesByBreakpoint).forEach(breakpoint => {
         const rules = rulesByBreakpoint[breakpoint];
-
         rules.forEach(({ selectors }) => {
             selectors.forEach(selector => {
-                const matchArr = selector.match(/\.fr-[a-zA-Z0-9_-]+/g);
-
+                const matchArr = selector.match(/\.fr-[a-zA-Z0-9_-]+(?:@[a-zA-Z0-9_-]+)?/g);
                 if (matchArr === null) {
                     return;
                 }
@@ -24,7 +22,6 @@ export const parseClassNames = memoize((rawCssCode: string): string[] => {
             });
         });
     });
-
     return Array.from(classNames);
 });
 
