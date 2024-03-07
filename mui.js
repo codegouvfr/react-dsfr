@@ -273,7 +273,6 @@ export function getMuiDsfrThemeOptions(params) {
  * @returns — A complete, ready-to-use mui theme object.
  */
 export function createMuiDsfrTheme(params, ...args) {
-    console.log("test");
     const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
     return muiTheme;
 }

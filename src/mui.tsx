@@ -337,7 +337,6 @@ export function createMuiDsfrTheme(
     params: { isDark: boolean; breakpointsValues: BreakpointsValues },
     ...args: object[]
 ): MuiTheme {
-    console.log("test");
     const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
 
     return muiTheme;
