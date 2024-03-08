@@ -17,7 +17,7 @@ import { fr } from "@codegouvfr/react-dsfr";
 
 <div className={fr.cx("fr-accordions-group")}>
     <Accordion label="Name of the Accordion 1">Content of the Accordion 1</Accordion>
-    <Accordion label="Name of the Accordion 2"/>Content of the Accordion 2</Accordion>
+    <Accordion label="Name of the Accordion 2">Content of the Accordion 2</Accordion>
 </div>
 \`\`\`
 
