@@ -19,7 +19,7 @@ export namespace FieldsetProps {
     export type Common = {
         className?: string;
         id?: string;
-        classes?: Partial<Record<"root" | "legend" | "content", string>>;
+        classes?: Partial<Record<"root" | "legend" | "content" | "inputGroup", string>>;
         style?: CSSProperties;
         legend?: ReactNode;
         hintText?: ReactNode;
@@ -151,10 +151,13 @@ export const Fieldset = memo(
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
                     {options.map(({ label, hintText, nativeInputProps, ...rest }, i) => (
                         <div
-                            className={fr.cx(
-                                `fr-${type}-group`,
-                                isRichRadio && "fr-radio-rich",
-                                small && `fr-${type}-group--sm`
+                            className={cx(
+                                fr.cx(
+                                    `fr-${type}-group`,
+                                    isRichRadio && "fr-radio-rich",
+                                    small && `fr-${type}-group--sm`
+                                ),
+                                classes.inputGroup
                             )}
                             key={i}
                         >
