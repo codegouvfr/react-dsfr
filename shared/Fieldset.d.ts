@@ -4,7 +4,7 @@ export declare namespace FieldsetProps {
     type Common = {
         className?: string;
         id?: string;
-        classes?: Partial<Record<"root" | "legend" | "content", string>>;
+        classes?: Partial<Record<"root" | "legend" | "content" | "inputGroup", string>>;
         style?: CSSProperties;
         legend?: ReactNode;
         hintText?: ReactNode;

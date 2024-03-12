@@ -49,7 +49,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
             hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
         React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map((_a, i) => {
             var { label, hintText, nativeInputProps } = _a, rest = __rest(_a, ["label", "hintText", "nativeInputProps"]);
-            return (React.createElement("div", { className: fr.cx(`fr-${type}-group`, isRichRadio && "fr-radio-rich", small && `fr-${type}-group--sm`), key: i },
+            return (React.createElement("div", { className: cx(fr.cx(`fr-${type}-group`, isRichRadio && "fr-radio-rich", small && `fr-${type}-group--sm`), classes.inputGroup), key: i },
                 React.createElement("input", Object.assign({ type: type, id: getInputId(i), name: radioName }, nativeInputProps)),
                 React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
                     label,
