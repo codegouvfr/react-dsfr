@@ -69,7 +69,7 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
 export namespace SelectProps {
     export type Option<T extends string = string> = {
         value: T;
-        label: string;
+        label: ReactNode;
         disabled?: boolean;
         /** Default: false, should be used only in uncontrolled mode */
         selected?: boolean;
@@ -160,7 +160,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                     },
                     ...options
                 ].map((option, index) => (
-                    <option {...option} key={`${option.value}-${index}`}>
+                    <option {...(option as any)} key={`${option.value}-${index}`}>
                         {option.label}
                     </option>
                 ))}
