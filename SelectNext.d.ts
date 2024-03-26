@@ -35,7 +35,7 @@ export type SelectProps<Options extends SelectProps.Option[]> = {
 export declare namespace SelectProps {
     export type Option<T extends string = string> = {
         value: T;
-        label: string;
+        label: ReactNode;
         disabled?: boolean;
         /** Default: false, should be used only in uncontrolled mode */
         selected?: boolean;
