@@ -10594,10 +10594,10 @@ remark-squeeze-paragraphs@4.0.0:
   dependencies:
     mdast-squeeze-paragraphs "^4.0.0"
 
-remixicon@^3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-3.5.0.tgz#ad3ea8e6cd80d6bc7a9a261fafc229f04a32ce5f"
-  integrity sha512-wNzWGKf4frb3tEmgvP5shry0n1OdTjjEk9RHLuRuAhfA50bvEdpKH1XWNUYrHUSjAQQkkdyIm+lf4mOuysIKTQ==
+remixicon@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-4.2.0.tgz#2df60b1764b11bb363f796b827ed8e03eab031c4"
+  integrity sha512-MF5wApNveRh3n0iMVM+lr2nSWrj/rBbSD2eWapuD9ReYRGs5naAUR1BqVBCHGqm286FIS6zwwmUf96QjHQ9l4w==
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
