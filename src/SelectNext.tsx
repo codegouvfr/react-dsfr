@@ -160,7 +160,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                     },
                     ...options
                 ].map((option, index) => (
-                    <option {...(option as any)} key={`${option.value}-${index}`}>
+                    <option value={option.value} key={`${option.value}-${index}`}>
                         {option.label}
                     </option>
                 ))}
