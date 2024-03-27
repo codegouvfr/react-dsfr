@@ -52,12 +52,6 @@
     mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
 .fr-icon-mail-fill::before,
 .fr-icon-mail-fill::after {
     -webkit-mask-image: url("../../icons/business/mail-fill.svg");
@@ -94,6 +88,12 @@
     mask-image: url("../../icons/remixicon/check-line.svg");
 }
 
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
+}
+
 .fr-icon-road-map-line::before,
 .fr-icon-road-map-line::after {
     -webkit-mask-image: url("../../icons/map/road-map-line.svg");
@@ -124,12 +124,6 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
-}
-
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -140,6 +134,12 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
+}
+
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -200,11 +200,6 @@
         background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
     .fr-icon-mail-fill::before,
     .fr-icon-mail-fill::after {
         background-image: url("../../icons/business/mail-fill.svg");
@@ -235,6 +230,11 @@
         background-image: url("../../icons/remixicon/check-line.svg");
     }
     
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
+    }
+    
     .fr-icon-road-map-line::before,
     .fr-icon-road-map-line::after {
         background-image: url("../../icons/map/road-map-line.svg");
@@ -260,11 +260,6 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
-    }
-    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -273,6 +268,11 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
     .ri-arrow-down-s-fill::before,
