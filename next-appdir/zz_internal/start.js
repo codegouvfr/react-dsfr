@@ -8,7 +8,7 @@ export function startReactDsfr(params) {
     const { defaultColorScheme, verbose = false, Link, doCheckNonce = false, trustedTypesPolicyName = "react-dsfr" } = params;
     setDefaultColorSchemeClientSide({ defaultColorScheme });
     if (Link !== undefined) {
-        setLink({ Link });
+        setLink({ "Link": Link });
     }
     if (isBrowser) {
         start({

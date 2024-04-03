@@ -7,9 +7,7 @@ export declare function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: RegisterLink extends {
-        Link: infer Link;
-    } ? Link : undefined;
+    Link?: Function;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**

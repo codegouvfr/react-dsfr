@@ -11,9 +11,7 @@ export type CreateNextDsfrIntegrationApiParams = {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: RegisterLink extends {
-        Link: infer Link;
-    } ? Link : undefined;
+    Link?: Function;
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */

@@ -20,7 +20,7 @@ export function DsfrHead(props) {
     const defaultColorScheme = getDefaultColorSchemeServerSide();
     useMemo(() => {
         if (Link !== undefined) {
-            setLink({ Link });
+            setLink({ "Link": Link });
         }
     }, [Link]);
     return (React.createElement(React.Fragment, null,

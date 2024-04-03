@@ -1,5 +1,4 @@
 import { start } from "../../start";
-import type { RegisterLink } from "../../link";
 import { setLink } from "../../link";
 import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./defaultColorScheme";
 import { isBrowser } from "../../tools/isBrowser";
@@ -14,7 +13,7 @@ export function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: RegisterLink extends { Link: infer Link } ? Link : undefined;
+    Link?: Function;
     /**
      * When true, the nonce of the script tag will be checked, fetched from {@link DsfrHead} component and injected in react-dsfr scripts.
      *
@@ -54,7 +53,7 @@ export function startReactDsfr(params: {
     setDefaultColorSchemeClientSide({ defaultColorScheme });
 
     if (Link !== undefined) {
-        setLink({ Link });
+        setLink({ "Link": Link as any });
     }
 
     if (isBrowser) {

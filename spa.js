@@ -5,7 +5,7 @@ import { assert } from "tsafe/assert";
 export function startReactDsfr(params) {
     const { defaultColorScheme, verbose = false, Link, useLang, nonce, trustedTypesPolicyName = "react-dsfr" } = params;
     if (Link !== undefined) {
-        setLink({ Link });
+        setLink({ "Link": Link });
     }
     if (useLang !== undefined) {
         setUseLang({ useLang });

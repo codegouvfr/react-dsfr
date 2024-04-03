@@ -12,7 +12,7 @@ export function startReactDsfr(params: {
     /** Default: false */
     verbose?: boolean;
     /** Default: <a /> */
-    Link?: RegisterLink extends { Link: infer Link } ? Link : undefined;
+    Link?: Function;
     /** Default: ()=> "fr" */
     useLang?: () => string;
     /**
@@ -50,7 +50,7 @@ export function startReactDsfr(params: {
     } = params;
 
     if (Link !== undefined) {
-        setLink({ Link });
+        setLink({ "Link": Link as any });
     }
 
     if (useLang !== undefined) {

@@ -51,7 +51,7 @@ export function createNextDsfrIntegrationApi(params) {
     let isAfterFirstEffect = false;
     const actions = [];
     if (Link !== undefined) {
-        setLink({ Link });
+        setLink({ "Link": Link });
     }
     if (useLang !== undefined) {
         setUseLang({ useLang });
