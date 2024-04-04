@@ -65,11 +65,10 @@ Ce module est un produit du pôle Logiciel libre et open source d'[Etalab](https
 
 Ce projet est co-maintenu par des fonctionnaires de diverses administrations françaises :
 
+-   [Joseph Garrone](https://github.com/garronej) - Insee
 -   [Julien Bouquillon](https://github.com/revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
 -   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
-
-Il est également co-maintenu par [Joseph Garrone](https://github.com/garronej), l'auteur original.
 
 ## Développement
 

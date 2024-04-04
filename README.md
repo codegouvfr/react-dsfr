@@ -67,11 +67,10 @@ This module is a product of [Etalab's Free and open source software pole](https:
 
 This project is co-maintained by public servants from various French administrations:
 
+-   [Joseph Garrone](https://github.com/garronej) - Insee
 -   [Julien Bouquillon](https://github.com/revolunet) - DNUM des ministères sociaux
 -   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
 -   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
-
-It is also co-maintained [Joseph Garrone](https://github.com/garronej), the original author.
 
 ## Development
 
