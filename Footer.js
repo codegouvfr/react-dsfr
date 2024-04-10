@@ -104,7 +104,7 @@ export const Footer = memo(forwardRef((props, ref) => {
                             })
                         ]),
                     id({
-                        "text": `${t("accessibility")}: ${t(accessibility)}`,
+                        "text": `${t("accessibility")} : ${t(accessibility)}`,
                         "linkProps": accessibilityLinkProps !== null && accessibilityLinkProps !== void 0 ? accessibilityLinkProps : {}
                     }),
                     ...(termsLinkProps === undefined

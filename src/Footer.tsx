@@ -483,7 +483,7 @@ export const Footer = memo(
                                           })
                                       ]),
                                 id<FooterProps.BottomItem>({
-                                    "text": `${t("accessibility")}: ${t(accessibility)}`,
+                                    "text": `${t("accessibility")} : ${t(accessibility)}`,
                                     "linkProps": accessibilityLinkProps ?? ({} as any)
                                 }),
                                 ...(termsLinkProps === undefined
