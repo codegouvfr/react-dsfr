@@ -92,6 +92,7 @@ export const Accordion = memo(
                         aria-controls={collapseElementId}
                         onClick={onExtendButtonClick}
                         type="button"
+                        id={`${id}__toggle-btn`}
                     >
                         {label}
                     </button>
