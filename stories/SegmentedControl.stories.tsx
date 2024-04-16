@@ -6,9 +6,8 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     wrappedComponent: { SegmentedControl },
     description: `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/curseur-range)
-- [See DSFR demos](https://main--ds-gouv.netlify.app/example/component/follow/)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Range.tsx)`,
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/controle-segmente/)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SegmentedControl.tsx)`,
     argTypes: {
         small: {
             control: { type: "boolean" }
