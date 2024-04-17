@@ -76,20 +76,20 @@ export const HideMinMax = getStory({
     hideMinMax: true
 });
 
-export const WithStep = getStory({ ...defaultProps, step: 10 });
+//export const WithStep = getStory({ ...defaultProps, step: 10 });
 
-export const SmallWithStep = getStory({ ...defaultProps, small: true, step: 10 });
+//export const SmallWithStep = getStory({ ...defaultProps, small: true, step: 10 });
 
 export const Double = getStory({ ...defaultProps, double: true });
 
 export const SmallDouble = getStory({ ...defaultProps, small: true, double: true });
 
-export const SmallDoubleWithStep = getStory({
-    ...defaultProps,
-    small: true,
-    double: true,
-    step: 10
-});
+// export const SmallDoubleWithStep = getStory({
+//     ...defaultProps,
+//     small: true,
+//     double: true,
+//     step: 10
+// });
 
 export const PrefixSuffix = getStory({
     ...defaultProps,
