@@ -6,8 +6,8 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Summary },
     "description": `
-- [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/sommaire)
-- [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/Summary.tsx)`,
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/sommaire)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Summary.tsx)`,
     "disabledProps": ["lang"]
 });
 

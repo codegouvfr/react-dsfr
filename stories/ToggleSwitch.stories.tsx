@@ -8,9 +8,9 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { ToggleSwitch },
     "description": `
-- [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/interrupteur)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/interrupteur)
 - [See DSFR demo](https://main--ds-gouv.netlify.app/example/component/toggle/)
-- [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/ToggleSwitch.tsx)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ToggleSwitch.tsx)
 
 ## Uncontrolled
 

@@ -7,8 +7,8 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Quote },
     "description": `
-- [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/citation)
-- [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/Quote.tsx)`,
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/citation)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Quote.tsx)`,
     "disabledProps": ["lang"]
 });
 

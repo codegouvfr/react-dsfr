@@ -6,7 +6,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Stepper },
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/indicateur-d-etape)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/indicateur-d-etapes)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Stepper.tsx)`
 });
 

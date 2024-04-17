@@ -7,9 +7,9 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Tile },
     "defaultContainerWidth": 300,
     "description": `
-- [See DSFR documentation](//www.systeme-de-design.gouv.fr/elements-d-interface/composants/tuile)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/tuile)
 - [See DSFR demos](https://main--ds-gouv.netlify.app/example/component/tile/)
-- [See source code](//github.com/codegouvfr/react-dsfr/blob/main/src/Tile.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tile.tsx)`,
     "disabledProps": ["lang"]
 });
 

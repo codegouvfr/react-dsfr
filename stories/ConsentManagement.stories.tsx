@@ -15,7 +15,7 @@ const { meta, getStory } = getStoryFactory({
     },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/gestionnaire-de-consentement),
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/gdpr)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/consentManagement)
 
 \`src/consentManagement.tsx\` (This is a file you should create in your project)  
 

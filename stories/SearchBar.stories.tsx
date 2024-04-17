@@ -10,7 +10,7 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { SearchBar },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/barre-de-recherche)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SearchBar.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SearchBar/SearchBar.tsx)`,
     "argTypes": {
         "big": {
             "description": "Use the big variant if you have space to spare",

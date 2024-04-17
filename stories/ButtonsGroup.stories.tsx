@@ -9,7 +9,7 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { ButtonsGroup },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/groupe-de-boutons)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ButtonGroup.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ButtonsGroup.tsx)`,
     "argTypes": {
         "inlineLayoutWhen": {
             "options": (() => {
