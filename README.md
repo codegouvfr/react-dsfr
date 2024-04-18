@@ -50,7 +50,7 @@ This module is an advanced toolkit that leverages [@gouvfr/dsfr](https://github.
 -   [x] Three shakable distribution, cherry pick the components you import. (It's not all in a big .js bundle)
 -   [x] Optional integration with [MUI](https://mui.com/). If you use MUI components they will
         be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.codegouv.studio/mui-integration).
--   [x] Enable the usage of CSS in JS solutions. [Doc](https://react-dsfr.codegouv.studio/css-in-js).  
+-   [x] Enable the usage of CSS in JS solutions. [Doc](https://react-dsfr.codegouv.studio/css-in-js).
 -   [x] Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
 -   [x] [Support routing libraries](https://react-dsfr.codegouv.studio/routing) like react-router.
 

@@ -48,8 +48,7 @@ Ce module est une boîte à outils avancée qui tire parti de [@gouvfr/dsfr](htt
 -   [x] Trois distributions modulables, choisissez les composants que vous importez. (Ce n'est pas tout dans un gros bundle .js)
 -   [x] Intégration optionnelle avec [MUI](https://mui.com/). Si vous utilisez des composants MUI, ils seront
         automatiquement adaptés pour ressembler aux [composants DSFR](https://www.systeme-de-design.gouv.fr/elements-d-interface). Voir [documentation](https://react-dsfr.codegouv.studio/mui-integration).
--   [x] Activez CSS in JS en fournissant un hook `useColors()` qui expose les bonnes options de couleurs et décisions
-        pour le schéma de couleurs actuellement activé.
+-   [x] Permet le CSS in JS. [Documentation](https://react-dsfr.codegouv.studio/css-in-js)
 -   [x] i18n en option, les textes intégrés peuvent être affichés en plusieurs langues et l'utilisateur peut fournir des traductions supplémentaires.
 -   [x] [Support des bibliothèques de routage](https://react-dsfr.codegouv.studio/routing) comme react-router.
 
