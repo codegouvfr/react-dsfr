@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.1'
+    version: '1.11.2'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -1693,7 +1693,7 @@
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this.handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1838,11 +1838,11 @@
   };
 
   Instance.prototype.listenClick = function listenClick (options) {
-    this.listen('click', this.handlingClick, options);
+    this.listen('click', this._handlingClick, options);
   };
 
   Instance.prototype.unlistenClick = function unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
+    this.unlisten('click', this._handlingClick, options);
   };
 
   Instance.prototype.handleClick = function handleClick (e) {};

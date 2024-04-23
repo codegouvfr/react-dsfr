@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.1'
+    version: '1.11.2'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -1693,7 +1693,7 @@
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this.handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1838,11 +1838,11 @@
   };
 
   Instance.prototype.listenClick = function listenClick (options) {
-    this.listen('click', this.handlingClick, options);
+    this.listen('click', this._handlingClick, options);
   };
 
   Instance.prototype.unlistenClick = function unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
+    this.unlisten('click', this._handlingClick, options);
   };
 
   Instance.prototype.handleClick = function handleClick (e) {};
@@ -7159,8 +7159,9 @@
     RangeInput.prototype.init = function init () {
       this._init();
       this.node.value = this.getAttribute('value');
-      this.changing = this.change.bind(this);
-      this.node.addEventListener(this.isLegacy ? 'change' : 'input', this.changing);
+      this._changing = this.change.bind(this);
+      this._listenerType = this.isLegacy ? 'change' : 'input';
+      this.listen(this._listenerType, this._changing);
       if (this.isLegacy) { this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this)); }
       this.change();
     };
@@ -7206,7 +7207,7 @@
     };
 
     RangeInput.prototype.dispose = function dispose () {
-      this.removeEventListener('input', this.changing);
+      if (this._listenerType) { this.unlisten(this._listenerType, this._changing); }
     };
 
     Object.defineProperties( RangeInput, staticAccessors );
@@ -7374,12 +7375,12 @@
       var toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
       var menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
       // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-      var toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
-      if (toolsHtmlIdList) {
-        // on a besoin d'échapper les backslash dans la chaine de caractère
-        // eslint-disable-next-line no-useless-escape
-        toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
-      }
+      var toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm) || [];
+
+      // on a besoin d'échapper les backslash dans la chaine de caractère
+      // eslint-disable-next-line no-useless-escape
+      toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
+
       var toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
       var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
       if (toolsHtmlAriaControlList) {

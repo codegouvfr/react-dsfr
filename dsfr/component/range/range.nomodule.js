@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.1'
+    version: '1.11.2'
   };
 
   var api = window[config.namespace];
@@ -527,8 +527,9 @@
     RangeInput.prototype.init = function init () {
       this._init();
       this.node.value = this.getAttribute('value');
-      this.changing = this.change.bind(this);
-      this.node.addEventListener(this.isLegacy ? 'change' : 'input', this.changing);
+      this._changing = this.change.bind(this);
+      this._listenerType = this.isLegacy ? 'change' : 'input';
+      this.listen(this._listenerType, this._changing);
       if (this.isLegacy) { this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this)); }
       this.change();
     };
@@ -574,7 +575,7 @@
     };
 
     RangeInput.prototype.dispose = function dispose () {
-      this.removeEventListener('input', this.changing);
+      if (this._listenerType) { this.unlisten(this._listenerType, this._changing); }
     };
 
     Object.defineProperties( RangeInput, staticAccessors );

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -313,7 +313,7 @@ input[type=submit].fr-tag--dismiss.fr-tag--sm::after {
   --active: var(--background-action-high-blue-france-active);
 }
 
-a[href].fr-tag,
+a.fr-tag,
 button.fr-tag,
 input[type=button].fr-tag {
   color: var(--text-action-high-blue-france);
@@ -324,7 +324,7 @@ input[type=button].fr-tag {
   --active: var(--background-action-low-blue-france-active);
 }
 
-a[href].fr-tag--green-tilleul-verveine,
+a.fr-tag--green-tilleul-verveine,
 button.fr-tag--green-tilleul-verveine,
 input[type=button].fr-tag--green-tilleul-verveine {
   color: var(--text-action-high-green-tilleul-verveine);
@@ -335,7 +335,7 @@ input[type=button].fr-tag--green-tilleul-verveine {
   --active: var(--background-action-low-green-tilleul-verveine-active);
 }
 
-a[href].fr-tag--green-bourgeon,
+a.fr-tag--green-bourgeon,
 button.fr-tag--green-bourgeon,
 input[type=button].fr-tag--green-bourgeon {
   color: var(--text-action-high-green-bourgeon);
@@ -346,7 +346,7 @@ input[type=button].fr-tag--green-bourgeon {
   --active: var(--background-action-low-green-bourgeon-active);
 }
 
-a[href].fr-tag--green-emeraude,
+a.fr-tag--green-emeraude,
 button.fr-tag--green-emeraude,
 input[type=button].fr-tag--green-emeraude {
   color: var(--text-action-high-green-emeraude);
@@ -357,7 +357,7 @@ input[type=button].fr-tag--green-emeraude {
   --active: var(--background-action-low-green-emeraude-active);
 }
 
-a[href].fr-tag--green-menthe,
+a.fr-tag--green-menthe,
 button.fr-tag--green-menthe,
 input[type=button].fr-tag--green-menthe {
   color: var(--text-action-high-green-menthe);
@@ -368,7 +368,7 @@ input[type=button].fr-tag--green-menthe {
   --active: var(--background-action-low-green-menthe-active);
 }
 
-a[href].fr-tag--green-archipel,
+a.fr-tag--green-archipel,
 button.fr-tag--green-archipel,
 input[type=button].fr-tag--green-archipel {
   color: var(--text-action-high-green-archipel);
@@ -379,7 +379,7 @@ input[type=button].fr-tag--green-archipel {
   --active: var(--background-action-low-green-archipel-active);
 }
 
-a[href].fr-tag--blue-ecume,
+a.fr-tag--blue-ecume,
 button.fr-tag--blue-ecume,
 input[type=button].fr-tag--blue-ecume {
   color: var(--text-action-high-blue-ecume);
@@ -390,7 +390,7 @@ input[type=button].fr-tag--blue-ecume {
   --active: var(--background-action-low-blue-ecume-active);
 }
 
-a[href].fr-tag--blue-cumulus,
+a.fr-tag--blue-cumulus,
 button.fr-tag--blue-cumulus,
 input[type=button].fr-tag--blue-cumulus {
   color: var(--text-action-high-blue-cumulus);
@@ -401,7 +401,7 @@ input[type=button].fr-tag--blue-cumulus {
   --active: var(--background-action-low-blue-cumulus-active);
 }
 
-a[href].fr-tag--purple-glycine,
+a.fr-tag--purple-glycine,
 button.fr-tag--purple-glycine,
 input[type=button].fr-tag--purple-glycine {
   color: var(--text-action-high-purple-glycine);
@@ -412,7 +412,7 @@ input[type=button].fr-tag--purple-glycine {
   --active: var(--background-action-low-purple-glycine-active);
 }
 
-a[href].fr-tag--pink-macaron,
+a.fr-tag--pink-macaron,
 button.fr-tag--pink-macaron,
 input[type=button].fr-tag--pink-macaron {
   color: var(--text-action-high-pink-macaron);
@@ -423,7 +423,7 @@ input[type=button].fr-tag--pink-macaron {
   --active: var(--background-action-low-pink-macaron-active);
 }
 
-a[href].fr-tag--pink-tuile,
+a.fr-tag--pink-tuile,
 button.fr-tag--pink-tuile,
 input[type=button].fr-tag--pink-tuile {
   color: var(--text-action-high-pink-tuile);
@@ -434,7 +434,7 @@ input[type=button].fr-tag--pink-tuile {
   --active: var(--background-action-low-pink-tuile-active);
 }
 
-a[href].fr-tag--yellow-tournesol,
+a.fr-tag--yellow-tournesol,
 button.fr-tag--yellow-tournesol,
 input[type=button].fr-tag--yellow-tournesol {
   color: var(--text-action-high-yellow-tournesol);
@@ -445,7 +445,7 @@ input[type=button].fr-tag--yellow-tournesol {
   --active: var(--background-action-low-yellow-tournesol-active);
 }
 
-a[href].fr-tag--yellow-moutarde,
+a.fr-tag--yellow-moutarde,
 button.fr-tag--yellow-moutarde,
 input[type=button].fr-tag--yellow-moutarde {
   color: var(--text-action-high-yellow-moutarde);
@@ -456,7 +456,7 @@ input[type=button].fr-tag--yellow-moutarde {
   --active: var(--background-action-low-yellow-moutarde-active);
 }
 
-a[href].fr-tag--orange-terre-battue,
+a.fr-tag--orange-terre-battue,
 button.fr-tag--orange-terre-battue,
 input[type=button].fr-tag--orange-terre-battue {
   color: var(--text-action-high-orange-terre-battue);
@@ -467,7 +467,7 @@ input[type=button].fr-tag--orange-terre-battue {
   --active: var(--background-action-low-orange-terre-battue-active);
 }
 
-a[href].fr-tag--brown-cafe-creme,
+a.fr-tag--brown-cafe-creme,
 button.fr-tag--brown-cafe-creme,
 input[type=button].fr-tag--brown-cafe-creme {
   color: var(--text-action-high-brown-cafe-creme);
@@ -478,7 +478,7 @@ input[type=button].fr-tag--brown-cafe-creme {
   --active: var(--background-action-low-brown-cafe-creme-active);
 }
 
-a[href].fr-tag--brown-caramel,
+a.fr-tag--brown-caramel,
 button.fr-tag--brown-caramel,
 input[type=button].fr-tag--brown-caramel {
   color: var(--text-action-high-brown-caramel);
@@ -489,7 +489,7 @@ input[type=button].fr-tag--brown-caramel {
   --active: var(--background-action-low-brown-caramel-active);
 }
 
-a[href].fr-tag--brown-opera,
+a.fr-tag--brown-opera,
 button.fr-tag--brown-opera,
 input[type=button].fr-tag--brown-opera {
   color: var(--text-action-high-brown-opera);
@@ -500,7 +500,7 @@ input[type=button].fr-tag--brown-opera {
   --active: var(--background-action-low-brown-opera-active);
 }
 
-a[href].fr-tag--beige-gris-galet,
+a.fr-tag--beige-gris-galet,
 button.fr-tag--beige-gris-galet,
 input[type=button].fr-tag--beige-gris-galet {
   color: var(--text-action-high-beige-gris-galet);

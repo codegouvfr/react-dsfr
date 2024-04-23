@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.1'
+    version: '1.11.2'
   };
 
   var api = window[config.namespace];
@@ -2819,10 +2819,10 @@
       this._type = Type$1.CLICK;
     };
 
-    Actionee.prototype.listenClick = function listenClick (target) {
+    Actionee.prototype.listenActionClick = function listenActionClick (target) {
       if (target) {
         this._clickTarget = target;
-        this._clickTarget.addEventListener('click', this.handlingClick, { capture: true });
+        this._clickTarget.addEventListener('click', this._handlingClick, { capture: true });
       } else { this.listenClick({ capture: true }); }
     };
 
@@ -2947,7 +2947,7 @@
 
     Actionee.prototype.dispose = function dispose () {
       if (this._clickTarget) {
-        this._clickTarget.removeEventListener('click', this.handlingClick);
+        this._clickTarget.removeEventListener('click', this._handlingClick);
       }
       superclass.prototype.dispose.call(this);
     };
@@ -3393,7 +3393,7 @@
 
     BreadcrumbLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     BreadcrumbLinkActionee.prototype.handleClick = function handleClick () {
@@ -3448,7 +3448,7 @@
 
     ButtonActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     ButtonActionee.prototype.handleClick = function handleClick () {
@@ -3559,7 +3559,7 @@
       if (link) {
         this.link = link;
         this.detectInteractionType(link);
-        this.listenClick(link);
+        this.listenActionClick(link);
       }
     };
 
@@ -3666,7 +3666,7 @@
 
     ConnectActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -3702,7 +3702,7 @@
 
     ConnectLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -3788,7 +3788,7 @@
 
     DownloadActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -3916,7 +3916,7 @@
 
     FooterLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -4142,7 +4142,7 @@
 
     LinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -4336,7 +4336,7 @@
 
     NavigationLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -4503,7 +4503,7 @@
 
     PaginationLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -4851,7 +4851,7 @@
 
     SidemenuLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -4982,7 +4982,7 @@
 
     SummaryLinkActionee.prototype.init = function init () {
       this.detectInteractionType();
-      this.listenClick();
+      this.listenActionClick();
     };
 
     prototypeAccessors.label.get = function () {
@@ -5216,12 +5216,12 @@
 
         case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
           this.setDismissType();
-          this.listenClick();
+          this.listenActionClick();
           break;
 
         case this.isInteractive:
           this.detectInteractionType();
-          this.listenClick();
+          this.listenActionClick();
           break;
       }
     };
@@ -5276,7 +5276,7 @@
       if (link) {
         this.link = link;
         this.detectInteractionType(link);
-        this.listenClick(link);
+        this.listenActionClick(link);
       }
     };
 
@@ -5470,7 +5470,7 @@
 
   var TranslateSelector = {
     BUTTON: (TRANSLATE + "__btn"),
-    COLLAPSE: (TRANSLATE + " > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + "):not(" + COLLAPSE + ") > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > *:not(" + TRANSLATE + ", " + COLLAPSE + ") > " + COLLAPSE),
+    COLLAPSE: (TRANSLATE + " > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + "):not(" + COLLAPSE + ") > " + COLLAPSE + ", " + TRANSLATE + " > *:not(" + TRANSLATE + "):not(" + COLLAPSE + ") > *:not(" + TRANSLATE + "):not(" + COLLAPSE + ") > " + COLLAPSE),
     COLLAPSE_LEGACY: (TRANSLATE + " " + COLLAPSE)
   };
 

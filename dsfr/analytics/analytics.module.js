@@ -1,10 +1,10 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.1'
+  version: '1.11.2'
 };
 
 const api = window[config.namespace];
@@ -2709,10 +2709,10 @@ class Actionee extends api.core.Instance {
     this._type = Type$1.CLICK;
   }
 
-  listenClick (target) {
+  listenActionClick (target) {
     if (target) {
       this._clickTarget = target;
-      this._clickTarget.addEventListener('click', this.handlingClick, { capture: true });
+      this._clickTarget.addEventListener('click', this._handlingClick, { capture: true });
     } else this.listenClick({ capture: true });
   }
 
@@ -2829,7 +2829,7 @@ class Actionee extends api.core.Instance {
 
   dispose () {
     if (this._clickTarget) {
-      this._clickTarget.removeEventListener('click', this.handlingClick);
+      this._clickTarget.removeEventListener('click', this._handlingClick);
     }
     super.dispose();
   }
@@ -3188,7 +3188,7 @@ class BreadcrumbLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   handleClick () {
@@ -3231,7 +3231,7 @@ class ButtonActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   handleClick () {
@@ -3318,7 +3318,7 @@ class CardActionee extends ComponentActionee {
     if (link) {
       this.link = link;
       this.detectInteractionType(link);
-      this.listenClick(link);
+      this.listenActionClick(link);
     }
   }
 
@@ -3401,7 +3401,7 @@ class ConnectActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -3425,7 +3425,7 @@ class ConnectLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -3487,7 +3487,7 @@ class DownloadActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -3579,7 +3579,7 @@ class FooterLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -3725,7 +3725,7 @@ class LinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -3871,7 +3871,7 @@ class NavigationLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -4002,7 +4002,7 @@ class PaginationLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -4266,7 +4266,7 @@ class SidemenuLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -4361,7 +4361,7 @@ class SummaryLinkActionee extends ComponentActionee {
 
   init () {
     this.detectInteractionType();
-    this.listenClick();
+    this.listenActionClick();
   }
 
   get label () {
@@ -4535,12 +4535,12 @@ class TagActionee extends ComponentActionee {
 
       case this.isInteractive && this.node.classList.contains(TagSelector.DISMISSIBLE):
         this.setDismissType();
-        this.listenClick();
+        this.listenActionClick();
         break;
 
       case this.isInteractive:
         this.detectInteractionType();
-        this.listenClick();
+        this.listenActionClick();
         break;
     }
   }
@@ -4583,7 +4583,7 @@ class TileActionee extends ComponentActionee {
     if (link) {
       this.link = link;
       this.detectInteractionType(link);
-      this.listenClick(link);
+      this.listenActionClick(link);
     }
   }
 
@@ -4736,7 +4736,7 @@ const COLLAPSE = api.internals.ns.selector('collapse');
 
 const TranslateSelector = {
   BUTTON: `${TRANSLATE}__btn`,
-  COLLAPSE: `${TRANSLATE} > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}):not(${COLLAPSE}) > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}, ${COLLAPSE}) > *:not(${TRANSLATE}, ${COLLAPSE}) > ${COLLAPSE}`,
+  COLLAPSE: `${TRANSLATE} > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}):not(${COLLAPSE}) > ${COLLAPSE}, ${TRANSLATE} > *:not(${TRANSLATE}):not(${COLLAPSE}) > *:not(${TRANSLATE}):not(${COLLAPSE}) > ${COLLAPSE}`,
   COLLAPSE_LEGACY: `${TRANSLATE} ${COLLAPSE}`
 };
 

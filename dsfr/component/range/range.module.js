@@ -1,10 +1,10 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.1'
+  version: '1.11.2'
 };
 
 const api = window[config.namespace];
@@ -450,8 +450,9 @@ class RangeInput extends api.core.Instance {
   init () {
     this._init();
     this.node.value = this.getAttribute('value');
-    this.changing = this.change.bind(this);
-    this.node.addEventListener(this.isLegacy ? 'change' : 'input', this.changing);
+    this._changing = this.change.bind(this);
+    this._listenerType = this.isLegacy ? 'change' : 'input';
+    this.listen(this._listenerType, this._changing);
     if (this.isLegacy) this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this));
     this.change();
   }
@@ -495,7 +496,7 @@ class RangeInput extends api.core.Instance {
   }
 
   dispose () {
-    this.removeEventListener('input', this.changing);
+    if (this._listenerType) this.unlisten(this._listenerType, this._changing);
   }
 }
 

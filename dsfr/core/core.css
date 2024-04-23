@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -1685,6 +1685,7 @@ body {
   padding: 0;
   font-size: 1rem;
   line-height: 1.5rem;
+  overflow-wrap: break-word;
   background-color: var(--background-default-grey);
 
   --idle: transparent;

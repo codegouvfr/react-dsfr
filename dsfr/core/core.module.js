@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.1'
+  version: '1.11.2'
 };
 
 class LogLevel {
@@ -1486,7 +1486,7 @@ class Instance {
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this.handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1607,11 +1607,11 @@ class Instance {
   }
 
   listenClick (options) {
-    this.listen('click', this.handlingClick, options);
+    this.listen('click', this._handlingClick, options);
   }
 
   unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
+    this.unlisten('click', this._handlingClick, options);
   }
 
   handleClick (e) {}

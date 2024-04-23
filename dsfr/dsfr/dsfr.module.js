@@ -1,4 +1,4 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.1'
+  version: '1.11.2'
 };
 
 class LogLevel {
@@ -1486,7 +1486,7 @@ class Instance {
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this.handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this.handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1607,11 +1607,11 @@ class Instance {
   }
 
   listenClick (options) {
-    this.listen('click', this.handlingClick, options);
+    this.listen('click', this._handlingClick, options);
   }
 
   unlistenClick (options) {
-    this.unlisten('click', this.handlingClick, options);
+    this.unlisten('click', this._handlingClick, options);
   }
 
   handleClick (e) {}
@@ -6116,8 +6116,9 @@ class RangeInput extends api.core.Instance {
   init () {
     this._init();
     this.node.value = this.getAttribute('value');
-    this.changing = this.change.bind(this);
-    this.node.addEventListener(this.isLegacy ? 'change' : 'input', this.changing);
+    this._changing = this.change.bind(this);
+    this._listenerType = this.isLegacy ? 'change' : 'input';
+    this.listen(this._listenerType, this._changing);
     if (this.isLegacy) this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this));
     this.change();
   }
@@ -6161,7 +6162,7 @@ class RangeInput extends api.core.Instance {
   }
 
   dispose () {
-    this.removeEventListener('input', this.changing);
+    if (this._listenerType) this.unlisten(this._listenerType, this._changing);
   }
 }
 
@@ -6273,12 +6274,12 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
-    if (toolsHtmlIdList) {
-      // on a besoin d'échapper les backslash dans la chaine de caractère
-      // eslint-disable-next-line no-useless-escape
-      toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
-    }
+    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm) || [];
+
+    // on a besoin d'échapper les backslash dans la chaine de caractère
+    // eslint-disable-next-line no-useless-escape
+    toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
+
     const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
     let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
     if (toolsHtmlAriaControlList) {

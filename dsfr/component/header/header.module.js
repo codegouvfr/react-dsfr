@@ -1,10 +1,10 @@
-/*! DSFR v1.11.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.1'
+  version: '1.11.2'
 };
 
 const api = window[config.namespace];
@@ -31,12 +31,12 @@ class HeaderLinks extends api.core.Instance {
     const toolsHtml = this.toolsLinks.innerHTML.replace(/  +/g, ' ');
     const menuHtml = this.menuLinks.innerHTML.replace(/  +/g, ' ');
     // Pour éviter de dupliquer des id, on ajoute un suffixe aux id et aria-controls duppliqués.
-    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm);
-    if (toolsHtmlIdList) {
-      // on a besoin d'échapper les backslash dans la chaine de caractère
-      // eslint-disable-next-line no-useless-escape
-      toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
-    }
+    let toolsHtmlIdList = toolsHtml.match(/id="(.*?)"/gm) || [];
+
+    // on a besoin d'échapper les backslash dans la chaine de caractère
+    // eslint-disable-next-line no-useless-escape
+    toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
+
     const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
     let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
     if (toolsHtmlAriaControlList) {
