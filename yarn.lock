@@ -1414,10 +1414,10 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@gouvfr/dsfr@1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.1.tgz#6fb86026e7d53fedcec2f1d481bf6c4c24d3e787"
-  integrity sha512-t6rxZ0DDQpuex9Izpnm1wnPIgJGukZKQenPlU+PKElKGN9HvFfI3qbV5VH1uqE2+50+JORNJKJZSdYUru9stig==
+"@gouvfr/dsfr@1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.11.2.tgz#aa815e458b266acd8e457bdad35b7e3ad5e6c2ab"
+  integrity sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
