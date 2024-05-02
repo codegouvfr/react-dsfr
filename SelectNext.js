@@ -49,7 +49,7 @@ function NonMemoizedNonForwardedSelect(props, ref) {
                 "disabled": true
             },
             ...options
-        ].map((option, index) => (React.createElement("option", { value: option.value, key: `${option.value}-${index}` }, option.label)))),
+        ].map((option, index) => (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), option.label)))),
         state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx(`fr-${state}-text`) }, stateRelatedMessage))));
 }
 export const Select = memo(forwardRef(NonMemoizedNonForwardedSelect));
