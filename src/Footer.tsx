@@ -166,12 +166,7 @@ export const Footer = memo(
             homeLinkProps: homeLinkProps_prop,
             style,
             linkList,
-            domains = [
-                "legifrance.gouv.fr",
-                "gouvernement.fr",
-                "service-public.fr",
-                "data.gouv.fr"
-            ],
+            domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"],
             ...rest
         } = props;
 
