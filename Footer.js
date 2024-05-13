@@ -21,12 +21,7 @@ import { typeGuard } from "tsafe/typeGuard";
 import { id } from "tsafe/id";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList, domains = [
-        "legifrance.gouv.fr",
-        "gouvernement.fr",
-        "service-public.fr",
-        "data.gouv.fr"
-    ] } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList", "domains"]);
+    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList, domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"] } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList", "domains"]);
     assert();
     const rootId = id_props !== null && id_props !== void 0 ? id_props : "fr-footer";
     const { brandTop, homeLinkProps } = (() => {
