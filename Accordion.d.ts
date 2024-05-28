@@ -12,11 +12,11 @@ export declare namespace AccordionProps {
     };
     type Uncontrolled = Common & {
         defaultExpanded?: boolean;
-        expanded?: undefined;
+        expanded?: never;
         onExpandedChange?: (expanded: boolean, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     };
     type Controlled = Common & {
-        defaultExpanded?: undefined;
+        defaultExpanded?: never;
         expanded: boolean;
         onExpandedChange: (expanded: boolean, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     };

@@ -1,6 +1,13 @@
 "use client";
 
-import React, { forwardRef, memo, useState, type ReactNode, type CSSProperties } from "react";
+import React, {
+    forwardRef,
+    memo,
+    useState,
+    useEffect,
+    type ReactNode,
+    type CSSProperties
+} from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
@@ -24,7 +31,7 @@ export namespace AccordionProps {
 
     export type Uncontrolled = Common & {
         defaultExpanded?: boolean;
-        expanded?: undefined;
+        expanded?: never;
         onExpandedChange?: (
             expanded: boolean,
             e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -32,7 +39,7 @@ export namespace AccordionProps {
     };
 
     export type Controlled = Common & {
-        defaultExpanded?: undefined;
+        defaultExpanded?: never;
         expanded: boolean;
         onExpandedChange: (
             expanded: boolean,
@@ -52,7 +59,7 @@ export const Accordion = memo(
             classes = {},
             style,
             children,
-            expanded: expandedProp,
+            expanded: expanded_props,
             defaultExpanded = false,
             onExpandedChange,
             ...rest
@@ -67,14 +74,25 @@ export const Accordion = memo(
 
         const collapseElementId = `${id}-collapse`;
 
-        const [expandedState, setExpandedState] = useState(defaultExpanded);
+        const [isExpanded, setIsExpanded] = useState(expanded_props ?? defaultExpanded);
 
-        const value = expandedProp ? expandedProp : expandedState;
+        useEffect(() => {
+            if (expanded_props === undefined) {
+                return;
+            }
+
+            setIsExpanded(expanded_props);
+        }, [expanded_props]);
 
         const onExtendButtonClick = useConstCallback(
             (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                setExpandedState(!value);
-                onExpandedChange?.(!value, event);
+                const isExpended_newValue = !isExpanded;
+
+                onExpandedChange?.(isExpended_newValue, event);
+
+                if (expanded_props === undefined) {
+                    setIsExpanded(isExpended_newValue);
+                }
             }
         );
 
@@ -88,7 +106,7 @@ export const Accordion = memo(
                 <HtmlTitleTag className={cx(fr.cx("fr-accordion__title"), classes.title)}>
                     <button
                         className={fr.cx("fr-accordion__btn")}
-                        aria-expanded={value}
+                        aria-expanded={isExpanded}
                         aria-controls={collapseElementId}
                         onClick={onExtendButtonClick}
                         type="button"
