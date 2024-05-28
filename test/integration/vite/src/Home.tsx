@@ -10,6 +10,8 @@ import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 
+import { Accordion } from "@codegouvfr/react-dsfr/Accordion";
+
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
     return (
@@ -66,6 +68,7 @@ export function Home() {
             </div>
             <Form />
             <TableExample />
+            <ControlledAccordion />
         </>
     );
 }
@@ -200,6 +203,22 @@ function TableExample() {
             ]}
         />
     );
+}
+
+function ControlledAccordion(){
+
+    const [ expanded, setExpanded ] = useState(false)
+
+    return (
+        <Accordion 
+            label="Name of the Accordion" 
+            onExpandedChange={(value,) => setExpanded(!value)} 
+            expanded={expanded}
+        >
+            Content of the Accordion
+        </Accordion>
+    );
+
 }
 
 

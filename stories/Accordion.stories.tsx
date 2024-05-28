@@ -32,7 +32,7 @@ function ControlledAccordion() {
     return (
         <Accordion 
             label="Name of the Accordion" 
-            onChange={(value,) => setExpanded(!value)} 
+            onExpandedChange={(value,) => setExpanded(!value)} 
             expanded={expanded}
         >
             Content of the Accordion
