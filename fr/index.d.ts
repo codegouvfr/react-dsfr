@@ -30,7 +30,6 @@ export declare const fr: {
             readonly xl: 78;
         };
         getPxValues: () => import("./breakpoints").BreakpointsValues;
-        getBreakpointsValues: () => import("./breakpoints").BreakpointsValues;
     };
     spacing: typeof spacing;
     cx: (...args: import("./cx").FrCxArg[]) => string;

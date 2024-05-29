@@ -32,6 +32,4 @@ export declare const breakpoints: {
      * import { useBreakpointsValuesPx } from "@codegouvfr/react-dsfr/useBreakpointsValuesPx";
      */
     getPxValues: () => BreakpointsValues;
-    /** @deprecated use breakpoints.values if you're ok with getting the value in em or breakpoints.getPxValues() if you want the value in pixel */
-    getBreakpointsValues: () => BreakpointsValues;
 };

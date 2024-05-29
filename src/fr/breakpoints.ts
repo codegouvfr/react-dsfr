@@ -98,7 +98,5 @@ export const breakpoints = {
         return Object.fromEntries(
             Object.entries(values).map(([key, value]) => [key, value * factor])
         ) as any;
-    },
-    /** @deprecated use breakpoints.values if you're ok with getting the value in em or breakpoints.getPxValues() if you want the value in pixel */
-    "getBreakpointsValues": () => breakpoints.getPxValues()
+    }
 };

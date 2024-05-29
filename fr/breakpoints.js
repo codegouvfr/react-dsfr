@@ -61,8 +61,6 @@ export const breakpoints = {
         assert();
         const factor = getBaseFontSizePx();
         return Object.fromEntries(Object.entries(values).map(([key, value]) => [key, value * factor]));
-    },
-    /** @deprecated use breakpoints.values if you're ok with getting the value in em or breakpoints.getPxValues() if you want the value in pixel */
-    "getBreakpointsValues": () => breakpoints.getPxValues()
+    }
 };
 //# sourceMappingURL=breakpoints.js.map
