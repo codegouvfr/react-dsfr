@@ -25,7 +25,7 @@ export const MegaMenu = memo(forwardRef((props, ref) => {
     const { Link } = getLink();
     return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-mega-menu"), classes.root), style: style, tabIndex: -1, id: id, ref: ref }, rest),
         React.createElement("div", { className: fr.cx("fr-container", "fr-container--fluid", "fr-container-lg") },
-            React.createElement("button", { className: fr.cx("fr-link--close", "fr-link"), "aria-controls": "mega-menu-775" }, t("close")),
+            React.createElement("button", { className: fr.cx("fr-link--close", "fr-link"), "aria-controls": id }, t("close")),
             React.createElement("div", { className: fr.cx("fr-grid-row", "fr-grid-row-lg--gutters") },
                 leader !== undefined && (React.createElement("div", { className: fr.cx("fr-col-12", "fr-col-lg-8", "fr-col-offset-lg-4--right", "fr-mb-4v") },
                     React.createElement("div", { className: cx(fr.cx("fr-mega-menu__leader"), classes.leader) },
