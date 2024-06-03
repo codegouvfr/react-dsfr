@@ -58,10 +58,7 @@ export const MegaMenu = memo(
                 {...rest}
             >
                 <div className={fr.cx("fr-container", "fr-container--fluid", "fr-container-lg")}>
-                    <button
-                        className={fr.cx("fr-link--close", "fr-link")}
-                        aria-controls="mega-menu-775"
-                    >
+                    <button className={fr.cx("fr-link--close", "fr-link")} aria-controls={id}>
                         {t("close")}
                     </button>
                     <div className={fr.cx("fr-grid-row", "fr-grid-row-lg--gutters")}>

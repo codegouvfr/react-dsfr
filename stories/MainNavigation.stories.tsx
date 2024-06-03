@@ -68,7 +68,8 @@ export const DirectLinks = getStory({
                 "target": "_self"
             }
         }
-    ]
+    ],
+    "id": "story-direct-links"
 });
 
 export const DropdownMenu = getStory({
@@ -183,7 +184,8 @@ export const DropdownMenu = getStory({
                 "target": "_self"
             }
         }
-    ]
+    ],
+    "id": "story-dropdown-menu"
 });
 
 export const MegaMenu = getStory({
@@ -620,5 +622,6 @@ export const MegaMenu = getStory({
                 "target": "_self"
             }
         }
-    ]
+    ],
+    "id": "story-mega-menu"
 });
