@@ -364,14 +364,14 @@ export const Footer = memo(
                                     classes.partnersLogos
                                 )}
                             >
-                                <div
-                                    className={cx(
-                                        fr.cx("fr-footer__partners-main"),
-                                        classes.partnersMain
-                                    )}
-                                >
-                                    {mainPartnersLogo !== undefined &&
-                                        (() => {
+                                {mainPartnersLogo !== undefined && (
+                                    <div
+                                        className={cx(
+                                            fr.cx("fr-footer__partners-main"),
+                                            classes.partnersMain
+                                        )}
+                                    >
+                                        {(() => {
                                             const children = (
                                                 <img
                                                     alt={mainPartnersLogo.alt}
@@ -409,7 +409,8 @@ export const Footer = memo(
                                                 children
                                             );
                                         })()}
-                                </div>
+                                    </div>
+                                )}
                                 {subPartnersLogos.length !== 0 && (
                                     <div
                                         className={cx(
