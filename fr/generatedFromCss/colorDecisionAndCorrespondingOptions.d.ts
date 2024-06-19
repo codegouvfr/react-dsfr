@@ -4666,6 +4666,97 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
         };
     };
 }, {
+    readonly colorDecisionName: "--background-action-high-grey";
+    readonly themePath: readonly ["background", "actionHigh", "grey", "default"];
+    readonly parsedColorDecisionName: {
+        readonly variant: "high";
+        readonly context: "background";
+        readonly colorName: "grey";
+        readonly usage: "action";
+    };
+    readonly colorOption: {
+        readonly colorOptionName: "--grey-200-850";
+        readonly themePath: readonly ["grey", "_200_850", "default"];
+        readonly color: {
+            readonly light: "#3a3a3a";
+            readonly dark: "#cecece";
+        };
+        readonly parsedColorOptionName: {
+            readonly colorName: "grey";
+            readonly brightness: {
+                readonly isInvariant: false;
+                readonly light: {
+                    readonly value: 200;
+                };
+                readonly dark: {
+                    readonly value: 850;
+                };
+            };
+        };
+    };
+}, {
+    readonly colorDecisionName: "--background-action-high-grey-hover";
+    readonly themePath: readonly ["background", "actionHigh", "grey", "hover"];
+    readonly parsedColorDecisionName: {
+        readonly variant: "high";
+        readonly state: "hover";
+        readonly context: "background";
+        readonly colorName: "grey";
+        readonly usage: "action";
+    };
+    readonly colorOption: {
+        readonly colorOptionName: "--grey-200-850-hover";
+        readonly themePath: readonly ["grey", "_200_850", "hover"];
+        readonly color: {
+            readonly light: "#616161";
+            readonly dark: "#a8a8a8";
+        };
+        readonly parsedColorOptionName: {
+            readonly colorName: "grey";
+            readonly brightness: {
+                readonly isInvariant: false;
+                readonly light: {
+                    readonly value: 200;
+                };
+                readonly dark: {
+                    readonly value: 850;
+                };
+            };
+            readonly state: "hover";
+        };
+    };
+}, {
+    readonly colorDecisionName: "--background-action-high-grey-active";
+    readonly themePath: readonly ["background", "actionHigh", "grey", "active"];
+    readonly parsedColorDecisionName: {
+        readonly variant: "high";
+        readonly state: "active";
+        readonly context: "background";
+        readonly colorName: "grey";
+        readonly usage: "action";
+    };
+    readonly colorOption: {
+        readonly colorOptionName: "--grey-200-850-active";
+        readonly themePath: readonly ["grey", "_200_850", "active"];
+        readonly color: {
+            readonly light: "#777777";
+            readonly dark: "#939393";
+        };
+        readonly parsedColorOptionName: {
+            readonly colorName: "grey";
+            readonly brightness: {
+                readonly isInvariant: false;
+                readonly light: {
+                    readonly value: 200;
+                };
+                readonly dark: {
+                    readonly value: 850;
+                };
+            };
+            readonly state: "active";
+        };
+    };
+}, {
     readonly colorDecisionName: "--background-action-high-blue-france";
     readonly themePath: readonly ["background", "actionHigh", "blueFrance", "default"];
     readonly parsedColorDecisionName: {
@@ -12292,6 +12383,34 @@ export declare const colorDecisionAndCorrespondingOptions: readonly [{
                 readonly isInvariant: true;
                 readonly value: 702;
                 readonly variant: "main";
+            };
+        };
+    };
+}, {
+    readonly colorDecisionName: "--border-contrast-grey";
+    readonly themePath: readonly ["border", "contrast", "grey", "default"];
+    readonly parsedColorDecisionName: {
+        readonly context: "border";
+        readonly colorName: "grey";
+        readonly usage: "contrast";
+    };
+    readonly colorOption: {
+        readonly colorOptionName: "--grey-625-425";
+        readonly themePath: readonly ["grey", "_625_425", "default"];
+        readonly color: {
+            readonly light: "#929292";
+            readonly dark: "#666666";
+        };
+        readonly parsedColorOptionName: {
+            readonly colorName: "grey";
+            readonly brightness: {
+                readonly isInvariant: false;
+                readonly light: {
+                    readonly value: 625;
+                };
+                readonly dark: {
+                    readonly value: 425;
+                };
             };
         };
     };

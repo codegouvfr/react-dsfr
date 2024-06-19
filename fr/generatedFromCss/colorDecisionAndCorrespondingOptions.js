@@ -6258,6 +6258,127 @@ export const colorDecisionAndCorrespondingOptions = [
         }
     },
     {
+        "colorDecisionName": "--background-action-high-grey",
+        "themePath": [
+            "background",
+            "actionHigh",
+            "grey",
+            "default"
+        ],
+        "parsedColorDecisionName": {
+            "variant": "high",
+            "context": "background",
+            "colorName": "grey",
+            "usage": "action"
+        },
+        "colorOption": {
+            "colorOptionName": "--grey-200-850",
+            "themePath": [
+                "grey",
+                "_200_850",
+                "default"
+            ],
+            "color": {
+                "light": "#3a3a3a",
+                "dark": "#cecece"
+            },
+            "parsedColorOptionName": {
+                "colorName": "grey",
+                "brightness": {
+                    "isInvariant": false,
+                    "light": {
+                        "value": 200
+                    },
+                    "dark": {
+                        "value": 850
+                    }
+                }
+            }
+        }
+    },
+    {
+        "colorDecisionName": "--background-action-high-grey-hover",
+        "themePath": [
+            "background",
+            "actionHigh",
+            "grey",
+            "hover"
+        ],
+        "parsedColorDecisionName": {
+            "variant": "high",
+            "state": "hover",
+            "context": "background",
+            "colorName": "grey",
+            "usage": "action"
+        },
+        "colorOption": {
+            "colorOptionName": "--grey-200-850-hover",
+            "themePath": [
+                "grey",
+                "_200_850",
+                "hover"
+            ],
+            "color": {
+                "light": "#616161",
+                "dark": "#a8a8a8"
+            },
+            "parsedColorOptionName": {
+                "colorName": "grey",
+                "brightness": {
+                    "isInvariant": false,
+                    "light": {
+                        "value": 200
+                    },
+                    "dark": {
+                        "value": 850
+                    }
+                },
+                "state": "hover"
+            }
+        }
+    },
+    {
+        "colorDecisionName": "--background-action-high-grey-active",
+        "themePath": [
+            "background",
+            "actionHigh",
+            "grey",
+            "active"
+        ],
+        "parsedColorDecisionName": {
+            "variant": "high",
+            "state": "active",
+            "context": "background",
+            "colorName": "grey",
+            "usage": "action"
+        },
+        "colorOption": {
+            "colorOptionName": "--grey-200-850-active",
+            "themePath": [
+                "grey",
+                "_200_850",
+                "active"
+            ],
+            "color": {
+                "light": "#777777",
+                "dark": "#939393"
+            },
+            "parsedColorOptionName": {
+                "colorName": "grey",
+                "brightness": {
+                    "isInvariant": false,
+                    "light": {
+                        "value": 200
+                    },
+                    "dark": {
+                        "value": 850
+                    }
+                },
+                "state": "active"
+            }
+        }
+    },
+    {
         "colorDecisionName": "--background-action-high-blue-france",
         "themePath": [
             "background",
@@ -16463,6 +16584,44 @@ export const colorDecisionAndCorrespondingOptions = [
                     "isInvariant": true,
                     "value": 702,
                     "variant": "main"
+                }
+            }
+        }
+    },
+    {
+        "colorDecisionName": "--border-contrast-grey",
+        "themePath": [
+            "border",
+            "contrast",
+            "grey",
+            "default"
+        ],
+        "parsedColorDecisionName": {
+            "context": "border",
+            "colorName": "grey",
+            "usage": "contrast"
+        },
+        "colorOption": {
+            "colorOptionName": "--grey-625-425",
+            "themePath": [
+                "grey",
+                "_625_425",
+                "default"
+            ],
+            "color": {
+                "light": "#929292",
+                "dark": "#666666"
+            },
+            "parsedColorOptionName": {
+                "colorName": "grey",
+                "brightness": {
+                    "isInvariant": false,
+                    "light": {
+                        "value": 625
+                    },
+                    "dark": {
+                        "value": 425
+                    }
                 }
             }
         }

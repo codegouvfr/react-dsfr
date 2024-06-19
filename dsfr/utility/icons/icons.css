@@ -1205,6 +1205,37 @@
   margin-right: 0.5rem;
 }
 
+.fr-notice--info .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/system/fr--info-fill.svg");
+  mask-image: url("../../icons/system/fr--info-fill.svg");
+}
+
+.fr-notice--warning .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+.fr-notice--alert .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+  mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-notice--alert .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/system/error-warning-fill.svg");
+  mask-image: url("../../icons/system/error-warning-fill.svg");
+}
+
+.fr-notice--weather-orange .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/heavy-showers-fill.svg");
+  mask-image: url("../../icons/weather/heavy-showers-fill.svg");
+}
+
+.fr-notice--weather-red .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/tornado-fill.svg");
+  mask-image: url("../../icons/weather/tornado-fill.svg");
+}
+
+.fr-notice--weather-purple .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/typhoon-fill.svg");
+  mask-image: url("../../icons/weather/typhoon-fill.svg");
+}
+
 .fr-card__detail[class^=ri-]::before,
 .fr-card__detail[class*=" ri-"]::before,
 .fr-card__detail[class^=fr-fi-]::before,
@@ -1477,7 +1508,187 @@
   }
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  [target=_blank][class^=ri-]::after,
+  [target=_blank][class*=" ri-"]::after,
+  [target=_blank][class^=fr-fi-]::after,
+  [target=_blank][class*=" fr-fi-"]::after {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:disabled:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([href]):not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a[href].fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([href]):not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([href]):not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+}
+
+@media (-ms-high-contrast: active) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (forced-colors: active), (forced-colors: active) and (-ms-high-contrast: active), (forced-colors: active) and (forced-colors: active) {
+  [class^=ri-]::before,
+  [class^=ri-]::after,
+  [class*=" ri-"]::before,
+  [class*=" ri-"]::after,
+  [class^=fr-fi-]::before,
+  [class^=fr-fi-]::after,
+  [class*=" fr-fi-"]::before,
+  [class*=" fr-fi-"]::after {
+    forced-color-adjust: none;
+    background-color: canvastext;
+  }
+
+  button[class^=ri-]:not([disabled])::before,
+  button[class^=ri-]:not([disabled])::after,
+  button[class*=" ri-"]:not([disabled])::before,
+  button[class*=" ri-"]:not([disabled])::after,
+  button[class^=fr-fi-]:not([disabled])::before,
+  button[class^=fr-fi-]:not([disabled])::after,
+  button[class*=" fr-fi-"]:not([disabled])::before,
+  button[class*=" fr-fi-"]:not([disabled])::after {
+    background-color: buttontext;
+  }
+
+  a[href][class^=ri-]::before,
+  a[href][class^=ri-]::after,
+  a[href][class*=" ri-"]::before,
+  a[href][class*=" ri-"]::after,
+  a[href][class^=fr-fi-]::before,
+  a[href][class^=fr-fi-]::after,
+  a[href][class*=" fr-fi-"]::before,
+  a[href][class*=" fr-fi-"]::after {
+    background-color: linktext;
+  }
+
+  a[class^=ri-]:not([href])::before,
+  a[class^=ri-]:not([href])::after,
+  a[class*=" ri-"]:not([href])::before,
+  a[class*=" ri-"]:not([href])::after,
+  a[class^=fr-fi-]:not([href])::before,
+  a[class^=fr-fi-]:not([href])::after,
+  a[class*=" fr-fi-"]:not([href])::before,
+  a[class*=" fr-fi-"]:not([href])::after,
+  button[class^=ri-]:disabled::before,
+  button[class^=ri-]:disabled::after,
+  button[class*=" ri-"]:disabled::before,
+  button[class*=" ri-"]:disabled::after,
+  button[class^=fr-fi-]:disabled::before,
+  button[class^=fr-fi-]:disabled::after,
+  button[class*=" fr-fi-"]:disabled::before,
+  button[class*=" fr-fi-"]:disabled::after,
+  input[class^=ri-]:disabled::before,
+  input[class^=ri-]:disabled::after,
+  input[class*=" ri-"]:disabled::before,
+  input[class*=" ri-"]:disabled::after,
+  input[class^=fr-fi-]:disabled::before,
+  input[class^=fr-fi-]:disabled::after,
+  input[class*=" fr-fi-"]:disabled::before,
+  input[class*=" fr-fi-"]:disabled::after,
+  input[type=checkbox][class^=ri-]:disabled::before,
+  input[type=checkbox][class^=ri-]:disabled::after,
+  input[type=checkbox][class*=" ri-"]:disabled::before,
+  input[type=checkbox][class*=" ri-"]:disabled::after,
+  input[type=checkbox][class^=fr-fi-]:disabled::before,
+  input[type=checkbox][class^=fr-fi-]:disabled::after,
+  input[type=checkbox][class*=" fr-fi-"]:disabled::before,
+  input[type=checkbox][class*=" fr-fi-"]:disabled::after,
+  input[type=checkbox]:disabled + label[class^=ri-]::before,
+  input[type=checkbox]:disabled + label[class^=ri-]::after,
+  input[type=checkbox]:disabled + label[class*=" ri-"]::before,
+  input[type=checkbox]:disabled + label[class*=" ri-"]::after,
+  input[type=checkbox]:disabled + label[class^=fr-fi-]::before,
+  input[type=checkbox]:disabled + label[class^=fr-fi-]::after,
+  input[type=checkbox]:disabled + label[class*=" fr-fi-"]::before,
+  input[type=checkbox]:disabled + label[class*=" fr-fi-"]::after,
+  input[type=radio][class^=ri-]:disabled::before,
+  input[type=radio][class^=ri-]:disabled::after,
+  input[type=radio][class*=" ri-"]:disabled::before,
+  input[type=radio][class*=" ri-"]:disabled::after,
+  input[type=radio][class^=fr-fi-]:disabled::before,
+  input[type=radio][class^=fr-fi-]:disabled::after,
+  input[type=radio][class*=" fr-fi-"]:disabled::before,
+  input[type=radio][class*=" fr-fi-"]:disabled::after,
+  input[type=radio]:disabled + label[class^=ri-]::before,
+  input[type=radio]:disabled + label[class^=ri-]::after,
+  input[type=radio]:disabled + label[class*=" ri-"]::before,
+  input[type=radio]:disabled + label[class*=" ri-"]::after,
+  input[type=radio]:disabled + label[class^=fr-fi-]::before,
+  input[type=radio]:disabled + label[class^=fr-fi-]::after,
+  input[type=radio]:disabled + label[class*=" fr-fi-"]::before,
+  input[type=radio]:disabled + label[class*=" fr-fi-"]::after,
+  textarea[class^=ri-]:disabled::before,
+  textarea[class^=ri-]:disabled::after,
+  textarea[class*=" ri-"]:disabled::before,
+  textarea[class*=" ri-"]:disabled::after,
+  textarea[class^=fr-fi-]:disabled::before,
+  textarea[class^=fr-fi-]:disabled::after,
+  textarea[class*=" fr-fi-"]:disabled::before,
+  textarea[class*=" fr-fi-"]:disabled::after,
+  video[class^=ri-]:not([href])::before,
+  video[class^=ri-]:not([href])::after,
+  video[class*=" ri-"]:not([href])::before,
+  video[class*=" ri-"]:not([href])::after,
+  video[class^=fr-fi-]:not([href])::before,
+  video[class^=fr-fi-]:not([href])::after,
+  video[class*=" fr-fi-"]:not([href])::before,
+  video[class*=" fr-fi-"]:not([href])::after,
+  audio[class^=ri-]:not([href])::before,
+  audio[class^=ri-]:not([href])::after,
+  audio[class*=" ri-"]:not([href])::before,
+  audio[class*=" ri-"]:not([href])::after,
+  audio[class^=fr-fi-]:not([href])::before,
+  audio[class^=fr-fi-]:not([href])::after,
+  audio[class*=" fr-fi-"]:not([href])::before,
+  audio[class*=" fr-fi-"]:not([href])::after {
+    background-color: graytext;
+  }
+
+  .fr-tabs__tab[aria-selected=true][class^=ri-]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class^=ri-]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class*=" ri-"]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class*=" ri-"]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class^=fr-fi-]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class^=fr-fi-]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-fi-"]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-fi-"]:not(:disabled)::after {
+    background-color: highlight;
+  }
+}
+
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   [class^=ri-]::before,
   [class*=" ri-"]::before,
   [class^=fr-fi-]::before,
@@ -1562,6 +1773,51 @@
     background-repeat: no-repeat;
     width: 2rem;
     height: 2rem;
+  }
+
+  .fr-notice--info .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--info-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--warning .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--alert .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--witness .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--cyberattack .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--warning-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-orange .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/heavy-showers-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-red .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/tornado-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-purple .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/typhoon-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--kidnapping .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--alert-warning-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--attack .fr-notice__title:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--alert-warning-2-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -84,7 +84,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex-basis: 100%;
 
   /**
    * Si on ajoute un logo opérateur à côté du logo principal, on lui applique une marge à gauche
@@ -494,7 +493,6 @@
   }
 
   .fr-footer__brand {
-    flex-basis: auto;
     margin-right: 1rem;
   }
 
@@ -562,4 +560,58 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-footer {
+    border-top: 2px solid;
+    padding-top: 1.875rem;
+  }
+
+  .fr-footer__bottom {
+    border-top: 1px solid;
+  }
+
+  .fr-footer__bottom-item .fr-btn {
+    border: none;
+  }
+
+  .fr-footer__partners {
+    border-top: 1px solid;
+  }
+}
+@media (prefers-color-scheme: dark) and (forced-colors: active) {
+  .fr-footer__brand .fr-logo::after {
+    background-position: -2.625rem 100%;
+  }
+
+  [data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+    background-position: -2.625rem 100%;
+  }
+}
+@media (prefers-color-scheme: light) and (forced-colors: active) {
+  .fr-footer__brand .fr-logo::after {
+    background-position: 0 calc(100% + 1.875rem);
+  }
+
+  [data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+    background-position: 0 calc(100% + 1.875rem);
+  }
+}
+@media (min-width: 48em) and (prefers-color-scheme: dark) and (forced-colors: active) {
+  .fr-footer__brand .fr-logo::after {
+    background-position: -3.28125rem 100%;
+  }
+
+  [data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+    background-position: -3.28125rem 100%;
+  }
+}
+@media (min-width: 48em) and (prefers-color-scheme: light) and (forced-colors: active) {
+  .fr-footer__brand .fr-logo::after {
+    background-position: 0 calc(100% + 2.34375rem);
+  }
+
+  [data-fr-theme=dark] .fr-footer__brand .fr-logo::after {
+    background-position: 0 calc(100% + 2.34375rem);
+  }
 }

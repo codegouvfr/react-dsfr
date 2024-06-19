@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -344,6 +344,20 @@
   content: "";
 }
 
+.fr-follow .fr-link--twitter-x::before {
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/logo/twitter-x-fill.svg");
+  mask-image: url("../../icons/logo/twitter-x-fill.svg");
+  content: "";
+}
+
 .fr-follow .fr-link--instagram::before {
   flex: 0 0 auto;
   display: inline-block;
@@ -533,7 +547,34 @@
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([href]):not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([href]):not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   /**
   * Correctif de la largeur max des textes
   */
@@ -635,6 +676,16 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../../icons/logo/twitter-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-follow .fr-link--twitter-x::before,
+  .fr-follow .fr-link--twitter-x::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/logo/twitter-x-fill.svg");
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -765,7 +816,7 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
-@media (min-width: 48em) and (-ms-high-contrast: none), (min-width: 48em) and (-ms-high-contrast: active) {
+@media screen and (min-width: 48em) and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-follow .fr-grid-row > *:not(:first-child) {
     box-shadow: -1px 0 0 0 #6a6af4;
   }
@@ -805,34 +856,6 @@
 
   .fr-follow .fr-grid-row > *:not(:first-child) {
     box-shadow: 0 -1px 0 0 #6a6af4;
-  }
-}
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-follow__social .fr-btn {
-    background-color: transparent;
-  }
-
-  .fr-follow__social .fr-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-follow__social .fr-btn:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-follow__social .fr-btn:disabled,
-  .fr-follow__social a.fr-btn:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-follow__social .fr-btn:disabled:hover,
-  .fr-follow__social a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-follow__social .fr-btn:disabled:active,
-  .fr-follow__social a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 @media print and (min-width: 48em) {

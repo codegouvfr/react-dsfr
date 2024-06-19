@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -20,6 +20,7 @@
   background-repeat: no-repeat;
   background-position: calc(50% + var(--arrow-x)) calc(100% - 0.5rem), calc(50% + var(--arrow-x)) calc(100% - 0.375rem), 50% calc(100% - 0.75rem), 50% calc(100% - 0.75rem);
   background-size: 0.5rem 0.375rem, 0.5rem 0.375rem, 100% 1px, 100% calc(100% - 0.75rem);
+  white-space: normal;
   color: var(--text-default-grey);
 }
 
@@ -59,4 +60,14 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-tooltip {
+    outline: 1px solid;
+    background: canvas;
+  }
+
+  .fr-tooltip.fr-placement {
+    padding: 0.5rem;
+  }
 }

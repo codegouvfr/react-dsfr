@@ -1,10 +1,10 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.2'
+  version: '1.12.0'
 };
 
 const api = window[config.namespace];
@@ -339,6 +339,12 @@ class Renderer {
 
 const renderer = new Renderer();
 
+const ActionRegulation = {
+  ENFORCE: 'enforce',
+  PREVENT: 'prevent',
+  NONE: 'none'
+};
+
 const SLICE = 80;
 
 class Queue {
@@ -377,23 +383,31 @@ class Queue {
     this._request();
   }
 
-  appendStartingAction (action, data) {
-    if (!this._collector.isActionEnabled && !action.isForced) return;
-    if (!action || this._startingActions.some(queued => queued.test(action))) {
-      api.inspector.log('appendStartingAction exists or null', action);
-      return;
+  regulate (action, queue) {
+    if (!action) return false;
+    if (queue.some(queued => queued.test(action))) {
+      api.inspector.log('action exists in queue', action);
+      return false;
     }
+    switch (action.regulation) {
+      case ActionRegulation.PREVENT:
+        return false;
+      case ActionRegulation.ENFORCE:
+        return true;
+      default:
+        return this._collector.isActionEnabled;
+    }
+  }
+
+  appendStartingAction (action, data) {
+    if (!this.regulate(action, this._startingActions)) return;
     const queued = new QueuedAction(action, data);
     this._startingActions.push(queued);
     this._request();
   }
 
   appendEndingAction (action, data) {
-    if (!this._collector.isActionEnabled && !action.isForced) return;
-    if (!action || this._endingActions.some(queued => queued.test(action))) {
-      api.inspector.log('appendEndingAction exists or null', action);
-      return;
-    }
+    if (!this.regulate(action, this._endingActions)) return;
     const queued = new QueuedAction(action, data);
     this._endingActions.push(queued);
     this._request();
@@ -1491,7 +1505,7 @@ const getParametersLayer = (data) => {
 class Action {
   constructor (name) {
     this._isMuted = false;
-    this._isForced = false;
+    this._regulation = ActionRegulation.NONE;
     this._name = name;
     this._status = ActionStatus.UNSTARTED;
     this._labels = [];
@@ -1507,12 +1521,12 @@ class Action {
     this._isMuted = value;
   }
 
-  get isForced () {
-    return this._isForced;
+  get regulation () {
+    return this._regulation;
   }
 
-  set isForced (value) {
-    this._isForced = value;
+  set regulation (value) {
+    if (Object.values(ActionRegulation).includes(value)) this._regulation = value;
   }
 
   get isSingular () {
@@ -2492,7 +2506,7 @@ class Hierarchy {
 }
 
 class ActionElement {
-  constructor (node, type, id, category = '', title = null, parameters = {}, isRating = false, isForced = false) {
+  constructor (node, type, id, category = '', title = null, parameters = {}, isRating = false, regulation = ActionRegulation.NONE) {
     this._node = node;
     this._type = type;
     this._id = id || this._node.id;
@@ -2501,7 +2515,7 @@ class ActionElement {
     this._category = category;
     this._parameters = parameters;
     this._isRating = isRating;
-    this._isForced = isForced;
+    this._regulation = regulation;
     this._hasBegun = false;
 
     // this._init();
@@ -2522,7 +2536,7 @@ class ActionElement {
     if (this._type.isSingular) this._action.singularize();
     Object.keys(this._parameters).forEach(key => this._action.addParameter(key, this._parameters[key]));
     this._action.isMuted = this._isMuted;
-    this._action.isForced = this._isForced;
+    this._action.regulation = this._regulation;
 
     this._action.labels[0] = this._type.id;
     this._action.labels[1] = this._hierarchy.globalComponent;
@@ -2543,6 +2557,15 @@ class ActionElement {
   set isMuted (value) {
     this._isMuted = value;
     if (this._action) this._action.isMuted = value;
+  }
+
+  get regulation () {
+    return this._regulation;
+  }
+
+  set regulation (value) {
+    this._regulation = value;
+    if (this._action) this._action.regulation = value;
   }
 
   get action () {
@@ -2580,7 +2603,7 @@ const ActionAttributes = {
 };
 
 class Actionee extends api.core.Instance {
-  constructor (priority = -1, category = '', title = null, isForced = false) {
+  constructor (priority = -1, category = '', title = null, regulation = ActionRegulation.NONE) {
     super();
     this._type = null;
     this._priority = priority;
@@ -2589,7 +2612,7 @@ class Actionee extends api.core.Instance {
     this._parameters = {};
     this._data = {};
     this._isMuted = false;
-    this._isForced = isForced;
+    this._regulation = regulation;
   }
 
   static get instanceClassName () {
@@ -2637,12 +2660,41 @@ class Actionee extends api.core.Instance {
       return;
     }
 
-    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this.getAttribute(ActionAttributes.ACTION) || this._title, this._parameters, this.hasAttribute(ActionAttributes.RATING), this.hasAttribute(ActionAttributes.ACTION) || this._isForced);
+    const regulation = this.getRegulation();
+    this._regulation = regulation !== ActionRegulation.NONE ? regulation : this._regulation;
+    const actionAttribute = this.getAttribute(ActionAttributes.ACTION);
+    const title = typeof actionAttribute === 'string' && actionAttribute.toLowerCase() !== 'false' && actionAttribute.toLowerCase() !== 'true' ? normalize(actionAttribute) : this._title;
+    this._isRating = this.hasAttribute(ActionAttributes.RATING);
+
+    this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, title, this._parameters, this._isRating, this._regulation);
     if (this._isMuted) this._actionElement.isMuted = true;
 
     this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
 
     this._sort(element);
+  }
+
+  getRegulation () {
+    const actionAttribute = this.getAttribute(ActionAttributes.ACTION);
+    switch (true) {
+      case typeof actionAttribute === 'string' && actionAttribute.toLowerCase() === 'false':
+        return ActionRegulation.PREVENT;
+      case actionAttribute !== null:
+        return ActionRegulation.ENFORCE;
+      default:
+        return ActionRegulation.NONE;
+    }
+  }
+
+  mutate (attributeNames) {
+    if (attributeNames.includes(ActionAttributes.ACTION)) {
+      const regulation = this.getRegulation();
+      if (this._regulation !== regulation) {
+        this._regulation = regulation;
+        if (this._actionElement) this._actionElement.regulation = regulation;
+      }
+    }
+    super.mutate(attributeNames);
   }
 
   _sort (element) {
@@ -3036,7 +3088,7 @@ const AccordionSelector = {
   TITLE: api.internals.ns.selector('accordion__title')
 };
 
-const ID$x = 'accordion';
+const ID$y = 'accordion';
 
 class AccordionButtonActionee extends ComponentActionee {
   constructor () {
@@ -3063,7 +3115,7 @@ class AccordionButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$x;
+    return ID$y;
   }
 }
 
@@ -3104,7 +3156,7 @@ class AccordionActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$x;
+    return ID$y;
   }
 
   dispose () {
@@ -3123,7 +3175,7 @@ const AlertSelector = {
   TITLE: api.internals.ns.selector('alert__title')
 };
 
-const ID$w = 'alert';
+const ID$x = 'alert';
 
 class AlertActionee extends ComponentActionee {
   constructor () {
@@ -3144,7 +3196,7 @@ class AlertActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$w;
+    return ID$x;
   }
 }
 
@@ -3157,7 +3209,7 @@ const BreadcrumbSelector = {
   COLLAPSE: `${api.internals.ns.selector('breadcrumb')} ${api.internals.ns.selector('collapse')}`
 };
 
-const ID$v = 'breadcrumb';
+const ID$w = 'breadcrumb';
 
 class BreadcrumbActionee extends ComponentActionee {
   constructor () {
@@ -3173,7 +3225,7 @@ class BreadcrumbActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$v;
+    return ID$w;
   }
 }
 
@@ -3217,7 +3269,7 @@ const ButtonSelector = {
   BUTTON: `${api.internals.ns.selector('btn')}:not(${api.internals.ns.selector('btn--close')})`
 };
 
-const ID$u = 'button';
+const ID$v = 'button';
 
 class ButtonActionee extends ComponentActionee {
   constructor () {
@@ -3253,7 +3305,7 @@ class ButtonActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$u;
+    return ID$v;
   }
 }
 
@@ -3266,7 +3318,7 @@ const CalloutSelector = {
   TITLE: api.internals.ns.selector('callout__title')
 };
 
-const ID$t = 'callout';
+const ID$u = 'callout';
 
 class CalloutActionee extends ComponentActionee {
   constructor () {
@@ -3288,7 +3340,7 @@ class CalloutActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$t;
+    return ID$u;
   }
 }
 
@@ -3302,7 +3354,7 @@ const CardSelector = {
   TITLE: api.internals.ns.selector('card__title')
 };
 
-const ID$s = 'card';
+const ID$t = 'card';
 
 class CardActionee extends ComponentActionee {
   constructor () {
@@ -3336,7 +3388,7 @@ class CardActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$s;
+    return ID$t;
   }
 }
 
@@ -3348,7 +3400,7 @@ const CheckboxSelector = {
   INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
 };
 
-const ID$r = 'checkbox';
+const ID$s = 'checkbox';
 
 class CheckboxActionee extends ComponentActionee {
   constructor () {
@@ -3375,7 +3427,7 @@ class CheckboxActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$r;
+    return ID$s;
   }
 }
 
@@ -3388,7 +3440,7 @@ const ConnectSelector = {
   LINK: api.internals.ns.selector('connect + * a, connect + a')
 };
 
-const ID$q = 'connect';
+const ID$r = 'connect';
 
 class ConnectActionee extends ComponentActionee {
   constructor () {
@@ -3410,7 +3462,7 @@ class ConnectActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$q;
+    return ID$r;
   }
 }
 
@@ -3433,7 +3485,7 @@ class ConnectLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$q;
+    return ID$r;
   }
 }
 
@@ -3446,7 +3498,7 @@ const ConsentSelector = {
   BANNER: api.internals.ns.selector('consent-banner')
 };
 
-const ID$p = 'consent';
+const ID$q = 'consent';
 
 class ConsentActionee extends ComponentActionee {
   constructor () {
@@ -3462,7 +3514,7 @@ class ConsentActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$p;
+    return ID$q;
   }
 }
 
@@ -3474,7 +3526,7 @@ const DownloadSelector = {
   LINK: api.internals.ns.selector('download__link')
 };
 
-const ID$o = 'download';
+const ID$p = 'download';
 
 class DownloadActionee extends ComponentActionee {
   constructor () {
@@ -3497,7 +3549,7 @@ class DownloadActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$o;
+    return ID$p;
   }
 }
 
@@ -3510,7 +3562,7 @@ const FollowSelector = {
   NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
 };
 
-const ID$n = 'follow';
+const ID$o = 'follow';
 
 class FollowActionee extends ComponentActionee {
   constructor () {
@@ -3535,7 +3587,7 @@ class FollowActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$n;
+    return ID$o;
   }
 }
 
@@ -3548,7 +3600,7 @@ const FooterSelector = {
   FOOTER_LINKS: `${api.internals.ns.selector('footer')} a[href], ${api.internals.ns.selector('footer')} button`
 };
 
-const ID$m = 'footer';
+const ID$n = 'footer';
 
 class FooterActionee extends ComponentActionee {
   constructor () {
@@ -3564,7 +3616,7 @@ class FooterActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$m;
+    return ID$n;
   }
 }
 
@@ -3595,7 +3647,7 @@ const integrateFooter = () => {
   api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
 };
 
-const ID$l = 'header';
+const ID$m = 'header';
 
 class HeaderActionee extends ComponentActionee {
   constructor () {
@@ -3611,7 +3663,7 @@ class HeaderActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$l;
+    return ID$m;
   }
 }
 
@@ -3684,7 +3736,7 @@ const HighlightSelector = {
   HIGHLIGHT: api.internals.ns.selector('highlight')
 };
 
-const ID$k = 'highlight';
+const ID$l = 'highlight';
 
 class HighlightActionee extends ComponentActionee {
   constructor () {
@@ -3700,7 +3752,7 @@ class HighlightActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$k;
+    return ID$l;
   }
 }
 
@@ -3712,7 +3764,7 @@ const LinkSelector = {
   LINK: api.internals.ns.selector('link')
 };
 
-const ID$j = 'link';
+const ID$k = 'link';
 
 class LinkActionee extends ComponentActionee {
   constructor () {
@@ -3736,7 +3788,7 @@ class LinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$j;
+    return ID$k;
   }
 }
 
@@ -3748,7 +3800,7 @@ const InputSelector = {
   INPUT: api.internals.ns.selector('input-group')
 };
 
-const ID$i = 'input';
+const ID$j = 'input';
 
 class InputActionee extends ComponentActionee {
   constructor () {
@@ -3777,7 +3829,7 @@ class InputActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$i;
+    return ID$j;
   }
 }
 
@@ -3789,7 +3841,7 @@ const ModalSelector = {
   TITLE: api.internals.ns.selector('modal__title')
 };
 
-const ID$h = 'modal';
+const ID$i = 'modal';
 
 class ModalActionee extends ComponentActionee {
   constructor () {
@@ -3829,7 +3881,7 @@ class ModalActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$h;
+    return ID$i;
   }
 }
 
@@ -3858,7 +3910,7 @@ const NavigationSelector = {
   BUTTON: api.internals.ns.selector('nav__btn')
 };
 
-const ID$g = 'navigation';
+const ID$h = 'navigation';
 
 class NavigationLinkActionee extends ComponentActionee {
   constructor () {
@@ -3882,7 +3934,7 @@ class NavigationLinkActionee extends ComponentActionee {
   }
 
   get component () {
-    return ID$g;
+    return ID$h;
   }
 }
 
@@ -3926,6 +3978,69 @@ const integrateNavigation = () => {
     api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
     api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
   }
+};
+
+const NoticeSelector = {
+  NOTICE: api.internals.ns.selector('notice'),
+  TITLE: api.internals.ns.selector('notice__title'),
+  LINK: api.internals.ns.selector('notice a')
+};
+
+const ID$g = 'notice';
+
+class NoticeActionee extends ComponentActionee {
+  constructor () {
+    super(1);
+  }
+
+  static get instanceClassName () {
+    return 'NoticeActionee';
+  }
+
+  get label () {
+    const noticeTitle = this.node.querySelector(NoticeSelector.TITLE);
+    if (noticeTitle) {
+      const firstText = this.getFirstText(noticeTitle);
+      if (firstText) return firstText;
+    }
+
+    return 'bandeau d\'information importante';
+  }
+
+  get component () {
+    return ID$g;
+  }
+}
+
+class NoticeLinkActionee extends ComponentActionee {
+  constructor () {
+    super(2);
+  }
+
+  static get instanceClassName () {
+    return 'NoticeLinkActionee';
+  }
+
+  init () {
+    this.detectInteractionType();
+    this.listenActionClick();
+  }
+
+  get label () {
+    const firstText = this.getFirstText();
+    if (firstText) return firstText;
+
+    return 'lien de bandeau d\'information importante';
+  }
+
+  get component () {
+    return ID$g;
+  }
+}
+
+const integrateNotice = () => {
+  api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
+  api.internals.register(NoticeSelector.LINK, NoticeLinkActionee);
 };
 
 const PaginationSelector = {
@@ -4865,7 +4980,7 @@ const integrateComponents = () => {
   integrateLink();
   integrateModal();
   integrateNavigation();
-  // integrateNotice();
+  integrateNotice();
   integratePagination();
   integrateQuote();
   integrateRadio();

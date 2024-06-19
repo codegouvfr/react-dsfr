@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -7,37 +7,262 @@
   TABLE
 \* ˍˍˍˍˍˍˍˍˍ */
 .fr-table {
-  --table-offset: 1rem;
+  --table-offset: calc(0px);
+  --row-height: 0;
   --text-spacing: 0;
   --title-spacing: 0;
   position: relative;
   margin-bottom: 2.5rem;
-  padding-top: var(--table-offset);
+  margin-top: 1rem;
+  /*
+  * Cache la caption
+  */
+
+  /*
+  * Fixe le caption en bas du tableau
+  */
+
+  /* Style bordered, ajoute des bordures verticales entre chaque cellule */
+
+  /* Désactive le scroll horizontal */
+  /*
+  * Cache la caption
+  */
+
+  /*
+  * Fixe le caption en bas du tableau
+  */
+
+  /*
+  * pas de scroll ni de shadow
+  */
+
+  /*
+  * Fixe la taille des colonnes du tableau
+  */
+
+  /* Style bordered, ajoute des bordures entre chaque ligne */
   /* Style bordered, ajoute des bordures entre chaque ligne */
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table::before {
+.fr-table__container {
+  overflow: auto;
+  padding-top: var(--table-offset);
+}
+
+.fr-table__content .fr-cell--fixed {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.fr-table__content .fr-cell--fixed .fr-checkbox-group + * {
+  margin-left: 0.5rem;
+}
+
+.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label {
+  color: transparent;
+  width: 0;
+  pointer-events: none;
+}
+
+.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label::before {
+  left: -1.25rem;
+}
+
+.fr-table__content .fr-cell--fixed .fr-checkbox-group input[type=checkbox] {
+  left: 0.25rem;
+}
+
+.fr-table__content .fr-cell--center {
+  text-align: center;
+}
+
+.fr-table__content .fr-cell--right {
+  text-align: right;
+}
+
+.fr-table__content .fr-cell--top {
+  vertical-align: top;
+}
+
+.fr-table__content .fr-cell--bottom {
+  vertical-align: bottom;
+}
+
+.fr-table__content .fr-cell__title {
+  font-weight: 700;
+}
+
+.fr-table__content .fr-cell__desc {
+  font-weight: 400;
+}
+
+.fr-table__content .fr-cell--inline {
+  display: flex;
+  align-items: center;
+  margin: 0 -0.5rem;
+}
+
+.fr-table__content .fr-cell--inline > * {
+  margin: 0 0.5rem;
+}
+
+.fr-table__content .fr-cell--multiline,
+.fr-table__content .fr-cell--multiline * {
+  white-space: normal;
+}
+
+.fr-table__content .fr-cell--sort {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fr-table__content .fr-cell--sort .fr-btn--sort {
+  margin-left: 1rem;
+}
+
+.fr-table__content .fr-col--xs {
+  white-space: normal;
+  min-width: 4rem;
+}
+
+.fr-table__content .fr-col--sm {
+  white-space: normal;
+  min-width: 5rem;
+}
+
+.fr-table__content .fr-col--md {
+  white-space: normal;
+  min-width: 12.5rem;
+}
+
+.fr-table__content .fr-col--lg {
+  white-space: normal;
+  min-width: 25rem;
+}
+
+.fr-table__content table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.fr-table__content table thead {
+  position: relative;
+}
+
+.fr-table__content table thead::before {
   content: "";
   display: block;
-  width: 100%;
-  height: 0;
-}
-
-.fr-table:not(.fr-table--no-scroll) table {
-  width: 100%;
-}
-
-.fr-table table {
-  width: 100%;
-  display: block;
-  overflow: auto;
-  border-spacing: 0;
-}
-
-.fr-table[data-fr-js-table=true] caption {
   position: absolute;
-  top: 0;
+  top: inherit;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fr-table__content table thead th {
+  font-weight: 700;
+  background-color: var(--background-alt-grey);
+
+  --idle: transparent;
+  --hover: var(--background-alt-grey-hover);
+  --active: var(--background-alt-grey-active);
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey));
+}
+
+.fr-table__content table thead th[role=columnheader] {
+  background-size: 100% 1px, 1px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 100%, 100% 0;
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey)), linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
+}
+
+.fr-table__content table tbody th {
+  background-size: 100% 1px, 1px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 100%, 100% 0;
+  background-color: var(--background-alt-grey);
+
+  --idle: transparent;
+  --hover: var(--background-alt-grey-hover);
+  --active: var(--background-alt-grey-active);
+  background-image: linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
+}
+
+.fr-table__content table tbody tr:first-child[aria-selected=true]:has(+ tr:not([aria-selected=true]))::after,
+.fr-table__content table tbody tr:not([aria-selected=true]) + tr:last-child[aria-selected=true]::after,
+.fr-table__content table tbody tr:not([aria-selected=true]) + tr[aria-selected=true]:has(+ tr:not([aria-selected=true]))::after {
+  background-size: 100% 2px, 2px 100%, 2px 100%, 100% 2px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 100% 100%, 0 0, 100% 0, 100% 0;
+}
+
+.fr-table__content table tbody tr[aria-selected=true] + tr[aria-selected=true]::after {
+  background-size: 2px 100%, 2px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, 100% 0;
+}
+
+.fr-table__content table tbody tr:first-child[aria-selected=true]:has(+ tr[aria-selected=true])::after,
+.fr-table__content table tbody tr:not([aria-selected=true]) + tr[aria-selected=true]::after {
+  background-size: 2px 100%, 2px 100%, 100% 2px;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 100% 0, 100% 0;
+}
+
+.fr-table__content table tbody tr[aria-selected=true] + tr:last-child[aria-selected=true]::after,
+.fr-table__content table tbody tr[aria-selected=true]:has(+ tr:not([aria-selected=true]))::after {
+  background-size: 100% 2px, 2px 100%, 2px 100%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 100% 100%, 0 0, 100% 0;
+}
+
+.fr-table__content table tbody tr[aria-selected=true]::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--row-height);
+  z-index: 2;
+  content: "";
+  pointer-events: none;
+  transform: translateY(-0.125rem);
+  background-size: 0.125rem 100%, 0.125rem 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, 100% 0;
+  background-image: linear-gradient(0deg, var(--border-action-high-blue-france), var(--border-action-high-blue-france)), linear-gradient(0deg, var(--border-action-high-blue-france), var(--border-action-high-blue-france)), linear-gradient(0deg, var(--border-action-high-blue-france), var(--border-action-high-blue-france)), linear-gradient(0deg, var(--border-action-high-blue-france), var(--border-action-high-blue-france));
+}
+
+.fr-table__content th,
+.fr-table__content td {
+  display: table-cell;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+.fr-table__content th .fr-checkbox-group,
+.fr-table__content td .fr-checkbox-group {
+  display: inline-block;
+}
+
+.fr-table__content th .fr-checkbox-group .fr-label,
+.fr-table__content td .fr-checkbox-group .fr-label {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
 }
 
 .fr-table caption {
@@ -47,51 +272,93 @@
   margin: var(--title-spacing);
   font-weight: 700;
   text-align: left;
-  color: var(--text-title-grey);
 }
 
-.fr-table td,
-.fr-table th {
-  text-align: left;
-  vertical-align: middle;
-  display: table-cell;
-  border: 0;
-  padding: 0.75rem;
+.fr-table caption .fr-table__caption__desc {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+.fr-table__detail {
   font-size: 0.875rem;
   line-height: 1.5rem;
+  color: var(--text-mention-grey);
 }
 
-.fr-table th {
-  font-weight: 700;
+.fr-table[data-fr-js-table=true] caption {
+  position: absolute;
+  top: 0;
 }
 
-.fr-table thead {
-  background-size: 100% 2px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
-  background-color: var(--background-contrast-grey);
-
-  --idle: transparent;
-  --hover: var(--background-contrast-grey-hover);
-  --active: var(--background-contrast-grey-active);
-  color: var(--text-title-grey);
+.fr-table[data-fr-js-table=true] .fr-table__wrapper {
+  position: relative;
 }
 
-.fr-table thead td,
-.fr-table thead th {
-  font-weight: 700;
-  padding-bottom: 0.875rem;
+.fr-table[data-fr-js-table=true] .fr-table__wrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: var(--table-offset);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--table-offset));
+  z-index: 1;
+  background-position: 0 0, 0 0, 100% 100%, 0 100%;
+  background-size: 100% 1px, 1px 100%, 1px 100%, 100% 1px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  pointer-events: none;
 }
 
-/*
-* Cache la caption
-*/
-.fr-table--no-caption {
+.fr-table__header .fr-table__detail {
+  margin-bottom: 1rem;
+}
+
+.fr-table__header .fr-segmented {
+  margin-bottom: 1rem;
+}
+
+.fr-table__footer--start {
+  margin-top: 1rem;
+}
+
+.fr-table__footer--start .fr-table__detail {
+  padding-right: 0.5rem;
+}
+
+.fr-table__footer--middle {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.fr-table__footer--middle .fr-pagination {
+  margin-top: 0.75rem;
+}
+
+.fr-table__footer--end {
+  margin-top: 1.5rem;
+  flex: 1 0 100%;
+}
+
+.fr-table--sm .fr-table__content th,
+.fr-table--sm .fr-table__content td {
+  padding: 0.25rem 0.75rem;
+}
+
+.fr-table--lg .fr-table__content th,
+.fr-table--lg .fr-table__content td {
+  padding: 0.75rem 1.5rem;
+}
+
+.fr-table.fr-table--no-caption .fr-table__wrapper .fr-table__container {
   padding-top: 0;
 }
 
-.fr-table--no-caption caption {
+.fr-table.fr-table--no-caption .fr-table__wrapper caption {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -105,20 +372,31 @@
   height: 0;
 }
 
-/*
-* Fixe le caption en bas du tableau
-*/
-.fr-table--caption-bottom {
-  padding-top: 0;
+.fr-table.fr-table--caption-bottom {
   margin-bottom: 0;
+}
+
+.fr-table.fr-table--caption-bottom .fr-table__wrapper {
+  margin-bottom: calc(var(--table-offset) + 1.5rem);
+}
+
+.fr-table.fr-table--caption-bottom .fr-table__wrapper::after {
+  bottom: 0;
+  top: auto;
+  height: 100%;
+}
+
+.fr-table.fr-table--caption-bottom .fr-table__wrapper .fr-table__container {
+  padding-top: 0;
+}
+
+.fr-table.fr-table--caption-bottom .fr-table__wrapper caption {
   margin-top: 1rem;
+  height: min-content;
+  caption-side: bottom;
 }
 
-.fr-table--caption-bottom table {
-  margin-bottom: calc(var(--table-offset) + 2.75rem);
-}
-
-.fr-table--caption-bottom[data-fr-js-table=true] caption {
+.fr-table.fr-table--caption-bottom[data-fr-js-table=true] caption {
   position: absolute;
   top: 100%;
   right: 0;
@@ -127,37 +405,197 @@
   margin-top: 1rem;
 }
 
-.fr-table--caption-bottom caption {
+.fr-table.fr-table--bordered .fr-table__content th,
+.fr-table.fr-table--bordered .fr-table__content td {
+  background-size: 100% 1px, 1px 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 100%, 100% 0;
+}
+
+.fr-table.fr-table--bordered .fr-table__content th:last-child,
+.fr-table.fr-table--bordered .fr-table__content td:last-child {
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+.fr-table.fr-table--no-scroll .fr-table__wrapper {
+  width: fit-content;
+}
+
+.fr-table.fr-table--no-scroll .fr-table__wrapper .fr-table__content table {
+  width: auto;
+}
+
+.fr-table.fr-table--no-scroll .fr-table__wrapper .fr-table__content table th,
+.fr-table.fr-table--no-scroll .fr-table__wrapper .fr-table__content table td {
+  white-space: normal;
+}
+
+.fr-table__wrapper::after {
+  background-image: linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey));
+}
+
+.fr-table__content table caption {
+  color: var(--text-title-grey);
+}
+
+.fr-table__content table thead th:last-child {
+  background-color: var(--background-alt-grey);
+
+  --idle: transparent;
+  --hover: var(--background-alt-grey-hover);
+  --active: var(--background-alt-grey-active);
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
+}
+
+.fr-table__content table tbody td {
+  background-image: linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey));
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-table::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0;
+}
+
+.fr-table:not(:has(.fr-table__container)) {
+  padding-top: var(--table-offset);
+}
+
+.fr-table:not(.fr-table--no-scroll) > table {
+  width: 100%;
+}
+
+.fr-table > table {
+  width: 100%;
+  display: block;
+  overflow: auto;
+  border-spacing: 0;
+}
+
+.fr-table > table td,
+.fr-table > table th {
+  text-align: left;
+  vertical-align: middle;
+  display: table-cell;
+  border: 0;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.fr-table > table th {
+  font-weight: 700;
+}
+
+.fr-table > table thead {
+  background-size: 100% 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
+  background-color: var(--background-alt-grey);
+
+  --idle: transparent;
+  --hover: var(--background-alt-grey-hover);
+  --active: var(--background-alt-grey-active);
+  color: var(--text-title-grey);
+}
+
+.fr-table > table thead td,
+.fr-table > table thead th {
+  font-weight: 700;
+  padding-bottom: 0.875rem;
+}
+
+.fr-table[data-fr-js-table=true] > table::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: var(--table-offset);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--table-offset));
+  z-index: 1;
+  background-position: 0 0, 0 0, 100% 100%, 0 100%;
+  background-size: 100% 1px, 1px 100%, 1px 100%, 100% 1px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  pointer-events: none;
+}
+
+.fr-table--no-caption {
+  padding-top: 0;
+}
+
+.fr-table--no-caption > table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+  display: block;
+  height: 0;
+}
+
+.fr-table--caption-bottom:not(:has(.fr-table__container)) {
+  padding-top: 0;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+.fr-table--caption-bottom > table {
+  margin-bottom: calc(var(--table-offset) + 2.75rem);
+}
+
+.fr-table--caption-bottom > table caption {
   margin-top: 1rem;
   height: min-content;
   caption-side: bottom;
 }
 
-/*
-* pas de scroll ni de shadow
-*/
+.fr-table--caption-bottom[data-fr-js-table=true] > table::after {
+  bottom: 0;
+  top: auto;
+  height: 100%;
+}
+
+.fr-table--caption-bottom[data-fr-js-table=true] > table caption {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-top: 1rem;
+}
+
 .fr-table--no-scroll {
   min-width: auto;
 }
 
-.fr-table--no-scroll table {
+.fr-table--no-scroll > table {
   overflow-x: hidden;
 }
 
-.fr-table--no-scroll caption {
+.fr-table--no-scroll > table caption {
   max-width: calc(100vw - 2rem);
 }
 
-/*
-* Fixe la taille des colonnes du tableau
-*/
-.fr-table--layout-fixed table {
+.fr-table--layout-fixed > table {
   display: table;
   table-layout: fixed;
 }
 
-/* Style bordered, ajoute des bordures entre chaque ligne */
-.fr-table--bordered tbody tr {
+.fr-table--bordered > table tbody tr {
   background-size: 100% 1px;
   background-position: bottom;
   background-repeat: no-repeat;
@@ -167,10 +605,14 @@
   /* Style bordered, enleve le style even/odd  */
 }
 
+.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
+}
+
 /*
 * Ombres ajoutées en Js si le contenu est plus grand que le conteneur
 */
-.fr-table__shadow {
+.fr-table > table.fr-table__shadow {
   /**
   * Modifier ombre à gauche
   **/
@@ -178,13 +620,9 @@
   /**
   * Modifier ombre à droite
   **/
-
-  /**
-  * Modifier combinaison ombre à gauche et ombre à droite
-  **/
 }
 
-.fr-table__shadow::before {
+.fr-table > table.fr-table__shadow::before {
   content: "";
   display: block;
   position: absolute;
@@ -199,24 +637,30 @@
   transition: box-shadow 0.3s;
 }
 
-.fr-table__shadow--left::before {
+.fr-table > table.fr-table__shadow--left {
+  /**
+  * Modifier combinaison ombre à gauche et ombre à droite
+  **/
+}
+
+.fr-table > table.fr-table__shadow--left::before {
   box-shadow: inset 2rem 0 1rem -2rem #161616, inset 0 0 0 0 #161616;
 }
 
-.fr-table__shadow--right::before {
-  box-shadow: inset 0 0 0 0 #161616, inset -2rem 0 1rem -2rem #161616;
-}
-
-.fr-table__shadow--left.fr-table__shadow--right::before {
+.fr-table > table.fr-table__shadow--left.fr-table__shadow--right::before {
   content: "";
   display: block;
   box-shadow: inset 2rem 0 1rem -2rem #161616, inset -2rem 0 1rem -2rem #161616;
 }
 
+.fr-table > table.fr-table__shadow--right::before {
+  box-shadow: inset 0 0 0 0 #161616, inset -2rem 0 1rem -2rem #161616;
+}
+
 /*
 * Positionnement ombres sur le tableau sans caption
 */
-.fr-table--no-caption .fr-table__shadow::before {
+.fr-table--no-caption > table.fr-table__shadow::before {
   content: "";
   display: block;
   position: absolute;
@@ -229,7 +673,7 @@
 /*
 * Positionnement ombres sur le tableau avec caption en bas
 */
-.fr-table--caption-bottom .fr-table__shadow::before {
+.fr-table--caption-bottom > table.fr-table__shadow::before {
   content: "";
   display: block;
   position: absolute;
@@ -239,11 +683,27 @@
   left: 0;
 }
 
-:root[data-fr-theme=dark] .fr-table__shadow::before {
+:root[data-fr-theme=dark] .fr-table > table.fr-table__shadow::before {
   opacity: 1;
 }
 
-.fr-table tbody {
+.fr-table > table::after {
+  background-image: linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey)), linear-gradient(0deg, var(--border-contrast-grey), var(--border-contrast-grey));
+}
+
+.fr-table > table caption {
+  color: var(--text-title-grey);
+}
+
+.fr-table > table tbody {
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
+}
+
+.fr-table > table tbody tr:nth-child(even) {
   background-color: var(--background-alt-grey);
 
   --idle: transparent;
@@ -251,20 +711,16 @@
   --active: var(--background-alt-grey-active);
 }
 
-.fr-table tbody tr:nth-child(even) {
-  background-color: var(--background-contrast-grey);
-
-  --idle: transparent;
-  --hover: var(--background-contrast-grey-hover);
-  --active: var(--background-contrast-grey-active);
-}
-
 .fr-table--green-tilleul-verveine {
   /* Style bordered, ajoute des bordures entre chaque ligne */
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--green-tilleul-verveine thead {
+.fr-table--green-tilleul-verveine > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine)), linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine)), linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine)), linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine));
+}
+
+.fr-table--green-tilleul-verveine > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-green-tilleul-verveine), var(--border-plain-green-tilleul-verveine));
   background-color: var(--background-contrast-green-tilleul-verveine);
 
@@ -273,7 +729,7 @@
   --active: var(--background-contrast-green-tilleul-verveine-active);
 }
 
-.fr-table--green-tilleul-verveine tbody {
+.fr-table--green-tilleul-verveine > table tbody {
   background-color: var(--background-alt-green-tilleul-verveine);
 
   --idle: transparent;
@@ -281,7 +737,7 @@
   --active: var(--background-alt-green-tilleul-verveine-active);
 }
 
-.fr-table--green-tilleul-verveine tbody tr:nth-child(even) {
+.fr-table--green-tilleul-verveine > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-green-tilleul-verveine);
 
   --idle: transparent;
@@ -289,8 +745,12 @@
   --active: var(--background-contrast-green-tilleul-verveine-active);
 }
 
-.fr-table--green-tilleul-verveine.fr-table--bordered tbody tr {
+.fr-table--green-tilleul-verveine.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-green-tilleul-verveine), var(--border-default-green-tilleul-verveine));
+}
+
+.fr-table--green-tilleul-verveine.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--green-bourgeon {
@@ -298,7 +758,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--green-bourgeon thead {
+.fr-table--green-bourgeon > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon)), linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon)), linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon)), linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon));
+}
+
+.fr-table--green-bourgeon > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-green-bourgeon), var(--border-plain-green-bourgeon));
   background-color: var(--background-contrast-green-bourgeon);
 
@@ -307,7 +771,7 @@
   --active: var(--background-contrast-green-bourgeon-active);
 }
 
-.fr-table--green-bourgeon tbody {
+.fr-table--green-bourgeon > table tbody {
   background-color: var(--background-alt-green-bourgeon);
 
   --idle: transparent;
@@ -315,7 +779,7 @@
   --active: var(--background-alt-green-bourgeon-active);
 }
 
-.fr-table--green-bourgeon tbody tr:nth-child(even) {
+.fr-table--green-bourgeon > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-green-bourgeon);
 
   --idle: transparent;
@@ -323,8 +787,12 @@
   --active: var(--background-contrast-green-bourgeon-active);
 }
 
-.fr-table--green-bourgeon.fr-table--bordered tbody tr {
+.fr-table--green-bourgeon.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-green-bourgeon), var(--border-default-green-bourgeon));
+}
+
+.fr-table--green-bourgeon.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--green-emeraude {
@@ -332,7 +800,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--green-emeraude thead {
+.fr-table--green-emeraude > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude)), linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude)), linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude)), linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude));
+}
+
+.fr-table--green-emeraude > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-green-emeraude), var(--border-plain-green-emeraude));
   background-color: var(--background-contrast-green-emeraude);
 
@@ -341,7 +813,7 @@
   --active: var(--background-contrast-green-emeraude-active);
 }
 
-.fr-table--green-emeraude tbody {
+.fr-table--green-emeraude > table tbody {
   background-color: var(--background-alt-green-emeraude);
 
   --idle: transparent;
@@ -349,7 +821,7 @@
   --active: var(--background-alt-green-emeraude-active);
 }
 
-.fr-table--green-emeraude tbody tr:nth-child(even) {
+.fr-table--green-emeraude > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-green-emeraude);
 
   --idle: transparent;
@@ -357,8 +829,12 @@
   --active: var(--background-contrast-green-emeraude-active);
 }
 
-.fr-table--green-emeraude.fr-table--bordered tbody tr {
+.fr-table--green-emeraude.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-green-emeraude), var(--border-default-green-emeraude));
+}
+
+.fr-table--green-emeraude.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--green-menthe {
@@ -366,7 +842,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--green-menthe thead {
+.fr-table--green-menthe > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe)), linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe)), linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe)), linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe));
+}
+
+.fr-table--green-menthe > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-green-menthe), var(--border-plain-green-menthe));
   background-color: var(--background-contrast-green-menthe);
 
@@ -375,7 +855,7 @@
   --active: var(--background-contrast-green-menthe-active);
 }
 
-.fr-table--green-menthe tbody {
+.fr-table--green-menthe > table tbody {
   background-color: var(--background-alt-green-menthe);
 
   --idle: transparent;
@@ -383,7 +863,7 @@
   --active: var(--background-alt-green-menthe-active);
 }
 
-.fr-table--green-menthe tbody tr:nth-child(even) {
+.fr-table--green-menthe > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-green-menthe);
 
   --idle: transparent;
@@ -391,8 +871,12 @@
   --active: var(--background-contrast-green-menthe-active);
 }
 
-.fr-table--green-menthe.fr-table--bordered tbody tr {
+.fr-table--green-menthe.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-green-menthe), var(--border-default-green-menthe));
+}
+
+.fr-table--green-menthe.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--green-archipel {
@@ -400,7 +884,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--green-archipel thead {
+.fr-table--green-archipel > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel)), linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel)), linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel)), linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel));
+}
+
+.fr-table--green-archipel > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-green-archipel), var(--border-plain-green-archipel));
   background-color: var(--background-contrast-green-archipel);
 
@@ -409,7 +897,7 @@
   --active: var(--background-contrast-green-archipel-active);
 }
 
-.fr-table--green-archipel tbody {
+.fr-table--green-archipel > table tbody {
   background-color: var(--background-alt-green-archipel);
 
   --idle: transparent;
@@ -417,7 +905,7 @@
   --active: var(--background-alt-green-archipel-active);
 }
 
-.fr-table--green-archipel tbody tr:nth-child(even) {
+.fr-table--green-archipel > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-green-archipel);
 
   --idle: transparent;
@@ -425,8 +913,12 @@
   --active: var(--background-contrast-green-archipel-active);
 }
 
-.fr-table--green-archipel.fr-table--bordered tbody tr {
+.fr-table--green-archipel.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-green-archipel), var(--border-default-green-archipel));
+}
+
+.fr-table--green-archipel.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--blue-ecume {
@@ -434,7 +926,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--blue-ecume thead {
+.fr-table--blue-ecume > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume)), linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume)), linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume)), linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume));
+}
+
+.fr-table--blue-ecume > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-blue-ecume), var(--border-plain-blue-ecume));
   background-color: var(--background-contrast-blue-ecume);
 
@@ -443,7 +939,7 @@
   --active: var(--background-contrast-blue-ecume-active);
 }
 
-.fr-table--blue-ecume tbody {
+.fr-table--blue-ecume > table tbody {
   background-color: var(--background-alt-blue-ecume);
 
   --idle: transparent;
@@ -451,7 +947,7 @@
   --active: var(--background-alt-blue-ecume-active);
 }
 
-.fr-table--blue-ecume tbody tr:nth-child(even) {
+.fr-table--blue-ecume > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-blue-ecume);
 
   --idle: transparent;
@@ -459,8 +955,12 @@
   --active: var(--background-contrast-blue-ecume-active);
 }
 
-.fr-table--blue-ecume.fr-table--bordered tbody tr {
+.fr-table--blue-ecume.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-blue-ecume), var(--border-default-blue-ecume));
+}
+
+.fr-table--blue-ecume.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--blue-cumulus {
@@ -468,7 +968,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--blue-cumulus thead {
+.fr-table--blue-cumulus > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus)), linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus)), linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus)), linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus));
+}
+
+.fr-table--blue-cumulus > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-blue-cumulus), var(--border-plain-blue-cumulus));
   background-color: var(--background-contrast-blue-cumulus);
 
@@ -477,7 +981,7 @@
   --active: var(--background-contrast-blue-cumulus-active);
 }
 
-.fr-table--blue-cumulus tbody {
+.fr-table--blue-cumulus > table tbody {
   background-color: var(--background-alt-blue-cumulus);
 
   --idle: transparent;
@@ -485,7 +989,7 @@
   --active: var(--background-alt-blue-cumulus-active);
 }
 
-.fr-table--blue-cumulus tbody tr:nth-child(even) {
+.fr-table--blue-cumulus > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-blue-cumulus);
 
   --idle: transparent;
@@ -493,8 +997,12 @@
   --active: var(--background-contrast-blue-cumulus-active);
 }
 
-.fr-table--blue-cumulus.fr-table--bordered tbody tr {
+.fr-table--blue-cumulus.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-blue-cumulus), var(--border-default-blue-cumulus));
+}
+
+.fr-table--blue-cumulus.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--purple-glycine {
@@ -502,7 +1010,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--purple-glycine thead {
+.fr-table--purple-glycine > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine)), linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine)), linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine)), linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine));
+}
+
+.fr-table--purple-glycine > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-purple-glycine), var(--border-plain-purple-glycine));
   background-color: var(--background-contrast-purple-glycine);
 
@@ -511,7 +1023,7 @@
   --active: var(--background-contrast-purple-glycine-active);
 }
 
-.fr-table--purple-glycine tbody {
+.fr-table--purple-glycine > table tbody {
   background-color: var(--background-alt-purple-glycine);
 
   --idle: transparent;
@@ -519,7 +1031,7 @@
   --active: var(--background-alt-purple-glycine-active);
 }
 
-.fr-table--purple-glycine tbody tr:nth-child(even) {
+.fr-table--purple-glycine > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-purple-glycine);
 
   --idle: transparent;
@@ -527,8 +1039,12 @@
   --active: var(--background-contrast-purple-glycine-active);
 }
 
-.fr-table--purple-glycine.fr-table--bordered tbody tr {
+.fr-table--purple-glycine.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-purple-glycine), var(--border-default-purple-glycine));
+}
+
+.fr-table--purple-glycine.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--pink-macaron {
@@ -536,7 +1052,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--pink-macaron thead {
+.fr-table--pink-macaron > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron)), linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron)), linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron)), linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron));
+}
+
+.fr-table--pink-macaron > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-pink-macaron), var(--border-plain-pink-macaron));
   background-color: var(--background-contrast-pink-macaron);
 
@@ -545,7 +1065,7 @@
   --active: var(--background-contrast-pink-macaron-active);
 }
 
-.fr-table--pink-macaron tbody {
+.fr-table--pink-macaron > table tbody {
   background-color: var(--background-alt-pink-macaron);
 
   --idle: transparent;
@@ -553,7 +1073,7 @@
   --active: var(--background-alt-pink-macaron-active);
 }
 
-.fr-table--pink-macaron tbody tr:nth-child(even) {
+.fr-table--pink-macaron > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-pink-macaron);
 
   --idle: transparent;
@@ -561,8 +1081,12 @@
   --active: var(--background-contrast-pink-macaron-active);
 }
 
-.fr-table--pink-macaron.fr-table--bordered tbody tr {
+.fr-table--pink-macaron.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-pink-macaron), var(--border-default-pink-macaron));
+}
+
+.fr-table--pink-macaron.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--pink-tuile {
@@ -570,7 +1094,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--pink-tuile thead {
+.fr-table--pink-tuile > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile)), linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile)), linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile)), linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile));
+}
+
+.fr-table--pink-tuile > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-pink-tuile), var(--border-plain-pink-tuile));
   background-color: var(--background-contrast-pink-tuile);
 
@@ -579,7 +1107,7 @@
   --active: var(--background-contrast-pink-tuile-active);
 }
 
-.fr-table--pink-tuile tbody {
+.fr-table--pink-tuile > table tbody {
   background-color: var(--background-alt-pink-tuile);
 
   --idle: transparent;
@@ -587,7 +1115,7 @@
   --active: var(--background-alt-pink-tuile-active);
 }
 
-.fr-table--pink-tuile tbody tr:nth-child(even) {
+.fr-table--pink-tuile > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-pink-tuile);
 
   --idle: transparent;
@@ -595,8 +1123,12 @@
   --active: var(--background-contrast-pink-tuile-active);
 }
 
-.fr-table--pink-tuile.fr-table--bordered tbody tr {
+.fr-table--pink-tuile.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-pink-tuile), var(--border-default-pink-tuile));
+}
+
+.fr-table--pink-tuile.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--yellow-tournesol {
@@ -604,7 +1136,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--yellow-tournesol thead {
+.fr-table--yellow-tournesol > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol)), linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol)), linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol)), linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol));
+}
+
+.fr-table--yellow-tournesol > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-yellow-tournesol), var(--border-plain-yellow-tournesol));
   background-color: var(--background-contrast-yellow-tournesol);
 
@@ -613,7 +1149,7 @@
   --active: var(--background-contrast-yellow-tournesol-active);
 }
 
-.fr-table--yellow-tournesol tbody {
+.fr-table--yellow-tournesol > table tbody {
   background-color: var(--background-alt-yellow-tournesol);
 
   --idle: transparent;
@@ -621,7 +1157,7 @@
   --active: var(--background-alt-yellow-tournesol-active);
 }
 
-.fr-table--yellow-tournesol tbody tr:nth-child(even) {
+.fr-table--yellow-tournesol > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-yellow-tournesol);
 
   --idle: transparent;
@@ -629,8 +1165,12 @@
   --active: var(--background-contrast-yellow-tournesol-active);
 }
 
-.fr-table--yellow-tournesol.fr-table--bordered tbody tr {
+.fr-table--yellow-tournesol.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-yellow-tournesol), var(--border-default-yellow-tournesol));
+}
+
+.fr-table--yellow-tournesol.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--yellow-moutarde {
@@ -638,7 +1178,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--yellow-moutarde thead {
+.fr-table--yellow-moutarde > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde)), linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde)), linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde)), linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde));
+}
+
+.fr-table--yellow-moutarde > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-yellow-moutarde), var(--border-plain-yellow-moutarde));
   background-color: var(--background-contrast-yellow-moutarde);
 
@@ -647,7 +1191,7 @@
   --active: var(--background-contrast-yellow-moutarde-active);
 }
 
-.fr-table--yellow-moutarde tbody {
+.fr-table--yellow-moutarde > table tbody {
   background-color: var(--background-alt-yellow-moutarde);
 
   --idle: transparent;
@@ -655,7 +1199,7 @@
   --active: var(--background-alt-yellow-moutarde-active);
 }
 
-.fr-table--yellow-moutarde tbody tr:nth-child(even) {
+.fr-table--yellow-moutarde > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-yellow-moutarde);
 
   --idle: transparent;
@@ -663,8 +1207,12 @@
   --active: var(--background-contrast-yellow-moutarde-active);
 }
 
-.fr-table--yellow-moutarde.fr-table--bordered tbody tr {
+.fr-table--yellow-moutarde.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-yellow-moutarde), var(--border-default-yellow-moutarde));
+}
+
+.fr-table--yellow-moutarde.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--orange-terre-battue {
@@ -672,7 +1220,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--orange-terre-battue thead {
+.fr-table--orange-terre-battue > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue)), linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue)), linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue)), linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue));
+}
+
+.fr-table--orange-terre-battue > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-orange-terre-battue), var(--border-plain-orange-terre-battue));
   background-color: var(--background-contrast-orange-terre-battue);
 
@@ -681,7 +1233,7 @@
   --active: var(--background-contrast-orange-terre-battue-active);
 }
 
-.fr-table--orange-terre-battue tbody {
+.fr-table--orange-terre-battue > table tbody {
   background-color: var(--background-alt-orange-terre-battue);
 
   --idle: transparent;
@@ -689,7 +1241,7 @@
   --active: var(--background-alt-orange-terre-battue-active);
 }
 
-.fr-table--orange-terre-battue tbody tr:nth-child(even) {
+.fr-table--orange-terre-battue > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-orange-terre-battue);
 
   --idle: transparent;
@@ -697,8 +1249,12 @@
   --active: var(--background-contrast-orange-terre-battue-active);
 }
 
-.fr-table--orange-terre-battue.fr-table--bordered tbody tr {
+.fr-table--orange-terre-battue.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-orange-terre-battue), var(--border-default-orange-terre-battue));
+}
+
+.fr-table--orange-terre-battue.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--brown-cafe-creme {
@@ -706,7 +1262,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--brown-cafe-creme thead {
+.fr-table--brown-cafe-creme > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme)), linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme)), linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme)), linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme));
+}
+
+.fr-table--brown-cafe-creme > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-brown-cafe-creme), var(--border-plain-brown-cafe-creme));
   background-color: var(--background-contrast-brown-cafe-creme);
 
@@ -715,7 +1275,7 @@
   --active: var(--background-contrast-brown-cafe-creme-active);
 }
 
-.fr-table--brown-cafe-creme tbody {
+.fr-table--brown-cafe-creme > table tbody {
   background-color: var(--background-alt-brown-cafe-creme);
 
   --idle: transparent;
@@ -723,7 +1283,7 @@
   --active: var(--background-alt-brown-cafe-creme-active);
 }
 
-.fr-table--brown-cafe-creme tbody tr:nth-child(even) {
+.fr-table--brown-cafe-creme > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-brown-cafe-creme);
 
   --idle: transparent;
@@ -731,8 +1291,12 @@
   --active: var(--background-contrast-brown-cafe-creme-active);
 }
 
-.fr-table--brown-cafe-creme.fr-table--bordered tbody tr {
+.fr-table--brown-cafe-creme.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-brown-cafe-creme), var(--border-default-brown-cafe-creme));
+}
+
+.fr-table--brown-cafe-creme.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--brown-caramel {
@@ -740,7 +1304,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--brown-caramel thead {
+.fr-table--brown-caramel > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel)), linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel)), linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel)), linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel));
+}
+
+.fr-table--brown-caramel > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-brown-caramel), var(--border-plain-brown-caramel));
   background-color: var(--background-contrast-brown-caramel);
 
@@ -749,7 +1317,7 @@
   --active: var(--background-contrast-brown-caramel-active);
 }
 
-.fr-table--brown-caramel tbody {
+.fr-table--brown-caramel > table tbody {
   background-color: var(--background-alt-brown-caramel);
 
   --idle: transparent;
@@ -757,7 +1325,7 @@
   --active: var(--background-alt-brown-caramel-active);
 }
 
-.fr-table--brown-caramel tbody tr:nth-child(even) {
+.fr-table--brown-caramel > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-brown-caramel);
 
   --idle: transparent;
@@ -765,8 +1333,12 @@
   --active: var(--background-contrast-brown-caramel-active);
 }
 
-.fr-table--brown-caramel.fr-table--bordered tbody tr {
+.fr-table--brown-caramel.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-brown-caramel), var(--border-default-brown-caramel));
+}
+
+.fr-table--brown-caramel.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--brown-opera {
@@ -774,7 +1346,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--brown-opera thead {
+.fr-table--brown-opera > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera)), linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera)), linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera)), linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera));
+}
+
+.fr-table--brown-opera > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-brown-opera), var(--border-plain-brown-opera));
   background-color: var(--background-contrast-brown-opera);
 
@@ -783,7 +1359,7 @@
   --active: var(--background-contrast-brown-opera-active);
 }
 
-.fr-table--brown-opera tbody {
+.fr-table--brown-opera > table tbody {
   background-color: var(--background-alt-brown-opera);
 
   --idle: transparent;
@@ -791,7 +1367,7 @@
   --active: var(--background-alt-brown-opera-active);
 }
 
-.fr-table--brown-opera tbody tr:nth-child(even) {
+.fr-table--brown-opera > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-brown-opera);
 
   --idle: transparent;
@@ -799,8 +1375,12 @@
   --active: var(--background-contrast-brown-opera-active);
 }
 
-.fr-table--brown-opera.fr-table--bordered tbody tr {
+.fr-table--brown-opera.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-brown-opera), var(--border-default-brown-opera));
+}
+
+.fr-table--brown-opera.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
 }
 
 .fr-table--beige-gris-galet {
@@ -808,7 +1388,11 @@
   /* Style bordered, ajoute des bordures entre chaque ligne */
 }
 
-.fr-table--beige-gris-galet thead {
+.fr-table--beige-gris-galet > table::after {
+  background-image: linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet)), linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet)), linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet)), linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet));
+}
+
+.fr-table--beige-gris-galet > table thead {
   background-image: linear-gradient(0deg, var(--border-plain-beige-gris-galet), var(--border-plain-beige-gris-galet));
   background-color: var(--background-contrast-beige-gris-galet);
 
@@ -817,7 +1401,7 @@
   --active: var(--background-contrast-beige-gris-galet-active);
 }
 
-.fr-table--beige-gris-galet tbody {
+.fr-table--beige-gris-galet > table tbody {
   background-color: var(--background-alt-beige-gris-galet);
 
   --idle: transparent;
@@ -825,7 +1409,7 @@
   --active: var(--background-alt-beige-gris-galet-active);
 }
 
-.fr-table--beige-gris-galet tbody tr:nth-child(even) {
+.fr-table--beige-gris-galet > table tbody tr:nth-child(even) {
   background-color: var(--background-contrast-beige-gris-galet);
 
   --idle: transparent;
@@ -833,11 +1417,15 @@
   --active: var(--background-contrast-beige-gris-galet-active);
 }
 
-.fr-table--beige-gris-galet.fr-table--bordered tbody tr {
+.fr-table--beige-gris-galet.fr-table--bordered > table tbody tr {
   background-image: linear-gradient(0deg, var(--border-default-beige-gris-galet), var(--border-default-beige-gris-galet));
 }
 
-.fr-table--bordered tbody tr:nth-child(even) {
+.fr-table--beige-gris-galet.fr-table--bordered > table tbody tr:last-child {
+  background-image: none;
+}
+
+.fr-table--bordered > table tbody tr:nth-child(even) {
   background-color: transparent;
 
   --hover: inherit;
@@ -857,13 +1445,70 @@
     line-height: 2rem;
   }
 
-  .fr-table td,
-  .fr-table th {
+  .fr-table__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fr-table__header .fr-table__detail {
+    order: 1;
+    flex: 1;
+    padding-right: 0.5rem;
+  }
+
+  .fr-table__header .fr-btns-group {
+    order: 2;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .fr-table__header .fr-segmented {
+    order: 3;
+    flex: 0;
+    padding-left: 0.5rem;
+  }
+
+  .fr-table__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .fr-table__footer .fr-select-group .fr-select {
+    width: 16rem;
+  }
+
+  .fr-table__footer .fr-btns-group {
+    padding-left: 0.5rem;
+  }
+
+  .fr-table__footer--start {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .fr-table__footer--start .fr-select-group {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .fr-table__footer--start .fr-select-group .fr-select {
+    margin-top: 0;
+  }
+
+  .fr-table > table td,
+  .fr-table > table th {
     padding: 1rem;
   }
 
-  .fr-table thead td,
-  .fr-table thead th {
+  .fr-table > table thead td,
+  .fr-table > table thead th {
     padding-bottom: 1.125rem;
   }
 
@@ -872,6 +1517,19 @@
 
 @media (min-width: 62em) {
   /*! media lg */
+  .fr-table__footer--middle {
+    display: block;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .fr-table__footer--middle .fr-pagination__list {
+    flex-wrap: nowrap;
+  }
+
+  .fr-table__footer--end {
+    flex: 1 0 0;
+  }
 
   /*! media lg */
 }
@@ -882,741 +1540,800 @@
   /*! media xl */
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
-  * Correctif placement caption
-  */
-  .fr-table[data-fr-js-table=true] caption {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label {
+    opacity: 0;
+  }
+
+  .fr-table__content .fr-cell--fixed {
+    outline: 1px solid;
+  }
+
+  .fr-table__content table tbody tr[aria-selected=true]::after {
+    border: 2px solid highlight;
+  }
+
+  .fr-table__content th,
+  .fr-table__content td {
+    border: 1px solid;
+  }
+}
+
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-table__header .fr-segmented {
+    flex: 1;
+  }
+
+  .fr-table__header .fr-table__detail {
+    flex: 2;
+  }
+
+  .fr-table__content table {
+    background-image: none;
+  }
+
+  .fr-table__content table thead tr th,
+  .fr-table__content table thead tr th:last-child {
+    background-image: none;
+  }
+
+  .fr-table__content table thead tr th[role=columnheader] {
+    background-size: 1px 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+  }
+
+  .fr-table__content table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table__content table tbody tr[aria-selected=true]::after {
+    content: none;
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091);
+  }
+
+  .fr-table__content table tbody tr[aria-selected=true] th,
+  .fr-table__content table tbody tr[aria-selected=true] td {
+    border-top: 2px solid #000091;
+    border-bottom: 2px solid #000091;
+  }
+
+  .fr-table__content table tbody tr[aria-selected=true] th:first-child,
+  .fr-table__content table tbody tr[aria-selected=true] td:first-child {
+    border-left: 2px solid #000091;
+  }
+
+  .fr-table__content table tbody tr[aria-selected=true] th:last-child,
+  .fr-table__content table tbody tr[aria-selected=true] td:last-child {
+    border-right: 2px solid #000091;
+  }
+
+  .fr-table[data-fr-js-table=true] .fr-table__wrapper::after {
+    content: none;
+  }
+
+  .fr-table[data-fr-js-table=true].fr-table--no-caption caption,
+  .fr-table[data-fr-js-table=true].fr-table--caption-bottom caption {
     position: relative;
   }
 
-  .fr-table caption {
+  .fr-table[data-fr-js-table=true] caption {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .fr-table--bordered table th:last-child,
+  .fr-table--bordered table td:last-child {
+    border-right: none;
+  }
+
+  .fr-table__wrapper::after {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
+  }
+
+  .fr-table__content table caption {
     color: #161616;
   }
 
-  .fr-table thead {
+  .fr-table__content table thead th {
+    background-color: #f6f6f6;
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #929292, #929292);
+  }
+
+  .fr-table__content table thead th[role=columnheader] {
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
+  }
+
+  .fr-table__content table thead th:last-child {
+    background-color: #f6f6f6;
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
-    background-color: #eee;
+  }
+
+  .fr-table__content table tbody td {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
+    background-color: #fff;
+  }
+
+  .fr-table__content table tbody th {
+    background-color: #f6f6f6;
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #3a3a3a, #3a3a3a);
+  }
+
+  .fr-table__detail {
+    color: #666;
+  }
+
+  .fr-table > table::after {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
+  }
+
+  .fr-table > table caption {
     color: #161616;
   }
 
-  .fr-table tbody {
+  .fr-table > table thead {
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
+    background-color: #f6f6f6;
+    color: #161616;
+    background-image: none;
+  }
+
+  .fr-table > table tbody {
+    background-color: #fff;
+  }
+
+  .fr-table > table tbody tr:nth-child(even) {
     background-color: #f6f6f6;
   }
 
-  .fr-table tbody tr:nth-child(even) {
-    background-color: #eee;
+  .fr-table--green-tilleul-verveine > table::after {
+    background-image: linear-gradient(0deg, #b7a73f, #b7a73f), linear-gradient(0deg, #b7a73f, #b7a73f), linear-gradient(0deg, #b7a73f, #b7a73f), linear-gradient(0deg, #b7a73f, #b7a73f);
   }
 
-  .fr-table--green-tilleul-verveine thead {
+  .fr-table--green-tilleul-verveine > table thead {
     background-image: linear-gradient(0deg, #66673d, #66673d);
     background-color: #fceeac;
+    background-image: none;
   }
 
-  .fr-table--green-tilleul-verveine tbody {
+  .fr-table--green-tilleul-verveine > table tbody {
     background-color: #fef7da;
   }
 
-  .fr-table--green-tilleul-verveine tbody tr:nth-child(even) {
+  .fr-table--green-tilleul-verveine > table tbody tr:nth-child(even) {
     background-color: #fceeac;
   }
 
-  .fr-table--green-tilleul-verveine.fr-table--bordered tbody tr {
+  .fr-table--green-tilleul-verveine.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #b7a73f, #b7a73f);
+    background-image: none;
   }
 
-  .fr-table--green-bourgeon thead {
+  .fr-table--green-bourgeon > table::after {
+    background-image: linear-gradient(0deg, #68a532, #68a532), linear-gradient(0deg, #68a532, #68a532), linear-gradient(0deg, #68a532, #68a532), linear-gradient(0deg, #68a532, #68a532);
+  }
+
+  .fr-table--green-bourgeon > table thead {
     background-image: linear-gradient(0deg, #447049, #447049);
     background-color: #c9fcac;
+    background-image: none;
   }
 
-  .fr-table--green-bourgeon tbody {
+  .fr-table--green-bourgeon > table tbody {
     background-color: #e6feda;
   }
 
-  .fr-table--green-bourgeon tbody tr:nth-child(even) {
+  .fr-table--green-bourgeon > table tbody tr:nth-child(even) {
     background-color: #c9fcac;
   }
 
-  .fr-table--green-bourgeon.fr-table--bordered tbody tr {
+  .fr-table--green-bourgeon.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #68a532, #68a532);
+    background-image: none;
   }
 
-  .fr-table--green-emeraude thead {
+  .fr-table--green-emeraude > table::after {
+    background-image: linear-gradient(0deg, #00a95f, #00a95f), linear-gradient(0deg, #00a95f, #00a95f), linear-gradient(0deg, #00a95f, #00a95f), linear-gradient(0deg, #00a95f, #00a95f);
+  }
+
+  .fr-table--green-emeraude > table thead {
     background-image: linear-gradient(0deg, #297254, #297254);
     background-color: #c3fad5;
+    background-image: none;
   }
 
-  .fr-table--green-emeraude tbody {
+  .fr-table--green-emeraude > table tbody {
     background-color: #e3fdeb;
   }
 
-  .fr-table--green-emeraude tbody tr:nth-child(even) {
+  .fr-table--green-emeraude > table tbody tr:nth-child(even) {
     background-color: #c3fad5;
   }
 
-  .fr-table--green-emeraude.fr-table--bordered tbody tr {
+  .fr-table--green-emeraude.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #00a95f, #00a95f);
+    background-image: none;
   }
 
-  .fr-table--green-menthe thead {
+  .fr-table--green-menthe > table::after {
+    background-image: linear-gradient(0deg, #009081, #009081), linear-gradient(0deg, #009081, #009081), linear-gradient(0deg, #009081, #009081), linear-gradient(0deg, #009081, #009081);
+  }
+
+  .fr-table--green-menthe > table thead {
     background-image: linear-gradient(0deg, #37635f, #37635f);
     background-color: #bafaee;
+    background-image: none;
   }
 
-  .fr-table--green-menthe tbody {
+  .fr-table--green-menthe > table tbody {
     background-color: #dffdf7;
   }
 
-  .fr-table--green-menthe tbody tr:nth-child(even) {
+  .fr-table--green-menthe > table tbody tr:nth-child(even) {
     background-color: #bafaee;
   }
 
-  .fr-table--green-menthe.fr-table--bordered tbody tr {
+  .fr-table--green-menthe.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #009081, #009081);
+    background-image: none;
   }
 
-  .fr-table--green-archipel thead {
+  .fr-table--green-archipel > table::after {
+    background-image: linear-gradient(0deg, #009099, #009099), linear-gradient(0deg, #009099, #009099), linear-gradient(0deg, #009099, #009099), linear-gradient(0deg, #009099, #009099);
+  }
+
+  .fr-table--green-archipel > table thead {
     background-image: linear-gradient(0deg, #006a6f, #006a6f);
     background-color: #c7f6fc;
+    background-image: none;
   }
 
-  .fr-table--green-archipel tbody {
+  .fr-table--green-archipel > table tbody {
     background-color: #e5fbfd;
   }
 
-  .fr-table--green-archipel tbody tr:nth-child(even) {
+  .fr-table--green-archipel > table tbody tr:nth-child(even) {
     background-color: #c7f6fc;
   }
 
-  .fr-table--green-archipel.fr-table--bordered tbody tr {
+  .fr-table--green-archipel.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #009099, #009099);
+    background-image: none;
   }
 
-  .fr-table--blue-ecume thead {
+  .fr-table--blue-ecume > table::after {
+    background-image: linear-gradient(0deg, #465f9d, #465f9d), linear-gradient(0deg, #465f9d, #465f9d), linear-gradient(0deg, #465f9d, #465f9d), linear-gradient(0deg, #465f9d, #465f9d);
+  }
+
+  .fr-table--blue-ecume > table thead {
     background-image: linear-gradient(0deg, #2f4077, #2f4077);
     background-color: #e9edfe;
+    background-image: none;
   }
 
-  .fr-table--blue-ecume tbody {
+  .fr-table--blue-ecume > table tbody {
     background-color: #f4f6fe;
   }
 
-  .fr-table--blue-ecume tbody tr:nth-child(even) {
+  .fr-table--blue-ecume > table tbody tr:nth-child(even) {
     background-color: #e9edfe;
   }
 
-  .fr-table--blue-ecume.fr-table--bordered tbody tr {
+  .fr-table--blue-ecume.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #465f9d, #465f9d);
+    background-image: none;
   }
 
-  .fr-table--blue-cumulus thead {
+  .fr-table--blue-cumulus > table::after {
+    background-image: linear-gradient(0deg, #417dc4, #417dc4), linear-gradient(0deg, #417dc4, #417dc4), linear-gradient(0deg, #417dc4, #417dc4), linear-gradient(0deg, #417dc4, #417dc4);
+  }
+
+  .fr-table--blue-cumulus > table thead {
     background-image: linear-gradient(0deg, #3558a2, #3558a2);
     background-color: #e6eefe;
+    background-image: none;
   }
 
-  .fr-table--blue-cumulus tbody {
+  .fr-table--blue-cumulus > table tbody {
     background-color: #f3f6fe;
   }
 
-  .fr-table--blue-cumulus tbody tr:nth-child(even) {
+  .fr-table--blue-cumulus > table tbody tr:nth-child(even) {
     background-color: #e6eefe;
   }
 
-  .fr-table--blue-cumulus.fr-table--bordered tbody tr {
+  .fr-table--blue-cumulus.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #417dc4, #417dc4);
+    background-image: none;
   }
 
-  .fr-table--purple-glycine thead {
+  .fr-table--purple-glycine > table::after {
+    background-image: linear-gradient(0deg, #a558a0, #a558a0), linear-gradient(0deg, #a558a0, #a558a0), linear-gradient(0deg, #a558a0, #a558a0), linear-gradient(0deg, #a558a0, #a558a0);
+  }
+
+  .fr-table--purple-glycine > table thead {
     background-image: linear-gradient(0deg, #6e445a, #6e445a);
     background-color: #fee7fc;
+    background-image: none;
   }
 
-  .fr-table--purple-glycine tbody {
+  .fr-table--purple-glycine > table tbody {
     background-color: #fef3fd;
   }
 
-  .fr-table--purple-glycine tbody tr:nth-child(even) {
+  .fr-table--purple-glycine > table tbody tr:nth-child(even) {
     background-color: #fee7fc;
   }
 
-  .fr-table--purple-glycine.fr-table--bordered tbody tr {
+  .fr-table--purple-glycine.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #a558a0, #a558a0);
+    background-image: none;
   }
 
-  .fr-table--pink-macaron thead {
+  .fr-table--pink-macaron > table::after {
+    background-image: linear-gradient(0deg, #e18b76, #e18b76), linear-gradient(0deg, #e18b76, #e18b76), linear-gradient(0deg, #e18b76, #e18b76), linear-gradient(0deg, #e18b76, #e18b76);
+  }
+
+  .fr-table--pink-macaron > table thead {
     background-image: linear-gradient(0deg, #8d533e, #8d533e);
     background-color: #fee9e6;
+    background-image: none;
   }
 
-  .fr-table--pink-macaron tbody {
+  .fr-table--pink-macaron > table tbody {
     background-color: #fef4f2;
   }
 
-  .fr-table--pink-macaron tbody tr:nth-child(even) {
+  .fr-table--pink-macaron > table tbody tr:nth-child(even) {
     background-color: #fee9e6;
   }
 
-  .fr-table--pink-macaron.fr-table--bordered tbody tr {
+  .fr-table--pink-macaron.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #e18b76, #e18b76);
+    background-image: none;
   }
 
-  .fr-table--pink-tuile thead {
+  .fr-table--pink-tuile > table::after {
+    background-image: linear-gradient(0deg, #ce614a, #ce614a), linear-gradient(0deg, #ce614a, #ce614a), linear-gradient(0deg, #ce614a, #ce614a), linear-gradient(0deg, #ce614a, #ce614a);
+  }
+
+  .fr-table--pink-tuile > table thead {
     background-image: linear-gradient(0deg, #a94645, #a94645);
     background-color: #fee9e7;
+    background-image: none;
   }
 
-  .fr-table--pink-tuile tbody {
+  .fr-table--pink-tuile > table tbody {
     background-color: #fef4f3;
   }
 
-  .fr-table--pink-tuile tbody tr:nth-child(even) {
+  .fr-table--pink-tuile > table tbody tr:nth-child(even) {
     background-color: #fee9e7;
   }
 
-  .fr-table--pink-tuile.fr-table--bordered tbody tr {
+  .fr-table--pink-tuile.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #ce614a, #ce614a);
+    background-image: none;
   }
 
-  .fr-table--yellow-tournesol thead {
+  .fr-table--yellow-tournesol > table::after {
+    background-image: linear-gradient(0deg, #c8aa39, #c8aa39), linear-gradient(0deg, #c8aa39, #c8aa39), linear-gradient(0deg, #c8aa39, #c8aa39), linear-gradient(0deg, #c8aa39, #c8aa39);
+  }
+
+  .fr-table--yellow-tournesol > table thead {
     background-image: linear-gradient(0deg, #716043, #716043);
     background-color: #feecc2;
+    background-image: none;
   }
 
-  .fr-table--yellow-tournesol tbody {
+  .fr-table--yellow-tournesol > table tbody {
     background-color: #fef6e3;
   }
 
-  .fr-table--yellow-tournesol tbody tr:nth-child(even) {
+  .fr-table--yellow-tournesol > table tbody tr:nth-child(even) {
     background-color: #feecc2;
   }
 
-  .fr-table--yellow-tournesol.fr-table--bordered tbody tr {
+  .fr-table--yellow-tournesol.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #c8aa39, #c8aa39);
+    background-image: none;
   }
 
-  .fr-table--yellow-moutarde thead {
+  .fr-table--yellow-moutarde > table::after {
+    background-image: linear-gradient(0deg, #c3992a, #c3992a), linear-gradient(0deg, #c3992a, #c3992a), linear-gradient(0deg, #c3992a, #c3992a), linear-gradient(0deg, #c3992a, #c3992a);
+  }
+
+  .fr-table--yellow-moutarde > table thead {
     background-image: linear-gradient(0deg, #695240, #695240);
     background-color: #feebd0;
+    background-image: none;
   }
 
-  .fr-table--yellow-moutarde tbody {
+  .fr-table--yellow-moutarde > table tbody {
     background-color: #fef5e8;
   }
 
-  .fr-table--yellow-moutarde tbody tr:nth-child(even) {
+  .fr-table--yellow-moutarde > table tbody tr:nth-child(even) {
     background-color: #feebd0;
   }
 
-  .fr-table--yellow-moutarde.fr-table--bordered tbody tr {
+  .fr-table--yellow-moutarde.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #c3992a, #c3992a);
+    background-image: none;
   }
 
-  .fr-table--orange-terre-battue thead {
+  .fr-table--orange-terre-battue > table::after {
+    background-image: linear-gradient(0deg, #e4794a, #e4794a), linear-gradient(0deg, #e4794a, #e4794a), linear-gradient(0deg, #e4794a, #e4794a), linear-gradient(0deg, #e4794a, #e4794a);
+  }
+
+  .fr-table--orange-terre-battue > table thead {
     background-image: linear-gradient(0deg, #755348, #755348);
     background-color: #fee9e5;
+    background-image: none;
   }
 
-  .fr-table--orange-terre-battue tbody {
+  .fr-table--orange-terre-battue > table tbody {
     background-color: #fef4f2;
   }
 
-  .fr-table--orange-terre-battue tbody tr:nth-child(even) {
+  .fr-table--orange-terre-battue > table tbody tr:nth-child(even) {
     background-color: #fee9e5;
   }
 
-  .fr-table--orange-terre-battue.fr-table--bordered tbody tr {
+  .fr-table--orange-terre-battue.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #e4794a, #e4794a);
+    background-image: none;
   }
 
-  .fr-table--brown-cafe-creme thead {
+  .fr-table--brown-cafe-creme > table::after {
+    background-image: linear-gradient(0deg, #d1b781, #d1b781), linear-gradient(0deg, #d1b781, #d1b781), linear-gradient(0deg, #d1b781, #d1b781), linear-gradient(0deg, #d1b781, #d1b781);
+  }
+
+  .fr-table--brown-cafe-creme > table thead {
     background-image: linear-gradient(0deg, #685c48, #685c48);
     background-color: #f7ecdb;
+    background-image: none;
   }
 
-  .fr-table--brown-cafe-creme tbody {
+  .fr-table--brown-cafe-creme > table tbody {
     background-color: #fbf6ed;
   }
 
-  .fr-table--brown-cafe-creme tbody tr:nth-child(even) {
+  .fr-table--brown-cafe-creme > table tbody tr:nth-child(even) {
     background-color: #f7ecdb;
   }
 
-  .fr-table--brown-cafe-creme.fr-table--bordered tbody tr {
+  .fr-table--brown-cafe-creme.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #d1b781, #d1b781);
+    background-image: none;
   }
 
-  .fr-table--brown-caramel thead {
+  .fr-table--brown-caramel > table::after {
+    background-image: linear-gradient(0deg, #c08c65, #c08c65), linear-gradient(0deg, #c08c65, #c08c65), linear-gradient(0deg, #c08c65, #c08c65), linear-gradient(0deg, #c08c65, #c08c65);
+  }
+
+  .fr-table--brown-caramel > table thead {
     background-image: linear-gradient(0deg, #845d48, #845d48);
     background-color: #f7ebe5;
+    background-image: none;
   }
 
-  .fr-table--brown-caramel tbody {
+  .fr-table--brown-caramel > table tbody {
     background-color: #fbf5f2;
   }
 
-  .fr-table--brown-caramel tbody tr:nth-child(even) {
+  .fr-table--brown-caramel > table tbody tr:nth-child(even) {
     background-color: #f7ebe5;
   }
 
-  .fr-table--brown-caramel.fr-table--bordered tbody tr {
+  .fr-table--brown-caramel.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #c08c65, #c08c65);
+    background-image: none;
   }
 
-  .fr-table--brown-opera thead {
+  .fr-table--brown-opera > table::after {
+    background-image: linear-gradient(0deg, #bd987a, #bd987a), linear-gradient(0deg, #bd987a, #bd987a), linear-gradient(0deg, #bd987a, #bd987a), linear-gradient(0deg, #bd987a, #bd987a);
+  }
+
+  .fr-table--brown-opera > table thead {
     background-image: linear-gradient(0deg, #745b47, #745b47);
     background-color: #f7ece4;
+    background-image: none;
   }
 
-  .fr-table--brown-opera tbody {
+  .fr-table--brown-opera > table tbody {
     background-color: #fbf5f2;
   }
 
-  .fr-table--brown-opera tbody tr:nth-child(even) {
+  .fr-table--brown-opera > table tbody tr:nth-child(even) {
     background-color: #f7ece4;
   }
 
-  .fr-table--brown-opera.fr-table--bordered tbody tr {
+  .fr-table--brown-opera.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #bd987a, #bd987a);
+    background-image: none;
   }
 
-  .fr-table--beige-gris-galet thead {
+  .fr-table--beige-gris-galet > table::after {
+    background-image: linear-gradient(0deg, #aea397, #aea397), linear-gradient(0deg, #aea397, #aea397), linear-gradient(0deg, #aea397, #aea397), linear-gradient(0deg, #aea397, #aea397);
+  }
+
+  .fr-table--beige-gris-galet > table thead {
     background-image: linear-gradient(0deg, #6a6156, #6a6156);
     background-color: #f3ede5;
+    background-image: none;
   }
 
-  .fr-table--beige-gris-galet tbody {
+  .fr-table--beige-gris-galet > table tbody {
     background-color: #f9f6f2;
   }
 
-  .fr-table--beige-gris-galet tbody tr:nth-child(even) {
+  .fr-table--beige-gris-galet > table tbody tr:nth-child(even) {
     background-color: #f3ede5;
   }
 
-  .fr-table--beige-gris-galet.fr-table--bordered tbody tr {
+  .fr-table--beige-gris-galet.fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #aea397, #aea397);
+    background-image: none;
   }
 
-  .fr-table--bordered tbody tr {
+  .fr-table--bordered > table tbody tr {
     background-image: linear-gradient(0deg, #ddd, #ddd);
   }
 
-  .fr-table--bordered tbody tr:nth-child(even) {
+  .fr-table--bordered > table tbody tr:nth-child(even) {
     background-color: transparent;
   }
 
-  .fr-table--bordered tbody tr:nth-child(even):hover {
+  .fr-table--bordered > table tbody tr:nth-child(even):hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  .fr-table--bordered tbody tr:nth-child(even):active {
+  .fr-table--bordered > table tbody tr:nth-child(even):active {
     background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .fr-table::before {
+    content: none;
+  }
+
+  .fr-table > table {
+    background-image: none;
+  }
+
+  .fr-table > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--green-tilleul-verveine > table {
+    background-image: none;
+  }
+
+  .fr-table--green-tilleul-verveine > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--green-bourgeon > table {
+    background-image: none;
+  }
+
+  .fr-table--green-bourgeon > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--green-emeraude > table {
+    background-image: none;
+  }
+
+  .fr-table--green-emeraude > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--green-menthe > table {
+    background-image: none;
+  }
+
+  .fr-table--green-menthe > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--green-archipel > table {
+    background-image: none;
+  }
+
+  .fr-table--green-archipel > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--blue-ecume > table {
+    background-image: none;
+  }
+
+  .fr-table--blue-ecume > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--blue-cumulus > table {
+    background-image: none;
+  }
+
+  .fr-table--blue-cumulus > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--purple-glycine > table {
+    background-image: none;
+  }
+
+  .fr-table--purple-glycine > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--pink-macaron > table {
+    background-image: none;
+  }
+
+  .fr-table--pink-macaron > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--pink-tuile > table {
+    background-image: none;
+  }
+
+  .fr-table--pink-tuile > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--yellow-tournesol > table {
+    background-image: none;
+  }
+
+  .fr-table--yellow-tournesol > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--yellow-moutarde > table {
+    background-image: none;
+  }
+
+  .fr-table--yellow-moutarde > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--orange-terre-battue > table {
+    background-image: none;
+  }
+
+  .fr-table--orange-terre-battue > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--brown-cafe-creme > table {
+    background-image: none;
+  }
+
+  .fr-table--brown-cafe-creme > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--brown-caramel > table {
+    background-image: none;
+  }
+
+  .fr-table--brown-caramel > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--brown-opera > table {
+    background-image: none;
+  }
+
+  .fr-table--brown-opera > table tbody tr {
+    background-image: none;
+  }
+
+  .fr-table--beige-gris-galet > table {
+    background-image: none;
+  }
+
+  .fr-table--beige-gris-galet > table tbody tr {
+    background-image: none;
+  }
+}
+
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-table__content table {
+    border-left: 1px solid #929292;
+    border-right: 1px solid #929292;
+  }
+
+  .fr-table__content table thead tr:first-child th {
+    border-top: 1px solid #929292;
+  }
+
+  .fr-table__content table thead tr:last-child th {
+    border-bottom: 1px solid #3a3a3a;
+  }
+
+  .fr-table--bordered table th,
+  .fr-table--bordered table td {
+    border-right: 1px solid #929292;
+  }
+
+  .fr-table > table thead tr:first-child th {
+    border-top: 1px solid #929292;
+  }
+
+  .fr-table > table thead tr:last-child th {
+    border-bottom: 1px solid #3a3a3a;
+  }
+
+  .fr-table > table tbody tr:last-child th,
+  .fr-table > table tbody tr:last-child td {
+    border-bottom: 1px solid #929292;
+  }
+
+  .fr-table > table th:first-child,
+  .fr-table > table td:first-child {
+    border-left: 1px solid #929292;
+  }
+
+  .fr-table > table th:last-child,
+  .fr-table > table td:last-child {
+    border-right: 1px solid #929292;
+  }
+
+  .fr-table--bordered > table th,
+  .fr-table--bordered > table td {
+    border-bottom: 1px solid #929292;
   }
 }
 
 @media print {
-  .fr-table {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
+  .fr-table__wrapper::after {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
   }
 
-  .fr-table caption {
+  .fr-table__content table caption {
     color: #161616;
   }
 
-  .fr-table thead {
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
-    background-color: #eee;
-    color: #161616;
-  }
-
-  .fr-table tbody {
+  .fr-table__content table thead th {
     background-color: #f6f6f6;
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #929292, #929292);
   }
 
-  .fr-table tbody tr:nth-child(even) {
-    background-color: #eee;
+  .fr-table__content table thead th[role=columnheader] {
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
-  .fr-table--green-tilleul-verveine {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
+  .fr-table__content table thead th:last-child {
+    background-color: #f6f6f6;
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
-  .fr-table--green-tilleul-verveine thead {
-    background-image: linear-gradient(0deg, #66673d, #66673d);
-    background-color: #fceeac;
+  .fr-table__content table tbody tr[aria-selected=true]::after {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091);
   }
 
-  .fr-table--green-tilleul-verveine tbody {
-    background-color: #fef7da;
+  .fr-table__content table tbody td {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
+    background-color: #fff;
   }
 
-  .fr-table--green-tilleul-verveine tbody tr:nth-child(even) {
-    background-color: #fceeac;
+  .fr-table__content table tbody th {
+    background-color: #f6f6f6;
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
-  .fr-table--green-tilleul-verveine.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #b7a73f, #b7a73f);
-  }
-
-  .fr-table--green-bourgeon {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--green-bourgeon thead {
-    background-image: linear-gradient(0deg, #447049, #447049);
-    background-color: #c9fcac;
-  }
-
-  .fr-table--green-bourgeon tbody {
-    background-color: #e6feda;
-  }
-
-  .fr-table--green-bourgeon tbody tr:nth-child(even) {
-    background-color: #c9fcac;
-  }
-
-  .fr-table--green-bourgeon.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #68a532, #68a532);
-  }
-
-  .fr-table--green-emeraude {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--green-emeraude thead {
-    background-image: linear-gradient(0deg, #297254, #297254);
-    background-color: #c3fad5;
-  }
-
-  .fr-table--green-emeraude tbody {
-    background-color: #e3fdeb;
-  }
-
-  .fr-table--green-emeraude tbody tr:nth-child(even) {
-    background-color: #c3fad5;
-  }
-
-  .fr-table--green-emeraude.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #00a95f, #00a95f);
-  }
-
-  .fr-table--green-menthe {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--green-menthe thead {
-    background-image: linear-gradient(0deg, #37635f, #37635f);
-    background-color: #bafaee;
-  }
-
-  .fr-table--green-menthe tbody {
-    background-color: #dffdf7;
-  }
-
-  .fr-table--green-menthe tbody tr:nth-child(even) {
-    background-color: #bafaee;
-  }
-
-  .fr-table--green-menthe.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #009081, #009081);
-  }
-
-  .fr-table--green-archipel {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--green-archipel thead {
-    background-image: linear-gradient(0deg, #006a6f, #006a6f);
-    background-color: #c7f6fc;
-  }
-
-  .fr-table--green-archipel tbody {
-    background-color: #e5fbfd;
-  }
-
-  .fr-table--green-archipel tbody tr:nth-child(even) {
-    background-color: #c7f6fc;
-  }
-
-  .fr-table--green-archipel.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #009099, #009099);
-  }
-
-  .fr-table--blue-ecume {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--blue-ecume thead {
-    background-image: linear-gradient(0deg, #2f4077, #2f4077);
-    background-color: #e9edfe;
-  }
-
-  .fr-table--blue-ecume tbody {
-    background-color: #f4f6fe;
-  }
-
-  .fr-table--blue-ecume tbody tr:nth-child(even) {
-    background-color: #e9edfe;
-  }
-
-  .fr-table--blue-ecume.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #465f9d, #465f9d);
-  }
-
-  .fr-table--blue-cumulus {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--blue-cumulus thead {
-    background-image: linear-gradient(0deg, #3558a2, #3558a2);
-    background-color: #e6eefe;
-  }
-
-  .fr-table--blue-cumulus tbody {
-    background-color: #f3f6fe;
-  }
-
-  .fr-table--blue-cumulus tbody tr:nth-child(even) {
-    background-color: #e6eefe;
-  }
-
-  .fr-table--blue-cumulus.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #417dc4, #417dc4);
-  }
-
-  .fr-table--purple-glycine {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--purple-glycine thead {
-    background-image: linear-gradient(0deg, #6e445a, #6e445a);
-    background-color: #fee7fc;
-  }
-
-  .fr-table--purple-glycine tbody {
-    background-color: #fef3fd;
-  }
-
-  .fr-table--purple-glycine tbody tr:nth-child(even) {
-    background-color: #fee7fc;
-  }
-
-  .fr-table--purple-glycine.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #a558a0, #a558a0);
-  }
-
-  .fr-table--pink-macaron {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--pink-macaron thead {
-    background-image: linear-gradient(0deg, #8d533e, #8d533e);
-    background-color: #fee9e6;
-  }
-
-  .fr-table--pink-macaron tbody {
-    background-color: #fef4f2;
-  }
-
-  .fr-table--pink-macaron tbody tr:nth-child(even) {
-    background-color: #fee9e6;
-  }
-
-  .fr-table--pink-macaron.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #e18b76, #e18b76);
-  }
-
-  .fr-table--pink-tuile {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--pink-tuile thead {
-    background-image: linear-gradient(0deg, #a94645, #a94645);
-    background-color: #fee9e7;
-  }
-
-  .fr-table--pink-tuile tbody {
-    background-color: #fef4f3;
-  }
-
-  .fr-table--pink-tuile tbody tr:nth-child(even) {
-    background-color: #fee9e7;
-  }
-
-  .fr-table--pink-tuile.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #ce614a, #ce614a);
-  }
-
-  .fr-table--yellow-tournesol {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--yellow-tournesol thead {
-    background-image: linear-gradient(0deg, #716043, #716043);
-    background-color: #feecc2;
-  }
-
-  .fr-table--yellow-tournesol tbody {
-    background-color: #fef6e3;
-  }
-
-  .fr-table--yellow-tournesol tbody tr:nth-child(even) {
-    background-color: #feecc2;
-  }
-
-  .fr-table--yellow-tournesol.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #c8aa39, #c8aa39);
-  }
-
-  .fr-table--yellow-moutarde {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--yellow-moutarde thead {
-    background-image: linear-gradient(0deg, #695240, #695240);
-    background-color: #feebd0;
-  }
-
-  .fr-table--yellow-moutarde tbody {
-    background-color: #fef5e8;
-  }
-
-  .fr-table--yellow-moutarde tbody tr:nth-child(even) {
-    background-color: #feebd0;
-  }
-
-  .fr-table--yellow-moutarde.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #c3992a, #c3992a);
-  }
-
-  .fr-table--orange-terre-battue {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--orange-terre-battue thead {
-    background-image: linear-gradient(0deg, #755348, #755348);
-    background-color: #fee9e5;
-  }
-
-  .fr-table--orange-terre-battue tbody {
-    background-color: #fef4f2;
-  }
-
-  .fr-table--orange-terre-battue tbody tr:nth-child(even) {
-    background-color: #fee9e5;
-  }
-
-  .fr-table--orange-terre-battue.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #e4794a, #e4794a);
-  }
-
-  .fr-table--brown-cafe-creme {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--brown-cafe-creme thead {
-    background-image: linear-gradient(0deg, #685c48, #685c48);
-    background-color: #f7ecdb;
-  }
-
-  .fr-table--brown-cafe-creme tbody {
-    background-color: #fbf6ed;
-  }
-
-  .fr-table--brown-cafe-creme tbody tr:nth-child(even) {
-    background-color: #f7ecdb;
-  }
-
-  .fr-table--brown-cafe-creme.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #d1b781, #d1b781);
-  }
-
-  .fr-table--brown-caramel {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--brown-caramel thead {
-    background-image: linear-gradient(0deg, #845d48, #845d48);
-    background-color: #f7ebe5;
-  }
-
-  .fr-table--brown-caramel tbody {
-    background-color: #fbf5f2;
-  }
-
-  .fr-table--brown-caramel tbody tr:nth-child(even) {
-    background-color: #f7ebe5;
-  }
-
-  .fr-table--brown-caramel.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #c08c65, #c08c65);
-  }
-
-  .fr-table--brown-opera {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--brown-opera thead {
-    background-image: linear-gradient(0deg, #745b47, #745b47);
-    background-color: #f7ece4;
-  }
-
-  .fr-table--brown-opera tbody {
-    background-color: #fbf5f2;
-  }
-
-  .fr-table--brown-opera tbody tr:nth-child(even) {
-    background-color: #f7ece4;
-  }
-
-  .fr-table--brown-opera.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #bd987a, #bd987a);
-  }
-
-  .fr-table--beige-gris-galet {
-    /* Style bordered, ajoute des bordures entre chaque ligne */
-  }
-
-  .fr-table--beige-gris-galet thead {
-    background-image: linear-gradient(0deg, #6a6156, #6a6156);
-    background-color: #f3ede5;
-  }
-
-  .fr-table--beige-gris-galet tbody {
-    background-color: #f9f6f2;
-  }
-
-  .fr-table--beige-gris-galet tbody tr:nth-child(even) {
-    background-color: #f3ede5;
-  }
-
-  .fr-table--beige-gris-galet.fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #aea397, #aea397);
-  }
-
-  .fr-table--bordered tbody tr {
-    background-image: linear-gradient(0deg, #ddd, #ddd);
-
-    /* Style bordered, enleve le style even/odd  */
+  .fr-table__detail {
+    color: #666;
   }
 
   .fr-table td,
   .fr-table th {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-}
-
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-table--bordered tbody tr:nth-child(even) {
-    background-color: transparent;
-  }
-
-  .fr-table--bordered tbody tr:nth-child(even):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-table--bordered tbody tr:nth-child(even):active {
-    background-color: rgba(0, 0, 0, 0.1);
   }
 }

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,7 +13,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-icon-chrome-fill::before,
   .fr-icon-chrome-fill::after {
     background-image: url("../../../icons/logo/chrome-fill.svg");
@@ -252,6 +252,16 @@
   .fr-icon-vuejs-line::before,
   .fr-icon-vuejs-line::after {
     background-image: url("../../../icons/logo/vuejs-line.svg");
+  }
+
+  .fr-icon-whatsapp-fill::before,
+  .fr-icon-whatsapp-fill::after {
+    background-image: url("../../../icons/logo/whatsapp-fill.svg");
+  }
+
+  .fr-icon-whatsapp-line::before,
+  .fr-icon-whatsapp-line::after {
+    background-image: url("../../../icons/logo/whatsapp-line.svg");
   }
 
   .fr-icon-youtube-fill::before,

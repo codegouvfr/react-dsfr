@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -18,6 +18,18 @@
   mask-image: url("../../../icons/weather/cloudy-2-line.svg");
 }
 
+.fr-icon-fire-fill::before,
+.fr-icon-fire-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/fire-fill.svg");
+  mask-image: url("../../../icons/weather/fire-fill.svg");
+}
+
+.fr-icon-fire-line::before,
+.fr-icon-fire-line::after {
+  -webkit-mask-image: url("../../../icons/weather/fire-line.svg");
+  mask-image: url("../../../icons/weather/fire-line.svg");
+}
+
 .fr-icon-flashlight-fill::before,
 .fr-icon-flashlight-fill::after {
   -webkit-mask-image: url("../../../icons/weather/flashlight-fill.svg");
@@ -28,6 +40,42 @@
 .fr-icon-flashlight-line::after {
   -webkit-mask-image: url("../../../icons/weather/flashlight-line.svg");
   mask-image: url("../../../icons/weather/flashlight-line.svg");
+}
+
+.fr-icon-flood-fill::before,
+.fr-icon-flood-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/flood-fill.svg");
+  mask-image: url("../../../icons/weather/flood-fill.svg");
+}
+
+.fr-icon-flood-line::before,
+.fr-icon-flood-line::after {
+  -webkit-mask-image: url("../../../icons/weather/flood-line.svg");
+  mask-image: url("../../../icons/weather/flood-line.svg");
+}
+
+.fr-icon-avalanches-fill::before,
+.fr-icon-avalanches-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/fr--avalanches-fill.svg");
+  mask-image: url("../../../icons/weather/fr--avalanches-fill.svg");
+}
+
+.fr-icon-submersion-fill::before,
+.fr-icon-submersion-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/fr--submersion-fill.svg");
+  mask-image: url("../../../icons/weather/fr--submersion-fill.svg");
+}
+
+.fr-icon-heavy-showers-fill::before,
+.fr-icon-heavy-showers-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/heavy-showers-fill.svg");
+  mask-image: url("../../../icons/weather/heavy-showers-fill.svg");
+}
+
+.fr-icon-heavy-showers-line::before,
+.fr-icon-heavy-showers-line::after {
+  -webkit-mask-image: url("../../../icons/weather/heavy-showers-line.svg");
+  mask-image: url("../../../icons/weather/heavy-showers-line.svg");
 }
 
 .fr-icon-moon-fill::before,
@@ -42,6 +90,30 @@
   mask-image: url("../../../icons/weather/moon-line.svg");
 }
 
+.fr-icon-snowy-fill::before,
+.fr-icon-snowy-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/snowy-fill.svg");
+  mask-image: url("../../../icons/weather/snowy-fill.svg");
+}
+
+.fr-icon-snowy-line::before,
+.fr-icon-snowy-line::after {
+  -webkit-mask-image: url("../../../icons/weather/snowy-line.svg");
+  mask-image: url("../../../icons/weather/snowy-line.svg");
+}
+
+.fr-icon-sparkling-2-fill::before,
+.fr-icon-sparkling-2-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/sparkling-2-fill.svg");
+  mask-image: url("../../../icons/weather/sparkling-2-fill.svg");
+}
+
+.fr-icon-sparkling-2-line::before,
+.fr-icon-sparkling-2-line::after {
+  -webkit-mask-image: url("../../../icons/weather/sparkling-2-line.svg");
+  mask-image: url("../../../icons/weather/sparkling-2-line.svg");
+}
+
 .fr-icon-sun-fill::before,
 .fr-icon-sun-fill::after {
   -webkit-mask-image: url("../../../icons/weather/sun-fill.svg");
@@ -52,6 +124,66 @@
 .fr-icon-sun-line::after {
   -webkit-mask-image: url("../../../icons/weather/sun-line.svg");
   mask-image: url("../../../icons/weather/sun-line.svg");
+}
+
+.fr-icon-temp-cold-fill::before,
+.fr-icon-temp-cold-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/temp-cold-fill.svg");
+  mask-image: url("../../../icons/weather/temp-cold-fill.svg");
+}
+
+.fr-icon-temp-cold-line::before,
+.fr-icon-temp-cold-line::after {
+  -webkit-mask-image: url("../../../icons/weather/temp-cold-line.svg");
+  mask-image: url("../../../icons/weather/temp-cold-line.svg");
+}
+
+.fr-icon-thunderstorms-fill::before,
+.fr-icon-thunderstorms-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/thunderstorms-fill.svg");
+  mask-image: url("../../../icons/weather/thunderstorms-fill.svg");
+}
+
+.fr-icon-thunderstorms-line::before,
+.fr-icon-thunderstorms-line::after {
+  -webkit-mask-image: url("../../../icons/weather/thunderstorms-line.svg");
+  mask-image: url("../../../icons/weather/thunderstorms-line.svg");
+}
+
+.fr-icon-tornado-fill::before,
+.fr-icon-tornado-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/tornado-fill.svg");
+  mask-image: url("../../../icons/weather/tornado-fill.svg");
+}
+
+.fr-icon-tornado-line::before,
+.fr-icon-tornado-line::after {
+  -webkit-mask-image: url("../../../icons/weather/tornado-line.svg");
+  mask-image: url("../../../icons/weather/tornado-line.svg");
+}
+
+.fr-icon-typhoon-fill::before,
+.fr-icon-typhoon-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/typhoon-fill.svg");
+  mask-image: url("../../../icons/weather/typhoon-fill.svg");
+}
+
+.fr-icon-typhoon-line::before,
+.fr-icon-typhoon-line::after {
+  -webkit-mask-image: url("../../../icons/weather/typhoon-line.svg");
+  mask-image: url("../../../icons/weather/typhoon-line.svg");
+}
+
+.fr-icon-windy-fill::before,
+.fr-icon-windy-fill::after {
+  -webkit-mask-image: url("../../../icons/weather/windy-fill.svg");
+  mask-image: url("../../../icons/weather/windy-fill.svg");
+}
+
+.fr-icon-windy-line::before,
+.fr-icon-windy-line::after {
+  -webkit-mask-image: url("../../../icons/weather/windy-line.svg");
+  mask-image: url("../../../icons/weather/windy-line.svg");
 }
 
 .fr-fi-flashlight-fill::before,

@@ -1,10 +1,10 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.11.2'
+  version: '1.12.0'
 };
 
 const api = window[config.namespace];
@@ -180,6 +180,7 @@ class RangeModelStep extends RangeModel {
     super._update();
     const steps = this._rangeWidth / this._step;
     this._stepWidth = this._innerWidth / steps;
+    if (this._stepWidth < 1 || !isFinite(this._stepWidth)) this._stepWidth = 4;
     while (this._stepWidth < 4) this._stepWidth *= 2;
   }
 }
@@ -479,6 +480,7 @@ class RangeInput extends api.core.Instance {
   setValue (value) {
     if (parseFloat(this.node.value) > value) {
       this.node.value = value;
+      this.dispatch('change', undefined, true);
       this.change();
     }
   }
@@ -514,6 +516,7 @@ class RangeInput2 extends RangeInput {
   setValue (value) {
     if (parseFloat(this.node.value) < value) {
       this.node.value = value;
+      this.dispatch('change', undefined, true);
       this.change();
     }
   }

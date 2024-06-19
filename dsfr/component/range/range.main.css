@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -151,6 +151,10 @@
   z-index: 2;
 }
 
+.fr-range[data-fr-js-range] input[type=range]:disabled {
+  border-color: graytext;
+}
+
 .fr-range[data-fr-js-range] .fr-range__output {
   visibility: visible;
 }
@@ -262,6 +266,7 @@
 
 .fr-range-group--disabled .fr-range--step[data-fr-js-range]::after {
   background-image: radial-gradient(circle at 2px 50%, var(--background-default-grey) 0, var(--background-default-grey) 2px, transparent 2px);
+  box-shadow: inset 10px 0 0 0 var(--border-disabled-grey), inset -10px 0 0 0 var(--border-disabled-grey);
 }
 
 .fr-range-group--disabled .fr-range__output,
@@ -280,4 +285,64 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-range-group--disabled .fr-range__output,
+  .fr-range-group--disabled .fr-range__min,
+  .fr-range-group--disabled .fr-range__max {
+    color: graytext;
+  }
+
+  .fr-range-group--disabled .fr-range[data-fr-js-range]::before,
+  .fr-range-group--disabled .fr-range[data-fr-js-range]::after {
+    border: 1px solid graytext;
+  }
+
+  .fr-range-group--disabled .fr-label,
+  .fr-range-group--disabled .fr-label .fr-hint-text {
+    color: graytext;
+  }
+
+  .fr-range[data-fr-js-range]::before,
+  .fr-range[data-fr-js-range]::after {
+    border: 1px solid buttontext;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range] {
+    border: none;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]:focus::-webkit-slider-thumb {
+    outline-color: highlight;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]:focus::-moz-range-thumb {
+    outline-color: highlight;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]::-webkit-slider-thumb {
+    background: buttontext;
+    box-shadow: none;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]::-moz-range-thumb {
+    background: buttontext;
+    box-shadow: none;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]:disabled::-webkit-slider-thumb {
+    background: graytext;
+  }
+
+  .fr-range[data-fr-js-range] input[type=range]:disabled::-moz-range-thumb {
+    background: graytext;
+  }
+
+  .fr-range--double[data-fr-js-range] input[type=range]:nth-of-type(1) {
+    border-right: none;
+  }
+
+  .fr-range--double[data-fr-js-range] input[type=range]:nth-of-type(2) {
+    border-left: none;
+  }
 }

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -234,6 +234,18 @@
   mask-image: url("../../../icons/design/pencil-ruler-line.svg");
 }
 
+.fr-icon-shapes-fill::before,
+.fr-icon-shapes-fill::after {
+  -webkit-mask-image: url("../../../icons/design/shapes-fill.svg");
+  mask-image: url("../../../icons/design/shapes-fill.svg");
+}
+
+.fr-icon-shapes-line::before,
+.fr-icon-shapes-line::after {
+  -webkit-mask-image: url("../../../icons/design/shapes-line.svg");
+  mask-image: url("../../../icons/design/shapes-line.svg");
+}
+
 .fr-icon-sip-fill::before,
 .fr-icon-sip-fill::after {
   -webkit-mask-image: url("../../../icons/design/sip-fill.svg");
@@ -294,7 +306,7 @@
   /*! media xl */
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-icon-ball-pen-fill::before,
   .fr-icon-ball-pen-fill::after {
     background-image: url("../../../icons/design/ball-pen-fill.svg");
@@ -483,6 +495,16 @@
   .fr-icon-pencil-ruler-line::before,
   .fr-icon-pencil-ruler-line::after {
     background-image: url("../../../icons/design/pencil-ruler-line.svg");
+  }
+
+  .fr-icon-shapes-fill::before,
+  .fr-icon-shapes-fill::after {
+    background-image: url("../../../icons/design/shapes-fill.svg");
+  }
+
+  .fr-icon-shapes-line::before,
+  .fr-icon-shapes-line::after {
+    background-image: url("../../../icons/design/shapes-line.svg");
   }
 
   .fr-icon-sip-fill::before,

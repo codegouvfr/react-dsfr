@@ -8,10 +8,10 @@ page
 └─ form
 └─ stepper
 └─ alert
-└─ checkbox
 └─ radio
 └─ input
 └─ button
+└─ checkbox
 └─ password
 ```
 

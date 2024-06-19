@@ -1,4 +1,4 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.2'
+    version: '1.12.0'
   };
 
   var api = window[config.namespace];
@@ -15,7 +15,8 @@
   var TableEmission = {
     SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
     CHANGE: api.internals.ns.emission('table', 'change'),
-    CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight')
+    CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight'),
+    CAPTION_WIDTH: api.internals.ns.emission('table', 'captionwidth')
   };
 
   var PADDING = '1rem'; // padding de 4v sur le caption
@@ -36,6 +37,7 @@
     };
 
     Table.prototype.init = function init () {
+      this.rowsHeaderWidth = [];
       this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
     };
 
@@ -53,11 +55,13 @@
     SHADOW: api.internals.ns.selector('table__shadow'),
     SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
     SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
-    ELEMENT: ((api.internals.ns.selector('table')) + ":not(" + (api.internals.ns.selector('table--no-scroll')) + ") table"),
-    CAPTION: ((api.internals.ns.selector('table')) + " table caption")
+    ELEMENT: [((api.internals.ns.selector('table')) + ":not(" + (api.internals.ns.selector('table--no-scroll')) + ") table")],
+    CAPTION: ((api.internals.ns.selector('table')) + " table caption"),
+    ROW: ((api.internals.ns.selector('table')) + " tbody tr"),
+    COL: ((api.internals.ns.selector('table')) + " thead th")
   };
 
-  var SCROLL_OFFSET = 8; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
+  var SCROLL_OFFSET = 0; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
 
   var TableElement = /*@__PURE__*/(function (superclass) {
     function TableElement () {
@@ -78,6 +82,7 @@
     TableElement.prototype.init = function init () {
       this.listen('scroll', this.scroll.bind(this));
       this.content = this.querySelector('tbody');
+      this.tableOffsetHeight = 0;
       this.isResizing = true;
     };
 
@@ -167,16 +172,76 @@
     return TableCaption;
   }(api.core.Instance));
 
+  var CheckboxEmission = {
+    CHANGE: api.internals.ns.emission('checkbox', 'change'),
+    RETRIEVE: api.internals.ns.emission('checkbox', 'retrieve')
+  };
+
+  var TableRow = /*@__PURE__*/(function (superclass) {
+    function TableRow () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TableRow.__proto__ = superclass;
+    TableRow.prototype = Object.create( superclass && superclass.prototype );
+    TableRow.prototype.constructor = TableRow;
+
+    var prototypeAccessors = { isSelected: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TableRow';
+    };
+
+    TableRow.prototype.init = function init () {
+      if (api.checkbox) {
+        this.addAscent(CheckboxEmission.CHANGE, this._handleCheckboxChange.bind(this));
+        this.descend(CheckboxEmission.RETRIEVE);
+      }
+    };
+
+    TableRow.prototype._handleCheckboxChange = function _handleCheckboxChange (node) {
+      if (node.name === 'row-select') {
+        this.isSelected = node.checked === true;
+      }
+    };
+
+    TableRow.prototype.render = function render () {
+      var height = this.getRect().height + 2;
+      if (this._height === height) { return; }
+      this._height = height;
+      this.setProperty('--row-height', ((this._height) + "px"));
+    };
+
+    prototypeAccessors.isSelected.get = function () {
+      return this._isSelected;
+    };
+
+    prototypeAccessors.isSelected.set = function (value) {
+      if (this._isSelected === value) { return; }
+      this.isRendering = value;
+      this._isSelected = value;
+      this.setAttribute('aria-selected', value);
+    };
+
+    Object.defineProperties( TableRow.prototype, prototypeAccessors );
+    Object.defineProperties( TableRow, staticAccessors );
+
+    return TableRow;
+  }(api.core.Instance));
+
   api.table = {
     Table: Table,
     TableElement: TableElement,
     TableCaption: TableCaption,
-    TableSelector: TableSelector
+    TableSelector: TableSelector,
+    TableRow: TableRow
   };
 
   api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
   api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
   api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
+  api.internals.register(api.table.TableSelector.ROW, api.table.TableRow);
 
 })();
 //# sourceMappingURL=table.nomodule.js.map

@@ -10,10 +10,10 @@ register
 └─ connect
 └─ form
 └─ alert
-└─ checkbox
 └─ radio
 └─ input
 └─ button
+└─ checkbox
 └─ password
 ```
 

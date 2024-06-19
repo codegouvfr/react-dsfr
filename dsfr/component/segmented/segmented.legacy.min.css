@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */@media (min-width:36em){
   /*! media sm */}@media (min-width:48em){
   /*! media md */}@media (min-width:62em){
   /*! media lg */}@media (min-width:78em){
-  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-segmented{display:block}.fr-segmented--sm .fr-segmented__legend--inline{margin:.25rem 0 0}.fr-segmented__legend--inline{margin:.5rem 0 0}.fr-segmented__elements{box-shadow:inset 0 0 0 1px #ddd;display:inline-flex}.fr-segmented input+label:before{height:1rem;vertical-align:-2px;width:1rem}.fr-segmented input:focus+label:before{outline:none}.fr-segmented__element label{color:#161616}.fr-segmented__element input:checked+label{box-shadow:inset 0 0 0 1px #000091;color:#000091}.fr-segmented__element input:checked:disabled+label{box-shadow:inset 0 0 0 1px #929292;color:#929292}}
+  /*! media xl */}@media screen and (min-width:0\0) and (min-resolution:72dpi){.fr-segmented{display:block}.fr-segmented--sm .fr-segmented__legend--inline{margin:.25rem 0 0}.fr-segmented__legend--inline{margin:.5rem 0 0}.fr-segmented__elements{box-shadow:inset 0 0 0 1px #ddd;display:inline-flex}.fr-segmented input+label:before{height:1rem;vertical-align:-2px;width:1rem}.fr-segmented input:focus+label:before{outline:none}.fr-segmented__element label{color:#161616}.fr-segmented__element input:checked+label{box-shadow:inset 0 0 0 1px #000091;color:#000091}.fr-segmented__element input:checked:disabled+label{box-shadow:inset 0 0 0 1px #929292;color:#929292}}

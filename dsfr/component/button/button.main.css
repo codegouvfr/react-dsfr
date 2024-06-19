@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -957,6 +957,73 @@
   content: "";
 }
 
+.fr-btn--sort {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 2rem;
+  max-height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.fr-btn--sort::before {
+  --icon-size: 1rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/arrow-up-down-line.svg");
+  mask-image: url("../../icons/system/arrow-up-down-line.svg");
+  content: "";
+  transition: transform 0.3s;
+}
+
+.fr-btn--sort[aria-sorting=desc]::before {
+  transform: rotate(-180deg);
+}
+
+.fr-btn--sort[aria-sorting=asc],
+.fr-btn--sort[aria-sorting=desc] {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 2rem;
+  max-height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.fr-btn--sort[aria-sorting=asc]::before,
+.fr-btn--sort[aria-sorting=desc]::before {
+  --icon-size: 1rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/arrow-up-line.svg");
+  mask-image: url("../../icons/system/arrow-up-line.svg");
+  content: "";
+}
+
 .fr-btn:disabled,
 a.fr-btn:not([href]) {
   color: var(--text-disabled-grey);
@@ -987,6 +1054,7 @@ a.fr-btn--secondary:not([href]) {
 }
 
 .fr-btn--tertiary,
+.fr-btn--sort,
 .fr-btn--account {
   background-color: transparent;
 
@@ -998,7 +1066,9 @@ a.fr-btn--secondary:not([href]) {
 
 .fr-btn--tertiary:disabled,
 a.fr-btn--tertiary:not([href]),
+a.fr-btn--sort:not([href]),
 a.fr-btn--account:not([href]),
+.fr-btn--sort:disabled,
 .fr-btn--account:disabled {
   color: var(--text-disabled-grey);
   box-shadow: inset 0 0 0 1px var(--border-disabled-grey);
@@ -1104,4 +1174,78 @@ a.fr-btn--team:not([href]),
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-btn::before,
+  .fr-btn::after {
+    background-color: buttontext;
+  }
+
+  .fr-btn:disabled::before,
+  .fr-btn:disabled::after,
+  a.fr-btn:not([href])::before,
+  a.fr-btn:not([href])::after {
+    background-color: graytext;
+  }
+
+  .fr-btn:disabled,
+  a.fr-btn:not([href]) {
+    border-color: graytext;
+    color: graytext;
+  }
+
+  a[href].fr-btn::before,
+  a[href].fr-btn::after {
+    background-color: linktext;
+  }
+
+  button.fr-btn {
+    border: 1px solid buttontext;
+  }
+
+  .fr-btn--close::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--tooltip::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--fullscreen::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--display::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--account::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--team::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--briefcase::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--sort::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--sort[aria-sorting=asc]::before,
+  .fr-btn--sort[aria-sorting=desc]::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
 }

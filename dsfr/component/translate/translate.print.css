@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media print {
   .fr-translate .fr-translate__btn[aria-expanded=true] {
@@ -18,10 +18,5 @@
   .fr-translate .fr-translate__btn {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-}
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-translate__menu .fr-translate__language {
-    box-shadow: none;
   }
 }

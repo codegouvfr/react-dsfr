@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-background-default--grey {
     background-color: #fff !important;
   }
@@ -636,6 +636,18 @@
 
   .fr-background-flat--error {
     background-color: #ce0500 !important;
+  }
+
+  .fr-background-action-high--grey {
+    background-color: #3a3a3a !important;
+  }
+
+  .fr-background-action-high--grey:hover {
+    background-color: #616161 !important;
+  }
+
+  .fr-background-action-high--grey:active {
+    background-color: #777 !important;
   }
 
   .fr-background-action-high--blue-france {

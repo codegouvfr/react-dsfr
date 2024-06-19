@@ -1,4 +1,4 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.2'
+    version: '1.12.0'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -2971,20 +2971,22 @@
 
     Collapse.prototype.init = function init () {
       Disclosure.prototype.init.call(this);
-      this.listen('transitionend', this.transitionend.bind(this));
+      this.listen('transitionend', this.endCollapsing.bind(this));
     };
 
-    Collapse.prototype.transitionend = function transitionend (e) {
+    Collapse.prototype.endCollapsing = function endCollapsing (e) {
+      if (!this._isCollpasing) { return; }
+      if (this._timeout) { clearTimeout(this._timeout); }
+      this._timeout = null;
+      this._isCollpasing = false;
       this.removeClass(CollapseSelector.COLLAPSING);
       if (!this.isDisclosed) {
         if (this.isLegacy) { this.style.maxHeight = ''; }
-        else { this.style.removeProperty('--collapse-max-height'); }
       }
     };
 
     Collapse.prototype.unbound = function unbound () {
       if (this.isLegacy) { this.style.maxHeight = 'none'; }
-      else { this.style.setProperty('--collapse-max-height', 'none'); }
     };
 
     Collapse.prototype.disclose = function disclose (withhold) {
@@ -2992,25 +2994,26 @@
 
       if (this.isDisclosed === true || !this.isEnabled) { return false; }
       this.unbound();
-      this.request(function () {
-        this$1$1.addClass(CollapseSelector.COLLAPSING);
-        this$1$1.adjust();
-        this$1$1.request(function () {
-          Disclosure.prototype.disclose.call(this$1$1, withhold);
-        });
-      });
+      this.collapsing(function () { return Disclosure.prototype.disclose.call(this$1$1, withhold); });
     };
 
     Collapse.prototype.conceal = function conceal (withhold, preventFocus) {
       var this$1$1 = this;
 
       if (this.isDisclosed === false) { return false; }
+      this.collapsing(function () { return Disclosure.prototype.conceal.call(this$1$1, withhold, preventFocus); });
+    };
+
+    Collapse.prototype.collapsing = function collapsing (request) {
+      var this$1$1 = this;
+
+      this._isCollpasing = true;
+      if (this._timeout) { clearTimeout(this._timeout); }
+      this.addClass(CollapseSelector.COLLAPSING);
+      this.adjust();
       this.request(function () {
-        this$1$1.addClass(CollapseSelector.COLLAPSING);
-        this$1$1.adjust();
-        this$1$1.request(function () {
-          Disclosure.prototype.conceal.call(this$1$1, withhold, preventFocus);
-        });
+        request();
+        this$1$1._timeout = setTimeout(this$1$1.endCollapsing.bind(this$1$1), 500);
       });
     };
 

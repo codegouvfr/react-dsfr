@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -298,6 +298,10 @@
   content: none;
 }
 
+button.fr-link {
+  text-align: left;
+}
+
 .fr-links-group--download .fr-link,
 .fr-link--download {
   position: relative;
@@ -541,7 +545,39 @@ a.fr-link--close:not([href]) {
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  a.fr-link {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  a.fr-link:not([href])::before,
+  a.fr-link:not([href])::after {
+    background-color: graytext;
+  }
+
+  .fr-links-group--download .fr-link::after,
+  .fr-link--download::after {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  .fr-links-group--download .fr-link .fr-link__detail,
+  .fr-link--download .fr-link__detail {
+    color: canvastext;
+  }
+
+  .fr-links-group--download .fr-link:not([href]) .fr-link__detail,
+  .fr-link--download:not([href]) .fr-link__detail {
+    color: graytext;
+  }
+
+  .fr-link--close::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-link {
     background-image: none;
     text-decoration: underline;

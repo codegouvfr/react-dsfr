@@ -1,7 +1,6 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
-@charset "UTF-8";
 @media (min-width: 36em) {
   /*! media sm */
 }
@@ -14,10 +13,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
-  * reset liste à puce
-  */
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-breadcrumb ul {
     list-style-type: none;
   }
@@ -41,6 +37,12 @@
     background-image: url("../../icons/system/arrow-right-s-line.svg");
     width: 1rem;
     height: 1rem;
+    content: "";
+    display: inline-block;
+    pointer-events: none;
+    margin-left: 0.5rem;
+    margin-right: -0.25rem;
+    vertical-align: -4px;
   }
 
   .fr-breadcrumb {

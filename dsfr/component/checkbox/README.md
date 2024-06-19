@@ -19,6 +19,11 @@ Afin d’utiliser le composant `checkbox`, il est nécessaire d’ajouter les fi
     <link href="css/checkbox/checkbox.min.css" rel="stylesheet">
   </head>
   <body>
+    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" href="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
+    <script type="module" href="js/checkbox/checkbox.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/checkbox/checkbox.nomodule.min.js" ></script>
   </body>
 </html>
 ```

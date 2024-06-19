@@ -1,11 +1,59 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
 /* ¯¯¯¯¯¯¯¯¯ *\
   ICON COMMUNICATION
 \* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-accessibility-fill::before,
+.fr-icon-accessibility-fill::after {
+  -webkit-mask-image: url("../../../icons/others/fr--accessibility-fill.svg");
+  mask-image: url("../../../icons/others/fr--accessibility-fill.svg");
+}
+
+.fr-icon-accessibility-line::before,
+.fr-icon-accessibility-line::after {
+  -webkit-mask-image: url("../../../icons/others/fr--accessibility-line.svg");
+  mask-image: url("../../../icons/others/fr--accessibility-line.svg");
+}
+
+.fr-icon-ear-off-fill::before,
+.fr-icon-ear-off-fill::after {
+  -webkit-mask-image: url("../../../icons/others/fr--ear-off-fill.svg");
+  mask-image: url("../../../icons/others/fr--ear-off-fill.svg");
+}
+
+.fr-icon-ear-off-line::before,
+.fr-icon-ear-off-line::after {
+  -webkit-mask-image: url("../../../icons/others/fr--ear-off-line.svg");
+  mask-image: url("../../../icons/others/fr--ear-off-line.svg");
+}
+
+.fr-icon-mental-disabilities-fill::before,
+.fr-icon-mental-disabilities-fill::after {
+  -webkit-mask-image: url("../../../icons/others/fr--mental-disabilities-fill.svg");
+  mask-image: url("../../../icons/others/fr--mental-disabilities-fill.svg");
+}
+
+.fr-icon-mental-disabilities-line::before,
+.fr-icon-mental-disabilities-line::after {
+  -webkit-mask-image: url("../../../icons/others/fr--mental-disabilities-line.svg");
+  mask-image: url("../../../icons/others/fr--mental-disabilities-line.svg");
+}
+
+.fr-icon-sign-language-fill::before,
+.fr-icon-sign-language-fill::after {
+  -webkit-mask-image: url("../../../icons/others/fr--sign-language-fill.svg");
+  mask-image: url("../../../icons/others/fr--sign-language-fill.svg");
+}
+
+.fr-icon-sign-language-line::before,
+.fr-icon-sign-language-line::after {
+  -webkit-mask-image: url("../../../icons/others/fr--sign-language-line.svg");
+  mask-image: url("../../../icons/others/fr--sign-language-line.svg");
+}
+
 .fr-icon-leaf-fill::before,
 .fr-icon-leaf-fill::after {
   -webkit-mask-image: url("../../../icons/others/leaf-fill.svg");
@@ -88,6 +136,18 @@
 .fr-icon-umbrella-line::after {
   -webkit-mask-image: url("../../../icons/others/umbrella-line.svg");
   mask-image: url("../../../icons/others/umbrella-line.svg");
+}
+
+.fr-icon-wheelchair-fill::before,
+.fr-icon-wheelchair-fill::after {
+  -webkit-mask-image: url("../../../icons/others/wheelchair-fill.svg");
+  mask-image: url("../../../icons/others/wheelchair-fill.svg");
+}
+
+.fr-icon-wheelchair-line::before,
+.fr-icon-wheelchair-line::after {
+  -webkit-mask-image: url("../../../icons/others/wheelchair-line.svg");
+  mask-image: url("../../../icons/others/wheelchair-line.svg");
 }
 
 @media (min-width: 36em) {

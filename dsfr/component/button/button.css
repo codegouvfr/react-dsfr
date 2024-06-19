@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -957,6 +957,73 @@
   content: "";
 }
 
+.fr-btn--sort {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 2rem;
+  max-height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.fr-btn--sort::before {
+  --icon-size: 1rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/arrow-up-down-line.svg");
+  mask-image: url("../../icons/system/arrow-up-down-line.svg");
+  content: "";
+  transition: transform 0.3s;
+}
+
+.fr-btn--sort[aria-sorting=desc]::before {
+  transform: rotate(-180deg);
+}
+
+.fr-btn--sort[aria-sorting=asc],
+.fr-btn--sort[aria-sorting=desc] {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 2rem;
+  max-height: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.fr-btn--sort[aria-sorting=asc]::before,
+.fr-btn--sort[aria-sorting=desc]::before {
+  --icon-size: 1rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/system/arrow-up-line.svg");
+  mask-image: url("../../icons/system/arrow-up-line.svg");
+  content: "";
+}
+
 .fr-btn:disabled,
 a.fr-btn:not([href]) {
   color: var(--text-disabled-grey);
@@ -987,6 +1054,7 @@ a.fr-btn--secondary:not([href]) {
 }
 
 .fr-btn--tertiary,
+.fr-btn--sort,
 .fr-btn--account {
   background-color: transparent;
 
@@ -998,7 +1066,9 @@ a.fr-btn--secondary:not([href]) {
 
 .fr-btn--tertiary:disabled,
 a.fr-btn--tertiary:not([href]),
+a.fr-btn--sort:not([href]),
 a.fr-btn--account:not([href]),
+.fr-btn--sort:disabled,
 .fr-btn--account:disabled {
   color: var(--text-disabled-grey);
   box-shadow: inset 0 0 0 1px var(--border-disabled-grey);
@@ -1113,7 +1183,81 @@ a.fr-btn--team:not([href]),
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-btn::before,
+  .fr-btn::after {
+    background-color: buttontext;
+  }
+
+  .fr-btn:disabled::before,
+  .fr-btn:disabled::after,
+  a.fr-btn:not([href])::before,
+  a.fr-btn:not([href])::after {
+    background-color: graytext;
+  }
+
+  .fr-btn:disabled,
+  a.fr-btn:not([href]) {
+    border-color: graytext;
+    color: graytext;
+  }
+
+  a[href].fr-btn::before,
+  a[href].fr-btn::after {
+    background-color: linktext;
+  }
+
+  button.fr-btn {
+    border: 1px solid buttontext;
+  }
+
+  .fr-btn--close::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--tooltip::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--fullscreen::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--display::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--account::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--team::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--briefcase::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--sort::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-btn--sort[aria-sorting=asc]::before,
+  .fr-btn--sort[aria-sorting=desc]::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-btn::before,
   .fr-btn::after {
     background-color: transparent;
@@ -1125,6 +1269,12 @@ a.fr-btn--team:not([href]),
 
   .fr-btn[href] {
     text-decoration: none;
+  }
+
+  .fr-btn.fr-btn--secondary:disabled:hover,
+  .fr-btn.fr-btn--tertiary:disabled:hover,
+  .fr-btn.fr-btn--tertiary-no-outline:disabled:hover {
+    background-color: transparent;
   }
 
   .fr-btn[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
@@ -1260,6 +1410,36 @@ a.fr-btn--team:not([href]),
     height: 1rem;
   }
 
+  .fr-btn--sort::before,
+  .fr-btn--sort::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-up-down-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--sort::before {
+    transition: transform 0.3s;
+  }
+
+  .fr-btn--sort[aria-sorting=desc]::before {
+    transform: rotate(-180deg);
+  }
+
+  .fr-btn--sort[aria-sorting=asc]::before,
+  .fr-btn--sort[aria-sorting=asc]::after,
+  .fr-btn--sort[aria-sorting=desc]::before,
+  .fr-btn--sort[aria-sorting=desc]::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-up-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
   ul.fr-btns-group {
     list-style-type: none;
   }
@@ -1356,6 +1536,7 @@ a.fr-btn--team:not([href]),
   }
 
   .fr-btn--tertiary,
+  .fr-btn--sort,
   .fr-btn--account {
     background-color: transparent;
     color: #000091;
@@ -1363,18 +1544,22 @@ a.fr-btn--team:not([href]),
   }
 
   .fr-btn--tertiary:hover,
+  .fr-btn--sort:hover,
   .fr-btn--account:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary:active,
+  .fr-btn--sort:active,
   .fr-btn--account:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
   .fr-btn--tertiary:disabled,
   a.fr-btn--tertiary:not([href]),
+  a.fr-btn--sort:not([href]),
   a.fr-btn--account:not([href]),
+  .fr-btn--sort:disabled,
   .fr-btn--account:disabled {
     color: #929292;
     box-shadow: inset 0 0 0 1px #e5e5e5;
@@ -1383,14 +1568,18 @@ a.fr-btn--team:not([href]),
 
   .fr-btn--tertiary:disabled:hover,
   a.fr-btn--tertiary:not([href]):hover,
+  a.fr-btn--sort:not([href]):hover,
   a.fr-btn--account:not([href]):hover,
+  .fr-btn--sort:disabled:hover,
   .fr-btn--account:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary:disabled:active,
   a.fr-btn--tertiary:not([href]):active,
+  a.fr-btn--sort:not([href]):active,
   a.fr-btn--account:not([href]):active,
+  .fr-btn--sort:disabled:active,
   .fr-btn--account:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
@@ -1510,6 +1699,7 @@ a.fr-btn--team:not([href]),
   }
 
   .fr-btn--tertiary,
+  .fr-btn--sort,
   .fr-btn--account {
     color: #000091;
     box-shadow: inset 0 0 0 1px #ddd;
@@ -1517,7 +1707,9 @@ a.fr-btn--team:not([href]),
 
   .fr-btn--tertiary:disabled,
   a.fr-btn--tertiary:not([href]),
+  a.fr-btn--sort:not([href]),
   a.fr-btn--account:not([href]),
+  .fr-btn--sort:disabled,
   .fr-btn--account:disabled {
     color: #929292;
     box-shadow: inset 0 0 0 1px #e5e5e5;
@@ -1558,150 +1750,5 @@ a.fr-btn--team:not([href]),
   .fr-btn--fullscreen,
   .fr-btn--tooltip {
     background-color: transparent;
-  }
-}
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-btn--secondary {
-    background-color: transparent;
-  }
-
-  .fr-btn--secondary:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--secondary:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-btn--secondary:disabled,
-  a.fr-btn--secondary:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-btn--secondary:disabled:hover,
-  a.fr-btn--secondary:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--secondary:disabled:active,
-  a.fr-btn--secondary:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-btn--tertiary,
-  .fr-btn--account {
-    background-color: transparent;
-  }
-
-  .fr-btn--tertiary:hover,
-  .fr-btn--account:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--tertiary:active,
-  .fr-btn--account:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-btn--tertiary:disabled,
-  a.fr-btn--tertiary:not([href]),
-  a.fr-btn--account:not([href]),
-  .fr-btn--account:disabled {
-    background-color: transparent;
-  }
-
-  .fr-btn--tertiary:disabled:hover,
-  a.fr-btn--tertiary:not([href]):hover,
-  a.fr-btn--account:not([href]):hover,
-  .fr-btn--account:disabled:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--tertiary:disabled:active,
-  a.fr-btn--tertiary:not([href]):active,
-  a.fr-btn--account:not([href]):active,
-  .fr-btn--account:disabled:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-btn--tertiary-no-outline,
-  .fr-btn--close,
-  .fr-btn--display,
-  .fr-btn--fullscreen,
-  .fr-btn--tooltip,
-  .fr-btn--briefcase,
-  .fr-btn--team {
-    background-color: transparent;
-  }
-
-  .fr-btn--tertiary-no-outline:hover,
-  .fr-btn--close:hover,
-  .fr-btn--display:hover,
-  .fr-btn--fullscreen:hover,
-  .fr-btn--tooltip:hover,
-  .fr-btn--briefcase:hover,
-  .fr-btn--team:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--tertiary-no-outline:active,
-  .fr-btn--close:active,
-  .fr-btn--display:active,
-  .fr-btn--fullscreen:active,
-  .fr-btn--tooltip:active,
-  .fr-btn--briefcase:active,
-  .fr-btn--team:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-btn--tertiary-no-outline:disabled,
-  a.fr-btn--tertiary-no-outline:not([href]),
-  a.fr-btn--close:not([href]),
-  a.fr-btn--display:not([href]),
-  a.fr-btn--fullscreen:not([href]),
-  a.fr-btn--tooltip:not([href]),
-  a.fr-btn--briefcase:not([href]),
-  a.fr-btn--team:not([href]),
-  .fr-btn--close:disabled,
-  .fr-btn--display:disabled,
-  .fr-btn--fullscreen:disabled,
-  .fr-btn--tooltip:disabled,
-  .fr-btn--briefcase:disabled,
-  .fr-btn--team:disabled {
-    background-color: transparent;
-  }
-
-  .fr-btn--tertiary-no-outline:disabled:hover,
-  a.fr-btn--tertiary-no-outline:not([href]):hover,
-  a.fr-btn--close:not([href]):hover,
-  a.fr-btn--display:not([href]):hover,
-  a.fr-btn--fullscreen:not([href]):hover,
-  a.fr-btn--tooltip:not([href]):hover,
-  a.fr-btn--briefcase:not([href]):hover,
-  a.fr-btn--team:not([href]):hover,
-  .fr-btn--close:disabled:hover,
-  .fr-btn--display:disabled:hover,
-  .fr-btn--fullscreen:disabled:hover,
-  .fr-btn--tooltip:disabled:hover,
-  .fr-btn--briefcase:disabled:hover,
-  .fr-btn--team:disabled:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-btn--tertiary-no-outline:disabled:active,
-  a.fr-btn--tertiary-no-outline:not([href]):active,
-  a.fr-btn--close:not([href]):active,
-  a.fr-btn--display:not([href]):active,
-  a.fr-btn--fullscreen:not([href]):active,
-  a.fr-btn--tooltip:not([href]):active,
-  a.fr-btn--briefcase:not([href]):active,
-  a.fr-btn--team:not([href]):active,
-  .fr-btn--close:disabled:active,
-  .fr-btn--display:disabled:active,
-  .fr-btn--fullscreen:disabled:active,
-  .fr-btn--tooltip:disabled:active,
-  .fr-btn--briefcase:disabled:active,
-  .fr-btn--team:disabled:active {
-    background-color: rgba(0, 0, 0, 0.1);
   }
 }

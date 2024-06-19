@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 @media (min-width: 36em) {
@@ -14,7 +14,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   /**
   * Correctif de la largeur de la légende d'un fieldset
   */
@@ -101,7 +101,7 @@
     color: #929292;
   }
 }
-@media all and (-ms-high-contrast: none) and (-ms-high-contrast: none), (-ms-high-contrast: none) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (-ms-high-contrast: none), (-ms-high-contrast: active) and (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-pagination__link {
     background-color: transparent;
   }
@@ -114,7 +114,7 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
-@media (forced-colors: active) and (-ms-high-contrast: none), (forced-colors: active) and (-ms-high-contrast: active), (prefers-contrast: more) and (-ms-high-contrast: none), (prefers-contrast: more) and (-ms-high-contrast: active) {
+@media screen and (forced-colors: active) and (min-width: 0\0) and (min-resolution: 72dpi), screen and (prefers-contrast: more) and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-pagination__link[aria-current]:not([aria-current=false]) {
     border: 1px solid #000091;
   }

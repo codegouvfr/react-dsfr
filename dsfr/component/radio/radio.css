@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -322,8 +322,16 @@
   background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--background-disabled-grey) 7px, transparent 8px), radial-gradient(var(--background-disabled-grey) 3px, transparent 4px);
 }
 
+.fr-fieldset .fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] {
+  top: 0.75rem;
+}
+
 .fr-fieldset .fr-fieldset__content .fr-radio-group:not(.fr-radio-rich) input[type=radio] + label {
   background-position: calc(-0.25rem + 1px) calc(0.5rem + 1px), calc(-0.25rem + 1px) calc(0.5rem + 1px);
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-group--sm:not(.fr-radio-rich) input[type=radio] {
+  top: 1rem;
 }
 
 .fr-fieldset .fr-fieldset__content .fr-radio-group--sm:not(.fr-radio-rich) input[type=radio] + label {
@@ -431,7 +439,44 @@
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-radio-group input[type=radio] {
+    opacity: 1;
+  }
+
+  .fr-radio-group input[type=radio]:disabled + label {
+    color: graytext;
+  }
+
+  .fr-radio-group input[type=radio] + label::before {
+    display: none;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled + label {
+    outline: 1px solid;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled + label::before {
+    background-color: transparent;
+  }
+
+  .fr-radio-rich input[type=radio]:disabled ~ .fr-radio-rich__pictogram {
+    outline: 1px solid graytext;
+  }
+
+  .fr-radio-rich input[type=radio] + label {
+    outline: 1px solid;
+  }
+
+  .fr-radio-rich__pictogram {
+    outline: 1px solid;
+  }
+
+  .fr-radio-rich__img {
+    outline: 1px solid;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-radio-group input[type=radio] + label {
     background-image: radial-gradient(transparent 10px, #000091 11px, transparent 12px);
   }

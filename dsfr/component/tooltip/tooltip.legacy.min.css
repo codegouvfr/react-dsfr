@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */@media (min-width:36em){
   /*! media sm */}@media (min-width:48em){
   /*! media md */}@media (min-width:62em){
   /*! media lg */}@media (min-width:78em){
-  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-tooltip{color:#3a3a3a;position:relative}.fr-tooltip__btn:before{background-image:url(../../icons/media/align-left.svg)}.fr-tooltip__btn:after,.fr-tooltip__btn:before{background-color:transparent;background-repeat:no-repeat;background-size:100%;height:1rem;width:1rem}.fr-tooltip__btn:after{background-image:url(../../icons/system/add-line.svg)}.fr-tooltip__btn[aria-expanded=true]:after,.fr-tooltip__btn[aria-expanded=true]:before{background-image:url(../../icons/system/subtract-line.svg)}ol.fr-tooltip__actions-group,ul.fr-tooltip__actions-group{list-style-type:none}ol.fr-tooltip__actions-group,ul.fr-tooltip__actions-group{margin-bottom:0;margin-top:0;padding-left:0}.fr-tooltip .fr-modal:not(.fr-modal--opened) .fr-modal__content{max-height:9.5rem}.fr-tooltip.fr-placement{background-image:linear-gradient(90deg,#fff,#fff);z-index:1000}}
+  /*! media xl */}@media screen and (min-width:0\0) and (min-resolution:72dpi){.fr-tooltip{color:#3a3a3a;margin-top:.5rem;position:relative}.fr-tooltip.fr-placement{background-image:linear-gradient(90deg,#fff,#fff);box-shadow:0 0 0 1px rgba(0,0,18,.16);z-index:1000}}

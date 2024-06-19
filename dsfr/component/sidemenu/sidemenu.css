@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -390,7 +390,28 @@
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-sidemenu__inner {
+    border-right: 1px solid;
+  }
+
+  .fr-sidemenu__link[aria-current]:not([aria-current=false])::before,
+  .fr-sidemenu__btn[aria-current]:not([aria-current=false])::before {
+    background-color: highlight;
+    forced-color-adjust: none;
+  }
+
+  .fr-sidemenu__btn[aria-expanded]::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+}
+@media (min-width: 48em) and (-ms-high-contrast: active), (min-width: 48em) and (forced-colors: active) {
+  .fr-sidemenu--right .fr-sidemenu__inner {
+    border-left: 1px solid;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   /**
   * Correctif de la hauteur de la navigation latérale
   */
@@ -468,7 +489,7 @@
     background-color: #e3e3fd;
   }
 }
-@media (min-width: 48em) and (-ms-high-contrast: none), (min-width: 48em) and (-ms-high-contrast: active) {
+@media screen and (min-width: 48em) and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-sidemenu {
     box-shadow: none;
   }
@@ -537,15 +558,6 @@
 
   .fr-sidemenu__btn[aria-expanded=true] {
     background-color: #e3e3fd;
-  }
-}
-@media print and (min-width: 48em) and (-ms-high-contrast: none), print and (min-width: 48em) and (-ms-high-contrast: active) {
-  .fr-sidemenu {
-    box-shadow: none;
-  }
-
-  .fr-sidemenu__title {
-    box-shadow: none;
   }
 }
 @media print and (min-width: 48em) {

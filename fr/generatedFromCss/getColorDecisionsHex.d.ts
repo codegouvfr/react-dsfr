@@ -309,6 +309,11 @@ export declare function getColorDecisionsHex(params: {
             };
         };
         readonly actionHigh: {
+            readonly grey: {
+                readonly default: "#cecece" | "#3a3a3a";
+                readonly hover: "#a8a8a8" | "#616161";
+                readonly active: "#939393" | "#777777";
+            };
             readonly blueFrance: {
                 readonly default: "#8585f6" | "#000091";
                 readonly hover: "#b1b1f9" | "#1212ff";
@@ -916,6 +921,11 @@ export declare function getColorDecisionsHex(params: {
             };
             readonly beigeGrisGalet: {
                 readonly default: "#aea397";
+            };
+        };
+        readonly contrast: {
+            readonly grey: {
+                readonly default: "#929292" | "#666666";
             };
         };
         readonly active: {

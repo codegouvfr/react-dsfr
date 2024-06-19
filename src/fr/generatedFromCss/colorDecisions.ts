@@ -311,6 +311,11 @@ export const colorDecisions= {
         }
       },
       "actionHigh": {
+        "grey": {
+          "default": "var(--background-action-high-grey)",
+          "hover": "var(--background-action-high-grey-hover)",
+          "active": "var(--background-action-high-grey-active)"
+        },
         "blueFrance": {
           "default": "var(--background-action-high-blue-france)",
           "hover": "var(--background-action-high-blue-france-hover)",
@@ -918,6 +923,11 @@ export const colorDecisions= {
         },
         "beigeGrisGalet": {
           "default": "var(--border-default-beige-gris-galet)"
+        }
+      },
+      "contrast": {
+        "grey": {
+          "default": "var(--border-contrast-grey)"
         }
       },
       "active": {

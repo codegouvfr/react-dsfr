@@ -307,6 +307,11 @@ export declare const colorDecisions: {
             };
         };
         readonly actionHigh: {
+            readonly grey: {
+                readonly default: "var(--background-action-high-grey)";
+                readonly hover: "var(--background-action-high-grey-hover)";
+                readonly active: "var(--background-action-high-grey-active)";
+            };
             readonly blueFrance: {
                 readonly default: "var(--background-action-high-blue-france)";
                 readonly hover: "var(--background-action-high-blue-france-hover)";
@@ -914,6 +919,11 @@ export declare const colorDecisions: {
             };
             readonly beigeGrisGalet: {
                 readonly default: "var(--border-default-beige-gris-galet)";
+            };
+        };
+        readonly contrast: {
+            readonly grey: {
+                readonly default: "var(--border-contrast-grey)";
             };
         };
         readonly active: {

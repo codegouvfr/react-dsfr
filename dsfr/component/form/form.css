@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -503,7 +503,37 @@
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-fieldset:disabled .fr-label,
+  .fr-fieldset:disabled .fr-hint-text,
+  .fr-fieldset:disabled .fr-fieldset__legend {
+    color: graytext;
+  }
+
+  .fr-fieldset input:disabled + label,
+  .fr-fieldset input:disabled + label .fr-hint-text,
+  .fr-fieldset input:disabled + label + .fr-hint-text {
+    color: graytext;
+  }
+
+  .fr-message--error::before,
+  .fr-message--error::after,
+  .fr-message--valid::before,
+  .fr-message--valid::after,
+  .fr-message--info::before,
+  .fr-message--info::after {
+    forced-color-adjust: none;
+    background-color: canvastext;
+  }
+
+  .fr-error-text::before,
+  .fr-valid-text::before,
+  .fr-info-text::before {
+    forced-color-adjust: none;
+    background-color: canvastext;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-fieldset__legend {
     max-width: 100%;
     color: #161616;

@@ -29,4 +29,4 @@ Afin d’utiliser le composant `content`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/contenu-medias) sur le module Contenu média
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/contenu-medias) sur le module Contenu médias

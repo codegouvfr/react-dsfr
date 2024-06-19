@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -92,7 +92,7 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
 }
 
 .fr-breadcrumb__link {
-  vertical-align: top;
+  vertical-align: 0.25rem;
   position: relative;
   background-image: var(--underline-img), var(--underline-img);
   background-position: var(--underline-x) 100%, var(--underline-x) calc(100% - var(--underline-thickness));
@@ -165,10 +165,22 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
-  * reset liste à puce
-  */
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-breadcrumb__list li:not(:first-child)::before {
+    forced-color-adjust: none;
+    background-color: canvastext;
+  }
+
+  .fr-breadcrumb__link {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .fr-breadcrumb__link[aria-current]:not([aria-current=false]) {
+    text-decoration: none;
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-breadcrumb ul {
     list-style-type: none;
   }
@@ -192,6 +204,12 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
     background-image: url("../../icons/system/arrow-right-s-line.svg");
     width: 1rem;
     height: 1rem;
+    content: "";
+    display: inline-block;
+    pointer-events: none;
+    margin-left: 0.5rem;
+    margin-right: -0.25rem;
+    vertical-align: -4px;
   }
 
   .fr-breadcrumb {

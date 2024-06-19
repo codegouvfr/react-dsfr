@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media print {
   .fr-header__brand {
@@ -9,8 +9,11 @@
 
   .fr-header__service {
     color: #161616;
-    box-shadow: inset 0 1px 0 0 #ddd;
     box-shadow: none;
+  }
+
+  .fr-header__service::before {
+    background-color: #ddd;
   }
 
   .fr-header__menu-links::after {
@@ -91,147 +94,6 @@
     width: auto;
   }
 }
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-header__brand {
-    z-index: 750;
-  }
-
-  .fr-header__menu-links .fr-btn {
-    background-color: transparent;
-    box-shadow: none;
-  }
-
-  .fr-header__menu-links .fr-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__menu-links .fr-btn:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__menu-links .fr-btn:disabled,
-  .fr-header__menu-links a.fr-btn:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-header__menu-links .fr-btn:disabled:hover,
-  .fr-header__menu-links a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__menu-links .fr-btn:disabled:active,
-  .fr-header__menu-links a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__tools-links .fr-btn {
-    background-color: transparent;
-  }
-
-  .fr-header__tools-links .fr-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__tools-links .fr-btn:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__tools-links .fr-btn:disabled,
-  .fr-header__tools-links a.fr-btn:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-header__tools-links .fr-btn:disabled:hover,
-  .fr-header__tools-links a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__tools-links .fr-btn:disabled:active,
-  .fr-header__tools-links a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn {
-    background-color: transparent;
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn:disabled,
-  .fr-header__tools-links > .fr-translate:first-child:last-child a.fr-btn:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn:disabled:hover,
-  .fr-header__tools-links > .fr-translate:first-child:last-child a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__tools-links > .fr-translate:first-child:last-child .fr-btn:disabled:active,
-  .fr-header__tools-links > .fr-translate:first-child:last-child a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__navbar .fr-btn {
-    background-color: transparent;
-  }
-
-  .fr-header__navbar .fr-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__navbar .fr-btn:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__navbar .fr-btn:disabled,
-  .fr-header__navbar a.fr-btn:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-header__navbar .fr-btn:disabled:hover,
-  .fr-header__navbar a.fr-btn:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__navbar .fr-btn:disabled:active,
-  .fr-header__navbar a.fr-btn:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__navbar .fr-btn--menu {
-    background-color: transparent;
-  }
-
-  .fr-header__navbar .fr-btn--menu:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__navbar .fr-btn--menu:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .fr-header__navbar .fr-btn--menu:disabled,
-  .fr-header__navbar a.fr-btn--menu:not([href]) {
-    background-color: transparent;
-  }
-
-  .fr-header__navbar .fr-btn--menu:disabled:hover,
-  .fr-header__navbar a.fr-btn--menu:not([href]):hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-header__navbar .fr-btn--menu:disabled:active,
-  .fr-header__navbar a.fr-btn--menu:not([href]):active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
 @media print and (min-width: 62em) {
   .fr-header {
     background-color: #fff;
@@ -239,19 +101,5 @@
 
   .fr-header .fr-header__menu {
     box-shadow: inset 0 1px 0 0 #ddd;
-  }
-}
-@media print and (min-width: 62em) and (-ms-high-contrast: none), print and (min-width: 62em) and (-ms-high-contrast: active) {
-  .fr-header {
-    z-index: 750;
-  }
-
-  .fr-header__brand {
-    z-index: auto;
-    background: transparent;
-  }
-
-  .fr-header__service {
-    box-shadow: none;
   }
 }

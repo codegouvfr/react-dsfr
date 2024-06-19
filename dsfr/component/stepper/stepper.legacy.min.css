@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */@media (min-width:36em){
   /*! media sm */}@media (min-width:48em){
   /*! media md */}@media (min-width:62em){
   /*! media lg */}@media (min-width:78em){
-  /*! media xl */}@media (-ms-high-contrast:active),(-ms-high-contrast:none){.fr-stepper__title{color:#161616;margin-bottom:.75rem}.fr-stepper__steps{background-image:repeating-linear-gradient(to right,#000091 0,#000091 var(--active-inner),transparent var(--active-inner),transparent var(--active-outer)),repeating-linear-gradient(to right,#eee 0,#eee var(--default-inner),transparent var(--default-inner),transparent var(--default-outer));display:none}.fr-stepper__details,.fr-stepper__state{color:#666}}
+  /*! media xl */}@media screen and (min-width:0\0) and (min-resolution:72dpi){.fr-stepper__title{color:#161616;margin-bottom:.75rem}.fr-stepper__steps{background-image:repeating-linear-gradient(to right,#000091 0,#000091 var(--active-inner),transparent var(--active-inner),transparent var(--active-outer)),repeating-linear-gradient(to right,#eee 0,#eee var(--default-inner),transparent var(--default-inner),transparent var(--default-outer));display:none}.fr-stepper__details,.fr-stepper__state{color:#666}}

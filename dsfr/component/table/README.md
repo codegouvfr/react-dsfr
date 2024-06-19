@@ -6,6 +6,7 @@ Les tableaux sont utilisés pour organiser et afficher les informations d'un jeu
 ```shell
 table
 └─ core
+└─ checkbox
 ```
 
 ## Utilisation
@@ -20,6 +21,8 @@ Afin d’utiliser le composant `table`, il est nécessaire d’ajouter les fichi
     <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
     <script type="module" href="js/core/core.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
+    <script type="module" href="js/checkbox/checkbox.module.min.js" ></script>
+    <script type="text/javascript" nomodule href="js/checkbox/checkbox.nomodule.min.js" ></script>
     <script type="module" href="js/table/table.module.min.js" ></script>
     <script type="text/javascript" nomodule href="js/table/table.nomodule.min.js" ></script>
   </body>

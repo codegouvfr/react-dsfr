@@ -21,7 +21,9 @@ export const colorOptions= {
         "active": "var(--grey-950-100-active)"
       },
       "_200_850": {
-        "default": "var(--grey-200-850)"
+        "default": "var(--grey-200-850)",
+        "hover": "var(--grey-200-850-hover)",
+        "active": "var(--grey-200-850-active)"
       },
       "_925_125": {
         "default": "var(--grey-925-125)"

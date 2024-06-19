@@ -7,8 +7,8 @@ La demande de mot de passe permet d’aider un utilisateur à créer ou saisir u
 password
 └─ core
 └─ link
-└─ checkbox
 └─ input
+└─ checkbox
 ```
 
 ## Utilisation

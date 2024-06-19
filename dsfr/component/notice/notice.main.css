@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -19,10 +19,16 @@
 
 .fr-notice__body {
   position: relative;
-  padding: 0 2.5rem 0 2.5rem;
+  padding: 0 2.25rem 0 0;
 }
 
-.fr-notice__body::before {
+.fr-notice__title {
+  position: relative;
+  margin-right: 0.25rem;
+  font-weight: 700;
+}
+
+.fr-notice__title::before {
   --icon-size: 1.5rem;
   flex: 0 0 auto;
   display: inline-block;
@@ -32,15 +38,27 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  position: absolute;
-  left: 0;
+  margin-right: 0.5rem;
 }
 
-.fr-notice__title {
-  position: relative;
-  font-size: 1rem;
+.fr-notice__desc {
+  margin-right: 0.25rem;
+}
+
+.fr-notice__title,
+.fr-notice__desc {
+  display: block;
+}
+
+.fr-notice__title,
+.fr-notice__desc,
+.fr-notice__link {
+  font-size: 0.875rem;
   line-height: 1.5rem;
-  font-weight: 700;
+}
+
+.fr-notice--no-icon .fr-notice__title::before {
+  display: none;
 }
 
 .fr-notice .fr-btn--close {
@@ -57,6 +75,7 @@
   position: absolute;
   top: -0.25rem;
   right: 0;
+  color: inherit;
 }
 
 .fr-notice .fr-btn--close::before {
@@ -76,10 +95,81 @@
   content: "";
 }
 
-.fr-notice--info .fr-notice__body::before {
+.fr-notice--info .fr-notice__title::before,
+.fr-notice--warning .fr-notice__title::before,
+.fr-notice--alert .fr-notice__title::before,
+.fr-notice--weather-orange .fr-notice__title::before,
+.fr-notice--weather-red .fr-notice__title::before,
+.fr-notice--weather-purple .fr-notice__title::before,
+.fr-notice--witness .fr-notice__title::before,
+.fr-notice--kidnapping .fr-notice__title::before,
+.fr-notice--attack .fr-notice__title::before,
+.fr-notice--cyberattack .fr-notice__title::before {
+  content: "";
+}
+
+.fr-notice--info .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
   -webkit-mask-image: url("../../icons/system/fr--info-fill.svg");
   mask-image: url("../../icons/system/fr--info-fill.svg");
-  content: "";
+}
+
+.fr-notice--warning .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+.fr-notice--alert .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+  mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-notice--alert .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/system/error-warning-fill.svg");
+  mask-image: url("../../icons/system/error-warning-fill.svg");
+}
+
+.fr-notice--weather-orange .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/heavy-showers-fill.svg");
+  mask-image: url("../../icons/weather/heavy-showers-fill.svg");
+}
+
+.fr-notice--weather-red .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/tornado-fill.svg");
+  mask-image: url("../../icons/weather/tornado-fill.svg");
+}
+
+.fr-notice--weather-purple .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+  -webkit-mask-image: url("../../icons/weather/typhoon-fill.svg");
+  mask-image: url("../../icons/weather/typhoon-fill.svg");
+}
+
+.fr-notice--witness,
+.fr-notice--kidnapping,
+.fr-notice--attack,
+.fr-notice--cyberattack {
+  padding-top: 1.375rem;
+  background-position: 0 0;
+  background-size: 100% 0.375rem;
+  background-repeat: no-repeat;
+}
+
+.fr-notice--witness .fr-notice__title,
+.fr-notice--kidnapping .fr-notice__title,
+.fr-notice--attack .fr-notice__title,
+.fr-notice--cyberattack .fr-notice__title {
+  text-transform: uppercase;
+}
+
+.fr-notice--witness .fr-notice__title::before,
+.fr-notice--cyberattack .fr-notice__title::before {
+  -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+  mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-notice--kidnapping .fr-notice__title::before {
+  -webkit-mask-image: url("../../icons/system/fr--alert-warning-fill.svg");
+  mask-image: url("../../icons/system/fr--alert-warning-fill.svg");
+}
+
+.fr-notice--attack .fr-notice__title::before {
+  -webkit-mask-image: url("../../icons/system/fr--alert-warning-2-fill.svg");
+  mask-image: url("../../icons/system/fr--alert-warning-2-fill.svg");
 }
 
 .fr-notice--info {
@@ -90,15 +180,179 @@
   --active: var(--background-contrast-info-active);
   color: var(--text-default-info);
 }
+
+.fr-notice--warning,
+.fr-notice--weather-orange {
+  background-color: var(--background-contrast-warning);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-warning-hover);
+  --active: var(--background-contrast-warning-active);
+  color: var(--text-default-warning);
+}
+
+.fr-notice--alert {
+  background-color: var(--background-contrast-error);
+
+  --idle: transparent;
+  --hover: var(--background-contrast-error-hover);
+  --active: var(--background-contrast-error-active);
+  color: var(--text-default-error);
+}
+
+.fr-notice--weather-red {
+  background-color: var(--background-flat-error);
+
+  --idle: transparent;
+  --hover: var(--background-flat-error-hover);
+  --active: var(--background-flat-error-active);
+  color: var(--text-inverted-grey);
+}
+
+.fr-notice--weather-red .fr-btn--close {
+  background-color: var(--background-action-high-error);
+
+  --idle: transparent;
+  --hover: var(--background-action-high-error-hover);
+  --active: var(--background-action-high-error-active);
+}
+
+.fr-notice--weather-purple {
+  background-color: var(--background-flat-purple-glycine);
+
+  --idle: transparent;
+  --hover: var(--background-flat-purple-glycine-hover);
+  --active: var(--background-flat-purple-glycine-active);
+  color: var(--text-inverted-grey);
+}
+
+.fr-notice--weather-purple .fr-btn--close {
+  background-color: var(--background-action-high-purple-glycine);
+
+  --idle: transparent;
+  --hover: var(--background-action-high-purple-glycine-hover);
+  --active: var(--background-action-high-purple-glycine-active);
+}
+
+.fr-notice--witness {
+  background-color: var(--background-flat-grey);
+
+  --idle: transparent;
+  --hover: var(--background-flat-grey-hover);
+  --active: var(--background-flat-grey-active);
+  color: var(--text-inverted-grey);
+  background-image: linear-gradient(0deg, var(--border-plain-error), var(--border-plain-error));
+}
+
+.fr-notice--witness .fr-btn--close {
+  background-color: var(--background-action-high-grey);
+
+  --idle: transparent;
+  --hover: var(--background-action-high-grey-hover);
+  --active: var(--background-action-high-grey-active);
+}
+
+.fr-notice--kidnapping,
+.fr-notice--attack {
+  background-color: var(--background-flat-error);
+
+  --idle: transparent;
+  --hover: var(--background-flat-error-hover);
+  --active: var(--background-flat-error-active);
+  color: var(--text-inverted-grey);
+  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
+}
+
+.fr-notice--kidnapping .fr-btn--close,
+.fr-notice--attack .fr-btn--close {
+  background-color: var(--background-action-high-error);
+
+  --idle: transparent;
+  --hover: var(--background-action-high-error-hover);
+  --active: var(--background-action-high-error-active);
+}
+
+.fr-notice--cyberattack {
+  background-color: var(--background-flat-grey);
+
+  --idle: transparent;
+  --hover: var(--background-flat-grey-hover);
+  --active: var(--background-flat-grey-active);
+  color: var(--text-inverted-grey);
+  background-image: linear-gradient(0deg, var(--border-plain-info), var(--border-plain-info));
+}
+
+.fr-notice--cyberattack .fr-btn--close {
+  background-color: var(--background-action-high-grey);
+
+  --idle: transparent;
+  --hover: var(--background-action-high-grey-hover);
+  --active: var(--background-action-high-grey-active);
+}
 @media (min-width: 36em) {
   /*! media sm */
+  .fr-notice__title,
+  .fr-notice__desc {
+    display: inline;
+  }
 }
 @media (min-width: 48em) {
   /*! media md */
+  .fr-notice__body {
+    padding: 0 3rem 0 0;
+  }
+
+  .fr-notice__title,
+  .fr-notice__desc,
+  .fr-notice__link {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
 @media (min-width: 62em) {
   /*! media lg */
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-notice {
+    outline: 1px solid;
+  }
+
+  .fr-notice__title::before {
+    forced-color-adjust: none;
+    background-color: canvastext;
+  }
+
+  .fr-notice .fr-btn--close::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-notice--weather-red,
+  .fr-notice--weather-purple {
+    color: highlight;
+  }
+
+  .fr-notice--weather-red .fr-notice__title::before,
+  .fr-notice--weather-purple .fr-notice__title::before {
+    forced-color-adjust: none;
+    background-color: highlight;
+  }
+
+  .fr-notice--witness .fr-notice__title::before,
+  .fr-notice--kidnapping .fr-notice__title::before,
+  .fr-notice--attack .fr-notice__title::before,
+  .fr-notice--cyberattack .fr-notice__title::before {
+    forced-color-adjust: none;
+    background-color: highlight;
+  }
+
+  .fr-notice--witness,
+  .fr-notice--kidnapping,
+  .fr-notice--attack,
+  .fr-notice--cyberattack {
+    color: highlight;
+  }
 }

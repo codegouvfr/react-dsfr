@@ -1,4 +1,4 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.2'
+    version: '1.12.0'
   };
 
   var api = window[config.namespace];
@@ -139,6 +139,60 @@
 
   api.internals.register(api.card.CardSelector.DOWNLOAD, api.card.CardDownload);
   api.internals.register(api.card.CardSelector.DOWNLOAD_DETAIL, api.core.AssessDetail);
+
+  var CheckboxSelector = {
+    INPUT: ((api.internals.ns.selector('checkbox-group')) + " input[type=\"checkbox\"]")
+  };
+
+  var CheckboxEmission = {
+    CHANGE: api.internals.ns.emission('checkbox', 'change'),
+    RETRIEVE: api.internals.ns.emission('checkbox', 'retrieve')
+  };
+
+  var CheckboxInput = /*@__PURE__*/(function (superclass) {
+    function CheckboxInput () {
+      superclass.call(this);
+      this._handlingChange = this.handleChange.bind(this);
+    }
+
+    if ( superclass ) CheckboxInput.__proto__ = superclass;
+    CheckboxInput.prototype = Object.create( superclass && superclass.prototype );
+    CheckboxInput.prototype.constructor = CheckboxInput;
+
+    var prototypeAccessors = { isChecked: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'CheckboxInput';
+    };
+
+    CheckboxInput.prototype.init = function init () {
+      this.node.addEventListener('change', this._handlingChange);
+      this.addDescent(CheckboxEmission.RETRIEVE, this._handlingChange);
+      this.handleChange();
+    };
+
+    prototypeAccessors.isChecked.get = function () {
+      return this.node.checked;
+    };
+
+    CheckboxInput.prototype.handleChange = function handleChange () {
+      this.ascend(CheckboxEmission.CHANGE, this.node);
+    };
+
+    Object.defineProperties( CheckboxInput.prototype, prototypeAccessors );
+    Object.defineProperties( CheckboxInput, staticAccessors );
+
+    return CheckboxInput;
+  }(api.core.Instance));
+
+  api.checkbox = {
+    CheckboxSelector: CheckboxSelector,
+    CheckboxEmission: CheckboxEmission,
+    CheckboxInput: CheckboxInput
+  };
+
+  api.internals.register(api.checkbox.CheckboxSelector.INPUT, api.checkbox.CheckboxInput);
 
   var SegmentedSelector = {
     SEGMENTED: api.internals.ns.selector('segmented'),
@@ -2036,172 +2090,6 @@
   api.internals.register(api.tab.TabSelector.GROUP, api.tab.TabsGroup);
   api.internals.register(api.tab.TabSelector.LIST, api.tab.TabsList);
 
-  var TableEmission = {
-    SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
-    CHANGE: api.internals.ns.emission('table', 'change'),
-    CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight')
-  };
-
-  var PADDING = '1rem'; // padding de 4v sur le caption
-
-  var Table = /*@__PURE__*/(function (superclass) {
-    function Table () {
-      superclass.apply(this, arguments);
-    }
-
-    if ( superclass ) Table.__proto__ = superclass;
-    Table.prototype = Object.create( superclass && superclass.prototype );
-    Table.prototype.constructor = Table;
-
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'Table';
-    };
-
-    Table.prototype.init = function init () {
-      this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
-    };
-
-    Table.prototype.setCaptionHeight = function setCaptionHeight (value) {
-      this.setProperty('--table-offset', ("calc(" + value + "px + " + PADDING + ")"));
-    };
-
-    Object.defineProperties( Table, staticAccessors );
-
-    return Table;
-  }(api.core.Instance));
-
-  var TableSelector = {
-    TABLE: api.internals.ns.selector('table'),
-    SHADOW: api.internals.ns.selector('table__shadow'),
-    SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
-    SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
-    ELEMENT: ((api.internals.ns.selector('table')) + ":not(" + (api.internals.ns.selector('table--no-scroll')) + ") table"),
-    CAPTION: ((api.internals.ns.selector('table')) + " table caption")
-  };
-
-  var SCROLL_OFFSET = 8; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
-
-  var TableElement = /*@__PURE__*/(function (superclass) {
-    function TableElement () {
-      superclass.apply(this, arguments);
-    }
-
-    if ( superclass ) TableElement.__proto__ = superclass;
-    TableElement.prototype = Object.create( superclass && superclass.prototype );
-    TableElement.prototype.constructor = TableElement;
-
-    var prototypeAccessors = { isScrolling: { configurable: true } };
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'TableElement';
-    };
-
-    TableElement.prototype.init = function init () {
-      this.listen('scroll', this.scroll.bind(this));
-      this.content = this.querySelector('tbody');
-      this.isResizing = true;
-    };
-
-    prototypeAccessors.isScrolling.get = function () {
-      return this._isScrolling;
-    };
-
-    prototypeAccessors.isScrolling.set = function (value) {
-      if (this._isScrolling === value) { return; }
-      this._isScrolling = value;
-
-      if (value) {
-        this.addClass(TableSelector.SHADOW);
-        this.scroll();
-      } else {
-        this.removeClass(TableSelector.SHADOW);
-        this.removeClass(TableSelector.SHADOW_LEFT);
-        this.removeClass(TableSelector.SHADOW_RIGHT);
-      }
-    };
-
-    /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
-    TableElement.prototype.scroll = function scroll () {
-      var isMin = this.node.scrollLeft <= SCROLL_OFFSET;
-      var max = this.content.offsetWidth - this.node.offsetWidth - SCROLL_OFFSET;
-      var isMax = Math.abs(this.node.scrollLeft) >= max;
-      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-      var minSelector = isRtl ? TableSelector.SHADOW_RIGHT : TableSelector.SHADOW_LEFT;
-      var maxSelector = isRtl ? TableSelector.SHADOW_LEFT : TableSelector.SHADOW_RIGHT;
-
-      if (isMin) {
-        this.removeClass(minSelector);
-      } else {
-        this.addClass(minSelector);
-      }
-
-      if (isMax) {
-        this.removeClass(maxSelector);
-      } else {
-        this.addClass(maxSelector);
-      }
-    };
-
-    TableElement.prototype.resize = function resize () {
-      this.isScrolling = this.content.offsetWidth > this.node.offsetWidth;
-    };
-
-    TableElement.prototype.dispose = function dispose () {
-      this.isScrolling = false;
-    };
-
-    Object.defineProperties( TableElement.prototype, prototypeAccessors );
-    Object.defineProperties( TableElement, staticAccessors );
-
-    return TableElement;
-  }(api.core.Instance));
-
-  var TableCaption = /*@__PURE__*/(function (superclass) {
-    function TableCaption () {
-      superclass.apply(this, arguments);
-    }
-
-    if ( superclass ) TableCaption.__proto__ = superclass;
-    TableCaption.prototype = Object.create( superclass && superclass.prototype );
-    TableCaption.prototype.constructor = TableCaption;
-
-    var staticAccessors = { instanceClassName: { configurable: true } };
-
-    staticAccessors.instanceClassName.get = function () {
-      return 'TableCaption';
-    };
-
-    TableCaption.prototype.init = function init () {
-      this.height = 0;
-      this.isResizing = true;
-    };
-
-    TableCaption.prototype.resize = function resize () {
-      var height = this.getRect().height;
-      if (this.height === height) { return; }
-      this.height = height;
-      this.ascend(TableEmission.CAPTION_HEIGHT, height);
-    };
-
-    Object.defineProperties( TableCaption, staticAccessors );
-
-    return TableCaption;
-  }(api.core.Instance));
-
-  api.table = {
-    Table: Table,
-    TableElement: TableElement,
-    TableCaption: TableCaption,
-    TableSelector: TableSelector
-  };
-
-  api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
-  api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
-  api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
-
   var TagEvent = {
     DISMISS: api.internals.ns.event('dismiss')
   };
@@ -2535,6 +2423,7 @@
       RangeModel.prototype._update.call(this);
       var steps = this._rangeWidth / this._step;
       this._stepWidth = this._innerWidth / steps;
+      if (this._stepWidth < 1 || !isFinite(this._stepWidth)) { this._stepWidth = 4; }
       while (this._stepWidth < 4) { this._stepWidth *= 2; }
     };
 
@@ -2896,6 +2785,7 @@
     RangeInput.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) > value) {
         this.node.value = value;
+        this.dispatch('change', undefined, true);
         this.change();
       }
     };
@@ -2945,6 +2835,7 @@
     RangeInput2.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) < value) {
         this.node.value = value;
+        this.dispatch('change', undefined, true);
         this.change();
       }
     };
@@ -3274,6 +3165,232 @@
   };
 
   api.internals.register(api.display.DisplaySelector.DISPLAY, api.display.Display);
+
+  var TableEmission = {
+    SCROLLABLE: api.internals.ns.emission('table', 'scrollable'),
+    CHANGE: api.internals.ns.emission('table', 'change'),
+    CAPTION_HEIGHT: api.internals.ns.emission('table', 'captionheight'),
+    CAPTION_WIDTH: api.internals.ns.emission('table', 'captionwidth')
+  };
+
+  var PADDING = '1rem'; // padding de 4v sur le caption
+
+  var Table = /*@__PURE__*/(function (superclass) {
+    function Table () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) Table.__proto__ = superclass;
+    Table.prototype = Object.create( superclass && superclass.prototype );
+    Table.prototype.constructor = Table;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'Table';
+    };
+
+    Table.prototype.init = function init () {
+      this.rowsHeaderWidth = [];
+      this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
+    };
+
+    Table.prototype.setCaptionHeight = function setCaptionHeight (value) {
+      this.setProperty('--table-offset', ("calc(" + value + "px + " + PADDING + ")"));
+    };
+
+    Object.defineProperties( Table, staticAccessors );
+
+    return Table;
+  }(api.core.Instance));
+
+  var TableSelector = {
+    TABLE: api.internals.ns.selector('table'),
+    SHADOW: api.internals.ns.selector('table__shadow'),
+    SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
+    SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
+    ELEMENT: [((api.internals.ns.selector('table')) + ":not(" + (api.internals.ns.selector('table--no-scroll')) + ") table")],
+    CAPTION: ((api.internals.ns.selector('table')) + " table caption"),
+    ROW: ((api.internals.ns.selector('table')) + " tbody tr"),
+    COL: ((api.internals.ns.selector('table')) + " thead th")
+  };
+
+  var SCROLL_OFFSET = 0; // valeur en px du scroll avant laquelle le shadow s'active ou se desactive
+
+  var TableElement = /*@__PURE__*/(function (superclass) {
+    function TableElement () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TableElement.__proto__ = superclass;
+    TableElement.prototype = Object.create( superclass && superclass.prototype );
+    TableElement.prototype.constructor = TableElement;
+
+    var prototypeAccessors = { isScrolling: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TableElement';
+    };
+
+    TableElement.prototype.init = function init () {
+      this.listen('scroll', this.scroll.bind(this));
+      this.content = this.querySelector('tbody');
+      this.tableOffsetHeight = 0;
+      this.isResizing = true;
+    };
+
+    prototypeAccessors.isScrolling.get = function () {
+      return this._isScrolling;
+    };
+
+    prototypeAccessors.isScrolling.set = function (value) {
+      if (this._isScrolling === value) { return; }
+      this._isScrolling = value;
+
+      if (value) {
+        this.addClass(TableSelector.SHADOW);
+        this.scroll();
+      } else {
+        this.removeClass(TableSelector.SHADOW);
+        this.removeClass(TableSelector.SHADOW_LEFT);
+        this.removeClass(TableSelector.SHADOW_RIGHT);
+      }
+    };
+
+    /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
+    TableElement.prototype.scroll = function scroll () {
+      var isMin = this.node.scrollLeft <= SCROLL_OFFSET;
+      var max = this.content.offsetWidth - this.node.offsetWidth - SCROLL_OFFSET;
+      var isMax = Math.abs(this.node.scrollLeft) >= max;
+      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+      var minSelector = isRtl ? TableSelector.SHADOW_RIGHT : TableSelector.SHADOW_LEFT;
+      var maxSelector = isRtl ? TableSelector.SHADOW_LEFT : TableSelector.SHADOW_RIGHT;
+
+      if (isMin) {
+        this.removeClass(minSelector);
+      } else {
+        this.addClass(minSelector);
+      }
+
+      if (isMax) {
+        this.removeClass(maxSelector);
+      } else {
+        this.addClass(maxSelector);
+      }
+    };
+
+    TableElement.prototype.resize = function resize () {
+      this.isScrolling = this.content.offsetWidth > this.node.offsetWidth;
+    };
+
+    TableElement.prototype.dispose = function dispose () {
+      this.isScrolling = false;
+    };
+
+    Object.defineProperties( TableElement.prototype, prototypeAccessors );
+    Object.defineProperties( TableElement, staticAccessors );
+
+    return TableElement;
+  }(api.core.Instance));
+
+  var TableCaption = /*@__PURE__*/(function (superclass) {
+    function TableCaption () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TableCaption.__proto__ = superclass;
+    TableCaption.prototype = Object.create( superclass && superclass.prototype );
+    TableCaption.prototype.constructor = TableCaption;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TableCaption';
+    };
+
+    TableCaption.prototype.init = function init () {
+      this.height = 0;
+      this.isResizing = true;
+    };
+
+    TableCaption.prototype.resize = function resize () {
+      var height = this.getRect().height;
+      if (this.height === height) { return; }
+      this.height = height;
+      this.ascend(TableEmission.CAPTION_HEIGHT, height);
+    };
+
+    Object.defineProperties( TableCaption, staticAccessors );
+
+    return TableCaption;
+  }(api.core.Instance));
+
+  var TableRow = /*@__PURE__*/(function (superclass) {
+    function TableRow () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TableRow.__proto__ = superclass;
+    TableRow.prototype = Object.create( superclass && superclass.prototype );
+    TableRow.prototype.constructor = TableRow;
+
+    var prototypeAccessors = { isSelected: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TableRow';
+    };
+
+    TableRow.prototype.init = function init () {
+      if (api.checkbox) {
+        this.addAscent(CheckboxEmission.CHANGE, this._handleCheckboxChange.bind(this));
+        this.descend(CheckboxEmission.RETRIEVE);
+      }
+    };
+
+    TableRow.prototype._handleCheckboxChange = function _handleCheckboxChange (node) {
+      if (node.name === 'row-select') {
+        this.isSelected = node.checked === true;
+      }
+    };
+
+    TableRow.prototype.render = function render () {
+      var height = this.getRect().height + 2;
+      if (this._height === height) { return; }
+      this._height = height;
+      this.setProperty('--row-height', ((this._height) + "px"));
+    };
+
+    prototypeAccessors.isSelected.get = function () {
+      return this._isSelected;
+    };
+
+    prototypeAccessors.isSelected.set = function (value) {
+      if (this._isSelected === value) { return; }
+      this.isRendering = value;
+      this._isSelected = value;
+      this.setAttribute('aria-selected', value);
+    };
+
+    Object.defineProperties( TableRow.prototype, prototypeAccessors );
+    Object.defineProperties( TableRow, staticAccessors );
+
+    return TableRow;
+  }(api.core.Instance));
+
+  api.table = {
+    Table: Table,
+    TableElement: TableElement,
+    TableCaption: TableCaption,
+    TableSelector: TableSelector,
+    TableRow: TableRow
+  };
+
+  api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
+  api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
+  api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
+  api.internals.register(api.table.TableSelector.ROW, api.table.TableRow);
 
 })();
 //# sourceMappingURL=component.nomodule.js.map

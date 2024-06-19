@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -349,4 +349,98 @@ a.fr-share__link:not([href]) {
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-share .fr-btns-group .fr-btn {
+    border: none;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:disabled:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([href]):not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+
+  .fr-share .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a[href].fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-share__link--facebook::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a[href].fr-share__link--facebook::before {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  a:not([href]).fr-share__link--facebook::before {
+    forced-color-adjust: none;
+    background-color: graytext;
+  }
+
+  .fr-share__link--twitter::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a[href].fr-share__link--twitter::before {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  a:not([href]).fr-share__link--twitter::before {
+    forced-color-adjust: none;
+    background-color: graytext;
+  }
+
+  .fr-share__link--linkedin::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a[href].fr-share__link--linkedin::before {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  a:not([href]).fr-share__link--linkedin::before {
+    forced-color-adjust: none;
+    background-color: graytext;
+  }
+
+  .fr-share__link--mail::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a[href].fr-share__link--mail::before {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  a:not([href]).fr-share__link--mail::before {
+    forced-color-adjust: none;
+    background-color: graytext;
+  }
+
+  .fr-share__link--copy::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a[href].fr-share__link--copy::before {
+    forced-color-adjust: none;
+    background-color: linktext;
+  }
+
+  a:not([href]).fr-share__link--copy::before {
+    forced-color-adjust: none;
+    background-color: graytext;
+  }
 }

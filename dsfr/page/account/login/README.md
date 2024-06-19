@@ -9,9 +9,9 @@ login
 └─ connect
 └─ form
 └─ alert
-└─ checkbox
 └─ input
 └─ button
+└─ checkbox
 └─ password
 ```
 

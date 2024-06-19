@@ -19,6 +19,8 @@ export declare function getColorOptionsHex(params: {
         };
         readonly _200_850: {
             readonly default: "#cecece" | "#3a3a3a";
+            readonly hover: "#a8a8a8" | "#616161";
+            readonly active: "#939393" | "#777777";
         };
         readonly _925_125: {
             readonly default: "#2a2a2a" | "#e5e5e5";

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,7 +13,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   /**
   * Correctif de la largeur du texte dans la tuile
   */
@@ -33,7 +33,8 @@
     color: #161616;
   }
 
-  .fr-tile__title a::after {
+  .fr-tile__title a::after,
+  .fr-tile__title button::after {
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -61,7 +62,8 @@
     max-width: 100%;
   }
 
-  .fr-tile--download .fr-tile__title a::after {
+  .fr-tile--download .fr-tile__title a::after,
+  .fr-tile--download .fr-tile__title button::after {
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -78,7 +80,14 @@
     background-color: transparent;
   }
 
-  .fr-tile--sm .fr-tile__title a::after {
+  .fr-tile.fr-enlarge-button .fr-tile__title button::after {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: transparent;
+  }
+
+  .fr-tile--sm .fr-tile__title a::after,
+  .fr-tile--sm .fr-tile__title button::after {
     width: 1rem;
     height: 1rem;
   }
@@ -98,6 +107,7 @@
   .fr-tile--shadow {
     z-index: 500;
     background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 18, 0.16);
   }
 
   .fr-tile--shadow.fr-tile--grey {
@@ -126,29 +136,33 @@
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
-  .fr-tile__title a {
+  .fr-tile__title a,
+  .fr-tile__title button {
     color: #000091;
   }
 
-  .fr-tile__title a::before {
+  .fr-tile__title a::before,
+  .fr-tile__title button::before {
     background-image: linear-gradient(0deg, #000091, #000091);
   }
 
-  .fr-tile__title a:not([href]) {
+  .fr-tile__title a:not([href]),
+  .fr-tile__title button:disabled {
     color: #929292;
   }
 
-  .fr-tile__title a:not([href])::before {
+  .fr-tile__title a:not([href])::before,
+  .fr-tile__title button:disabled::before {
     background-image: linear-gradient(0deg, #e5e5e5, #e5e5e5);
   }
 }
-@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 48em) {
   .fr-tile--download.fr-tile--vertical\@md .fr-tile__body,
   .fr-tile--horizontal.fr-tile--vertical\@md .fr-tile__body {
     flex-basis: auto;
   }
 }
-@media (-ms-high-contrast: none) and (min-width: 62em), (-ms-high-contrast: active) and (min-width: 62em) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 62em) {
   .fr-tile--download.fr-tile--vertical\@lg .fr-tile__body,
   .fr-tile--horizontal.fr-tile--vertical\@lg .fr-tile__body {
     flex-basis: auto;

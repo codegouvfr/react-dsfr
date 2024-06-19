@@ -26,7 +26,9 @@ export function getColorOptionsHex(
             "active": isDark ? "#5b5b5b" : "#c1c1c1"
           },
           "_200_850": {
-            "default": isDark ? "#cecece" : "#3a3a3a"
+            "default": isDark ? "#cecece" : "#3a3a3a",
+            "hover": isDark ? "#a8a8a8" : "#616161",
+            "active": isDark ? "#939393" : "#777777"
           },
           "_925_125": {
             "default": isDark ? "#2a2a2a" : "#e5e5e5"

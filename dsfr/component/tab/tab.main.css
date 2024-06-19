@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -312,4 +312,45 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-tabs {
+    border-bottom: 1px solid;
+  }
+
+  .fr-tabs::before {
+    border: 1px solid graytext;
+  }
+
+  .fr-tabs__tab {
+    border: 1px solid;
+  }
+
+  .fr-tabs__tab[aria-selected=true]:not(:disabled) {
+    border: 1px solid highlight;
+    border-top: 4px solid highlight;
+    border-bottom: 1px solid canvas;
+    color: highlight;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fr-tabs {
+    transition: none;
+  }
+
+  .fr-tabs__panel {
+    transition: none;
+  }
+}
+@media (-ms-high-contrast: active) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (forced-colors: active), (forced-colors: active) and (-ms-high-contrast: active), (forced-colors: active) and (forced-colors: active) {
+  .fr-tabs__tab[aria-selected=true][class^=fr-icon-]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class^=fr-icon-]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-icon-"]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-icon-"]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class^=fr-fi-]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class^=fr-fi-]:not(:disabled)::after,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-fi-"]:not(:disabled)::before,
+  .fr-tabs__tab[aria-selected=true][class*=" fr-fi-"]:not(:disabled)::after {
+    background-color: highlight;
+  }
 }

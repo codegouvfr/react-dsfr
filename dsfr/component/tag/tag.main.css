@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -315,7 +315,10 @@ input[type=submit].fr-tag--dismiss.fr-tag--sm::after {
 
 a.fr-tag,
 button.fr-tag,
-input[type=button].fr-tag {
+input[type=button].fr-tag,
+input[type=image].fr-tag,
+input[type=reset].fr-tag,
+input[type=submit].fr-tag {
   color: var(--text-action-high-blue-france);
   background-color: var(--background-action-low-blue-france);
 
@@ -326,7 +329,10 @@ input[type=button].fr-tag {
 
 a.fr-tag--green-tilleul-verveine,
 button.fr-tag--green-tilleul-verveine,
-input[type=button].fr-tag--green-tilleul-verveine {
+input[type=button].fr-tag--green-tilleul-verveine,
+input[type=image].fr-tag--green-tilleul-verveine,
+input[type=reset].fr-tag--green-tilleul-verveine,
+input[type=submit].fr-tag--green-tilleul-verveine {
   color: var(--text-action-high-green-tilleul-verveine);
   background-color: var(--background-action-low-green-tilleul-verveine);
 
@@ -337,7 +343,10 @@ input[type=button].fr-tag--green-tilleul-verveine {
 
 a.fr-tag--green-bourgeon,
 button.fr-tag--green-bourgeon,
-input[type=button].fr-tag--green-bourgeon {
+input[type=button].fr-tag--green-bourgeon,
+input[type=image].fr-tag--green-bourgeon,
+input[type=reset].fr-tag--green-bourgeon,
+input[type=submit].fr-tag--green-bourgeon {
   color: var(--text-action-high-green-bourgeon);
   background-color: var(--background-action-low-green-bourgeon);
 
@@ -348,7 +357,10 @@ input[type=button].fr-tag--green-bourgeon {
 
 a.fr-tag--green-emeraude,
 button.fr-tag--green-emeraude,
-input[type=button].fr-tag--green-emeraude {
+input[type=button].fr-tag--green-emeraude,
+input[type=image].fr-tag--green-emeraude,
+input[type=reset].fr-tag--green-emeraude,
+input[type=submit].fr-tag--green-emeraude {
   color: var(--text-action-high-green-emeraude);
   background-color: var(--background-action-low-green-emeraude);
 
@@ -359,7 +371,10 @@ input[type=button].fr-tag--green-emeraude {
 
 a.fr-tag--green-menthe,
 button.fr-tag--green-menthe,
-input[type=button].fr-tag--green-menthe {
+input[type=button].fr-tag--green-menthe,
+input[type=image].fr-tag--green-menthe,
+input[type=reset].fr-tag--green-menthe,
+input[type=submit].fr-tag--green-menthe {
   color: var(--text-action-high-green-menthe);
   background-color: var(--background-action-low-green-menthe);
 
@@ -370,7 +385,10 @@ input[type=button].fr-tag--green-menthe {
 
 a.fr-tag--green-archipel,
 button.fr-tag--green-archipel,
-input[type=button].fr-tag--green-archipel {
+input[type=button].fr-tag--green-archipel,
+input[type=image].fr-tag--green-archipel,
+input[type=reset].fr-tag--green-archipel,
+input[type=submit].fr-tag--green-archipel {
   color: var(--text-action-high-green-archipel);
   background-color: var(--background-action-low-green-archipel);
 
@@ -381,7 +399,10 @@ input[type=button].fr-tag--green-archipel {
 
 a.fr-tag--blue-ecume,
 button.fr-tag--blue-ecume,
-input[type=button].fr-tag--blue-ecume {
+input[type=button].fr-tag--blue-ecume,
+input[type=image].fr-tag--blue-ecume,
+input[type=reset].fr-tag--blue-ecume,
+input[type=submit].fr-tag--blue-ecume {
   color: var(--text-action-high-blue-ecume);
   background-color: var(--background-action-low-blue-ecume);
 
@@ -392,7 +413,10 @@ input[type=button].fr-tag--blue-ecume {
 
 a.fr-tag--blue-cumulus,
 button.fr-tag--blue-cumulus,
-input[type=button].fr-tag--blue-cumulus {
+input[type=button].fr-tag--blue-cumulus,
+input[type=image].fr-tag--blue-cumulus,
+input[type=reset].fr-tag--blue-cumulus,
+input[type=submit].fr-tag--blue-cumulus {
   color: var(--text-action-high-blue-cumulus);
   background-color: var(--background-action-low-blue-cumulus);
 
@@ -403,7 +427,10 @@ input[type=button].fr-tag--blue-cumulus {
 
 a.fr-tag--purple-glycine,
 button.fr-tag--purple-glycine,
-input[type=button].fr-tag--purple-glycine {
+input[type=button].fr-tag--purple-glycine,
+input[type=image].fr-tag--purple-glycine,
+input[type=reset].fr-tag--purple-glycine,
+input[type=submit].fr-tag--purple-glycine {
   color: var(--text-action-high-purple-glycine);
   background-color: var(--background-action-low-purple-glycine);
 
@@ -414,7 +441,10 @@ input[type=button].fr-tag--purple-glycine {
 
 a.fr-tag--pink-macaron,
 button.fr-tag--pink-macaron,
-input[type=button].fr-tag--pink-macaron {
+input[type=button].fr-tag--pink-macaron,
+input[type=image].fr-tag--pink-macaron,
+input[type=reset].fr-tag--pink-macaron,
+input[type=submit].fr-tag--pink-macaron {
   color: var(--text-action-high-pink-macaron);
   background-color: var(--background-action-low-pink-macaron);
 
@@ -425,7 +455,10 @@ input[type=button].fr-tag--pink-macaron {
 
 a.fr-tag--pink-tuile,
 button.fr-tag--pink-tuile,
-input[type=button].fr-tag--pink-tuile {
+input[type=button].fr-tag--pink-tuile,
+input[type=image].fr-tag--pink-tuile,
+input[type=reset].fr-tag--pink-tuile,
+input[type=submit].fr-tag--pink-tuile {
   color: var(--text-action-high-pink-tuile);
   background-color: var(--background-action-low-pink-tuile);
 
@@ -436,7 +469,10 @@ input[type=button].fr-tag--pink-tuile {
 
 a.fr-tag--yellow-tournesol,
 button.fr-tag--yellow-tournesol,
-input[type=button].fr-tag--yellow-tournesol {
+input[type=button].fr-tag--yellow-tournesol,
+input[type=image].fr-tag--yellow-tournesol,
+input[type=reset].fr-tag--yellow-tournesol,
+input[type=submit].fr-tag--yellow-tournesol {
   color: var(--text-action-high-yellow-tournesol);
   background-color: var(--background-action-low-yellow-tournesol);
 
@@ -447,7 +483,10 @@ input[type=button].fr-tag--yellow-tournesol {
 
 a.fr-tag--yellow-moutarde,
 button.fr-tag--yellow-moutarde,
-input[type=button].fr-tag--yellow-moutarde {
+input[type=button].fr-tag--yellow-moutarde,
+input[type=image].fr-tag--yellow-moutarde,
+input[type=reset].fr-tag--yellow-moutarde,
+input[type=submit].fr-tag--yellow-moutarde {
   color: var(--text-action-high-yellow-moutarde);
   background-color: var(--background-action-low-yellow-moutarde);
 
@@ -458,7 +497,10 @@ input[type=button].fr-tag--yellow-moutarde {
 
 a.fr-tag--orange-terre-battue,
 button.fr-tag--orange-terre-battue,
-input[type=button].fr-tag--orange-terre-battue {
+input[type=button].fr-tag--orange-terre-battue,
+input[type=image].fr-tag--orange-terre-battue,
+input[type=reset].fr-tag--orange-terre-battue,
+input[type=submit].fr-tag--orange-terre-battue {
   color: var(--text-action-high-orange-terre-battue);
   background-color: var(--background-action-low-orange-terre-battue);
 
@@ -469,7 +511,10 @@ input[type=button].fr-tag--orange-terre-battue {
 
 a.fr-tag--brown-cafe-creme,
 button.fr-tag--brown-cafe-creme,
-input[type=button].fr-tag--brown-cafe-creme {
+input[type=button].fr-tag--brown-cafe-creme,
+input[type=image].fr-tag--brown-cafe-creme,
+input[type=reset].fr-tag--brown-cafe-creme,
+input[type=submit].fr-tag--brown-cafe-creme {
   color: var(--text-action-high-brown-cafe-creme);
   background-color: var(--background-action-low-brown-cafe-creme);
 
@@ -480,7 +525,10 @@ input[type=button].fr-tag--brown-cafe-creme {
 
 a.fr-tag--brown-caramel,
 button.fr-tag--brown-caramel,
-input[type=button].fr-tag--brown-caramel {
+input[type=button].fr-tag--brown-caramel,
+input[type=image].fr-tag--brown-caramel,
+input[type=reset].fr-tag--brown-caramel,
+input[type=submit].fr-tag--brown-caramel {
   color: var(--text-action-high-brown-caramel);
   background-color: var(--background-action-low-brown-caramel);
 
@@ -491,7 +539,10 @@ input[type=button].fr-tag--brown-caramel {
 
 a.fr-tag--brown-opera,
 button.fr-tag--brown-opera,
-input[type=button].fr-tag--brown-opera {
+input[type=button].fr-tag--brown-opera,
+input[type=image].fr-tag--brown-opera,
+input[type=reset].fr-tag--brown-opera,
+input[type=submit].fr-tag--brown-opera {
   color: var(--text-action-high-brown-opera);
   background-color: var(--background-action-low-brown-opera);
 
@@ -502,7 +553,10 @@ input[type=button].fr-tag--brown-opera {
 
 a.fr-tag--beige-gris-galet,
 button.fr-tag--beige-gris-galet,
-input[type=button].fr-tag--beige-gris-galet {
+input[type=button].fr-tag--beige-gris-galet,
+input[type=image].fr-tag--beige-gris-galet,
+input[type=reset].fr-tag--beige-gris-galet,
+input[type=submit].fr-tag--beige-gris-galet {
   color: var(--text-action-high-beige-gris-galet);
   background-color: var(--background-action-low-beige-gris-galet);
 
@@ -574,6 +628,15 @@ input[type=button].fr-tag:disabled {
   --active: var(--background-disabled-grey-active);
 }
 
+button.fr-tag:disabled:hover,
+input[type=button].fr-tag:disabled:hover {
+  background-color: var(--background-disabled-grey);
+
+  --idle: transparent;
+  --hover: var(--background-disabled-grey-hover);
+  --active: var(--background-disabled-grey-active);
+}
+
 a:not([href]).fr-tag {
   color: var(--text-disabled-grey);
   background-color: var(--background-disabled-grey);
@@ -613,4 +676,111 @@ a:not([href]).fr-tag {
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-tag::before,
+  .fr-tag::after {
+    background-color: canvastext;
+  }
+
+  .fr-tag {
+    border: 1px solid;
+  }
+
+  .fr-tag:disabled,
+  a.fr-tag:not([href]) {
+    color: graytext;
+  }
+
+  a.fr-tag[aria-pressed=true]:not(:disabled),
+  button.fr-tag[aria-pressed=true]:not(:disabled),
+  input[type=button].fr-tag[aria-pressed=true]:not(:disabled),
+  input[type=image].fr-tag[aria-pressed=true]:not(:disabled),
+  input[type=reset].fr-tag[aria-pressed=true]:not(:disabled),
+  input[type=submit].fr-tag[aria-pressed=true]:not(:disabled) {
+    color: highlight;
+    border: 1px solid highlight;
+    border-top: 4px solid highlight;
+  }
+
+  a.fr-tag[aria-pressed=true]:not(:disabled)::after,
+  button.fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=button].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=image].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=reset].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=submit].fr-tag[aria-pressed=true]:not(:disabled)::after {
+    display: none;
+  }
+
+  a.fr-tag[aria-pressed=true].fr-tag--sm::after,
+  button.fr-tag[aria-pressed=true].fr-tag--sm::after,
+  input[type=button].fr-tag[aria-pressed=true].fr-tag--sm::after,
+  input[type=image].fr-tag[aria-pressed=true].fr-tag--sm::after,
+  input[type=reset].fr-tag[aria-pressed=true].fr-tag--sm::after,
+  input[type=submit].fr-tag[aria-pressed=true].fr-tag--sm::after {
+    display: none;
+  }
+
+  a.fr-tag--dismiss::after,
+  button.fr-tag--dismiss::after,
+  input[type=button].fr-tag--dismiss::after,
+  input[type=image].fr-tag--dismiss::after,
+  input[type=reset].fr-tag--dismiss::after,
+  input[type=submit].fr-tag--dismiss::after {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  a.fr-tag--dismiss:disabled::after,
+  button.fr-tag--dismiss:disabled::after,
+  input[type=button].fr-tag--dismiss:disabled::after,
+  input[type=image].fr-tag--dismiss:disabled::after,
+  input[type=reset].fr-tag--dismiss:disabled::after,
+  input[type=submit].fr-tag--dismiss:disabled::after {
+    background-color: graytext;
+  }
+
+  a.fr-tag--dismiss.fr-tag--sm::after,
+  button.fr-tag--dismiss.fr-tag--sm::after,
+  input[type=button].fr-tag--dismiss.fr-tag--sm::after,
+  input[type=image].fr-tag--dismiss.fr-tag--sm::after,
+  input[type=reset].fr-tag--dismiss.fr-tag--sm::after,
+  input[type=submit].fr-tag--dismiss.fr-tag--sm::after {
+    background-color: buttontext;
+  }
+
+  a.fr-tag--dismiss.fr-tag--sm:disabled::after,
+  button.fr-tag--dismiss.fr-tag--sm:disabled::after,
+  input[type=button].fr-tag--dismiss.fr-tag--sm:disabled::after,
+  input[type=image].fr-tag--dismiss.fr-tag--sm:disabled::after,
+  input[type=reset].fr-tag--dismiss.fr-tag--sm:disabled::after,
+  input[type=submit].fr-tag--dismiss.fr-tag--sm:disabled::after {
+    background-color: graytext;
+  }
+
+  .fr-tags-group.fr-tags-group--sm button.fr-tag.fr-tag--dismiss::after,
+  .fr-tags-group.fr-tags-group--sm input[type=button].fr-tag.fr-tag--dismiss::after {
+    background-color: buttontext;
+  }
+
+  .fr-tags-group.fr-tags-group--sm button.fr-tag[aria-pressed=true]::after,
+  .fr-tags-group.fr-tags-group--sm input[type=button].fr-tag[aria-pressed=true]::after {
+    display: none;
+  }
+}
+@media (-ms-high-contrast: active) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (forced-colors: active), (forced-colors: active) and (-ms-high-contrast: active), (forced-colors: active) and (forced-colors: active) {
+  a.fr-tag[aria-pressed=true]:not(:disabled)::before,
+  a.fr-tag[aria-pressed=true]:not(:disabled)::after,
+  button.fr-tag[aria-pressed=true]:not(:disabled)::before,
+  button.fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=button].fr-tag[aria-pressed=true]:not(:disabled)::before,
+  input[type=button].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=image].fr-tag[aria-pressed=true]:not(:disabled)::before,
+  input[type=image].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=reset].fr-tag[aria-pressed=true]:not(:disabled)::before,
+  input[type=reset].fr-tag[aria-pressed=true]:not(:disabled)::after,
+  input[type=submit].fr-tag[aria-pressed=true]:not(:disabled)::before,
+  input[type=submit].fr-tag[aria-pressed=true]:not(:disabled)::after {
+    background-color: highlight;
+  }
 }

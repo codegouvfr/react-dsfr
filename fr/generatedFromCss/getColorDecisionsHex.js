@@ -308,6 +308,11 @@ export function getColorDecisionsHex(params) {
                 }
             },
             "actionHigh": {
+                "grey": {
+                    "default": colorOptions.grey._200_850.default,
+                    "hover": colorOptions.grey._200_850.hover,
+                    "active": colorOptions.grey._200_850.active
+                },
                 "blueFrance": {
                     "default": colorOptions.blueFrance.sun113_625.default,
                     "hover": colorOptions.blueFrance.sun113_625.hover,
@@ -915,6 +920,11 @@ export function getColorDecisionsHex(params) {
                 },
                 "beigeGrisGalet": {
                     "default": colorOptions.beigeGrisGalet.main702.default
+                }
+            },
+            "contrast": {
+                "grey": {
+                    "default": colorOptions.grey._625_425.default
                 }
             },
             "active": {

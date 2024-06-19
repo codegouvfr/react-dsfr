@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -19,6 +19,7 @@
 }
 
 .fr-checkbox-group input[type=checkbox] + label {
+  --data-uri-svg: none;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -26,8 +27,6 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-left: 2rem;
-
-  --data-uri-svg: none;
 
   /**
   * On ajoute l'icône check-line en taille sm via un pseudo element before
@@ -175,4 +174,17 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-checkbox-group input[type=checkbox] {
+    opacity: 1;
+  }
+
+  .fr-checkbox-group input[type=checkbox]:disabled + label {
+    color: graytext;
+  }
+
+  .fr-checkbox-group input[type=checkbox] + label::before {
+    display: none;
+  }
 }

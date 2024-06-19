@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -149,7 +149,7 @@
 
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-icon-ancient-gate-fill::before,
   .fr-icon-ancient-gate-fill::after {
     background-image: url("../../icons/buildings/ancient-gate-fill.svg");
@@ -870,6 +870,16 @@
   .fr-icon-pencil-ruler-line::before,
   .fr-icon-pencil-ruler-line::after {
     background-image: url("../../icons/design/pencil-ruler-line.svg");
+  }
+
+  .fr-icon-shapes-fill::before,
+  .fr-icon-shapes-fill::after {
+    background-image: url("../../icons/design/shapes-fill.svg");
+  }
+
+  .fr-icon-shapes-line::before,
+  .fr-icon-shapes-line::after {
+    background-image: url("../../icons/design/shapes-line.svg");
   }
 
   .fr-icon-sip-fill::before,
@@ -2061,6 +2071,16 @@
     background-image: url("../../icons/logo/vuejs-line.svg");
   }
 
+  .fr-icon-whatsapp-fill::before,
+  .fr-icon-whatsapp-fill::after {
+    background-image: url("../../icons/logo/whatsapp-fill.svg");
+  }
+
+  .fr-icon-whatsapp-line::before,
+  .fr-icon-whatsapp-line::after {
+    background-image: url("../../icons/logo/whatsapp-line.svg");
+  }
+
   .fr-icon-youtube-fill::before,
   .fr-icon-youtube-fill::after {
     background-image: url("../../icons/logo/youtube-fill.svg");
@@ -2707,6 +2727,46 @@
     background-image: url("../../icons/media/play-circle-fill.svg");
   }
 
+  .fr-icon-accessibility-fill::before,
+  .fr-icon-accessibility-fill::after {
+    background-image: url("../../icons/others/fr--accessibility-fill.svg");
+  }
+
+  .fr-icon-accessibility-line::before,
+  .fr-icon-accessibility-line::after {
+    background-image: url("../../icons/others/fr--accessibility-line.svg");
+  }
+
+  .fr-icon-ear-off-fill::before,
+  .fr-icon-ear-off-fill::after {
+    background-image: url("../../icons/others/fr--ear-off-fill.svg");
+  }
+
+  .fr-icon-ear-off-line::before,
+  .fr-icon-ear-off-line::after {
+    background-image: url("../../icons/others/fr--ear-off-line.svg");
+  }
+
+  .fr-icon-mental-disabilities-fill::before,
+  .fr-icon-mental-disabilities-fill::after {
+    background-image: url("../../icons/others/fr--mental-disabilities-fill.svg");
+  }
+
+  .fr-icon-mental-disabilities-line::before,
+  .fr-icon-mental-disabilities-line::after {
+    background-image: url("../../icons/others/fr--mental-disabilities-line.svg");
+  }
+
+  .fr-icon-sign-language-fill::before,
+  .fr-icon-sign-language-fill::after {
+    background-image: url("../../icons/others/fr--sign-language-fill.svg");
+  }
+
+  .fr-icon-sign-language-line::before,
+  .fr-icon-sign-language-line::after {
+    background-image: url("../../icons/others/fr--sign-language-line.svg");
+  }
+
   .fr-icon-leaf-fill::before,
   .fr-icon-leaf-fill::after {
     background-image: url("../../icons/others/leaf-fill.svg");
@@ -2775,6 +2835,16 @@
   .fr-icon-umbrella-line::before,
   .fr-icon-umbrella-line::after {
     background-image: url("../../icons/others/umbrella-line.svg");
+  }
+
+  .fr-icon-wheelchair-fill::before,
+  .fr-icon-wheelchair-fill::after {
+    background-image: url("../../icons/others/wheelchair-fill.svg");
+  }
+
+  .fr-icon-wheelchair-line::before,
+  .fr-icon-wheelchair-line::after {
+    background-image: url("../../icons/others/wheelchair-line.svg");
   }
 
   .fr-icon-add-circle-fill::before,
@@ -2895,6 +2965,11 @@
   .fr-icon-arrow-right-up-line::before,
   .fr-icon-arrow-right-up-line::after {
     background-image: url("../../icons/system/arrow-right-up-line.svg");
+  }
+
+  .fr-icon-arrow-up-down-line::before,
+  .fr-icon-arrow-up-down-line::after {
+    background-image: url("../../icons/system/arrow-up-down-line.svg");
   }
 
   .fr-icon-arrow-up-fill::before,
@@ -3025,6 +3100,16 @@
   .fr-icon-filter-line::before,
   .fr-icon-filter-line::after {
     background-image: url("../../icons/system/filter-line.svg");
+  }
+
+  .fr-icon-alert-warning-2-fill::before,
+  .fr-icon-alert-warning-2-fill::after {
+    background-image: url("../../icons/system/fr--alert-warning-2-fill.svg");
+  }
+
+  .fr-icon-alert-warning-fill::before,
+  .fr-icon-alert-warning-fill::after {
+    background-image: url("../../icons/system/fr--alert-warning-fill.svg");
   }
 
   .fr-icon-arrow-left-s-first-line::before,
@@ -3771,6 +3856,16 @@
     background-image: url("../../icons/weather/cloudy-2-line.svg");
   }
 
+  .fr-icon-fire-fill::before,
+  .fr-icon-fire-fill::after {
+    background-image: url("../../icons/weather/fire-fill.svg");
+  }
+
+  .fr-icon-fire-line::before,
+  .fr-icon-fire-line::after {
+    background-image: url("../../icons/weather/fire-line.svg");
+  }
+
   .fr-icon-flashlight-fill::before,
   .fr-icon-flashlight-fill::after {
     background-image: url("../../icons/weather/flashlight-fill.svg");
@@ -3779,6 +3874,36 @@
   .fr-icon-flashlight-line::before,
   .fr-icon-flashlight-line::after {
     background-image: url("../../icons/weather/flashlight-line.svg");
+  }
+
+  .fr-icon-flood-fill::before,
+  .fr-icon-flood-fill::after {
+    background-image: url("../../icons/weather/flood-fill.svg");
+  }
+
+  .fr-icon-flood-line::before,
+  .fr-icon-flood-line::after {
+    background-image: url("../../icons/weather/flood-line.svg");
+  }
+
+  .fr-icon-avalanches-fill::before,
+  .fr-icon-avalanches-fill::after {
+    background-image: url("../../icons/weather/fr--avalanches-fill.svg");
+  }
+
+  .fr-icon-submersion-fill::before,
+  .fr-icon-submersion-fill::after {
+    background-image: url("../../icons/weather/fr--submersion-fill.svg");
+  }
+
+  .fr-icon-heavy-showers-fill::before,
+  .fr-icon-heavy-showers-fill::after {
+    background-image: url("../../icons/weather/heavy-showers-fill.svg");
+  }
+
+  .fr-icon-heavy-showers-line::before,
+  .fr-icon-heavy-showers-line::after {
+    background-image: url("../../icons/weather/heavy-showers-line.svg");
   }
 
   .fr-icon-moon-fill::before,
@@ -3791,6 +3916,26 @@
     background-image: url("../../icons/weather/moon-line.svg");
   }
 
+  .fr-icon-snowy-fill::before,
+  .fr-icon-snowy-fill::after {
+    background-image: url("../../icons/weather/snowy-fill.svg");
+  }
+
+  .fr-icon-snowy-line::before,
+  .fr-icon-snowy-line::after {
+    background-image: url("../../icons/weather/snowy-line.svg");
+  }
+
+  .fr-icon-sparkling-2-fill::before,
+  .fr-icon-sparkling-2-fill::after {
+    background-image: url("../../icons/weather/sparkling-2-fill.svg");
+  }
+
+  .fr-icon-sparkling-2-line::before,
+  .fr-icon-sparkling-2-line::after {
+    background-image: url("../../icons/weather/sparkling-2-line.svg");
+  }
+
   .fr-icon-sun-fill::before,
   .fr-icon-sun-fill::after {
     background-image: url("../../icons/weather/sun-fill.svg");
@@ -3799,6 +3944,56 @@
   .fr-icon-sun-line::before,
   .fr-icon-sun-line::after {
     background-image: url("../../icons/weather/sun-line.svg");
+  }
+
+  .fr-icon-temp-cold-fill::before,
+  .fr-icon-temp-cold-fill::after {
+    background-image: url("../../icons/weather/temp-cold-fill.svg");
+  }
+
+  .fr-icon-temp-cold-line::before,
+  .fr-icon-temp-cold-line::after {
+    background-image: url("../../icons/weather/temp-cold-line.svg");
+  }
+
+  .fr-icon-thunderstorms-fill::before,
+  .fr-icon-thunderstorms-fill::after {
+    background-image: url("../../icons/weather/thunderstorms-fill.svg");
+  }
+
+  .fr-icon-thunderstorms-line::before,
+  .fr-icon-thunderstorms-line::after {
+    background-image: url("../../icons/weather/thunderstorms-line.svg");
+  }
+
+  .fr-icon-tornado-fill::before,
+  .fr-icon-tornado-fill::after {
+    background-image: url("../../icons/weather/tornado-fill.svg");
+  }
+
+  .fr-icon-tornado-line::before,
+  .fr-icon-tornado-line::after {
+    background-image: url("../../icons/weather/tornado-line.svg");
+  }
+
+  .fr-icon-typhoon-fill::before,
+  .fr-icon-typhoon-fill::after {
+    background-image: url("../../icons/weather/typhoon-fill.svg");
+  }
+
+  .fr-icon-typhoon-line::before,
+  .fr-icon-typhoon-line::after {
+    background-image: url("../../icons/weather/typhoon-line.svg");
+  }
+
+  .fr-icon-windy-fill::before,
+  .fr-icon-windy-fill::after {
+    background-image: url("../../icons/weather/windy-fill.svg");
+  }
+
+  .fr-icon-windy-line::before,
+  .fr-icon-windy-line::after {
+    background-image: url("../../icons/weather/windy-line.svg");
   }
 
   .fr-fi-flashlight-fill::before {

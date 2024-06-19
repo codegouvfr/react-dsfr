@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -45,6 +45,15 @@
   --hover: var(--background-raised-grey-hover);
   --active: var(--background-raised-grey-active);
   filter: drop-shadow(var(--raised-shadow));
+}
+
+.fr-header__brand::after {
+  content: "";
+  display: block;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  align-self: stretch;
 }
 
 .fr-header__brand-top {
@@ -107,11 +116,23 @@
   padding-bottom: 0.75rem;
   margin-left: 0.75rem;
   margin-right: 0.75rem;
-  width: 100%;
 
   --external-link-content: none;
   color: var(--text-title-grey);
-  box-shadow: inset 0 1px 0 0 var(--border-default-grey);
+}
+
+.fr-header__service::before {
+  content: "";
+  display: block;
+  width: calc(100% - 2rem);
+  height: 1px;
+  position: absolute;
+  transform: translateY(-0.75rem);
+  background-color: var(--border-default-grey);
+
+  --idle: transparent;
+  --hover: var(--border-default-grey-hover);
+  --active: var(--border-default-grey-active);
 }
 
 .fr-header__service-title {
@@ -167,14 +188,14 @@
 .fr-header__navbar {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: flex-start;
+  justify-content: flex-end;
   padding: 0.25rem;
-  margin-left: auto;
   margin-right: -0.5rem;
   margin-top: 0.25rem;
   order: 3;
-  flex: 0 0 auto;
-  align-self: flex-start;
+  flex: 1;
+  align-self: stretch;
   z-index: calc(var(--ground) + 1000);
 }
 
@@ -205,8 +226,7 @@
   margin-right: 0.5rem;
 }
 
-.fr-header__navbar .fr-btn--menu::before,
-.fr-header__navbar .fr-btn--menu::after {
+.fr-header__navbar .fr-btn--menu::before {
   flex: 0 0 auto;
   display: inline-block;
   vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
@@ -217,15 +237,10 @@
   mask-size: 100% 100%;
   -webkit-mask-image: url("../../icons/system/menu-fill.svg");
   mask-image: url("../../icons/system/menu-fill.svg");
-  --icon-size: 1.5rem;
-}
-
-.fr-header__navbar .fr-btn--menu::before {
   content: "";
 }
 
-.fr-header__navbar .fr-btn--search::before,
-.fr-header__navbar .fr-btn--search::after {
+.fr-header__navbar .fr-btn--search::before {
   flex: 0 0 auto;
   display: inline-block;
   vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
@@ -236,10 +251,6 @@
   mask-size: 100% 100%;
   -webkit-mask-image: url("../../icons/system/search-line.svg");
   mask-image: url("../../icons/system/search-line.svg");
-  --icon-size: 1.5rem;
-}
-
-.fr-header__navbar .fr-btn--search::before {
   content: "";
 }
 
@@ -586,8 +597,11 @@
   .fr-header__service {
     margin-left: 0;
     margin-right: 0;
-    width: auto;
     box-shadow: none;
+  }
+
+  .fr-header__service::before {
+    content: none;
   }
 
   .fr-header .fr-modal {
@@ -780,6 +794,30 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-header {
+    outline: 1px solid;
+  }
+
+  .fr-header__navbar .fr-btn--menu::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-header__navbar .fr-btn--search::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-header .fr-header__menu-links .fr-btn {
+    border: none;
+  }
+}
+@media (-ms-high-contrast: active) and (min-width: 62em), (forced-colors: active) and (min-width: 62em) {
+  .fr-header {
+    outline: none;
+  }
+}
 @media (hover: hover) and (pointer: fine) {
   .fr-header__brand.fr-enlarge-link a[href]:hover {
     --a: 0.1;
@@ -787,5 +825,23 @@
 
   .fr-header__brand.fr-enlarge-link a[href]:active {
     --a: 0.2;
+  }
+}
+@media (prefers-color-scheme: dark) and (forced-colors: active) {
+  .fr-header__logo .fr-logo::after {
+    background-position: -1.96875rem 100%;
+  }
+
+  [data-fr-theme=dark] .fr-header__logo .fr-logo::after {
+    background-position: -1.96875rem 100%;
+  }
+}
+@media (prefers-color-scheme: light) and (forced-colors: active) {
+  .fr-header__logo .fr-logo::after {
+    background-position: 0 calc(100% + 1.40625rem);
+  }
+
+  [data-fr-theme=dark] .fr-header__logo .fr-logo::after {
+    background-position: 0 calc(100% + 1.40625rem);
   }
 }

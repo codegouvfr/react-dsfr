@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,7 +13,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-card--no-icon::after {
     content: none;
   }
@@ -23,7 +23,8 @@
     flex: 1 0 auto;
   }
 
-  .fr-card__title a::after {
+  .fr-card__title a::after,
+  .fr-card__title button::after {
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../../icons/system/arrow-right-line.svg");
@@ -73,22 +74,36 @@
     background-color: transparent;
   }
 
-  .fr-card--sm.fr-enlarge-link .fr-card__title a::after {
+  .fr-card.fr-enlarge-button .fr-card__title button::after {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: transparent;
+  }
+
+  .fr-card--sm.fr-enlarge-link .fr-card__title a::after,
+  .fr-card--sm.fr-enlarge-link .fr-card__title button::after,
+  .fr-card--sm.fr-enlarge-button .fr-card__title a::after,
+  .fr-card--sm.fr-enlarge-button .fr-card__title button::after {
     width: 1rem;
     height: 1rem;
   }
 
-  .fr-card--sm .fr-card__title a::after {
+  .fr-card--sm .fr-card__title a::after,
+  .fr-card--sm .fr-card__title button::after {
     width: 1rem;
     height: 1rem;
   }
 
-  .fr-card--lg.fr-enlarge-link .fr-card__title a::after {
+  .fr-card--lg.fr-enlarge-link .fr-card__title a::after,
+  .fr-card--lg.fr-enlarge-link .fr-card__title button::after,
+  .fr-card--lg.fr-enlarge-button .fr-card__title a::after,
+  .fr-card--lg.fr-enlarge-button .fr-card__title button::after {
     width: 2rem;
     height: 2rem;
   }
 
-  .fr-card--lg .fr-card__title a::after {
+  .fr-card--lg .fr-card__title a::after,
+  .fr-card--lg .fr-card__title button::after {
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -112,6 +127,7 @@
   .fr-card--shadow {
     z-index: 500;
     background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 18, 0.16);
   }
 
   .fr-card--shadow.fr-card--grey {
@@ -142,8 +158,13 @@
     color: #161616;
   }
 
-  .fr-card__title a[href] {
+  .fr-card__title a[href],
+  .fr-card__title button {
     color: #000091;
+  }
+
+  .fr-card__title button:disabled {
+    color: #929292;
   }
 
   .fr-card__title:disabled,
@@ -152,7 +173,7 @@
     background-color: #e5e5e5;
   }
 }
-@media (-ms-high-contrast: none) and (min-width: 48em), (-ms-high-contrast: active) and (min-width: 48em) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 48em) {
   .fr-card--download .fr-card__header {
     padding-top: 0;
   }

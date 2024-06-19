@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -184,4 +184,44 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-segmented__elements {
+    outline: 1px solid;
+  }
+
+  .fr-segmented input + label::before {
+    background-color: buttontext;
+  }
+
+  .fr-segmented input:checked:focus + label {
+    outline: 4px solid;
+    outline-offset: 0;
+  }
+
+  .fr-segmented input:checked + label {
+    outline: 2px solid;
+    color: highlight;
+  }
+
+  .fr-segmented input:checked:disabled + label {
+    color: graytext;
+  }
+
+  .fr-segmented input:disabled + label {
+    color: graytext;
+  }
+
+  .fr-segmented input:not([disabled]):not(:checked) + label {
+    color: buttontext;
+  }
+}
+@media (-ms-high-contrast: active) and (-ms-high-contrast: active), (-ms-high-contrast: active) and (forced-colors: active), (forced-colors: active) and (-ms-high-contrast: active), (forced-colors: active) and (forced-colors: active) {
+  .fr-segmented input:checked + label::before {
+    background-color: highlight;
+  }
+
+  .fr-segmented input:checked:disabled + label::before {
+    background-color: graytext;
+  }
 }

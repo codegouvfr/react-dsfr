@@ -1,4 +1,4 @@
-/*! DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.11.2'
+    version: '1.12.0'
   };
 
   var api = window[config.namespace];
@@ -351,6 +351,12 @@
 
   var renderer = new Renderer();
 
+  var ActionRegulation = {
+    ENFORCE: 'enforce',
+    PREVENT: 'prevent',
+    NONE: 'none'
+  };
+
   var SLICE = 80;
 
   var Queue = function Queue () {
@@ -390,23 +396,31 @@
     this._request();
   };
 
-  Queue.prototype.appendStartingAction = function appendStartingAction (action, data) {
-    if (!this._collector.isActionEnabled && !action.isForced) { return; }
-    if (!action || this._startingActions.some(function (queued) { return queued.test(action); })) {
-      api.inspector.log('appendStartingAction exists or null', action);
-      return;
+  Queue.prototype.regulate = function regulate (action, queue) {
+    if (!action) { return false; }
+    if (queue.some(function (queued) { return queued.test(action); })) {
+      api.inspector.log('action exists in queue', action);
+      return false;
     }
+    switch (action.regulation) {
+      case ActionRegulation.PREVENT:
+        return false;
+      case ActionRegulation.ENFORCE:
+        return true;
+      default:
+        return this._collector.isActionEnabled;
+    }
+  };
+
+  Queue.prototype.appendStartingAction = function appendStartingAction (action, data) {
+    if (!this.regulate(action, this._startingActions)) { return; }
     var queued = new QueuedAction(action, data);
     this._startingActions.push(queued);
     this._request();
   };
 
   Queue.prototype.appendEndingAction = function appendEndingAction (action, data) {
-    if (!this._collector.isActionEnabled && !action.isForced) { return; }
-    if (!action || this._endingActions.some(function (queued) { return queued.test(action); })) {
-      api.inspector.log('appendEndingAction exists or null', action);
-      return;
-    }
+    if (!this.regulate(action, this._endingActions)) { return; }
     var queued = new QueuedAction(action, data);
     this._endingActions.push(queued);
     this._request();
@@ -1545,7 +1559,7 @@
 
   var Action = function Action (name) {
     this._isMuted = false;
-    this._isForced = false;
+    this._regulation = ActionRegulation.NONE;
     this._name = name;
     this._status = ActionStatus.UNSTARTED;
     this._labels = [];
@@ -1553,7 +1567,7 @@
     this._sentData = [];
   };
 
-  var prototypeAccessors$6 = { isMuted: { configurable: true },isForced: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },mode: { configurable: true },_base: { configurable: true } };
+  var prototypeAccessors$6 = { isMuted: { configurable: true },regulation: { configurable: true },isSingular: { configurable: true },status: { configurable: true },name: { configurable: true },labels: { configurable: true },reference: { configurable: true },parameters: { configurable: true },mode: { configurable: true },_base: { configurable: true } };
 
   prototypeAccessors$6.isMuted.get = function () {
     return this._isMuted;
@@ -1563,12 +1577,12 @@
     this._isMuted = value;
   };
 
-  prototypeAccessors$6.isForced.get = function () {
-    return this._isForced;
+  prototypeAccessors$6.regulation.get = function () {
+    return this._regulation;
   };
 
-  prototypeAccessors$6.isForced.set = function (value) {
-    this._isForced = value;
+  prototypeAccessors$6.regulation.set = function (value) {
+    if (Object.values(ActionRegulation).includes(value)) { this._regulation = value; }
   };
 
   prototypeAccessors$6.isSingular.get = function () {
@@ -2574,12 +2588,12 @@
 
   Object.defineProperties( Hierarchy.prototype, prototypeAccessors$1 );
 
-  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRating, isForced) {
+  var ActionElement = function ActionElement (node, type, id, category, title, parameters, isRating, regulation) {
     if ( category === void 0 ) category = '';
     if ( title === void 0 ) title = null;
     if ( parameters === void 0 ) parameters = {};
     if ( isRating === void 0 ) isRating = false;
-    if ( isForced === void 0 ) isForced = false;
+    if ( regulation === void 0 ) regulation = ActionRegulation.NONE;
 
     this._node = node;
     this._type = type;
@@ -2589,14 +2603,14 @@
     this._category = category;
     this._parameters = parameters;
     this._isRating = isRating;
-    this._isForced = isForced;
+    this._regulation = regulation;
     this._hasBegun = false;
 
     // this._init();
     requestAnimationFrame(this._init.bind(this));
   };
 
-  var prototypeAccessors = { isMuted: { configurable: true },action: { configurable: true } };
+  var prototypeAccessors = { isMuted: { configurable: true },regulation: { configurable: true },action: { configurable: true } };
 
   ActionElement.prototype._init = function _init () {
       var this$1$1 = this;
@@ -2614,7 +2628,7 @@
     if (this._type.isSingular) { this._action.singularize(); }
     Object.keys(this._parameters).forEach(function (key) { return this$1$1._action.addParameter(key, this$1$1._parameters[key]); });
     this._action.isMuted = this._isMuted;
-    this._action.isForced = this._isForced;
+    this._action.regulation = this._regulation;
 
     this._action.labels[0] = this._type.id;
     this._action.labels[1] = this._hierarchy.globalComponent;
@@ -2635,6 +2649,15 @@
   prototypeAccessors.isMuted.set = function (value) {
     this._isMuted = value;
     if (this._action) { this._action.isMuted = value; }
+  };
+
+  prototypeAccessors.regulation.get = function () {
+    return this._regulation;
+  };
+
+  prototypeAccessors.regulation.set = function (value) {
+    this._regulation = value;
+    if (this._action) { this._action.regulation = value; }
   };
 
   prototypeAccessors.action.get = function () {
@@ -2678,11 +2701,11 @@
   };
 
   var Actionee = /*@__PURE__*/(function (superclass) {
-    function Actionee (priority, category, title, isForced) {
+    function Actionee (priority, category, title, regulation) {
       if ( priority === void 0 ) priority = -1;
       if ( category === void 0 ) category = '';
       if ( title === void 0 ) title = null;
-      if ( isForced === void 0 ) isForced = false;
+      if ( regulation === void 0 ) regulation = ActionRegulation.NONE;
 
       superclass.call(this);
       this._type = null;
@@ -2692,7 +2715,7 @@
       this._parameters = {};
       this._data = {};
       this._isMuted = false;
-      this._isForced = isForced;
+      this._regulation = regulation;
     }
 
     if ( superclass ) Actionee.__proto__ = superclass;
@@ -2747,12 +2770,41 @@
         return;
       }
 
-      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, this.getAttribute(ActionAttributes.ACTION) || this._title, this._parameters, this.hasAttribute(ActionAttributes.RATING), this.hasAttribute(ActionAttributes.ACTION) || this._isForced);
+      var regulation = this.getRegulation();
+      this._regulation = regulation !== ActionRegulation.NONE ? regulation : this._regulation;
+      var actionAttribute = this.getAttribute(ActionAttributes.ACTION);
+      var title = typeof actionAttribute === 'string' && actionAttribute.toLowerCase() !== 'false' && actionAttribute.toLowerCase() !== 'true' ? normalize(actionAttribute) : this._title;
+      this._isRating = this.hasAttribute(ActionAttributes.RATING);
+
+      this._actionElement = new ActionElement(this.node, this._type, this.id, this._category, title, this._parameters, this._isRating, this._regulation);
       if (this._isMuted) { this._actionElement.isMuted = true; }
 
       this.addDescent(ActioneeEmission.REWIND, this.rewind.bind(this));
 
       this._sort(element);
+    };
+
+    Actionee.prototype.getRegulation = function getRegulation () {
+      var actionAttribute = this.getAttribute(ActionAttributes.ACTION);
+      switch (true) {
+        case typeof actionAttribute === 'string' && actionAttribute.toLowerCase() === 'false':
+          return ActionRegulation.PREVENT;
+        case actionAttribute !== null:
+          return ActionRegulation.ENFORCE;
+        default:
+          return ActionRegulation.NONE;
+      }
+    };
+
+    Actionee.prototype.mutate = function mutate (attributeNames) {
+      if (attributeNames.includes(ActionAttributes.ACTION)) {
+        var regulation = this.getRegulation();
+        if (this._regulation !== regulation) {
+          this._regulation = regulation;
+          if (this._actionElement) { this._actionElement.regulation = regulation; }
+        }
+      }
+      superclass.prototype.mutate.call(this, attributeNames);
     };
 
     Actionee.prototype._sort = function _sort (element) {
@@ -3186,7 +3238,7 @@
     TITLE: api.internals.ns.selector('accordion__title')
   };
 
-  var ID$x = 'accordion';
+  var ID$y = 'accordion';
 
   var AccordionButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AccordionButtonActionee () {
@@ -3220,7 +3272,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$x;
+      return ID$y;
     };
 
     Object.defineProperties( AccordionButtonActionee.prototype, prototypeAccessors );
@@ -3273,7 +3325,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$x;
+      return ID$y;
     };
 
     AccordionActionee.prototype.dispose = function dispose () {
@@ -3297,7 +3349,7 @@
     TITLE: api.internals.ns.selector('alert__title')
   };
 
-  var ID$w = 'alert';
+  var ID$x = 'alert';
 
   var AlertActionee = /*@__PURE__*/(function (ComponentActionee) {
     function AlertActionee () {
@@ -3325,7 +3377,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$w;
+      return ID$x;
     };
 
     Object.defineProperties( AlertActionee.prototype, prototypeAccessors );
@@ -3343,7 +3395,7 @@
     COLLAPSE: ((api.internals.ns.selector('breadcrumb')) + " " + (api.internals.ns.selector('collapse')))
   };
 
-  var ID$v = 'breadcrumb';
+  var ID$w = 'breadcrumb';
 
   var BreadcrumbActionee = /*@__PURE__*/(function (ComponentActionee) {
     function BreadcrumbActionee () {
@@ -3366,7 +3418,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$v;
+      return ID$w;
     };
 
     Object.defineProperties( BreadcrumbActionee.prototype, prototypeAccessors );
@@ -3427,7 +3479,7 @@
     BUTTON: ((api.internals.ns.selector('btn')) + ":not(" + (api.internals.ns.selector('btn--close')) + ")")
   };
 
-  var ID$u = 'button';
+  var ID$v = 'button';
 
   var ButtonActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ButtonActionee () {
@@ -3470,7 +3522,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$u;
+      return ID$v;
     };
 
     Object.defineProperties( ButtonActionee.prototype, prototypeAccessors );
@@ -3488,7 +3540,7 @@
     TITLE: api.internals.ns.selector('callout__title')
   };
 
-  var ID$t = 'callout';
+  var ID$u = 'callout';
 
   var CalloutActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CalloutActionee () {
@@ -3517,7 +3569,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$t;
+      return ID$u;
     };
 
     Object.defineProperties( CalloutActionee.prototype, prototypeAccessors );
@@ -3536,7 +3588,7 @@
     TITLE: api.internals.ns.selector('card__title')
   };
 
-  var ID$s = 'card';
+  var ID$t = 'card';
 
   var CardActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CardActionee () {
@@ -3577,7 +3629,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$s;
+      return ID$t;
     };
 
     Object.defineProperties( CardActionee.prototype, prototypeAccessors );
@@ -3594,7 +3646,7 @@
     INPUT: api.internals.ns.selector('checkbox-group [type="checkbox"]')
   };
 
-  var ID$r = 'checkbox';
+  var ID$s = 'checkbox';
 
   var CheckboxActionee = /*@__PURE__*/(function (ComponentActionee) {
     function CheckboxActionee () {
@@ -3628,7 +3680,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$r;
+      return ID$s;
     };
 
     Object.defineProperties( CheckboxActionee.prototype, prototypeAccessors );
@@ -3646,7 +3698,7 @@
     LINK: api.internals.ns.selector('connect + * a, connect + a')
   };
 
-  var ID$q = 'connect';
+  var ID$r = 'connect';
 
   var ConnectActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ConnectActionee () {
@@ -3675,7 +3727,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$q;
+      return ID$r;
     };
 
     Object.defineProperties( ConnectActionee.prototype, prototypeAccessors );
@@ -3710,7 +3762,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$q;
+      return ID$r;
     };
 
     Object.defineProperties( ConnectLinkActionee.prototype, prototypeAccessors );
@@ -3728,7 +3780,7 @@
     BANNER: api.internals.ns.selector('consent-banner')
   };
 
-  var ID$p = 'consent';
+  var ID$q = 'consent';
 
   var ConsentActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ConsentActionee () {
@@ -3751,7 +3803,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$p;
+      return ID$q;
     };
 
     Object.defineProperties( ConsentActionee.prototype, prototypeAccessors );
@@ -3768,7 +3820,7 @@
     LINK: api.internals.ns.selector('download__link')
   };
 
-  var ID$o = 'download';
+  var ID$p = 'download';
 
   var DownloadActionee = /*@__PURE__*/(function (ComponentActionee) {
     function DownloadActionee () {
@@ -3798,7 +3850,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$o;
+      return ID$p;
     };
 
     Object.defineProperties( DownloadActionee.prototype, prototypeAccessors );
@@ -3816,7 +3868,7 @@
     NEWSLETTER_INPUT_GROUP: api.internals.ns.selector('follow__newsletter') + ' ' + api.internals.ns.selector('input-group')
   };
 
-  var ID$n = 'follow';
+  var ID$o = 'follow';
 
   var FollowActionee = /*@__PURE__*/(function (ComponentActionee) {
     function FollowActionee () {
@@ -3848,7 +3900,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$n;
+      return ID$o;
     };
 
     Object.defineProperties( FollowActionee.prototype, prototypeAccessors );
@@ -3866,7 +3918,7 @@
     FOOTER_LINKS: ((api.internals.ns.selector('footer')) + " a[href], " + (api.internals.ns.selector('footer')) + " button")
   };
 
-  var ID$m = 'footer';
+  var ID$n = 'footer';
 
   var FooterActionee = /*@__PURE__*/(function (ComponentActionee) {
     function FooterActionee () {
@@ -3889,7 +3941,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$m;
+      return ID$n;
     };
 
     Object.defineProperties( FooterActionee.prototype, prototypeAccessors );
@@ -3937,7 +3989,7 @@
     api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
   };
 
-  var ID$l = 'header';
+  var ID$m = 'header';
 
   var HeaderActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HeaderActionee () {
@@ -3960,7 +4012,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$l;
+      return ID$m;
     };
 
     Object.defineProperties( HeaderActionee.prototype, prototypeAccessors );
@@ -4082,7 +4134,7 @@
     HIGHLIGHT: api.internals.ns.selector('highlight')
   };
 
-  var ID$k = 'highlight';
+  var ID$l = 'highlight';
 
   var HighlightActionee = /*@__PURE__*/(function (ComponentActionee) {
     function HighlightActionee () {
@@ -4105,7 +4157,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$k;
+      return ID$l;
     };
 
     Object.defineProperties( HighlightActionee.prototype, prototypeAccessors );
@@ -4122,7 +4174,7 @@
     LINK: api.internals.ns.selector('link')
   };
 
-  var ID$j = 'link';
+  var ID$k = 'link';
 
   var LinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function LinkActionee () {
@@ -4153,7 +4205,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$j;
+      return ID$k;
     };
 
     Object.defineProperties( LinkActionee.prototype, prototypeAccessors );
@@ -4170,7 +4222,7 @@
     INPUT: api.internals.ns.selector('input-group')
   };
 
-  var ID$i = 'input';
+  var ID$j = 'input';
 
   var InputActionee = /*@__PURE__*/(function (ComponentActionee) {
     function InputActionee () {
@@ -4206,7 +4258,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$i;
+      return ID$j;
     };
 
     Object.defineProperties( InputActionee.prototype, prototypeAccessors );
@@ -4223,7 +4275,7 @@
     TITLE: api.internals.ns.selector('modal__title')
   };
 
-  var ID$h = 'modal';
+  var ID$i = 'modal';
 
   var ModalActionee = /*@__PURE__*/(function (ComponentActionee) {
     function ModalActionee () {
@@ -4270,7 +4322,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$h;
+      return ID$i;
     };
 
     Object.defineProperties( ModalActionee.prototype, prototypeAccessors );
@@ -4316,7 +4368,7 @@
     BUTTON: api.internals.ns.selector('nav__btn')
   };
 
-  var ID$g = 'navigation';
+  var ID$h = 'navigation';
 
   var NavigationLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
     function NavigationLinkActionee () {
@@ -4347,7 +4399,7 @@
     };
 
     prototypeAccessors.component.get = function () {
-      return ID$g;
+      return ID$h;
     };
 
     Object.defineProperties( NavigationLinkActionee.prototype, prototypeAccessors );
@@ -4408,6 +4460,93 @@
       api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
       api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
     }
+  };
+
+  var NoticeSelector = {
+    NOTICE: api.internals.ns.selector('notice'),
+    TITLE: api.internals.ns.selector('notice__title'),
+    LINK: api.internals.ns.selector('notice a')
+  };
+
+  var ID$g = 'notice';
+
+  var NoticeActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function NoticeActionee () {
+      ComponentActionee.call(this, 1);
+    }
+
+    if ( ComponentActionee ) NoticeActionee.__proto__ = ComponentActionee;
+    NoticeActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    NoticeActionee.prototype.constructor = NoticeActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'NoticeActionee';
+    };
+
+    prototypeAccessors.label.get = function () {
+      var noticeTitle = this.node.querySelector(NoticeSelector.TITLE);
+      if (noticeTitle) {
+        var firstText = this.getFirstText(noticeTitle);
+        if (firstText) { return firstText; }
+      }
+
+      return 'bandeau d\'information importante';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$g;
+    };
+
+    Object.defineProperties( NoticeActionee.prototype, prototypeAccessors );
+    Object.defineProperties( NoticeActionee, staticAccessors );
+
+    return NoticeActionee;
+  }(ComponentActionee));
+
+  var NoticeLinkActionee = /*@__PURE__*/(function (ComponentActionee) {
+    function NoticeLinkActionee () {
+      ComponentActionee.call(this, 2);
+    }
+
+    if ( ComponentActionee ) NoticeLinkActionee.__proto__ = ComponentActionee;
+    NoticeLinkActionee.prototype = Object.create( ComponentActionee && ComponentActionee.prototype );
+    NoticeLinkActionee.prototype.constructor = NoticeLinkActionee;
+
+    var prototypeAccessors = { label: { configurable: true },component: { configurable: true } };
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'NoticeLinkActionee';
+    };
+
+    NoticeLinkActionee.prototype.init = function init () {
+      this.detectInteractionType();
+      this.listenActionClick();
+    };
+
+    prototypeAccessors.label.get = function () {
+      var firstText = this.getFirstText();
+      if (firstText) { return firstText; }
+
+      return 'lien de bandeau d\'information importante';
+    };
+
+    prototypeAccessors.component.get = function () {
+      return ID$g;
+    };
+
+    Object.defineProperties( NoticeLinkActionee.prototype, prototypeAccessors );
+    Object.defineProperties( NoticeLinkActionee, staticAccessors );
+
+    return NoticeLinkActionee;
+  }(ComponentActionee));
+
+  var integrateNotice = function () {
+    api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
+    api.internals.register(NoticeSelector.LINK, NoticeLinkActionee);
   };
 
   var PaginationSelector = {
@@ -5635,7 +5774,7 @@
     integrateLink();
     integrateModal();
     integrateNavigation();
-    // integrateNotice();
+    integrateNotice();
     integratePagination();
     integrateQuote();
     integrateRadio();

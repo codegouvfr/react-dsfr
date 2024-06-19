@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,7 +13,47 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-icon-accessibility-fill::before,
+  .fr-icon-accessibility-fill::after {
+    background-image: url("../../../icons/others/fr--accessibility-fill.svg");
+  }
+
+  .fr-icon-accessibility-line::before,
+  .fr-icon-accessibility-line::after {
+    background-image: url("../../../icons/others/fr--accessibility-line.svg");
+  }
+
+  .fr-icon-ear-off-fill::before,
+  .fr-icon-ear-off-fill::after {
+    background-image: url("../../../icons/others/fr--ear-off-fill.svg");
+  }
+
+  .fr-icon-ear-off-line::before,
+  .fr-icon-ear-off-line::after {
+    background-image: url("../../../icons/others/fr--ear-off-line.svg");
+  }
+
+  .fr-icon-mental-disabilities-fill::before,
+  .fr-icon-mental-disabilities-fill::after {
+    background-image: url("../../../icons/others/fr--mental-disabilities-fill.svg");
+  }
+
+  .fr-icon-mental-disabilities-line::before,
+  .fr-icon-mental-disabilities-line::after {
+    background-image: url("../../../icons/others/fr--mental-disabilities-line.svg");
+  }
+
+  .fr-icon-sign-language-fill::before,
+  .fr-icon-sign-language-fill::after {
+    background-image: url("../../../icons/others/fr--sign-language-fill.svg");
+  }
+
+  .fr-icon-sign-language-line::before,
+  .fr-icon-sign-language-line::after {
+    background-image: url("../../../icons/others/fr--sign-language-line.svg");
+  }
+
   .fr-icon-leaf-fill::before,
   .fr-icon-leaf-fill::after {
     background-image: url("../../../icons/others/leaf-fill.svg");
@@ -82,5 +122,15 @@
   .fr-icon-umbrella-line::before,
   .fr-icon-umbrella-line::after {
     background-image: url("../../../icons/others/umbrella-line.svg");
+  }
+
+  .fr-icon-wheelchair-fill::before,
+  .fr-icon-wheelchair-fill::after {
+    background-image: url("../../../icons/others/wheelchair-fill.svg");
+  }
+
+  .fr-icon-wheelchair-line::before,
+  .fr-icon-wheelchair-line::after {
+    background-image: url("../../../icons/others/wheelchair-line.svg");
   }
 }

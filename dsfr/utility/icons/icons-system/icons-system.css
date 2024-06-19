@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -148,6 +148,12 @@
 .fr-icon-arrow-right-up-line::after {
   -webkit-mask-image: url("../../../icons/system/arrow-right-up-line.svg");
   mask-image: url("../../../icons/system/arrow-right-up-line.svg");
+}
+
+.fr-icon-arrow-up-down-line::before,
+.fr-icon-arrow-up-down-line::after {
+  -webkit-mask-image: url("../../../icons/system/arrow-up-down-line.svg");
+  mask-image: url("../../../icons/system/arrow-up-down-line.svg");
 }
 
 .fr-icon-arrow-up-fill::before,
@@ -304,6 +310,18 @@
 .fr-icon-filter-line::after {
   -webkit-mask-image: url("../../../icons/system/filter-line.svg");
   mask-image: url("../../../icons/system/filter-line.svg");
+}
+
+.fr-icon-alert-warning-2-fill::before,
+.fr-icon-alert-warning-2-fill::after {
+  -webkit-mask-image: url("../../../icons/system/fr--alert-warning-2-fill.svg");
+  mask-image: url("../../../icons/system/fr--alert-warning-2-fill.svg");
+}
+
+.fr-icon-alert-warning-fill::before,
+.fr-icon-alert-warning-fill::after {
+  -webkit-mask-image: url("../../../icons/system/fr--alert-warning-fill.svg");
+  mask-image: url("../../../icons/system/fr--alert-warning-fill.svg");
 }
 
 .fr-icon-arrow-left-s-first-line::before,
@@ -1110,7 +1128,7 @@
   /*! media xl */
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-icon-add-circle-fill::before,
   .fr-icon-add-circle-fill::after {
     background-image: url("../../../icons/system/add-circle-fill.svg");
@@ -1229,6 +1247,11 @@
   .fr-icon-arrow-right-up-line::before,
   .fr-icon-arrow-right-up-line::after {
     background-image: url("../../../icons/system/arrow-right-up-line.svg");
+  }
+
+  .fr-icon-arrow-up-down-line::before,
+  .fr-icon-arrow-up-down-line::after {
+    background-image: url("../../../icons/system/arrow-up-down-line.svg");
   }
 
   .fr-icon-arrow-up-fill::before,
@@ -1359,6 +1382,16 @@
   .fr-icon-filter-line::before,
   .fr-icon-filter-line::after {
     background-image: url("../../../icons/system/filter-line.svg");
+  }
+
+  .fr-icon-alert-warning-2-fill::before,
+  .fr-icon-alert-warning-2-fill::after {
+    background-image: url("../../../icons/system/fr--alert-warning-2-fill.svg");
+  }
+
+  .fr-icon-alert-warning-fill::before,
+  .fr-icon-alert-warning-fill::after {
+    background-image: url("../../../icons/system/fr--alert-warning-fill.svg");
   }
 
   .fr-icon-arrow-left-s-first-line::before,

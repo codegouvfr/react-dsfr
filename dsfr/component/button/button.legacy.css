@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,7 +13,7 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-btn::before,
   .fr-btn::after {
     background-color: transparent;
@@ -25,6 +25,12 @@
 
   .fr-btn[href] {
     text-decoration: none;
+  }
+
+  .fr-btn.fr-btn--secondary:disabled:hover,
+  .fr-btn.fr-btn--tertiary:disabled:hover,
+  .fr-btn.fr-btn--tertiary-no-outline:disabled:hover {
+    background-color: transparent;
   }
 
   .fr-btn[class^=fr-icon-]:not([class^=fr-btn--icon-]):not([class*=" fr-btn--icon-"])::before,
@@ -160,6 +166,36 @@
     height: 1rem;
   }
 
+  .fr-btn--sort::before,
+  .fr-btn--sort::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-up-down-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .fr-btn--sort::before {
+    transition: transform 0.3s;
+  }
+
+  .fr-btn--sort[aria-sorting=desc]::before {
+    transform: rotate(-180deg);
+  }
+
+  .fr-btn--sort[aria-sorting=asc]::before,
+  .fr-btn--sort[aria-sorting=asc]::after,
+  .fr-btn--sort[aria-sorting=desc]::before,
+  .fr-btn--sort[aria-sorting=desc]::after {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/system/arrow-up-line.svg");
+    width: 1rem;
+    height: 1rem;
+  }
+
   ul.fr-btns-group {
     list-style-type: none;
   }
@@ -256,6 +292,7 @@
   }
 
   .fr-btn--tertiary,
+  .fr-btn--sort,
   .fr-btn--account {
     background-color: transparent;
     color: #000091;
@@ -263,18 +300,22 @@
   }
 
   .fr-btn--tertiary:hover,
+  .fr-btn--sort:hover,
   .fr-btn--account:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary:active,
+  .fr-btn--sort:active,
   .fr-btn--account:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
   .fr-btn--tertiary:disabled,
   a.fr-btn--tertiary:not([href]),
+  a.fr-btn--sort:not([href]),
   a.fr-btn--account:not([href]),
+  .fr-btn--sort:disabled,
   .fr-btn--account:disabled {
     color: #929292;
     box-shadow: inset 0 0 0 1px #e5e5e5;
@@ -283,14 +324,18 @@
 
   .fr-btn--tertiary:disabled:hover,
   a.fr-btn--tertiary:not([href]):hover,
+  a.fr-btn--sort:not([href]):hover,
   a.fr-btn--account:not([href]):hover,
+  .fr-btn--sort:disabled:hover,
   .fr-btn--account:disabled:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
   .fr-btn--tertiary:disabled:active,
   a.fr-btn--tertiary:not([href]):active,
+  a.fr-btn--sort:not([href]):active,
   a.fr-btn--account:not([href]):active,
+  .fr-btn--sort:disabled:active,
   .fr-btn--account:disabled:active {
     background-color: rgba(0, 0, 0, 0.1);
   }

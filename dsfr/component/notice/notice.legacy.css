@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -13,20 +13,60 @@
 @media (min-width: 78em) {
   /*! media xl */
 }
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /**
-  * reset des marges dans le bandeau
-  */
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-notice__title,
   .fr-notice p {
     margin: 0;
   }
 
-  .fr-notice--info .fr-notice__body::before {
+  .fr-notice__title::before {
+    vertical-align: -6px;
+    color: transparent;
+  }
+
+  .fr-notice--info .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
     background-image: url("../../icons/system/fr--info-fill.svg");
     width: 1.5rem;
     height: 1.5rem;
-    color: transparent;
+  }
+
+  .fr-notice--warning .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--alert .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--witness .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
+  .fr-notice--cyberattack .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--warning-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-orange .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/heavy-showers-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-red .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/tornado-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--weather-purple .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/weather/typhoon-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--kidnapping .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--alert-warning-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-notice--attack .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-image: url("../../icons/system/fr--alert-warning-2-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .fr-notice .fr-btn--close::before,
@@ -47,5 +87,66 @@
   .fr-notice--info {
     background-color: #e8edff;
     color: #0063cb;
+  }
+
+  .fr-notice--warning,
+  .fr-notice--weather-orange {
+    background-color: #ffe9e6;
+    color: #b34000;
+  }
+
+  .fr-notice--alert {
+    background-color: #ffe9e9;
+    color: #ce0500;
+  }
+
+  .fr-notice--weather-red {
+    background-color: #ce0500;
+    color: #fff;
+  }
+
+  .fr-notice--weather-red .fr-btn--close {
+    background-color: #ce0500;
+  }
+
+  .fr-notice--weather-purple {
+    background-color: #6e445a;
+    color: #fff;
+  }
+
+  .fr-notice--weather-purple .fr-btn--close {
+    background-color: #6e445a;
+  }
+
+  .fr-notice--witness {
+    background-color: #3a3a3a;
+    color: #fff;
+    background-image: linear-gradient(0deg, #ce0500, #ce0500);
+  }
+
+  .fr-notice--witness .fr-btn--close {
+    background-color: #3a3a3a;
+  }
+
+  .fr-notice--kidnapping,
+  .fr-notice--attack {
+    background-color: #ce0500;
+    color: #fff;
+    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
+  }
+
+  .fr-notice--kidnapping .fr-btn--close,
+  .fr-notice--attack .fr-btn--close {
+    background-color: #ce0500;
+  }
+
+  .fr-notice--cyberattack {
+    background-color: #3a3a3a;
+    color: #fff;
+    background-image: linear-gradient(0deg, #0063cb, #0063cb);
+  }
+
+  .fr-notice--cyberattack .fr-btn--close {
+    background-color: #3a3a3a;
   }
 }

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media print {
   .fr-tile {
@@ -36,19 +36,23 @@
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
-  .fr-tile__title a {
+  .fr-tile__title a,
+  .fr-tile__title button {
     color: #000091;
   }
 
-  .fr-tile__title a::before {
+  .fr-tile__title a::before,
+  .fr-tile__title button::before {
     background-image: linear-gradient(0deg, #000091, #000091);
   }
 
-  .fr-tile__title a:not([href]) {
+  .fr-tile__title a:not([href]),
+  .fr-tile__title button:disabled {
     color: #929292;
   }
 
-  .fr-tile__title a:not([href])::before {
+  .fr-tile__title a:not([href])::before,
+  .fr-tile__title button:disabled::before {
     background-image: linear-gradient(0deg, #e5e5e5, #e5e5e5);
   }
 
@@ -62,22 +66,5 @@
   .fr-tile--sm__detail {
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-}
-@media print and (-ms-high-contrast: none), print and (-ms-high-contrast: active) {
-  .fr-tile--shadow {
-    z-index: 500;
-  }
-
-  .fr-tile--no-background {
-    background-color: transparent;
-  }
-
-  .fr-tile--no-background:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .fr-tile--no-background:active {
-    background-color: rgba(0, 0, 0, 0.1);
   }
 }

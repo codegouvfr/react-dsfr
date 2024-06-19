@@ -18,6 +18,8 @@ export declare const colorOptions: {
         };
         readonly _200_850: {
             readonly default: "var(--grey-200-850)";
+            readonly hover: "var(--grey-200-850-hover)";
+            readonly active: "var(--grey-200-850-active)";
         };
         readonly _925_125: {
             readonly default: "var(--grey-925-125)";

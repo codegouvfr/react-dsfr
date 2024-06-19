@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -344,6 +344,20 @@
   content: "";
 }
 
+.fr-follow .fr-link--twitter-x::before {
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
+  background-color: currentColor;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("../../icons/logo/twitter-x-fill.svg");
+  mask-image: url("../../icons/logo/twitter-x-fill.svg");
+  content: "";
+}
+
 .fr-follow .fr-link--instagram::before {
   flex: 0 0 auto;
   display: inline-block;
@@ -516,4 +530,31 @@
 }
 @media (min-width: 78em) {
   /*! media xl */
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) a.fr-btn:not([href]):not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg .fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    forced-color-adjust: none;
+    background-color: buttontext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: linktext;
+  }
+
+  .fr-follow__social .fr-btns-group--lg a.fr-btn:not([href]):not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+    background-color: graytext;
+  }
 }
