@@ -161,6 +161,7 @@ export const Tabs = memo(
                             <button
                                 ref={button => (buttonRefs.current[tabIndex] = button)}
                                 id={getTabId(tabIndex)}
+                                type="button"
                                 className={cx(
                                     fr.cx("fr-tabs__tab", iconId, "fr-tabs__tab--icon-left"),
                                     classes.tab
