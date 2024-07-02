@@ -10,24 +10,6 @@
     mask-image: url("../../icons/system/arrow-right-line.svg");
 }
 
-.fr-icon-chat-check-fill::before,
-.fr-icon-chat-check-fill::after {
-    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
-    mask-image: url("../../icons/communication/chat-check-fill.svg");
-}
-
-.fr-icon-git-commit-fill::before,
-.fr-icon-git-commit-fill::after {
-    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
-    mask-image: url("../../icons/development/git-commit-fill.svg");
-}
-
-.fr-icon-bank-card-line::before,
-.fr-icon-bank-card-line::after {
-    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
-    mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
 .fr-icon-checkbox-circle-line::before,
 .fr-icon-checkbox-circle-line::after {
     -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
@@ -46,10 +28,34 @@
     mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
+.fr-icon-chat-check-fill::before,
+.fr-icon-chat-check-fill::after {
+    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
+    mask-image: url("../../icons/communication/chat-check-fill.svg");
+}
+
+.fr-icon-git-commit-fill::before,
+.fr-icon-git-commit-fill::after {
+    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
+    mask-image: url("../../icons/development/git-commit-fill.svg");
+}
+
+.fr-icon-bank-card-line::before,
+.fr-icon-bank-card-line::after {
+    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
+    mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
 .fr-icon-warning-fill::before,
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -86,12 +92,6 @@
 .ri-check-line::after {
     -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
     mask-image: url("../../icons/remixicon/check-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-road-map-line::before,
@@ -165,21 +165,6 @@
         background-image: url("../../icons/system/arrow-right-line.svg");
     }
     
-    .fr-icon-chat-check-fill::before,
-    .fr-icon-chat-check-fill::after {
-        background-image: url("../../icons/communication/chat-check-fill.svg");
-    }
-    
-    .fr-icon-git-commit-fill::before,
-    .fr-icon-git-commit-fill::after {
-        background-image: url("../../icons/development/git-commit-fill.svg");
-    }
-    
-    .fr-icon-bank-card-line::before,
-    .fr-icon-bank-card-line::after {
-        background-image: url("../../icons/finance/bank-card-line.svg");
-    }
-    
     .fr-icon-checkbox-circle-line::before,
     .fr-icon-checkbox-circle-line::after {
         background-image: url("../../icons/system/checkbox-circle-line.svg");
@@ -195,9 +180,29 @@
         background-image: url("../../icons/remixicon/information-line.svg");
     }
     
+    .fr-icon-chat-check-fill::before,
+    .fr-icon-chat-check-fill::after {
+        background-image: url("../../icons/communication/chat-check-fill.svg");
+    }
+    
+    .fr-icon-git-commit-fill::before,
+    .fr-icon-git-commit-fill::after {
+        background-image: url("../../icons/development/git-commit-fill.svg");
+    }
+    
+    .fr-icon-bank-card-line::before,
+    .fr-icon-bank-card-line::after {
+        background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -228,11 +233,6 @@
     .ri-check-line::before,
     .ri-check-line::after {
         background-image: url("../../icons/remixicon/check-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-road-map-line::before,
