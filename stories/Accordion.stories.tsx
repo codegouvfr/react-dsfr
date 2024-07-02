@@ -5,6 +5,23 @@ import { sectionName } from "./sectionName";
 const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Accordion },
+    argTypes: {
+        "label": {
+            "control": { "type": "text" }
+        },
+        "titleAs": {
+            "description": "Define the heading level of the accordion label",
+            "options": (() => {
+                return ["h1", "h2", "h3", "h4", "h5", "h6", undefined] as const;
+            })()
+        },
+        "children": {
+            "control": { "type": "text" }
+        },
+        "defaultExpanded": {
+            "control": { "type": "boolean" }
+        }
+    },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Accordion.tsx)  
 
@@ -47,6 +64,7 @@ export default meta;
 
 export const Default = getStory({
     "label": "Name of the Accordion",
+    "titleAs": undefined,
     "children": "Content of the Accordion",
     "defaultExpanded": false,
     ...logCallbacks(["onExpandedChange"])
