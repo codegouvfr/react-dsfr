@@ -1,10 +1,10 @@
-/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.0'
+  version: '1.12.1'
 };
 
 const api = window[config.namespace];
@@ -16,25 +16,38 @@ const TableEmission = {
   CAPTION_WIDTH: api.internals.ns.emission('table', 'captionwidth')
 };
 
-const PADDING = '1rem'; // padding de 4v sur le caption
-
 class Table extends api.core.Instance {
   static get instanceClassName () {
     return 'Table';
   }
 
   init () {
-    this.rowsHeaderWidth = [];
     this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
   }
 
   setCaptionHeight (value) {
-    this.setProperty('--table-offset', `calc(${value}px + ${PADDING})`);
+    this.setProperty('--table-offset', value);
+  }
+}
+
+class TableWrapper extends api.core.Instance {
+  static get instanceClassName () {
+    return 'TableWrapper';
+  }
+
+  init () {
+    this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
+  }
+
+  setCaptionHeight (value) {
+    requestAnimationFrame(() => this.ascend(TableEmission.CAPTION_HEIGHT, 0));
+    this.setProperty('--table-offset', value);
   }
 }
 
 const TableSelector = {
   TABLE: api.internals.ns.selector('table'),
+  TABLE_WRAPPER: [`${api.internals.ns.selector('table')} ${api.internals.ns.selector('table__wrapper')}`],
   SHADOW: api.internals.ns.selector('table__shadow'),
   SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
   SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
@@ -107,6 +120,7 @@ class TableElement extends api.core.Instance {
   }
 }
 
+const PADDING = '1rem'; // padding de 4v sur le caption
 class TableCaption extends api.core.Instance {
   static get instanceClassName () {
     return 'TableCaption';
@@ -121,7 +135,7 @@ class TableCaption extends api.core.Instance {
     const height = this.getRect().height;
     if (this.height === height) return;
     this.height = height;
-    this.ascend(TableEmission.CAPTION_HEIGHT, height);
+    this.ascend(TableEmission.CAPTION_HEIGHT, `calc(${height}px + ${PADDING})`);
   }
 }
 
@@ -169,6 +183,7 @@ class TableRow extends api.core.Instance {
 
 api.table = {
   Table: Table,
+  TableWrapper: TableWrapper,
   TableElement: TableElement,
   TableCaption: TableCaption,
   TableSelector: TableSelector,
@@ -176,6 +191,7 @@ api.table = {
 };
 
 api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
+api.internals.register(api.table.TableSelector.TABLE_WRAPPER, api.table.TableWrapper);
 api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
 api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
 api.internals.register(api.table.TableSelector.ROW, api.table.TableRow);

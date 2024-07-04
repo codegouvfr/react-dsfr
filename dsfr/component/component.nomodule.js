@@ -1,4 +1,4 @@
-/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.0'
+    version: '1.12.1'
   };
 
   var api = window[config.namespace];
@@ -3173,8 +3173,6 @@
     CAPTION_WIDTH: api.internals.ns.emission('table', 'captionwidth')
   };
 
-  var PADDING = '1rem'; // padding de 4v sur le caption
-
   var Table = /*@__PURE__*/(function (superclass) {
     function Table () {
       superclass.apply(this, arguments);
@@ -3191,12 +3189,11 @@
     };
 
     Table.prototype.init = function init () {
-      this.rowsHeaderWidth = [];
       this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
     };
 
     Table.prototype.setCaptionHeight = function setCaptionHeight (value) {
-      this.setProperty('--table-offset', ("calc(" + value + "px + " + PADDING + ")"));
+      this.setProperty('--table-offset', value);
     };
 
     Object.defineProperties( Table, staticAccessors );
@@ -3204,8 +3201,40 @@
     return Table;
   }(api.core.Instance));
 
+  var TableWrapper = /*@__PURE__*/(function (superclass) {
+    function TableWrapper () {
+      superclass.apply(this, arguments);
+    }
+
+    if ( superclass ) TableWrapper.__proto__ = superclass;
+    TableWrapper.prototype = Object.create( superclass && superclass.prototype );
+    TableWrapper.prototype.constructor = TableWrapper;
+
+    var staticAccessors = { instanceClassName: { configurable: true } };
+
+    staticAccessors.instanceClassName.get = function () {
+      return 'TableWrapper';
+    };
+
+    TableWrapper.prototype.init = function init () {
+      this.addAscent(TableEmission.CAPTION_HEIGHT, this.setCaptionHeight.bind(this));
+    };
+
+    TableWrapper.prototype.setCaptionHeight = function setCaptionHeight (value) {
+      var this$1$1 = this;
+
+      requestAnimationFrame(function () { return this$1$1.ascend(TableEmission.CAPTION_HEIGHT, 0); });
+      this.setProperty('--table-offset', value);
+    };
+
+    Object.defineProperties( TableWrapper, staticAccessors );
+
+    return TableWrapper;
+  }(api.core.Instance));
+
   var TableSelector = {
     TABLE: api.internals.ns.selector('table'),
+    TABLE_WRAPPER: [((api.internals.ns.selector('table')) + " " + (api.internals.ns.selector('table__wrapper')))],
     SHADOW: api.internals.ns.selector('table__shadow'),
     SHADOW_LEFT: api.internals.ns.selector('table__shadow--left'),
     SHADOW_RIGHT: api.internals.ns.selector('table__shadow--right'),
@@ -3294,6 +3323,7 @@
     return TableElement;
   }(api.core.Instance));
 
+  var PADDING = '1rem'; // padding de 4v sur le caption
   var TableCaption = /*@__PURE__*/(function (superclass) {
     function TableCaption () {
       superclass.apply(this, arguments);
@@ -3318,7 +3348,7 @@
       var height = this.getRect().height;
       if (this.height === height) { return; }
       this.height = height;
-      this.ascend(TableEmission.CAPTION_HEIGHT, height);
+      this.ascend(TableEmission.CAPTION_HEIGHT, ("calc(" + height + "px + " + PADDING + ")"));
     };
 
     Object.defineProperties( TableCaption, staticAccessors );
@@ -3381,6 +3411,7 @@
 
   api.table = {
     Table: Table,
+    TableWrapper: TableWrapper,
     TableElement: TableElement,
     TableCaption: TableCaption,
     TableSelector: TableSelector,
@@ -3388,6 +3419,7 @@
   };
 
   api.internals.register(api.table.TableSelector.TABLE, api.table.Table);
+  api.internals.register(api.table.TableSelector.TABLE_WRAPPER, api.table.TableWrapper);
   api.internals.register(api.table.TableSelector.ELEMENT, api.table.TableElement);
   api.internals.register(api.table.TableSelector.CAPTION, api.table.TableCaption);
   api.internals.register(api.table.TableSelector.ROW, api.table.TableRow);

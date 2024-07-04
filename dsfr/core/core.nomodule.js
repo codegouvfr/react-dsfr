@@ -1,4 +1,4 @@
-/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.0'
+    version: '1.12.1'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -3382,9 +3382,15 @@
         var parser = new DOMParser();
         var xmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
         this$1$1.realSvgContent = xmlDoc.getElementById(this$1$1.svgName);
-
         if (this$1$1.realSvgContent) {
-          this$1$1.realSvgContent.classList.add(this$1$1.node.classList);
+          if (this$1$1.realSvgContent.tagName === 'symbol') {
+            this$1$1.use = xmlDoc.querySelector('use[href="#' + this$1$1.svgName + '"]');
+            if (this$1$1.use) { this$1$1.node.parentNode.insertBefore(this$1$1.use, this$1$1.node); }
+          } else {
+            // deprecated svg structure
+            this$1$1.realSvgContent.classList.add(this$1$1.node.classList);
+          }
+
           this$1$1.replace();
         }
       };

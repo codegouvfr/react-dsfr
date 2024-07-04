@@ -1,4 +1,4 @@
-/*! DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.0'
+  version: '1.12.1'
 };
 
 class LogLevel {
@@ -2959,9 +2959,15 @@ class Artwork extends Instance {
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
       this.realSvgContent = xmlDoc.getElementById(this.svgName);
-
       if (this.realSvgContent) {
-        this.realSvgContent.classList.add(this.node.classList);
+        if (this.realSvgContent.tagName === 'symbol') {
+          this.use = xmlDoc.querySelector('use[href="#' + this.svgName + '"]');
+          if (this.use) this.node.parentNode.insertBefore(this.use, this.node);
+        } else {
+          // deprecated svg structure
+          this.realSvgContent.classList.add(this.node.classList);
+        }
+
         this.replace();
       }
     };

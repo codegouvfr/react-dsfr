@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -2633,7 +2633,6 @@
 
   .fr-table__content table tbody tr[aria-selected=true]::after {
     content: none;
-    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091);
   }
 
   .fr-table__content table tbody tr[aria-selected=true] th,
@@ -2659,6 +2658,7 @@
   .fr-table[data-fr-js-table=true].fr-table--no-caption caption,
   .fr-table[data-fr-js-table=true].fr-table--caption-bottom caption {
     position: relative;
+    margin-bottom: 1rem;
   }
 
   .fr-table[data-fr-js-table=true] caption {
@@ -2693,6 +2693,10 @@
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
+  .fr-table__content table tbody tr::after {
+    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091);
+  }
+
   .fr-table__content table tbody td {
     background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
     background-color: #fff;
@@ -2707,12 +2711,13 @@
     color: #666;
   }
 
-  .fr-table > table::after {
-    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
-  }
-
   .fr-table > table caption {
     color: #161616;
+  }
+
+  .fr-table > table thead::after,
+  .fr-table > table tbody::after {
+    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
   }
 
   .fr-table > table thead {
@@ -3141,7 +3146,11 @@
     content: none;
   }
 
-  .fr-table > table {
+  .fr-table > table thead::after {
+    background-image: none;
+  }
+
+  .fr-table > table tbody::after {
     background-image: none;
   }
 
