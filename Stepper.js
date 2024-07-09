@@ -27,8 +27,8 @@ export const Stepper = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
     return (React.createElement("div", { id: id, className: cx(fr.cx("fr-stepper"), classes.root, className), style: style, ref: ref },
         React.createElement("h2", { className: cx(fr.cx("fr-stepper__title"), classes.title) },
-            React.createElement("span", { className: cx(fr.cx("fr-stepper__state"), classes.state) }, t("progress", { currentStep, stepCount })),
-            title),
+            title,
+            React.createElement("span", { className: cx(fr.cx("fr-stepper__state"), classes.state) }, t("progress", { currentStep, stepCount }))),
         React.createElement("div", { className: cx(fr.cx("fr-stepper__steps"), classes.steps), "data-fr-current-step": currentStep, "data-fr-steps": stepCount }),
         nextTitle !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-stepper__details"), classes.details) },
             React.createElement("span", { className: fr.cx("fr-text--bold") }, t("next step")),
