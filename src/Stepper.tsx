@@ -50,10 +50,10 @@ export const Stepper = memo(
                 ref={ref}
             >
                 <h2 className={cx(fr.cx("fr-stepper__title"), classes.title)}>
+                    {title}
                     <span className={cx(fr.cx("fr-stepper__state"), classes.state)}>
                         {t("progress", { currentStep, stepCount })}
                     </span>
-                    {title}
                 </h2>
                 <div
                     className={cx(fr.cx("fr-stepper__steps"), classes.steps)}
