@@ -48,7 +48,7 @@ export const Select = memo(forwardRef((props, ref) => {
         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
             hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),
-        React.createElement("select", Object.assign({}, nativeSelectProps, { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }), children),
+        React.createElement("select", Object.assign({ className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }, nativeSelectProps), children),
         state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx((() => {
                 switch (state) {
                     case "error":
