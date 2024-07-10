@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, type CSSProperties } from "react";
+import React, { memo, forwardRef, type CSSProperties, ReactNode } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -7,6 +7,18 @@ import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { RegisteredLinkProps, getLink } from "./link";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+
+const DynamicLink = ({
+    useReactLinkComponent,
+    children,
+    ...rest
+}: {
+    useReactLinkComponent: boolean;
+    children: ReactNode;
+}) => {
+    const { Link } = getLink();
+    return useReactLinkComponent ? <Link {...rest}>{children}</Link> : <a {...rest}>{children}</a>;
+};
 
 export type PaginationProps = {
     id?: string;
@@ -100,36 +112,43 @@ export const Pagination = memo(
                 <ul className={cx(fr.cx("fr-pagination__list"), classes.list)}>
                     {showFirstLast && (
                         <li>
-                            <Link
+                            <DynamicLink
+                                useReactLinkComponent={defaultPage > 1}
                                 {...(count > 0 && defaultPage > 1 && getPageLinkProps(1))}
-                                className={cx(
-                                    fr.cx("fr-pagination__link", "fr-pagination__link--first"),
-                                    classes.link,
-                                    getPageLinkProps(1).className
-                                )}
-                                aria-disabled={count > 0 && defaultPage > 1 ? true : undefined}
-                                role="link"
+                                {...{
+                                    className: cx(
+                                        fr.cx("fr-pagination__link", "fr-pagination__link--first"),
+                                        classes.link,
+                                        getPageLinkProps(1).className
+                                    ),
+                                    "aria-disabled":
+                                        count > 0 && defaultPage > 1 ? true : undefined,
+                                    role: "link"
+                                }}
                             >
                                 {t("first page")}
-                            </Link>
+                            </DynamicLink>
                         </li>
                     )}
                     <li>
-                        <Link
-                            className={cx(
-                                fr.cx(
-                                    "fr-pagination__link",
-                                    "fr-pagination__link--prev",
-                                    "fr-pagination__link--lg-label"
-                                ),
-                                classes.link
-                            )}
+                        <DynamicLink
+                            useReactLinkComponent={defaultPage > 1}
                             {...(defaultPage > 1 && getPageLinkProps(defaultPage - 1))}
-                            aria-disabled={defaultPage <= 1 ? true : undefined}
-                            role="link"
+                            {...{
+                                className: cx(
+                                    fr.cx(
+                                        "fr-pagination__link",
+                                        "fr-pagination__link--prev",
+                                        "fr-pagination__link--lg-label"
+                                    ),
+                                    classes.link
+                                ),
+                                "aria-disabled": defaultPage <= 1 ? true : undefined,
+                                role: "link"
+                            }}
                         >
-                            {t("previous page")}
-                        </Link>
+                            {t("first page")}
+                        </DynamicLink>
                     </li>
                     {parts.map(part => (
                         <li key={part.number}>
@@ -150,34 +169,40 @@ export const Pagination = memo(
                         </li>
                     ))}
                     <li>
-                        <Link
-                            className={cx(
-                                fr.cx(
-                                    "fr-pagination__link",
-                                    "fr-pagination__link--next",
-                                    "fr-pagination__link--lg-label"
-                                ),
-                                classes.link
-                            )}
+                        <DynamicLink
+                            useReactLinkComponent={defaultPage < count}
                             {...(defaultPage < count && getPageLinkProps(defaultPage + 1))}
-                            aria-disabled={defaultPage < count ? true : undefined}
-                            role="link"
+                            {...{
+                                className: cx(
+                                    fr.cx(
+                                        "fr-pagination__link",
+                                        "fr-pagination__link--next",
+                                        "fr-pagination__link--lg-label"
+                                    ),
+                                    classes.link
+                                ),
+                                "aria-disabled": defaultPage < count ? true : undefined,
+                                role: "link"
+                            }}
                         >
                             {t("next page")}
-                        </Link>
+                        </DynamicLink>
                     </li>
                     {showFirstLast && (
                         <li>
-                            <Link
-                                className={cx(
-                                    fr.cx("fr-pagination__link", "fr-pagination__link--last"),
-                                    classes.link
-                                )}
+                            <DynamicLink
+                                useReactLinkComponent={defaultPage < count}
                                 {...(defaultPage < count && getPageLinkProps(count))}
-                                aria-disabled={defaultPage < count ? true : undefined}
+                                {...{
+                                    className: cx(
+                                        fr.cx("fr-pagination__link", "fr-pagination__link--last"),
+                                        classes.link
+                                    ),
+                                    "aria-disabled": defaultPage < count ? true : undefined
+                                }}
                             >
                                 {t("last page")}
-                            </Link>
+                            </DynamicLink>
                         </li>
                     )}
                 </ul>
