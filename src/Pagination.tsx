@@ -147,7 +147,7 @@ export const Pagination = memo(
                                 role: "link"
                             }}
                         >
-                            {t("first page")}
+                            {t("previous page")}
                         </DynamicLink>
                     </li>
                     {parts.map(part => (
