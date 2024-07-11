@@ -6,7 +6,9 @@ import React, {
     type InputHTMLAttributes,
     memo,
     type ReactNode,
-    useId
+    useId,
+    useState,
+    useEffect
 } from "react";
 import { assert, type Equals } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
@@ -84,6 +86,39 @@ export const PasswordInput = memo(
             messages.length !== 0 &&
             messages.find(({ severity }) => severity !== "valid") === undefined;
 
+        const [inputWrapperElement, setInputWrapperElement] = useState<HTMLDivElement | null>(null);
+
+        const [isPasswordReveled, setIsPasswordReveled] = useState(false);
+
+        useEffect(() => {
+            if (inputWrapperElement === null) {
+                return;
+            }
+
+            const inputElement = inputWrapperElement.querySelector<HTMLInputElement>("input");
+
+            assert(inputElement !== null);
+
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
+                    if (mutation.type === "attributes" && mutation.attributeName === "type") {
+                        const input = mutation.target as HTMLInputElement;
+                        const type = input.getAttribute("type");
+                        if (type === "password") {
+                            setIsPasswordReveled(false);
+                        } else {
+                            setIsPasswordReveled(true);
+                        }
+                    }
+                });
+            });
+
+            observer.observe(inputElement, {
+                attributes: true,
+                attributeFilter: ["type"]
+            });
+        }, [inputWrapperElement]);
+
         return (
             <div
                 className={cx(
@@ -110,12 +145,12 @@ export const PasswordInput = memo(
                         {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
                     </label>
                 )}
-                <div className={fr.cx("fr-input-wrap")}>
+                <div className={fr.cx("fr-input-wrap")} ref={setInputWrapperElement}>
                     <input
                         {...nativeInputProps}
                         className={cx(fr.cx("fr-password__input", "fr-input"), classes.input)}
                         id={inputId}
-                        type="password"
+                        type={isPasswordReveled ? "text" : "password"}
                         disabled={disabled}
                         {...(messages.length !== 0 && { "aria-describedby": messagesGroupId })}
                     />
