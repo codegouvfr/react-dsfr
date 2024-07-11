@@ -38,9 +38,9 @@ function NonMemoizedNonForwardedSelect(props, ref) {
     })();
     const { t } = useTranslation();
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", state !== "default" && `fr-select-group--${state}`), className), ref: ref, style: style }, rest),
-        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
+        Boolean(label || hint) && (React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
-            hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),
+            hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint))),
         React.createElement("select", Object.assign({ className: cx(fr.cx("fr-select"), nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }, nativeSelectProps), [
             {
                 "label": placeholder === undefined ? t("select an option") : placeholder,

@@ -39,9 +39,9 @@ export const Input = memo(forwardRef((props, ref) => {
                     return undefined;
             }
         })()), classes.root, className), style: style, ref: ref, id: id }, rest),
-        React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
+        Boolean(label || hintText) && (React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
             label,
-            hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText)),
+            hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText))),
         (() => {
             var _a;
             const nativeInputOrTextArea = (React.createElement(NativeInputOrTextArea, Object.assign({ className: cx(fr.cx("fr-input", (() => {

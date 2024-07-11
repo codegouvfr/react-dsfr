@@ -129,14 +129,16 @@ export const Range = memo(
                 id={`${id}-group`}
                 {...rest}
             >
-                <label className={cx(fr.cx("fr-label"), classes.label)} id={labelId}>
-                    {label}
-                    {hintText !== undefined && (
-                        <span className={cx(fr.cx("fr-hint-text"), classes.hintText)}>
-                            {hintText}
-                        </span>
-                    )}
-                </label>
+                {Boolean(label || hintText) && (
+                    <label className={cx(fr.cx("fr-label"), classes.label)} id={labelId}>
+                        {label}
+                        {hintText !== undefined && (
+                            <span className={cx(fr.cx("fr-hint-text"), classes.hintText)}>
+                                {hintText}
+                            </span>
+                        )}
+                    </label>
+                )}
                 <div
                     className={cx(
                         fr.cx(

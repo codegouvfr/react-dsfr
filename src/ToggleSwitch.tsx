@@ -120,16 +120,18 @@ export const ToggleSwitch = memo(
                     checked={props_checked ?? checked}
                     name={name}
                 />
-                <label
-                    className={cx(fr.cx("fr-toggle__label"), classes.label)}
-                    htmlFor={inputId}
-                    {...(showCheckedHint && {
-                        "data-fr-checked-label": t("checked"),
-                        "data-fr-unchecked-label": t("unchecked")
-                    })}
-                >
-                    {label}
-                </label>
+                {label && (
+                    <label
+                        className={cx(fr.cx("fr-toggle__label"), classes.label)}
+                        htmlFor={inputId}
+                        {...(showCheckedHint && {
+                            "data-fr-checked-label": t("checked"),
+                            "data-fr-unchecked-label": t("unchecked")
+                        })}
+                    >
+                        {label}
+                    </label>
+                )}
                 {helperText && (
                     <p className={cx(fr.cx("fr-hint-text"), classes.hint)} id={hintId}>
                         {helperText}

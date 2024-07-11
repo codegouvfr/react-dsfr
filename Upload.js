@@ -38,9 +38,9 @@ export const Upload = memo(forwardRef((props, ref) => {
             }
             assert(false);
         })()), className), ref: ref },
-        React.createElement("label", { className: fr.cx("fr-label"), "aria-disabled": disabled, htmlFor: inputId },
+        Boolean(label || hint) && (React.createElement("label", { className: fr.cx("fr-label"), "aria-disabled": disabled, htmlFor: inputId },
             label,
-            React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),
+            React.createElement("span", { className: fr.cx("fr-hint-text") }, hint))),
         React.createElement("input", Object.assign({ "aria-describedby": messageId, "aria-disabled": disabled, className: cx(fr.cx("fr-upload")), disabled: disabled, id: inputId, multiple: multiple, name: inputId, type: "file" }, nativeInputProps)),
         state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
                 switch (state) {

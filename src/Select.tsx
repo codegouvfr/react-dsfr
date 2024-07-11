@@ -90,10 +90,14 @@ export const Select = memo(
                 style={style}
                 {...rest}
             >
-                <label className={fr.cx("fr-label")} htmlFor={selectId}>
-                    {label}
-                    {hint !== undefined && <span className={fr.cx("fr-hint-text")}>{hint}</span>}
-                </label>
+                {Boolean(label || hint) && (
+                    <label className={fr.cx("fr-label")} htmlFor={selectId}>
+                        {label}
+                        {hint !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hint}</span>
+                        )}
+                    </label>
+                )}
                 <select
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}

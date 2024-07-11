@@ -101,13 +101,15 @@ export const PasswordInput = memo(
                 ref={ref}
                 {...rest}
             >
-                <label
-                    className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
-                    htmlFor={inputId}
-                >
-                    {label}
-                    {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
-                </label>
+                {Boolean(label || hintText) && (
+                    <label
+                        className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
+                        htmlFor={inputId}
+                    >
+                        {label}
+                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                    </label>
+                )}
                 <div className={fr.cx("fr-input-wrap")}>
                     <input
                         {...nativeInputProps}

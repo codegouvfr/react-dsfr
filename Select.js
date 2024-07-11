@@ -45,9 +45,9 @@ export const Select = memo(forwardRef((props, ref) => {
             }
             assert(false);
         })()), className), ref: ref, style: style }, rest),
-        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
+        Boolean(label || hint) && (React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
-            hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)),
+            hint !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)))),
         React.createElement("select", Object.assign({ className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }, nativeSelectProps), children),
         state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx((() => {
                 switch (state) {

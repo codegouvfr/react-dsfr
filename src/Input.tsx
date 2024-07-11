@@ -127,13 +127,15 @@ export const Input = memo(
                 id={id}
                 {...rest}
             >
-                <label
-                    className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
-                    htmlFor={inputId}
-                >
-                    {label}
-                    {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
-                </label>
+                {Boolean(label || hintText) && (
+                    <label
+                        className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
+                        htmlFor={inputId}
+                    >
+                        {label}
+                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                    </label>
+                )}
                 {(() => {
                     const nativeInputOrTextArea = (
                         <NativeInputOrTextArea

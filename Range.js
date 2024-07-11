@@ -33,9 +33,9 @@ export const Range = memo(forwardRef((props, ref) => {
     const successMessageId = `${id}-message-valid`;
     const messagesWrapperId = `${id}-messages`;
     return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-range-group", disabled && "fr-range-group--disabled", state === "error" && "fr-range-group--error", state === "success" && "fr-range-group--valid"), classes.root, className), style: style, ref: ref, id: `${id}-group` }, rest),
-        React.createElement("label", { className: cx(fr.cx("fr-label"), classes.label), id: labelId },
+        Boolean(label || hintText) && (React.createElement("label", { className: cx(fr.cx("fr-label"), classes.label), id: labelId },
             label,
-            hintText !== undefined && (React.createElement("span", { className: cx(fr.cx("fr-hint-text"), classes.hintText) }, hintText))),
+            hintText !== undefined && (React.createElement("span", { className: cx(fr.cx("fr-hint-text"), classes.hintText) }, hintText)))),
         React.createElement("div", { className: cx(fr.cx("fr-range", small && "fr-range--sm", double && "fr-range--double", step !== undefined && "fr-range--step"), classes.rangeWrapper), "data-fr-prefix": prefix, "data-fr-suffix": suffix },
             React.createElement("span", { className: cx(fr.cx("fr-range__output"), classes.output) }),
             (() => {

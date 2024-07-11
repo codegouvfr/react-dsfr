@@ -51,9 +51,9 @@ export const Fieldset = memo(forwardRef((props, ref) => {
             var { label, hintText, nativeInputProps } = _a, rest = __rest(_a, ["label", "hintText", "nativeInputProps"]);
             return (React.createElement("div", { className: cx(fr.cx(`fr-${type}-group`, isRichRadio && "fr-radio-rich", small && `fr-${type}-group--sm`), classes.inputGroup), key: i },
                 React.createElement("input", Object.assign({ type: type, id: getInputId(i), name: radioName }, nativeInputProps)),
-                React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
+                Boolean(label || hintText) && (React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(i) },
                     label,
-                    hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText))),
+                    hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
                 "illustration" in rest && (React.createElement("div", { className: fr.cx("fr-radio-rich__img") }, rest.illustration))));
         })),
         React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesWrapperId, "aria-live": "assertive" }, stateRelatedMessage !== undefined && (React.createElement("p", { id: (() => {

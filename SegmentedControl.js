@@ -38,7 +38,7 @@ export const SegmentedControl = memo(forwardRef((props, ref) => {
             const segmentId = getInputId(index);
             return (React.createElement("div", { className: cx(fr.cx("fr-segmented__element"), classes["element-each"]), key: index },
                 React.createElement("input", Object.assign({}, segment.nativeInputProps, { id: segmentId, name: segmentedName, type: "radio" })),
-                React.createElement("label", { className: cx(fr.cx(segment.iconId !== undefined && segment.iconId, "fr-label"), classes["element-each__label"]), htmlFor: segmentId }, segment.label)));
+                segment.label && (React.createElement("label", { className: cx(fr.cx(segment.iconId !== undefined && segment.iconId, "fr-label"), classes["element-each__label"]), htmlFor: segmentId }, segment.label))));
         }))));
 }));
 //# sourceMappingURL=SegmentedControl.js.map
