@@ -72,10 +72,12 @@ export const Upload = memo(
                 )}
                 ref={ref}
             >
-                <label className={fr.cx("fr-label")} aria-disabled={disabled} htmlFor={inputId}>
-                    {label}
-                    <span className={fr.cx("fr-hint-text")}>{hint}</span>
-                </label>
+                {Boolean(label || hint) && (
+                    <label className={fr.cx("fr-label")} aria-disabled={disabled} htmlFor={inputId}>
+                        {label}
+                        <span className={fr.cx("fr-hint-text")}>{hint}</span>
+                    </label>
+                )}
                 <input
                     aria-describedby={messageId}
                     aria-disabled={disabled}
