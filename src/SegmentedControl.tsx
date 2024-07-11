@@ -172,18 +172,20 @@ export const SegmentedControl = memo(
                                     name={segmentedName}
                                     type="radio"
                                 />
-                                <label
-                                    className={cx(
-                                        fr.cx(
-                                            segment.iconId !== undefined && segment.iconId,
-                                            "fr-label"
-                                        ),
-                                        classes["element-each__label"]
-                                    )}
-                                    htmlFor={segmentId}
-                                >
-                                    {segment.label}
-                                </label>
+                                {segment.label && (
+                                    <label
+                                        className={cx(
+                                            fr.cx(
+                                                segment.iconId !== undefined && segment.iconId,
+                                                "fr-label"
+                                            ),
+                                            classes["element-each__label"]
+                                        )}
+                                        htmlFor={segmentId}
+                                    >
+                                        {segment.label}
+                                    </label>
+                                )}
                             </div>
                         );
                     })}
