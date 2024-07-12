@@ -147,11 +147,11 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 </label>
             )}
             <select
+                {...(nativeSelectProps as any)}
                 className={cx(fr.cx("fr-select"), nativeSelectProps?.className)}
                 id={selectId}
                 aria-describedby={stateDescriptionId}
                 disabled={disabled}
-                {...(nativeSelectProps as any)}
             >
                 {[
                     {

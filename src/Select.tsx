@@ -99,11 +99,11 @@ export const Select = memo(
                     </label>
                 )}
                 <select
+                    {...nativeSelectProps}
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}
                     aria-describedby={stateDescriptionId}
                     disabled={disabled}
-                    {...nativeSelectProps}
                 >
                     {children}
                 </select>
