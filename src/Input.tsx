@@ -139,6 +139,7 @@ export const Input = memo(
                 {(() => {
                     const nativeInputOrTextArea = (
                         <NativeInputOrTextArea
+                            {...(nativeInputOrTextAreaProps as {})}
                             className={cx(
                                 fr.cx(
                                     "fr-input",
@@ -159,7 +160,6 @@ export const Input = memo(
                             aria-describedby={messageId}
                             type={textArea ? undefined : nativeInputProps?.type ?? "text"}
                             id={inputId}
-                            {...(nativeInputOrTextAreaProps as {})}
                         />
                     );
 

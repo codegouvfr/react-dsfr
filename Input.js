@@ -44,7 +44,7 @@ export const Input = memo(forwardRef((props, ref) => {
             hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText))),
         (() => {
             var _a;
-            const nativeInputOrTextArea = (React.createElement(NativeInputOrTextArea, Object.assign({ className: cx(fr.cx("fr-input", (() => {
+            const nativeInputOrTextArea = (React.createElement(NativeInputOrTextArea, Object.assign({}, nativeInputOrTextAreaProps, { className: cx(fr.cx("fr-input", (() => {
                     switch (state) {
                         case "error":
                             return "fr-input--error";
@@ -53,7 +53,7 @@ export const Input = memo(forwardRef((props, ref) => {
                         case "default":
                             return undefined;
                     }
-                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId }, nativeInputOrTextAreaProps)));
+                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const hasIcon = iconId !== undefined;
             const hasAddon = addon !== undefined;
             return hasIcon || hasAddon ? (React.createElement("div", { className: fr.cx("fr-input-wrap", hasIcon && iconId, hasAddon && "fr-input-wrap--addon") },
