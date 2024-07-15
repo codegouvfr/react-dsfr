@@ -45,6 +45,6 @@ export const Tile = memo(forwardRef((props, ref) => {
             ].map(label => (React.createElement("use", { key: label, className: fr.cx(`fr-${label}`), xlinkHref: `${imageUrl}#${label}` })))))) : (React.createElement("div", { className: cx(fr.cx("fr-tile__img"), classes.img) },
             React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt, width: imageWidth, height: imageHeight })))))));
 }));
-Tile.displayName = symToStr({ TileNext: Tile });
+Tile.displayName = symToStr({ Tile });
 export default Tile;
 //# sourceMappingURL=Tile.js.map

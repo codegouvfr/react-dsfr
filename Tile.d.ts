@@ -28,8 +28,8 @@ export type TileProps = {
     noBackground?: boolean;
     disabled?: boolean;
     style?: CSSProperties;
-} & (TileNextProps.WithLink | TileNextProps.WithButton | TileNextProps.Unclickable);
-export declare namespace TileNextProps {
+} & (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
+export declare namespace TileProps {
     type Unclickable = {
         linkProps?: never;
         buttonProps?: never;
