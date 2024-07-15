@@ -53,9 +53,9 @@ export type TileProps = {
     noBackground?: boolean;
     disabled?: boolean;
     style?: CSSProperties;
-} & (TileNextProps.WithLink | TileNextProps.WithButton | TileNextProps.Unclickable);
+} & (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
 
-export namespace TileNextProps {
+export namespace TileProps {
     export type Unclickable = {
         linkProps?: never;
         buttonProps?: never;
@@ -226,6 +226,6 @@ export const Tile = memo(
     })
 );
 
-Tile.displayName = symToStr({ TileNext: Tile });
+Tile.displayName = symToStr({ Tile });
 
 export default Tile;
