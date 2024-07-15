@@ -180,7 +180,7 @@ export const Tile = memo(
                     </div>
                 </div>
 
-                {imageUrl !== undefined && imageUrl.length && (
+                {imageUrl !== undefined && imageUrl.length > 0 && (
                     <div className={cx(fr.cx("fr-tile__header"), classes.header)}>
                         {imageSvg ? (
                             <div className={cx(fr.cx("fr-tile__pictogram"), classes.img)}>
