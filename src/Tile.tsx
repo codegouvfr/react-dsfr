@@ -1,4 +1,5 @@
-import React, { ComponentProps, CSSProperties, forwardRef, memo, ReactNode } from "react";
+import type { ComponentProps, CSSProperties, ReactNode } from "react";
+import React, { forwardRef, memo } from "react";
 import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
@@ -113,10 +114,6 @@ export const Tile = memo(
             "explicitlyProvidedId": id_props
         });
 
-        if (!!disabled && linkProps !== undefined) {
-            linkProps.href = undefined;
-        }
-
         return (
             <div
                 id={id}
@@ -150,8 +147,9 @@ export const Tile = memo(
                             {linkProps !== undefined ? (
                                 <Link
                                     {...linkProps}
+                                    href={disabled ? undefined : linkProps.href}
                                     className={cx(classes.link, linkProps.className)}
-                                    aria-disabled={!!disabled}
+                                    aria-disabled={disabled}
                                 >
                                     {title}
                                 </Link>
@@ -159,7 +157,7 @@ export const Tile = memo(
                                 <button
                                     {...buttonProps}
                                     className={cx(classes.button, buttonProps.className)}
-                                    disabled={!!disabled}
+                                    disabled={disabled}
                                 >
                                     {title}
                                 </button>
