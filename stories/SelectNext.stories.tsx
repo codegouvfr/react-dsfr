@@ -17,7 +17,6 @@ import { Select } from "@codegouvfr/react-dsfr/SelectNext";
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/liste-deroulante)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SelectNext.tsx)
 
-> NOTE: This component is still in beta, it may change in the future.
 
 ## Controlled
 
@@ -63,6 +62,10 @@ function MyComponent(){
 }
 \`\`\`
 
+> NOTE: In this implementation, once the use has selected a value it can't be unselected.  
+> If you need you want your users to be able to unselect please provide an option with an empty string as value
+> and use the next example as reference.  
+
 ### Value pre-selected
 
 "bar" selected by default.
@@ -92,14 +95,11 @@ function MyComponent(){
 }
 \`\`\`
 
-
-
 ## Uncontrolled
 
 \`\`\`tsx
 import { useState } from "react";
 import { Select } from "@codegouvfr/react-dsfr/Select";
-
 
 function MyComponent(){
 
@@ -107,7 +107,9 @@ function MyComponent(){
         <form method="POST" action="...">
             {/* 
               * With no value pre selected, if the user didn't select anything, 
-              * when submitted the value of "my-select" will be "" 
+              * when submitted the value of "my-select" will be "".  
+              * Here as well, the value once selected can't be unselected.
+              * Use an explicit option with an empty string as value and set selected to true to allow unselecting.  
               */}
             <Select
                 label="Label"
@@ -200,7 +202,7 @@ function MyComponent(){
 
 export default meta;
 
-const defaultOptions = [
+const options = [
     {
         "value": "1",
         "label": "Option 1"
@@ -215,36 +217,22 @@ const defaultOptions = [
     }
 ];
 
-const myFakeValueSet = [
-    "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf",
-    "1bda4f79-a199-40ce-985b-fa217809d568",
-    "e91b2cac-48f6-4d60-b86f-ece02f076837",
-    "66a9d7ac-9b25-4e52-9de3-4b7238135b39"
-] as const;
-
-type MyFakeValue = typeof myFakeValueSet[number];
-
-const optionsWithTypedValues: SelectProps.Option<MyFakeValue>[] = myFakeValueSet.map(fakeValue => ({
-    value: fakeValue,
-    label: fakeValue
-}));
-
 export const Default = getStory({
     "label": "Label pour liste déroulante",
-    "options": defaultOptions
+    options
 });
 
 export const DefaultWithPlaceholder = getStory({
     "label": "Label pour liste déroulante",
     "placeholder": "Sélectionnez une option",
-    "options": defaultOptions
+    options
 });
 
 export const ErrorState = getStory({
     "label": "Label pour liste déroulante",
     "state": "error",
     "stateRelatedMessage": "Texte d’erreur obligatoire",
-    "options": defaultOptions
+    options
 });
 
 export const SuccessState = getStory({
@@ -252,30 +240,21 @@ export const SuccessState = getStory({
     "state": "valid",
     "stateRelatedMessage": "Texte de validation",
     "placeholder": "Sélectionnez une option",
-    "options": defaultOptions
+    options
 });
 
 export const Disabled = getStory({
     "label": "Label pour liste déroulante",
     "disabled": true,
     "placeholder": "Sélectionnez une option",
-    "options": defaultOptions
+    options
 });
 
 export const WithHint = getStory({
     "label": "Label pour liste déroulante",
     "hint": "Texte de description additionnel",
     "placeholder": "Sélectionnez une option",
-    "options": defaultOptions
-});
-
-export const TypedSelect = getStory({
-    "label": "Label pour liste déroulante avec valeurs d'options typesafe",
-    "placeholder": "Sélectionnez une option",
-    "options": optionsWithTypedValues,
-    "nativeSelectProps": {
-        "value": "dc9d15ee-7794-470e-9dcf-a8d1dd1a6fcf"
-    }
+    options
 });
 
 export const SelectWithCustomId = getStory({
@@ -283,5 +262,5 @@ export const SelectWithCustomId = getStory({
     "nativeSelectProps": {
         id: "my-unique-id"
     },
-    "options": defaultOptions
+    options
 });

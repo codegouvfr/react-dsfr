@@ -148,7 +148,29 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 </label>
             )}
             <select
-                {...(nativeSelectProps as any)}
+                {...nativeSelectProps}
+                {...(() => {
+                    const isControlled =
+                        nativeSelectProps !== undefined && "value" in nativeSelectProps;
+
+                    const isEmptyValueSelected = isControlled
+                        ? nativeSelectProps.value === undefined
+                        : options.find(option => option.selected) === undefined;
+
+                    if (isControlled) {
+                        return isEmptyValueSelected ? { "value": "" } : {};
+                    }
+
+                    return {
+                        "defaultValue": isEmptyValueSelected
+                            ? ""
+                            : (() => {
+                                  const selectedOption = options.find(option => option.selected);
+                                  assert(selectedOption !== undefined);
+                                  return selectedOption.value;
+                              })()
+                    };
+                })()}
                 className={cx(fr.cx("fr-select"), nativeSelectProps?.className)}
                 id={selectId}
                 aria-describedby={stateDescriptionId}
@@ -160,16 +182,16 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                         : {
                               "label":
                                   placeholder === undefined ? t("select an option") : placeholder,
-                              "selected": true,
                               "value": "",
                               "disabled": true
                           },
-                    ...options
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    ...options.map(({ selected, ...option }) => option)
                 ]
                     .filter(exclude(undefined))
-                    .map((option, index) => (
-                        <option {...(option as any)} key={`${option.value}-${index}`}>
-                            {option.label}
+                    .map(({ label, ...option }, index) => (
+                        <option {...option} key={`${option.value}-${index}`}>
+                            {label}
                         </option>
                     ))}
             </select>

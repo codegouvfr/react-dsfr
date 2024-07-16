@@ -12,7 +12,8 @@ const { meta, getStory } = getStoryFactory({
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Notice.tsx)
 
-> 🗣️ This is a legacy implementation. Try out [\`SelectNext\`](https://components.react-dsfr.codegouv.studio/?path=/docs/components-selectnext--default) it will eventually replace this component.  
+> 🗣️ This implementation of the <Select /> component is headless. It matched very closely the behavior of a native select input.  
+> Try out [\`SelectNext\`](https://components.react-dsfr.codegouv.studio/?path=/docs/components-selectnext--default) if you want a smarter component with better type inference.  
 
 ## Controlled
 
