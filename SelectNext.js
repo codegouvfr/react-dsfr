@@ -17,6 +17,7 @@ import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { exclude } from "tsafe/exclude";
 /**
  * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
@@ -42,14 +43,18 @@ function NonMemoizedNonForwardedSelect(props, ref) {
             label,
             hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint))),
         React.createElement("select", Object.assign({}, nativeSelectProps, { className: cx(fr.cx("fr-select"), nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }), [
-            {
-                "label": placeholder === undefined ? t("select an option") : placeholder,
-                "selected": true,
-                "value": "",
-                "disabled": true
-            },
+            options.find(option => option.value === "") !== undefined
+                ? undefined
+                : {
+                    "label": placeholder === undefined ? t("select an option") : placeholder,
+                    "selected": true,
+                    "value": "",
+                    "disabled": true
+                },
             ...options
-        ].map((option, index) => (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), option.label)))),
+        ]
+            .filter(exclude(undefined))
+            .map((option, index) => (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), option.label)))),
         state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx(`fr-${state}-text`) }, stateRelatedMessage))));
 }
 export const Select = memo(forwardRef(NonMemoizedNonForwardedSelect));
