@@ -42,19 +42,42 @@ function NonMemoizedNonForwardedSelect(props, ref) {
         Boolean(label || hint) && (React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
             hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint))),
-        React.createElement("select", Object.assign({}, nativeSelectProps, { className: cx(fr.cx("fr-select"), nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }), [
+        React.createElement("select", Object.assign({}, nativeSelectProps, (() => {
+            const isControlled = nativeSelectProps !== undefined && "value" in nativeSelectProps;
+            const isEmptyValueSelected = isControlled
+                ? nativeSelectProps.value === undefined
+                : options.find(option => option.selected) === undefined;
+            if (isControlled) {
+                return isEmptyValueSelected ? { "value": "" } : {};
+            }
+            return {
+                "defaultValue": isEmptyValueSelected
+                    ? ""
+                    : (() => {
+                        const selectedOption = options.find(option => option.selected);
+                        assert(selectedOption !== undefined);
+                        return selectedOption.value;
+                    })()
+            };
+        })(), { className: cx(fr.cx("fr-select"), nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }), [
             options.find(option => option.value === "") !== undefined
                 ? undefined
                 : {
                     "label": placeholder === undefined ? t("select an option") : placeholder,
-                    "selected": true,
                     "value": "",
                     "disabled": true
                 },
-            ...options
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            ...options.map((_a) => {
+                var { selected } = _a, option = __rest(_a, ["selected"]);
+                return option;
+            })
         ]
             .filter(exclude(undefined))
-            .map((option, index) => (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), option.label)))),
+            .map((_a, index) => {
+            var { label } = _a, option = __rest(_a, ["label"]);
+            return (React.createElement("option", Object.assign({}, option, { key: `${option.value}-${index}` }), label));
+        })),
         state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx(`fr-${state}-text`) }, stateRelatedMessage))));
 }
 export const Select = memo(forwardRef(NonMemoizedNonForwardedSelect));
