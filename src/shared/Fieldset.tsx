@@ -167,14 +167,12 @@ export const Fieldset = memo(
                                 name={radioName}
                                 {...nativeInputProps}
                             />
-                            {Boolean(label || hintText) && (
-                                <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
-                                    {label}
-                                    {hintText !== undefined && (
-                                        <span className={fr.cx("fr-hint-text")}>{hintText}</span>
-                                    )}
-                                </label>
-                            )}
+                            <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
+                                {label}
+                                {hintText !== undefined && (
+                                    <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                                )}
+                            </label>
                             {"illustration" in rest && (
                                 <div className={fr.cx("fr-radio-rich__img")}>
                                     {rest.illustration}
