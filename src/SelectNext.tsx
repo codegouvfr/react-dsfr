@@ -96,7 +96,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
         label,
         hint,
         nativeSelectProps,
-        disabled = false,
+        disabled = nativeSelectProps?.disabled ?? false,
         options,
         state = "default",
         stateRelatedMessage,

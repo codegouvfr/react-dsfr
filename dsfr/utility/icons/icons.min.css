@@ -1,13 +1,13 @@
-.fr-icon-theme-fill::before,
-.fr-icon-theme-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
-    mask-image: url("../../icons/system/fr--theme-fill.svg");
-}
-
 .fr-icon-arrow-right-line::before,
 .fr-icon-arrow-right-line::after {
     -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
     mask-image: url("../../icons/system/arrow-right-line.svg");
+}
+
+.fr-icon-theme-fill::before,
+.fr-icon-theme-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
+    mask-image: url("../../icons/system/fr--theme-fill.svg");
 }
 
 .fr-icon-checkbox-circle-line::before,
@@ -52,12 +52,6 @@
     mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
 .fr-icon-mail-fill::before,
 .fr-icon-mail-fill::after {
     -webkit-mask-image: url("../../icons/business/mail-fill.svg");
@@ -86,6 +80,12 @@
 .ri-account-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
     mask-image: url("../../icons/remixicon/account-box-line.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -155,14 +155,14 @@
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .fr-icon-theme-fill::before,
-    .fr-icon-theme-fill::after {
-        background-image: url("../../icons/system/fr--theme-fill.svg");
-    }
-    
     .fr-icon-arrow-right-line::before,
     .fr-icon-arrow-right-line::after {
         background-image: url("../../icons/system/arrow-right-line.svg");
+    }
+    
+    .fr-icon-theme-fill::before,
+    .fr-icon-theme-fill::after {
+        background-image: url("../../icons/system/fr--theme-fill.svg");
     }
     
     .fr-icon-checkbox-circle-line::before,
@@ -200,11 +200,6 @@
         background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
     .fr-icon-mail-fill::before,
     .fr-icon-mail-fill::after {
         background-image: url("../../icons/business/mail-fill.svg");
@@ -228,6 +223,11 @@
     .ri-account-box-line::before,
     .ri-account-box-line::after {
         background-image: url("../../icons/remixicon/account-box-line.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,

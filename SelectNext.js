@@ -22,7 +22,8 @@ import { exclude } from "tsafe/exclude";
  * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-select>
  * */
 function NonMemoizedNonForwardedSelect(props, ref) {
-    const { id: id_props, className, label, hint, nativeSelectProps, disabled = false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
+    var _a;
+    const { id: id_props, className, label, hint, nativeSelectProps, disabled = (_a = nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.disabled) !== null && _a !== void 0 ? _a : false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-select-group",
