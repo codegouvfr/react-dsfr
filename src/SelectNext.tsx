@@ -19,6 +19,7 @@ import { cx } from "./tools/cx";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { exclude } from "tsafe/exclude";
 
 export type SelectProps<Options extends SelectProps.Option[]> = {
     id?: string;
@@ -154,18 +155,23 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 disabled={disabled}
             >
                 {[
-                    {
-                        "label": placeholder === undefined ? t("select an option") : placeholder,
-                        "selected": true,
-                        "value": "",
-                        "disabled": true
-                    },
+                    options.find(option => option.value === "") !== undefined
+                        ? undefined
+                        : {
+                              "label":
+                                  placeholder === undefined ? t("select an option") : placeholder,
+                              "selected": true,
+                              "value": "",
+                              "disabled": true
+                          },
                     ...options
-                ].map((option, index) => (
-                    <option {...(option as any)} key={`${option.value}-${index}`}>
-                        {option.label}
-                    </option>
-                ))}
+                ]
+                    .filter(exclude(undefined))
+                    .map((option, index) => (
+                        <option {...(option as any)} key={`${option.value}-${index}`}>
+                            {option.label}
+                        </option>
+                    ))}
             </select>
             {state !== "default" && (
                 <p id={stateDescriptionId} className={fr.cx(`fr-${state}-text`)}>
