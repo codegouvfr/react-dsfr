@@ -24,7 +24,7 @@ import * as fs from "fs";
 import { join as pathJoin, relative as pathRelative } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile, rm } from "fs/promises";
+import { writeFile, readFile, rm, cp } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import type { Equals } from "tsafe";
@@ -32,6 +32,7 @@ import yargsParser from "yargs-parser";
 import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPath";
 import { readPublicDirPath } from "./readPublicDirPath";
 import { existsAsync } from "./tools/fs.existsAsync";
+import { fnv1aHashToHex } from "./tools/fnv1aHashToHex";
 
 export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
 
@@ -460,55 +461,106 @@ async function main() {
         "utf8"
     );
 
-    const onConfirmedChange = async () => {
+    let hasChanged = false;
+
+    const utilityIconsRelativeDirPath = pathJoin("utility", "icons");
+
+    await Promise.all(
+        [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
+            .filter(exclude(undefined))
+            .map(async dsfrDistDirPath => {
+                const cssFilePath = pathJoin(
+                    dsfrDistDirPath,
+                    utilityIconsRelativeDirPath,
+                    "icons.min.css"
+                );
+
+                if (!fs.existsSync(cssFilePath)) {
+                    return;
+                }
+
+                const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
+
+                if (!fs.existsSync(remixiconDirPath)) {
+                    fs.mkdirSync(remixiconDirPath);
+                }
+
+                usedIcons
+                    .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
+                    .filter(exclude(undefined))
+                    .map(({ iconId, rawSvgCode }) =>
+                        writeFile(
+                            pathJoin(remixiconDirPath, `${iconId}.svg`),
+                            Buffer.from(rawSvgCode, "utf8")
+                        )
+                    );
+
+                log?.(`Patching ${pathRelative(projectDirPath, cssFilePath)}`);
+
+                const dynamicFilePath = pathJoin(
+                    pathDirname(cssFilePath),
+                    `icons.${fnv1aHashToHex(rawIconCssCodeBuffer.toString("utf8"))}.css`
+                );
+
+                if (fs.existsSync(dynamicFilePath)) {
+                    return;
+                }
+
+                fs.readdirSync(pathDirname(cssFilePath))
+                    .filter(
+                        fileBasename =>
+                            fileBasename.startsWith("icons.") && fileBasename.endsWith(".css")
+                    )
+                    .map(fileBasename => pathJoin(pathDirname(cssFilePath), fileBasename))
+                    .forEach(filePath => fs.unlinkSync(filePath));
+
+                await Promise.all([
+                    writeFile(dynamicFilePath, rawIconCssCodeBuffer),
+                    writeFile(
+                        cssFilePath,
+                        Buffer.from(`@import url("./${pathBasename(dynamicFilePath)}");`, "utf8")
+                    )
+                ]);
+
+                hasChanged = true;
+            })
+    );
+
+    clear_next_cache: {
+        if (!hasChanged) {
+            break clear_next_cache;
+        }
+
         const nextCacheDir = pathJoin(projectDirPath, ".next", "cache");
 
         if (!fs.existsSync(nextCacheDir)) {
-            return;
+            break clear_next_cache;
         }
 
         await rm(nextCacheDir, { "recursive": true, "force": true });
-    };
+    }
 
-    console.log({ dsfrDistInPublicDirPath });
+    copy_used_dsfr_icons_to_public: {
+        if (!hasChanged) {
+            break copy_used_dsfr_icons_to_public;
+        }
 
-    [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
-        .filter(exclude(undefined))
-        .forEach(async dsfrDistDirPath => {
-            const cssFilePath = pathJoin(dsfrDistDirPath, "utility", "icons", "icons.min.css");
+        if (dsfrDistInPublicDirPath === undefined || dsfrDistInNodeModulesDirPath === undefined) {
+            break copy_used_dsfr_icons_to_public;
+        }
 
-            if (!fs.existsSync(cssFilePath)) {
-                return;
-            }
-
-            const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
-
-            if (!fs.existsSync(remixiconDirPath)) {
-                fs.mkdirSync(remixiconDirPath);
-            }
-
+        await Promise.all(
             usedIcons
-                .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
-                .filter(exclude(undefined))
-                .map(({ iconId, rawSvgCode }) =>
-                    writeFile(
-                        pathJoin(remixiconDirPath, `${iconId}.svg`),
-                        Buffer.from(rawSvgCode, "utf8")
+                .filter(icon => icon.prefix === "fr-icon-")
+                .map(({ svgRelativePath }) =>
+                    ([dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath] as const).map(
+                        baseDirPath =>
+                            pathJoin(baseDirPath, utilityIconsRelativeDirPath, svgRelativePath)
                     )
-                );
-
-            log?.(`Patching ${pathRelative(projectDirPath, cssFilePath)}`);
-
-            const currentCode = await readFile(cssFilePath);
-
-            if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
-                return;
-            }
-
-            onConfirmedChange();
-
-            writeFile(cssFilePath, rawIconCssCodeBuffer);
-        });
+                )
+                .map(([srcFilePath, destFilePath]) => cp(srcFilePath, destFilePath))
+        );
+    }
 }
 
 if (require.main === module) {
