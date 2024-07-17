@@ -45,7 +45,7 @@ This is the preferred approach.
 
 {% tabs %}
 {% tab title="Create React App / Vite / Others" %}
-Most JS bundlers, by default, emits a separate file and exports the URL when comming across an import of a image or video file format. &#x20;
+Most JS bundlers, by default, emits a separate file and exports the URL when coming across an import of a image or video file format. &#x20;
 
 ```tsx
 import artworkDarkSvgUrl from "@codegouvfr/react-dsfr/dsfr/artwork/dark.svg";

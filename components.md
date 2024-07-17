@@ -6,7 +6,7 @@ The components are documented individually on a separate website.
 
 ### Customization
 
-What to do if you want to customize the components beyond what the props allow.
+How to customize the components beyond the limitations of the props.
 
 #### The `classes` property
 
@@ -23,5 +23,5 @@ Every component of react-dsfr accepts an optional `classes` property that enable
 ### Creating a custom component
 
 {% embed url="https://youtu.be/9uaPv-Q9fe4" %}
-Cusomizing a component - NOTE: theme.decisions... is now fr.colors.decisions...
+Customizing a component - NOTE: theme.decisions... is now fr.colors.decisions...
 {% endembed %}
