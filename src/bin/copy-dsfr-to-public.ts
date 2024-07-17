@@ -17,6 +17,8 @@ import { getProjectRoot } from "./tools/getProjectRoot";
 import yargsParser from "yargs-parser";
 import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPath";
 import { readPublicDirPath } from "./readPublicDirPath";
+import { transformCodebase } from "./tools/transformCodebase";
+import { assert } from "tsafe/assert";
 
 (async () => {
     const argv = yargsParser(process.argv.slice(2));
@@ -73,7 +75,7 @@ import { readPublicDirPath } from "./readPublicDirPath";
 
     fs.writeFileSync(pathJoin(dsfrDirPath, ".gitignore"), Buffer.from("*", "utf8"));
 
-    (function callee(depth: number) {
+    const dsfrDistNodeModulesDirPath = (function dsfrDistNodeModulesDirPath(depth: number): string {
         const parentProjectDirPath = pathResolve(
             pathJoin(...[projectDirPath, ...new Array(depth).fill("..")])
         );
@@ -93,16 +95,72 @@ import { readPublicDirPath } from "./readPublicDirPath";
                 process.exit(-1);
             }
 
-            callee(depth + 1);
-
-            return;
+            return dsfrDistNodeModulesDirPath(depth + 1);
         }
 
-        fs.cpSync(dsfrDirPathInNodeModules, dsfrDirPath, {
-            "recursive": true
-        });
+        return dsfrDirPathInNodeModules;
     })(0);
+
+    {
+        const dsfrMinCssFileRelativePath = "dsfr.min.css";
+
+        const usedAssetsRelativeFilePaths = new Set(
+            readAssetsImportFromDsfrCss({
+                "dsfrSourceCode": fs
+                    .readFileSync(pathJoin(dsfrDistNodeModulesDirPath, dsfrMinCssFileRelativePath))
+                    .toString("utf8")
+            })
+        );
+
+        const fileToKeepRelativePaths = new Set([
+            pathJoin("favicon", "apple-touch-icon.png"),
+            pathJoin("favicon", "favicon.svg"),
+            pathJoin("favicon", "favicon.ico"),
+            pathJoin("favicon", "manifest.webmanifest"),
+            pathJoin("utility", "icons", "icons.min.css"),
+            dsfrMinCssFileRelativePath
+        ]);
+
+        transformCodebase({
+            "srcDirPath": dsfrDistNodeModulesDirPath,
+            "destDirPath": dsfrDirPath,
+            "transformSourceCode": ({ fileRelativePath, sourceCode }) => {
+                if (
+                    fileToKeepRelativePaths.has(fileRelativePath) ||
+                    usedAssetsRelativeFilePaths.has(fileRelativePath)
+                ) {
+                    return { "modifiedSourceCode": sourceCode };
+                }
+            }
+        });
+    }
 })();
+
+function readAssetsImportFromDsfrCss(params: { dsfrSourceCode: string }): string[] {
+    const { dsfrSourceCode } = params;
+
+    const fileRelativePaths = [/url\("([^"]+)"\)/g, /url\('([^']+)'\)/g, /url\(([^)]+)\)/g]
+        .map(regex => {
+            const fileRelativePaths: string[] = [];
+
+            dsfrSourceCode.replace(regex, (...[, relativeFilePath]) => {
+                if (relativeFilePath.startsWith("data:")) {
+                    return "";
+                }
+
+                fileRelativePaths.push(relativeFilePath);
+
+                return "";
+            });
+
+            return fileRelativePaths;
+        })
+        .flat();
+
+    assert(fileRelativePaths.length !== 0);
+
+    return fileRelativePaths;
+}
 
 function getRepoIssueUrl() {
     const reactDsfrRepoUrl = JSON.parse(
