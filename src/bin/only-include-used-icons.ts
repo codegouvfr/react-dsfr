@@ -470,14 +470,14 @@ async function main() {
         await rm(nextCacheDir, { "recursive": true, "force": true });
     };
 
+    console.log({ dsfrDistInPublicDirPath });
+
     [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
         .filter(exclude(undefined))
         .forEach(async dsfrDistDirPath => {
-            const cssFilePaths = ["icons.css", "icons.min.css"].map(cssFileBasename =>
-                pathJoin(dsfrDistDirPath, "utility", "icons", cssFileBasename)
-            );
+            const cssFilePath = pathJoin(dsfrDistDirPath, "utility", "icons", "icons.min.css");
 
-            if (cssFilePaths.some(cssFilePath => !fs.existsSync(cssFilePath))) {
+            if (!fs.existsSync(cssFilePath)) {
                 return;
             }
 
@@ -497,19 +497,17 @@ async function main() {
                     )
                 );
 
-            cssFilePaths.forEach(async filePath => {
-                log?.(`Patching ${pathRelative(projectDirPath, filePath)}`);
+            log?.(`Patching ${pathRelative(projectDirPath, cssFilePath)}`);
 
-                const currentCode = await readFile(filePath);
+            const currentCode = await readFile(cssFilePath);
 
-                if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
-                    return;
-                }
+            if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
+                return;
+            }
 
-                onConfirmedChange();
+            onConfirmedChange();
 
-                writeFile(filePath, rawIconCssCodeBuffer);
-            });
+            writeFile(cssFilePath, rawIconCssCodeBuffer);
         });
 }
 
