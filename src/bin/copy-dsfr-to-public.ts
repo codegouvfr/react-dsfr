@@ -11,12 +11,7 @@
  *   This path is expressed relative to the project directory.
  */
 
-import {
-    join as pathJoin,
-    relative as pathRelative,
-    sep as pathSep,
-    resolve as pathResolve
-} from "path";
+import { join as pathJoin, resolve as pathResolve } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import yargsParser from "yargs-parser";
@@ -68,35 +63,15 @@ import { readPublicDirPath } from "./readPublicDirPath";
         process.exit(-1);
     }
 
-    edit_gitignore: {
-        const gitignoreFilePath = pathJoin(projectDirPath, ".gitignore");
-
-        if (!fs.existsSync(gitignoreFilePath)) {
-            fs.writeFileSync(gitignoreFilePath, Buffer.from("", "utf8"));
-        }
-
-        const gitignoreRaw = fs.readFileSync(gitignoreFilePath).toString("utf8");
-
-        const pathToIgnore = `/${pathJoin(
-            pathRelative(projectDirPath, publicDirPath),
-            "dsfr"
-        ).replace(new RegExp(`\\${pathSep}`, "g"), "/")}/`;
-
-        if (gitignoreRaw.split("\n").find(line => line.startsWith(pathToIgnore)) !== undefined) {
-            break edit_gitignore;
-        }
-
-        fs.writeFileSync(
-            gitignoreFilePath,
-            Buffer.from(`${gitignoreRaw}\n${pathToIgnore}\n`, "utf8")
-        );
-    }
-
     const dsfrDirPath = pathJoin(publicDirPath, "dsfr");
 
     if (fs.existsSync(dsfrDirPath)) {
         fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
     }
+
+    fs.mkdirSync(dsfrDirPath, { "recursive": true });
+
+    fs.writeFileSync(pathJoin(dsfrDirPath, ".gitignore"), Buffer.from("*", "utf8"));
 
     (function callee(depth: number) {
         const parentProjectDirPath = pathResolve(
