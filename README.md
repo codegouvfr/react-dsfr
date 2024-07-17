@@ -10,8 +10,8 @@ description: Setup @codegouvfr/react-dsfr in your project or start from a templa
 If you already had the DSFR installed in your project, let's start from scratch:
 
 * Remove [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr) from your dependencies.
-* Remove the import of`dsfr.css, dsfr.module.js the favicon and the fonts.`
-* Remove `the data-fr-scheme` (and `data-fr-theme` ) attribude from your `<html/>` tag
+* Remove the import of`dsfr.css`, `dsfr.module.js`, the favicon and the fonts.
+* Remove `the data-fr-scheme` (and `data-fr-theme` ) attribute from your `<html/>` tag
 {% endhint %}
 
 {% tabs %}
@@ -43,7 +43,7 @@ enable-pre-post-scripts=true
 
 {% tab title="Yarn Berry (a.k.a Yarn 3 or Yarn modern)" %}
 {% hint style="warning" %}
-When we say Yarn we usually refer to Yarn 1.x as most dev teams (Including me) havent upgraded to the newest version (for good reasons).
+When we refer to Yarn we usually refer to Yarn 1.x as most dev teams (including me) haven't upgraded to the newest version (for good reasons).
 {% endhint %}
 
 If you want to use Yarn Berry you be aware that pre- post- scripts aren't supported.
@@ -68,6 +68,8 @@ Add these three scripts to your `package.json`:
 </strong><strong>    "prebuild": "only-include-used-icons"
 </strong>}
 </code></pre>
+
+For you information, scripts logs can be silenced using the argument `--silent`.
 
 Trigger the execution of the postinstall script by running:
 
