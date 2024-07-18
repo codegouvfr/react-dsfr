@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const [, , commandName, ...args] = process.argv;
 
 (async () => {
