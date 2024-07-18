@@ -5,8 +5,8 @@ import * as fs from "fs";
 import { getPatchedRawCssCodeForCompatWithRemixIcon, collectIcons } from "./icons";
 import { cssToTs } from "./cssToTs";
 import {
-    pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist,
-    pathOfIconsJson
+    PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR,
+    PATH_OF_ICONS_JSON
 } from "../../src/bin/only-include-used-icons";
 import * as child_process from "child_process";
 import { patchCssForMui } from "./patchCssForMui";
@@ -31,10 +31,18 @@ import yargsParser from "yargs-parser";
         "recursive": true
     });
 
+    fs.cpSync(
+        pathJoin(__dirname, "marianne-index.css"),
+        pathJoin(dsfrDirPath, "fonts", "index.css")
+    );
+
     const rawDsfrCssCode = fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8");
 
     fs.writeFileSync(
-        pathJoin(dsfrDirPath, pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist),
+        pathJoin(
+            dsfrDirPath,
+            PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR
+        ),
         Buffer.from(
             getPatchedRawCssCodeForCompatWithRemixIcon({
                 "rawCssCode": rawDsfrCssCode
@@ -66,7 +74,7 @@ import yargsParser from "yargs-parser";
     });
 
     fs.writeFileSync(
-        pathJoin(dsfrDirPath, pathOfIconsJson),
+        pathJoin(dsfrDirPath, PATH_OF_ICONS_JSON),
         Buffer.from(JSON.stringify(icons, null, 2), "utf8")
     );
 
