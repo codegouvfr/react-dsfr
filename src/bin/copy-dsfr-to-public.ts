@@ -1,30 +1,24 @@
 #!/usr/bin/env node
 
 /**
- * This script is ran with `npx copy-dsfr-to-public`
- * It takes two optional arguments:
+ * This script is ran with `npx react-dsfr copy-dsfr-to-public`
+ * It takes one optional arguments (for NX monorepos):
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
- * - `--publicDir <path>` to specify the public directory.
- *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
- *   In other projects we will assume it's <project root>/public.
- *   This path is expressed relative to the project directory.
  */
 
-import {
-    join as pathJoin,
-    relative as pathRelative,
-    sep as pathSep,
-    resolve as pathResolve
-} from "path";
+import { join as pathJoin, resolve as pathResolve } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import yargsParser from "yargs-parser";
 import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPath";
 import { readPublicDirPath } from "./readPublicDirPath";
+import { transformCodebase } from "./tools/transformCodebase";
+import { assert } from "tsafe/assert";
+import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
-(async () => {
-    const argv = yargsParser(process.argv.slice(2));
+export async function main(args: string[]) {
+    const argv = yargsParser(args);
 
     const projectDirPath: string = (() => {
         read_from_argv: {
@@ -40,65 +34,69 @@ import { readPublicDirPath } from "./readPublicDirPath";
         return process.cwd();
     })();
 
-    const publicDirPath = await (async () => {
-        read_from_argv: {
-            const arg = argv["publicDir"];
+    const publicDirPath = await readPublicDirPath({ projectDirPath });
 
-            if (arg === undefined) {
-                break read_from_argv;
+    const htmlFilePath = await (async () => {
+        vite: {
+            const filePath = pathJoin(projectDirPath, "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break vite;
             }
 
-            const publicDirPath = getAbsoluteAndInOsFormatPath({
-                "pathIsh": arg,
-                "cwd": projectDirPath
-            });
-
-            if (!fs.existsSync(publicDirPath)) {
-                fs.mkdirSync(publicDirPath, { "recursive": true });
-            }
-
-            return publicDirPath;
+            return filePath;
         }
 
-        return await readPublicDirPath({ projectDirPath });
+        cra: {
+            const filePath = pathJoin(publicDirPath, "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break cra;
+            }
+
+            return filePath;
+        }
+
+        assert(false, "Can't locate your index.html file.");
     })();
 
     if (!fs.existsSync(publicDirPath)) {
-        console.error(`Can't locate your public directory, use the --public option to specify it.`);
+        console.error(`Can't locate your public directory.`);
         process.exit(-1);
-    }
-
-    edit_gitignore: {
-        const gitignoreFilePath = pathJoin(projectDirPath, ".gitignore");
-
-        if (!fs.existsSync(gitignoreFilePath)) {
-            fs.writeFileSync(gitignoreFilePath, Buffer.from("", "utf8"));
-        }
-
-        const gitignoreRaw = fs.readFileSync(gitignoreFilePath).toString("utf8");
-
-        const pathToIgnore = `/${pathJoin(
-            pathRelative(projectDirPath, publicDirPath),
-            "dsfr"
-        ).replace(new RegExp(`\\${pathSep}`, "g"), "/")}/`;
-
-        if (gitignoreRaw.split("\n").find(line => line.startsWith(pathToIgnore)) !== undefined) {
-            break edit_gitignore;
-        }
-
-        fs.writeFileSync(
-            gitignoreFilePath,
-            Buffer.from(`${gitignoreRaw}\n${pathToIgnore}\n`, "utf8")
-        );
     }
 
     const dsfrDirPath = pathJoin(publicDirPath, "dsfr");
 
-    if (fs.existsSync(dsfrDirPath)) {
-        fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
+    const gouvFrDsfrVersion: string = JSON.parse(
+        fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
+    )["devDependencies"]["@gouvfr/dsfr"];
+
+    const versionFilePath = pathJoin(dsfrDirPath, "version.txt");
+
+    early_exit: {
+        if (!fs.existsSync(dsfrDirPath)) {
+            break early_exit;
+        }
+
+        if (!fs.existsSync(versionFilePath)) {
+            break early_exit;
+        }
+
+        const currentVersion = fs.readFileSync(versionFilePath).toString("utf8");
+
+        if (currentVersion !== gouvFrDsfrVersion) {
+            fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
+            break early_exit;
+        }
+
+        return;
     }
 
-    (function callee(depth: number) {
+    fs.mkdirSync(dsfrDirPath, { "recursive": true });
+
+    fs.writeFileSync(pathJoin(dsfrDirPath, ".gitignore"), Buffer.from("*", "utf8"));
+
+    const dsfrDistNodeModulesDirPath = (function dsfrDistNodeModulesDirPath(depth: number): string {
         const parentProjectDirPath = pathResolve(
             pathJoin(...[projectDirPath, ...new Array(depth).fill("..")])
         );
@@ -118,16 +116,95 @@ import { readPublicDirPath } from "./readPublicDirPath";
                 process.exit(-1);
             }
 
-            callee(depth + 1);
-
-            return;
+            return dsfrDistNodeModulesDirPath(depth + 1);
         }
 
-        fs.cpSync(dsfrDirPathInNodeModules, dsfrDirPath, {
-            "recursive": true
-        });
+        return dsfrDirPathInNodeModules;
     })(0);
-})();
+
+    {
+        const dsfrMinCssFileRelativePath = "dsfr.min.css";
+
+        const usedAssetsRelativeFilePaths = new Set(
+            readAssetsImportFromDsfrCss({
+                "dsfrSourceCode": fs
+                    .readFileSync(pathJoin(dsfrDistNodeModulesDirPath, dsfrMinCssFileRelativePath))
+                    .toString("utf8")
+            })
+        );
+
+        const fileToKeepRelativePaths = new Set([
+            pathJoin("favicon", "apple-touch-icon.png"),
+            pathJoin("favicon", "favicon.svg"),
+            pathJoin("favicon", "favicon.ico"),
+            pathJoin("favicon", "manifest.webmanifest"),
+            pathJoin("utility", "icons", "icons.min.css"),
+            dsfrMinCssFileRelativePath
+        ]);
+
+        transformCodebase({
+            "srcDirPath": dsfrDistNodeModulesDirPath,
+            "destDirPath": dsfrDirPath,
+            "transformSourceCode": ({ fileRelativePath, sourceCode }) => {
+                if (
+                    fileToKeepRelativePaths.has(fileRelativePath) ||
+                    usedAssetsRelativeFilePaths.has(fileRelativePath)
+                ) {
+                    return { "modifiedSourceCode": sourceCode };
+                }
+            }
+        });
+    }
+
+    fs.writeFileSync(versionFilePath, Buffer.from(gouvFrDsfrVersion, "utf8"));
+
+    add_version_query_params_in_html_imports: {
+        const { modifiedHtml } = modifyHtmlHrefs({
+            "html": fs.readFileSync(htmlFilePath).toString("utf8"),
+            "getModifiedHref": href => {
+                if (!href.includes("/dsfr/")) {
+                    return href;
+                }
+
+                const [urlWithoutQuery] = href.split("?");
+
+                return `${urlWithoutQuery}?v=${gouvFrDsfrVersion}`;
+            }
+        });
+
+        if (htmlFilePath === modifiedHtml) {
+            break add_version_query_params_in_html_imports;
+        }
+
+        fs.writeFileSync(htmlFilePath, Buffer.from(modifiedHtml, "utf8"));
+    }
+}
+
+function readAssetsImportFromDsfrCss(params: { dsfrSourceCode: string }): string[] {
+    const { dsfrSourceCode } = params;
+
+    const fileRelativePaths = [/url\("([^"]+)"\)/g, /url\('([^']+)'\)/g, /url\(([^)]+)\)/g]
+        .map(regex => {
+            const fileRelativePaths: string[] = [];
+
+            dsfrSourceCode.replace(regex, (...[, relativeFilePath]) => {
+                if (relativeFilePath.startsWith("data:")) {
+                    return "";
+                }
+
+                fileRelativePaths.push(relativeFilePath);
+
+                return "";
+            });
+
+            return fileRelativePaths;
+        })
+        .flat();
+
+    assert(fileRelativePaths.length !== 0);
+
+    return fileRelativePaths;
+}
 
 function getRepoIssueUrl() {
     const reactDsfrRepoUrl = JSON.parse(
@@ -137,4 +214,8 @@ function getRepoIssueUrl() {
         .replace(/\.git$/, "");
 
     return `${reactDsfrRepoUrl}/issues`;
+}
+
+if (require.main === module) {
+    main(process.argv.slice(2));
 }

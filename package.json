@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "1.9.31",
+  "version": "1.10.0",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
@@ -20,13 +20,15 @@
     "_format": "prettier '**/*.{ts,tsx,json,md}'",
     "format": "yarn _format --write",
     "format:check": "yarn _format --list-different",
-    "storybook": "yarn build && yarn only-include-used-icons && start-storybook -p 6006",
-    "build-storybook": "yarn build && yarn only-include-used-icons && build-storybook",
-    "only-include-used-icons": "node dist/bin/only-include-used-icons.js --publicDir ./dist"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "prestorybook": "yarn build && node dist/bin/only-include-used-icons.js",
+    "prebuild-storybook": "yarn prestorybook"
   },
   "bin": {
-    "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
-    "only-include-used-icons": "dist/bin/only-include-used-icons.js"
+    "react-dsfr": "bin/react-dsfr.js",
+    "copy-dsfr-to-public": "bin/copy-dsfr-to-public.js",
+    "only-include-used-icons": "bin/only-include-used-icons.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -45,13 +47,6 @@
     "name": "u/garronej"
   },
   "license": "MIT",
-  "files": [
-    "src/",
-    "dist/",
-    "!dist/tsconfig.tsbuildinfo",
-    "!dist/bin/tsconfig.tsbuildinfo",
-    "dsfr/"
-  ],
   "keywords": [
     "dsfr",
     "design system",

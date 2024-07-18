@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 /**
- * This script is ran with `npx only-include-used-icons`
+ * This script is ran with `npx react-dsfr include-used-icons`
  * It scans your codebase to find which icons are used and only include those in the final build.
  * Do do that it patches the node_modules/@codegouvfr/react-dsfr/dist/utility/icons/icons.css file
  * and the public/dsfr/utility/icons/icons.css file (if applicable, not in Next.js for example).
@@ -10,12 +10,6 @@
  * There are two optional arguments that you can use:
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
- * - `--publicDir <path>` to specify the public directory.
- *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
- *   In other projects we will assume it's <project root>/public.
- *   This path is expressed relative to the project directory.
- *   It is assumed that there is a dsfr directory in the public directory (copied over using the
- *   `npx copy-dsfr-to-public` script).
  * - `--silent` to disable console.log
  */
 var __assign = (this && this.__assign) || function () {
@@ -139,7 +133,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateIconsRawCssCode = exports.pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = exports.pathOfIconsJson = void 0;
+exports.main = exports.generateIconsRawCssCode = exports.PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR = exports.PATH_OF_ICONS_JSON = void 0;
 var getProjectRoot_1 = require("./tools/getProjectRoot");
 var fs = __importStar(require("fs"));
 var path_1 = require("path");
@@ -152,8 +146,10 @@ var yargs_parser_1 = __importDefault(require("yargs-parser"));
 var getAbsoluteAndInOsFormatPath_1 = require("./tools/getAbsoluteAndInOsFormatPath");
 var readPublicDirPath_1 = require("./readPublicDirPath");
 var fs_existsAsync_1 = require("./tools/fs.existsAsync");
-exports.pathOfIconsJson = (0, path_1.join)("utility", "icons", "icons.json");
-exports.pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = (0, path_1.join)("utility", "icons", "dsfr_remixicon.css");
+var fnv1aHashToHex_1 = require("./tools/fnv1aHashToHex");
+var modifyHtmlHrefs_1 = require("./tools/modifyHtmlHrefs");
+exports.PATH_OF_ICONS_JSON = (0, path_1.join)("utility", "icons", "icons.json");
+exports.PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR = (0, path_1.join)("utility", "icons", "dsfr_remixicon.css");
 function generateIconsRawCssCode(params) {
     var usedIcons = params.usedIcons, patchedRawCssCodeForCompatWithRemixIcon = params.patchedRawCssCodeForCompatWithRemixIcon;
     var buildRule = function (icon, isHighContrast) {
@@ -196,14 +192,15 @@ function generateIconsRawCssCode(params) {
         : [patchedRawCssCodeForCompatWithRemixIcon])), false).join("\n");
 }
 exports.generateIconsRawCssCode = generateIconsRawCssCode;
-function main() {
+var CODEGOUV_REACT_DSFR = JSON.parse(fs.readFileSync((0, path_1.join)((0, getProjectRoot_1.getProjectRoot)(), "package.json")).toString("utf8"))["name"];
+function getCommandContext(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var argv, projectDirPath, publicDirPath, log, dsfrDistInPublicDirPath, codegouvfrReactDsfr, isProjectPathReactDsfr, nodeModulesDirPath, _a, dsfrDistInNodeModulesDirPath, nonUndefinedDsfrDirPath, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, onConfirmedChange;
+        var argv, projectDirPath, projectDirPath_1, isProjectPathReactDsfr, srcFilePaths_1, nodeModulesDirPath, dsfrDirPath, dsfrDirPath_static, htmlFilePath, isSilent, srcFilePaths;
         var _this = this;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    argv = (0, yargs_parser_1.default)(process.argv.slice(2));
+                    argv = (0, yargs_parser_1.default)(args);
                     projectDirPath = (function () {
                         read_from_argv: {
                             var arg = argv["projectDir"];
@@ -214,52 +211,13 @@ function main() {
                         }
                         return process.cwd();
                     })();
-                    return [4 /*yield*/, (function () { return __awaiter(_this, void 0, void 0, function () {
-                            var arg, publicDirPath_1, publicDirPath;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        read_from_argv: {
-                                            arg = argv["publicDir"];
-                                            if (arg === undefined) {
-                                                break read_from_argv;
-                                            }
-                                            publicDirPath_1 = (0, getAbsoluteAndInOsFormatPath_1.getAbsoluteAndInOsFormatPath)({
-                                                "pathIsh": arg,
-                                                "cwd": projectDirPath
-                                            });
-                                            if (!fs.existsSync(publicDirPath_1)) {
-                                                fs.mkdirSync(publicDirPath_1, { "recursive": true });
-                                            }
-                                            return [2 /*return*/, publicDirPath_1];
-                                        }
-                                        return [4 /*yield*/, (0, readPublicDirPath_1.readPublicDirPath)({ projectDirPath: projectDirPath })];
-                                    case 1:
-                                        publicDirPath = _a.sent();
-                                        return [2 /*return*/, publicDirPath];
-                                }
-                            });
-                        }); })()];
-                case 1:
-                    publicDirPath = _d.sent();
-                    log = argv["silent"] === true ? undefined : console.log;
-                    dsfrDistInPublicDirPath = (function () {
-                        var dsfrDistInPublicDirPath = (0, path_1.join)(publicDirPath, "dsfr");
-                        if (!fs.existsSync(dsfrDistInPublicDirPath)) {
-                            return undefined;
-                        }
-                        return dsfrDistInPublicDirPath;
-                    })();
-                    if (dsfrDistInPublicDirPath !== undefined) {
-                        log === null || log === void 0 ? void 0 : log("Public directory is ".concat((0, path_1.relative)(projectDirPath, publicDirPath)));
-                    }
-                    codegouvfrReactDsfr = JSON.parse(fs.readFileSync((0, path_1.join)((0, getProjectRoot_1.getProjectRoot)(), "package.json")).toString("utf8"))["name"];
+                    projectDirPath_1 = process.cwd();
                     return [4 /*yield*/, (function () { return __awaiter(_this, void 0, void 0, function () {
                             var packageJsonFilePath, packageJson, _a, _b;
                             return __generator(this, function (_c) {
                                 switch (_c.label) {
                                     case 0:
-                                        packageJsonFilePath = (0, path_1.join)(projectDirPath, "package.json");
+                                        packageJsonFilePath = (0, path_1.join)(projectDirPath_1, "package.json");
                                         return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(packageJsonFilePath)];
                                     case 1:
                                         if (!(_c.sent())) {
@@ -269,15 +227,54 @@ function main() {
                                         return [4 /*yield*/, (0, promises_1.readFile)(packageJsonFilePath)];
                                     case 2:
                                         packageJson = _b.apply(_a, [(_c.sent()).toString("utf8")]);
-                                        return [2 /*return*/, packageJson["name"] === codegouvfrReactDsfr];
+                                        return [2 /*return*/, packageJson["name"] === CODEGOUV_REACT_DSFR];
                                 }
                             });
                         }); })()];
+                case 1:
+                    isProjectPathReactDsfr = _a.sent();
+                    if (!isProjectPathReactDsfr) {
+                        return [3 /*break*/, 3];
+                    }
+                    return [4 /*yield*/, Promise.all([
+                            (0, crawl_1.crawl)({
+                                "dirPath": (0, path_1.join)(projectDirPath_1, "src"),
+                                "returnedPathsType": "absolute",
+                                "getDoCrawlInDir": function (_a) {
+                                    var relativeDirPath = _a.relativeDirPath;
+                                    return __awaiter(_this, void 0, void 0, function () {
+                                        return __generator(this, function (_b) {
+                                            if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
+                                                return [2 /*return*/, false];
+                                            }
+                                            if ((0, path_2.basename)(relativeDirPath) === "bin") {
+                                                return [2 /*return*/, false];
+                                            }
+                                            return [2 /*return*/, true];
+                                        });
+                                    });
+                                }
+                            }),
+                            (0, crawl_1.crawl)({
+                                "dirPath": (0, path_1.join)(projectDirPath_1, "stories"),
+                                "returnedPathsType": "absolute"
+                            })
+                        ])];
                 case 2:
-                    isProjectPathReactDsfr = _d.sent();
-                    if (!isProjectPathReactDsfr) return [3 /*break*/, 3];
-                    _a = undefined;
-                    return [3 /*break*/, 5];
+                    srcFilePaths_1 = (_a.sent())
+                        .flat()
+                        .filter(function (filePath) {
+                        return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(function (ext) {
+                            return filePath.endsWith(".".concat(ext));
+                        }) !== undefined;
+                    });
+                    return [2 /*return*/, {
+                            projectDirPath: projectDirPath_1,
+                            srcFilePaths: srcFilePaths_1,
+                            "dsfrDirPath": (0, path_1.join)(projectDirPath_1, "dist", "dsfr"),
+                            "spaParams": undefined,
+                            "isSilent": false
+                        }];
                 case 3: return [4 /*yield*/, (function callee(n) {
                         return __awaiter(this, void 0, void 0, function () {
                             var nodeModulesDirPath, doesExist;
@@ -288,7 +285,7 @@ function main() {
                                             throw new Error("Need to install node modules?");
                                         }
                                         nodeModulesDirPath = path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray(__spreadArray([projectDirPath], __read(new Array(n).fill("..")), false), ["node_modules"], false)), false));
-                                        return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray([nodeModulesDirPath], __read(codegouvfrReactDsfr.split("/")), false)), false)))];
+                                        return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray([nodeModulesDirPath], __read(CODEGOUV_REACT_DSFR.split("/")), false)), false)))];
                                     case 1:
                                         doesExist = _a.sent();
                                         if (!doesExist) {
@@ -300,158 +297,206 @@ function main() {
                         });
                     })(0)];
                 case 4:
-                    _a = _d.sent();
-                    _d.label = 5;
+                    nodeModulesDirPath = _a.sent();
+                    dsfrDirPath = path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray(__spreadArray([nodeModulesDirPath], __read(CODEGOUV_REACT_DSFR.split("/")), false), ["dsfr"], false)), false));
+                    return [4 /*yield*/, (function () { return __awaiter(_this, void 0, void 0, function () {
+                            var dsfrDirPath_static, _a;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        _a = path_1.join;
+                                        return [4 /*yield*/, (0, readPublicDirPath_1.readPublicDirPath)({ projectDirPath: projectDirPath })];
+                                    case 1:
+                                        dsfrDirPath_static = _a.apply(void 0, [_b.sent(), "dsfr"]);
+                                        return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(dsfrDirPath_static)];
+                                    case 2:
+                                        if (!(_b.sent())) {
+                                            return [2 /*return*/, undefined];
+                                        }
+                                        return [2 /*return*/, dsfrDirPath_static];
+                                }
+                            });
+                        }); })()];
                 case 5:
-                    nodeModulesDirPath = _a;
-                    if (nodeModulesDirPath !== undefined) {
-                        log === null || log === void 0 ? void 0 : log("".concat(codegouvfrReactDsfr, " is installed in ").concat((0, path_1.relative)(projectDirPath, nodeModulesDirPath)));
-                    }
-                    dsfrDistInNodeModulesDirPath = nodeModulesDirPath === undefined
-                        ? undefined
-                        : path_1.join.apply(void 0, __spreadArray([], __read(__spreadArray(__spreadArray([nodeModulesDirPath], __read(codegouvfrReactDsfr.split("/")), false), ["dsfr"], false)), false));
-                    nonUndefinedDsfrDirPath = dsfrDistInNodeModulesDirPath !== null && dsfrDistInNodeModulesDirPath !== void 0 ? dsfrDistInNodeModulesDirPath : dsfrDistInPublicDirPath;
-                    (0, assert_1.assert)(nonUndefinedDsfrDirPath !== undefined, "Nothing to patch");
-                    _c = (_b = JSON).parse;
-                    return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(nonUndefinedDsfrDirPath, exports.pathOfIconsJson))];
+                    dsfrDirPath_static = _a.sent();
+                    return [4 /*yield*/, (function () { return __awaiter(_this, void 0, void 0, function () {
+                            var filePath, filePath;
+                            return __generator(this, function (_a) {
+                                if (dsfrDirPath_static === undefined) {
+                                    return [2 /*return*/, undefined];
+                                }
+                                vite: {
+                                    filePath = (0, path_1.join)(projectDirPath, "index.html");
+                                    if (!fs.existsSync(filePath)) {
+                                        break vite;
+                                    }
+                                    return [2 /*return*/, filePath];
+                                }
+                                cra: {
+                                    if (dsfrDirPath_static === undefined) {
+                                        break cra;
+                                    }
+                                    filePath = (0, path_1.join)((0, path_2.dirname)(dsfrDirPath_static), "index.html");
+                                    if (!fs.existsSync(filePath)) {
+                                        break cra;
+                                    }
+                                    return [2 /*return*/, filePath];
+                                }
+                                // Next.js
+                                return [2 /*return*/, undefined];
+                            });
+                        }); })()];
                 case 6:
+                    htmlFilePath = _a.sent();
+                    isSilent = argv["silent"] === true;
+                    return [4 /*yield*/, Promise.all([
+                            (0, crawl_1.crawl)({
+                                "dirPath": projectDirPath,
+                                "returnedPathsType": "absolute",
+                                "getDoCrawlInDir": function (_a) {
+                                    var relativeDirPath = _a.relativeDirPath;
+                                    return __awaiter(_this, void 0, void 0, function () {
+                                        return __generator(this, function (_b) {
+                                            switch (_b.label) {
+                                                case 0:
+                                                    if (relativeDirPath === "dist") {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)((0, path_1.join)(projectDirPath, relativeDirPath, exports.PATH_OF_ICONS_JSON))];
+                                                case 1:
+                                                    if (_b.sent()) {
+                                                        // We don't want to search in public/dsfr
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    return [2 /*return*/, true];
+                                            }
+                                        });
+                                    });
+                                }
+                            }),
+                            (0, crawl_1.crawl)({
+                                "dirPath": nodeModulesDirPath,
+                                "returnedPathsType": "absolute",
+                                "getDoCrawlInDir": function (_a) {
+                                    var relativeDirPath = _a.relativeDirPath;
+                                    return __awaiter(_this, void 0, void 0, function () {
+                                        var parsedPackageJson, _b, _c, packageName;
+                                        var e_1, _d;
+                                        return __generator(this, function (_e) {
+                                            switch (_e.label) {
+                                                case 0:
+                                                    if (relativeDirPath.startsWith("@") &&
+                                                        relativeDirPath.split(path_2.sep).length === 1) {
+                                                        return [2 /*return*/, true];
+                                                    }
+                                                    if (!(relativeDirPath.split(path_2.sep).length === 1 ||
+                                                        (relativeDirPath.startsWith("@") &&
+                                                            relativeDirPath.split(path_2.sep).length === 2))) return [3 /*break*/, 2];
+                                                    return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(nodeModulesDirPath, relativeDirPath, "package.json")).then(function (buff) { return JSON.parse(buff.toString("utf8")); }, function () { return undefined; })];
+                                                case 1:
+                                                    parsedPackageJson = _e.sent();
+                                                    if (parsedPackageJson === undefined) {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    if (parsedPackageJson["name"] === "tss-react") {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    try {
+                                                        for (_b = __values([
+                                                            CODEGOUV_REACT_DSFR,
+                                                            "@gouvfr/dsfr",
+                                                            "@dataesr/react-dsfr"
+                                                        ]), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                                            packageName = _c.value;
+                                                            if (Object.keys(__assign(__assign(__assign({}, parsedPackageJson["dependencies"]), parsedPackageJson["devDependencies"]), parsedPackageJson["peerDependencies"])).includes(packageName)) {
+                                                                return [2 /*return*/, true];
+                                                            }
+                                                        }
+                                                    }
+                                                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                                                    finally {
+                                                        try {
+                                                            if (_c && !_c.done && (_d = _b.return)) _d.call(_b);
+                                                        }
+                                                        finally { if (e_1) throw e_1.error; }
+                                                    }
+                                                    return [2 /*return*/, false];
+                                                case 2:
+                                                    if ((0, path_2.dirname)(relativeDirPath).endsWith(path_1.join.apply(void 0, __spreadArray([], __read(CODEGOUV_REACT_DSFR.split("/")), false)))) {
+                                                        return [2 /*return*/, (0, path_2.basename)(relativeDirPath) === "src"];
+                                                    }
+                                                    if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
+                                                        return [2 /*return*/, false];
+                                                    }
+                                                    return [2 /*return*/, true];
+                                            }
+                                        });
+                                    });
+                                }
+                            })
+                        ])];
+                case 7:
+                    srcFilePaths = (_a.sent())
+                        .flat()
+                        .filter(function (filePath) {
+                        return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(function (ext) {
+                            return filePath.endsWith(".".concat(ext));
+                        }) !== undefined;
+                    });
+                    return [2 /*return*/, {
+                            projectDirPath: projectDirPath,
+                            srcFilePaths: srcFilePaths,
+                            dsfrDirPath: dsfrDirPath,
+                            "spaParams": (function () {
+                                if (dsfrDirPath_static === undefined) {
+                                    return undefined;
+                                }
+                                (0, assert_1.assert)(htmlFilePath !== undefined);
+                                return {
+                                    dsfrDirPath_static: dsfrDirPath_static,
+                                    htmlFilePath: htmlFilePath
+                                };
+                            })(),
+                            isSilent: isSilent
+                        }];
+            }
+        });
+    });
+}
+function main(args) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function () {
+        var commandContext, log, icons, _b, _c, usedIconClassNames, usedIcons, rawIconCssCodeBuffer, hasChanged, iconsMinCssRelativePath;
+        var _this = this;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0: return [4 /*yield*/, getCommandContext(args)];
+                case 1:
+                    commandContext = _d.sent();
+                    log = commandContext.isSilent ? undefined : console.log;
+                    _c = (_b = JSON).parse;
+                    return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(commandContext.dsfrDirPath, exports.PATH_OF_ICONS_JSON))];
+                case 2:
                     icons = _c.apply(_b, [(_d.sent()).toString("utf8")]);
                     return [4 /*yield*/, (function getUsedIconClassNames() {
                             return __awaiter(this, void 0, void 0, function () {
-                                var candidateFilePaths, prefixes, prefixDsfr, prefixRemixIcon, rest, _a, availableDsfrIconClassNames, availableRemixiconIconClassNames, setUsedIconClassNames;
+                                var prefixes, prefixDsfr, prefixRemixIcon, rest, _a, availableDsfrIconClassNames, availableRemixiconIconClassNames, setUsedIconClassNames;
                                 var _this = this;
                                 return __generator(this, function (_b) {
                                     switch (_b.label) {
-                                        case 0: return [4 /*yield*/, Promise.all(isProjectPathReactDsfr
-                                                ? [
-                                                    (0, crawl_1.crawl)({
-                                                        "dirPath": (0, path_1.join)(projectDirPath, "src"),
-                                                        "returnedPathsType": "absolute",
-                                                        "getDoCrawlInDir": function (_a) {
-                                                            var relativeDirPath = _a.relativeDirPath;
-                                                            return __awaiter(_this, void 0, void 0, function () {
-                                                                return __generator(this, function (_b) {
-                                                                    if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
-                                                                        return [2 /*return*/, false];
-                                                                    }
-                                                                    if ((0, path_2.basename)(relativeDirPath) === "bin") {
-                                                                        return [2 /*return*/, false];
-                                                                    }
-                                                                    return [2 /*return*/, true];
-                                                                });
-                                                            });
-                                                        }
-                                                    }),
-                                                    (0, crawl_1.crawl)({
-                                                        "dirPath": (0, path_1.join)(projectDirPath, "stories"),
-                                                        "returnedPathsType": "absolute"
-                                                    })
-                                                ]
-                                                : [
-                                                    (0, crawl_1.crawl)({
-                                                        "dirPath": projectDirPath,
-                                                        "returnedPathsType": "absolute",
-                                                        "getDoCrawlInDir": function (_a) {
-                                                            var relativeDirPath = _a.relativeDirPath;
-                                                            return __awaiter(_this, void 0, void 0, function () {
-                                                                return __generator(this, function (_b) {
-                                                                    switch (_b.label) {
-                                                                        case 0:
-                                                                            if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
-                                                                                return [2 /*return*/, false];
-                                                                            }
-                                                                            return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)((0, path_1.join)(projectDirPath, relativeDirPath, exports.pathOfIconsJson))];
-                                                                        case 1:
-                                                                            if (_b.sent()) {
-                                                                                // We don't want to search in public/dsfr
-                                                                                return [2 /*return*/, false];
-                                                                            }
-                                                                            if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
-                                                                                return [2 /*return*/, false];
-                                                                            }
-                                                                            return [2 /*return*/, true];
-                                                                    }
-                                                                });
-                                                            });
-                                                        }
-                                                    }),
-                                                    nodeModulesDirPath === undefined
-                                                        ? []
-                                                        : (0, crawl_1.crawl)({
-                                                            "dirPath": nodeModulesDirPath,
-                                                            "returnedPathsType": "absolute",
-                                                            "getDoCrawlInDir": function (_a) {
-                                                                var relativeDirPath = _a.relativeDirPath;
-                                                                return __awaiter(_this, void 0, void 0, function () {
-                                                                    var parsedPackageJson, _b, _c, packageName;
-                                                                    var e_1, _d;
-                                                                    return __generator(this, function (_e) {
-                                                                        switch (_e.label) {
-                                                                            case 0:
-                                                                                if (relativeDirPath.startsWith("@") &&
-                                                                                    relativeDirPath.split(path_2.sep).length === 1) {
-                                                                                    return [2 /*return*/, true];
-                                                                                }
-                                                                                if (!(relativeDirPath.split(path_2.sep).length === 1 ||
-                                                                                    (relativeDirPath.startsWith("@") &&
-                                                                                        relativeDirPath.split(path_2.sep).length === 2))) return [3 /*break*/, 2];
-                                                                                return [4 /*yield*/, (0, promises_1.readFile)((0, path_1.join)(nodeModulesDirPath, relativeDirPath, "package.json")).then(function (buff) { return JSON.parse(buff.toString("utf8")); }, function () { return undefined; })];
-                                                                            case 1:
-                                                                                parsedPackageJson = _e.sent();
-                                                                                if (parsedPackageJson === undefined) {
-                                                                                    return [2 /*return*/, false];
-                                                                                }
-                                                                                if (parsedPackageJson["name"] === "tss-react") {
-                                                                                    return [2 /*return*/, false];
-                                                                                }
-                                                                                try {
-                                                                                    for (_b = __values([
-                                                                                        codegouvfrReactDsfr,
-                                                                                        "@gouvfr/dsfr",
-                                                                                        "@dataesr/react-dsfr"
-                                                                                    ]), _c = _b.next(); !_c.done; _c = _b.next()) {
-                                                                                        packageName = _c.value;
-                                                                                        if (Object.keys(__assign(__assign(__assign({}, parsedPackageJson["dependencies"]), parsedPackageJson["devDependencies"]), parsedPackageJson["peerDependencies"])).includes(packageName)) {
-                                                                                            return [2 /*return*/, true];
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                                                                                finally {
-                                                                                    try {
-                                                                                        if (_c && !_c.done && (_d = _b.return)) _d.call(_b);
-                                                                                    }
-                                                                                    finally { if (e_1) throw e_1.error; }
-                                                                                }
-                                                                                return [2 /*return*/, false];
-                                                                            case 2:
-                                                                                if ((0, path_2.dirname)(relativeDirPath).endsWith(path_1.join.apply(void 0, __spreadArray([], __read(codegouvfrReactDsfr.split("/")), false)))) {
-                                                                                    return [2 /*return*/, (0, path_2.basename)(relativeDirPath) === "src"];
-                                                                                }
-                                                                                if ((0, path_2.basename)(relativeDirPath) === "generatedFromCss") {
-                                                                                    return [2 /*return*/, false];
-                                                                                }
-                                                                                if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
-                                                                                    return [2 /*return*/, false];
-                                                                                }
-                                                                                if ((0, path_2.basename)(relativeDirPath).startsWith(".")) {
-                                                                                    return [2 /*return*/, false];
-                                                                                }
-                                                                                return [2 /*return*/, true];
-                                                                        }
-                                                                    });
-                                                                });
-                                                            }
-                                                        })
-                                                ])];
-                                        case 1:
-                                            candidateFilePaths = (_b.sent())
-                                                .flat()
-                                                .filter(function (filePath) {
-                                                return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(function (ext) {
-                                                    return filePath.endsWith(".".concat(ext));
-                                                }) !== undefined;
-                                            });
+                                        case 0:
                                             prefixes = { "prefixDsfr": "fr-icon-", "prefixRemixIcon": "ri-" };
                                             (0, assert_1.assert)();
                                             prefixDsfr = prefixes.prefixDsfr, prefixRemixIcon = prefixes.prefixRemixIcon, rest = __rest(prefixes, ["prefixDsfr", "prefixRemixIcon"]);
@@ -476,11 +521,11 @@ function main() {
                                                 return { availableDsfrIconClassNames: availableDsfrIconClassNames, availableRemixiconIconClassNames: availableRemixiconIconClassNames };
                                             })(), availableDsfrIconClassNames = _a.availableDsfrIconClassNames, availableRemixiconIconClassNames = _a.availableRemixiconIconClassNames;
                                             setUsedIconClassNames = new Set();
-                                            return [4 /*yield*/, Promise.all(candidateFilePaths.map(function (candidateFilePath) { return __awaiter(_this, void 0, void 0, function () {
+                                            return [4 /*yield*/, Promise.all(commandContext.srcFilePaths.map(function (srcFilePath) { return __awaiter(_this, void 0, void 0, function () {
                                                     var rawFileContent;
                                                     return __generator(this, function (_a) {
                                                         switch (_a.label) {
-                                                            case 0: return [4 /*yield*/, (0, promises_1.readFile)(candidateFilePath)];
+                                                            case 0: return [4 /*yield*/, (0, promises_1.readFile)(srcFilePath)];
                                                             case 1:
                                                                 rawFileContent = (_a.sent()).toString("utf8");
                                                                 __spreadArray(__spreadArray([], __read((!rawFileContent.includes(prefixDsfr) ? [] : availableDsfrIconClassNames)), false), __read((!rawFileContent.includes(prefixRemixIcon)
@@ -489,26 +534,26 @@ function main() {
                                                                     if (!rawFileContent.includes(className)) {
                                                                         return;
                                                                     }
-                                                                    log === null || log === void 0 ? void 0 : log("Found ".concat(className, " in ").concat((0, path_1.relative)(projectDirPath, candidateFilePath)));
+                                                                    log === null || log === void 0 ? void 0 : log("Found ".concat(className, " in ").concat((0, path_1.relative)(process.cwd(), srcFilePath)));
                                                                     setUsedIconClassNames.add(className);
                                                                 });
                                                                 return [2 /*return*/];
                                                         }
                                                     });
                                                 }); }))];
-                                        case 2:
+                                        case 1:
                                             _b.sent();
                                             return [2 /*return*/, { "usedIconClassNames": Array.from(setUsedIconClassNames) }];
                                     }
                                 });
                             });
                         })()];
-                case 7:
+                case 3:
                     usedIconClassNames = (_d.sent()).usedIconClassNames;
                     if (usedIconClassNames.length > 300) {
                         console.warn("There is probably an error in the only-include-used-icons script, including ".concat(usedIconClassNames.length, " icons!"));
                     }
-                    log === null || log === void 0 ? void 0 : log("Found ".concat(usedIconClassNames.length, " used icons."));
+                    log === null || log === void 0 ? void 0 : log("Found usage of ".concat(usedIconClassNames.length, " different icons."));
                     usedIcons = usedIconClassNames.map(function (className) {
                         var icon = icons.find(function (_a) {
                             var prefix = _a.prefix, iconId = _a.iconId;
@@ -519,76 +564,186 @@ function main() {
                     });
                     rawIconCssCodeBuffer = Buffer.from(generateIconsRawCssCode({
                         "patchedRawCssCodeForCompatWithRemixIcon": fs
-                            .readFileSync((0, path_1.join)(nonUndefinedDsfrDirPath, exports.pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist))
+                            .readFileSync((0, path_1.join)(commandContext.dsfrDirPath, exports.PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR))
                             .toString("utf8"),
                         usedIcons: usedIcons
                     }), "utf8");
-                    onConfirmedChange = function () { return __awaiter(_this, void 0, void 0, function () {
-                        var nextCacheDir;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    nextCacheDir = (0, path_1.join)(projectDirPath, ".next", "cache");
-                                    if (!fs.existsSync(nextCacheDir)) {
-                                        return [2 /*return*/];
-                                    }
-                                    return [4 /*yield*/, (0, promises_1.rm)(nextCacheDir, { "recursive": true, "force": true })];
-                                case 1:
-                                    _a.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); };
-                    [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
-                        .filter((0, exclude_1.exclude)(undefined))
-                        .forEach(function (dsfrDistDirPath) { return __awaiter(_this, void 0, void 0, function () {
-                        var cssFilePaths, remixiconDirPath;
-                        var _this = this;
-                        return __generator(this, function (_a) {
-                            cssFilePaths = ["icons.css", "icons.min.css"].map(function (cssFileBasename) {
-                                return (0, path_1.join)(dsfrDistDirPath, "utility", "icons", cssFileBasename);
-                            });
-                            if (cssFilePaths.some(function (cssFilePath) { return !fs.existsSync(cssFilePath); })) {
-                                return [2 /*return*/];
-                            }
-                            remixiconDirPath = (0, path_1.join)(dsfrDistDirPath, "icons", "remixicon");
-                            if (!fs.existsSync(remixiconDirPath)) {
-                                fs.mkdirSync(remixiconDirPath);
-                            }
-                            usedIcons
-                                .map(function (icon) { return (icon.prefix !== "ri-" ? undefined : icon); })
-                                .filter((0, exclude_1.exclude)(undefined))
-                                .map(function (_a) {
-                                var iconId = _a.iconId, rawSvgCode = _a.rawSvgCode;
-                                return (0, promises_1.writeFile)((0, path_1.join)(remixiconDirPath, "".concat(iconId, ".svg")), Buffer.from(rawSvgCode, "utf8"));
-                            });
-                            cssFilePaths.forEach(function (filePath) { return __awaiter(_this, void 0, void 0, function () {
-                                var currentCode;
-                                return __generator(this, function (_a) {
-                                    switch (_a.label) {
-                                        case 0:
-                                            log === null || log === void 0 ? void 0 : log("Patching ".concat((0, path_1.relative)(projectDirPath, filePath)));
-                                            return [4 /*yield*/, (0, promises_1.readFile)(filePath)];
-                                        case 1:
-                                            currentCode = _a.sent();
-                                            if (Buffer.compare(rawIconCssCodeBuffer, currentCode) === 0) {
-                                                return [2 /*return*/];
-                                            }
-                                            onConfirmedChange();
-                                            (0, promises_1.writeFile)(filePath, rawIconCssCodeBuffer);
+                    hasChanged = false;
+                    iconsMinCssRelativePath = (0, path_1.join)("utility", "icons", "icons.min.css");
+                    return [4 /*yield*/, Promise.all([commandContext.dsfrDirPath, (_a = commandContext.spaParams) === null || _a === void 0 ? void 0 : _a.dsfrDirPath_static]
+                            .filter((0, exclude_1.exclude)(undefined))
+                            .map(function (dsfrDirPath) { return __awaiter(_this, void 0, void 0, function () {
+                            var cssFilePath, _a, _b;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
+                                    case 0:
+                                        cssFilePath = (0, path_1.join)(dsfrDirPath, iconsMinCssRelativePath);
+                                        _b = (_a = Buffer).compare;
+                                        return [4 /*yield*/, (0, promises_1.readFile)(cssFilePath)];
+                                    case 1:
+                                        if (_b.apply(_a, [_c.sent(), rawIconCssCodeBuffer]) === 0) {
                                             return [2 /*return*/];
-                                    }
+                                        }
+                                        hasChanged = true;
+                                        log === null || log === void 0 ? void 0 : log("Patching ".concat((0, path_1.relative)(process.cwd(), cssFilePath)));
+                                        return [4 /*yield*/, (0, promises_1.writeFile)(cssFilePath, rawIconCssCodeBuffer)];
+                                    case 2:
+                                        _c.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }))];
+                case 4:
+                    _d.sent();
+                    if (!hasChanged) {
+                        log === null || log === void 0 ? void 0 : log("No change since last run");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, Promise.all([
+                            (function generateUsedRemixiconFiles() {
+                                var _a;
+                                return __awaiter(this, void 0, void 0, function () {
+                                    var _this = this;
+                                    return __generator(this, function (_b) {
+                                        switch (_b.label) {
+                                            case 0: return [4 /*yield*/, Promise.all([commandContext.dsfrDirPath, (_a = commandContext.spaParams) === null || _a === void 0 ? void 0 : _a.dsfrDirPath_static]
+                                                    .filter((0, exclude_1.exclude)(undefined))
+                                                    .map(function (dsfrDistDirPath) { return __awaiter(_this, void 0, void 0, function () {
+                                                    var remixiconDirPath;
+                                                    return __generator(this, function (_a) {
+                                                        switch (_a.label) {
+                                                            case 0:
+                                                                remixiconDirPath = (0, path_1.join)(dsfrDistDirPath, "icons", "remixicon");
+                                                                if (!fs.existsSync(remixiconDirPath)) {
+                                                                    fs.mkdirSync(remixiconDirPath);
+                                                                }
+                                                                return [4 /*yield*/, Promise.all(usedIcons
+                                                                        .map(function (icon) { return (icon.prefix !== "ri-" ? undefined : icon); })
+                                                                        .filter((0, exclude_1.exclude)(undefined))
+                                                                        .map(function (_a) {
+                                                                        var iconId = _a.iconId, rawSvgCode = _a.rawSvgCode;
+                                                                        return (0, promises_1.writeFile)((0, path_1.join)(remixiconDirPath, "".concat(iconId, ".svg")), Buffer.from(rawSvgCode, "utf8"));
+                                                                    }))];
+                                                            case 1:
+                                                                _a.sent();
+                                                                return [2 /*return*/];
+                                                        }
+                                                    });
+                                                }); }))];
+                                            case 1:
+                                                _b.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
                                 });
-                            }); });
-                            return [2 /*return*/];
-                        });
-                    }); });
+                            })(),
+                            (function copyUsedDsfrIconsToStatic() {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    var dsfrDirPath_static;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                if (commandContext.spaParams === undefined) {
+                                                    return [2 /*return*/];
+                                                }
+                                                dsfrDirPath_static = commandContext.spaParams.dsfrDirPath_static;
+                                                return [4 /*yield*/, Promise.all(usedIcons
+                                                        .map(function (icon) { return (icon.prefix !== "fr-icon-" ? undefined : icon); })
+                                                        .filter((0, exclude_1.exclude)(undefined))
+                                                        .map(function (_a) {
+                                                        var svgRelativePath = _a.svgRelativePath;
+                                                        return [commandContext.dsfrDirPath, dsfrDirPath_static].map(function (baseDirPath) {
+                                                            return (0, path_1.join)(baseDirPath, (0, path_2.dirname)(iconsMinCssRelativePath), svgRelativePath);
+                                                        });
+                                                    })
+                                                        .map(function (_a) {
+                                                        var _b = __read(_a, 2), srcFilePath = _b[0], destFilePath = _b[1];
+                                                        return (0, promises_1.cp)(srcFilePath, destFilePath);
+                                                    }))];
+                                            case 1:
+                                                _a.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            })(),
+                            (function addHashQueryParameterInIndexHtml() {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    var html, modifiedHtml;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                if (commandContext.spaParams === undefined) {
+                                                    return [2 /*return*/];
+                                                }
+                                                return [4 /*yield*/, (0, promises_1.readFile)(commandContext.spaParams.htmlFilePath)];
+                                            case 1:
+                                                html = (_a.sent()).toString("utf8");
+                                                modifiedHtml = (0, modifyHtmlHrefs_1.modifyHtmlHrefs)({
+                                                    "html": html,
+                                                    "getModifiedHref": function (href) {
+                                                        if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
+                                                            return href;
+                                                        }
+                                                        var _a = __read(href.split("?"), 1), urlWithoutQuery = _a[0];
+                                                        return "".concat(urlWithoutQuery, "?hash=").concat((0, fnv1aHashToHex_1.fnv1aHashToHex)(rawIconCssCodeBuffer.toString("utf8")));
+                                                    }
+                                                }).modifiedHtml;
+                                                return [4 /*yield*/, (0, promises_1.writeFile)(commandContext.spaParams.htmlFilePath, Buffer.from(modifiedHtml, "utf8"))];
+                                            case 2:
+                                                _a.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            })(),
+                            (function clearCache() {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    var _this = this;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0: return [4 /*yield*/, Promise.all([
+                                                    (0, path_1.join)(".next", "cache"),
+                                                    (0, path_1.join)(".vite"),
+                                                    (0, path_1.join)(".cache", "storybook"),
+                                                    (0, path_1.join)(".cache", "babel-loader"),
+                                                    (0, path_1.join)(".cache", "default-development")
+                                                ]
+                                                    .map(function (relativeDirPath) {
+                                                    return (0, path_1.join)(commandContext.projectDirPath, "node_modules", relativeDirPath);
+                                                })
+                                                    .map(function (dirPath) { return __awaiter(_this, void 0, void 0, function () {
+                                                    return __generator(this, function (_a) {
+                                                        switch (_a.label) {
+                                                            case 0: return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(dirPath)];
+                                                            case 1:
+                                                                if (!(_a.sent())) {
+                                                                    return [2 /*return*/];
+                                                                }
+                                                                return [4 /*yield*/, (0, promises_1.rm)(dirPath, { "recursive": true, "force": true })];
+                                                            case 2:
+                                                                _a.sent();
+                                                                return [2 /*return*/];
+                                                        }
+                                                    });
+                                                }); }))];
+                                            case 1:
+                                                _a.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            })()
+                        ])];
+                case 5:
+                    _d.sent();
                     return [2 /*return*/];
             }
         });
     });
 }
+exports.main = main;
 if (require.main === module) {
-    main();
+    main(process.argv.slice(2));
 }
 //# sourceMappingURL=only-include-used-icons.js.map
