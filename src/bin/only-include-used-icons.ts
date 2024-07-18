@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * This script is ran with `npx only-include-used-icons`
+ * This script is ran with `npx react-dsfr include-used-icons`
  * It scans your codebase to find which icons are used and only include those in the final build.
  * Do do that it patches the node_modules/@codegouvfr/react-dsfr/dist/utility/icons/icons.css file
  * and the public/dsfr/utility/icons/icons.css file (if applicable, not in Next.js for example).
@@ -232,6 +232,8 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
         if (!(await existsAsync(dsfrDirPath_static))) {
             return undefined;
         }
+
+        return dsfrDirPath_static;
     })();
 
     const htmlFilePath = await (async () => {
@@ -275,6 +277,10 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
                 "dirPath": projectDirPath,
                 "returnedPathsType": "absolute",
                 "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                    if (relativeDirPath === "dist") {
+                        return false;
+                    }
+
                     if (pathBasename(relativeDirPath) === "node_modules") {
                         return false;
                     }
@@ -398,8 +404,8 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
     };
 }
 
-async function main() {
-    const commandContext = await getCommandContext(process.argv.slice(2));
+export async function main(args: string[]) {
+    const commandContext = await getCommandContext(args);
 
     const log = commandContext.isSilent ? undefined : console.log;
 
@@ -470,7 +476,7 @@ async function main() {
         );
     }
 
-    log?.(`Found ${usedIconClassNames.length} used icons.`);
+    log?.(`Found usage of ${usedIconClassNames.length} different icons.`);
 
     const usedIcons = usedIconClassNames.map(className => {
         const icon = icons.find(({ prefix, iconId }) => `${prefix}${iconId}` === className);
@@ -501,7 +507,7 @@ async function main() {
 
     await Promise.all(
         [commandContext.dsfrDirPath, commandContext.spaParams?.dsfrDirPath_static]
-            .filter(dirPath => dirPath !== undefined)
+            .filter(exclude(undefined))
             .map(async dsfrDirPath => {
                 const cssFilePath = pathJoin(dsfrDirPath, iconsMinCssRelativePath);
 
@@ -518,6 +524,7 @@ async function main() {
     );
 
     if (!hasChanged) {
+        log?.("No change since last run");
         return;
     }
 
@@ -525,7 +532,7 @@ async function main() {
         (async function generateUsedRemixiconFiles() {
             await Promise.all(
                 [commandContext.dsfrDirPath, commandContext.spaParams?.dsfrDirPath_static]
-                    .filter(dirPath => dirPath !== undefined)
+                    .filter(exclude(undefined))
                     .map(async dsfrDistDirPath => {
                         const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
@@ -556,7 +563,8 @@ async function main() {
 
             await Promise.all(
                 usedIcons
-                    .filter(icon => icon.prefix === "fr-icon-")
+                    .map(icon => (icon.prefix !== "fr-icon-" ? undefined : icon))
+                    .filter(exclude(undefined))
                     .map(({ svgRelativePath }) =>
                         ([commandContext.dsfrDirPath, dsfrDirPath_static] as const).map(
                             baseDirPath =>
@@ -580,7 +588,7 @@ async function main() {
             const { modifiedHtml } = modifyHtmlHrefs({
                 "html": html,
                 "getModifiedHref": href => {
-                    if (!href.endsWith(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
+                    if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
                         return href;
                     }
 
@@ -622,5 +630,5 @@ async function main() {
 }
 
 if (require.main === module) {
-    main();
+    main(process.argv.slice(2));
 }

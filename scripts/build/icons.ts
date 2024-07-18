@@ -6,7 +6,7 @@ import { parseCss } from "./parseCss";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
 import type { Icon } from "../../src/bin/only-include-used-icons";
-import { pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist } from "../../src/bin/only-include-used-icons";
+import { PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR } from "../../src/bin/only-include-used-icons";
 import { sep } from "path";
 import * as css from "css";
 
@@ -55,7 +55,8 @@ export function getPatchedRawCssCodeForCompatWithRemixIcon(params: { rawCssCode:
 
     const back =
         new Array(
-            pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist.split(sep).length - 1
+            PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR.split(sep)
+                .length - 1
         )
             .fill("..")
             .join("/") + "/";

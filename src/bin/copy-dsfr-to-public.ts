@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * This script is ran with `npx copy-dsfr-to-public`
+ * This script is ran with `npx react-dsfr copy-dsfr-to-public`
  * It takes one optional arguments (for NX monorepos):
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
  */
 
-import { join as pathJoin, resolve as pathResolve, relative as pathRelative } from "path";
+import { join as pathJoin, resolve as pathResolve } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import yargsParser from "yargs-parser";
@@ -17,8 +17,8 @@ import { transformCodebase } from "./tools/transformCodebase";
 import { assert } from "tsafe/assert";
 import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
-(async () => {
-    const argv = yargsParser(process.argv.slice(2));
+export async function main(args: string[]) {
+    const argv = yargsParser(args);
 
     const projectDirPath: string = (() => {
         read_from_argv: {
@@ -69,7 +69,7 @@ import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
     const gouvFrDsfrVersion: string = JSON.parse(
         fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
-    )["dependencies"]["@gouvfr/dsfr"];
+    )["devDependencies"]["@gouvfr/dsfr"];
 
     const versionFilePath = pathJoin(dsfrDirPath, "version.txt");
 
@@ -88,10 +88,6 @@ import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
             fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
             break early_exit;
         }
-
-        console.log(
-            `DSFR distribution in ${pathRelative(process.cwd(), dsfrDirPath)} is up to date.`
-        );
 
         return;
     }
@@ -170,10 +166,6 @@ import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
                     return href;
                 }
 
-                if (href.endsWith("icons.min.css")) {
-                    return href;
-                }
-
                 const [urlWithoutQuery] = href.split("?");
 
                 return `${urlWithoutQuery}?v=${gouvFrDsfrVersion}`;
@@ -186,7 +178,7 @@ import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
         fs.writeFileSync(htmlFilePath, Buffer.from(modifiedHtml, "utf8"));
     }
-})();
+}
 
 function readAssetsImportFromDsfrCss(params: { dsfrSourceCode: string }): string[] {
     const { dsfrSourceCode } = params;
@@ -222,4 +214,8 @@ function getRepoIssueUrl() {
         .replace(/\.git$/, "");
 
     return `${reactDsfrRepoUrl}/issues`;
+}
+
+if (require.main === module) {
+    main(process.argv.slice(2));
 }

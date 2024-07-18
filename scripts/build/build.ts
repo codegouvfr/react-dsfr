@@ -133,30 +133,30 @@ import yargsParser from "yargs-parser";
             break local_testing;
         }
 
-        fs.writeFileSync(
-            pathJoin(distDirPath, "package.json"),
-            Buffer.from(
-                JSON.stringify(
-                    (() => {
-                        const packageJsonParsed = JSON.parse(
-                            fs
-                                .readFileSync(pathJoin(projectRootDirPath, "package.json"))
-                                .toString("utf8")
-                        );
+        {
+            let modifiedPackageJsonContent = fs
+                .readFileSync(pathJoin(projectRootDirPath, "package.json"))
+                .toString("utf8");
 
-                        return {
-                            ...packageJsonParsed,
-                            "main": packageJsonParsed["main"].replace(/^dist\//, ""),
-                            "types": packageJsonParsed["types"].replace(/^dist\//, ""),
-                            "module": packageJsonParsed["module"].replace(/^dist\//, "")
-                        };
-                    })(),
-                    null,
-                    2
-                ),
-                "utf8"
-            )
-        );
+            modifiedPackageJsonContent = (() => {
+                const o = JSON.parse(modifiedPackageJsonContent);
+
+                delete o.files;
+
+                return JSON.stringify(o, null, 2);
+            })();
+
+            modifiedPackageJsonContent = modifiedPackageJsonContent
+                .replace(/"dist\//g, '"')
+                .replace(/"\.\/dist\//g, '"./')
+                .replace(/"!dist\//g, '"!')
+                .replace(/"!\.\/dist\//g, '"!./');
+
+            fs.writeFileSync(
+                pathJoin(distDirPath, "package.json"),
+                Buffer.from(modifiedPackageJsonContent, "utf8")
+            );
+        }
 
         fs.cpSync(dsfrDirPath, pathJoin(distDirPath, "dsfr"), { "recursive": true });
         fs.rmSync(dsfrDirPath, { "recursive": true });

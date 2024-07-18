@@ -70,7 +70,9 @@ if (testAppPaths.length === 0) {
     process.exit(-1);
 }
 
-testAppPaths.forEach(testAppPath => execSync("yarn install", { "cwd": testAppPath }));
+testAppPaths.forEach(testAppPath =>
+    execSync("yarn install --ignore-scripts", { "cwd": testAppPath })
+);
 
 console.log("=== Linking common dependencies ===");
 
