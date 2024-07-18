@@ -7,7 +7,7 @@ import "../dist/dsfr/utility/icons/icons.min.css";
 import "../dist/dsfr/dsfr.css";
 import { useIsDark } from "../dist/useIsDark";
 import { startReactDsfr } from "../dist/spa";
-import { useColors } from "../dist/useColors";
+import { fr } from "../dist/fr";
 import { MuiDsfrThemeProvider } from "../dist/mui";
 
 startReactDsfr({
@@ -26,7 +26,7 @@ export const DocsContainer = ({ children, context }) => {
         [isStorybookUiDark]
     );
 
-    const backgroundColor = useColors().decisions.background.default.grey.default;
+    const backgroundColor = fr.colors.decisions.background.default.grey.default;
 
     return (
         <>
