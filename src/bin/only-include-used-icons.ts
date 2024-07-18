@@ -10,12 +10,6 @@
  * There are two optional arguments that you can use:
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
- * - `--publicDir <path>` to specify the public directory.
- *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
- *   In other projects we will assume it's <project root>/public.
- *   This path is expressed relative to the project directory.
- *   It is assumed that there is a dsfr directory in the public directory (copied over using the
- *   `npx copy-dsfr-to-public` script).
  * - `--silent` to disable console.log
  */
 
@@ -33,10 +27,11 @@ import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPa
 import { readPublicDirPath } from "./readPublicDirPath";
 import { existsAsync } from "./tools/fs.existsAsync";
 import { fnv1aHashToHex } from "./tools/fnv1aHashToHex";
+import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
-export const pathOfIconsJson = pathJoin("utility", "icons", "icons.json");
+export const PATH_OF_ICONS_JSON = pathJoin("utility", "icons", "icons.json");
 
-export const pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist = pathJoin(
+export const PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR = pathJoin(
     "utility",
     "icons",
     "dsfr_remixicon.css"
@@ -114,8 +109,25 @@ export function generateIconsRawCssCode(params: {
     ].join("\n");
 }
 
-async function main() {
-    const argv = yargsParser(process.argv.slice(2));
+type CommandContext = {
+    projectDirPath: string;
+    srcFilePaths: string[];
+    dsfrDirPath: string;
+    spaParams:
+        | {
+              dsfrDirPath_static: string;
+              htmlFilePath: string;
+          }
+        | undefined;
+    isSilent: boolean;
+};
+
+const CODEGOUV_REACT_DSFR: string = JSON.parse(
+    fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
+)["name"];
+
+async function getCommandContext(args: string[]): Promise<CommandContext> {
+    const argv = yargsParser(args);
 
     const projectDirPath: string = (() => {
         read_from_argv: {
@@ -131,238 +143,47 @@ async function main() {
         return process.cwd();
     })();
 
-    const publicDirPath = await (async () => {
-        read_from_argv: {
-            const arg = argv["publicDir"];
+    special_case_for_our_storybook: {
+        const projectDirPath = process.cwd();
 
-            if (arg === undefined) {
-                break read_from_argv;
+        const isProjectPathReactDsfr = await (async () => {
+            const packageJsonFilePath = pathJoin(projectDirPath, "package.json");
+
+            if (!(await existsAsync(packageJsonFilePath))) {
+                return false;
             }
 
-            const publicDirPath = getAbsoluteAndInOsFormatPath({
-                "pathIsh": arg,
-                "cwd": projectDirPath
-            });
+            const packageJson = JSON.parse((await readFile(packageJsonFilePath)).toString("utf8"));
 
-            if (!fs.existsSync(publicDirPath)) {
-                fs.mkdirSync(publicDirPath, { "recursive": true });
-            }
+            return packageJson["name"] === CODEGOUV_REACT_DSFR;
+        })();
 
-            return publicDirPath;
+        if (!isProjectPathReactDsfr) {
+            break special_case_for_our_storybook;
         }
 
-        const publicDirPath = await readPublicDirPath({ projectDirPath });
+        const srcFilePaths = (
+            await Promise.all([
+                crawl({
+                    "dirPath": pathJoin(projectDirPath, "src"),
+                    "returnedPathsType": "absolute",
+                    "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                        if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                            return false;
+                        }
 
-        return publicDirPath;
-    })();
+                        if (pathBasename(relativeDirPath) === "bin") {
+                            return false;
+                        }
 
-    const log = argv["silent"] === true ? undefined : console.log;
-
-    const dsfrDistInPublicDirPath = (() => {
-        const dsfrDistInPublicDirPath = pathJoin(publicDirPath, "dsfr");
-
-        if (!fs.existsSync(dsfrDistInPublicDirPath)) {
-            return undefined;
-        }
-
-        return dsfrDistInPublicDirPath;
-    })();
-
-    if (dsfrDistInPublicDirPath !== undefined) {
-        log?.(`Public directory is ${pathRelative(projectDirPath, publicDirPath)}`);
-    }
-
-    const codegouvfrReactDsfr: string = JSON.parse(
-        fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
-    )["name"];
-
-    const isProjectPathReactDsfr = await (async () => {
-        const packageJsonFilePath = pathJoin(projectDirPath, "package.json");
-
-        if (!(await existsAsync(packageJsonFilePath))) {
-            return false;
-        }
-
-        const packageJson = JSON.parse((await readFile(packageJsonFilePath)).toString("utf8"));
-
-        return packageJson["name"] === codegouvfrReactDsfr;
-    })();
-
-    const nodeModulesDirPath = isProjectPathReactDsfr
-        ? undefined
-        : await (async function callee(n: number): Promise<string> {
-              if (n >= projectDirPath.split(pathSep).length) {
-                  throw new Error("Need to install node modules?");
-              }
-
-              const nodeModulesDirPath = pathJoin(
-                  ...[projectDirPath, ...new Array(n).fill(".."), "node_modules"]
-              );
-
-              const doesExist = await existsAsync(
-                  pathJoin(...[nodeModulesDirPath, ...codegouvfrReactDsfr.split("/")])
-              );
-
-              if (!doesExist) {
-                  return callee(n + 1);
-              }
-
-              return nodeModulesDirPath;
-          })(0);
-
-    if (nodeModulesDirPath !== undefined) {
-        log?.(
-            `${codegouvfrReactDsfr} is installed in ${pathRelative(
-                projectDirPath,
-                nodeModulesDirPath
-            )}`
-        );
-    }
-
-    const dsfrDistInNodeModulesDirPath =
-        nodeModulesDirPath === undefined
-            ? undefined
-            : pathJoin(...[nodeModulesDirPath, ...codegouvfrReactDsfr.split("/"), "dsfr"]);
-
-    const nonUndefinedDsfrDirPath = dsfrDistInNodeModulesDirPath ?? dsfrDistInPublicDirPath;
-
-    assert(nonUndefinedDsfrDirPath !== undefined, "Nothing to patch");
-
-    const icons: Icon[] = JSON.parse(
-        (await readFile(pathJoin(nonUndefinedDsfrDirPath, pathOfIconsJson))).toString("utf8")
-    );
-
-    const { usedIconClassNames } = await (async function getUsedIconClassNames() {
-        const candidateFilePaths = (
-            await Promise.all(
-                isProjectPathReactDsfr
-                    ? [
-                          crawl({
-                              "dirPath": pathJoin(projectDirPath, "src"),
-                              "returnedPathsType": "absolute",
-                              "getDoCrawlInDir": async ({ relativeDirPath }) => {
-                                  if (pathBasename(relativeDirPath) === "generatedFromCss") {
-                                      return false;
-                                  }
-
-                                  if (pathBasename(relativeDirPath) === "bin") {
-                                      return false;
-                                  }
-
-                                  return true;
-                              }
-                          }),
-                          crawl({
-                              "dirPath": pathJoin(projectDirPath, "stories"),
-                              "returnedPathsType": "absolute"
-                          })
-                      ]
-                    : [
-                          crawl({
-                              "dirPath": projectDirPath,
-                              "returnedPathsType": "absolute",
-                              "getDoCrawlInDir": async ({ relativeDirPath }) => {
-                                  if (pathBasename(relativeDirPath) === "node_modules") {
-                                      return false;
-                                  }
-
-                                  if (
-                                      await existsAsync(
-                                          pathJoin(projectDirPath, relativeDirPath, pathOfIconsJson)
-                                      )
-                                  ) {
-                                      // We don't want to search in public/dsfr
-                                      return false;
-                                  }
-
-                                  if (pathBasename(relativeDirPath).startsWith(".")) {
-                                      return false;
-                                  }
-
-                                  return true;
-                              }
-                          }),
-                          nodeModulesDirPath === undefined
-                              ? []
-                              : crawl({
-                                    "dirPath": nodeModulesDirPath,
-                                    "returnedPathsType": "absolute",
-                                    "getDoCrawlInDir": async ({ relativeDirPath }) => {
-                                        if (
-                                            relativeDirPath.startsWith("@") &&
-                                            relativeDirPath.split(pathSep).length === 1
-                                        ) {
-                                            return true;
-                                        }
-
-                                        if (
-                                            relativeDirPath.split(pathSep).length === 1 ||
-                                            (relativeDirPath.startsWith("@") &&
-                                                relativeDirPath.split(pathSep).length === 2)
-                                        ) {
-                                            const parsedPackageJson = await readFile(
-                                                pathJoin(
-                                                    nodeModulesDirPath,
-                                                    relativeDirPath,
-                                                    "package.json"
-                                                )
-                                            ).then(
-                                                buff => JSON.parse(buff.toString("utf8")),
-                                                () => undefined
-                                            );
-
-                                            if (parsedPackageJson === undefined) {
-                                                return false;
-                                            }
-
-                                            if (parsedPackageJson["name"] === "tss-react") {
-                                                return false;
-                                            }
-
-                                            for (const packageName of [
-                                                codegouvfrReactDsfr,
-                                                "@gouvfr/dsfr",
-                                                "@dataesr/react-dsfr"
-                                            ]) {
-                                                if (
-                                                    Object.keys({
-                                                        ...parsedPackageJson["dependencies"],
-                                                        ...parsedPackageJson["devDependencies"],
-                                                        ...parsedPackageJson["peerDependencies"]
-                                                    }).includes(packageName)
-                                                ) {
-                                                    return true;
-                                                }
-                                            }
-
-                                            return false;
-                                        }
-
-                                        if (
-                                            pathDirname(relativeDirPath).endsWith(
-                                                pathJoin(...codegouvfrReactDsfr.split("/"))
-                                            )
-                                        ) {
-                                            return pathBasename(relativeDirPath) === "src";
-                                        }
-
-                                        if (pathBasename(relativeDirPath) === "generatedFromCss") {
-                                            return false;
-                                        }
-
-                                        if (pathBasename(relativeDirPath) === "node_modules") {
-                                            return false;
-                                        }
-
-                                        if (pathBasename(relativeDirPath).startsWith(".")) {
-                                            return false;
-                                        }
-
-                                        return true;
-                                    }
-                                })
-                      ]
-            )
+                        return true;
+                    }
+                }),
+                crawl({
+                    "dirPath": pathJoin(projectDirPath, "stories"),
+                    "returnedPathsType": "absolute"
+                })
+            ])
         )
             .flat()
             .filter(
@@ -372,6 +193,221 @@ async function main() {
                     ) !== undefined
             );
 
+        return {
+            projectDirPath,
+            srcFilePaths,
+            "dsfrDirPath": pathJoin(projectDirPath, "dist", "dsfr"),
+            "spaParams": undefined,
+            "isSilent": false
+        };
+    }
+
+    const nodeModulesDirPath = await (async function callee(n: number): Promise<string> {
+        if (n >= projectDirPath.split(pathSep).length) {
+            throw new Error("Need to install node modules?");
+        }
+
+        const nodeModulesDirPath = pathJoin(
+            ...[projectDirPath, ...new Array(n).fill(".."), "node_modules"]
+        );
+
+        const doesExist = await existsAsync(
+            pathJoin(...[nodeModulesDirPath, ...CODEGOUV_REACT_DSFR.split("/")])
+        );
+
+        if (!doesExist) {
+            return callee(n + 1);
+        }
+
+        return nodeModulesDirPath;
+    })(0);
+
+    const dsfrDirPath = pathJoin(
+        ...[nodeModulesDirPath, ...CODEGOUV_REACT_DSFR.split("/"), "dsfr"]
+    );
+
+    const dsfrDirPath_static = await (async () => {
+        const dsfrDirPath_static = pathJoin(await readPublicDirPath({ projectDirPath }), "dsfr");
+
+        if (!(await existsAsync(dsfrDirPath_static))) {
+            return undefined;
+        }
+    })();
+
+    const htmlFilePath = await (async () => {
+        if (dsfrDirPath_static === undefined) {
+            return undefined;
+        }
+
+        vite: {
+            const filePath = pathJoin(projectDirPath, "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break vite;
+            }
+
+            return filePath;
+        }
+
+        cra: {
+            if (dsfrDirPath_static === undefined) {
+                break cra;
+            }
+
+            const filePath = pathJoin(pathDirname(dsfrDirPath_static), "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break cra;
+            }
+
+            return filePath;
+        }
+
+        // Next.js
+        return undefined;
+    })();
+
+    const isSilent = argv["silent"] === true;
+
+    const srcFilePaths = (
+        await Promise.all([
+            crawl({
+                "dirPath": projectDirPath,
+                "returnedPathsType": "absolute",
+                "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                    if (pathBasename(relativeDirPath) === "node_modules") {
+                        return false;
+                    }
+
+                    if (
+                        await existsAsync(
+                            pathJoin(projectDirPath, relativeDirPath, PATH_OF_ICONS_JSON)
+                        )
+                    ) {
+                        // We don't want to search in public/dsfr
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath).startsWith(".")) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }),
+            crawl({
+                "dirPath": nodeModulesDirPath,
+                "returnedPathsType": "absolute",
+                "getDoCrawlInDir": async ({ relativeDirPath }) => {
+                    if (
+                        relativeDirPath.startsWith("@") &&
+                        relativeDirPath.split(pathSep).length === 1
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        relativeDirPath.split(pathSep).length === 1 ||
+                        (relativeDirPath.startsWith("@") &&
+                            relativeDirPath.split(pathSep).length === 2)
+                    ) {
+                        const parsedPackageJson = await readFile(
+                            pathJoin(nodeModulesDirPath, relativeDirPath, "package.json")
+                        ).then(
+                            buff => JSON.parse(buff.toString("utf8")),
+                            () => undefined
+                        );
+
+                        if (parsedPackageJson === undefined) {
+                            return false;
+                        }
+
+                        if (parsedPackageJson["name"] === "tss-react") {
+                            return false;
+                        }
+
+                        for (const packageName of [
+                            CODEGOUV_REACT_DSFR,
+                            "@gouvfr/dsfr",
+                            "@dataesr/react-dsfr"
+                        ]) {
+                            if (
+                                Object.keys({
+                                    ...parsedPackageJson["dependencies"],
+                                    ...parsedPackageJson["devDependencies"],
+                                    ...parsedPackageJson["peerDependencies"]
+                                }).includes(packageName)
+                            ) {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
+
+                    if (
+                        pathDirname(relativeDirPath).endsWith(
+                            pathJoin(...CODEGOUV_REACT_DSFR.split("/"))
+                        )
+                    ) {
+                        return pathBasename(relativeDirPath) === "src";
+                    }
+
+                    if (pathBasename(relativeDirPath) === "generatedFromCss") {
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath) === "node_modules") {
+                        return false;
+                    }
+
+                    if (pathBasename(relativeDirPath).startsWith(".")) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            })
+        ])
+    )
+        .flat()
+        .filter(
+            filePath =>
+                ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(ext =>
+                    filePath.endsWith(`.${ext}`)
+                ) !== undefined
+        );
+
+    return {
+        projectDirPath,
+        srcFilePaths,
+        dsfrDirPath,
+        "spaParams": (() => {
+            if (dsfrDirPath_static === undefined) {
+                return undefined;
+            }
+
+            assert(htmlFilePath !== undefined);
+
+            return {
+                dsfrDirPath_static,
+                htmlFilePath
+            };
+        })(),
+        isSilent
+    };
+}
+
+async function main() {
+    const commandContext = await getCommandContext(process.argv.slice(2));
+
+    const log = commandContext.isSilent ? undefined : console.log;
+
+    const icons: Icon[] = JSON.parse(
+        (await readFile(pathJoin(commandContext.dsfrDirPath, PATH_OF_ICONS_JSON))).toString("utf8")
+    );
+
+    const { usedIconClassNames } = await (async function getUsedIconClassNames() {
         const prefixes = { "prefixDsfr": "fr-icon-", "prefixRemixIcon": "ri-" } as const;
 
         assert<Equals<typeof prefixes[keyof typeof prefixes], Icon["prefix"]>>();
@@ -405,8 +441,8 @@ async function main() {
         const setUsedIconClassNames = new Set<string>();
 
         await Promise.all(
-            candidateFilePaths.map(async candidateFilePath => {
-                const rawFileContent = (await readFile(candidateFilePath)).toString("utf8");
+            commandContext.srcFilePaths.map(async srcFilePath => {
+                const rawFileContent = (await readFile(srcFilePath)).toString("utf8");
 
                 [
                     ...(!rawFileContent.includes(prefixDsfr) ? [] : availableDsfrIconClassNames),
@@ -418,9 +454,7 @@ async function main() {
                         return;
                     }
 
-                    log?.(
-                        `Found ${className} in ${pathRelative(projectDirPath, candidateFilePath)}`
-                    );
+                    log?.(`Found ${className} in ${pathRelative(process.cwd(), srcFilePath)}`);
 
                     setUsedIconClassNames.add(className);
                 });
@@ -451,8 +485,8 @@ async function main() {
             "patchedRawCssCodeForCompatWithRemixIcon": fs
                 .readFileSync(
                     pathJoin(
-                        nonUndefinedDsfrDirPath,
-                        pathOfPatchedRawCssCodeForCompatWithRemixIconRelativeToDsfrDist
+                        commandContext.dsfrDirPath,
+                        PATH_OF_PATCHED_RAW_CSS_CODE_FOR_COMPAT_WITH_REMIXICON_RELATIVE_TO_DSFR
                     )
                 )
                 .toString("utf8"),
@@ -463,104 +497,128 @@ async function main() {
 
     let hasChanged = false;
 
-    const utilityIconsRelativeDirPath = pathJoin("utility", "icons");
+    const iconsMinCssRelativePath = pathJoin("utility", "icons", "icons.min.css");
 
     await Promise.all(
-        [dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath]
-            .filter(exclude(undefined))
-            .map(async dsfrDistDirPath => {
-                const cssFilePath = pathJoin(
-                    dsfrDistDirPath,
-                    utilityIconsRelativeDirPath,
-                    "icons.min.css"
-                );
+        [commandContext.dsfrDirPath, commandContext.spaParams?.dsfrDirPath_static]
+            .filter(dirPath => dirPath !== undefined)
+            .map(async dsfrDirPath => {
+                const cssFilePath = pathJoin(dsfrDirPath, iconsMinCssRelativePath);
 
-                if (!fs.existsSync(cssFilePath)) {
+                if (Buffer.compare(await readFile(cssFilePath), rawIconCssCodeBuffer) === 0) {
                     return;
                 }
-
-                const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
-
-                if (!fs.existsSync(remixiconDirPath)) {
-                    fs.mkdirSync(remixiconDirPath);
-                }
-
-                usedIcons
-                    .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
-                    .filter(exclude(undefined))
-                    .map(({ iconId, rawSvgCode }) =>
-                        writeFile(
-                            pathJoin(remixiconDirPath, `${iconId}.svg`),
-                            Buffer.from(rawSvgCode, "utf8")
-                        )
-                    );
-
-                log?.(`Patching ${pathRelative(projectDirPath, cssFilePath)}`);
-
-                const dynamicFilePath = pathJoin(
-                    pathDirname(cssFilePath),
-                    `icons.${fnv1aHashToHex(rawIconCssCodeBuffer.toString("utf8"))}.css`
-                );
-
-                if (fs.existsSync(dynamicFilePath)) {
-                    return;
-                }
-
-                fs.readdirSync(pathDirname(cssFilePath))
-                    .filter(
-                        fileBasename =>
-                            fileBasename.startsWith("icons.") && fileBasename.endsWith(".css")
-                    )
-                    .map(fileBasename => pathJoin(pathDirname(cssFilePath), fileBasename))
-                    .forEach(filePath => fs.unlinkSync(filePath));
-
-                await Promise.all([
-                    writeFile(dynamicFilePath, rawIconCssCodeBuffer),
-                    writeFile(
-                        cssFilePath,
-                        Buffer.from(`@import url("./${pathBasename(dynamicFilePath)}");`, "utf8")
-                    )
-                ]);
 
                 hasChanged = true;
+
+                log?.(`Patching ${pathRelative(process.cwd(), cssFilePath)}`);
+
+                await writeFile(cssFilePath, rawIconCssCodeBuffer);
             })
     );
 
-    clear_next_cache: {
-        if (!hasChanged) {
-            break clear_next_cache;
-        }
-
-        const nextCacheDir = pathJoin(projectDirPath, ".next", "cache");
-
-        if (!fs.existsSync(nextCacheDir)) {
-            break clear_next_cache;
-        }
-
-        await rm(nextCacheDir, { "recursive": true, "force": true });
+    if (!hasChanged) {
+        return;
     }
 
-    copy_used_dsfr_icons_to_public: {
-        if (!hasChanged) {
-            break copy_used_dsfr_icons_to_public;
-        }
+    await Promise.all([
+        (async function generateUsedRemixiconFiles() {
+            await Promise.all(
+                [commandContext.dsfrDirPath, commandContext.spaParams?.dsfrDirPath_static]
+                    .filter(dirPath => dirPath !== undefined)
+                    .map(async dsfrDistDirPath => {
+                        const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
-        if (dsfrDistInPublicDirPath === undefined || dsfrDistInNodeModulesDirPath === undefined) {
-            break copy_used_dsfr_icons_to_public;
-        }
+                        if (!fs.existsSync(remixiconDirPath)) {
+                            fs.mkdirSync(remixiconDirPath);
+                        }
 
-        await Promise.all(
-            usedIcons
-                .filter(icon => icon.prefix === "fr-icon-")
-                .map(({ svgRelativePath }) =>
-                    ([dsfrDistInNodeModulesDirPath, dsfrDistInPublicDirPath] as const).map(
-                        baseDirPath =>
-                            pathJoin(baseDirPath, utilityIconsRelativeDirPath, svgRelativePath)
+                        await Promise.all(
+                            usedIcons
+                                .map(icon => (icon.prefix !== "ri-" ? undefined : icon))
+                                .filter(exclude(undefined))
+                                .map(({ iconId, rawSvgCode }) =>
+                                    writeFile(
+                                        pathJoin(remixiconDirPath, `${iconId}.svg`),
+                                        Buffer.from(rawSvgCode, "utf8")
+                                    )
+                                )
+                        );
+                    })
+            );
+        })(),
+        (async function copyUsedDsfrIconsToStatic() {
+            if (commandContext.spaParams === undefined) {
+                return;
+            }
+
+            const { dsfrDirPath_static } = commandContext.spaParams;
+
+            await Promise.all(
+                usedIcons
+                    .filter(icon => icon.prefix === "fr-icon-")
+                    .map(({ svgRelativePath }) =>
+                        ([commandContext.dsfrDirPath, dsfrDirPath_static] as const).map(
+                            baseDirPath =>
+                                pathJoin(
+                                    baseDirPath,
+                                    pathDirname(iconsMinCssRelativePath),
+                                    svgRelativePath
+                                )
+                        )
                     )
-                )
-                .map(([srcFilePath, destFilePath]) => cp(srcFilePath, destFilePath))
-        );
-    }
+                    .map(([srcFilePath, destFilePath]) => cp(srcFilePath, destFilePath))
+            );
+        })(),
+        (async function addHashQueryParameterInIndexHtml() {
+            if (commandContext.spaParams === undefined) {
+                return;
+            }
+
+            const html = (await readFile(commandContext.spaParams.htmlFilePath)).toString("utf8");
+
+            const { modifiedHtml } = modifyHtmlHrefs({
+                "html": html,
+                "getModifiedHref": href => {
+                    if (!href.endsWith(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
+                        return href;
+                    }
+
+                    const [urlWithoutQuery] = href.split("?");
+
+                    return `${urlWithoutQuery}?hash=${fnv1aHashToHex(
+                        rawIconCssCodeBuffer.toString("utf8")
+                    )}`;
+                }
+            });
+
+            await writeFile(
+                commandContext.spaParams.htmlFilePath,
+                Buffer.from(modifiedHtml, "utf8")
+            );
+        })(),
+        (async function clearCache() {
+            await Promise.all(
+                [
+                    pathJoin(".next", "cache"),
+                    pathJoin(".vite"),
+                    pathJoin(".cache", "storybook"),
+                    pathJoin(".cache", "babel-loader"),
+                    pathJoin(".cache", "default-development")
+                ]
+                    .map(relativeDirPath =>
+                        pathJoin(commandContext.projectDirPath, "node_modules", relativeDirPath)
+                    )
+                    .map(async dirPath => {
+                        if (!(await existsAsync(dirPath))) {
+                            return;
+                        }
+
+                        await rm(dirPath, { "recursive": true, "force": true });
+                    })
+            );
+        })()
+    ]);
 }
 
 if (require.main === module) {
