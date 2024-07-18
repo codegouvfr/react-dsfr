@@ -2,16 +2,12 @@
 
 /**
  * This script is ran with `npx copy-dsfr-to-public`
- * It takes two optional arguments:
+ * It takes one optional arguments (for NX monorepos):
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
- * - `--publicDir <path>` to specify the public directory.
- *   In Vite projects we will read the vite.config.ts (or .js) file to find the public directory.
- *   In other projects we will assume it's <project root>/public.
- *   This path is expressed relative to the project directory.
  */
 
-import { join as pathJoin, resolve as pathResolve } from "path";
+import { join as pathJoin, resolve as pathResolve, relative as pathRelative } from "path";
 import * as fs from "fs";
 import { getProjectRoot } from "./tools/getProjectRoot";
 import yargsParser from "yargs-parser";
@@ -19,6 +15,7 @@ import { getAbsoluteAndInOsFormatPath } from "./tools/getAbsoluteAndInOsFormatPa
 import { readPublicDirPath } from "./readPublicDirPath";
 import { transformCodebase } from "./tools/transformCodebase";
 import { assert } from "tsafe/assert";
+import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
 
 (async () => {
     const argv = yargsParser(process.argv.slice(2));
@@ -37,38 +34,66 @@ import { assert } from "tsafe/assert";
         return process.cwd();
     })();
 
-    const publicDirPath = await (async () => {
-        read_from_argv: {
-            const arg = argv["publicDir"];
+    const publicDirPath = await readPublicDirPath({ projectDirPath });
 
-            if (arg === undefined) {
-                break read_from_argv;
+    const htmlFilePath = await (async () => {
+        vite: {
+            const filePath = pathJoin(projectDirPath, "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break vite;
             }
 
-            const publicDirPath = getAbsoluteAndInOsFormatPath({
-                "pathIsh": arg,
-                "cwd": projectDirPath
-            });
-
-            if (!fs.existsSync(publicDirPath)) {
-                fs.mkdirSync(publicDirPath, { "recursive": true });
-            }
-
-            return publicDirPath;
+            return filePath;
         }
 
-        return await readPublicDirPath({ projectDirPath });
+        cra: {
+            const filePath = pathJoin(publicDirPath, "index.html");
+
+            if (!fs.existsSync(filePath)) {
+                break cra;
+            }
+
+            return filePath;
+        }
+
+        assert(false, "Can't locate your index.html file.");
     })();
 
     if (!fs.existsSync(publicDirPath)) {
-        console.error(`Can't locate your public directory, use the --public option to specify it.`);
+        console.error(`Can't locate your public directory.`);
         process.exit(-1);
     }
 
     const dsfrDirPath = pathJoin(publicDirPath, "dsfr");
 
-    if (fs.existsSync(dsfrDirPath)) {
-        fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
+    const gouvFrDsfrVersion: string = JSON.parse(
+        fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8")
+    )["dependencies"]["@gouvfr/dsfr"];
+
+    const versionFilePath = pathJoin(dsfrDirPath, "version.txt");
+
+    early_exit: {
+        if (!fs.existsSync(dsfrDirPath)) {
+            break early_exit;
+        }
+
+        if (!fs.existsSync(versionFilePath)) {
+            break early_exit;
+        }
+
+        const currentVersion = fs.readFileSync(versionFilePath).toString("utf8");
+
+        if (currentVersion !== gouvFrDsfrVersion) {
+            fs.rmSync(dsfrDirPath, { "recursive": true, "force": true });
+            break early_exit;
+        }
+
+        console.log(
+            `DSFR distribution in ${pathRelative(process.cwd(), dsfrDirPath)} is up to date.`
+        );
+
+        return;
     }
 
     fs.mkdirSync(dsfrDirPath, { "recursive": true });
@@ -133,6 +158,33 @@ import { assert } from "tsafe/assert";
                 }
             }
         });
+    }
+
+    fs.writeFileSync(versionFilePath, Buffer.from(gouvFrDsfrVersion, "utf8"));
+
+    add_version_query_params_in_html_imports: {
+        const { modifiedHtml } = modifyHtmlHrefs({
+            "html": fs.readFileSync(htmlFilePath).toString("utf8"),
+            "getModifiedHref": href => {
+                if (!href.includes("/dsfr/")) {
+                    return href;
+                }
+
+                if (href.endsWith("icons.min.css")) {
+                    return href;
+                }
+
+                const [urlWithoutQuery] = href.split("?");
+
+                return `${urlWithoutQuery}?v=${gouvFrDsfrVersion}`;
+            }
+        });
+
+        if (htmlFilePath === modifiedHtml) {
+            break add_version_query_params_in_html_imports;
+        }
+
+        fs.writeFileSync(htmlFilePath, Buffer.from(modifiedHtml, "utf8"));
     }
 })();
 
