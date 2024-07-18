@@ -83,7 +83,7 @@ var _a = __read(process.argv), commandName = _a[2], args = _a.slice(3);
                 _a = commandName;
                 switch (_a) {
                     case "include-used-icons": return [3 /*break*/, 1];
-                    case "copy-dsfr-to-public": return [3 /*break*/, 4];
+                    case "copy-to-public": return [3 /*break*/, 4];
                 }
                 return [3 /*break*/, 7];
             case 1: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./only-include-used-icons")); })];

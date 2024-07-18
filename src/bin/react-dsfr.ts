@@ -9,7 +9,7 @@ const [, , commandName, ...args] = process.argv;
                 await main(args);
             }
             break;
-        case "copy-dsfr-to-public":
+        case "copy-to-public":
             {
                 const { main } = await import("./copy-dsfr-to-public");
 
