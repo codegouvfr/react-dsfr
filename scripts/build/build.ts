@@ -97,6 +97,10 @@ import yargsParser from "yargs-parser";
 
     fs.cpSync(pathJoin(__dirname, "main.css"), pathJoin(distDirPath, "main.css"));
 
+    fs.cpSync(pathJoin(dsfrDirPath, "favicon"), pathJoin(distDirPath, "favicon"), {
+        "recursive": true
+    });
+
     Object.entries<string>(
         JSON.parse(fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8"))[
             "bin"
