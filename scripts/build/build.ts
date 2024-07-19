@@ -95,6 +95,8 @@ import yargsParser from "yargs-parser";
         "doWatch": false
     });
 
+    fs.cpSync(pathJoin(__dirname, "main.css"), pathJoin(distDirPath, "main.css"));
+
     Object.entries<string>(
         JSON.parse(fs.readFileSync(pathJoin(getProjectRoot(), "package.json")).toString("utf8"))[
             "bin"
