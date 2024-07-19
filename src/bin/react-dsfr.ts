@@ -11,7 +11,7 @@ const [, , commandName, ...args] = process.argv;
                 await main(args);
             }
             break;
-        case "copy-to-public":
+        case "copy-static-assets":
             {
                 const { main } = await import("./copy-dsfr-to-public");
 
