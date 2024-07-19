@@ -22,7 +22,7 @@
         "format:check": "yarn _format --list-different",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
-        "prestorybook": "yarn build && node dist/bin/only-include-used-icons.js",
+        "prestorybook": "yarn build && node dist/bin/react-dsfr include-used-icons",
         "prebuild-storybook": "yarn prestorybook"
     },
     "bin": {
