@@ -362,6 +362,9 @@ function getCommandContext(args) {
                                                     if (relativeDirPath === "dist") {
                                                         return [2 /*return*/, false];
                                                     }
+                                                    if (relativeDirPath === "build") {
+                                                        return [2 /*return*/, false];
+                                                    }
                                                     if ((0, path_2.basename)(relativeDirPath) === "node_modules") {
                                                         return [2 /*return*/, false];
                                                     }

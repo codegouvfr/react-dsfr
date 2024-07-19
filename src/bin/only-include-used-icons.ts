@@ -281,6 +281,10 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
                         return false;
                     }
 
+                    if (relativeDirPath === "build") {
+                        return false;
+                    }
+
                     if (pathBasename(relativeDirPath) === "node_modules") {
                         return false;
                     }
