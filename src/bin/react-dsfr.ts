@@ -4,7 +4,7 @@ const [, , commandName, ...args] = process.argv;
 
 (async () => {
     switch (commandName) {
-        case "include-used-icons":
+        case "update-icons":
             {
                 const { main } = await import("./only-include-used-icons");
 

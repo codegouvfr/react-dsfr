@@ -83,7 +83,7 @@ var _a = __read(process.argv), commandName = _a[2], args = _a.slice(3);
             case 0:
                 _a = commandName;
                 switch (_a) {
-                    case "include-used-icons": return [3 /*break*/, 1];
+                    case "update-icons": return [3 /*break*/, 1];
                     case "copy-to-public": return [3 /*break*/, 4];
                 }
                 return [3 /*break*/, 7];

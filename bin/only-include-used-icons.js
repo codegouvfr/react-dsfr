@@ -585,7 +585,6 @@ function main(args) {
                                             return [2 /*return*/];
                                         }
                                         hasChanged = true;
-                                        log === null || log === void 0 ? void 0 : log("Patching ".concat((0, path_1.relative)(process.cwd(), cssFilePath)));
                                         return [4 /*yield*/, (0, promises_1.writeFile)(cssFilePath, rawIconCssCodeBuffer)];
                                     case 2:
                                         _c.sent();

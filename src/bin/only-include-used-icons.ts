@@ -517,8 +517,6 @@ export async function main(args: string[]) {
 
                 hasChanged = true;
 
-                log?.(`Patching ${pathRelative(process.cwd(), cssFilePath)}`);
-
                 await writeFile(cssFilePath, rawIconCssCodeBuffer);
             })
     );
