@@ -31,6 +31,16 @@ import yargsParser from "yargs-parser";
         "recursive": true
     });
 
+    {
+        const filePath = pathJoin(dsfrDirPath, "dsfr.css");
+
+        const dsfrCssContent = fs.readFileSync(filePath).toString("utf8");
+
+        const dsfrCssContent_patched = dsfrCssContent.replace('@charset "UTF-8";', "");
+
+        fs.writeFileSync(filePath, Buffer.from(dsfrCssContent_patched, "utf8"));
+    }
+
     fs.cpSync(
         pathJoin(__dirname, "marianne-index.css"),
         pathJoin(dsfrDirPath, "fonts", "index.css")
