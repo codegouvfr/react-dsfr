@@ -1,7 +1,7 @@
 import React, {
     memo,
     forwardRef,
-    useId,
+    cloneElement,
     type ReactNode,
     type CSSProperties,
     type ComponentProps
@@ -22,7 +22,6 @@ import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkP
 import { typeGuard } from "tsafe/typeGuard";
 import { SearchButton } from "../SearchBar/SearchButton";
 import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
-import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 
 export type HeaderProps = {
     className?: string;
@@ -33,7 +32,7 @@ export type HeaderProps = {
     serviceTagline?: ReactNode;
     navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
-    quickAccessItems?: (HeaderProps.QuickAccessItem | ReactNode)[];
+    quickAccessItems?: (HeaderProps.QuickAccessItem | JSX.Element | null)[];
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
         /**
@@ -155,24 +154,28 @@ export const Header = memo(
 
         const { Link } = getLink();
 
-        const getQuickAccessNode = (suffix: string | null = null) => (
+        const getQuickAccessNode = (usecase: "mobile" | "desktop") => (
             <ul className={fr.cx("fr-btns-group")}>
                 {quickAccessItems.map((quickAccessItem, i) => (
                     <li key={i}>
-                        {!typeGuard<HeaderProps.QuickAccessItem>(
-                            quickAccessItem,
-                            quickAccessItem instanceof Object && "text" in quickAccessItem
-                        ) ? (
-                            quickAccessItem
-                        ) : (
-                            <HeaderQuickAccessItem
-                                id={`${id}-quick-access-item-${generateValidHtmlId({
-                                    "fallback": "",
-                                    "text": `${quickAccessItem.text}${suffix ? `-${suffix}` : ""}`
-                                })}-${i}`}
-                                quickAccessItem={quickAccessItem}
-                            />
-                        )}
+                        {(() => {
+                            const node = !typeGuard<HeaderProps.QuickAccessItem>(
+                                quickAccessItem,
+                                quickAccessItem instanceof Object && "text" in quickAccessItem
+                            ) ? (
+                                quickAccessItem
+                            ) : (
+                                <HeaderQuickAccessItem quickAccessItem={quickAccessItem} />
+                            );
+
+                            if (node === null) {
+                                return null;
+                            }
+
+                            return cloneElement(node, {
+                                "id": `${id}-quick-access-item-${i}-${usecase}`
+                            });
+                        })()}
                     </li>
                 ))}
             </ul>
@@ -346,7 +349,7 @@ export const Header = memo(
                                                     classes.toolsLinks
                                                 )}
                                             >
-                                                {getQuickAccessNode()}
+                                                {getQuickAccessNode("desktop")}
                                             </div>
                                         )}
 
@@ -481,35 +484,23 @@ addHeaderTranslations({
 });
 
 export type HeaderQuickAccessItemProps = {
-    id?: string;
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
 };
 
 export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element {
-    const { id: id_props, className, quickAccessItem } = props;
+    const { className, quickAccessItem } = props;
 
     const { Link } = getLink();
 
-    const id = (function useClosure() {
-        const id = useId();
-
-        return (
-            id_props ??
-            (quickAccessItem.linkProps !== undefined
-                ? quickAccessItem.linkProps.id
-                : quickAccessItem.buttonProps.id) ??
-            `fr-header-quick-access-item${generateValidHtmlId({
-                "text": quickAccessItem.text,
-                "fallback": id
-            })}`
-        );
-    })();
-
     return quickAccessItem.linkProps !== undefined ? (
         <Link
-            {...quickAccessItem.linkProps}
-            id={id}
+            {...(() => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { id, ...rest } = quickAccessItem.linkProps;
+
+                return rest;
+            })()}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.linkProps.className,
@@ -520,8 +511,12 @@ export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.El
         </Link>
     ) : (
         <button
-            {...quickAccessItem.buttonProps}
-            id={id}
+            {...(() => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { id, ...rest } = quickAccessItem.buttonProps;
+
+                return rest;
+            })()}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.buttonProps.className,

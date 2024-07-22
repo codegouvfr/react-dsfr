@@ -9,7 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { memo, forwardRef, useId } from "react";
+import React, { memo, forwardRef, cloneElement } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
@@ -22,7 +22,6 @@ import { setBrandTopAndHomeLinkProps } from "../zz_internal/brandTopAndHomeLinkP
 import { typeGuard } from "tsafe/typeGuard";
 import { SearchButton } from "../SearchBar/SearchButton";
 import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBar";
-import { generateValidHtmlId } from "../tools/generateValidHtmlId";
 export const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
@@ -38,10 +37,15 @@ export const Header = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
     const { t: tSearchBar } = useSearchBarTranslation();
     const { Link } = getLink();
-    const getQuickAccessNode = (suffix = null) => (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { id: `${id}-quick-access-item-${generateValidHtmlId({
-            "fallback": "",
-            "text": `${quickAccessItem.text}${suffix ? `-${suffix}` : ""}`
-        })}-${i}`, quickAccessItem: quickAccessItem })))))));
+    const getQuickAccessNode = (usecase) => (React.createElement("ul", { className: fr.cx("fr-btns-group") }, quickAccessItems.map((quickAccessItem, i) => (React.createElement("li", { key: i }, (() => {
+        const node = !typeGuard(quickAccessItem, quickAccessItem instanceof Object && "text" in quickAccessItem) ? (quickAccessItem) : (React.createElement(HeaderQuickAccessItem, { quickAccessItem: quickAccessItem }));
+        if (node === null) {
+            return null;
+        }
+        return cloneElement(node, {
+            "id": `${id}-quick-access-item-${i}-${usecase}`
+        });
+    })())))));
     const hasOperatorLink = (operatorLogo === null || operatorLogo === void 0 ? void 0 : operatorLogo.linkProps) !== undefined;
     return (React.createElement(React.Fragment, null,
         React.createElement(Display, null),
@@ -80,7 +84,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                     React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
                                 serviceTagline !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-header__service-tagline"), classes.serviceTagline) }, serviceTagline))))),
                         (quickAccessItems.length > 0 || isSearchBarEnabled) && (React.createElement("div", { className: fr.cx("fr-header__tools") },
-                            quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, getQuickAccessNode())),
+                            quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, getQuickAccessNode("desktop"))),
                             isSearchBarEnabled && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId },
                                 React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
                                     React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
@@ -118,18 +122,16 @@ addHeaderTranslations({
     }
 });
 export function HeaderQuickAccessItem(props) {
-    const { id: id_props, className, quickAccessItem } = props;
+    const { className, quickAccessItem } = props;
     const { Link } = getLink();
-    const id = (function useClosure() {
-        var _a;
-        const id = useId();
-        return ((_a = id_props !== null && id_props !== void 0 ? id_props : (quickAccessItem.linkProps !== undefined
-            ? quickAccessItem.linkProps.id
-            : quickAccessItem.buttonProps.id)) !== null && _a !== void 0 ? _a : `fr-header-quick-access-item${generateValidHtmlId({
-            "text": quickAccessItem.text,
-            "fallback": id
-        })}`);
-    })();
-    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, quickAccessItem.linkProps, { id: id, className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, quickAccessItem.buttonProps, { id: id, className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
+    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, (() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _a = quickAccessItem.linkProps, { id } = _a, rest = __rest(_a, ["id"]);
+        return rest;
+    })(), { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, (() => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _a = quickAccessItem.buttonProps, { id } = _a, rest = __rest(_a, ["id"]);
+        return rest;
+    })(), { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
 }
 //# sourceMappingURL=Header.js.map

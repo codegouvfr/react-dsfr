@@ -13,7 +13,7 @@ export type HeaderProps = {
     serviceTagline?: ReactNode;
     navigation?: MainNavigationProps.Item[] | ReactNode;
     /** There should be at most three of them */
-    quickAccessItems?: (HeaderProps.QuickAccessItem | ReactNode)[];
+    quickAccessItems?: (HeaderProps.QuickAccessItem | JSX.Element | null)[];
     operatorLogo?: {
         orientation: "horizontal" | "vertical";
         /**
@@ -100,7 +100,6 @@ export declare const useTranslation: () => {
     }>;
 }) => void;
 export type HeaderQuickAccessItemProps = {
-    id?: string;
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
 };
