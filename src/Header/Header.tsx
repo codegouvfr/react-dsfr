@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 import React, {
     memo,
     forwardRef,
@@ -173,7 +174,15 @@ export const Header = memo(
                             }
 
                             return cloneElement(node, {
-                                "id": `${id}-quick-access-item-${i}-${usecase}`
+                                "id": `${id}-quick-access-item-${i}${(() => {
+                                    switch (usecase) {
+                                        case "mobile":
+                                            return "-mobile";
+                                        case "desktop":
+                                            return "";
+                                    }
+                                    assert<Equals<typeof usecase, never>>();
+                                })()}`
                             });
                         })()}
                     </li>
@@ -486,42 +495,35 @@ addHeaderTranslations({
 export type HeaderQuickAccessItemProps = {
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
+    id?: string;
 };
 
 export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element {
-    const { className, quickAccessItem } = props;
+    const { className, quickAccessItem, id } = props;
 
     const { Link } = getLink();
 
     return quickAccessItem.linkProps !== undefined ? (
         <Link
-            {...(() => {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const { id, ...rest } = quickAccessItem.linkProps;
-
-                return rest;
-            })()}
+            {...quickAccessItem.linkProps}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.linkProps.className,
                 className
             )}
+            id={id}
         >
             {quickAccessItem.text}
         </Link>
     ) : (
         <button
-            {...(() => {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const { id, ...rest } = quickAccessItem.buttonProps;
-
-                return rest;
-            })()}
+            {...quickAccessItem.buttonProps}
             className={cx(
                 fr.cx("fr-btn", quickAccessItem.iconId),
                 quickAccessItem.buttonProps.className,
                 className
             )}
+            id={id}
         >
             {quickAccessItem.text}
         </button>

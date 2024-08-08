@@ -9,6 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+/* eslint-disable no-inner-declarations */
 import React, { memo, forwardRef, cloneElement } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";
@@ -43,7 +44,15 @@ export const Header = memo(forwardRef((props, ref) => {
             return null;
         }
         return cloneElement(node, {
-            "id": `${id}-quick-access-item-${i}-${usecase}`
+            "id": `${id}-quick-access-item-${i}${(() => {
+                switch (usecase) {
+                    case "mobile":
+                        return "-mobile";
+                    case "desktop":
+                        return "";
+                }
+                assert();
+            })()}`
         });
     })())))));
     const hasOperatorLink = (operatorLogo === null || operatorLogo === void 0 ? void 0 : operatorLogo.linkProps) !== undefined;
@@ -122,16 +131,8 @@ addHeaderTranslations({
     }
 });
 export function HeaderQuickAccessItem(props) {
-    const { className, quickAccessItem } = props;
+    const { className, quickAccessItem, id } = props;
     const { Link } = getLink();
-    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, (() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _a = quickAccessItem.linkProps, { id } = _a, rest = __rest(_a, ["id"]);
-        return rest;
-    })(), { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className) }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, (() => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const _a = quickAccessItem.buttonProps, { id } = _a, rest = __rest(_a, ["id"]);
-        return rest;
-    })(), { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className) }), quickAccessItem.text));
+    return quickAccessItem.linkProps !== undefined ? (React.createElement(Link, Object.assign({}, quickAccessItem.linkProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.linkProps.className, className), id: id }), quickAccessItem.text)) : (React.createElement("button", Object.assign({}, quickAccessItem.buttonProps, { className: cx(fr.cx("fr-btn", quickAccessItem.iconId), quickAccessItem.buttonProps.className, className), id: id }), quickAccessItem.text));
 }
 //# sourceMappingURL=Header.js.map

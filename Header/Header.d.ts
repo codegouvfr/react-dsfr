@@ -102,5 +102,6 @@ export declare const useTranslation: () => {
 export type HeaderQuickAccessItemProps = {
     className?: string;
     quickAccessItem: HeaderProps.QuickAccessItem;
+    id?: string;
 };
 export declare function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element;
