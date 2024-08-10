@@ -1,3 +1,17 @@
+diff --git a/node_modules/@gouvfr/dsfr/dist/.DS_Store b/node_modules/@gouvfr/dsfr/dist/.DS_Store
+new file mode 100644
+index 0000000..9200916
+Binary files /dev/null and b/node_modules/@gouvfr/dsfr/dist/.DS_Store differ
+diff --git a/node_modules/@gouvfr/dsfr/dist/artwork/dark.svg b/node_modules/@gouvfr/dsfr/dist/artwork/dark.svg
+index e4d335c..e4f4aac 100644
+--- a/node_modules/@gouvfr/dsfr/dist/artwork/dark.svg
++++ b/node_modules/@gouvfr/dsfr/dist/artwork/dark.svg
+@@ -12,3 +12,5 @@
+   <use class="fr-artwork-minor" href="#artwork-minor"/>
+   <use class="fr-artwork-major" href="#artwork-major"/>
+ </svg>
++<!-- Slightly increasing size so it reaches the threshold that will prevent it from being inlined by Vite. -->
++
 diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js b/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
 index 588abee..b84d5b4 100644
 --- a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
