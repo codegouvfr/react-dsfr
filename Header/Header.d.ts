@@ -104,4 +104,5 @@ export type HeaderQuickAccessItemProps = {
     quickAccessItem: HeaderProps.QuickAccessItem;
     id?: string;
 };
+/** NOTE: If you wrap this component you should forward the id */
 export declare function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element;

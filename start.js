@@ -24,7 +24,7 @@ export async function start(params) {
         "mode": "react"
     };
     // @ts-expect-error
-    await import("./dsfr/dsfr.module.min");
+    await import("./dsfr/dsfr.module");
     dDsfrLoaded.resolve();
     registerEffectAction(() => {
         // @ts-expect-error

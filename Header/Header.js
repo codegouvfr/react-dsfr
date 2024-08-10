@@ -130,6 +130,7 @@ addHeaderTranslations({
         "close": "Close"
     }
 });
+/** NOTE: If you wrap this component you should forward the id */
 export function HeaderQuickAccessItem(props) {
     const { className, quickAccessItem, id } = props;
     const { Link } = getLink();

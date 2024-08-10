@@ -498,6 +498,7 @@ export type HeaderQuickAccessItemProps = {
     id?: string;
 };
 
+/** NOTE: If you wrap this component you should forward the id */
 export function HeaderQuickAccessItem(props: HeaderQuickAccessItemProps): JSX.Element {
     const { className, quickAccessItem, id } = props;
 

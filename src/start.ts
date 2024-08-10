@@ -50,7 +50,7 @@ export async function start(params: Params) {
     };
 
     // @ts-expect-error
-    await import("./dsfr/dsfr.module.min");
+    await import("./dsfr/dsfr.module");
 
     dDsfrLoaded.resolve();
 
