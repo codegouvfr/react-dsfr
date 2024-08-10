@@ -1,0 +1,16 @@
+diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js b/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
+index 588abee..b84d5b4 100644
+--- a/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
++++ b/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
+@@ -6226,9 +6226,11 @@ class HeaderLinks extends api.core.Instance {
+       case api.Modes.ANGULAR:
+       case api.Modes.REACT:
+       case api.Modes.VUE:
++        /*
+         this.warn(`header__tools-links content is different from header__menu-links content.
+ As you're using a dynamic framework, you should handle duplication of this content yourself, please refer to documentation:
+ ${api.header.doc}`);
++        */
+         break;
+ 
+       default:

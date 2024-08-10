@@ -7,6 +7,7 @@
         "url": "git://github.com/codegouvfr/react-dsfr.git"
     },
     "scripts": {
+        "prepare": "patch-package",
         "build": "ts-node -T scripts/build",
         "_link": "ts-node -T scripts/link-in-integration-apps.ts",
         "link-external": "ts-node -T scripts/link-in-external-project.ts",
@@ -62,6 +63,7 @@
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
     "dependencies": {
+        "patch-package": "^8.0.0",
         "tsafe": "^1.7.2",
         "yargs-parser": "^21.1.1"
     },
