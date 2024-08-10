@@ -1,7 +1,7 @@
-diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js b/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
+diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js b/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
 index 588abee..b84d5b4 100644
---- a/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
-+++ b/node_modules/@gouvfr/dsfr/dist/dsfr/dsfr.module.js
+--- a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
++++ b/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
 @@ -6226,9 +6226,11 @@ class HeaderLinks extends api.core.Instance {
        case api.Modes.ANGULAR:
        case api.Modes.REACT:
