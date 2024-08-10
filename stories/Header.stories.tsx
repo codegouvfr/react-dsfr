@@ -201,13 +201,157 @@ export const HeaderWithQuickAccessItems = getStory(
         "onSearchButtonClick": undefined
     },
     {
-        "description": `See [\\<Display \\/\\>](https://components.react-dsfr.codegouv.studio/?path=/docs/components-display) for instructions on how to integrate the Dark mode switch.  
+        "description": `Let's see an example usage of quick access items in the Header component.  
 
-Note for Next App Router: If you want to have \`quickAccessItems\` client side without having to wrap the whole \`<Header />\` 
-component within a \`"use client";\` directive you can use the \`<HeaderQuickAccessItem />\` component as demonstrated 
-[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/layout.tsx#L72) and 
-[here](https://github.com/garronej/react-dsfr-next-appdir-demo/blob/b485bda99d6140e59584d3134ac9e203ae6b2208/app/LoginHeaderItem.tsx#L1-L24).  
-    `
+\`src/Header.tsx\`  
+
+\`\`\`tsx  
+
+import { Header as DsfrHeader } from "@codegouvfr/react-dsfr/Header";
+import { LanguageSelect } from "./LanguageSelect";
+import { AuthButtons } from "./AuthButtons";
+
+export function Header() {
+
+    return (
+        <DsfrHeader
+            quickAccessItems={[
+                {
+                    iconId: "fr-icon-add-circle-line",
+                    text: "Créer un espace",
+                    linkProps: {
+                        "href": "#" // Link to a page
+                    }
+                },
+                {
+                    iconId: "fr-icon-mail-fill",
+                    linkProps: {
+                        href: "mailto:contact@code.gouv.fr"
+                    },
+                    text: "Contact us"
+                },
+                <LanguageSelect />, // See "LanguageSelect" component of this website
+                headerFooterDisplayItem, // See "Display" component of this website
+                <AuthButtons /> // See below
+
+            ]}
+        />
+    );
+
+}
+
+\`\`\`  
+
+If you need to create a dynamic Header quick action items there is how you can do it.  
+Let's see an example with the \`AuthButton\` component.
+In this example we assume the use of [oidc-spa](https://oidc-spa.dev/) for authentication.
+And [i18nifty](for internationalization).
+You can see this component live [here](https://vite-insee-starter.demo-domain.ovh/).  
+
+\`src/AuthButton.tsx\`  
+
+\`\`\`tsx  
+
+import { HeaderQuickAccessItem } from "@codegouvfr/react-dsfr/Header";
+import { declareComponentKeys, useTranslation } from "i18n"; // i18nifty
+import { useOidc } from "oidc"; // oidc-spa
+
+type Props = {
+    // NOTE: If you component assigns id you must use the one passed as prop.
+    // If you have multiple id you must prefix them to differentiate them.
+    // In this example we don't actually need to set ids but I do is so you can see how to do it.  
+    // See this example where it's more relevant: 
+    id?: string;
+};
+
+export function AuthButtons(props: Props) {
+
+    const { id } = props;
+
+    const { isUserLoggedIn, login, logout } = useOidc();
+
+    const { t } = useTranslation("AuthButtons");
+
+    if (!isUserLoggedIn) {
+        return (
+            <>
+                <HeaderQuickAccessItem
+                    id={\`login-\${id}\`}
+                    quickAccessItem={{
+                        iconId: "fr-icon-lock-line",
+                        buttonProps: {
+                            onClick: () => login({ doesCurrentHrefRequiresAuth: false })
+                        },
+                        text: t("login")
+                    }}
+                />
+                <HeaderQuickAccessItem
+                    id={\`register-\${id}\`}
+                    quickAccessItem={{
+                        iconId: "ri-id-card-line",
+                        buttonProps: {
+                            onClick: () => login({ 
+                                doesCurrentHrefRequiresAuth: false,
+                                transformUrlBeforeRedirect: url => {
+                                    const urlObj = new URL(url);
+
+                                    urlObj.pathname = urlObj.pathname.replace(
+                                        /\\/auth$/,
+                                        "/registrations"
+                                    );
+
+                                    return urlObj.href;
+                                }
+                            })
+                        },
+                        text: t("register")
+                    }}
+                />
+            </>
+        );
+    }
+
+    return (
+        <>
+            <HeaderQuickAccessItem
+                id={\`account-\${id}\`}
+                quickAccessItem={{
+                    iconId: "fr-icon-account-fill",
+                    linkProps: {
+                        to: "/account"
+                    },
+                    text: t("my account")
+                }}
+            />
+            <HeaderQuickAccessItem
+                id={\`logout-\${id}\`}
+                quickAccessItem={{
+                    iconId: "ri-logout-box-line",
+                    buttonProps: {
+                        onClick: () =>
+                            logout({
+                                redirectTo: "home"
+                            })
+                    },
+                    text: t("logout")
+                }}
+            />
+        </>
+    );
+
+}
+
+const { i18n } = declareComponentKeys<
+    | "login"
+    | "register"
+    | "logout"
+    | "my account"
+>()("AuthButtons");
+
+export type I18n = typeof i18n;
+\`\`\`  
+
+`
     }
 );
 

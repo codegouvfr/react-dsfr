@@ -1,0 +1,13 @@
+
+
+
+.language-select .short-label {
+    text-transform: uppercase
+}
+.language-select .fr-menu {
+    right: 0;
+}
+
+.language-select .fr-translate {
+    display: inline-flex;;
+}
