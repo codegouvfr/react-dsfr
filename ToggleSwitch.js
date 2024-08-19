@@ -47,10 +47,10 @@ export const ToggleSwitch = memo(forwardRef((props, ref) => {
     });
     return (React.createElement("div", { id: id, className: cx(fr.cx("fr-toggle", labelPosition === "left" && "fr-toggle--label-left"), classes.root, className), ref: ref, style: style },
         React.createElement("input", { onChange: onInputChange, type: "checkbox", disabled: disabled || undefined, className: cx(fr.cx("fr-toggle__input"), classes.input), "aria-describedby": hintId, id: inputId, title: inputTitle, checked: props_checked !== null && props_checked !== void 0 ? props_checked : checked, name: name }),
-        label && (React.createElement("label", Object.assign({ className: cx(fr.cx("fr-toggle__label"), classes.label), htmlFor: inputId }, (showCheckedHint && {
+        React.createElement("label", Object.assign({ className: cx(fr.cx("fr-toggle__label"), classes.label), htmlFor: inputId }, (showCheckedHint && {
             "data-fr-checked-label": t("checked"),
             "data-fr-unchecked-label": t("unchecked")
-        })), label)),
+        })), label),
         helperText && (React.createElement("p", { className: cx(fr.cx("fr-hint-text"), classes.hint), id: hintId }, helperText))));
 }));
 ToggleSwitch.displayName = symToStr({ ToggleSwitch });
