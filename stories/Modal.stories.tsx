@@ -60,6 +60,40 @@ useIsModalOpen(
     }
 );
 \`\`\`
+  
+You can have custom buttons to your modal, here is an example:
+
+\`\`\`tsx
+function MyModalWithCustomButton() {
+    return (
+        <modal.Component
+            title="My modal"
+            // This is an array of <button /> props objects with one additional property: doClosesModal
+            buttons={[
+                {
+                    doClosesModal: true,
+                    children: "Cancel",
+                },
+                {
+                    doClosesModal: false,
+                    children: "Ok",
+                    onClick: async () => {
+
+                        // Do something async
+
+                        modal.close();
+
+                    }
+                }
+            ]}
+        >
+            My form
+        </modal.Component>
+    );
+}
+\`\`\`
+
+
 
 To create a Dialog component, something that you would use to ask the user a question, like "Do you want to proceed?", you can implement this pattern:  
 - [Component](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/cra/src/MyDialog.tsx), 
