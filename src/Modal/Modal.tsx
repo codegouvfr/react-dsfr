@@ -30,13 +30,6 @@ export namespace ModalProps {
         /** Default: true */
         doClosesModal?: boolean;
     };
-
-    export type ModalButtonProps = {
-        "nativeButtonProps": {
-            "aria-controls": string;
-            "data-fr-opened": boolean;
-        };
-    };
 }
 
 const Modal = memo(
