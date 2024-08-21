@@ -19,12 +19,6 @@ export declare namespace ModalProps {
         /** Default: true */
         doClosesModal?: boolean;
     };
-    type ModalButtonProps = {
-        "nativeButtonProps": {
-            "aria-controls": string;
-            "data-fr-opened": boolean;
-        };
-    };
 }
 declare const addModalTranslations: (params: {
     lang: string;
