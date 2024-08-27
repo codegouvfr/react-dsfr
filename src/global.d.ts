@@ -3,11 +3,6 @@ declare module "*.svg" {
     export default _default;
 }
 
-declare module "*.svg?url" {
-    const _default: string | { src: string };
-    export default _default;
-}
-
 declare module "*.png" {
     const _default: string | { src: string };
     export default _default;
