@@ -235,10 +235,10 @@ export const Card = memo(
                     <div className={cx(fr.cx("fr-card__header"), classes.header)}>
                         <div className={cx(fr.cx("fr-card__img"), classes.img)}>
                             <img
-                                className={cx(fr.cx("fr-responsive-img"), classes.imgTag)}
                                 src={imageUrl}
                                 alt={imageAlt}
                                 {...nativeImgProps}
+                                 className={cx(fr.cx("fr-responsive-img"), classes.imgTag, nativeImgProps?.className)}
                             />
                         </div>
                         {badge !== undefined && (
