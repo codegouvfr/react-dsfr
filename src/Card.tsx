@@ -238,7 +238,11 @@ export const Card = memo(
                                 src={imageUrl}
                                 alt={imageAlt}
                                 {...nativeImgProps}
-                                 className={cx(fr.cx("fr-responsive-img"), classes.imgTag, nativeImgProps?.className)}
+                                className={cx(
+                                    fr.cx("fr-responsive-img"),
+                                    classes.imgTag,
+                                    nativeImgProps?.className
+                                )}
                             />
                         </div>
                         {badge !== undefined && (
