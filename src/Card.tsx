@@ -1,4 +1,11 @@
-import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
+import React, {
+    memo,
+    forwardRef,
+    type ReactNode,
+    type CSSProperties,
+    DetailedHTMLProps,
+    ImgHTMLAttributes
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -88,6 +95,7 @@ export namespace CardProps {
         imageUrl: string;
         imageAlt: string;
         imageComponent?: never;
+        nativeImgProps?: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
     };
 
     export type WithImageComponent = {
@@ -95,6 +103,7 @@ export namespace CardProps {
         imageUrl?: never;
         imageAlt?: never;
         imageComponent: ReactNode;
+        nativeImgProps?: never;
     };
 
     export type WithoutImage = {
@@ -102,6 +111,7 @@ export namespace CardProps {
         imageUrl?: never;
         imageAlt?: never;
         imageComponent?: never;
+        nativeImgProps?: never;
     };
 }
 
@@ -118,6 +128,7 @@ export const Card = memo(
             imageUrl,
             imageAlt,
             imageComponent,
+            nativeImgProps,
             start,
             detail,
             end,
@@ -224,9 +235,14 @@ export const Card = memo(
                     <div className={cx(fr.cx("fr-card__header"), classes.header)}>
                         <div className={cx(fr.cx("fr-card__img"), classes.img)}>
                             <img
-                                className={cx(fr.cx("fr-responsive-img"), classes.imgTag)}
                                 src={imageUrl}
                                 alt={imageAlt}
+                                {...nativeImgProps}
+                                className={cx(
+                                    fr.cx("fr-responsive-img"),
+                                    classes.imgTag,
+                                    nativeImgProps?.className
+                                )}
                             />
                         </div>
                         {badge !== undefined && (

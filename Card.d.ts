@@ -1,4 +1,4 @@
-import React, { type ReactNode, type CSSProperties } from "react";
+import React, { type ReactNode, type CSSProperties, DetailedHTMLProps, ImgHTMLAttributes } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import type { RegisteredLinkProps } from "./link";
 export type CardProps = {
@@ -52,18 +52,21 @@ export declare namespace CardProps {
         imageUrl: string;
         imageAlt: string;
         imageComponent?: never;
+        nativeImgProps?: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>;
     };
     type WithImageComponent = {
         badge?: ReactNode;
         imageUrl?: never;
         imageAlt?: never;
         imageComponent: ReactNode;
+        nativeImgProps?: never;
     };
     type WithoutImage = {
         badge?: never;
         imageUrl?: never;
         imageAlt?: never;
         imageComponent?: never;
+        nativeImgProps?: never;
     };
 }
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */

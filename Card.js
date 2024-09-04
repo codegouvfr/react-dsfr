@@ -18,7 +18,7 @@ import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-card> */
 export const Card = memo(forwardRef((props, ref) => {
-    const { id: props_id, className, title, titleAs: HtmlTitleTag = "h3", linkProps, desc, imageUrl, imageAlt, imageComponent, start, detail, end, endDetail, badge, footer, horizontal = false, ratio, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "desc", "imageUrl", "imageAlt", "imageComponent", "start", "detail", "end", "endDetail", "badge", "footer", "horizontal", "ratio", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
+    const { id: props_id, className, title, titleAs: HtmlTitleTag = "h3", linkProps, desc, imageUrl, imageAlt, imageComponent, nativeImgProps, start, detail, end, endDetail, badge, footer, horizontal = false, ratio, size = "medium", classes = {}, enlargeLink = false, background = true, border = true, shadow = false, grey = false, iconId, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "desc", "imageUrl", "imageAlt", "imageComponent", "nativeImgProps", "start", "detail", "end", "endDetail", "badge", "footer", "horizontal", "ratio", "size", "classes", "enlargeLink", "background", "border", "shadow", "grey", "iconId", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-card",
@@ -50,7 +50,7 @@ export const Card = memo(forwardRef((props, ref) => {
             footer !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-card__footer"), classes.footer) }, footer))),
         imageUrl !== undefined && imageUrl.length && (React.createElement("div", { className: cx(fr.cx("fr-card__header"), classes.header) },
             React.createElement("div", { className: cx(fr.cx("fr-card__img"), classes.img) },
-                React.createElement("img", { className: cx(fr.cx("fr-responsive-img"), classes.imgTag), src: imageUrl, alt: imageAlt })),
+                React.createElement("img", Object.assign({ src: imageUrl, alt: imageAlt }, nativeImgProps, { className: cx(fr.cx("fr-responsive-img"), classes.imgTag, nativeImgProps === null || nativeImgProps === void 0 ? void 0 : nativeImgProps.className) }))),
             badge !== undefined && (React.createElement("ul", { className: cx(fr.cx("fr-badges-group"), classes.badge) },
                 React.createElement("li", null, badge))))),
         imageComponent !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-card__header"), classes.header) },
