@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, Suspense } from "react";
 import { objectKeys } from "tsafe/objectKeys";
 import { getAssetUrl } from "../tools/getAssetUrl";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
@@ -33,15 +33,16 @@ export function DsfrHead(props) {
             React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
             React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
             React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }))),
-        React.createElement("script", { suppressHydrationWarning: true, nonce: nonce, dangerouslySetInnerHTML: {
-                "__html": getScriptToRunAsap({
-                    defaultColorScheme,
-                    nonce,
-                    trustedTypesPolicyName
-                })
-            } }),
-        nonce !== undefined && (React.createElement("script", { suppressHydrationWarning: true, key: "nonce-setter", nonce: nonce, dangerouslySetInnerHTML: {
-                __html: `window.ssrNonce = "${nonce}";`
-            } }))));
+        React.createElement(Suspense, null,
+            React.createElement("script", { suppressHydrationWarning: true, nonce: nonce, dangerouslySetInnerHTML: {
+                    "__html": getScriptToRunAsap({
+                        defaultColorScheme,
+                        nonce,
+                        trustedTypesPolicyName
+                    })
+                } }),
+            nonce !== undefined && (React.createElement("script", { suppressHydrationWarning: true, key: "nonce-setter", nonce: nonce, dangerouslySetInnerHTML: {
+                    __html: `window.ssrNonce = "${nonce}";`
+                } })))));
 }
 //# sourceMappingURL=DsfrHead.js.map

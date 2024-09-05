@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, Suspense } from "react";
 import { objectKeys } from "tsafe/objectKeys";
 import { getAssetUrl } from "../tools/getAssetUrl";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
@@ -14,7 +14,7 @@ import { assert } from "tsafe/assert";
 // @import url(...) doesn't work. Using Sass and @use is our last resort.
 import "../assets/dsfr_plus_icons.scss";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
-import { type startReactDsfr } from "./zz_internal/start";
+import type { startReactDsfr } from "./zz_internal/start";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
@@ -94,27 +94,34 @@ export function DsfrHead(props: DsfrHeadProps) {
                     <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
                 </>
             )}
-            <script
-                suppressHydrationWarning
-                nonce={nonce}
-                dangerouslySetInnerHTML={{
-                    "__html": getScriptToRunAsap({
-                        defaultColorScheme,
-                        nonce,
-                        trustedTypesPolicyName
-                    })
-                }}
-            />
-            {nonce !== undefined && (
+            {/* 
+            This suspense is only a workaround for an incompatibility between RSC and Cypress. 
+            See: https://github.com/cypress-io/cypress/issues/27204#issuecomment-1625490068
+            It is in practice a no-op.
+            */}
+            <Suspense>
                 <script
                     suppressHydrationWarning
-                    key="nonce-setter"
                     nonce={nonce}
                     dangerouslySetInnerHTML={{
-                        __html: `window.ssrNonce = "${nonce}";`
+                        "__html": getScriptToRunAsap({
+                            defaultColorScheme,
+                            nonce,
+                            trustedTypesPolicyName
+                        })
                     }}
                 />
-            )}
+                {nonce !== undefined && (
+                    <script
+                        suppressHydrationWarning
+                        key="nonce-setter"
+                        nonce={nonce}
+                        dangerouslySetInnerHTML={{
+                            __html: `window.ssrNonce = "${nonce}";`
+                        }}
+                    />
+                )}
+            </Suspense>
         </>
     );
 }
