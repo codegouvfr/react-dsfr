@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { symToStr } from "tsafe/symToStr";
 import "@gouvfr/dsfr-chart/ScatterChart/scatter-chart.common";
@@ -32,7 +33,7 @@ type ScatterChartBaseProps = {
 
 export type ScatterChartProps = ScatterChartBaseProps & BaseChartProps;
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-chart> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-radarchart> */
 export const ScatterChart = chartWrapper(
     (props: ScatterChartBaseProps) => <scatter-chart {...stringifyObjectValue(props)} />,
     "scatter-chart"

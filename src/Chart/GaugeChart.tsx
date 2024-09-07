@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { symToStr } from "tsafe/symToStr";
 import "@gouvfr/dsfr-chart/GaugeChart/gauge-chart.common";
@@ -27,7 +28,7 @@ export type GaugeChartBaseProps = {
 
 export type GaugeChartProps = GaugeChartBaseProps & BaseChartProps;
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-chart> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-gaugechart> */
 export const GaugeChart = chartWrapper(
     (props: GaugeChartBaseProps) => <gauge-chart {...stringifyObjectValue(props)} />,
     "gauge-chart"

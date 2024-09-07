@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
 import { symToStr } from "tsafe/symToStr";
-import "@gouvfr/dsfr-chart/BarLineChart/bar-line-chart.common";
-import "@gouvfr/dsfr-chart/BarLineChart/bar-line-chart.css";
+import "@gouvfr/dsfr-chart/BarLineChart/barline-chart.common";
+import "@gouvfr/dsfr-chart/BarLineChart/barline-chart.css";
 import {
     chartWrapper,
     IntrinsicGraphType,
@@ -26,15 +27,15 @@ declare global {
 
 export type BarLineChartBaseProps = {
     ybar: number[];
-    name: [string, string];
+    name?: [string, string];
     horizontal?: boolean;
-    stacked: boolean;
+    stacked?: boolean;
 } & Omit<ChartProps, "name"> &
     ChartLineProps;
 
 export type BarLineChartProps = BarLineChartBaseProps & BaseChartProps;
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-chart> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-barlinechart> */
 export const BarLineChart = chartWrapper((props: BarLineChartBaseProps) => {
     return <bar-line-chart {...stringifyObjectValue(props)} />;
 }, "bar-line-chart");

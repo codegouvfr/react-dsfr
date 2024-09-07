@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { symToStr } from "tsafe/symToStr";
 import "@gouvfr/dsfr-chart/RadarChart/radar-chart.common";
@@ -23,7 +24,7 @@ export type RadarChartBaseProps = MultiChartProps;
 
 export type RadarChartProps = RadarChartBaseProps & BaseChartProps;
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-chart> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-radarchart> */
 export const RadarChart = chartWrapper(
     (props: RadarChartBaseProps) => <radar-chart {...stringifyObjectValue(props)} />,
     "radar-chart"

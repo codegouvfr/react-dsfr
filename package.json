@@ -63,6 +63,7 @@
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
     "dependencies": {
+        "@gouvfr/dsfr-chart": "^1.0.0",
         "tsafe": "^1.7.2",
         "yargs-parser": "^21.1.1"
     },
@@ -71,7 +72,6 @@
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@gouvfr/dsfr": "1.12.1",
-        "@gouvfr/dsfr-chart": "^1.0.0",
         "@mui/icons-material": "^5.14.18",
         "@mui/material": "^5.14.18",
         "@storybook/addon-a11y": "^6.5.16",

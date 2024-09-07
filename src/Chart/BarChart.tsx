@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { symToStr } from "tsafe/symToStr";
 import "@gouvfr/dsfr-chart/BarChart/bar-chart.common";
@@ -33,7 +34,7 @@ export type BarChartBaseProps = {
 
 export type BarChartProps = BarChartBaseProps & BaseChartProps;
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-chart> */
+/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-barchart> */
 export const BarChart = chartWrapper((props: BarChartBaseProps) => {
     return <bar-chart {...stringifyObjectValue(props)} />;
 }, "bar-chart");
