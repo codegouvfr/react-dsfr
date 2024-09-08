@@ -3,12 +3,11 @@
 # More info at https://github.com/italia/publiccode.yml
 
 publiccodeYmlVersion: '0.2'
-name: '@codegouvfr/react-dsfr'
+name: 'react-dsfr'
 url: 'https://github.com/codegouvfr/react-dsfr'
-landingURL: 'https://components.react-dsfr.codegouv.studio/'
+landingURL: 'https://components.react-dsfr.codegouv.studio'
 releaseDate: '2022-10-05'
 developmentStatus: beta
-softwareVersion: 0.21.4
 softwareType: library
 logo: |-
   https://user-images.githubusercontent.com/6702424/192099597-567442d1-e6e1-4c17-ae3d-cac1e3bac5a0.png
@@ -85,8 +84,6 @@ description:
       This module is a product of [Etalab's Free and open source software
       pole](https://code.gouv.fr/en/mission/). I'm working full time
       on this project. You can expect rapid development.
-
-
       ​
     screenshots:
       - |-
