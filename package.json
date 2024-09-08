@@ -56,6 +56,7 @@
   ],
   "homepage": "https://github.com/codegouvfr/react-dsfr",
   "dependencies": {
+    "@gouvfr/dsfr-chart": "^1.0.0",
     "tsafe": "^1.7.2",
     "yargs-parser": "^21.1.1"
   },
