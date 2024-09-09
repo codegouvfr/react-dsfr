@@ -75,7 +75,7 @@ export const CallOut = memo(
                 {...rest}
             >
                 {title !== undefined && (
-                    <HtmlTitleTag className={cx(fr.cx("fr-card__title"), classes.title)}>
+                    <HtmlTitleTag className={cx(fr.cx("fr-callout__title"), classes.title)}>
                         {title}
                     </HtmlTitleTag>
                 )}

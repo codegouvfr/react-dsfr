@@ -25,7 +25,7 @@ export const CallOut = memo(forwardRef((props, ref) => {
         "explicitlyProvidedId": props_id
     });
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-callout", iconId, colorVariant !== undefined && `fr-callout--${colorVariant}`), classes.root, className), ref: ref, style: style }, rest),
-        title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-card__title"), classes.title) }, title)),
+        title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-callout__title"), classes.title) }, title)),
         React.createElement("p", { className: cx(fr.cx("fr-callout__text"), classes.text) },
             " ",
             children,
