@@ -1,4 +1,4 @@
-import React, { useMemo, Suspense } from "react";
+import React, { useMemo } from "react";
 import { objectKeys } from "tsafe/objectKeys";
 import { getAssetUrl } from "../tools/getAssetUrl";
 import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
@@ -94,34 +94,27 @@ export function DsfrHead(props: DsfrHeadProps) {
                     <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
                 </>
             )}
-            {/* 
-            This suspense is only a workaround for an incompatibility between RSC and Cypress. 
-            See: https://github.com/cypress-io/cypress/issues/27204#issuecomment-1625490068
-            It is in practice a no-op.
-            */}
-            <Suspense>
+            <script
+                suppressHydrationWarning
+                nonce={nonce}
+                dangerouslySetInnerHTML={{
+                    "__html": getScriptToRunAsap({
+                        defaultColorScheme,
+                        nonce,
+                        trustedTypesPolicyName
+                    })
+                }}
+            />
+            {nonce !== undefined && (
                 <script
                     suppressHydrationWarning
+                    key="nonce-setter"
                     nonce={nonce}
                     dangerouslySetInnerHTML={{
-                        "__html": getScriptToRunAsap({
-                            defaultColorScheme,
-                            nonce,
-                            trustedTypesPolicyName
-                        })
+                        __html: `window.ssrNonce = "${nonce}";`
                     }}
                 />
-                {nonce !== undefined && (
-                    <script
-                        suppressHydrationWarning
-                        key="nonce-setter"
-                        nonce={nonce}
-                        dangerouslySetInnerHTML={{
-                            __html: `window.ssrNonce = "${nonce}";`
-                        }}
-                    />
-                )}
-            </Suspense>
+            )}
         </>
     );
 }
