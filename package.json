@@ -63,11 +63,19 @@
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
     "dependencies": {
-        "@gouvfr/dsfr-chart": "^1.0.0",
         "tsafe": "^1.7.2",
         "yargs-parser": "^21.1.1"
     },
+    "peerDependencies": {
+        "@gouvfr/dsfr-chart": "^1.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@gouvfr/dsfr-chart": {
+            "optional": true
+        }
+    },
     "devDependencies": {
+        "@gouvfr/dsfr-chart": "^1.0.0",
         "@babel/core": "^7.20.2",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",

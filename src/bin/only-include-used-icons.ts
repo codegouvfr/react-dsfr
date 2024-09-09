@@ -336,6 +336,12 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
                             return false;
                         }
 
+                        console.log(relativeDirPath);
+
+                        if (parsedPackageJson["name"] === "@gouvfr/dsfr-chart") {
+                            return false;
+                        }
+
                         for (const packageName of [
                             CODEGOUV_REACT_DSFR,
                             "@gouvfr/dsfr",
