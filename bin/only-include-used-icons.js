@@ -410,6 +410,10 @@ function getCommandContext(args) {
                                                     if (parsedPackageJson["name"] === "tss-react") {
                                                         return [2 /*return*/, false];
                                                     }
+                                                    console.log(relativeDirPath);
+                                                    if (parsedPackageJson["name"] === "@gouvfr/dsfr-chart") {
+                                                        return [2 /*return*/, false];
+                                                    }
                                                     try {
                                                         for (_b = __values([
                                                             CODEGOUV_REACT_DSFR,

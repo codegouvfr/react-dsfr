@@ -41,3 +41,5 @@ export const BarChart = chartWrapper((props: BarChartBaseProps) => {
 BarChart.displayName = symToStr({ BarChart });
 
 export default BarChart;
+
+// Just so that the icon is included: "fr-icon-arrow-go-back-fill"
