@@ -298,6 +298,7 @@ export const Header = memo(
                                                         data-fr-opened={false}
                                                         aria-controls={searchModalId}
                                                         title={tSearchBar("label")}
+                                                        aria-label={tSearchBar("label")}
                                                     >
                                                         {tSearchBar("label")}
                                                     </button>
