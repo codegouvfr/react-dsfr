@@ -30,7 +30,7 @@ const { meta, getStory } = getStoryFactory({
         },
         "state": {
             "options": (() => {
-                const options = ["default", "success", "error"] as const;
+                const options = ["default", "success", "info", "error"] as const;
 
                 assert<Equals<typeof options[number] | undefined, InputProps["state"]>>();
 
@@ -82,6 +82,12 @@ export const WithSuccessMessage = getStory({
     "label": "Label champs de saisie",
     "state": "success",
     "stateRelatedMessage": "Texte de validation"
+});
+
+export const WithInfoMessage = getStory({
+    "label": "Label champs de saisie",
+    "state": "info",
+    "stateRelatedMessage": "Info text"
 });
 
 export const Disabled = getStory({
