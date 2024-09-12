@@ -50,9 +50,11 @@ export const Input = memo(forwardRef((props, ref) => {
                             return "fr-input--error";
                         case "success":
                             return "fr-input--valid";
+                        case "info":
                         case "default":
                             return undefined;
                     }
+                    assert();
                 })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const hasIcon = iconId !== undefined;
             const hasAddon = addon !== undefined;
@@ -66,7 +68,10 @@ export const Input = memo(forwardRef((props, ref) => {
                         return "fr-error-text";
                     case "success":
                         return "fr-valid-text";
+                    case "info":
+                        return "fr-info-text";
                 }
+                assert();
             })()), classes.message) }, stateRelatedMessage))));
 }));
 Input.displayName = symToStr({ Input });

@@ -14,7 +14,7 @@ export declare namespace InputProps {
         classes?: Partial<Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>>;
         style?: CSSProperties;
         /** Default: "default" */
-        state?: "success" | "error" | "default";
+        state?: "success" | "error" | "info" | "default";
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
         addon?: ReactNode;

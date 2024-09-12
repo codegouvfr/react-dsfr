@@ -32,7 +32,7 @@ export namespace InputProps {
         >;
         style?: CSSProperties;
         /** Default: "default" */
-        state?: "success" | "error" | "default";
+        state?: "success" | "error" | "info" | "default";
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
         addon?: ReactNode;
@@ -149,9 +149,11 @@ export const Input = memo(
                                                 return "fr-input--error";
                                             case "success":
                                                 return "fr-input--valid";
+                                            case "info":
                                             case "default":
                                                 return undefined;
                                         }
+                                        assert<Equals<typeof state, never>>();
                                     })()
                                 ),
                                 classes.nativeInputOrTextArea
@@ -191,7 +193,10 @@ export const Input = memo(
                                             return "fr-error-text";
                                         case "success":
                                             return "fr-valid-text";
+                                        case "info":
+                                            return "fr-info-text";
                                     }
+                                    assert<Equals<typeof state, never>>();
                                 })()
                             ),
                             classes.message
