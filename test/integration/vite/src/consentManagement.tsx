@@ -6,7 +6,8 @@ export const {
     ConsentBannerAndConsentManagement, 
     FooterConsentManagementItem, 
     FooterPersonalDataPolicyItem,
-    useConsent
+    useConsent,
+    consentLocalStorageKey
 } = createConsentManagement({
     "finalityDescription": ({ lang }) => ({
         "advertising": {
@@ -41,5 +42,6 @@ export const {
         }
 
         console.log("callback from gdpr hook");
-    }
+    },
+    "localStorageKeyPrefix": "company-name/app-name finalityConsent"
 });
