@@ -366,6 +366,7 @@ export const Header = memo(
                                             <div
                                                 className={fr.cx("fr-header__search", "fr-modal")}
                                                 id={searchModalId}
+                                                aria-labelledby={`${id}-search-bar-button`}
                                             >
                                                 <div
                                                     className={fr.cx(

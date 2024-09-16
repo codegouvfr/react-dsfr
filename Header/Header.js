@@ -94,7 +94,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                 serviceTagline !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-header__service-tagline"), classes.serviceTagline) }, serviceTagline))))),
                         (quickAccessItems.length > 0 || isSearchBarEnabled) && (React.createElement("div", { className: fr.cx("fr-header__tools") },
                             quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, getQuickAccessNode("desktop"))),
-                            isSearchBarEnabled && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId },
+                            isSearchBarEnabled && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId, "aria-labelledby": `${id}-search-bar-button` },
                                 React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
                                     React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
                                     React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
