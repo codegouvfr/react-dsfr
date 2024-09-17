@@ -29,7 +29,7 @@ export function createConsentManagement<
         finalityDescription,
         personalDataPolicyLinkProps,
         consentCallback,
-        localStorageKeyPrefix
+        localStorageKeyPrefix = defaultLocalStorageKeyPrefix
     } = params;
 
     const finalities = getFinalitiesFromFinalityDescription({
@@ -39,9 +39,7 @@ export function createConsentManagement<
                 : finalityDescription
     });
 
-    const localStorageKey = `${
-        localStorageKeyPrefix ?? defaultLocalStorageKeyPrefix
-    } ${finalities.join("-")}`;
+    const localStorageKey = `${localStorageKeyPrefix} ${finalities.join("-")}`;
 
     const $finalityConsent = createStatefulObservable<FinalityConsent<Finality> | undefined>(() => {
         if (!isBrowser) {
@@ -106,8 +104,7 @@ export function createConsentManagement<
         useConsent,
         ConsentBannerAndConsentManagement,
         FooterConsentManagementItem,
-        FooterPersonalDataPolicyItem,
-        consentLocalStorageKey: localStorageKey
+        FooterPersonalDataPolicyItem
     };
 }
 

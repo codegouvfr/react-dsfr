@@ -34,8 +34,7 @@ export const {
     ConsentBannerAndConsentManagement, 
     FooterConsentManagementItem, 
     FooterPersonalDataPolicyItem,
-    useConsent,
-    consentLocalStorageKey
+    useConsent
 } = createConsentManagement({
     /* 
         Can be an object or a function that take the current language as argument.
@@ -122,13 +121,7 @@ export const {
         }
         */
 
-    },
-
-    /*
-    This optional parameter let's you personalise the key that is used to store user's consents in the localStorage.
-    The default value is "${defaultLocalStorageKeyPrefix}"
-    */
-    "localStorageKeyPrefix": "company-name/app-name"
+    }
 });
 \`\`\`
 
@@ -220,8 +213,7 @@ const {
     ConsentBannerAndConsentManagement,
     FooterConsentManagementItem,
     FooterPersonalDataPolicyItem,
-    useConsent,
-    consentLocalStorageKey
+    useConsent
 } = createConsentManagement({
     "finalityDescription": {
         "advertising": {
@@ -292,7 +284,7 @@ function Story() {
             <Button
                 onClick={() => {
                     Object.keys(localStorage)
-                        .filter(key => key.startsWith(consentLocalStorageKey))
+                        .filter(key => key.startsWith(defaultLocalStorageKeyPrefix))
                         .forEach(key => localStorage.removeItem(key));
 
                     location.reload();
