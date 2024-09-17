@@ -199,30 +199,36 @@ export function createNextDsfrIntegrationApi(
                                 />
                             </>
                         )}
-                        {!isBrowser && ( //NOTE: On browser we handle this manually
+                        {defaultColorScheme !== "light" && (
                             <>
-                                <style id={rootColorSchemeStyleTagId}>{`:root { color-scheme: ${
-                                    isDark ? "dark" : "light"
-                                }; }`}</style>
-                                <meta
-                                    name="theme-color"
-                                    content={
-                                        fr.colors.getHex({ isDark }).decisions.background.default
-                                            .grey.default
-                                    }
-                                />
+                                {!isBrowser && ( //NOTE: On browser we handle this manually
+                                    <>
+                                        <style
+                                            id={rootColorSchemeStyleTagId}
+                                        >{`:root { color-scheme: ${
+                                            isDark ? "dark" : "light"
+                                        }; }`}</style>
+                                        <meta
+                                            name="theme-color"
+                                            content={
+                                                fr.colors.getHex({ isDark }).decisions.background
+                                                    .default.grey.default
+                                            }
+                                        />
+                                    </>
+                                )}
+                                {isProduction && !isBrowser && (
+                                    <script
+                                        dangerouslySetInnerHTML={{
+                                            "__html": getScriptToRunAsap({
+                                                defaultColorScheme,
+                                                trustedTypesPolicyName,
+                                                "nonce": undefined
+                                            })
+                                        }}
+                                    />
+                                )}
                             </>
-                        )}
-                        {isProduction && !isBrowser && (
-                            <script
-                                dangerouslySetInnerHTML={{
-                                    "__html": getScriptToRunAsap({
-                                        defaultColorScheme,
-                                        trustedTypesPolicyName,
-                                        "nonce": undefined
-                                    })
-                                }}
-                            />
                         )}
                     </Head>
                     {isBrowser ? (
