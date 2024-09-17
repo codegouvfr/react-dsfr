@@ -33,15 +33,16 @@ export function DsfrHead(props) {
             React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
             React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
             React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }))),
-        React.createElement("script", { suppressHydrationWarning: true, nonce: nonce, dangerouslySetInnerHTML: {
-                "__html": getScriptToRunAsap({
-                    defaultColorScheme,
-                    nonce,
-                    trustedTypesPolicyName
-                })
-            } }),
-        nonce !== undefined && (React.createElement("script", { suppressHydrationWarning: true, key: "nonce-setter", nonce: nonce, dangerouslySetInnerHTML: {
-                __html: `window.ssrNonce = "${nonce}";`
-            } }))));
+        defaultColorScheme !== "light" && (React.createElement(React.Fragment, null,
+            React.createElement("script", { suppressHydrationWarning: true, nonce: nonce, dangerouslySetInnerHTML: {
+                    "__html": getScriptToRunAsap({
+                        defaultColorScheme,
+                        nonce,
+                        trustedTypesPolicyName
+                    })
+                } }),
+            nonce !== undefined && (React.createElement("script", { suppressHydrationWarning: true, key: "nonce-setter", nonce: nonce, dangerouslySetInnerHTML: {
+                    __html: `window.ssrNonce = "${nonce}";`
+                } }))))));
 }
 //# sourceMappingURL=DsfrHead.js.map

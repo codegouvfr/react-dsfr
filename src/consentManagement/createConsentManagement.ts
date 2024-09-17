@@ -9,7 +9,7 @@ import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 import { isBrowser } from "../tools/isBrowser";
 
-export const localStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
+export const defaultLocalStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
 
 export function createConsentManagement<
     FinalityDescription extends Record<
@@ -21,10 +21,16 @@ export function createConsentManagement<
     consentCallback?: ConsentCallback<ExtractFinalityFromFinalityDescription<FinalityDescription>>;
     /** Optional: If you have a dedicated page that provides comprehensive information about your website's GDPR policies. */
     personalDataPolicyLinkProps?: RegisteredLinkProps;
+    localStorageKeyPrefix?: string;
 }) {
     type Finality = ExtractFinalityFromFinalityDescription<FinalityDescription>;
 
-    const { finalityDescription, personalDataPolicyLinkProps, consentCallback } = params;
+    const {
+        finalityDescription,
+        personalDataPolicyLinkProps,
+        consentCallback,
+        localStorageKeyPrefix = defaultLocalStorageKeyPrefix
+    } = params;
 
     const finalities = getFinalitiesFromFinalityDescription({
         "finalityDescription":

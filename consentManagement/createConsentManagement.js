@@ -5,9 +5,9 @@ import { createStatefulObservable } from "../tools/StatefulObservable";
 import { useRerenderOnChange } from "../tools/StatefulObservable/hooks";
 import { createConsentBannerAndConsentManagement } from "./ConsentBannerAndConsentManagement";
 import { isBrowser } from "../tools/isBrowser";
-export const localStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
+export const defaultLocalStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
 export function createConsentManagement(params) {
-    const { finalityDescription, personalDataPolicyLinkProps, consentCallback } = params;
+    const { finalityDescription, personalDataPolicyLinkProps, consentCallback, localStorageKeyPrefix = defaultLocalStorageKeyPrefix } = params;
     const finalities = getFinalitiesFromFinalityDescription({
         "finalityDescription": typeof finalityDescription === "function"
             ? finalityDescription({ "lang": "fr" })

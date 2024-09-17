@@ -4,16 +4,16 @@
     mask-image: url("../../icons/editor/translate-2.svg");
 }
 
-.fr-icon-arrow-go-back-fill::before,
-.fr-icon-arrow-go-back-fill::after {
-    -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
-    mask-image: url("../../icons/system/arrow-go-back-fill.svg");
-}
-
 .fr-icon-theme-fill::before,
 .fr-icon-theme-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
     mask-image: url("../../icons/system/fr--theme-fill.svg");
+}
+
+.fr-icon-arrow-go-back-fill::before,
+.fr-icon-arrow-go-back-fill::after {
+    -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
+    mask-image: url("../../icons/system/arrow-go-back-fill.svg");
 }
 
 .fr-icon-arrow-right-line::before,
@@ -100,16 +100,16 @@
     mask-image: url("../../icons/remixicon/id-card-line.svg");
 }
 
-.ri-account-box-line::before,
-.ri-account-box-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
-    mask-image: url("../../icons/remixicon/account-box-line.svg");
-}
-
 .ri-logout-box-line::before,
 .ri-logout-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
     mask-image: url("../../icons/remixicon/logout-box-line.svg");
+}
+
+.ri-account-box-line::before,
+.ri-account-box-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
+    mask-image: url("../../icons/remixicon/account-box-line.svg");
 }
 
 .fr-icon-alert-line::before,
@@ -154,12 +154,6 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
-}
-
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -170,6 +164,12 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
+}
+
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -190,14 +190,14 @@
         background-image: url("../../icons/editor/translate-2.svg");
     }
     
-    .fr-icon-arrow-go-back-fill::before,
-    .fr-icon-arrow-go-back-fill::after {
-        background-image: url("../../icons/system/arrow-go-back-fill.svg");
-    }
-    
     .fr-icon-theme-fill::before,
     .fr-icon-theme-fill::after {
         background-image: url("../../icons/system/fr--theme-fill.svg");
+    }
+    
+    .fr-icon-arrow-go-back-fill::before,
+    .fr-icon-arrow-go-back-fill::after {
+        background-image: url("../../icons/system/arrow-go-back-fill.svg");
     }
     
     .fr-icon-arrow-right-line::before,
@@ -270,14 +270,14 @@
         background-image: url("../../icons/remixicon/id-card-line.svg");
     }
     
-    .ri-account-box-line::before,
-    .ri-account-box-line::after {
-        background-image: url("../../icons/remixicon/account-box-line.svg");
-    }
-    
     .ri-logout-box-line::before,
     .ri-logout-box-line::after {
         background-image: url("../../icons/remixicon/logout-box-line.svg");
+    }
+    
+    .ri-account-box-line::before,
+    .ri-account-box-line::after {
+        background-image: url("../../icons/remixicon/account-box-line.svg");
     }
     
     .fr-icon-alert-line::before,
@@ -315,11 +315,6 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
-    }
-    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -328,6 +323,11 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
     .ri-arrow-down-s-fill::before,

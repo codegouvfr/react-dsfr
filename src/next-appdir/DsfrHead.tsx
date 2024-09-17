@@ -94,26 +94,30 @@ export function DsfrHead(props: DsfrHeadProps) {
                     <link rel="shortcut icon" href={getAssetUrl(FaviconIco)} type="image/x-icon" />
                 </>
             )}
-            <script
-                suppressHydrationWarning
-                nonce={nonce}
-                dangerouslySetInnerHTML={{
-                    "__html": getScriptToRunAsap({
-                        defaultColorScheme,
-                        nonce,
-                        trustedTypesPolicyName
-                    })
-                }}
-            />
-            {nonce !== undefined && (
-                <script
-                    suppressHydrationWarning
-                    key="nonce-setter"
-                    nonce={nonce}
-                    dangerouslySetInnerHTML={{
-                        __html: `window.ssrNonce = "${nonce}";`
-                    }}
-                />
+            {defaultColorScheme !== "light" && (
+                <>
+                    <script
+                        suppressHydrationWarning
+                        nonce={nonce}
+                        dangerouslySetInnerHTML={{
+                            "__html": getScriptToRunAsap({
+                                defaultColorScheme,
+                                nonce,
+                                trustedTypesPolicyName
+                            })
+                        }}
+                    />
+                    {nonce !== undefined && (
+                        <script
+                            suppressHydrationWarning
+                            key="nonce-setter"
+                            nonce={nonce}
+                            dangerouslySetInnerHTML={{
+                                __html: `window.ssrNonce = "${nonce}";`
+                            }}
+                        />
+                    )}
+                </>
             )}
         </>
     );

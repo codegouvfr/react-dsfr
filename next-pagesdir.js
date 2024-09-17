@@ -101,18 +101,19 @@ export function createNextDsfrIntegrationApi(params) {
                         React.createElement("link", { rel: "apple-touch-icon", href: getAssetUrl(AppleTouchIcon) }),
                         React.createElement("link", { rel: "icon", href: getAssetUrl(FaviconSvg), type: "image/svg+xml" }),
                         React.createElement("link", { rel: "shortcut icon", href: getAssetUrl(FaviconIco), type: "image/x-icon" }))),
-                    !isBrowser && ( //NOTE: On browser we handle this manually
-                    React.createElement(React.Fragment, null,
-                        React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
-                        React.createElement("meta", { name: "theme-color", content: fr.colors.getHex({ isDark }).decisions.background.default
-                                .grey.default }))),
-                    isProduction && !isBrowser && (React.createElement("script", { dangerouslySetInnerHTML: {
-                            "__html": getScriptToRunAsap({
-                                defaultColorScheme,
-                                trustedTypesPolicyName,
-                                "nonce": undefined
-                            })
-                        } }))),
+                    defaultColorScheme !== "light" && (React.createElement(React.Fragment, null,
+                        !isBrowser && ( //NOTE: On browser we handle this manually
+                        React.createElement(React.Fragment, null,
+                            React.createElement("style", { id: rootColorSchemeStyleTagId }, `:root { color-scheme: ${isDark ? "dark" : "light"}; }`),
+                            React.createElement("meta", { name: "theme-color", content: fr.colors.getHex({ isDark }).decisions.background
+                                    .default.grey.default }))),
+                        isProduction && !isBrowser && (React.createElement("script", { dangerouslySetInnerHTML: {
+                                "__html": getScriptToRunAsap({
+                                    defaultColorScheme,
+                                    trustedTypesPolicyName,
+                                    "nonce": undefined
+                                })
+                            } }))))),
                 isBrowser ? (React.createElement(App, Object.assign({}, props))) : (React.createElement(SsrIsDarkProvider, { value: isDark },
                     React.createElement(App, Object.assign({}, props))))));
         }
