@@ -2,7 +2,7 @@ import React from "react";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { createConsentManagement } from "../dist/consentManagement";
-import { localStorageKeyPrefix } from "../dist/consentManagement/createConsentManagement";
+import { defaultLocalStorageKeyPrefix } from "../dist/consentManagement/createConsentManagement";
 import { Placeholder } from "../dist/consentManagement/Placeholder";
 import { Footer } from "../dist/Footer";
 import { Button } from "../dist/Button";
@@ -284,7 +284,7 @@ function Story() {
             <Button
                 onClick={() => {
                     Object.keys(localStorage)
-                        .filter(key => key.startsWith(localStorageKeyPrefix))
+                        .filter(key => key.startsWith(defaultLocalStorageKeyPrefix))
                         .forEach(key => localStorage.removeItem(key));
 
                     location.reload();
