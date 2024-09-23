@@ -64,6 +64,7 @@ export const Select = memo(
         })();
 
         const stateDescriptionId = `select-${useId()}-desc`;
+        const messagesGroupId = `${selectId}-messages-group`;
 
         return (
             <div
@@ -107,24 +108,26 @@ export const Select = memo(
                 >
                     {children}
                 </select>
-                {state !== "default" && (
-                    <p
-                        id={stateDescriptionId}
-                        className={fr.cx(
-                            (() => {
-                                switch (state) {
-                                    case "error":
-                                        return "fr-error-text";
-                                    case "success":
-                                        return "fr-valid-text";
-                                }
-                                assert<Equals<typeof state, never>>(false);
-                            })()
-                        )}
-                    >
-                        {stateRelatedMessage}
-                    </p>
-                )}
+                <div id={messagesGroupId} className={fr.cx("fr-messages-group")} aria-live="polite">
+                    {state !== "default" && (
+                        <p
+                            id={stateDescriptionId}
+                            className={fr.cx(
+                                (() => {
+                                    switch (state) {
+                                        case "error":
+                                            return "fr-error-text";
+                                        case "success":
+                                            return "fr-valid-text";
+                                    }
+                                    assert<Equals<typeof state, never>>(false);
+                                })()
+                            )}
+                        >
+                            {stateRelatedMessage}
+                        </p>
+                    )}
+                </div>
             </div>
         );
     })
