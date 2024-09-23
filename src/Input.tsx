@@ -101,6 +101,7 @@ export const Input = memo(
         })();
 
         const messageId = `${inputId}-desc-error`;
+        const messagesGroupId = `${inputId}-messages-group`;
 
         return (
             <div
@@ -182,29 +183,35 @@ export const Input = memo(
                         nativeInputOrTextArea
                     );
                 })()}
-                {state !== "default" && (
-                    <p
-                        id={messageId}
-                        className={cx(
-                            fr.cx(
-                                (() => {
-                                    switch (state) {
-                                        case "error":
-                                            return "fr-error-text";
-                                        case "success":
-                                            return "fr-valid-text";
-                                        case "info":
-                                            return "fr-info-text";
-                                    }
-                                    assert<Equals<typeof state, never>>();
-                                })()
-                            ),
-                            classes.message
-                        )}
-                    >
-                        {stateRelatedMessage}
-                    </p>
-                )}
+                <div
+                    id={messagesGroupId}
+                    className={fr.cx("fr-messages-group")}
+                    aria-live="assertive"
+                >
+                    {state !== "default" && (
+                        <p
+                            id={messageId}
+                            className={cx(
+                                fr.cx(
+                                    (() => {
+                                        switch (state) {
+                                            case "error":
+                                                return "fr-error-text";
+                                            case "success":
+                                                return "fr-valid-text";
+                                            case "info":
+                                                return "fr-info-text";
+                                        }
+                                        assert<Equals<typeof state, never>>();
+                                    })()
+                                ),
+                                classes.message
+                            )}
+                        >
+                            {stateRelatedMessage}
+                        </p>
+                    )}
+                </div>
             </div>
         );
     })
