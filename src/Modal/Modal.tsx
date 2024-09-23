@@ -97,7 +97,10 @@ const Modal = memo(
                                 <div className={fr.cx("fr-modal__content")}>
                                     <h1 id={titleId} className={fr.cx("fr-modal__title")}>
                                         {iconId !== undefined && (
-                                            <span className={fr.cx(iconId, "fr-fi--lg")} />
+                                            <span
+                                                className={fr.cx(iconId, "fr-fi--lg")}
+                                                aria-hidden={true}
+                                            />
                                         )}
                                         {title}
                                     </h1>
