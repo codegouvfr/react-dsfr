@@ -53,7 +53,7 @@ export const ProConnectButton = memo(
                 style={style}
                 ref={ref}
             >
-                <Inner className={fr.cx("fr-btn", "fr-connect")} {...innerProps}>
+                <Inner className={cx(fr.cx("fr-btn", "fr-connect"), "pro-connect")} {...innerProps}>
                     <span className={cx(fr.cx("fr-connect__login"), classes.login)}>
                         S’identifier avec
                     </span>
