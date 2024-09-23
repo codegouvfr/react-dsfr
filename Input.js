@@ -29,6 +29,7 @@ export const Input = memo(forwardRef((props, ref) => {
         return (_a = nativeInputOrTextAreaProps.id) !== null && _a !== void 0 ? _a : `input-${id}`;
     })();
     const messageId = `${inputId}-desc-error`;
+    const messagesGroupId = `${inputId}-messages-group`;
     return (React.createElement("div", Object.assign({ className: cx(fr.cx((nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) === "file" ? "fr-upload-group" : "fr-input-group", disabled && "fr-input-group--disabled", (() => {
             switch (state) {
                 case "error":
@@ -62,7 +63,7 @@ export const Input = memo(forwardRef((props, ref) => {
                 nativeInputOrTextArea,
                 hasAddon && addon)) : (nativeInputOrTextArea);
         })(),
-        state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
+        React.createElement("div", { id: messagesGroupId, className: fr.cx("fr-messages-group"), "aria-live": "polite" }, state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
                 switch (state) {
                     case "error":
                         return "fr-error-text";
@@ -72,7 +73,7 @@ export const Input = memo(forwardRef((props, ref) => {
                         return "fr-info-text";
                 }
                 assert();
-            })()), classes.message) }, stateRelatedMessage))));
+            })()), classes.message) }, stateRelatedMessage)))));
 }));
 Input.displayName = symToStr({ Input });
 export default Input;
