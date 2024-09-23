@@ -63,7 +63,7 @@ export const ProConnectButton = memo(
                 </Inner>
                 <p>
                     <a
-                        href={"https://proconnect.gouv.fr/"}
+                        href={"https://www.proconnect.gouv.fr/"}
                         target="_blank"
                         rel="noopener"
                         title={`${t("what is service")} - ${t("new window")}`}
