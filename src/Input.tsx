@@ -183,11 +183,7 @@ export const Input = memo(
                         nativeInputOrTextArea
                     );
                 })()}
-                <div
-                    id={messagesGroupId}
-                    className={fr.cx("fr-messages-group")}
-                    aria-live="assertive"
-                >
+                <div id={messagesGroupId} className={fr.cx("fr-messages-group")} aria-live="polite">
                     {state !== "default" && (
                         <p
                             id={messageId}
