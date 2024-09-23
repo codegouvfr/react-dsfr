@@ -6,7 +6,7 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { FranceConnectButton },
     "description": `
-- [See DSFR documentation](https://github.com/france-connect/Documentation-AgentConnect/blob/main/doc_fs/implementation_fca/bouton_fca.md)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/bouton-franceconnect/)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/FranceConnectButton.tsx)`
 });
 
