@@ -3,6 +3,7 @@ import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { createComponentI18nApi } from "./i18n";
 
 export type TooltipProps = TooltipProps.WithClickAction | TooltipProps.WithHoverAction;
 
@@ -29,6 +30,8 @@ export const Tooltip = memo(
     forwardRef<HTMLSpanElement, TooltipProps>((props, ref) => {
         const { id: id_prop, className, description, kind, children, ...rest } = props;
         assert<Equals<keyof typeof rest, never>>();
+
+        const { t } = useTranslation();
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-tooltip",
@@ -63,7 +66,7 @@ export const Tooltip = memo(
                                 aria-describedby={id}
                                 id={`tooltip-owner-${id}`}
                             >
-                                Information contextuelle
+                                {t("tooltip-button-text")}
                             </button>
                         ) : (
                             displayChildren(children, id)
@@ -96,5 +99,21 @@ export const Tooltip = memo(
 );
 
 Tooltip.displayName = symToStr({ Tooltip });
+
+const { useTranslation, addTooltipTranslations } = createComponentI18nApi({
+    "componentName": symToStr({ Tooltip }),
+    "frMessages": {
+        "tooltip-button-text": "Information contextuelle"
+    }
+});
+
+addTooltipTranslations({
+    "lang": "en",
+    "messages": {
+        "tooltip-button-text": "Contextual information"
+    }
+});
+
+export { addTooltipTranslations };
 
 export default Tooltip;
