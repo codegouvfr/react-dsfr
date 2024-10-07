@@ -1,3 +1,4 @@
+import React from "react";
 import { Tooltip, type TooltipProps } from "../dist/Tooltip";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
@@ -30,28 +31,32 @@ const { meta, getStory } = getStoryFactory({
             })(),
             "description": "Optional."
         },
-        "description": {
+        "title": {
             "control": { "type": "text" }
         },
         "children": {
             "control": { "type": "text" }
         }
-    },
-    "disabledProps": ["lang"]
+    }
 });
 
 export default meta;
 
 const defaultOnHoverProps: TooltipProps.WithHoverAction = {
-    "description": "lorem ipsum",
-    "children": "Exemple"
+    "title": "lorem ipsum",
+    "children": "Hover example"
 };
 
 export const Default = getStory(defaultOnHoverProps);
 
 export const TooltipOnHover = getStory(defaultOnHoverProps);
 
+export const TooltipOnHoverLink = getStory({
+    ...defaultOnHoverProps,
+    children: <a href="#">Some link</a>
+});
+
 export const TooltipOnClick = getStory({
     "kind": "click",
-    "description": "lorem ipsum"
+    "title": "lorem ipsum"
 });

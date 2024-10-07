@@ -1,34 +1,38 @@
-import React, { forwardRef, memo, ReactElement } from "react";
+import React, { forwardRef, memo } from "react";
+import type { ReactNode, CSSProperties } from "react";
 import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import { createComponentI18nApi } from "./i18n";
+import { fr } from "./fr";
+import { cx } from "./tools/cx";
 
 export type TooltipProps = TooltipProps.WithClickAction | TooltipProps.WithHoverAction;
 
 export namespace TooltipProps {
     export type Common = {
-        description: string;
+        title: ReactNode;
         id?: string;
         className?: string;
+        style?: CSSProperties;
     };
 
     export type WithClickAction = Common & {
         kind: "click";
-        children?: ReactElement | string;
+        children?: undefined;
     };
 
     export type WithHoverAction = Common & {
         kind?: "hover";
-        children: ReactElement | string;
+        children: ReactNode;
     };
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tooltip> */
 export const Tooltip = memo(
     forwardRef<HTMLSpanElement, TooltipProps>((props, ref) => {
-        const { id: id_prop, className, description, kind, children, ...rest } = props;
+        const { id: id_prop, className, title, kind, style, children, ...rest } = props;
         assert<Equals<keyof typeof rest, never>>();
 
         const { t } = useTranslation();
@@ -38,61 +42,35 @@ export const Tooltip = memo(
             "explicitlyProvidedId": id_prop
         });
 
-        const displayChildren = (
-            children: ReactElement | string | undefined,
-            id: string
-        ): ReactElement => {
-            if (children === undefined) return <></>;
-            return typeof children === "string" ? (
-                <span aria-describedby={id} id={`tooltip-owner-${id}`}>
-                    {children}
-                </span>
-            ) : (
-                children &&
-                    React.cloneElement(children, {
-                        "aria-describedby": id,
-                        "id": `tooltip-owner-${id}`
-                    })
-            );
-        };
+        const TooltipSpan = () => (
+            <span
+                className={cx(fr.cx("fr-tooltip", "fr-placement"), className)}
+                id={id}
+                ref={ref}
+                style={style}
+                role="tooltip"
+                aria-hidden="true"
+            >
+                {title}
+            </span>
+        );
 
         return (
             <>
-                {props.kind === "click" ? (
-                    <span ref={ref}>
-                        {children === undefined ? (
-                            <button
-                                className="fr-btn--tooltip fr-btn"
-                                aria-describedby={id}
-                                id={`tooltip-owner-${id}`}
-                            >
-                                {t("tooltip-button-text")}
-                            </button>
-                        ) : (
-                            displayChildren(children, id)
-                        )}
-                        <span
-                            className={`fr-tooltip fr-placement ${props.className}`}
-                            id={id}
-                            role="tooltip"
-                            aria-hidden="true"
-                        >
-                            {props.description}
-                        </span>
-                    </span>
-                ) : (
-                    <span ref={ref}>
-                        {displayChildren(children, id)}
-                        <span
-                            className={`fr-tooltip fr-placement ${props.className}`}
-                            id={id}
-                            role="tooltip"
-                            aria-hidden="true"
-                        >
-                            {props.description}
-                        </span>
+                {(kind === "click" && (
+                    <button
+                        className={fr.cx("fr-btn--tooltip", "fr-btn")}
+                        aria-describedby={id}
+                        id={`tooltip-owner-${id}`}
+                    >
+                        {t("tooltip-button-text")}
+                    </button>
+                )) || (
+                    <span aria-describedby={id} id={`tooltip-owner-${id}`}>
+                        {children}
                     </span>
                 )}
+                <TooltipSpan />
             </>
         );
     })
