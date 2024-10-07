@@ -25,7 +25,7 @@ export namespace TooltipProps {
 
     export type WithHoverAction = Common & {
         kind?: "hover";
-        children: ReactNode;
+        children?: ReactNode;
     };
 }
 
@@ -57,7 +57,7 @@ export const Tooltip = memo(
 
         return (
             <>
-                {(kind === "click" && (
+                {kind === "click" ? (
                     <button
                         className={fr.cx("fr-btn--tooltip", "fr-btn")}
                         aria-describedby={id}
@@ -65,7 +65,15 @@ export const Tooltip = memo(
                     >
                         {t("tooltip-button-text")}
                     </button>
-                )) || (
+                ) : typeof children === "undefined" ? (
+                    // mimic default tooltip style
+                    <i
+                        className={fr.cx("fr-icon--sm", "fr-icon-question-line")}
+                        style={{ color: fr.colors.decisions.text.actionHigh.blueFrance.default }}
+                        aria-describedby={id}
+                        id={`tooltip-owner-${id}`}
+                    ></i>
+                ) : (
                     <span aria-describedby={id} id={`tooltip-owner-${id}`}>
                         {children}
                     </span>

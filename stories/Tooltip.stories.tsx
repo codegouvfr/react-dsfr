@@ -1,8 +1,10 @@
 import React from "react";
-import { Tooltip, type TooltipProps } from "../dist/Tooltip";
+import { assert, Equals } from "tsafe/assert";
+
+import { Tooltip, type TooltipProps } from "../src/Tooltip";
+
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { assert, Equals } from "tsafe/assert";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -43,15 +45,15 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 const defaultOnHoverProps: TooltipProps.WithHoverAction = {
-    "title": "lorem ipsum",
-    "children": "Hover example"
+    "kind": "hover",
+    "title": "lorem ipsum"
 };
 
 export const Default = getStory(defaultOnHoverProps);
 
 export const TooltipOnHover = getStory(defaultOnHoverProps);
 
-export const TooltipOnHoverLink = getStory({
+export const TooltipOnHoverWithChild = getStory({
     ...defaultOnHoverProps,
     children: <a href="#">Some link</a>
 });
