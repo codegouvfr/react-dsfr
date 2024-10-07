@@ -29,11 +29,11 @@ export const ProConnectButton = memo(forwardRef((props, ref) => {
     const Inner = onClick !== undefined ? "button" : "a";
     const innerProps = (onClick !== undefined ? { onClick } : { href });
     return (React.createElement("div", { id: id, className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
-        React.createElement(Inner, Object.assign({ className: fr.cx("fr-btn", "fr-connect") }, innerProps),
+        React.createElement(Inner, Object.assign({ className: cx(fr.cx("fr-btn", "fr-connect"), "pro-connect") }, innerProps),
             React.createElement("span", { className: cx(fr.cx("fr-connect__login"), classes.login) }, "S\u2019identifier avec"),
             React.createElement("span", { className: cx(fr.cx("fr-connect__brand"), classes.brand) }, "ProConnect")),
         React.createElement("p", null,
-            React.createElement("a", { href: "https://proconnect.gouv.fr/", target: "_blank", rel: "noopener", title: `${t("what is service")} - ${t("new window")}` }, t("what is service")))));
+            React.createElement("a", { href: "https://www.proconnect.gouv.fr/", target: "_blank", rel: "noopener", title: `${t("what is service")} - ${t("new window")}` }, t("what is service")))));
 }));
 ProConnectButton.displayName = symToStr({ ProConnectButton });
 export default ProConnectButton;
