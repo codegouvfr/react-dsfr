@@ -143,14 +143,14 @@ export const SideMenu = memo(
                                                             item.linkProps !== undefined
                                                                 ? Link
                                                                 : "button";
+                                                        const isExpanded =
+                                                            item.expandedByDefault ?? false;
 
                                                         return (
                                                             // @ts-expect-error
                                                             <ComponentToUse
                                                                 aria-expanded={
-                                                                    item.expandedByDefault ?? false
-                                                                        ? "true"
-                                                                        : "false"
+                                                                    isExpanded ? "true" : "false"
                                                                 }
                                                                 aria-controls={itemId}
                                                                 {...(item.isActive && {
@@ -179,7 +179,7 @@ export const SideMenu = memo(
                                                             {item.items.map((item, i) =>
                                                                 getItemRec({
                                                                     item,
-                                                                    "key": `${i}`,
+                                                                    "key": `${key}-${i}`,
                                                                     "level": level + 1
                                                                 })
                                                             )}
