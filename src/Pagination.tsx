@@ -100,6 +100,11 @@ export const Pagination = memo(
 
         const parts = getPaginationParts({ count, defaultPage });
 
+        const activePage = parts.find(part => part.active);
+        const currentPage = activePage?.number;
+        const isCurrentPageFirstPage = currentPage === 1;
+        const isCurrentPageLastPage = currentPage === count;
+
         return (
             <nav
                 id={id}
@@ -122,7 +127,7 @@ export const Pagination = memo(
                                         getPageLinkProps(1).className
                                     ),
                                     "aria-disabled":
-                                        count > 0 && defaultPage > 1 ? true : undefined,
+                                        count > 0 && isCurrentPageFirstPage ? true : undefined,
                                     role: "link"
                                 }}
                             >
@@ -143,7 +148,7 @@ export const Pagination = memo(
                                     ),
                                     classes.link
                                 ),
-                                "aria-disabled": defaultPage <= 1 ? true : undefined,
+                                "aria-disabled": isCurrentPageFirstPage ? true : undefined,
                                 role: "link"
                             }}
                         >
@@ -181,7 +186,7 @@ export const Pagination = memo(
                                     ),
                                     classes.link
                                 ),
-                                "aria-disabled": defaultPage < count ? true : undefined,
+                                "aria-disabled": isCurrentPageLastPage ? true : undefined,
                                 role: "link"
                             }}
                         >
@@ -198,7 +203,7 @@ export const Pagination = memo(
                                         fr.cx("fr-pagination__link", "fr-pagination__link--last"),
                                         classes.link
                                     ),
-                                    "aria-disabled": defaultPage < count ? true : undefined
+                                    "aria-disabled": isCurrentPageLastPage ? true : undefined
                                 }}
                             >
                                 {t("last page")}

@@ -73,31 +73,35 @@ export const Pagination = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
     const { Link } = getLink();
     const parts = getPaginationParts({ count, defaultPage });
+    const activePage = parts.find(part => part.active);
+    const currentPage = activePage === null || activePage === void 0 ? void 0 : activePage.number;
+    const isCurrentPageFirstPage = currentPage === 1;
+    const isCurrentPageLastPage = currentPage === count;
     return (React.createElement("nav", { id: id, role: "navigation", className: cx(fr.cx("fr-pagination"), classes.root, className), "aria-label": t("aria-label"), style: style, ref: ref },
         React.createElement("ul", { className: cx(fr.cx("fr-pagination__list"), classes.list) },
             showFirstLast && (React.createElement("li", null,
                 React.createElement(DynamicLink, Object.assign({ useReactLinkComponent: defaultPage > 1 }, (count > 0 && defaultPage > 1 && getPageLinkProps(1)), {
                     className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--first"), classes.link, getPageLinkProps(1).className),
-                    "aria-disabled": count > 0 && defaultPage > 1 ? true : undefined,
+                    "aria-disabled": count > 0 && isCurrentPageFirstPage ? true : undefined,
                     role: "link"
                 }), t("first page")))),
             React.createElement("li", null,
                 React.createElement(DynamicLink, Object.assign({ useReactLinkComponent: defaultPage > 1 }, (defaultPage > 1 && getPageLinkProps(defaultPage - 1)), {
                     className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--prev", "fr-pagination__link--lg-label"), classes.link),
-                    "aria-disabled": defaultPage <= 1 ? true : undefined,
+                    "aria-disabled": isCurrentPageFirstPage ? true : undefined,
                     role: "link"
                 }), t("previous page"))),
             parts.map(part => (React.createElement("li", { key: part.number }, part.number === null ? (React.createElement("a", { className: cx(fr.cx("fr-pagination__link"), classes.link) }, "...")) : (React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link"), classes.link), "aria-current": part.active ? true : undefined, title: `Page ${part.number}` }, getPageLinkProps(part.number)), part.number))))),
             React.createElement("li", null,
                 React.createElement(DynamicLink, Object.assign({ useReactLinkComponent: defaultPage < count }, (defaultPage < count && getPageLinkProps(defaultPage + 1)), {
                     className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--next", "fr-pagination__link--lg-label"), classes.link),
-                    "aria-disabled": defaultPage < count ? true : undefined,
+                    "aria-disabled": isCurrentPageLastPage ? true : undefined,
                     role: "link"
                 }), t("next page"))),
             showFirstLast && (React.createElement("li", null,
                 React.createElement(DynamicLink, Object.assign({ useReactLinkComponent: defaultPage < count }, (defaultPage < count && getPageLinkProps(count)), {
                     className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--last"), classes.link),
-                    "aria-disabled": defaultPage < count ? true : undefined
+                    "aria-disabled": isCurrentPageLastPage ? true : undefined
                 }), t("last page")))))));
 }));
 Pagination.displayName = symToStr({ Pagination });
