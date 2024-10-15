@@ -2,7 +2,7 @@
 
 {% embed url="https://youtu.be/FdabjOlaCUQ" %}
 
-Icons just work, you can copy and paste any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/fondamentaux-techniques/icone).
+Icons just work, you can copy and paste any code from [the dsfr documentation](https://www.systeme-de-design.gouv.fr/fondamentaux/icone).
 
 {% hint style="info" %}
 Whenever you add a new icon to your project, restart your local server. This will launch the `only_include_used_icons` script configured in the [Initial setup](./) (else you'll see a blue square instead of your icon).
