@@ -5,7 +5,7 @@ import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
 
 import { fr } from "./fr";
-import { type RegisteredLinkProps, getLink } from "./link";
+import { getLink, type RegisteredLinkProps } from "./link";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 
@@ -132,7 +132,7 @@ export const Tile = memo(
                         noBackground && "fr-tile--no-background",
                         grey && "fr-tile--grey",
                         small && "fr-tile--sm",
-                        buttonProps && downloadButton && "fr-tile--download"
+                        (buttonProps || linkProps) && downloadButton && "fr-tile--download"
                     ),
                     classes.root,
                     className

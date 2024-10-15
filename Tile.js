@@ -30,7 +30,7 @@ export const Tile = memo(forwardRef((props, ref) => {
                 ? "fr-enlarge-link"
                 : buttonProps
                     ? "fr-enlarge-button"
-                    : null), orientation && `fr-tile--${orientation}`, noIcon && "fr-tile--no-icon", noBorder && "fr-tile--no-border", noBackground && "fr-tile--no-background", grey && "fr-tile--grey", small && "fr-tile--sm", buttonProps && downloadButton && "fr-tile--download"), classes.root, className), ref: ref, style: style }, rest),
+                    : null), orientation && `fr-tile--${orientation}`, noIcon && "fr-tile--no-icon", noBorder && "fr-tile--no-border", noBackground && "fr-tile--no-background", grey && "fr-tile--grey", small && "fr-tile--sm", (buttonProps || linkProps) && downloadButton && "fr-tile--download"), classes.root, className), ref: ref, style: style }, rest),
         React.createElement("div", { className: cx(fr.cx("fr-tile__body"), classes.body) },
             React.createElement("div", { className: cx(fr.cx("fr-tile__content"), classes.content) },
                 React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-tile__title"), classes.title) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { href: disabled ? undefined : linkProps.href, className: cx(classes.link, linkProps.className), "aria-disabled": disabled }), title)) : buttonProps !== undefined ? (React.createElement("button", Object.assign({}, buttonProps, { className: cx(classes.button, buttonProps.className), disabled: disabled }), title)) : (title)),
