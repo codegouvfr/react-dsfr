@@ -4,6 +4,12 @@
     mask-image: url("../../icons/editor/translate-2.svg");
 }
 
+.fr-icon-question-line::before,
+.fr-icon-question-line::after {
+    -webkit-mask-image: url("../../icons/system/question-line.svg");
+    mask-image: url("../../icons/system/question-line.svg");
+}
+
 .fr-icon-arrow-go-back-fill::before,
 .fr-icon-arrow-go-back-fill::after {
     -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
@@ -20,6 +26,18 @@
 .fr-icon-arrow-right-line::after {
     -webkit-mask-image: url("../../icons/system/arrow-right-line.svg");
     mask-image: url("../../icons/system/arrow-right-line.svg");
+}
+
+.fr-icon-checkbox-circle-line::before,
+.fr-icon-checkbox-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
+    mask-image: url("../../icons/system/checkbox-circle-line.svg");
+}
+
+.ri-ancient-gate-fill::before,
+.ri-ancient-gate-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
 .fr-icon-chat-check-fill::before,
@@ -40,18 +58,6 @@
     mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
-.fr-icon-checkbox-circle-line::before,
-.fr-icon-checkbox-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
-    mask-image: url("../../icons/system/checkbox-circle-line.svg");
-}
-
-.ri-ancient-gate-fill::before,
-.ri-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-}
-
 .ri-information-line::before,
 .ri-information-line::after {
     -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
@@ -62,6 +68,12 @@
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -110,12 +122,6 @@
 .ri-logout-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
     mask-image: url("../../icons/remixicon/logout-box-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .ri-check-line::before,
@@ -190,6 +196,11 @@
         background-image: url("../../icons/editor/translate-2.svg");
     }
     
+    .fr-icon-question-line::before,
+    .fr-icon-question-line::after {
+        background-image: url("../../icons/system/question-line.svg");
+    }
+    
     .fr-icon-arrow-go-back-fill::before,
     .fr-icon-arrow-go-back-fill::after {
         background-image: url("../../icons/system/arrow-go-back-fill.svg");
@@ -203,6 +214,16 @@
     .fr-icon-arrow-right-line::before,
     .fr-icon-arrow-right-line::after {
         background-image: url("../../icons/system/arrow-right-line.svg");
+    }
+    
+    .fr-icon-checkbox-circle-line::before,
+    .fr-icon-checkbox-circle-line::after {
+        background-image: url("../../icons/system/checkbox-circle-line.svg");
+    }
+    
+    .ri-ancient-gate-fill::before,
+    .ri-ancient-gate-fill::after {
+        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
     .fr-icon-chat-check-fill::before,
@@ -220,16 +241,6 @@
         background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
-    .fr-icon-checkbox-circle-line::before,
-    .fr-icon-checkbox-circle-line::after {
-        background-image: url("../../icons/system/checkbox-circle-line.svg");
-    }
-    
-    .ri-ancient-gate-fill::before,
-    .ri-ancient-gate-fill::after {
-        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    }
-    
     .ri-information-line::before,
     .ri-information-line::after {
         background-image: url("../../icons/remixicon/information-line.svg");
@@ -238,6 +249,11 @@
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -278,11 +294,6 @@
     .ri-logout-box-line::before,
     .ri-logout-box-line::after {
         background-image: url("../../icons/remixicon/logout-box-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .ri-check-line::before,
