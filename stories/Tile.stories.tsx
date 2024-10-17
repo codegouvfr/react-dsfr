@@ -111,8 +111,9 @@ const { meta, getStory } = getStoryFactory({
             }
         },
         "imageSvg": {
-            "description": "Set to true if the image is a SVG.",
-            "defaultValue": true,
+            "description":
+                "Set to true if the image is type of SVG [Pictogramme DSFR](https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme/) compliant.",
+            "defaultValue": false,
             "control": {
                 "type": "boolean"
             },
