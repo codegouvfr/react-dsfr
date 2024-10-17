@@ -62,7 +62,7 @@ export const SideMenu = memo(forwardRef((props, ref) => {
                             React.createElement("div", { className: fr.cx("fr-collapse"), id: itemId },
                                 React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, item.items.map((item, i) => getItemRec({
                                     item,
-                                    "key": `${i}`,
+                                    "key": `${key}-${i}`,
                                     "level": level + 1
                                 })))))) : (React.createElement(Link, Object.assign({ target: "_self" }, item.linkProps, (item.isActive && {
                             ["aria-current"]: "page"

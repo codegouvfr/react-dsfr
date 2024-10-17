@@ -179,7 +179,7 @@ export const SideMenu = memo(
                                                             {item.items.map((item, i) =>
                                                                 getItemRec({
                                                                     item,
-                                                                    "key": `${i}`,
+                                                                    "key": `${key}-${i}`,
                                                                     "level": level + 1
                                                                 })
                                                             )}
