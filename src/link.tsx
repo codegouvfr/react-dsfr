@@ -18,6 +18,7 @@ export type RegisteredLinkProps = RegisterLink extends { Link: infer Link }
           | Omit<UnpackProps<Link>, "children">
           | (Omit<HTMLAnchorProps, "children" | "href"> & {
                 href: string;
+                onClick: React.MouseEventHandler<HTMLAnchorElement>;
             })
     : Omit<HTMLAnchorProps, "children">;
 
