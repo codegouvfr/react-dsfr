@@ -15,6 +15,9 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
             "description":
                 'Required message to display, it should not relay a "classic" information, but an important and temporary information.'
         },
+        "description": {
+            "description": "Optional message to complete title"
+        },
         "severity": {
             "description": 'Default : "info"',
             "options": (() => {
@@ -59,7 +62,8 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
 export default meta;
 
 export const Default = getStory({
-    "title": "Service maintenance is scheduled today from 12:00 to 14:00",
+    "title": "Service maintenance is scheduled today from 12:00 to 14:00.",
+    "description": "All will be ok after 14:00.",
     "isClosable": true,
     "isClosed": undefined,
     "severity": "info",
@@ -67,65 +71,72 @@ export const Default = getStory({
 });
 
 export const NonClosableNotice = getStory({
-    "title": "This is the title"
+    "title": "This is the title",
+    "description": "This is the description."
 });
 
 export const ClosableNotice = getStory({
-    "title": "This is the title",
+    "title": "This is the title.",
+    "description": "This is the description.",
     "isClosable": true
 });
 
-export const NoIconNotice = getStory({
-    "title": "This is a No Icon notice",
-    "severity": "no-icon"
-});
-
 export const InfoNotice = getStory({
-    "title": "This is a Info notice",
+    "title": "This is a Info notice.",
+    "description": "This is the description.",
     "severity": "info"
 });
 
 export const WarningNotice = getStory({
-    "title": "This is a Warning notice",
+    "title": "This is a Warning notice.",
+    "description": "This is the description.",
     "severity": "warning"
 });
 
 export const AlertNotice = getStory({
-    "title": "This is an Alert notice",
+    "title": "This is an Alert notice.",
+    "description": "This is the description.",
     "severity": "alert"
 });
 
 export const WeatherOrangeNotice = getStory({
-    "title": "This is a WeatherOrange notice",
+    "title": "This is a WeatherOrange notice.",
+    "description": "This is the description.",
     "severity": "weather-orange"
 });
 
 export const WeatherRedNotice = getStory({
-    "title": "This is a WeatherRed notice",
+    "title": "This is a WeatherRed notice.",
+    "description": "This is the description.",
     "severity": "weather-red"
 });
 
 export const WeatherPurpleNotice = getStory({
-    "title": "This is a WeatherPurple notice",
+    "title": "This is a WeatherPurple notice.",
+    "description": "This is the description.",
     "severity": "weather-purple"
 });
 
 export const WitnessNotice = getStory({
-    "title": "This is a Witness notice",
+    "title": "This is a Witness notice.",
+    "description": "This is the description.",
     "severity": "witness"
 });
 
 export const KidnappingNotice = getStory({
-    "title": "This is a Kidnapping notice",
+    "title": "This is a Kidnapping notice.",
+    "description": "This is the description.",
     "severity": "kidnapping"
 });
 
 export const AttackNotice = getStory({
-    "title": "This is an Attack notice",
+    "title": "This is an Attack notice.",
+    "description": "This is the description.",
     "severity": "attack"
 });
 
 export const CyberattackNotice = getStory({
-    "title": "This is a Cyberattack notice",
+    "title": "This is a Cyberattack notice.",
+    "description": "This is the description.",
     "severity": "cyberattack"
 });

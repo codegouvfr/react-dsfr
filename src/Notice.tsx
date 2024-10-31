@@ -24,8 +24,9 @@ export namespace NoticeProps {
     type Common = {
         id?: string;
         className?: string;
-        classes?: Partial<Record<"root" | "title" | "close", string>>;
+        classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
         title: NonNullable<ReactNode>;
+        description?: ReactNode;
         style?: CSSProperties;
         /** Default: "info" */
         severity?: NoticeProps.Severity;
@@ -59,7 +60,7 @@ export namespace NoticeProps {
         ? Severity
         : never;
 
-    export type Severity = ExtractSeverity<FrClassName>;
+    export type Severity = Exclude<ExtractSeverity<FrClassName>, "no-icon">;
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
@@ -70,6 +71,7 @@ export const Notice = memo(
             className,
             classes = {},
             title,
+            description,
             isClosable = false,
             isClosed: props_isClosed,
             onClose,
@@ -154,7 +156,16 @@ export const Notice = memo(
             >
                 <div className={fr.cx("fr-container")}>
                     <div className={fr.cx("fr-notice__body")}>
-                        <p className={cx(fr.cx(`fr-notice__title`), classes.title)}>{title}</p>
+                        <p>
+                            <span className={cx(fr.cx(`fr-notice__title`), classes.title)}>
+                                {title}
+                            </span>
+                            {description && (
+                                <span className={cx(fr.cx("fr-notice__desc"), classes.description)}>
+                                    {description}
+                                </span>
+                            )}
+                        </p>
                         {/* TODO: Use our button once we have one */}
                         {isClosable && (
                             <button
