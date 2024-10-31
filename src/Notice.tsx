@@ -10,7 +10,7 @@ import React, {
     type CSSProperties
 } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { fr } from "./fr";
+import { fr, type FrClassName } from "./fr";
 import { cx } from "./tools/cx";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -27,6 +27,8 @@ export namespace NoticeProps {
         classes?: Partial<Record<"root" | "title" | "close", string>>;
         title: NonNullable<ReactNode>;
         style?: CSSProperties;
+        /** Default: "info" */
+        severity?: NoticeProps.Severity;
     };
 
     export type NonClosable = Common & {
@@ -52,6 +54,12 @@ export namespace NoticeProps {
             isClosed?: never;
         };
     }
+
+    type ExtractSeverity<FrClassName> = FrClassName extends `fr-notice--${infer Severity}`
+        ? Severity
+        : never;
+
+    export type Severity = ExtractSeverity<FrClassName>;
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
@@ -66,6 +74,7 @@ export const Notice = memo(
             isClosed: props_isClosed,
             onClose,
             style,
+            severity = "info",
             ...rest
         } = props;
 
@@ -133,7 +142,11 @@ export const Notice = memo(
         return (
             <div
                 id={id}
-                className={cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className)}
+                className={cx(
+                    fr.cx("fr-notice", `fr-notice--${severity}`),
+                    classes.root,
+                    className
+                )}
                 {...(refShouldSetRole.current && { "role": "notice" })}
                 ref={ref}
                 style={style}
