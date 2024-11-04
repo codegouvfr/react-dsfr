@@ -30,18 +30,31 @@ export const Summary = memo(forwardRef((props, ref) => {
         "defaultIdPrefix": "fr-summary",
         "explicitlyProvidedId": id_props
     });
+    const getSubLinks = (link, linkIndex) => {
+        let subLinkElements = [];
+        if (link.subLinks && link.subLinks.length !== 0) {
+            subLinkElements = link.subLinks.map((subitem, subLinkIndex) => getLinkLi(subitem, `${linkIndex}-${subLinkIndex}`));
+        }
+        return subLinkElements.length === 0 ? undefined : React.createElement("ol", null, ...subLinkElements);
+    };
+    const getLinkLi = (link, linkIndex) => {
+        var _a;
+        if (link.linkProps.href === undefined)
+            return React.createElement(React.Fragment, null);
+        const subLinksList = getSubLinks(link, linkIndex);
+        const mainLink = link.linkProps.href !== undefined ? (React.createElement("li", { key: linkIndex },
+            React.createElement(Link, Object.assign({}, link.linkProps, { id: (_a = link.linkProps.id) !== null && _a !== void 0 ? _a : `${id}-link${generateValidHtmlId({
+                    "text": link.text
+                })}-${linkIndex}`, className: cx(fr.cx("fr-summary__link"), classes.link, link.linkProps.className) }), link.text),
+            subLinksList)) : (React.createElement(React.Fragment, null));
+        return mainLink;
+    };
     return (React.createElement("nav", { id: id, className: cx(fr.cx("fr-summary"), classes.root, className), role: "navigation", "aria-labelledby": titleId, style: style, ref: ref },
         React.createElement(as, {
             className: cx(fr.cx("fr-summary__title"), classes.title),
             id: titleId
         }, React.createElement(React.Fragment, null, summaryTitle)),
-        React.createElement("ol", null, links.map((link, i) => {
-            var _a;
-            return link.linkProps.href !== undefined && (React.createElement("li", { key: i },
-                React.createElement(Link, Object.assign({}, link.linkProps, { id: (_a = link.linkProps.id) !== null && _a !== void 0 ? _a : `${id}-link${generateValidHtmlId({
-                        "text": link.text
-                    })}-${i}`, className: cx(fr.cx("fr-summary__link"), classes.link, link.linkProps.className) }), link.text)));
-        }))));
+        React.createElement("ol", null, links.map((link, i) => getLinkLi(link, String(i))))));
 }));
 Summary.displayName = symToStr({ Summary });
 const { useTranslation, addSummaryTranslations } = createComponentI18nApi({

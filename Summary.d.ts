@@ -1,12 +1,14 @@
 import React, { type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
+type Link = {
+    text: string;
+    linkProps: RegisteredLinkProps;
+    subLinks?: Link[];
+};
 export type SummaryProps = {
     id?: string;
     className?: string;
-    links: {
-        text: string;
-        linkProps: RegisteredLinkProps;
-    }[];
+    links: Link[];
     title?: string;
     /** Default: "p" */
     as?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
