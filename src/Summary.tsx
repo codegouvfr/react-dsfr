@@ -10,13 +10,16 @@ import type { RegisteredLinkProps } from "./link";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import { generateValidHtmlId } from "./tools/generateValidHtmlId";
 
+type Link = {
+    text: string;
+    linkProps: RegisteredLinkProps;
+    subLinks?: Link[];
+};
+
 export type SummaryProps = {
     id?: string;
     className?: string;
-    links: {
-        text: string;
-        linkProps: RegisteredLinkProps;
-    }[];
+    links: Link[];
     title?: string;
     /** Default: "p" */
     as?: "p" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -52,6 +55,50 @@ export const Summary = memo(
             "explicitlyProvidedId": id_props
         });
 
+        const getSubLinks = (link: Link, linkIndex: string): JSX.Element | undefined => {
+            let subLinkElements: JSX.Element[] = [];
+            if (link.subLinks && link.subLinks.length !== 0) {
+                subLinkElements = link.subLinks.map((subitem, subLinkIndex) =>
+                    getLinkLi(subitem, `${linkIndex}-${subLinkIndex}`)
+                );
+            }
+
+            return subLinkElements.length === 0 ? undefined : <ol>{...subLinkElements}</ol>;
+        };
+
+        const getLinkLi = (link: Link, linkIndex: string): JSX.Element => {
+            if (link.linkProps.href === undefined) return <></>;
+
+            const subLinksList = getSubLinks(link, linkIndex);
+
+            const mainLink =
+                link.linkProps.href !== undefined ? (
+                    <li key={linkIndex}>
+                        <Link
+                            {...link.linkProps}
+                            id={
+                                link.linkProps.id ??
+                                `${id}-link${generateValidHtmlId({
+                                    "text": link.text
+                                })}-${linkIndex}`
+                            }
+                            className={cx(
+                                fr.cx("fr-summary__link"),
+                                classes.link,
+                                link.linkProps.className
+                            )}
+                        >
+                            {link.text}
+                        </Link>
+                        {subLinksList}
+                    </li>
+                ) : (
+                    <></>
+                );
+
+            return mainLink;
+        };
+
         return (
             <nav
                 id={id}
@@ -69,31 +116,7 @@ export const Summary = memo(
                     },
                     <>{summaryTitle}</>
                 )}
-                <ol>
-                    {links.map(
-                        (link, i) =>
-                            link.linkProps.href !== undefined && (
-                                <li key={i}>
-                                    <Link
-                                        {...link.linkProps}
-                                        id={
-                                            link.linkProps.id ??
-                                            `${id}-link${generateValidHtmlId({
-                                                "text": link.text
-                                            })}-${i}`
-                                        }
-                                        className={cx(
-                                            fr.cx("fr-summary__link"),
-                                            classes.link,
-                                            link.linkProps.className
-                                        )}
-                                    >
-                                        {link.text}
-                                    </Link>
-                                </li>
-                            )
-                    )}
-                </ol>
+                <ol>{links.map((link, i) => getLinkLi(link, String(i)))}</ol>
             </nav>
         );
     })

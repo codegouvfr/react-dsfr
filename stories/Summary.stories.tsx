@@ -17,27 +17,41 @@ export const Default = getStory({
     links: [
         {
             linkProps: { href: "#" },
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 1",
+            subLinks: [
+                {
+                    linkProps: { href: "#" },
+                    text: "Titre de l’ancre 1.1"
+                }
+            ]
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 2"
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 3"
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 4",
+            subLinks: [
+                {
+                    linkProps: { href: "#" },
+                    text: "Titre de l’ancre 4.1",
+                    subLinks: [
+                        {
+                            linkProps: { href: "#" },
+                            text: "Titre de l’ancre 4.1.1"
+                        }
+                    ]
+                }
+            ]
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 5"
         }
     ]
 });
@@ -47,27 +61,41 @@ export const SummaryWithCustomTitle = getStory({
     links: [
         {
             linkProps: { href: "#" },
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 1",
+            subLinks: [
+                {
+                    linkProps: { href: "#" },
+                    text: "Titre de l’ancre 1.1"
+                }
+            ]
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 2"
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 3"
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 4",
+            subLinks: [
+                {
+                    linkProps: { href: "#" },
+                    text: "Titre de l’ancre 4.1",
+                    subLinks: [
+                        {
+                            linkProps: { href: "#" },
+                            text: "Titre de l’ancre 4.1.1"
+                        }
+                    ]
+                }
+            ]
         },
         {
             linkProps: { href: "#" },
-
-            text: "Titre de l’ancre"
+            text: "Titre de l’ancre 5"
         }
     ]
 });
