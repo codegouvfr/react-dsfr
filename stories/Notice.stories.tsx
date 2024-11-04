@@ -22,7 +22,6 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
             "description": 'Default : "info"',
             "options": (() => {
                 const severities = [
-                    "no-icon",
                     "info",
                     "warning",
                     "alert",
@@ -35,11 +34,15 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
                     "cyberattack"
                 ] as const;
 
-                assert<Equals<typeof severities[number] | undefined, NoticeProps["severity"]>>();
+                assert<Equals<typeof severities[number], NoticeProps["severity"]>>();
 
                 return severities;
             })(),
             "control": { "type": "radio" }
+        },
+        "iconDisplayed": {
+            "description":
+                "This option is possible if the notice is not a weather one or an alert one (witness, kidnapping, attack or cyberattack)."
         },
         "isClosable": {
             "description": "If the notice should have a close button"
@@ -67,6 +70,7 @@ export const Default = getStory({
     "isClosable": true,
     "isClosed": undefined,
     "severity": "info",
+    "iconDisplayed": true,
     ...logCallbacks(["onClose"])
 });
 

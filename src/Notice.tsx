@@ -18,7 +18,8 @@ import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 
-export type NoticeProps = NoticeProps.NonClosable | NoticeProps.Closable;
+export type NoticeProps = (NoticeProps.NonClosable | NoticeProps.Closable) &
+    (NoticeProps.OptionalIcon | NoticeProps.MandatoryIcon);
 
 export namespace NoticeProps {
     type Common = {
@@ -56,11 +57,29 @@ export namespace NoticeProps {
         };
     }
 
+    export type OptionalIcon = {
+        severity: Exclude<Severity, RiskyAlertSeverity | WeatherSeverity>;
+        iconDisplayed?: boolean;
+    };
+
+    export type MandatoryIcon = {
+        severity: RiskyAlertSeverity | WeatherSeverity;
+        iconDisplayed?: true;
+    };
+
     type ExtractSeverity<FrClassName> = FrClassName extends `fr-notice--${infer Severity}`
         ? Severity
         : never;
 
     export type Severity = Exclude<ExtractSeverity<FrClassName>, "no-icon">;
+
+    type ExtractWeatherSeverity<Severity> = Severity extends `weather-${infer _WeatherSeverity}`
+        ? Severity
+        : never;
+
+    export type WeatherSeverity = ExtractWeatherSeverity<Severity>;
+
+    export type RiskyAlertSeverity = "witness" | "kidnapping" | "attack" | "cyberattack";
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
@@ -77,6 +96,7 @@ export const Notice = memo(
             onClose,
             style,
             severity = "info",
+            iconDisplayed = true,
             ...rest
         } = props;
 
@@ -135,6 +155,8 @@ export const Notice = memo(
             }
         );
 
+        const doNotDisplayIcon = !iconDisplayed;
+
         const { t } = useTranslation();
 
         if (isClosed) {
@@ -145,7 +167,11 @@ export const Notice = memo(
             <div
                 id={id}
                 className={cx(
-                    fr.cx("fr-notice", `fr-notice--${severity}`),
+                    fr.cx(
+                        "fr-notice",
+                        `fr-notice--${severity}`,
+                        doNotDisplayIcon && "fr-notice--no-icon"
+                    ),
                     classes.root,
                     className
                 )}
