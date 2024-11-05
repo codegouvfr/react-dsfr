@@ -58,7 +58,7 @@ export namespace NoticeProps {
     }
 
     export type OptionalIcon = {
-        severity: Exclude<Severity, RiskyAlertSeverity | WeatherSeverity>;
+        severity?: Exclude<Severity, RiskyAlertSeverity | WeatherSeverity>;
         iconDisplayed?: boolean;
     };
 

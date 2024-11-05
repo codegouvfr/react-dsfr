@@ -34,7 +34,7 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
                     "cyberattack"
                 ] as const;
 
-                assert<Equals<typeof severities[number], NoticeProps["severity"]>>();
+                assert<Equals<typeof severities[number] | undefined, NoticeProps["severity"]>>();
 
                 return severities;
             })(),
