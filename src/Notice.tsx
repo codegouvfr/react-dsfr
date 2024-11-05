@@ -17,6 +17,7 @@ import type { Equals } from "tsafe";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { getLink, type RegisteredLinkProps } from "./link";
 
 export type NoticeProps = (NoticeProps.NonClosable | NoticeProps.Closable) &
     (NoticeProps.OptionalIcon | NoticeProps.MandatoryIcon);
@@ -25,10 +26,14 @@ export namespace NoticeProps {
     type Common = {
         id?: string;
         className?: string;
-        classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
+        classes?: Partial<Record<"root" | "title" | "description" | "close" | "link", string>>;
         title: NonNullable<ReactNode>;
         description?: ReactNode;
         style?: CSSProperties;
+        link?: {
+            linkProps: RegisteredLinkProps;
+            text: ReactNode;
+        };
         /** Default: "info" */
         severity?: NoticeProps.Severity;
     };
@@ -91,6 +96,7 @@ export const Notice = memo(
             classes = {},
             title,
             description,
+            link,
             isClosable = false,
             isClosed: props_isClosed,
             onClose,
@@ -113,6 +119,7 @@ export const Notice = memo(
 
         const refShouldButtonGetFocus = useRef(false);
         const refShouldSetRole = useRef(false);
+        const { Link } = getLink();
 
         useEffect(() => {
             if (props_isClosed === undefined) {
@@ -190,6 +197,20 @@ export const Notice = memo(
                                 <span className={cx(fr.cx("fr-notice__desc"), classes.description)}>
                                     {description}
                                 </span>
+                            )}
+                            {link && (
+                                <Link
+                                    target="_blank"
+                                    rel="noopener external"
+                                    {...link.linkProps}
+                                    className={cx(
+                                        fr.cx("fr-notice__link"),
+                                        classes.link,
+                                        link.linkProps.className
+                                    )}
+                                >
+                                    {link.text}
+                                </Link>
                             )}
                         </p>
                         {/* TODO: Use our button once we have one */}

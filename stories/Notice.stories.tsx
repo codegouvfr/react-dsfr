@@ -18,6 +18,9 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
         "description": {
             "description": "Optional message to complete title"
         },
+        "link": {
+            "description": "Optional link to display"
+        },
         "severity": {
             "description": 'Default : "info"',
             "options": (() => {
@@ -67,6 +70,12 @@ export default meta;
 export const Default = getStory({
     "title": "Service maintenance is scheduled today from 12:00 to 14:00.",
     "description": "All will be ok after 14:00.",
+    "link": {
+        "linkProps": {
+            "href": "#"
+        },
+        "text": "More information"
+    },
     "isClosable": true,
     "isClosed": undefined,
     "severity": "info",
