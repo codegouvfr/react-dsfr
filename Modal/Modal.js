@@ -27,7 +27,7 @@ const Modal = memo(forwardRef((props, ref) => {
             : [buttons_props];
     const { t } = useTranslation();
     const titleId = `fr-modal-title-${id}`;
-    return (React.createElement("dialog", { "aria-labelledby": titleId, role: "dialog", id: id, className: cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className), style: style, ref: ref, "data-fr-concealing-backdrop": concealingBackdrop },
+    return (React.createElement("dialog", { "aria-labelledby": titleId, id: id, className: cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className), style: style, ref: ref, "data-fr-concealing-backdrop": concealingBackdrop },
         React.createElement("div", { className: fr.cx("fr-container", "fr-container--fluid", "fr-container-md") },
             React.createElement("div", { className: fr.cx("fr-grid-row", "fr-grid-row--center") },
                 React.createElement("div", { className: (() => {

@@ -96,7 +96,7 @@ export const Header = memo(forwardRef((props, ref) => {
                             quickAccessItems.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-header__tools-links"), classes.toolsLinks) }, getQuickAccessNode("desktop"))),
                             isSearchBarEnabled && (React.createElement("div", { className: fr.cx("fr-header__search", "fr-modal"), id: searchModalId, "aria-labelledby": `${id}-search-bar-button` },
                                 React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
-                                    React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
+                                    React.createElement("button", { id: `${id}-search-close-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
                                     React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
                                         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId }, tSearchBar("label")),
                                         (renderSearchInput !== null && renderSearchInput !== void 0 ? renderSearchInput : (({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type }))))({

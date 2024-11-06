@@ -56,7 +56,7 @@ export const Input = memo(forwardRef((props, ref) => {
                             return undefined;
                     }
                     assert();
-                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": messageId, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
+                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": state !== "default" ? messageId : undefined, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const hasIcon = iconId !== undefined;
             const hasAddon = addon !== undefined;
             return hasIcon || hasAddon ? (React.createElement("div", { className: fr.cx("fr-input-wrap", hasIcon && iconId, hasAddon && "fr-input-wrap--addon") },
