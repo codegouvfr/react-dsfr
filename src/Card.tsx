@@ -61,6 +61,7 @@ export type CardProps = {
             string
         >
     >;
+    disabled?: boolean;
     style?: CSSProperties;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
     (CardProps.Horizontal | CardProps.Vertical) &
@@ -145,6 +146,7 @@ export const Card = memo(
             shadow = false,
             grey = false,
             iconId,
+            disabled = false,
             style,
             ...rest
         } = props;
@@ -198,7 +200,9 @@ export const Card = memo(
                             {linkProps !== undefined ? (
                                 <Link
                                     {...linkProps}
+                                    href={disabled ? undefined : linkProps.href}
                                     className={cx(linkProps.className, classes.link)}
+                                    aria-disabled={disabled}
                                 >
                                     {title}
                                 </Link>

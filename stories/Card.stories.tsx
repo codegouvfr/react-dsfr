@@ -111,6 +111,13 @@ const { meta, getStory } = getStoryFactory({
             "description": "Card content zone with grey background",
             "defaultValue": false,
             "type": "boolean"
+        },
+        "disabled": {
+            "description": "Set to true if the Tile should be disabled.",
+            "control": {
+                "type": "boolean"
+            },
+            "type": "boolean"
         }
     },
     "disabledProps": ["lang"]
