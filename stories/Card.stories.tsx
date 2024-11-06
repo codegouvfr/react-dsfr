@@ -113,7 +113,7 @@ const { meta, getStory } = getStoryFactory({
             "type": "boolean"
         },
         "disabled": {
-            "description": "Set to true if the Tile should be disabled.",
+            "description": "Set to true if the Card should be disabled.",
             "control": {
                 "type": "boolean"
             },
