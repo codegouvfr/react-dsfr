@@ -62,7 +62,6 @@ const Modal = memo(
         return (
             <dialog
                 aria-labelledby={titleId}
-                role="dialog"
                 id={id}
                 className={cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className)}
                 style={style}

@@ -160,7 +160,7 @@ export const Input = memo(
                                 classes.nativeInputOrTextArea
                             )}
                             disabled={disabled || undefined}
-                            aria-describedby={messageId}
+                            aria-describedby={state !== "default" ? messageId : undefined}
                             type={textArea ? undefined : nativeInputProps?.type ?? "text"}
                             id={inputId}
                         />
