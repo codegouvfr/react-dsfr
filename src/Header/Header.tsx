@@ -375,7 +375,7 @@ export const Header = memo(
                                                     )}
                                                 >
                                                     <button
-                                                        id={`${id}-search-button`}
+                                                        id={`${id}-search-close-button`}
                                                         className={fr.cx("fr-btn--close", "fr-btn")}
                                                         aria-controls={searchModalId}
                                                         title={t("close")}
