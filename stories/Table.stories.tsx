@@ -1,8 +1,7 @@
-import { Table, type TableProps } from "../dist/Table";
+import { Table } from "../dist/Table";
 import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
+import React from "react";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -36,35 +35,6 @@ const { meta, getStory } = getStoryFactory({
         "bottomCaption": {
             "description": "Move caption to bottom",
             "type": { "name": "boolean" }
-        },
-        "colorVariant": {
-            "options": (() => {
-                const options = [
-                    "green-tilleul-verveine",
-                    "green-bourgeon",
-                    "green-emeraude",
-                    "green-menthe",
-                    "green-archipel",
-                    "blue-ecume",
-                    "blue-cumulus",
-                    "purple-glycine",
-                    "pink-macaron",
-                    "pink-tuile",
-                    "brown-cafe-creme",
-                    "brown-caramel",
-                    "brown-opera",
-                    "orange-terre-battue",
-                    "yellow-moutarde",
-                    "yellow-tournesol",
-                    "beige-gris-galet",
-                    undefined
-                ] as const;
-
-                assert<Equals<typeof options[number], TableProps["colorVariant"]>>();
-
-                return options;
-            })(),
-            "control": { "type": "select", "labels": { "null": "no color variant" } }
         }
     }
 });
@@ -158,24 +128,6 @@ export const TableWithBottomCaption = getStory({
     ]
 });
 
-export const TableWithColorVariant = getStory({
-    "colorVariant": "green-emeraude",
-    "caption": "Titre du tableau",
-    "headers": ["td", "titre"],
-    "data": [
-        [
-            "Lorem ipsum dolor sit amet consectetur adipisicin",
-            "Lorem ipsum dolor sit amet consectetur"
-        ],
-        ["Lorem ipsum d", "Lorem ipsu"],
-        [
-            "Lorem ipsum dolor sit amet consectetur adipisicin",
-            "Lorem ipsum dolor sit amet consectetur"
-        ],
-        ["Lorem ipsum d", "Lorem ipsu"]
-    ]
-});
-
 export const SmallTable = getStory({
     "caption": "Titre du tableau",
     "headers": ["td", "titre"],
@@ -210,4 +162,43 @@ export const LargeTable = getStory({
         ["Lorem ipsum d", "Lorem ipsu"]
     ],
     "size": "lg"
+});
+
+const CellWithBr = (
+    <span>
+        Lorem <br />
+        ipsu
+        <br />d
+    </span>
+);
+
+export const TableWithSomeColumnAlignement = getStory({
+    "caption": "Titre du tableau",
+    "headers": ["aligné à droite", "aligné au centre", "aligné en haut", "aligné en bas"],
+    "data": [
+        [CellWithBr, "Lorem ipsum d", "Lorem ipsum d", "Lorem ipsum d"],
+        ["Lorem ipsum d", CellWithBr, "Lorem ipsu", "Lorem ipsum d"],
+        ["Lorem ipsum d", "Lorem ipsum d", CellWithBr, "Lorem ipsum d"],
+        ["Lorem ipsum d", "Lorem ipsu", "Lorem ipsum d", CellWithBr]
+    ],
+    "size": "lg",
+    "cellsAlignment": ["right", "center", "top", "bottom"]
+});
+
+export const TableWithSomeCellAlignement = getStory({
+    "caption": "Titre du tableau",
+    "headers": ["colonne 1", "colonne 2", "colonne 3", "colonne 4"],
+    "data": [
+        ["aligné à droite", "Lorem ipsum d", "Lorem ipsum d", CellWithBr],
+        ["Lorem ipsum d", "aligné au centre", "Lorem ipsum d", CellWithBr],
+        ["Lorem ipsum d", "Lorem ipsum d", "aligné en haut", CellWithBr],
+        ["Lorem ipsum d", "Lorem ipsu", CellWithBr, "aligné en bas"]
+    ],
+    "size": "lg",
+    "cellsAlignment": [
+        ["right", undefined, undefined, undefined],
+        [undefined, "center", undefined, undefined],
+        [undefined, undefined, "top", undefined],
+        [undefined, undefined, undefined, "bottom"]
+    ]
 });

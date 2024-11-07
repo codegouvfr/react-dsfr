@@ -23,22 +23,20 @@ export type TableProps = {
     noCaption?: boolean;
     /** Default: false */
     bottomCaption?: boolean;
+    cellsAlignment?: (TableProps.Alignment | undefined)[][] | (TableProps.Alignment | undefined)[];
     size?: TableProps.Size;
     style?: CSSProperties;
-    colorVariant?: TableProps.ColorVariant;
 };
 
 export namespace TableProps {
     export type Size = "sm" | "md" | "lg";
 
-    type ExtractColorVariant<FrClassName> = FrClassName extends `fr-table--${infer AccentColor}`
-        ? Exclude<
-              AccentColor,
-              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered" | Size
-          >
+    type ExtractCellClasses<FrClassName> = FrClassName extends `fr-cell--${infer Alignment}`
+        ? Alignment
         : never;
 
-    export type ColorVariant = ExtractColorVariant<FrClassName>;
+    export type Alignment = ExtractCellClasses<FrClassName> &
+        ("center" | "top" | "bottom" | "right");
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/tableau>  */
@@ -55,7 +53,7 @@ export const Table = memo(
             noCaption = false,
             bottomCaption = false,
             size = "md",
-            colorVariant,
+            cellsAlignment = undefined,
             className,
             style,
             ...rest
@@ -68,24 +66,35 @@ export const Table = memo(
             "explicitlyProvidedId": id_props
         });
 
+        const getCellAlignment = (i: number, j: number): undefined | string => {
+            if (Array.isArray(cellsAlignment)) {
+                const rowCellsAlignement = cellsAlignment[i];
+                if (Array.isArray(rowCellsAlignement)) {
+                    const cellAlignement = rowCellsAlignement[j];
+                    return cellAlignement === undefined ? undefined : `fr-cell--${cellAlignement}`;
+                }
+
+                const cellAlignement = cellsAlignment[j];
+                return cellAlignement === undefined || Array.isArray(cellAlignement)
+                    ? undefined
+                    : `fr-cell--${cellAlignement}`;
+            }
+            return undefined;
+        };
+
         return (
             <div
                 id={id}
                 ref={ref}
                 style={style}
                 className={cx(
-                    fr.cx(
-                        size !== "md" && `fr-table--${size}`,
-                        "fr-table",
-                        {
-                            "fr-table--bordered": bordered,
-                            "fr-table--no-scroll": noScroll,
-                            "fr-table--layout-fixed": fixed,
-                            "fr-table--no-caption": noCaption,
-                            "fr-table--caption-bottom": bottomCaption
-                        },
-                        colorVariant !== undefined && `fr-table--${colorVariant}`
-                    ),
+                    fr.cx(size !== "md" && `fr-table--${size}`, "fr-table", {
+                        "fr-table--bordered": bordered,
+                        "fr-table--no-scroll": noScroll,
+                        "fr-table--layout-fixed": fixed,
+                        "fr-table--no-caption": noCaption,
+                        "fr-table--caption-bottom": bottomCaption
+                    }),
                     className
                 )}
             >
@@ -109,7 +118,9 @@ export const Table = memo(
                                     {data.map((row, i) => (
                                         <tr key={i}>
                                             {row.map((col, j) => (
-                                                <td key={j}>{col}</td>
+                                                <td key={j} className={cx(getCellAlignment(i, j))}>
+                                                    {col}
+                                                </td>
                                             ))}
                                         </tr>
                                     ))}
