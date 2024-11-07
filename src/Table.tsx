@@ -23,15 +23,18 @@ export type TableProps = {
     noCaption?: boolean;
     /** Default: false */
     bottomCaption?: boolean;
+    size?: TableProps.Size;
     style?: CSSProperties;
     colorVariant?: TableProps.ColorVariant;
 };
 
 export namespace TableProps {
+    export type Size = "sm" | "md" | "lg";
+
     type ExtractColorVariant<FrClassName> = FrClassName extends `fr-table--${infer AccentColor}`
         ? Exclude<
               AccentColor,
-              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered"
+              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered" | Size
           >
         : never;
 
@@ -51,6 +54,7 @@ export const Table = memo(
             fixed = false,
             noCaption = false,
             bottomCaption = false,
+            size = "md",
             colorVariant,
             className,
             style,
@@ -71,6 +75,7 @@ export const Table = memo(
                 style={style}
                 className={cx(
                     fr.cx(
+                        size !== "md" && `fr-table--${size}`,
                         "fr-table",
                         {
                             "fr-table--bordered": bordered,
@@ -84,29 +89,35 @@ export const Table = memo(
                     className
                 )}
             >
-                <table>
-                    {caption !== undefined && <caption>{caption}</caption>}
-                    {headers !== undefined && (
-                        <thead>
-                            <tr>
-                                {headers.map((header, i) => (
-                                    <th key={i} scope="col">
-                                        {header}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                    )}
-                    <tbody>
-                        {data.map((row, i) => (
-                            <tr key={i}>
-                                {row.map((col, j) => (
-                                    <td key={j}>{col}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className="fr-table__wrapper">
+                    <div className="fr-table__container">
+                        <div className="fr-table__content">
+                            <table>
+                                {caption !== undefined && <caption>{caption}</caption>}
+                                {headers !== undefined && (
+                                    <thead>
+                                        <tr>
+                                            {headers.map((header, i) => (
+                                                <th key={i} scope="col">
+                                                    {header}
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                )}
+                                <tbody>
+                                    {data.map((row, i) => (
+                                        <tr key={i}>
+                                            {row.map((col, j) => (
+                                                <td key={j}>{col}</td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     })
