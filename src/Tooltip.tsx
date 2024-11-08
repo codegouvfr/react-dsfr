@@ -62,6 +62,7 @@ export const Tooltip = memo(
                         className={fr.cx("fr-btn--tooltip", "fr-btn")}
                         aria-describedby={id}
                         id={`tooltip-owner-${id}`}
+                        type="button"
                     >
                         {t("tooltip-button-text")}
                     </button>
