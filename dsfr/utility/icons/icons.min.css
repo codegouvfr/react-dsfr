@@ -10,16 +10,16 @@
     mask-image: url("../../icons/system/question-line.svg");
 }
 
-.fr-icon-arrow-go-back-fill::before,
-.fr-icon-arrow-go-back-fill::after {
-    -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
-    mask-image: url("../../icons/system/arrow-go-back-fill.svg");
-}
-
 .fr-icon-theme-fill::before,
 .fr-icon-theme-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
     mask-image: url("../../icons/system/fr--theme-fill.svg");
+}
+
+.fr-icon-arrow-go-back-fill::before,
+.fr-icon-arrow-go-back-fill::after {
+    -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
+    mask-image: url("../../icons/system/arrow-go-back-fill.svg");
 }
 
 .fr-icon-arrow-right-line::before,
@@ -201,14 +201,14 @@
         background-image: url("../../icons/system/question-line.svg");
     }
     
-    .fr-icon-arrow-go-back-fill::before,
-    .fr-icon-arrow-go-back-fill::after {
-        background-image: url("../../icons/system/arrow-go-back-fill.svg");
-    }
-    
     .fr-icon-theme-fill::before,
     .fr-icon-theme-fill::after {
         background-image: url("../../icons/system/fr--theme-fill.svg");
+    }
+    
+    .fr-icon-arrow-go-back-fill::before,
+    .fr-icon-arrow-go-back-fill::after {
+        background-image: url("../../icons/system/arrow-go-back-fill.svg");
     }
     
     .fr-icon-arrow-right-line::before,

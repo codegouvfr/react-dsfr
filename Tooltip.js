@@ -27,7 +27,7 @@ export const Tooltip = memo(forwardRef((props, ref) => {
     });
     const TooltipSpan = () => (React.createElement("span", { className: cx(fr.cx("fr-tooltip", "fr-placement"), className), id: id, ref: ref, style: style, role: "tooltip", "aria-hidden": "true" }, title));
     return (React.createElement(React.Fragment, null,
-        kind === "click" ? (React.createElement("button", { className: fr.cx("fr-btn--tooltip", "fr-btn"), "aria-describedby": id, id: `tooltip-owner-${id}` }, t("tooltip-button-text"))) : typeof children === "undefined" ? (
+        kind === "click" ? (React.createElement("button", { className: fr.cx("fr-btn--tooltip", "fr-btn"), "aria-describedby": id, id: `tooltip-owner-${id}`, type: "button" }, t("tooltip-button-text"))) : typeof children === "undefined" ? (
         // mimic default tooltip style
         React.createElement("i", { className: fr.cx("fr-icon--sm", "fr-icon-question-line"), style: { color: fr.colors.decisions.text.actionHigh.blueFrance.default }, "aria-describedby": id, id: `tooltip-owner-${id}` })) : (React.createElement("span", { "aria-describedby": id, id: `tooltip-owner-${id}` }, children)),
         React.createElement(TooltipSpan, null)));
