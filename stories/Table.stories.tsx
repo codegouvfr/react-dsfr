@@ -35,6 +35,10 @@ const { meta, getStory } = getStoryFactory({
         "bottomCaption": {
             "description": "Move caption to bottom",
             "type": { "name": "boolean" }
+        },
+        "headColumn": {
+            "description": "Add a header column",
+            "type": { "name": "boolean" }
         }
     }
 });
@@ -125,6 +129,18 @@ export const TableWithBottomCaption = getStory({
             "Lorem ipsum dolor sit amet consectetur"
         ],
         ["Lorem ipsum d", "Lorem ipsu"]
+    ]
+});
+
+export const TableWithHeadColumn = getStory({
+    "headColumn": true,
+    "caption": "Titre du tableau",
+    "headers": ["", "titre"],
+    "data": [
+        ["ligne 1", "Lorem ipsum dolor sit amet consectetur"],
+        ["ligne 2", "Lorem ipsu"],
+        ["ligne 3", "Lorem ipsum dolor sit amet consectetur"],
+        ["ligne 4", "Lorem ipsu"]
     ]
 });
 

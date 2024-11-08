@@ -14,6 +14,8 @@ export type TableProps = {
     caption?: ReactNode;
     headers?: ReactNode[];
     /** Default: false */
+    headColumn?: boolean;
+    /** Default: false */
     fixed?: boolean;
     /** Default: false */
     noScroll?: boolean;
@@ -46,6 +48,7 @@ export const Table = memo(
             id: id_props,
             data,
             headers,
+            headColumn = false,
             caption,
             bordered = false,
             noScroll = false,
@@ -82,6 +85,10 @@ export const Table = memo(
             return undefined;
         };
 
+        const getRole = (headColumn: boolean, i: number): React.AriaRole | undefined => {
+            return headColumn && i === 0 ? "rowheader" : undefined;
+        };
+
         return (
             <div
                 id={id}
@@ -107,7 +114,11 @@ export const Table = memo(
                                     <thead>
                                         <tr>
                                             {headers.map((header, i) => (
-                                                <th key={i} scope="col">
+                                                <th
+                                                    key={i}
+                                                    scope="col"
+                                                    role={getRole(headColumn, i)}
+                                                >
                                                     {header}
                                                 </th>
                                             ))}
@@ -117,11 +128,21 @@ export const Table = memo(
                                 <tbody>
                                     {data.map((row, i) => (
                                         <tr key={i}>
-                                            {row.map((col, j) => (
-                                                <td key={j} className={cx(getCellAlignment(i, j))}>
-                                                    {col}
-                                                </td>
-                                            ))}
+                                            {row.map((col, j) => {
+                                                const role = getRole(headColumn, j);
+                                                const HtmlElement =
+                                                    role === undefined ? "td" : "th";
+
+                                                return (
+                                                    <HtmlElement
+                                                        key={j}
+                                                        className={cx(getCellAlignment(i, j))}
+                                                        role={role}
+                                                    >
+                                                        {col}
+                                                    </HtmlElement>
+                                                );
+                                            })}
                                         </tr>
                                     ))}
                                 </tbody>
