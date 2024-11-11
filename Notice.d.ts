@@ -1,30 +1,32 @@
 import React, { type ReactNode, type CSSProperties } from "react";
-export type NoticeProps = {
-    id?: string;
-    className?: string;
-    classes?: Partial<Record<"root" | "title" | "close", string>>;
-    title: NonNullable<ReactNode>;
-    style?: CSSProperties;
-} & (NoticeProps.NonClosable | NoticeProps.Closable);
+export type NoticeProps = NoticeProps.NonClosable | NoticeProps.Closable;
 export declare namespace NoticeProps {
-    type NonClosable = {
-        isClosable?: false;
-        isClosed?: undefined;
-        onClose?: undefined;
+    type Common = {
+        id?: string;
+        className?: string;
+        classes?: Partial<Record<"root" | "title" | "close", string>>;
+        title: NonNullable<ReactNode>;
+        style?: CSSProperties;
     };
-    type Closable = {
-        isClosable: true;
-    } & (Closable.Controlled | Closable.Uncontrolled);
-    namespace Closable {
-        type Controlled = {
+    export type NonClosable = Common & {
+        isClosable?: false;
+        isClosed?: never;
+        onClose?: never;
+    };
+    export type Closable = Closable.Controlled | Closable.Uncontrolled;
+    export namespace Closable {
+        type Controlled = Common & {
+            isClosable: true;
             isClosed: boolean;
-            onClose: () => void;
+            onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
         };
-        type Uncontrolled = {
-            isClosed?: undefined;
-            onClose?: () => void;
+        type Uncontrolled = Common & {
+            isClosable: true;
+            onClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+            isClosed?: never;
         };
     }
+    export {};
 }
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
 export declare const Notice: React.MemoExoticComponent<React.ForwardRefExoticComponent<NoticeProps & React.RefAttributes<HTMLDivElement>>>;

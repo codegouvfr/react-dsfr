@@ -53,15 +53,15 @@ export const Notice = memo(forwardRef((props, ref) => {
         refShouldButtonGetFocus.current = false;
         buttonElement.focus();
     }, [buttonElement]);
-    const onCloseButtonClick = useConstCallback(() => {
+    const onCloseButtonClick = useConstCallback((event) => {
         if (props_isClosed === undefined) {
             //Uncontrolled
             setIsClosed(true);
-            onClose === null || onClose === void 0 ? void 0 : onClose();
+            onClose === null || onClose === void 0 ? void 0 : onClose(event);
         }
         else {
             //Controlled
-            onClose();
+            onClose(event);
         }
     });
     const { t } = useTranslation();
@@ -69,8 +69,8 @@ export const Notice = memo(forwardRef((props, ref) => {
         return null;
     }
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className) }, (refShouldSetRole.current && { "role": "notice" }), { ref: ref, style: style }, rest),
-        React.createElement("div", { className: "fr-container" },
-            React.createElement("div", { className: "fr-notice__body" },
+        React.createElement("div", { className: fr.cx("fr-container") },
+            React.createElement("div", { className: fr.cx("fr-notice__body") },
                 React.createElement("p", { className: cx(fr.cx(`fr-notice__title`), classes.title) }, title),
                 isClosable && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-btn--close", "fr-btn"), classes.close), onClick: onCloseButtonClick }, t("hide message")))))));
 }));
