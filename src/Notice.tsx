@@ -18,34 +18,38 @@ import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 
-export type NoticeProps = {
-    id?: string;
-    className?: string;
-    classes?: Partial<Record<"root" | "title" | "close", string>>;
-    title: NonNullable<ReactNode>;
-    style?: CSSProperties;
-} & (NoticeProps.NonClosable | NoticeProps.Closable);
+export type NoticeProps = NoticeProps.NonClosable | NoticeProps.Closable;
 
 export namespace NoticeProps {
-    export type NonClosable = {
-        isClosable?: false;
-        isClosed?: undefined;
-        onClose?: undefined;
+    type Common = {
+        id?: string;
+        className?: string;
+        classes?: Partial<Record<"root" | "title" | "close", string>>;
+        title: NonNullable<ReactNode>;
+        style?: CSSProperties;
     };
 
-    export type Closable = {
-        isClosable: true;
-    } & (Closable.Controlled | Closable.Uncontrolled);
+    export type NonClosable = Common & {
+        isClosable?: false;
+
+        isClosed?: never;
+        onClose?: never;
+    };
+
+    export type Closable = Closable.Controlled | Closable.Uncontrolled;
 
     export namespace Closable {
-        export type Controlled = {
+        export type Controlled = Common & {
+            isClosable: true;
             isClosed: boolean;
-            onClose: () => void;
+            onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
         };
 
-        export type Uncontrolled = {
-            isClosed?: undefined;
-            onClose?: () => void;
+        export type Uncontrolled = Common & {
+            isClosable: true;
+            onClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+
+            isClosed?: never;
         };
     }
 }
@@ -107,16 +111,18 @@ export const Notice = memo(
             buttonElement.focus();
         }, [buttonElement]);
 
-        const onCloseButtonClick = useConstCallback(() => {
-            if (props_isClosed === undefined) {
-                //Uncontrolled
-                setIsClosed(true);
-                onClose?.();
-            } else {
-                //Controlled
-                onClose();
+        const onCloseButtonClick = useConstCallback(
+            (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                if (props_isClosed === undefined) {
+                    //Uncontrolled
+                    setIsClosed(true);
+                    onClose?.(event);
+                } else {
+                    //Controlled
+                    onClose(event);
+                }
             }
-        });
+        );
 
         const { t } = useTranslation();
 
@@ -133,8 +139,8 @@ export const Notice = memo(
                 style={style}
                 {...rest}
             >
-                <div className="fr-container">
-                    <div className="fr-notice__body">
+                <div className={fr.cx("fr-container")}>
+                    <div className={fr.cx("fr-notice__body")}>
                         <p className={cx(fr.cx(`fr-notice__title`), classes.title)}>{title}</p>
                         {/* TODO: Use our button once we have one */}
                         {isClosable && (
