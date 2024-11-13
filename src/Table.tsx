@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, type ReactNode, type CSSProperties } from "react";
+import React, { forwardRef, memo, type ReactNode, type CSSProperties, useState } from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
@@ -15,6 +15,8 @@ export type TableProps = {
     headers?: ReactNode[];
     /** Default: false */
     headColumn?: boolean;
+    /** Default: false */
+    selectableRows?: boolean;
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -49,6 +51,7 @@ export const Table = memo(
             data,
             headers,
             headColumn = false,
+            selectableRows = false,
             caption,
             bordered = false,
             noScroll = false,
@@ -63,6 +66,8 @@ export const Table = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const [checkedIds, setCheckedIds] = useState<number[]>([]);
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",
@@ -126,25 +131,62 @@ export const Table = memo(
                                     </thead>
                                 )}
                                 <tbody>
-                                    {data.map((row, i) => (
-                                        <tr key={i}>
-                                            {row.map((col, j) => {
-                                                const role = getRole(headColumn, j);
-                                                const HtmlElement =
-                                                    role === undefined ? "td" : "th";
+                                    {data.map((row, i) => {
+                                        const isChecked = checkedIds.includes(i);
+                                        return (
+                                            <tr key={i} aria-selected={isChecked}>
+                                                {row.map((col, j) => {
+                                                    const role = getRole(headColumn, j);
+                                                    const HtmlElement =
+                                                        role === undefined ? "td" : "th";
+                                                    const isSelectable = selectableRows && j === 0;
+                                                    if (isSelectable) {
+                                                        return (
+                                                            <HtmlElement
+                                                                key={j}
+                                                                className={cx(
+                                                                    getCellAlignment(i, j)
+                                                                )}
+                                                                role={role}
+                                                            >
+                                                                <div
+                                                                    className="fr-checkbox-group fr-checkbox-group--sm"
+                                                                    onClick={() => {
+                                                                        setCheckedIds(
+                                                                            isChecked
+                                                                                ? checkedIds.filter(
+                                                                                      id => id !== i
+                                                                                  )
+                                                                                : [...checkedIds, i]
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <input
+                                                                        name="row-select"
+                                                                        type="checkbox"
+                                                                        checked={isChecked}
+                                                                    />
+                                                                    <label className="fr-label">
+                                                                        {col}
+                                                                    </label>
+                                                                </div>
+                                                            </HtmlElement>
+                                                        );
+                                                    }
 
-                                                return (
-                                                    <HtmlElement
-                                                        key={j}
-                                                        className={cx(getCellAlignment(i, j))}
-                                                        role={role}
-                                                    >
-                                                        {col}
-                                                    </HtmlElement>
-                                                );
-                                            })}
-                                        </tr>
-                                    ))}
+                                                    return (
+                                                        <HtmlElement
+                                                            key={j}
+                                                            className={cx(getCellAlignment(i, j))}
+                                                            role={role}
+                                                        >
+                                                            {col}
+                                                        </HtmlElement>
+                                                    );
+                                                })}
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                         </div>

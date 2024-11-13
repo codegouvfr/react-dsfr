@@ -39,6 +39,10 @@ const { meta, getStory } = getStoryFactory({
         "headColumn": {
             "description": "Add a header column",
             "type": { "name": "boolean" }
+        },
+        "selectableRows": {
+            "description": "Add a checkbox column",
+            "type": { "name": "boolean" }
         }
     }
 });
@@ -134,6 +138,19 @@ export const TableWithBottomCaption = getStory({
 
 export const TableWithHeadColumn = getStory({
     "headColumn": true,
+    "caption": "Titre du tableau",
+    "headers": ["", "titre"],
+    "data": [
+        ["ligne 1", "Lorem ipsum dolor sit amet consectetur"],
+        ["ligne 2", "Lorem ipsu"],
+        ["ligne 3", "Lorem ipsum dolor sit amet consectetur"],
+        ["ligne 4", "Lorem ipsu"]
+    ]
+});
+
+export const SelectableRowsTableWithHeadColumn = getStory({
+    "headColumn": true,
+    "selectableRows": true,
     "caption": "Titre du tableau",
     "headers": ["", "titre"],
     "data": [
