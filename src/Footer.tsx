@@ -350,14 +350,14 @@ export const Footer = memo(
                     </div>
                     {partnersLogos !== undefined && (
                         <div className={cx(fr.cx("fr-footer__partners"), classes.partners)}>
-                            <h4
+                            <h2
                                 className={cx(
                                     fr.cx("fr-footer__partners-title"),
                                     classes.partnersTitle
                                 )}
                             >
                                 {t("our partners")}
-                            </h4>
+                            </h2>
                             <div
                                 className={cx(
                                     fr.cx("fr-footer__partners-logos"),
