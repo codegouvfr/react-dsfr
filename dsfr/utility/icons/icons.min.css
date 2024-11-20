@@ -106,16 +106,16 @@
     mask-image: url("../../icons/remixicon/id-card-line.svg");
 }
 
-.ri-account-box-line::before,
-.ri-account-box-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
-    mask-image: url("../../icons/remixicon/account-box-line.svg");
-}
-
 .ri-logout-box-line::before,
 .ri-logout-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
     mask-image: url("../../icons/remixicon/logout-box-line.svg");
+}
+
+.ri-account-box-line::before,
+.ri-account-box-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
+    mask-image: url("../../icons/remixicon/account-box-line.svg");
 }
 
 .fr-icon-alert-line::before,
@@ -281,14 +281,14 @@
         background-image: url("../../icons/remixicon/id-card-line.svg");
     }
     
-    .ri-account-box-line::before,
-    .ri-account-box-line::after {
-        background-image: url("../../icons/remixicon/account-box-line.svg");
-    }
-    
     .ri-logout-box-line::before,
     .ri-logout-box-line::after {
         background-image: url("../../icons/remixicon/logout-box-line.svg");
+    }
+    
+    .ri-account-box-line::before,
+    .ri-account-box-line::after {
+        background-image: url("../../icons/remixicon/account-box-line.svg");
     }
     
     .fr-icon-alert-line::before,
