@@ -88,6 +88,8 @@ export type HeaderProps = {
         >
     >;
     style?: CSSProperties;
+    /** Default: false */
+    disableDisplay?: boolean;
 };
 
 export namespace HeaderProps {
@@ -133,6 +135,7 @@ export const Header = memo(
             onSearchButtonClick,
             classes = {},
             style,
+            disableDisplay = false,
             ...rest
         } = props;
 
@@ -194,7 +197,7 @@ export const Header = memo(
 
         return (
             <>
-                <Display />
+                {disableDisplay && <Display />}
                 <header
                     role="banner"
                     id={id}

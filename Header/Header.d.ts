@@ -50,6 +50,8 @@ export type HeaderProps = {
     allowEmptySearch?: boolean;
     classes?: Partial<Record<"root" | "body" | "container" | "bodyRow" | "brand" | "brandTop" | "logo" | "operator" | "navbar" | "service" | "serviceTitle" | "serviceTagline" | "toolsLinks" | "menu" | "menuLinks", string>>;
     style?: CSSProperties;
+    /** Default: false */
+    disableDisplay?: boolean;
 };
 export declare namespace HeaderProps {
     type QuickAccessItem = QuickAccessItem.Link | QuickAccessItem.Button;

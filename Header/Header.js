@@ -26,7 +26,7 @@ import { useTranslation as useSearchBarTranslation } from "../SearchBar/SearchBa
 export const headerMenuModalIdPrefix = "header-menu-modal";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-header> */
 export const Header = memo(forwardRef((props, ref) => {
-    const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, clearSearchInputOnSearch = false, allowEmptySearch = false, onSearchButtonClick, classes = {}, style } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "clearSearchInputOnSearch", "allowEmptySearch", "onSearchButtonClick", "classes", "style"]);
+    const { className, id: id_props, brandTop, serviceTitle, serviceTagline, homeLinkProps, navigation = undefined, quickAccessItems = [], operatorLogo, renderSearchInput, clearSearchInputOnSearch = false, allowEmptySearch = false, onSearchButtonClick, classes = {}, style, disableDisplay = false } = props, rest = __rest(props, ["className", "id", "brandTop", "serviceTitle", "serviceTagline", "homeLinkProps", "navigation", "quickAccessItems", "operatorLogo", "renderSearchInput", "clearSearchInputOnSearch", "allowEmptySearch", "onSearchButtonClick", "classes", "style", "disableDisplay"]);
     assert();
     const id = id_props !== null && id_props !== void 0 ? id_props : "fr-header";
     const menuModalId = `${headerMenuModalIdPrefix}-${id}`;
@@ -57,7 +57,7 @@ export const Header = memo(forwardRef((props, ref) => {
     })())))));
     const hasOperatorLink = (operatorLogo === null || operatorLogo === void 0 ? void 0 : operatorLogo.linkProps) !== undefined;
     return (React.createElement(React.Fragment, null,
-        React.createElement(Display, null),
+        disableDisplay && React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
             React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
                 React.createElement("div", { className: cx(fr.cx("fr-container"), classes.container) },
