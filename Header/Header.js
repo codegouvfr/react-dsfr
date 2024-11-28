@@ -57,7 +57,7 @@ export const Header = memo(forwardRef((props, ref) => {
     })())))));
     const hasOperatorLink = (operatorLogo === null || operatorLogo === void 0 ? void 0 : operatorLogo.linkProps) !== undefined;
     return (React.createElement(React.Fragment, null,
-        disableDisplay && React.createElement(Display, null),
+        !disableDisplay && React.createElement(Display, null),
         React.createElement("header", Object.assign({ role: "banner", id: id, className: cx(fr.cx("fr-header"), classes.root, className), ref: ref, style: style }, rest),
             React.createElement("div", { className: cx(fr.cx("fr-header__body"), classes.body) },
                 React.createElement("div", { className: cx(fr.cx("fr-container"), classes.container) },
