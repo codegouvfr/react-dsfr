@@ -197,7 +197,7 @@ export const Header = memo(
 
         return (
             <>
-                {disableDisplay && <Display />}
+                {!disableDisplay && <Display />}
                 <header
                     role="banner"
                     id={id}
