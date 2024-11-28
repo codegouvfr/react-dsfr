@@ -66,6 +66,15 @@ function getCurrentIsDarkFromHtmlAttribute() {
 }
 export function startClientSideIsDarkLogic(params) {
     const { doPersistDarkModePreferenceWithCookie, registerEffectAction, colorSchemeExplicitlyProvidedAsParameter, doCheckNonce = false, trustedTypesPolicyName } = params;
+    reset_user_preference: {
+        const localStorageKey = "scheme-default";
+        const localStorageValue = localStorage.getItem(localStorageKey);
+        if (localStorageValue === colorSchemeExplicitlyProvidedAsParameter) {
+            break reset_user_preference;
+        }
+        localStorage.removeItem("scheme");
+        localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
+    }
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = (() => {
         var _a, _b, _c;
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
