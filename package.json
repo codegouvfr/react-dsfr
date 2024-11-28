@@ -63,7 +63,7 @@
     ],
     "homepage": "https://github.com/codegouvfr/react-dsfr",
     "dependencies": {
-        "tsafe": "^1.7.2",
+        "tsafe": "^1.8.5",
         "yargs-parser": "^21.1.1"
     },
     "peerDependencies": {
