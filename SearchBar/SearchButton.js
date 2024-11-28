@@ -2,8 +2,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useTranslation } from "./SearchBar";
 import { fr } from "../fr";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { observeInputValue } from "../tools/observeInputValue";
 import { id } from "tsafe/id";

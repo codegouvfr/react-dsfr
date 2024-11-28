@@ -11,8 +11,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 import { useEffect } from "react";
 import { deepCopy } from "../tools/deepCopy";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 /** Pure, exported for testing */
 export function finalityConsentToChanges(params) {

@@ -1,5 +1,4 @@
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 export function createStatefulObservable(getInitialValue) {
     const nextFunctions = [];
     const { get, set } = (() => {

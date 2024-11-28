@@ -1,8 +1,7 @@
 import React, { type ReactNode, type DetailedHTMLProps, type AnchorHTMLAttributes } from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 import type { UnpackProps } from "./tools/UnpackProps";
 
 type HTMLAnchorProps = DetailedHTMLProps<

@@ -12,8 +12,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import React from "react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 let Link = props => {
     const _a = props, { href } = _a, rest = __rest(_a, ["href"]);
     button: {

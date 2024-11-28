@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { deepCopy } from "../tools/deepCopy";
 import type { FinalityConsent } from "./types";
-import { assert } from "tsafe/assert";
-import { is } from "tsafe/is";
+import { assert, is } from "tsafe/assert";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 
 export type ConsentCallback<Finality extends string> = (params: {
