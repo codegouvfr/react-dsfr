@@ -109,6 +109,20 @@ export function startClientSideIsDarkLogic(params: {
         trustedTypesPolicyName
     } = params;
 
+    reset_user_preference: {
+        const localStorageKey = "scheme-default";
+
+        const localStorageValue = localStorage.getItem(localStorageKey);
+
+        if (localStorageValue === colorSchemeExplicitlyProvidedAsParameter) {
+            break reset_user_preference;
+        }
+
+        localStorage.removeItem("scheme");
+
+        localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
+    }
+
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
         clientSideIsDark: boolean;
         ssrWasPerformedWithIsDark: boolean;
