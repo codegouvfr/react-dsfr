@@ -91,7 +91,7 @@ export const Tile = memo(
             imageAlt,
             imageWidth,
             imageHeight,
-            imageSvg = true,
+            imageSvg = false,
             orientation = "vertical",
             small = false,
             noBorder = false,
