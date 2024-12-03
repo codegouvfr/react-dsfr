@@ -18,7 +18,7 @@ import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tile> */
 export const Tile = memo(forwardRef((props, ref) => {
-    const { id: id_props, className, title, titleAs: HtmlTitleTag = "h3", linkProps, buttonProps, downloadButton, desc, detail, start, imageUrl, imageAlt, imageWidth, imageHeight, imageSvg = true, orientation = "vertical", small = false, noBorder = false, noIcon = false, noBackground = false, grey = false, classes = {}, enlargeLinkOrButton = true, disabled = false, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "buttonProps", "downloadButton", "desc", "detail", "start", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "imageSvg", "orientation", "small", "noBorder", "noIcon", "noBackground", "grey", "classes", "enlargeLinkOrButton", "disabled", "style"]);
+    const { id: id_props, className, title, titleAs: HtmlTitleTag = "h3", linkProps, buttonProps, downloadButton, desc, detail, start, imageUrl, imageAlt, imageWidth, imageHeight, imageSvg = false, orientation = "vertical", small = false, noBorder = false, noIcon = false, noBackground = false, grey = false, classes = {}, enlargeLinkOrButton = true, disabled = false, style } = props, rest = __rest(props, ["id", "className", "title", "titleAs", "linkProps", "buttonProps", "downloadButton", "desc", "detail", "start", "imageUrl", "imageAlt", "imageWidth", "imageHeight", "imageSvg", "orientation", "small", "noBorder", "noIcon", "noBackground", "grey", "classes", "enlargeLinkOrButton", "disabled", "style"]);
     assert();
     const { Link } = getLink();
     const id = useAnalyticsId({
