@@ -31,6 +31,10 @@ export type UseIsDark = () => {
 
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 
+export function getIsDarkClientSide() {
+    return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
+}
+
 export const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
