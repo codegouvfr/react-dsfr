@@ -16,6 +16,9 @@ const $clientSideIsDark = createStatefulObservable(() => {
     ].join(" "));
 });
 const $isAfterFirstEffect = createStatefulObservable(() => false);
+export function getIsDarkClientSide() {
+    return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
+}
 export const useIsDarkClientSide = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
