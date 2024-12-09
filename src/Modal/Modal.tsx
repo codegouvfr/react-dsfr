@@ -1,3 +1,4 @@
+import type { JSX } from "../tools/JSX";
 import React, { memo, forwardRef, type CSSProperties, type ReactNode } from "react";
 import { fr } from "../fr";
 import { cx } from "../tools/cx";

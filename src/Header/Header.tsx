@@ -1,4 +1,5 @@
 /* eslint-disable no-inner-declarations */
+import type { JSX } from "../tools/JSX";
 import React, {
     memo,
     forwardRef,

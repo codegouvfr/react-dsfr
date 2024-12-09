@@ -1,3 +1,4 @@
+import type { JSX } from "./tools/JSX";
 import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";

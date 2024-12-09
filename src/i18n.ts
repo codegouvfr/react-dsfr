@@ -1,3 +1,4 @@
+import type { JSX } from "./tools/JSX";
 import { useMemo } from "react";
 import { capitalize } from "tsafe/capitalize";
 
