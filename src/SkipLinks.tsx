@@ -13,6 +13,7 @@ export type SkipLinksProps = {
     links: {
         label: string;
         anchor: string;
+        id?: string;
     }[];
     classes?: Partial<Record<"root" | "list" | "link", string>>;
     style?: CSSProperties;
@@ -46,6 +47,7 @@ export const SkipLinks = memo(
                                     <a
                                         className={cx(fr.cx("fr-link"), classes.link)}
                                         href={link.anchor}
+                                        id={link.id}
                                     >
                                         {link.label}
                                     </a>

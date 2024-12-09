@@ -341,6 +341,7 @@ export const Footer = memo(
                                             target="_blank"
                                             href={`https://${domain}`}
                                             title={`${domain} - ${t("open new window")}`}
+                                            id={`footer-${domain.replace(/\./g, "-")}-link`}
                                         >
                                             {domain}
                                         </a>
@@ -558,6 +559,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
                     href={p.licenseUrl}
                     target="_blank"
                     title="licence etalab-2.0 - ouvre une nouvelle fenêtre"
+                    id="footer-etalab-licence-link"
                 >
                     licence etalab-2.0
                 </a>
