@@ -74,6 +74,10 @@ export type FooterProps = {
     >;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
+    linkHeadingWrapper?: {
+        level: 2 | 3 | 4 | 5 | 6;
+        useAriaLevel?: boolean;
+    };
     domains?: string[];
 };
 
@@ -167,6 +171,9 @@ export const Footer = memo(
             homeLinkProps: homeLinkProps_prop,
             style,
             linkList,
+            linkHeadingWrapper = {
+                level: 3
+            },
             domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"],
             ...rest
         } = props;
@@ -201,6 +208,8 @@ export const Footer = memo(
 
         const { main: mainPartnersLogo, sub: subPartnersLogos = [] } = partnersLogos ?? {};
 
+        const LinkHeadingLevel: "h2" | "h3" | "h4" | "h5" | "h6" = `h${linkHeadingWrapper.level}`;
+
         return (
             <footer
                 id={rootId}
@@ -231,11 +240,22 @@ export const Footer = memo(
                                                     "fr-col-md-2"
                                                 )}
                                             >
-                                                {column?.categoryName && (
-                                                    <h3 className={fr.cx("fr-footer__top-cat")}>
-                                                        {column?.categoryName}
-                                                    </h3>
-                                                )}
+                                                {column?.categoryName &&
+                                                    (linkHeadingWrapper.useAriaLevel ? (
+                                                        <div
+                                                            role="heading"
+                                                            aria-level={linkHeadingWrapper.level}
+                                                            className={fr.cx("fr-footer__top-cat")}
+                                                        >
+                                                            {column.categoryName}
+                                                        </div>
+                                                    ) : (
+                                                        <LinkHeadingLevel
+                                                            className={fr.cx("fr-footer__top-cat")}
+                                                        >
+                                                            {column.categoryName}
+                                                        </LinkHeadingLevel>
+                                                    ))}
                                                 <ul className={fr.cx("fr-footer__top-list")}>
                                                     {column?.links.map(
                                                         (linkItem, linkItemIndex) => (
