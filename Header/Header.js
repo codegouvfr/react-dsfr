@@ -9,7 +9,6 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-/* eslint-disable no-inner-declarations */
 import React, { memo, forwardRef, cloneElement } from "react";
 import { fr } from "../fr";
 import { createComponentI18nApi } from "../i18n";

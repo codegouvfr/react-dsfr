@@ -1,3 +1,4 @@
+import type { JSX } from "./tools/JSX";
 import React, { type ReactNode, type CSSProperties } from "react";
 import type { RegisteredLinkProps } from "./link";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
@@ -116,7 +117,7 @@ declare const addFooterTranslations: (params: {
         "cookies management": string;
         "license mention": (p: {
             licenseUrl: string;
-        }) => JSX.Element;
+        }) => globalThis.JSX.Element;
         "our partners": string;
         "open new window": string;
     }>;

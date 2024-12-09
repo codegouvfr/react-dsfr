@@ -1,3 +1,4 @@
+import type { JSX } from "../tools/JSX";
 import React, { memo, forwardRef, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";

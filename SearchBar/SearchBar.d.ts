@@ -1,3 +1,4 @@
+import type { JSX } from "../tools/JSX";
 import React, { type CSSProperties } from "react";
 import "../assets/search-bar.css";
 export type SearchBarProps = {

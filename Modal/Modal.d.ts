@@ -1,3 +1,4 @@
+import type { JSX } from "../tools/JSX";
 import { type CSSProperties, type ReactNode } from "react";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 import { ButtonProps } from "../Button";

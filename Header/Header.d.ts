@@ -1,3 +1,4 @@
+import type { JSX } from "../tools/JSX";
 import React, { type ReactNode, type CSSProperties, type ComponentProps } from "react";
 import type { RegisteredLinkProps } from "../link";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";

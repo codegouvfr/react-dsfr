@@ -1,3 +1,4 @@
+import type { JSX } from "./tools/JSX";
 type ReactNode = string | JSX.Element | null;
 type FrMessagesToTranslationFunction<FrMessages extends Record<string, ReactNode | ((params: any) => ReactNode)>> = {
     <K extends NonFunctionMessageKey<FrMessages>>(messageKey: K): FrMessages[K] extends (params: any) => infer R ? R : FrMessages[K];
