@@ -35,6 +35,13 @@ export function getIsDarkClientSide() {
     return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
 }
 
+function getSystemColorScheme() {
+    return typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+}
+
 export const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
@@ -54,10 +61,7 @@ export const useIsDarkClientSide: UseIsDark = () => {
                         : newIsDarkOrDeduceNewIsDarkFromCurrentIsDark
                 ) {
                     case "system":
-                        return typeof window.matchMedia === "function" &&
-                            window.matchMedia("(prefers-color-scheme: dark)").matches
-                            ? "dark"
-                            : "light";
+                        return getSystemColorScheme();
                     case true:
                         return "dark";
                     case false:
@@ -113,18 +117,38 @@ export function startClientSideIsDarkLogic(params: {
         trustedTypesPolicyName
     } = params;
 
-    reset_user_preference: {
+    reset_persisted_value_if_website_config_changed: {
         const localStorageKey = "scheme-default";
 
         const localStorageValue = localStorage.getItem(localStorageKey);
 
         if (localStorageValue === colorSchemeExplicitlyProvidedAsParameter) {
-            break reset_user_preference;
+            break reset_persisted_value_if_website_config_changed;
         }
 
         localStorage.removeItem("scheme");
 
         localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
+    }
+
+    reset_persisted_value_if_system_pref_changed: {
+        if (colorSchemeExplicitlyProvidedAsParameter !== "system") {
+            break reset_persisted_value_if_system_pref_changed;
+        }
+
+        const localStorageKey = "scheme-system";
+
+        const localStorageValue = localStorage.getItem(localStorageKey);
+
+        const systemColorScheme = getSystemColorScheme();
+
+        if (localStorageValue === systemColorScheme) {
+            break reset_persisted_value_if_system_pref_changed;
+        }
+
+        localStorage.removeItem("scheme");
+
+        localStorage.setItem(localStorageKey, systemColorScheme);
     }
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
