@@ -27,6 +27,20 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
 	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}-asap", { createHTML: s => s }) : {
 		createHTML: s => s,
 	};
+
+    reset_persisted_value_if_website_config_changed: {
+        const localStorageKey = "scheme-website-config-default";
+
+        const localStorageValue = localStorage.getItem(localStorageKey);
+
+        if (localStorageValue === "${defaultColorScheme}") {
+            break reset_persisted_value_if_website_config_changed;
+        }
+
+        localStorage.removeItem("scheme");
+
+        localStorage.setItem(localStorageKey, "${defaultColorScheme}");
+    }
     
     const isDark = (() => {
     
@@ -62,19 +76,16 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
     
     	const isDarkFromOsPreference = (() => {
     		if (!window.matchMedia) {
-    			return undefined;
+    			return false;
     		}
     
     		return window.matchMedia("(prefers-color-scheme: dark)").matches;
     	})();
     
-    	const isDarkFallback = false;
-    
     	return (
     		isDarkFromLocalStorage ??
     		isDarkExplicitlyProvidedAsParameter ??
-    		isDarkFromOsPreference ??
-    		isDarkFallback
+    		isDarkFromOsPreference
     	);
     
     })();
