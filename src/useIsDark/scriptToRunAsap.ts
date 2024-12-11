@@ -78,8 +78,20 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
     	);
     
     })();
-    
-    ["${data_fr_scheme}", "${data_fr_theme}"].forEach(attr => document.documentElement.setAttribute(attr, isDark ? "dark" : "light"));
+
+    document.documentElement.setAttribute(
+        "${data_fr_scheme}",
+        (() => {
+            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+
+            if (colorSchemeReadFromLocalStorage === null) {
+                return "${defaultColorScheme}";
+            }
+
+            return colorSchemeReadFromLocalStorage;
+        })()
+    );
+    document.documentElement.setAttribute("${data_fr_theme}", isDark ? "dark" : "light")
 
     {
 

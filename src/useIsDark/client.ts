@@ -1,4 +1,5 @@
-import { assert } from "tsafe/assert";
+import { assert, type Equals } from "tsafe/assert";
+import { isAmong } from "tsafe/isAmong";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { fr } from "../fr";
@@ -54,14 +55,14 @@ export const useIsDarkClientSide: UseIsDark = () => {
         newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
             const data_fr_js_value = document.documentElement.getAttribute("data-fr-js");
 
-            const newColorScheme = ((): ColorScheme => {
+            const newColorScheme = ((): ColorScheme | "system" => {
                 switch (
                     typeof newIsDarkOrDeduceNewIsDarkFromCurrentIsDark === "function"
                         ? newIsDarkOrDeduceNewIsDarkFromCurrentIsDark(isDark)
                         : newIsDarkOrDeduceNewIsDarkFromCurrentIsDark
                 ) {
                     case "system":
-                        return getSystemColorScheme();
+                        return "system";
                     case true:
                         return "dark";
                     case false:
@@ -73,7 +74,10 @@ export const useIsDarkClientSide: UseIsDark = () => {
 
             if (data_fr_js_value !== "true") {
                 //NOTE: DSFR not started yet.
-                document.documentElement.setAttribute(data_fr_theme, newColorScheme);
+                document.documentElement.setAttribute(
+                    data_fr_theme,
+                    newColorScheme === "system" ? getSystemColorScheme() : newColorScheme
+                );
                 localStorage.setItem("scheme", newColorScheme);
             }
         }
@@ -118,7 +122,7 @@ export function startClientSideIsDarkLogic(params: {
     } = params;
 
     reset_persisted_value_if_website_config_changed: {
-        const localStorageKey = "scheme-default";
+        const localStorageKey = "scheme-website-config-default";
 
         const localStorageValue = localStorage.getItem(localStorageKey);
 
@@ -129,26 +133,6 @@ export function startClientSideIsDarkLogic(params: {
         localStorage.removeItem("scheme");
 
         localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
-    }
-
-    reset_persisted_value_if_system_pref_changed: {
-        if (colorSchemeExplicitlyProvidedAsParameter !== "system") {
-            break reset_persisted_value_if_system_pref_changed;
-        }
-
-        const localStorageKey = "scheme-system";
-
-        const localStorageValue = localStorage.getItem(localStorageKey);
-
-        const systemColorScheme = getSystemColorScheme();
-
-        if (localStorageValue === systemColorScheme) {
-            break reset_persisted_value_if_system_pref_changed;
-        }
-
-        localStorage.removeItem("scheme");
-
-        localStorage.setItem(localStorageKey, systemColorScheme);
     }
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -170,7 +154,7 @@ export function startClientSideIsDarkLogic(params: {
                 return undefined;
             }
 
-            switch (colorSchemeExplicitlyProvidedAsParameter as ColorScheme) {
+            switch (colorSchemeExplicitlyProvidedAsParameter) {
                 case "dark":
                     return true;
                 case "light":
@@ -185,25 +169,28 @@ export function startClientSideIsDarkLogic(params: {
                 return undefined;
             }
 
+            assert(
+                isAmong<ColorScheme | "system">(
+                    ["dark", "light", "system"],
+                    colorSchemeReadFromLocalStorage
+                )
+            );
+
             if (colorSchemeReadFromLocalStorage === "system") {
                 return undefined;
             }
 
-            switch (colorSchemeReadFromLocalStorage as ColorScheme) {
+            switch (colorSchemeReadFromLocalStorage) {
                 case "dark":
                     return true;
                 case "light":
                     return false;
             }
+
+            assert<Equals<typeof colorSchemeReadFromLocalStorage, never>>;
         })();
 
-        const isDarkFromOsPreference = (() => {
-            if (!window.matchMedia) {
-                return undefined;
-            }
-
-            return window.matchMedia("(prefers-color-scheme: dark)").matches;
-        })();
+        const isDarkFromOsPreference = getSystemColorScheme() === "dark";
 
         const isDarkFallback = false;
 
@@ -229,9 +216,26 @@ export function startClientSideIsDarkLogic(params: {
 
     $clientSideIsDark.current = clientSideIsDark;
 
-    [data_fr_scheme, data_fr_theme].forEach(attr =>
-        document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
+    document.documentElement.setAttribute(
+        data_fr_scheme,
+        ((): ColorScheme | "system" => {
+            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+
+            if (colorSchemeReadFromLocalStorage === null) {
+                return colorSchemeExplicitlyProvidedAsParameter;
+            }
+
+            assert(
+                isAmong<ColorScheme | "system">(
+                    ["dark", "light", "system"],
+                    colorSchemeReadFromLocalStorage
+                )
+            );
+
+            return colorSchemeReadFromLocalStorage;
+        })()
     );
+    document.documentElement.setAttribute(data_fr_theme, clientSideIsDark ? "dark" : "light");
 
     new MutationObserver(() => {
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
