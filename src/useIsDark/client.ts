@@ -192,15 +192,12 @@ export function startClientSideIsDarkLogic(params: {
 
         const isDarkFromOsPreference = getSystemColorScheme() === "dark";
 
-        const isDarkFallback = false;
-
         return {
-            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? isDarkFallback,
+            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? false,
             "clientSideIsDark":
                 isDarkFromLocalStorage ??
                 isDarkExplicitlyProvidedAsParameter ??
-                isDarkFromOsPreference ??
-                isDarkFallback
+                isDarkFromOsPreference
         };
     })();
 

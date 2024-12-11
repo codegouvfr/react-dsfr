@@ -83,7 +83,7 @@ export function startClientSideIsDarkLogic(params) {
         localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
     }
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = (() => {
-        var _a, _b, _c;
+        var _a, _b;
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();
         if (isDarkFromHtmlAttribute !== undefined) {
             return {
@@ -120,10 +120,9 @@ export function startClientSideIsDarkLogic(params) {
             assert;
         })();
         const isDarkFromOsPreference = getSystemColorScheme() === "dark";
-        const isDarkFallback = false;
         return {
-            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter !== null && isDarkExplicitlyProvidedAsParameter !== void 0 ? isDarkExplicitlyProvidedAsParameter : isDarkFallback,
-            "clientSideIsDark": (_c = (_b = isDarkFromLocalStorage !== null && isDarkFromLocalStorage !== void 0 ? isDarkFromLocalStorage : isDarkExplicitlyProvidedAsParameter) !== null && _b !== void 0 ? _b : isDarkFromOsPreference) !== null && _c !== void 0 ? _c : isDarkFallback
+            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter !== null && isDarkExplicitlyProvidedAsParameter !== void 0 ? isDarkExplicitlyProvidedAsParameter : false,
+            "clientSideIsDark": (_b = isDarkFromLocalStorage !== null && isDarkFromLocalStorage !== void 0 ? isDarkFromLocalStorage : isDarkExplicitlyProvidedAsParameter) !== null && _b !== void 0 ? _b : isDarkFromOsPreference
         };
     })();
     ssrWasPerformedWithIsDark = ssrWasPerformedWithIsDark_;
