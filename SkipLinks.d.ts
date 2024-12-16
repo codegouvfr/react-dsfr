@@ -5,6 +5,7 @@ export type SkipLinksProps = {
     links: {
         label: string;
         anchor: string;
+        id?: string;
     }[];
     classes?: Partial<Record<"root" | "list" | "link", string>>;
     style?: CSSProperties;

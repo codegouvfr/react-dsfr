@@ -29,7 +29,7 @@ export const SkipLinks = memo(forwardRef((props, ref) => {
         React.createElement("nav", { className: fr.cx("fr-container"), role: "navigation", "aria-label": t("label") },
             React.createElement("ul", { className: cx(fr.cx("fr-skiplinks__list"), classes.list) }, links &&
                 links.map(link => (React.createElement("li", { key: link.anchor },
-                    React.createElement("a", { className: cx(fr.cx("fr-link"), classes.link), href: link.anchor }, link.label))))))));
+                    React.createElement("a", { className: cx(fr.cx("fr-link"), classes.link), href: link.anchor, id: link.id }, link.label))))))));
 }));
 SkipLinks.displayName = symToStr({ SkipLinks });
 const { useTranslation, addSkipLinksTranslations } = createComponentI18nApi({

@@ -68,7 +68,7 @@ export const Footer = memo(forwardRef((props, ref) => {
                 React.createElement("div", { className: cx(fr.cx("fr-footer__content"), classes.content) },
                     contentDescription !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-footer__content-desc"), classes.contentDesc) }, contentDescription)),
                     React.createElement("ul", { className: cx(fr.cx("fr-footer__content-list"), classes.contentList) }, domains.map((domain, i) => (React.createElement("li", { className: cx(fr.cx("fr-footer__content-item"), classes.contentItem), key: i },
-                        React.createElement("a", { className: cx(fr.cx("fr-footer__content-link"), classes.contentLink), target: "_blank", href: `https://${domain}`, title: `${domain} - ${t("open new window")}` }, domain))))))),
+                        React.createElement("a", { className: cx(fr.cx("fr-footer__content-link"), classes.contentLink), target: "_blank", href: `https://${domain}`, title: `${domain} - ${t("open new window")}`, id: `footer-${domain.replace(/\./g, "-")}-link` }, domain))))))),
             partnersLogos !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-footer__partners"), classes.partners) },
                 React.createElement("h2", { className: cx(fr.cx("fr-footer__partners-title"), classes.partnersTitle) }, t("our partners")),
                 React.createElement("div", { className: cx(fr.cx("fr-footer__partners-logos"), classes.partnersLogos) },
@@ -137,7 +137,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
         "license mention": (p) => (React.createElement(React.Fragment, null,
             "Sauf mention explicite de propri\u00E9t\u00E9 intellectuelle d\u00E9tenue par des tiers, les contenus de ce site sont propos\u00E9s sous",
             " ",
-            React.createElement("a", { href: p.licenseUrl, target: "_blank", title: "licence etalab-2.0 - ouvre une nouvelle fen\u00EAtre" }, "licence etalab-2.0"))),
+            React.createElement("a", { href: p.licenseUrl, target: "_blank", title: "licence etalab-2.0 - ouvre une nouvelle fen\u00EAtre", id: "footer-etalab-licence-link" }, "licence etalab-2.0"))),
         "our partners": "Nos partenaires",
         "open new window": "ouvre une nouvelle fenêtre"
         /* spell-checker: enable */
