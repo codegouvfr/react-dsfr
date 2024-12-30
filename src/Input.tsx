@@ -28,7 +28,10 @@ export namespace InputProps {
         disabled?: boolean;
         iconId?: FrIconClassName | RiIconClassName;
         classes?: Partial<
-            Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
+            Record<
+                "root" | "label" | "description" | "nativeInputOrTextArea" | "message" | "wrap",
+                string
+            >
         >;
         style?: CSSProperties;
         /** Default: "default" */
@@ -36,6 +39,7 @@ export namespace InputProps {
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
         addon?: ReactNode;
+        action?: ReactNode;
     };
 
     export type RegularInput = Common & {
@@ -84,6 +88,7 @@ export const Input = memo(
             nativeTextAreaProps,
             nativeInputProps,
             addon,
+            action,
             ...rest
         } = props;
 
@@ -154,7 +159,6 @@ export const Input = memo(
                                             case "default":
                                                 return undefined;
                                         }
-                                        assert<Equals<typeof state, never>>();
                                     })()
                                 ),
                                 classes.nativeInputOrTextArea
@@ -168,16 +172,22 @@ export const Input = memo(
 
                     const hasIcon = iconId !== undefined;
                     const hasAddon = addon !== undefined;
-                    return hasIcon || hasAddon ? (
+                    const hasAction = action !== undefined;
+                    return hasIcon || hasAddon || hasAction ? (
                         <div
-                            className={fr.cx(
-                                "fr-input-wrap",
-                                hasIcon && iconId,
-                                hasAddon && "fr-input-wrap--addon"
+                            className={cx(
+                                fr.cx(
+                                    "fr-input-wrap",
+                                    hasIcon && iconId,
+                                    hasAddon && "fr-input-wrap--addon",
+                                    hasAction && "fr-input-wrap--action"
+                                ),
+                                classes.wrap
                             )}
                         >
                             {nativeInputOrTextArea}
                             {hasAddon && addon}
+                            {hasAction && action}
                         </div>
                     ) : (
                         nativeInputOrTextArea
@@ -198,7 +208,6 @@ export const Input = memo(
                                             case "info":
                                                 return "fr-info-text";
                                         }
-                                        assert<Equals<typeof state, never>>();
                                     })()
                                 ),
                                 classes.message
