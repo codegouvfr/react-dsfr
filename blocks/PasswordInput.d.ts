@@ -1,7 +1,7 @@
 import React, { type DetailedHTMLProps, type InputHTMLAttributes, type ReactNode } from "react";
 import type { InputProps } from "../Input";
 import type { FrClassName } from "../fr/generatedFromCss/classNames";
-export type PasswordInputProps = Omit<InputProps.Common, "state" | "stateRelatedMessage" | "iconId" | "classes" | "addon"> & {
+export type PasswordInputProps = Omit<InputProps.Common, "state" | "stateRelatedMessage" | "iconId" | "classes" | "addon" | "action"> & {
     classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
     /** Default "Your password must contain:", if empty string the hint wont be displayed */
     messagesHint?: ReactNode;
@@ -19,7 +19,7 @@ export declare namespace PasswordInputProps {
 /**
  * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/blocks-passwordinput
  * */
-export declare const PasswordInput: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<InputProps.Common, "classes" | "iconId" | "state" | "stateRelatedMessage" | "addon"> & {
+export declare const PasswordInput: React.MemoExoticComponent<React.ForwardRefExoticComponent<Omit<InputProps.Common, "classes" | "iconId" | "state" | "stateRelatedMessage" | "addon" | "action"> & {
     classes?: Partial<Record<"input" | "label" | "root" | "checkbox", string>> | undefined;
     /** Default "Your password must contain:", if empty string the hint wont be displayed */
     messagesHint?: ReactNode;

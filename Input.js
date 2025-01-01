@@ -19,7 +19,7 @@ import { cx } from "./tools/cx";
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;
-    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps, addon } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps", "addon"]);
+    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps, addon, action } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps", "addon", "action"]);
     const nativeInputOrTextAreaProps = (_a = (textArea ? nativeTextAreaProps : nativeInputProps)) !== null && _a !== void 0 ? _a : {};
     const NativeInputOrTextArea = textArea ? "textarea" : "input";
     assert();
@@ -55,13 +55,14 @@ export const Input = memo(forwardRef((props, ref) => {
                         case "default":
                             return undefined;
                     }
-                    assert();
                 })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": state !== "default" ? messageId : undefined, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const hasIcon = iconId !== undefined;
             const hasAddon = addon !== undefined;
-            return hasIcon || hasAddon ? (React.createElement("div", { className: fr.cx("fr-input-wrap", hasIcon && iconId, hasAddon && "fr-input-wrap--addon") },
+            const hasAction = action !== undefined;
+            return hasIcon || hasAddon || hasAction ? (React.createElement("div", { className: cx(fr.cx("fr-input-wrap", hasIcon && iconId, hasAddon && "fr-input-wrap--addon", hasAction && "fr-input-wrap--action"), classes.wrap) },
                 nativeInputOrTextArea,
-                hasAddon && addon)) : (nativeInputOrTextArea);
+                hasAddon && addon,
+                hasAction && action)) : (nativeInputOrTextArea);
         })(),
         React.createElement("div", { id: messagesGroupId, className: fr.cx("fr-messages-group"), "aria-live": "polite" }, state !== "default" && (React.createElement("p", { id: messageId, className: cx(fr.cx((() => {
                 switch (state) {
@@ -72,7 +73,6 @@ export const Input = memo(forwardRef((props, ref) => {
                     case "info":
                         return "fr-info-text";
                 }
-                assert();
             })()), classes.message) }, stateRelatedMessage)))));
 }));
 Input.displayName = symToStr({ Input });

@@ -11,13 +11,14 @@ export declare namespace InputProps {
         /** default: false */
         disabled?: boolean;
         iconId?: FrIconClassName | RiIconClassName;
-        classes?: Partial<Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>>;
+        classes?: Partial<Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message" | "wrap", string>>;
         style?: CSSProperties;
         /** Default: "default" */
         state?: "success" | "error" | "info" | "default";
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
         addon?: ReactNode;
+        action?: ReactNode;
     };
     type RegularInput = Common & {
         /** Default: false */
