@@ -9,8 +9,8 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { "MainNavigation": Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/navigation-principale)
-- [See source code](https://github.com/codegouvfr/react-dsfr/tree/main/src/MainNavigation)  
-  
+- [See source code](https://github.com/codegouvfr/react-dsfr/tree/main/src/MainNavigation)
+
 This component isn't meant to be used directly but via the [\\<Header \\/\\>](https://components.react-dsfr.codegouv.studio/?path=/docs/components-header)`,
     "argTypes": {
         "brandTop": {
@@ -265,12 +265,7 @@ export const MegaMenu = getStory({
                         ]
                     },
                     {
-                        "categoryMainLink": {
-                            "text": "Nom de catégorie",
-                            "linkProps": {
-                                "href": "#"
-                            }
-                        },
+                        "CategoryMainText": "Nom de catégorie",
                         "links": [
                             {
                                 "text": "Lien de navigation",
