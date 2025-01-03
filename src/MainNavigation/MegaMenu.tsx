@@ -26,16 +26,24 @@ export namespace MegaMenuProps {
     };
 
     export type Category = {
-        categoryMainLink: {
-            text: ReactNode;
-            linkProps: RegisteredLinkProps;
-        };
         links: {
             text: ReactNode;
             linkProps: RegisteredLinkProps;
             isActive?: boolean;
         }[];
-    };
+    } & (
+        | {
+              categoryMainLink: {
+                  text: ReactNode;
+                  linkProps: RegisteredLinkProps;
+              };
+              categoryMainText?: never;
+          }
+        | {
+              categoryMainText: ReactNode;
+              categoryMainLink?: never;
+          }
+    );
 }
 
 export const MegaMenu = memo(
@@ -101,30 +109,43 @@ export const MegaMenu = memo(
                                 </div>
                             </div>
                         )}
-                        {categories.map(({ categoryMainLink, links }, i) => (
+                        {categories.map(({ categoryMainLink, categoryMainText, links }, i) => (
                             <div className={fr.cx("fr-col-12", "fr-col-lg-3")} key={i}>
-                                <h5
-                                    className={cx(
-                                        fr.cx("fr-mega-menu__category"),
-                                        classes.category
-                                    )}
-                                >
-                                    <Link
-                                        {...categoryMainLink.linkProps}
-                                        id={
-                                            categoryMainLink.linkProps.id ??
-                                            `${id}-category-link${generateValidHtmlId({
-                                                "text": categoryMainLink.text
-                                            })}-${i}`
-                                        }
+                                {categoryMainLink !== undefined && (
+                                    <h5
                                         className={cx(
-                                            fr.cx("fr-nav__link"),
-                                            categoryMainLink.linkProps.className
+                                            fr.cx("fr-mega-menu__category"),
+                                            classes.category
                                         )}
                                     >
-                                        {categoryMainLink.text}
-                                    </Link>
-                                </h5>
+                                        <Link
+                                            {...categoryMainLink.linkProps}
+                                            id={
+                                                categoryMainLink.linkProps.id ??
+                                                `${id}-category-link${generateValidHtmlId({
+                                                    "text": categoryMainLink.text
+                                                })}-${i}`
+                                            }
+                                            className={cx(
+                                                fr.cx("fr-nav__link"),
+                                                categoryMainLink.linkProps.className
+                                            )}
+                                        >
+                                            {categoryMainLink.text}
+                                        </Link>
+                                    </h5>
+                                )}
+                                {categoryMainText !== undefined && (
+                                    <h5
+                                        className={cx(
+                                            fr.cx("fr-mega-menu__category"),
+                                            classes.category,
+                                            fr.cx("fr-nav__link")
+                                        )}
+                                    >
+                                        {categoryMainText}
+                                    </h5>
+                                )}
                                 <ul className={cx(fr.cx("fr-mega-menu__list"), classes.list)}>
                                     {links.map(({ linkProps, text, isActive }, j) => (
                                         <li key={j}>
