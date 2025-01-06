@@ -265,7 +265,7 @@ export const MegaMenu = getStory({
                         ]
                     },
                     {
-                        "CategoryMainText": "Nom de catégorie",
+                        "categoryMainText": "Nom de catégorie sans lien",
                         "links": [
                             {
                                 "text": "Lien de navigation",

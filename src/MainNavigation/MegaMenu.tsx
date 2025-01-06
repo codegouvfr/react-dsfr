@@ -138,9 +138,8 @@ export const MegaMenu = memo(
                                 {categoryMainText !== undefined && (
                                     <h5
                                         className={cx(
-                                            fr.cx("fr-mega-menu__category"),
-                                            classes.category,
-                                            fr.cx("fr-nav__link")
+                                            fr.cx("fr-mega-menu__category", "fr-nav__link"),
+                                            classes.category
                                         )}
                                     >
                                         {categoryMainText}
