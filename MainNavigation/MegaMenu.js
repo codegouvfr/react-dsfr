@@ -34,13 +34,14 @@ export const MegaMenu = memo(forwardRef((props, ref) => {
                         leader.link !== undefined && (React.createElement(Link, Object.assign({}, leader.link.linkProps, { id: (_a = leader.link.linkProps.id) !== null && _a !== void 0 ? _a : `${id}-leader-link${generateValidHtmlId({
                                 "text": leader.link.text
                             })}`, className: cx(fr.cx("fr-link", "fr-icon-arrow-right-line", "fr-link--icon-right", "fr-link--align-on-content"), leader.link.linkProps.className) }), leader.link.text))))),
-                categories.map(({ categoryMainLink, links }, i) => {
+                categories.map(({ categoryMainLink, categoryMainText, links }, i) => {
                     var _a;
                     return (React.createElement("div", { className: fr.cx("fr-col-12", "fr-col-lg-3"), key: i },
-                        React.createElement("h5", { className: cx(fr.cx("fr-mega-menu__category"), classes.category) },
+                        categoryMainLink !== undefined && (React.createElement("h5", { className: cx(fr.cx("fr-mega-menu__category"), classes.category) },
                             React.createElement(Link, Object.assign({}, categoryMainLink.linkProps, { id: (_a = categoryMainLink.linkProps.id) !== null && _a !== void 0 ? _a : `${id}-category-link${generateValidHtmlId({
                                     "text": categoryMainLink.text
-                                })}-${i}`, className: cx(fr.cx("fr-nav__link"), categoryMainLink.linkProps.className) }), categoryMainLink.text)),
+                                })}-${i}`, className: cx(fr.cx("fr-nav__link"), categoryMainLink.linkProps.className) }), categoryMainLink.text))),
+                        categoryMainText !== undefined && (React.createElement("h5", { className: cx(fr.cx("fr-mega-menu__category", "fr-nav__link"), classes.category) }, categoryMainText)),
                         React.createElement("ul", { className: cx(fr.cx("fr-mega-menu__list"), classes.list) }, links.map(({ linkProps, text, isActive }, j) => {
                             var _a;
                             return (React.createElement("li", { key: j },

@@ -16,16 +16,21 @@ export declare namespace MegaMenuProps {
         };
     };
     type Category = {
-        categoryMainLink: {
-            text: ReactNode;
-            linkProps: RegisteredLinkProps;
-        };
         links: {
             text: ReactNode;
             linkProps: RegisteredLinkProps;
             isActive?: boolean;
         }[];
-    };
+    } & ({
+        categoryMainLink: {
+            text: ReactNode;
+            linkProps: RegisteredLinkProps;
+        };
+        categoryMainText?: never;
+    } | {
+        categoryMainText: ReactNode;
+        categoryMainLink?: never;
+    });
 }
 export declare const MegaMenu: React.MemoExoticComponent<React.ForwardRefExoticComponent<MegaMenuProps & {
     id: string;
