@@ -149,7 +149,7 @@ export const Tag = memo(
                     </button>
                 )}
                 {linkProps === undefined && nativeButtonProps === undefined && (
-                    <span
+                    <p
                         {...nativeSpanProps}
                         id={id_props ?? nativeSpanProps?.id ?? id}
                         className={cx(nativeSpanProps?.className, className)}
@@ -158,11 +158,11 @@ export const Tag = memo(
                             ...style
                         }}
                         title={title ?? nativeSpanProps?.title}
-                        ref={ref as React.ForwardedRef<HTMLSpanElement>}
+                        ref={ref as React.ForwardedRef<HTMLParagraphElement>}
                         {...rest}
                     >
                         {children}
-                    </span>
+                    </p>
                 )}
             </>
         );
