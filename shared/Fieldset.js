@@ -42,6 +42,8 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                     return "fr-fieldset--error";
                 case "success":
                     return "fr-fieldset--valid";
+                case "info":
+                    return "fr-fieldset--info";
             }
         })()), classes.root, className), disabled: disabled, style: style, "aria-labelledby": cx(legend !== undefined && legendId, messagesWrapperId), role: state === "default" ? undefined : "group" }, rest, { ref: ref }),
         legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },
@@ -69,6 +71,8 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                         return "fr-message--error";
                     case "success":
                         return "fr-message--valid";
+                    case "info":
+                        return "fr-message--info";
                 }
             })()) }, stateRelatedMessage)))));
 }));

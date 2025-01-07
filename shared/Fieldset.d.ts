@@ -16,7 +16,7 @@ export declare namespace FieldsetProps {
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
         /** Default: "default" */
-        state?: "success" | "error" | "default";
+        state?: "success" | "error" | "info" | "default";
         /**
          * The message won't be displayed if state is "default".
          * If the state is "error" providing a message is mandatory

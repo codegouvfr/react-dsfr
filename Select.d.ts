@@ -9,7 +9,7 @@ export type SelectProps = {
     /** Default: false */
     disabled?: boolean;
     /** Default: "default" */
-    state?: "success" | "error" | "default";
+    state?: "success" | "error" | "info" | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
     style?: CSSProperties;

@@ -41,6 +41,8 @@ export const Select = memo(forwardRef((props, ref) => {
                     return "fr-select-group--error";
                 case "success":
                     return "fr-select-group--valid";
+                case "info":
+                    return "fr-select-group--info";
                 case "default":
                     return undefined;
             }
@@ -56,6 +58,8 @@ export const Select = memo(forwardRef((props, ref) => {
                         return "fr-error-text";
                     case "success":
                         return "fr-valid-text";
+                    case "info":
+                        return "fr-info-text";
                 }
                 assert(false);
             })()) }, stateRelatedMessage)))));

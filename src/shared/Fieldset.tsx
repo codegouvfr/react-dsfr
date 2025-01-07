@@ -32,7 +32,7 @@ export namespace FieldsetProps {
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
         /** Default: "default" */
-        state?: "success" | "error" | "default";
+        state?: "success" | "error" | "info" | "default";
         /**
          * The message won't be displayed if state is "default".
          * If the state is "error" providing a message is mandatory
@@ -121,6 +121,8 @@ export const Fieldset = memo(
                                     return "fr-fieldset--error";
                                 case "success":
                                     return "fr-fieldset--valid";
+                                case "info":
+                                    return "fr-fieldset--info";
                             }
                         })()
                     ),
@@ -204,6 +206,8 @@ export const Fieldset = memo(
                                             return "fr-message--error";
                                         case "success":
                                             return "fr-message--valid";
+                                        case "info":
+                                            return "fr-message--info";
                                     }
                                 })()
                             )}
