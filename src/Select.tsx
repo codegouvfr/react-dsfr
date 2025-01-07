@@ -21,7 +21,7 @@ export type SelectProps = {
     /** Default: false */
     disabled?: boolean;
     /** Default: "default" */
-    state?: "success" | "error" | "default";
+    state?: "success" | "error" | "info" | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
     style?: CSSProperties;
@@ -79,6 +79,8 @@ export const Select = memo(
                                     return "fr-select-group--error";
                                 case "success":
                                     return "fr-select-group--valid";
+                                case "info":
+                                    return "fr-select-group--info";
                                 case "default":
                                     return undefined;
                             }
@@ -119,6 +121,8 @@ export const Select = memo(
                                             return "fr-error-text";
                                         case "success":
                                             return "fr-valid-text";
+                                        case "info":
+                                            return "fr-info-text";
                                     }
                                     assert<Equals<typeof state, never>>(false);
                                 })()
