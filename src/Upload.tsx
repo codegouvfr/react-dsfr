@@ -11,7 +11,7 @@ export type UploadProps = {
     className?: string;
     /** @default false */
     disabled?: boolean;
-    hint?: string;
+    hint?: ReactNode;
     /** @default false */
     multiple?: boolean;
     label?: ReactNode;
