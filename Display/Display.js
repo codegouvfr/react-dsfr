@@ -71,7 +71,7 @@ const { useTranslation, addDisplayTranslations } = createComponentI18nApi({
         "pick a theme": `Choisissez un thème pour personnaliser l'apparence du site.`,
         "light theme": `Thème clair`,
         "dark theme": `Thème sombre`,
-        "system theme": `Système.`,
+        "system theme": `Système`,
         "system theme hint": `Utilise les paramètres système.`
         /* spell-checker: enable */
     }
@@ -84,7 +84,7 @@ addDisplayTranslations({
         "pick a theme": `Pick a theme to customize the website's look.`,
         "light theme": `Light theme`,
         "dark theme": "Dark theme",
-        "system theme": `System.`,
+        "system theme": `System`,
         "system theme hint": "Use system preference"
     }
 });
