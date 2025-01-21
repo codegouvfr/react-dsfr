@@ -4,6 +4,7 @@ import { symToStr } from "tsafe/symToStr";
 import Tag, { TagProps } from "./Tag";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import { cx } from "./tools/cx";
+import { fr } from "./fr";
 
 export type TagsGroupProps = TagsGroupProps.Common;
 
@@ -30,11 +31,16 @@ export const TagsGroup = memo(
             "explicitlyProvidedId": props_id
         });
 
+        const tagsGroupClassName = cx(
+            fr.cx("fr-tags-group", smallTags && "fr-tags-group--sm"),
+            className
+        );
+
         return (
-            <ul className={cx("fr-tags-group", className)} style={style} id={id} ref={ref}>
+            <ul className={tagsGroupClassName} style={style} id={id} ref={ref}>
                 {tags.map((tagProps, i) => (
                     <li key={i}>
-                        <Tag small={smallTags} {...tagProps} />
+                        <Tag {...tagProps} />
                     </li>
                 ))}
             </ul>
