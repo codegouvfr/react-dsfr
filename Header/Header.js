@@ -32,6 +32,7 @@ export const Header = memo(forwardRef((props, ref) => {
     const menuButtonId = `${id}-menu-button`;
     const searchModalId = `${id}-search-modal`;
     const searchInputId = `${id}-search-input`;
+    const searchLabelId = `${id}-search-label`;
     const isSearchBarEnabled = renderSearchInput !== undefined || onSearchButtonClick !== undefined;
     setBrandTopAndHomeLinkProps({ brandTop, homeLinkProps });
     const { t } = useTranslation();
@@ -97,7 +98,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                 React.createElement("div", { className: fr.cx("fr-container", "fr-container-lg--fluid") },
                                     React.createElement("button", { id: `${id}-search-close-button`, className: fr.cx("fr-btn--close", "fr-btn"), "aria-controls": searchModalId, title: t("close") }, t("close")),
                                     React.createElement("div", { className: fr.cx("fr-search-bar"), role: "search" },
-                                        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId }, tSearchBar("label")),
+                                        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: searchInputId, id: searchLabelId }, tSearchBar("label")),
                                         (renderSearchInput !== null && renderSearchInput !== void 0 ? renderSearchInput : (({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type }))))({
                                             "className": fr.cx("fr-input"),
                                             "id": searchInputId,
