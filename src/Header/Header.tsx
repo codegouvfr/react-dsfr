@@ -148,6 +148,7 @@ export const Header = memo(
         const menuButtonId = `${id}-menu-button`;
         const searchModalId = `${id}-search-modal`;
         const searchInputId = `${id}-search-input`;
+        const searchLabelId = `${id}-search-label`;
 
         const isSearchBarEnabled =
             renderSearchInput !== undefined || onSearchButtonClick !== undefined;
@@ -393,6 +394,7 @@ export const Header = memo(
                                                         <label
                                                             className={fr.cx("fr-label")}
                                                             htmlFor={searchInputId}
+                                                            id={searchLabelId}
                                                         >
                                                             {tSearchBar("label")}
                                                         </label>
