@@ -1,13 +1,13 @@
 import React, {
+    memo,
+    forwardRef,
+    useId,
     type CSSProperties,
     type DetailedHTMLProps,
-    forwardRef,
     type InputHTMLAttributes,
-    LabelHTMLAttributes,
-    memo,
-    ReactNode,
-    type TextareaHTMLAttributes,
-    useId
+    type LabelHTMLAttributes,
+    type ReactNode,
+    type TextareaHTMLAttributes
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -51,6 +51,7 @@ export namespace InputProps {
             InputHTMLAttributes<HTMLInputElement>,
             HTMLInputElement
         >;
+        /** Props forwarded to the underlying <label /> element */
         nativeLabelProps?: DetailedHTMLProps<
             LabelHTMLAttributes<HTMLInputElement>,
             HTMLInputElement
@@ -67,6 +68,7 @@ export namespace InputProps {
             TextareaHTMLAttributes<HTMLTextAreaElement>,
             HTMLTextAreaElement
         >;
+        /** Props forwarded to the underlying <label /> element */
         nativeLabelProps?: DetailedHTMLProps<
             LabelHTMLAttributes<HTMLTextAreaElement>,
             HTMLTextAreaElement
