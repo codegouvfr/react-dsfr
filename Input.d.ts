@@ -1,4 +1,4 @@
-import React, { ReactNode, type InputHTMLAttributes, type TextareaHTMLAttributes, type DetailedHTMLProps, type CSSProperties } from "react";
+import React, { type CSSProperties, type DetailedHTMLProps, type InputHTMLAttributes, type LabelHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 export type InputProps = InputProps.RegularInput | InputProps.TextArea;
 export declare namespace InputProps {
@@ -25,6 +25,8 @@ export declare namespace InputProps {
         textArea?: false;
         /** Props forwarded to the underlying <input /> element */
         nativeInputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
         nativeTextAreaProps?: never;
     };
     type TextArea = Common & {
@@ -32,6 +34,8 @@ export declare namespace InputProps {
         textArea: true;
         /** Props forwarded to the underlying <textarea /> element */
         nativeTextAreaProps?: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
         nativeInputProps?: never;
     };
 }

@@ -1,12 +1,13 @@
 import React, {
     memo,
     forwardRef,
-    ReactNode,
     useId,
-    type InputHTMLAttributes,
-    type TextareaHTMLAttributes,
+    type CSSProperties,
     type DetailedHTMLProps,
-    type CSSProperties
+    type InputHTMLAttributes,
+    type LabelHTMLAttributes,
+    type ReactNode,
+    type TextareaHTMLAttributes
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -50,6 +51,11 @@ export namespace InputProps {
             InputHTMLAttributes<HTMLInputElement>,
             HTMLInputElement
         >;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<
+            LabelHTMLAttributes<HTMLInputElement>,
+            HTMLInputElement
+        >;
 
         nativeTextAreaProps?: never;
     };
@@ -60,6 +66,11 @@ export namespace InputProps {
         /** Props forwarded to the underlying <textarea /> element */
         nativeTextAreaProps?: DetailedHTMLProps<
             TextareaHTMLAttributes<HTMLTextAreaElement>,
+            HTMLTextAreaElement
+        >;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<
+            LabelHTMLAttributes<HTMLTextAreaElement>,
             HTMLTextAreaElement
         >;
 
@@ -89,6 +100,7 @@ export const Input = memo(
             nativeInputProps,
             addon,
             action,
+            nativeLabelProps,
             ...rest
         } = props;
 
@@ -137,6 +149,7 @@ export const Input = memo(
                     <label
                         className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
                         htmlFor={inputId}
+                        {...(nativeLabelProps as {})}
                     >
                         {label}
                         {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}

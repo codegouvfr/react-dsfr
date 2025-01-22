@@ -19,7 +19,7 @@ import { cx } from "./tools/cx";
  * */
 export const Input = memo(forwardRef((props, ref) => {
     var _a;
-    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps, addon, action } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps", "addon", "action"]);
+    const { className, id, label, hintText, hideLabel, disabled = false, iconId, classes = {}, style, state = "default", stateRelatedMessage, textArea = false, nativeTextAreaProps, nativeInputProps, addon, action, nativeLabelProps } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "iconId", "classes", "style", "state", "stateRelatedMessage", "textArea", "nativeTextAreaProps", "nativeInputProps", "addon", "action", "nativeLabelProps"]);
     const nativeInputOrTextAreaProps = (_a = (textArea ? nativeTextAreaProps : nativeInputProps)) !== null && _a !== void 0 ? _a : {};
     const NativeInputOrTextArea = textArea ? "textarea" : "input";
     assert();
@@ -40,7 +40,7 @@ export const Input = memo(forwardRef((props, ref) => {
                     return undefined;
             }
         })()), classes.root, className), style: style, ref: ref, id: id }, rest),
-        Boolean(label || hintText) && (React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
+        Boolean(label || hintText) && (React.createElement("label", Object.assign({ className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId }, nativeLabelProps),
             label,
             hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText))),
         (() => {
