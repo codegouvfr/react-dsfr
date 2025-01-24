@@ -18,9 +18,10 @@ import { assert } from "tsafe/assert";
 import { useConstCallback } from "./tools/powerhooks/useConstCallback";
 import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { getLink } from "./link";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-notice> */
 export const Notice = memo(forwardRef((props, ref) => {
-    const { id: id_props, className, classes = {}, title, isClosable = false, isClosed: props_isClosed, onClose, style } = props, rest = __rest(props, ["id", "className", "classes", "title", "isClosable", "isClosed", "onClose", "style"]);
+    const { id: id_props, className, classes = {}, title, description, link, isClosable = false, isClosed: props_isClosed, onClose, style, severity = "info", iconDisplayed = true } = props, rest = __rest(props, ["id", "className", "classes", "title", "description", "link", "isClosable", "isClosed", "onClose", "style", "severity", "iconDisplayed"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-notice",
@@ -30,6 +31,7 @@ export const Notice = memo(forwardRef((props, ref) => {
     const [buttonElement, setButtonElement] = useState(null);
     const refShouldButtonGetFocus = useRef(false);
     const refShouldSetRole = useRef(false);
+    const { Link } = getLink();
     useEffect(() => {
         if (props_isClosed === undefined) {
             return;
@@ -64,14 +66,18 @@ export const Notice = memo(forwardRef((props, ref) => {
             onClose(event);
         }
     });
+    const doNotDisplayIcon = !iconDisplayed;
     const { t } = useTranslation();
     if (isClosed) {
         return null;
     }
-    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-notice", `fr-notice--info`), classes.root, className) }, (refShouldSetRole.current && { "role": "notice" }), { ref: ref, style: style }, rest),
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-notice", `fr-notice--${severity}`, doNotDisplayIcon && "fr-notice--no-icon"), classes.root, className) }, (refShouldSetRole.current && { "role": "notice" }), { ref: ref, style: style }, rest),
         React.createElement("div", { className: fr.cx("fr-container") },
             React.createElement("div", { className: fr.cx("fr-notice__body") },
-                React.createElement("p", { className: cx(fr.cx(`fr-notice__title`), classes.title) }, title),
+                React.createElement("p", null,
+                    React.createElement("span", { className: cx(fr.cx(`fr-notice__title`), classes.title) }, title),
+                    description && (React.createElement("span", { className: cx(fr.cx("fr-notice__desc"), classes.description) }, description)),
+                    link && (React.createElement(Link, Object.assign({ target: "_blank", rel: "noopener external" }, link.linkProps, { className: cx(fr.cx("fr-notice__link"), classes.link, link.linkProps.className) }), link.text))),
                 isClosable && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-btn--close", "fr-btn"), classes.close), onClick: onCloseButtonClick }, t("hide message")))))));
 }));
 Notice.displayName = symToStr({ Notice });
