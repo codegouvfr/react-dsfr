@@ -20,7 +20,7 @@ import { createComponentI18nApi } from "./i18n";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-alert> */
 export const Alert = memo(forwardRef((props, ref) => {
-    const { className, id: id_props, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosable = false, isClosed: props_isClosed, onClose } = props, rest = __rest(props, ["className", "id", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose"]);
+    const { className, id: id_props, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosableByUser = false, isClosed: props_isClosed, onClose } = props, rest = __rest(props, ["className", "id", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose"]);
     assert();
     const id = useAnalyticsId({
         "explicitlyProvidedId": id_props,
@@ -62,7 +62,7 @@ export const Alert = memo(forwardRef((props, ref) => {
         }
         else {
             //Controlled
-            onClose();
+            onClose === null || onClose === void 0 ? void 0 : onClose();
         }
     });
     const { t } = useTranslation();
@@ -72,7 +72,7 @@ export const Alert = memo(forwardRef((props, ref) => {
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": "alert" }), { ref: ref }, rest),
         title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title)),
         React.createElement(DescriptionTag, { className: classes.description }, description),
-        isClosable && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));
+        isClosableByUser && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));
 }));
 Alert.displayName = symToStr({ Alert });
 export default Alert;

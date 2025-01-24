@@ -27,8 +27,13 @@ export type AlertProps = {
     as?: `h${2 | 3 | 4 | 5 | 6}`;
     classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
     style?: CSSProperties;
-} & (AlertProps.DefaultSize | AlertProps.Small) &
-    (AlertProps.NonClosable | AlertProps.Closable);
+
+    /** Display the cross icon (understand isClosableByUser) */
+    closable?: boolean;
+    /** To provide if you want the Alert to be controlled */
+    isClosed?: boolean;
+    onClose?: () => void;
+} & (AlertProps.DefaultSize | AlertProps.Small);
 
 export namespace AlertProps {
     export type DefaultSize = {
@@ -44,30 +49,6 @@ export namespace AlertProps {
         title?: NonNullable<ReactNode>;
         description: NonNullable<ReactNode>;
     };
-
-    export type NonClosable = {
-        /** Default false */
-        closable?: false;
-        isClosed?: never;
-        onClose?: never;
-    };
-
-    export type Closable = {
-        /** Default false */
-        closable: true;
-    } & (Closable.Controlled | Closable.Uncontrolled);
-
-    export namespace Closable {
-        export type Controlled = {
-            isClosed: boolean;
-            onClose: () => void;
-        };
-
-        export type Uncontrolled = {
-            isClosed?: never;
-            onClose?: () => void;
-        };
-    }
 
     type ExtractSeverity<FrClassName> = FrClassName extends `fr-alert--${infer Severity}`
         ? Exclude<Severity, "sm">
@@ -89,7 +70,7 @@ export const Alert = memo(
             small: isSmall,
             title,
             description,
-            closable: isClosable = false,
+            closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
             ...rest
@@ -145,7 +126,7 @@ export const Alert = memo(
                 onClose?.();
             } else {
                 //Controlled
-                onClose();
+                onClose?.();
             }
         });
 
@@ -174,7 +155,7 @@ export const Alert = memo(
                     </HtmlTitleTag>
                 )}
                 <DescriptionTag className={classes.description}>{description}</DescriptionTag>
-                {isClosable && (
+                {isClosableByUser && (
                     <button
                         ref={setButtonElement}
                         className={cx(fr.cx("fr-link--close", "fr-link"), classes.close)}
