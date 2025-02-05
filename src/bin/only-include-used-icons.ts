@@ -387,7 +387,7 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
         .flat()
         .filter(
             filePath =>
-                ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(ext =>
+                ["tsx", "jsx", "js", "ts", "mdx", "html", "htm", "svelte", "vue"].find(ext =>
                     filePath.endsWith(`.${ext}`)
                 ) !== undefined
         );

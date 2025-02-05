@@ -457,7 +457,7 @@ function getCommandContext(args) {
                     srcFilePaths = (_a.sent())
                         .flat()
                         .filter(function (filePath) {
-                        return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm"].find(function (ext) {
+                        return ["tsx", "jsx", "js", "ts", "mdx", "html", "htm", "svelte", "vue"].find(function (ext) {
                             return filePath.endsWith(".".concat(ext));
                         }) !== undefined;
                     });
