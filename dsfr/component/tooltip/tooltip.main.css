@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -26,6 +26,10 @@
 
 .fr-tooltip:not(.fr-tooltip--shown) {
   display: none;
+  opacity: 0;
+}
+
+.fr-tooltip--hidding {
   opacity: 0;
 }
 

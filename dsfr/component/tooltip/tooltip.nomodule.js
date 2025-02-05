@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -15,6 +15,7 @@
   var TooltipSelector = {
     TOOLTIP: api.internals.ns.selector('tooltip'),
     SHOWN: api.internals.ns.selector('tooltip--shown'),
+    HIDDING: api.internals.ns.selector('tooltip--hidding'),
     BUTTON: api.internals.ns.selector('btn--tooltip')
   };
 
@@ -166,6 +167,8 @@
 
     Tooltip.prototype.transitionEnd = function transitionEnd () {
       if (this._state === TooltipState.HIDING) {
+        this.removeClass(TooltipSelector.SHOWN);
+        this.removeClass(TooltipSelector.HIDDING);
         this._state = TooltipState.HIDDEN;
         this.isShown = false;
       }
@@ -181,17 +184,19 @@
         case value:
           this._state = TooltipState.SHOWN;
           this.addClass(TooltipSelector.SHOWN);
+          this.removeClass(TooltipSelector.HIDDING);
           this.dispatch(TooltipEvent.SHOW);
           superclass.prototype.isShown = true;
           break;
 
         case this.isShown && !value && this._state === TooltipState.SHOWN:
           this._state = TooltipState.HIDING;
-          this.removeClass(TooltipSelector.SHOWN);
+          this.addClass(TooltipSelector.HIDDING);
           break;
 
         case this.isShown && !value && this._state === TooltipState.HIDDEN:
           this.dispatch(TooltipEvent.HIDE);
+          this.removeClass(TooltipSelector.HIDDING);
           superclass.prototype.isShown = false;
           break;
       }
@@ -199,6 +204,7 @@
 
     Tooltip.prototype.render = function render () {
       superclass.prototype.render.call(this);
+      this.rect = this.getRect();
       var x = this.referentRect.center - this.rect.center;
       var limit = this.rect.width * 0.5 - 8;
       if (x < -limit) { x = -limit; }

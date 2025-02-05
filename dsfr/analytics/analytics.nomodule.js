@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -408,7 +408,7 @@
       case ActionRegulation.ENFORCE:
         return true;
       default:
-        return this._collector.isActionEnabled;
+        return this._collector.isActionEnabled === true;
     }
   };
 
@@ -1816,6 +1816,24 @@
     REWIND: api.internals.ns.emission('analytics', 'rewind')
   };
 
+  var ActionEnable = {
+    ENABLE: {
+      entries: ['enable', 'enabled', 'true', 'yes', '1', true],
+      value: true,
+      output: true
+    },
+    DISABLE: {
+      entries: ['disable', 'disabled', 'false', 'no', '0', false],
+      value: false,
+      output: false
+    },
+    REDUCE: {
+      entries: ['reduce'],
+      value: 'reduce',
+      output: false
+    }
+  };
+
   var Collector = function Collector (config) {
     switch (config.collection) {
       case Collection.MANUAL:
@@ -1853,7 +1871,7 @@
         }
     }
 
-    this._isActionEnabled = config.isActionEnabled === 'false' || config.isActionEnabled;
+    this.isActionEnabled = config.isActionEnabled;
 
     this._user = new User(config.user);
     this._site = new Site(config.site);
@@ -1865,7 +1883,7 @@
     queue.setCollector(this);
   };
 
-  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },isCollecting: { configurable: true },isActionEnabled: { configurable: true },layer: { configurable: true } };
+  var prototypeAccessors$4 = { page: { configurable: true },user: { configurable: true },site: { configurable: true },search: { configurable: true },funnel: { configurable: true },collection: { configurable: true },isCollecting: { configurable: true },isActionEnabled: { configurable: true },isActionReduced: { configurable: true },layer: { configurable: true } };
 
   prototypeAccessors$4.page.get = function () {
     return this._page;
@@ -1955,11 +1973,15 @@
   };
 
   prototypeAccessors$4.isActionEnabled.get = function () {
-    return this._isActionEnabled;
+    return this._isActionEnabled.value;
   };
 
   prototypeAccessors$4.isActionEnabled.set = function (value) {
-    this._isActionEnabled = value;
+    this._isActionEnabled = Object.values(ActionEnable).find(function (enable) { return enable.entries.includes(value); }) || ActionEnable.DISABLE;
+  };
+
+  prototypeAccessors$4.isActionReduced.get = function () {
+    return this._isActionEnabled === ActionEnable.REDUCE;
   };
 
   prototypeAccessors$4.layer.get = function () {
@@ -3012,7 +3034,7 @@
 
   var AttributeActionee = /*@__PURE__*/(function (Actionee) {
     function AttributeActionee () {
-      Actionee.call(this, 100, '', null, true);
+      Actionee.call(this, 100, '', null, ActionRegulation.ENFORCE);
     }
 
     if ( Actionee ) AttributeActionee.__proto__ = Actionee;
@@ -3338,9 +3360,13 @@
     return AccordionActionee;
   }(ComponentActionee));
 
-  var integrateAccordion = function () {
+  var joinSelector = function (selectors, join) { return selectors.split(',').map(function (selector) { return ("" + selector + join); }).join(','); };
+
+  var integrateAccordion = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.accordion) {
-      api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
+      api.internals.register(joinSelector(api.accordion.AccordionSelector.COLLAPSE, selector), AccordionActionee);
     }
   };
 
@@ -3386,8 +3412,10 @@
     return AlertActionee;
   }(ComponentActionee));
 
-  var integrateAlert = function () {
-    api.internals.register(AlertSelector.ALERT, AlertActionee);
+  var integrateAlert = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(AlertSelector.ALERT, selector), AlertActionee);
   };
 
   var BreadcrumbSelector = {
@@ -3468,10 +3496,12 @@
     return BreadcrumbLinkActionee;
   }(ComponentActionee));
 
-  var integrateBreadcrumb = function () {
+  var integrateBreadcrumb = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.breadcrumb) {
-      api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
-      api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
+      api.internals.register(joinSelector(BreadcrumbSelector.COLLAPSE, selector), BreadcrumbActionee);
+      api.internals.register(joinSelector(BreadcrumbSelector.LINK, selector), BreadcrumbLinkActionee);
     }
   };
 
@@ -3531,8 +3561,10 @@
     return ButtonActionee;
   }(ComponentActionee));
 
-  var integrateButton = function () {
-    api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+  var integrateButton = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(ButtonSelector.BUTTON, selector), ButtonActionee);
   };
 
   var CalloutSelector = {
@@ -3578,8 +3610,10 @@
     return CalloutActionee;
   }(ComponentActionee));
 
-  var integrateCallout = function () {
-    api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
+  var integrateCallout = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(CalloutSelector.CALLOUT, selector), CalloutActionee);
   };
 
   var CardSelector = {
@@ -3638,8 +3672,10 @@
     return CardActionee;
   }(ComponentActionee));
 
-  var integrateCard = function () {
-    api.internals.register(CardSelector.CARD, CardActionee);
+  var integrateCard = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(CardSelector.CARD, selector), CardActionee);
   };
 
   var CheckboxSelector = {
@@ -3689,8 +3725,10 @@
     return CheckboxActionee;
   }(ComponentActionee));
 
-  var integrateCheckbox = function () {
-    api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
+  var integrateCheckbox = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(CheckboxSelector.INPUT, selector), CheckboxActionee);
   };
 
   var ConnectSelector = {
@@ -3771,9 +3809,11 @@
     return ConnectLinkActionee;
   }(ComponentActionee));
 
-  var integrateConnect = function () {
-    api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
-    api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
+  var integrateConnect = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(ConnectSelector.CONNECT, selector), ConnectActionee);
+    api.internals.register(joinSelector(ConnectSelector.LINK, selector), ConnectLinkActionee);
   };
 
   var ConsentSelector = {
@@ -3812,8 +3852,10 @@
     return ConsentActionee;
   }(ComponentActionee));
 
-  var integrateConsent = function () {
-    api.internals.register(ConsentSelector.BANNER, ConsentActionee);
+  var integrateConsent = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(ConsentSelector.BANNER, selector), ConsentActionee);
   };
 
   var DownloadSelector = {
@@ -3859,8 +3901,8 @@
     return DownloadActionee;
   }(ComponentActionee));
 
-  var integrateDownload = function () {
-    api.internals.register(DownloadSelector.LINK, DownloadActionee);
+  var integrateDownload = function (selector) {
+    api.internals.register(joinSelector(DownloadSelector.LINK, selector), DownloadActionee);
   };
 
   var FollowSelector = {
@@ -3909,8 +3951,10 @@
     return FollowActionee;
   }(ComponentActionee));
 
-  var integrateFollow = function () {
-    api.internals.register(FollowSelector.FOLLOW, FollowActionee);
+  var integrateFollow = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(FollowSelector.FOLLOW, selector), FollowActionee);
   };
 
   var FooterSelector = {
@@ -3984,9 +4028,11 @@
     return FooterLinkActionee;
   }(ComponentActionee));
 
-  var integrateFooter = function () {
-    api.internals.register(FooterSelector.FOOTER, FooterActionee);
-    api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
+  var integrateFooter = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(FooterSelector.FOOTER, selector), FooterActionee);
+    api.internals.register(joinSelector(FooterSelector.FOOTER_LINKS, selector), FooterLinkActionee);
   };
 
   var ID$m = 'header';
@@ -4121,12 +4167,14 @@
     return HeaderMenuButtonActionee;
   }(ComponentActionee));
 
-  var integrateHeader = function () {
+  var integrateHeader = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.header) {
-      api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
-      api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
-      api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
-      api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
+      api.internals.register(joinSelector(api.header.HeaderSelector.HEADER, selector), HeaderActionee);
+      api.internals.register(joinSelector(api.header.HeaderSelector.MODALS, selector), HeaderModalActionee);
+      api.internals.register(joinSelector(HeaderSelector.TOOLS_BUTTON, selector), HeaderToolsButtonActionee);
+      api.internals.register(joinSelector(HeaderSelector.MENU_BUTTON, selector), HeaderMenuButtonActionee);
     }
   };
 
@@ -4166,8 +4214,10 @@
     return HighlightActionee;
   }(ComponentActionee));
 
-  var integrateHighlight = function () {
-    api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
+  var integrateHighlight = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(HighlightSelector.HIGHLIGHT, selector), HighlightActionee);
   };
 
   var LinkSelector = {
@@ -4214,8 +4264,10 @@
     return LinkActionee;
   }(ComponentActionee));
 
-  var integrateLink = function () {
-    api.internals.register(LinkSelector.LINK, LinkActionee);
+  var integrateLink = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(LinkSelector.LINK, selector), LinkActionee);
   };
 
   var InputSelector = {
@@ -4267,8 +4319,10 @@
     return InputActionee;
   }(ComponentActionee));
 
-  var integrateInput = function () {
-    api.internals.register(InputSelector.INPUT, InputActionee);
+  var integrateInput = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(InputSelector.INPUT, selector), InputActionee);
   };
 
   var ModalSelector = {
@@ -4331,9 +4385,11 @@
     return ModalActionee;
   }(ComponentActionee));
 
-  var integrateModal = function () {
+  var integrateModal = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.modal) {
-      api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
+      api.internals.register(joinSelector(api.modal.ModalSelector.MODAL, selector), ModalActionee);
     }
   };
 
@@ -4454,11 +4510,13 @@
     return NavigationSectionActionee;
   }(ComponentActionee));
 
-  var integrateNavigation = function () {
+  var integrateNavigation = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.navigation) {
-      api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
-      api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
-      api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+      api.internals.register(joinSelector(api.navigation.NavigationSelector.NAVIGATION, selector), NavigationActionee);
+      api.internals.register(joinSelector(NavigationSelector.LINK, selector), NavigationLinkActionee);
+      api.internals.register(joinSelector(api.navigation.NavigationSelector.COLLAPSE, selector), NavigationSectionActionee);
     }
   };
 
@@ -4544,9 +4602,11 @@
     return NoticeLinkActionee;
   }(ComponentActionee));
 
-  var integrateNotice = function () {
-    api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-    api.internals.register(NoticeSelector.LINK, NoticeLinkActionee);
+  var integrateNotice = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(NoticeSelector.NOTICE, selector), NoticeActionee);
+    api.internals.register(joinSelector(NoticeSelector.LINK, selector), NoticeLinkActionee);
   };
 
   var PaginationSelector = {
@@ -4661,9 +4721,11 @@
     return PaginationLinkActionee;
   }(ComponentActionee));
 
-  var integratePagination = function () {
-    api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
-    api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
+  var integratePagination = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(PaginationSelector.PAGINATION, selector), PaginationActionee);
+    api.internals.register(joinSelector(PaginationSelector.LINK, selector), PaginationLinkActionee);
   };
 
   var QuoteSelector = {
@@ -4709,8 +4771,10 @@
     return QuoteActionee;
   }(ComponentActionee));
 
-  var integrateQuote = function () {
-    api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
+  var integrateQuote = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(QuoteSelector.QUOTE, selector), QuoteActionee);
   };
 
   var RadioSelector = {
@@ -4775,8 +4839,10 @@
     return RadioActionee;
   }(ComponentActionee));
 
-  var integrateRadio = function () {
-    api.internals.register(RadioSelector.INPUT, RadioActionee);
+  var integrateRadio = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(RadioSelector.INPUT, selector), RadioActionee);
   };
 
   var SearchSelector = {
@@ -4819,8 +4885,10 @@
     return SearchActionee;
   }(ComponentActionee));
 
-  var integrateSearch = function () {
-    api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
+  var integrateSearch = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(SearchSelector.SEARCH_BAR, selector), SearchActionee);
   };
 
   var SelectSelector = {
@@ -4877,8 +4945,10 @@
     return SelectActionee;
   }(ComponentActionee));
 
-  var integrateSelect = function () {
-    api.internals.register(SelectSelector.SELECT, SelectActionee);
+  var integrateSelect = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(SelectSelector.SELECT, selector), SelectActionee);
   };
 
   var ShareSelector = {
@@ -4923,8 +4993,10 @@
     return ShareActionee;
   }(ComponentActionee));
 
-  var integrateShare = function () {
-    api.internals.register(ShareSelector.SHARE, ShareActionee);
+  var integrateShare = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(ShareSelector.SHARE, selector), ShareActionee);
   };
 
   var SidemenuSelector = {
@@ -5055,11 +5127,11 @@
     return SidemenuSectionActionee;
   }(ComponentActionee));
 
-  var integrateSidemenu = function () {
+  var integrateSidemenu = function (selector) {
     if (api.sidemenu) {
-      api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
-      api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
-      api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
+      api.internals.register(joinSelector(SidemenuSelector.SIDEMENU, selector), SidemenuActionee);
+      api.internals.register(joinSelector(SidemenuSelector.LINK, selector), SidemenuLinkActionee);
+      api.internals.register(joinSelector(api.sidemenu.SidemenuSelector.COLLAPSE, selector), SidemenuSectionActionee);
     }
   };
 
@@ -5177,10 +5249,12 @@
     return SummarySectionActionee;
   }(ComponentActionee));
 
-  var integrateSummary = function () {
-    api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
-    api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
-    api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
+  var integrateSummary = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(SummarySelector.SUMMARY, selector), SummaryActionee);
+    api.internals.register(joinSelector(SummarySelector.LINK, selector), SummaryLinkActionee);
+    api.internals.register(joinSelector(SummarySelector.ITEM, selector), SummarySectionActionee);
   };
 
   var ID$7 = 'tab';
@@ -5272,9 +5346,11 @@
     return TabActionee;
   }(ComponentActionee));
 
-  var integrateTab = function () {
+  var integrateTab = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
     if (api.tab) {
-      api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
+      api.internals.register(joinSelector(api.tab.TabSelector.PANEL, selector), TabActionee);
     }
   };
 
@@ -5319,8 +5395,10 @@
     return TableActionee;
   }(ComponentActionee));
 
-  var integrateTable = function () {
-    api.internals.register(TableSelector.TABLE, TableActionee);
+  var integrateTable = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(TableSelector.TABLE, selector), TableActionee);
   };
 
   var TagSelector = {
@@ -5382,8 +5460,10 @@
     return TagActionee;
   }(ComponentActionee));
 
-  var integrateTag = function () {
-    api.internals.register(TagSelector.TAG, TagActionee);
+  var integrateTag = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(TagSelector.TAG, selector), TagActionee);
   };
 
   var TileSelector = {
@@ -5439,8 +5519,10 @@
     return TileActionee;
   }(ComponentActionee));
 
-  var integrateTile = function () {
-    api.internals.register(TileSelector.TILE, TileActionee);
+  var integrateTile = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(TileSelector.TILE, selector), TileActionee);
   };
 
   var ToggleSelector = {
@@ -5491,8 +5573,10 @@
     return ToggleActionee;
   }(ComponentActionee));
 
-  var integrateToggle = function () {
-    api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+  var integrateToggle = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(ToggleSelector.INPUT, selector), ToggleActionee);
   };
 
   var TRANSCRIPTION = api.internals.ns.selector('transcription');
@@ -5600,8 +5684,10 @@
     return TranscriptionActionee;
   }(ComponentActionee));
 
-  var integrateTranscription = function () {
-    api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
+  var integrateTranscription = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(TranscriptionSelector.COLLAPSE, selector), TranscriptionActionee);
   };
 
   var TRANSLATE = api.internals.ns.selector('translate');
@@ -5691,9 +5777,11 @@
     return TranslateButtonActionee;
   }(ComponentActionee));
 
-  var integrateTranslate = function () {
-    api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
-    api.internals.register(TranslateSelector.BUTTON, TranslateButtonActionee);
+  var integrateTranslate = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(TranslateSelector.COLLAPSE, selector), TranslateActionee);
+    api.internals.register(joinSelector(TranslateSelector.BUTTON, selector), TranslateButtonActionee);
   };
 
   var UploadSelector = {
@@ -5749,60 +5837,67 @@
     return UploadActionee;
   }(ComponentActionee));
 
-  var integrateUpload = function () {
-    api.internals.register(UploadSelector.UPLOAD, UploadActionee);
+  var integrateUpload = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    api.internals.register(joinSelector(UploadSelector.UPLOAD, selector), UploadActionee);
   };
 
-  var integrateComponents = function () {
-    integrateAccordion();
-    integrateBreadcrumb();
-    integrateAlert();
-    // integrateBadge();
-    integrateButton();
-    integrateCallout();
-    integrateConnect();
-    integrateConsent();
-    // integrateContent();
-    integrateCard();
-    integrateInput();
-    integrateCheckbox();
-    integrateDownload();
-    integrateFooter();
-    integrateFollow();
-    integrateHeader();
-    integrateHighlight();
-    integrateLink();
-    integrateModal();
-    integrateNavigation();
-    integrateNotice();
-    integratePagination();
-    integrateQuote();
-    integrateRadio();
-    integrateSearch();
-    integrateSelect();
-    integrateShare();
-    integrateSidemenu();
-    // integrateStepper();
-    integrateSummary();
-    integrateTab();
-    integrateTable();
-    integrateTag();
-    integrateTile();
-    integrateToggle();
-    // integrateTooltip();
-    integrateTranscription();
-    integrateTranslate();
-    integrateUpload();
+  var integrateComponents = function (selector) {
+    if ( selector === void 0 ) selector = '';
+
+    integrateAccordion(selector);
+    integrateBreadcrumb(selector);
+    integrateAlert(selector);
+    // integrateBadge(selector);
+    integrateButton(selector);
+    integrateCallout(selector);
+    integrateConnect(selector);
+    integrateConsent(selector);
+    // integrateContent(selector);
+    integrateCard(selector);
+    integrateInput(selector);
+    integrateCheckbox(selector);
+    integrateDownload(selector);
+    integrateFooter(selector);
+    integrateFollow(selector);
+    integrateHeader(selector);
+    integrateHighlight(selector);
+    integrateLink(selector);
+    integrateModal(selector);
+    integrateNavigation(selector);
+    integrateNotice(selector);
+    integratePagination(selector);
+    integrateQuote(selector);
+    integrateRadio(selector);
+    integrateSearch(selector);
+    integrateSelect(selector);
+    integrateShare(selector);
+    integrateSidemenu(selector);
+    // integrateStepper(selector);
+    integrateSummary(selector);
+    integrateTab(selector);
+    integrateTable(selector);
+    integrateTag(selector);
+    integrateTile(selector);
+    integrateToggle(selector);
+    // integrateTooltip(selector);
+    integrateTranscription(selector);
+    integrateTranslate(selector);
+    integrateUpload(selector);
   };
 
   // import './core/core';
 
-  var integration = function () {
+  var integration = function (selector) {
     integrateAttributes();
-    integrateComponents();
+    integrateComponents(selector);
   };
 
-  api.analytics.readiness.then(function () { return integration(); }, function () {});
+  api.analytics.readiness.then(function () {
+    var selector = api.analytics._collector.isActionReduced ? api.internals.ns.attr.selector('analytics-action') : '';
+    integration(selector);
+  }, function () {});
 
 })();
 //# sourceMappingURL=analytics.nomodule.js.map

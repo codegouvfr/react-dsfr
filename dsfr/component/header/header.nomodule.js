@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -50,16 +50,23 @@
       // eslint-disable-next-line no-useless-escape
       toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
 
-      var toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
-      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-      if (toolsHtmlAriaControlList) {
-        for (var i = 0, list = toolsHtmlAriaControlList; i < list.length; i += 1) {
-          var element = list[i];
+      var dupplicateAttributes = ['aria-controls', 'aria-describedby', 'aria-labelledby'];
 
-          var ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
-          if (toolsHtmlIdList.includes(ariaControlsValue)) {
-            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(("aria-controls=\"" + ariaControlsValue + "\""), ("aria-controls=\"" + (ariaControlsValue + copySuffix) + "\""));
-          }      }
+      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, ("id=\"$1" + copySuffix + "\""));
+
+      for (var i$1 = 0, list$1 = dupplicateAttributes; i$1 < list$1.length; i$1 += 1) {
+        var attribute = list$1[i$1];
+
+        var toolsHtmlAttributeList = toolsHtml.match(new RegExp((attribute + "=\"(.*?)\""), 'gm'));
+        if (toolsHtmlAttributeList) {
+          for (var i = 0, list = toolsHtmlAttributeList; i < list.length; i += 1) {
+            var element = list[i];
+
+            var attributeValue = element.replace((attribute + "=\""), '').replace('"', '');
+            if (toolsHtmlIdList.includes(attributeValue)) {
+              toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace((attribute + "=\"" + attributeValue + "\""), (attribute + "=\"" + (attributeValue + copySuffix) + "\""));
+            }        }
+        }
       }
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
@@ -97,6 +104,7 @@
     };
 
     HeaderModal.prototype.init = function init () {
+      this.storeAria();
       this.isResizing = true;
     };
 
@@ -109,6 +117,7 @@
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
       modal.isEnabled = true;
+      this.restoreAria();
       this.listenClick({ capture: true });
     };
 
@@ -117,7 +126,20 @@
       if (!modal) { return; }
       modal.conceal();
       modal.isEnabled = false;
+      this.storeAria();
       this.unlistenClick({ capture: true });
+    };
+
+    HeaderModal.prototype.storeAria = function storeAria () {
+      if (this.hasAttribute('aria-labelledby')) { this._ariaLabelledby = this.getAttribute('aria-labelledby'); }
+      if (this.hasAttribute('aria-label')) { this._ariaLabel = this.getAttribute('aria-label'); }
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-label');
+    };
+
+    HeaderModal.prototype.restoreAria = function restoreAria () {
+      if (this._ariaLabelledby) { this.setAttribute('aria-labelledby', this._ariaLabelledby); }
+      if (this._ariaLabel) { this.setAttribute('aria-label', this._ariaLabel); }
     };
 
     HeaderModal.prototype.handleClick = function handleClick (e) {

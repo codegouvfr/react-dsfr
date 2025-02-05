@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -69,6 +69,7 @@
   width: 100%;
   height: 0.75rem;
   border-radius: 0.375rem;
+  forced-color-adjust: none;
 }
 
 .fr-range[data-fr-js-range]::before {
@@ -303,9 +304,16 @@
     color: graytext;
   }
 
-  .fr-range[data-fr-js-range]::before,
+  .fr-range input[type=range] {
+    border: none;
+  }
+
+  .fr-range[data-fr-js-range]::before {
+    box-shadow: 0 0 0 1px buttontext;
+  }
+
   .fr-range[data-fr-js-range]::after {
-    border: 1px solid buttontext;
+    background-color: highlight;
   }
 
   .fr-range[data-fr-js-range] input[type=range] {
@@ -336,6 +344,19 @@
 
   .fr-range[data-fr-js-range] input[type=range]:disabled::-moz-range-thumb {
     background: graytext;
+  }
+
+  .fr-range--step[data-fr-js-range]::before {
+    background-image: radial-gradient(circle at 2px 50%, buttontext 0, buttontext 1px, transparent 1px);
+  }
+
+  .fr-range--step[data-fr-js-range]::after {
+    box-shadow: inset 10px 0 0 0 highlight, inset -10px 0 0 0 highlight;
+    background-image: radial-gradient(circle at 2px 50%, highlighttext 0, highlighttext 2px, transparent 2px);
+  }
+
+  .fr-range--step.fr-range--sm[data-fr-js-range]::after {
+    box-shadow: inset 6px 0 0 0 highlight, inset -6px 0 0 0 highlight;
   }
 
   .fr-range--double[data-fr-js-range] input[type=range]:nth-of-type(1) {

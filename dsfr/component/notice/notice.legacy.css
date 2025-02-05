@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -46,7 +46,7 @@
   }
 
   .fr-notice--weather-red .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
-    background-image: url("../../icons/weather/tornado-fill.svg");
+    background-image: url("../../icons/weather/heavy-showers-fill.svg");
     width: 1.5rem;
     height: 1.5rem;
   }

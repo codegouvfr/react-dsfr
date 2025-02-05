@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
   .fr-background-default--grey {
@@ -1444,6 +1444,182 @@
 
   .fr-text-action-high--beige-gris-galet {
     color: #6a6156 !important;
+  }
+
+  .fr-border-default--grey {
+    border: 1px solid #ddd !important;
+  }
+
+  .fr-border-default--blue-france {
+    border: 1px solid #6a6af4 !important;
+  }
+
+  .fr-border-default--red-marianne {
+    border: 1px solid #e1000f !important;
+  }
+
+  .fr-border-default--green-tilleul-verveine {
+    border: 1px solid #b7a73f !important;
+  }
+
+  .fr-border-default--green-bourgeon {
+    border: 1px solid #68a532 !important;
+  }
+
+  .fr-border-default--green-emeraude {
+    border: 1px solid #00a95f !important;
+  }
+
+  .fr-border-default--green-menthe {
+    border: 1px solid #009081 !important;
+  }
+
+  .fr-border-default--green-archipel {
+    border: 1px solid #009099 !important;
+  }
+
+  .fr-border-default--blue-ecume {
+    border: 1px solid #465f9d !important;
+  }
+
+  .fr-border-default--blue-cumulus {
+    border: 1px solid #417dc4 !important;
+  }
+
+  .fr-border-default--purple-glycine {
+    border: 1px solid #a558a0 !important;
+  }
+
+  .fr-border-default--pink-macaron {
+    border: 1px solid #e18b76 !important;
+  }
+
+  .fr-border-default--pink-tuile {
+    border: 1px solid #ce614a !important;
+  }
+
+  .fr-border-default--yellow-tournesol {
+    border: 1px solid #c8aa39 !important;
+  }
+
+  .fr-border-default--yellow-moutarde {
+    border: 1px solid #c3992a !important;
+  }
+
+  .fr-border-default--orange-terre-battue {
+    border: 1px solid #e4794a !important;
+  }
+
+  .fr-border-default--brown-cafe-creme {
+    border: 1px solid #d1b781 !important;
+  }
+
+  .fr-border-default--brown-caramel {
+    border: 1px solid #c08c65 !important;
+  }
+
+  .fr-border-default--brown-opera {
+    border: 1px solid #bd987a !important;
+  }
+
+  .fr-border-default--beige-gris-galet {
+    border: 1px solid #aea397 !important;
+  }
+
+  .fr-border-plain--grey {
+    border: 1px solid #3a3a3a !important;
+  }
+
+  .fr-border-plain--blue-france {
+    border: 1px solid #000091 !important;
+  }
+
+  .fr-border-plain--red-marianne {
+    border: 1px solid #c9191e !important;
+  }
+
+  .fr-border-plain--info {
+    border: 1px solid #0063cb !important;
+  }
+
+  .fr-border-plain--success {
+    border: 1px solid #18753c !important;
+  }
+
+  .fr-border-plain--warning {
+    border: 1px solid #b34000 !important;
+  }
+
+  .fr-border-plain--error {
+    border: 1px solid #ce0500 !important;
+  }
+
+  .fr-border-plain--green-tilleul-verveine {
+    border: 1px solid #66673d !important;
+  }
+
+  .fr-border-plain--green-bourgeon {
+    border: 1px solid #447049 !important;
+  }
+
+  .fr-border-plain--green-emeraude {
+    border: 1px solid #297254 !important;
+  }
+
+  .fr-border-plain--green-menthe {
+    border: 1px solid #37635f !important;
+  }
+
+  .fr-border-plain--green-archipel {
+    border: 1px solid #006a6f !important;
+  }
+
+  .fr-border-plain--blue-ecume {
+    border: 1px solid #2f4077 !important;
+  }
+
+  .fr-border-plain--blue-cumulus {
+    border: 1px solid #3558a2 !important;
+  }
+
+  .fr-border-plain--purple-glycine {
+    border: 1px solid #6e445a !important;
+  }
+
+  .fr-border-plain--pink-macaron {
+    border: 1px solid #8d533e !important;
+  }
+
+  .fr-border-plain--pink-tuile {
+    border: 1px solid #a94645 !important;
+  }
+
+  .fr-border-plain--yellow-tournesol {
+    border: 1px solid #716043 !important;
+  }
+
+  .fr-border-plain--yellow-moutarde {
+    border: 1px solid #695240 !important;
+  }
+
+  .fr-border-plain--orange-terre-battue {
+    border: 1px solid #755348 !important;
+  }
+
+  .fr-border-plain--brown-cafe-creme {
+    border: 1px solid #685c48 !important;
+  }
+
+  .fr-border-plain--brown-caramel {
+    border: 1px solid #845d48 !important;
+  }
+
+  .fr-border-plain--brown-opera {
+    border: 1px solid #745b47 !important;
+  }
+
+  .fr-border-plain--beige-gris-galet {
+    border: 1px solid #6a6156 !important;
   }
 
   .fr-artwork-major--blue-france {

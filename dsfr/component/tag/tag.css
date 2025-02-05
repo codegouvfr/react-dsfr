@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -849,6 +849,8 @@ a:not([href]).fr-tag {
     background-image: url("../../icons/system/close-line.svg");
     width: 1rem;
     height: 1rem;
+    background-color: currentColor;
+    margin-left: 0.625rem;
   }
 
   button.fr-tag.fr-tag--dismiss.fr-tag--sm::after,
@@ -858,6 +860,8 @@ a:not([href]).fr-tag {
     background-repeat: no-repeat;
     width: 0.75rem;
     height: 0.75rem;
+    background-color: currentColor;
+    margin-left: 0.5rem;
   }
 
   ul.fr-tags-group {

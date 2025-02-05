@@ -1,10 +1,10 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 const api = window[config.namespace];
@@ -395,7 +395,7 @@ class Queue {
       case ActionRegulation.ENFORCE:
         return true;
       default:
-        return this._collector.isActionEnabled;
+        return this._collector.isActionEnabled === true;
     }
   }
 
@@ -1755,6 +1755,24 @@ const ActioneeEmission = {
   REWIND: api.internals.ns.emission('analytics', 'rewind')
 };
 
+const ActionEnable = {
+  ENABLE: {
+    entries: ['enable', 'enabled', 'true', 'yes', '1', true],
+    value: true,
+    output: true
+  },
+  DISABLE: {
+    entries: ['disable', 'disabled', 'false', 'no', '0', false],
+    value: false,
+    output: false
+  },
+  REDUCE: {
+    entries: ['reduce'],
+    value: 'reduce',
+    output: false
+  }
+};
+
 class Collector {
   constructor (config) {
     switch (config.collection) {
@@ -1793,7 +1811,7 @@ class Collector {
         }
     }
 
-    this._isActionEnabled = config.isActionEnabled === 'false' || config.isActionEnabled;
+    this.isActionEnabled = config.isActionEnabled;
 
     this._user = new User(config.user);
     this._site = new Site(config.site);
@@ -1891,11 +1909,15 @@ class Collector {
   }
 
   get isActionEnabled () {
-    return this._isActionEnabled;
+    return this._isActionEnabled.value;
   }
 
   set isActionEnabled (value) {
-    this._isActionEnabled = value;
+    this._isActionEnabled = Object.values(ActionEnable).find(enable => enable.entries.includes(value)) || ActionEnable.DISABLE;
+  }
+
+  get isActionReduced () {
+    return this._isActionEnabled === ActionEnable.REDUCE;
   }
 
   get layer () {
@@ -2889,7 +2911,7 @@ class Actionee extends api.core.Instance {
 
 class AttributeActionee extends Actionee {
   constructor () {
-    super(100, '', null, true);
+    super(100, '', null, ActionRegulation.ENFORCE);
   }
 
   static get instanceClassName () {
@@ -3164,9 +3186,11 @@ class AccordionActionee extends ComponentActionee {
   }
 }
 
-const integrateAccordion = () => {
+const joinSelector = (selectors, join) => selectors.split(',').map(selector => `${selector}${join}`).join(',');
+
+const integrateAccordion = (selector = '') => {
   if (api.accordion) {
-    api.internals.register(api.accordion.AccordionSelector.COLLAPSE, AccordionActionee);
+    api.internals.register(joinSelector(api.accordion.AccordionSelector.COLLAPSE, selector), AccordionActionee);
   }
 };
 
@@ -3200,8 +3224,8 @@ class AlertActionee extends ComponentActionee {
   }
 }
 
-const integrateAlert = () => {
-  api.internals.register(AlertSelector.ALERT, AlertActionee);
+const integrateAlert = (selector = '') => {
+  api.internals.register(joinSelector(AlertSelector.ALERT, selector), AlertActionee);
 };
 
 const BreadcrumbSelector = {
@@ -3258,10 +3282,10 @@ class BreadcrumbLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateBreadcrumb = () => {
+const integrateBreadcrumb = (selector = '') => {
   if (api.breadcrumb) {
-    api.internals.register(BreadcrumbSelector.COLLAPSE, BreadcrumbActionee);
-    api.internals.register(BreadcrumbSelector.LINK, BreadcrumbLinkActionee);
+    api.internals.register(joinSelector(BreadcrumbSelector.COLLAPSE, selector), BreadcrumbActionee);
+    api.internals.register(joinSelector(BreadcrumbSelector.LINK, selector), BreadcrumbLinkActionee);
   }
 };
 
@@ -3309,8 +3333,8 @@ class ButtonActionee extends ComponentActionee {
   }
 }
 
-const integrateButton = () => {
-  api.internals.register(ButtonSelector.BUTTON, ButtonActionee);
+const integrateButton = (selector = '') => {
+  api.internals.register(joinSelector(ButtonSelector.BUTTON, selector), ButtonActionee);
 };
 
 const CalloutSelector = {
@@ -3344,8 +3368,8 @@ class CalloutActionee extends ComponentActionee {
   }
 }
 
-const integrateCallout = () => {
-  api.internals.register(CalloutSelector.CALLOUT, CalloutActionee);
+const integrateCallout = (selector = '') => {
+  api.internals.register(joinSelector(CalloutSelector.CALLOUT, selector), CalloutActionee);
 };
 
 const CardSelector = {
@@ -3392,8 +3416,8 @@ class CardActionee extends ComponentActionee {
   }
 }
 
-const integrateCard = () => {
-  api.internals.register(CardSelector.CARD, CardActionee);
+const integrateCard = (selector = '') => {
+  api.internals.register(joinSelector(CardSelector.CARD, selector), CardActionee);
 };
 
 const CheckboxSelector = {
@@ -3431,8 +3455,8 @@ class CheckboxActionee extends ComponentActionee {
   }
 }
 
-const integrateCheckbox = () => {
-  api.internals.register(CheckboxSelector.INPUT, CheckboxActionee);
+const integrateCheckbox = (selector = '') => {
+  api.internals.register(joinSelector(CheckboxSelector.INPUT, selector), CheckboxActionee);
 };
 
 const ConnectSelector = {
@@ -3489,9 +3513,9 @@ class ConnectLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateConnect = () => {
-  api.internals.register(ConnectSelector.CONNECT, ConnectActionee);
-  api.internals.register(ConnectSelector.LINK, ConnectLinkActionee);
+const integrateConnect = (selector = '') => {
+  api.internals.register(joinSelector(ConnectSelector.CONNECT, selector), ConnectActionee);
+  api.internals.register(joinSelector(ConnectSelector.LINK, selector), ConnectLinkActionee);
 };
 
 const ConsentSelector = {
@@ -3518,8 +3542,8 @@ class ConsentActionee extends ComponentActionee {
   }
 }
 
-const integrateConsent = () => {
-  api.internals.register(ConsentSelector.BANNER, ConsentActionee);
+const integrateConsent = (selector = '') => {
+  api.internals.register(joinSelector(ConsentSelector.BANNER, selector), ConsentActionee);
 };
 
 const DownloadSelector = {
@@ -3553,8 +3577,8 @@ class DownloadActionee extends ComponentActionee {
   }
 }
 
-const integrateDownload = () => {
-  api.internals.register(DownloadSelector.LINK, DownloadActionee);
+const integrateDownload = (selector) => {
+  api.internals.register(joinSelector(DownloadSelector.LINK, selector), DownloadActionee);
 };
 
 const FollowSelector = {
@@ -3591,8 +3615,8 @@ class FollowActionee extends ComponentActionee {
   }
 }
 
-const integrateFollow = () => {
-  api.internals.register(FollowSelector.FOLLOW, FollowActionee);
+const integrateFollow = (selector = '') => {
+  api.internals.register(joinSelector(FollowSelector.FOLLOW, selector), FollowActionee);
 };
 
 const FooterSelector = {
@@ -3642,9 +3666,9 @@ class FooterLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateFooter = () => {
-  api.internals.register(FooterSelector.FOOTER, FooterActionee);
-  api.internals.register(FooterSelector.FOOTER_LINKS, FooterLinkActionee);
+const integrateFooter = (selector = '') => {
+  api.internals.register(joinSelector(FooterSelector.FOOTER, selector), FooterActionee);
+  api.internals.register(joinSelector(FooterSelector.FOOTER_LINKS, selector), FooterLinkActionee);
 };
 
 const ID$m = 'header';
@@ -3723,12 +3747,12 @@ class HeaderMenuButtonActionee extends ComponentActionee {
   }
 }
 
-const integrateHeader = () => {
+const integrateHeader = (selector = '') => {
   if (api.header) {
-    api.internals.register(api.header.HeaderSelector.HEADER, HeaderActionee);
-    api.internals.register(api.header.HeaderSelector.MODALS, HeaderModalActionee);
-    api.internals.register(HeaderSelector.TOOLS_BUTTON, HeaderToolsButtonActionee);
-    api.internals.register(HeaderSelector.MENU_BUTTON, HeaderMenuButtonActionee);
+    api.internals.register(joinSelector(api.header.HeaderSelector.HEADER, selector), HeaderActionee);
+    api.internals.register(joinSelector(api.header.HeaderSelector.MODALS, selector), HeaderModalActionee);
+    api.internals.register(joinSelector(HeaderSelector.TOOLS_BUTTON, selector), HeaderToolsButtonActionee);
+    api.internals.register(joinSelector(HeaderSelector.MENU_BUTTON, selector), HeaderMenuButtonActionee);
   }
 };
 
@@ -3756,8 +3780,8 @@ class HighlightActionee extends ComponentActionee {
   }
 }
 
-const integrateHighlight = () => {
-  api.internals.register(HighlightSelector.HIGHLIGHT, HighlightActionee);
+const integrateHighlight = (selector = '') => {
+  api.internals.register(joinSelector(HighlightSelector.HIGHLIGHT, selector), HighlightActionee);
 };
 
 const LinkSelector = {
@@ -3792,8 +3816,8 @@ class LinkActionee extends ComponentActionee {
   }
 }
 
-const integrateLink = () => {
-  api.internals.register(LinkSelector.LINK, LinkActionee);
+const integrateLink = (selector = '') => {
+  api.internals.register(joinSelector(LinkSelector.LINK, selector), LinkActionee);
 };
 
 const InputSelector = {
@@ -3833,8 +3857,8 @@ class InputActionee extends ComponentActionee {
   }
 }
 
-const integrateInput = () => {
-  api.internals.register(InputSelector.INPUT, InputActionee);
+const integrateInput = (selector = '') => {
+  api.internals.register(joinSelector(InputSelector.INPUT, selector), InputActionee);
 };
 
 const ModalSelector = {
@@ -3885,9 +3909,9 @@ class ModalActionee extends ComponentActionee {
   }
 }
 
-const integrateModal = () => {
+const integrateModal = (selector = '') => {
   if (api.modal) {
-    api.internals.register(api.modal.ModalSelector.MODAL, ModalActionee);
+    api.internals.register(joinSelector(api.modal.ModalSelector.MODAL, selector), ModalActionee);
   }
 };
 
@@ -3972,11 +3996,11 @@ class NavigationSectionActionee extends ComponentActionee {
   }
 }
 
-const integrateNavigation = () => {
+const integrateNavigation = (selector = '') => {
   if (api.navigation) {
-    api.internals.register(api.navigation.NavigationSelector.NAVIGATION, NavigationActionee);
-    api.internals.register(NavigationSelector.LINK, NavigationLinkActionee);
-    api.internals.register(api.navigation.NavigationSelector.COLLAPSE, NavigationSectionActionee);
+    api.internals.register(joinSelector(api.navigation.NavigationSelector.NAVIGATION, selector), NavigationActionee);
+    api.internals.register(joinSelector(NavigationSelector.LINK, selector), NavigationLinkActionee);
+    api.internals.register(joinSelector(api.navigation.NavigationSelector.COLLAPSE, selector), NavigationSectionActionee);
   }
 };
 
@@ -4038,9 +4062,9 @@ class NoticeLinkActionee extends ComponentActionee {
   }
 }
 
-const integrateNotice = () => {
-  api.internals.register(NoticeSelector.NOTICE, NoticeActionee);
-  api.internals.register(NoticeSelector.LINK, NoticeLinkActionee);
+const integrateNotice = (selector = '') => {
+  api.internals.register(joinSelector(NoticeSelector.NOTICE, selector), NoticeActionee);
+  api.internals.register(joinSelector(NoticeSelector.LINK, selector), NoticeLinkActionee);
 };
 
 const PaginationSelector = {
@@ -4131,9 +4155,9 @@ class PaginationLinkActionee extends ComponentActionee {
   }
 }
 
-const integratePagination = () => {
-  api.internals.register(PaginationSelector.PAGINATION, PaginationActionee);
-  api.internals.register(PaginationSelector.LINK, PaginationLinkActionee);
+const integratePagination = (selector = '') => {
+  api.internals.register(joinSelector(PaginationSelector.PAGINATION, selector), PaginationActionee);
+  api.internals.register(joinSelector(PaginationSelector.LINK, selector), PaginationLinkActionee);
 };
 
 const QuoteSelector = {
@@ -4167,8 +4191,8 @@ class QuoteActionee extends ComponentActionee {
   }
 }
 
-const integrateQuote = () => {
-  api.internals.register(QuoteSelector.QUOTE, QuoteActionee);
+const integrateQuote = (selector = '') => {
+  api.internals.register(joinSelector(QuoteSelector.QUOTE, selector), QuoteActionee);
 };
 
 const RadioSelector = {
@@ -4221,8 +4245,8 @@ class RadioActionee extends ComponentActionee {
   }
 }
 
-const integrateRadio = () => {
-  api.internals.register(RadioSelector.INPUT, RadioActionee);
+const integrateRadio = (selector = '') => {
+  api.internals.register(joinSelector(RadioSelector.INPUT, selector), RadioActionee);
 };
 
 const SearchSelector = {
@@ -4253,8 +4277,8 @@ class SearchActionee extends ComponentActionee {
   }
 }
 
-const integrateSearch = () => {
-  api.internals.register(SearchSelector.SEARCH_BAR, SearchActionee);
+const integrateSearch = (selector = '') => {
+  api.internals.register(joinSelector(SearchSelector.SEARCH_BAR, selector), SearchActionee);
 };
 
 const SelectSelector = {
@@ -4299,8 +4323,8 @@ class SelectActionee extends ComponentActionee {
   }
 }
 
-const integrateSelect = () => {
-  api.internals.register(SelectSelector.SELECT, SelectActionee);
+const integrateSelect = (selector = '') => {
+  api.internals.register(joinSelector(SelectSelector.SELECT, selector), SelectActionee);
 };
 
 const ShareSelector = {
@@ -4333,8 +4357,8 @@ class ShareActionee extends ComponentActionee {
   }
 }
 
-const integrateShare = () => {
-  api.internals.register(ShareSelector.SHARE, ShareActionee);
+const integrateShare = (selector = '') => {
+  api.internals.register(joinSelector(ShareSelector.SHARE, selector), ShareActionee);
 };
 
 const SidemenuSelector = {
@@ -4429,11 +4453,11 @@ class SidemenuSectionActionee extends ComponentActionee {
   }
 }
 
-const integrateSidemenu = () => {
+const integrateSidemenu = (selector) => {
   if (api.sidemenu) {
-    api.internals.register(SidemenuSelector.SIDEMENU, SidemenuActionee);
-    api.internals.register(SidemenuSelector.LINK, SidemenuLinkActionee);
-    api.internals.register(api.sidemenu.SidemenuSelector.COLLAPSE, SidemenuSectionActionee);
+    api.internals.register(joinSelector(SidemenuSelector.SIDEMENU, selector), SidemenuActionee);
+    api.internals.register(joinSelector(SidemenuSelector.LINK, selector), SidemenuLinkActionee);
+    api.internals.register(joinSelector(api.sidemenu.SidemenuSelector.COLLAPSE, selector), SidemenuSectionActionee);
   }
 };
 
@@ -4515,10 +4539,10 @@ class SummarySectionActionee extends ComponentActionee {
   }
 }
 
-const integrateSummary = () => {
-  api.internals.register(SummarySelector.SUMMARY, SummaryActionee);
-  api.internals.register(SummarySelector.LINK, SummaryLinkActionee);
-  api.internals.register(SummarySelector.ITEM, SummarySectionActionee);
+const integrateSummary = (selector = '') => {
+  api.internals.register(joinSelector(SummarySelector.SUMMARY, selector), SummaryActionee);
+  api.internals.register(joinSelector(SummarySelector.LINK, selector), SummaryLinkActionee);
+  api.internals.register(joinSelector(SummarySelector.ITEM, selector), SummarySectionActionee);
 };
 
 const ID$7 = 'tab';
@@ -4586,9 +4610,9 @@ class TabActionee extends ComponentActionee {
   }
 }
 
-const integrateTab = () => {
+const integrateTab = (selector = '') => {
   if (api.tab) {
-    api.internals.register(api.tab.TabSelector.PANEL, TabActionee);
+    api.internals.register(joinSelector(api.tab.TabSelector.PANEL, selector), TabActionee);
   }
 };
 
@@ -4621,8 +4645,8 @@ class TableActionee extends ComponentActionee {
   }
 }
 
-const integrateTable = () => {
-  api.internals.register(TableSelector.TABLE, TableActionee);
+const integrateTable = (selector = '') => {
+  api.internals.register(joinSelector(TableSelector.TABLE, selector), TableActionee);
 };
 
 const TagSelector = {
@@ -4672,8 +4696,8 @@ class TagActionee extends ComponentActionee {
   }
 }
 
-const integrateTag = () => {
-  api.internals.register(TagSelector.TAG, TagActionee);
+const integrateTag = (selector = '') => {
+  api.internals.register(joinSelector(TagSelector.TAG, selector), TagActionee);
 };
 
 const TileSelector = {
@@ -4717,8 +4741,8 @@ class TileActionee extends ComponentActionee {
   }
 }
 
-const integrateTile = () => {
-  api.internals.register(TileSelector.TILE, TileActionee);
+const integrateTile = (selector = '') => {
+  api.internals.register(joinSelector(TileSelector.TILE, selector), TileActionee);
 };
 
 const ToggleSelector = {
@@ -4757,8 +4781,8 @@ class ToggleActionee extends ComponentActionee {
   }
 }
 
-const integrateToggle = () => {
-  api.internals.register(ToggleSelector.INPUT, ToggleActionee);
+const integrateToggle = (selector = '') => {
+  api.internals.register(joinSelector(ToggleSelector.INPUT, selector), ToggleActionee);
 };
 
 const TRANSCRIPTION = api.internals.ns.selector('transcription');
@@ -4842,8 +4866,8 @@ class TranscriptionActionee extends ComponentActionee {
   }
 }
 
-const integrateTranscription = () => {
-  api.internals.register(TranscriptionSelector.COLLAPSE, TranscriptionActionee);
+const integrateTranscription = (selector = '') => {
+  api.internals.register(joinSelector(TranscriptionSelector.COLLAPSE, selector), TranscriptionActionee);
 };
 
 const TRANSLATE = api.internals.ns.selector('translate');
@@ -4909,9 +4933,9 @@ class TranslateButtonActionee extends ComponentActionee {
   }
 }
 
-const integrateTranslate = () => {
-  api.internals.register(TranslateSelector.COLLAPSE, TranslateActionee);
-  api.internals.register(TranslateSelector.BUTTON, TranslateButtonActionee);
+const integrateTranslate = (selector = '') => {
+  api.internals.register(joinSelector(TranslateSelector.COLLAPSE, selector), TranslateActionee);
+  api.internals.register(joinSelector(TranslateSelector.BUTTON, selector), TranslateButtonActionee);
 };
 
 const UploadSelector = {
@@ -4955,58 +4979,61 @@ class UploadActionee extends ComponentActionee {
   }
 }
 
-const integrateUpload = () => {
-  api.internals.register(UploadSelector.UPLOAD, UploadActionee);
+const integrateUpload = (selector = '') => {
+  api.internals.register(joinSelector(UploadSelector.UPLOAD, selector), UploadActionee);
 };
 
-const integrateComponents = () => {
-  integrateAccordion();
-  integrateBreadcrumb();
-  integrateAlert();
-  // integrateBadge();
-  integrateButton();
-  integrateCallout();
-  integrateConnect();
-  integrateConsent();
-  // integrateContent();
-  integrateCard();
-  integrateInput();
-  integrateCheckbox();
-  integrateDownload();
-  integrateFooter();
-  integrateFollow();
-  integrateHeader();
-  integrateHighlight();
-  integrateLink();
-  integrateModal();
-  integrateNavigation();
-  integrateNotice();
-  integratePagination();
-  integrateQuote();
-  integrateRadio();
-  integrateSearch();
-  integrateSelect();
-  integrateShare();
-  integrateSidemenu();
-  // integrateStepper();
-  integrateSummary();
-  integrateTab();
-  integrateTable();
-  integrateTag();
-  integrateTile();
-  integrateToggle();
-  // integrateTooltip();
-  integrateTranscription();
-  integrateTranslate();
-  integrateUpload();
+const integrateComponents = (selector = '') => {
+  integrateAccordion(selector);
+  integrateBreadcrumb(selector);
+  integrateAlert(selector);
+  // integrateBadge(selector);
+  integrateButton(selector);
+  integrateCallout(selector);
+  integrateConnect(selector);
+  integrateConsent(selector);
+  // integrateContent(selector);
+  integrateCard(selector);
+  integrateInput(selector);
+  integrateCheckbox(selector);
+  integrateDownload(selector);
+  integrateFooter(selector);
+  integrateFollow(selector);
+  integrateHeader(selector);
+  integrateHighlight(selector);
+  integrateLink(selector);
+  integrateModal(selector);
+  integrateNavigation(selector);
+  integrateNotice(selector);
+  integratePagination(selector);
+  integrateQuote(selector);
+  integrateRadio(selector);
+  integrateSearch(selector);
+  integrateSelect(selector);
+  integrateShare(selector);
+  integrateSidemenu(selector);
+  // integrateStepper(selector);
+  integrateSummary(selector);
+  integrateTab(selector);
+  integrateTable(selector);
+  integrateTag(selector);
+  integrateTile(selector);
+  integrateToggle(selector);
+  // integrateTooltip(selector);
+  integrateTranscription(selector);
+  integrateTranslate(selector);
+  integrateUpload(selector);
 };
 
 // import './core/core';
 
-const integration = () => {
+const integration = (selector) => {
   integrateAttributes();
-  integrateComponents();
+  integrateComponents(selector);
 };
 
-api.analytics.readiness.then(() => integration(), () => {});
+api.analytics.readiness.then(() => {
+  const selector = api.analytics._collector.isActionReduced ? api.internals.ns.attr.selector('analytics-action') : '';
+  integration(selector);
+}, () => {});
 //# sourceMappingURL=analytics.module.js.map

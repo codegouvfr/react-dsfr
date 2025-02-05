@@ -1,10 +1,10 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 const api = window[config.namespace];
@@ -12,6 +12,7 @@ const api = window[config.namespace];
 const TooltipSelector = {
   TOOLTIP: api.internals.ns.selector('tooltip'),
   SHOWN: api.internals.ns.selector('tooltip--shown'),
+  HIDDING: api.internals.ns.selector('tooltip--hidding'),
   BUTTON: api.internals.ns.selector('btn--tooltip')
 };
 
@@ -144,6 +145,8 @@ class Tooltip extends api.core.Placement {
 
   transitionEnd () {
     if (this._state === TooltipState.HIDING) {
+      this.removeClass(TooltipSelector.SHOWN);
+      this.removeClass(TooltipSelector.HIDDING);
       this._state = TooltipState.HIDDEN;
       this.isShown = false;
     }
@@ -159,17 +162,19 @@ class Tooltip extends api.core.Placement {
       case value:
         this._state = TooltipState.SHOWN;
         this.addClass(TooltipSelector.SHOWN);
+        this.removeClass(TooltipSelector.HIDDING);
         this.dispatch(TooltipEvent.SHOW);
         super.isShown = true;
         break;
 
       case this.isShown && !value && this._state === TooltipState.SHOWN:
         this._state = TooltipState.HIDING;
-        this.removeClass(TooltipSelector.SHOWN);
+        this.addClass(TooltipSelector.HIDDING);
         break;
 
       case this.isShown && !value && this._state === TooltipState.HIDDEN:
         this.dispatch(TooltipEvent.HIDE);
+        this.removeClass(TooltipSelector.HIDDING);
         super.isShown = false;
         break;
     }
@@ -177,6 +182,7 @@ class Tooltip extends api.core.Placement {
 
   render () {
     super.render();
+    this.rect = this.getRect();
     let x = this.referentRect.center - this.rect.center;
     const limit = this.rect.width * 0.5 - 8;
     if (x < -limit) x = -limit;

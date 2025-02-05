@@ -1,10 +1,10 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 const api = window[config.namespace];
@@ -143,7 +143,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) return;
+    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -311,7 +311,7 @@ class FocusTrap {
       }
 
       unordereds = unordereds.filter((unordered) => {
-        if (unordered.tagName.toLowerCase() !== 'input' || unordered.getAttribute('type').toLowerCase() !== 'radio') return true;
+        if (unordered.tagName.toLowerCase() !== 'input' || (unordered.getAttribute('type') && unordered.getAttribute('type').toLowerCase() !== 'radio')) return true;
         const name = unordered.getAttribute('name');
         return groups[name].keep(unordered);
       });

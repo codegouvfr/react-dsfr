@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 /* ------------------------------------ *\
   Badge
@@ -110,6 +110,13 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+}
+
+.fr-badge[class^=fr-icon-]::before,
+.fr-badge[class*=" fr-icon-"]::before,
+.fr-badge[class^=fr-fi-]::before,
+.fr-badge[class*=" fr-fi-"]::before {
+  content: "";
 }
 
 .fr-badge--sm::before {

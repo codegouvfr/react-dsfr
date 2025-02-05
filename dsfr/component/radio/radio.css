@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -54,8 +54,8 @@
 
 .fr-radio-group--sm input[type=radio] + label {
   padding-left: 1.5rem;
-  background-position: calc(-0.125rem + 1px) calc(0.25rem - 1px), calc(-0.125rem + 1px) calc(0.25rem - 1px);
-  background-size: 1.125rem 1.125rem, 1.125rem 1.125rem;
+  background-position: 0 0.25rem, 0 0.25rem;
+  background-size: 1rem 1rem, 1rem 1rem;
   background-image: radial-gradient(transparent 6px, var(--border-action-high-blue-france) 7px, transparent 8px);
 }
 
@@ -63,7 +63,7 @@
   top: 0.25rem;
   width: 1rem;
   height: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   margin-left: -1.5rem;
 }
 
@@ -78,26 +78,25 @@
 .fr-radio-rich input[type=radio] {
   width: 1rem;
   height: 1rem;
-  left: 1.75rem;
+  left: 1rem;
   top: calc(50% - 0.5rem);
 }
 
 .fr-radio-rich input[type=radio] + label {
-  padding-left: 3.5rem;
+  padding-left: 2.75rem;
   margin-left: 0;
   align-self: stretch;
-  min-height: 5rem;
   width: 100%;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1.125rem 1.125rem, 1.125rem 1.125rem;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, 1rem 1rem, 1rem 1rem;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 0 0, 100% 0, 0 100%, 0 0, 1.75rem 50%, 1.75rem 50%;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 1rem 50%, 1rem 50%;
   background-image: linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), linear-gradient(0deg, var(--border-default-grey), var(--border-default-grey)), radial-gradient(transparent 6px, var(--border-action-high-blue-france) 7px, transparent 8px);
   background-color: var(--background-default-grey);
 
@@ -154,6 +153,7 @@
   padding: 0.25rem;
   width: 5.5rem;
   min-width: 5.5rem;
+  min-height: 5.5rem;
   align-self: stretch;
   pointer-events: none;
   background-size: 100% 1px, 100% 1px, 1px 100%, 1px calc(100% - 0.5rem);
@@ -341,6 +341,10 @@
 .fr-fieldset .fr-fieldset__content .fr-radio-rich {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.fr-fieldset .fr-fieldset__content .fr-radio-rich input[type=radio] + label {
+  min-height: 5.5rem;
 }
 
 .fr-fieldset .fr-fieldset__content .fr-radio-rich:last-child {

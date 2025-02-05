@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -988,12 +988,12 @@
   transition: transform 0.3s;
 }
 
-.fr-btn--sort[aria-sorting=desc]::before {
+.fr-btn--sort[aria-sort=descending]::before {
   transform: rotate(-180deg);
 }
 
-.fr-btn--sort[aria-sorting=asc],
-.fr-btn--sort[aria-sorting=desc] {
+.fr-btn--sort[aria-sort=ascending],
+.fr-btn--sort[aria-sort=descending] {
   font-size: 0.875rem;
   line-height: 1.5rem;
   min-height: 2rem;
@@ -1006,8 +1006,8 @@
   padding-right: 0.5rem;
 }
 
-.fr-btn--sort[aria-sorting=asc]::before,
-.fr-btn--sort[aria-sorting=desc]::before {
+.fr-btn--sort[aria-sort=ascending]::before,
+.fr-btn--sort[aria-sort=descending]::before {
   --icon-size: 1rem;
   margin-left: 0;
   margin-right: 0.5rem;
@@ -1251,8 +1251,8 @@ a.fr-btn--team:not([href]),
     background-color: buttontext;
   }
 
-  .fr-btn--sort[aria-sorting=asc]::before,
-  .fr-btn--sort[aria-sorting=desc]::before {
+  .fr-btn--sort[aria-sort=ascending]::before,
+  .fr-btn--sort[aria-sort=descending]::before {
     forced-color-adjust: none;
     background-color: buttontext;
   }
@@ -1420,18 +1420,10 @@ a.fr-btn--team:not([href]),
     height: 1rem;
   }
 
-  .fr-btn--sort::before {
-    transition: transform 0.3s;
-  }
-
-  .fr-btn--sort[aria-sorting=desc]::before {
-    transform: rotate(-180deg);
-  }
-
-  .fr-btn--sort[aria-sorting=asc]::before,
-  .fr-btn--sort[aria-sorting=asc]::after,
-  .fr-btn--sort[aria-sorting=desc]::before,
-  .fr-btn--sort[aria-sorting=desc]::after {
+  .fr-btn--sort[aria-sort=ascending]::before,
+  .fr-btn--sort[aria-sort=ascending]::after,
+  .fr-btn--sort[aria-sort=descending]::before,
+  .fr-btn--sort[aria-sort=descending]::after {
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;

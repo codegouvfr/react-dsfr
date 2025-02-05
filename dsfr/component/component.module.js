@@ -1,10 +1,10 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 const api = window[config.namespace];
@@ -300,6 +300,7 @@ api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcr
 const TooltipSelector = {
   TOOLTIP: api.internals.ns.selector('tooltip'),
   SHOWN: api.internals.ns.selector('tooltip--shown'),
+  HIDDING: api.internals.ns.selector('tooltip--hidding'),
   BUTTON: api.internals.ns.selector('btn--tooltip')
 };
 
@@ -432,6 +433,8 @@ class Tooltip extends api.core.Placement {
 
   transitionEnd () {
     if (this._state === TooltipState.HIDING) {
+      this.removeClass(TooltipSelector.SHOWN);
+      this.removeClass(TooltipSelector.HIDDING);
       this._state = TooltipState.HIDDEN;
       this.isShown = false;
     }
@@ -447,17 +450,19 @@ class Tooltip extends api.core.Placement {
       case value:
         this._state = TooltipState.SHOWN;
         this.addClass(TooltipSelector.SHOWN);
+        this.removeClass(TooltipSelector.HIDDING);
         this.dispatch(TooltipEvent.SHOW);
         super.isShown = true;
         break;
 
       case this.isShown && !value && this._state === TooltipState.SHOWN:
         this._state = TooltipState.HIDING;
-        this.removeClass(TooltipSelector.SHOWN);
+        this.addClass(TooltipSelector.HIDDING);
         break;
 
       case this.isShown && !value && this._state === TooltipState.HIDDEN:
         this.dispatch(TooltipEvent.HIDE);
+        this.removeClass(TooltipSelector.HIDDING);
         super.isShown = false;
         break;
     }
@@ -465,6 +470,7 @@ class Tooltip extends api.core.Placement {
 
   render () {
     super.render();
+    this.rect = this.getRect();
     let x = this.referentRect.center - this.rect.center;
     const limit = this.rect.width * 0.5 - 8;
     if (x < -limit) x = -limit;
@@ -722,7 +728,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) return;
+    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -890,7 +896,7 @@ class FocusTrap {
       }
 
       unordereds = unordereds.filter((unordered) => {
-        if (unordered.tagName.toLowerCase() !== 'input' || unordered.getAttribute('type').toLowerCase() !== 'radio') return true;
+        if (unordered.tagName.toLowerCase() !== 'input' || (unordered.getAttribute('type') && unordered.getAttribute('type').toLowerCase() !== 'radio')) return true;
         const name = unordered.getAttribute('name');
         return groups[name].keep(unordered);
       });
@@ -1666,12 +1672,11 @@ class TabsList extends api.core.Instance {
 
   /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
   scroll () {
-    const scrollLeft = this.node.scrollLeft;
+    const scrollLeft = Math.abs(this.node.scrollLeft);
     const isMin = scrollLeft <= SCROLL_OFFSET$1;
     const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
-
     const isMax = Math.abs(scrollLeft) >= max;
-    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    const isRtl = getComputedStyle(this.node).direction === 'rtl';
     const minSelector = isRtl ? TabSelector.SHADOW_RIGHT : TabSelector.SHADOW_LEFT;
     const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
@@ -2256,11 +2261,9 @@ class RangeInput extends api.core.Instance {
 
   init () {
     this._init();
-    this.node.value = this.getAttribute('value');
-    this._changing = this.change.bind(this);
-    this._listenerType = this.isLegacy ? 'change' : 'input';
-    this.listen(this._listenerType, this._changing);
+    this._value = parseFloat(this.node.getAttribute('value'));
     if (this.isLegacy) this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this));
+    this.isRendering = true;
     this.change();
   }
 
@@ -2275,6 +2278,21 @@ class RangeInput extends api.core.Instance {
     this.addDescent(RangeEmission.VALUE2, this.setValue.bind(this));
   }
 
+  get proxy () {
+    const scope = this;
+
+    const proxyAccessors = {
+      get value () {
+        return scope.value;
+      },
+      set value (value) {
+        scope.value = value;
+      }
+    };
+
+    return api.internals.property.completeAssign(super.proxy, proxyAccessors);
+  }
+
   _enablePointer (pointerId) {
     const isEnabled = pointerId === this._pointerId;
     if (this._isPointerEnabled === isEnabled) return;
@@ -2283,16 +2301,32 @@ class RangeInput extends api.core.Instance {
     else this.style.setProperty('pointer-events', 'none');
   }
 
+  get value () {
+    return parseFloat(this.node.value);
+  }
+
+  set value (value) {
+    const parsedValue = parseFloat(value);
+    if (parsedValue === this._value) return;
+    this._value = parsedValue;
+    this.node.value = parsedValue;
+    this.dispatch('change');
+    this.change();
+  }
+
   setValue (value) {
     if (parseFloat(this.node.value) > value) {
-      this.node.value = value;
-      this.dispatch('change', undefined, true);
-      this.change();
+      this.value = value;
     }
   }
 
   change () {
-    this.ascend(RangeEmission.VALUE, parseFloat(this.node.value));
+    this.ascend(RangeEmission.VALUE, this._value);
+  }
+
+  render () {
+    const parsedValue = parseFloat(this.node.value);
+    if (parsedValue !== this._value) this.value = parsedValue;
   }
 
   mutate (attributesNames) {
@@ -2321,9 +2355,7 @@ class RangeInput2 extends RangeInput {
 
   setValue (value) {
     if (parseFloat(this.node.value) < value) {
-      this.node.value = value;
-      this.dispatch('change', undefined, true);
-      this.change();
+      this.value = value;
     }
   }
 
@@ -2423,14 +2455,19 @@ class HeaderLinks extends api.core.Instance {
     // eslint-disable-next-line no-useless-escape
     toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
 
-    const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
-    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-    if (toolsHtmlAriaControlList) {
-      for (const element of toolsHtmlAriaControlList) {
-        const ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
-        if (toolsHtmlIdList.includes(ariaControlsValue)) {
-          toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`aria-controls="${ariaControlsValue}"`, `aria-controls="${ariaControlsValue + copySuffix}"`);
-        }      }
+    const dupplicateAttributes = ['aria-controls', 'aria-describedby', 'aria-labelledby'];
+
+    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, `id="$1${copySuffix}"`);
+
+    for (const attribute of dupplicateAttributes) {
+      const toolsHtmlAttributeList = toolsHtml.match(new RegExp(`${attribute}="(.*?)"`, 'gm'));
+      if (toolsHtmlAttributeList) {
+        for (const element of toolsHtmlAttributeList) {
+          const attributeValue = element.replace(`${attribute}="`, '').replace('"', '');
+          if (toolsHtmlIdList.includes(attributeValue)) {
+            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`${attribute}="${attributeValue}"`, `${attribute}="${attributeValue + copySuffix}"`);
+          }        }
+      }
     }
 
     if (toolsHtmlDuplicateId === menuHtml) return;
@@ -2456,6 +2493,7 @@ class HeaderModal extends api.core.Instance {
   }
 
   init () {
+    this.storeAria();
     this.isResizing = true;
   }
 
@@ -2468,6 +2506,7 @@ class HeaderModal extends api.core.Instance {
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
     modal.isEnabled = true;
+    this.restoreAria();
     this.listenClick({ capture: true });
   }
 
@@ -2476,7 +2515,20 @@ class HeaderModal extends api.core.Instance {
     if (!modal) return;
     modal.conceal();
     modal.isEnabled = false;
+    this.storeAria();
     this.unlistenClick({ capture: true });
+  }
+
+  storeAria () {
+    if (this.hasAttribute('aria-labelledby')) this._ariaLabelledby = this.getAttribute('aria-labelledby');
+    if (this.hasAttribute('aria-label')) this._ariaLabel = this.getAttribute('aria-label');
+    this.removeAttribute('aria-labelledby');
+    this.removeAttribute('aria-label');
+  }
+
+  restoreAria () {
+    if (this._ariaLabelledby) this.setAttribute('aria-labelledby', this._ariaLabelledby);
+    if (this._ariaLabel) this.setAttribute('aria-label', this._ariaLabel);
   }
 
   handleClick (e) {
@@ -2708,7 +2760,8 @@ class TableRow extends api.core.Instance {
   }
 
   _handleCheckboxChange (node) {
-    if (node.name === 'row-select') {
+    if (node.name === 'row-select' ||
+      node.getAttribute(api.internals.ns.attr('row-select')) === 'true') {
       this.isSelected = node.checked === true;
     }
   }

@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -519,6 +519,7 @@
     RangeInput.prototype = Object.create( superclass && superclass.prototype );
     RangeInput.prototype.constructor = RangeInput;
 
+    var prototypeAccessors = { proxy: { configurable: true },value: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -527,11 +528,9 @@
 
     RangeInput.prototype.init = function init () {
       this._init();
-      this.node.value = this.getAttribute('value');
-      this._changing = this.change.bind(this);
-      this._listenerType = this.isLegacy ? 'change' : 'input';
-      this.listen(this._listenerType, this._changing);
+      this._value = parseFloat(this.node.getAttribute('value'));
       if (this.isLegacy) { this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this)); }
+      this.isRendering = true;
       this.change();
     };
 
@@ -548,6 +547,21 @@
       this.addDescent(RangeEmission.VALUE2, this.setValue.bind(this));
     };
 
+    prototypeAccessors.proxy.get = function () {
+      var scope = this;
+
+      var proxyAccessors = {
+        get value () {
+          return scope.value;
+        },
+        set value (value) {
+          scope.value = value;
+        }
+      };
+
+      return api.internals.property.completeAssign.call(this, superclass.prototype.proxy, proxyAccessors);
+    };
+
     RangeInput.prototype._enablePointer = function _enablePointer (pointerId) {
       var isEnabled = pointerId === this._pointerId;
       if (this._isPointerEnabled === isEnabled) { return; }
@@ -556,16 +570,32 @@
       else { this.style.setProperty('pointer-events', 'none'); }
     };
 
+    prototypeAccessors.value.get = function () {
+      return parseFloat(this.node.value);
+    };
+
+    prototypeAccessors.value.set = function (value) {
+      var parsedValue = parseFloat(value);
+      if (parsedValue === this._value) { return; }
+      this._value = parsedValue;
+      this.node.value = parsedValue;
+      this.dispatch('change');
+      this.change();
+    };
+
     RangeInput.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) > value) {
-        this.node.value = value;
-        this.dispatch('change', undefined, true);
-        this.change();
+        this.value = value;
       }
     };
 
     RangeInput.prototype.change = function change () {
-      this.ascend(RangeEmission.VALUE, parseFloat(this.node.value));
+      this.ascend(RangeEmission.VALUE, this._value);
+    };
+
+    RangeInput.prototype.render = function render () {
+      var parsedValue = parseFloat(this.node.value);
+      if (parsedValue !== this._value) { this.value = parsedValue; }
     };
 
     RangeInput.prototype.mutate = function mutate (attributesNames) {
@@ -580,6 +610,7 @@
       if (this._listenerType) { this.unlisten(this._listenerType, this._changing); }
     };
 
+    Object.defineProperties( RangeInput.prototype, prototypeAccessors );
     Object.defineProperties( RangeInput, staticAccessors );
 
     return RangeInput;
@@ -608,9 +639,7 @@
 
     RangeInput2.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) < value) {
-        this.node.value = value;
-        this.dispatch('change', undefined, true);
-        this.change();
+        this.value = value;
       }
     };
 

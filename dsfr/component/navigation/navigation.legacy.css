@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 @media (min-width: 36em) {
@@ -106,15 +106,32 @@
   }
 }
 @media screen and (min-width: 62em) and (min-width: 0\0) and (min-resolution: 72dpi) {
-  /**
-  * Correctif de l'alignement des menus sur la droite
-  */
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(2),
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(2) ~ *,
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(3),
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(3) ~ *,
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(4),
+  .fr-nav__list > .fr-nav__item:first-child:nth-last-child(4) ~ * {
+    flex-basis: auto;
+  }
+
   .fr-nav__item {
     position: static;
+    flex-basis: 100%;
+  }
+
+  .fr-nav__item .fr-nav__link,
+  .fr-nav__item .fr-nav__btn {
+    max-width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .fr-nav__item--align-right {
+    position: relative;
   }
 
   .fr-nav__item--align-right .fr-collapse {
-    transform: translateX(-100%);
+    right: 0;
   }
 
   /**
@@ -135,11 +152,11 @@
   }
 
   .fr-menu__list > *:first-child,
-  .fr-menu__list > *:first-child > .fr-nav__link,
+  .fr-menu__list > *:first-child .fr-nav__link,
   .fr-menu__list > *:hover,
-  .fr-menu__list > *:hover > .fr-nav__link,
+  .fr-menu__list > *:hover .fr-nav__link,
   .fr-menu__list > *:hover + *,
-  .fr-menu__list > *:hover + * > .fr-nav__link {
+  .fr-menu__list > *:hover + * .fr-nav__link {
     box-shadow: none;
   }
 

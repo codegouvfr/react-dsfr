@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -71,7 +71,7 @@
 }
 
 .fr-translate__menu {
-  margin: 0;
+  margin: -0.25rem 0;
 }
 
 .fr-translate .fr-nav__item::before {
@@ -133,7 +133,7 @@
   }
 
   .fr-translate__menu {
-    margin: -0.25rem -1rem 0;
+    margin: -0.25rem -1rem;
   }
 
   .fr-translate .fr-menu__list {

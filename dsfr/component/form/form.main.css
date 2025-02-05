@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -86,6 +86,7 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-bottom: 1rem;
+  align-self: flex-start;
 }
 
 .fr-fieldset__element--inline {
@@ -184,6 +185,7 @@
 
 .fr-message--error::before,
 .fr-message--valid::before,
+.fr-message--warning::before,
 .fr-message--info::before {
   flex: 0 0 auto;
   vertical-align: calc((0.75em - var(--icon-size)) * 0.5);
@@ -212,6 +214,11 @@
 .fr-message--info::before {
   -webkit-mask-image: url("../../icons/system/fr--info-fill.svg");
   mask-image: url("../../icons/system/fr--info-fill.svg");
+}
+
+.fr-message--warning::before {
+  -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+  mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
 .fr-select-group--valid label,
@@ -278,6 +285,10 @@
 
 .fr-message--info {
   color: var(--text-default-info);
+}
+
+.fr-message--warning {
+  color: var(--text-default-warning);
 }
 
 .fr-fieldset:disabled .fr-label,
@@ -512,6 +523,8 @@
   .fr-message--error::after,
   .fr-message--valid::before,
   .fr-message--valid::after,
+  .fr-message--warning::before,
+  .fr-message--warning::after,
   .fr-message--info::before,
   .fr-message--info::after {
     forced-color-adjust: none;

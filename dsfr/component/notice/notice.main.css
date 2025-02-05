@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -19,7 +19,21 @@
 
 .fr-notice__body {
   position: relative;
-  padding: 0 2.25rem 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.fr-notice__body h1,
+.fr-notice__body h2,
+.fr-notice__body h3,
+.fr-notice__body h4,
+.fr-notice__body h5,
+.fr-notice__body h6 {
+  color: inherit;
+  line-height: inherit;
+  font-size: inherit;
 }
 
 .fr-notice__title {
@@ -72,9 +86,8 @@
   max-height: 2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  position: absolute;
-  top: -0.25rem;
-  right: 0;
+  margin-top: -0.25rem;
+  margin-left: 0.25rem;
   color: inherit;
 }
 
@@ -113,8 +126,7 @@
   mask-image: url("../../icons/system/fr--info-fill.svg");
 }
 
-.fr-notice--warning .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before,
-.fr-notice--alert .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
+.fr-notice--warning .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
   -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
   mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
@@ -130,8 +142,8 @@
 }
 
 .fr-notice--weather-red .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
-  -webkit-mask-image: url("../../icons/weather/tornado-fill.svg");
-  mask-image: url("../../icons/weather/tornado-fill.svg");
+  -webkit-mask-image: url("../../icons/weather/heavy-showers-fill.svg");
+  mask-image: url("../../icons/weather/heavy-showers-fill.svg");
 }
 
 .fr-notice--weather-purple .fr-notice__title:not([class^=fr-icon-]):not([class*=" fr-icon-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"])::before {
@@ -298,15 +310,15 @@
 }
 @media (min-width: 48em) {
   /*! media md */
-  .fr-notice__body {
-    padding: 0 3rem 0 0;
-  }
-
   .fr-notice__title,
   .fr-notice__desc,
   .fr-notice__link {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .fr-notice .fr-btn--close {
+    margin-left: 1rem;
   }
 }
 @media (min-width: 62em) {

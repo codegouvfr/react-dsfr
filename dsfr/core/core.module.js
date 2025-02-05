@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 class LogLevel {
@@ -202,6 +202,45 @@ const Modes = {
   REACT: 'react'
 };
 
+const dispatch = (node, type, detail = null, bubbles = true, cancelable = false) => {
+  const options = { bubbles: bubbles === true, cancelable: cancelable === true };
+  if (detail) options.detail = detail;
+  const event = new CustomEvent(type, options);
+  node.dispatchEvent(event);
+};
+
+const rootDispatch = (type, detail = null, bubbles = false, cancelable = false) => dispatch(document.documentElement, type, detail, bubbles, cancelable);
+
+const ns = name => `${config.prefix}-${name}`;
+
+ns.selector = (name, notation) => {
+  if (notation === undefined) notation = '.';
+  return `${notation}${ns(name)}`;
+};
+
+ns.attr = (name) => `data-${ns(name)}`;
+
+ns.attr.selector = (name, value) => {
+  let result = ns.attr(name);
+  if (value !== undefined) result += `="${value}"`;
+  return `[${result}]`;
+};
+
+ns.event = (type) => `${config.namespace}.${type}`;
+
+ns.emission = (domain, type) => `emission:${domain}.${type}`;
+
+const RootEvent = {
+  READY: ns.event('ready'),
+  START: ns.event('start'),
+  STOP: ns.event('stop'),
+  RENDER: ns.event('render'),
+  RESIZE: ns.event('resize'),
+  BREAKPOINT: ns.event('breakpoint'),
+  SCROLL_LOCK: ns.event('scroll-lock'),
+  SCROLL_UNLOCK: ns.event('scroll-unlock')
+};
+
 class Options {
   constructor () {
     this._mode = Modes.AUTO;
@@ -231,6 +270,7 @@ class Options {
         break;
     }
     inspector.info(`version ${config.version}`);
+    rootDispatch(RootEvent.READY);
     this.mode = settings.mode || Modes.AUTO;
   }
 
@@ -350,25 +390,6 @@ class Module extends Collection {
   activate () {}
   deactivate () {}
 }
-
-const ns = name => `${config.prefix}-${name}`;
-
-ns.selector = (name, notation) => {
-  if (notation === undefined) notation = '.';
-  return `${notation}${ns(name)}`;
-};
-
-ns.attr = (name) => `data-${ns(name)}`;
-
-ns.attr.selector = (name, value) => {
-  let result = ns.attr(name);
-  if (value !== undefined) result += `="${value}"`;
-  return `[${result}]`;
-};
-
-ns.event = (type) => `${config.namespace}.${type}`;
-
-ns.emission = (domain, type) => `emission:${domain}.${type}`;
 
 const querySelectorAllArray = (element, selectors) => Array.prototype.slice.call(element.querySelectorAll(selectors));
 
@@ -895,6 +916,7 @@ class Renderer extends Module {
     const nexts = this.nexts.clone();
     this.nexts.clear();
     nexts.forEach((instance) => instance.next());
+    rootDispatch(RootEvent.RENDER);
   }
 }
 
@@ -925,6 +947,7 @@ class Resizer extends Module {
     if (!this.requireResize) return;
     this.forEach((instance) => instance.resize());
     this.requireResize = false;
+    rootDispatch(RootEvent.RESIZE);
   }
 }
 
@@ -953,6 +976,7 @@ class ScrollLocker extends Module {
       if (scrollBarGap > 0) {
         document.documentElement.style.setProperty('--scrollbar-width', `${scrollBarGap}px`);
       }
+      rootDispatch(RootEvent.SCROLL_LOCK);
     }
   }
 
@@ -964,6 +988,7 @@ class ScrollLocker extends Module {
       window.scrollTo(0, this._scrollY);
       if (this.behavior === 'smooth') document.documentElement.style.removeProperty('scroll-behavior');
       document.documentElement.style.removeProperty('--scrollbar-width');
+      rootDispatch(RootEvent.SCROLL_UNLOCK);
     }
   }
 
@@ -1116,11 +1141,13 @@ class Engine {
   start () {
     inspector.debug('START');
     state.isActive = true;
+    rootDispatch(RootEvent.START);
   }
 
   stop () {
     inspector.debug('STOP');
     state.isActive = false;
+    rootDispatch(RootEvent.STOP);
   }
 }
 
@@ -1222,7 +1249,8 @@ const dom = {
   queryParentSelector: queryParentSelector,
   querySelectorAllArray: querySelectorAllArray,
   queryActions: queryActions,
-  uniqueId: uniqueId
+  uniqueId: uniqueId,
+  dispatch: dispatch
 };
 
 class DataURISVG {
@@ -1475,6 +1503,10 @@ const Breakpoints = {
   XL: new Breakpoint('xl', 78)
 };
 
+const InstanceEvent = {
+  CLICK: ns.event('click')
+};
+
 class Instance {
   constructor (jsAttribute = true) {
     this.jsAttribute = jsAttribute;
@@ -1486,7 +1518,7 @@ class Instance {
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this._handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this._handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1523,7 +1555,7 @@ class Instance {
 
     const proxyAccessors = {
       get node () {
-        return this.node;
+        return scope.node;
       },
       get isEnabled () {
         return scope.isEnabled;
@@ -1571,9 +1603,8 @@ class Instance {
     return [];
   }
 
-  dispatch (type, detail, bubbles, cancelable) {
-    const event = new CustomEvent(type, { detail: detail, bubble: bubbles === true, cancelable: cancelable === true });
-    this.node.dispatchEvent(event);
+  dispatch (type, detail = null, bubbles = true, cancelable = false) {
+    dispatch(this.node, type, detail, bubbles, cancelable);
   }
 
   // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
@@ -1612,6 +1643,11 @@ class Instance {
 
   unlistenClick (options) {
     this.unlisten('click', this._handlingClick, options);
+  }
+
+  _handleClick (e) {
+    this.handleClick(e);
+    this.dispatch(InstanceEvent.CLICK, this);
   }
 
   handleClick (e) {}
@@ -2048,7 +2084,8 @@ class HashAction {
 
 const DisclosureEvent = {
   DISCLOSE: ns.event('disclose'),
-  CONCEAL: ns.event('conceal')
+  CONCEAL: ns.event('conceal'),
+  CURRENT: ns.event('current')
 };
 
 const DisclosureEmission = {
@@ -2180,7 +2217,7 @@ class Disclosure extends Instance {
 
   set isDisclosed (value) {
     if (this._isDisclosed === value || (!this.isEnabled && value === true)) return;
-    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this.type);
+    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
     this._isDisclosed = value;
     if (value) this.addClass(this.modifier);
     else this.removeClass(this.modifier);
@@ -2477,6 +2514,17 @@ class DisclosuresGroup extends Instance {
     this.getMembers();
     this._isRetrieving = false;
     this._hasRetrieved = true;
+
+    if (!this.isGrouped) {
+      for (let i = 0; i < this.length; i++) {
+        const member = this.members[i];
+        if (member.isInitiallyDisclosed) {
+          member.disclose(true);
+        }
+      }
+      return;
+    }
+
     if (this.hash) {
       for (let i = 0; i < this.length; i++) {
         const member = this.members[i];
@@ -2501,7 +2549,9 @@ class DisclosuresGroup extends Instance {
 
   update () {
     this.getMembers();
-    if (this._hasRetrieved) this.getIndex();
+    if (this._hasRetrieved) {
+      if (this.isGrouped) this.getIndex();
+    }
   }
 
   get members () {
@@ -2538,10 +2588,11 @@ class DisclosuresGroup extends Instance {
       if (value === i) {
         if (!member.isDisclosed) member.disclose(true);
       } else {
-        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) member.conceal(true);
+        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed !== false) member.conceal(true);
       }
     }
     this.apply();
+    this.dispatch(DisclosureEvent.CURRENT, this.current);
   }
 
   get current () {
@@ -2779,10 +2830,6 @@ class EquisizedsGroup extends Instance {
   }
 }
 
-const ToggleEvent = {
-  TOGGLE: ns.event('toggle')
-};
-
 class Toggle extends Instance {
   static get instanceClassName () {
     return 'Toggle';
@@ -2807,7 +2854,6 @@ class Toggle extends Instance {
 
   set pressed (value) {
     this.setAttribute('aria-pressed', value ? 'true' : 'false');
-    this.dispatch(ToggleEvent.TOGGLE, value);
   }
 
   get proxy () {
@@ -3213,6 +3259,7 @@ class Placement extends Instance {
     this._aligns = aligns;
     this._safeAreaMargin = safeAreaMargin;
     this._isShown = false;
+    this._x = this._y = 0;
   }
 
   static get instanceClassName () {
@@ -3368,21 +3415,11 @@ class Placement extends Instance {
     this._referent = referent;
   }
 
-  resize () {
-    this.safeArea = {
-      top: this._safeAreaMargin,
-      right: window.innerWidth - this._safeAreaMargin,
-      bottom: window.innerHeight - this._safeAreaMargin,
-      left: this._safeAreaMargin,
-      center: window.innerWidth * 0.5,
-      middle: window.innerHeight * 0.5
-    };
-  }
-
   render () {
     if (!this._referent) return;
-    this.rect = this.getRect();
     this.referentRect = this._referent.getRect();
+    this.rect = this.getRect();
+    this.safeArea = this.getSafeArea();
 
     if (this.mode === PlacementMode.AUTO) {
       this.place = this.getPlace();
@@ -3402,19 +3439,19 @@ class Placement extends Instance {
 
     switch (this.place) {
       case PlacementPosition.TOP:
-        y = this.referentRect.top - this.rect.height;
+        y = this.referentRect.top - this.rect.top - this.rect.height;
         break;
 
       case PlacementPosition.RIGHT:
-        x = this.referentRect.right;
+        x = this.referentRect.left - this.rect.left + this.referentRect.width;
         break;
 
       case PlacementPosition.BOTTOM:
-        y = this.referentRect.bottom;
+        y = this.referentRect.top - this.rect.top + this.referentRect.height;
         break;
 
       case PlacementPosition.LEFT:
-        x = this.referentRect.left - this.rect.width;
+        x = this.referentRect.left - this.rect.left - this.rect.width;
         break;
     }
 
@@ -3423,15 +3460,15 @@ class Placement extends Instance {
       case PlacementPosition.BOTTOM:
         switch (this.align) {
           case PlacementAlign.CENTER:
-            x = this.referentRect.center - this.rect.width * 0.5;
+            x = this.referentRect.left - this.rect.left + this.referentRect.width * 0.5 - this.rect.width * 0.5;
             break;
 
           case PlacementAlign.START:
-            x = this.referentRect.left;
+            x = this.referentRect.left - this.rect.left;
             break;
 
           case PlacementAlign.END:
-            x = this.referentRect.right - this.rect.width;
+            x = this.referentRect.left - this.rect.left + this.referentRect.width - this.rect.width;
             break;
         }
         break;
@@ -3440,25 +3477,23 @@ class Placement extends Instance {
       case PlacementPosition.LEFT:
         switch (this.align) {
           case PlacementAlign.CENTER:
-            y = this.referentRect.middle - this.rect.height * 0.5;
+            y = this.referentRect.top - this.rect.top + this.referentRect.height * 0.5 - this.rect.height * 0.5;
             break;
 
           case PlacementAlign.START:
-            y = this.referentRect.top;
+            y = this.referentRect.top - this.rect.top;
             break;
 
           case PlacementAlign.END:
-            y = this.referentRect.bottom - this.rect.height;
+            y = this.referentRect.top - this.rect.top - this.rect.height;
             break;
         }
         break;
     }
 
-    if (this._x !== x || this._y !== y) {
-      this._x = (x + 0.5) | 0;
-      this._y = (y + 0.5) | 0;
-      this.node.style.transform = `translate(${this._x}px,${this._y}px)`;
-    }
+    this._x += (x + 0.5) | 0;
+    this._y += (y + 0.5) | 0;
+    this.node.style.transform = `translate(${this._x}px,${this._y}px)`;
   }
 
   getPlace () {
@@ -3523,6 +3558,46 @@ class Placement extends Instance {
     }
 
     return this._aligns[0];
+  }
+
+  getSafeArea () {
+    let element = this.node;
+    let isX, isY;
+    let top = this._safeAreaMargin;
+    let right = window.innerWidth - this._safeAreaMargin;
+    let bottom = window.innerHeight - this._safeAreaMargin;
+    let left = this._safeAreaMargin;
+
+    while (element) {
+      if (element === document.body) break;
+      element = element.parentElement;
+      const style = window.getComputedStyle(element);
+
+      const overflow = /(visible|(\w+))(\s(visible|(\w+)))?/.exec(style.overflow);
+      isX = overflow[2] !== undefined;
+      isY = overflow[3] !== undefined ? overflow[5] !== undefined : overflow[2] !== undefined;
+
+      if (!isX && !isY) continue;
+      const rect = element.getBoundingClientRect();
+
+      if (isX) {
+        if (rect.left > left) left = rect.left;
+        if (rect.right < right) right = rect.right;
+      }
+      if (isY) {
+        if (rect.top > top) top = rect.top;
+        if (rect.bottom < bottom) bottom = rect.bottom;
+      }
+    }
+
+    return {
+      top: top,
+      right: right,
+      bottom: bottom,
+      left: left,
+      center: left + (right - left) * 0.5,
+      middle: top + (bottom - top) * 0.5
+    };
   }
 
   dispose () {

@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -401,6 +401,7 @@
   var TooltipSelector = {
     TOOLTIP: api.internals.ns.selector('tooltip'),
     SHOWN: api.internals.ns.selector('tooltip--shown'),
+    HIDDING: api.internals.ns.selector('tooltip--hidding'),
     BUTTON: api.internals.ns.selector('btn--tooltip')
   };
 
@@ -552,6 +553,8 @@
 
     Tooltip.prototype.transitionEnd = function transitionEnd () {
       if (this._state === TooltipState.HIDING) {
+        this.removeClass(TooltipSelector.SHOWN);
+        this.removeClass(TooltipSelector.HIDDING);
         this._state = TooltipState.HIDDEN;
         this.isShown = false;
       }
@@ -567,17 +570,19 @@
         case value:
           this._state = TooltipState.SHOWN;
           this.addClass(TooltipSelector.SHOWN);
+          this.removeClass(TooltipSelector.HIDDING);
           this.dispatch(TooltipEvent.SHOW);
           superclass.prototype.isShown = true;
           break;
 
         case this.isShown && !value && this._state === TooltipState.SHOWN:
           this._state = TooltipState.HIDING;
-          this.removeClass(TooltipSelector.SHOWN);
+          this.addClass(TooltipSelector.HIDDING);
           break;
 
         case this.isShown && !value && this._state === TooltipState.HIDDEN:
           this.dispatch(TooltipEvent.HIDE);
+          this.removeClass(TooltipSelector.HIDDING);
           superclass.prototype.isShown = false;
           break;
       }
@@ -585,6 +590,7 @@
 
     Tooltip.prototype.render = function render () {
       superclass.prototype.render.call(this);
+      this.rect = this.getRect();
       var x = this.referentRect.center - this.rect.center;
       var limit = this.rect.width * 0.5 - 8;
       if (x < -limit) { x = -limit; }
@@ -926,7 +932,7 @@
     };
 
     Modal.prototype._ensureAccessibleName = function _ensureAccessibleName () {
-      if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) { return; }
+      if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) { return; }
       this.warn('missing accessible name');
       var title = this.node.querySelector(ModalSelector.TITLE);
       var primary = this.primaryButtons[0];
@@ -1106,7 +1112,7 @@
       }
 
       unordereds = unordereds.filter(function (unordered) {
-        if (unordered.tagName.toLowerCase() !== 'input' || unordered.getAttribute('type').toLowerCase() !== 'radio') { return true; }
+        if (unordered.tagName.toLowerCase() !== 'input' || (unordered.getAttribute('type') && unordered.getAttribute('type').toLowerCase() !== 'radio')) { return true; }
         var name = unordered.getAttribute('name');
         return groups[name].keep(unordered);
       });
@@ -2038,12 +2044,11 @@
 
     /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
     TabsList.prototype.scroll = function scroll () {
-      var scrollLeft = this.node.scrollLeft;
+      var scrollLeft = Math.abs(this.node.scrollLeft);
       var isMin = scrollLeft <= SCROLL_OFFSET$1;
       var max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
-
       var isMax = Math.abs(scrollLeft) >= max;
-      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+      var isRtl = getComputedStyle(this.node).direction === 'rtl';
       var minSelector = isRtl ? TabSelector.SHADOW_RIGHT : TabSelector.SHADOW_LEFT;
       var maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
@@ -2745,6 +2750,7 @@
     RangeInput.prototype = Object.create( superclass && superclass.prototype );
     RangeInput.prototype.constructor = RangeInput;
 
+    var prototypeAccessors = { proxy: { configurable: true },value: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -2753,11 +2759,9 @@
 
     RangeInput.prototype.init = function init () {
       this._init();
-      this.node.value = this.getAttribute('value');
-      this._changing = this.change.bind(this);
-      this._listenerType = this.isLegacy ? 'change' : 'input';
-      this.listen(this._listenerType, this._changing);
+      this._value = parseFloat(this.node.getAttribute('value'));
       if (this.isLegacy) { this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this)); }
+      this.isRendering = true;
       this.change();
     };
 
@@ -2774,6 +2778,21 @@
       this.addDescent(RangeEmission.VALUE2, this.setValue.bind(this));
     };
 
+    prototypeAccessors.proxy.get = function () {
+      var scope = this;
+
+      var proxyAccessors = {
+        get value () {
+          return scope.value;
+        },
+        set value (value) {
+          scope.value = value;
+        }
+      };
+
+      return api.internals.property.completeAssign.call(this, superclass.prototype.proxy, proxyAccessors);
+    };
+
     RangeInput.prototype._enablePointer = function _enablePointer (pointerId) {
       var isEnabled = pointerId === this._pointerId;
       if (this._isPointerEnabled === isEnabled) { return; }
@@ -2782,16 +2801,32 @@
       else { this.style.setProperty('pointer-events', 'none'); }
     };
 
+    prototypeAccessors.value.get = function () {
+      return parseFloat(this.node.value);
+    };
+
+    prototypeAccessors.value.set = function (value) {
+      var parsedValue = parseFloat(value);
+      if (parsedValue === this._value) { return; }
+      this._value = parsedValue;
+      this.node.value = parsedValue;
+      this.dispatch('change');
+      this.change();
+    };
+
     RangeInput.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) > value) {
-        this.node.value = value;
-        this.dispatch('change', undefined, true);
-        this.change();
+        this.value = value;
       }
     };
 
     RangeInput.prototype.change = function change () {
-      this.ascend(RangeEmission.VALUE, parseFloat(this.node.value));
+      this.ascend(RangeEmission.VALUE, this._value);
+    };
+
+    RangeInput.prototype.render = function render () {
+      var parsedValue = parseFloat(this.node.value);
+      if (parsedValue !== this._value) { this.value = parsedValue; }
     };
 
     RangeInput.prototype.mutate = function mutate (attributesNames) {
@@ -2806,6 +2841,7 @@
       if (this._listenerType) { this.unlisten(this._listenerType, this._changing); }
     };
 
+    Object.defineProperties( RangeInput.prototype, prototypeAccessors );
     Object.defineProperties( RangeInput, staticAccessors );
 
     return RangeInput;
@@ -2834,9 +2870,7 @@
 
     RangeInput2.prototype.setValue = function setValue (value) {
       if (parseFloat(this.node.value) < value) {
-        this.node.value = value;
-        this.dispatch('change', undefined, true);
-        this.change();
+        this.value = value;
       }
     };
 
@@ -2978,16 +3012,23 @@
       // eslint-disable-next-line no-useless-escape
       toolsHtmlIdList = toolsHtmlIdList.map(function (element) { return element.replace('id=\"', '').replace('\"', ''); });
 
-      var toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
-      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-      if (toolsHtmlAriaControlList) {
-        for (var i = 0, list = toolsHtmlAriaControlList; i < list.length; i += 1) {
-          var element = list[i];
+      var dupplicateAttributes = ['aria-controls', 'aria-describedby', 'aria-labelledby'];
 
-          var ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
-          if (toolsHtmlIdList.includes(ariaControlsValue)) {
-            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(("aria-controls=\"" + ariaControlsValue + "\""), ("aria-controls=\"" + (ariaControlsValue + copySuffix) + "\""));
-          }      }
+      var toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, ("id=\"$1" + copySuffix + "\""));
+
+      for (var i$1 = 0, list$1 = dupplicateAttributes; i$1 < list$1.length; i$1 += 1) {
+        var attribute = list$1[i$1];
+
+        var toolsHtmlAttributeList = toolsHtml.match(new RegExp((attribute + "=\"(.*?)\""), 'gm'));
+        if (toolsHtmlAttributeList) {
+          for (var i = 0, list = toolsHtmlAttributeList; i < list.length; i += 1) {
+            var element = list[i];
+
+            var attributeValue = element.replace((attribute + "=\""), '').replace('"', '');
+            if (toolsHtmlIdList.includes(attributeValue)) {
+              toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace((attribute + "=\"" + attributeValue + "\""), (attribute + "=\"" + (attributeValue + copySuffix) + "\""));
+            }        }
+        }
       }
 
       if (toolsHtmlDuplicateId === menuHtml) { return; }
@@ -3025,6 +3066,7 @@
     };
 
     HeaderModal.prototype.init = function init () {
+      this.storeAria();
       this.isResizing = true;
     };
 
@@ -3037,6 +3079,7 @@
       var modal = this.element.getInstance('Modal');
       if (!modal) { return; }
       modal.isEnabled = true;
+      this.restoreAria();
       this.listenClick({ capture: true });
     };
 
@@ -3045,7 +3088,20 @@
       if (!modal) { return; }
       modal.conceal();
       modal.isEnabled = false;
+      this.storeAria();
       this.unlistenClick({ capture: true });
+    };
+
+    HeaderModal.prototype.storeAria = function storeAria () {
+      if (this.hasAttribute('aria-labelledby')) { this._ariaLabelledby = this.getAttribute('aria-labelledby'); }
+      if (this.hasAttribute('aria-label')) { this._ariaLabel = this.getAttribute('aria-label'); }
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-label');
+    };
+
+    HeaderModal.prototype.restoreAria = function restoreAria () {
+      if (this._ariaLabelledby) { this.setAttribute('aria-labelledby', this._ariaLabelledby); }
+      if (this._ariaLabel) { this.setAttribute('aria-label', this._ariaLabel); }
     };
 
     HeaderModal.prototype.handleClick = function handleClick (e) {
@@ -3380,7 +3436,8 @@
     };
 
     TableRow.prototype._handleCheckboxChange = function _handleCheckboxChange (node) {
-      if (node.name === 'row-select') {
+      if (node.name === 'row-select' ||
+        node.getAttribute(api.internals.ns.attr('row-select')) === 'true') {
         this.isSelected = node.checked === true;
       }
     };

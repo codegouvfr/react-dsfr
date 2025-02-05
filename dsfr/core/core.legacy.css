@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -129,6 +129,7 @@
   input[type=checkbox]:disabled + label,
   input[type=radio]:disabled,
   input[type=radio]:disabled + label,
+  select:disabled,
   textarea:disabled,
   video:not([href]),
   audio:not([href]) {

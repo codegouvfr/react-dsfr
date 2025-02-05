@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -203,6 +203,7 @@
 .fr-sidemenu__inner > .fr-sidemenu__btn {
   width: 100%;
   font-weight: 500;
+  outline-offset: -2px;
 
   /**
   * Ajout de l'icône de menu en mode mobile (provisoire)
@@ -344,6 +345,10 @@
 
   .fr-sidemenu--sticky .fr-sidemenu__inner {
     padding-top: 0.5rem;
+    padding-left: 0.25rem;
+    margin-left: -0.25rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: -0.25rem;
     overflow: auto;
     max-height: 100vh;
   }
@@ -356,6 +361,10 @@
 
   .fr-sidemenu--sticky-full-height .fr-sidemenu__inner {
     padding-top: 0.5rem;
+    padding-left: 0.25rem;
+    margin-left: -0.25rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: -0.25rem;
     overflow: auto;
     height: 100%;
   }

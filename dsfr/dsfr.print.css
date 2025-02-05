@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 @media print {
@@ -15,6 +15,7 @@
   input[type=checkbox]:disabled + label,
   input[type=radio]:disabled,
   input[type=radio]:disabled + label,
+  select:disabled,
   textarea:disabled,
   video:not([href]),
   audio:not([href]) {
@@ -599,6 +600,10 @@
     color: #0063cb;
   }
 
+  .fr-message--warning {
+    color: #b34000;
+  }
+
   .fr-fieldset:disabled .fr-label,
   .fr-fieldset:disabled .fr-hint-text,
   .fr-fieldset:disabled .fr-fieldset__legend {
@@ -902,11 +907,6 @@
 
   .fr-table__content table thead th[role=columnheader] {
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__content table thead th:last-child {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
   .fr-table__content table tbody tr::after {

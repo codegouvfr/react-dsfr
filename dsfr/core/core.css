@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -1310,6 +1310,7 @@ input[type=checkbox]:disabled,
 input[type=checkbox]:disabled + label,
 input[type=radio]:disabled,
 input[type=radio]:disabled + label,
+select:disabled,
 textarea:disabled,
 video:not([href]),
 audio:not([href]) {
@@ -2245,6 +2246,11 @@ iframe[class*=" fr-ratio"] {
   overflow: hidden;
   transition: visibility 0.3s;
   max-height: var(--collapse-max-height);
+}
+
+.fr-collapse--expanded {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .fr-collapse::before {
@@ -6810,8 +6816,7 @@ iframe[class*=" fr-ratio"] {
 
 .fr-placement {
   position: fixed;
-  top: 0;
-  left: 0;
+  width: max-content;
 }
 
 @-moz-document url-prefix() {
@@ -10537,6 +10542,14 @@ h1 {
   input[type=radio]:disabled + label[class^=fr-fi-]::after,
   input[type=radio]:disabled + label[class*=" fr-fi-"]::before,
   input[type=radio]:disabled + label[class*=" fr-fi-"]::after,
+  select[class^=fr-icon-]:disabled::before,
+  select[class^=fr-icon-]:disabled::after,
+  select[class*=" fr-icon-"]:disabled::before,
+  select[class*=" fr-icon-"]:disabled::after,
+  select[class^=fr-fi-]:disabled::before,
+  select[class^=fr-fi-]:disabled::after,
+  select[class*=" fr-fi-"]:disabled::before,
+  select[class*=" fr-fi-"]:disabled::after,
   textarea[class^=fr-icon-]:disabled::before,
   textarea[class^=fr-icon-]:disabled::after,
   textarea[class*=" fr-icon-"]:disabled::before,
@@ -10692,6 +10705,7 @@ h1 {
   input[type=checkbox]:disabled + label,
   input[type=radio]:disabled,
   input[type=radio]:disabled + label,
+  select:disabled,
   textarea:disabled,
   video:not([href]),
   audio:not([href]) {
@@ -10831,6 +10845,7 @@ h1 {
   input[type=checkbox]:disabled + label,
   input[type=radio]:disabled,
   input[type=radio]:disabled + label,
+  select:disabled,
   textarea:disabled,
   video:not([href]),
   audio:not([href]) {

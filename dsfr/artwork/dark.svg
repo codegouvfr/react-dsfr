@@ -13,4 +13,3 @@
   <use class="fr-artwork-major" href="#artwork-major"/>
 </svg>
 <!-- Slightly increasing size so it reaches the threshold that will prevent it from being inlined by Vite. -->
-

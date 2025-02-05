@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -408,13 +408,6 @@
   background-position: 0 100%, 100% 0;
 }
 
-.fr-table.fr-table--bordered .fr-table__content th:last-child,
-.fr-table.fr-table--bordered .fr-table__content td:last-child {
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: 100% 100%;
-}
-
 .fr-table.fr-table--no-scroll .fr-table__wrapper {
   width: fit-content;
 }
@@ -434,15 +427,6 @@
 
 .fr-table__content table caption {
   color: var(--text-title-grey);
-}
-
-.fr-table__content table thead th:last-child {
-  background-color: var(--background-alt-grey);
-
-  --idle: transparent;
-  --hover: var(--background-alt-grey-hover);
-  --active: var(--background-alt-grey-active);
-  background-image: linear-gradient(0deg, var(--border-plain-grey), var(--border-plain-grey));
 }
 
 .fr-table__content table tbody td {
@@ -1617,7 +1601,6 @@
     content: none;
   }
 
-  .fr-table[data-fr-js-table=true].fr-table--no-caption caption,
   .fr-table[data-fr-js-table=true].fr-table--caption-bottom caption {
     position: relative;
     margin-bottom: 1rem;
@@ -1648,11 +1631,6 @@
 
   .fr-table__content table thead th[role=columnheader] {
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__content table thead th:last-child {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
   .fr-table__content table tbody tr::after {
@@ -2321,11 +2299,6 @@
 
   .fr-table__content table thead th[role=columnheader] {
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__content table thead th:last-child {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
   .fr-table__content table tbody tr::after {

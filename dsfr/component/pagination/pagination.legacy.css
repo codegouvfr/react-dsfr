@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 @media (min-width: 36em) {
@@ -102,15 +102,18 @@
   }
 }
 @media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 0\0) and (min-resolution: 72dpi) {
-  .fr-pagination__link {
+  .fr-pagination a[href].fr-pagination__link,
+  .fr-pagination button.fr-pagination__link {
     background-color: transparent;
   }
 
-  .fr-pagination__link:hover {
+  .fr-pagination a[href].fr-pagination__link:hover,
+  .fr-pagination button.fr-pagination__link:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  .fr-pagination__link:active {
+  .fr-pagination a[href].fr-pagination__link:active,
+  .fr-pagination button.fr-pagination__link:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 }

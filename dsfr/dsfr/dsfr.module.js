@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 class LogLevel {
@@ -202,6 +202,45 @@ const Modes = {
   REACT: 'react'
 };
 
+const dispatch = (node, type, detail = null, bubbles = true, cancelable = false) => {
+  const options = { bubbles: bubbles === true, cancelable: cancelable === true };
+  if (detail) options.detail = detail;
+  const event = new CustomEvent(type, options);
+  node.dispatchEvent(event);
+};
+
+const rootDispatch = (type, detail = null, bubbles = false, cancelable = false) => dispatch(document.documentElement, type, detail, bubbles, cancelable);
+
+const ns = name => `${config.prefix}-${name}`;
+
+ns.selector = (name, notation) => {
+  if (notation === undefined) notation = '.';
+  return `${notation}${ns(name)}`;
+};
+
+ns.attr = (name) => `data-${ns(name)}`;
+
+ns.attr.selector = (name, value) => {
+  let result = ns.attr(name);
+  if (value !== undefined) result += `="${value}"`;
+  return `[${result}]`;
+};
+
+ns.event = (type) => `${config.namespace}.${type}`;
+
+ns.emission = (domain, type) => `emission:${domain}.${type}`;
+
+const RootEvent = {
+  READY: ns.event('ready'),
+  START: ns.event('start'),
+  STOP: ns.event('stop'),
+  RENDER: ns.event('render'),
+  RESIZE: ns.event('resize'),
+  BREAKPOINT: ns.event('breakpoint'),
+  SCROLL_LOCK: ns.event('scroll-lock'),
+  SCROLL_UNLOCK: ns.event('scroll-unlock')
+};
+
 class Options {
   constructor () {
     this._mode = Modes.AUTO;
@@ -231,6 +270,7 @@ class Options {
         break;
     }
     inspector.info(`version ${config.version}`);
+    rootDispatch(RootEvent.READY);
     this.mode = settings.mode || Modes.AUTO;
   }
 
@@ -350,25 +390,6 @@ class Module extends Collection {
   activate () {}
   deactivate () {}
 }
-
-const ns = name => `${config.prefix}-${name}`;
-
-ns.selector = (name, notation) => {
-  if (notation === undefined) notation = '.';
-  return `${notation}${ns(name)}`;
-};
-
-ns.attr = (name) => `data-${ns(name)}`;
-
-ns.attr.selector = (name, value) => {
-  let result = ns.attr(name);
-  if (value !== undefined) result += `="${value}"`;
-  return `[${result}]`;
-};
-
-ns.event = (type) => `${config.namespace}.${type}`;
-
-ns.emission = (domain, type) => `emission:${domain}.${type}`;
 
 const querySelectorAllArray = (element, selectors) => Array.prototype.slice.call(element.querySelectorAll(selectors));
 
@@ -895,6 +916,7 @@ class Renderer extends Module {
     const nexts = this.nexts.clone();
     this.nexts.clear();
     nexts.forEach((instance) => instance.next());
+    rootDispatch(RootEvent.RENDER);
   }
 }
 
@@ -925,6 +947,7 @@ class Resizer extends Module {
     if (!this.requireResize) return;
     this.forEach((instance) => instance.resize());
     this.requireResize = false;
+    rootDispatch(RootEvent.RESIZE);
   }
 }
 
@@ -953,6 +976,7 @@ class ScrollLocker extends Module {
       if (scrollBarGap > 0) {
         document.documentElement.style.setProperty('--scrollbar-width', `${scrollBarGap}px`);
       }
+      rootDispatch(RootEvent.SCROLL_LOCK);
     }
   }
 
@@ -964,6 +988,7 @@ class ScrollLocker extends Module {
       window.scrollTo(0, this._scrollY);
       if (this.behavior === 'smooth') document.documentElement.style.removeProperty('scroll-behavior');
       document.documentElement.style.removeProperty('--scrollbar-width');
+      rootDispatch(RootEvent.SCROLL_UNLOCK);
     }
   }
 
@@ -1116,11 +1141,13 @@ class Engine {
   start () {
     inspector.debug('START');
     state.isActive = true;
+    rootDispatch(RootEvent.START);
   }
 
   stop () {
     inspector.debug('STOP');
     state.isActive = false;
+    rootDispatch(RootEvent.STOP);
   }
 }
 
@@ -1222,7 +1249,8 @@ const dom = {
   queryParentSelector: queryParentSelector,
   querySelectorAllArray: querySelectorAllArray,
   queryActions: queryActions,
-  uniqueId: uniqueId
+  uniqueId: uniqueId,
+  dispatch: dispatch
 };
 
 class DataURISVG {
@@ -1475,6 +1503,10 @@ const Breakpoints = {
   XL: new Breakpoint('xl', 78)
 };
 
+const InstanceEvent = {
+  CLICK: ns.event('click')
+};
+
 class Instance {
   constructor (jsAttribute = true) {
     this.jsAttribute = jsAttribute;
@@ -1486,7 +1518,7 @@ class Instance {
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this._handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this._handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1523,7 +1555,7 @@ class Instance {
 
     const proxyAccessors = {
       get node () {
-        return this.node;
+        return scope.node;
       },
       get isEnabled () {
         return scope.isEnabled;
@@ -1571,9 +1603,8 @@ class Instance {
     return [];
   }
 
-  dispatch (type, detail, bubbles, cancelable) {
-    const event = new CustomEvent(type, { detail: detail, bubble: bubbles === true, cancelable: cancelable === true });
-    this.node.dispatchEvent(event);
+  dispatch (type, detail = null, bubbles = true, cancelable = false) {
+    dispatch(this.node, type, detail, bubbles, cancelable);
   }
 
   // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
@@ -1612,6 +1643,11 @@ class Instance {
 
   unlistenClick (options) {
     this.unlisten('click', this._handlingClick, options);
+  }
+
+  _handleClick (e) {
+    this.handleClick(e);
+    this.dispatch(InstanceEvent.CLICK, this);
   }
 
   handleClick (e) {}
@@ -2048,7 +2084,8 @@ class HashAction {
 
 const DisclosureEvent = {
   DISCLOSE: ns.event('disclose'),
-  CONCEAL: ns.event('conceal')
+  CONCEAL: ns.event('conceal'),
+  CURRENT: ns.event('current')
 };
 
 const DisclosureEmission = {
@@ -2180,7 +2217,7 @@ class Disclosure extends Instance {
 
   set isDisclosed (value) {
     if (this._isDisclosed === value || (!this.isEnabled && value === true)) return;
-    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this.type);
+    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
     this._isDisclosed = value;
     if (value) this.addClass(this.modifier);
     else this.removeClass(this.modifier);
@@ -2477,6 +2514,17 @@ class DisclosuresGroup extends Instance {
     this.getMembers();
     this._isRetrieving = false;
     this._hasRetrieved = true;
+
+    if (!this.isGrouped) {
+      for (let i = 0; i < this.length; i++) {
+        const member = this.members[i];
+        if (member.isInitiallyDisclosed) {
+          member.disclose(true);
+        }
+      }
+      return;
+    }
+
     if (this.hash) {
       for (let i = 0; i < this.length; i++) {
         const member = this.members[i];
@@ -2501,7 +2549,9 @@ class DisclosuresGroup extends Instance {
 
   update () {
     this.getMembers();
-    if (this._hasRetrieved) this.getIndex();
+    if (this._hasRetrieved) {
+      if (this.isGrouped) this.getIndex();
+    }
   }
 
   get members () {
@@ -2538,10 +2588,11 @@ class DisclosuresGroup extends Instance {
       if (value === i) {
         if (!member.isDisclosed) member.disclose(true);
       } else {
-        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) member.conceal(true);
+        if ((this.isGrouped || !this.canUngroup) && member.isDisclosed !== false) member.conceal(true);
       }
     }
     this.apply();
+    this.dispatch(DisclosureEvent.CURRENT, this.current);
   }
 
   get current () {
@@ -2779,10 +2830,6 @@ class EquisizedsGroup extends Instance {
   }
 }
 
-const ToggleEvent = {
-  TOGGLE: ns.event('toggle')
-};
-
 class Toggle extends Instance {
   static get instanceClassName () {
     return 'Toggle';
@@ -2807,7 +2854,6 @@ class Toggle extends Instance {
 
   set pressed (value) {
     this.setAttribute('aria-pressed', value ? 'true' : 'false');
-    this.dispatch(ToggleEvent.TOGGLE, value);
   }
 
   get proxy () {
@@ -3213,6 +3259,7 @@ class Placement extends Instance {
     this._aligns = aligns;
     this._safeAreaMargin = safeAreaMargin;
     this._isShown = false;
+    this._x = this._y = 0;
   }
 
   static get instanceClassName () {
@@ -3368,21 +3415,11 @@ class Placement extends Instance {
     this._referent = referent;
   }
 
-  resize () {
-    this.safeArea = {
-      top: this._safeAreaMargin,
-      right: window.innerWidth - this._safeAreaMargin,
-      bottom: window.innerHeight - this._safeAreaMargin,
-      left: this._safeAreaMargin,
-      center: window.innerWidth * 0.5,
-      middle: window.innerHeight * 0.5
-    };
-  }
-
   render () {
     if (!this._referent) return;
-    this.rect = this.getRect();
     this.referentRect = this._referent.getRect();
+    this.rect = this.getRect();
+    this.safeArea = this.getSafeArea();
 
     if (this.mode === PlacementMode.AUTO) {
       this.place = this.getPlace();
@@ -3402,19 +3439,19 @@ class Placement extends Instance {
 
     switch (this.place) {
       case PlacementPosition.TOP:
-        y = this.referentRect.top - this.rect.height;
+        y = this.referentRect.top - this.rect.top - this.rect.height;
         break;
 
       case PlacementPosition.RIGHT:
-        x = this.referentRect.right;
+        x = this.referentRect.left - this.rect.left + this.referentRect.width;
         break;
 
       case PlacementPosition.BOTTOM:
-        y = this.referentRect.bottom;
+        y = this.referentRect.top - this.rect.top + this.referentRect.height;
         break;
 
       case PlacementPosition.LEFT:
-        x = this.referentRect.left - this.rect.width;
+        x = this.referentRect.left - this.rect.left - this.rect.width;
         break;
     }
 
@@ -3423,15 +3460,15 @@ class Placement extends Instance {
       case PlacementPosition.BOTTOM:
         switch (this.align) {
           case PlacementAlign.CENTER:
-            x = this.referentRect.center - this.rect.width * 0.5;
+            x = this.referentRect.left - this.rect.left + this.referentRect.width * 0.5 - this.rect.width * 0.5;
             break;
 
           case PlacementAlign.START:
-            x = this.referentRect.left;
+            x = this.referentRect.left - this.rect.left;
             break;
 
           case PlacementAlign.END:
-            x = this.referentRect.right - this.rect.width;
+            x = this.referentRect.left - this.rect.left + this.referentRect.width - this.rect.width;
             break;
         }
         break;
@@ -3440,25 +3477,23 @@ class Placement extends Instance {
       case PlacementPosition.LEFT:
         switch (this.align) {
           case PlacementAlign.CENTER:
-            y = this.referentRect.middle - this.rect.height * 0.5;
+            y = this.referentRect.top - this.rect.top + this.referentRect.height * 0.5 - this.rect.height * 0.5;
             break;
 
           case PlacementAlign.START:
-            y = this.referentRect.top;
+            y = this.referentRect.top - this.rect.top;
             break;
 
           case PlacementAlign.END:
-            y = this.referentRect.bottom - this.rect.height;
+            y = this.referentRect.top - this.rect.top - this.rect.height;
             break;
         }
         break;
     }
 
-    if (this._x !== x || this._y !== y) {
-      this._x = (x + 0.5) | 0;
-      this._y = (y + 0.5) | 0;
-      this.node.style.transform = `translate(${this._x}px,${this._y}px)`;
-    }
+    this._x += (x + 0.5) | 0;
+    this._y += (y + 0.5) | 0;
+    this.node.style.transform = `translate(${this._x}px,${this._y}px)`;
   }
 
   getPlace () {
@@ -3523,6 +3558,46 @@ class Placement extends Instance {
     }
 
     return this._aligns[0];
+  }
+
+  getSafeArea () {
+    let element = this.node;
+    let isX, isY;
+    let top = this._safeAreaMargin;
+    let right = window.innerWidth - this._safeAreaMargin;
+    let bottom = window.innerHeight - this._safeAreaMargin;
+    let left = this._safeAreaMargin;
+
+    while (element) {
+      if (element === document.body) break;
+      element = element.parentElement;
+      const style = window.getComputedStyle(element);
+
+      const overflow = /(visible|(\w+))(\s(visible|(\w+)))?/.exec(style.overflow);
+      isX = overflow[2] !== undefined;
+      isY = overflow[3] !== undefined ? overflow[5] !== undefined : overflow[2] !== undefined;
+
+      if (!isX && !isY) continue;
+      const rect = element.getBoundingClientRect();
+
+      if (isX) {
+        if (rect.left > left) left = rect.left;
+        if (rect.right < right) right = rect.right;
+      }
+      if (isY) {
+        if (rect.top > top) top = rect.top;
+        if (rect.bottom < bottom) bottom = rect.bottom;
+      }
+    }
+
+    return {
+      top: top,
+      right: right,
+      bottom: bottom,
+      left: left,
+      center: left + (right - left) * 0.5,
+      middle: top + (bottom - top) * 0.5
+    };
   }
 
   dispose () {
@@ -3747,7 +3822,7 @@ class Scheme extends api.core.Instance {
       localStorage.setItem('scheme', value);
     }
     this.setAttribute(SchemeAttribute.SCHEME, value);
-    this.dispatch(SchemeEvent.SCHEME, { scheme: this._scheme });
+    this.dispatch(SchemeEvent.SCHEME, { scheme: this._scheme }, false);
   }
 
   get theme () {
@@ -3762,7 +3837,7 @@ class Scheme extends api.core.Instance {
         this._theme = value;
         this.setAttribute(SchemeAttribute.THEME, value);
         this.descend(SchemeEmission.THEME, value);
-        this.dispatch(SchemeEvent.THEME, { theme: this._theme });
+        this.dispatch(SchemeEvent.THEME, { theme: this._theme }, false);
         document.documentElement.style.colorScheme = value === SchemeTheme.DARK ? 'dark' : '';
         break;
     }
@@ -4106,6 +4181,7 @@ api.internals.register(api.breadcrumb.BreadcrumbSelector.BREADCRUMB, api.breadcr
 const TooltipSelector = {
   TOOLTIP: api.internals.ns.selector('tooltip'),
   SHOWN: api.internals.ns.selector('tooltip--shown'),
+  HIDDING: api.internals.ns.selector('tooltip--hidding'),
   BUTTON: api.internals.ns.selector('btn--tooltip')
 };
 
@@ -4219,6 +4295,8 @@ class Tooltip extends api.core.Placement {
 
   transitionEnd () {
     if (this._state === TooltipState.HIDING) {
+      this.removeClass(TooltipSelector.SHOWN);
+      this.removeClass(TooltipSelector.HIDDING);
       this._state = TooltipState.HIDDEN;
       this.isShown = false;
     }
@@ -4234,17 +4312,19 @@ class Tooltip extends api.core.Placement {
       case value:
         this._state = TooltipState.SHOWN;
         this.addClass(TooltipSelector.SHOWN);
+        this.removeClass(TooltipSelector.HIDDING);
         this.dispatch(TooltipEvent.SHOW);
         super.isShown = true;
         break;
 
       case this.isShown && !value && this._state === TooltipState.SHOWN:
         this._state = TooltipState.HIDING;
-        this.removeClass(TooltipSelector.SHOWN);
+        this.addClass(TooltipSelector.HIDDING);
         break;
 
       case this.isShown && !value && this._state === TooltipState.HIDDEN:
         this.dispatch(TooltipEvent.HIDE);
+        this.removeClass(TooltipSelector.HIDDING);
         super.isShown = false;
         break;
     }
@@ -4252,6 +4332,7 @@ class Tooltip extends api.core.Placement {
 
   render () {
     super.render();
+    this.rect = this.getRect();
     let x = this.referentRect.center - this.rect.center;
     const limit = this.rect.width * 0.5 - 8;
     if (x < -limit) x = -limit;
@@ -4509,7 +4590,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')) return;
+    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -4677,7 +4758,7 @@ class FocusTrap {
       }
 
       unordereds = unordereds.filter((unordered) => {
-        if (unordered.tagName.toLowerCase() !== 'input' || unordered.getAttribute('type').toLowerCase() !== 'radio') return true;
+        if (unordered.tagName.toLowerCase() !== 'input' || (unordered.getAttribute('type') && unordered.getAttribute('type').toLowerCase() !== 'radio')) return true;
         const name = unordered.getAttribute('name');
         return groups[name].keep(unordered);
       });
@@ -5453,12 +5534,11 @@ class TabsList extends api.core.Instance {
 
   /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
   scroll () {
-    const scrollLeft = this.node.scrollLeft;
+    const scrollLeft = Math.abs(this.node.scrollLeft);
     const isMin = scrollLeft <= SCROLL_OFFSET$1;
     const max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET$1;
-
     const isMax = Math.abs(scrollLeft) >= max;
-    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    const isRtl = getComputedStyle(this.node).direction === 'rtl';
     const minSelector = isRtl ? TabSelector.SHADOW_RIGHT : TabSelector.SHADOW_LEFT;
     const maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 
@@ -6043,11 +6123,9 @@ class RangeInput extends api.core.Instance {
 
   init () {
     this._init();
-    this.node.value = this.getAttribute('value');
-    this._changing = this.change.bind(this);
-    this._listenerType = this.isLegacy ? 'change' : 'input';
-    this.listen(this._listenerType, this._changing);
+    this._value = parseFloat(this.node.getAttribute('value'));
     if (this.isLegacy) this.addDescent(RangeEmission.ENABLE_POINTER, this._enablePointer.bind(this));
+    this.isRendering = true;
     this.change();
   }
 
@@ -6062,6 +6140,21 @@ class RangeInput extends api.core.Instance {
     this.addDescent(RangeEmission.VALUE2, this.setValue.bind(this));
   }
 
+  get proxy () {
+    const scope = this;
+
+    const proxyAccessors = {
+      get value () {
+        return scope.value;
+      },
+      set value (value) {
+        scope.value = value;
+      }
+    };
+
+    return api.internals.property.completeAssign(super.proxy, proxyAccessors);
+  }
+
   _enablePointer (pointerId) {
     const isEnabled = pointerId === this._pointerId;
     if (this._isPointerEnabled === isEnabled) return;
@@ -6070,16 +6163,32 @@ class RangeInput extends api.core.Instance {
     else this.style.setProperty('pointer-events', 'none');
   }
 
+  get value () {
+    return parseFloat(this.node.value);
+  }
+
+  set value (value) {
+    const parsedValue = parseFloat(value);
+    if (parsedValue === this._value) return;
+    this._value = parsedValue;
+    this.node.value = parsedValue;
+    this.dispatch('change');
+    this.change();
+  }
+
   setValue (value) {
     if (parseFloat(this.node.value) > value) {
-      this.node.value = value;
-      this.dispatch('change', undefined, true);
-      this.change();
+      this.value = value;
     }
   }
 
   change () {
-    this.ascend(RangeEmission.VALUE, parseFloat(this.node.value));
+    this.ascend(RangeEmission.VALUE, this._value);
+  }
+
+  render () {
+    const parsedValue = parseFloat(this.node.value);
+    if (parsedValue !== this._value) this.value = parsedValue;
   }
 
   mutate (attributesNames) {
@@ -6108,9 +6217,7 @@ class RangeInput2 extends RangeInput {
 
   setValue (value) {
     if (parseFloat(this.node.value) < value) {
-      this.node.value = value;
-      this.dispatch('change', undefined, true);
-      this.change();
+      this.value = value;
     }
   }
 
@@ -6210,14 +6317,19 @@ class HeaderLinks extends api.core.Instance {
     // eslint-disable-next-line no-useless-escape
     toolsHtmlIdList = toolsHtmlIdList.map(element => element.replace('id=\"', '').replace('\"', ''));
 
-    const toolsHtmlAriaControlList = toolsHtml.match(/aria-controls="(.*?)"/gm);
-    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, 'id="$1' + copySuffix + '"');
-    if (toolsHtmlAriaControlList) {
-      for (const element of toolsHtmlAriaControlList) {
-        const ariaControlsValue = element.replace('aria-controls="', '').replace('"', '');
-        if (toolsHtmlIdList.includes(ariaControlsValue)) {
-          toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`aria-controls="${ariaControlsValue}"`, `aria-controls="${ariaControlsValue + copySuffix}"`);
-        }      }
+    const dupplicateAttributes = ['aria-controls', 'aria-describedby', 'aria-labelledby'];
+
+    let toolsHtmlDuplicateId = toolsHtml.replace(/id="(.*?)"/gm, `id="$1${copySuffix}"`);
+
+    for (const attribute of dupplicateAttributes) {
+      const toolsHtmlAttributeList = toolsHtml.match(new RegExp(`${attribute}="(.*?)"`, 'gm'));
+      if (toolsHtmlAttributeList) {
+        for (const element of toolsHtmlAttributeList) {
+          const attributeValue = element.replace(`${attribute}="`, '').replace('"', '');
+          if (toolsHtmlIdList.includes(attributeValue)) {
+            toolsHtmlDuplicateId = toolsHtmlDuplicateId.replace(`${attribute}="${attributeValue}"`, `${attribute}="${attributeValue + copySuffix}"`);
+          }        }
+      }
     }
 
     if (toolsHtmlDuplicateId === menuHtml) return;
@@ -6243,6 +6355,7 @@ class HeaderModal extends api.core.Instance {
   }
 
   init () {
+    this.storeAria();
     this.isResizing = true;
   }
 
@@ -6255,6 +6368,7 @@ class HeaderModal extends api.core.Instance {
     const modal = this.element.getInstance('Modal');
     if (!modal) return;
     modal.isEnabled = true;
+    this.restoreAria();
     this.listenClick({ capture: true });
   }
 
@@ -6263,7 +6377,20 @@ class HeaderModal extends api.core.Instance {
     if (!modal) return;
     modal.conceal();
     modal.isEnabled = false;
+    this.storeAria();
     this.unlistenClick({ capture: true });
+  }
+
+  storeAria () {
+    if (this.hasAttribute('aria-labelledby')) this._ariaLabelledby = this.getAttribute('aria-labelledby');
+    if (this.hasAttribute('aria-label')) this._ariaLabel = this.getAttribute('aria-label');
+    this.removeAttribute('aria-labelledby');
+    this.removeAttribute('aria-label');
+  }
+
+  restoreAria () {
+    if (this._ariaLabelledby) this.setAttribute('aria-labelledby', this._ariaLabelledby);
+    if (this._ariaLabel) this.setAttribute('aria-label', this._ariaLabel);
   }
 
   handleClick (e) {
@@ -6495,7 +6622,8 @@ class TableRow extends api.core.Instance {
   }
 
   _handleCheckboxChange (node) {
-    if (node.name === 'row-select') {
+    if (node.name === 'row-select' ||
+      node.getAttribute(api.internals.ns.attr('row-select')) === 'true') {
       this.isSelected = node.checked === true;
     }
   }

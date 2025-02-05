@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -229,6 +229,55 @@
     REACT: 'react'
   };
 
+  var dispatch = function (node, type, detail, bubbles, cancelable) {
+    if ( detail === void 0 ) detail = null;
+    if ( bubbles === void 0 ) bubbles = true;
+    if ( cancelable === void 0 ) cancelable = false;
+
+    var options = { bubbles: bubbles === true, cancelable: cancelable === true };
+    if (detail) { options.detail = detail; }
+    var event = new CustomEvent(type, options);
+    node.dispatchEvent(event);
+  };
+
+  var rootDispatch = function (type, detail, bubbles, cancelable) {
+    if ( detail === void 0 ) detail = null;
+    if ( bubbles === void 0 ) bubbles = false;
+    if ( cancelable === void 0 ) cancelable = false;
+
+    return dispatch(document.documentElement, type, detail, bubbles, cancelable);
+  };
+
+  var ns = function (name) { return ((config.prefix) + "-" + name); };
+
+  ns.selector = function (name, notation) {
+    if (notation === undefined) { notation = '.'; }
+    return ("" + notation + (ns(name)));
+  };
+
+  ns.attr = function (name) { return ("data-" + (ns(name))); };
+
+  ns.attr.selector = function (name, value) {
+    var result = ns.attr(name);
+    if (value !== undefined) { result += "=\"" + value + "\""; }
+    return ("[" + result + "]");
+  };
+
+  ns.event = function (type) { return ((config.namespace) + "." + type); };
+
+  ns.emission = function (domain, type) { return ("emission:" + domain + "." + type); };
+
+  var RootEvent = {
+    READY: ns.event('ready'),
+    START: ns.event('start'),
+    STOP: ns.event('stop'),
+    RENDER: ns.event('render'),
+    RESIZE: ns.event('resize'),
+    BREAKPOINT: ns.event('breakpoint'),
+    SCROLL_LOCK: ns.event('scroll-lock'),
+    SCROLL_UNLOCK: ns.event('scroll-unlock')
+  };
+
   var Options = function Options () {
     this._mode = Modes.AUTO;
     this.isStarted = false;
@@ -261,6 +310,7 @@
         break;
     }
     inspector.info(("version " + (config.version)));
+    rootDispatch(RootEvent.READY);
     this.mode = settings.mode || Modes.AUTO;
   };
 
@@ -396,25 +446,6 @@
 
     return Module;
   }(Collection));
-
-  var ns = function (name) { return ((config.prefix) + "-" + name); };
-
-  ns.selector = function (name, notation) {
-    if (notation === undefined) { notation = '.'; }
-    return ("" + notation + (ns(name)));
-  };
-
-  ns.attr = function (name) { return ("data-" + (ns(name))); };
-
-  ns.attr.selector = function (name, value) {
-    var result = ns.attr(name);
-    if (value !== undefined) { result += "=\"" + value + "\""; }
-    return ("[" + result + "]");
-  };
-
-  ns.event = function (type) { return ((config.namespace) + "." + type); };
-
-  ns.emission = function (domain, type) { return ("emission:" + domain + "." + type); };
 
   var querySelectorAllArray = function (element, selectors) { return Array.prototype.slice.call(element.querySelectorAll(selectors)); };
 
@@ -1037,6 +1068,7 @@
       var nexts = this.nexts.clone();
       this.nexts.clear();
       nexts.forEach(function (instance) { return instance.next(); });
+      rootDispatch(RootEvent.RENDER);
     };
 
     return Renderer;
@@ -1073,6 +1105,7 @@
       if (!this.requireResize) { return; }
       this.forEach(function (instance) { return instance.resize(); });
       this.requireResize = false;
+      rootDispatch(RootEvent.RESIZE);
     };
 
     return Resizer;
@@ -1109,6 +1142,7 @@
         if (scrollBarGap > 0) {
           document.documentElement.style.setProperty('--scrollbar-width', (scrollBarGap + "px"));
         }
+        rootDispatch(RootEvent.SCROLL_LOCK);
       }
     };
 
@@ -1120,6 +1154,7 @@
         window.scrollTo(0, this._scrollY);
         if (this.behavior === 'smooth') { document.documentElement.style.removeProperty('scroll-behavior'); }
         document.documentElement.style.removeProperty('--scrollbar-width');
+        rootDispatch(RootEvent.SCROLL_UNLOCK);
       }
     };
 
@@ -1309,11 +1344,13 @@
   Engine.prototype.start = function start () {
     inspector.debug('START');
     state.isActive = true;
+    rootDispatch(RootEvent.START);
   };
 
   Engine.prototype.stop = function stop () {
     inspector.debug('STOP');
     state.isActive = false;
+    rootDispatch(RootEvent.STOP);
   };
 
   Object.defineProperties( Engine.prototype, prototypeAccessors$3 );
@@ -1418,7 +1455,8 @@
     queryParentSelector: queryParentSelector,
     querySelectorAllArray: querySelectorAllArray,
     queryActions: queryActions,
-    uniqueId: uniqueId
+    uniqueId: uniqueId,
+    dispatch: dispatch
   };
 
   var DataURISVG = function DataURISVG (width, height) {
@@ -1681,6 +1719,10 @@
     XL: new Breakpoint('xl', 78)
   };
 
+  var InstanceEvent = {
+    CLICK: ns.event('click')
+  };
+
   var Instance = function Instance (jsAttribute) {
     if ( jsAttribute === void 0 ) jsAttribute = true;
 
@@ -1693,7 +1735,7 @@
     this._isEnabled = true;
     this._isDisposed = false;
     this._listeners = {};
-    this._handlingClick = this.handleClick.bind(this);
+    this._handlingClick = this._handleClick.bind(this);
     this._hashes = [];
     this._hash = '';
     this._keyListenerTypes = [];
@@ -1733,7 +1775,7 @@
 
     var proxyAccessors = {
       get node () {
-        return this.node;
+        return scope.node;
       },
       get isEnabled () {
         return scope.isEnabled;
@@ -1800,9 +1842,12 @@
     return [];
   };
 
-  Instance.prototype.dispatch = function dispatch (type, detail, bubbles, cancelable) {
-    var event = new CustomEvent(type, { detail: detail, bubble: bubbles === true, cancelable: cancelable === true });
-    this.node.dispatchEvent(event);
+  Instance.prototype.dispatch = function dispatch$1 (type, detail, bubbles, cancelable) {
+      if ( detail === void 0 ) detail = null;
+      if ( bubbles === void 0 ) bubbles = true;
+      if ( cancelable === void 0 ) cancelable = false;
+
+    dispatch(this.node, type, detail, bubbles, cancelable);
   };
 
   // TODO v2 => listener au niveau des éléments qui redistribuent aux instances.
@@ -1843,6 +1888,11 @@
 
   Instance.prototype.unlistenClick = function unlistenClick (options) {
     this.unlisten('click', this._handlingClick, options);
+  };
+
+  Instance.prototype._handleClick = function _handleClick (e) {
+    this.handleClick(e);
+    this.dispatch(InstanceEvent.CLICK, this);
   };
 
   Instance.prototype.handleClick = function handleClick (e) {};
@@ -2304,7 +2354,8 @@
 
   var DisclosureEvent = {
     DISCLOSE: ns.event('disclose'),
-    CONCEAL: ns.event('conceal')
+    CONCEAL: ns.event('conceal'),
+    CURRENT: ns.event('current')
   };
 
   var DisclosureEmission = {
@@ -2445,7 +2496,7 @@
 
     prototypeAccessors.isDisclosed.set = function (value) {
       if (this._isDisclosed === value || (!this.isEnabled && value === true)) { return; }
-      this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this.type);
+      this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
       this._isDisclosed = value;
       if (value) { this.addClass(this.modifier); }
       else { this.removeClass(this.modifier); }
@@ -2780,22 +2831,33 @@
       this.getMembers();
       this._isRetrieving = false;
       this._hasRetrieved = true;
-      if (this.hash) {
+
+      if (!this.isGrouped) {
         for (var i = 0; i < this.length; i++) {
           var member = this.members[i];
-          if (this.hash === member.id) {
-            this.index = i;
+          if (member.isInitiallyDisclosed) {
+            member.disclose(true);
+          }
+        }
+        return;
+      }
+
+      if (this.hash) {
+        for (var i$1 = 0; i$1 < this.length; i$1++) {
+          var member$1 = this.members[i$1];
+          if (this.hash === member$1.id) {
+            this.index = i$1;
             this.request(function () { this$1$1.ascend(DisclosureEmission.SPOTLIGHT); });
-            return i;
+            return i$1;
           }
         }
       }
 
-      for (var i$1 = 0; i$1 < this.length; i$1++) {
-        var member$1 = this.members[i$1];
-        if (member$1.isInitiallyDisclosed) {
-          this.index = i$1;
-          return i$1;
+      for (var i$2 = 0; i$2 < this.length; i$2++) {
+        var member$2 = this.members[i$2];
+        if (member$2.isInitiallyDisclosed) {
+          this.index = i$2;
+          return i$2;
         }
       }
 
@@ -2804,7 +2866,9 @@
 
     DisclosuresGroup.prototype.update = function update () {
       this.getMembers();
-      if (this._hasRetrieved) { this.getIndex(); }
+      if (this._hasRetrieved) {
+        if (this.isGrouped) { this.getIndex(); }
+      }
     };
 
     prototypeAccessors.members.get = function () {
@@ -2843,10 +2907,11 @@
         if (value === i) {
           if (!member.isDisclosed) { member.disclose(true); }
         } else {
-          if ((this.isGrouped || !this.canUngroup) && member.isDisclosed) { member.conceal(true); }
+          if ((this.isGrouped || !this.canUngroup) && member.isDisclosed !== false) { member.conceal(true); }
         }
       }
       this.apply();
+      this.dispatch(DisclosureEvent.CURRENT, this.current);
     };
 
     prototypeAccessors.current.get = function () {
@@ -3155,10 +3220,6 @@
     return EquisizedsGroup;
   }(Instance));
 
-  var ToggleEvent = {
-    TOGGLE: ns.event('toggle')
-  };
-
   var Toggle = /*@__PURE__*/(function (Instance) {
     function Toggle () {
       Instance.apply(this, arguments);
@@ -3194,7 +3255,6 @@
 
     prototypeAccessors.pressed.set = function (value) {
       this.setAttribute('aria-pressed', value ? 'true' : 'false');
-      this.dispatch(ToggleEvent.TOGGLE, value);
     };
 
     prototypeAccessors.proxy.get = function () {
@@ -3690,6 +3750,7 @@
       this._aligns = aligns;
       this._safeAreaMargin = safeAreaMargin;
       this._isShown = false;
+      this._x = this._y = 0;
     }
 
     if ( Instance ) Placement.__proto__ = Instance;
@@ -3852,21 +3913,11 @@
       this._referent = referent;
     };
 
-    Placement.prototype.resize = function resize () {
-      this.safeArea = {
-        top: this._safeAreaMargin,
-        right: window.innerWidth - this._safeAreaMargin,
-        bottom: window.innerHeight - this._safeAreaMargin,
-        left: this._safeAreaMargin,
-        center: window.innerWidth * 0.5,
-        middle: window.innerHeight * 0.5
-      };
-    };
-
     Placement.prototype.render = function render () {
       if (!this._referent) { return; }
-      this.rect = this.getRect();
       this.referentRect = this._referent.getRect();
+      this.rect = this.getRect();
+      this.safeArea = this.getSafeArea();
 
       if (this.mode === PlacementMode.AUTO) {
         this.place = this.getPlace();
@@ -3886,19 +3937,19 @@
 
       switch (this.place) {
         case PlacementPosition.TOP:
-          y = this.referentRect.top - this.rect.height;
+          y = this.referentRect.top - this.rect.top - this.rect.height;
           break;
 
         case PlacementPosition.RIGHT:
-          x = this.referentRect.right;
+          x = this.referentRect.left - this.rect.left + this.referentRect.width;
           break;
 
         case PlacementPosition.BOTTOM:
-          y = this.referentRect.bottom;
+          y = this.referentRect.top - this.rect.top + this.referentRect.height;
           break;
 
         case PlacementPosition.LEFT:
-          x = this.referentRect.left - this.rect.width;
+          x = this.referentRect.left - this.rect.left - this.rect.width;
           break;
       }
 
@@ -3907,15 +3958,15 @@
         case PlacementPosition.BOTTOM:
           switch (this.align) {
             case PlacementAlign.CENTER:
-              x = this.referentRect.center - this.rect.width * 0.5;
+              x = this.referentRect.left - this.rect.left + this.referentRect.width * 0.5 - this.rect.width * 0.5;
               break;
 
             case PlacementAlign.START:
-              x = this.referentRect.left;
+              x = this.referentRect.left - this.rect.left;
               break;
 
             case PlacementAlign.END:
-              x = this.referentRect.right - this.rect.width;
+              x = this.referentRect.left - this.rect.left + this.referentRect.width - this.rect.width;
               break;
           }
           break;
@@ -3924,25 +3975,23 @@
         case PlacementPosition.LEFT:
           switch (this.align) {
             case PlacementAlign.CENTER:
-              y = this.referentRect.middle - this.rect.height * 0.5;
+              y = this.referentRect.top - this.rect.top + this.referentRect.height * 0.5 - this.rect.height * 0.5;
               break;
 
             case PlacementAlign.START:
-              y = this.referentRect.top;
+              y = this.referentRect.top - this.rect.top;
               break;
 
             case PlacementAlign.END:
-              y = this.referentRect.bottom - this.rect.height;
+              y = this.referentRect.top - this.rect.top - this.rect.height;
               break;
           }
           break;
       }
 
-      if (this._x !== x || this._y !== y) {
-        this._x = (x + 0.5) | 0;
-        this._y = (y + 0.5) | 0;
-        this.node.style.transform = "translate(" + (this._x) + "px," + (this._y) + "px)";
-      }
+      this._x += (x + 0.5) | 0;
+      this._y += (y + 0.5) | 0;
+      this.node.style.transform = "translate(" + (this._x) + "px," + (this._y) + "px)";
     };
 
     Placement.prototype.getPlace = function getPlace () {
@@ -4013,6 +4062,46 @@
       }
 
       return this._aligns[0];
+    };
+
+    Placement.prototype.getSafeArea = function getSafeArea () {
+      var element = this.node;
+      var isX, isY;
+      var top = this._safeAreaMargin;
+      var right = window.innerWidth - this._safeAreaMargin;
+      var bottom = window.innerHeight - this._safeAreaMargin;
+      var left = this._safeAreaMargin;
+
+      while (element) {
+        if (element === document.body) { break; }
+        element = element.parentElement;
+        var style = window.getComputedStyle(element);
+
+        var overflow = /(visible|(\w+))(\s(visible|(\w+)))?/.exec(style.overflow);
+        isX = overflow[2] !== undefined;
+        isY = overflow[3] !== undefined ? overflow[5] !== undefined : overflow[2] !== undefined;
+
+        if (!isX && !isY) { continue; }
+        var rect = element.getBoundingClientRect();
+
+        if (isX) {
+          if (rect.left > left) { left = rect.left; }
+          if (rect.right < right) { right = rect.right; }
+        }
+        if (isY) {
+          if (rect.top > top) { top = rect.top; }
+          if (rect.bottom < bottom) { bottom = rect.bottom; }
+        }
+      }
+
+      return {
+        top: top,
+        right: right,
+        bottom: bottom,
+        left: left,
+        center: left + (right - left) * 0.5,
+        middle: top + (bottom - top) * 0.5
+      };
     };
 
     Placement.prototype.dispose = function dispose () {

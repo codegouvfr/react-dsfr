@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -246,6 +246,10 @@ textarea.fr-input {
     flex-shrink: 0;
   }
 
+  .fr-input:-ms-input-placeholder {
+    font-style: italic;
+  }
+
   .fr-input {
     color: #3a3a3a;
     background-color: #eee;
@@ -306,6 +310,11 @@ textarea.fr-input {
 
   .fr-input-group--info::before {
     background-image: linear-gradient(0deg, #0063cb, #0063cb);
+  }
+}
+@media screen and (min-width: 0\0) and (min-resolution: 72dpi) and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-input:-ms-input-placeholder {
+    color: #666;
   }
 }
 @media print {

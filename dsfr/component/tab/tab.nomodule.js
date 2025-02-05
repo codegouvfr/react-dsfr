@@ -1,4 +1,4 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.12.1'
+    version: '1.13.0'
   };
 
   var api = window[config.namespace];
@@ -397,12 +397,11 @@
 
     /* ajoute la classe fr-table__shadow-left ou fr-table__shadow-right sur fr-table en fonction d'une valeur de scroll et du sens (right, left) */
     TabsList.prototype.scroll = function scroll () {
-      var scrollLeft = this.node.scrollLeft;
+      var scrollLeft = Math.abs(this.node.scrollLeft);
       var isMin = scrollLeft <= SCROLL_OFFSET;
       var max = this.node.scrollWidth - this.node.clientWidth - SCROLL_OFFSET;
-
       var isMax = Math.abs(scrollLeft) >= max;
-      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+      var isRtl = getComputedStyle(this.node).direction === 'rtl';
       var minSelector = isRtl ? TabSelector.SHADOW_RIGHT : TabSelector.SHADOW_LEFT;
       var maxSelector = isRtl ? TabSelector.SHADOW_LEFT : TabSelector.SHADOW_RIGHT;
 

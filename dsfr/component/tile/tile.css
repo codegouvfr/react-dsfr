@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -61,7 +61,7 @@
   overflow: hidden;
 }
 
-.fr-tile__pictogram > svg {
+.fr-tile__pictogram svg {
   width: 100%;
   height: 100%;
 }

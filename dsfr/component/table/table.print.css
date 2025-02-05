@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media print {
   .fr-table__wrapper::after {
@@ -17,11 +17,6 @@
 
   .fr-table__content table thead th[role=columnheader] {
     background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__content table thead th:last-child {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
   }
 
   .fr-table__content table tbody tr::after {

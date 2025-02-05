@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -449,6 +449,8 @@ button.fr-link {
   max-width: 100%;
   max-height: none;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-left: auto;
   margin-right: -1rem;
   background-color: transparent;

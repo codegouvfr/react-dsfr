@@ -1,10 +1,10 @@
-/*! DSFR v1.12.1 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.12.1'
+  version: '1.13.0'
 };
 
 const api = window[config.namespace];
@@ -142,7 +142,7 @@ class Scheme extends api.core.Instance {
       localStorage.setItem('scheme', value);
     }
     this.setAttribute(SchemeAttribute.SCHEME, value);
-    this.dispatch(SchemeEvent.SCHEME, { scheme: this._scheme });
+    this.dispatch(SchemeEvent.SCHEME, { scheme: this._scheme }, false);
   }
 
   get theme () {
@@ -157,7 +157,7 @@ class Scheme extends api.core.Instance {
         this._theme = value;
         this.setAttribute(SchemeAttribute.THEME, value);
         this.descend(SchemeEmission.THEME, value);
-        this.dispatch(SchemeEvent.THEME, { theme: this._theme });
+        this.dispatch(SchemeEvent.THEME, { theme: this._theme }, false);
         document.documentElement.style.colorScheme = value === SchemeTheme.DARK ? 'dark' : '';
         break;
     }
