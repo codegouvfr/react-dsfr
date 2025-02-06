@@ -9,8 +9,8 @@ const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { Select },
     "description": `
-- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Notice.tsx)
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/liste-deroulante)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Select.tsx)
 
 > 🗣️ This implementation of the <Select /> component is headless. It matched very closely the behavior of a native select input.  
 > Try out [\`SelectNext\`](https://components.react-dsfr.codegouv.studio/?path=/docs/components-selectnext--default) if you want a smarter component with better type inference.  
