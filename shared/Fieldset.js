@@ -37,13 +37,12 @@ export const Fieldset = memo(forwardRef((props, ref) => {
     return (React.createElement("fieldset", Object.assign({ id: id, className: cx(fr.cx("fr-fieldset", orientation === "horizontal" && "fr-fieldset--inline", (() => {
             switch (state) {
                 case "default":
+                case "info":
                     return undefined;
                 case "error":
                     return "fr-fieldset--error";
                 case "success":
                     return "fr-fieldset--valid";
-                case "info":
-                    return "fr-fieldset--info";
             }
         })()), classes.root, className), disabled: disabled, style: style, "aria-labelledby": cx(legend !== undefined && legendId, messagesWrapperId), role: state === "default" ? undefined : "group" }, rest, { ref: ref }),
         legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },

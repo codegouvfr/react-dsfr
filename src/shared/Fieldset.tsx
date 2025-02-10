@@ -116,13 +116,12 @@ export const Fieldset = memo(
                         (() => {
                             switch (state) {
                                 case "default":
+                                case "info":
                                     return undefined;
                                 case "error":
                                     return "fr-fieldset--error";
                                 case "success":
                                     return "fr-fieldset--valid";
-                                case "info":
-                                    return "fr-fieldset--info";
                             }
                         })()
                     ),
