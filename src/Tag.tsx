@@ -22,7 +22,7 @@ type DataAttribute = Record<`data-${string}`, string | boolean | null | undefine
 
 export type TagProps = TagProps.Common &
     (TagProps.WithIcon | TagProps.WithoutIcon) &
-    (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsSpan);
+    (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsParagraph);
 export namespace TagProps {
     export type Common = {
         id?: string;
@@ -47,126 +47,140 @@ export namespace TagProps {
         linkProps: RegisteredLinkProps;
         onClick?: never;
         nativeButtonProps?: never;
+        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: never;
+        nativeParagraphProps?: never;
         dismissible?: never;
         pressed?: never;
     };
     export type AsButton = {
         linkProps?: never;
+        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: never;
+        nativeParagraphProps?: never;
         /** Default: false */
         dismissible?: boolean;
         pressed?: boolean;
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
         nativeButtonProps?: ComponentProps<"button"> & DataAttribute;
     };
-    export type AsSpan = {
+    export type AsParagraph = {
         linkProps?: never;
         onClick?: never;
         dismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
+        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: ComponentProps<"span"> & DataAttribute;
+        nativeParagraphProps?: ComponentProps<"p"> & DataAttribute;
     };
+
+    /** @deprecated Tag is now <p> by default. Use `AsParagraph` instead. */
+    export type AsSpan = AsParagraph;
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tag> */
 export const Tag = memo(
-    forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement, TagProps>((props, ref) => {
-        const {
-            id: id_props,
-            className: prop_className,
-            children,
-            title,
-            iconId,
-            small = false,
-            pressed,
-            dismissible = false,
-            linkProps,
-            nativeButtonProps,
-            nativeSpanProps,
-            style,
-            onClick,
-            ...rest
-        } = props;
-
-        assert<Equals<keyof typeof rest, never>>();
-
-        const id = useAnalyticsId({
-            "defaultIdPrefix": "fr-tag",
-            "explicitlyProvidedId": id_props
-        });
-
-        const { Link } = getLink();
-
-        const className = cx(
-            fr.cx(
-                "fr-tag",
-                small && `fr-tag--sm`,
+    forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLParagraphElement, TagProps>(
+        (props, ref) => {
+            const {
+                id: id_props,
+                className: prop_className,
+                children,
+                title,
                 iconId,
-                iconId && "fr-tag--icon-left", // actually, it's always left but we need it in order to have the icon rendering
-                dismissible && "fr-tag--dismiss"
-            ),
-            linkProps !== undefined && linkProps.className,
-            prop_className
-        );
+                small = false,
+                pressed,
+                dismissible = false,
+                linkProps,
+                nativeButtonProps,
+                nativeParagraphProps,
+                nativeSpanProps,
+                style,
+                onClick,
+                ...rest
+            } = props;
 
-        return (
-            <>
-                {linkProps !== undefined && (
-                    <Link
-                        {...linkProps}
-                        id={id_props ?? linkProps.id ?? id}
-                        title={title ?? linkProps.title}
-                        className={cx(linkProps?.className, className)}
-                        style={{
-                            ...linkProps?.style,
-                            ...style
-                        }}
-                        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
-                        {...rest}
-                    >
-                        {children}
-                    </Link>
-                )}
-                {nativeButtonProps !== undefined && (
-                    <button
-                        {...nativeButtonProps}
-                        id={id_props ?? nativeButtonProps.id ?? id}
-                        className={cx(nativeButtonProps?.className, className)}
-                        style={{
-                            ...nativeButtonProps?.style,
-                            ...style
-                        }}
-                        title={title ?? nativeButtonProps?.title}
-                        onClick={onClick ?? nativeButtonProps?.onClick}
-                        disabled={nativeButtonProps?.disabled}
-                        ref={ref as React.ForwardedRef<HTMLButtonElement>}
-                        aria-pressed={pressed}
-                        {...rest}
-                    >
-                        {children}
-                    </button>
-                )}
-                {linkProps === undefined && nativeButtonProps === undefined && (
-                    <p
-                        {...nativeSpanProps}
-                        id={id_props ?? nativeSpanProps?.id ?? id}
-                        className={cx(nativeSpanProps?.className, className)}
-                        style={{
-                            ...nativeSpanProps?.style,
-                            ...style
-                        }}
-                        title={title ?? nativeSpanProps?.title}
-                        ref={ref as React.ForwardedRef<HTMLParagraphElement>}
-                        {...rest}
-                    >
-                        {children}
-                    </p>
-                )}
-            </>
-        );
-    })
+            assert<Equals<keyof typeof rest, never>>();
+
+            const id = useAnalyticsId({
+                "defaultIdPrefix": "fr-tag",
+                "explicitlyProvidedId": id_props
+            });
+
+            const { Link } = getLink();
+
+            const className = cx(
+                fr.cx(
+                    "fr-tag",
+                    small && `fr-tag--sm`,
+                    iconId,
+                    iconId && "fr-tag--icon-left", // actually, it's always left but we need it in order to have the icon rendering
+                    dismissible && "fr-tag--dismiss"
+                ),
+                linkProps !== undefined && linkProps.className,
+                prop_className
+            );
+
+            const nativeParagraphOrSpanProps = nativeParagraphProps ?? nativeSpanProps;
+
+            return (
+                <>
+                    {linkProps !== undefined && (
+                        <Link
+                            {...linkProps}
+                            id={id_props ?? linkProps.id ?? id}
+                            title={title ?? linkProps.title}
+                            className={cx(linkProps?.className, className)}
+                            style={{
+                                ...linkProps?.style,
+                                ...style
+                            }}
+                            ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+                            {...rest}
+                        >
+                            {children}
+                        </Link>
+                    )}
+                    {nativeButtonProps !== undefined && (
+                        <button
+                            {...nativeButtonProps}
+                            id={id_props ?? nativeButtonProps.id ?? id}
+                            className={cx(nativeButtonProps?.className, className)}
+                            style={{
+                                ...nativeButtonProps?.style,
+                                ...style
+                            }}
+                            title={title ?? nativeButtonProps?.title}
+                            onClick={onClick ?? nativeButtonProps?.onClick}
+                            disabled={nativeButtonProps?.disabled}
+                            ref={ref as React.ForwardedRef<HTMLButtonElement>}
+                            aria-pressed={pressed}
+                            {...rest}
+                        >
+                            {children}
+                        </button>
+                    )}
+                    {linkProps === undefined && nativeButtonProps === undefined && (
+                        <p
+                            {...nativeParagraphOrSpanProps}
+                            id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
+                            className={cx(nativeParagraphOrSpanProps?.className, className)}
+                            style={{
+                                ...nativeParagraphOrSpanProps?.style,
+                                ...style
+                            }}
+                            title={title ?? nativeParagraphOrSpanProps?.title}
+                            ref={ref as React.ForwardedRef<HTMLParagraphElement>}
+                            {...rest}
+                        >
+                            {children}
+                        </p>
+                    )}
+                </>
+            );
+        }
+    )
 ) as MemoExoticComponent<
     ForwardRefExoticComponent<
         TagProps.Common &
@@ -174,7 +188,7 @@ export const Tag = memo(
             (
                 | (TagProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
                 | (TagProps.AsButton & RefAttributes<HTMLButtonElement>)
-                | (TagProps.AsSpan & RefAttributes<HTMLSpanElement>)
+                | (TagProps.AsParagraph & RefAttributes<HTMLParagraphElement>)
             )
     >
 >;
