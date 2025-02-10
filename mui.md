@@ -8,6 +8,8 @@ description: Use MUI components in your App or DSFRify your website build with M
 
 react-dsfr features a DSFR theme for MUI. This enables you to use the [large library of MUI components](https://mui.com/) in your website, they will blend in nicely.
 
+For NextJS app router settings, check out the integration provided directly by MUI : [https://mui.com/material-ui/integrations/nextjs/](https://mui.com/material-ui/integrations/nextjs/)
+
 First of all you'll have to remove all usage of `<ThemeProvider />` and `createTheme()` from your codebase (if any) then implement the following approach:
 
 ```tsx
