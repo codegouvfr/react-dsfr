@@ -95,12 +95,13 @@ export const Tag = memo(
                 linkProps,
                 nativeButtonProps,
                 nativeParagraphProps,
+                nativeSpanProps,
                 style,
                 onClick,
                 ...rest
             } = props;
 
-            assert<Equals<keyof typeof rest, "nativeSpanProps">>();
+            assert<Equals<keyof typeof rest, never>>();
 
             const id = useAnalyticsId({
                 "defaultIdPrefix": "fr-tag",
@@ -120,6 +121,8 @@ export const Tag = memo(
                 linkProps !== undefined && linkProps.className,
                 prop_className
             );
+
+            const nativeParagraphOrSpanProps = nativeParagraphProps ?? nativeSpanProps;
 
             return (
                 <>
@@ -160,14 +163,14 @@ export const Tag = memo(
                     )}
                     {linkProps === undefined && nativeButtonProps === undefined && (
                         <p
-                            {...nativeParagraphProps}
-                            id={id_props ?? nativeParagraphProps?.id ?? id}
-                            className={cx(nativeParagraphProps?.className, className)}
+                            {...nativeParagraphOrSpanProps}
+                            id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
+                            className={cx(nativeParagraphOrSpanProps?.className, className)}
                             style={{
-                                ...nativeParagraphProps?.style,
+                                ...nativeParagraphOrSpanProps?.style,
                                 ...style
                             }}
-                            title={title ?? nativeParagraphProps?.title}
+                            title={title ?? nativeParagraphOrSpanProps?.title}
                             ref={ref as React.ForwardedRef<HTMLParagraphElement>}
                             {...rest}
                         >

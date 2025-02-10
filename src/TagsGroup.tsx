@@ -14,6 +14,7 @@ export namespace TagsGroupProps {
         id?: string;
         className?: string;
         style?: CSSProperties;
+        /** @default false */
         smallTags?: TagProps["small"];
         /** 6 tags should be the maximum.  */
         tags: [TagProps, ...TagProps[]];
