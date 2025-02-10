@@ -115,7 +115,7 @@ export const Fieldset = memo(
                         orientation === "horizontal" && "fr-fieldset--inline",
                         (() => {
                             switch (state) {
-                                case "default":
+                                case "default" | "info":
                                     return undefined;
                                 case "error":
                                     return "fr-fieldset--error";

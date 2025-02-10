@@ -79,7 +79,7 @@ export const Select = memo(
                                     return "fr-select-group--error";
                                 case "success":
                                     return "fr-select-group--valid";
-                                case "default":
+                                case "default" | "info":
                                     return undefined;
                             }
                             assert<Equals<typeof state, never>>(false);
