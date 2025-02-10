@@ -79,8 +79,6 @@ export const Select = memo(
                                     return "fr-select-group--error";
                                 case "success":
                                     return "fr-select-group--valid";
-                                case "info":
-                                    return "fr-select-group--info";
                                 case "default":
                                     return undefined;
                             }

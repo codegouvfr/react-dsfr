@@ -121,8 +121,6 @@ export const Fieldset = memo(
                                     return "fr-fieldset--error";
                                 case "success":
                                     return "fr-fieldset--valid";
-                                case "info":
-                                    return "fr-fieldset--info";
                             }
                         })()
                     ),
