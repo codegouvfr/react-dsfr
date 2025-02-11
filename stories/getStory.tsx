@@ -29,6 +29,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
     disabledProps?: ("containerWidth" | "lang" | "darkMode")[];
     /** Default false */
     doHideImportInstruction?: boolean;
+    isChartComponent?: boolean;
 }) {
     const {
         sectionName,
@@ -37,7 +38,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
         argTypes = {},
         defaultContainerWidth,
         disabledProps = [],
-        doHideImportInstruction = false
+        doHideImportInstruction = false,
+        isChartComponent = false
     } = params;
 
     const Component: any = Object.entries(wrappedComponent).map(([, component]) => component)[0];
@@ -138,6 +140,8 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
 
     const componentName = symToStr(wrappedComponent);
 
+    const pathComponent = isChartComponent ? `Chart/${componentName}` : componentName;
+
     return {
         "meta": id<Meta>({
             "title": `${sectionName}/${componentName}`,
@@ -151,7 +155,7 @@ export function getStoryFactory<Props extends Record<string, any>>(params: {
                                 : [
                                       `\`\`\`tsx  `,
                                       `  `,
-                                      `import { ${componentName} } from "@codegouvfr/react-dsfr/${componentName}";`,
+                                      `import { ${componentName} } from "@codegouvfr/react-dsfr/${pathComponent}";`,
                                       ` `,
                                       `\`\`\``
                                   ]),

@@ -26,7 +26,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
         "color": { "description": "Array of color", control: "object" },
         "fill": { control: "boolean" }
     },
-    "disabledProps": ["lang"]
+    "disabledProps": ["lang"],
+    isChartComponent: true
 });
 
 export default meta;
