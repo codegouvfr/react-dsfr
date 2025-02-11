@@ -1,7 +1,7 @@
 import React from "react";
 import "@gouvfr/dsfr-chart/PieChart/pie-chart.common";
 import "@gouvfr/dsfr-chart/PieChart/pie-chart.css";
-import { ChartProps, IntrinsicGraphType, BaseChartProps } from "./chartWrapper";
+import { type ChartProps, type IntrinsicGraphType, type BaseChartProps, type ChartColor } from "./chartWrapper";
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -13,10 +13,14 @@ declare global {
 }
 export type PieChartBaseProps = {
     fill?: boolean;
-} & ChartProps;
+    name?: string[];
+    color: ChartColor[];
+} & Omit<ChartProps, "name" | "color">;
 export type PieChartProps = PieChartBaseProps & BaseChartProps;
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-piechart> */
 export declare const PieChart: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
     fill?: boolean | undefined;
-} & ChartProps & BaseChartProps & React.RefAttributes<HTMLDivElement>>>;
+    name?: string[] | undefined;
+    color: ChartColor[];
+} & Omit<ChartProps, "color" | "name"> & BaseChartProps & React.RefAttributes<HTMLDivElement>>>;
 export default PieChart;

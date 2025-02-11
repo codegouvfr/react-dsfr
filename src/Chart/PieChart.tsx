@@ -5,10 +5,11 @@ import "@gouvfr/dsfr-chart/PieChart/pie-chart.common";
 import "@gouvfr/dsfr-chart/PieChart/pie-chart.css";
 import {
     chartWrapper,
-    ChartProps,
-    IntrinsicGraphType,
-    BaseChartProps,
-    stringifyObjectValue
+    type ChartProps,
+    type IntrinsicGraphType,
+    type BaseChartProps,
+    stringifyObjectValue,
+    type ChartColor
 } from "./chartWrapper";
 
 declare global {
@@ -24,7 +25,9 @@ declare global {
 
 export type PieChartBaseProps = {
     fill?: boolean;
-} & ChartProps;
+    name?: string[];
+    color: ChartColor[];
+} & Omit<ChartProps, "name" | "color">;
 
 export type PieChartProps = PieChartBaseProps & BaseChartProps;
 
