@@ -22,8 +22,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
         "y": {
             "description": "Array of value for the y axis"
         },
-        "name": { "description": "Array of name", control: "object" },
-        "color": { "description": "Array of color", control: "object" },
+        "name": { "description": "Array of name" },
+        "color": { "description": "Array of color" },
         "fill": { control: "boolean" }
     },
     "disabledProps": ["lang"],
@@ -34,5 +34,7 @@ export default meta;
 
 export const Default = getStory({
     x: [1, 2, 3],
-    y: [10, 20, 30]
+    y: [10, 20, 30],
+    name: ["Serie 1", "Serie 2", "Serie 3"],
+    color: ["blue-france", "green-bourgeon", "blue-ecume"]
 });
