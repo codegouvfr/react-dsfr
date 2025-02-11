@@ -25,7 +25,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
         "name": { "description": "Array of name", control: "object" },
         "color": { "description": "Array of color", control: "object" }
     },
-    "disabledProps": ["lang"]
+    "disabledProps": ["lang"],
+    isChartComponent: true
 });
 
 export default meta;

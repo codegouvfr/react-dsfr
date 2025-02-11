@@ -29,7 +29,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
             "description": "Color"
         }
     },
-    "disabledProps": ["lang"]
+    "disabledProps": ["lang"],
+    isChartComponent: true
 });
 
 export default meta;
