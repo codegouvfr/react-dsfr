@@ -24,6 +24,7 @@ declare global {
 
 export type PieChartBaseProps = {
     fill?: boolean;
+				name?: string[];
 } & ChartProps;
 
 export type PieChartProps = PieChartBaseProps & BaseChartProps;
