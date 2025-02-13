@@ -12,6 +12,7 @@ import "../assets/search-bar.css";
 
 export type SearchBarProps = {
     className?: string;
+    defaultValue?: string;
     id?: string;
     /** Default: "Rechercher" (or translation) */
     label?: string;
@@ -25,6 +26,7 @@ export type SearchBarProps = {
          * the others params can, but it's not mandatory.
          **/
         params: {
+            defaultValue?: string;
             id: string;
             type: "search";
             className: string;
@@ -45,13 +47,20 @@ export const SearchBar = memo(
     forwardRef<HTMLDivElement, SearchBarProps>((props, ref) => {
         const {
             className,
+            defaultValue,
             id: id_props,
             label: label_props,
             big = false,
             classes = {},
             style,
-            renderInput = ({ className, id, placeholder, type }) => (
-                <input className={className} id={id} placeholder={placeholder} type={type} />
+            renderInput = ({ className, defaultValue, id, placeholder, type }) => (
+                <input
+                    className={className}
+                    defaultValue={defaultValue}
+                    id={id}
+                    placeholder={placeholder}
+                    type={type}
+                />
             ),
             clearInputOnSearch = false,
             allowEmptySearch = false,
@@ -92,6 +101,7 @@ export const SearchBar = memo(
                 one time and only one time in each render to allow useState to be used inline*/}
                 {renderInput({
                     "className": fr.cx("fr-input"),
+                    "defaultValue": defaultValue,
                     "placeholder": label,
                     "type": "search",
                     "id": inputId
