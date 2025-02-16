@@ -25,7 +25,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
         "ybar": {
             "description": "Array of value for the x axis to create the bars"
         },
-        "name": { "description": "Array of name", control: "object" },
+        "name": { "description": "Name for the line", control: "object" },
+        "nameBar": { "description": "Name for the bars", control: "object" },
         "color": { "description": "Array of color", control: "object" },
         "hline": { "description": "Array of horizontal lines to add", control: "object" },
         "hlinename": { "description": "Name of the horizontal lines", control: "object" },

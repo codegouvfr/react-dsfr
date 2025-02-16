@@ -27,7 +27,8 @@ declare global {
 
 export type BarLineChartBaseProps = {
     ybar: number[];
-    name?: [string, string];
+    name?: string;
+    nameBar?: string;
     horizontal?: boolean;
     stacked?: boolean;
 } & Omit<ChartProps, "name"> &
