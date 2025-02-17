@@ -13,7 +13,8 @@ declare global {
 }
 export type BarLineChartBaseProps = {
     ybar: number[];
-    name?: [string, string];
+    name?: string;
+    nameBar?: string;
     horizontal?: boolean;
     stacked?: boolean;
 } & Omit<ChartProps, "name"> & ChartLineProps;
@@ -21,7 +22,8 @@ export type BarLineChartProps = BarLineChartBaseProps & BaseChartProps;
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-barlinechart> */
 export declare const BarLineChart: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
     ybar: number[];
-    name?: [string, string] | undefined;
+    name?: string | undefined;
+    nameBar?: string | undefined;
     horizontal?: boolean | undefined;
     stacked?: boolean | undefined;
 } & Omit<ChartProps, "name"> & ChartLineProps & BaseChartProps & React.RefAttributes<HTMLDivElement>>>;

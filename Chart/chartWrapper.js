@@ -19,7 +19,10 @@ const typeSafeObjectFromEntries = (entries) => {
 const typeSafeObjectEntries = (obj) => {
     return Object.entries(obj);
 };
-export const stringifyObjectValue = (obj) => typeSafeObjectFromEntries(typeSafeObjectEntries(obj).map(([k, v]) => [k, JSON.stringify(v)]));
+export const stringifyObjectValue = (obj) => typeSafeObjectFromEntries(typeSafeObjectEntries(obj).map(([k, v]) => [
+    k,
+    typeof v === "string" ? v : JSON.stringify(v)
+]));
 export const chartWrapper = (ChartComponent, idPrefix) => {
     return memo(forwardRef((props, ref) => {
         const [isDsfrLoaded, setIsDsfrLoaded] = useState(false);
