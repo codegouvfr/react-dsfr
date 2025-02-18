@@ -26,7 +26,7 @@ declare global {
 export type PieChartBaseProps = {
     fill?: boolean;
     name?: string[];
-    color: ChartColor[];
+    color?: ChartColor[];
 } & Omit<ChartProps, "name" | "color">;
 
 export type PieChartProps = PieChartBaseProps & BaseChartProps;
