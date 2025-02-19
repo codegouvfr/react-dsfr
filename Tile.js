@@ -38,7 +38,7 @@ export const Tile = memo(forwardRef((props, ref) => {
                 detail !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-tile__detail"), classes.detail) }, detail)),
                 start !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-tile__start"), classes.start) }, start)))),
         imageUrl !== undefined && imageUrl.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-tile__header"), classes.header) }, imageSvg ? (React.createElement("div", { className: cx(fr.cx("fr-tile__pictogram"), classes.img) },
-            React.createElement("svg", { "aria-hidden": true, className: fr.cx("fr-artwork"), viewBox: "0 0 80 80", width: "80px", height: "80px", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink" }, [
+            React.createElement("svg", { "aria-hidden": true, className: cx(fr.cx("fr-artwork"), classes.artwork), viewBox: "0 0 80 80", width: "80px", height: "80px", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink" }, [
                 "artwork-decorative",
                 "artwork-minor",
                 "artwork-major"

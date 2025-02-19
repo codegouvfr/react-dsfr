@@ -14,13 +14,19 @@ export type TileProps = {
     start?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
+    /**
+     * @deprecated imageWidth has no effect
+     */
     imageWidth?: string | number;
+    /**
+     * @deprecated imageHeight has no effect
+     */
     imageHeight?: string | number;
     imageSvg?: boolean;
     grey?: boolean;
     /** make the whole tile clickable */
     enlargeLinkOrButton?: boolean;
-    classes?: Partial<Record<"root" | "content" | "title" | "header" | "link" | "button" | "body" | "desc" | "detail" | "start" | "img" | "imgTag", string>>;
+    classes?: Partial<Record<"root" | "content" | "title" | "header" | "link" | "button" | "body" | "desc" | "detail" | "start" | "img" | "imgTag" | "artwork", string>>;
     orientation?: "horizontal" | "vertical";
     small?: boolean;
     noIcon?: boolean;
