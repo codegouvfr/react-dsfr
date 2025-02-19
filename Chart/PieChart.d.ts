@@ -14,13 +14,13 @@ declare global {
 export type PieChartBaseProps = {
     fill?: boolean;
     name?: string[];
-    color: ChartColor[];
+    color?: ChartColor[];
 } & Omit<ChartProps, "name" | "color">;
 export type PieChartProps = PieChartBaseProps & BaseChartProps;
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/charts-piechart> */
 export declare const PieChart: React.MemoExoticComponent<React.ForwardRefExoticComponent<{
     fill?: boolean | undefined;
     name?: string[] | undefined;
-    color: ChartColor[];
+    color?: ChartColor[] | undefined;
 } & Omit<ChartProps, "color" | "name"> & BaseChartProps & React.RefAttributes<HTMLDivElement>>>;
 export default PieChart;
