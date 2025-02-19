@@ -23,7 +23,13 @@ export type TileProps = {
     start?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
+    /**
+     * @deprecated imageWidth has no effect
+     */
     imageWidth?: string | number;
+    /**
+     * @deprecated imageHeight has no effect
+     */
     imageHeight?: string | number;
     imageSvg?: boolean;
     grey?: boolean;
@@ -42,7 +48,8 @@ export type TileProps = {
             | "detail"
             | "start"
             | "img"
-            | "imgTag",
+            | "imgTag"
+            | "artwork",
             string
         >
     >;
@@ -186,7 +193,7 @@ export const Tile = memo(
                             <div className={cx(fr.cx("fr-tile__pictogram"), classes.img)}>
                                 <svg
                                     aria-hidden={true}
-                                    className={fr.cx("fr-artwork")}
+                                    className={cx(fr.cx("fr-artwork"), classes.artwork)}
                                     viewBox="0 0 80 80"
                                     width="80px"
                                     height="80px"
