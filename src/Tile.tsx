@@ -23,7 +23,13 @@ export type TileProps = {
     start?: ReactNode;
     imageUrl?: string;
     imageAlt?: string;
+    /**
+     * @deprecated imageWidth has no effect
+     */
     imageWidth?: string | number;
+    /**
+     * @deprecated imageHeight has no effect
+     */
     imageHeight?: string | number;
     imageSvg?: boolean;
     grey?: boolean;
