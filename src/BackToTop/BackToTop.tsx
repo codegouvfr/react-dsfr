@@ -28,7 +28,7 @@ export type BackToTopProps = {
 
 /**
  * Scroll to the top of the page with a smooth animation if user didn't enabled reduced motion for accessibility.
-**/
+ **/
 function scrollToTop() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const behavior = prefersReducedMotion ? "auto" : "smooth";
