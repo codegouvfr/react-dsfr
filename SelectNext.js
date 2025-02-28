@@ -23,14 +23,14 @@ import { exclude } from "tsafe/exclude";
  * */
 function NonMemoizedNonForwardedSelect(props, ref) {
     var _a;
-    const { id: id_props, className, label, hint, nativeSelectProps, disabled = (_a = nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.disabled) !== null && _a !== void 0 ? _a : false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
+    const { id: id_props, className, label, hint, nativeSelectProps = {}, disabled = (_a = nativeSelectProps.disabled) !== null && _a !== void 0 ? _a : false, options, state = "default", stateRelatedMessage, placeholder, style } = props, rest = __rest(props, ["id", "className", "label", "hint", "nativeSelectProps", "disabled", "options", "state", "stateRelatedMessage", "placeholder", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-select-group",
         "explicitlyProvidedId": id_props
     });
     const { selectId, stateDescriptionId } = (function useClosure() {
-        const selectIdExplicitlyProvided = nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.id;
+        const selectIdExplicitlyProvided = nativeSelectProps.id;
         const elementId = useId();
         const selectId = selectIdExplicitlyProvided !== null && selectIdExplicitlyProvided !== void 0 ? selectIdExplicitlyProvided : `select-${elementId}`;
         const stateDescriptionId = selectIdExplicitlyProvided !== undefined
@@ -60,7 +60,9 @@ function NonMemoizedNonForwardedSelect(props, ref) {
                         return selectedOption.value;
                     })()
             };
-        })(), { className: cx(fr.cx("fr-select"), nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.className), id: selectId, "aria-describedby": stateDescriptionId, disabled: disabled }), [
+        })(), { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": nativeSelectProps["aria-describedby"] !== undefined
+                ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
+                : stateDescriptionId, disabled: disabled }), [
             options.find(option => option.value === "") !== undefined
                 ? undefined
                 : {

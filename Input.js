@@ -55,7 +55,12 @@ export const Input = memo(forwardRef((props, ref) => {
                         case "default":
                             return undefined;
                     }
-                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": state !== "default" ? messageId : undefined, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
+                })()), classes.nativeInputOrTextArea), disabled: disabled || undefined, "aria-describedby": [
+                    state !== "default" ? messageId : undefined,
+                    nativeInputOrTextAreaProps["aria-describedby"]
+                ]
+                    .filter(value => value !== undefined)
+                    .join(" ") || undefined, type: textArea ? undefined : (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.type) !== null && _a !== void 0 ? _a : "text", id: inputId })));
             const hasIcon = iconId !== undefined;
             const hasAddon = addon !== undefined;
             const hasAction = action !== undefined;

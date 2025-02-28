@@ -95,8 +95,8 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
         className,
         label,
         hint,
-        nativeSelectProps,
-        disabled = nativeSelectProps?.disabled ?? false,
+        nativeSelectProps = {},
+        disabled = nativeSelectProps.disabled ?? false,
         options,
         state = "default",
         stateRelatedMessage,
@@ -113,7 +113,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
     });
 
     const { selectId, stateDescriptionId } = (function useClosure() {
-        const selectIdExplicitlyProvided = nativeSelectProps?.id;
+        const selectIdExplicitlyProvided = nativeSelectProps.id;
         const elementId = useId();
         const selectId = selectIdExplicitlyProvided ?? `select-${elementId}`;
         const stateDescriptionId =
@@ -171,9 +171,13 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                               })()
                     };
                 })()}
-                className={cx(fr.cx("fr-select"), nativeSelectProps?.className)}
+                className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                 id={selectId}
-                aria-describedby={stateDescriptionId}
+                aria-describedby={
+                    nativeSelectProps["aria-describedby"] !== undefined
+                        ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
+                        : stateDescriptionId
+                }
                 disabled={disabled}
             >
                 {[

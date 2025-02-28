@@ -22,7 +22,7 @@ import { useAnalyticsId } from "../tools/useAnalyticsId";
  * */
 export const PasswordInput = memo(forwardRef((props, ref) => {
     const { t } = useTranslation();
-    const { className, id: id_props, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps, messagesHint = t("your password must contain") } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps", "messagesHint"]);
+    const { className, id: id_props, label, hintText, hideLabel, disabled = false, classes = {}, style, messages = [], nativeInputProps = {}, messagesHint = t("your password must contain") } = props, rest = __rest(props, ["className", "id", "label", "hintText", "hideLabel", "disabled", "classes", "style", "messages", "nativeInputProps", "messagesHint"]);
     assert();
     const id = useAnalyticsId({
         "explicitlyProvidedId": id_props,
@@ -31,7 +31,7 @@ export const PasswordInput = memo(forwardRef((props, ref) => {
     const inputId = (function useClosure() {
         var _a;
         const id = useId();
-        return (_a = nativeInputProps === null || nativeInputProps === void 0 ? void 0 : nativeInputProps.id) !== null && _a !== void 0 ? _a : `password-${id}`;
+        return (_a = nativeInputProps.id) !== null && _a !== void 0 ? _a : `password-${id}`;
     })();
     const togglePasswordShowId = `${inputId}-toggle-show`;
     const messagesGroupId = `${inputId}-messages-group`;
@@ -71,7 +71,11 @@ export const PasswordInput = memo(forwardRef((props, ref) => {
             label,
             hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText))),
         React.createElement("div", { className: fr.cx("fr-input-wrap"), ref: setInputWrapperElement },
-            React.createElement("input", Object.assign({}, nativeInputProps, { className: cx(fr.cx("fr-password__input", "fr-input"), classes.input), id: inputId, type: isPasswordReveled ? "text" : "password", disabled: disabled }, (messages.length !== 0 && { "aria-describedby": messagesGroupId })))),
+            React.createElement("input", Object.assign({}, nativeInputProps, { className: cx(fr.cx("fr-password__input", "fr-input"), classes.input), id: inputId, type: isPasswordReveled ? "text" : "password", disabled: disabled }, (messages.length !== 0 && {
+                "aria-describedby": nativeInputProps["aria-describedby"] !== undefined
+                    ? `${messagesGroupId} ${nativeInputProps["aria-describedby"]}`
+                    : messagesGroupId
+            })))),
         messages.length !== 0 && (React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesGroupId, "aria-live": "assertive" },
             messagesHint !== "" && (React.createElement("p", { className: fr.cx("fr-message"), id: messageGroupId }, messagesHint)),
             messages.map(({ severity, message }, index) => (React.createElement("p", { key: index, className: fr.cx("fr-message", `fr-message--${severity}`), id: `${messageGroupId}-${index}` }, message))))),
