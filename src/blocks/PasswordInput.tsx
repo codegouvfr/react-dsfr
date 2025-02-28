@@ -60,7 +60,7 @@ export const PasswordInput = memo(
             classes = {},
             style,
             messages = [],
-            nativeInputProps,
+            nativeInputProps = {},
             messagesHint = t("your password must contain"),
             ...rest
         } = props;
@@ -75,7 +75,7 @@ export const PasswordInput = memo(
         const inputId = (function useClosure() {
             const id = useId();
 
-            return nativeInputProps?.id ?? `password-${id}`;
+            return nativeInputProps.id ?? `password-${id}`;
         })();
         const togglePasswordShowId = `${inputId}-toggle-show`;
         const messagesGroupId = `${inputId}-messages-group`;
@@ -152,7 +152,12 @@ export const PasswordInput = memo(
                         id={inputId}
                         type={isPasswordReveled ? "text" : "password"}
                         disabled={disabled}
-                        {...(messages.length !== 0 && { "aria-describedby": messagesGroupId })}
+                        {...(messages.length !== 0 && {
+                            "aria-describedby":
+                                nativeInputProps["aria-describedby"] !== undefined
+                                    ? `${messagesGroupId} ${nativeInputProps["aria-describedby"]}`
+                                    : messagesGroupId
+                        })}
                     />
                 </div>
                 {messages.length !== 0 && (

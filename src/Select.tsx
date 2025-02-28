@@ -104,7 +104,11 @@ export const Select = memo(
                     {...nativeSelectProps}
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}
-                    aria-describedby={stateDescriptionId}
+                    aria-describedby={
+                        nativeSelectProps["aria-describedby"] !== undefined
+                            ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
+                            : stateDescriptionId
+                    }
                     disabled={disabled}
                 >
                     {children}

@@ -79,7 +79,11 @@ export const Upload = memo(
                     </label>
                 )}
                 <input
-                    aria-describedby={messageId}
+                    aria-describedby={
+                        nativeInputProps["aria-describedby"] !== undefined
+                            ? `${messageId} ${nativeInputProps["aria-describedby"]}`
+                            : messageId
+                    }
                     aria-disabled={disabled}
                     className={cx(fr.cx("fr-upload"))}
                     disabled={disabled}
