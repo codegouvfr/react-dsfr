@@ -222,6 +222,26 @@ export const Default = getStory({
     options
 });
 
+export const DefaultWithSelectedOption = getStory({
+    "label": "Label pour liste déroulante",
+    options: [
+        ...options,
+        {
+            "value": "4",
+            "label": "Option 4",
+            "selected": true
+        }
+    ]
+});
+
+export const DefaultWithDefaultValue = getStory({
+    "label": "Label pour liste déroulante",
+    options,
+    "nativeSelectProps": {
+        "defaultValue": "2"
+    }
+});
+
 export const DefaultWithPlaceholder = getStory({
     "label": "Label pour liste déroulante",
     "placeholder": "Sélectionnez une option",

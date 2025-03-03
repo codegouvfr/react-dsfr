@@ -163,7 +163,7 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
 
                     return {
                         "defaultValue": isEmptyValueSelected
-                            ? ""
+                            ? nativeSelectProps?.defaultValue ?? ""
                             : (() => {
                                   const selectedOption = options.find(option => option.selected);
                                   assert(selectedOption !== undefined);
