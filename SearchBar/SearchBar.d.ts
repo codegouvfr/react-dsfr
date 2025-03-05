@@ -3,6 +3,7 @@ import React, { type CSSProperties } from "react";
 import "../assets/search-bar.css";
 export type SearchBarProps = {
     className?: string;
+    defaultValue?: string;
     id?: string;
     /** Default: "Rechercher" (or translation) */
     label?: string;
@@ -16,6 +17,7 @@ export type SearchBarProps = {
      * the others params can, but it's not mandatory.
      **/
     params: {
+        defaultValue?: string;
         id: string;
         type: "search";
         className: string;

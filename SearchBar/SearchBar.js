@@ -22,7 +22,7 @@ import "../assets/search-bar.css";
  * @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-input>
  * */
 export const SearchBar = memo(forwardRef((props, ref) => {
-    const { className, id: id_props, label: label_props, big = false, classes = {}, style, renderInput = ({ className, id, placeholder, type }) => (React.createElement("input", { className: className, id: id, placeholder: placeholder, type: type })), clearInputOnSearch = false, allowEmptySearch = false, onButtonClick } = props, rest = __rest(props, ["className", "id", "label", "big", "classes", "style", "renderInput", "clearInputOnSearch", "allowEmptySearch", "onButtonClick"]);
+    const { className, defaultValue, id: id_props, label: label_props, big = false, classes = {}, style, renderInput = ({ className, defaultValue, id, placeholder, type }) => (React.createElement("input", { className: className, defaultValue: defaultValue, id: id, placeholder: placeholder, type: type })), clearInputOnSearch = false, allowEmptySearch = false, onButtonClick } = props, rest = __rest(props, ["className", "defaultValue", "id", "label", "big", "classes", "style", "renderInput", "clearInputOnSearch", "allowEmptySearch", "onButtonClick"]);
     assert();
     const { t } = useTranslation();
     const label = label_props !== null && label_props !== void 0 ? label_props : t("label");
@@ -35,6 +35,7 @@ export const SearchBar = memo(forwardRef((props, ref) => {
         React.createElement("label", { className: cx(fr.cx("fr-label"), classes.label), htmlFor: inputId }, label),
         renderInput({
             "className": fr.cx("fr-input"),
+            "defaultValue": defaultValue,
             "placeholder": label,
             "type": "search",
             "id": inputId
