@@ -44,6 +44,7 @@ function NonMemoizedNonForwardedSelect(props, ref) {
             label,
             hint !== undefined && React.createElement("span", { className: fr.cx("fr-hint-text") }, hint))),
         React.createElement("select", Object.assign({}, nativeSelectProps, (() => {
+            var _a;
             const isControlled = nativeSelectProps !== undefined && "value" in nativeSelectProps;
             const isEmptyValueSelected = isControlled
                 ? nativeSelectProps.value === undefined
@@ -53,7 +54,7 @@ function NonMemoizedNonForwardedSelect(props, ref) {
             }
             return {
                 "defaultValue": isEmptyValueSelected
-                    ? ""
+                    ? (_a = nativeSelectProps === null || nativeSelectProps === void 0 ? void 0 : nativeSelectProps.defaultValue) !== null && _a !== void 0 ? _a : ""
                     : (() => {
                         const selectedOption = options.find(option => option.selected);
                         assert(selectedOption !== undefined);
