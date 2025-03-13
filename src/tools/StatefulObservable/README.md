@@ -1,14 +1,24 @@
 `StatefulObservable` is a construct that allow to avoid having to depend on [EVT](https://evt.land).
 
-A `StatefulObservable` can be converted to an evt with:
+A `StatefulObservable` can be used to implement a signal: Wire a non react-land function to a react component.
+Example:
 
-```ts
-import { statefulObservableToStatefulEvt } from "powerhooks/tools/StatefulObservable/statefulObservableToStatefulEvt";
+```tsx
+import { createStatefulObservable, useRerenderOnChange } from "tools/StatefulObservable";
 
-const evtXyz = statefulObservableToStatefulEvt({
-    "statefulObservable": $xyz
-    //Optionally you can pass a Ctx
-});
+const $counter = createStatefulObservable(() => 0);
+
+export function incrementCounter() {
+    $counter.current++;
+}
+
+export function Counter() {
+    useRerenderOnChange($counter);
+
+    const counter = $counter.current;
+
+    return <span>Counter: {counter}</span>;
+}
 ```
 
 WARNING: Unlike `StatefulEvt`, `StatefulObservable` do not post when we first attach.
