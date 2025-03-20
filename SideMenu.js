@@ -31,7 +31,7 @@ export const SideMenu = memo(forwardRef((props, ref) => {
         const { level, key } = params;
         return `fr-sidemenu-item-${id}-${level}-${key}`;
     };
-    return (React.createElement("nav", Object.assign({ id: id }, rest, { ref: ref, style: style, "aria-labelledby": titleId, className: cx(fr.cx("fr-sidemenu", {
+    return (React.createElement("nav", Object.assign({ id: id }, rest, { ref: ref, style: style }, (title !== undefined && { "aria-labelledby": titleId }), { className: cx(fr.cx("fr-sidemenu", {
             "fr-sidemenu--right": align === "right",
             "fr-sidemenu--sticky": sticky && !fullHeight,
             "fr-sidemenu--sticky-full-height": sticky && fullHeight
