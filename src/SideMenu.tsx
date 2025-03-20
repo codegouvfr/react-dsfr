@@ -91,7 +91,7 @@ export const SideMenu = memo(
                 {...rest}
                 ref={ref}
                 style={style}
-                aria-labelledby={titleId}
+                {...(title !== undefined && { "aria-labelledby": titleId })}
                 className={cx(
                     fr.cx("fr-sidemenu", {
                         "fr-sidemenu--right": align === "right",
