@@ -34,8 +34,8 @@ export const Tile = memo(forwardRef((props, ref) => {
         React.createElement("div", { className: cx(fr.cx("fr-tile__body"), classes.body) },
             React.createElement("div", { className: cx(fr.cx("fr-tile__content"), classes.content) },
                 React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-tile__title"), classes.title) }, linkProps !== undefined ? (React.createElement(Link, Object.assign({}, linkProps, { href: disabled ? undefined : linkProps.href, className: cx(classes.link, linkProps.className), "aria-disabled": disabled }), title)) : buttonProps !== undefined ? (React.createElement("button", Object.assign({}, buttonProps, { className: cx(classes.button, buttonProps.className), disabled: disabled }), title)) : (title)),
-                desc !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-tile__desc"), classes.desc) }, desc)),
-                detail !== undefined && (React.createElement("p", { className: cx(fr.cx("fr-tile__detail"), classes.detail) }, detail)),
+                desc !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-tile__desc"), classes.desc) }, desc)),
+                detail !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-tile__detail"), classes.detail) }, detail)),
                 start !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-tile__start"), classes.start) }, start)))),
         imageUrl !== undefined && imageUrl.length > 0 && (React.createElement("div", { className: cx(fr.cx("fr-tile__header"), classes.header) }, imageSvg ? (React.createElement("div", { className: cx(fr.cx("fr-tile__pictogram"), classes.img) },
             React.createElement("svg", { "aria-hidden": true, className: cx(fr.cx("fr-artwork"), classes.artwork), viewBox: "0 0 80 80", width: "80px", height: "80px", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink" }, [
