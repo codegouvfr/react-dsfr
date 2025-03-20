@@ -174,10 +174,12 @@ export const Tile = memo(
                         </HtmlTitleTag>
 
                         {desc !== undefined && (
-                            <p className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</p>
+                            <div className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</div>
                         )}
                         {detail !== undefined && (
-                            <p className={cx(fr.cx("fr-tile__detail"), classes.detail)}>{detail}</p>
+                            <div className={cx(fr.cx("fr-tile__detail"), classes.detail)}>
+                                {detail}
+                            </div>
                         )}
                         {start !== undefined && (
                             <div className={cx(fr.cx("fr-tile__start"), classes.start)}>
