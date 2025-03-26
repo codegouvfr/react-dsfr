@@ -5,16 +5,20 @@ import type { ReactNode } from "react";
 import { isBrowser } from "../tools/isBrowser";
 import { SsrIsDarkProvider } from "../useIsDark/server";
 import { dsfrEffect } from "./zz_internal/start";
-import { getDefaultColorSchemeClientSide } from "./zz_internal/defaultColorScheme";
+import type { DefaultColorScheme } from "./zz_internal/defaultColorScheme";
 import { setUseLang } from "../i18n";
+import { setLink } from "../link";
 
 export type DsfrProviderProps = {
     children: ReactNode;
     lang?: string;
+    /** Default: <a /> */
+    Link?: Function;
+    defaultColorScheme: DefaultColorScheme;
 };
 
 export function DsfrProvider(props: DsfrProviderProps) {
-    const { children, lang } = props;
+    const { children, lang, Link, defaultColorScheme } = props;
 
     useEffect(() => {
         dsfrEffect();
@@ -28,11 +32,15 @@ export function DsfrProvider(props: DsfrProviderProps) {
         setUseLang({ "useLang": () => lang });
     }, [lang]);
 
+    useMemo(() => {
+        if (Link !== undefined) {
+            setLink({ "Link": Link as any });
+        }
+    }, [Link]);
+
     if (isBrowser) {
         return <>{children}</>;
     }
-
-    const defaultColorScheme = getDefaultColorSchemeClientSide();
 
     const isDark = defaultColorScheme === "dark" ? true : false;
 
