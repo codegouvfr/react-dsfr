@@ -1,6 +1,5 @@
 import { start } from "../../start";
-import { setLink } from "../../link";
-import { type DefaultColorScheme, setDefaultColorSchemeClientSide } from "./defaultColorScheme";
+import type { DefaultColorScheme } from "./defaultColorScheme";
 import { isBrowser } from "../../tools/isBrowser";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
 import { type DsfrHead } from "../DsfrHead";
@@ -12,8 +11,6 @@ export function startReactDsfr(params: {
     defaultColorScheme: DefaultColorScheme;
     /** Default: false */
     verbose?: boolean;
-    /** Default: <a /> */
-    Link?: Function;
     /**
      * When true, the nonce of the script tag will be checked, fetched from {@link DsfrHead} component and injected in react-dsfr scripts.
      *
@@ -42,38 +39,33 @@ export function startReactDsfr(params: {
      */
     trustedTypesPolicyName?: string;
 }) {
+    if (!isBrowser) {
+        return;
+    }
+
     const {
         defaultColorScheme,
         verbose = false,
-        Link,
         doCheckNonce = false,
         trustedTypesPolicyName = "react-dsfr"
     } = params;
 
-    setDefaultColorSchemeClientSide({ defaultColorScheme });
-
-    if (Link !== undefined) {
-        setLink({ "Link": Link as any });
-    }
-
-    if (isBrowser) {
-        start({
-            defaultColorScheme,
-            verbose,
-            doCheckNonce,
-            trustedTypesPolicyName,
-            "nextParams": {
-                "doPersistDarkModePreferenceWithCookie": false,
-                "registerEffectAction": action => {
-                    if (isAfterFirstEffect) {
-                        action();
-                    } else {
-                        actions.push(action);
-                    }
+    start({
+        defaultColorScheme,
+        verbose,
+        doCheckNonce,
+        trustedTypesPolicyName,
+        "nextParams": {
+            "doPersistDarkModePreferenceWithCookie": false,
+            "registerEffectAction": action => {
+                if (isAfterFirstEffect) {
+                    action();
+                } else {
+                    actions.push(action);
                 }
             }
-        });
-    }
+        }
+    });
 }
 
 export function dsfrEffect(): void {

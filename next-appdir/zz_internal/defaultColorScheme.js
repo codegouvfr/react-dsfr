@@ -8,13 +8,4 @@ export function setDefaultColorSchemeServerSide(params) {
     const { defaultColorScheme } = params;
     defaultColorSchemeServerSide = defaultColorScheme;
 }
-let defaultColorSchemeClientSide = undefined;
-export function getDefaultColorSchemeClientSide() {
-    assert(defaultColorSchemeClientSide !== undefined);
-    return defaultColorSchemeClientSide;
-}
-export function setDefaultColorSchemeClientSide(params) {
-    const { defaultColorScheme } = params;
-    defaultColorSchemeClientSide = defaultColorScheme;
-}
 //# sourceMappingURL=defaultColorScheme.js.map

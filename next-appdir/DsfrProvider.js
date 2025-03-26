@@ -3,10 +3,10 @@ import React, { useMemo, useEffect } from "react";
 import { isBrowser } from "../tools/isBrowser";
 import { SsrIsDarkProvider } from "../useIsDark/server";
 import { dsfrEffect } from "./zz_internal/start";
-import { getDefaultColorSchemeClientSide } from "./zz_internal/defaultColorScheme";
 import { setUseLang } from "../i18n";
+import { setLink } from "../link";
 export function DsfrProvider(props) {
-    const { children, lang } = props;
+    const { children, lang, Link, defaultColorScheme } = props;
     useEffect(() => {
         dsfrEffect();
     }, []);
@@ -16,10 +16,14 @@ export function DsfrProvider(props) {
         }
         setUseLang({ "useLang": () => lang });
     }, [lang]);
+    useMemo(() => {
+        if (Link !== undefined) {
+            setLink({ "Link": Link });
+        }
+    }, [Link]);
     if (isBrowser) {
         return React.createElement(React.Fragment, null, children);
     }
-    const defaultColorScheme = getDefaultColorSchemeClientSide();
     const isDark = defaultColorScheme === "dark" ? true : false;
     return React.createElement(SsrIsDarkProvider, { value: isDark }, children);
 }
