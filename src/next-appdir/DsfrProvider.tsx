@@ -11,9 +11,8 @@ import { setLink } from "../link";
 
 export type DsfrProviderProps = {
     children: ReactNode;
-    lang?: string;
-    /** Default: <a /> */
-    Link?: Function;
+    lang: string | undefined;
+    Link: Function;
     defaultColorScheme: DefaultColorScheme;
 };
 
@@ -33,9 +32,7 @@ export function DsfrProvider(props: DsfrProviderProps) {
     }, [lang]);
 
     useMemo(() => {
-        if (Link !== undefined) {
-            setLink({ "Link": Link as any });
-        }
+        setLink({ "Link": Link as any });
     }, [Link]);
 
     if (isBrowser) {
