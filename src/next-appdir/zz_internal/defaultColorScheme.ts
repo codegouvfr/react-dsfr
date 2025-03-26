@@ -18,18 +18,3 @@ export function setDefaultColorSchemeServerSide(params: {
 
     defaultColorSchemeServerSide = defaultColorScheme;
 }
-
-let defaultColorSchemeClientSide: DefaultColorScheme | undefined = undefined;
-
-export function getDefaultColorSchemeClientSide(): DefaultColorScheme {
-    assert(defaultColorSchemeClientSide !== undefined);
-    return defaultColorSchemeClientSide;
-}
-
-export function setDefaultColorSchemeClientSide(params: {
-    defaultColorScheme: DefaultColorScheme;
-}): void {
-    const { defaultColorScheme } = params;
-
-    defaultColorSchemeClientSide = defaultColorScheme;
-}
