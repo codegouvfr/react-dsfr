@@ -17,9 +17,7 @@ export function DsfrProvider(props) {
         setUseLang({ "useLang": () => lang });
     }, [lang]);
     useMemo(() => {
-        if (Link !== undefined) {
-            setLink({ "Link": Link });
-        }
+        setLink({ "Link": Link });
     }, [Link]);
     if (isBrowser) {
         return React.createElement(React.Fragment, null, children);

@@ -19,9 +19,7 @@ export function DsfrHead(props) {
     assert(nonce !== "", "nonce cannot be an empty string");
     const defaultColorScheme = getDefaultColorSchemeServerSide();
     useMemo(() => {
-        if (Link !== undefined) {
-            setLink({ "Link": Link });
-        }
+        setLink({ "Link": Link });
     }, [Link]);
     return (React.createElement(React.Fragment, null,
         isProduction &&

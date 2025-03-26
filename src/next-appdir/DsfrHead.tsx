@@ -21,8 +21,7 @@ export type DsfrHeadProps = {
      * Preloading of fonts is only enabled in production.
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-    /** Default: <a /> */
-    Link?: Function;
+    Link: Function;
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
@@ -67,9 +66,7 @@ export function DsfrHead(props: DsfrHeadProps) {
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
     useMemo(() => {
-        if (Link !== undefined) {
-            setLink({ "Link": Link as any });
-        }
+        setLink({ "Link": Link as any });
     }, [Link]);
 
     return (

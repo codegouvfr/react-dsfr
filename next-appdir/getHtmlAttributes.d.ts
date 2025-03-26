@@ -3,7 +3,7 @@ import type { ColorScheme } from "../useIsDark";
 import { type DefaultColorScheme } from "./zz_internal/defaultColorScheme";
 export declare function getHtmlAttributes(params: {
     defaultColorScheme: DefaultColorScheme;
-    lang?: string;
+    lang: string | undefined;
 }): {
     suppressHydrationWarning: true;
     lang?: string;

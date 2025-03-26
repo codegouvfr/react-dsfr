@@ -10,7 +10,7 @@ const suppressHydrationWarning = true;
 
 export function getHtmlAttributes(params: {
     defaultColorScheme: DefaultColorScheme;
-    lang?: string;
+    lang: string | undefined;
 }): { suppressHydrationWarning: true; lang?: string } & (
     | Record<typeof data_fr_scheme | typeof data_fr_theme, ColorScheme>
     | {}
