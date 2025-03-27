@@ -129,8 +129,6 @@ function dsfrEffect(): void {
 
 export function StartDsfrOnHydration() {
     useEffect(() => {
-        console.log("wesh hydratation!");
-
         dsfrEffect();
     }, []);
 
