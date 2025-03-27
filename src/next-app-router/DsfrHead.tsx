@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from "react";
 import { objectKeys } from "tsafe/objectKeys";
 import { getAssetUrl } from "../tools/getAssetUrl";
-import AppleTouchIcon from "../dsfr/favicon/apple-touch-icon.png";
-import FaviconSvg from "../dsfr/favicon/favicon.svg";
-import FaviconIco from "../dsfr/favicon/favicon.ico";
+import AppleTouchIcon from "@codegouvfr/react-dsfr/dsfr/favicon/apple-touch-icon.png";
+import FaviconSvg from "@codegouvfr/react-dsfr/dsfr/favicon/favicon.svg";
+import FaviconIco from "@codegouvfr/react-dsfr/dsfr/favicon/favicon.ico";
 import { getScriptToRunAsap } from "../useIsDark/scriptToRunAsap";
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import { getDefaultColorSchemeServerSide } from "./zz_internal/defaultColorScheme";
@@ -12,16 +13,14 @@ import { assert } from "tsafe/assert";
 //NOTE: As of now there is no way to enforce ordering in Next Appdir
 //See: https://github.com/vercel/next.js/issues/16630
 // @import url(...) doesn't work. Using Sass and @use is our last resort.
-import "../assets/dsfr_plus_icons.scss";
+import "@codegouvfr/react-dsfr/assets/dsfr_plus_icons.scss";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in doc
-import type { startReactDsfr } from "./zz_internal/start";
 
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-    Link: Function;
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
@@ -52,7 +51,11 @@ export type DsfrHeadProps = {
 
 const isProduction = process.env.NODE_ENV !== "development";
 
-export function DsfrHead(props: DsfrHeadProps) {
+export function DsfrHeadBase(
+    props: DsfrHeadProps & {
+        Link: Function;
+    }
+) {
     const {
         preloadFonts = [],
         Link,
@@ -66,7 +69,7 @@ export function DsfrHead(props: DsfrHeadProps) {
     const defaultColorScheme = getDefaultColorSchemeServerSide();
 
     useMemo(() => {
-        setLink({ "Link": Link as any });
+        setLink({ Link: Link as any });
     }, [Link]);
 
     return (
@@ -97,7 +100,7 @@ export function DsfrHead(props: DsfrHeadProps) {
                         suppressHydrationWarning
                         nonce={nonce}
                         dangerouslySetInnerHTML={{
-                            "__html": getScriptToRunAsap({
+                            __html: getScriptToRunAsap({
                                 defaultColorScheme,
                                 nonce,
                                 trustedTypesPolicyName
