@@ -1,11 +1,10 @@
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
-import "../assets/dsfr_plus_icons.scss";
+import "@codegouvfr/react-dsfr/assets/dsfr_plus_icons.scss";
 export type DsfrHeadProps = {
     /** If not provided no fonts are preloaded.
      * Preloading of fonts is only enabled in production.
      */
     preloadFonts?: (keyof typeof fontUrlByFileBasename)[];
-    Link: Function;
     /**
      * When set, the value will be used as the nonce attribute of subsequent script tags.
      *
@@ -32,4 +31,6 @@ export type DsfrHeadProps = {
      */
     doDisableFavicon?: boolean;
 };
-export declare function DsfrHead(props: DsfrHeadProps): JSX.Element;
+export declare function DsfrHeadBase(props: DsfrHeadProps & {
+    Link: Function;
+}): JSX.Element;

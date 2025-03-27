@@ -2,7 +2,7 @@ import type { NextComponentType } from "next";
 import type { DocumentProps } from "next/document";
 import { data_fr_scheme, data_fr_theme } from "./useIsDark/constants";
 import type { ColorScheme } from "./useIsDark";
-import { fontUrlByFileBasename } from "./next-appdir/zz_internal/fontUrlByFileBasename";
+import { fontUrlByFileBasename } from "./next-app-router/zz_internal/fontUrlByFileBasename";
 import type { RegisterLink, RegisteredLinkProps } from "./link";
 import "./assets/dsfr_plus_icons.css";
 export type { RegisterLink, RegisteredLinkProps };

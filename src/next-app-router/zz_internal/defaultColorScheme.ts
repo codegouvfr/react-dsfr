@@ -1,5 +1,4 @@
 import { assert } from "tsafe/assert";
-
 import type { ColorScheme } from "../../useIsDark";
 
 export type DefaultColorScheme = ColorScheme | "system";

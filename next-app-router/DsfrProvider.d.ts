@@ -1,6 +1,8 @@
-import type { DefaultColorScheme } from "./defaultColorScheme";
-export declare function startReactDsfr(params: {
-    defaultColorScheme: DefaultColorScheme;
+import type { ReactNode } from "react";
+import type { DefaultColorScheme } from "./zz_internal/defaultColorScheme";
+export type DsfrProviderProps = {
+    children: ReactNode;
+    lang: string | undefined;
     /** Default: false */
     verbose?: boolean;
     /**
@@ -30,5 +32,9 @@ export declare function startReactDsfr(params: {
      * @default "react-dsfr"
      */
     trustedTypesPolicyName?: string;
-}): void;
-export declare function dsfrEffect(): void;
+};
+export declare function DsfrProviderBase(props: DsfrProviderProps & {
+    Link: Function;
+    defaultColorScheme: DefaultColorScheme;
+}): JSX.Element;
+export declare function StartDsfrOnHydration(): null;
