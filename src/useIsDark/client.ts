@@ -1,3 +1,4 @@
+import { useEffect, useReducer } from "react";
 import { assert, type Equals } from "tsafe/assert";
 import { isAmong } from "tsafe/isAmong";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
@@ -44,6 +45,12 @@ function getSystemColorScheme() {
 }
 
 export const useIsDarkClientSide: UseIsDark = () => {
+    const [, reRender] = useReducer(() => [], []);
+
+    useEffect(() => {
+        reRender();
+    }, []);
+
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
