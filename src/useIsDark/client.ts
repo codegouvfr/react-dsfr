@@ -45,7 +45,7 @@ function getSystemColorScheme() {
 }
 
 export const useIsDarkClientSide: UseIsDark = () => {
-    const [, reRender] = useReducer(() => [], []);
+    const [isFirstRenderingOfTheComponent, reRender] = useReducer(() => false, true);
 
     useEffect(() => {
         reRender();
@@ -54,9 +54,10 @@ export const useIsDarkClientSide: UseIsDark = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
-    const isDark = $isAfterFirstEffect.current
-        ? $clientSideIsDark.current
-        : ssrWasPerformedWithIsDark;
+    const isDark =
+        isFirstRenderingOfTheComponent || !$isAfterFirstEffect.current
+            ? ssrWasPerformedWithIsDark
+            : $clientSideIsDark.current;
 
     const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
         newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
