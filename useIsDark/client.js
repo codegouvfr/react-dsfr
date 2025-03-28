@@ -28,15 +28,15 @@ function getSystemColorScheme() {
         : "light";
 }
 export const useIsDarkClientSide = () => {
-    const [, reRender] = useReducer(() => [], []);
+    const [isFirstRenderingOfTheComponent, reRender] = useReducer(() => false, true);
     useEffect(() => {
         reRender();
     }, []);
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
-    const isDark = $isAfterFirstEffect.current
-        ? $clientSideIsDark.current
-        : ssrWasPerformedWithIsDark;
+    const isDark = isFirstRenderingOfTheComponent || !$isAfterFirstEffect.current
+        ? ssrWasPerformedWithIsDark
+        : $clientSideIsDark.current;
     const setIsDark = useConstCallback(newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
         const data_fr_js_value = document.documentElement.getAttribute("data-fr-js");
         const newColorScheme = (() => {
