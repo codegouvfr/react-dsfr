@@ -1,2 +1,4 @@
-@use '../dsfr/utility/icons/icons.min.css';
-@use '../dsfr/dsfr.min.css';
+@layer dsfr {
+  @use '../dsfr/utility/icons/icons.min.css';
+  @use '../dsfr/dsfr.min.css';
+}
