@@ -106,6 +106,48 @@ export const Fieldset = memo(
             return name_props ?? `radio-name-${id}`;
         })();
 
+        const renderOption = (params: {
+            option: FieldsetProps.Radio["options"][number];
+            i: number | undefined;
+        }) => {
+            const { option, i } = params;
+            const { label, hintText, nativeInputProps, ...rest } = option;
+
+            const isRoot = i === undefined;
+
+            const inputId = getInputId(i ?? 0);
+
+            return (
+                <div
+                    className={cx(
+                        fr.cx(
+                            `fr-${type}-group`,
+                            isRichRadio && "fr-radio-rich",
+                            small && `fr-${type}-group--sm`
+                        ),
+                        isRoot ? className : undefined,
+                        classes.inputGroup
+                    )}
+                    key={i}
+                >
+                    <input type={type} id={inputId} name={radioName} {...nativeInputProps} />
+                    <label className={fr.cx("fr-label")} htmlFor={inputId}>
+                        {label}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
+                    </label>
+                    {"illustration" in rest && (
+                        <div className={fr.cx("fr-radio-rich__img")}>{rest.illustration}</div>
+                    )}
+                </div>
+            );
+        };
+
+        if (legend === undefined && stateRelatedMessage === undefined && options.length === 1) {
+            return renderOption({ option: options[0], i: undefined });
+        }
+
         return (
             <fieldset
                 id={id}
@@ -150,37 +192,7 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps, ...rest }, i) => (
-                        <div
-                            className={cx(
-                                fr.cx(
-                                    `fr-${type}-group`,
-                                    isRichRadio && "fr-radio-rich",
-                                    small && `fr-${type}-group--sm`
-                                ),
-                                classes.inputGroup
-                            )}
-                            key={i}
-                        >
-                            <input
-                                type={type}
-                                id={getInputId(i)}
-                                name={radioName}
-                                {...nativeInputProps}
-                            />
-                            <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
-                                {label}
-                                {hintText !== undefined && (
-                                    <span className={fr.cx("fr-hint-text")}>{hintText}</span>
-                                )}
-                            </label>
-                            {"illustration" in rest && (
-                                <div className={fr.cx("fr-radio-rich__img")}>
-                                    {rest.illustration}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                    {options.map((option, i) => renderOption({ option, i }))}
                 </div>
                 <div
                     className={fr.cx("fr-messages-group")}
