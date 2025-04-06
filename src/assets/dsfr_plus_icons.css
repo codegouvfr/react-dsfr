@@ -1,3 +1,3 @@
 
-@import url('../dsfr/utility/icons/icons.min.css');
-@import url('../dsfr/dsfr.min.css');
+@import url('../dsfr/utility/icons/icons.min.css') layer(dsfr);
+@import url('../dsfr/dsfr.min.css') layer(dsfr);
