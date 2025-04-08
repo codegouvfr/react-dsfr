@@ -33,58 +33,35 @@ description:
     documentation: 'https://react-dsfr.codegouv.studio/'
     shortDescription: French State Design System React integration
     longDescription: |
-      This module is a wrapper/compatibility layer for
-      [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS
+      This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS
       implementation of the DSFR.  
 
        > For TypeScript and JavaScript projects.
 
       - Fully TypeSafe, well documented API.
 
-      - Always in up to date with latest the DSFR evolutions. Code and Types
-      generated from
-      [`@gouvfr/dsfr`](https://www.npmjs.com/package/@gouvfr/dsfr)`/dist/dsfr.css`.
+      - Always in up to date with latest the DSFR evolutions. Code and Types generated from [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 
-      - Exactly the same look and feel than with
-      [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
+      - Exactly the same look and feel than with [@gouvfr/dsfr](https://www.npmjs.com/package/@gouvfr/dsfr).
 
-      - No [white flash when reloading in SSR
-      setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
+      - No [white flash when reloading in SSR setup](https://github.com/codegouvfr/@codegouvfr/react-dsfr/issues/2#issuecomment-1257263480).
 
-      - Most components are server component ready. The others are labeled with
-      `"use client";`
+      - Most components are server component ready. The others are labeled with `"use client";`
 
-      - [Perfect integration with all major React framework: Next.js (PagesDir
-      and AppDir), Create React App, Vue](https://react-dsfr.codegouv.studio/).
+      - Perfect integration with all major React framework: Next.js (PagesDir and AppDir), Create React App, Vue.
 
-      - All [the
-      components](https://www.systeme-de-design.gouv.fr/elements-d-interface)
-      are implemented (14/42, [see
-      details](https://github.com/codegouvfr/react-dsfr/blob/main/COMPONENTS.md))
+      - All [the components](https://www.systeme-de-design.gouv.fr/elements-d-interface) are implemented.
 
       - Three shakable distribution, cherry pick the components you import.
-      (It's not all in a big .js bundle)
 
-      - Optional integration with [MUI](https://mui.com/). If you use MUI
-      components they will be automatically adapted to look like [DSFR
-      components](https://www.systeme-de-design.gouv.fr/elements-d-interface).
-      See [documentation](https://react-dsfr.codegouv.studio/mui-integration).
+      - Optional integration with [MUI](https://mui.com/). If you use MUI components they will be automatically adapted to look like [DSFR components](https://www.systeme-de-design.gouv.fr/elements-d-interface). See [documentation](https://react-dsfr.codegouv.studio/mui-integration).
 
-      - Enable CSS in JS by providing a `useTheme()` hooks that exposes the
-      correct colors options and decision for the currently enabled color
-      scheme.
+      - Enable CSS in JS by providing a `useTheme()` hooks that exposes the correct colors options and decision for the currently enabled color scheme.
 
-      - Opt-in i18n, built in text can be displayed in multiple languages and
-      user can provide extra translations.
+      - Opt-in i18n, built in text can be displayed in multiple languages and user can provide extra translations.
 
-      - [Support routing libraries](https://react-dsfr.codegouv.studio/routing)
-      like react-router.
+      - [Support routing libraries](https://react-dsfr.codegouv.studio/routing) like react-router.
 
-
-      This module is a product of [Etalab's Free and open source software
-      pole](https://code.gouv.fr/en/mission/). I'm working full time
-      on this project. You can expect rapid development.
-      ​
     screenshots:
       - |-
         https://user-images.githubusercontent.com/6702424/210700050-b5e273b6-067d-4864-a27a-3433e2b316a7.jpeg
