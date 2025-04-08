@@ -166,6 +166,18 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
+.ri-arrow-down-s-fill::before,
+.ri-arrow-down-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+}
+
+.ri-arrow-up-s-fill::before,
+.ri-arrow-up-s-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+}
+
 .ri-palette-line::before,
 .ri-palette-line::after {
     -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
@@ -182,18 +194,6 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
-}
-
-.ri-arrow-down-s-fill::before,
-.ri-arrow-down-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-}
-
-.ri-arrow-up-s-fill::before,
-.ri-arrow-up-s-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
-    mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -337,6 +337,16 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
+    .ri-arrow-down-s-fill::before,
+    .ri-arrow-down-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
+    }
+    
+    .ri-arrow-up-s-fill::before,
+    .ri-arrow-up-s-fill::after {
+        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    }
+    
     .ri-palette-line::before,
     .ri-palette-line::after {
         background-image: url("../../icons/remixicon/palette-line.svg");
@@ -350,16 +360,6 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
-    }
-    
-    .ri-arrow-down-s-fill::before,
-    .ri-arrow-down-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-down-s-fill.svg");
-    }
-    
-    .ri-arrow-up-s-fill::before,
-    .ri-arrow-up-s-fill::after {
-        background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
     }
     
 }
