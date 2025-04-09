@@ -34,11 +34,10 @@ export const Select = memo(forwardRef((props, ref) => {
         return `select-${id}`;
     })();
     const messagesGroupId = `${selectId}-messages-group`;
-    const selectStateDescriptionId = useId();
-    const stateIsDefault = state === "default";
-    const stateDescriptionId = getStateDescriptionId(stateIsDefault, selectStateDescriptionId);
-    const nativeDescription = getSelectNativeDescription(nativeSelectProps["aria-describedby"]);
-    const selectAriaDescribedBy = `${stateDescriptionId} ${nativeDescription}`.trim();
+    const stateDescriptionId = (function useClosure() {
+        const id = useId();
+        return state === "default" ? undefined : `select-${id}-desc`;
+    })();
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-select-group", disabled && "fr-select-group--disabled", (() => {
             switch (state) {
                 case "error":
@@ -54,8 +53,8 @@ export const Select = memo(forwardRef((props, ref) => {
         Boolean(label || hint) && (React.createElement("label", { className: fr.cx("fr-label"), htmlFor: selectId },
             label,
             hint !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hint)))),
-        React.createElement("select", Object.assign({}, nativeSelectProps, { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": selectAriaDescribedBy, disabled: disabled }), children),
-        React.createElement("div", { id: messagesGroupId, className: fr.cx("fr-messages-group"), "aria-live": "polite" }, !stateIsDefault && (React.createElement("p", { id: stateDescriptionId, className: fr.cx((() => {
+        React.createElement("select", Object.assign({}, nativeSelectProps, { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": cx(stateDescriptionId, nativeSelectProps["aria-describedby"]), disabled: disabled }), children),
+        React.createElement("div", { id: messagesGroupId, className: fr.cx("fr-messages-group"), "aria-live": "polite" }, state !== "default" && (React.createElement("p", { id: stateDescriptionId, className: fr.cx((() => {
                 switch (state) {
                     case "error":
                         return "fr-error-text";
@@ -67,12 +66,6 @@ export const Select = memo(forwardRef((props, ref) => {
                 assert(false);
             })()) }, stateRelatedMessage)))));
 }));
-function getStateDescriptionId(stateIsDefault, selectStateDescriptionId) {
-    return stateIsDefault ? "" : `select-${selectStateDescriptionId}-desc`;
-}
-function getSelectNativeDescription(nativeSelectPropsAriaDescribedBy) {
-    return nativeSelectPropsAriaDescribedBy !== undefined ? nativeSelectPropsAriaDescribedBy : "";
-}
 Select.displayName = symToStr({ Select });
 export default Select;
 //# sourceMappingURL=Select.js.map
