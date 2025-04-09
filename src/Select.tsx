@@ -63,8 +63,15 @@ export const Select = memo(
             return `select-${id}`;
         })();
 
-        const stateDescriptionId = `select-${useId()}-desc`;
         const messagesGroupId = `${selectId}-messages-group`;
+
+        const selectStateDescriptionId = useId();
+        const stateIsDefault = state === "default";
+
+        const stateDescriptionId = getStateDescriptionId(stateIsDefault, selectStateDescriptionId);
+        const nativeDescription = getSelectNativeDescription(nativeSelectProps["aria-describedby"]);
+
+        const selectAriaDescribedBy = `${stateDescriptionId} ${nativeDescription}`.trim();
 
         return (
             <div
@@ -104,17 +111,13 @@ export const Select = memo(
                     {...nativeSelectProps}
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}
-                    aria-describedby={
-                        nativeSelectProps["aria-describedby"] !== undefined
-                            ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
-                            : stateDescriptionId
-                    }
+                    aria-describedby={selectAriaDescribedBy}
                     disabled={disabled}
                 >
                     {children}
                 </select>
                 <div id={messagesGroupId} className={fr.cx("fr-messages-group")} aria-live="polite">
-                    {state !== "default" && (
+                    {!stateIsDefault && (
                         <p
                             id={stateDescriptionId}
                             className={fr.cx(
@@ -139,6 +142,16 @@ export const Select = memo(
         );
     })
 );
+
+function getStateDescriptionId(stateIsDefault: boolean, selectStateDescriptionId: string) {
+    return stateIsDefault ? "" : `select-${selectStateDescriptionId}-desc`;
+}
+
+function getSelectNativeDescription(
+    nativeSelectPropsAriaDescribedBy: React.SelectHTMLAttributes<HTMLSelectElement>["aria-describedby"]
+) {
+    return nativeSelectPropsAriaDescribedBy !== undefined ? nativeSelectPropsAriaDescribedBy : "";
+}
 
 Select.displayName = symToStr({ Select });
 
