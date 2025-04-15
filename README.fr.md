@@ -6,7 +6,7 @@
     <br>
     <br>
     <a href="https://github.com/codegouvfr/react-dsfr/actions">
-      <img src="https://github.com/codegouvfr/react-dsfr/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/codegouvfr/react-dsfr/actions/workflows/ci.yaml/badge.svg">
     </a>
     <a href="https://www.npmjs.com/package/@codegouvfr/react-dsfr">
       <img src="https://img.shields.io/npm/v/@codegouvfr/react-dsfr?logo=npm">
