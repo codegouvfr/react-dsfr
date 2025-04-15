@@ -61,9 +61,11 @@ function NonMemoizedNonForwardedSelect(props, ref) {
                         return selectedOption.value;
                     })()
             };
-        })(), { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": nativeSelectProps["aria-describedby"] !== undefined
+        })(), { className: cx(fr.cx("fr-select"), nativeSelectProps.className), id: selectId, "aria-describedby": state !== "default" && nativeSelectProps["aria-describedby"] !== undefined
                 ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
-                : stateDescriptionId, disabled: disabled }), [
+                : state !== "default"
+                    ? stateDescriptionId
+                    : undefined, disabled: disabled }), [
             options.find(option => option.value === "") !== undefined
                 ? undefined
                 : {

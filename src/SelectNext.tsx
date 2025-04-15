@@ -174,9 +174,11 @@ function NonMemoizedNonForwardedSelect<T extends SelectProps.Option[]>(
                 className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                 id={selectId}
                 aria-describedby={
-                    nativeSelectProps["aria-describedby"] !== undefined
+                    state !== "default" && nativeSelectProps["aria-describedby"] !== undefined
                         ? `${stateDescriptionId} ${nativeSelectProps["aria-describedby"]}`
-                        : stateDescriptionId
+                        : state !== "default"
+                        ? stateDescriptionId
+                        : undefined
                 }
                 disabled={disabled}
             >
