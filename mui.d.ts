@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
-import { type BreakpointsValues } from "./useBreakpointsValues";
+import { type BreakpointsValues } from "./useBreakpointsValuesPx";
 export declare function getMuiDsfrThemeOptions(params: {
     isDark: boolean;
     breakpointsValues: BreakpointsValues;

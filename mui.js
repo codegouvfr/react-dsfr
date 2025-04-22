@@ -9,7 +9,7 @@ import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
-import { useBreakpointsValues } from "./useBreakpointsValues";
+import { useBreakpointsValuesPx } from "./useBreakpointsValuesPx";
 export function getMuiDsfrThemeOptions(params) {
     const { isDark, breakpointsValues } = params;
     const { options, decisions } = fr.colors.getHex({ isDark });
@@ -281,7 +281,7 @@ export function createMuiDsfrThemeProvider(params) {
     function MuiDsfrThemeProvider(props) {
         const { children } = props;
         const { isDark } = useIsDark_props();
-        const { breakpointsValues } = useBreakpointsValues();
+        const { breakpointsValues } = useBreakpointsValuesPx();
         const theme = useMemo(() => {
             const nonAugmentedMuiTheme = createMuiDsfrTheme({ isDark, breakpointsValues });
             return augmentMuiTheme === undefined
@@ -290,7 +290,7 @@ export function createMuiDsfrThemeProvider(params) {
                     nonAugmentedMuiTheme,
                     isDark
                 });
-        }, [isDark]);
+        }, [isDark, breakpointsValues]);
         return React.createElement(MuiThemeProvider, { theme: theme }, children);
     }
     return { MuiDsfrThemeProvider };
