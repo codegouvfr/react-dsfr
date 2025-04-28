@@ -74,6 +74,10 @@ export type FooterProps = {
     >;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
+    /**
+     * Display a title above the link list, needs linkList to be provided
+     */
+    linkListTitle?: ReactNode;
     domains?: string[];
 };
 
@@ -167,6 +171,7 @@ export const Footer = memo(
             homeLinkProps: homeLinkProps_prop,
             style,
             linkList,
+            linkListTitle,
             domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"],
             ...rest
         } = props;
@@ -213,6 +218,7 @@ export const Footer = memo(
                 {linkList !== undefined && (
                     <div className={fr.cx("fr-footer__top")}>
                         <div className={fr.cx("fr-container")}>
+                            {linkListTitle}
                             <div
                                 className={fr.cx(
                                     "fr-grid-row",

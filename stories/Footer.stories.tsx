@@ -246,5 +246,6 @@ export const WithLinkList = getStory({
     Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
     à la gestion et au développement de votre entreprise.
     `,
-    linkList
+    linkList,
+    linkListTitle: <h2>Liens utiles</h2>
 });
