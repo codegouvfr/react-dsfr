@@ -21,7 +21,7 @@ import { typeGuard } from "tsafe/typeGuard";
 import { id } from "tsafe/id";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-footer> */
 export const Footer = memo(forwardRef((props, ref) => {
-    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList, domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"] } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList", "domains"]);
+    const { id: id_props, className, classes = {}, contentDescription, websiteMapLinkProps, accessibilityLinkProps, accessibility, termsLinkProps, bottomItems = [], partnersLogos, operatorLogo, license, brandTop: brandTop_prop, homeLinkProps: homeLinkProps_prop, style, linkList, linkListTitle, domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"] } = props, rest = __rest(props, ["id", "className", "classes", "contentDescription", "websiteMapLinkProps", "accessibilityLinkProps", "accessibility", "termsLinkProps", "bottomItems", "partnersLogos", "operatorLogo", "license", "brandTop", "homeLinkProps", "style", "linkList", "linkListTitle", "domains"]);
     assert();
     const rootId = id_props !== null && id_props !== void 0 ? id_props : "fr-footer";
     const { brandTop, homeLinkProps } = (() => {
@@ -43,6 +43,7 @@ export const Footer = memo(forwardRef((props, ref) => {
     return (React.createElement("footer", Object.assign({ id: rootId, className: cx(fr.cx("fr-footer"), classes.root, className), role: "contentinfo", ref: ref, style: style }, rest),
         linkList !== undefined && (React.createElement("div", { className: fr.cx("fr-footer__top") },
             React.createElement("div", { className: fr.cx("fr-container") },
+                linkListTitle,
                 React.createElement("div", { className: fr.cx("fr-grid-row", 
                     // "fr-grid-row--start", // why is this class used in dsfr doc?
                     "fr-grid-row--gutters") }, linkList.map((column, columnIndex) => column !== undefined && (React.createElement("div", { key: `fr-footer__top-cat-${columnIndex}`, className: fr.cx("fr-col-12", "fr-col-sm-3", "fr-col-md-2") },

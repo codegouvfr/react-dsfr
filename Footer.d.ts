@@ -39,6 +39,10 @@ export type FooterProps = {
     classes?: Partial<Record<"root" | "body" | "brand" | "content" | "contentDesc" | "contentList" | "contentItem" | "contentLink" | "bottom" | "bottomList" | "bottomItem" | "bottomLink" | "bottomCopy" | "brandLink" | "logo" | "operatorLogo" | "partners" | "partnersTitle" | "partnersLogos" | "partnersMain" | "partnersLink" | "partnersSub", string>>;
     style?: CSSProperties;
     linkList?: FooterProps.LinkList.List;
+    /**
+     * Display a title above the link list, needs linkList to be provided
+     */
+    linkListTitle?: ReactNode;
     domains?: string[];
 };
 export declare namespace FooterProps {
