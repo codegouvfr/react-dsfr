@@ -79,7 +79,7 @@ export const CallOut = memo(
                         {title}
                     </HtmlTitleTag>
                 )}
-                <p className={cx(fr.cx("fr-callout__text"), classes.text)}> {children} </p>
+                <div className={cx(fr.cx("fr-callout__text"), classes.text)}> {children} </div>
                 {buttonProps !== undefined && (
                     <Button
                         {...buttonProps}
