@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useMemo } from "react";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import React, { useMemo, useEffect, createContext, useContext } from "react";
+import * as mui from "@mui/material/styles";
 import { fr } from "./fr";
 import { useIsDark } from "./useIsDark";
 import { typography } from "./fr/generatedFromCss/typography";
@@ -10,6 +10,12 @@ import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
 import { useBreakpointsValuesPx } from "./useBreakpointsValuesPx";
+import { structuredCloneButFunctions } from "./tools/structuredCloneButFunctions";
+import { deepAssign } from "./tools/deepAssign";
+import { Global, css } from "@emotion/react";
+import { getAssetUrl } from "./tools/getAssetUrl";
+import marianneFaviconSvgUrl from "./dsfr/favicon/favicon.svg";
+import blankFaviconSvgUrl from "./assets/blank-favicon.svg";
 export function getMuiDsfrThemeOptions(params) {
     const { isDark, breakpointsValues } = params;
     const { options, decisions } = fr.colors.getHex({ isDark });
@@ -123,7 +129,7 @@ export function getMuiDsfrThemeOptions(params) {
                     })();
         })(),
         "shadows": (() => {
-            const [, , , , , , , , ...rest] = createTheme().shadows;
+            const [, , , , , , , , ...rest] = mui.createTheme().shadows;
             return id([
                 "none",
                 /** ButtonBar shadow */
@@ -273,7 +279,7 @@ export function getMuiDsfrThemeOptions(params) {
  * @returns — A complete, ready-to-use mui theme object.
  */
 export function createMuiDsfrTheme(params, ...args) {
-    const muiTheme = createTheme(getMuiDsfrThemeOptions(params), ...args);
+    const muiTheme = mui.createTheme(getMuiDsfrThemeOptions(params), ...args);
     return muiTheme;
 }
 export function createMuiDsfrThemeProvider(params) {
@@ -291,10 +297,162 @@ export function createMuiDsfrThemeProvider(params) {
                     isDark
                 });
         }, [isDark, breakpointsValues]);
-        return React.createElement(MuiThemeProvider, { theme: theme }, children);
+        return React.createElement(mui.ThemeProvider, { theme: theme }, children);
     }
     return { MuiDsfrThemeProvider };
 }
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
 export default MuiDsfrThemeProvider;
+export function createDsfrCustomBrandingProvider(params) {
+    const { createMuiTheme } = params;
+    function useMuiTheme() {
+        const { isDark } = useIsDark();
+        const { breakpointsValues } = useBreakpointsValuesPx();
+        const { theme, isGov, faviconUrl_userProvided } = useMemo(() => {
+            var _a;
+            const theme_gov = createMuiDsfrTheme({ isDark, breakpointsValues });
+            // @ts-expect-error: Technic to detect if user is using the government theme
+            theme_gov.palette.isGov = true;
+            const { theme, faviconUrl: faviconUrl_userProvided } = createMuiTheme({
+                isDark,
+                theme_gov
+            });
+            let isGov;
+            // @ts-expect-error: We know what we are doing
+            if (theme.palette.isGov) {
+                isGov = true;
+                // @ts-expect-error: We know what we are doing
+                delete theme.palette.isGov;
+            }
+            else {
+                isGov = false;
+            }
+            // NOTE: We do not allow customization of the spacing and breakpoints
+            if (!isGov) {
+                theme.spacing = structuredCloneButFunctions(theme_gov.spacing);
+                theme.breakpoints = structuredCloneButFunctions(theme_gov.breakpoints);
+                (_a = theme.components) !== null && _a !== void 0 ? _a : (theme.components = {});
+                deepAssign({
+                    target: theme.components,
+                    source: structuredCloneButFunctions({
+                        MuiTablePagination: theme_gov.components.MuiTablePagination
+                    })
+                });
+                theme.typography = structuredCloneButFunctions(theme_gov.typography, ({ key, value }) => (key !== "fontFamily" ? value : theme.typography.fontFamily));
+            }
+            return { theme, isGov, faviconUrl_userProvided };
+        }, [isDark, breakpointsValues]);
+        return { theme, isGov, faviconUrl_userProvided };
+    }
+    function useFavicon(params) {
+        const { faviconUrl } = params;
+        useEffect(() => {
+            document
+                .querySelectorAll('link[rel="apple-touch-icon"], link[rel="icon"], link[rel="shortcut icon"]')
+                .forEach(link => link.remove());
+            const link = document.createElement("link");
+            link.rel = "icon";
+            link.href = faviconUrl;
+            link.type = (() => {
+                var _a;
+                if (faviconUrl.startsWith("data:")) {
+                    return faviconUrl.split("data:")[1].split(",")[0];
+                }
+                switch ((_a = faviconUrl.split(".").pop()) === null || _a === void 0 ? void 0 : _a.toLowerCase()) {
+                    case "svg":
+                        return "image/svg+xml";
+                    case "png":
+                        return "image/png";
+                    case "ico":
+                        return "image/x-icon";
+                    default:
+                        throw new Error("Unsupported favicon file type");
+                }
+            })();
+            document.head.appendChild(link);
+            return () => {
+                link.remove();
+            };
+        }, [faviconUrl]);
+    }
+    function DsfrCustomBrandingProvider(props) {
+        const { children } = props;
+        const { theme, isGov, faviconUrl_userProvided } = useMuiTheme();
+        useFavicon({
+            faviconUrl: faviconUrl_userProvided !== null && faviconUrl_userProvided !== void 0 ? faviconUrl_userProvided : getAssetUrl(isGov ? marianneFaviconSvgUrl : blankFaviconSvgUrl)
+        });
+        return (React.createElement(React.Fragment, null,
+            !isGov && (React.createElement(Global, { styles: css({
+                    ":root": {
+                        "--text-active-blue-france": theme.palette.primary.main,
+                        "--background-active-blue-france": theme.palette.primary.main,
+                        "--text-action-high-blue-france": theme.palette.primary.main,
+                        "--border-plain-blue-france": theme.palette.primary.main,
+                        "--border-active-blue-france": theme.palette.primary.main,
+                        "--text-title-grey": theme.palette.text.primary,
+                        "--background-action-high-blue-france": theme.palette.primary.main,
+                        "--border-default-grey": theme.palette.divider,
+                        "--border-action-high-blue-france": theme.palette.primary.main
+                        // options:
+                        /*
+                        "--blue-france-sun-113-625": theme.palette.primary.main,
+                        "--blue-france-sun-113-625-active": theme.palette.primary.light,
+                        "--blue-france-sun-113-625-hover": theme.palette.primary.dark,
+                        "--blue-france-975-sun-113": theme.palette.primary.contrastText,
+
+                        "--blue-france-950-100": theme.palette.secondary.main,
+                        "--blue-france-950-100-active": theme.palette.secondary.light,
+                        "--blue-france-950-100-hover": theme.palette.secondary.dark,
+                        //"--blue-france-sun-113-625": theme.palette.secondary.contrastText,
+
+                        "--grey-50-1000": theme.palette.text.primary,
+                        "--grey-200-850": theme.palette.text.secondary,
+                        "--grey-625-425": theme.palette.text.disabled,
+
+                        "--grey-900-175": theme.palette.divider,
+
+                        //"--grey-200-850": theme.palette.action.active,
+                        "--grey-975-100": theme.palette.action.hover,
+                        "--blue-france-925-125-active": theme.palette.action.selected,
+                        //"--grey-625-425": theme.palette.action.disabled,
+                        "--grey-925-125": theme.palette.action.disabledBackground,
+                        //"--blue-france-sun-113-625-active": theme.palette.action.focus,
+
+                        "--grey-1000-50": theme.palette.background.default,
+                        "--grey-1000-100": theme.palette.background.paper
+                        */
+                    },
+                    body: {
+                        fontFamily: theme.typography.fontFamily,
+                        fontSize: theme.typography.fontSize,
+                        //"lineHeight": theme.typography.lineHeight,
+                        color: theme.palette.text.primary,
+                        backgroundColor: theme.palette.background.default
+                    },
+                    [`.${fr.cx("fr-header__logo")}`]: {
+                        display: "none"
+                    },
+                    [`.${fr.cx("fr-footer__brand")} .${fr.cx("fr-logo")}`]: {
+                        display: "none"
+                    },
+                    [`.${fr.cx("fr-footer__content-list")}`]: {
+                        display: "none"
+                    },
+                    [`.${fr.cx("fr-footer__bottom-copy")}`]: {
+                        display: "none"
+                    }
+                }) })),
+            React.createElement(context_isGov.Provider, { value: isGov },
+                React.createElement(mui.ThemeProvider, { theme: theme }, children))));
+    }
+    return { DsfrCustomBrandingProvider };
+}
+const context_isGov = createContext(undefined);
+export function useIsGov() {
+    const isGov = useContext(context_isGov);
+    if (isGov === undefined) {
+        throw new Error("useIsGov must be used within a MuiThemeProvider");
+    }
+    return { isGov };
+}
 //# sourceMappingURL=mui.js.map

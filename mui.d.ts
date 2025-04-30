@@ -1,10 +1,10 @@
 import { type ReactNode } from "react";
-import type { Theme as MuiTheme, ThemeOptions } from "@mui/material/styles";
+import * as mui from "@mui/material/styles";
 import { type BreakpointsValues } from "./useBreakpointsValuesPx";
 export declare function getMuiDsfrThemeOptions(params: {
     isDark: boolean;
     breakpointsValues: BreakpointsValues;
-}): ThemeOptions;
+}): mui.ThemeOptions;
 /**
  *Generate a theme base on the options received.
  *
@@ -17,7 +17,7 @@ export declare function getMuiDsfrThemeOptions(params: {
 export declare function createMuiDsfrTheme(params: {
     isDark: boolean;
     breakpointsValues: BreakpointsValues;
-}, ...args: object[]): MuiTheme;
+}, ...args: object[]): mui.Theme;
 export declare function createMuiDsfrThemeProvider(params: {
     useIsDark?: () => {
         isDark: boolean;
@@ -27,9 +27,9 @@ export declare function createMuiDsfrThemeProvider(params: {
          * It's a Theme as defined in import type { Theme } from "@mui/material/styles";
          * That is to say before augmentation.
          **/
-        nonAugmentedMuiTheme: MuiTheme;
+        nonAugmentedMuiTheme: mui.Theme;
         isDark: boolean;
-    }) => MuiTheme;
+    }) => mui.Theme;
 }): {
     MuiDsfrThemeProvider: (props: {
         children: ReactNode;
@@ -39,3 +39,25 @@ export declare const MuiDsfrThemeProvider: (props: {
     children: ReactNode;
 }) => JSX.Element;
 export default MuiDsfrThemeProvider;
+export declare function createDsfrCustomBrandingProvider(params: {
+    createMuiTheme: (params: {
+        isDark: boolean;
+        /**
+         * WARNING: The types can be lying here if you have augmented the theme.
+         * It's a Theme as defined in `import type { Theme } from "@mui/material/styles";`
+         * That is to say before augmentation.
+         * Make sure to set your custom properties if any are declared at the type level.
+         **/
+        theme_gov: mui.Theme;
+    }) => {
+        theme: mui.Theme;
+        faviconUrl?: string;
+    };
+}): {
+    DsfrCustomBrandingProvider: (props: {
+        children: ReactNode;
+    }) => JSX.Element;
+};
+export declare function useIsGov(): {
+    isGov: boolean;
+};
