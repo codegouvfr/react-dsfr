@@ -16,7 +16,7 @@ import { structuredCloneButFunctions } from "./tools/structuredCloneButFunctions
 import { deepAssign } from "./tools/deepAssign";
 import { Global, css } from "@emotion/react";
 import { getAssetUrl } from "./tools/getAssetUrl";
-import marianneFaviconSvgUrl from "@codegouvfr/react-dsfr/favicon/favicon.svg";
+import marianneFaviconSvgUrl from "./dsfr/favicon/favicon.svg";
 import blankFaviconSvgUrl from "./assets/blank-favicon.svg";
 
 export function getMuiDsfrThemeOptions(params: {
