@@ -564,7 +564,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
                 <a
                     href={p.licenseUrl}
                     target="_blank"
-                    title="licence etalab-2.0 - ouvre une nouvelle fenêtre"
+                    title="licence etalab-2.0 - nouvelle fenêtre"
                     id="footer-etalab-licence-link"
                 >
                     licence etalab-2.0
@@ -572,7 +572,7 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
             </>
         ),
         "our partners": "Nos partenaires",
-        "open new window": "ouvre une nouvelle fenêtre"
+        "open new window": "nouvelle fenêtre"
         /* spell-checker: enable */
     }
 });
