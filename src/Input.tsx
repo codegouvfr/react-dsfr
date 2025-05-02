@@ -53,8 +53,8 @@ export namespace InputProps {
         >;
         /** Props forwarded to the underlying <label /> element */
         nativeLabelProps?: DetailedHTMLProps<
-            LabelHTMLAttributes<HTMLInputElement>,
-            HTMLInputElement
+            LabelHTMLAttributes<HTMLLabelElement>,
+            HTMLLabelElement
         >;
 
         nativeTextAreaProps?: never;

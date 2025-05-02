@@ -1,4 +1,15 @@
-import React, { memo, forwardRef, ReactNode, useState, useEffect, type CSSProperties } from "react";
+import React, {
+    memo,
+    forwardRef,
+    ReactNode,
+    useState,
+    useEffect,
+    type CSSProperties,
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    LabelHTMLAttributes,
+    useId
+} from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -25,6 +36,16 @@ export namespace ToggleSwitchProps {
         classes?: Partial<Record<"root" | "label" | "input" | "hint", string>>;
         style?: CSSProperties;
         name?: string;
+        /** Props forwarded to the underlying <input /> element */
+        nativeInputProps?: DetailedHTMLProps<
+            InputHTMLAttributes<HTMLInputElement>,
+            HTMLInputElement
+        >;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<
+            LabelHTMLAttributes<HTMLLabelElement>,
+            HTMLLabelElement
+        >;
     };
 
     export type Uncontrolled = Common & {
@@ -61,6 +82,8 @@ export const ToggleSwitch = memo(
             inputTitle,
             style,
             name,
+            nativeInputProps,
+            nativeLabelProps,
             ...rest
         } = props;
 
@@ -69,7 +92,11 @@ export const ToggleSwitch = memo(
             "explicitlyProvidedId": id_props
         });
 
-        const inputId = `${id}-input`;
+        const inputId = (function useClosure() {
+            const id = useId();
+
+            return nativeInputProps?.id ?? `input-${id}`;
+        })();
 
         const hintId = `${id}-hint-text`;
 
@@ -93,8 +120,10 @@ export const ToggleSwitch = memo(
             if (props_checked === undefined) {
                 setChecked(checked);
                 onChange?.(checked, e);
+                nativeInputProps?.onChange ? nativeInputProps?.onChange(e) : onChange?.(checked, e);
             } else {
                 onChange(checked, e);
+                nativeInputProps?.onChange ? nativeInputProps?.onChange(e) : onChange(checked, e);
             }
         });
 
@@ -110,6 +139,7 @@ export const ToggleSwitch = memo(
                 style={style}
             >
                 <input
+                    {...nativeInputProps}
                     onChange={onInputChange}
                     type="checkbox"
                     disabled={disabled || undefined}
@@ -121,6 +151,7 @@ export const ToggleSwitch = memo(
                     name={name}
                 />
                 <label
+                    {...nativeLabelProps}
                     className={cx(fr.cx("fr-toggle__label"), classes.label)}
                     htmlFor={inputId}
                     {...(showCheckedHint && {
