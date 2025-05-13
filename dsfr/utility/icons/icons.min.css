@@ -10,16 +10,16 @@
     mask-image: url("../../icons/system/question-line.svg");
 }
 
-.fr-icon-theme-fill::before,
-.fr-icon-theme-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
-    mask-image: url("../../icons/system/fr--theme-fill.svg");
-}
-
 .fr-icon-arrow-go-back-fill::before,
 .fr-icon-arrow-go-back-fill::after {
     -webkit-mask-image: url("../../icons/system/arrow-go-back-fill.svg");
     mask-image: url("../../icons/system/arrow-go-back-fill.svg");
+}
+
+.fr-icon-theme-fill::before,
+.fr-icon-theme-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
+    mask-image: url("../../icons/system/fr--theme-fill.svg");
 }
 
 .fr-icon-arrow-right-line::before,
@@ -40,12 +40,6 @@
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
-}
-
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -64,10 +58,28 @@
     mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
+}
+
 .fr-icon-warning-fill::before,
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
+}
+
+.fr-icon-delete-line::before,
+.fr-icon-delete-line::after {
+    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
+    mask-image: url("../../icons/system/delete-bin-line.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -118,18 +130,6 @@
     mask-image: url("../../icons/remixicon/logout-box-line.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
-.fr-icon-delete-line::before,
-.fr-icon-delete-line::after {
-    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
-    mask-image: url("../../icons/system/delete-bin-line.svg");
-}
-
 .ri-check-line::before,
 .ri-check-line::after {
     -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
@@ -166,12 +166,6 @@
     mask-image: url("../../icons/system/add-line.svg");
 }
 
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
-}
-
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -182,6 +176,12 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
+}
+
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -207,14 +207,14 @@
         background-image: url("../../icons/system/question-line.svg");
     }
     
-    .fr-icon-theme-fill::before,
-    .fr-icon-theme-fill::after {
-        background-image: url("../../icons/system/fr--theme-fill.svg");
-    }
-    
     .fr-icon-arrow-go-back-fill::before,
     .fr-icon-arrow-go-back-fill::after {
         background-image: url("../../icons/system/arrow-go-back-fill.svg");
+    }
+    
+    .fr-icon-theme-fill::before,
+    .fr-icon-theme-fill::after {
+        background-image: url("../../icons/system/fr--theme-fill.svg");
     }
     
     .fr-icon-arrow-right-line::before,
@@ -232,11 +232,6 @@
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
-    }
-    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -252,9 +247,24 @@
         background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
+    }
+    
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
+    }
+    
+    .fr-icon-delete-line::before,
+    .fr-icon-delete-line::after {
+        background-image: url("../../icons/system/delete-bin-line.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -297,16 +307,6 @@
         background-image: url("../../icons/remixicon/logout-box-line.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
-    .fr-icon-delete-line::before,
-    .fr-icon-delete-line::after {
-        background-image: url("../../icons/system/delete-bin-line.svg");
-    }
-    
     .ri-check-line::before,
     .ri-check-line::after {
         background-image: url("../../icons/remixicon/check-line.svg");
@@ -337,11 +337,6 @@
         background-image: url("../../icons/system/add-line.svg");
     }
     
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
-    }
-    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -350,6 +345,11 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
     .ri-arrow-down-s-fill::before,
