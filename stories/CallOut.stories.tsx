@@ -71,7 +71,7 @@ const { meta, getStory } = getStoryFactory({
 export default meta;
 
 export const Default = getStory({
-    "title": "Titre mise en avant",
+    "title": "Titre mis en avant",
     "iconId": "ri-information-line",
     "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
@@ -96,7 +96,7 @@ export const NoTitle = getStory({
 });
 
 export const NoIcon = getStory({
-    "title": "Titre mise en avant",
+    "title": "Titre mis en avant",
     "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`,
@@ -108,7 +108,7 @@ export const NoIcon = getStory({
 });
 
 export const NoButton = getStory({
-    "title": "Titre mise en avant",
+    "title": "Titre mis en avant",
     "iconId": "ri-information-line",
     "children": `Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à 
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
