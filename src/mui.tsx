@@ -584,14 +584,10 @@ export function createDsfrCustomBrandingProvider(params: {
     return { DsfrCustomBrandingProvider };
 }
 
-const context_isGov = createContext<boolean | undefined>(undefined);
+const context_isGov = createContext<boolean>(true);
 
 export function useIsGov() {
     const isGov = useContext(context_isGov);
-
-    if (isGov === undefined) {
-        throw new Error("useIsGov must be used within a MuiThemeProvider");
-    }
 
     return { isGov };
 }
