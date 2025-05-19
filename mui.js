@@ -447,12 +447,9 @@ export function createDsfrCustomBrandingProvider(params) {
     }
     return { DsfrCustomBrandingProvider };
 }
-const context_isGov = createContext(undefined);
+const context_isGov = createContext(true);
 export function useIsGov() {
     const isGov = useContext(context_isGov);
-    if (isGov === undefined) {
-        throw new Error("useIsGov must be used within a MuiThemeProvider");
-    }
     return { isGov };
 }
 //# sourceMappingURL=mui.js.map
