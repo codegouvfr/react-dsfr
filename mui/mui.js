@@ -1,21 +1,22 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useMemo, useEffect, createContext, useContext } from "react";
+import React, { useMemo, useEffect } from "react";
 import * as mui from "@mui/material/styles";
-import { fr } from "./fr";
-import { useIsDark } from "./useIsDark";
-import { typography } from "./fr/generatedFromCss/typography";
-import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
+import { fr } from "../fr";
+import { useIsDark } from "../useIsDark";
+import { typography } from "../fr/generatedFromCss/typography";
+import { spacingTokenByValue } from "../fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
-import { useBreakpointsValuesPx } from "./useBreakpointsValuesPx";
-import { structuredCloneButFunctions } from "./tools/structuredCloneButFunctions";
-import { deepAssign } from "./tools/deepAssign";
+import { useBreakpointsValuesPx } from "../useBreakpointsValuesPx";
+import { structuredCloneButFunctions } from "../tools/structuredCloneButFunctions";
+import { deepAssign } from "../tools/deepAssign";
 import { Global, css } from "@emotion/react";
-import { getAssetUrl } from "./tools/getAssetUrl";
-import marianneFaviconSvgUrl from "./dsfr/favicon/favicon.svg";
-import blankFaviconSvgUrl from "./assets/blank-favicon.svg";
+import { getAssetUrl } from "../tools/getAssetUrl";
+import { IsGovProvider } from "./useIsGov";
+import marianneFaviconSvgUrl from "../dsfr/favicon/favicon.svg";
+import blankFaviconSvgUrl from "../assets/blank-favicon.svg";
 export function getMuiDsfrThemeOptions(params) {
     const { isDark, breakpointsValues } = params;
     const { options, decisions } = fr.colors.getHex({ isDark });
@@ -440,16 +441,24 @@ export function createDsfrCustomBrandingProvider(params) {
                     },
                     [`.${fr.cx("fr-footer__bottom-copy")}`]: {
                         display: "none"
+                    },
+                    [`.${fr.cx("fr-btn")}`]: {
+                        "--hover-tint": theme.palette.primary.dark,
+                        "--active-tint": mui.darken(theme.palette.primary.main, 0.24),
+                        "&:hover, &:active": {
+                            color: theme.palette.primary.contrastText
+                        }
+                    },
+                    [`.${fr.cx("fr-input")}, .${fr.cx("fr-select")}`]: {
+                        "&&&": {
+                            borderTopLeftRadius: `0px`,
+                            borderTopRightRadius: `0px`
+                        }
                     }
                 }) })),
-            React.createElement(context_isGov.Provider, { value: isGov },
+            React.createElement(IsGovProvider, { isGov: isGov },
                 React.createElement(mui.ThemeProvider, { theme: theme }, children))));
     }
     return { DsfrCustomBrandingProvider };
-}
-const context_isGov = createContext(true);
-export function useIsGov() {
-    const isGov = useContext(context_isGov);
-    return { isGov };
 }
 //# sourceMappingURL=mui.js.map

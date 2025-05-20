@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import * as mui from "@mui/material/styles";
-import { type BreakpointsValues } from "./useBreakpointsValuesPx";
+import { type BreakpointsValues } from "../useBreakpointsValuesPx";
 export declare function getMuiDsfrThemeOptions(params: {
     isDark: boolean;
     breakpointsValues: BreakpointsValues;
@@ -57,7 +57,4 @@ export declare function createDsfrCustomBrandingProvider(params: {
     DsfrCustomBrandingProvider: (props: {
         children: ReactNode;
     }) => JSX.Element;
-};
-export declare function useIsGov(): {
-    isGov: boolean;
 };
