@@ -1,23 +1,24 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useMemo, useEffect, createContext, useContext, type ReactNode } from "react";
+import React, { useMemo, useEffect, type ReactNode } from "react";
 import * as mui from "@mui/material/styles";
 import type { Shadows } from "@mui/material/styles";
-import { fr } from "./fr";
-import { useIsDark } from "./useIsDark";
-import { typography } from "./fr/generatedFromCss/typography";
-import { spacingTokenByValue } from "./fr/generatedFromCss/spacing";
+import { fr } from "../fr";
+import { useIsDark } from "../useIsDark";
+import { typography } from "../fr/generatedFromCss/typography";
+import { spacingTokenByValue } from "../fr/generatedFromCss/spacing";
 import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
-import { useBreakpointsValuesPx, type BreakpointsValues } from "./useBreakpointsValuesPx";
-import { structuredCloneButFunctions } from "./tools/structuredCloneButFunctions";
-import { deepAssign } from "./tools/deepAssign";
+import { useBreakpointsValuesPx, type BreakpointsValues } from "../useBreakpointsValuesPx";
+import { structuredCloneButFunctions } from "../tools/structuredCloneButFunctions";
+import { deepAssign } from "../tools/deepAssign";
 import { Global, css } from "@emotion/react";
-import { getAssetUrl } from "./tools/getAssetUrl";
-import marianneFaviconSvgUrl from "./dsfr/favicon/favicon.svg";
-import blankFaviconSvgUrl from "./assets/blank-favicon.svg";
+import { getAssetUrl } from "../tools/getAssetUrl";
+import { IsGovProvider } from "./useIsGov";
+import marianneFaviconSvgUrl from "../dsfr/favicon/favicon.svg";
+import blankFaviconSvgUrl from "../assets/blank-favicon.svg";
 
 export function getMuiDsfrThemeOptions(params: {
     isDark: boolean;
@@ -574,20 +575,12 @@ export function createDsfrCustomBrandingProvider(params: {
                         })}
                     />
                 )}
-                <context_isGov.Provider value={isGov}>
+                <IsGovProvider isGov={isGov}>
                     <mui.ThemeProvider theme={theme}>{children}</mui.ThemeProvider>
-                </context_isGov.Provider>
+                </IsGovProvider>
             </>
         );
     }
 
     return { DsfrCustomBrandingProvider };
-}
-
-const context_isGov = createContext<boolean>(true);
-
-export function useIsGov() {
-    const isGov = useContext(context_isGov);
-
-    return { isGov };
 }
