@@ -4,10 +4,7 @@ import React from "react";
 import { useTheme } from "@mui/material/styles";
 import { assert, type Equals } from "tsafe/assert";
 
-export default function ArtworkWhiteLabel(props: {
-    theme: "light" | "dark" | "system";
-    sizePx: number;
-}) {
+export function ArtworkWhiteLabel(props: { theme: "light" | "dark" | "system"; sizePx: number }) {
     const { theme: theme_mode, sizePx } = props;
 
     const theme = useTheme();

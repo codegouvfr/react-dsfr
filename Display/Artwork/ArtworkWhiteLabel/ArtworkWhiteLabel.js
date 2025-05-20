@@ -2,7 +2,7 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
 import { assert } from "tsafe/assert";
-export default function ArtworkWhiteLabel(props) {
+export function ArtworkWhiteLabel(props) {
     const { theme: theme_mode, sizePx } = props;
     const theme = useTheme();
     const fillColor = theme.palette.text.primary;

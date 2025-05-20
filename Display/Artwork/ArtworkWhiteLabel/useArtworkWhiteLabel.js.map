@@ -1,0 +1,1 @@
+{"version":3,"file":"useArtworkWhiteLabel.js","sourceRoot":"","sources":["../../../../src/Display/Artwork/ArtworkWhiteLabel/useArtworkWhiteLabel.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AACnC,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAEpC,MAAM,UAAU,oBAAoB;IAChC,MAAM,iBAAiB,GAAG,UAAU,CAAC,OAAO,CAAC,CAAC;IAE9C,OAAO,EAAE,iBAAiB,EAAE,CAAC;AACjC,CAAC"}
