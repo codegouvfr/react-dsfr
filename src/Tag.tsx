@@ -183,8 +183,8 @@ export const Tag = memo(
                     )}
                     {linkProps === undefined &&
                         nativeButtonProps === undefined &&
-                        AsTag === "p" && (
-                            <p
+                        (AsTag === "span" || AsTag === "p") && (
+                            <AsTag
                                 {...nativeParagraphOrSpanProps}
                                 id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
                                 className={cx(nativeParagraphOrSpanProps?.className, className)}
@@ -197,25 +197,7 @@ export const Tag = memo(
                                 {...rest}
                             >
                                 {children}
-                            </p>
-                        )}
-                    {linkProps === undefined &&
-                        nativeButtonProps === undefined &&
-                        AsTag === "span" && (
-                            <span
-                                {...nativeParagraphOrSpanProps}
-                                id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
-                                className={cx(nativeParagraphOrSpanProps?.className, className)}
-                                style={{
-                                    ...nativeParagraphOrSpanProps?.style,
-                                    ...style
-                                }}
-                                title={title ?? nativeParagraphOrSpanProps?.title}
-                                ref={ref as React.ForwardedRef<HTMLSpanElement>}
-                                {...rest}
-                            >
-                                {children}
-                            </span>
+                            </AsTag>
                         )}
                 </>
             );
