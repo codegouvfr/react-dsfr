@@ -176,24 +176,38 @@ export const Tag = memo(
                         {children}
                     </button>
                 )}
-                {linkProps === undefined &&
-                    nativeButtonProps === undefined &&
-                    (AsTag === "span" || AsTag === "p") && (
-                        <AsTag
-                            {...nativeParagraphOrSpanProps}
-                            id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
-                            className={cx(nativeParagraphOrSpanProps?.className, className)}
-                            style={{
-                                ...nativeParagraphOrSpanProps?.style,
-                                ...style
-                            }}
-                            title={title ?? nativeParagraphOrSpanProps?.title}
-                            ref={ref as React.ForwardedRef<HTMLParagraphElement>}
-                            {...rest}
-                        >
-                            {children}
-                        </AsTag>
-                    )}
+                {linkProps === undefined && nativeButtonProps === undefined && AsTag === "p" && (
+                    <p
+                        {...nativeParagraphOrSpanProps}
+                        id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
+                        className={cx(nativeParagraphOrSpanProps?.className, className)}
+                        style={{
+                            ...nativeParagraphOrSpanProps?.style,
+                            ...style
+                        }}
+                        title={title ?? nativeParagraphOrSpanProps?.title}
+                        ref={ref as React.ForwardedRef<HTMLParagraphElement>}
+                        {...rest}
+                    >
+                        {children}
+                    </p>
+                )}
+                {linkProps === undefined && nativeButtonProps === undefined && AsTag === "span" && (
+                    <span
+                        {...nativeParagraphOrSpanProps}
+                        id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
+                        className={cx(nativeParagraphOrSpanProps?.className, className)}
+                        style={{
+                            ...nativeParagraphOrSpanProps?.style,
+                            ...style
+                        }}
+                        title={title ?? nativeParagraphOrSpanProps?.title}
+                        ref={ref as React.ForwardedRef<HTMLSpanElement>}
+                        {...rest}
+                    >
+                        {children}
+                    </span>
+                )}
             </>
         );
     })
