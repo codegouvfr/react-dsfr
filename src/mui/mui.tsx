@@ -17,6 +17,7 @@ import { deepAssign } from "../tools/deepAssign";
 import { Global, css } from "@emotion/react";
 import { getAssetUrl } from "../tools/getAssetUrl";
 import { IsGovProvider } from "./useIsGov";
+import { DisplayArtworkWhiteLabelProvider } from "../Display/Artwork/ArtworkWhiteLabel/DisplayArtworkWhiteLabelProvider";
 import marianneFaviconSvgUrl from "../dsfr/favicon/favicon.svg";
 import blankFaviconSvgUrl from "../assets/blank-favicon.svg";
 
@@ -597,7 +598,11 @@ export function createDsfrCustomBrandingProvider(params: {
                     />
                 )}
                 <IsGovProvider isGov={isGov}>
-                    <mui.ThemeProvider theme={theme}>{children}</mui.ThemeProvider>
+                    <mui.ThemeProvider theme={theme}>
+                        <DisplayArtworkWhiteLabelProvider>
+                            {children}
+                        </DisplayArtworkWhiteLabelProvider>
+                    </mui.ThemeProvider>
                 </IsGovProvider>
             </>
         );
