@@ -521,7 +521,8 @@ export function createDsfrCustomBrandingProvider(params: {
                                 "--text-title-grey": theme.palette.text.primary,
                                 "--background-action-high-blue-france": theme.palette.primary.main,
                                 "--border-default-grey": theme.palette.divider,
-                                "--border-action-high-blue-france": theme.palette.primary.main
+                                "--border-action-high-blue-france": theme.palette.primary.main,
+                                "--border-default-blue-france": theme.palette.primary.main
 
                                 // options:
                                 /*
