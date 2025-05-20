@@ -22,8 +22,14 @@ type DataAttribute = Record<`data-${string}`, string | boolean | null | undefine
 
 export type TagProps = TagProps.Common &
     (TagProps.WithIcon | TagProps.WithoutIcon) &
-    (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsParagraph);
+    (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsParagraph | TagProps.AsSpan);
 export namespace TagProps {
+    export type HTMLElement =
+        | HTMLButtonElement
+        | HTMLAnchorElement
+        | HTMLParagraphElement
+        | HTMLSpanElement;
+
     export type Common = {
         id?: string;
         className?: string;
@@ -32,6 +38,7 @@ export namespace TagProps {
         style?: CSSProperties;
         title?: string;
         children: ReactNode;
+        as?: "p" | "span" | "button" | "a";
     };
 
     export type WithIcon = {
@@ -44,18 +51,20 @@ export namespace TagProps {
     };
 
     export type AsAnchor = {
+        as?: "a";
         linkProps: RegisteredLinkProps;
         onClick?: never;
         nativeButtonProps?: never;
-        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
+        /** @deprecated Tag is now `<p>` by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: never;
         nativeParagraphProps?: never;
         dismissible?: never;
         pressed?: never;
     };
     export type AsButton = {
+        as?: "button";
         linkProps?: never;
-        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
+        /** @deprecated Tag is now `<p>` by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: never;
         nativeParagraphProps?: never;
         /** Default: false */
@@ -65,23 +74,32 @@ export namespace TagProps {
         nativeButtonProps?: ComponentProps<"button"> & DataAttribute;
     };
     export type AsParagraph = {
+        as?: "p";
         linkProps?: never;
         onClick?: never;
         dismissible?: never;
         pressed?: never;
         nativeButtonProps?: never;
-        /** @deprecated Tag is now <p> by default. Use `nativeParagraphProps` instead. */
+        /** @deprecated Tag is now `<p>` by default. Use `nativeParagraphProps` instead. */
         nativeSpanProps?: ComponentProps<"span"> & DataAttribute;
         nativeParagraphProps?: ComponentProps<"p"> & DataAttribute;
     };
-
-    /** @deprecated Tag is now <p> by default. Use `AsParagraph` instead. */
-    export type AsSpan = AsParagraph;
+    export type AsSpan = {
+        as: "span";
+        linkProps?: never;
+        onClick?: never;
+        dismissible?: never;
+        pressed?: never;
+        nativeButtonProps?: never;
+        nativeSpanProps?: ComponentProps<"span"> & DataAttribute;
+        nativeParagraphProps?: never;
+    };
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tag> */
 export const Tag = memo(
-    forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLParagraphElement, TagProps>(
+    forwardRef<TagProps.HTMLElement, TagProps>(
+        // -- (lint hack) to keep same indent as before
         (props, ref) => {
             const {
                 id: id_props,
@@ -98,6 +116,7 @@ export const Tag = memo(
                 nativeSpanProps,
                 style,
                 onClick,
+                as: AsTag = "p",
                 ...rest
             } = props;
 
@@ -122,6 +141,7 @@ export const Tag = memo(
                 prop_className
             );
 
+            // to support old usage
             const nativeParagraphOrSpanProps = nativeParagraphProps ?? nativeSpanProps;
 
             return (
@@ -161,22 +181,24 @@ export const Tag = memo(
                             {children}
                         </button>
                     )}
-                    {linkProps === undefined && nativeButtonProps === undefined && (
-                        <p
-                            {...nativeParagraphOrSpanProps}
-                            id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
-                            className={cx(nativeParagraphOrSpanProps?.className, className)}
-                            style={{
-                                ...nativeParagraphOrSpanProps?.style,
-                                ...style
-                            }}
-                            title={title ?? nativeParagraphOrSpanProps?.title}
-                            ref={ref as React.ForwardedRef<HTMLParagraphElement>}
-                            {...rest}
-                        >
-                            {children}
-                        </p>
-                    )}
+                    {linkProps === undefined &&
+                        nativeButtonProps === undefined &&
+                        (AsTag === "span" || AsTag === "p") && (
+                            <AsTag
+                                {...nativeParagraphOrSpanProps}
+                                id={id_props ?? nativeParagraphOrSpanProps?.id ?? id}
+                                className={cx(nativeParagraphOrSpanProps?.className, className)}
+                                style={{
+                                    ...nativeParagraphOrSpanProps?.style,
+                                    ...style
+                                }}
+                                title={title ?? nativeParagraphOrSpanProps?.title}
+                                ref={ref as React.ForwardedRef<HTMLParagraphElement>}
+                                {...rest}
+                            >
+                                {children}
+                            </AsTag>
+                        )}
                 </>
             );
         }
@@ -189,6 +211,7 @@ export const Tag = memo(
                 | (TagProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
                 | (TagProps.AsButton & RefAttributes<HTMLButtonElement>)
                 | (TagProps.AsParagraph & RefAttributes<HTMLParagraphElement>)
+                | (TagProps.AsSpan & RefAttributes<HTMLSpanElement>)
             )
     >
 >;
