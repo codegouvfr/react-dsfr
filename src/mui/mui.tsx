@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useMemo, useEffect, type ReactNode } from "react";
 import * as mui from "@mui/material/styles";
-import type { Shadows } from "@mui/material/styles";
 import { fr } from "../fr";
 import { useIsDark } from "../useIsDark";
 import { typography } from "../fr/generatedFromCss/typography";
@@ -147,7 +146,7 @@ export function getMuiDsfrThemeOptions(params: {
         "shadows": (() => {
             const [, , , , , , , , ...rest] = mui.createTheme().shadows;
 
-            return id<Shadows>([
+            return id<mui.Shadows>([
                 "none",
                 /** ButtonBar shadow */
                 "0px 6px 10px 0px rgba(0,0,0,0.07)",
@@ -571,6 +570,19 @@ export function createDsfrCustomBrandingProvider(params: {
                             },
                             [`.${fr.cx("fr-footer__bottom-copy")}`]: {
                                 display: "none"
+                            },
+                            [`.${fr.cx("fr-btn")}`]: {
+                                "--hover-tint": theme.palette.primary.dark,
+                                "--active-tint": mui.darken(theme.palette.primary.main, 0.24),
+                                "&:hover, &:active": {
+                                    color: theme.palette.primary.contrastText
+                                }
+                            },
+                            [`.${fr.cx("fr-input")}, .${fr.cx("fr-select")}`]: {
+                                "&&&": {
+                                    borderTopLeftRadius: `0px`,
+                                    borderTopRightRadius: `0px`
+                                }
                             }
                         })}
                     />

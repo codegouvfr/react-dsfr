@@ -5,11 +5,12 @@ import ArtworkDarkSvg from "../../dsfr/artwork/dark.svg";
 import ArtworkSystemSvg from "../../dsfr/artwork/system.svg";
 import { getAssetUrl } from "../../tools/getAssetUrl";
 
-export function ArtworkGov(props: { theme: "light" | "dark" | "system" }) {
-    const { theme } = props;
+export function ArtworkGov(props: { theme: "light" | "dark" | "system"; className?: string }) {
+    const { theme, className } = props;
 
     return (
         <svg
+            className={className}
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             //className={fr.cx("fr-artwork")}

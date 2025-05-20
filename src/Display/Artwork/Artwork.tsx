@@ -5,8 +5,8 @@ import { ArtworkGov } from "./ArtworkGov";
 import { useIsGov } from "../../mui/useIsGov";
 const ArtworkWhiteLabel = lazy(() => import("./ArtworkWhiteLabel"));
 
-export function Artwork(props: { theme: "light" | "dark" | "system" }) {
-    const { theme } = props;
+export function Artwork(props: { theme: "light" | "dark" | "system"; className?: string }) {
+    const { theme, className } = props;
 
     const { isGov } = useIsGov();
 
@@ -18,5 +18,5 @@ export function Artwork(props: { theme: "light" | "dark" | "system" }) {
         );
     }
 
-    return <ArtworkGov theme={theme} />;
+    return <ArtworkGov theme={theme} className={className} />;
 }

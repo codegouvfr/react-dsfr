@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useId } from "react";
 import { fr } from "../fr";
 import { symToStr } from "tsafe/symToStr";
