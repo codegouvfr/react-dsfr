@@ -24,6 +24,12 @@ export type TagProps = TagProps.Common &
     (TagProps.WithIcon | TagProps.WithoutIcon) &
     (TagProps.AsAnchor | TagProps.AsButton | TagProps.AsParagraph | TagProps.AsSpan);
 export namespace TagProps {
+    export type HTMLElement =
+        | HTMLButtonElement
+        | HTMLAnchorElement
+        | HTMLParagraphElement
+        | HTMLSpanElement;
+
     export type Common = {
         id?: string;
         className?: string;
@@ -92,10 +98,7 @@ export namespace TagProps {
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tag> */
 export const Tag = memo(
-    forwardRef<
-        HTMLButtonElement | HTMLAnchorElement | HTMLParagraphElement | HTMLSpanElement,
-        TagProps
-    >((props, ref) => {
+    forwardRef<TagProps.HTMLElement, TagProps>((props, ref) => {
         const {
             id: id_props,
             className: prop_className,
