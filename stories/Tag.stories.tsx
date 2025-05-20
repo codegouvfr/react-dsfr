@@ -35,6 +35,19 @@ const { meta, getStory } = getStoryFactory({
             Example: \`{ "aria-controls": "fr-modal-1", onMouseEnter: event => {...} }\``,
             "control": { "type": null }
         },
+
+        "as": {
+            "options": (() => {
+                const options = ["p", "span", "button", "a", undefined] as const;
+
+                assert<Equals<typeof options[number], TagProps["as"]>>();
+
+                return options;
+            })(),
+            "control": { type: "select", labels: { null: "default p element" } },
+            "description":
+                "You can specify a 'span' element instead of default 'p' if the badge is inside a `<p>`. 'button' and 'a' are implicit."
+        },
         "children": {
             "description": "The label of the button",
             "control": { "type": "string" }
@@ -106,4 +119,9 @@ export const TagPressed = getStory({
     "nativeButtonProps": {
         onClick: () => console.log("click")
     }
+});
+
+export const AsSpan = getStory({
+    "children": "Label button",
+    as: "span"
 });
