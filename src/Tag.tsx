@@ -211,7 +211,7 @@ export const Tag = memo(
                 | (TagProps.AsAnchor & RefAttributes<HTMLAnchorElement>)
                 | (TagProps.AsButton & RefAttributes<HTMLButtonElement>)
                 | (TagProps.AsParagraph & RefAttributes<HTMLParagraphElement>)
-                | (TagProps.AsSpan & RefAttributes<HTMLParagraphElement>)
+                | (TagProps.AsSpan & RefAttributes<HTMLSpanElement>)
             )
     >
 >;
