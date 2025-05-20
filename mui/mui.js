@@ -442,11 +442,16 @@ export function createDsfrCustomBrandingProvider(params) {
                     [`.${fr.cx("fr-footer__bottom-copy")}`]: {
                         display: "none"
                     },
-                    [`.${fr.cx("fr-btn")}`]: {
+                    [getPrimaryButtonClassSelector()]: {
                         "--hover-tint": theme.palette.primary.dark,
                         "--active-tint": mui.darken(theme.palette.primary.main, 0.24),
-                        "&:hover, &:active": {
-                            color: theme.palette.primary.contrastText
+                        color: theme.palette.primary.contrastText
+                    },
+                    [`.${fr.cx("fr-header__tools-links")}`]: {
+                        [`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& .${fr.cx("fr-btn")}`]: {
+                            color: theme.palette.primary.main,
+                            "--hover-tint": fr.colors.decisions.background.raised.grey.hover,
+                            "--active-tint": fr.colors.decisions.background.raised.grey.active
                         }
                     },
                     [`.${fr.cx("fr-input")}, .${fr.cx("fr-select")}`]: {
@@ -460,5 +465,45 @@ export function createDsfrCustomBrandingProvider(params) {
                 React.createElement(mui.ThemeProvider, { theme: theme }, children))));
     }
     return { DsfrCustomBrandingProvider };
+}
+function getPrimaryButtonClassSelector() {
+    const btnVariants = [
+        "close",
+        "tooltip",
+        "fullscreen",
+        "display",
+        "account",
+        "team",
+        "briefcase",
+        "sort",
+        "secondary",
+        "tertiary",
+        "tertiary-no-outline",
+        "facebook",
+        "linkedin",
+        "mastodon",
+        "threads",
+        "twitter",
+        "twitter-x",
+        "mail",
+        "copy",
+        "dailymotion",
+        "github",
+        "instagram",
+        "snapchat",
+        "telegram",
+        "tiktok",
+        "twitch",
+        "vimeo",
+        "youtube",
+        "menu",
+        "search"
+    ];
+    assert();
+    let selector = `.${fr.cx("fr-btn")}`;
+    for (const btnVariant of btnVariants) {
+        selector += `:not(.${fr.cx(`fr-btn--${btnVariant}`)})`;
+    }
+    return selector;
 }
 //# sourceMappingURL=mui.js.map
