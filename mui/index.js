@@ -1,3 +1,5 @@
 export * from "./mui";
+import { MuiDsfrThemeProvider } from "./mui";
 export { useIsGov } from "./useIsGov";
+export default MuiDsfrThemeProvider;
 //# sourceMappingURL=index.js.map
