@@ -304,6 +304,7 @@ export function createMuiDsfrThemeProvider(params) {
     return { MuiDsfrThemeProvider };
 }
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
+export default MuiDsfrThemeProvider;
 export function createDsfrCustomBrandingProvider(params) {
     const { createMuiTheme } = params;
     function useMuiTheme() {
