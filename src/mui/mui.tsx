@@ -4,11 +4,10 @@
 import React, { useMemo, useEffect, type ReactNode } from "react";
 import * as mui from "@mui/material/styles";
 import { fr } from "../fr";
-import type { FrCoreClassName } from "../fr/generatedFromCss/classNames";
 import { useIsDark } from "../useIsDark";
 import { typography } from "../fr/generatedFromCss/typography";
 import { spacingTokenByValue } from "../fr/generatedFromCss/spacing";
-import { assert, type Equals } from "tsafe/assert";
+import { assert } from "tsafe/assert";
 import { objectKeys } from "tsafe/objectKeys";
 import { id } from "tsafe/id";
 import { useBreakpointsValuesPx, type BreakpointsValues } from "../useBreakpointsValuesPx";
@@ -523,7 +522,15 @@ export function createDsfrCustomBrandingProvider(params: {
                                 "--background-action-high-blue-france": theme.palette.primary.main,
                                 "--border-default-grey": theme.palette.divider,
                                 "--border-action-high-blue-france": theme.palette.primary.main,
-                                "--border-default-blue-france": theme.palette.primary.main
+                                "--border-default-blue-france": theme.palette.primary.main,
+
+                                "--text-inverted-blue-france": theme.palette.primary.contrastText,
+                                "--background-action-high-blue-france-hover":
+                                    theme.palette.primary.dark,
+                                "--background-action-high-blue-france-active": mui.darken(
+                                    theme.palette.primary.main,
+                                    0.24
+                                )
 
                                 // options:
                                 /*
@@ -574,20 +581,6 @@ export function createDsfrCustomBrandingProvider(params: {
                             [`.${fr.cx("fr-footer__bottom-copy")}`]: {
                                 display: "none"
                             },
-                            [getPrimaryButtonClassSelector()]: {
-                                "--hover-tint": theme.palette.primary.dark,
-                                "--active-tint": mui.darken(theme.palette.primary.main, 0.24),
-                                color: theme.palette.primary.contrastText
-                            },
-                            [`.${fr.cx("fr-header__tools-links")}`]: {
-                                [`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& .${fr.cx("fr-btn")}`]: {
-                                    color: theme.palette.primary.main,
-                                    "--hover-tint":
-                                        fr.colors.decisions.background.raised.grey.hover,
-                                    "--active-tint":
-                                        fr.colors.decisions.background.raised.grey.active
-                                }
-                            },
                             [`.${fr.cx("fr-input")}, .${fr.cx("fr-select")}`]: {
                                 "&&&": {
                                     borderTopLeftRadius: `0px`,
@@ -609,66 +602,4 @@ export function createDsfrCustomBrandingProvider(params: {
     }
 
     return { DsfrCustomBrandingProvider };
-}
-
-function getPrimaryButtonClassSelector() {
-    type BtnClassNames = Extract<FrCoreClassName, `fr-btn--${string}`>;
-
-    type BtnVariant = BtnClassNames extends `fr-btn--${infer Variant}` ? Variant : never;
-
-    type BtnVariantWithoutPosition = Exclude<
-        BtnVariant,
-        "align-on-content" | "icon-left" | "icon-right" | "sm" | "lg"
-    >;
-
-    const btnVariants = [
-        "close",
-        "tooltip",
-        "fullscreen",
-        "display",
-        "account",
-        "team",
-        "briefcase",
-        "sort",
-        "secondary",
-        "tertiary",
-        "tertiary-no-outline",
-        "facebook",
-        "linkedin",
-        "mastodon",
-        "threads",
-        "twitter",
-        "twitter-x",
-        "mail",
-        "copy",
-        "dailymotion",
-        "github",
-        "instagram",
-        "snapchat",
-        "telegram",
-        "tiktok",
-        "twitch",
-        "vimeo",
-        "youtube",
-        "menu",
-        "search",
-        "bluesky"
-    ] as const;
-
-    type Source = typeof btnVariants[number];
-    type Mirrored = BtnVariantWithoutPosition;
-
-    type InSourceNotInMirrored = Exclude<Source, Mirrored>;
-    type InMirroredNotInSource = Exclude<Mirrored, Source>;
-
-    assert<Equals<InSourceNotInMirrored, never>>();
-    assert<Equals<InMirroredNotInSource, never>>();
-
-    let selector = `.${fr.cx("fr-btn")}`;
-
-    for (const btnVariant of btnVariants) {
-        selector += `:not(.${fr.cx(`fr-btn--${btnVariant}`)})`;
-    }
-
-    return selector;
 }

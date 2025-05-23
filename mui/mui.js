@@ -395,7 +395,10 @@ export function createDsfrCustomBrandingProvider(params) {
                         "--background-action-high-blue-france": theme.palette.primary.main,
                         "--border-default-grey": theme.palette.divider,
                         "--border-action-high-blue-france": theme.palette.primary.main,
-                        "--border-default-blue-france": theme.palette.primary.main
+                        "--border-default-blue-france": theme.palette.primary.main,
+                        "--text-inverted-blue-france": theme.palette.primary.contrastText,
+                        "--background-action-high-blue-france-hover": theme.palette.primary.dark,
+                        "--background-action-high-blue-france-active": mui.darken(theme.palette.primary.main, 0.24)
                         // options:
                         /*
                         "--blue-france-sun-113-625": theme.palette.primary.main,
@@ -444,18 +447,6 @@ export function createDsfrCustomBrandingProvider(params) {
                     [`.${fr.cx("fr-footer__bottom-copy")}`]: {
                         display: "none"
                     },
-                    [getPrimaryButtonClassSelector()]: {
-                        "--hover-tint": theme.palette.primary.dark,
-                        "--active-tint": mui.darken(theme.palette.primary.main, 0.24),
-                        color: theme.palette.primary.contrastText
-                    },
-                    [`.${fr.cx("fr-header__tools-links")}`]: {
-                        [`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& .${fr.cx("fr-btn")}`]: {
-                            color: theme.palette.primary.main,
-                            "--hover-tint": fr.colors.decisions.background.raised.grey.hover,
-                            "--active-tint": fr.colors.decisions.background.raised.grey.active
-                        }
-                    },
                     [`.${fr.cx("fr-input")}, .${fr.cx("fr-select")}`]: {
                         "&&&": {
                             borderTopLeftRadius: `0px`,
@@ -468,47 +459,5 @@ export function createDsfrCustomBrandingProvider(params) {
                     React.createElement(DisplayArtworkWhiteLabelProvider, null, children)))));
     }
     return { DsfrCustomBrandingProvider };
-}
-function getPrimaryButtonClassSelector() {
-    const btnVariants = [
-        "close",
-        "tooltip",
-        "fullscreen",
-        "display",
-        "account",
-        "team",
-        "briefcase",
-        "sort",
-        "secondary",
-        "tertiary",
-        "tertiary-no-outline",
-        "facebook",
-        "linkedin",
-        "mastodon",
-        "threads",
-        "twitter",
-        "twitter-x",
-        "mail",
-        "copy",
-        "dailymotion",
-        "github",
-        "instagram",
-        "snapchat",
-        "telegram",
-        "tiktok",
-        "twitch",
-        "vimeo",
-        "youtube",
-        "menu",
-        "search",
-        "bluesky"
-    ];
-    assert();
-    assert();
-    let selector = `.${fr.cx("fr-btn")}`;
-    for (const btnVariant of btnVariants) {
-        selector += `:not(.${fr.cx(`fr-btn--${btnVariant}`)})`;
-    }
-    return selector;
 }
 //# sourceMappingURL=mui.js.map
