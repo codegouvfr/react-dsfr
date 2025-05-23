@@ -1,3 +1,3 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
- */@media print{.fr-search-bar .fr-input{box-shadow:inset 0 -2px 0 0 #000091}.fr-search-bar .fr-input--valid{box-shadow:inset 0 -2px 0 0 #18753c}.fr-search-bar .fr-input--error{box-shadow:inset 0 -2px 0 0 #ce0500}}
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */@media print{.fr-search-bar input{background-color:transparent;border-left:1px solid var(--border-default-grey);border-top:1px solid var(--border-default-grey)}}

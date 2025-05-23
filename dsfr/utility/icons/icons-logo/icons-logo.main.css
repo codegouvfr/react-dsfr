@@ -1,11 +1,23 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
 /* ¯¯¯¯¯¯¯¯¯ *\
   ICON COMMUNICATION
 \* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-bluesky-fill::before,
+.fr-icon-bluesky-fill::after {
+  -webkit-mask-image: url("../../../icons/logo/bluesky-fill.svg");
+  mask-image: url("../../../icons/logo/bluesky-fill.svg");
+}
+
+.fr-icon-bluesky-line::before,
+.fr-icon-bluesky-line::after {
+  -webkit-mask-image: url("../../../icons/logo/bluesky-line.svg");
+  mask-image: url("../../../icons/logo/bluesky-line.svg");
+}
+
 .fr-icon-chrome-fill::before,
 .fr-icon-chrome-fill::after {
   -webkit-mask-image: url("../../../icons/logo/chrome-fill.svg");

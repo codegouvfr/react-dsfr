@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -154,6 +154,11 @@
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   box-shadow: 0 -1px 0 0 var(--border-default-blue-france);
+}
+
+.fr-follow .fr-btn--bluesky::before {
+  -webkit-mask-image: url("../../icons/logo/bluesky-fill.svg");
+  mask-image: url("../../icons/logo/bluesky-fill.svg");
 }
 
 .fr-follow .fr-btn--dailymotion::before {

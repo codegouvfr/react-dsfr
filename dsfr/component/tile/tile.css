@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -749,60 +749,6 @@ a.fr-tile__title:not([href]) {
   }
 }
 @media print {
-  .fr-tile {
-    background-color: #fff;
-  }
-
-  .fr-tile:not(.fr-tile--no-border):not(.fr-tile--shadow) {
-    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
-  }
-
-  .fr-tile--grey {
-    background-color: #eee;
-  }
-
-  .fr-tile--shadow {
-    background-color: #fff;
-  }
-
-  .fr-tile--shadow.fr-tile--grey {
-    background-color: #eee;
-  }
-
-  .fr-tile__title {
-    color: #161616;
-  }
-
-  .fr-tile__title:disabled,
-  a.fr-tile__title:not([href]) {
-    color: #929292;
-    background-color: #e5e5e5;
-  }
-
-  .fr-tile__title::before {
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-tile__title a,
-  .fr-tile__title button {
-    color: #000091;
-  }
-
-  .fr-tile__title a::before,
-  .fr-tile__title button::before {
-    background-image: linear-gradient(0deg, #000091, #000091);
-  }
-
-  .fr-tile__title a:not([href]),
-  .fr-tile__title button:disabled {
-    color: #929292;
-  }
-
-  .fr-tile__title a:not([href])::before,
-  .fr-tile__title button:disabled::before {
-    background-image: linear-gradient(0deg, #e5e5e5, #e5e5e5);
-  }
-
   .fr-tile .fr-tile__desc,
   .fr-tile .fr-tile__detail,
   .fr-tile__desc,
@@ -813,5 +759,28 @@ a.fr-tile__title:not([href]) {
   .fr-tile--sm__detail {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .fr-tile {
+    page-break-inside: avoid;
+    border: 1px solid var(--border-default-grey);
+  }
+
+  .fr-tile:not(.fr-tile--horizontal):not(.fr-tile--download) .fr-tile__content {
+    padding-bottom: 0 !important;
+  }
+
+  .fr-tile__title::before {
+    background-image: none !important;
+  }
+
+  .fr-tile__title a::before,
+  .fr-tile__title button::before {
+    background-image: none !important;
+  }
+
+  .fr-tile__title a::after,
+  .fr-tile__title button::after {
+    display: none;
   }
 }

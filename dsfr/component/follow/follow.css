@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -154,6 +154,11 @@
   margin-top: 1.5rem;
   padding-top: 1.5rem;
   box-shadow: 0 -1px 0 0 var(--border-default-blue-france);
+}
+
+.fr-follow .fr-btn--bluesky::before {
+  -webkit-mask-image: url("../../icons/logo/bluesky-fill.svg");
+  mask-image: url("../../icons/logo/bluesky-fill.svg");
 }
 
 .fr-follow .fr-btn--dailymotion::before {
@@ -582,6 +587,10 @@
     max-width: 100%;
   }
 
+  .fr-follow .fr-btn--bluesky::before {
+    background-image: url("../../icons/logo/bluesky-fill.svg");
+  }
+
   .fr-follow .fr-btn--dailymotion::before {
     background-image: url("../../icons/logo/fr--dailymotion-fill.svg");
   }
@@ -830,36 +839,6 @@
   * Mixin d'ajout des icones des réseaux sociaux
   **/
   .fr-follow {
-    background-color: #f5f5fe;
-  }
-
-  .fr-follow .fr-input {
-    background-color: #fff;
-  }
-
-  .fr-follow__title {
-    color: #161616;
-  }
-
-  .fr-follow__newsletter-legal {
-    color: #666;
-  }
-
-  .fr-follow__social .fr-btn {
-    color: #000091;
-  }
-
-  .fr-follow__social .fr-btn:disabled,
-  .fr-follow__social a.fr-btn:not([href]) {
-    color: #929292;
-  }
-
-  .fr-follow .fr-grid-row > *:not(:first-child) {
-    box-shadow: 0 -1px 0 0 #6a6af4;
-  }
-}
-@media print and (min-width: 48em) {
-  .fr-follow .fr-grid-row > *:not(:first-child) {
-    box-shadow: -1px 0 0 0 #6a6af4;
+    display: none;
   }
 }

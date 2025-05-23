@@ -1,37 +1,19 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media print {
   .fr-tabs {
-    box-shadow: inset 0 -1px 0 0 #ddd;
-
-    /**
-    * Tab button
-    */
-  }
-
-  .fr-tabs::before {
-    box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+    page-break-inside: avoid;
   }
 
   .fr-tabs__tab {
-    background-image: linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
-    box-shadow: 0 2px 0 0 #fff;
+    background-color: transparent;
+    border: 1px solid var(--border-default-grey);
+    background-image: none !important;
   }
 
-  .fr-tabs__tab:not([aria-selected=true]) {
-    background-color: #e3e3fd;
-    color: #161616;
-  }
-
-  .fr-tabs__tab[aria-selected=true]:not(:disabled) {
-    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd), linear-gradient(0deg, #ddd, #ddd);
-    background-color: #fff;
-    color: #000091;
-  }
-
-  .fr-tabs__tab:disabled {
-    color: #929292;
-    background-color: #e5e5e5;
+  .fr-tabs__tab[aria-selected=true] {
+    border-top: 2px solid var(--border-active-blue-france);
+    border-bottom: none;
   }
 }

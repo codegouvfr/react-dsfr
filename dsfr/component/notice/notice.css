@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -515,73 +515,34 @@
 }
 @media print {
   .fr-notice {
-    background-color: #eee;
-    color: #161616;
+    border-top: 1px solid var(--border-default-grey);
+    border-bottom: 1px solid var(--border-default-grey);
+    margin-bottom: 1rem;
   }
 
-  .fr-notice--info {
-    background-color: #e8edff;
-    color: #0063cb;
+  .fr-notice .fr-btn--close {
+    display: none;
   }
 
-  .fr-notice--warning,
-  .fr-notice--weather-orange {
-    background-color: #ffe9e6;
-    color: #b34000;
+  .fr-notice__title::before {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
-  .fr-notice--alert {
-    background-color: #ffe9e9;
-    color: #ce0500;
+  .fr-notice--weather-red,
+  .fr-notice--attack {
+    color: var(--text-default-error);
+    background: none;
   }
 
-  .fr-notice--weather-red {
-    background-color: #ce0500;
-    color: #fff;
-  }
-
-  .fr-notice--weather-red .fr-btn--close {
-    background-color: #ce0500;
+  .fr-notice--witness,
+  .fr-notice--cyberattack {
+    color: var(--text-default-grey);
+    background: none;
   }
 
   .fr-notice--weather-purple {
-    background-color: #6e445a;
-    color: #fff;
-  }
-
-  .fr-notice--weather-purple .fr-btn--close {
-    background-color: #6e445a;
-  }
-
-  .fr-notice--witness {
-    background-color: #3a3a3a;
-    color: #fff;
-    background-image: linear-gradient(0deg, #ce0500, #ce0500);
-  }
-
-  .fr-notice--witness .fr-btn--close {
-    background-color: #3a3a3a;
-  }
-
-  .fr-notice--kidnapping,
-  .fr-notice--attack {
-    background-color: #ce0500;
-    color: #fff;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-notice--kidnapping .fr-btn--close,
-  .fr-notice--attack .fr-btn--close {
-    background-color: #ce0500;
-  }
-
-  .fr-notice--cyberattack {
-    background-color: #3a3a3a;
-    color: #fff;
-    background-image: linear-gradient(0deg, #0063cb, #0063cb);
-  }
-
-  .fr-notice--cyberattack .fr-btn--close {
-    background-color: #3a3a3a;
+    color: var(--text-label-purple-glycine);
+    background: none;
   }
 }

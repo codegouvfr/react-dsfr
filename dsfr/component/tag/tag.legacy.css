@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -689,6 +689,16 @@
     background-image: radial-gradient(circle at 100% 0.25rem, transparent 0.578125rem, #e5e5e5 0.625rem);
   }
 
+  button.fr-tag[aria-pressed=true]:disabled:hover,
+  input[type=button].fr-tag[aria-pressed=true]:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  button.fr-tag[aria-pressed=true]:disabled:active,
+  input[type=button].fr-tag[aria-pressed=true]:disabled:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
   button.fr-tag[aria-pressed=true]:disabled::after,
   input[type=button].fr-tag[aria-pressed=true]:disabled::after {
     color: #929292;
@@ -717,11 +727,6 @@
   button.fr-tag:disabled,
   input[type=button].fr-tag:disabled {
     color: #929292;
-    background-color: #e5e5e5;
-  }
-
-  button.fr-tag:disabled:hover,
-  input[type=button].fr-tag:disabled:hover {
     background-color: #e5e5e5;
   }
 

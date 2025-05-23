@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -112,6 +112,18 @@
 .fr-icon-edit-line::after {
   -webkit-mask-image: url("../../../icons/design/edit-line.svg");
   mask-image: url("../../../icons/design/edit-line.svg");
+}
+
+.fr-icon-eraser-fill::before,
+.fr-icon-eraser-fill::after {
+  -webkit-mask-image: url("../../../icons/design/eraser-fill.svg");
+  mask-image: url("../../../icons/design/eraser-fill.svg");
+}
+
+.fr-icon-eraser-line::before,
+.fr-icon-eraser-line::after {
+  -webkit-mask-image: url("../../../icons/design/eraser-line.svg");
+  mask-image: url("../../../icons/design/eraser-line.svg");
 }
 
 .fr-icon-ink-bottle-fill::before,

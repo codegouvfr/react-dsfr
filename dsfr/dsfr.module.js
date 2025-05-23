@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 class LogLevel {
@@ -1484,6 +1484,55 @@ class Emitter {
   }
 }
 
+class FocusManager {
+  constructor () {
+    this._activeElements = [];
+    window.document.addEventListener('focusin', this._onFocusIn.bind(this));
+  }
+
+  _onFocusIn (e) {
+    this._activeElements.push(e.target);
+  }
+
+  get index () {
+    return this._activeElements.length - 1;
+  }
+
+  focus (index) {
+    const element = this._activeElements[index];
+    switch (true) {
+      case index < 0:
+      case this._activeElements.length === 0:
+        this.focusOnLogo();
+        return;
+      case !element:
+      case !document.documentElement.contains(element):
+      case !this._isDisplayed(element):
+        this.focus(index - 1);
+        return;
+    }
+
+    element.focus();
+  }
+
+  focusOnLogo () {
+    const logo = document.querySelector(api$1.header.HeaderSelector.BRAND_LINK);
+    if (logo) logo.focus();
+  }
+
+  _isDisplayed (element) {
+    while (element && element !== document.documentElement) {
+      if (element === document.body) return true;
+      const style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+      element = element.parentElement;
+    }
+    return true;
+  }
+}
+
+const focusManager = new FocusManager();
+
 class Breakpoint {
   constructor (id, minWidth) {
     this.id = id;
@@ -1948,6 +1997,14 @@ class Instance {
     this.node.blur();
   }
 
+  retainFocus () {
+    this._focusIndex = focusManager.index;
+  }
+
+  focusBack () {
+    focusManager.focus(this._focusIndex);
+  }
+
   focusClosest () {
     const closest = this._focusClosest(this.node.parentNode);
     if (closest) closest.focus();
@@ -2107,6 +2164,7 @@ class Disclosure extends Instance {
     this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
     this.modifier = this._selector + '--' + this.type.id;
     this._isPristine = true;
+    this._isActive = true;
     this._isRetrievingPrimaries = false;
     this._hasRetrieved = false;
     this._primaryButtons = [];
@@ -2136,6 +2194,20 @@ class Disclosure extends Instance {
     else this.ascend(DisclosureEmission.REMOVED);
   }
 
+  get isActive () {
+    return this._isActive;
+  }
+
+  set isActive (value) {
+    if (this._isActive === value) return;
+    this._isActive = value;
+    if (value) this.ascend(DisclosureEmission.ADDED);
+    else {
+      this.ascend(DisclosureEmission.REMOVED);
+      if (this.isDisclosed) this.conceal();
+    }
+  }
+
   get isPristine () {
     return this._isPristine;
   }
@@ -2159,6 +2231,12 @@ class Disclosure extends Instance {
       },
       get isDisclosed () {
         return scope.isDisclosed;
+      },
+      get isEnabled () {
+        return scope.isEnabled;
+      },
+      get isActive () {
+        return scope.isActive;
       }
     };
 
@@ -2194,7 +2272,8 @@ class Disclosure extends Instance {
   }
 
   disclose (withhold) {
-    if (this.isDisclosed === true || !this.isEnabled) return false;
+    if (this.isDisclosed === true || !this.isEnabled || !this._isActive) return false;
+    this.retainFocus();
     this._isPristine = false;
     this.isDisclosed = true;
     if (!withhold && this.group) this.group.current = this;
@@ -2217,7 +2296,7 @@ class Disclosure extends Instance {
 
   set isDisclosed (value) {
     if (this._isDisclosed === value || (!this.isEnabled && value === true)) return;
-    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
+    if (!this._isPristine) this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
     this._isDisclosed = value;
     if (value) this.addClass(this.modifier);
     else this.removeClass(this.modifier);
@@ -2261,6 +2340,7 @@ class Disclosure extends Instance {
 
   focus () {
     if (this._primaryButtons.length > 0) this._primaryButtons[0].focus();
+    else this.focusBack();
   }
 
   get primaryButtons () {
@@ -2277,7 +2357,7 @@ class Disclosure extends Instance {
     this._isRetrievingPrimaries = false;
     this._primaryButtons = this._electPrimaries(this.buttons);
 
-    if (this._hasRetrieved || this._primaryButtons.length === 0) return;
+    if (this._hasRetrieved || (this._primaryButtons.length === 0 && this.type.requirePrimary)) return;
     this.retrieved();
     this._hasRetrieved = true;
 
@@ -2288,7 +2368,7 @@ class Disclosure extends Instance {
       return;
     }
 
-    if (this._isPristine && this.isEnabled && !this.group) {
+    if (this._isPristine && this.isEnabled && this.isActive && !this.group) {
       switch (true) {
         case this.hash === this.id:
           this._spotlight();
@@ -2313,7 +2393,7 @@ class Disclosure extends Instance {
   }
 
   applyAbility (withhold = false) {
-    const isEnabled = !this._primaryButtons.every(button => button.isDisabled);
+    const isEnabled = !this.type.requirePrimary || this._primaryButtons.some(button => !button.isDisabled);
 
     if (this.isEnabled === isEnabled) return;
 
@@ -2499,7 +2579,7 @@ class DisclosuresGroup extends Instance {
 
   getMembers () {
     const members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-    this._members = members.filter(this.validate.bind(this)).filter(member => member.isEnabled);
+    this._members = members.filter(this.validate.bind(this)).filter(member => member.isEnabled && member.isActive);
     const invalids = members.filter(member => !this._members.includes(member));
     invalids.forEach(invalid => invalid.conceal());
   }
@@ -2647,21 +2727,24 @@ const DisclosureType = {
     ariaState: true,
     ariaControls: true,
     canConceal: true,
-    canDisable: true
+    canDisable: true,
+    requirePrimary: true
   },
   SELECT: {
     id: 'selected',
     ariaState: true,
     ariaControls: true,
     canConceal: false,
-    canDisable: true
+    canDisable: true,
+    requirePrimary: true
   },
   OPENED: {
     id: 'opened',
     ariaState: false,
     ariaControls: true,
     canConceal: true,
-    canDisable: false
+    canDisable: false,
+    requirePrimary: false
   }
 };
 
@@ -3067,11 +3150,19 @@ class AssessFile extends Instance {
     }
 
     fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
-      this.length = response.headers.get('content-length') || -1;
-      if (this.length === -1) {
-        inspector.warn('File size unknown: ' + this.href + '\nUnable to get HTTP header: "content-length"');
+      if (response.ok) {
+        this.length = response.headers.get('content-length') || -1;
+        if (this.length && this.length === -1) {
+          throw new Error('File size unknown' + '\n Unable to get HTTP header: "content-length"');
+        }
+        this.gather();
+      } else {
+        throw new Error('Unable to access the resource : Status ' + response.status);
       }
+    }).catch((error) => {
+      this.length = -1;
       this.gather();
+      inspector.warn('Fetch error on assess file : ' + this.href + '\n ' + error);
     });
   }
 
@@ -3093,7 +3184,6 @@ class AssessFile extends Instance {
 
     if (!this.length) {
       this.getFileLength();
-      return;
     }
 
     this.details = [];
@@ -3103,7 +3193,7 @@ class AssessFile extends Instance {
       if (extension) this.details.push(extension.toUpperCase());
     }
 
-    if (this.length !== -1) {
+    if (this.length && this.length !== -1) {
       this.details.push(this.bytesToSize(this.length));
     }
 
@@ -4480,7 +4570,7 @@ const ModalAttribute = {
 class Modal extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-    this._isActive = false;
+    this._isDecorated = false;
     this.scrolling = this.resize.bind(this, false);
     this.resizing = this.resize.bind(this, true);
   }
@@ -4492,7 +4582,6 @@ class Modal extends api.core.Disclosure {
   init () {
     super.init();
     this._isDialog = this.node.tagName === 'DIALOG';
-    this.isScrolling = false;
     this.listenClick();
     this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
   }
@@ -4540,12 +4629,15 @@ class Modal extends api.core.Disclosure {
 
   disclose (withhold) {
     if (!super.disclose(withhold)) return false;
-    if (this.body) this.body.activate();
+    if (this.body) {
+      this.body.isResizing = true;
+      this.body.resize();
+    }
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
     this.setAttribute('open', 'true');
     if (!this._isDialog) {
-      this.activateModal();
+      this.decorateDialog();
     }
     return true;
   }
@@ -4555,9 +4647,9 @@ class Modal extends api.core.Disclosure {
     this.isScrollLocked = false;
     this.removeAttribute('aria-modal');
     this.removeAttribute('open');
-    if (this.body) this.body.deactivate();
+    if (this.body) this.body.isResizing = false;
     if (!this._isDialog) {
-      this.deactivateModal();
+      this.stripDialog();
     }
     return true;
   }
@@ -4570,16 +4662,25 @@ class Modal extends api.core.Disclosure {
     this._isDialog = value;
   }
 
-  activateModal () {
-    if (this._isActive) return;
-    this._isActive = true;
+  get isActive () {
+    return super.isActive;
+  }
+
+  set isActive (value) {
+    super.isActive = value;
+    if (value) this._ensureAccessibleName();
+  }
+
+  decorateDialog () {
+    if (this._isDecorated) return;
+    this._isDecorated = true;
     this._hasDialogRole = this.getAttribute('role') === 'dialog';
     if (!this._hasDialogRole) this.setAttribute('role', 'dialog');
   }
 
-  deactivateModal () {
-    if (!this._isActive) return;
-    this._isActive = false;
+  stripDialog () {
+    if (!this._isDecorated) return;
+    this._isDecorated = false;
     if (!this._hasDialogRole) this.removeAttribute('role');
   }
 
@@ -4590,7 +4691,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
+    if (!this.isActive || !this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -4856,15 +4957,6 @@ class ModalBody extends api.core.Instance {
     this.listen('scroll', this.divide.bind(this));
   }
 
-  activate () {
-    this.isResizing = true;
-    this.resize();
-  }
-
-  deactivate () {
-    this.isResizing = false;
-  }
-
   divide () {
     if (this.node.scrollHeight > this.node.clientHeight) {
       if (this.node.offsetHeight + this.node.scrollTop >= this.node.scrollHeight) {
@@ -5111,6 +5203,7 @@ class Navigation extends api.core.CollapsesGroup {
     this.out = false;
     this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
     this.listen('mousedown', this.handleMouseDown.bind(this));
+    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
     this.listenClick({ capture: true });
     this.isResizing = true;
   }
@@ -5119,8 +5212,29 @@ class Navigation extends api.core.CollapsesGroup {
     return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
   }
 
+  get hasOpenedMenu () {
+    return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+  }
+
+  _keydown (keyCode) {
+    switch (keyCode) {
+      case api.core.KeyCodes.ESCAPE:
+        if (!this.hasOpenedMenu) return;
+        this.index = -1;
+        break;
+
+      case api.core.KeyCodes.TAB:
+        if (!this.hasOpenedMenu) return;
+        this.request(() => {
+          if (this.current.node.contains(document.activeElement)) return;
+          this.index = -1;
+        });
+        break;
+    }
+  }
+
   handleMouseDown (e) {
-    if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) return;
+    if (!this.hasOpenedMenu) return;
     this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
     this.requestPosition();
   }
@@ -6291,6 +6405,7 @@ api.internals.register(api.range.RangeSelector.RANGE_MAX, api.range.RangeLimit);
 
 const HeaderSelector = {
   HEADER: api.internals.ns.selector('header'),
+  BRAND_LINK: api.internals.ns.selector('header__brand a'),
   TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
   MENU_LINKS: api.internals.ns.selector('header__menu-links'),
   BUTTONS: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')}, ${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('links-group')}`,
@@ -6368,17 +6483,23 @@ class HeaderModal extends api.core.Instance {
 
   activateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.isEnabled = true;
+    if (!modal) {
+      this.request(this.activateModal.bind(this));
+      return;
+    }
     this.restoreAria();
+    modal.isActive = true;
     this.listenClick({ capture: true });
   }
 
   deactivateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
+    if (!modal) {
+      this.request(this.deactivateModal.bind(this));
+      return;
+    }
     modal.conceal();
-    modal.isEnabled = false;
+    modal.isActive = false;
     this.storeAria();
     this.unlistenClick({ capture: true });
   }

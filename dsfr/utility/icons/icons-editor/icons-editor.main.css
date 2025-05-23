@@ -1,21 +1,63 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
 /* ¯¯¯¯¯¯¯¯¯ *\
   ICON COMMUNICATION
 \* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-align-center::before,
+.fr-icon-align-center::after {
+  -webkit-mask-image: url("../../../icons/editor/align-center.svg");
+  mask-image: url("../../../icons/editor/align-center.svg");
+}
+
+.fr-icon-align-justify::before,
+.fr-icon-align-justify::after {
+  -webkit-mask-image: url("../../../icons/editor/align-justify.svg");
+  mask-image: url("../../../icons/editor/align-justify.svg");
+}
+
+.fr-icon-align-left::before,
+.fr-icon-align-left::after {
+  -webkit-mask-image: url("../../../icons/editor/align-left.svg");
+  mask-image: url("../../../icons/editor/align-left.svg");
+}
+
+.fr-icon-align-right::before,
+.fr-icon-align-right::after {
+  -webkit-mask-image: url("../../../icons/editor/align-right.svg");
+  mask-image: url("../../../icons/editor/align-right.svg");
+}
+
+.fr-icon-code-block::before,
+.fr-icon-code-block::after {
+  -webkit-mask-image: url("../../../icons/editor/code-block.svg");
+  mask-image: url("../../../icons/editor/code-block.svg");
+}
+
 .fr-icon-code-view::before,
 .fr-icon-code-view::after {
   -webkit-mask-image: url("../../../icons/editor/code-view.svg");
   mask-image: url("../../../icons/editor/code-view.svg");
 }
 
+.fr-icon-font-color::before,
+.fr-icon-font-color::after {
+  -webkit-mask-image: url("../../../icons/editor/font-color.svg");
+  mask-image: url("../../../icons/editor/font-color.svg");
+}
+
 .fr-icon-font-size::before,
 .fr-icon-font-size::after {
   -webkit-mask-image: url("../../../icons/editor/font-size.svg");
   mask-image: url("../../../icons/editor/font-size.svg");
+}
+
+.fr-icon-format-clear::before,
+.fr-icon-format-clear::after {
+  -webkit-mask-image: url("../../../icons/editor/format-clear.svg");
+  mask-image: url("../../../icons/editor/format-clear.svg");
 }
 
 .fr-icon-bold::before,
@@ -84,6 +126,18 @@
   mask-image: url("../../../icons/editor/hashtag.svg");
 }
 
+.fr-icon-indent-decrease::before,
+.fr-icon-indent-decrease::after {
+  -webkit-mask-image: url("../../../icons/editor/indent-decrease.svg");
+  mask-image: url("../../../icons/editor/indent-decrease.svg");
+}
+
+.fr-icon-indent-increase::before,
+.fr-icon-indent-increase::after {
+  -webkit-mask-image: url("../../../icons/editor/indent-increase.svg");
+  mask-image: url("../../../icons/editor/indent-increase.svg");
+}
+
 .fr-icon-italic::before,
 .fr-icon-italic::after {
   -webkit-mask-image: url("../../../icons/editor/italic.svg");
@@ -100,6 +154,12 @@
 .fr-icon-link::after {
   -webkit-mask-image: url("../../../icons/editor/link.svg");
   mask-image: url("../../../icons/editor/link.svg");
+}
+
+.fr-icon-list-check::before,
+.fr-icon-list-check::after {
+  -webkit-mask-image: url("../../../icons/editor/list-check.svg");
+  mask-image: url("../../../icons/editor/list-check.svg");
 }
 
 .fr-icon-list-ordered::before,
@@ -132,6 +192,12 @@
   mask-image: url("../../../icons/editor/space.svg");
 }
 
+.fr-icon-strikethrough::before,
+.fr-icon-strikethrough::after {
+  -webkit-mask-image: url("../../../icons/editor/strikethrough.svg");
+  mask-image: url("../../../icons/editor/strikethrough.svg");
+}
+
 .fr-icon-subscript::before,
 .fr-icon-subscript::after {
   -webkit-mask-image: url("../../../icons/editor/subscript.svg");
@@ -150,10 +216,22 @@
   mask-image: url("../../../icons/editor/table-2.svg");
 }
 
+.fr-icon-text-direction-r::before,
+.fr-icon-text-direction-r::after {
+  -webkit-mask-image: url("../../../icons/editor/text-direction-r.svg");
+  mask-image: url("../../../icons/editor/text-direction-r.svg");
+}
+
 .fr-icon-translate-2::before,
 .fr-icon-translate-2::after {
   -webkit-mask-image: url("../../../icons/editor/translate-2.svg");
   mask-image: url("../../../icons/editor/translate-2.svg");
+}
+
+.fr-icon-underline::before,
+.fr-icon-underline::after {
+  -webkit-mask-image: url("../../../icons/editor/underline.svg");
+  mask-image: url("../../../icons/editor/underline.svg");
 }
 
 .fr-fi-font-size::before,

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -52,28 +52,40 @@
   padding-top: var(--table-offset);
 }
 
-.fr-table__content .fr-cell--fixed {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-}
-
-.fr-table__content .fr-cell--fixed .fr-checkbox-group + * {
+.fr-table__content .fr-cell--fixed .fr-checkbox-group + *,
+.fr-table__content .fr-cell--fixed\@sm .fr-checkbox-group + *,
+.fr-table__content .fr-cell--fixed\@md .fr-checkbox-group + *,
+.fr-table__content .fr-cell--fixed\@lg .fr-checkbox-group + * {
   margin-left: 0.5rem;
 }
 
-.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label {
+.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label,
+.fr-table__content .fr-cell--fixed\@sm .fr-checkbox-group .fr-label,
+.fr-table__content .fr-cell--fixed\@md .fr-checkbox-group .fr-label,
+.fr-table__content .fr-cell--fixed\@lg .fr-checkbox-group .fr-label {
   color: transparent;
   width: 0;
   pointer-events: none;
 }
 
-.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label::before {
+.fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label::before,
+.fr-table__content .fr-cell--fixed\@sm .fr-checkbox-group .fr-label::before,
+.fr-table__content .fr-cell--fixed\@md .fr-checkbox-group .fr-label::before,
+.fr-table__content .fr-cell--fixed\@lg .fr-checkbox-group .fr-label::before {
   left: -1.25rem;
 }
 
-.fr-table__content .fr-cell--fixed .fr-checkbox-group input[type=checkbox] {
+.fr-table__content .fr-cell--fixed .fr-checkbox-group input[type=checkbox],
+.fr-table__content .fr-cell--fixed\@sm .fr-checkbox-group input[type=checkbox],
+.fr-table__content .fr-cell--fixed\@md .fr-checkbox-group input[type=checkbox],
+.fr-table__content .fr-cell--fixed\@lg .fr-checkbox-group input[type=checkbox] {
   left: 0.25rem;
+}
+
+.fr-table__content .fr-cell--fixed {
+  position: sticky;
+  left: 0;
+  z-index: 1;
 }
 
 .fr-table__content .fr-cell--center {
@@ -1430,6 +1442,18 @@
 
 @media (min-width: 48em) {
   /*! media md */
+  .fr-table__content .fr-cell--fixed\@sm {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
+  .fr-table__content .fr-cell--fixed\@md {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
   .fr-table caption {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1507,6 +1531,12 @@
 
 @media (min-width: 62em) {
   /*! media lg */
+  .fr-table__content .fr-cell--fixed\@lg {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
   .fr-table__footer--middle {
     display: block;
     padding-left: 0.5rem;
@@ -1531,11 +1561,17 @@
 }
 
 @media (-ms-high-contrast: active), (forced-colors: active) {
-  .fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label {
+  .fr-table__content .fr-cell--fixed .fr-checkbox-group .fr-label,
+  .fr-table__content .fr-cell--fixed\@sm .fr-checkbox-group .fr-label,
+  .fr-table__content .fr-cell--fixed\@md .fr-checkbox-group .fr-label,
+  .fr-table__content .fr-cell--fixed\@lg .fr-checkbox-group .fr-label {
     opacity: 0;
   }
 
-  .fr-table__content .fr-cell--fixed {
+  .fr-table__content .fr-cell--fixed,
+  .fr-table__content .fr-cell--fixed\@sm,
+  .fr-table__content .fr-cell--fixed\@md,
+  .fr-table__content .fr-cell--fixed\@lg {
     outline: 1px solid;
   }
 
@@ -2284,39 +2320,9 @@
 }
 
 @media print {
-  .fr-table__wrapper::after {
-    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
-  }
-
-  .fr-table__content table caption {
-    color: #161616;
-  }
-
-  .fr-table__content table thead th {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #929292, #929292);
-  }
-
-  .fr-table__content table thead th[role=columnheader] {
-    background-image: linear-gradient(0deg, #3a3a3a, #3a3a3a), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__content table tbody tr::after {
-    background-image: linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091), linear-gradient(0deg, #000091, #000091);
-  }
-
-  .fr-table__content table tbody td {
-    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #929292, #929292);
-    background-color: #fff;
-  }
-
-  .fr-table__content table tbody th {
-    background-color: #f6f6f6;
-    background-image: linear-gradient(0deg, #929292, #929292), linear-gradient(0deg, #3a3a3a, #3a3a3a);
-  }
-
-  .fr-table__detail {
-    color: #666;
+  .fr-table {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .fr-table td,

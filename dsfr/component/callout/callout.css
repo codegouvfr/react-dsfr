@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -375,100 +375,10 @@
 
 @media print {
   .fr-callout {
-    background-color: #eee;
-    background-image: linear-gradient(0deg, #6a6af4, #6a6af4);
-  }
-
-  .fr-callout::before {
-    color: #161616;
-  }
-
-  .fr-callout__title {
-    color: #161616;
-  }
-
-  .fr-callout--green-tilleul-verveine {
-    background-image: linear-gradient(0deg, #b7a73f, #b7a73f);
-    background-color: #fceeac;
-  }
-
-  .fr-callout--green-bourgeon {
-    background-image: linear-gradient(0deg, #68a532, #68a532);
-    background-color: #c9fcac;
-  }
-
-  .fr-callout--green-emeraude {
-    background-image: linear-gradient(0deg, #00a95f, #00a95f);
-    background-color: #c3fad5;
-  }
-
-  .fr-callout--green-menthe {
-    background-image: linear-gradient(0deg, #009081, #009081);
-    background-color: #bafaee;
-  }
-
-  .fr-callout--green-archipel {
-    background-image: linear-gradient(0deg, #009099, #009099);
-    background-color: #c7f6fc;
-  }
-
-  .fr-callout--blue-ecume {
-    background-image: linear-gradient(0deg, #465f9d, #465f9d);
-    background-color: #e9edfe;
-  }
-
-  .fr-callout--blue-cumulus {
-    background-image: linear-gradient(0deg, #417dc4, #417dc4);
-    background-color: #e6eefe;
-  }
-
-  .fr-callout--purple-glycine {
-    background-image: linear-gradient(0deg, #a558a0, #a558a0);
-    background-color: #fee7fc;
-  }
-
-  .fr-callout--pink-macaron {
-    background-image: linear-gradient(0deg, #e18b76, #e18b76);
-    background-color: #fee9e6;
-  }
-
-  .fr-callout--pink-tuile {
-    background-image: linear-gradient(0deg, #ce614a, #ce614a);
-    background-color: #fee9e7;
-  }
-
-  .fr-callout--yellow-tournesol {
-    background-image: linear-gradient(0deg, #c8aa39, #c8aa39);
-    background-color: #feecc2;
-  }
-
-  .fr-callout--yellow-moutarde {
-    background-image: linear-gradient(0deg, #c3992a, #c3992a);
-    background-color: #feebd0;
-  }
-
-  .fr-callout--orange-terre-battue {
-    background-image: linear-gradient(0deg, #e4794a, #e4794a);
-    background-color: #fee9e5;
-  }
-
-  .fr-callout--brown-cafe-creme {
-    background-image: linear-gradient(0deg, #d1b781, #d1b781);
-    background-color: #f7ecdb;
-  }
-
-  .fr-callout--brown-caramel {
-    background-image: linear-gradient(0deg, #c08c65, #c08c65);
-    background-color: #f7ebe5;
-  }
-
-  .fr-callout--brown-opera {
-    background-image: linear-gradient(0deg, #bd987a, #bd987a);
-    background-color: #f7ece4;
-  }
-
-  .fr-callout--beige-gris-galet {
-    background-image: linear-gradient(0deg, #aea397, #aea397);
-    background-color: #f3ede5;
+    page-break-inside: avoid;
+    background: transparent;
+    background-image: none;
+    border: 1px solid var(--border-default-grey);
+    border-left: 0.25rem solid var(--border-default-grey);
   }
 }

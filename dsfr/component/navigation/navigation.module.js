@@ -1,10 +1,10 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 const api = window[config.namespace];
@@ -88,6 +88,7 @@ class Navigation extends api.core.CollapsesGroup {
     this.out = false;
     this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
     this.listen('mousedown', this.handleMouseDown.bind(this));
+    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
     this.listenClick({ capture: true });
     this.isResizing = true;
   }
@@ -96,8 +97,29 @@ class Navigation extends api.core.CollapsesGroup {
     return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
   }
 
+  get hasOpenedMenu () {
+    return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+  }
+
+  _keydown (keyCode) {
+    switch (keyCode) {
+      case api.core.KeyCodes.ESCAPE:
+        if (!this.hasOpenedMenu) return;
+        this.index = -1;
+        break;
+
+      case api.core.KeyCodes.TAB:
+        if (!this.hasOpenedMenu) return;
+        this.request(() => {
+          if (this.current.node.contains(document.activeElement)) return;
+          this.index = -1;
+        });
+        break;
+    }
+  }
+
   handleMouseDown (e) {
-    if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) return;
+    if (!this.hasOpenedMenu) return;
     this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
     this.requestPosition();
   }

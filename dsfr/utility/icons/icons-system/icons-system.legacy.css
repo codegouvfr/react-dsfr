@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -472,6 +472,26 @@
   .fr-icon-settings-5-line::before,
   .fr-icon-settings-5-line::after {
     background-image: url("../../../icons/system/settings-5-line.svg");
+  }
+
+  .fr-icon-share-fill::before,
+  .fr-icon-share-fill::after {
+    background-image: url("../../../icons/system/share-fill.svg");
+  }
+
+  .fr-icon-share-forward-fill::before,
+  .fr-icon-share-forward-fill::after {
+    background-image: url("../../../icons/system/share-forward-fill.svg");
+  }
+
+  .fr-icon-share-forward-line::before,
+  .fr-icon-share-forward-line::after {
+    background-image: url("../../../icons/system/share-forward-line.svg");
+  }
+
+  .fr-icon-share-line::before,
+  .fr-icon-share-line::after {
+    background-image: url("../../../icons/system/share-line.svg");
   }
 
   .fr-icon-shield-fill::before,

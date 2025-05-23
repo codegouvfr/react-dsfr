@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -629,27 +629,18 @@ a.fr-pagination__link[aria-current=false]:not([href]),
   }
 }
 @media print {
-  .fr-pagination {
-    color: #161616;
-  }
-
   .fr-pagination__link[aria-current]:not([aria-current=false]) {
-    background-color: #000091;
-    color: #f5f5fe;
+    font-weight: bold;
+    background: none;
+    color: black;
+    border: 1px solid;
   }
 
-  .fr-pagination__link[aria-current]:not([aria-current=false]):hover {
-    background-color: #1212ff;
-  }
-
-  .fr-pagination__link[aria-current]:not([aria-current=false]):active {
-    background-color: #2323ff;
-  }
-
-  .fr-pagination__link:not([aria-current]):disabled,
-  a.fr-pagination__link:not([aria-current]):not([href]),
-  a.fr-pagination__link[aria-current=false]:not([href]),
-  .fr-pagination__link[aria-current=false]:disabled {
-    color: #929292;
+  .fr-pagination__link--prev::before,
+  .fr-pagination__link--prev::after,
+  .fr-pagination__link--next::before,
+  .fr-pagination__link--next::after {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

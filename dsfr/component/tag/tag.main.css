@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -590,6 +590,9 @@ input[type=button].fr-tag[aria-pressed=true]::after {
 button.fr-tag[aria-pressed=true]:disabled,
 input[type=button].fr-tag[aria-pressed=true]:disabled {
   background-color: transparent;
+
+  --hover: inherit;
+  --active: inherit;
   background-image: radial-gradient(circle at 100% 0.25rem, transparent 0.578125rem, var(--background-disabled-grey) 0.625rem);
 }
 
@@ -621,15 +624,6 @@ input[type=button].fr-tag[aria-pressed=true].fr-tag--sm:disabled {
 button.fr-tag:disabled,
 input[type=button].fr-tag:disabled {
   color: var(--text-disabled-grey);
-  background-color: var(--background-disabled-grey);
-
-  --idle: transparent;
-  --hover: var(--background-disabled-grey-hover);
-  --active: var(--background-disabled-grey-active);
-}
-
-button.fr-tag:disabled:hover,
-input[type=button].fr-tag:disabled:hover {
   background-color: var(--background-disabled-grey);
 
   --idle: transparent;

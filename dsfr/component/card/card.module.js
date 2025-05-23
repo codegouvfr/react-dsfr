@@ -1,10 +1,10 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 const api = window[config.namespace];

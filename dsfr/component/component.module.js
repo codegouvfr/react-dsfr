@@ -1,10 +1,10 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 const api = window[config.namespace];
@@ -618,7 +618,7 @@ const ModalAttribute = {
 class Modal extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-    this._isActive = false;
+    this._isDecorated = false;
     this.scrolling = this.resize.bind(this, false);
     this.resizing = this.resize.bind(this, true);
   }
@@ -630,7 +630,6 @@ class Modal extends api.core.Disclosure {
   init () {
     super.init();
     this._isDialog = this.node.tagName === 'DIALOG';
-    this.isScrolling = false;
     this.listenClick();
     this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
   }
@@ -678,12 +677,15 @@ class Modal extends api.core.Disclosure {
 
   disclose (withhold) {
     if (!super.disclose(withhold)) return false;
-    if (this.body) this.body.activate();
+    if (this.body) {
+      this.body.isResizing = true;
+      this.body.resize();
+    }
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
     this.setAttribute('open', 'true');
     if (!this._isDialog) {
-      this.activateModal();
+      this.decorateDialog();
     }
     return true;
   }
@@ -693,9 +695,9 @@ class Modal extends api.core.Disclosure {
     this.isScrollLocked = false;
     this.removeAttribute('aria-modal');
     this.removeAttribute('open');
-    if (this.body) this.body.deactivate();
+    if (this.body) this.body.isResizing = false;
     if (!this._isDialog) {
-      this.deactivateModal();
+      this.stripDialog();
     }
     return true;
   }
@@ -708,16 +710,25 @@ class Modal extends api.core.Disclosure {
     this._isDialog = value;
   }
 
-  activateModal () {
-    if (this._isActive) return;
-    this._isActive = true;
+  get isActive () {
+    return super.isActive;
+  }
+
+  set isActive (value) {
+    super.isActive = value;
+    if (value) this._ensureAccessibleName();
+  }
+
+  decorateDialog () {
+    if (this._isDecorated) return;
+    this._isDecorated = true;
     this._hasDialogRole = this.getAttribute('role') === 'dialog';
     if (!this._hasDialogRole) this.setAttribute('role', 'dialog');
   }
 
-  deactivateModal () {
-    if (!this._isActive) return;
-    this._isActive = false;
+  stripDialog () {
+    if (!this._isDecorated) return;
+    this._isDecorated = false;
     if (!this._hasDialogRole) this.removeAttribute('role');
   }
 
@@ -728,7 +739,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
+    if (!this.isActive || !this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -994,15 +1005,6 @@ class ModalBody extends api.core.Instance {
     this.listen('scroll', this.divide.bind(this));
   }
 
-  activate () {
-    this.isResizing = true;
-    this.resize();
-  }
-
-  deactivate () {
-    this.isResizing = false;
-  }
-
   divide () {
     if (this.node.scrollHeight > this.node.clientHeight) {
       if (this.node.offsetHeight + this.node.scrollTop >= this.node.scrollHeight) {
@@ -1249,6 +1251,7 @@ class Navigation extends api.core.CollapsesGroup {
     this.out = false;
     this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
     this.listen('mousedown', this.handleMouseDown.bind(this));
+    this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
     this.listenClick({ capture: true });
     this.isResizing = true;
   }
@@ -1257,8 +1260,29 @@ class Navigation extends api.core.CollapsesGroup {
     return super.validate(member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
   }
 
+  get hasOpenedMenu () {
+    return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+  }
+
+  _keydown (keyCode) {
+    switch (keyCode) {
+      case api.core.KeyCodes.ESCAPE:
+        if (!this.hasOpenedMenu) return;
+        this.index = -1;
+        break;
+
+      case api.core.KeyCodes.TAB:
+        if (!this.hasOpenedMenu) return;
+        this.request(() => {
+          if (this.current.node.contains(document.activeElement)) return;
+          this.index = -1;
+        });
+        break;
+    }
+  }
+
   handleMouseDown (e) {
-    if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) return;
+    if (!this.hasOpenedMenu) return;
     this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
     this.requestPosition();
   }
@@ -2429,6 +2453,7 @@ api.internals.register(api.range.RangeSelector.RANGE_MAX, api.range.RangeLimit);
 
 const HeaderSelector = {
   HEADER: api.internals.ns.selector('header'),
+  BRAND_LINK: api.internals.ns.selector('header__brand a'),
   TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
   MENU_LINKS: api.internals.ns.selector('header__menu-links'),
   BUTTONS: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')}, ${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('links-group')}`,
@@ -2504,17 +2529,23 @@ class HeaderModal extends api.core.Instance {
 
   activateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.isEnabled = true;
+    if (!modal) {
+      this.request(this.activateModal.bind(this));
+      return;
+    }
     this.restoreAria();
+    modal.isActive = true;
     this.listenClick({ capture: true });
   }
 
   deactivateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
+    if (!modal) {
+      this.request(this.deactivateModal.bind(this));
+      return;
+    }
     modal.conceal();
-    modal.isEnabled = false;
+    modal.isActive = false;
     this.storeAria();
     this.unlistenClick({ capture: true });
   }

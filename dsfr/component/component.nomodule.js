@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.0'
+    version: '1.13.2'
   };
 
   var api = window[config.namespace];
@@ -815,7 +815,7 @@
   var Modal = /*@__PURE__*/(function (superclass) {
     function Modal () {
       superclass.call(this, api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-      this._isActive = false;
+      this._isDecorated = false;
       this.scrolling = this.resize.bind(this, false);
       this.resizing = this.resize.bind(this, true);
     }
@@ -824,7 +824,7 @@
     Modal.prototype = Object.create( superclass && superclass.prototype );
     Modal.prototype.constructor = Modal;
 
-    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true } };
+    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true },isActive: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -834,7 +834,6 @@
     Modal.prototype.init = function init () {
       superclass.prototype.init.call(this);
       this._isDialog = this.node.tagName === 'DIALOG';
-      this.isScrolling = false;
       this.listenClick();
       this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
     };
@@ -882,12 +881,15 @@
 
     Modal.prototype.disclose = function disclose (withhold) {
       if (!superclass.prototype.disclose.call(this, withhold)) { return false; }
-      if (this.body) { this.body.activate(); }
+      if (this.body) {
+        this.body.isResizing = true;
+        this.body.resize();
+      }
       this.isScrollLocked = true;
       this.setAttribute('aria-modal', 'true');
       this.setAttribute('open', 'true');
       if (!this._isDialog) {
-        this.activateModal();
+        this.decorateDialog();
       }
       return true;
     };
@@ -897,9 +899,9 @@
       this.isScrollLocked = false;
       this.removeAttribute('aria-modal');
       this.removeAttribute('open');
-      if (this.body) { this.body.deactivate(); }
+      if (this.body) { this.body.isResizing = false; }
       if (!this._isDialog) {
-        this.deactivateModal();
+        this.stripDialog();
       }
       return true;
     };
@@ -912,16 +914,25 @@
       this._isDialog = value;
     };
 
-    Modal.prototype.activateModal = function activateModal () {
-      if (this._isActive) { return; }
-      this._isActive = true;
+    prototypeAccessors.isActive.get = function () {
+      return superclass.prototype.isActive;
+    };
+
+    prototypeAccessors.isActive.set = function (value) {
+      superclass.prototype.isActive = value;
+      if (value) { this._ensureAccessibleName(); }
+    };
+
+    Modal.prototype.decorateDialog = function decorateDialog () {
+      if (this._isDecorated) { return; }
+      this._isDecorated = true;
       this._hasDialogRole = this.getAttribute('role') === 'dialog';
       if (!this._hasDialogRole) { this.setAttribute('role', 'dialog'); }
     };
 
-    Modal.prototype.deactivateModal = function deactivateModal () {
-      if (!this._isActive) { return; }
-      this._isActive = false;
+    Modal.prototype.stripDialog = function stripDialog () {
+      if (!this._isDecorated) { return; }
+      this._isDecorated = false;
       if (!this._hasDialogRole) { this.removeAttribute('role'); }
     };
 
@@ -932,7 +943,7 @@
     };
 
     Modal.prototype._ensureAccessibleName = function _ensureAccessibleName () {
-      if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) { return; }
+      if (!this.isActive || !this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) { return; }
       this.warn('missing accessible name');
       var title = this.node.querySelector(ModalSelector.TITLE);
       var primary = this.primaryButtons[0];
@@ -1225,15 +1236,6 @@
 
     ModalBody.prototype.init = function init () {
       this.listen('scroll', this.divide.bind(this));
-    };
-
-    ModalBody.prototype.activate = function activate () {
-      this.isResizing = true;
-      this.resize();
-    };
-
-    ModalBody.prototype.deactivate = function deactivate () {
-      this.isResizing = false;
     };
 
     ModalBody.prototype.divide = function divide () {
@@ -1556,7 +1558,7 @@
     Navigation.prototype = Object.create( superclass && superclass.prototype );
     Navigation.prototype.constructor = Navigation;
 
-    var prototypeAccessors = { index: { configurable: true },canUngroup: { configurable: true } };
+    var prototypeAccessors = { hasOpenedMenu: { configurable: true },index: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -1569,6 +1571,7 @@
       this.out = false;
       this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
       this.listen('mousedown', this.handleMouseDown.bind(this));
+      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
       this.listenClick({ capture: true });
       this.isResizing = true;
     };
@@ -1577,8 +1580,31 @@
       return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
+    prototypeAccessors.hasOpenedMenu.get = function () {
+      return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+    };
+
+    Navigation.prototype._keydown = function _keydown (keyCode) {
+      var this$1$1 = this;
+
+      switch (keyCode) {
+        case api.core.KeyCodes.ESCAPE:
+          if (!this.hasOpenedMenu) { return; }
+          this.index = -1;
+          break;
+
+        case api.core.KeyCodes.TAB:
+          if (!this.hasOpenedMenu) { return; }
+          this.request(function () {
+            if (this$1$1.current.node.contains(document.activeElement)) { return; }
+            this$1$1.index = -1;
+          });
+          break;
+      }
+    };
+
     Navigation.prototype.handleMouseDown = function handleMouseDown (e) {
-      if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) { return; }
+      if (!this.hasOpenedMenu) { return; }
       this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
       this.requestPosition();
     };
@@ -2976,6 +3002,7 @@
 
   var HeaderSelector = {
     HEADER: api.internals.ns.selector('header'),
+    BRAND_LINK: api.internals.ns.selector('header__brand a'),
     TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
     MENU_LINKS: api.internals.ns.selector('header__menu-links'),
     BUTTONS: ((api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('btns-group')) + ", " + (api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('links-group'))),
@@ -3077,17 +3104,23 @@
 
     HeaderModal.prototype.activateModal = function activateModal () {
       var modal = this.element.getInstance('Modal');
-      if (!modal) { return; }
-      modal.isEnabled = true;
+      if (!modal) {
+        this.request(this.activateModal.bind(this));
+        return;
+      }
       this.restoreAria();
+      modal.isActive = true;
       this.listenClick({ capture: true });
     };
 
     HeaderModal.prototype.deactivateModal = function deactivateModal () {
       var modal = this.element.getInstance('Modal');
-      if (!modal) { return; }
+      if (!modal) {
+        this.request(this.deactivateModal.bind(this));
+        return;
+      }
       modal.conceal();
-      modal.isEnabled = false;
+      modal.isActive = false;
       this.storeAria();
       this.unlistenClick({ capture: true });
     };

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -63,7 +63,7 @@
   display: block;
   flex-shrink: 0;
   height: calc(1.25rem + 1px);
-  padding-top: 1.75rem;
+  padding-top: 1.5rem;
   font-size: 0.75rem;
   line-height: 1.25rem;
   border-radius: 0.75rem;

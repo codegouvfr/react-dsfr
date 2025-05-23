@@ -500,8 +500,10 @@ function getPrimaryButtonClassSelector() {
         "vimeo",
         "youtube",
         "menu",
-        "search"
+        "search",
+        "bluesky"
     ];
+    assert();
     assert();
     let selector = `.${fr.cx("fr-btn")}`;
     for (const btnVariant of btnVariants) {

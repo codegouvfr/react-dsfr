@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -25,6 +25,10 @@
     background-repeat: no-repeat;
     width: 1.5rem;
     height: 1.5rem;
+  }
+
+  .fr-share .fr-btn--bluesky::before {
+    background-image: url("../../icons/logo/bluesky-line.svg");
   }
 
   .fr-share .fr-btn--facebook::before {
@@ -65,6 +69,15 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../../icons/business/links-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share__link--bluesky::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/logo/bluesky-line.svg");
     width: 1.5rem;
     height: 1.5rem;
   }

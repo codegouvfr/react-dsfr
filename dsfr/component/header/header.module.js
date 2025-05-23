@@ -1,16 +1,17 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 const api = window[config.namespace];
 
 const HeaderSelector = {
   HEADER: api.internals.ns.selector('header'),
+  BRAND_LINK: api.internals.ns.selector('header__brand a'),
   TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
   MENU_LINKS: api.internals.ns.selector('header__menu-links'),
   BUTTONS: `${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('btns-group')}, ${api.internals.ns.selector('header__tools-links')} ${api.internals.ns.selector('links-group')}`,
@@ -86,17 +87,23 @@ class HeaderModal extends api.core.Instance {
 
   activateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
-    modal.isEnabled = true;
+    if (!modal) {
+      this.request(this.activateModal.bind(this));
+      return;
+    }
     this.restoreAria();
+    modal.isActive = true;
     this.listenClick({ capture: true });
   }
 
   deactivateModal () {
     const modal = this.element.getInstance('Modal');
-    if (!modal) return;
+    if (!modal) {
+      this.request(this.deactivateModal.bind(this));
+      return;
+    }
     modal.conceal();
-    modal.isEnabled = false;
+    modal.isActive = false;
     this.storeAria();
     this.unlistenClick({ capture: true });
   }

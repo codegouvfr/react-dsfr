@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.0'
+    version: '1.13.2'
   };
 
   var api = window[config.namespace];
@@ -101,7 +101,7 @@
     Navigation.prototype = Object.create( superclass && superclass.prototype );
     Navigation.prototype.constructor = Navigation;
 
-    var prototypeAccessors = { index: { configurable: true },canUngroup: { configurable: true } };
+    var prototypeAccessors = { hasOpenedMenu: { configurable: true },index: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -114,6 +114,7 @@
       this.out = false;
       this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
       this.listen('mousedown', this.handleMouseDown.bind(this));
+      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
       this.listenClick({ capture: true });
       this.isResizing = true;
     };
@@ -122,8 +123,31 @@
       return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
+    prototypeAccessors.hasOpenedMenu.get = function () {
+      return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+    };
+
+    Navigation.prototype._keydown = function _keydown (keyCode) {
+      var this$1$1 = this;
+
+      switch (keyCode) {
+        case api.core.KeyCodes.ESCAPE:
+          if (!this.hasOpenedMenu) { return; }
+          this.index = -1;
+          break;
+
+        case api.core.KeyCodes.TAB:
+          if (!this.hasOpenedMenu) { return; }
+          this.request(function () {
+            if (this$1$1.current.node.contains(document.activeElement)) { return; }
+            this$1$1.index = -1;
+          });
+          break;
+      }
+    };
+
     Navigation.prototype.handleMouseDown = function handleMouseDown (e) {
-      if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) { return; }
+      if (!this.hasOpenedMenu) { return; }
       this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
       this.requestPosition();
     };

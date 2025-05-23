@@ -651,10 +651,18 @@ function getPrimaryButtonClassSelector() {
         "vimeo",
         "youtube",
         "menu",
-        "search"
+        "search",
+        "bluesky"
     ] as const;
 
-    assert<Equals<BtnVariantWithoutPosition, typeof btnVariants[number]>>();
+    type Source = typeof btnVariants[number];
+    type Mirrored = BtnVariantWithoutPosition;
+
+    type InSourceNotInMirrored = Exclude<Source, Mirrored>;
+    type InMirroredNotInSource = Exclude<Mirrored, Source>;
+
+    assert<Equals<InSourceNotInMirrored, never>>();
+    assert<Equals<InMirroredNotInSource, never>>();
 
     let selector = `.${fr.cx("fr-btn")}`;
 

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -2792,6 +2792,16 @@
     background-image: url("../icons/design/edit-line.svg");
   }
 
+  .fr-icon-eraser-fill::before,
+  .fr-icon-eraser-fill::after {
+    background-image: url("../icons/design/eraser-fill.svg");
+  }
+
+  .fr-icon-eraser-line::before,
+  .fr-icon-eraser-line::after {
+    background-image: url("../icons/design/eraser-line.svg");
+  }
+
   .fr-icon-ink-bottle-fill::before,
   .fr-icon-ink-bottle-fill::after {
     background-image: url("../icons/design/ink-bottle-fill.svg");
@@ -3418,14 +3428,49 @@
     background-image: url("../icons/document/file-pdf-line.svg");
   }
 
+  .fr-icon-align-center::before,
+  .fr-icon-align-center::after {
+    background-image: url("../icons/editor/align-center.svg");
+  }
+
+  .fr-icon-align-justify::before,
+  .fr-icon-align-justify::after {
+    background-image: url("../icons/editor/align-justify.svg");
+  }
+
+  .fr-icon-align-left::before,
+  .fr-icon-align-left::after {
+    background-image: url("../icons/editor/align-left.svg");
+  }
+
+  .fr-icon-align-right::before,
+  .fr-icon-align-right::after {
+    background-image: url("../icons/editor/align-right.svg");
+  }
+
+  .fr-icon-code-block::before,
+  .fr-icon-code-block::after {
+    background-image: url("../icons/editor/code-block.svg");
+  }
+
   .fr-icon-code-view::before,
   .fr-icon-code-view::after {
     background-image: url("../icons/editor/code-view.svg");
   }
 
+  .fr-icon-font-color::before,
+  .fr-icon-font-color::after {
+    background-image: url("../icons/editor/font-color.svg");
+  }
+
   .fr-icon-font-size::before,
   .fr-icon-font-size::after {
     background-image: url("../icons/editor/font-size.svg");
+  }
+
+  .fr-icon-format-clear::before,
+  .fr-icon-format-clear::after {
+    background-image: url("../icons/editor/format-clear.svg");
   }
 
   .fr-icon-bold::before,
@@ -3483,6 +3528,16 @@
     background-image: url("../icons/editor/hashtag.svg");
   }
 
+  .fr-icon-indent-decrease::before,
+  .fr-icon-indent-decrease::after {
+    background-image: url("../icons/editor/indent-decrease.svg");
+  }
+
+  .fr-icon-indent-increase::before,
+  .fr-icon-indent-increase::after {
+    background-image: url("../icons/editor/indent-increase.svg");
+  }
+
   .fr-icon-italic::before,
   .fr-icon-italic::after {
     background-image: url("../icons/editor/italic.svg");
@@ -3496,6 +3551,11 @@
   .fr-icon-link::before,
   .fr-icon-link::after {
     background-image: url("../icons/editor/link.svg");
+  }
+
+  .fr-icon-list-check::before,
+  .fr-icon-list-check::after {
+    background-image: url("../icons/editor/list-check.svg");
   }
 
   .fr-icon-list-ordered::before,
@@ -3523,6 +3583,11 @@
     background-image: url("../icons/editor/space.svg");
   }
 
+  .fr-icon-strikethrough::before,
+  .fr-icon-strikethrough::after {
+    background-image: url("../icons/editor/strikethrough.svg");
+  }
+
   .fr-icon-subscript::before,
   .fr-icon-subscript::after {
     background-image: url("../icons/editor/subscript.svg");
@@ -3538,9 +3603,19 @@
     background-image: url("../icons/editor/table-2.svg");
   }
 
+  .fr-icon-text-direction-r::before,
+  .fr-icon-text-direction-r::after {
+    background-image: url("../icons/editor/text-direction-r.svg");
+  }
+
   .fr-icon-translate-2::before,
   .fr-icon-translate-2::after {
     background-image: url("../icons/editor/translate-2.svg");
+  }
+
+  .fr-icon-underline::before,
+  .fr-icon-underline::after {
+    background-image: url("../icons/editor/underline.svg");
   }
 
   .fr-fi-font-size::before {
@@ -3849,6 +3924,16 @@
   .fr-icon-virus-line::before,
   .fr-icon-virus-line::after {
     background-image: url("../icons/health/virus-line.svg");
+  }
+
+  .fr-icon-bluesky-fill::before,
+  .fr-icon-bluesky-fill::after {
+    background-image: url("../icons/logo/bluesky-fill.svg");
+  }
+
+  .fr-icon-bluesky-line::before,
+  .fr-icon-bluesky-line::after {
+    background-image: url("../icons/logo/bluesky-line.svg");
   }
 
   .fr-icon-chrome-fill::before,
@@ -4477,11 +4562,6 @@
 
   .fr-fi-road-map-line::before {
     background-image: url("../icons/map/road-map-line.svg");
-  }
-
-  .fr-icon-align-left::before,
-  .fr-icon-align-left::after {
-    background-image: url("../icons/media/align-left.svg");
   }
 
   .fr-icon-camera-fill::before,
@@ -5325,6 +5405,26 @@
   .fr-icon-settings-5-line::before,
   .fr-icon-settings-5-line::after {
     background-image: url("../icons/system/settings-5-line.svg");
+  }
+
+  .fr-icon-share-fill::before,
+  .fr-icon-share-fill::after {
+    background-image: url("../icons/system/share-fill.svg");
+  }
+
+  .fr-icon-share-forward-fill::before,
+  .fr-icon-share-forward-fill::after {
+    background-image: url("../icons/system/share-forward-fill.svg");
+  }
+
+  .fr-icon-share-forward-line::before,
+  .fr-icon-share-forward-line::after {
+    background-image: url("../icons/system/share-forward-line.svg");
+  }
+
+  .fr-icon-share-line::before,
+  .fr-icon-share-line::after {
+    background-image: url("../icons/system/share-line.svg");
   }
 
   .fr-icon-shield-fill::before,

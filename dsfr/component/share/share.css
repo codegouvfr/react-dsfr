@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -72,6 +72,11 @@
   mask-size: 100% 100%;
   --icon-size: 1.5rem;
   content: "";
+}
+
+.fr-btn--bluesky::before {
+  -webkit-mask-image: url("../../icons/logo/bluesky-line.svg");
+  mask-image: url("../../icons/logo/bluesky-line.svg");
 }
 
 .fr-btn--facebook::before {
@@ -466,6 +471,10 @@ a.fr-share__link:not([href]) {
     height: 1.5rem;
   }
 
+  .fr-share .fr-btn--bluesky::before {
+    background-image: url("../../icons/logo/bluesky-line.svg");
+  }
+
   .fr-share .fr-btn--facebook::before {
     background-image: url("../../icons/logo/facebook-circle-line.svg");
   }
@@ -504,6 +513,15 @@ a.fr-share__link:not([href]) {
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../../icons/business/links-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share__link--bluesky::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../icons/logo/bluesky-line.svg");
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -647,21 +665,6 @@ a.fr-share__link:not([href]) {
   }
 }
 @media print {
-  .fr-share .fr-btn {
-    color: #000091;
-    box-shadow: inset 0 0 0 1px #ddd;
-  }
-
-  .fr-share .fr-btn:disabled,
-  .fr-share a.fr-btn:not([href]) {
-    color: #929292;
-    box-shadow: inset 0 0 0 1px #e5e5e5;
-  }
-
-  .fr-share__text {
-    color: #666;
-  }
-
   .fr-share {
     display: none;
   }

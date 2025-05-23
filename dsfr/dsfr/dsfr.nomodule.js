@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     this.modules = {};
   };
 
-  var prototypeAccessors$b = { isActive: { configurable: true },isLegacy: { configurable: true } };
+  var prototypeAccessors$c = { isActive: { configurable: true },isLegacy: { configurable: true } };
 
   State.prototype.create = function create (ModuleClass) {
     var module = new ModuleClass();
@@ -26,11 +26,11 @@
     this.modules[type].remove(item);
   };
 
-  prototypeAccessors$b.isActive.get = function () {
+  prototypeAccessors$c.isActive.get = function () {
     return this._isActive;
   };
 
-  prototypeAccessors$b.isActive.set = function (value) {
+  prototypeAccessors$c.isActive.set = function (value) {
       var this$1$1 = this;
 
     if (value === this._isActive) { return; }
@@ -53,16 +53,16 @@
     }
   };
 
-  prototypeAccessors$b.isLegacy.get = function () {
+  prototypeAccessors$c.isLegacy.get = function () {
     return this._isLegacy;
   };
 
-  prototypeAccessors$b.isLegacy.set = function (value) {
+  prototypeAccessors$c.isLegacy.set = function (value) {
     if (value === this._isLegacy) { return; }
     this._isLegacy = value;
   };
 
-  Object.defineProperties( State.prototype, prototypeAccessors$b );
+  Object.defineProperties( State.prototype, prototypeAccessors$c );
 
   var state = new State();
 
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.0'
+    version: '1.13.2'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -92,7 +92,7 @@
     }
   };
 
-  var prototypeAccessors$a = { color: { configurable: true } };
+  var prototypeAccessors$b = { color: { configurable: true } };
 
   LogLevel.prototype.log = function log () {
       var values = [], len = arguments.length;
@@ -112,11 +112,11 @@
     this.logger.apply(console, message.getMessage());
   };
 
-  prototypeAccessors$a.color.get = function () {
+  prototypeAccessors$b.color.get = function () {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? this.dark : this.light;
   };
 
-  Object.defineProperties( LogLevel.prototype, prototypeAccessors$a );
+  Object.defineProperties( LogLevel.prototype, prototypeAccessors$b );
 
   var Message = function Message (domain) {
     this.inputs = ['%c'];
@@ -285,7 +285,7 @@
     this.preventManipulation = false;
   };
 
-  var prototypeAccessors$9 = { mode: { configurable: true } };
+  var prototypeAccessors$a = { mode: { configurable: true } };
 
   Options.prototype.configure = function configure (settings, start, query) {
       if ( settings === void 0 ) settings = {};
@@ -314,7 +314,7 @@
     this.mode = settings.mode || Modes.AUTO;
   };
 
-  prototypeAccessors$9.mode.set = function (value) {
+  prototypeAccessors$a.mode.set = function (value) {
     switch (value) {
       case Modes.AUTO:
         this.preventManipulation = false;
@@ -356,7 +356,7 @@
     inspector.info(("mode set to " + value));
   };
 
-  prototypeAccessors$9.mode.get = function () {
+  prototypeAccessors$a.mode.get = function () {
     return this._mode;
   };
 
@@ -365,7 +365,7 @@
     this.startCallback();
   };
 
-  Object.defineProperties( Options.prototype, prototypeAccessors$9 );
+  Object.defineProperties( Options.prototype, prototypeAccessors$a );
 
   var options = new Options();
 
@@ -373,7 +373,7 @@
     this._collection = [];
   };
 
-  var prototypeAccessors$8 = { length: { configurable: true },collection: { configurable: true } };
+  var prototypeAccessors$9 = { length: { configurable: true },collection: { configurable: true } };
 
   Collection.prototype.forEach = function forEach (callback) {
     this._collection.forEach(callback);
@@ -383,7 +383,7 @@
     return this._collection.map(callback);
   };
 
-  prototypeAccessors$8.length.get = function () {
+  prototypeAccessors$9.length.get = function () {
     return this._collection.length;
   };
 
@@ -424,11 +424,11 @@
     return clone;
   };
 
-  prototypeAccessors$8.collection.get = function () {
+  prototypeAccessors$9.collection.get = function () {
     return this._collection;
   };
 
-  Object.defineProperties( Collection.prototype, prototypeAccessors$8 );
+  Object.defineProperties( Collection.prototype, prototypeAccessors$9 );
 
   var Module = /*@__PURE__*/(function (Collection) {
     function Module (type) {
@@ -475,7 +475,7 @@
     this._attribute = ns.attr(("js-" + dashed));
   };
 
-  var prototypeAccessors$7 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
+  var prototypeAccessors$8 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
 
   Registration.prototype.getInstanceClassNames = function getInstanceClassNames (InstanceClass) {
     var prototype = Object.getPrototypeOf(InstanceClass);
@@ -518,23 +518,23 @@
     this.creator = null;
   };
 
-  prototypeAccessors$7.instanceClassName.get = function () {
+  prototypeAccessors$8.instanceClassName.get = function () {
     return this._instanceClassName;
   };
 
-  prototypeAccessors$7.instanceClassNames.get = function () {
+  prototypeAccessors$8.instanceClassNames.get = function () {
     return this._instanceClassNames;
   };
 
-  prototypeAccessors$7.property.get = function () {
+  prototypeAccessors$8.property.get = function () {
     return this._property;
   };
 
-  prototypeAccessors$7.attribute.get = function () {
+  prototypeAccessors$8.attribute.get = function () {
     return this._attribute;
   };
 
-  Object.defineProperties( Registration.prototype, prototypeAccessors$7 );
+  Object.defineProperties( Registration.prototype, prototypeAccessors$8 );
 
   var Register = /*@__PURE__*/(function (Module) {
     function Register () {
@@ -583,9 +583,9 @@
     this._projects = [];
   };
 
-  var prototypeAccessors$6 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
+  var prototypeAccessors$7 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
 
-  prototypeAccessors$6.proxy.get = function () {
+  prototypeAccessors$7.proxy.get = function () {
     var scope = this;
     if (!this._proxy) {
       this._proxy = {
@@ -607,7 +607,7 @@
     return this._proxy;
   };
 
-  prototypeAccessors$6.html.get = function () {
+  prototypeAccessors$7.html.get = function () {
     if (!this.node || !this.node.outerHTML) { return ''; }
     var end = this.node.outerHTML.indexOf('>');
     return this.node.outerHTML.substring(0, end + 1);
@@ -645,19 +645,19 @@
     if (this._proxy) { delete this._proxy[instance.registration.property]; }
   };
 
-  prototypeAccessors$6.parent.get = function () {
+  prototypeAccessors$7.parent.get = function () {
     return this._parent;
   };
 
-  prototypeAccessors$6.ascendants.get = function () {
+  prototypeAccessors$7.ascendants.get = function () {
     return [this.parent ].concat( this.parent.ascendants);
   };
 
-  prototypeAccessors$6.children.get = function () {
+  prototypeAccessors$7.children.get = function () {
     return this._children;
   };
 
-  prototypeAccessors$6.descendants.get = function () {
+  prototypeAccessors$7.descendants.get = function () {
     var descendants = [].concat( this._children );
     this._children.forEach(function (child) { return descendants.push.apply(descendants, child.descendants); });
     return descendants;
@@ -801,7 +801,7 @@
     for (var i = this.instances.length - 1; i > -1; i--) { this.instances[i].examine(attributeNames); }
   };
 
-  Object.defineProperties( Element$1.prototype, prototypeAccessors$6 );
+  Object.defineProperties( Element$1.prototype, prototypeAccessors$7 );
 
   var RootEmission = {
     CLICK: ns.emission('root', 'click'),
@@ -1335,9 +1335,9 @@
     this.register = registerModule.register.bind(registerModule);
   };
 
-  var prototypeAccessors$5 = { isActive: { configurable: true } };
+  var prototypeAccessors$6 = { isActive: { configurable: true } };
 
-  prototypeAccessors$5.isActive.get = function () {
+  prototypeAccessors$6.isActive.get = function () {
     return state.isActive;
   };
 
@@ -1353,7 +1353,7 @@
     rootDispatch(RootEvent.STOP);
   };
 
-  Object.defineProperties( Engine.prototype, prototypeAccessors$5 );
+  Object.defineProperties( Engine.prototype, prototypeAccessors$6 );
 
   var engine = new Engine();
 
@@ -1468,29 +1468,29 @@
     this._content = '';
   };
 
-  var prototypeAccessors$4 = { width: { configurable: true },height: { configurable: true },content: { configurable: true } };
+  var prototypeAccessors$5 = { width: { configurable: true },height: { configurable: true },content: { configurable: true } };
 
-  prototypeAccessors$4.width.get = function () {
+  prototypeAccessors$5.width.get = function () {
     return this._width;
   };
 
-  prototypeAccessors$4.width.set = function (value) {
+  prototypeAccessors$5.width.set = function (value) {
     this._width = value;
   };
 
-  prototypeAccessors$4.height.get = function () {
+  prototypeAccessors$5.height.get = function () {
     return this._height;
   };
 
-  prototypeAccessors$4.height.set = function (value) {
+  prototypeAccessors$5.height.set = function (value) {
     this._height = value;
   };
 
-  prototypeAccessors$4.content.get = function () {
+  prototypeAccessors$5.content.get = function () {
     return this._content;
   };
 
-  prototypeAccessors$4.content.set = function (value) {
+  prototypeAccessors$5.content.set = function (value) {
     this._content = value;
   };
 
@@ -1510,7 +1510,7 @@
     return ("data:image/svg+xml;charset=utf8," + svg);
   };
 
-  Object.defineProperties( DataURISVG.prototype, prototypeAccessors$4 );
+  Object.defineProperties( DataURISVG.prototype, prototypeAccessors$5 );
 
   var image = {
     DataURISVG: DataURISVG
@@ -1701,6 +1701,57 @@
   Emitter.prototype.dispose = function dispose () {
     this.emissions = null;
   };
+
+  var FocusManager = function FocusManager () {
+    this._activeElements = [];
+    window.document.addEventListener('focusin', this._onFocusIn.bind(this));
+  };
+
+  var prototypeAccessors$4 = { index: { configurable: true } };
+
+  FocusManager.prototype._onFocusIn = function _onFocusIn (e) {
+    this._activeElements.push(e.target);
+  };
+
+  prototypeAccessors$4.index.get = function () {
+    return this._activeElements.length - 1;
+  };
+
+  FocusManager.prototype.focus = function focus (index) {
+    var element = this._activeElements[index];
+    switch (true) {
+      case index < 0:
+      case this._activeElements.length === 0:
+        this.focusOnLogo();
+        return;
+      case !element:
+      case !document.documentElement.contains(element):
+      case !this._isDisplayed(element):
+        this.focus(index - 1);
+        return;
+    }
+
+    element.focus();
+  };
+
+  FocusManager.prototype.focusOnLogo = function focusOnLogo () {
+    var logo = document.querySelector(api$1.header.HeaderSelector.BRAND_LINK);
+    if (logo) { logo.focus(); }
+  };
+
+  FocusManager.prototype._isDisplayed = function _isDisplayed (element) {
+    while (element && element !== document.documentElement) {
+      if (element === document.body) { return true; }
+      var style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') { return false; }
+      element = element.parentElement;
+    }
+    return true;
+  };
+
+  Object.defineProperties( FocusManager.prototype, prototypeAccessors$4 );
+
+  var focusManager = new FocusManager();
 
   var Breakpoint = function Breakpoint (id, minWidth) {
     this.id = id;
@@ -2215,6 +2266,14 @@
     this.node.blur();
   };
 
+  Instance.prototype.retainFocus = function retainFocus () {
+    this._focusIndex = focusManager.index;
+  };
+
+  Instance.prototype.focusBack = function focusBack () {
+    focusManager.focus(this._focusIndex);
+  };
+
   Instance.prototype.focusClosest = function focusClosest () {
     var closest = this._focusClosest(this.node.parentNode);
     if (closest) { closest.focus(); }
@@ -2377,6 +2436,7 @@
       this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
       this.modifier = this._selector + '--' + this.type.id;
       this._isPristine = true;
+      this._isActive = true;
       this._isRetrievingPrimaries = false;
       this._hasRetrieved = false;
       this._primaryButtons = [];
@@ -2386,7 +2446,7 @@
     Disclosure.prototype = Object.create( Instance && Instance.prototype );
     Disclosure.prototype.constructor = Disclosure;
 
-    var prototypeAccessors = { isEnabled: { configurable: true },isPristine: { configurable: true },proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true },primaryButtons: { configurable: true } };
+    var prototypeAccessors = { isEnabled: { configurable: true },isActive: { configurable: true },isPristine: { configurable: true },proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true },primaryButtons: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -2413,6 +2473,20 @@
       else { this.ascend(DisclosureEmission.REMOVED); }
     };
 
+    prototypeAccessors.isActive.get = function () {
+      return this._isActive;
+    };
+
+    prototypeAccessors.isActive.set = function (value) {
+      if (this._isActive === value) { return; }
+      this._isActive = value;
+      if (value) { this.ascend(DisclosureEmission.ADDED); }
+      else {
+        this.ascend(DisclosureEmission.REMOVED);
+        if (this.isDisclosed) { this.conceal(); }
+      }
+    };
+
     prototypeAccessors.isPristine.get = function () {
       return this._isPristine;
     };
@@ -2436,6 +2510,12 @@
         },
         get isDisclosed () {
           return scope.isDisclosed;
+        },
+        get isEnabled () {
+          return scope.isEnabled;
+        },
+        get isActive () {
+          return scope.isActive;
         }
       };
 
@@ -2471,7 +2551,8 @@
     };
 
     Disclosure.prototype.disclose = function disclose (withhold) {
-      if (this.isDisclosed === true || !this.isEnabled) { return false; }
+      if (this.isDisclosed === true || !this.isEnabled || !this._isActive) { return false; }
+      this.retainFocus();
       this._isPristine = false;
       this.isDisclosed = true;
       if (!withhold && this.group) { this.group.current = this; }
@@ -2496,7 +2577,7 @@
 
     prototypeAccessors.isDisclosed.set = function (value) {
       if (this._isDisclosed === value || (!this.isEnabled && value === true)) { return; }
-      this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
+      if (!this._isPristine) { this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this); }
       this._isDisclosed = value;
       if (value) { this.addClass(this.modifier); }
       else { this.removeClass(this.modifier); }
@@ -2540,6 +2621,7 @@
 
     Disclosure.prototype.focus = function focus () {
       if (this._primaryButtons.length > 0) { this._primaryButtons[0].focus(); }
+      else { this.focusBack(); }
     };
 
     prototypeAccessors.primaryButtons.get = function () {
@@ -2556,7 +2638,7 @@
       this._isRetrievingPrimaries = false;
       this._primaryButtons = this._electPrimaries(this.buttons);
 
-      if (this._hasRetrieved || this._primaryButtons.length === 0) { return; }
+      if (this._hasRetrieved || (this._primaryButtons.length === 0 && this.type.requirePrimary)) { return; }
       this.retrieved();
       this._hasRetrieved = true;
 
@@ -2567,7 +2649,7 @@
         return;
       }
 
-      if (this._isPristine && this.isEnabled && !this.group) {
+      if (this._isPristine && this.isEnabled && this.isActive && !this.group) {
         switch (true) {
           case this.hash === this.id:
             this._spotlight();
@@ -2598,7 +2680,7 @@
     Disclosure.prototype.applyAbility = function applyAbility (withhold) {
       if ( withhold === void 0 ) withhold = false;
 
-      var isEnabled = !this._primaryButtons.every(function (button) { return button.isDisabled; });
+      var isEnabled = !this.type.requirePrimary || this._primaryButtons.some(function (button) { return !button.isDisabled; });
 
       if (this.isEnabled === isEnabled) { return; }
 
@@ -2812,7 +2894,7 @@
       var this$1$1 = this;
 
       var members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-      this._members = members.filter(this.validate.bind(this)).filter(function (member) { return member.isEnabled; });
+      this._members = members.filter(this.validate.bind(this)).filter(function (member) { return member.isEnabled && member.isActive; });
       var invalids = members.filter(function (member) { return !this$1$1._members.includes(member); });
       invalids.forEach(function (invalid) { return invalid.conceal(); });
     };
@@ -2971,21 +3053,24 @@
       ariaState: true,
       ariaControls: true,
       canConceal: true,
-      canDisable: true
+      canDisable: true,
+      requirePrimary: true
     },
     SELECT: {
       id: 'selected',
       ariaState: true,
       ariaControls: true,
       canConceal: false,
-      canDisable: true
+      canDisable: true,
+      requirePrimary: true
     },
     OPENED: {
       id: 'opened',
       ariaState: false,
       ariaControls: true,
       canConceal: true,
-      canDisable: false
+      canDisable: false,
+      requirePrimary: false
     }
   };
 
@@ -3521,11 +3606,19 @@
       }
 
       fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(function (response) {
-        this$1$1.length = response.headers.get('content-length') || -1;
-        if (this$1$1.length === -1) {
-          inspector.warn('File size unknown: ' + this$1$1.href + '\nUnable to get HTTP header: "content-length"');
+        if (response.ok) {
+          this$1$1.length = response.headers.get('content-length') || -1;
+          if (this$1$1.length && this$1$1.length === -1) {
+            throw new Error('File size unknown' + '\n Unable to get HTTP header: "content-length"');
+          }
+          this$1$1.gather();
+        } else {
+          throw new Error('Unable to access the resource : Status ' + response.status);
         }
+      }).catch(function (error) {
+        this$1$1.length = -1;
         this$1$1.gather();
+        inspector.warn('Fetch error on assess file : ' + this$1$1.href + '\n ' + error);
       });
     };
 
@@ -3547,7 +3640,6 @@
 
       if (!this.length) {
         this.getFileLength();
-        return;
       }
 
       this.details = [];
@@ -3557,7 +3649,7 @@
         if (extension) { this.details.push(extension.toUpperCase()); }
       }
 
-      if (this.length !== -1) {
+      if (this.length && this.length !== -1) {
         this.details.push(this.bytesToSize(this.length));
       }
 
@@ -5207,7 +5299,7 @@
   var Modal = /*@__PURE__*/(function (superclass) {
     function Modal () {
       superclass.call(this, api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-      this._isActive = false;
+      this._isDecorated = false;
       this.scrolling = this.resize.bind(this, false);
       this.resizing = this.resize.bind(this, true);
     }
@@ -5216,7 +5308,7 @@
     Modal.prototype = Object.create( superclass && superclass.prototype );
     Modal.prototype.constructor = Modal;
 
-    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true } };
+    var prototypeAccessors = { body: { configurable: true },isDialog: { configurable: true },isActive: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -5226,7 +5318,6 @@
     Modal.prototype.init = function init () {
       superclass.prototype.init.call(this);
       this._isDialog = this.node.tagName === 'DIALOG';
-      this.isScrolling = false;
       this.listenClick();
       this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
     };
@@ -5274,12 +5365,15 @@
 
     Modal.prototype.disclose = function disclose (withhold) {
       if (!superclass.prototype.disclose.call(this, withhold)) { return false; }
-      if (this.body) { this.body.activate(); }
+      if (this.body) {
+        this.body.isResizing = true;
+        this.body.resize();
+      }
       this.isScrollLocked = true;
       this.setAttribute('aria-modal', 'true');
       this.setAttribute('open', 'true');
       if (!this._isDialog) {
-        this.activateModal();
+        this.decorateDialog();
       }
       return true;
     };
@@ -5289,9 +5383,9 @@
       this.isScrollLocked = false;
       this.removeAttribute('aria-modal');
       this.removeAttribute('open');
-      if (this.body) { this.body.deactivate(); }
+      if (this.body) { this.body.isResizing = false; }
       if (!this._isDialog) {
-        this.deactivateModal();
+        this.stripDialog();
       }
       return true;
     };
@@ -5304,16 +5398,25 @@
       this._isDialog = value;
     };
 
-    Modal.prototype.activateModal = function activateModal () {
-      if (this._isActive) { return; }
-      this._isActive = true;
+    prototypeAccessors.isActive.get = function () {
+      return superclass.prototype.isActive;
+    };
+
+    prototypeAccessors.isActive.set = function (value) {
+      superclass.prototype.isActive = value;
+      if (value) { this._ensureAccessibleName(); }
+    };
+
+    Modal.prototype.decorateDialog = function decorateDialog () {
+      if (this._isDecorated) { return; }
+      this._isDecorated = true;
       this._hasDialogRole = this.getAttribute('role') === 'dialog';
       if (!this._hasDialogRole) { this.setAttribute('role', 'dialog'); }
     };
 
-    Modal.prototype.deactivateModal = function deactivateModal () {
-      if (!this._isActive) { return; }
-      this._isActive = false;
+    Modal.prototype.stripDialog = function stripDialog () {
+      if (!this._isDecorated) { return; }
+      this._isDecorated = false;
       if (!this._hasDialogRole) { this.removeAttribute('role'); }
     };
 
@@ -5324,7 +5427,7 @@
     };
 
     Modal.prototype._ensureAccessibleName = function _ensureAccessibleName () {
-      if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) { return; }
+      if (!this.isActive || !this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) { return; }
       this.warn('missing accessible name');
       var title = this.node.querySelector(ModalSelector.TITLE);
       var primary = this.primaryButtons[0];
@@ -5617,15 +5720,6 @@
 
     ModalBody.prototype.init = function init () {
       this.listen('scroll', this.divide.bind(this));
-    };
-
-    ModalBody.prototype.activate = function activate () {
-      this.isResizing = true;
-      this.resize();
-    };
-
-    ModalBody.prototype.deactivate = function deactivate () {
-      this.isResizing = false;
     };
 
     ModalBody.prototype.divide = function divide () {
@@ -5948,7 +6042,7 @@
     Navigation.prototype = Object.create( superclass && superclass.prototype );
     Navigation.prototype.constructor = Navigation;
 
-    var prototypeAccessors = { index: { configurable: true },canUngroup: { configurable: true } };
+    var prototypeAccessors = { hasOpenedMenu: { configurable: true },index: { configurable: true },canUngroup: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -5961,6 +6055,7 @@
       this.out = false;
       this.addEmission(api.core.RootEmission.CLICK, this._handleRootClick.bind(this));
       this.listen('mousedown', this.handleMouseDown.bind(this));
+      this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
       this.listenClick({ capture: true });
       this.isResizing = true;
     };
@@ -5969,8 +6064,31 @@
       return superclass.prototype.validate.call(this, member) && member.element.node.matches(api.internals.legacy.isLegacy ? NavigationSelector.COLLAPSE_LEGACY : NavigationSelector.COLLAPSE);
     };
 
+    prototypeAccessors.hasOpenedMenu.get = function () {
+      return this.isBreakpoint(api.core.Breakpoints.LG) && this.index > -1;
+    };
+
+    Navigation.prototype._keydown = function _keydown (keyCode) {
+      var this$1$1 = this;
+
+      switch (keyCode) {
+        case api.core.KeyCodes.ESCAPE:
+          if (!this.hasOpenedMenu) { return; }
+          this.index = -1;
+          break;
+
+        case api.core.KeyCodes.TAB:
+          if (!this.hasOpenedMenu) { return; }
+          this.request(function () {
+            if (this$1$1.current.node.contains(document.activeElement)) { return; }
+            this$1$1.index = -1;
+          });
+          break;
+      }
+    };
+
     Navigation.prototype.handleMouseDown = function handleMouseDown (e) {
-      if (!this.isBreakpoint(api.core.Breakpoints.LG) || this.index === -1 || !this.current) { return; }
+      if (!this.hasOpenedMenu) { return; }
       this.position = this.current.node.contains(e.target) ? NavigationMousePosition.INSIDE : NavigationMousePosition.OUTSIDE;
       this.requestPosition();
     };
@@ -7368,6 +7486,7 @@
 
   var HeaderSelector = {
     HEADER: api.internals.ns.selector('header'),
+    BRAND_LINK: api.internals.ns.selector('header__brand a'),
     TOOLS_LINKS: api.internals.ns.selector('header__tools-links'),
     MENU_LINKS: api.internals.ns.selector('header__menu-links'),
     BUTTONS: ((api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('btns-group')) + ", " + (api.internals.ns.selector('header__tools-links')) + " " + (api.internals.ns.selector('links-group'))),
@@ -7469,17 +7588,23 @@
 
     HeaderModal.prototype.activateModal = function activateModal () {
       var modal = this.element.getInstance('Modal');
-      if (!modal) { return; }
-      modal.isEnabled = true;
+      if (!modal) {
+        this.request(this.activateModal.bind(this));
+        return;
+      }
       this.restoreAria();
+      modal.isActive = true;
       this.listenClick({ capture: true });
     };
 
     HeaderModal.prototype.deactivateModal = function deactivateModal () {
       var modal = this.element.getInstance('Modal');
-      if (!modal) { return; }
+      if (!modal) {
+        this.request(this.deactivateModal.bind(this));
+        return;
+      }
       modal.conceal();
-      modal.isEnabled = false;
+      modal.isActive = false;
       this.storeAria();
       this.unlistenClick({ capture: true });
     };

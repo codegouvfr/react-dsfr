@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -63,7 +63,7 @@
   display: block;
   flex-shrink: 0;
   height: calc(1.25rem + 1px);
-  padding-top: 1.75rem;
+  padding-top: 1.5rem;
   font-size: 0.75rem;
   line-height: 1.25rem;
   border-radius: 0.75rem;
@@ -558,96 +558,21 @@
   }
 }
 @media print {
+  .fr-toggle {
+    page-break-inside: avoid;
+  }
+
+  .fr-toggle::before {
+    background-color: none !important;
+  }
+
   .fr-toggle label {
-    color: #161616;
-  }
-
-  .fr-toggle label::before {
-    color: #000091;
-    content: "";
-    display: block;
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .fr-toggle label::after {
-    color: #000091;
-    box-shadow: inset 0 0 0 1px #000091;
-    background-color: #fff;
-  }
-
-  .fr-toggle input[type=checkbox] {
-    box-shadow: inset 0 0 0 1px #000091;
-  }
-
-  .fr-toggle input[type=checkbox]:checked {
-    background-color: #000091;
-  }
-
-  .fr-toggle input[type=checkbox]:disabled {
-    box-shadow: inset 0 0 0 1px #e5e5e5;
-  }
-
-  .fr-toggle input[type=checkbox]:disabled:checked {
-    background-color: #e5e5e5;
-  }
-
-  .fr-toggle input[type=checkbox]:disabled ~ .fr-toggle__label::before {
-    color: #929292;
-  }
-
-  .fr-toggle input[type=checkbox]:disabled ~ .fr-toggle__label::after {
-    color: #929292;
-    box-shadow: inset 0 0 0 1px #e5e5e5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .fr-toggle .fr-hint-text {
-    color: #666;
     font-size: 1rem;
     line-height: 1.5rem;
-  }
-
-  .fr-toggle--border-bottom {
-    box-shadow: inset 0 -1px 0 0 #ddd;
-  }
-
-  .fr-toggle--valid::before {
-    content: "";
-    background-color: #18753c;
-  }
-
-  .fr-toggle--error::before {
-    content: "";
-    background-color: #ce0500;
-  }
-
-  .fr-toggle--error label,
-  .fr-fieldset--error .fr-toggle label {
-    color: #ce0500;
-  }
-
-  .fr-toggle--error label::before,
-  .fr-fieldset--error .fr-toggle label::before {
-    color: #ce0500;
-  }
-
-  .fr-toggle--error label::after,
-  .fr-fieldset--error .fr-toggle label::after {
-    box-shadow: inset 0 0 0 1px #ce0500;
-  }
-
-  .fr-toggle--valid label,
-  .fr-fieldset--valid .fr-toggle label {
-    color: #18753c;
-  }
-
-  .fr-toggle--valid label::before,
-  .fr-fieldset--valid .fr-toggle label::before {
-    color: #18753c;
-  }
-
-  .fr-toggle--valid label::after,
-  .fr-fieldset--valid .fr-toggle label::after {
-    box-shadow: inset 0 0 0 1px #18753c;
   }
 }

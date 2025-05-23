@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -37,7 +37,7 @@
   padding: 0 0.25rem;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: last baseline;
   flex-wrap: wrap;
   border: 0;
 }
@@ -86,7 +86,6 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-bottom: 1rem;
-  align-self: flex-start;
 }
 
 .fr-fieldset__element--inline {
@@ -98,7 +97,7 @@
   flex-grow: 1;
 }
 
-.fr-fieldset__element--year {
+.fr-fieldset__element.fr-fieldset__element--year {
   flex: 0 0 8rem;
 }
 
@@ -106,7 +105,7 @@
   margin-right: calc(100% - 8rem);
 }
 
-.fr-fieldset__element--postal {
+.fr-fieldset__element.fr-fieldset__element--postal {
   flex: 0 0 16rem;
 }
 
@@ -114,7 +113,7 @@
   margin-right: calc(100% - 16rem);
 }
 
-.fr-fieldset__element--number {
+.fr-fieldset__element.fr-fieldset__element--number {
   flex: 0 0 6rem;
 }
 
@@ -498,6 +497,18 @@
   /*! media md */
   .fr-fieldset__element--inline\@md {
     flex: 0 0 auto;
+  }
+
+  .fr-fieldset__element--year.fr-fieldset__element--inline\@md {
+    margin-right: 0;
+  }
+
+  .fr-fieldset__element--postal.fr-fieldset__element--inline\@md {
+    margin-right: 0;
+  }
+
+  .fr-fieldset__element--number.fr-fieldset__element--inline\@md {
+    margin-right: 0;
   }
 }
 @media (min-width: 62em) {

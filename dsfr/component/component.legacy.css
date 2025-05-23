@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -3631,6 +3631,16 @@
     background-image: radial-gradient(circle at 100% 0.25rem, transparent 0.578125rem, #e5e5e5 0.625rem);
   }
 
+  button.fr-tag[aria-pressed=true]:disabled:hover,
+  input[type=button].fr-tag[aria-pressed=true]:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  button.fr-tag[aria-pressed=true]:disabled:active,
+  input[type=button].fr-tag[aria-pressed=true]:disabled:active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
   button.fr-tag[aria-pressed=true]:disabled::after,
   input[type=button].fr-tag[aria-pressed=true]:disabled::after {
     color: #929292;
@@ -3659,11 +3669,6 @@
   button.fr-tag:disabled,
   input[type=button].fr-tag:disabled {
     color: #929292;
-    background-color: #e5e5e5;
-  }
-
-  button.fr-tag:disabled:hover,
-  input[type=button].fr-tag:disabled:hover {
     background-color: #e5e5e5;
   }
 
@@ -4738,6 +4743,10 @@
     height: 1.5rem;
   }
 
+  .fr-share .fr-btn--bluesky::before {
+    background-image: url("../icons/logo/bluesky-line.svg");
+  }
+
   .fr-share .fr-btn--facebook::before {
     background-image: url("../icons/logo/facebook-circle-line.svg");
   }
@@ -4776,6 +4785,15 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("../icons/business/links-fill.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .fr-share__link--bluesky::before {
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../icons/logo/bluesky-line.svg");
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -5178,7 +5196,7 @@
     background-color: transparent;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url("../icons/media/align-left.svg");
+    background-image: url("../icons/editor/align-left.svg");
     width: 1rem;
     height: 1rem;
   }
@@ -5433,6 +5451,10 @@
   */
   .fr-follow__newsletter > * {
     max-width: 100%;
+  }
+
+  .fr-follow .fr-btn--bluesky::before {
+    background-image: url("../icons/logo/bluesky-fill.svg");
   }
 
   .fr-follow .fr-btn--dailymotion::before {

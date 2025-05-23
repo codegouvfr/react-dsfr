@@ -1969,3 +1969,13 @@
     height: 1rem;
   }
 }
+
+@media print {
+  [class^=ri-],
+  [class*=" ri-"],
+  [class^=fr-fi-],
+  [class*=" fr-fi-"] {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

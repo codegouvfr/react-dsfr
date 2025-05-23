@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     this.modules = {};
   };
 
-  var prototypeAccessors$9 = { isActive: { configurable: true },isLegacy: { configurable: true } };
+  var prototypeAccessors$a = { isActive: { configurable: true },isLegacy: { configurable: true } };
 
   State.prototype.create = function create (ModuleClass) {
     var module = new ModuleClass();
@@ -26,11 +26,11 @@
     this.modules[type].remove(item);
   };
 
-  prototypeAccessors$9.isActive.get = function () {
+  prototypeAccessors$a.isActive.get = function () {
     return this._isActive;
   };
 
-  prototypeAccessors$9.isActive.set = function (value) {
+  prototypeAccessors$a.isActive.set = function (value) {
       var this$1$1 = this;
 
     if (value === this._isActive) { return; }
@@ -53,16 +53,16 @@
     }
   };
 
-  prototypeAccessors$9.isLegacy.get = function () {
+  prototypeAccessors$a.isLegacy.get = function () {
     return this._isLegacy;
   };
 
-  prototypeAccessors$9.isLegacy.set = function (value) {
+  prototypeAccessors$a.isLegacy.set = function (value) {
     if (value === this._isLegacy) { return; }
     this._isLegacy = value;
   };
 
-  Object.defineProperties( State.prototype, prototypeAccessors$9 );
+  Object.defineProperties( State.prototype, prototypeAccessors$a );
 
   var state = new State();
 
@@ -70,7 +70,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.0'
+    version: '1.13.2'
   };
 
   var LogLevel = function LogLevel (level, light, dark, logger) {
@@ -92,7 +92,7 @@
     }
   };
 
-  var prototypeAccessors$8 = { color: { configurable: true } };
+  var prototypeAccessors$9 = { color: { configurable: true } };
 
   LogLevel.prototype.log = function log () {
       var values = [], len = arguments.length;
@@ -112,11 +112,11 @@
     this.logger.apply(console, message.getMessage());
   };
 
-  prototypeAccessors$8.color.get = function () {
+  prototypeAccessors$9.color.get = function () {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? this.dark : this.light;
   };
 
-  Object.defineProperties( LogLevel.prototype, prototypeAccessors$8 );
+  Object.defineProperties( LogLevel.prototype, prototypeAccessors$9 );
 
   var Message = function Message (domain) {
     this.inputs = ['%c'];
@@ -285,7 +285,7 @@
     this.preventManipulation = false;
   };
 
-  var prototypeAccessors$7 = { mode: { configurable: true } };
+  var prototypeAccessors$8 = { mode: { configurable: true } };
 
   Options.prototype.configure = function configure (settings, start, query) {
       if ( settings === void 0 ) settings = {};
@@ -314,7 +314,7 @@
     this.mode = settings.mode || Modes.AUTO;
   };
 
-  prototypeAccessors$7.mode.set = function (value) {
+  prototypeAccessors$8.mode.set = function (value) {
     switch (value) {
       case Modes.AUTO:
         this.preventManipulation = false;
@@ -356,7 +356,7 @@
     inspector.info(("mode set to " + value));
   };
 
-  prototypeAccessors$7.mode.get = function () {
+  prototypeAccessors$8.mode.get = function () {
     return this._mode;
   };
 
@@ -365,7 +365,7 @@
     this.startCallback();
   };
 
-  Object.defineProperties( Options.prototype, prototypeAccessors$7 );
+  Object.defineProperties( Options.prototype, prototypeAccessors$8 );
 
   var options = new Options();
 
@@ -373,7 +373,7 @@
     this._collection = [];
   };
 
-  var prototypeAccessors$6 = { length: { configurable: true },collection: { configurable: true } };
+  var prototypeAccessors$7 = { length: { configurable: true },collection: { configurable: true } };
 
   Collection.prototype.forEach = function forEach (callback) {
     this._collection.forEach(callback);
@@ -383,7 +383,7 @@
     return this._collection.map(callback);
   };
 
-  prototypeAccessors$6.length.get = function () {
+  prototypeAccessors$7.length.get = function () {
     return this._collection.length;
   };
 
@@ -424,11 +424,11 @@
     return clone;
   };
 
-  prototypeAccessors$6.collection.get = function () {
+  prototypeAccessors$7.collection.get = function () {
     return this._collection;
   };
 
-  Object.defineProperties( Collection.prototype, prototypeAccessors$6 );
+  Object.defineProperties( Collection.prototype, prototypeAccessors$7 );
 
   var Module = /*@__PURE__*/(function (Collection) {
     function Module (type) {
@@ -475,7 +475,7 @@
     this._attribute = ns.attr(("js-" + dashed));
   };
 
-  var prototypeAccessors$5 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
+  var prototypeAccessors$6 = { instanceClassName: { configurable: true },instanceClassNames: { configurable: true },property: { configurable: true },attribute: { configurable: true } };
 
   Registration.prototype.getInstanceClassNames = function getInstanceClassNames (InstanceClass) {
     var prototype = Object.getPrototypeOf(InstanceClass);
@@ -518,23 +518,23 @@
     this.creator = null;
   };
 
-  prototypeAccessors$5.instanceClassName.get = function () {
+  prototypeAccessors$6.instanceClassName.get = function () {
     return this._instanceClassName;
   };
 
-  prototypeAccessors$5.instanceClassNames.get = function () {
+  prototypeAccessors$6.instanceClassNames.get = function () {
     return this._instanceClassNames;
   };
 
-  prototypeAccessors$5.property.get = function () {
+  prototypeAccessors$6.property.get = function () {
     return this._property;
   };
 
-  prototypeAccessors$5.attribute.get = function () {
+  prototypeAccessors$6.attribute.get = function () {
     return this._attribute;
   };
 
-  Object.defineProperties( Registration.prototype, prototypeAccessors$5 );
+  Object.defineProperties( Registration.prototype, prototypeAccessors$6 );
 
   var Register = /*@__PURE__*/(function (Module) {
     function Register () {
@@ -583,9 +583,9 @@
     this._projects = [];
   };
 
-  var prototypeAccessors$4 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
+  var prototypeAccessors$5 = { proxy: { configurable: true },html: { configurable: true },parent: { configurable: true },ascendants: { configurable: true },children: { configurable: true },descendants: { configurable: true } };
 
-  prototypeAccessors$4.proxy.get = function () {
+  prototypeAccessors$5.proxy.get = function () {
     var scope = this;
     if (!this._proxy) {
       this._proxy = {
@@ -607,7 +607,7 @@
     return this._proxy;
   };
 
-  prototypeAccessors$4.html.get = function () {
+  prototypeAccessors$5.html.get = function () {
     if (!this.node || !this.node.outerHTML) { return ''; }
     var end = this.node.outerHTML.indexOf('>');
     return this.node.outerHTML.substring(0, end + 1);
@@ -645,19 +645,19 @@
     if (this._proxy) { delete this._proxy[instance.registration.property]; }
   };
 
-  prototypeAccessors$4.parent.get = function () {
+  prototypeAccessors$5.parent.get = function () {
     return this._parent;
   };
 
-  prototypeAccessors$4.ascendants.get = function () {
+  prototypeAccessors$5.ascendants.get = function () {
     return [this.parent ].concat( this.parent.ascendants);
   };
 
-  prototypeAccessors$4.children.get = function () {
+  prototypeAccessors$5.children.get = function () {
     return this._children;
   };
 
-  prototypeAccessors$4.descendants.get = function () {
+  prototypeAccessors$5.descendants.get = function () {
     var descendants = [].concat( this._children );
     this._children.forEach(function (child) { return descendants.push.apply(descendants, child.descendants); });
     return descendants;
@@ -801,7 +801,7 @@
     for (var i = this.instances.length - 1; i > -1; i--) { this.instances[i].examine(attributeNames); }
   };
 
-  Object.defineProperties( Element.prototype, prototypeAccessors$4 );
+  Object.defineProperties( Element.prototype, prototypeAccessors$5 );
 
   var RootEmission = {
     CLICK: ns.emission('root', 'click'),
@@ -1335,9 +1335,9 @@
     this.register = registerModule.register.bind(registerModule);
   };
 
-  var prototypeAccessors$3 = { isActive: { configurable: true } };
+  var prototypeAccessors$4 = { isActive: { configurable: true } };
 
-  prototypeAccessors$3.isActive.get = function () {
+  prototypeAccessors$4.isActive.get = function () {
     return state.isActive;
   };
 
@@ -1353,7 +1353,7 @@
     rootDispatch(RootEvent.STOP);
   };
 
-  Object.defineProperties( Engine.prototype, prototypeAccessors$3 );
+  Object.defineProperties( Engine.prototype, prototypeAccessors$4 );
 
   var engine = new Engine();
 
@@ -1468,29 +1468,29 @@
     this._content = '';
   };
 
-  var prototypeAccessors$2 = { width: { configurable: true },height: { configurable: true },content: { configurable: true } };
+  var prototypeAccessors$3 = { width: { configurable: true },height: { configurable: true },content: { configurable: true } };
 
-  prototypeAccessors$2.width.get = function () {
+  prototypeAccessors$3.width.get = function () {
     return this._width;
   };
 
-  prototypeAccessors$2.width.set = function (value) {
+  prototypeAccessors$3.width.set = function (value) {
     this._width = value;
   };
 
-  prototypeAccessors$2.height.get = function () {
+  prototypeAccessors$3.height.get = function () {
     return this._height;
   };
 
-  prototypeAccessors$2.height.set = function (value) {
+  prototypeAccessors$3.height.set = function (value) {
     this._height = value;
   };
 
-  prototypeAccessors$2.content.get = function () {
+  prototypeAccessors$3.content.get = function () {
     return this._content;
   };
 
-  prototypeAccessors$2.content.set = function (value) {
+  prototypeAccessors$3.content.set = function (value) {
     this._content = value;
   };
 
@@ -1510,7 +1510,7 @@
     return ("data:image/svg+xml;charset=utf8," + svg);
   };
 
-  Object.defineProperties( DataURISVG.prototype, prototypeAccessors$2 );
+  Object.defineProperties( DataURISVG.prototype, prototypeAccessors$3 );
 
   var image = {
     DataURISVG: DataURISVG
@@ -1701,6 +1701,57 @@
   Emitter.prototype.dispose = function dispose () {
     this.emissions = null;
   };
+
+  var FocusManager = function FocusManager () {
+    this._activeElements = [];
+    window.document.addEventListener('focusin', this._onFocusIn.bind(this));
+  };
+
+  var prototypeAccessors$2 = { index: { configurable: true } };
+
+  FocusManager.prototype._onFocusIn = function _onFocusIn (e) {
+    this._activeElements.push(e.target);
+  };
+
+  prototypeAccessors$2.index.get = function () {
+    return this._activeElements.length - 1;
+  };
+
+  FocusManager.prototype.focus = function focus (index) {
+    var element = this._activeElements[index];
+    switch (true) {
+      case index < 0:
+      case this._activeElements.length === 0:
+        this.focusOnLogo();
+        return;
+      case !element:
+      case !document.documentElement.contains(element):
+      case !this._isDisplayed(element):
+        this.focus(index - 1);
+        return;
+    }
+
+    element.focus();
+  };
+
+  FocusManager.prototype.focusOnLogo = function focusOnLogo () {
+    var logo = document.querySelector(api$1.header.HeaderSelector.BRAND_LINK);
+    if (logo) { logo.focus(); }
+  };
+
+  FocusManager.prototype._isDisplayed = function _isDisplayed (element) {
+    while (element && element !== document.documentElement) {
+      if (element === document.body) { return true; }
+      var style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') { return false; }
+      element = element.parentElement;
+    }
+    return true;
+  };
+
+  Object.defineProperties( FocusManager.prototype, prototypeAccessors$2 );
+
+  var focusManager = new FocusManager();
 
   var Breakpoint = function Breakpoint (id, minWidth) {
     this.id = id;
@@ -2215,6 +2266,14 @@
     this.node.blur();
   };
 
+  Instance.prototype.retainFocus = function retainFocus () {
+    this._focusIndex = focusManager.index;
+  };
+
+  Instance.prototype.focusBack = function focusBack () {
+    focusManager.focus(this._focusIndex);
+  };
+
   Instance.prototype.focusClosest = function focusClosest () {
     var closest = this._focusClosest(this.node.parentNode);
     if (closest) { closest.focus(); }
@@ -2377,6 +2436,7 @@
       this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
       this.modifier = this._selector + '--' + this.type.id;
       this._isPristine = true;
+      this._isActive = true;
       this._isRetrievingPrimaries = false;
       this._hasRetrieved = false;
       this._primaryButtons = [];
@@ -2386,7 +2446,7 @@
     Disclosure.prototype = Object.create( Instance && Instance.prototype );
     Disclosure.prototype.constructor = Disclosure;
 
-    var prototypeAccessors = { isEnabled: { configurable: true },isPristine: { configurable: true },proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true },primaryButtons: { configurable: true } };
+    var prototypeAccessors = { isEnabled: { configurable: true },isActive: { configurable: true },isPristine: { configurable: true },proxy: { configurable: true },buttons: { configurable: true },group: { configurable: true },isDisclosed: { configurable: true },isInitiallyDisclosed: { configurable: true },buttonHasFocus: { configurable: true },hasFocus: { configurable: true },primaryButtons: { configurable: true } };
     var staticAccessors = { instanceClassName: { configurable: true } };
 
     staticAccessors.instanceClassName.get = function () {
@@ -2413,6 +2473,20 @@
       else { this.ascend(DisclosureEmission.REMOVED); }
     };
 
+    prototypeAccessors.isActive.get = function () {
+      return this._isActive;
+    };
+
+    prototypeAccessors.isActive.set = function (value) {
+      if (this._isActive === value) { return; }
+      this._isActive = value;
+      if (value) { this.ascend(DisclosureEmission.ADDED); }
+      else {
+        this.ascend(DisclosureEmission.REMOVED);
+        if (this.isDisclosed) { this.conceal(); }
+      }
+    };
+
     prototypeAccessors.isPristine.get = function () {
       return this._isPristine;
     };
@@ -2436,6 +2510,12 @@
         },
         get isDisclosed () {
           return scope.isDisclosed;
+        },
+        get isEnabled () {
+          return scope.isEnabled;
+        },
+        get isActive () {
+          return scope.isActive;
         }
       };
 
@@ -2471,7 +2551,8 @@
     };
 
     Disclosure.prototype.disclose = function disclose (withhold) {
-      if (this.isDisclosed === true || !this.isEnabled) { return false; }
+      if (this.isDisclosed === true || !this.isEnabled || !this._isActive) { return false; }
+      this.retainFocus();
       this._isPristine = false;
       this.isDisclosed = true;
       if (!withhold && this.group) { this.group.current = this; }
@@ -2496,7 +2577,7 @@
 
     prototypeAccessors.isDisclosed.set = function (value) {
       if (this._isDisclosed === value || (!this.isEnabled && value === true)) { return; }
-      this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
+      if (!this._isPristine) { this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this); }
       this._isDisclosed = value;
       if (value) { this.addClass(this.modifier); }
       else { this.removeClass(this.modifier); }
@@ -2540,6 +2621,7 @@
 
     Disclosure.prototype.focus = function focus () {
       if (this._primaryButtons.length > 0) { this._primaryButtons[0].focus(); }
+      else { this.focusBack(); }
     };
 
     prototypeAccessors.primaryButtons.get = function () {
@@ -2556,7 +2638,7 @@
       this._isRetrievingPrimaries = false;
       this._primaryButtons = this._electPrimaries(this.buttons);
 
-      if (this._hasRetrieved || this._primaryButtons.length === 0) { return; }
+      if (this._hasRetrieved || (this._primaryButtons.length === 0 && this.type.requirePrimary)) { return; }
       this.retrieved();
       this._hasRetrieved = true;
 
@@ -2567,7 +2649,7 @@
         return;
       }
 
-      if (this._isPristine && this.isEnabled && !this.group) {
+      if (this._isPristine && this.isEnabled && this.isActive && !this.group) {
         switch (true) {
           case this.hash === this.id:
             this._spotlight();
@@ -2598,7 +2680,7 @@
     Disclosure.prototype.applyAbility = function applyAbility (withhold) {
       if ( withhold === void 0 ) withhold = false;
 
-      var isEnabled = !this._primaryButtons.every(function (button) { return button.isDisabled; });
+      var isEnabled = !this.type.requirePrimary || this._primaryButtons.some(function (button) { return !button.isDisabled; });
 
       if (this.isEnabled === isEnabled) { return; }
 
@@ -2812,7 +2894,7 @@
       var this$1$1 = this;
 
       var members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-      this._members = members.filter(this.validate.bind(this)).filter(function (member) { return member.isEnabled; });
+      this._members = members.filter(this.validate.bind(this)).filter(function (member) { return member.isEnabled && member.isActive; });
       var invalids = members.filter(function (member) { return !this$1$1._members.includes(member); });
       invalids.forEach(function (invalid) { return invalid.conceal(); });
     };
@@ -2971,21 +3053,24 @@
       ariaState: true,
       ariaControls: true,
       canConceal: true,
-      canDisable: true
+      canDisable: true,
+      requirePrimary: true
     },
     SELECT: {
       id: 'selected',
       ariaState: true,
       ariaControls: true,
       canConceal: false,
-      canDisable: true
+      canDisable: true,
+      requirePrimary: true
     },
     OPENED: {
       id: 'opened',
       ariaState: false,
       ariaControls: true,
       canConceal: true,
-      canDisable: false
+      canDisable: false,
+      requirePrimary: false
     }
   };
 
@@ -3521,11 +3606,19 @@
       }
 
       fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(function (response) {
-        this$1$1.length = response.headers.get('content-length') || -1;
-        if (this$1$1.length === -1) {
-          inspector.warn('File size unknown: ' + this$1$1.href + '\nUnable to get HTTP header: "content-length"');
+        if (response.ok) {
+          this$1$1.length = response.headers.get('content-length') || -1;
+          if (this$1$1.length && this$1$1.length === -1) {
+            throw new Error('File size unknown' + '\n Unable to get HTTP header: "content-length"');
+          }
+          this$1$1.gather();
+        } else {
+          throw new Error('Unable to access the resource : Status ' + response.status);
         }
+      }).catch(function (error) {
+        this$1$1.length = -1;
         this$1$1.gather();
+        inspector.warn('Fetch error on assess file : ' + this$1$1.href + '\n ' + error);
       });
     };
 
@@ -3547,7 +3640,6 @@
 
       if (!this.length) {
         this.getFileLength();
-        return;
       }
 
       this.details = [];
@@ -3557,7 +3649,7 @@
         if (extension) { this.details.push(extension.toUpperCase()); }
       }
 
-      if (this.length !== -1) {
+      if (this.length && this.length !== -1) {
         this.details.push(this.bytesToSize(this.length));
       }
 

@@ -1,10 +1,10 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 const api = window[config.namespace];
@@ -33,7 +33,7 @@ const ModalAttribute = {
 class Modal extends api.core.Disclosure {
   constructor () {
     super(api.core.DisclosureType.OPENED, ModalSelector.MODAL, ModalButton, 'ModalsGroup');
-    this._isActive = false;
+    this._isDecorated = false;
     this.scrolling = this.resize.bind(this, false);
     this.resizing = this.resize.bind(this, true);
   }
@@ -45,7 +45,6 @@ class Modal extends api.core.Disclosure {
   init () {
     super.init();
     this._isDialog = this.node.tagName === 'DIALOG';
-    this.isScrolling = false;
     this.listenClick();
     this.addEmission(api.core.RootEmission.KEYDOWN, this._keydown.bind(this));
   }
@@ -93,12 +92,15 @@ class Modal extends api.core.Disclosure {
 
   disclose (withhold) {
     if (!super.disclose(withhold)) return false;
-    if (this.body) this.body.activate();
+    if (this.body) {
+      this.body.isResizing = true;
+      this.body.resize();
+    }
     this.isScrollLocked = true;
     this.setAttribute('aria-modal', 'true');
     this.setAttribute('open', 'true');
     if (!this._isDialog) {
-      this.activateModal();
+      this.decorateDialog();
     }
     return true;
   }
@@ -108,9 +110,9 @@ class Modal extends api.core.Disclosure {
     this.isScrollLocked = false;
     this.removeAttribute('aria-modal');
     this.removeAttribute('open');
-    if (this.body) this.body.deactivate();
+    if (this.body) this.body.isResizing = false;
     if (!this._isDialog) {
-      this.deactivateModal();
+      this.stripDialog();
     }
     return true;
   }
@@ -123,16 +125,25 @@ class Modal extends api.core.Disclosure {
     this._isDialog = value;
   }
 
-  activateModal () {
-    if (this._isActive) return;
-    this._isActive = true;
+  get isActive () {
+    return super.isActive;
+  }
+
+  set isActive (value) {
+    super.isActive = value;
+    if (value) this._ensureAccessibleName();
+  }
+
+  decorateDialog () {
+    if (this._isDecorated) return;
+    this._isDecorated = true;
     this._hasDialogRole = this.getAttribute('role') === 'dialog';
     if (!this._hasDialogRole) this.setAttribute('role', 'dialog');
   }
 
-  deactivateModal () {
-    if (!this._isActive) return;
-    this._isActive = false;
+  stripDialog () {
+    if (!this._isDecorated) return;
+    this._isDecorated = false;
     if (!this._hasDialogRole) this.removeAttribute('role');
   }
 
@@ -143,7 +154,7 @@ class Modal extends api.core.Disclosure {
   }
 
   _ensureAccessibleName () {
-    if (!this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
+    if (!this.isActive || !this.isEnabled || (this.isEnabled && (this.hasAttribute('aria-labelledby') || this.hasAttribute('aria-label')))) return;
     this.warn('missing accessible name');
     const title = this.node.querySelector(ModalSelector.TITLE);
     const primary = this.primaryButtons[0];
@@ -407,15 +418,6 @@ class ModalBody extends api.core.Instance {
 
   init () {
     this.listen('scroll', this.divide.bind(this));
-  }
-
-  activate () {
-    this.isResizing = true;
-    this.resize();
-  }
-
-  deactivate () {
-    this.isResizing = false;
   }
 
   divide () {

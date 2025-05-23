@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -222,11 +222,6 @@ un padding de 4px et une marge négative en compensation sont mis en place afin 
 }
 @media print {
   .fr-breadcrumb {
-    color: #666;
     display: none;
-  }
-
-  .fr-breadcrumb__link[aria-current]:not([aria-current=false]) {
-    color: #3a3a3a;
   }
 }

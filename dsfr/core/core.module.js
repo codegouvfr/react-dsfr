@@ -1,4 +1,4 @@
-/*! DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 class State {
   constructor () {
@@ -59,7 +59,7 @@ const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.0'
+  version: '1.13.2'
 };
 
 class LogLevel {
@@ -1484,6 +1484,55 @@ class Emitter {
   }
 }
 
+class FocusManager {
+  constructor () {
+    this._activeElements = [];
+    window.document.addEventListener('focusin', this._onFocusIn.bind(this));
+  }
+
+  _onFocusIn (e) {
+    this._activeElements.push(e.target);
+  }
+
+  get index () {
+    return this._activeElements.length - 1;
+  }
+
+  focus (index) {
+    const element = this._activeElements[index];
+    switch (true) {
+      case index < 0:
+      case this._activeElements.length === 0:
+        this.focusOnLogo();
+        return;
+      case !element:
+      case !document.documentElement.contains(element):
+      case !this._isDisplayed(element):
+        this.focus(index - 1);
+        return;
+    }
+
+    element.focus();
+  }
+
+  focusOnLogo () {
+    const logo = document.querySelector(api$1.header.HeaderSelector.BRAND_LINK);
+    if (logo) logo.focus();
+  }
+
+  _isDisplayed (element) {
+    while (element && element !== document.documentElement) {
+      if (element === document.body) return true;
+      const style = window.getComputedStyle(element);
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+      element = element.parentElement;
+    }
+    return true;
+  }
+}
+
+const focusManager = new FocusManager();
+
 class Breakpoint {
   constructor (id, minWidth) {
     this.id = id;
@@ -1948,6 +1997,14 @@ class Instance {
     this.node.blur();
   }
 
+  retainFocus () {
+    this._focusIndex = focusManager.index;
+  }
+
+  focusBack () {
+    focusManager.focus(this._focusIndex);
+  }
+
   focusClosest () {
     const closest = this._focusClosest(this.node.parentNode);
     if (closest) closest.focus();
@@ -2107,6 +2164,7 @@ class Disclosure extends Instance {
     this.disclosuresGroupInstanceClassName = disclosuresGroupInstanceClassName;
     this.modifier = this._selector + '--' + this.type.id;
     this._isPristine = true;
+    this._isActive = true;
     this._isRetrievingPrimaries = false;
     this._hasRetrieved = false;
     this._primaryButtons = [];
@@ -2136,6 +2194,20 @@ class Disclosure extends Instance {
     else this.ascend(DisclosureEmission.REMOVED);
   }
 
+  get isActive () {
+    return this._isActive;
+  }
+
+  set isActive (value) {
+    if (this._isActive === value) return;
+    this._isActive = value;
+    if (value) this.ascend(DisclosureEmission.ADDED);
+    else {
+      this.ascend(DisclosureEmission.REMOVED);
+      if (this.isDisclosed) this.conceal();
+    }
+  }
+
   get isPristine () {
     return this._isPristine;
   }
@@ -2159,6 +2231,12 @@ class Disclosure extends Instance {
       },
       get isDisclosed () {
         return scope.isDisclosed;
+      },
+      get isEnabled () {
+        return scope.isEnabled;
+      },
+      get isActive () {
+        return scope.isActive;
       }
     };
 
@@ -2194,7 +2272,8 @@ class Disclosure extends Instance {
   }
 
   disclose (withhold) {
-    if (this.isDisclosed === true || !this.isEnabled) return false;
+    if (this.isDisclosed === true || !this.isEnabled || !this._isActive) return false;
+    this.retainFocus();
     this._isPristine = false;
     this.isDisclosed = true;
     if (!withhold && this.group) this.group.current = this;
@@ -2217,7 +2296,7 @@ class Disclosure extends Instance {
 
   set isDisclosed (value) {
     if (this._isDisclosed === value || (!this.isEnabled && value === true)) return;
-    this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
+    if (!this._isPristine) this.dispatch(value ? DisclosureEvent.DISCLOSE : DisclosureEvent.CONCEAL, this);
     this._isDisclosed = value;
     if (value) this.addClass(this.modifier);
     else this.removeClass(this.modifier);
@@ -2261,6 +2340,7 @@ class Disclosure extends Instance {
 
   focus () {
     if (this._primaryButtons.length > 0) this._primaryButtons[0].focus();
+    else this.focusBack();
   }
 
   get primaryButtons () {
@@ -2277,7 +2357,7 @@ class Disclosure extends Instance {
     this._isRetrievingPrimaries = false;
     this._primaryButtons = this._electPrimaries(this.buttons);
 
-    if (this._hasRetrieved || this._primaryButtons.length === 0) return;
+    if (this._hasRetrieved || (this._primaryButtons.length === 0 && this.type.requirePrimary)) return;
     this.retrieved();
     this._hasRetrieved = true;
 
@@ -2288,7 +2368,7 @@ class Disclosure extends Instance {
       return;
     }
 
-    if (this._isPristine && this.isEnabled && !this.group) {
+    if (this._isPristine && this.isEnabled && this.isActive && !this.group) {
       switch (true) {
         case this.hash === this.id:
           this._spotlight();
@@ -2313,7 +2393,7 @@ class Disclosure extends Instance {
   }
 
   applyAbility (withhold = false) {
-    const isEnabled = !this._primaryButtons.every(button => button.isDisabled);
+    const isEnabled = !this.type.requirePrimary || this._primaryButtons.some(button => !button.isDisabled);
 
     if (this.isEnabled === isEnabled) return;
 
@@ -2499,7 +2579,7 @@ class DisclosuresGroup extends Instance {
 
   getMembers () {
     const members = this.element.getDescendantInstances(this.disclosureInstanceClassName, this.constructor.instanceClassName, true);
-    this._members = members.filter(this.validate.bind(this)).filter(member => member.isEnabled);
+    this._members = members.filter(this.validate.bind(this)).filter(member => member.isEnabled && member.isActive);
     const invalids = members.filter(member => !this._members.includes(member));
     invalids.forEach(invalid => invalid.conceal());
   }
@@ -2647,21 +2727,24 @@ const DisclosureType = {
     ariaState: true,
     ariaControls: true,
     canConceal: true,
-    canDisable: true
+    canDisable: true,
+    requirePrimary: true
   },
   SELECT: {
     id: 'selected',
     ariaState: true,
     ariaControls: true,
     canConceal: false,
-    canDisable: true
+    canDisable: true,
+    requirePrimary: true
   },
   OPENED: {
     id: 'opened',
     ariaState: false,
     ariaControls: true,
     canConceal: true,
-    canDisable: false
+    canDisable: false,
+    requirePrimary: false
   }
 };
 
@@ -3067,11 +3150,19 @@ class AssessFile extends Instance {
     }
 
     fetch(this.href, { method: 'HEAD', mode: 'cors' }).then(response => {
-      this.length = response.headers.get('content-length') || -1;
-      if (this.length === -1) {
-        inspector.warn('File size unknown: ' + this.href + '\nUnable to get HTTP header: "content-length"');
+      if (response.ok) {
+        this.length = response.headers.get('content-length') || -1;
+        if (this.length && this.length === -1) {
+          throw new Error('File size unknown' + '\n Unable to get HTTP header: "content-length"');
+        }
+        this.gather();
+      } else {
+        throw new Error('Unable to access the resource : Status ' + response.status);
       }
+    }).catch((error) => {
+      this.length = -1;
       this.gather();
+      inspector.warn('Fetch error on assess file : ' + this.href + '\n ' + error);
     });
   }
 
@@ -3093,7 +3184,6 @@ class AssessFile extends Instance {
 
     if (!this.length) {
       this.getFileLength();
-      return;
     }
 
     this.details = [];
@@ -3103,7 +3193,7 @@ class AssessFile extends Instance {
       if (extension) this.details.push(extension.toUpperCase());
     }
 
-    if (this.length !== -1) {
+    if (this.length && this.length !== -1) {
       this.details.push(this.bytesToSize(this.length));
     }
 
