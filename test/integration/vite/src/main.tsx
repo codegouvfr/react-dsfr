@@ -10,8 +10,8 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { headerFooterDisplayItem } from "@codegouvfr/react-dsfr/Display";
 import { fr } from "@codegouvfr/react-dsfr";
 import { ConsentBannerAndConsentManagement, FooterConsentManagementItem, FooterPersonalDataPolicyItem } from "./consentManagement";
-//import { createDsfrCustomBrandingProvider } from "@codegouvfr/react-dsfr/mui";
-//import { createTheme } from "@mui/material/styles";
+import { createDsfrCustomBrandingProvider } from "@codegouvfr/react-dsfr/mui";
+import { createTheme } from "@mui/material/styles";
 
 startReactDsfr({ "defaultColorScheme": "system", Link });
 
@@ -21,7 +21,6 @@ declare module "@codegouvfr/react-dsfr/spa" {
     }
 }
 
-/*
 const { DsfrCustomBrandingProvider } = createDsfrCustomBrandingProvider({
     createMuiTheme: ({ isDark, theme_gov }) => {
         if (import.meta.env.VITE_IS_GOV_INSTANCE === "true") {
@@ -40,14 +39,13 @@ const { DsfrCustomBrandingProvider } = createDsfrCustomBrandingProvider({
         return { theme };
     }
 });
-*/
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <BrowserRouter>
-        {/*<DsfrCustomBrandingProvider>*/}
+        <DsfrCustomBrandingProvider>
             <Root />
-        {/*</DsfrCustomBrandingProvider>*/}
+        </DsfrCustomBrandingProvider>
         </BrowserRouter>
     </React.StrictMode>
 );
