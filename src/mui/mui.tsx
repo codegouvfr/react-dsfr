@@ -393,6 +393,8 @@ export function createMuiDsfrThemeProvider(params: {
 
 export const { MuiDsfrThemeProvider } = createMuiDsfrThemeProvider({});
 
+export default MuiDsfrThemeProvider;
+
 export function createDsfrCustomBrandingProvider(params: {
     createMuiTheme: (params: {
         isDark: boolean;
