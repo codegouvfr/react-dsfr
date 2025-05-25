@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -67,6 +59,6 @@ export default createIcon(
             d="M39 64.5C39 65.0523 38.5523 65.5 38 65.5C37.4477 65.5 37 65.0523 37 64.5C37 63.9477 37.4477 63.5 38 63.5C38.5523 63.5 39 63.9477 39 64.5Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "EarOff"
 );

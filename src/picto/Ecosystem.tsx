@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -171,6 +163,6 @@ export default createIcon(
             d="M33.3042 45.9056C33.6325 46.3498 33.5385 46.9759 33.0944 47.3042L21.5944 55.8042C21.1503 56.1325 20.5241 56.0385 20.1958 55.5944C19.8676 55.1503 19.9615 54.5241 20.4056 54.1958L31.9056 45.6958C32.3497 45.3676 32.9759 45.4615 33.3042 45.9056Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Ecosystem"
 );

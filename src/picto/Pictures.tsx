@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             d="M11 6C11 6.6 10.6 7 10 7C9.4 7 9 6.6 9 6C9 5.4 9.4 5 10 5C10.6 5 11 5.4 11 6Z"
             fill="#ECECFE"
@@ -89,6 +81,6 @@ export default createIcon(
             d="M58 26C58 25.4477 58.4477 25 59 25H65C67.7614 25 70 27.2386 70 30V58C70 60.7614 67.7614 63 65 63H45C44.4477 63 44 62.5523 44 62C44 61.4477 44.4477 61 45 61H65C66.6569 61 68 59.6569 68 58V30C68 28.3431 66.6569 27 65 27H59C58.4477 27 58 26.5523 58 26Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Pictures"
 );

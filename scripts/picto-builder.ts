@@ -14,6 +14,14 @@ async function ensureDir(dir: string): Promise<void> {
     }
 }
 
+function extractSvgInnerContent(svg: string): string {
+    const match = svg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+    if (!match) {
+        throw new Error("Invalid SVG: cannot extract content");
+    }
+    return match[1].trim();
+}
+
 async function cleanSvgContent(svgData: string): Promise<string> {
     const result = optimize(svgData, {
         multipass: true,
@@ -62,14 +70,16 @@ async function generateComponent(svgPath: string, outputDir: string): Promise<st
     const outputFileName = svgName.replace(/\.svg$/, ".tsx");
 
     const svgData = await fs.readFile(svgPath, "utf8");
-    const cleanedSvg = await cleanSvgContent(svgData);
+    const cleanedSvg = extractSvgInnerContent(await cleanSvgContent(svgData));
 
     const template = `import React from 'react';
 import { createIcon } from './utils/IconWrapper';
 
 export default createIcon(
-    {{& svgContent}},
-	"{{componentName}}"
+    <>
+        {{& svgContent }}
+    </>,
+    "{{componentName}}"
 );
 `;
 

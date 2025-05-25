@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             d="M16.3 10.7C16.8523 10.7 17.3 10.2523 17.3 9.70001C17.3 9.14773 16.8523 8.70001 16.3 8.70001C15.7477 8.70001 15.3 9.14773 15.3 9.70001C15.3 10.2523 15.7477 10.7 16.3 10.7Z"
             fill="#ECECFE"
@@ -133,6 +125,6 @@ export default createIcon(
             d="M33.7682 24.8598C34.1218 25.2841 34.0645 25.9147 33.6402 26.2682L30.6402 28.7682C30.4605 28.918 30.2339 29 30 29H10V64C10 64.5523 9.55228 65 9 65C8.44772 65 8 64.5523 8 64V28C8 27.4477 8.44772 27 9 27H29.638L32.3598 24.7318C32.7841 24.3782 33.4147 24.4356 33.7682 24.8598Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Companie"
 );

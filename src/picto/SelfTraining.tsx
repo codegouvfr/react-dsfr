@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -125,6 +117,6 @@ export default createIcon(
             d="M19.2 26.4854C19.2 25.9331 19.6477 25.4854 20.2 25.4854H24.597C25.1493 25.4854 25.597 25.9331 25.597 26.4854C25.597 27.0377 25.1493 27.4854 24.597 27.4854H20.2C19.6477 27.4854 19.2 27.0377 19.2 26.4854Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "SelfTraining"
 );

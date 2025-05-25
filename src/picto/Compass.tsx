@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -65,6 +57,6 @@ export default createIcon(
             d="M23.06 57.94C22.8 57.94 22.54 57.84 22.35 57.65C22.05 57.35 21.97 56.9 22.15 56.52L29.38 41.26C29.75 40.48 30.54 40.04 31.39 40.13C32.24 40.22 32.93 40.82 33.13 41.66C33.43 42.93 34.08 44.09 35 45.01C35.92 45.93 37.08 46.58 38.35 46.88C38.89 47.01 39.22 47.55 39.09 48.09C38.96 48.63 38.42 48.96 37.88 48.83C36.25 48.44 34.77 47.61 33.58 46.42C32.39 45.23 31.56 43.75 31.18 42.12L25.16 54.85L33.8 50.76C34.3 50.53 34.9 50.74 35.13 51.24C35.37 51.74 35.15 52.33 34.65 52.57L23.48 57.86C23.36 57.9 23.21 57.94 23.06 57.94Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Compass"
 );

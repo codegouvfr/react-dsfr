@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -133,6 +125,6 @@ export default createIcon(
             d="M30.9744 41C30.4616 41 30.0389 41.386 29.9811 41.8834L29.9744 42L29.9748 43.653L29.8992 43.7487C27.394 46.9746 26.0742 49.9485 25.9798 52.6853L25.9744 53C25.9744 53.5523 26.4221 54 26.9744 54C27.5267 54 27.9744 53.5523 27.9744 53C27.9744 50.5943 29.218 47.7963 31.7553 44.6247C31.8687 44.4828 31.9409 44.3135 31.9652 44.1351L31.9744 44V42C31.9744 41.4477 31.5267 41 30.9744 41Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Vaccine"
 );

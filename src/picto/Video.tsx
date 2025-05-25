@@ -2,15 +2,7 @@ import React from "react";
 import { createIcon } from "./utils/IconWrapper";
 
 export default createIcon(
-    <svg
-        width="80px"
-        height="80px"
-        fill="none"
-        viewBox="0 0 80 80"
-        xmlns="http://www.w3.org/2000/svg"
-        focusable="false"
-        aria-hidden="true"
-    >
+    <>
         <path
             d="M8.70001 11.1C8.70001 11.7 8.30001 12.1 7.70001 12.1C7.10001 12.1 6.70001 11.7 6.70001 11.1C6.70001 10.5 7.10001 10.1 7.70001 10.1C8.30001 10.1 8.70001 10.5 8.70001 11.1Z"
             fill="#ECECFE"
@@ -87,6 +79,6 @@ export default createIcon(
             d="M63 51H17C16.4 51 16 50.6 16 50V29C16 28.4 16.4 28 17 28H63C63.6 28 64 28.4 64 29V50C64 50.5 63.6 51 63 51ZM18 49H62V30H18V49Z"
             fill="#000091"
         />
-    </svg>,
+    </>,
     "Video"
 );
