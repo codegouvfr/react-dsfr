@@ -9,7 +9,7 @@
     "scripts": {
         "prepare": "patch-package",
         "build": "ts-node -T scripts/build",
-        "rebuild-picto": "ts-node -T scripts/picto-builder.ts src/picto/pictogrammes src/picto",
+        "rebuild-picto": "ts-node -T scripts/picto-builder.ts src/picto/pictogrammes-svg src/picto",
         "_link": "ts-node -T scripts/link-in-integration-apps.ts",
         "link-external": "ts-node -T scripts/link-in-external-project.ts",
         "start-cra": "yarn build && yarn _link && ((tsc -w -p src) & (cd test/integration/cra && yarn start))",
