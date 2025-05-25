@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
+import { Picto } from "./Picto";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { Footer } from "@codegouvfr/react-dsfr/Footer";
@@ -90,6 +91,13 @@ function Root() {
                             },
                             "isActive": location.pathname === "/mui"
                         },
+						{
+							"text": "Picto playground",
+							"linkProps": {
+								"to": "/picto"
+							},
+							"isActive": location.pathname === "/picto"
+						},
                         {
                             "text": "External link",
                             "linkProps": {
@@ -108,6 +116,7 @@ function Root() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/mui" element={<Mui />} />
+                        <Route path="/picto" element={<Picto />} />
                         <Route path="*" element={<h1>404</h1>} />
                     </Routes>
                 </div>

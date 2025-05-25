@@ -27,6 +27,7 @@ export const ConnectionLost: SvgIconComponent;
 export const Contract: SvgIconComponent;
 export const Culture: SvgIconComponent;
 export const DataVisualization: SvgIconComponent;
+export const Datalma: SvgIconComponent;
 export const DigitalArt: SvgIconComponent;
 export const Doctor: SvgIconComponent;
 export const Document: SvgIconComponent;

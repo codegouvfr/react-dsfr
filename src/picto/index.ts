@@ -23,6 +23,7 @@ export { default as ConnectionLost } from "./ConnectionLost";
 export { default as Contract } from "./Contract";
 export { default as Culture } from "./Culture";
 export { default as DataVisualization } from "./DataVisualization";
+export { default as Datalma } from "./Datalma";
 export { default as DigitalArt } from "./DigitalArt";
 export { default as Doctor } from "./Doctor";
 export { default as Document } from "./Document";
