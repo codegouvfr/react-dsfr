@@ -96,6 +96,7 @@ export default createIcon(
 
 async function generateIndex(outputDir: string): Promise<string> {
     const files = await glob(`${outputDir}/*.tsx`);
+    const filePath = path.join(outputDir, "index.ts");
 
     const exports = files
         .map(f => {
@@ -104,21 +105,22 @@ async function generateIndex(outputDir: string): Promise<string> {
         })
         .join("\n");
 
-    await fs.writeFile(path.join(outputDir, "index.ts"), exports);
-    return path.join(outputDir, "index.ts");
+    await fs.writeFile(filePath, exports);
+    return filePath;
 }
 
 async function generateTypes(outputDir: string): Promise<string> {
     const files = await glob(`${outputDir}/*.tsx`);
     const iconNames = files.map(f => pascalCaseName(path.basename(f, ".tsx")));
+    const filePath = path.join(outputDir, "index.d.ts");
 
     const header = `import { IconWrapper } from './utils/IconWrapper';\n\ntype SvgIconComponent = typeof IconWrapper;\n\n`;
     const lines = iconNames.map(name => `export const ${name}: SvgIconComponent;`);
 
     const content = `${header}${lines.join("\n")}\n`;
 
-    await fs.writeFile(path.join(outputDir, "index.d.ts"), content, "utf8");
-    return path.join(outputDir, "index.d.ts");
+    await fs.writeFile(filePath, content, "utf8");
+    return filePath;
 }
 
 export async function build(srcDir: string, outDir: string): Promise<string[]> {
