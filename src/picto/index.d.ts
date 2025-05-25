@@ -1,4 +1,4 @@
-import { IconWrapper } from "./utils/IconWrapper";
+import { IconWrapper } from './utils/IconWrapper';
 
 type SvgIconComponent = typeof IconWrapper;
 
