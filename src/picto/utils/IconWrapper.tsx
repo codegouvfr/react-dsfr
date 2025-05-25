@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+
 type IconSize = "small" | "medium" | "large" | "inherit" | (string & {});
 export type IconProps = {
     fontSize?: IconSize;
