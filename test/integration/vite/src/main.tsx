@@ -91,13 +91,13 @@ function Root() {
                             },
                             "isActive": location.pathname === "/mui"
                         },
-						{
-							"text": "Picto playground",
-							"linkProps": {
-								"to": "/picto"
-							},
-							"isActive": location.pathname === "/picto"
-						},
+                        {
+                            "text": "Picto playground",
+                            "linkProps": {
+                                "to": "/picto"
+                            },
+                            "isActive": location.pathname === "/picto"
+                        },
                         {
                             "text": "External link",
                             "linkProps": {
