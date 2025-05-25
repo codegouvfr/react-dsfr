@@ -62,7 +62,7 @@ function Root() {
                     {
                         "text": "Picto playground",
                         "linkProps": routes.picto().link,
-                        "isActive": location.pathname === "picto"
+                        "isActive": route.name === "picto"
                     }
                 ]}
             />
