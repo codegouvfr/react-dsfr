@@ -120,6 +120,8 @@
         "patch-package": "^8.0.0",
         "powerhooks": "^0.22.0",
         "prettier": "^2.3.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
         "remixicon": "^4.2.0",
         "storybook-dark-mode": "^1.1.2",
         "svgo": "^3.3.2",
