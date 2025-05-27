@@ -25,13 +25,10 @@ export function DsfrProviderBase(props) {
             "nextParams": {
                 "doPersistDarkModePreferenceWithCookie": false,
                 "registerEffectAction": action => {
-                    console.log("registerEffectAction", action);
                     if (isAfterFirstEffect) {
-                        console.log("run now");
                         action();
                     }
                     else {
-                        console.log("push");
                         actions.push(action);
                     }
                 }
@@ -61,7 +58,6 @@ function dsfrEffect() {
     }
     isAfterFirstEffect = true;
     actions.forEach(action => {
-        console.log("running action", action);
         action();
     });
 }
