@@ -11,7 +11,6 @@ import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 
 import { Accordion } from "@codegouvfr/react-dsfr/Accordion";
-import { Book, Money, Police, Sun } from '@codegouvfr/react-dsfr/picto';
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -30,13 +29,6 @@ export function Home() {
                 <span className={fr.cx("fr-icon-ancient-gate-fill")} aria-hidden="true"></span>
                 <i className={fr.cx("fr-icon-ancient-gate-fill")} aria-hidden="true" />
             </div>
-
-            <div className={fr.cx("fr-my-4w")}>
-				<Police fontSize="large" />
-				<Book fontSize="large" />
-				<Money fontSize="large" />
-				<Sun fontSize="large" />
-			</div>
 
             <div className={fr.cx("fr-my-4w")}>
                 <Button
