@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { Home } from "./Home";
 import { Mui } from "./Mui";
+import { Picto } from "./Picto";
 import { useRoute, RouteProvider } from "./router";
 import { Header } from "@codegouvfr/react-dsfr/Header";
 import { fr } from "@codegouvfr/react-dsfr";
@@ -57,6 +58,11 @@ function Root() {
                         "text": "Mui playground",
                         "linkProps": routes.mui().link,
                         "isActive": route.name === "mui"
+                    },
+                    {
+                        "text": "Picto playground",
+                        "linkProps": routes.picto().link,
+                        "isActive": route.name === "picto"
                     }
                 ]}
             />
@@ -70,6 +76,7 @@ function Root() {
                     switch (route.name) {
                         case "mui": return <Mui />;
                         case "home": return <Home />;
+                        case "picto": return <Picto />;
                         case false: return <h1>404</h1>
                     }
                 })()}
