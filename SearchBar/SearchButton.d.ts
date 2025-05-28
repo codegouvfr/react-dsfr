@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export type SearchButtonProps = {
     id: string;
     searchInputId: string;

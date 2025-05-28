@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import type { HeaderProps } from "../Header";
 import type { FooterProps } from "../Footer";
 export declare const headerFooterDisplayItem: HeaderProps.QuickAccessItem.Button & FooterProps.BottomItem.Button;

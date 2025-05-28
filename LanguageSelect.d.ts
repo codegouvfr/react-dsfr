@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import "./assets/language-select.css";
 /** NOTE: Can be used as quick access item in the Header */
 export declare function LanguageSelect<Language extends string>(props: {
