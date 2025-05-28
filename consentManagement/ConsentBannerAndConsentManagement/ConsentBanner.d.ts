@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import type { RegisteredLinkProps } from "../../link";
 import type { ProcessConsentChanges } from "../processConsentChanges";
 export declare function createConsentBanner<Finality extends string>(params: {

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { type RegisteredLinkProps } from "../../link";
 export declare const useTranslation: () => {
     t: (<K extends "accept" | "cookies management" | "all services pref" | "personal data cookies" | "accept all" | "accept all - title" | "refuse all" | "refuse all - title" | "refuse" | "confirm choices" | "customize" | "customize cookies - title" | "consent modal title" | "personal data" | "see more details" | "hide details" | "mandatory cookies" | "mandatory cookies - description" | "confirm my choices">(messageKey: K) => {

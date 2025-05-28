@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { fontUrlByFileBasename } from "./zz_internal/fontUrlByFileBasename";
 import "@codegouvfr/react-dsfr/assets/dsfr_plus_icons.scss";
 export type DsfrHeadProps = {
