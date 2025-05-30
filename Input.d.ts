@@ -26,7 +26,7 @@ export declare namespace InputProps {
         /** Props forwarded to the underlying <input /> element */
         nativeInputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
         /** Props forwarded to the underlying <label /> element */
-        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
         nativeTextAreaProps?: never;
     };
     type TextArea = Common & {
@@ -35,7 +35,7 @@ export declare namespace InputProps {
         /** Props forwarded to the underlying <textarea /> element */
         nativeTextAreaProps?: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
         /** Props forwarded to the underlying <label /> element */
-        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
+        nativeLabelProps?: DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>;
         nativeInputProps?: never;
     };
 }
