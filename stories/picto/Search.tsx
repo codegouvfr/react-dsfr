@@ -13,12 +13,7 @@ export type Props = {
 };
 
 export function Search(props: Props) {
-    const {
-        className,
-        search,
-        onSearchChange,
-        evtAction,
-    } = props;
+    const { className, search, onSearchChange, evtAction } = props;
 
     const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null);
     const [searchBarWrapperElement, setSearchBarWrapperElement] = useState<HTMLDivElement | null>(
@@ -70,14 +65,12 @@ export function Search(props: Props) {
     );
 }
 
-const useStyles = tss
-    .withName({ Search })
-    .create(() => ({
-        "root": {
-            "display": "flex",
-            "paddingTop": fr.spacing("6v")
-        },
-        "searchBar": {
-            "flex": 1
-        },
-    }));
+const useStyles = tss.withName({ Search }).create(() => ({
+    "root": {
+        "display": "flex",
+        "paddingTop": fr.spacing("6v")
+    },
+    "searchBar": {
+        "flex": 1
+    }
+}));
