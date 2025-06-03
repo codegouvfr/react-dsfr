@@ -39,7 +39,7 @@ export function Pictogrammes() {
                     display: "flex",
                     flexWrap: "wrap",
                     gap: fr.spacing("4v"),
-                    fontSize: 64,
+                    fontSize: 72,
                 }}>
                     {
                         filteredPictogrammes.map(([key, PictoComponent]) => (
