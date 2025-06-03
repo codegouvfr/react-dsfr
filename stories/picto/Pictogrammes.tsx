@@ -3,13 +3,13 @@ import { Source } from "@storybook/components";
 import { Search } from "./Search";
 import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
-import { useStyles } from "tss-react";
+import { tss } from "tss-react";
 import { fr } from "../../dist/fr";
 import * as Picto from "../../dist/picto";
 import { createModal } from "../../dist/Modal";
 import { Tooltip } from "../../dist/Tooltip";
 import CallOut from "../../dist/CallOut";
-import { getLink, type RegisteredLinkProps } from "../../dist/link";
+import { getLink } from "../../dist/link";
 
 const pictogrameEntries = Object.entries(Picto);
 
@@ -21,7 +21,7 @@ const modal = createModal({
 export function Pictogrammes() {
     const [search, setSearch] = useState("");
 
-    const { css } = useStyles();
+    const { css, classes } = useStyles();
 
     const filteredPictogrammes = pictogrameEntries.filter(([key]) =>
         key.toLowerCase().includes(search.toLowerCase())
@@ -60,20 +60,14 @@ export function Pictogrammes() {
                     : `Found ${filteredPictogrammes.length} pictogrammes matching your query`
                 }
             </h3>
-            <div style={{
-                padding: fr.spacing("1w"),
-                borderRadius: "8px",
-                backgroundColor: "var(--background-default-grey)",
-            }}>
-                <div style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: fr.spacing("4v"),
-                    fontSize: 72,
-                }}>
+            <div className={classes.pictogrammesWrapper}>
+                <div className={classes.pictogrammesContainer}>
                     {
                         filteredPictogrammes.map(([key, PictoComponent]) => (
-                            <div key={key} className="picto-tile" style={{ textAlign: "center", width: 150 }} onClick={() => {
+                            <div
+                                key={key}
+                                className={classes.pictoTile}
+                                onClick={() => {
                                     setSelectedPicto({key});
                                     modal.open();
                                 }}
@@ -81,14 +75,7 @@ export function Pictogrammes() {
                                 {
                                     typeof PictoComponent === "function" && <PictoComponent fontSize="inherit" />
                                 }
-                                <div style={{
-                                    marginTop: 8,
-                                    fontSize: 12,
-                                    padding: "0 4px",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap"
-                                }}>{key}</div>
+                                <div className={classes.pictoTileLabel}>{key}</div>
                             </div>
                         ))
                     }
@@ -133,7 +120,7 @@ export function Pictogrammes() {
                             }}>
                                 <Tooltip
                                 kind="hover"
-                                title="small"
+                                title="fontSize small"
                                 >
                                     <div style={{
                                         padding: fr.spacing("1w"),
@@ -146,7 +133,7 @@ export function Pictogrammes() {
                                 </Tooltip>
                                 <Tooltip
                                 kind="hover"
-                                title="medium"
+                                title="fontSize medium"
                                 >
                                     <div style={{
                                         padding: fr.spacing("1w"),
@@ -159,7 +146,7 @@ export function Pictogrammes() {
                                 </Tooltip>
                                 <Tooltip
                                 kind="hover"
-                                title="large"
+                                title="fontSize large"
                                 >
                                     <div style={{
                                         padding: fr.spacing("1w"),
@@ -179,3 +166,36 @@ export function Pictogrammes() {
         </div>
     )
 }
+
+const useStyles = tss
+    .withName({ Pictogrammes })
+    .create(() => ({
+        pictoTile: {
+            textAlign: "center",
+            width: 150,
+            cursor: "pointer",
+            "&:hover": {
+                borderRadius: 8,
+                backgroundColor: "var(--background-default-grey-hover)"
+            }
+        },
+        pictoTileLabel: {
+            marginTop: 8,
+            fontSize: 12,
+            padding: "0 4px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap"
+        },
+        pictogrammesContainer: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: fr.spacing("4v"),
+            fontSize: 72
+        },
+        pictogrammesWrapper: {
+            padding: fr.spacing("1w"),
+            borderRadius: "8px",
+            backgroundColor: "var(--background-default-grey)"
+        }
+    }));

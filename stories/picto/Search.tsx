@@ -24,9 +24,6 @@ export function Search(props: Props) {
     const [searchBarWrapperElement, setSearchBarWrapperElement] = useState<HTMLDivElement | null>(
         null
     );
-    const [filtersWrapperDivElement] = useState<HTMLDivElement | null>(
-        null
-    );
 
     useEvt(
         ctx => {
@@ -45,9 +42,7 @@ export function Search(props: Props) {
         [evtAction, inputElement, searchBarWrapperElement]
     );
 
-    const { classes, cx } = useStyles({
-        "filterWrapperMaxHeight": filtersWrapperDivElement?.scrollHeight ?? 0
-    });
+    const { classes, cx } = useStyles();
 
     return (
         <>
@@ -77,8 +72,7 @@ export function Search(props: Props) {
 
 const useStyles = tss
     .withName({ Search })
-    .withParams<{ filterWrapperMaxHeight: number }>()
-    .create(({ filterWrapperMaxHeight }) => ({
+    .create(() => ({
         "root": {
             "display": "flex",
             "paddingTop": fr.spacing("6v")
@@ -86,27 +80,4 @@ const useStyles = tss
         "searchBar": {
             "flex": 1
         },
-        "filterButton": {
-            "backgroundColor": fr.colors.decisions.background.actionLow.blueFrance.default,
-            "&&&:hover": {
-                "backgroundColor": fr.colors.decisions.background.actionLow.blueFrance.hover
-            },
-            "color": fr.colors.decisions.text.actionHigh.blueFrance.default,
-            "marginLeft": fr.spacing("4v")
-        },
-        "filtersWrapper": {
-            "transition": "max-height 0.2s ease-out",
-            "maxHeight": filterWrapperMaxHeight,
-            "overflow": "hidden",
-            "display": "flex",
-            "& > *": {
-                "flex": 1,
-                ...fr.spacing("padding", {
-                    "rightLeft": "4v"
-                })
-            },
-            ...fr.spacing("margin", {
-                "topBottom": "9v"
-            })
-        }
     }));
