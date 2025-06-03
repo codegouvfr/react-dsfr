@@ -57,7 +57,7 @@ export function Pictograms() {
                 {
                     search === ""
                     ? `${filteredPictograms.length} pictograms`
-                    : `Found ${filteredPictograms.length} pictograms matching your query`
+                    : `Found ${filteredPictograms.length} pictogram${filteredPictograms.length > 1 ? "s" : ""}`
                 }
             </h3>
             <div className={classes.pictogramsWrapper}>
