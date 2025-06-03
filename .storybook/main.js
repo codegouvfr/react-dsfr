@@ -4,7 +4,7 @@ module.exports = {
         "../stories/*.stories.@(ts|tsx)",
         "../stories/blocks/*.stories.@(ts|tsx)",
         "../stories/charts/*.stories.@(ts|tsx)",
-		"../stories/picto/*.stories.@(ts|tsx)",
+        "../stories/picto/*.stories.@(ts|tsx)",
     ],
     "addons": [
         "@storybook/addon-links",
