@@ -18,12 +18,12 @@ const modal = createModal({
     isOpenedByDefault: false
 });
 
-export function Pictogrammes() {
+export function Pictograms() {
     const [search, setSearch] = useState("");
 
     const { css, classes } = useStyles();
 
-    const filteredPictogrammes = pictogrameEntries.filter(([key]) =>
+    const filteredPictograms = pictogrameEntries.filter(([key]) =>
         key.toLowerCase().includes(search.toLowerCase())
     );
     const [selectedPicto, setSelectedPicto] = useState<{key: string} | null>(null);
@@ -36,7 +36,7 @@ export function Pictogrammes() {
         <div>
             <CallOut
                 className={css({ "marginBottom": 0 })}
-                title="Pictogrammes"
+                title="Pictograms"
                 iconId="fr-icon-search-line"
                 buttonProps={{
                     "onClick": () => evtSearchAction.post("scroll to"),
@@ -46,7 +46,7 @@ export function Pictogrammes() {
                 This tool help you find the perfect DSFR compliant pictogram for your project.
                 <br />
                 <br />
-                <Link target="_blank" href="https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme">Learn more about pictogrammes</Link>
+                <Link target="_blank" href="https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme">Learn more about pictograms</Link>
             </CallOut>
             <Search
                 evtAction={evtSearchAction}
@@ -56,14 +56,14 @@ export function Pictogrammes() {
             <h3 style={{ marginTop: fr.spacing("6v") }}>
                 {
                     search === ""
-                    ? `${filteredPictogrammes.length} pictogrammes`
-                    : `Found ${filteredPictogrammes.length} pictogrammes matching your query`
+                    ? `${filteredPictograms.length} pictograms`
+                    : `Found ${filteredPictograms.length} pictograms matching your query`
                 }
             </h3>
-            <div className={classes.pictogrammesWrapper}>
-                <div className={classes.pictogrammesContainer}>
+            <div className={classes.pictogramsWrapper}>
+                <div className={classes.pictogramsContainer}>
                     {
-                        filteredPictogrammes.map(([key, PictoComponent]) => (
+                        filteredPictograms.map(([key, PictoComponent]) => (
                             <div
                                 key={key}
                                 className={classes.pictoTile}
@@ -168,7 +168,7 @@ export function Pictogrammes() {
 }
 
 const useStyles = tss
-    .withName({ Pictogrammes })
+    .withName({ Pictograms })
     .create(() => ({
         pictoTile: {
             textAlign: "center",
@@ -187,13 +187,13 @@ const useStyles = tss
             textOverflow: "ellipsis",
             whiteSpace: "nowrap"
         },
-        pictogrammesContainer: {
+        pictogramsContainer: {
             display: "flex",
             flexWrap: "wrap",
             gap: fr.spacing("4v"),
             fontSize: 72
         },
-        pictogrammesWrapper: {
+        pictogramsWrapper: {
             padding: fr.spacing("1w"),
             borderRadius: "8px",
             backgroundColor: "var(--background-default-grey)"
