@@ -10,3 +10,8 @@
 .margin-bottom-600px {
 	margin-bottom: 600px;
 }
+
+.picto-tile:hover {
+    border-radius: 8px;
+    background-color: var(--background-default-grey-hover);
+}

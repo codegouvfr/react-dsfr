@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { fr } from "../../dist/fr";
 import { Search } from "./Search";
 import { useConst } from "powerhooks/useConst";
@@ -30,17 +30,28 @@ export function Pictogrammes() {
                     : `Found ${filteredPictogrammes.length} pictogrammes matching your query`
                 }
             </h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: fr.spacing("4v"), fontSize: 48 }}>
-                {
-                    filteredPictogrammes.map(([key, PictoComponent]) => (
-                        <div key={key} style={{ textAlign: "center", width: 150 }}>
-                            {
-                                typeof PictoComponent === "function" && <PictoComponent fontSize="inherit" />
-                            }
-                            <div style={{ marginTop: 8, fontSize: 12 }}>{key}</div>
-                        </div>
-                    ))
-                }
+            <div style={{
+                padding: fr.spacing("1w"),
+                borderRadius: "8px",
+                backgroundColor: "var(--background-default-grey)",
+            }}>
+                <div style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: fr.spacing("4v"),
+                    fontSize: 64,
+                }}>
+                    {
+                        filteredPictogrammes.map(([key, PictoComponent]) => (
+                            <div key={key} className="picto-tile" style={{ textAlign: "center", width: 150 }}>
+                                {
+                                    typeof PictoComponent === "function" && <PictoComponent fontSize="inherit" />
+                                }
+                                <div style={{ marginTop: 8, fontSize: 12 }}>{key}</div>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
         </div>
     )
