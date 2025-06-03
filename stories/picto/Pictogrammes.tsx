@@ -1,12 +1,15 @@
 import { createElement, useState } from "react";
 import { Source } from "@storybook/components";
-import { fr } from "../../dist/fr";
 import { Search } from "./Search";
 import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
+import { useStyles } from "tss-react";
+import { fr } from "../../dist/fr";
+import * as Picto from "../../dist/picto";
 import { createModal } from "../../dist/Modal";
 import { Tooltip } from "../../dist/Tooltip";
-import * as Picto from "../../dist/picto";
+import CallOut from "../../dist/CallOut";
+import { getLink, type RegisteredLinkProps } from "../../dist/link";
 
 const pictogrameEntries = Object.entries(Picto);
 
@@ -18,6 +21,8 @@ const modal = createModal({
 export function Pictogrammes() {
     const [search, setSearch] = useState("");
 
+    const { css } = useStyles();
+
     const filteredPictogrammes = pictogrameEntries.filter(([key]) =>
         key.toLowerCase().includes(search.toLowerCase())
     );
@@ -25,8 +30,24 @@ export function Pictogrammes() {
 
     const evtSearchAction = useConst(() => Evt.create<"scroll to">());
 
+    const { Link } = getLink();
+
     return (
         <div>
+            <CallOut
+                className={css({ "marginBottom": 0 })}
+                title="Pictogrammes"
+                iconId="fr-icon-search-line"
+                buttonProps={{
+                    "onClick": () => evtSearchAction.post("scroll to"),
+                    "children": "Start searching"
+                }}
+            >
+                This tool help you find the perfect DSFR compliant pictogram for your project.
+                <br />
+                <br />
+                <Link href="https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme">Learn more about pictogrammes.</Link>
+            </CallOut>
             <Search
                 evtAction={evtSearchAction}
                 onSearchChange={setSearch}
@@ -60,7 +81,14 @@ export function Pictogrammes() {
                                 {
                                     typeof PictoComponent === "function" && <PictoComponent fontSize="inherit" />
                                 }
-                                <div style={{ marginTop: 8, fontSize: 12 }}>{key}</div>
+                                <div style={{
+                                    marginTop: 8,
+                                    fontSize: 12,
+                                    padding: "0 4px",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap"
+                                }}>{key}</div>
                             </div>
                         ))
                     }
@@ -82,20 +110,18 @@ export function Pictogrammes() {
                             marginTop: fr.spacing("2v")
                         }}>
                             <div>
-                                {
-                                    selectedPicto && createElement(
-                                        Picto[selectedPicto.key] as React.ElementType,
-                                        {
-                                            style: {
-                                                backgroundSize: "30px 30px",
-                                                backgroundColor: "transparent",
-                                                backgroundPosition: "0px 0px, 0px 15px, 15px -15px, -15px 0px",
-                                                backgroundImage: "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
-                                            },
-                                            fontSize: 210
-                                        }
-                                    )
-                                }
+                                {selectedPicto && createElement(
+                                    Picto[selectedPicto.key] as React.ElementType,
+                                    {
+                                        style: {
+                                            backgroundSize: "30px 30px",
+                                            backgroundColor: "transparent",
+                                            backgroundPosition: "0px 0px, 0px 15px, 15px -15px, -15px 0px",
+                                            backgroundImage: "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
+                                        },
+                                        fontSize: 210
+                                    }
+                                )}
                             </div>
                             <div style={{
                                 display: "flex",
@@ -112,14 +138,10 @@ export function Pictogrammes() {
                                     <div style={{
                                         padding: fr.spacing("1w"),
                                     }}>
-                                        {
-                                            createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                {
-                                                    fontSize: "small",
-                                                }
-                                            )
-                                        }
+                                        {createElement(
+                                            Picto[selectedPicto.key] as React.ElementType,
+                                            { fontSize: "small" }
+                                        )}
                                     </div>
                                 </Tooltip>
                                 <Tooltip
@@ -129,14 +151,10 @@ export function Pictogrammes() {
                                     <div style={{
                                         padding: fr.spacing("1w"),
                                     }}>
-                                        {
-                                            createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                {
-                                                    fontSize: "medium"
-                                                }
-                                            )
-                                        }
+                                        {createElement(
+                                            Picto[selectedPicto.key] as React.ElementType,
+                                            { fontSize: "medium" }
+                                        )}
                                     </div>
                                 </Tooltip>
                                 <Tooltip
@@ -146,14 +164,10 @@ export function Pictogrammes() {
                                     <div style={{
                                         padding: fr.spacing("1w"),
                                     }}>
-                                        {
-                                            createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                {
-                                                    fontSize: "large",
-                                                }
-                                            )
-                                        }
+                                        {createElement(
+                                            Picto[selectedPicto.key] as React.ElementType,
+                                            { fontSize: "large" }
+                                        )}
                                     </div>
                                 </Tooltip>
                             </div>
