@@ -8,11 +8,11 @@ export type IconProps = {
 const getSize = (size: IconSize) => {
     switch (size) {
         case "small":
-            return "1.25rem";
+            return "1.25em";
         case "medium":
-            return "1.5rem";
+            return "1.5em";
         case "large":
-            return "2.5rem";
+            return "2.5em";
         case "inherit":
             return "inherit";
         default:
