@@ -46,7 +46,7 @@ export function Pictogrammes() {
                 This tool help you find the perfect DSFR compliant pictogram for your project.
                 <br />
                 <br />
-                <Link href="https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme">Learn more about pictogrammes.</Link>
+                <Link target="_blank" href="https://www.systeme-de-design.gouv.fr/fondamentaux/pictogramme">Learn more about pictogrammes</Link>
             </CallOut>
             <Search
                 evtAction={evtSearchAction}
