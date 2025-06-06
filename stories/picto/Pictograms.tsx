@@ -5,11 +5,13 @@ import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
 import { tss } from "tss-react";
 import { fr } from "../../dist/fr";
+import { cx } from "../../dist/tools/cx";
 import * as Picto from "../../dist/picto";
 import { createModal } from "../../dist/Modal";
 import { Tooltip } from "../../dist/Tooltip";
 import CallOut from "../../dist/CallOut";
 import { getLink } from "../../dist/link";
+import { useColors } from "../../dist/useColors";
 
 const pictogrameEntries = Object.entries(Picto);
 
@@ -21,6 +23,7 @@ const modal = createModal({
 export function Pictograms() {
     const [search, setSearch] = useState("");
 
+    const { isDark } = useColors();
     const { css, classes } = useStyles();
 
     const filteredPictograms = pictogrameEntries.filter(([key]) =>
@@ -86,7 +89,7 @@ export function Pictograms() {
                         <div style={{ textAlign: "center" }}>
                             <Source
                                 language="tsx"
-                                code={`import { ${selectedPicto.key} } from "@codegouvfr/react-dsfr/picto";`}
+                                code={`import ${selectedPicto.key} from "@codegouvfr/react-dsfr/picto/${selectedPicto.key}";`}
                             />
                             <div
                                 style={{
@@ -101,14 +104,12 @@ export function Pictograms() {
                                         createElement(
                                             Picto[selectedPicto.key] as React.ElementType,
                                             {
-                                                style: {
-                                                    backgroundSize: "30px 30px",
-                                                    backgroundColor: "transparent",
-                                                    backgroundPosition:
-                                                        "0px 0px, 0px 15px, 15px -15px, -15px 0px",
-                                                    backgroundImage:
-                                                        "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
-                                                },
+                                                className: cx(
+                                                    classes.pictogramsPlaceholder,
+                                                    isDark
+                                                        ? classes.pictogramsPlaceholderDark
+                                                        : classes.pictogramsPlaceholderLight
+                                                ),
                                                 fontSize: 210
                                             }
                                         )}
@@ -197,5 +198,24 @@ const useStyles = tss.withName({ Pictograms }).create(() => ({
         padding: fr.spacing("1w"),
         borderRadius: "8px",
         backgroundColor: "var(--background-default-grey)"
+    },
+    pictogramsPlaceholder: {
+        backgroundSize: "30px 30px",
+        backgroundColor: "transparent",
+        backgroundPosition: "0px 0px, 0px 15px, 15px -15px, -15px 0px"
+    },
+    pictogramsPlaceholderLight: {
+        backgroundImage:
+            "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), " +
+            "linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), " +
+            "linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), " +
+            "linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
+    },
+    pictogramsPlaceholderDark: {
+        backgroundImage:
+            "linear-gradient(45deg, rgb(89, 89, 89) 25%, transparent 25%), " +
+            "linear-gradient(-45deg, rgb(89, 89, 89) 25%, transparent 25%), " +
+            "linear-gradient(45deg, transparent 75%, rgb(89, 89, 89) 75%), " +
+            "linear-gradient(-45deg, transparent 75%, rgb(89, 89, 89) 75%)"
     }
 }));

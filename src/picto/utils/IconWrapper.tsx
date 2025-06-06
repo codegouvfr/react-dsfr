@@ -31,6 +31,7 @@ export const IconWrapper: React.FC<IconProps> = memo(
             focusable="false"
             aria-hidden="true"
             fontSize={getSize(fontSize)}
+            className="fr-artwork"
             {...props}
         >
             {children}
