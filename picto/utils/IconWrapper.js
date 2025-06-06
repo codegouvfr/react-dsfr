@@ -13,11 +13,11 @@ import React, { memo } from "react";
 const getSize = (size) => {
     switch (size) {
         case "small":
-            return "1.25rem";
+            return "1.25em";
         case "medium":
-            return "1.5rem";
+            return "1.5em";
         case "large":
-            return "2.5rem";
+            return "2.5em";
         case "inherit":
             return "inherit";
         default:
