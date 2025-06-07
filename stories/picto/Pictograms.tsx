@@ -5,11 +5,13 @@ import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
 import { tss } from "tss-react";
 import { fr } from "../../dist/fr";
+import { cx } from "../../dist/tools/cx";
 import * as Picto from "../../dist/picto";
 import { createModal } from "../../dist/Modal";
 import { Tooltip } from "../../dist/Tooltip";
 import CallOut from "../../dist/CallOut";
 import { getLink } from "../../dist/link";
+import { useColors } from "../../dist/useColors";
 
 const pictogrameEntries = Object.entries(Picto);
 
@@ -80,94 +82,144 @@ export function Pictograms() {
                     ))}
                 </div>
             </div>
-            <modal.Component title={selectedPicto?.key ?? "Pictogramme"}>
-                {selectedPicto !== null && (
-                    <>
-                        <div style={{ textAlign: "center" }}>
-                            <Source
-                                language="tsx"
-                                code={`import { ${selectedPicto.key} } from "@codegouvfr/react-dsfr/picto";`}
-                            />
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-around",
-                                    alignItems: "center",
-                                    marginTop: fr.spacing("2v")
-                                }}
-                            >
-                                <div>
-                                    {selectedPicto &&
-                                        createElement(
-                                            Picto[selectedPicto.key] as React.ElementType,
-                                            {
-                                                style: {
-                                                    backgroundSize: "30px 30px",
-                                                    backgroundColor: "transparent",
-                                                    backgroundPosition:
-                                                        "0px 0px, 0px 15px, 15px -15px, -15px 0px",
-                                                    backgroundImage:
-                                                        "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
-                                                },
-                                                fontSize: 210
-                                            }
-                                        )}
-                                </div>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "flex-end",
-                                        marginTop: fr.spacing("2v"),
-                                        fontSize: "1.5rem",
-                                        gap: fr.spacing("4v")
-                                    }}
-                                >
-                                    <Tooltip kind="hover" title="fontSize small">
-                                        <div
-                                            style={{
-                                                padding: fr.spacing("1w")
-                                            }}
-                                        >
-                                            {createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                { fontSize: "small" }
-                                            )}
-                                        </div>
-                                    </Tooltip>
-                                    <Tooltip kind="hover" title="fontSize medium">
-                                        <div
-                                            style={{
-                                                padding: fr.spacing("1w")
-                                            }}
-                                        >
-                                            {createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                { fontSize: "medium" }
-                                            )}
-                                        </div>
-                                    </Tooltip>
-                                    <Tooltip kind="hover" title="fontSize large">
-                                        <div
-                                            style={{
-                                                padding: fr.spacing("1w")
-                                            }}
-                                        >
-                                            {createElement(
-                                                Picto[selectedPicto.key] as React.ElementType,
-                                                { fontSize: "large" }
-                                            )}
-                                        </div>
-                                    </Tooltip>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </modal.Component>
+            <PictogramsModal selectedPicto={selectedPicto} />
         </div>
     );
 }
+
+const PictogramsModal = ({ selectedPicto }: { selectedPicto: { key: string } | null }) => {
+    const { isDark } = useColors();
+    const { classes } = useStyles();
+
+    if (selectedPicto === null) {
+        return null;
+    }
+
+    return (
+        <modal.Component title={selectedPicto?.key ?? "Pictogramme"}>
+            <div style={{ textAlign: "center" }}>
+                <Source
+                    language="tsx"
+                    code={`import ${selectedPicto.key} from "@codegouvfr/react-dsfr/picto/${selectedPicto.key}";`}
+                />
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        marginTop: fr.spacing("2v")
+                    }}
+                >
+                    <div>
+                        {selectedPicto &&
+                            createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                className: cx(
+                                    classes.pictogramsPlaceholder,
+                                    isDark
+                                        ? classes.pictogramsPlaceholderDark
+                                        : classes.pictogramsPlaceholderLight
+                                ),
+                                fontSize: 210
+                            })}
+                    </div>
+                    <div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "flex-end",
+                                marginTop: fr.spacing("2v"),
+                                fontSize: "1.5rem",
+                                gap: fr.spacing("4v")
+                            }}
+                        >
+                            <Tooltip kind="hover" title="fontSize small">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "small"
+                                    })}
+                                </div>
+                            </Tooltip>
+                            <Tooltip kind="hover" title="fontSize medium">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "medium"
+                                    })}
+                                </div>
+                            </Tooltip>
+                            <Tooltip kind="hover" title="fontSize large">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "large"
+                                    })}
+                                </div>
+                            </Tooltip>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "flex-end",
+                                marginTop: fr.spacing("2v"),
+                                fontSize: "1.5rem",
+                                gap: fr.spacing("4v")
+                            }}
+                        >
+                            <Tooltip kind="hover" title="color green-emeraude">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "large",
+                                        color: "green-emeraude"
+                                    })}
+                                </div>
+                            </Tooltip>
+                            <Tooltip kind="hover" title="color yellow-moutarde">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "large",
+                                        color: "yellow-moutarde"
+                                    })}
+                                </div>
+                            </Tooltip>
+                            <Tooltip kind="hover" title="color blue-ecume">
+                                <div
+                                    style={{
+                                        padding: fr.spacing("1w")
+                                    }}
+                                >
+                                    {createElement(Picto[selectedPicto.key] as React.ElementType, {
+                                        fontSize: "large",
+                                        color: "blue-ecume"
+                                    })}
+                                </div>
+                            </Tooltip>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </modal.Component>
+    );
+};
 
 const useStyles = tss.withName({ Pictograms }).create(() => ({
     pictoTile: {
@@ -197,5 +249,24 @@ const useStyles = tss.withName({ Pictograms }).create(() => ({
         padding: fr.spacing("1w"),
         borderRadius: "8px",
         backgroundColor: "var(--background-default-grey)"
+    },
+    pictogramsPlaceholder: {
+        backgroundSize: "30px 30px",
+        backgroundColor: "transparent",
+        backgroundPosition: "0px 0px, 0px 15px, 15px -15px, -15px 0px"
+    },
+    pictogramsPlaceholderLight: {
+        backgroundImage:
+            "linear-gradient(45deg, rgb(230, 230, 230) 25%, transparent 25%), " +
+            "linear-gradient(-45deg, rgb(230, 230, 230) 25%, transparent 25%), " +
+            "linear-gradient(45deg, transparent 75%, rgb(230, 230, 230) 75%), " +
+            "linear-gradient(-45deg, transparent 75%, rgb(230, 230, 230) 75%)"
+    },
+    pictogramsPlaceholderDark: {
+        backgroundImage:
+            "linear-gradient(45deg, rgb(60, 60, 60) 25%, transparent 25%), " +
+            "linear-gradient(-45deg, rgb(60, 60, 60) 25%, transparent 25%), " +
+            "linear-gradient(45deg, transparent 75%, rgb(60, 60, 60) 75%), " +
+            "linear-gradient(-45deg, transparent 75%, rgb(60, 60, 60) 75%)"
     }
 }));

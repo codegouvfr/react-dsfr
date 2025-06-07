@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import glob from "fast-glob";
 import { optimize } from "svgo";
 import Mustache from "mustache";
+import { JSDOM } from "jsdom";
 
 async function ensureDir(dir: string): Promise<void> {
     try {
@@ -64,6 +65,58 @@ function pascalCaseName(filename: string): string {
         .join("");
 }
 
+function getSvgFragments(svg: string) {
+    const dom = new JSDOM(`<svg>${svg}</svg>`, { contentType: "image/svg+xml" });
+    const document = dom.window.document;
+
+    const groupMap: Record<string, Element[]> = {
+        "fr-artwork-decorative": [],
+        "fr-artwork-minor": [],
+        "fr-artwork-major": []
+    };
+
+    const fillToClass = {
+        "#ececff": "fr-artwork-decorative",
+        "#e1000f": "fr-artwork-minor",
+        "#000091": "fr-artwork-major"
+    };
+
+    const allPaths = Array.from(document.querySelectorAll("path"));
+    const used = new Set<Element>();
+
+    for (const pathEl of allPaths) {
+        const fill = pathEl.getAttribute("fill")?.toLowerCase() ?? "";
+        const groupClass = fillToClass[fill as keyof typeof fillToClass];
+        if (groupClass) {
+            pathEl.removeAttribute("fill");
+            groupMap[groupClass].push(pathEl);
+            used.add(pathEl);
+        }
+    }
+
+    const fragments: string[] = [];
+
+    for (const [className, elements] of Object.entries(groupMap)) {
+        if (elements.length > 0) {
+            const groupHtml = elements.map(el => el.outerHTML).join("");
+            fragments.push(`<g className="${className}">${groupHtml}</g>`);
+        }
+    }
+
+    const svgElement = document.querySelector("svg");
+    const remaining =
+        svgElement &&
+        Array.from(svgElement.childNodes)
+            .filter(node => node.nodeType === 1 && !used.has(node as Element))
+            .map(node => (node as Element).outerHTML)
+            .join("");
+
+    if (remaining) {
+        fragments.push(remaining);
+    }
+    return fragments;
+}
+
 async function generateComponent(svgPath: string, outputDir: string): Promise<string> {
     const svgName = path.basename(svgPath);
     const componentName = pascalCaseName(svgName);
@@ -85,7 +138,7 @@ export default createIcon(
 
     const componentCode = Mustache.render(template, {
         componentName,
-        svgContent: cleanedSvg
+        svgContent: getSvgFragments(cleanedSvg).join("")
     });
 
     const outPath = path.join(outputDir, outputFileName);
