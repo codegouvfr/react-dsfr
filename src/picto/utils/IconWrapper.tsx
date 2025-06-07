@@ -1,8 +1,28 @@
 import React, { memo } from "react";
+import { cx } from "../../tools/cx";
 
 type IconSize = "small" | "medium" | "large" | "inherit" | (string & {});
+type IconColor =
+    | "green-tilleul-verveine"
+    | "green-bourgeon"
+    | "green-emeraude"
+    | "green-menthe"
+    | "green-archipel"
+    | "blue-ecume"
+    | "blue-cumulus"
+    | "purple-glycine"
+    | "pink-macaron"
+    | "pink-tuile"
+    | "yellow-tournesol"
+    | "yellow-moutarde"
+    | "orange-terre-battue"
+    | "brown-cafe-creme"
+    | "brown-caramel"
+    | "brown-opera"
+    | "beige-gris-galet";
 export type IconProps = {
     fontSize?: IconSize;
+    color?: IconColor;
 } & Omit<React.SVGProps<SVGSVGElement>, "fontSize">;
 
 const getSize = (size: IconSize) => {
@@ -20,8 +40,15 @@ const getSize = (size: IconSize) => {
     }
 };
 
+const getColor = (color?: IconColor) => {
+    if (!color) {
+        return undefined;
+    }
+    return `fr-artwork--${color}`;
+};
+
 export const IconWrapper: React.FC<IconProps> = memo(
-    ({ children, fontSize = "medium", ...props }) => (
+    ({ children, color, fontSize = "medium", className, ...props }) => (
         <svg
             width="1em"
             height="1em"
@@ -31,7 +58,7 @@ export const IconWrapper: React.FC<IconProps> = memo(
             focusable="false"
             aria-hidden="true"
             fontSize={getSize(fontSize)}
-            className="fr-artwork"
+            className={cx("fr-artwork", getColor(color), className)}
             {...props}
         >
             {children}

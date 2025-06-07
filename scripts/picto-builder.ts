@@ -65,7 +65,7 @@ function pascalCaseName(filename: string): string {
         .join("");
 }
 
-function getSvgFragment(svg: string) {
+function getSvgFragments(svg: string) {
     const dom = new JSDOM(`<svg>${svg}</svg>`, { contentType: "image/svg+xml" });
     const document = dom.window.document;
 
@@ -98,21 +98,23 @@ function getSvgFragment(svg: string) {
 
     for (const [className, elements] of Object.entries(groupMap)) {
         if (elements.length > 0) {
-            const groupHtml = elements.map(el => el.outerHTML).join("\n");
-            fragments.push(`<g className="${className}">\n${groupHtml}\n</g>`);
+            const groupHtml = elements.map(el => el.outerHTML).join("");
+            fragments.push(`<g className="${className}">${groupHtml}</g>`);
         }
     }
 
-    // Ajout des éléments restants (non groupés)
-    const remaining = Array.from(document.querySelector("svg")!.childNodes)
-        .filter(node => node.nodeType === 1 && !used.has(node as Element))
-        .map(node => (node as Element).outerHTML)
-        .join("\n");
+    const svgElement = document.querySelector("svg");
+    const remaining =
+        svgElement &&
+        Array.from(svgElement.childNodes)
+            .filter(node => node.nodeType === 1 && !used.has(node as Element))
+            .map(node => (node as Element).outerHTML)
+            .join("");
 
     if (remaining) {
         fragments.push(remaining);
     }
-    return fragments.join("\n");
+    return fragments;
 }
 
 async function generateComponent(svgPath: string, outputDir: string): Promise<string> {
@@ -136,7 +138,7 @@ export default createIcon(
 
     const componentCode = Mustache.render(template, {
         componentName,
-        svgContent: getSvgFragment(cleanedSvg)
+        svgContent: getSvgFragments(cleanedSvg).join("")
     });
 
     const outPath = path.join(outputDir, outputFileName);
