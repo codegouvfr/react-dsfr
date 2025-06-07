@@ -264,9 +264,9 @@ const useStyles = tss.withName({ Pictograms }).create(() => ({
     },
     pictogramsPlaceholderDark: {
         backgroundImage:
-            "linear-gradient(45deg, rgb(89, 89, 89) 25%, transparent 25%), " +
-            "linear-gradient(-45deg, rgb(89, 89, 89) 25%, transparent 25%), " +
-            "linear-gradient(45deg, transparent 75%, rgb(89, 89, 89) 75%), " +
-            "linear-gradient(-45deg, transparent 75%, rgb(89, 89, 89) 75%)"
+            "linear-gradient(45deg, rgb(60, 60, 60) 25%, transparent 25%), " +
+            "linear-gradient(-45deg, rgb(60, 60, 60) 25%, transparent 25%), " +
+            "linear-gradient(45deg, transparent 75%, rgb(60, 60, 60) 75%), " +
+            "linear-gradient(-45deg, transparent 75%, rgb(60, 60, 60) 75%)"
     }
 }));
