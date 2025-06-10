@@ -40,6 +40,12 @@
     mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
+}
+
 .fr-icon-chat-check-fill::before,
 .fr-icon-chat-check-fill::after {
     -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
@@ -56,12 +62,6 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
 .fr-icon-warning-fill::before,
@@ -172,6 +172,12 @@
     mask-image: url("../../icons/system/search-line.svg");
 }
 
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
+}
+
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -182,12 +188,6 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
-}
-
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -238,6 +238,11 @@
         background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
+    }
+    
     .fr-icon-chat-check-fill::before,
     .fr-icon-chat-check-fill::after {
         background-image: url("../../icons/communication/chat-check-fill.svg");
@@ -251,11 +256,6 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
-    }
-    
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
     }
     
     .fr-icon-warning-fill::before,
@@ -348,6 +348,11 @@
         background-image: url("../../icons/system/search-line.svg");
     }
     
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
+    }
+    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -356,11 +361,6 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
-    }
-    
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
     .ri-arrow-down-s-fill::before,
