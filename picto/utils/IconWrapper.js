@@ -10,6 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 import React, { memo } from "react";
+import { cx } from "../../tools/cx";
 const getSize = (size) => {
     switch (size) {
         case "small":
@@ -24,9 +25,15 @@ const getSize = (size) => {
             return size;
     }
 };
+const getColor = (color) => {
+    if (!color) {
+        return undefined;
+    }
+    return `fr-artwork--${color}`;
+};
 export const IconWrapper = memo((_a) => {
-    var { children, fontSize = "medium" } = _a, props = __rest(_a, ["children", "fontSize"]);
-    return (React.createElement("svg", Object.assign({ width: "1em", height: "1em", fill: "none", viewBox: "0 0 80 80", xmlns: "http://www.w3.org/2000/svg", focusable: "false", "aria-hidden": "true", fontSize: getSize(fontSize) }, props), children));
+    var { children, color, fontSize = "medium", className } = _a, props = __rest(_a, ["children", "color", "fontSize", "className"]);
+    return (React.createElement("svg", Object.assign({ width: "1em", height: "1em", fill: "none", viewBox: "0 0 80 80", xmlns: "http://www.w3.org/2000/svg", focusable: "false", "aria-hidden": "true", fontSize: getSize(fontSize), className: cx("fr-artwork", getColor(color), className) }, props), children));
 });
 export function createIcon(SvgPath, displayName) {
     const IconComponent = props => (React.createElement(IconWrapper, Object.assign({}, props), SvgPath));
