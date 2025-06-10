@@ -36,7 +36,7 @@ export function Display() {
                     React.createElement("legend", { className: fr.cx("fr-fieldset__legend", "fr-text--regular") }, t("pick a theme")),
                     React.createElement("div", { className: fr.cx("fr-fieldset__content") }, ["light", "dark", "system"].map(theme => (React.createElement("div", { key: theme, className: fr.cx("fr-radio-group", "fr-radio-rich") },
                         React.createElement("input", { value: theme, type: "radio", id: getInputId(theme), name: "fr-radios-theme" }),
-                        React.createElement("label", { className: "fr-label", htmlFor: getInputId(theme) },
+                        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: getInputId(theme) },
                             t(`${theme} theme`),
                             theme === "system" && (React.createElement("span", { className: fr.cx("fr-hint-text") }, t("system theme hint")))),
                         React.createElement("div", { className: fr.cx("fr-radio-rich__img") },
