@@ -29,7 +29,7 @@ export const Download = memo(forwardRef((props, ref) => {
         React.createElement("p", { className: cx(classes.wrapper) },
             React.createElement(Link, Object.assign({}, linkProps, { download: true, className: cx(fr.cx("fr-download__link"), classes.link) }),
                 label,
-                React.createElement("span", { className: fr.cx("fr-download__detail") }, details)))));
+                React.createElement("span", { className: "fr-download__detail" }, details)))));
 }));
 Download.displayName = symToStr({ Download });
 export default Download;

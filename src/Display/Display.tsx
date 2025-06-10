@@ -42,7 +42,7 @@ export function Display() {
 
     return (
         <modal.Component title={t("display settings")} size="small">
-            <div /*id="fr-display"*/ className={"fr-display"}>
+            <div /*id="fr-display"*/ className="fr-display">
                 <div className={fr.cx("fr-form-group" as any)}>
                     <fieldset className={fr.cx("fr-fieldset")}>
                         <legend
@@ -63,10 +63,7 @@ export function Display() {
                                         id={getInputId(theme)}
                                         name="fr-radios-theme"
                                     />
-                                    <label
-                                        className={fr.cx("fr-label")}
-                                        htmlFor={getInputId(theme)}
-                                    >
+                                    <label className="fr-label" htmlFor={getInputId(theme)}>
                                         {t(`${theme} theme`)}
                                         {theme === "system" && (
                                             <span className={fr.cx("fr-hint-text")}>

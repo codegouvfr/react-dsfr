@@ -69,7 +69,7 @@ export const PasswordInput = memo(forwardRef((props, ref) => {
     return (React.createElement("div", Object.assign({ className: cx(fr.cx("fr-password", disabled && "fr-input-group--disabled", hasError && "fr-input-group--error", isSuccess && "fr-input-group--valid"), classes.root, className), id: id, style: style, ref: ref }, rest),
         Boolean(label || hintText) && (React.createElement("label", { className: cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label), htmlFor: inputId },
             label,
-            hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
+            hintText !== undefined && React.createElement("span", { className: "fr-hint-text" }, hintText))),
         React.createElement("div", { className: fr.cx("fr-input-wrap"), ref: setInputWrapperElement },
             React.createElement("input", Object.assign({}, nativeInputProps, { className: cx(fr.cx("fr-password__input", "fr-input"), classes.input), id: inputId, type: isPasswordReveled ? "text" : "password", disabled: disabled }, (messages.length !== 0 && {
                 "aria-describedby": nativeInputProps["aria-describedby"] !== undefined

@@ -134,7 +134,7 @@ export function createConsentManagement(params) {
                                 })
                             };
                         })())),
-                        React.createElement("label", { className: fr.cx("fr-label"), htmlFor: acceptInputId }, t("accept"))),
+                        React.createElement("label", { className: "fr-label", htmlFor: acceptInputId }, t("accept"))),
                     React.createElement("div", { className: fr.cx("fr-radio-group") },
                         React.createElement("input", Object.assign({ type: "radio", id: refuseInputId, checked: macroState === "full refusal" }, (() => {
                             if (onChange === undefined)
@@ -175,8 +175,8 @@ export function createConsentManagement(params) {
         return (React.createElement("div", { className: fr.cx("fr-consent-service") },
             React.createElement("fieldset", { className: fr.cx("fr-fieldset", "fr-fieldset--inline") },
                 React.createElement("legend", { className: fr.cx("fr-consent-service__title") }, title),
-                React.createElement("div", { className: fr.cx("fr-consent-service__radios", "fr-fieldset--inline") },
-                    React.createElement("div", { className: fr.cx("fr-radio-group") },
+                React.createElement("div", { className: "fr-consent-service__radios fr-fieldset--inline" },
+                    React.createElement("div", { className: "fr-radio-group" },
                         React.createElement("input", { type: "radio", id: acceptInputId, checked: isConsentGiven, onChange: () => onChange({ "isConsentGiven": true }) }),
                         React.createElement("label", { className: fr.cx("fr-label"), htmlFor: acceptInputId }, t("accept"))),
                     React.createElement("div", { className: fr.cx("fr-radio-group") },
