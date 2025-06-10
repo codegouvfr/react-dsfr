@@ -320,7 +320,7 @@ export function createConsentManagement<
                                     };
                                 })()}
                             />
-                            <label className="fr-label" htmlFor={acceptInputId}>
+                            <label className={fr.cx("fr-label")} htmlFor={acceptInputId}>
                                 {t("accept")}
                             </label>
                         </div>
@@ -421,8 +421,8 @@ export function createConsentManagement<
             <div className={fr.cx("fr-consent-service")}>
                 <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
                     <legend className={fr.cx("fr-consent-service__title")}>{title}</legend>
-                    <div className="fr-consent-service__radios fr-fieldset--inline">
-                        <div className="fr-radio-group">
+                    <div className={fr.cx("fr-consent-service__radios", "fr-fieldset--inline")}>
+                        <div className={fr.cx("fr-radio-group")}>
                             <input
                                 type="radio"
                                 id={acceptInputId}
