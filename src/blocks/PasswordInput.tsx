@@ -142,7 +142,9 @@ export const PasswordInput = memo(
                         htmlFor={inputId}
                     >
                         {label}
-                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
                     </label>
                 )}
                 <div className={fr.cx("fr-input-wrap")} ref={setInputWrapperElement}>

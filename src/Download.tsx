@@ -54,7 +54,7 @@ export const Download = memo(
                         className={cx(fr.cx("fr-download__link"), classes.link)}
                     >
                         {label}
-                        <span className="fr-download__detail">{details}</span>
+                        <span className={fr.cx("fr-download__detail")}>{details}</span>
                     </Link>
                 </p>
             </div>

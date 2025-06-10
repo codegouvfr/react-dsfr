@@ -152,7 +152,9 @@ export const Input = memo(
                         {...(nativeLabelProps as {})}
                     >
                         {label}
-                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
                     </label>
                 )}
                 {(() => {

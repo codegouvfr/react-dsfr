@@ -185,9 +185,7 @@ export const Tabs = memo(
                             className={cx(
                                 fr.cx(
                                     "fr-tabs__panel",
-                                    `fr-tabs__panel${
-                                        tabIndex === selectedTabIndex ? "--selected" : ""
-                                    }`
+                                    tabIndex === selectedTabIndex && "fr-tabs__panel--selected"
                                 ),
                                 classes.panel
                             )}
