@@ -122,7 +122,7 @@ const { meta, getStory } = getStoryFactory({
         },
         "pictogram": {
             "description":
-                "Instead of using an image with `imageUrl` and `imageSvg`, you can use [native DSFR pictogram components](/?path=/docs/🖼%EF%B8%8F-pictograms--page)."
+                "Instead of using an image with `imageUrl` and `imageSvg`, you can use [native DSFR pictogram components](/?path=/docs/🖼%EF%B8%8F-pictograms--page) or any other SVG component."
         },
         "grey": {
             "description":
