@@ -126,9 +126,9 @@ async function generateComponent(svgPath: string, outputDir: string): Promise<st
     const cleanedSvg = extractSvgInnerContent(await cleanSvgContent(svgData));
 
     const template = `import React from 'react';
-import { createIcon } from './utils/IconWrapper';
+import { createPicto } from './utils/PictoWrapper';
 
-export default createIcon(
+export default createPicto(
     <>
         {{& svgContent }}
     </>,
@@ -167,7 +167,7 @@ async function generateTypes(outputDir: string): Promise<string> {
     const iconNames = files.map(f => pascalCaseName(path.basename(f, ".tsx")));
     const filePath = path.join(outputDir, "index.d.ts");
 
-    const header = `import { IconWrapper } from './utils/IconWrapper';\n\ntype SvgIconComponent = typeof IconWrapper;\n\n`;
+    const header = `import { PictoWrapper } from './utils/PictoWrapper';\n\ntype SvgIconComponent = typeof PictoWrapper;\n\n`;
     const lines = iconNames.map(name => `export const ${name}: SvgIconComponent;`);
 
     const content = `${header}${lines.join("\n")}\n`;
