@@ -1,7 +1,7 @@
 import React from "react";
-import { createIcon } from "./utils/IconWrapper";
+import { createPicto } from "./utils/PictoWrapper";
 
-export default createIcon(
+export default createPicto(
     <>
         <g className="fr-artwork-minor">
             <path d="M48.0374 46.7318C48.188 46.1997 48.749 45.8885 49.2902 46.0367C51.6704 46.6881 53.4951 48.523 53.9781 50.7982C54.0929 51.3389 53.7401 51.8686 53.1901 51.9814C52.6401 52.0943 52.1011 51.7475 51.9864 51.2068C51.6623 49.6804 50.4075 48.4185 48.7445 47.9633C48.2032 47.8152 47.8866 47.2638 48.0374 46.7318Z" />

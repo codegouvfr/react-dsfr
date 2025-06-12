@@ -1,6 +1,6 @@
-import { IconWrapper } from "./utils/IconWrapper";
+import { PictoWrapper } from "./utils/PictoWrapper";
 
-type SvgIconComponent = typeof IconWrapper;
+type SvgIconComponent = typeof PictoWrapper;
 
 export const Accessibility: SvgIconComponent;
 export const Airport: SvgIconComponent;

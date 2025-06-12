@@ -9,9 +9,11 @@ import { fr } from "@codegouvfr/react-dsfr";
 import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
+import { Tile } from "@codegouvfr/react-dsfr/Tile";
 
 import { Accordion } from "@codegouvfr/react-dsfr/Accordion";
-import { Book, Money, Police, Sun } from '@codegouvfr/react-dsfr/picto';
+import { Book, Money, Police, Sun, LocationFrance } from '@codegouvfr/react-dsfr/picto';
+import CityHall from './assets/city-hall.svg';
 
 export function Home() {
     const { isDark, setIsDark } = useIsDark();
@@ -31,12 +33,12 @@ export function Home() {
                 <i className={fr.cx("fr-icon-ancient-gate-fill")} aria-hidden="true" />
             </div>
 
-            <div className={fr.cx("fr-my-4w")}>
-				<Police fontSize="large" />
-				<Book fontSize="large" />
-				<Money fontSize="large" />
-				<Sun fontSize="large" />
-			</div>
+            <div className={fr.cx("fr-my-4w")} style={{fontSize: 48}}>
+                <Police />
+                <Book />
+                <Money />
+                <Sun />
+            </div>
 
             <div className={fr.cx("fr-my-4w")}>
                 <Button
@@ -75,6 +77,7 @@ export function Home() {
                 />
             </div>
             <Form />
+            <TileExample />
             <TableExample />
             <ControlledAccordion />
         </>
@@ -83,10 +86,7 @@ export function Home() {
 
 const { Form } = (() => {
 
-
-
     function Form() {
-
 
         return (
             <form action="#" onSubmit={(event) => {
@@ -184,19 +184,44 @@ const { Form } = (() => {
 
         return { SelectMeal };
 
-
     })();
 
     return { Form };
 
-
 })();
 
-
-
-
+function TileExample() {
+    return (
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
+            <Tile
+            enlargeLinkOrButton
+            title="Titre de la tuile"
+            titleAs="h3"
+            orientation="horizontal"
+            linkProps={{
+                href: "#"
+            }}
+            pictogram={ <LocationFrance /> }
+            desc="Cette tuile utilise un picogramme natif"
+            />
+            <Tile
+            enlargeLinkOrButton
+            title="Titre de la tuile"
+            titleAs="h3"
+            orientation="vertical"
+            buttonProps={{
+                onClick: () => alert("Tile clicked!"),
+            }}
+            imageUrl={CityHall}
+            imageSvg
+            desc="Cette tuile utilise une image"
+            />
+        </div>
+    )
+}
 
 function TableExample() {
+
     return (
         <Table
             caption = "Titre du tableau"
@@ -213,7 +238,7 @@ function TableExample() {
     );
 }
 
-function ControlledAccordion(){
+function ControlledAccordion() {
 
     const [ expanded, setExpanded ] = useState(false)
 
@@ -226,7 +251,4 @@ function ControlledAccordion(){
             Content of the Accordion
         </Accordion>
     );
-
 }
-
-
