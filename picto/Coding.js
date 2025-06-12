@@ -1,6 +1,6 @@
 import React from "react";
-import { createIcon } from "./utils/IconWrapper";
-export default createIcon(React.createElement(React.Fragment, null,
+import { createPicto } from "./utils/PictoWrapper";
+export default createPicto(React.createElement(React.Fragment, null,
     React.createElement("g", { className: "fr-artwork-minor" },
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M55 30H45C44.4477 30 44 30.4477 44 31V39C44 39.5523 44.4477 40 45 40H55C55.5523 40 56 39.5523 56 39V31C56 30.4477 55.5523 30 55 30ZM54 32V38H46V32H54Z" }),
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M62 45C62 44.4477 61.5523 44 61 44H51C50.4477 44 50 44.4477 50 45V53C50 53.5523 50.4477 54 51 54H61C61.5523 54 62 53.5523 62 53V45ZM60 46V52H52V46H60Z" }),

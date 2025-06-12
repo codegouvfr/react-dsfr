@@ -12,17 +12,6 @@ export type TileProps = {
     desc?: ReactNode;
     detail?: ReactNode;
     start?: ReactNode;
-    imageUrl?: string;
-    imageAlt?: string;
-    /**
-     * @deprecated imageWidth has no effect
-     */
-    imageWidth?: string | number;
-    /**
-     * @deprecated imageHeight has no effect
-     */
-    imageHeight?: string | number;
-    imageSvg?: boolean;
     grey?: boolean;
     /** make the whole tile clickable */
     enlargeLinkOrButton?: boolean;
@@ -34,7 +23,7 @@ export type TileProps = {
     noBackground?: boolean;
     disabled?: boolean;
     style?: CSSProperties;
-} & (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
+} & (TileProps.WithImage | TileProps.WithPicto) & (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
 export declare namespace TileProps {
     type Unclickable = {
         linkProps?: never;
@@ -48,6 +37,28 @@ export declare namespace TileProps {
     type WithButton = {
         linkProps?: never;
         buttonProps: ComponentProps<"button">;
+    };
+    type WithImage = {
+        imageUrl?: string;
+        imageAlt?: string;
+        /**
+         * @deprecated imageWidth has no effect
+         */
+        imageWidth?: string | number;
+        /**
+         * @deprecated imageHeight has no effect
+         */
+        imageHeight?: string | number;
+        imageSvg?: boolean;
+        pictogram?: never;
+    };
+    type WithPicto = {
+        imageUrl?: never;
+        imageAlt?: never;
+        imageWidth?: never;
+        imageHeight?: never;
+        imageSvg?: never;
+        pictogram: ReactNode;
     };
 }
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-tile> */

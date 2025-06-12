@@ -1,6 +1,6 @@
 import React from "react";
-import { createIcon } from "./utils/IconWrapper";
-export default createIcon(React.createElement(React.Fragment, null,
+import { createPicto } from "./utils/PictoWrapper";
+export default createPicto(React.createElement(React.Fragment, null,
     React.createElement("g", { className: "fr-artwork-minor" },
         React.createElement("path", { d: "M48.82 39.9C48.75 39.9 48.68 39.9 48.6 39.89C47.75 39.8 47.06 39.2 46.86 38.36C46.56 37.09 45.91 35.93 44.99 35.01C44.07 34.09 42.91 33.44 41.64 33.14C41.1 33.01 40.77 32.47 40.9 31.93C41.03 31.39 41.57 31.06 42.11 31.19C43.74 31.58 45.22 32.41 46.41 33.6C47.6 34.79 48.43 36.27 48.82 37.9L54.84 25.17L46.67 29.04C46.17 29.28 45.58 29.06 45.34 28.56C45.1 28.06 45.32 27.46 45.82 27.23L56.52 22.16C56.9 21.98 57.36 22.06 57.65 22.36C57.95 22.66 58.03 23.11 57.85 23.5L50.62 38.76C50.28 39.46 49.59 39.89 48.82 39.9Z" }),
         React.createElement("path", { d: "M40.05 63C38.85 63 37.65 62.91 36.44 62.72C35.89 62.63 35.52 62.12 35.61 61.58C35.7 61.03 36.21 60.67 36.75 60.75C42.29 61.62 47.84 60.28 52.37 56.97C52.82 56.64 53.44 56.74 53.77 57.19C54.1 57.64 54 58.26 53.55 58.59C49.57 61.49 44.88 63 40.05 63Z" })),

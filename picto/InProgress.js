@@ -1,6 +1,6 @@
 import React from "react";
-import { createIcon } from "./utils/IconWrapper";
-export default createIcon(React.createElement(React.Fragment, null,
+import { createPicto } from "./utils/PictoWrapper";
+export default createPicto(React.createElement(React.Fragment, null,
     React.createElement("g", { className: "fr-artwork-minor" },
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M50.3714 51.0715C50.8842 51.2767 51.1336 51.8586 50.9285 52.3714L46.9285 62.3714C46.7234 62.8842 46.1414 63.1336 45.6286 62.9285C45.1158 62.7234 44.8664 62.1414 45.0715 61.6286L49.0715 51.6286C49.2767 51.1158 49.8586 50.8664 50.3714 51.0715ZM58.3714 56.0715C58.8842 56.2767 59.1336 56.8586 58.9285 57.3714L56.9285 62.3714C56.7234 62.8842 56.1414 63.1336 55.6286 62.9285C55.1158 62.7234 54.8664 62.1414 55.0715 61.6286L57.0715 56.6286C57.2767 56.1158 57.8586 55.8664 58.3714 56.0715Z" }),
         React.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M35.3714 51.0715C35.8842 51.2767 36.1336 51.8586 35.9285 52.3714L31.9285 62.3714C31.7234 62.8842 31.1414 63.1336 30.6286 62.9285C30.1158 62.7234 29.8664 62.1414 30.0715 61.6286L34.0715 51.6286C34.2767 51.1158 34.8586 50.8664 35.3714 51.0715Z" }),
