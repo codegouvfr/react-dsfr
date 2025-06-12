@@ -11,7 +11,7 @@ import type { RegisteredLinkProps } from "./link";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import { generateValidHtmlId } from "./tools/generateValidHtmlId";
 
-type Link = {
+export type Link = {
     text: string;
     linkProps: RegisteredLinkProps;
     subLinks?: Link[];
