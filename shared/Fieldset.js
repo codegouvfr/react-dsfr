@@ -29,6 +29,7 @@ export const Fieldset = memo(forwardRef((props, ref) => {
     const legendId = `${id}-legend`;
     const errorDescId = `${id}-desc-error`;
     const successDescId = `${id}-desc-valid`;
+    const infoDescId = `${id}-desc-info`;
     const messagesWrapperId = `${id}-messages`;
     const radioName = (function useClosure() {
         const id = useId();
@@ -49,6 +50,16 @@ export const Fieldset = memo(forwardRef((props, ref) => {
     if (legend === undefined && stateRelatedMessage === undefined && options.length === 1) {
         return renderOption({ option: options[0], i: undefined });
     }
+    const messageId = (() => {
+        switch (state) {
+            case "error":
+                return errorDescId;
+            case "success":
+                return successDescId;
+            case "info":
+                return infoDescId;
+        }
+    })();
     return (React.createElement("fieldset", Object.assign({ id: id, className: cx(fr.cx("fr-fieldset", orientation === "horizontal" && "fr-fieldset--inline", (() => {
             switch (state) {
                 case "default":
@@ -60,18 +71,11 @@ export const Fieldset = memo(forwardRef((props, ref) => {
                     return "fr-fieldset--valid";
             }
         })()), classes.root, className), disabled: disabled, style: style, "aria-labelledby": cx(legend !== undefined && legendId, messagesWrapperId), role: state === "default" ? undefined : "group" }, rest, { ref: ref }),
-        legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend) },
+        legend !== undefined && (React.createElement("legend", { id: legendId, className: cx(fr.cx("fr-fieldset__legend", "fr-text--regular"), classes.legend), "aria-describedby": messageId },
             legend,
             hintText !== undefined && (React.createElement("span", { className: fr.cx("fr-hint-text") }, hintText)))),
         React.createElement("div", { className: cx(fr.cx("fr-fieldset__content"), classes.content) }, options.map((option, i) => renderOption({ option, i }))),
-        React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesWrapperId, "aria-live": "assertive" }, stateRelatedMessage !== undefined && (React.createElement("p", { id: (() => {
-                switch (state) {
-                    case "error":
-                        return errorDescId;
-                    case "success":
-                        return successDescId;
-                }
-            })(), className: fr.cx("fr-message", (() => {
+        React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesWrapperId, "aria-live": state === "error" ? "assertive" : undefined }, stateRelatedMessage !== undefined && (React.createElement("p", { id: messageId, className: fr.cx("fr-message", (() => {
                 switch (state) {
                     case "error":
                         return "fr-message--error";
