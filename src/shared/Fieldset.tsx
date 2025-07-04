@@ -98,6 +98,7 @@ export const Fieldset = memo(
 
         const errorDescId = `${id}-desc-error`;
         const successDescId = `${id}-desc-valid`;
+        const infoDescId = `${id}-desc-info`;
         const messagesWrapperId = `${id}-messages`;
 
         const radioName = (function useClosure() {
@@ -148,6 +149,17 @@ export const Fieldset = memo(
             return renderOption({ option: options[0], i: undefined });
         }
 
+        const messageId = (() => {
+            switch (state) {
+                case "error":
+                    return errorDescId;
+                case "success":
+                    return successDescId;
+                case "info":
+                    return infoDescId;
+            }
+        })();
+
         return (
             <fieldset
                 id={id}
@@ -184,6 +196,7 @@ export const Fieldset = memo(
                             fr.cx("fr-fieldset__legend", "fr-text--regular"),
                             classes.legend
                         )}
+                        aria-describedby={messageId}
                     >
                         {legend}
                         {hintText !== undefined && (
@@ -197,18 +210,11 @@ export const Fieldset = memo(
                 <div
                     className={fr.cx("fr-messages-group")}
                     id={messagesWrapperId}
-                    aria-live="assertive"
+                    aria-live={state === "error" ? "assertive" : undefined}
                 >
                     {stateRelatedMessage !== undefined && (
                         <p
-                            id={(() => {
-                                switch (state) {
-                                    case "error":
-                                        return errorDescId;
-                                    case "success":
-                                        return successDescId;
-                                }
-                            })()}
+                            id={messageId}
                             className={fr.cx(
                                 "fr-message",
                                 (() => {
