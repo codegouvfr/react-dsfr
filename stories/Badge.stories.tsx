@@ -118,3 +118,14 @@ export const NewBadge = getStory(
         "description": "Small new `Badge` with icon"
     }
 );
+
+export const BadgeWithIconAndAccentColor = getStory(
+    {
+        "iconId": "fr-icon-checkbox-circle-line",
+        "accentColor": "purple-glycine",
+        "children": "Custom badge"
+    },
+    {
+        "description": "`Badge` with custom icon and accent color"
+    }
+);
