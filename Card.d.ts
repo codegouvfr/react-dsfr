@@ -1,4 +1,4 @@
-import React, { type ReactNode, type CSSProperties, DetailedHTMLProps, ImgHTMLAttributes } from "react";
+import React, { type ReactNode, type CSSProperties, type DetailedHTMLProps, type ImgHTMLAttributes } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import type { RegisteredLinkProps } from "./link";
 export type CardProps = {
@@ -25,6 +25,7 @@ export type CardProps = {
     grey?: boolean;
     classes?: Partial<Record<"root" | "title" | "card" | "link" | "body" | "content" | "desc" | "header" | "img" | "imgTag" | "start" | "detail" | "end" | "endDetail" | "badge" | "footer", string>>;
     style?: CSSProperties;
+    nativeDivProps?: DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) & (CardProps.Horizontal | CardProps.Vertical) & (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
 export declare namespace CardProps {
     type EnlargedLink = {
