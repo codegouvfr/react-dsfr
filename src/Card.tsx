@@ -61,7 +61,7 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
-    nativeDivElement?: DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+    nativeDivProps?: DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
     (CardProps.Horizontal | CardProps.Vertical) &
     (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
@@ -145,7 +145,7 @@ export const Card = memo(
             grey = false,
             iconId,
             style,
-            nativeDivElement,
+            nativeDivProps,
             ...rest
         } = props;
 
@@ -161,7 +161,7 @@ export const Card = memo(
         return (
             <div
                 id={id}
-                {...nativeDivElement}
+                {...nativeDivProps}
                 className={cx(
                     fr.cx(
                         "fr-card",
