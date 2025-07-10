@@ -3,9 +3,8 @@ import React, {
     forwardRef,
     type ReactNode,
     type CSSProperties,
-    DetailedHTMLProps,
-    ImgHTMLAttributes,
-    ReactHTMLElement
+    type DetailedHTMLProps,
+    type ImgHTMLAttributes
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 
@@ -15,6 +14,7 @@ import type { RegisteredLinkProps } from "./link";
 import { getLink } from "./link";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { assert, type Equals } from "tsafe/assert";
 
 //https://main--ds-gouv.netlify.app/example/component/card/
 export type CardProps = {
@@ -61,12 +61,10 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
-    nativeDivElement?: React.HTMLAttributes<HTMLDivElement>;
+    nativeDivElement?: DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
     (CardProps.Horizontal | CardProps.Vertical) &
-    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage) &
-    React.HTMLAttributes<HTMLDivElement>;
-
+    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
 export namespace CardProps {
     export type EnlargedLink = {
         enlargeLink: true;
@@ -147,9 +145,11 @@ export const Card = memo(
             grey = false,
             iconId,
             style,
-            nativeDivElement = {},
+            nativeDivElement,
             ...rest
         } = props;
+
+        assert<Equals<keyof typeof rest, never>>();
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-card",
