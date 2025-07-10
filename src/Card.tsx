@@ -4,11 +4,10 @@ import React, {
     type ReactNode,
     type CSSProperties,
     DetailedHTMLProps,
-    ImgHTMLAttributes
+    ImgHTMLAttributes,
+    ReactHTMLElement
 } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
 
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { fr } from "./fr";
@@ -62,9 +61,11 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
+    nativeDivElement?: React.HTMLAttributes<HTMLDivElement>;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
     (CardProps.Horizontal | CardProps.Vertical) &
-    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
+    (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage) &
+    React.HTMLAttributes<HTMLDivElement>;
 
 export namespace CardProps {
     export type EnlargedLink = {
@@ -146,10 +147,9 @@ export const Card = memo(
             grey = false,
             iconId,
             style,
+            nativeDivElement = {},
             ...rest
         } = props;
-
-        assert<Equals<keyof typeof rest, never>>();
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-card",
@@ -161,6 +161,7 @@ export const Card = memo(
         return (
             <div
                 id={id}
+                {...nativeDivElement}
                 className={cx(
                     fr.cx(
                         "fr-card",
