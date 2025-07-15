@@ -133,7 +133,7 @@ export const Tabs = memo(
         };
 
         const { getPanelId, getTabId } = (function useClosure() {
-            const id = useId();
+            const id = id_props ?? useId();
 
             const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
             const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
