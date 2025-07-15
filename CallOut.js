@@ -18,7 +18,7 @@ import { fr } from "./fr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-callout> */
 export const CallOut = memo(forwardRef((props, ref) => {
-    const { id: props_id, className, iconId, title, titleAs: HtmlTitleTag = "h3", buttonProps, colorVariant, classes = {}, children, style } = props, rest = __rest(props, ["id", "className", "iconId", "title", "titleAs", "buttonProps", "colorVariant", "classes", "children", "style"]);
+    const { id: props_id, className, iconId, title, titleAs: HtmlTitleTag = "h3", bodyAs: HtmlBodyTag = "p", buttonProps, colorVariant, classes = {}, children, style } = props, rest = __rest(props, ["id", "className", "iconId", "title", "titleAs", "bodyAs", "buttonProps", "colorVariant", "classes", "children", "style"]);
     assert();
     const id = useAnalyticsId({
         "defaultIdPrefix": "fr-callout",
@@ -26,10 +26,7 @@ export const CallOut = memo(forwardRef((props, ref) => {
     });
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-callout", iconId, colorVariant !== undefined && `fr-callout--${colorVariant}`), classes.root, className), ref: ref, style: style }, rest),
         title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-callout__title"), classes.title) }, title)),
-        React.createElement("p", { className: cx(fr.cx("fr-callout__text"), classes.text) },
-            " ",
-            children,
-            " "),
+        React.createElement(HtmlBodyTag, { className: cx(fr.cx("fr-callout__text"), classes.text) }, children),
         buttonProps !== undefined && (React.createElement(Button, Object.assign({}, buttonProps, { className: cx(classes.button, buttonProps.className) })))));
 }));
 CallOut.displayName = symToStr({ CallOut });

@@ -19,6 +19,7 @@ export type CallOutProps = {
     iconId?: FrIconClassName | RiIconClassName;
     title?: ReactNode;
     titleAs?: `h${2 | 3 | 4 | 5 | 6}` | "p";
+    bodyAs?: "p" | "div";
     buttonProps?: ButtonProps;
     colorVariant?: CallOutProps.ColorVariant;
     classes?: Partial<Record<"root" | "title" | "text" | "button", string>>;
@@ -43,6 +44,7 @@ export const CallOut = memo(
             iconId,
             title,
             titleAs: HtmlTitleTag = "h3",
+            bodyAs: HtmlBodyTag = "p",
             buttonProps,
             colorVariant,
             classes = {},
@@ -79,7 +81,9 @@ export const CallOut = memo(
                         {title}
                     </HtmlTitleTag>
                 )}
-                <p className={cx(fr.cx("fr-callout__text"), classes.text)}> {children} </p>
+                <HtmlBodyTag className={cx(fr.cx("fr-callout__text"), classes.text)}>
+                    {children}
+                </HtmlBodyTag>
                 {buttonProps !== undefined && (
                     <Button
                         {...buttonProps}

@@ -7,6 +7,7 @@ export type CallOutProps = {
     iconId?: FrIconClassName | RiIconClassName;
     title?: ReactNode;
     titleAs?: `h${2 | 3 | 4 | 5 | 6}` | "p";
+    bodyAs?: "p" | "div";
     buttonProps?: ButtonProps;
     colorVariant?: CallOutProps.ColorVariant;
     classes?: Partial<Record<"root" | "title" | "text" | "button", string>>;
