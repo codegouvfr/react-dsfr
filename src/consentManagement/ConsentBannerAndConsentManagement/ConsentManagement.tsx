@@ -2,7 +2,11 @@ import React, { useEffect, useMemo, useState, useId, type ReactNode } from "reac
 import { fr } from "../../fr";
 import type { RegisteredLinkProps } from "../../link";
 import { createModal } from "../../Modal";
-import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "../types";
+import type {
+    ExtractFinalityFromFinalityDescription,
+    FinalityConsent,
+    SubFinalityContent
+} from "../types";
 import type { ProcessConsentChanges } from "../processConsentChanges";
 import { useLang } from "../../i18n";
 import { useIsModalOpen } from "../../Modal/useIsModalOpen";
@@ -20,7 +24,11 @@ import { useConst } from "../../tools/powerhooks/useConst";
 export function createConsentManagement<
     FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+        {
+            title: ReactNode;
+            description?: ReactNode;
+            subFinalities?: Record<string, SubFinalityContent>;
+        }
     >
 >(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
@@ -238,7 +246,7 @@ export function createConsentManagement<
     function ConsentService(props: {
         title: ReactNode;
         description: ReactNode | undefined;
-        subFinalities: Record<string, ReactNode> | undefined;
+        subFinalities: Record<string, { title: ReactNode; description?: ReactNode }> | undefined;
         finalityConsent:
             | boolean
             | ({
@@ -378,19 +386,22 @@ export function createConsentManagement<
                                     className={fr.cx("fr-consent-services", "fr-collapse")}
                                     id={subFinalityDivId}
                                 >
-                                    {Object.entries(subFinalities).map(([subFinality, title]) => (
-                                        <SubConsentService
-                                            key={subFinality}
-                                            title={title}
-                                            isConsentGiven={finalityConsent[subFinality]}
-                                            onChange={({ isConsentGiven }) =>
-                                                onChange({
-                                                    subFinality,
-                                                    isConsentGiven
-                                                })
-                                            }
-                                        />
-                                    ))}
+                                    {Object.entries(subFinalities).map(
+                                        ([subFinality, { title, description }]) => (
+                                            <SubConsentService
+                                                key={subFinality}
+                                                title={title}
+                                                description={description}
+                                                isConsentGiven={finalityConsent[subFinality]}
+                                                onChange={({ isConsentGiven }) =>
+                                                    onChange({
+                                                        subFinality,
+                                                        isConsentGiven
+                                                    })
+                                                }
+                                            />
+                                        )
+                                    )}
                                 </div>
                             </>
                         ))}
@@ -401,10 +412,11 @@ export function createConsentManagement<
 
     function SubConsentService(props: {
         title: ReactNode;
+        description?: ReactNode;
         onChange: (params: { isConsentGiven: boolean }) => void;
         isConsentGiven: boolean;
     }) {
-        const { title, onChange, isConsentGiven } = props;
+        const { title, description, onChange, isConsentGiven } = props;
 
         const { t } = useTranslation();
 
@@ -421,6 +433,9 @@ export function createConsentManagement<
             <div className={fr.cx("fr-consent-service")}>
                 <fieldset className={fr.cx("fr-fieldset", "fr-fieldset--inline")}>
                     <legend className={fr.cx("fr-consent-service__title")}>{title}</legend>
+                    {description !== undefined && (
+                        <p className={fr.cx("fr-consent-service__desc")}>{description}</p>
+                    )}
                     <div className={fr.cx("fr-consent-service__radios", "fr-fieldset--inline")}>
                         <div className={fr.cx("fr-radio-group")}>
                             <input
