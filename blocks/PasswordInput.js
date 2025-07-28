@@ -111,6 +111,7 @@ addPasswordInputTranslations({
         /* spell-checker: enable */
     }
 });
+export { addPasswordInputTranslations };
 PasswordInput.displayName = symToStr({ PasswordInput });
 export default PasswordInput;
 //# sourceMappingURL=PasswordInput.js.map

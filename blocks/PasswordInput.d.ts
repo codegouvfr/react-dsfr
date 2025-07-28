@@ -29,4 +29,13 @@ export declare const PasswordInput: React.MemoExoticComponent<React.ForwardRefEx
     }[] | undefined;
     nativeInputProps?: Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type"> | undefined;
 } & React.RefAttributes<HTMLDivElement>>>;
+declare const addPasswordInputTranslations: (params: {
+    lang: string;
+    messages: Partial<{
+        show: string;
+        "show password": string;
+        "your password must contain": string;
+    }>;
+}) => void;
+export { addPasswordInputTranslations };
 export default PasswordInput;
