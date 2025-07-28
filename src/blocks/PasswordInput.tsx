@@ -243,6 +243,8 @@ addPasswordInputTranslations({
     }
 });
 
+export { addPasswordInputTranslations };
+
 PasswordInput.displayName = symToStr({ PasswordInput });
 
 export default PasswordInput;
