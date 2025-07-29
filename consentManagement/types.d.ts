@@ -10,14 +10,19 @@ export type FinalityConsent<Finality extends string> = {
 };
 export type ExtractFinalityFromFinalityDescription<FinalityDescription extends Record<string, {
     title: ReactNode;
-    subFinalities?: Record<string, ReactNode>;
+    description?: ReactNode;
+    subFinalities?: Record<string, SubFinalityContent>;
 }>> = {
     [K in keyof FinalityDescription]: K extends string ? FinalityDescription[K] extends {
-        subFinalities: Record<string, any>;
+        subFinalities: Record<string, SubFinalityContent>;
     } ? `${K}.${ExtractFinalityFromFinalityDescription.SubFinalities<FinalityDescription[K]>}` : K : never;
 }[keyof FinalityDescription];
 export declare namespace ExtractFinalityFromFinalityDescription {
     type SubFinalities<T> = T extends {
         subFinalities: infer U;
-    } ? U extends Record<string, any> ? keyof U : never : never;
+    } ? U extends Record<string, SubFinalityContent> ? keyof U : never : never;
 }
+export type SubFinalityContent = {
+    title: ReactNode;
+    description?: ReactNode;
+};

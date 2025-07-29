@@ -158,13 +158,13 @@ export function createConsentManagement(params) {
                                 React.createElement("button", { className: fr.cx("fr-consent-service__collapse-btn"), "aria-expanded": "false", "aria-describedby": legendId, "aria-controls": subFinalityDivId, onClick: () => setIsSubFinalityDivCollapsed(!isSubFinalityDivCollapsed) }, t(isSubFinalityDivCollapsed
                                     ? "see more details"
                                     : "hide details"))),
-                            React.createElement("div", { className: fr.cx("fr-consent-services", "fr-collapse"), id: subFinalityDivId }, Object.entries(subFinalities).map(([subFinality, title]) => (React.createElement(SubConsentService, { key: subFinality, title: title, isConsentGiven: finalityConsent[subFinality], onChange: ({ isConsentGiven }) => onChange({
+                            React.createElement("div", { className: fr.cx("fr-consent-services", "fr-collapse"), id: subFinalityDivId }, Object.entries(subFinalities).map(([subFinality, { title, description }]) => (React.createElement(SubConsentService, { key: subFinality, title: title, description: description, isConsentGiven: finalityConsent[subFinality], onChange: ({ isConsentGiven }) => onChange({
                                     subFinality,
                                     isConsentGiven
                                 }) }))))))))));
     }
     function SubConsentService(props) {
-        const { title, onChange, isConsentGiven } = props;
+        const { title, description, onChange, isConsentGiven } = props;
         const { t } = useTranslation();
         const { acceptInputId, refuseInputId } = (function useClosure() {
             const id = useId();
@@ -175,6 +175,7 @@ export function createConsentManagement(params) {
         return (React.createElement("div", { className: fr.cx("fr-consent-service") },
             React.createElement("fieldset", { className: fr.cx("fr-fieldset", "fr-fieldset--inline") },
                 React.createElement("legend", { className: fr.cx("fr-consent-service__title") }, title),
+                description !== undefined && (React.createElement("p", { className: fr.cx("fr-consent-service__desc") }, description)),
                 React.createElement("div", { className: fr.cx("fr-consent-service__radios", "fr-fieldset--inline") },
                     React.createElement("div", { className: fr.cx("fr-radio-group") },
                         React.createElement("input", { type: "radio", id: acceptInputId, checked: isConsentGiven, onChange: () => onChange({ "isConsentGiven": true }) }),

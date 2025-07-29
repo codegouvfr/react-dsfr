@@ -1,11 +1,11 @@
 import { type ReactNode } from "react";
 import type { RegisteredLinkProps } from "../../link";
-import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "../types";
+import type { ExtractFinalityFromFinalityDescription, FinalityConsent, SubFinalityContent } from "../types";
 import type { ProcessConsentChanges } from "../processConsentChanges";
 export declare function createConsentManagement<FinalityDescription extends Record<string, {
     title: ReactNode;
     description?: ReactNode;
-    subFinalities?: Record<string, ReactNode>;
+    subFinalities?: Record<string, SubFinalityContent>;
 }>>(params: {
     personalDataPolicyLinkProps: RegisteredLinkProps | undefined;
     finalityDescription: ((params: {

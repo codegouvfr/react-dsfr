@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
-import type { ExtractFinalityFromFinalityDescription } from "./types";
+import type { ExtractFinalityFromFinalityDescription, SubFinalityContent } from "./types";
 import type { RegisteredLinkProps } from "../link";
 import { type ConsentCallback } from "./processConsentChanges";
 export declare const defaultLocalStorageKeyPrefix = "@codegouvfr/react-dsfr finalityConsent";
 export declare function createConsentManagement<FinalityDescription extends Record<string, {
     title: ReactNode;
     description?: ReactNode;
-    subFinalities?: Record<string, ReactNode>;
+    subFinalities?: Record<string, SubFinalityContent>;
 }>>(params: {
     finalityDescription: ((params: {
         lang: string;
@@ -25,7 +25,7 @@ export declare function createConsentManagement<FinalityDescription extends Reco
 export declare function getFinalitiesFromFinalityDescription<FinalityDescription extends Record<string, {
     title: ReactNode;
     description?: ReactNode;
-    subFinalities?: Record<string, ReactNode>;
+    subFinalities?: Record<string, SubFinalityContent>;
 }>>(params: {
     finalityDescription: FinalityDescription;
 }): ExtractFinalityFromFinalityDescription<FinalityDescription>[];
