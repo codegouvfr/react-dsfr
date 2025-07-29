@@ -72,7 +72,7 @@ export const Tabs = memo(forwardRef((props, ref) => {
         }
     };
     const { getPanelId, getTabId } = (function useClosure() {
-        const id = useId();
+        const id = id_props !== null && id_props !== void 0 ? id_props : useId();
         const getPanelId = (tabIndex) => `tabpanel-${id}-${tabIndex}-panel`;
         const getTabId = (tabIndex) => `tabpanel-${id}-${tabIndex}`;
         return {
