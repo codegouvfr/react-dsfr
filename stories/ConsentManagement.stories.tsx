@@ -236,8 +236,16 @@ const {
             "description":
                 "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu.",
             "subFinalities": {
-                "deviceInfo": "Informations sur votre appareil",
-                "traffic": "Informations sur votre navigation"
+                "deviceInfo": {
+                    "title": "Informations sur votre appareil",
+                    "description":
+                        "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+                },
+                "traffic": {
+                    "title": "Informations sur votre navigation",
+                    "description":
+                        "Nous utilisons des cookies pour mesurer l’audience de notre site et améliorer son contenu."
+                }
             }
         }
     },
