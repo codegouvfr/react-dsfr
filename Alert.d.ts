@@ -12,6 +12,7 @@ export type AlertProps = {
     closable?: boolean;
     /** To provide if you want the Alert to be controlled */
     isClosed?: boolean;
+    role?: "alert" | "status";
     onClose?: () => void;
 } & (AlertProps.DefaultSize | AlertProps.Small);
 export declare namespace AlertProps {

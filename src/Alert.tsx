@@ -32,6 +32,7 @@ export type AlertProps = {
     closable?: boolean;
     /** To provide if you want the Alert to be controlled */
     isClosed?: boolean;
+    role?: "alert" | "status";
     onClose?: () => void;
 } & (AlertProps.DefaultSize | AlertProps.Small);
 
@@ -73,6 +74,7 @@ export const Alert = memo(
             closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
+            role = "alert",
             ...rest
         } = props;
 
@@ -145,7 +147,7 @@ export const Alert = memo(
                     className
                 )}
                 style={style}
-                {...(refShouldSetRole.current && { "role": "alert" })}
+                {...(refShouldSetRole.current && { "role": role })}
                 ref={ref}
                 {...rest}
             >
