@@ -2,6 +2,11 @@ import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "rea
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
+import type {
+    FrClassName,
+    FrIconClassName,
+    RiIconClassName
+} from "./fr/generatedFromCss/classNames";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import type { AlertProps } from "./Alert";
@@ -14,10 +19,20 @@ export type BadgeProps = {
     severity?: AlertProps.Severity | "new";
     small?: boolean;
     noIcon?: boolean;
+    iconId?: FrIconClassName | RiIconClassName;
+    accentColor?: BadgeProps.AccentColor;
     /** Default: "p" */
     as?: "p" | "span";
     children: NonNullable<ReactNode>;
 };
+
+export namespace BadgeProps {
+    type ExtractAccentColor<FrClassName> = FrClassName extends `fr-badge--${infer AccentColor}`
+        ? AccentColor
+        : never;
+
+    export type AccentColor = ExtractAccentColor<FrClassName>;
+}
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-badge> */
 export const Badge = memo(
@@ -30,6 +45,8 @@ export const Badge = memo(
             severity,
             small: isSmall = false,
             noIcon = false,
+            iconId,
+            accentColor,
             children,
             ...rest
         } = props;
@@ -49,7 +66,13 @@ export const Badge = memo(
                         "fr-badge",
                         severity !== undefined && `fr-badge--${severity}`,
                         { "fr-badge--sm": isSmall },
-                        { "fr-badge--no-icon": noIcon || severity === undefined }
+                        {
+                            "fr-badge--no-icon":
+                                noIcon || (severity === undefined && iconId === undefined)
+                        },
+                        severity === undefined && iconId,
+                        severity === undefined && iconId && "fr-badge--icon-left", // actually, it's always left but we need it in order to have the icon rendering
+                        severity === undefined && accentColor && `fr-badge--${accentColor}`
                     ),
                     className
                 ),
