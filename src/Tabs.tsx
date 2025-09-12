@@ -7,7 +7,8 @@ import React, {
     useState,
     useEffect,
     type ReactNode,
-    type CSSProperties
+    type CSSProperties,
+    useCallback
 } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
@@ -85,16 +86,17 @@ export const Tabs = memo(
             return index === -1 ? 0 : index;
         };
 
+        const currentSelectedTabIndex = getSelectedTabIndex();
+
         const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
-        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
+        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(currentSelectedTabIndex);
 
         useEffect(() => {
-            if (selectedTabId === undefined) {
-                return;
+            if (selectedTabId) {
+                setSelectedTabIndex(currentSelectedTabIndex);
             }
-            setSelectedTabIndex(getSelectedTabIndex());
-        }, [selectedTabId]);
+        }, [selectedTabId, currentSelectedTabIndex]);
 
         const onTabClickFactory = useCallbackFactory(([tabIndex]: [number]) => {
             if (selectedTabId === undefined) {
