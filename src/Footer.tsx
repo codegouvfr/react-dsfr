@@ -172,7 +172,12 @@ export const Footer = memo(
             style,
             linkList,
             linkListTitle,
-            domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"],
+            domains = [
+                "info.gouv.fr",
+                "service-public.gouv.fr",
+                "legifrance.gouv.fr",
+                "data.gouv.fr"
+            ],
             ...rest
         } = props;
 
