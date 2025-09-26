@@ -124,7 +124,7 @@ const defaultProps = {
         "href": "#"
     },
     "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing, incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et",
-    "imageUrl": "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
+    "imageUrl": "https://www.systeme-de-design.gouv.fr/v1.14/storybook/img/placeholder.16x9.png",
     "imageAlt": "texte alternatif de l’image"
 };
 
