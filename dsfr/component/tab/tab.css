@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -24,7 +24,6 @@
   position: relative;
   overflow: visible;
   font-weight: 700;
-  z-index: 1;
   margin: 0 0.25rem;
   height: 100%;
   white-space: nowrap;
@@ -117,7 +116,7 @@
   /**
   * Tab Panel
   */
-  box-shadow: inset 0 -1px 0 0 var(--border-default-grey);
+  box-shadow: 0 1px 0 0 var(--border-default-grey);
 
   /**
   * Tab button
@@ -138,8 +137,14 @@
   width: 100%;
   height: 100%;
   margin-top: -1px;
+  pointer-events: none;
   order: 2;
   box-shadow: inset 0 1px 0 0 var(--border-default-grey), inset 1px 0 0 0 var(--border-default-grey), inset -1px 0 0 0 var(--border-default-grey);
+  background-color: var(--background-default-grey);
+
+  --idle: transparent;
+  --hover: var(--background-default-grey-hover);
+  --active: var(--background-default-grey-active);
 }
 
 .fr-tabs__list {
@@ -388,6 +393,7 @@
     bottom: 0;
     left: 0;
     box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+    background-color: #fff;
   }
 
   .fr-tabs .fr-tabs__list {
@@ -438,7 +444,7 @@
   }
 
   .fr-tabs {
-    box-shadow: inset 0 -1px 0 0 #ddd;
+    box-shadow: 0 1px 0 0 #ddd;
   }
 
   .fr-tabs__tab {

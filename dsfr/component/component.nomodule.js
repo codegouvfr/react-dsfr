@@ -1,4 +1,4 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.2'
+    version: '1.14.2'
   };
 
   var api = window[config.namespace];
@@ -445,7 +445,7 @@
     };
 
     TooltipReferent.prototype._click = function _click () {
-      this.focus();
+      this.focusIn();
     };
 
     TooltipReferent.prototype._clickOut = function _clickOut (target) {
@@ -455,7 +455,6 @@
     TooltipReferent.prototype._keydown = function _keydown (keyCode) {
       switch (keyCode) {
         case api.core.KeyCodes.ESCAPE:
-          this.blur();
           this.close();
           break;
       }
@@ -849,6 +848,9 @@
     // TODO v2 : passer les tagName d'action en constante
     Modal.prototype._escape = function _escape () {
       var tagName = document.activeElement ? document.activeElement.tagName : undefined;
+      var isTooltipReferent = document.activeElement ? document.activeElement.hasAttribute('data-fr-js-tooltip-referent') : false;
+
+      if (isTooltipReferent) { return; }
 
       switch (tagName) {
         case 'INPUT':
@@ -991,7 +993,8 @@
 
   var isFocusable = function (element, container) {
     if (!(element instanceof Element)) { return false; }
-    var style = window.getComputedStyle(element);
+    var windowElement = window.frameElement ? window.frameElement.contentWindow : window;
+    var style = windowElement.getComputedStyle(element);
     if (!style) { return false; }
     if (style.visibility === 'hidden') { return false; }
     if (container === undefined) { container = element; }
@@ -1013,6 +1016,7 @@
     this.handling = this.handle.bind(this);
     this.focusing = this.maintainFocus.bind(this);
     this.current = null;
+    this.window = window.frameElement ? window.frameElement.contentWindow : window;
   };
 
   var prototypeAccessors$2 = { trapped: { configurable: true },focusables: { configurable: true } };
@@ -1031,7 +1035,7 @@
 
   FocusTrap.prototype.wait = function wait () {
     if (!isFocusable(this.element)) {
-      window.requestAnimationFrame(this.waiting);
+      this.window.requestAnimationFrame(this.waiting);
       return;
     }
 
@@ -1042,10 +1046,10 @@
     if (!this.isTrapping) { return; }
     this.isTrapping = false;
     var focusables = this.focusables;
-    if (focusables.length && focusables.indexOf(document.activeElement) === -1) { focusables[0].focus(); }
+    if (focusables.length && focusables.indexOf(this.window.document.activeElement) === -1) { focusables[0].focus(); }
     this.element.setAttribute('aria-modal', true);
-    window.addEventListener('keydown', this.handling);
-    document.body.addEventListener('focus', this.focusing, true);
+    this.window.addEventListener('keydown', this.handling);
+    this.window.document.body.addEventListener('focus', this.focusing, true);
   };
 
   FocusTrap.prototype.stun = function stun (node) {
@@ -1080,21 +1084,21 @@
     var first = focusables[0];
     var last = focusables[focusables.length - 1];
 
-    var index = focusables.indexOf(document.activeElement);
+    var index = focusables.indexOf(this.window.document.activeElement);
 
     if (e.shiftKey) {
-      if (!this.element.contains(document.activeElement) || index < 1) {
+      if (!this.element.contains(this.window.document.activeElement) || index < 1) {
         e.preventDefault();
         last.focus();
-      } else if (document.activeElement.tabIndex > 0 || focusables[index - 1].tabIndex > 0) {
+      } else if (this.window.document.activeElement.tabIndex > 0 || focusables[index - 1].tabIndex > 0) {
         e.preventDefault();
         focusables[index - 1].focus();
       }
     } else {
-      if (!this.element.contains(document.activeElement) || index === focusables.length - 1 || index === -1) {
+      if (!this.element.contains(this.window.document.activeElement) || index === focusables.length - 1 || index === -1) {
         e.preventDefault();
         first.focus();
-      } else if (document.activeElement.tabIndex > 0) {
+      } else if (this.window.document.activeElement.tabIndex > 0) {
         e.preventDefault();
         focusables[index + 1].focus();
       }
@@ -1109,7 +1113,7 @@
     /**
      *filtrage des radiobutttons de même name (la navigations d'un groupe de radio se fait à la flèche et non pas au tab
      **/
-    var radios = api.internals.dom.querySelectorAllArray(document.documentElement, 'input[type="radio"]');
+    var radios = api.internals.dom.querySelectorAllArray(this.window.document.documentElement, 'input[type="radio"]');
 
     if (radios.length) {
       var groups = {};
@@ -1143,8 +1147,8 @@
     this.isTrapping = false;
 
     this.element.removeAttribute('aria-modal');
-    window.removeEventListener('keydown', this.handling);
-    document.body.removeEventListener('focus', this.focusing, true);
+    this.window.removeEventListener('keydown', this.handling);
+    this.window.document.body.removeEventListener('focus', this.focusing, true);
 
     this.element = null;
 
@@ -1183,7 +1187,8 @@
 
   RadioButtonGroup.prototype.push = function push (button) {
     this.buttons.push(button);
-    if (button === document.activeElement || button.checked || this.selected === undefined) { this.selected = button; }
+    var windowElement = window.frameElement ? window.frameElement.contentWindow : window;
+    if (button === windowElement.document.activeElement || button.checked || this.selected === undefined) { this.selected = button; }
   };
 
   RadioButtonGroup.prototype.keep = function keep (button) {
@@ -1256,9 +1261,11 @@
     };
 
     ModalBody.prototype.adjust = function adjust () {
+      var iframe = window.frameElement;
+      var windowElement = iframe ? iframe.contentWindow : window;
       var offset = OFFSET * (this.isBreakpoint(api.core.Breakpoints.MD) ? 2 : 1);
-      if (this.isLegacy) { this.style.maxHeight = (window.innerHeight - offset) + "px"; }
-      else { this.style.setProperty('--modal-max-height', ((window.innerHeight - offset) + "px")); }
+      if (this.isLegacy) { this.style.maxHeight = (windowElement.innerHeight - offset) + "px"; }
+      else { this.style.setProperty('--modal-max-height', ((windowElement.innerHeight - offset) + "px")); }
       this.divide();
     };
 
@@ -2002,7 +2009,8 @@
       var paneHeight = Math.round(this.current.node.offsetHeight);
       if (this.panelHeight === paneHeight) { return; }
       this.panelHeight = paneHeight;
-      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+      var offsetNegativeMargin = 4;
+      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight - offsetNegativeMargin) + 'px');
     };
 
     Object.defineProperties( TabsGroup.prototype, prototypeAccessors );
@@ -3153,7 +3161,7 @@
     HeaderLinks: HeaderLinks,
     HeaderModal: HeaderModal,
     HeaderSelector: HeaderSelector,
-    doc: 'https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete'
+    doc: 'https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/en-tete'
   };
 
   api.internals.register(api.header.HeaderSelector.TOOLS_LINKS, api.header.HeaderLinks);

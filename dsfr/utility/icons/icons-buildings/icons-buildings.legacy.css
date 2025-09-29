@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -44,6 +44,16 @@
     background-image: url("../../../icons/buildings/bank-line.svg");
   }
 
+  .fr-icon-building-4-fill::before,
+  .fr-icon-building-4-fill::after {
+    background-image: url("../../../icons/buildings/building-4-fill.svg");
+  }
+
+  .fr-icon-building-4-line::before,
+  .fr-icon-building-4-line::after {
+    background-image: url("../../../icons/buildings/building-4-line.svg");
+  }
+
   .fr-icon-building-fill::before,
   .fr-icon-building-fill::after {
     background-image: url("../../../icons/buildings/building-fill.svg");
@@ -84,6 +94,16 @@
     background-image: url("../../../icons/buildings/home-4-line.svg");
   }
 
+  .fr-icon-home-office-fill::before,
+  .fr-icon-home-office-fill::after {
+    background-image: url("../../../icons/buildings/home-office-fill.svg");
+  }
+
+  .fr-icon-home-office-line::before,
+  .fr-icon-home-office-line::after {
+    background-image: url("../../../icons/buildings/home-office-line.svg");
+  }
+
   .fr-icon-hospital-fill::before,
   .fr-icon-hospital-fill::after {
     background-image: url("../../../icons/buildings/hospital-fill.svg");
@@ -104,6 +124,16 @@
     background-image: url("../../../icons/buildings/hotel-line.svg");
   }
 
+  .fr-icon-school-fill::before,
+  .fr-icon-school-fill::after {
+    background-image: url("../../../icons/buildings/school-fill.svg");
+  }
+
+  .fr-icon-school-line::before,
+  .fr-icon-school-line::after {
+    background-image: url("../../../icons/buildings/school-line.svg");
+  }
+
   .fr-icon-store-fill::before,
   .fr-icon-store-fill::after {
     background-image: url("../../../icons/buildings/store-fill.svg");
@@ -112,6 +142,16 @@
   .fr-icon-store-line::before,
   .fr-icon-store-line::after {
     background-image: url("../../../icons/buildings/store-line.svg");
+  }
+
+  .fr-icon-tent-fill::before,
+  .fr-icon-tent-fill::after {
+    background-image: url("../../../icons/buildings/tent-fill.svg");
+  }
+
+  .fr-icon-tent-line::before,
+  .fr-icon-tent-line::after {
+    background-image: url("../../../icons/buildings/tent-line.svg");
   }
 
   .fr-fi-home-4-fill::before {

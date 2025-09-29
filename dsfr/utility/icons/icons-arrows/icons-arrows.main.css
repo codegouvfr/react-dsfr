@@ -1,0 +1,623 @@
+/*!
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ */
+@charset "UTF-8";
+
+/* ¯¯¯¯¯¯¯¯¯ *\
+  ICON ARROWS
+\* ˍˍˍˍˍˍˍˍˍ */
+.fr-icon-arrow-down-circle-fill::before,
+.fr-icon-arrow-down-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-circle-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-circle-fill.svg");
+}
+
+.fr-icon-arrow-down-circle-line::before,
+.fr-icon-arrow-down-circle-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-circle-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-circle-line.svg");
+}
+
+.fr-icon-arrow-down-fill::before,
+.fr-icon-arrow-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-fill.svg");
+}
+
+.fr-icon-arrow-down-line::before,
+.fr-icon-arrow-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-line.svg");
+}
+
+.fr-icon-arrow-down-s-fill::before,
+.fr-icon-arrow-down-s-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-s-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-s-fill.svg");
+}
+
+.fr-icon-arrow-down-s-line::before,
+.fr-icon-arrow-down-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-s-line.svg");
+}
+
+.fr-icon-arrow-go-back-fill::before,
+.fr-icon-arrow-go-back-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-back-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-back-fill.svg");
+}
+
+.fr-icon-arrow-go-back-line::before,
+.fr-icon-arrow-go-back-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-back-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-back-line.svg");
+}
+
+.fr-icon-arrow-go-forward-fill::before,
+.fr-icon-arrow-go-forward-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-forward-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-forward-fill.svg");
+}
+
+.fr-icon-arrow-go-forward-line::before,
+.fr-icon-arrow-go-forward-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-forward-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-forward-line.svg");
+}
+
+.fr-icon-arrow-left-circle-fill::before,
+.fr-icon-arrow-left-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-circle-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-circle-fill.svg");
+}
+
+.fr-icon-arrow-left-circle-line::before,
+.fr-icon-arrow-left-circle-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-circle-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-circle-line.svg");
+}
+
+.fr-icon-arrow-left-down-fill::before,
+.fr-icon-arrow-left-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-down-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-down-fill.svg");
+}
+
+.fr-icon-arrow-left-down-line::before,
+.fr-icon-arrow-left-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-down-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-down-line.svg");
+}
+
+.fr-icon-arrow-left-fill::before,
+.fr-icon-arrow-left-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-fill.svg");
+}
+
+.fr-icon-arrow-left-line::before,
+.fr-icon-arrow-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-line.svg");
+}
+
+.fr-icon-arrow-left-right-fill::before,
+.fr-icon-arrow-left-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-right-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-right-fill.svg");
+}
+
+.fr-icon-arrow-left-right-line::before,
+.fr-icon-arrow-left-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-right-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-right-line.svg");
+}
+
+.fr-icon-arrow-left-s-fill::before,
+.fr-icon-arrow-left-s-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-s-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-s-fill.svg");
+}
+
+.fr-icon-arrow-left-s-line::before,
+.fr-icon-arrow-left-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-s-line.svg");
+}
+
+.fr-icon-arrow-left-up-fill::before,
+.fr-icon-arrow-left-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-up-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-up-fill.svg");
+}
+
+.fr-icon-arrow-left-up-line::before,
+.fr-icon-arrow-left-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-up-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-up-line.svg");
+}
+
+.fr-icon-arrow-right-circle-fill::before,
+.fr-icon-arrow-right-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-circle-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-circle-fill.svg");
+}
+
+.fr-icon-arrow-right-circle-line::before,
+.fr-icon-arrow-right-circle-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-circle-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-circle-line.svg");
+}
+
+.fr-icon-arrow-right-down-fill::before,
+.fr-icon-arrow-right-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-down-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-down-fill.svg");
+}
+
+.fr-icon-arrow-right-down-line::before,
+.fr-icon-arrow-right-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-down-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-down-line.svg");
+}
+
+.fr-icon-arrow-right-fill::before,
+.fr-icon-arrow-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-fill.svg");
+}
+
+.fr-icon-arrow-right-line::before,
+.fr-icon-arrow-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-line.svg");
+}
+
+.fr-icon-arrow-right-s-fill::before,
+.fr-icon-arrow-right-s-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-s-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-s-fill.svg");
+}
+
+.fr-icon-arrow-right-s-line::before,
+.fr-icon-arrow-right-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-s-line.svg");
+}
+
+.fr-icon-arrow-right-up-fill::before,
+.fr-icon-arrow-right-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-up-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-up-fill.svg");
+}
+
+.fr-icon-arrow-right-up-line::before,
+.fr-icon-arrow-right-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-up-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-up-line.svg");
+}
+
+.fr-icon-arrow-turn-back-fill::before,
+.fr-icon-arrow-turn-back-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-turn-back-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-turn-back-fill.svg");
+}
+
+.fr-icon-arrow-turn-back-line::before,
+.fr-icon-arrow-turn-back-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-turn-back-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-turn-back-line.svg");
+}
+
+.fr-icon-arrow-turn-forward-fill::before,
+.fr-icon-arrow-turn-forward-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-turn-forward-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-turn-forward-fill.svg");
+}
+
+.fr-icon-arrow-turn-forward-line::before,
+.fr-icon-arrow-turn-forward-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-turn-forward-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-turn-forward-line.svg");
+}
+
+.fr-icon-arrow-up-circle-fill::before,
+.fr-icon-arrow-up-circle-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-circle-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-circle-fill.svg");
+}
+
+.fr-icon-arrow-up-circle-line::before,
+.fr-icon-arrow-up-circle-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-circle-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-circle-line.svg");
+}
+
+.fr-icon-arrow-up-down-fill::before,
+.fr-icon-arrow-up-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-down-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-down-fill.svg");
+}
+
+.fr-icon-arrow-up-down-line::before,
+.fr-icon-arrow-up-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-down-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-down-line.svg");
+}
+
+.fr-icon-arrow-up-fill::before,
+.fr-icon-arrow-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-fill.svg");
+}
+
+.fr-icon-arrow-up-line::before,
+.fr-icon-arrow-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-line.svg");
+}
+
+.fr-icon-arrow-up-s-fill::before,
+.fr-icon-arrow-up-s-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-s-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-s-fill.svg");
+}
+
+.fr-icon-arrow-up-s-line::before,
+.fr-icon-arrow-up-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-s-line.svg");
+}
+
+.fr-icon-contract-left-fill::before,
+.fr-icon-contract-left-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-left-fill.svg");
+  mask-image: url("../../../icons/arrows/contract-left-fill.svg");
+}
+
+.fr-icon-contract-left-line::before,
+.fr-icon-contract-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-left-line.svg");
+  mask-image: url("../../../icons/arrows/contract-left-line.svg");
+}
+
+.fr-icon-contract-left-right-fill::before,
+.fr-icon-contract-left-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-left-right-fill.svg");
+  mask-image: url("../../../icons/arrows/contract-left-right-fill.svg");
+}
+
+.fr-icon-contract-left-right-line::before,
+.fr-icon-contract-left-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-left-right-line.svg");
+  mask-image: url("../../../icons/arrows/contract-left-right-line.svg");
+}
+
+.fr-icon-contract-right-fill::before,
+.fr-icon-contract-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-right-fill.svg");
+  mask-image: url("../../../icons/arrows/contract-right-fill.svg");
+}
+
+.fr-icon-contract-right-line::before,
+.fr-icon-contract-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-right-line.svg");
+  mask-image: url("../../../icons/arrows/contract-right-line.svg");
+}
+
+.fr-icon-contract-up-down-fill::before,
+.fr-icon-contract-up-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-up-down-fill.svg");
+  mask-image: url("../../../icons/arrows/contract-up-down-fill.svg");
+}
+
+.fr-icon-contract-up-down-line::before,
+.fr-icon-contract-up-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/contract-up-down-line.svg");
+  mask-image: url("../../../icons/arrows/contract-up-down-line.svg");
+}
+
+.fr-icon-corner-down-left-fill::before,
+.fr-icon-corner-down-left-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-down-left-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-down-left-fill.svg");
+}
+
+.fr-icon-corner-down-left-line::before,
+.fr-icon-corner-down-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-down-left-line.svg");
+  mask-image: url("../../../icons/arrows/corner-down-left-line.svg");
+}
+
+.fr-icon-corner-down-right-fill::before,
+.fr-icon-corner-down-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-down-right-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-down-right-fill.svg");
+}
+
+.fr-icon-corner-down-right-line::before,
+.fr-icon-corner-down-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-down-right-line.svg");
+  mask-image: url("../../../icons/arrows/corner-down-right-line.svg");
+}
+
+.fr-icon-corner-left-down-fill::before,
+.fr-icon-corner-left-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-left-down-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-left-down-fill.svg");
+}
+
+.fr-icon-corner-left-down-line::before,
+.fr-icon-corner-left-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-left-down-line.svg");
+  mask-image: url("../../../icons/arrows/corner-left-down-line.svg");
+}
+
+.fr-icon-corner-left-up-fill::before,
+.fr-icon-corner-left-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-left-up-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-left-up-fill.svg");
+}
+
+.fr-icon-corner-left-up-line::before,
+.fr-icon-corner-left-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-left-up-line.svg");
+  mask-image: url("../../../icons/arrows/corner-left-up-line.svg");
+}
+
+.fr-icon-corner-right-down-fill::before,
+.fr-icon-corner-right-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-right-down-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-right-down-fill.svg");
+}
+
+.fr-icon-corner-right-down-line::before,
+.fr-icon-corner-right-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-right-down-line.svg");
+  mask-image: url("../../../icons/arrows/corner-right-down-line.svg");
+}
+
+.fr-icon-corner-right-up-fill::before,
+.fr-icon-corner-right-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-right-up-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-right-up-fill.svg");
+}
+
+.fr-icon-corner-right-up-line::before,
+.fr-icon-corner-right-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-right-up-line.svg");
+  mask-image: url("../../../icons/arrows/corner-right-up-line.svg");
+}
+
+.fr-icon-corner-up-left-fill::before,
+.fr-icon-corner-up-left-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-up-left-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-up-left-fill.svg");
+}
+
+.fr-icon-corner-up-left-line::before,
+.fr-icon-corner-up-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-up-left-line.svg");
+  mask-image: url("../../../icons/arrows/corner-up-left-line.svg");
+}
+
+.fr-icon-corner-up-right-fill::before,
+.fr-icon-corner-up-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-up-right-fill.svg");
+  mask-image: url("../../../icons/arrows/corner-up-right-fill.svg");
+}
+
+.fr-icon-corner-up-right-line::before,
+.fr-icon-corner-up-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/corner-up-right-line.svg");
+  mask-image: url("../../../icons/arrows/corner-up-right-line.svg");
+}
+
+.fr-icon-expand-left-fill::before,
+.fr-icon-expand-left-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-left-fill.svg");
+  mask-image: url("../../../icons/arrows/expand-left-fill.svg");
+}
+
+.fr-icon-expand-left-line::before,
+.fr-icon-expand-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-left-line.svg");
+  mask-image: url("../../../icons/arrows/expand-left-line.svg");
+}
+
+.fr-icon-expand-left-right-fill::before,
+.fr-icon-expand-left-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-left-right-fill.svg");
+  mask-image: url("../../../icons/arrows/expand-left-right-fill.svg");
+}
+
+.fr-icon-expand-left-right-line::before,
+.fr-icon-expand-left-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-left-right-line.svg");
+  mask-image: url("../../../icons/arrows/expand-left-right-line.svg");
+}
+
+.fr-icon-expand-right-fill::before,
+.fr-icon-expand-right-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-right-fill.svg");
+  mask-image: url("../../../icons/arrows/expand-right-fill.svg");
+}
+
+.fr-icon-expand-right-line::before,
+.fr-icon-expand-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-right-line.svg");
+  mask-image: url("../../../icons/arrows/expand-right-line.svg");
+}
+
+.fr-icon-expand-up-down-fill::before,
+.fr-icon-expand-up-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-up-down-fill.svg");
+  mask-image: url("../../../icons/arrows/expand-up-down-fill.svg");
+}
+
+.fr-icon-expand-up-down-line::before,
+.fr-icon-expand-up-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/expand-up-down-line.svg");
+  mask-image: url("../../../icons/arrows/expand-up-down-line.svg");
+}
+
+.fr-icon-arrow-left-s-first-line::before,
+.fr-icon-arrow-left-s-first-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-left-s-first-line.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-left-s-first-line.svg");
+}
+
+.fr-icon-arrow-left-s-line-double::before,
+.fr-icon-arrow-left-s-line-double::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-left-s-line-double.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-left-s-line-double.svg");
+}
+
+.fr-icon-arrow-right-s-last-line::before,
+.fr-icon-arrow-right-s-last-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-right-s-last-line.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-right-s-last-line.svg");
+}
+
+.fr-icon-arrow-right-s-line-double::before,
+.fr-icon-arrow-right-s-line-double::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-right-s-line-double.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-right-s-line-double.svg");
+}
+
+.fr-icon-skip-down-fill::before,
+.fr-icon-skip-down-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/skip-down-fill.svg");
+  mask-image: url("../../../icons/arrows/skip-down-fill.svg");
+}
+
+.fr-icon-skip-down-line::before,
+.fr-icon-skip-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/skip-down-line.svg");
+  mask-image: url("../../../icons/arrows/skip-down-line.svg");
+}
+
+.fr-icon-skip-up-fill::before,
+.fr-icon-skip-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/skip-up-fill.svg");
+  mask-image: url("../../../icons/arrows/skip-up-fill.svg");
+}
+
+.fr-icon-skip-up-line::before,
+.fr-icon-skip-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/skip-up-line.svg");
+  mask-image: url("../../../icons/arrows/skip-up-line.svg");
+}
+
+.fr-fi-arrow-down-line::before,
+.fr-fi-arrow-down-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-line.svg");
+}
+
+.fr-fi-arrow-down-s-line::before,
+.fr-fi-arrow-down-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-down-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-down-s-line.svg");
+}
+
+.fr-fi-arrow-go-back-fill::before,
+.fr-fi-arrow-go-back-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-back-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-back-fill.svg");
+}
+
+.fr-fi-arrow-go-back-line::before,
+.fr-fi-arrow-go-back-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-go-back-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-go-back-line.svg");
+}
+
+.fr-fi-arrow-left-line::before,
+.fr-fi-arrow-left-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-line.svg");
+}
+
+.fr-fi-arrow-left-s-line::before,
+.fr-fi-arrow-left-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-left-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-left-s-line.svg");
+}
+
+.fr-fi-arrow-right-line::before,
+.fr-fi-arrow-right-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-line.svg");
+}
+
+.fr-fi-arrow-right-s-line::before,
+.fr-fi-arrow-right-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-s-line.svg");
+}
+
+.fr-fi-arrow-right-up-line::before,
+.fr-fi-arrow-right-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-right-up-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-right-up-line.svg");
+}
+
+.fr-fi-arrow-up-fill::before,
+.fr-fi-arrow-up-fill::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-fill.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-fill.svg");
+}
+
+.fr-fi-arrow-up-line::before,
+.fr-fi-arrow-up-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-line.svg");
+}
+
+.fr-fi-arrow-up-s-line::before,
+.fr-fi-arrow-up-s-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/arrow-up-s-line.svg");
+  mask-image: url("../../../icons/arrows/arrow-up-s-line.svg");
+}
+
+.fr-fi-arrow-left-s-first-line::before,
+.fr-fi-arrow-left-s-first-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-left-s-first-line.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-left-s-first-line.svg");
+}
+
+.fr-fi-arrow-left-s-line-double::before,
+.fr-fi-arrow-left-s-line-double::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-left-s-line-double.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-left-s-line-double.svg");
+}
+
+.fr-fi-arrow-right-s-last-line::before,
+.fr-fi-arrow-right-s-last-line::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-right-s-last-line.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-right-s-last-line.svg");
+}
+
+.fr-fi-arrow-right-s-line-double::before,
+.fr-fi-arrow-right-s-line-double::after {
+  -webkit-mask-image: url("../../../icons/arrows/fr--arrow-right-s-line-double.svg");
+  mask-image: url("../../../icons/arrows/fr--arrow-right-s-line-double.svg");
+}
+
+@media (min-width: 36em) {
+  /*! media sm */
+}
+
+@media (min-width: 48em) {
+  /*! media md */
+}
+
+@media (min-width: 62em) {
+  /*! media lg */
+}
+
+@media (min-width: 78em) {
+  /*! media xl */
+}

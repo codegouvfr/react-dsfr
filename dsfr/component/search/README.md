@@ -28,4 +28,4 @@ Afin d’utiliser le composant `search`, il est nécessaire d’ajouter les fich
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/barre-de-recherche) sur le module Barre de recherche
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/barre-de-recherche) sur le module Barre de recherche

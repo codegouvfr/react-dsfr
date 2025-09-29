@@ -23,4 +23,4 @@ Afin d’utiliser le composant `pagination`, il est nécessaire d’ajouter les 
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/pagination) sur le module Pagination
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/pagination) sur le module Pagination

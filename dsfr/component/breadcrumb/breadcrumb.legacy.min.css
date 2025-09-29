@@ -1,7 +1,7 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */@media (min-width:36em){
   /*! media sm */}@media (min-width:48em){
   /*! media md */}@media (min-width:62em){
   /*! media lg */}@media (min-width:78em){
-  /*! media xl */}@media screen and (min-width:0\0) and (min-resolution:72dpi){.fr-breadcrumb ol,.fr-breadcrumb ul{list-style-type:none}.fr-breadcrumb ol,.fr-breadcrumb ul{margin-bottom:0;margin-top:0;padding-left:0}.fr-breadcrumb__link:not([aria-current]):after,.fr-breadcrumb__link[aria-current=false]:after{background-color:transparent;background-image:url(../../icons/system/arrow-right-s-line.svg);background-repeat:no-repeat;background-size:100%;content:"";display:inline-block;height:1rem;margin-left:.5rem;margin-right:-.25rem;pointer-events:none;vertical-align:-4px;width:1rem}.fr-breadcrumb{color:#666}.fr-breadcrumb__link[aria-current]:not([aria-current=false]){color:#3a3a3a}}
+  /*! media xl */}@media screen and (min-width:0\0) and (min-resolution:72dpi){.fr-breadcrumb ol,.fr-breadcrumb ul{list-style-type:none}.fr-breadcrumb ol,.fr-breadcrumb ul{margin-bottom:0;margin-top:0;padding-left:0}.fr-breadcrumb__link:not([aria-current]):after,.fr-breadcrumb__link[aria-current=false]:after{background-color:transparent;background-image:url(../../icons/arrows/arrow-right-s-line.svg);background-repeat:no-repeat;background-size:100%;content:"";display:inline-block;height:1rem;margin-left:.5rem;margin-right:-.25rem;pointer-events:none;vertical-align:-4px;width:1rem}.fr-breadcrumb{color:#666}.fr-breadcrumb__link[aria-current]:not([aria-current=false]){color:#3a3a3a}}

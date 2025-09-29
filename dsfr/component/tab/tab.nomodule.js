@@ -1,4 +1,4 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.2'
+    version: '1.14.2'
   };
 
   var api = window[config.namespace];
@@ -329,7 +329,8 @@
       var paneHeight = Math.round(this.current.node.offsetHeight);
       if (this.panelHeight === paneHeight) { return; }
       this.panelHeight = paneHeight;
-      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+      var offsetNegativeMargin = 4;
+      this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight - offsetNegativeMargin) + 'px');
     };
 
     Object.defineProperties( TabsGroup.prototype, prototypeAccessors );

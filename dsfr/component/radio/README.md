@@ -25,6 +25,4 @@ Afin d’utiliser le composant `radio`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton-radio) sur le module Bouton radio
-
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton-radio-riche) sur le module Bouton radio riche
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/bouton-radio) sur le module Bouton radio

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -14,6 +14,16 @@
   /*! media xl */
 }
 @media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-icon-archive-drawer-fill::before,
+  .fr-icon-archive-drawer-fill::after {
+    background-image: url("../../../icons/business/archive-drawer-fill.svg");
+  }
+
+  .fr-icon-archive-drawer-line::before,
+  .fr-icon-archive-drawer-line::after {
+    background-image: url("../../../icons/business/archive-drawer-line.svg");
+  }
+
   .fr-icon-archive-fill::before,
   .fr-icon-archive-fill::after {
     background-image: url("../../../icons/business/archive-fill.svg");
@@ -22,6 +32,16 @@
   .fr-icon-archive-line::before,
   .fr-icon-archive-line::after {
     background-image: url("../../../icons/business/archive-line.svg");
+  }
+
+  .fr-icon-at-fill::before,
+  .fr-icon-at-fill::after {
+    background-image: url("../../../icons/business/at-fill.svg");
+  }
+
+  .fr-icon-at-line::before,
+  .fr-icon-at-line::after {
+    background-image: url("../../../icons/business/at-line.svg");
   }
 
   .fr-icon-attachment-fill::before,
@@ -44,6 +64,16 @@
     background-image: url("../../../icons/business/award-line.svg");
   }
 
+  .fr-icon-bar-chart-2-fill::before,
+  .fr-icon-bar-chart-2-fill::after {
+    background-image: url("../../../icons/business/bar-chart-2-fill.svg");
+  }
+
+  .fr-icon-bar-chart-2-line::before,
+  .fr-icon-bar-chart-2-line::after {
+    background-image: url("../../../icons/business/bar-chart-2-line.svg");
+  }
+
   .fr-icon-bar-chart-box-fill::before,
   .fr-icon-bar-chart-box-fill::after {
     background-image: url("../../../icons/business/bar-chart-box-fill.svg");
@@ -52,6 +82,26 @@
   .fr-icon-bar-chart-box-line::before,
   .fr-icon-bar-chart-box-line::after {
     background-image: url("../../../icons/business/bar-chart-box-line.svg");
+  }
+
+  .fr-icon-bar-chart-fill::before,
+  .fr-icon-bar-chart-fill::after {
+    background-image: url("../../../icons/business/bar-chart-fill.svg");
+  }
+
+  .fr-icon-bar-chart-horizontal-fill::before,
+  .fr-icon-bar-chart-horizontal-fill::after {
+    background-image: url("../../../icons/business/bar-chart-horizontal-fill.svg");
+  }
+
+  .fr-icon-bar-chart-horizontal-line::before,
+  .fr-icon-bar-chart-horizontal-line::after {
+    background-image: url("../../../icons/business/bar-chart-horizontal-line.svg");
+  }
+
+  .fr-icon-bar-chart-line::before,
+  .fr-icon-bar-chart-line::after {
+    background-image: url("../../../icons/business/bar-chart-line.svg");
   }
 
   .fr-icon-bookmark-fill::before,
@@ -74,6 +124,26 @@
     background-image: url("../../../icons/business/briefcase-line.svg");
   }
 
+  .fr-icon-bubble-chart-fill::before,
+  .fr-icon-bubble-chart-fill::after {
+    background-image: url("../../../icons/business/bubble-chart-fill.svg");
+  }
+
+  .fr-icon-bubble-chart-line::before,
+  .fr-icon-bubble-chart-line::after {
+    background-image: url("../../../icons/business/bubble-chart-line.svg");
+  }
+
+  .fr-icon-calculator-fill::before,
+  .fr-icon-calculator-fill::after {
+    background-image: url("../../../icons/business/calculator-fill.svg");
+  }
+
+  .fr-icon-calculator-line::before,
+  .fr-icon-calculator-line::after {
+    background-image: url("../../../icons/business/calculator-line.svg");
+  }
+
   .fr-icon-calendar-2-fill::before,
   .fr-icon-calendar-2-fill::after {
     background-image: url("../../../icons/business/calendar-2-fill.svg");
@@ -82,6 +152,26 @@
   .fr-icon-calendar-2-line::before,
   .fr-icon-calendar-2-line::after {
     background-image: url("../../../icons/business/calendar-2-line.svg");
+  }
+
+  .fr-icon-calendar-check-fill::before,
+  .fr-icon-calendar-check-fill::after {
+    background-image: url("../../../icons/business/calendar-check-fill.svg");
+  }
+
+  .fr-icon-calendar-check-line::before,
+  .fr-icon-calendar-check-line::after {
+    background-image: url("../../../icons/business/calendar-check-line.svg");
+  }
+
+  .fr-icon-calendar-close-fill::before,
+  .fr-icon-calendar-close-fill::after {
+    background-image: url("../../../icons/business/calendar-close-fill.svg");
+  }
+
+  .fr-icon-calendar-close-line::before,
+  .fr-icon-calendar-close-line::after {
+    background-image: url("../../../icons/business/calendar-close-line.svg");
   }
 
   .fr-icon-calendar-event-fill::before,
@@ -104,6 +194,16 @@
     background-image: url("../../../icons/business/calendar-line.svg");
   }
 
+  .fr-icon-calendar-todo-fill::before,
+  .fr-icon-calendar-todo-fill::after {
+    background-image: url("../../../icons/business/calendar-todo-fill.svg");
+  }
+
+  .fr-icon-calendar-todo-line::before,
+  .fr-icon-calendar-todo-line::after {
+    background-image: url("../../../icons/business/calendar-todo-line.svg");
+  }
+
   .fr-icon-cloud-fill::before,
   .fr-icon-cloud-fill::after {
     background-image: url("../../../icons/business/cloud-fill.svg");
@@ -112,6 +212,16 @@
   .fr-icon-cloud-line::before,
   .fr-icon-cloud-line::after {
     background-image: url("../../../icons/business/cloud-line.svg");
+  }
+
+  .fr-icon-cloud-off-fill::before,
+  .fr-icon-cloud-off-fill::after {
+    background-image: url("../../../icons/business/cloud-off-fill.svg");
+  }
+
+  .fr-icon-cloud-off-line::before,
+  .fr-icon-cloud-off-line::after {
+    background-image: url("../../../icons/business/cloud-off-line.svg");
   }
 
   .fr-icon-copyright-fill::before,
@@ -134,6 +244,16 @@
     background-image: url("../../../icons/business/customer-service-line.svg");
   }
 
+  .fr-icon-donut-chart-fill::before,
+  .fr-icon-donut-chart-fill::after {
+    background-image: url("../../../icons/business/donut-chart-fill.svg");
+  }
+
+  .fr-icon-donut-chart-line::before,
+  .fr-icon-donut-chart-line::after {
+    background-image: url("../../../icons/business/donut-chart-line.svg");
+  }
+
   .fr-icon-flag-fill::before,
   .fr-icon-flag-fill::after {
     background-image: url("../../../icons/business/flag-fill.svg");
@@ -152,6 +272,56 @@
   .fr-icon-global-line::before,
   .fr-icon-global-line::after {
     background-image: url("../../../icons/business/global-line.svg");
+  }
+
+  .fr-icon-honour-fill::before,
+  .fr-icon-honour-fill::after {
+    background-image: url("../../../icons/business/honour-fill.svg");
+  }
+
+  .fr-icon-honour-line::before,
+  .fr-icon-honour-line::after {
+    background-image: url("../../../icons/business/honour-line.svg");
+  }
+
+  .fr-icon-inbox-2-fill::before,
+  .fr-icon-inbox-2-fill::after {
+    background-image: url("../../../icons/business/inbox-2-fill.svg");
+  }
+
+  .fr-icon-inbox-2-line::before,
+  .fr-icon-inbox-2-line::after {
+    background-image: url("../../../icons/business/inbox-2-line.svg");
+  }
+
+  .fr-icon-inbox-archive-fill::before,
+  .fr-icon-inbox-archive-fill::after {
+    background-image: url("../../../icons/business/inbox-archive-fill.svg");
+  }
+
+  .fr-icon-inbox-archive-line::before,
+  .fr-icon-inbox-archive-line::after {
+    background-image: url("../../../icons/business/inbox-archive-line.svg");
+  }
+
+  .fr-icon-inbox-fill::before,
+  .fr-icon-inbox-fill::after {
+    background-image: url("../../../icons/business/inbox-fill.svg");
+  }
+
+  .fr-icon-inbox-line::before,
+  .fr-icon-inbox-line::after {
+    background-image: url("../../../icons/business/inbox-line.svg");
+  }
+
+  .fr-icon-inbox-unarchive-fill::before,
+  .fr-icon-inbox-unarchive-fill::after {
+    background-image: url("../../../icons/business/inbox-unarchive-fill.svg");
+  }
+
+  .fr-icon-inbox-unarchive-line::before,
+  .fr-icon-inbox-unarchive-line::after {
+    background-image: url("../../../icons/business/inbox-unarchive-line.svg");
   }
 
   .fr-icon-line-chart-fill::before,
@@ -174,14 +344,74 @@
     background-image: url("../../../icons/business/links-line.svg");
   }
 
+  .fr-icon-mail-add-fill::before,
+  .fr-icon-mail-add-fill::after {
+    background-image: url("../../../icons/business/mail-add-fill.svg");
+  }
+
+  .fr-icon-mail-add-line::before,
+  .fr-icon-mail-add-line::after {
+    background-image: url("../../../icons/business/mail-add-line.svg");
+  }
+
+  .fr-icon-mail-check-fill::before,
+  .fr-icon-mail-check-fill::after {
+    background-image: url("../../../icons/business/mail-check-fill.svg");
+  }
+
+  .fr-icon-mail-check-line::before,
+  .fr-icon-mail-check-line::after {
+    background-image: url("../../../icons/business/mail-check-line.svg");
+  }
+
+  .fr-icon-mail-close-fill::before,
+  .fr-icon-mail-close-fill::after {
+    background-image: url("../../../icons/business/mail-close-fill.svg");
+  }
+
+  .fr-icon-mail-close-line::before,
+  .fr-icon-mail-close-line::after {
+    background-image: url("../../../icons/business/mail-close-line.svg");
+  }
+
+  .fr-icon-mail-download-fill::before,
+  .fr-icon-mail-download-fill::after {
+    background-image: url("../../../icons/business/mail-download-fill.svg");
+  }
+
+  .fr-icon-mail-download-line::before,
+  .fr-icon-mail-download-line::after {
+    background-image: url("../../../icons/business/mail-download-line.svg");
+  }
+
   .fr-icon-mail-fill::before,
   .fr-icon-mail-fill::after {
     background-image: url("../../../icons/business/mail-fill.svg");
   }
 
+  .fr-icon-mail-forbid-fill::before,
+  .fr-icon-mail-forbid-fill::after {
+    background-image: url("../../../icons/business/mail-forbid-fill.svg");
+  }
+
+  .fr-icon-mail-forbid-line::before,
+  .fr-icon-mail-forbid-line::after {
+    background-image: url("../../../icons/business/mail-forbid-line.svg");
+  }
+
   .fr-icon-mail-line::before,
   .fr-icon-mail-line::after {
     background-image: url("../../../icons/business/mail-line.svg");
+  }
+
+  .fr-icon-mail-lock-fill::before,
+  .fr-icon-mail-lock-fill::after {
+    background-image: url("../../../icons/business/mail-lock-fill.svg");
+  }
+
+  .fr-icon-mail-lock-line::before,
+  .fr-icon-mail-lock-line::after {
+    background-image: url("../../../icons/business/mail-lock-line.svg");
   }
 
   .fr-icon-mail-open-fill::before,
@@ -194,6 +424,56 @@
     background-image: url("../../../icons/business/mail-open-line.svg");
   }
 
+  .fr-icon-mail-send-fill::before,
+  .fr-icon-mail-send-fill::after {
+    background-image: url("../../../icons/business/mail-send-fill.svg");
+  }
+
+  .fr-icon-mail-send-line::before,
+  .fr-icon-mail-send-line::after {
+    background-image: url("../../../icons/business/mail-send-line.svg");
+  }
+
+  .fr-icon-mail-settings-fill::before,
+  .fr-icon-mail-settings-fill::after {
+    background-image: url("../../../icons/business/mail-settings-fill.svg");
+  }
+
+  .fr-icon-mail-settings-line::before,
+  .fr-icon-mail-settings-line::after {
+    background-image: url("../../../icons/business/mail-settings-line.svg");
+  }
+
+  .fr-icon-mail-star-fill::before,
+  .fr-icon-mail-star-fill::after {
+    background-image: url("../../../icons/business/mail-star-fill.svg");
+  }
+
+  .fr-icon-mail-star-line::before,
+  .fr-icon-mail-star-line::after {
+    background-image: url("../../../icons/business/mail-star-line.svg");
+  }
+
+  .fr-icon-mail-unread-fill::before,
+  .fr-icon-mail-unread-fill::after {
+    background-image: url("../../../icons/business/mail-unread-fill.svg");
+  }
+
+  .fr-icon-mail-unread-line::before,
+  .fr-icon-mail-unread-line::after {
+    background-image: url("../../../icons/business/mail-unread-line.svg");
+  }
+
+  .fr-icon-mail-volume-fill::before,
+  .fr-icon-mail-volume-fill::after {
+    background-image: url("../../../icons/business/mail-volume-fill.svg");
+  }
+
+  .fr-icon-mail-volume-line::before,
+  .fr-icon-mail-volume-line::after {
+    background-image: url("../../../icons/business/mail-volume-line.svg");
+  }
+
   .fr-icon-medal-fill::before,
   .fr-icon-medal-fill::after {
     background-image: url("../../../icons/business/medal-fill.svg");
@@ -202,6 +482,46 @@
   .fr-icon-medal-line::before,
   .fr-icon-medal-line::after {
     background-image: url("../../../icons/business/medal-line.svg");
+  }
+
+  .fr-icon-megaphone-fill::before,
+  .fr-icon-megaphone-fill::after {
+    background-image: url("../../../icons/business/megaphone-fill.svg");
+  }
+
+  .fr-icon-megaphone-line::before,
+  .fr-icon-megaphone-line::after {
+    background-image: url("../../../icons/business/megaphone-line.svg");
+  }
+
+  .fr-icon-pass-expired-fill::before,
+  .fr-icon-pass-expired-fill::after {
+    background-image: url("../../../icons/business/pass-expired-fill.svg");
+  }
+
+  .fr-icon-pass-expired-line::before,
+  .fr-icon-pass-expired-line::after {
+    background-image: url("../../../icons/business/pass-expired-line.svg");
+  }
+
+  .fr-icon-pass-pending-fill::before,
+  .fr-icon-pass-pending-fill::after {
+    background-image: url("../../../icons/business/pass-pending-fill.svg");
+  }
+
+  .fr-icon-pass-pending-line::before,
+  .fr-icon-pass-pending-line::after {
+    background-image: url("../../../icons/business/pass-pending-line.svg");
+  }
+
+  .fr-icon-pass-valid-fill::before,
+  .fr-icon-pass-valid-fill::after {
+    background-image: url("../../../icons/business/pass-valid-fill.svg");
+  }
+
+  .fr-icon-pass-valid-line::before,
+  .fr-icon-pass-valid-line::after {
+    background-image: url("../../../icons/business/pass-valid-line.svg");
   }
 
   .fr-icon-pie-chart-2-fill::before,
@@ -222,6 +542,36 @@
   .fr-icon-pie-chart-box-line::before,
   .fr-icon-pie-chart-box-line::after {
     background-image: url("../../../icons/business/pie-chart-box-line.svg");
+  }
+
+  .fr-icon-pie-chart-fill::before,
+  .fr-icon-pie-chart-fill::after {
+    background-image: url("../../../icons/business/pie-chart-fill.svg");
+  }
+
+  .fr-icon-pie-chart-line::before,
+  .fr-icon-pie-chart-line::after {
+    background-image: url("../../../icons/business/pie-chart-line.svg");
+  }
+
+  .fr-icon-presentation-fill::before,
+  .fr-icon-presentation-fill::after {
+    background-image: url("../../../icons/business/presentation-fill.svg");
+  }
+
+  .fr-icon-presentation-line::before,
+  .fr-icon-presentation-line::after {
+    background-image: url("../../../icons/business/presentation-line.svg");
+  }
+
+  .fr-icon-printer-cloud-fill::before,
+  .fr-icon-printer-cloud-fill::after {
+    background-image: url("../../../icons/business/printer-cloud-fill.svg");
+  }
+
+  .fr-icon-printer-cloud-line::before,
+  .fr-icon-printer-cloud-line::after {
+    background-image: url("../../../icons/business/printer-cloud-line.svg");
   }
 
   .fr-icon-printer-fill::before,
@@ -254,6 +604,36 @@
     background-image: url("../../../icons/business/projector-2-line.svg");
   }
 
+  .fr-icon-record-mail-fill::before,
+  .fr-icon-record-mail-fill::after {
+    background-image: url("../../../icons/business/record-mail-fill.svg");
+  }
+
+  .fr-icon-record-mail-line::before,
+  .fr-icon-record-mail-line::after {
+    background-image: url("../../../icons/business/record-mail-line.svg");
+  }
+
+  .fr-icon-reply-all-fill::before,
+  .fr-icon-reply-all-fill::after {
+    background-image: url("../../../icons/business/reply-all-fill.svg");
+  }
+
+  .fr-icon-reply-all-line::before,
+  .fr-icon-reply-all-line::after {
+    background-image: url("../../../icons/business/reply-all-line.svg");
+  }
+
+  .fr-icon-reply-fill::before,
+  .fr-icon-reply-fill::after {
+    background-image: url("../../../icons/business/reply-fill.svg");
+  }
+
+  .fr-icon-reply-line::before,
+  .fr-icon-reply-line::after {
+    background-image: url("../../../icons/business/reply-line.svg");
+  }
+
   .fr-icon-send-plane-fill::before,
   .fr-icon-send-plane-fill::after {
     background-image: url("../../../icons/business/send-plane-fill.svg");
@@ -264,6 +644,36 @@
     background-image: url("../../../icons/business/send-plane-line.svg");
   }
 
+  .fr-icon-seo-fill::before,
+  .fr-icon-seo-fill::after {
+    background-image: url("../../../icons/business/seo-fill.svg");
+  }
+
+  .fr-icon-seo-line::before,
+  .fr-icon-seo-line::after {
+    background-image: url("../../../icons/business/seo-line.svg");
+  }
+
+  .fr-icon-service-fill::before,
+  .fr-icon-service-fill::after {
+    background-image: url("../../../icons/business/service-fill.svg");
+  }
+
+  .fr-icon-service-line::before,
+  .fr-icon-service-line::after {
+    background-image: url("../../../icons/business/service-line.svg");
+  }
+
+  .fr-icon-shake-hands-fill::before,
+  .fr-icon-shake-hands-fill::after {
+    background-image: url("../../../icons/business/shake-hands-fill.svg");
+  }
+
+  .fr-icon-shake-hands-line::before,
+  .fr-icon-shake-hands-line::after {
+    background-image: url("../../../icons/business/shake-hands-line.svg");
+  }
+
   .fr-icon-slideshow-fill::before,
   .fr-icon-slideshow-fill::after {
     background-image: url("../../../icons/business/slideshow-fill.svg");
@@ -272,6 +682,26 @@
   .fr-icon-slideshow-line::before,
   .fr-icon-slideshow-line::after {
     background-image: url("../../../icons/business/slideshow-line.svg");
+  }
+
+  .fr-icon-stack-fill::before,
+  .fr-icon-stack-fill::after {
+    background-image: url("../../../icons/business/stack-fill.svg");
+  }
+
+  .fr-icon-stack-line::before,
+  .fr-icon-stack-line::after {
+    background-image: url("../../../icons/business/stack-line.svg");
+  }
+
+  .fr-icon-window-2-fill::before,
+  .fr-icon-window-2-fill::after {
+    background-image: url("../../../icons/business/window-2-fill.svg");
+  }
+
+  .fr-icon-window-2-line::before,
+  .fr-icon-window-2-line::after {
+    background-image: url("../../../icons/business/window-2-line.svg");
   }
 
   .fr-icon-window-fill::before,

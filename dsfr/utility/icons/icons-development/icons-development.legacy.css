@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -14,6 +14,26 @@
   /*! media xl */
 }
 @media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-icon-braces-fill::before,
+  .fr-icon-braces-fill::after {
+    background-image: url("../../../icons/development/braces-fill.svg");
+  }
+
+  .fr-icon-braces-line::before,
+  .fr-icon-braces-line::after {
+    background-image: url("../../../icons/development/braces-line.svg");
+  }
+
+  .fr-icon-brackets-fill::before,
+  .fr-icon-brackets-fill::after {
+    background-image: url("../../../icons/development/brackets-fill.svg");
+  }
+
+  .fr-icon-brackets-line::before,
+  .fr-icon-brackets-line::after {
+    background-image: url("../../../icons/development/brackets-line.svg");
+  }
+
   .fr-icon-bug-fill::before,
   .fr-icon-bug-fill::after {
     background-image: url("../../../icons/development/bug-fill.svg");
@@ -34,9 +54,44 @@
     background-image: url("../../../icons/development/code-box-line.svg");
   }
 
+  .fr-icon-code-fill::before,
+  .fr-icon-code-fill::after {
+    background-image: url("../../../icons/development/code-fill.svg");
+  }
+
+  .fr-icon-code-line::before,
+  .fr-icon-code-line::after {
+    background-image: url("../../../icons/development/code-line.svg");
+  }
+
+  .fr-icon-code-s-slash-fill::before,
+  .fr-icon-code-s-slash-fill::after {
+    background-image: url("../../../icons/development/code-s-slash-fill.svg");
+  }
+
   .fr-icon-code-s-slash-line::before,
   .fr-icon-code-s-slash-line::after {
     background-image: url("../../../icons/development/code-s-slash-line.svg");
+  }
+
+  .fr-icon-command-fill::before,
+  .fr-icon-command-fill::after {
+    background-image: url("../../../icons/development/command-fill.svg");
+  }
+
+  .fr-icon-command-line::before,
+  .fr-icon-command-line::after {
+    background-image: url("../../../icons/development/command-line.svg");
+  }
+
+  .fr-icon-css3-fill::before,
+  .fr-icon-css3-fill::after {
+    background-image: url("../../../icons/development/css3-fill.svg");
+  }
+
+  .fr-icon-css3-line::before,
+  .fr-icon-css3-line::after {
+    background-image: url("../../../icons/development/css3-line.svg");
   }
 
   .fr-icon-cursor-fill::before,
@@ -57,6 +112,16 @@
   .fr-icon-git-branch-line::before,
   .fr-icon-git-branch-line::after {
     background-image: url("../../../icons/development/git-branch-line.svg");
+  }
+
+  .fr-icon-git-close-pull-request-fill::before,
+  .fr-icon-git-close-pull-request-fill::after {
+    background-image: url("../../../icons/development/git-close-pull-request-fill.svg");
+  }
+
+  .fr-icon-git-close-pull-request-line::before,
+  .fr-icon-git-close-pull-request-line::after {
+    background-image: url("../../../icons/development/git-close-pull-request-line.svg");
   }
 
   .fr-icon-git-commit-fill::before,
@@ -119,6 +184,36 @@
     background-image: url("../../../icons/development/git-repository-private-line.svg");
   }
 
+  .fr-icon-html5-fill::before,
+  .fr-icon-html5-fill::after {
+    background-image: url("../../../icons/development/html5-fill.svg");
+  }
+
+  .fr-icon-html5-line::before,
+  .fr-icon-html5-line::after {
+    background-image: url("../../../icons/development/html5-line.svg");
+  }
+
+  .fr-icon-javascript-fill::before,
+  .fr-icon-javascript-fill::after {
+    background-image: url("../../../icons/development/javascript-fill.svg");
+  }
+
+  .fr-icon-javascript-line::before,
+  .fr-icon-javascript-line::after {
+    background-image: url("../../../icons/development/javascript-line.svg");
+  }
+
+  .fr-icon-parentheses-fill::before,
+  .fr-icon-parentheses-fill::after {
+    background-image: url("../../../icons/development/parentheses-fill.svg");
+  }
+
+  .fr-icon-parentheses-line::before,
+  .fr-icon-parentheses-line::after {
+    background-image: url("../../../icons/development/parentheses-line.svg");
+  }
+
   .fr-icon-terminal-box-fill::before,
   .fr-icon-terminal-box-fill::after {
     background-image: url("../../../icons/development/terminal-box-fill.svg");
@@ -127,6 +222,11 @@
   .fr-icon-terminal-box-line::before,
   .fr-icon-terminal-box-line::after {
     background-image: url("../../../icons/development/terminal-box-line.svg");
+  }
+
+  .fr-icon-terminal-fill::before,
+  .fr-icon-terminal-fill::after {
+    background-image: url("../../../icons/development/terminal-fill.svg");
   }
 
   .fr-icon-terminal-line::before,

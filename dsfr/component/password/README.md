@@ -20,20 +20,20 @@ Afin d’utiliser le composant `password`, il est nécessaire d’ajouter les fi
     <link href="css/form/form.min.css" rel="stylesheet">
     <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/link/link.min.css" rel="stylesheet">
-    <link href="css/checkbox/checkbox.min.css" rel="stylesheet">
     <link href="css/input/input.min.css" rel="stylesheet">
+    <link href="css/checkbox/checkbox.min.css" rel="stylesheet">
     <link href="css/password/password.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/password/password.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/password/password.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/password/password.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/password/password.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mot-de-passe) sur le module Mot de passe
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/mot-de-passe) sur le module Mot de passe

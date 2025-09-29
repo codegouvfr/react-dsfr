@@ -6,7 +6,6 @@ La mise en avant permet à l’utilisateur de distinguer rapidement une informat
 ```shell
 callout
 └─ core
-└─ button
 ```
 
 ## Utilisation
@@ -15,7 +14,6 @@ Afin d’utiliser le composant `callout`, il est nécessaire d’ajouter les fic
 <html>
   <head>
     <link href="css/core/core.min.css" rel="stylesheet">
-    <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/callout/callout.min.css" rel="stylesheet">
   </head>
   <body>
@@ -25,4 +23,4 @@ Afin d’utiliser le composant `callout`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mise-en-avant) sur le module Mise en avant
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/mise-en-avant) sur le module Mise en avant

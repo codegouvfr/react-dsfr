@@ -23,4 +23,4 @@ Afin d’utiliser le composant `stepper`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/indicateur-d-etapes) sur le module Indicateur d'étapes
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/indicateur-d-etapes) sur le module Indicateur d'étapes

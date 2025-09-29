@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -129,6 +129,7 @@
   font-size: 1.375rem;
   line-height: 1.75rem;
   font-weight: 700;
+  margin: var(--title-spacing);
   color: var(--text-title-grey);
 }
 
@@ -162,19 +163,19 @@
 
   .fr-modal::before {
     width: 0;
-    height: 10vh;
-    flex: 1 0 10vh;
+    height: 10%;
+    flex: 1 0 10%;
   }
 
   .fr-modal::after {
     content: "";
     width: 0;
-    height: 10vh;
-    flex: 1 0 10vh;
+    height: 10%;
+    flex: 1 0 10%;
   }
 
   .fr-modal__body {
-    max-height: 80vh !important;
+    max-height: 80vh;
   }
 
   .fr-modal__header {

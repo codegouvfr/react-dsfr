@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -75,8 +75,8 @@
   height: var(--icon-size);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  -webkit-mask-image: url("../../icons/system/arrow-down-s-line.svg");
-  mask-image: url("../../icons/system/arrow-down-s-line.svg");
+  -webkit-mask-image: url("../../icons/arrows/arrow-down-s-line.svg");
+  mask-image: url("../../icons/arrows/arrow-down-s-line.svg");
   content: "";
   transition: transform 0.3s;
   margin-right: 0;

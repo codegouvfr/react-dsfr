@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -47,116 +47,6 @@
   .fr-icon-alert-line::before,
   .fr-icon-alert-line::after {
     background-image: url("../../../icons/system/alert-line.svg");
-  }
-
-  .fr-icon-arrow-down-fill::before,
-  .fr-icon-arrow-down-fill::after {
-    background-image: url("../../../icons/system/arrow-down-fill.svg");
-  }
-
-  .fr-icon-arrow-down-line::before,
-  .fr-icon-arrow-down-line::after {
-    background-image: url("../../../icons/system/arrow-down-line.svg");
-  }
-
-  .fr-icon-arrow-down-s-fill::before,
-  .fr-icon-arrow-down-s-fill::after {
-    background-image: url("../../../icons/system/arrow-down-s-fill.svg");
-  }
-
-  .fr-icon-arrow-down-s-line::before,
-  .fr-icon-arrow-down-s-line::after {
-    background-image: url("../../../icons/system/arrow-down-s-line.svg");
-  }
-
-  .fr-icon-arrow-go-back-fill::before,
-  .fr-icon-arrow-go-back-fill::after {
-    background-image: url("../../../icons/system/arrow-go-back-fill.svg");
-  }
-
-  .fr-icon-arrow-go-back-line::before,
-  .fr-icon-arrow-go-back-line::after {
-    background-image: url("../../../icons/system/arrow-go-back-line.svg");
-  }
-
-  .fr-icon-arrow-go-forward-fill::before,
-  .fr-icon-arrow-go-forward-fill::after {
-    background-image: url("../../../icons/system/arrow-go-forward-fill.svg");
-  }
-
-  .fr-icon-arrow-go-forward-line::before,
-  .fr-icon-arrow-go-forward-line::after {
-    background-image: url("../../../icons/system/arrow-go-forward-line.svg");
-  }
-
-  .fr-icon-arrow-left-fill::before,
-  .fr-icon-arrow-left-fill::after {
-    background-image: url("../../../icons/system/arrow-left-fill.svg");
-  }
-
-  .fr-icon-arrow-left-line::before,
-  .fr-icon-arrow-left-line::after {
-    background-image: url("../../../icons/system/arrow-left-line.svg");
-  }
-
-  .fr-icon-arrow-left-s-fill::before,
-  .fr-icon-arrow-left-s-fill::after {
-    background-image: url("../../../icons/system/arrow-left-s-fill.svg");
-  }
-
-  .fr-icon-arrow-left-s-line::before,
-  .fr-icon-arrow-left-s-line::after {
-    background-image: url("../../../icons/system/arrow-left-s-line.svg");
-  }
-
-  .fr-icon-arrow-right-fill::before,
-  .fr-icon-arrow-right-fill::after {
-    background-image: url("../../../icons/system/arrow-right-fill.svg");
-  }
-
-  .fr-icon-arrow-right-line::before,
-  .fr-icon-arrow-right-line::after {
-    background-image: url("../../../icons/system/arrow-right-line.svg");
-  }
-
-  .fr-icon-arrow-right-s-fill::before,
-  .fr-icon-arrow-right-s-fill::after {
-    background-image: url("../../../icons/system/arrow-right-s-fill.svg");
-  }
-
-  .fr-icon-arrow-right-s-line::before,
-  .fr-icon-arrow-right-s-line::after {
-    background-image: url("../../../icons/system/arrow-right-s-line.svg");
-  }
-
-  .fr-icon-arrow-right-up-line::before,
-  .fr-icon-arrow-right-up-line::after {
-    background-image: url("../../../icons/system/arrow-right-up-line.svg");
-  }
-
-  .fr-icon-arrow-up-down-line::before,
-  .fr-icon-arrow-up-down-line::after {
-    background-image: url("../../../icons/system/arrow-up-down-line.svg");
-  }
-
-  .fr-icon-arrow-up-fill::before,
-  .fr-icon-arrow-up-fill::after {
-    background-image: url("../../../icons/system/arrow-up-fill.svg");
-  }
-
-  .fr-icon-arrow-up-line::before,
-  .fr-icon-arrow-up-line::after {
-    background-image: url("../../../icons/system/arrow-up-line.svg");
-  }
-
-  .fr-icon-arrow-up-s-fill::before,
-  .fr-icon-arrow-up-s-fill::after {
-    background-image: url("../../../icons/system/arrow-up-s-fill.svg");
-  }
-
-  .fr-icon-arrow-up-s-line::before,
-  .fr-icon-arrow-up-s-line::after {
-    background-image: url("../../../icons/system/arrow-up-s-line.svg");
   }
 
   .fr-icon-check-line::before,
@@ -277,36 +167,6 @@
   .fr-icon-alert-warning-fill::before,
   .fr-icon-alert-warning-fill::after {
     background-image: url("../../../icons/system/fr--alert-warning-fill.svg");
-  }
-
-  .fr-icon-arrow-left-s-first-line::before,
-  .fr-icon-arrow-left-s-first-line::after {
-    background-image: url("../../../icons/system/fr--arrow-left-s-first-line.svg");
-  }
-
-  .fr-icon-arrow-left-s-line-double::before,
-  .fr-icon-arrow-left-s-line-double::after {
-    background-image: url("../../../icons/system/fr--arrow-left-s-line-double.svg");
-  }
-
-  .fr-icon-arrow-right-down-circle-fill::before,
-  .fr-icon-arrow-right-down-circle-fill::after {
-    background-image: url("../../../icons/system/fr--arrow-right-down-circle-fill.svg");
-  }
-
-  .fr-icon-arrow-right-s-last-line::before,
-  .fr-icon-arrow-right-s-last-line::after {
-    background-image: url("../../../icons/system/fr--arrow-right-s-last-line.svg");
-  }
-
-  .fr-icon-arrow-right-s-line-double::before,
-  .fr-icon-arrow-right-s-line-double::after {
-    background-image: url("../../../icons/system/fr--arrow-right-s-line-double.svg");
-  }
-
-  .fr-icon-arrow-right-up-circle-fill::before,
-  .fr-icon-arrow-right-up-circle-fill::after {
-    background-image: url("../../../icons/system/fr--arrow-right-up-circle-fill.svg");
   }
 
   .fr-icon-capslock-line::before,
@@ -621,54 +481,6 @@
     background-image: url("../../../icons/system/add-line.svg");
   }
 
-  .fr-fi-arrow-down-line::before {
-    background-image: url("../../../icons/system/arrow-down-line.svg");
-  }
-
-  .fr-fi-arrow-down-s-line::before {
-    background-image: url("../../../icons/system/arrow-down-s-line.svg");
-  }
-
-  .fr-fi-arrow-go-back-fill::before {
-    background-image: url("../../../icons/system/arrow-go-back-fill.svg");
-  }
-
-  .fr-fi-arrow-go-back-line::before {
-    background-image: url("../../../icons/system/arrow-go-back-line.svg");
-  }
-
-  .fr-fi-arrow-left-line::before {
-    background-image: url("../../../icons/system/arrow-left-line.svg");
-  }
-
-  .fr-fi-arrow-left-s-line::before {
-    background-image: url("../../../icons/system/arrow-left-s-line.svg");
-  }
-
-  .fr-fi-arrow-right-line::before {
-    background-image: url("../../../icons/system/arrow-right-line.svg");
-  }
-
-  .fr-fi-arrow-right-s-line::before {
-    background-image: url("../../../icons/system/arrow-right-s-line.svg");
-  }
-
-  .fr-fi-arrow-right-up-line::before {
-    background-image: url("../../../icons/system/arrow-right-up-line.svg");
-  }
-
-  .fr-fi-arrow-up-fill::before {
-    background-image: url("../../../icons/system/arrow-up-fill.svg");
-  }
-
-  .fr-fi-arrow-up-line::before {
-    background-image: url("../../../icons/system/arrow-up-line.svg");
-  }
-
-  .fr-fi-arrow-up-s-line::before {
-    background-image: url("../../../icons/system/arrow-up-s-line.svg");
-  }
-
   .fr-fi-check-line::before {
     background-image: url("../../../icons/system/check-line.svg");
   }
@@ -719,22 +531,6 @@
 
   .fr-fi-filter-line::before {
     background-image: url("../../../icons/system/filter-line.svg");
-  }
-
-  .fr-fi-arrow-left-s-first-line::before {
-    background-image: url("../../../icons/system/fr--arrow-left-s-first-line.svg");
-  }
-
-  .fr-fi-arrow-left-s-line-double::before {
-    background-image: url("../../../icons/system/fr--arrow-left-s-line-double.svg");
-  }
-
-  .fr-fi-arrow-right-s-last-line::before {
-    background-image: url("../../../icons/system/fr--arrow-right-s-last-line.svg");
-  }
-
-  .fr-fi-arrow-right-s-line-double::before {
-    background-image: url("../../../icons/system/fr--arrow-right-s-line-double.svg");
   }
 
   .fr-fi-error-fill::before {

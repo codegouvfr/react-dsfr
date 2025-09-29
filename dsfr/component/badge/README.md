@@ -23,4 +23,4 @@ Afin d’utiliser le composant `badge`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/badge) sur le module Badge
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/badge) sur le module Badge

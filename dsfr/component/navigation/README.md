@@ -6,7 +6,6 @@ La navigation principale est l'élément central de la navigation au sein du sit
 ```shell
 navigation
 └─ core
-└─ link
 └─ button
 ```
 
@@ -16,20 +15,19 @@ Afin d’utiliser le composant `navigation`, il est nécessaire d’ajouter les 
 <html>
   <head>
     <link href="css/core/core.min.css" rel="stylesheet">
-    <link href="css/link/link.min.css" rel="stylesheet">
     <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/navigation/navigation.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/navigation/navigation.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/navigation/navigation.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/navigation/navigation.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/navigation/navigation.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/navigation-principale) sur le module Navigation principale
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/navigation-principale) sur le module Navigation principale

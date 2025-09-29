@@ -1,10 +1,10 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.2'
+  version: '1.14.2'
 };
 
 const api = window[config.namespace];
@@ -49,7 +49,7 @@ class TooltipReferent extends api.core.PlacementReferent {
   }
 
   _click () {
-    this.focus();
+    this.focusIn();
   }
 
   _clickOut (target) {
@@ -59,7 +59,6 @@ class TooltipReferent extends api.core.PlacementReferent {
   _keydown (keyCode) {
     switch (keyCode) {
       case api.core.KeyCodes.ESCAPE:
-        this.blur();
         this.close();
         break;
     }

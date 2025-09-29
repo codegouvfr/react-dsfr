@@ -17,10 +17,10 @@ Afin d’utiliser le composant `scheme`, il est nécessaire d’ajouter les fich
     <link href="css/scheme/scheme.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/scheme/scheme.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/scheme/scheme.module.min.js" ></script>
   </body>
 </html>
 ```

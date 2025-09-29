@@ -826,6 +826,14 @@
   content: none;
 }
 
+.fr-callout[class^=ri-]::before,
+.fr-callout[class*=" ri-"]::before,
+.fr-callout[class^=fr-fi-]::before,
+.fr-callout[class*=" fr-fi-"]::before {
+  display: block;
+  margin: -0.5rem 0 0.5rem;
+}
+
 .fr-tabs__tab[class^=ri-]:not([class*=fr-tabs__tab--icon-]),
 .fr-tabs__tab[class*=" ri-"]:not([class*=fr-tabs__tab--icon-]),
 .fr-tabs__tab[class^=fr-fi-]:not([class*=fr-tabs__tab--icon-]),
@@ -961,12 +969,24 @@
   margin-right: 0.5rem;
 }
 
-.fr-callout[class^=ri-]::before,
-.fr-callout[class*=" ri-"]::before,
-.fr-callout[class^=fr-fi-]::before,
-.fr-callout[class*=" fr-fi-"]::before {
-  display: block;
-  margin: -0.5rem 0 0.5rem;
+.fr-input-wrap[class^=ri-] .fr-input,
+.fr-input-wrap[class*=" ri-"] .fr-input,
+.fr-input-wrap[class^=fr-fi-] .fr-input,
+.fr-input-wrap[class*=" fr-fi-"] .fr-input {
+  padding-right: 3rem;
+}
+
+.fr-input-wrap[class^=ri-]::before,
+.fr-input-wrap[class*=" ri-"]::before,
+.fr-input-wrap[class^=fr-fi-]::before,
+.fr-input-wrap[class*=" fr-fi-"]::before {
+  --icon-size: 1rem;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  bottom: 0.75rem;
+  margin: auto;
+  pointer-events: none;
 }
 
 .fr-modal__title[class^=ri-],
@@ -1010,26 +1030,6 @@
 .fr-tile__detail[class*=" fr-fi-"]::before {
   --icon-size: 1rem;
   margin-right: 0.5rem;
-}
-
-.fr-input-wrap[class^=ri-] .fr-input,
-.fr-input-wrap[class*=" ri-"] .fr-input,
-.fr-input-wrap[class^=fr-fi-] .fr-input,
-.fr-input-wrap[class*=" fr-fi-"] .fr-input {
-  padding-right: 3rem;
-}
-
-.fr-input-wrap[class^=ri-]::before,
-.fr-input-wrap[class*=" ri-"]::before,
-.fr-input-wrap[class^=fr-fi-]::before,
-.fr-input-wrap[class*=" fr-fi-"]::before {
-  --icon-size: 1rem;
-  position: absolute;
-  top: 0.75rem;
-  right: 1rem;
-  bottom: 0.75rem;
-  margin: auto;
-  pointer-events: none;
 }
 
 .fr-follow__social .fr-btns-group:not(.fr-btns-group--sm):not(.fr-btns-group--lg) .fr-btn:not([class^=ri-]):not([class*=" ri-"]):not([class^=fr-fi-]):not([class*=" fr-fi-"]) {

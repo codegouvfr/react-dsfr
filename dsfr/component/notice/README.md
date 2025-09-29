@@ -25,4 +25,4 @@ Afin d’utiliser le composant `notice`, il est nécessaire d’ajouter les fich
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante) sur le module Bandeau d'information importante
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/bandeau-d-information-importante) sur le module Bandeau d'information importante

@@ -8,12 +8,11 @@ header
 └─ core
 └─ link
 └─ logo
-└─ badge
 └─ button
+└─ search
 └─ translate
 └─ navigation
 └─ modal
-└─ search
 ```
 
 ## Utilisation
@@ -26,28 +25,27 @@ Afin d’utiliser le composant `header`, il est nécessaire d’ajouter les fich
     <link href="css/button/button.min.css" rel="stylesheet">
     <link href="css/logo/logo.min.css" rel="stylesheet">
     <link href="css/form/form.min.css" rel="stylesheet">
-    <link href="css/badge/badge.min.css" rel="stylesheet">
     <link href="css/navigation/navigation.min.css" rel="stylesheet">
     <link href="css/modal/modal.min.css" rel="stylesheet">
     <link href="css/input/input.min.css" rel="stylesheet">
-    <link href="css/translate/translate.min.css" rel="stylesheet">
     <link href="css/search/search.min.css" rel="stylesheet">
+    <link href="css/translate/translate.min.css" rel="stylesheet">
     <link href="css/header/header.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/navigation/navigation.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/navigation/navigation.nomodule.min.js" ></script>
-    <script type="module" href="js/modal/modal.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/modal/modal.nomodule.min.js" ></script>
-    <script type="module" href="js/header/header.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/header/header.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/navigation/navigation.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/navigation/navigation.nomodule.min.js" ></script>
+    <script type="module" src="js/modal/modal.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/modal/modal.nomodule.min.js" ></script>
+    <script type="module" src="js/header/header.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/header/header.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete) sur le module En-tête
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/en-tete) sur le module En-tête

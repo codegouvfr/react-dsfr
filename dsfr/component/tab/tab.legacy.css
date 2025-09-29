@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 .fr-tabs {
   /**
@@ -41,6 +41,7 @@
     bottom: 0;
     left: 0;
     box-shadow: inset 0 1px 0 0 #ddd, inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd;
+    background-color: #fff;
   }
 
   .fr-tabs .fr-tabs__list {
@@ -91,7 +92,7 @@
   }
 
   .fr-tabs {
-    box-shadow: inset 0 -1px 0 0 #ddd;
+    box-shadow: 0 1px 0 0 #ddd;
   }
 
   .fr-tabs__tab {

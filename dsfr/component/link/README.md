@@ -23,4 +23,4 @@ Afin d’utiliser le composant `link`, il est nécessaire d’ajouter les fichie
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/lien) sur le module Lien
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/lien) sur le module Lien

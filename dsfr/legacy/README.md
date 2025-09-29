@@ -9,7 +9,7 @@ Afin d’utiliser le composant `legacy`, il est nécessaire d’ajouter les fich
   <head>
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
   </body>
 </html>
 ```

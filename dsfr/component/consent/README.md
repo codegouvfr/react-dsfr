@@ -11,7 +11,6 @@ consent
 └─ radio
 └─ button
 └─ modal
-└─ transcription
 ```
 
 ## Utilisation
@@ -25,19 +24,18 @@ Afin d’utiliser le composant `consent`, il est nécessaire d’ajouter les fic
     <link href="css/form/form.min.css" rel="stylesheet">
     <link href="css/radio/radio.min.css" rel="stylesheet">
     <link href="css/modal/modal.min.css" rel="stylesheet">
-    <link href="css/transcription/transcription.min.css" rel="stylesheet">
     <link href="css/consent/consent.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/modal/modal.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/modal/modal.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/modal/modal.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/modal/modal.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/gestionnaire-de-consentement) sur le module Gestionnaire de consentement
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/gestionnaire-de-consentement) sur le module Gestionnaire de consentement

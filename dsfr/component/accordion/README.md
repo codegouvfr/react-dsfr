@@ -17,15 +17,15 @@ Afin d’utiliser le composant `accordion`, il est nécessaire d’ajouter les f
     <link href="css/accordion/accordion.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/accordion/accordion.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/accordion/accordion.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/accordion/accordion.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/accordion/accordion.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/accordeon) sur le module Accordéon
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/accordeon) sur le module Accordéon

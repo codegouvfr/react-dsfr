@@ -1,0 +1,26 @@
+<svg width="80px" height="80px" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .fr-artwork-decorative {
+      fill: #ECECFF;
+    }
+    .fr-artwork-minor {
+      fill: #E1000F;
+    }
+    .fr-artwork-major {
+      fill: #000091;
+    }
+  </style>
+  <symbol id="artwork-decorative">
+    <path d="M9 8a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2ZM34 71a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2ZM5 60a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2ZM71 10a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2ZM51 16a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2ZM69 63a1.001 1.001 0 0 1 0-2 1.001 1.001 0 0 1 0 2Z"/>
+  </symbol>
+  <symbol id="artwork-minor">
+    <path d="M19 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM25.6 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM32.2 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM38.8 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM45.4 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM52 51a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM44 58a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1ZM71 32a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1Z"/>
+  </symbol>
+  <symbol id="artwork-major">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 20a1 1 0 1 0 0 2h2v2h-9a1 1 0 0 0-1 1v10H7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h8v2a1 1 0 0 0 1 1h41.98a.995.995 0 0 0 .485-.115l2.982-1.49A1 1 0 0 0 62 42.5v-4a1 1 0 0 0-.664-.942l-7-2.5A.999.999 0 0 0 54 35h-4v-2h19a1 1 0 1 0 0-2H50v-2a1 1 0 0 0-1-1h-2v-3a1 1 0 0 0-1-1h-4v-1a1 1 0 1 0-2 0v1H26v-2h3a1 1 0 1 0 0-2h-7Zm26 10v5h-4a1 1 0 1 0 0 2h9.827L60 39.205v2.677L57.764 43H25.2v-6H37a1 1 0 1 0 0-2H16v-9h29v3a1 1 0 0 0 1 1h2ZM8 37v3h8a1 1 0 0 1 1 1v2h6.2v-6H8Z"/>
+    <path d="M9.232 47.36a1 1 0 0 1 1.408-.128l5.911 4.925 1.685.843h34.528l1.685-.843 5.91-4.925a1 1 0 1 1 1.281 1.536l-6 5a1 1 0 0 1-.193.126l-2 1A1 1 0 0 1 53 55H18a1 1 0 0 1-.447-.106l-2-1a1 1 0 0 1-.193-.126l-6-5a1 1 0 0 1-.128-1.408ZM20 57a1 1 0 1 0 0 2h21a1 1 0 1 0 0-2H20Z"/>
+  </symbol>
+  <use class="fr-artwork-decorative" href="#artwork-decorative"/>
+  <use class="fr-artwork-minor" href="#artwork-minor"/>
+  <use class="fr-artwork-major" href="#artwork-major"/>
+</svg>

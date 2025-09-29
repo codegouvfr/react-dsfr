@@ -25,4 +25,4 @@ Afin d’utiliser le composant `alert`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/alerte) sur le module Alerte
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/alerte) sur le module Alerte

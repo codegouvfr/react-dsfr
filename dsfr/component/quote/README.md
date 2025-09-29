@@ -23,4 +23,4 @@ Afin d’utiliser le composant `quote`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/citation) sur le module Citation
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/citation) sur le module Citation

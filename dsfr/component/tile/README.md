@@ -19,15 +19,15 @@ Afin d’utiliser le composant `tile`, il est nécessaire d’ajouter les fichie
     <link href="css/tile/tile.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/tile/tile.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/tile/tile.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/tile/tile.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/tile/tile.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/tuile) sur le module Tuile
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/tuile) sur le module Tuile

@@ -8,8 +8,8 @@ Afin d’utiliser le composant `dsfr-deprecated`, il est nécessaire d’ajouter
     <link href="css/dsfr-deprecated/dsfr-deprecated.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="module" href="js/dsfr-deprecated/dsfr-deprecated.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/dsfr-deprecated/dsfr-deprecated.nomodule.min.js" ></script>
+    <script type="module" src="js/dsfr-deprecated/dsfr-deprecated.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/dsfr-deprecated/dsfr-deprecated.nomodule.min.js" ></script>
   </body>
 </html>
 ```

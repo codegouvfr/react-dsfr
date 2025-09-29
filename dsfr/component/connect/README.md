@@ -25,4 +25,4 @@ Afin d’utiliser le composant `connect`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton-franceconnect) sur le module Bouton FranceConnect
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/bouton-franceconnect) sur le module Bouton FranceConnect

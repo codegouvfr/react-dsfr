@@ -23,4 +23,4 @@ Afin d’utiliser le composant `download`, il est nécessaire d’ajouter les fi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/telechargement-de-fichier) sur le module Téléchargement de fichier
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/telechargement-de-fichier) sur le module Téléchargement de fichier

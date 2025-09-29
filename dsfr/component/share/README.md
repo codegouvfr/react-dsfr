@@ -27,4 +27,4 @@ Afin d’utiliser le composant `share`, il est nécessaire d’ajouter les fichi
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/partage) sur le module Partage
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/partage) sur le module Partage

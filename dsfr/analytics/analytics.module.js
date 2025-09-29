@@ -1,17 +1,13 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.2'
+  version: '1.14.2'
 };
 
 const api = window[config.namespace];
-
-const patch = {
-  namespace: 'a4e35ba2a938ba9d007689dbf3f46acbb9807869'
-};
 
 const Collection = {
   MANUAL: 'manual',
@@ -1946,11 +1942,6 @@ class Analytics {
 
   _configure () {
     switch (true) {
-      case window[patch.namespace] !== undefined:
-        this._config = window[patch.namespace].configuration.analytics;
-        window[patch.namespace].promise.then(this._build.bind(this), () => {});
-        break;
-
       case api.internals !== undefined && api.internals.configuration !== undefined && api.internals.configuration.analytics !== undefined && api.internals.configuration.analytics.domain !== undefined:
         this._config = api.internals.configuration.analytics;
         this._build();

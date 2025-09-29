@@ -17,15 +17,15 @@ Afin d’utiliser le composant `button`, il est nécessaire d’ajouter les fich
     <link href="css/button/button.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="text/javascript" nomodule href="js/legacy/legacy.nomodule.min.js" ></script>
-    <script type="module" href="js/core/core.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/core/core.nomodule.min.js" ></script>
-    <script type="module" href="js/button/button.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/button/button.nomodule.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/legacy/legacy.nomodule.min.js" ></script>
+    <script type="module" src="js/core/core.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/core/core.nomodule.min.js" ></script>
+    <script type="module" src="js/button/button.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/button/button.nomodule.min.js" ></script>
   </body>
 </html>
 ```
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton) sur le module Bouton
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/bouton) sur le module Bouton

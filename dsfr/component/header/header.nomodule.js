@@ -1,4 +1,4 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.2'
+    version: '1.14.2'
   };
 
   var api = window[config.namespace];
@@ -165,7 +165,7 @@
     HeaderLinks: HeaderLinks,
     HeaderModal: HeaderModal,
     HeaderSelector: HeaderSelector,
-    doc: 'https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete'
+    doc: 'https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/en-tete'
   };
 
   api.internals.register(api.header.HeaderSelector.TOOLS_LINKS, api.header.HeaderLinks);

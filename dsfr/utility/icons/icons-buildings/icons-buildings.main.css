@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -40,6 +40,18 @@
 .fr-icon-bank-line::after {
   -webkit-mask-image: url("../../../icons/buildings/bank-line.svg");
   mask-image: url("../../../icons/buildings/bank-line.svg");
+}
+
+.fr-icon-building-4-fill::before,
+.fr-icon-building-4-fill::after {
+  -webkit-mask-image: url("../../../icons/buildings/building-4-fill.svg");
+  mask-image: url("../../../icons/buildings/building-4-fill.svg");
+}
+
+.fr-icon-building-4-line::before,
+.fr-icon-building-4-line::after {
+  -webkit-mask-image: url("../../../icons/buildings/building-4-line.svg");
+  mask-image: url("../../../icons/buildings/building-4-line.svg");
 }
 
 .fr-icon-building-fill::before,
@@ -90,6 +102,18 @@
   mask-image: url("../../../icons/buildings/home-4-line.svg");
 }
 
+.fr-icon-home-office-fill::before,
+.fr-icon-home-office-fill::after {
+  -webkit-mask-image: url("../../../icons/buildings/home-office-fill.svg");
+  mask-image: url("../../../icons/buildings/home-office-fill.svg");
+}
+
+.fr-icon-home-office-line::before,
+.fr-icon-home-office-line::after {
+  -webkit-mask-image: url("../../../icons/buildings/home-office-line.svg");
+  mask-image: url("../../../icons/buildings/home-office-line.svg");
+}
+
 .fr-icon-hospital-fill::before,
 .fr-icon-hospital-fill::after {
   -webkit-mask-image: url("../../../icons/buildings/hospital-fill.svg");
@@ -114,6 +138,18 @@
   mask-image: url("../../../icons/buildings/hotel-line.svg");
 }
 
+.fr-icon-school-fill::before,
+.fr-icon-school-fill::after {
+  -webkit-mask-image: url("../../../icons/buildings/school-fill.svg");
+  mask-image: url("../../../icons/buildings/school-fill.svg");
+}
+
+.fr-icon-school-line::before,
+.fr-icon-school-line::after {
+  -webkit-mask-image: url("../../../icons/buildings/school-line.svg");
+  mask-image: url("../../../icons/buildings/school-line.svg");
+}
+
 .fr-icon-store-fill::before,
 .fr-icon-store-fill::after {
   -webkit-mask-image: url("../../../icons/buildings/store-fill.svg");
@@ -124,6 +160,18 @@
 .fr-icon-store-line::after {
   -webkit-mask-image: url("../../../icons/buildings/store-line.svg");
   mask-image: url("../../../icons/buildings/store-line.svg");
+}
+
+.fr-icon-tent-fill::before,
+.fr-icon-tent-fill::after {
+  -webkit-mask-image: url("../../../icons/buildings/tent-fill.svg");
+  mask-image: url("../../../icons/buildings/tent-fill.svg");
+}
+
+.fr-icon-tent-line::before,
+.fr-icon-tent-line::after {
+  -webkit-mask-image: url("../../../icons/buildings/tent-line.svg");
+  mask-image: url("../../../icons/buildings/tent-line.svg");
 }
 
 .fr-fi-home-4-fill::before,

@@ -16,4 +16,4 @@ Afin d’utiliser le composant `upload`, il est nécessaire d’ajouter les fich
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/ajout-de-fichier) sur le module Ajout de fichier
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/ajout-de-fichier) sur le module Ajout de fichier

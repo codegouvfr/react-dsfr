@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -60,10 +60,22 @@
   mask-image: url("../../../icons/weather/fr--avalanches-fill.svg");
 }
 
+.fr-icon-avalanches-line::before,
+.fr-icon-avalanches-line::after {
+  -webkit-mask-image: url("../../../icons/weather/fr--avalanches-line.svg");
+  mask-image: url("../../../icons/weather/fr--avalanches-line.svg");
+}
+
 .fr-icon-submersion-fill::before,
 .fr-icon-submersion-fill::after {
   -webkit-mask-image: url("../../../icons/weather/fr--submersion-fill.svg");
   mask-image: url("../../../icons/weather/fr--submersion-fill.svg");
+}
+
+.fr-icon-submersion-line::before,
+.fr-icon-submersion-line::after {
+  -webkit-mask-image: url("../../../icons/weather/fr--submersion-line.svg");
+  mask-image: url("../../../icons/weather/fr--submersion-line.svg");
 }
 
 .fr-icon-heavy-showers-fill::before,

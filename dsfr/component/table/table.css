@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @charset "UTF-8";
 
@@ -50,6 +50,11 @@
 .fr-table__container {
   overflow: auto;
   padding-top: var(--table-offset);
+}
+
+.fr-table--multiline .fr-table__content th,
+.fr-table--multiline .fr-table__content td {
+  white-space: normal;
 }
 
 .fr-table__content .fr-cell--fixed .fr-checkbox-group + *,

@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -14,6 +14,86 @@
   /*! media xl */
 }
 @media screen and (min-width: 0\0) and (min-resolution: 72dpi) {
+  .fr-icon-airplay-fill::before,
+  .fr-icon-airplay-fill::after {
+    background-image: url("../../../icons/device/airplay-fill.svg");
+  }
+
+  .fr-icon-airplay-line::before,
+  .fr-icon-airplay-line::after {
+    background-image: url("../../../icons/device/airplay-line.svg");
+  }
+
+  .fr-icon-barcode-box-fill::before,
+  .fr-icon-barcode-box-fill::after {
+    background-image: url("../../../icons/device/barcode-box-fill.svg");
+  }
+
+  .fr-icon-barcode-box-line::before,
+  .fr-icon-barcode-box-line::after {
+    background-image: url("../../../icons/device/barcode-box-line.svg");
+  }
+
+  .fr-icon-barcode-fill::before,
+  .fr-icon-barcode-fill::after {
+    background-image: url("../../../icons/device/barcode-fill.svg");
+  }
+
+  .fr-icon-barcode-line::before,
+  .fr-icon-barcode-line::after {
+    background-image: url("../../../icons/device/barcode-line.svg");
+  }
+
+  .fr-icon-base-station-fill::before,
+  .fr-icon-base-station-fill::after {
+    background-image: url("../../../icons/device/base-station-fill.svg");
+  }
+
+  .fr-icon-base-station-line::before,
+  .fr-icon-base-station-line::after {
+    background-image: url("../../../icons/device/base-station-line.svg");
+  }
+
+  .fr-icon-battery-charge-fill::before,
+  .fr-icon-battery-charge-fill::after {
+    background-image: url("../../../icons/device/battery-charge-fill.svg");
+  }
+
+  .fr-icon-battery-charge-line::before,
+  .fr-icon-battery-charge-line::after {
+    background-image: url("../../../icons/device/battery-charge-line.svg");
+  }
+
+  .fr-icon-battery-fill::before,
+  .fr-icon-battery-fill::after {
+    background-image: url("../../../icons/device/battery-fill.svg");
+  }
+
+  .fr-icon-battery-line::before,
+  .fr-icon-battery-line::after {
+    background-image: url("../../../icons/device/battery-line.svg");
+  }
+
+  .fr-icon-battery-low-fill::before,
+  .fr-icon-battery-low-fill::after {
+    background-image: url("../../../icons/device/battery-low-fill.svg");
+  }
+
+  .fr-icon-battery-low-line::before,
+  .fr-icon-battery-low-line::after {
+    background-image: url("../../../icons/device/battery-low-line.svg");
+  }
+
+  .fr-icon-bluetooth-connect-fill::before,
+  .fr-icon-bluetooth-connect-fill::after {
+    background-image: url("../../../icons/device/bluetooth-connect-fill.svg");
+  }
+
+  .fr-icon-bluetooth-connect-line::before,
+  .fr-icon-bluetooth-connect-line::after {
+    background-image: url("../../../icons/device/bluetooth-connect-line.svg");
+  }
+
   .fr-icon-bluetooth-fill::before,
   .fr-icon-bluetooth-fill::after {
     background-image: url("../../../icons/device/bluetooth-fill.svg");
@@ -24,6 +104,26 @@
     background-image: url("../../../icons/device/bluetooth-line.svg");
   }
 
+  .fr-icon-cast-fill::before,
+  .fr-icon-cast-fill::after {
+    background-image: url("../../../icons/device/cast-fill.svg");
+  }
+
+  .fr-icon-cast-line::before,
+  .fr-icon-cast-line::after {
+    background-image: url("../../../icons/device/cast-line.svg");
+  }
+
+  .fr-icon-cellphone-fill::before,
+  .fr-icon-cellphone-fill::after {
+    background-image: url("../../../icons/device/cellphone-fill.svg");
+  }
+
+  .fr-icon-cellphone-line::before,
+  .fr-icon-cellphone-line::after {
+    background-image: url("../../../icons/device/cellphone-line.svg");
+  }
+
   .fr-icon-computer-fill::before,
   .fr-icon-computer-fill::after {
     background-image: url("../../../icons/device/computer-fill.svg");
@@ -32,6 +132,16 @@
   .fr-icon-computer-line::before,
   .fr-icon-computer-line::after {
     background-image: url("../../../icons/device/computer-line.svg");
+  }
+
+  .fr-icon-cpu-fill::before,
+  .fr-icon-cpu-fill::after {
+    background-image: url("../../../icons/device/cpu-fill.svg");
+  }
+
+  .fr-icon-cpu-line::before,
+  .fr-icon-cpu-line::after {
+    background-image: url("../../../icons/device/cpu-line.svg");
   }
 
   .fr-icon-dashboard-3-fill::before,
@@ -64,6 +174,56 @@
     background-image: url("../../../icons/device/device-line.svg");
   }
 
+  .fr-icon-device-recover-fill::before,
+  .fr-icon-device-recover-fill::after {
+    background-image: url("../../../icons/device/device-recover-fill.svg");
+  }
+
+  .fr-icon-device-recover-line::before,
+  .fr-icon-device-recover-line::after {
+    background-image: url("../../../icons/device/device-recover-line.svg");
+  }
+
+  .fr-icon-fingerprint-fill::before,
+  .fr-icon-fingerprint-fill::after {
+    background-image: url("../../../icons/device/fingerprint-fill.svg");
+  }
+
+  .fr-icon-fingerprint-line::before,
+  .fr-icon-fingerprint-line::after {
+    background-image: url("../../../icons/device/fingerprint-line.svg");
+  }
+
+  .fr-icon-gamepad-fill::before,
+  .fr-icon-gamepad-fill::after {
+    background-image: url("../../../icons/device/gamepad-fill.svg");
+  }
+
+  .fr-icon-gamepad-line::before,
+  .fr-icon-gamepad-line::after {
+    background-image: url("../../../icons/device/gamepad-line.svg");
+  }
+
+  .fr-icon-gps-fill::before,
+  .fr-icon-gps-fill::after {
+    background-image: url("../../../icons/device/gps-fill.svg");
+  }
+
+  .fr-icon-gps-line::before,
+  .fr-icon-gps-line::after {
+    background-image: url("../../../icons/device/gps-line.svg");
+  }
+
+  .fr-icon-gradienter-fill::before,
+  .fr-icon-gradienter-fill::after {
+    background-image: url("../../../icons/device/gradienter-fill.svg");
+  }
+
+  .fr-icon-gradienter-line::before,
+  .fr-icon-gradienter-line::after {
+    background-image: url("../../../icons/device/gradienter-line.svg");
+  }
+
   .fr-icon-hard-drive-2-fill::before,
   .fr-icon-hard-drive-2-fill::after {
     background-image: url("../../../icons/device/hard-drive-2-fill.svg");
@@ -72,6 +232,46 @@
   .fr-icon-hard-drive-2-line::before,
   .fr-icon-hard-drive-2-line::after {
     background-image: url("../../../icons/device/hard-drive-2-line.svg");
+  }
+
+  .fr-icon-hotspot-fill::before,
+  .fr-icon-hotspot-fill::after {
+    background-image: url("../../../icons/device/hotspot-fill.svg");
+  }
+
+  .fr-icon-hotspot-line::before,
+  .fr-icon-hotspot-line::after {
+    background-image: url("../../../icons/device/hotspot-line.svg");
+  }
+
+  .fr-icon-install-fill::before,
+  .fr-icon-install-fill::after {
+    background-image: url("../../../icons/device/install-fill.svg");
+  }
+
+  .fr-icon-install-line::before,
+  .fr-icon-install-line::after {
+    background-image: url("../../../icons/device/install-line.svg");
+  }
+
+  .fr-icon-instance-fill::before,
+  .fr-icon-instance-fill::after {
+    background-image: url("../../../icons/device/instance-fill.svg");
+  }
+
+  .fr-icon-instance-line::before,
+  .fr-icon-instance-line::after {
+    background-image: url("../../../icons/device/instance-line.svg");
+  }
+
+  .fr-icon-keyboard-fill::before,
+  .fr-icon-keyboard-fill::after {
+    background-image: url("../../../icons/device/keyboard-fill.svg");
+  }
+
+  .fr-icon-keyboard-line::before,
+  .fr-icon-keyboard-line::after {
+    background-image: url("../../../icons/device/keyboard-line.svg");
   }
 
   .fr-icon-mac-fill::before,
@@ -84,14 +284,54 @@
     background-image: url("../../../icons/device/mac-line.svg");
   }
 
+  .fr-icon-macbook-fill::before,
+  .fr-icon-macbook-fill::after {
+    background-image: url("../../../icons/device/macbook-fill.svg");
+  }
+
+  .fr-icon-macbook-line::before,
+  .fr-icon-macbook-line::after {
+    background-image: url("../../../icons/device/macbook-line.svg");
+  }
+
+  .fr-icon-mouse-fill::before,
+  .fr-icon-mouse-fill::after {
+    background-image: url("../../../icons/device/mouse-fill.svg");
+  }
+
+  .fr-icon-mouse-line::before,
+  .fr-icon-mouse-line::after {
+    background-image: url("../../../icons/device/mouse-line.svg");
+  }
+
   .fr-icon-phone-fill::before,
   .fr-icon-phone-fill::after {
     background-image: url("../../../icons/device/phone-fill.svg");
   }
 
+  .fr-icon-phone-find-fill::before,
+  .fr-icon-phone-find-fill::after {
+    background-image: url("../../../icons/device/phone-find-fill.svg");
+  }
+
+  .fr-icon-phone-find-line::before,
+  .fr-icon-phone-find-line::after {
+    background-image: url("../../../icons/device/phone-find-line.svg");
+  }
+
   .fr-icon-phone-line::before,
   .fr-icon-phone-line::after {
     background-image: url("../../../icons/device/phone-line.svg");
+  }
+
+  .fr-icon-phone-lock-fill::before,
+  .fr-icon-phone-lock-fill::after {
+    background-image: url("../../../icons/device/phone-lock-fill.svg");
+  }
+
+  .fr-icon-phone-lock-line::before,
+  .fr-icon-phone-lock-line::after {
+    background-image: url("../../../icons/device/phone-lock-line.svg");
   }
 
   .fr-icon-qr-code-fill::before,
@@ -102,6 +342,86 @@
   .fr-icon-qr-code-line::before,
   .fr-icon-qr-code-line::after {
     background-image: url("../../../icons/device/qr-code-line.svg");
+  }
+
+  .fr-icon-qr-scan-fill::before,
+  .fr-icon-qr-scan-fill::after {
+    background-image: url("../../../icons/device/qr-scan-fill.svg");
+  }
+
+  .fr-icon-qr-scan-line::before,
+  .fr-icon-qr-scan-line::after {
+    background-image: url("../../../icons/device/qr-scan-line.svg");
+  }
+
+  .fr-icon-radar-fill::before,
+  .fr-icon-radar-fill::after {
+    background-image: url("../../../icons/device/radar-fill.svg");
+  }
+
+  .fr-icon-radar-line::before,
+  .fr-icon-radar-line::after {
+    background-image: url("../../../icons/device/radar-line.svg");
+  }
+
+  .fr-icon-remote-control-2-fill::before,
+  .fr-icon-remote-control-2-fill::after {
+    background-image: url("../../../icons/device/remote-control-2-fill.svg");
+  }
+
+  .fr-icon-remote-control-2-line::before,
+  .fr-icon-remote-control-2-line::after {
+    background-image: url("../../../icons/device/remote-control-2-line.svg");
+  }
+
+  .fr-icon-remote-control-fill::before,
+  .fr-icon-remote-control-fill::after {
+    background-image: url("../../../icons/device/remote-control-fill.svg");
+  }
+
+  .fr-icon-remote-control-line::before,
+  .fr-icon-remote-control-line::after {
+    background-image: url("../../../icons/device/remote-control-line.svg");
+  }
+
+  .fr-icon-restart-fill::before,
+  .fr-icon-restart-fill::after {
+    background-image: url("../../../icons/device/restart-fill.svg");
+  }
+
+  .fr-icon-restart-line::before,
+  .fr-icon-restart-line::after {
+    background-image: url("../../../icons/device/restart-line.svg");
+  }
+
+  .fr-icon-rfid-fill::before,
+  .fr-icon-rfid-fill::after {
+    background-image: url("../../../icons/device/rfid-fill.svg");
+  }
+
+  .fr-icon-rfid-line::before,
+  .fr-icon-rfid-line::after {
+    background-image: url("../../../icons/device/rfid-line.svg");
+  }
+
+  .fr-icon-rotate-lock-fill::before,
+  .fr-icon-rotate-lock-fill::after {
+    background-image: url("../../../icons/device/rotate-lock-fill.svg");
+  }
+
+  .fr-icon-rotate-lock-line::before,
+  .fr-icon-rotate-lock-line::after {
+    background-image: url("../../../icons/device/rotate-lock-line.svg");
+  }
+
+  .fr-icon-router-fill::before,
+  .fr-icon-router-fill::after {
+    background-image: url("../../../icons/device/router-fill.svg");
+  }
+
+  .fr-icon-router-line::before,
+  .fr-icon-router-line::after {
+    background-image: url("../../../icons/device/router-line.svg");
   }
 
   .fr-icon-rss-fill::before,
@@ -134,6 +454,46 @@
     background-image: url("../../../icons/device/save-line.svg");
   }
 
+  .fr-icon-scan-fill::before,
+  .fr-icon-scan-fill::after {
+    background-image: url("../../../icons/device/scan-fill.svg");
+  }
+
+  .fr-icon-scan-line::before,
+  .fr-icon-scan-line::after {
+    background-image: url("../../../icons/device/scan-line.svg");
+  }
+
+  .fr-icon-sd-card-fill::before,
+  .fr-icon-sd-card-fill::after {
+    background-image: url("../../../icons/device/sd-card-fill.svg");
+  }
+
+  .fr-icon-sd-card-line::before,
+  .fr-icon-sd-card-line::after {
+    background-image: url("../../../icons/device/sd-card-line.svg");
+  }
+
+  .fr-icon-sd-card-mini-fill::before,
+  .fr-icon-sd-card-mini-fill::after {
+    background-image: url("../../../icons/device/sd-card-mini-fill.svg");
+  }
+
+  .fr-icon-sd-card-mini-line::before,
+  .fr-icon-sd-card-mini-line::after {
+    background-image: url("../../../icons/device/sd-card-mini-line.svg");
+  }
+
+  .fr-icon-sensor-fill::before,
+  .fr-icon-sensor-fill::after {
+    background-image: url("../../../icons/device/sensor-fill.svg");
+  }
+
+  .fr-icon-sensor-line::before,
+  .fr-icon-sensor-line::after {
+    background-image: url("../../../icons/device/sensor-line.svg");
+  }
+
   .fr-icon-server-fill::before,
   .fr-icon-server-fill::after {
     background-image: url("../../../icons/device/server-fill.svg");
@@ -142,6 +502,56 @@
   .fr-icon-server-line::before,
   .fr-icon-server-line::after {
     background-image: url("../../../icons/device/server-line.svg");
+  }
+
+  .fr-icon-shut-down-fill::before,
+  .fr-icon-shut-down-fill::after {
+    background-image: url("../../../icons/device/shut-down-fill.svg");
+  }
+
+  .fr-icon-shut-down-line::before,
+  .fr-icon-shut-down-line::after {
+    background-image: url("../../../icons/device/shut-down-line.svg");
+  }
+
+  .fr-icon-signal-wifi-error-fill::before,
+  .fr-icon-signal-wifi-error-fill::after {
+    background-image: url("../../../icons/device/signal-wifi-error-fill.svg");
+  }
+
+  .fr-icon-signal-wifi-error-line::before,
+  .fr-icon-signal-wifi-error-line::after {
+    background-image: url("../../../icons/device/signal-wifi-error-line.svg");
+  }
+
+  .fr-icon-signal-wifi-fill::before,
+  .fr-icon-signal-wifi-fill::after {
+    background-image: url("../../../icons/device/signal-wifi-fill.svg");
+  }
+
+  .fr-icon-signal-wifi-line::before,
+  .fr-icon-signal-wifi-line::after {
+    background-image: url("../../../icons/device/signal-wifi-line.svg");
+  }
+
+  .fr-icon-signal-wifi-off-fill::before,
+  .fr-icon-signal-wifi-off-fill::after {
+    background-image: url("../../../icons/device/signal-wifi-off-fill.svg");
+  }
+
+  .fr-icon-signal-wifi-off-line::before,
+  .fr-icon-signal-wifi-off-line::after {
+    background-image: url("../../../icons/device/signal-wifi-off-line.svg");
+  }
+
+  .fr-icon-sim-card-2-fill::before,
+  .fr-icon-sim-card-2-fill::after {
+    background-image: url("../../../icons/device/sim-card-2-fill.svg");
+  }
+
+  .fr-icon-sim-card-2-line::before,
+  .fr-icon-sim-card-2-line::after {
+    background-image: url("../../../icons/device/sim-card-2-line.svg");
   }
 
   .fr-icon-smartphone-fill::before,
@@ -174,6 +584,36 @@
     background-image: url("../../../icons/device/tv-line.svg");
   }
 
+  .fr-icon-u-disk-fill::before,
+  .fr-icon-u-disk-fill::after {
+    background-image: url("../../../icons/device/u-disk-fill.svg");
+  }
+
+  .fr-icon-u-disk-line::before,
+  .fr-icon-u-disk-line::after {
+    background-image: url("../../../icons/device/u-disk-line.svg");
+  }
+
+  .fr-icon-uninstall-fill::before,
+  .fr-icon-uninstall-fill::after {
+    background-image: url("../../../icons/device/uninstall-fill.svg");
+  }
+
+  .fr-icon-uninstall-line::before,
+  .fr-icon-uninstall-line::after {
+    background-image: url("../../../icons/device/uninstall-line.svg");
+  }
+
+  .fr-icon-usb-fill::before,
+  .fr-icon-usb-fill::after {
+    background-image: url("../../../icons/device/usb-fill.svg");
+  }
+
+  .fr-icon-usb-line::before,
+  .fr-icon-usb-line::after {
+    background-image: url("../../../icons/device/usb-line.svg");
+  }
+
   .fr-icon-wifi-fill::before,
   .fr-icon-wifi-fill::after {
     background-image: url("../../../icons/device/wifi-fill.svg");
@@ -182,6 +622,26 @@
   .fr-icon-wifi-line::before,
   .fr-icon-wifi-line::after {
     background-image: url("../../../icons/device/wifi-line.svg");
+  }
+
+  .fr-icon-wifi-off-fill::before,
+  .fr-icon-wifi-off-fill::after {
+    background-image: url("../../../icons/device/wifi-off-fill.svg");
+  }
+
+  .fr-icon-wifi-off-line::before,
+  .fr-icon-wifi-off-line::after {
+    background-image: url("../../../icons/device/wifi-off-line.svg");
+  }
+
+  .fr-icon-wireless-charging-fill::before,
+  .fr-icon-wireless-charging-fill::after {
+    background-image: url("../../../icons/device/wireless-charging-fill.svg");
+  }
+
+  .fr-icon-wireless-charging-line::before,
+  .fr-icon-wireless-charging-line::after {
+    background-image: url("../../../icons/device/wireless-charging-line.svg");
   }
 
   .fr-fi-phone-fill::before {

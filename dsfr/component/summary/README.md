@@ -23,4 +23,4 @@ Afin d’utiliser le composant `summary`, il est nécessaire d’ajouter les fic
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/sommaire) sur le module Sommaire
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/sommaire) sur le module Sommaire

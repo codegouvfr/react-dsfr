@@ -23,4 +23,4 @@ Afin d’utiliser le composant `highlight`, il est nécessaire d’ajouter les f
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mise-en-exergue) sur le module Mises en exergue
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/mise-en-exergue) sur le module Mises en exergue

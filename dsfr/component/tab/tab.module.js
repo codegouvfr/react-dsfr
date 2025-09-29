@@ -1,10 +1,10 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.2'
+  version: '1.14.2'
 };
 
 const api = window[config.namespace];
@@ -295,7 +295,8 @@ class TabsGroup extends api.core.DisclosuresGroup {
     const paneHeight = Math.round(this.current.node.offsetHeight);
     if (this.panelHeight === paneHeight) return;
     this.panelHeight = paneHeight;
-    this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight) + 'px');
+    const offsetNegativeMargin = 4;
+    this.style.setProperty('--tabs-height', (this.panelHeight + this.listHeight - offsetNegativeMargin) + 'px');
   }
 }
 

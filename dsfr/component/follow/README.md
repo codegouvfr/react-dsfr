@@ -7,8 +7,8 @@ Le bloc "Lettre d'information et Réseaux Sociaux" est composé d'un bloc permet
 follow
 └─ core
 └─ alert
-└─ button
 └─ input
+└─ button
 ```
 
 ## Utilisation
@@ -30,4 +30,4 @@ Afin d’utiliser le composant `follow`, il est nécessaire d’ajouter les fich
 
 ## Documentation
 
-Consulter [la documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/lettre-d-information-et-reseaux-sociaux) sur le module Lettre d'information et Réseaux Sociaux
+Consulter [la documentation](https://www.systeme-de-design.gouv.fr/version-courante/fr/composants/lettre-d-information-et-reseaux-sociaux) sur le module Lettre d'information et Réseaux Sociaux

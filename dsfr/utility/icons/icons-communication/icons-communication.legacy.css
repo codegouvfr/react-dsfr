@@ -1,5 +1,5 @@
 /*!
- * DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+ * DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
  */
 @media (min-width: 36em) {
   /*! media sm */
@@ -54,6 +54,66 @@
     background-image: url("../../../icons/communication/chat-delete-line.svg");
   }
 
+  .fr-icon-chat-download-fill::before,
+  .fr-icon-chat-download-fill::after {
+    background-image: url("../../../icons/communication/chat-download-fill.svg");
+  }
+
+  .fr-icon-chat-download-line::before,
+  .fr-icon-chat-download-line::after {
+    background-image: url("../../../icons/communication/chat-download-line.svg");
+  }
+
+  .fr-icon-chat-follow-up-fill::before,
+  .fr-icon-chat-follow-up-fill::after {
+    background-image: url("../../../icons/communication/chat-follow-up-fill.svg");
+  }
+
+  .fr-icon-chat-follow-up-line::before,
+  .fr-icon-chat-follow-up-line::after {
+    background-image: url("../../../icons/communication/chat-follow-up-line.svg");
+  }
+
+  .fr-icon-chat-forward-fill::before,
+  .fr-icon-chat-forward-fill::after {
+    background-image: url("../../../icons/communication/chat-forward-fill.svg");
+  }
+
+  .fr-icon-chat-forward-line::before,
+  .fr-icon-chat-forward-line::after {
+    background-image: url("../../../icons/communication/chat-forward-line.svg");
+  }
+
+  .fr-icon-chat-history-fill::before,
+  .fr-icon-chat-history-fill::after {
+    background-image: url("../../../icons/communication/chat-history-fill.svg");
+  }
+
+  .fr-icon-chat-history-line::before,
+  .fr-icon-chat-history-line::after {
+    background-image: url("../../../icons/communication/chat-history-line.svg");
+  }
+
+  .fr-icon-chat-new-fill::before,
+  .fr-icon-chat-new-fill::after {
+    background-image: url("../../../icons/communication/chat-new-fill.svg");
+  }
+
+  .fr-icon-chat-new-line::before,
+  .fr-icon-chat-new-line::after {
+    background-image: url("../../../icons/communication/chat-new-line.svg");
+  }
+
+  .fr-icon-chat-off-fill::before,
+  .fr-icon-chat-off-fill::after {
+    background-image: url("../../../icons/communication/chat-off-fill.svg");
+  }
+
+  .fr-icon-chat-off-line::before,
+  .fr-icon-chat-off-line::after {
+    background-image: url("../../../icons/communication/chat-off-line.svg");
+  }
+
   .fr-icon-chat-poll-fill::before,
   .fr-icon-chat-poll-fill::after {
     background-image: url("../../../icons/communication/chat-poll-fill.svg");
@@ -64,6 +124,56 @@
     background-image: url("../../../icons/communication/chat-poll-line.svg");
   }
 
+  .fr-icon-chat-private-fill::before,
+  .fr-icon-chat-private-fill::after {
+    background-image: url("../../../icons/communication/chat-private-fill.svg");
+  }
+
+  .fr-icon-chat-private-line::before,
+  .fr-icon-chat-private-line::after {
+    background-image: url("../../../icons/communication/chat-private-line.svg");
+  }
+
+  .fr-icon-chat-quote-fill::before,
+  .fr-icon-chat-quote-fill::after {
+    background-image: url("../../../icons/communication/chat-quote-fill.svg");
+  }
+
+  .fr-icon-chat-quote-line::before,
+  .fr-icon-chat-quote-line::after {
+    background-image: url("../../../icons/communication/chat-quote-line.svg");
+  }
+
+  .fr-icon-chat-settings-fill::before,
+  .fr-icon-chat-settings-fill::after {
+    background-image: url("../../../icons/communication/chat-settings-fill.svg");
+  }
+
+  .fr-icon-chat-settings-line::before,
+  .fr-icon-chat-settings-line::after {
+    background-image: url("../../../icons/communication/chat-settings-line.svg");
+  }
+
+  .fr-icon-chat-upload-fill::before,
+  .fr-icon-chat-upload-fill::after {
+    background-image: url("../../../icons/communication/chat-upload-fill.svg");
+  }
+
+  .fr-icon-chat-upload-line::before,
+  .fr-icon-chat-upload-line::after {
+    background-image: url("../../../icons/communication/chat-upload-line.svg");
+  }
+
+  .fr-icon-chat-voice-fill::before,
+  .fr-icon-chat-voice-fill::after {
+    background-image: url("../../../icons/communication/chat-voice-fill.svg");
+  }
+
+  .fr-icon-chat-voice-line::before,
+  .fr-icon-chat-voice-line::after {
+    background-image: url("../../../icons/communication/chat-voice-line.svg");
+  }
+
   .fr-icon-discuss-fill::before,
   .fr-icon-discuss-fill::after {
     background-image: url("../../../icons/communication/discuss-fill.svg");
@@ -72,6 +182,16 @@
   .fr-icon-discuss-line::before,
   .fr-icon-discuss-line::after {
     background-image: url("../../../icons/communication/discuss-line.svg");
+  }
+
+  .fr-icon-emoji-sticker-fill::before,
+  .fr-icon-emoji-sticker-fill::after {
+    background-image: url("../../../icons/communication/emoji-sticker-fill.svg");
+  }
+
+  .fr-icon-emoji-sticker-line::before,
+  .fr-icon-emoji-sticker-line::after {
+    background-image: url("../../../icons/communication/emoji-sticker-line.svg");
   }
 
   .fr-icon-feedback-fill::before,
@@ -94,6 +214,16 @@
     background-image: url("../../../icons/communication/message-2-line.svg");
   }
 
+  .fr-icon-message-3-fill::before,
+  .fr-icon-message-3-fill::after {
+    background-image: url("../../../icons/communication/message-3-fill.svg");
+  }
+
+  .fr-icon-message-3-line::before,
+  .fr-icon-message-3-line::after {
+    background-image: url("../../../icons/communication/message-3-line.svg");
+  }
+
   .fr-icon-question-answer-fill::before,
   .fr-icon-question-answer-fill::after {
     background-image: url("../../../icons/communication/question-answer-fill.svg");
@@ -114,6 +244,16 @@
     background-image: url("../../../icons/communication/questionnaire-line.svg");
   }
 
+  .fr-icon-speak-fill::before,
+  .fr-icon-speak-fill::after {
+    background-image: url("../../../icons/communication/speak-fill.svg");
+  }
+
+  .fr-icon-speak-line::before,
+  .fr-icon-speak-line::after {
+    background-image: url("../../../icons/communication/speak-line.svg");
+  }
+
   .fr-icon-video-chat-fill::before,
   .fr-icon-video-chat-fill::after {
     background-image: url("../../../icons/communication/video-chat-fill.svg");
@@ -122,5 +262,13 @@
   .fr-icon-video-chat-line::before,
   .fr-icon-video-chat-line::after {
     background-image: url("../../../icons/communication/video-chat-line.svg");
+  }
+
+  .fr-fi-chat-quote-fill::before {
+    background-image: url("../../../icons/communication/chat-quote-fill.svg");
+  }
+
+  .fr-fi-chat-quote-line::before {
+    background-image: url("../../../icons/communication/chat-quote-line.svg");
   }
 }

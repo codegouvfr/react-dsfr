@@ -1,4 +1,4 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 (function () {
   'use strict';
@@ -7,7 +7,7 @@
     prefix: 'fr',
     namespace: 'dsfr',
     organisation: '@gouvfr',
-    version: '1.13.2'
+    version: '1.14.2'
   };
 
   var api = window[config.namespace];
@@ -59,7 +59,7 @@
     };
 
     TooltipReferent.prototype._click = function _click () {
-      this.focus();
+      this.focusIn();
     };
 
     TooltipReferent.prototype._clickOut = function _clickOut (target) {
@@ -69,7 +69,6 @@
     TooltipReferent.prototype._keydown = function _keydown (keyCode) {
       switch (keyCode) {
         case api.core.KeyCodes.ESCAPE:
-          this.blur();
           this.close();
           break;
       }

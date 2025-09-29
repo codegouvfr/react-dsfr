@@ -1,10 +1,10 @@
-/*! DSFR v1.13.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
+/*! DSFR v1.14.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions) */
 
 const config = {
   prefix: 'fr',
   namespace: 'dsfr',
   organisation: '@gouvfr',
-  version: '1.13.2'
+  version: '1.14.2'
 };
 
 const api = window[config.namespace];
@@ -60,6 +60,9 @@ class Modal extends api.core.Disclosure {
   // TODO v2 : passer les tagName d'action en constante
   _escape () {
     const tagName = document.activeElement ? document.activeElement.tagName : undefined;
+    const isTooltipReferent = document.activeElement ? document.activeElement.hasAttribute('data-fr-js-tooltip-referent') : false;
+
+    if (isTooltipReferent) return;
 
     switch (tagName) {
       case 'INPUT':
@@ -197,7 +200,8 @@ const ORDEREDS = ordereds.join();
 
 const isFocusable = (element, container) => {
   if (!(element instanceof Element)) return false;
-  const style = window.getComputedStyle(element);
+  const windowElement = window.frameElement ? window.frameElement.contentWindow : window;
+  const style = windowElement.getComputedStyle(element);
   if (!style) return false;
   if (style.visibility === 'hidden') return false;
   if (container === undefined) container = element;
@@ -220,6 +224,7 @@ class FocusTrap {
     this.handling = this.handle.bind(this);
     this.focusing = this.maintainFocus.bind(this);
     this.current = null;
+    this.window = window.frameElement ? window.frameElement.contentWindow : window;
   }
 
   get trapped () { return this.element !== null; }
@@ -236,7 +241,7 @@ class FocusTrap {
 
   wait () {
     if (!isFocusable(this.element)) {
-      window.requestAnimationFrame(this.waiting);
+      this.window.requestAnimationFrame(this.waiting);
       return;
     }
 
@@ -247,10 +252,10 @@ class FocusTrap {
     if (!this.isTrapping) return;
     this.isTrapping = false;
     const focusables = this.focusables;
-    if (focusables.length && focusables.indexOf(document.activeElement) === -1) focusables[0].focus();
+    if (focusables.length && focusables.indexOf(this.window.document.activeElement) === -1) focusables[0].focus();
     this.element.setAttribute('aria-modal', true);
-    window.addEventListener('keydown', this.handling);
-    document.body.addEventListener('focus', this.focusing, true);
+    this.window.addEventListener('keydown', this.handling);
+    this.window.document.body.addEventListener('focus', this.focusing, true);
   }
 
   stun (node) {
@@ -283,21 +288,21 @@ class FocusTrap {
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
 
-    const index = focusables.indexOf(document.activeElement);
+    const index = focusables.indexOf(this.window.document.activeElement);
 
     if (e.shiftKey) {
-      if (!this.element.contains(document.activeElement) || index < 1) {
+      if (!this.element.contains(this.window.document.activeElement) || index < 1) {
         e.preventDefault();
         last.focus();
-      } else if (document.activeElement.tabIndex > 0 || focusables[index - 1].tabIndex > 0) {
+      } else if (this.window.document.activeElement.tabIndex > 0 || focusables[index - 1].tabIndex > 0) {
         e.preventDefault();
         focusables[index - 1].focus();
       }
     } else {
-      if (!this.element.contains(document.activeElement) || index === focusables.length - 1 || index === -1) {
+      if (!this.element.contains(this.window.document.activeElement) || index === focusables.length - 1 || index === -1) {
         e.preventDefault();
         first.focus();
-      } else if (document.activeElement.tabIndex > 0) {
+      } else if (this.window.document.activeElement.tabIndex > 0) {
         e.preventDefault();
         focusables[index + 1].focus();
       }
@@ -310,7 +315,7 @@ class FocusTrap {
     /**
      *  filtrage des radiobutttons de même name (la navigations d'un groupe de radio se fait à la flèche et non pas au tab
      **/
-    const radios = api.internals.dom.querySelectorAllArray(document.documentElement, 'input[type="radio"]');
+    const radios = api.internals.dom.querySelectorAllArray(this.window.document.documentElement, 'input[type="radio"]');
 
     if (radios.length) {
       const groups = {};
@@ -342,8 +347,8 @@ class FocusTrap {
     this.isTrapping = false;
 
     this.element.removeAttribute('aria-modal');
-    window.removeEventListener('keydown', this.handling);
-    document.body.removeEventListener('focus', this.focusing, true);
+    this.window.removeEventListener('keydown', this.handling);
+    this.window.document.body.removeEventListener('focus', this.focusing, true);
 
     this.element = null;
 
@@ -384,7 +389,8 @@ class RadioButtonGroup {
 
   push (button) {
     this.buttons.push(button);
-    if (button === document.activeElement || button.checked || this.selected === undefined) this.selected = button;
+    const windowElement = window.frameElement ? window.frameElement.contentWindow : window;
+    if (button === windowElement.document.activeElement || button.checked || this.selected === undefined) this.selected = button;
   }
 
   keep (button) {
@@ -438,9 +444,11 @@ class ModalBody extends api.core.Instance {
   }
 
   adjust () {
+    const iframe = window.frameElement;
+    const windowElement = iframe ? iframe.contentWindow : window;
     const offset = OFFSET * (this.isBreakpoint(api.core.Breakpoints.MD) ? 2 : 1);
-    if (this.isLegacy) this.style.maxHeight = `${window.innerHeight - offset}px`;
-    else this.style.setProperty('--modal-max-height', `${window.innerHeight - offset}px`);
+    if (this.isLegacy) this.style.maxHeight = `${windowElement.innerHeight - offset}px`;
+    else this.style.setProperty('--modal-max-height', `${windowElement.innerHeight - offset}px`);
     this.divide();
   }
 }

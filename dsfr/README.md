@@ -8,8 +8,8 @@ Afin d’utiliser le composant `dsfr`, il est nécessaire d’ajouter les fichie
     <link href="css/dsfr/dsfr.min.css" rel="stylesheet">
   </head>
   <body>
-    <script type="module" href="js/dsfr/dsfr.module.min.js" ></script>
-    <script type="text/javascript" nomodule href="js/dsfr/dsfr.nomodule.min.js" ></script>
+    <script type="module" src="js/dsfr/dsfr.module.min.js" ></script>
+    <script type="text/javascript" nomodule src="js/dsfr/dsfr.nomodule.min.js" ></script>
   </body>
 </html>
 ```
