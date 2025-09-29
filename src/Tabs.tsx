@@ -1,14 +1,6 @@
 "use client";
 
-import React, {
-    memo,
-    forwardRef,
-    useId,
-    useState,
-    useEffect,
-    type ReactNode,
-    type CSSProperties
-} from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties, useMemo } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -78,23 +70,14 @@ export const Tabs = memo(
             "explicitlyProvidedId": id_props
         });
 
-        const getSelectedTabIndex = () => {
+        const selectedTabIndex = useMemo(() => {
             const index = tabs.findIndex(tab =>
                 "content" in tab ? tab.isDefault ?? false : tab.tabId === selectedTabId
             );
             return index === -1 ? 0 : index;
-        };
+        }, [tabs, selectedTabId]);
 
         const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
-
-        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
-
-        useEffect(() => {
-            if (selectedTabId === undefined) {
-                return;
-            }
-            setSelectedTabIndex(getSelectedTabIndex());
-        }, [selectedTabId]);
 
         const onTabClickFactory = useCallbackFactory(([tabIndex]: [number]) => {
             if (selectedTabId === undefined) {
