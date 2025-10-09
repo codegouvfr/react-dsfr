@@ -74,7 +74,7 @@ export const Alert = memo(
             closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
-            role = "alert",
+            role,
             ...rest
         } = props;
 
@@ -148,6 +148,7 @@ export const Alert = memo(
                 )}
                 style={style}
                 {...(refShouldSetRole.current && { "role": role })}
+                {...(role ? { "role": role } : {})}
                 ref={ref}
                 {...rest}
             >
