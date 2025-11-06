@@ -74,7 +74,7 @@ export const Alert = memo(
             closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
-            role,
+            role = "alert",
             ...rest
         } = props;
 
