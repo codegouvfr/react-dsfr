@@ -156,7 +156,7 @@ export const Alert = memo(
                         {title}
                     </HtmlTitleTag>
                 )}
-                {description && (
+                {description !== undefined && (
                     <DescriptionTag className={classes.description}>{description}</DescriptionTag>
                 )}
                 {isClosableByUser && (
