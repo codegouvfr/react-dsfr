@@ -69,7 +69,7 @@ export const Alert = memo(forwardRef((props, ref) => {
     if (isClosed) {
         return null;
     }
-    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": role }), { ref: ref }, rest),
+    return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": role }), (role ? { "role": role } : {}), { ref: ref }, rest),
         title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title)),
         description !== undefined && (React.createElement(DescriptionTag, { className: classes.description }, description)),
         isClosableByUser && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));

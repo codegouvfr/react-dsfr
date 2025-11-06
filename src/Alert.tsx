@@ -148,6 +148,7 @@ export const Alert = memo(
                 )}
                 style={style}
                 {...(refShouldSetRole.current && { "role": role })}
+                {...(role ? { "role": role } : {})}
                 ref={ref}
                 {...rest}
             >
