@@ -71,7 +71,7 @@ export const Alert = memo(forwardRef((props, ref) => {
     }
     return (React.createElement("div", Object.assign({ id: id, className: cx(fr.cx("fr-alert", `fr-alert--${severity}`, { "fr-alert--sm": isSmall }), classes.root, className), style: style }, (refShouldSetRole.current && { "role": role }), { ref: ref }, rest),
         title !== undefined && (React.createElement(HtmlTitleTag, { className: cx(fr.cx("fr-alert__title"), classes.title) }, title)),
-        React.createElement(DescriptionTag, { className: classes.description }, description),
+        description !== undefined && (React.createElement(DescriptionTag, { className: classes.description }, description)),
         isClosableByUser && (React.createElement("button", { ref: setButtonElement, className: cx(fr.cx("fr-link--close", "fr-link"), classes.close), onClick: onCloseButtonClick }, t("hide message")))));
 }));
 Alert.displayName = symToStr({ Alert });
