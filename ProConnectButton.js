@@ -29,7 +29,7 @@ export const ProConnectButton = memo(forwardRef((props, ref) => {
     const Inner = onClick !== undefined ? "button" : "a";
     const innerProps = (onClick !== undefined ? { onClick } : { href });
     return (React.createElement("div", { id: id, className: cx(fr.cx("fr-connect-group"), classes.root, className), style: style, ref: ref },
-        React.createElement(Inner, Object.assign({ className: cx(fr.cx("fr-btn", "fr-connect"), "pro-connect") }, innerProps),
+        React.createElement(Inner, Object.assign({ id: `${id}-button`, className: cx(fr.cx("fr-btn", "fr-connect"), "pro-connect") }, innerProps),
             React.createElement("span", { className: cx(fr.cx("fr-connect__login"), classes.login) }, "S\u2019identifier avec"),
             React.createElement("span", { className: cx(fr.cx("fr-connect__brand"), classes.brand) }, "ProConnect")),
         React.createElement("p", null,
