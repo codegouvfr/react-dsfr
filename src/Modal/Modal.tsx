@@ -102,10 +102,8 @@ const Modal = memo(
                                     <TitleTag
                                         id={titleId}
                                         id={titleId}
-                                        {...titleProps]
-                                        className={cx(titleProps.className,fr.cx("fr-modal__title"))}
-                                        
                                         {...titleProps}
+                                        className={cx(titleProps.className,fr.cx("fr-modal__title"))}
                                     >
                                         {iconId !== undefined && (
                                             <span
