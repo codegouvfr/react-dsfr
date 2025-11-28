@@ -15,7 +15,8 @@ export type ModalProps = {
     /** Default: "medium" */
     size?: "small" | "medium" | "large";
     title: ReactNode;
-    titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "div";
+    titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    titleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
     children: ReactNode;
     /** Default: true */
     concealingBackdrop?: boolean;
@@ -41,6 +42,7 @@ const Modal = memo(
             id,
             title,
             titleAs: TitleTag = "h1",
+            titleProps,
             children,
             concealingBackdrop = true,
             topAnchor = false,
@@ -100,9 +102,7 @@ const Modal = memo(
                                     <TitleTag
                                         id={titleId}
                                         className={fr.cx("fr-modal__title")}
-                                        {...(TitleTag === "div"
-                                            ? { "role": "heading", "aria-level": 1 }
-                                            : {})}
+                                        {...titleProps}
                                     >
                                         {iconId !== undefined && (
                                             <span
