@@ -101,7 +101,6 @@ const Modal = memo(
                                 <div className={fr.cx("fr-modal__content")}>
                                     <TitleTag
                                         id={titleId}
-                                        id={titleId}
                                         {...titleProps}
                                         className={cx(titleProps.className,fr.cx("fr-modal__title"))}
                                     >
