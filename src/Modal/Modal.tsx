@@ -16,7 +16,10 @@ export type ModalProps = {
     size?: "small" | "medium" | "large";
     title: ReactNode;
     titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "div";
-    titleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
+    titleProps?: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLHeadingElement>,
+        HTMLHeadingElement
+    >;
     children: ReactNode;
     /** Default: true */
     concealingBackdrop?: boolean;
@@ -102,7 +105,10 @@ const Modal = memo(
                                     <TitleTag
                                         id={titleId}
                                         {...titleProps}
-                                        className={cx(titleProps.className, fr.cx("fr-modal__title"))}
+                                        className={cx(
+                                            titleProps?.className,
+                                            fr.cx("fr-modal__title")
+                                        )}
                                     >
                                         {iconId !== undefined && (
                                             <span
