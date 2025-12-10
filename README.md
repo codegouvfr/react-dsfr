@@ -71,7 +71,7 @@ This project is co-maintained by public servants from various French administrat
 -   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
 -   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
 
-## Development
+## Development (for contributing to the project)
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
