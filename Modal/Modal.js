@@ -18,7 +18,7 @@ import { createComponentI18nApi } from "../i18n";
 import Button from "../Button";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 const Modal = memo(forwardRef((props, ref) => {
-    const { className, id, title, children, concealingBackdrop = true, topAnchor = false, iconId, buttons: buttons_props, size = "medium", style } = props, rest = __rest(props, ["className", "id", "title", "children", "concealingBackdrop", "topAnchor", "iconId", "buttons", "size", "style"]);
+    const { className, id, title, titleAs: TitleTag = "h1", titleProps, children, concealingBackdrop = true, topAnchor = false, iconId, buttons: buttons_props, size = "medium", style } = props, rest = __rest(props, ["className", "id", "title", "titleAs", "titleProps", "children", "concealingBackdrop", "topAnchor", "iconId", "buttons", "size", "style"]);
     assert();
     const buttons = buttons_props === undefined
         ? undefined
@@ -44,7 +44,7 @@ const Modal = memo(forwardRef((props, ref) => {
                         React.createElement("div", { className: fr.cx("fr-modal__header") },
                             React.createElement("button", { className: fr.cx("fr-btn--close", "fr-btn"), title: t("close"), "aria-controls": id, type: "button" }, t("close"))),
                         React.createElement("div", { className: fr.cx("fr-modal__content") },
-                            React.createElement("h1", { id: titleId, className: fr.cx("fr-modal__title") },
+                            React.createElement(TitleTag, Object.assign({ id: titleId }, titleProps, { className: cx(titleProps === null || titleProps === void 0 ? void 0 : titleProps.className, fr.cx("fr-modal__title")) }),
                                 iconId !== undefined && (React.createElement("span", { className: fr.cx(iconId, "fr-fi--lg"), "aria-hidden": true })),
                                 title),
                             children),

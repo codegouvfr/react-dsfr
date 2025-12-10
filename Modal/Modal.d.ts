@@ -1,5 +1,5 @@
 import type { JSX } from "../tools/JSX";
-import { type CSSProperties, type ReactNode } from "react";
+import React, { type CSSProperties, type ReactNode } from "react";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 import { ButtonProps } from "../Button";
 export type ModalProps = {
@@ -7,6 +7,8 @@ export type ModalProps = {
     /** Default: "medium" */
     size?: "small" | "medium" | "large";
     title: ReactNode;
+    titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "div";
+    titleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
     children: ReactNode;
     /** Default: true */
     concealingBackdrop?: boolean;
