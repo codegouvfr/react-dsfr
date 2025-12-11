@@ -10,7 +10,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import React, { memo, forwardRef, useId, useState, useEffect } from "react";
+import React, { memo, forwardRef, useId, useMemo } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
@@ -25,18 +25,11 @@ export const Tabs = memo(forwardRef((props, ref) => {
         "defaultIdPrefix": "fr-tabs",
         "explicitlyProvidedId": id_props
     });
-    const getSelectedTabIndex = () => {
+    const selectedTabIndex = useMemo(() => {
         const index = tabs.findIndex(tab => { var _a; return "content" in tab ? (_a = tab.isDefault) !== null && _a !== void 0 ? _a : false : tab.tabId === selectedTabId; });
         return index === -1 ? 0 : index;
-    };
+    }, [tabs, selectedTabId]);
     const buttonRefs = React.useRef([]);
-    const [selectedTabIndex, setSelectedTabIndex] = useState(getSelectedTabIndex);
-    useEffect(() => {
-        if (selectedTabId === undefined) {
-            return;
-        }
-        setSelectedTabIndex(getSelectedTabIndex());
-    }, [selectedTabId]);
     const onTabClickFactory = useCallbackFactory(([tabIndex]) => {
         if (selectedTabId === undefined) {
             onTabChange === null || onTabChange === void 0 ? void 0 : onTabChange({
