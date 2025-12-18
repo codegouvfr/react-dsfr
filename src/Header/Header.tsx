@@ -311,7 +311,6 @@ export const Header = memo(
                                                     className={fr.cx("fr-btn--menu", "fr-btn")}
                                                     data-fr-opened="false"
                                                     aria-controls={menuModalId}
-                                                    aria-haspopup="menu"
                                                     id={menuButtonId}
                                                     title={t("menu")}
                                                 >
