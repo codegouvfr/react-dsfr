@@ -87,7 +87,7 @@ export const Header = memo(forwardRef((props, ref) => {
                                     navigation !== undefined ||
                                     isSearchBarEnabled) && (React.createElement("div", { className: cx(fr.cx("fr-header__navbar"), classes.navbar) },
                                     isSearchBarEnabled && (React.createElement("button", { id: `${id}-search-button`, className: fr.cx("fr-btn--search", "fr-btn"), "data-fr-opened": false, "aria-controls": searchModalId, title: tSearchBar("label") }, tSearchBar("label"))),
-                                    React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, "aria-haspopup": "menu", id: menuButtonId, title: t("menu") }, t("menu"))))),
+                                    React.createElement("button", { className: fr.cx("fr-btn--menu", "fr-btn"), "data-fr-opened": "false", "aria-controls": menuModalId, id: menuButtonId, title: t("menu") }, t("menu"))))),
                             serviceTitle !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-header__service", hasOperatorLink && "fr-enlarge-link"), classes.service) },
                                 React.createElement(Link, Object.assign({}, homeLinkProps),
                                     React.createElement("p", { className: cx(fr.cx("fr-header__service-title"), classes.serviceTitle) }, serviceTitle)),
