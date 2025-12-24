@@ -1,9 +1,8 @@
 import { SegmentedControl, type SegmentedControlProps } from "../dist/SegmentedControl";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     wrappedComponent: { SegmentedControl },
     description: `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/controle-segmente/)
@@ -19,13 +18,13 @@ const { meta, getStory } = getStoryFactory({
             control: { type: "boolean" }
         },
         segments: {
-            control: { type: null }
+            control: false
         }
     },
     disabledProps: ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/SegmentedControl" };
 
 const defaultProps: SegmentedControlProps = {
     legend: "Légende",
