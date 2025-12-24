@@ -1,4 +1,4 @@
-import { create } from "@storybook/theming";
+import { create } from "storybook/theming";
 
 const brandImage= "logo.png";
 const brandTitle= "@codegouvfr/react-dsfr";

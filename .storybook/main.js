@@ -14,16 +14,11 @@ module.exports = {
 
     "addons": [
         "@storybook/addon-links",
-        "@storybook/addon-essentials",
         "storybook-dark-mode",
         "@storybook/addon-a11y",
-        "@storybook/addon-mdx-gfm",
-        "@storybook/addon-webpack5-compiler-swc"
+        "@storybook/addon-webpack5-compiler-swc",
+        "@storybook/addon-docs"
     ],
 
-    "staticDirs": ["../dist", "./static"],
-
-    docs: {
-        autodocs: true
-    }
+    "staticDirs": ["../dist", "./static"]
 };

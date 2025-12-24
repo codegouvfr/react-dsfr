@@ -9,7 +9,7 @@ export const parameters = {
             "date": /Date$/,
         },
     },
-    "backgrounds": { "disable": true },
+    "backgrounds": { disabled: true },
     "darkMode": {
         "light": lightTheme,
         "dark": darkTheme,
@@ -18,7 +18,7 @@ export const parameters = {
         "container": DocsContainer
     },
     "viewport": {
-        "viewports": {
+        options: {
             "1440p": {
                 "name": "1440p",
                 "styles": {
@@ -126,3 +126,4 @@ const { getHardCodedWeight } = (() => {
 
     return { getHardCodedWeight };
 })();
+export const tags = ["autodocs"];

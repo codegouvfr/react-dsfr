@@ -1,8 +1,7 @@
 import { Follow, type FollowProps } from "../dist/Follow";
 import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
-import { action } from "@storybook/addon-actions";
-import React from "react";
+import { action } from "storybook/actions";
 
 const { meta, getStory } = getStoryFactory<FollowProps>({
     sectionName,
