@@ -1,24 +1,25 @@
-module.exports = {
-    "framework": {
-        name: "@storybook/nextjs",
+import { StorybookConfig } from "@storybook/react-vite";
+
+export default {
+    framework: {
+        name: "@storybook/react-vite",
         options: {}
     },
-
-    "stories": [
+    features: {
+        controls: true
+    },
+    stories: [
         "../stories/*.mdx",
         "../stories/*.stories.@(ts|tsx)",
         "../stories/blocks/*.stories.@(ts|tsx)",
         "../stories/charts/*.stories.@(ts|tsx)",
         "../stories/picto/*.stories.@(ts|tsx)"
     ],
-
-    "addons": [
+    addons: [
         "@storybook/addon-links",
-        "storybook-dark-mode",
+        "@vueless/storybook-dark-mode",
         "@storybook/addon-a11y",
-        "@storybook/addon-webpack5-compiler-swc",
         "@storybook/addon-docs"
     ],
-
-    "staticDirs": ["../dist", "./static"]
-};
+    staticDirs: ["../dist", "./static"]
+} satisfies StorybookConfig;

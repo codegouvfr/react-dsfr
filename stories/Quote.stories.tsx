@@ -1,10 +1,9 @@
 import React from "react";
 import { Quote } from "../dist/Quote";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Quote },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/citation)
@@ -12,7 +11,7 @@ const { meta, getStory } = getStoryFactory({
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Quote" };
 
 export const Default = getStory({
     text: "Lorem [...] elit ut. ",

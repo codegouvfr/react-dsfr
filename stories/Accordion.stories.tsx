@@ -1,9 +1,7 @@
 import { Accordion } from "../dist/Accordion";
 import { getStoryFactory, logCallbacks } from "./getStory";
-import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Accordion },
     argTypes: {
         "label": {
@@ -60,7 +58,7 @@ function ControlledAccordion() {
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Accordion" };
 
 export const Default = getStory({
     "label": "Name of the Accordion",

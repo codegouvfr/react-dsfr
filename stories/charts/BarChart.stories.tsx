@@ -1,9 +1,7 @@
 import { BarChart, type BarChartProps } from "../../dist/Chart/BarChart";
 import { getStoryFactory } from "../getStory";
-import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory<BarChartProps>({
-    sectionName: sectionName,
     "wrappedComponent": { BarChart },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants-beta/graphiques-charts/)
@@ -41,7 +39,7 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
     isChartComponent: true
 });
 
-export default meta;
+export default { ...meta, title: "charts/BarChart" };
 
 export const Default = getStory({
     "x": [

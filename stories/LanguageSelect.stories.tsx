@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { LanguageSelect as LanguageSelect_base } from "../dist/LanguageSelect";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { Header } from "../dist/Header";
 import "./utils.css";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { "LanguageSelect": Story },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants/selecteur-de-langue/)
@@ -92,7 +91,7 @@ languages.forEach(lang =>
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/LanguageSelect" };
 
 export const SimpleHeader = getStory({});
 
