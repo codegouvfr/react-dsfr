@@ -1,5 +1,5 @@
 import { Input, type InputProps } from "../dist/Input";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -7,12 +7,14 @@ import Button from "../dist/Button";
 import React from "react";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Input },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/champ-de-saisie)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Input.tsx)`,
     "argTypes": {
+        "label": {
+            "control": { "type": "text" }
+        },
         "disabled": {
             "control": { "type": "boolean" }
         },
@@ -48,17 +50,17 @@ const { meta, getStory } = getStoryFactory({
         "nativeInputProps": {
             "description": `An object that is forwarded as props to te underlying native \`<input />\` element.  
                 This is where you pass the \`name\` prop or \`onChange\` for example.`,
-            "control": { "type": null }
+            "control": false
         },
         "nativeTextAreaProps": {
             "description": `Like the \`nativeInputProps\` but when \`textArea\` is \`true\``,
-            "control": { "type": null }
+            "control": false
         }
     },
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Input" };
 
 export const Default = getStory({
     "label": "Label champ de saisie",

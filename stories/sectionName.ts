@@ -1,1 +1,1 @@
-export const sectionName = "components";
+// removed: sectionName helper
