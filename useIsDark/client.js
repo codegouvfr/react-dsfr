@@ -19,7 +19,11 @@ const $clientSideIsDark = createStatefulObservable(() => {
 });
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 export function getIsDarkClientSide() {
-    return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
+    if ($isAfterFirstEffect.current) {
+        return $clientSideIsDark.current;
+    }
+    assert(ssrWasPerformedWithIsDark !== undefined);
+    return ssrWasPerformedWithIsDark;
 }
 function getSystemColorScheme() {
     return typeof window.matchMedia === "function" &&
@@ -35,7 +39,7 @@ export const useIsDarkClientSide = () => {
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
     const isDark = isFirstRenderingOfTheComponent || !$isAfterFirstEffect.current
-        ? ssrWasPerformedWithIsDark
+        ? (assert(ssrWasPerformedWithIsDark !== undefined), ssrWasPerformedWithIsDark)
         : $clientSideIsDark.current;
     const setIsDark = useConstCallback(newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
         const data_fr_js_value = document.documentElement.getAttribute("data-fr-js");
@@ -63,7 +67,7 @@ export const useIsDarkClientSide = () => {
         setIsDark
     };
 };
-let ssrWasPerformedWithIsDark;
+let ssrWasPerformedWithIsDark = undefined;
 function getCurrentIsDarkFromHtmlAttribute() {
     const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
     switch (colorSchemeFromHtmlAttribute) {
@@ -76,6 +80,11 @@ function getCurrentIsDarkFromHtmlAttribute() {
     }
     assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
+// Warning: There is a ton of implicit coupling here,
+// scripts/build/early-color-scheme.js
+// and
+// src/useIsDark/scriptToRunAsap.ts
+// need to be updated if anything is changed here.
 export function startClientSideIsDarkLogic(params) {
     const { doPersistDarkModePreferenceWithCookie, registerEffectAction, colorSchemeExplicitlyProvidedAsParameter, doCheckNonce = false, trustedTypesPolicyName } = params;
     reset_persisted_value_if_website_config_changed: {
