@@ -1,6 +1,6 @@
 import React, { useEffect, createContext, useContext } from "react";
 import type { ComponentType, ReactNode } from "react";
-import type { ArgTypes, Meta, StoryFn, StoryObj } from "@storybook/react-vite";
+import type { ArgTypes, Meta, StoryFn } from "@storybook/react-vite";
 import { symToStr } from "tsafe/symToStr";
 import { id } from "tsafe/id";
 import { useIsDark } from "../dist/useIsDark";

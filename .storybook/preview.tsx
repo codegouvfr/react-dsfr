@@ -1,6 +1,9 @@
+import { IndexEntry } from "storybook/internal/types";
 import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
-import { Parameters, Preview } from "@storybook/react-vite";
+import { Preview } from "@storybook/react-vite";
+
+console.log("COUCOU from preview.tsx");
 
 const preview: Preview = {
     tags: ["autodocs"],
@@ -12,8 +15,9 @@ const preview: Preview = {
                 "date": /Date$/
             }
         },
-        "backgrounds": { disable: true },
+        "backgrounds": { disabled: true },
         "darkMode": {
+            "stylePreview": true,
             "light": lightTheme,
             "dark": darkTheme
         },
@@ -95,8 +99,8 @@ const preview: Preview = {
             }
         },
         "options": {
-            "storySort": (a: any, b: any) =>
-                getHardCodedWeight(b[1].kind) - getHardCodedWeight(a[1].kind)
+            "storySort": (a: IndexEntry, b: IndexEntry) =>
+                getHardCodedWeight(b.title) - getHardCodedWeight(a.title)
         }
     }
 };

@@ -1,5 +1,9 @@
 import React, { PropsWithChildren, useEffect } from "react";
-import { DocsContainer as BaseContainer, DocsContainerProps } from "@storybook/addon-docs/blocks";
+import {
+    DocsContainer as BaseContainer,
+    DocsContainerProps,
+    Unstyled
+} from "@storybook/addon-docs/blocks";
 import { useDarkMode } from "@vueless/storybook-dark-mode";
 import { darkTheme, lightTheme } from "./customTheme";
 import "../dist/dsfr/utility/icons/icons.min.css";
@@ -49,7 +53,9 @@ export const DocsContainer = ({ children, ...rest }: PropsWithChildren<DocsConta
 
             `}</style>
             <BaseContainer {...rest} theme={isStorybookUiDark ? darkTheme : lightTheme}>
-                <MuiDsfrThemeProvider>{children}</MuiDsfrThemeProvider>
+                <MuiDsfrThemeProvider>
+                    <Unstyled>{children}</Unstyled>
+                </MuiDsfrThemeProvider>
             </BaseContainer>
         </>
     );

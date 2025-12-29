@@ -6,18 +6,19 @@ export default {
         options: {}
     },
     features: {
-        controls: true
+        controls: true,
+        viewport: true,
+        backgrounds: false
     },
     stories: [
         "../stories/*.mdx",
         "../stories/*.stories.@(ts|tsx)",
         "../stories/blocks/*.stories.@(ts|tsx)",
-        "../stories/charts/*.stories.@(ts|tsx)",
-        "../stories/picto/*.stories.@(ts|tsx)"
+        "../stories/charts/*.stories.@(ts|tsx)"
     ],
     addons: [
-        "@storybook/addon-links",
         "@vueless/storybook-dark-mode",
+        "@storybook/addon-links",
         "@storybook/addon-a11y",
         "@storybook/addon-docs"
     ],
