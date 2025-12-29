@@ -106,6 +106,10 @@ import yargsParser from "yargs-parser";
     });
 
     fs.cpSync(pathJoin(__dirname, "main.css"), pathJoin(distDirPath, "main.css"));
+    fs.cpSync(
+        pathJoin(__dirname, "early-color-scheme.js"),
+        pathJoin(distDirPath, "early-color-scheme.js")
+    );
 
     fs.cpSync(pathJoin(dsfrDirPath, "favicon"), pathJoin(distDirPath, "favicon"), {
         "recursive": true

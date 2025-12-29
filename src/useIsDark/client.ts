@@ -34,7 +34,11 @@ export type UseIsDark = () => {
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 
 export function getIsDarkClientSide() {
-    return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
+    if ($isAfterFirstEffect.current) {
+        return $clientSideIsDark.current;
+    }
+    assert(ssrWasPerformedWithIsDark !== undefined);
+    return ssrWasPerformedWithIsDark;
 }
 
 function getSystemColorScheme() {
@@ -56,7 +60,7 @@ export const useIsDarkClientSide: UseIsDark = () => {
 
     const isDark =
         isFirstRenderingOfTheComponent || !$isAfterFirstEffect.current
-            ? ssrWasPerformedWithIsDark
+            ? (assert(ssrWasPerformedWithIsDark !== undefined), ssrWasPerformedWithIsDark)
             : $clientSideIsDark.current;
 
     const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
@@ -97,7 +101,7 @@ export const useIsDarkClientSide: UseIsDark = () => {
     };
 };
 
-let ssrWasPerformedWithIsDark: boolean;
+let ssrWasPerformedWithIsDark: boolean | undefined = undefined;
 
 function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
     const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
@@ -114,6 +118,11 @@ function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
     assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
 
+// Warning: There is a ton of implicit coupling here,
+// scripts/build/early-color-scheme.js
+// and
+// src/useIsDark/scriptToRunAsap.ts
+// need to be updated if anything is changed here.
 export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
