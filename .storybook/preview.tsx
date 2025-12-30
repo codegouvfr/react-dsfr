@@ -8,23 +8,23 @@ console.log("COUCOU from preview.tsx");
 const preview: Preview = {
     tags: ["autodocs"],
     parameters: {
-        "actions": { "argTypesRegex": "^on[A-Z].*" },
-        "controls": {
-            "matchers": {
-                "color": /(background|color)$/i,
-                "date": /Date$/
+        actions: { argTypesRegex: "^on[A-Z].*" },
+        controls: {
+            matchers: {
+                color: /(background|color)$/i,
+                date: /Date$/
             }
         },
-        "backgrounds": { disabled: true },
-        "darkMode": {
-            "stylePreview": true,
-            "light": lightTheme,
-            "dark": darkTheme
+        backgrounds: { disabled: true },
+        darkMode: {
+            stylePreview: true,
+            light: lightTheme,
+            dark: darkTheme
         },
-        "docs": {
-            "container": DocsContainer
+        docs: {
+            container: DocsContainer
         },
-        "viewport": {
+        viewport: {
             options: {
                 "1440p": {
                     "name": "1440p",
@@ -98,39 +98,28 @@ const preview: Preview = {
                 }
             }
         },
-        "options": {
-            "storySort": (a: IndexEntry, b: IndexEntry) =>
-                getHardCodedWeight(b.title) - getHardCodedWeight(a.title)
+        options: {
+            storySort: {
+                method: "alphabetical",
+                order: [
+                    "🇫🇷 Introduction",
+                    "components",
+                    [
+                        "Header",
+                        "Footer",
+                        "consentManagement",
+                        "Alert",
+                        "Tabs",
+                        "Stepper",
+                        "Button",
+                        "FranceConnectButton",
+                        "ProConnectButton",
+                        "*"
+                    ]
+                ]
+            }
         }
     }
 };
 
 export default preview;
-
-const { getHardCodedWeight } = (() => {
-    const orderedPagesPrefix = [
-        "🇫🇷 Introduction",
-        //"components",
-        "components/Header",
-        "components/Footer",
-        "components/consentManagement",
-        "components/Alert",
-        "components/Tabs",
-        "components/Stepper",
-        "components/Button",
-        "components/FranceConnectButton",
-        "components/ProConnectButton"
-    ];
-
-    function getHardCodedWeight(kind: string) {
-        for (let i = 0; i < orderedPagesPrefix.length; i++) {
-            if (kind.toLowerCase().startsWith(orderedPagesPrefix[i].toLowerCase())) {
-                return orderedPagesPrefix.length - i;
-            }
-        }
-
-        return 0;
-    }
-
-    return { getHardCodedWeight };
-})();
