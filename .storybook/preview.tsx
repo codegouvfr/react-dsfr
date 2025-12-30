@@ -1,4 +1,3 @@
-import { IndexEntry } from "storybook/internal/types";
 import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
 import { Preview } from "@storybook/react-vite";
