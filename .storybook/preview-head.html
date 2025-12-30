@@ -1,0 +1,49 @@
+<style>
+    /* Override Storybook default grey colors with DSFR grey colors */
+    .sb-preparing-story,
+    .sb-preparing-docs {
+        background-color: var(--background-default-grey) !important;
+    }
+
+    .sb-loader {
+        border-color: var(--border-default-grey);
+        border-top-color: var(--border-default-grey);
+    }
+
+    .sb-previewBlock {
+        background: var(--background-default-grey);
+        border: 1px solid var(--border-default-grey);
+        box-shadow: var(--border-default-grey) 0 1px 3px 0;
+    }
+
+    .sb-previewBlock_header {
+        box-shadow: var(--border-default-grey) 0 -1px 0 0 inset;
+    }
+
+    .sb-previewBlock_icon {
+        background: var(--background-alt-grey);
+    }
+
+    .sb-argstableBlock th span,
+    .sb-argstableBlock td span {
+        background-color: var(--background-default-grey);
+    }
+
+    .sb-argstableBlock-body td {
+        box-shadow:
+            var(--border-contrast-grey) 0 1px 3px 1px,
+            var(--border-default-grey) 0 0 0 1px;
+    }
+
+    .sb-argstableBlock-body tr:not(:first-child) {
+        border-top: 1px solid var(--border-default-grey);
+    }
+
+    .sb-argstableBlock-body td {
+        background: var(--background-default-grey);
+    }
+
+    .sb-argstableBlock-body button {
+        background-color: var(--background-alt-grey);
+    }
+</style>

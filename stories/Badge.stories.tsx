@@ -1,11 +1,10 @@
 import { Badge, type BadgeProps } from "../dist/Badge";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Badge },
     description: `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/badge)
@@ -49,7 +48,7 @@ const { meta, getStory } = getStoryFactory({
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Badge" };
 
 export const Default = getStory({
     "severity": "success",

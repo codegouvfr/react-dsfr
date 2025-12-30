@@ -1,7 +1,10 @@
-
-import React, { useEffect } from "react";
-import { DocsContainer as BaseContainer } from "@storybook/addon-docs";
-import { useDarkMode } from "storybook-dark-mode";
+import React, { PropsWithChildren, useEffect } from "react";
+import {
+    DocsContainer as BaseContainer,
+    DocsContainerProps,
+    Unstyled
+} from "@storybook/addon-docs/blocks";
+import { useDarkMode } from "@vueless/storybook-dark-mode";
 import { darkTheme, lightTheme } from "./customTheme";
 import "../dist/dsfr/utility/icons/icons.min.css";
 import "../dist/dsfr/dsfr.css";
@@ -15,16 +18,13 @@ startReactDsfr({
     "useLang": () => "fr"
 });
 
-export const DocsContainer = ({ children, context }) => {
+export const DocsContainer = ({ children, context }: PropsWithChildren<DocsContainerProps>) => {
     const isStorybookUiDark = useDarkMode();
     const { setIsDark } = useIsDark();
 
-    useEffect(
-        ()=> {
-            setIsDark(isStorybookUiDark);
-        },
-        [isStorybookUiDark]
-    );
+    useEffect(() => {
+        setIsDark(isStorybookUiDark);
+    }, [isStorybookUiDark]);
 
     const backgroundColor = fr.colors.decisions.background.default.grey.default;
 
@@ -52,26 +52,9 @@ export const DocsContainer = ({ children, context }) => {
                 }
 
             `}</style>
-            <BaseContainer
-                context={{
-                    ...context,
-                    "storyById": id => {
-                        const storyContext = context.storyById(id);
-                        return {
-                            ...storyContext,
-                            "parameters": {
-                                ...storyContext?.parameters,
-                                "docs": {
-                                    ...storyContext?.parameters?.docs,
-                                    "theme": isStorybookUiDark ? darkTheme : lightTheme
-                                }
-                            }
-                        };
-                    }
-                }}
-            >
+            <BaseContainer context={context} theme={isStorybookUiDark ? darkTheme : lightTheme}>
                 <MuiDsfrThemeProvider>
-                    {children}
+                    <Unstyled>{children}</Unstyled>
                 </MuiDsfrThemeProvider>
             </BaseContainer>
         </>
