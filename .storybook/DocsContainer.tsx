@@ -18,7 +18,7 @@ startReactDsfr({
     "useLang": () => "fr"
 });
 
-export const DocsContainer = ({ children, ...rest }: PropsWithChildren<DocsContainerProps>) => {
+export const DocsContainer = ({ children, context }: PropsWithChildren<DocsContainerProps>) => {
     const isStorybookUiDark = useDarkMode();
     const { setIsDark } = useIsDark();
 
@@ -52,7 +52,7 @@ export const DocsContainer = ({ children, ...rest }: PropsWithChildren<DocsConta
                 }
 
             `}</style>
-            <BaseContainer {...rest} theme={isStorybookUiDark ? darkTheme : lightTheme}>
+            <BaseContainer context={context} theme={isStorybookUiDark ? darkTheme : lightTheme}>
                 <MuiDsfrThemeProvider>
                     <Unstyled>{children}</Unstyled>
                 </MuiDsfrThemeProvider>

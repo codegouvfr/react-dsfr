@@ -2,8 +2,6 @@ import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
 import { Preview } from "@storybook/react-vite";
 
-console.log("COUCOU from preview.tsx");
-
 const preview: Preview = {
     tags: ["autodocs"],
     parameters: {
@@ -14,9 +12,7 @@ const preview: Preview = {
                 date: /Date$/
             }
         },
-        backgrounds: { disabled: true },
         darkMode: {
-            stylePreview: true,
             light: lightTheme,
             dark: darkTheme
         },
