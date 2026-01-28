@@ -4,12 +4,6 @@
     mask-image: url("../../icons/editor/translate-2.svg");
 }
 
-.fr-icon-question-line::before,
-.fr-icon-question-line::after {
-    -webkit-mask-image: url("../../icons/system/question-line.svg");
-    mask-image: url("../../icons/system/question-line.svg");
-}
-
 .fr-icon-arrow-go-back-fill::before,
 .fr-icon-arrow-go-back-fill::after {
     -webkit-mask-image: url("../../icons/arrows/arrow-go-back-fill.svg");
@@ -58,16 +52,22 @@
     mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
-.fr-icon-warning-fill::before,
-.fr-icon-warning-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
-    mask-image: url("../../icons/system/fr--warning-fill.svg");
+.fr-icon-question-line::before,
+.fr-icon-question-line::after {
+    -webkit-mask-image: url("../../icons/system/question-line.svg");
+    mask-image: url("../../icons/system/question-line.svg");
 }
 
 .ri-information-line::before,
 .ri-information-line::after {
     -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
     mask-image: url("../../icons/remixicon/information-line.svg");
+}
+
+.fr-icon-warning-fill::before,
+.fr-icon-warning-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+    mask-image: url("../../icons/system/fr--warning-fill.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -172,6 +172,12 @@
     mask-image: url("../../icons/system/search-line.svg");
 }
 
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
+}
+
 .fr-icon-check-line::before,
 .fr-icon-check-line::after {
     -webkit-mask-image: url("../../icons/system/check-line.svg");
@@ -182,12 +188,6 @@
 .ri-clipboard-line::after {
     -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
     mask-image: url("../../icons/remixicon/clipboard-line.svg");
-}
-
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -206,11 +206,6 @@
     .fr-icon-translate-2::before,
     .fr-icon-translate-2::after {
         background-image: url("../../icons/editor/translate-2.svg");
-    }
-    
-    .fr-icon-question-line::before,
-    .fr-icon-question-line::after {
-        background-image: url("../../icons/system/question-line.svg");
     }
     
     .fr-icon-arrow-go-back-fill::before,
@@ -253,14 +248,19 @@
         background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
-    .fr-icon-warning-fill::before,
-    .fr-icon-warning-fill::after {
-        background-image: url("../../icons/system/fr--warning-fill.svg");
+    .fr-icon-question-line::before,
+    .fr-icon-question-line::after {
+        background-image: url("../../icons/system/question-line.svg");
     }
     
     .ri-information-line::before,
     .ri-information-line::after {
         background-image: url("../../icons/remixicon/information-line.svg");
+    }
+    
+    .fr-icon-warning-fill::before,
+    .fr-icon-warning-fill::after {
+        background-image: url("../../icons/system/fr--warning-fill.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -348,6 +348,11 @@
         background-image: url("../../icons/system/search-line.svg");
     }
     
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
+    }
+    
     .fr-icon-check-line::before,
     .fr-icon-check-line::after {
         background-image: url("../../icons/system/check-line.svg");
@@ -356,11 +361,6 @@
     .ri-clipboard-line::before,
     .ri-clipboard-line::after {
         background-image: url("../../icons/remixicon/clipboard-line.svg");
-    }
-    
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
     .ri-arrow-down-s-fill::before,

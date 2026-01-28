@@ -1,0 +1,166 @@
+import{a,R as o}from"./iframe-DCkbD6Ro.js";import{c as s}from"./Modal-aFyFqFph.js";import{g as r}from"./getStory-JVSS1Wer.js";import{B as i}from"./Button-DMub5GVd.js";import"./preload-helper-PPVm8Dsz.js";const{meta:l,getStory:c}=r({wrappedComponent:{Modal:u},description:`\`import { createModal } from "@codegouvfr/react-dsfr/Modal";\` (Click **show code** for usage details)
+
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/modale)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Modal/Modal.tsx)
+
+\`\`\`tsx
+"use client"; 
+// NOTE for Next App Router: As long as you avoid using the useIsModalOpen hook and use 
+// modal.buttonProps instead of modal.open() the Modal component can be used as a 
+// server component (you can remove "use client";) 
+
+import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { useIsModalOpen } from "@codegouvfr/react-dsfr/Modal/useIsModalOpen";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
+const modal = createModal({
+    id: "foo-modal", 
+    isOpenedByDefault: false
+});
+
+function Home(){
+
+    const isOpen = useIsModalOpen(modal);
+
+    console.log(\`Modal is currently: \${isOpen ? "open" : "closed"}\`);
+
+    return (
+        <>
+            {/* ... */}
+            <modal.Component title="foo modal title">
+                <h1>Foo modal content</h1>
+            </modal.Component>
+            <Button nativeButtonProps={modal.buttonProps}>Open modal (stateless approach)</Button> {/* Use this if you are in Next App Dir and you don't want to label the "use client"; the component hosting the Modal. */}
+            <Button onClick={()=> modal.open()}>Open modal with modal.open()</Button> {/* ...otherwise modal.open() works just as well and is more versatile */}
+            {/* You can also call modal.close() to programmatically close the modal */}
+        </>
+    );
+}
+\`\`\`
+
+You can also register callbacks to be called when the modal is opened or closed:  
+
+\`\`\`tsx
+useIsModalOpen(
+    modal,
+    {
+        onClose: ()=> console.log("modal closed"),
+        onOpen: ()=> console.log("modal opened")
+    }
+);
+\`\`\`
+  
+You can have custom buttons to your modal, here is an example:
+
+\`\`\`tsx
+function MyModalWithCustomButton() {
+    return (
+        <modal.Component
+            title="My modal"
+            // This is an array of <button /> props objects with one additional property: doClosesModal
+            buttons={[
+                {
+                    doClosesModal: true,
+                    children: "Cancel",
+                },
+                {
+                    doClosesModal: false,
+                    children: "Ok",
+                    onClick: async () => {
+
+                        // Do something async
+
+                        modal.close();
+
+                    }
+                }
+            ]}
+        >
+            My form
+        </modal.Component>
+    );
+}
+\`\`\`
+
+
+
+To create a Dialog component, something that you would use to ask the user a question, like "Do you want to proceed?", you can implement this pattern:  
+- [Component](https://github.com/codegouvfr/react-dsfr/blob/main/test/integration/cra/src/MyDialog.tsx), 
+- [Usage](https://github.com/codegouvfr/react-dsfr/blob/d5c0f304ed3416c8d10bba83e7a075a304d2caa0/test/integration/cra/src/Home.tsx#L117-L132). 
+
+`,argTypes:{title:{description:"Required : The modal title"},children:{description:"Required : The modal content"},iconId:{description:"Optional : icon Id",options:(()=>{const e=["fr-icon-checkbox-circle-line","ri-ancient-gate-fill"];return a(),e})(),control:{type:"radio"}},size:{options:(()=>{const e=["small","medium","large"];return a(),e})(),description:` 
+                Default: "medium"
+            `,control:{type:"select"}},concealingBackdrop:{control:"boolean",description:"Default : true, make modal not closable by clicking on the bottom if false"},topAnchor:{control:"boolean",description:"Default : false, make modal anchor to the top"},buttons:{control:!1,description:`The buttons at the bottom of the Modal, it's an array of ButtonProps objects.  
+            If not stated otherwise all buttons are "secondary" except the last one that is "primary".  
+            By default all buttons closes the modal, if you want it to be otherwise you can add \`doClosesModal: false\`
+            `}},doHideImportInstruction:!0}),g={...l,title:"components/Modal"},n=s({id:"my-modal",isOpenedByDefault:!1});function u(e){return o.createElement(o.Fragment,null,o.createElement(i,{nativeButtonProps:n.buttonProps},"Open modal (stateless approach)"),"  - or -  ",o.createElement(i,{onClick:()=>n.open()},"Open modal with modal.open()"),o.createElement(n.Component,{...e}))}const t=c({children:`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, 
+sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris 
+malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, 
+tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
+malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
+turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.`,title:"Accept terms",iconId:"fr-icon-checkbox-circle-line",buttons:[{linkProps:{href:"https://example.com",target:"_blank"},doClosesModal:!1,children:"Learn more"},{iconId:"ri-check-line",children:"Ok",onClick:()=>console.log("terms accepted")}]});t.parameters={docs:{source:{code:`
+import { createModal } from "@codegouvfr/react-dsfr/Modal";
+import { Button } from "@codegouvfr/react-dsfr/Button";
+
+const modal = createModal({
+    name: "terms-modal",
+    isOpenedByDefault: false
+});
+
+function MyComponent(){
+
+    return (
+        <>
+            <Button nativeButtonProps={modal.buttonProps}>Open modal</Button>
+            <modal.Component
+                title="Accept terms"
+                iconId="fr-icon-checkbox-circle-line"
+                buttons={
+                    [
+                        {
+                            linkProps: { href: "https://example.com", target: "_blank" },
+                            doClosesModal: false, //Default true, clicking a button close the modal.
+                            children: "Learn more"
+                        },
+                        {
+                            iconId: "ri-check-line",
+                            onClick: ()=> console.log("terms accepted"),
+                            children: "Ok"
+                        }
+                    ]
+                }
+            >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, 
+                sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris 
+                malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, 
+                tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
+                malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
+                turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.
+            </modal.Component>
+        </>
+    );
+
+}
+`}}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:`getStory({
+  "children": \`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, 
+sit amet tempor nibh finibus et. Aenean eu enim justo. Vestibulum aliquam hendrerit molestie. Mauris 
+malesuada nisi sit amet augue accumsan tincidunt. Maecenas tincidunt, velit ac porttitor pulvinar, 
+tortor eros facilisis libero, vitae commodo nunc quam et ligula. Ut nec ipsum sapien. Interdum et 
+malesuada fames ac ante ipsum primis in faucibus. Integer id nisi nec nulla luctus lacinia non eu 
+turpis. Etiam in ex imperdiet justo tincidunt egestas. Ut porttitor urna ac augue cursus tincidunt sit amet sed orci.\`,
+  "title": "Accept terms",
+  "iconId": "fr-icon-checkbox-circle-line",
+  "buttons": [{
+    "linkProps": {
+      "href": "https://example.com",
+      "target": "_blank"
+    },
+    "doClosesModal": false,
+    //Default true, clicking a button close the modal.
+    "children": "Learn more"
+  }, {
+    "iconId": "ri-check-line",
+    "children": "Ok",
+    "onClick": () => console.log("terms accepted")
+  }]
+})`,...t.parameters?.docs?.source}}};const b=["Default"];export{t as Default,b as __namedExportsOrder,g as default};

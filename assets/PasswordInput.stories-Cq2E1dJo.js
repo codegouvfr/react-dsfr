@@ -1,0 +1,30 @@
+import{r as l,c as Y,a as $,u as q,R as s,b as m,f as r,s as j}from"./iframe-DCkbD6Ro.js";import{g as z}from"./getStory-JVSS1Wer.js";import"./preload-helper-PPVm8Dsz.js";var B=function(t,f){var a={};for(var e in t)Object.prototype.hasOwnProperty.call(t,e)&&f.indexOf(e)<0&&(a[e]=t[e]);if(t!=null&&typeof Object.getOwnPropertySymbols=="function")for(var n=0,e=Object.getOwnPropertySymbols(t);n<e.length;n++)f.indexOf(e[n])<0&&Object.prototype.propertyIsEnumerable.call(t,e[n])&&(a[e[n]]=t[e[n]]);return a};const v=l.memo(l.forwardRef((t,f)=>{const{t:a}=J(),{className:e,id:n,label:N,hintText:I,hideLabel:D,disabled:S=!1,classes:p={},style:H,messages:i=[],nativeInputProps:b={},messagesHint:_=a("your password must contain")}=t,R=B(t,["className","id","label","hintText","hideLabel","disabled","classes","style","messages","nativeInputProps","messagesHint"]);$();const W=q({explicitlyProvidedId:n,defaultIdPrefix:"password-input"}),u=(function(){var d;const c=l.useId();return(d=b.id)!==null&&d!==void 0?d:`password-${c}`})(),M=`${u}-toggle-show`,E=`${u}-messages-group`,O=`${u}-message-group`,F=i.find(({severity:o})=>o==="error")!==void 0,C=i.length!==0&&i.find(({severity:o})=>o!=="valid")===void 0,[P,G]=l.useState(null),[V,T]=l.useState(!1);return l.useEffect(()=>{if(P===null)return;const o=P.querySelector("input");$(o!==null),new MutationObserver(c=>{c.forEach(k=>{if(k.type==="attributes"&&k.attributeName==="type"){const L=k.target.getAttribute("type");T(L!=="password")}})}).observe(o,{attributes:!0,attributeFilter:["type"]})},[P]),s.createElement("div",Object.assign({className:m(r.cx("fr-password",S&&"fr-input-group--disabled",F&&"fr-input-group--error",C&&"fr-input-group--valid"),p.root,e),id:W,style:H,ref:f},R),!!(N||I)&&s.createElement("label",{className:m(r.cx("fr-label",D&&"fr-sr-only"),p.label),htmlFor:u},N,I!==void 0&&s.createElement("span",{className:r.cx("fr-hint-text")},I)),s.createElement("div",{className:r.cx("fr-input-wrap"),ref:G},s.createElement("input",Object.assign({},b,{className:m(r.cx("fr-password__input","fr-input"),p.input),id:u,type:V?"text":"password",disabled:S},i.length!==0&&{"aria-describedby":b["aria-describedby"]!==void 0?`${E} ${b["aria-describedby"]}`:E}))),i.length!==0&&s.createElement("div",{className:r.cx("fr-messages-group"),id:E,"aria-live":"assertive"},_!==""&&s.createElement("p",{className:r.cx("fr-message"),id:O},_),i.map(({severity:o,message:d},c)=>s.createElement("p",{key:c,className:r.cx("fr-message",`fr-message--${o}`),id:`${O}-${c}`,"data-fr-valid":a("valid"),"data-fr-error":a("error")},d))),s.createElement("div",{className:m(r.cx("fr-password__checkbox","fr-checkbox-group","fr-checkbox-group--sm"),p.checkbox)},s.createElement("input",{"aria-label":a("show password"),id:M,type:"checkbox",disabled:S||void 0}),s.createElement("label",{className:m(r.cx("fr-password__checkbox","fr-label"),p.checkbox),htmlFor:M},a("show"))))})),{useTranslation:J,addPasswordInputTranslations:A}=Y({componentName:j({PasswordInput:v}),frMessages:{show:"Afficher","show password":"Afficher le mot de passe","your password must contain":"Votre mot de passe doit contenir :",valid:"Validé",error:"En erreur"}});A({lang:"en",messages:{show:"Show","show password":"Show password","your password must contain":"Your password must contain:",valid:"Valid",error:"Error"}});A({lang:"es",messages:{show:"Mostrar","show password":"Mostrar contraseña","your password must contain":"Su contraseña debe contener:",valid:"Válido",error:"No válido"}});v.displayName=j({PasswordInput:v});const{meta:K,getStory:x}=z({wrappedComponent:{PasswordInput:v},description:`\`import { PasswordInput } from "@codegouvfr/react-dsfr/blocks/PasswordInput"\`
+
+- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mot-de-passe/)
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/blocks/PasswordInput.tsx)  `,argTypes:{label:{description:"The label associated to the password input.",control:{type:"text"}},disabled:{control:{type:"boolean"}},nativeInputProps:{description:"An object that is forwarded as props to te underlying native `<input />` element.  \n            This is where you pass the `name` prop or `onChange` for example.",control:!1},messagesHint:{description:`The text that is displayed before the list of messages. 
+            Default to "Your password must contain:" (internationalized).
+            If you pass an empty string, the hint block wont be displayed.`}},doHideImportInstruction:!0}),ee={...K,title:"blocks/PasswordInput"},g=x({label:"Mot de passe"}),h=x({label:"Mot de passe",hintText:"Texte de description additionnel"}),y=x({label:"Mot de passe",messages:[{message:"12 caractères minimum",severity:"info"},{message:"1 caractère spécial minimum",severity:"valid"},{message:"1 chiffre minimum",severity:"error"}]}),w=x({label:"Mot de passe",disabled:!0});g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`getStory({
+  "label": "Mot de passe"
+})`,...g.parameters?.docs?.source}}};h.parameters={...h.parameters,docs:{...h.parameters?.docs,source:{originalSource:`getStory({
+  "label": "Mot de passe",
+  /* spell-checker: disable */
+  "hintText": "Texte de description additionnel"
+  /* spell-checker: english */
+})`,...h.parameters?.docs?.source}}};y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`getStory({
+  "label": "Mot de passe",
+  "messages": [/* spell-checker: disable */
+  {
+    "message": "12 caractères minimum",
+    "severity": "info"
+  }, {
+    "message": "1 caractère spécial minimum",
+    "severity": "valid"
+  }, {
+    "message": "1 chiffre minimum",
+    "severity": "error"
+  }
+  /* spell-checker: enabled */]
+})`,...y.parameters?.docs?.source}}};w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`getStory({
+  "label": "Mot de passe",
+  "disabled": true
+})`,...w.parameters?.docs?.source}}};const se=["Default","WithHint","WithMessagesGroup","Disabled"];export{g as Default,w as Disabled,h as WithHint,y as WithMessagesGroup,se as __namedExportsOrder,ee as default};
