@@ -78,7 +78,7 @@ export const PasswordInput = memo(forwardRef((props, ref) => {
             })))),
         messages.length !== 0 && (React.createElement("div", { className: fr.cx("fr-messages-group"), id: messagesGroupId, "aria-live": "assertive" },
             messagesHint !== "" && (React.createElement("p", { className: fr.cx("fr-message"), id: messageGroupId }, messagesHint)),
-            messages.map(({ severity, message }, index) => (React.createElement("p", { key: index, className: fr.cx("fr-message", `fr-message--${severity}`), id: `${messageGroupId}-${index}` }, message))))),
+            messages.map(({ severity, message }, index) => (React.createElement("p", { key: index, className: fr.cx("fr-message", `fr-message--${severity}`), id: `${messageGroupId}-${index}`, "data-fr-valid": t("valid"), "data-fr-error": t("error") }, message))))),
         React.createElement("div", { className: cx(fr.cx("fr-password__checkbox", "fr-checkbox-group", "fr-checkbox-group--sm"), classes.checkbox) },
             React.createElement("input", { "aria-label": t("show password"), id: togglePasswordShowId, type: "checkbox", disabled: disabled || undefined }),
             React.createElement("label", { className: cx(fr.cx("fr-password__checkbox", "fr-label"), classes.checkbox), htmlFor: togglePasswordShowId }, t("show")))));
@@ -89,7 +89,9 @@ const { useTranslation, addPasswordInputTranslations } = createComponentI18nApi(
         /* spell-checker: disable */
         "show": "Afficher",
         "show password": "Afficher le mot de passe",
-        "your password must contain": "Votre mot de passe doit contenir :"
+        "your password must contain": "Votre mot de passe doit contenir :",
+        "valid": "Validé",
+        "error": "En erreur"
         /* spell-checker: enable */
     }
 });
@@ -98,7 +100,9 @@ addPasswordInputTranslations({
     "messages": {
         "show": "Show",
         "show password": "Show password",
-        "your password must contain": "Your password must contain:"
+        "your password must contain": "Your password must contain:",
+        "valid": "Valid",
+        "error": "Error"
     }
 });
 addPasswordInputTranslations({
@@ -107,7 +111,9 @@ addPasswordInputTranslations({
         /* spell-checker: disable */
         "show": "Mostrar",
         "show password": "Mostrar contraseña",
-        "your password must contain": "Su contraseña debe contener:"
+        "your password must contain": "Su contraseña debe contener:",
+        "valid": "Válido",
+        "error": "No válido"
         /* spell-checker: enable */
     }
 });

@@ -35,6 +35,8 @@ declare const addPasswordInputTranslations: (params: {
         show: string;
         "show password": string;
         "your password must contain": string;
+        valid: string;
+        error: string;
     }>;
 }) => void;
 export { addPasswordInputTranslations };
