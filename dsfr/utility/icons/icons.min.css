@@ -4,6 +4,12 @@
     mask-image: url("../../icons/editor/translate-2.svg");
 }
 
+.fr-icon-question-line::before,
+.fr-icon-question-line::after {
+    -webkit-mask-image: url("../../icons/system/question-line.svg");
+    mask-image: url("../../icons/system/question-line.svg");
+}
+
 .fr-icon-arrow-go-back-fill::before,
 .fr-icon-arrow-go-back-fill::after {
     -webkit-mask-image: url("../../icons/arrows/arrow-go-back-fill.svg");
@@ -50,12 +56,6 @@
 .fr-icon-bank-card-line::after {
     -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
     mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
-.fr-icon-question-line::before,
-.fr-icon-question-line::after {
-    -webkit-mask-image: url("../../icons/system/question-line.svg");
-    mask-image: url("../../icons/system/question-line.svg");
 }
 
 .ri-information-line::before,
@@ -208,6 +208,11 @@
         background-image: url("../../icons/editor/translate-2.svg");
     }
     
+    .fr-icon-question-line::before,
+    .fr-icon-question-line::after {
+        background-image: url("../../icons/system/question-line.svg");
+    }
+    
     .fr-icon-arrow-go-back-fill::before,
     .fr-icon-arrow-go-back-fill::after {
         background-image: url("../../icons/arrows/arrow-go-back-fill.svg");
@@ -246,11 +251,6 @@
     .fr-icon-bank-card-line::before,
     .fr-icon-bank-card-line::after {
         background-image: url("../../icons/finance/bank-card-line.svg");
-    }
-    
-    .fr-icon-question-line::before,
-    .fr-icon-question-line::after {
-        background-image: url("../../icons/system/question-line.svg");
     }
     
     .ri-information-line::before,
