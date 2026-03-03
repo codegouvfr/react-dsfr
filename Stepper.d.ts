@@ -8,6 +8,11 @@ export type StepperProps = {
     nextTitle?: ReactNode;
     classes?: Partial<Record<"root" | "title" | "state" | "steps" | "details", string>>;
     style?: CSSProperties;
+    progressText?: (params: {
+        currentStep: number;
+        stepCount: number;
+    }) => ReactNode;
+    nextStepText?: ReactNode;
 };
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-stepper> */
 export declare const Stepper: React.MemoExoticComponent<React.ForwardRefExoticComponent<StepperProps & React.RefAttributes<HTMLDivElement>>>;
