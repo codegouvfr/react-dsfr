@@ -1,11 +1,9 @@
 import { ToggleSwitch, type ToggleSwitchProps } from "../dist/ToggleSwitch";
-import { sectionName } from "./sectionName";
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { ToggleSwitch },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/interrupteur)
@@ -50,6 +48,22 @@ function ControlledToggleSwitch() {
 `,
 
     "argTypes": {
+        "label": {
+            "description": "The label of the toggle switch",
+            "control": { "type": "text" }
+        },
+        "inputTitle": {
+            "description": "The title attribute of the underlying input",
+            "control": { "type": "text" }
+        },
+        "helperText": {
+            "description": "The helper text displayed below the toggle switch",
+            "control": { "type": "text" }
+        },
+        "disabled": {
+            "description": "Whether the toggle switch is disabled or not",
+            "control": { "type": "boolean" }
+        },
         "labelPosition": {
             "control": {
                 "type": "radio",
@@ -75,7 +89,7 @@ function ControlledToggleSwitch() {
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/ToggleSwitch" };
 
 export const Default = getStory({
     "label": "Label action interrupteur",

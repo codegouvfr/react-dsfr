@@ -1,9 +1,8 @@
 import { Stepper } from "../dist/Stepper";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Stepper },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/indicateur-d-etapes)
@@ -22,7 +21,7 @@ const { meta, getStory } = getStoryFactory({
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/Stepper" };
 
 export const Default = getStory({
     "stepCount": 3,
