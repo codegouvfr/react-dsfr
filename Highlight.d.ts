@@ -3,6 +3,7 @@ export type HighlightProps = {
     id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "content", string>>;
+    bodyAs?: "p" | "div";
     size?: HighlightProps.Size;
     style?: CSSProperties;
     children: NonNullable<ReactNode>;
