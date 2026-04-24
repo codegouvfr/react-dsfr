@@ -10,6 +10,7 @@ export type HighlightProps = {
     id?: string;
     className?: string;
     classes?: Partial<Record<"root" | "content", string>>;
+    bodyAs?: "p" | "div";
     size?: HighlightProps.Size;
     style?: CSSProperties;
     children: NonNullable<ReactNode>;
@@ -22,7 +23,16 @@ export namespace HighlightProps {
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-highlight> */
 export const Highlight = memo(
     forwardRef<HTMLDivElement, HighlightProps>((props, ref) => {
-        const { className, classes = {}, style, children, size, id: id_props, ...rest } = props;
+        const {
+            className,
+            classes = {},
+            style,
+            children,
+            bodyAs: HtmlBodyTag = "p",
+            size,
+            id: id_props,
+            ...rest
+        } = props;
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -39,9 +49,9 @@ export const Highlight = memo(
                 style={style}
                 {...rest}
             >
-                <p className={cx(fr.cx({ [`fr-text--${size}`]: size }), classes.content)}>
+                <HtmlBodyTag className={cx(fr.cx({ [`fr-text--${size}`]: size }), classes.content)}>
                     {children}
-                </p>
+                </HtmlBodyTag>
             </div>
         );
     })
