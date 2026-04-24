@@ -1,6 +1,7 @@
 import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import { Button } from "@codegouvfr/react-dsfr/Button";
 import { ButtonsGroup } from "@codegouvfr/react-dsfr/ButtonsGroup";
+import { Highlight } from "@codegouvfr/react-dsfr/Highlight";
 
 import { Input } from "@codegouvfr/react-dsfr/Input";
 import { Select } from "@codegouvfr/react-dsfr/SelectNext";
@@ -80,6 +81,9 @@ export function Home() {
             <TileExample />
             <TableExample />
             <ControlledAccordion />
+            <div className={fr.cx("fr-my-4w")}>
+                <HighlightExample />
+            </div>
         </>
     );
 }
@@ -251,4 +255,13 @@ function ControlledAccordion() {
             Content of the Accordion
         </Accordion>
     );
+}
+
+function HighlightExample() {
+    return (
+        <Highlight
+            children={`Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires qui remplissent les conditions.`}
+            bodyAs="p"
+        />
+    )
 }
