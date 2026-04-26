@@ -1,12 +1,11 @@
 import React from "react";
 import { RadioButtons, type RadioButtonsProps } from "../dist/RadioButtons";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { RadioButtons },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bouton-radio)
@@ -106,7 +105,7 @@ function MyComponent(){
             "description": `An array describing the radio options. 
             \`nativeInputProps\` is an object that you would pass as prop to \`<input type='radio' />\`, 
             this is where you define the value for each option`,
-            "control": { "type": "null" }
+            "control": false
         },
         "orientation": {
             "description": "Default: 'vertical'",
@@ -124,7 +123,7 @@ function MyComponent(){
         "state": {
             "description": "Default: 'default'",
             "options": (() => {
-                const options = ["success", "error", "default"] as const;
+                const options = ["success", "error", "info", "default"] as const;
 
                 assert<Equals<typeof options[number] | undefined, RadioButtonsProps["state"]>>();
 
@@ -147,7 +146,7 @@ function MyComponent(){
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/RadioButtons" };
 
 export const Default = getStory({
     "legend": "Légende pour l’ensemble de champs",

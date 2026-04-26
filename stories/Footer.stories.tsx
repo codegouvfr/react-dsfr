@@ -1,6 +1,6 @@
 import React from "react";
 import { Footer, type FooterProps } from "../dist/Footer";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -23,7 +23,6 @@ setBrandTopAndHomeLinkProps({
 });
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Footer },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/pied-de-page)
@@ -44,13 +43,13 @@ const { meta, getStory } = getStoryFactory({
             "control": { "type": "radio" }
         },
         "websiteMapLinkProps": {
-            "control": { "type": null }
+            "control": false
         },
         "accessibilityLinkProps": {
-            "control": { "type": null }
+            "control": false
         },
         "termsLinkProps": {
-            "control": { "type": null }
+            "control": false
         },
         "bottomItems": {
             "description":
@@ -61,16 +60,16 @@ const { meta, getStory } = getStoryFactory({
                 "By default it's Etalab v2. [You can provide a custom React node](#with-custom-license)"
         },
         "linkList": {
-            "controls": { "type": null }
+            "controls": false
         },
         "brandTop": {
-            "control": { "type": null },
+            "control": false,
             "description": `In the example here it's \`<>INTITULE<br />OFFICIEL</>\`
 If you are using the DSFR Header (as you should) this prop is optional, 
 the \`brandTop\` of the \`<Header />\` will be used.`
         },
         "homeLinkProps": {
-            "control": { "type": null },
+            "control": false,
             "description": `A link to the home, when the user click on the logo he must navigate to the homepage of the website
 If you are using the DSFR Header (as you should) this prop is optional, 
 the \`homeLinkProps\` of the \`<Header />\` will be used.`
@@ -78,7 +77,7 @@ the \`homeLinkProps\` of the \`<Header />\` will be used.`
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/Footer" };
 
 export const Default = getStory({
     "accessibility": "fully compliant",
