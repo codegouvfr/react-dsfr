@@ -1,37 +1,51 @@
-# This repository adheres to the publiccode.yml standard by including this 
+# This repository adheres to the publiccode.yml standard by including this
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/publiccodeyml/publiccode.yml
 
-publiccodeYmlVersion: '0'
-name: 'react-dsfr'
-url: 'https://github.com/codegouvfr/react-dsfr'
-landingURL: 'https://components.react-dsfr.codegouv.studio'
-releaseDate: '2022-10-05'
+publiccodeYmlVersion: "0"
+name: "react-dsfr"
+url: "https://github.com/codegouvfr/react-dsfr"
+landingURL: "https://components.react-dsfr.codegouv.studio"
+releaseDate: "2022-10-05"
+platforms:
+  - web
 developmentStatus: beta
 softwareType: library
 logo: |-
   https://user-images.githubusercontent.com/6702424/192099597-567442d1-e6e1-4c17-ae3d-cac1e3bac5a0.png
 categories:
   - website-builder
+legal:
+  license: MIT
 maintenance:
   type: community
+  contacts:
+    - name: Joseph Garrone
+      email: Joseph.garrone@protonmail.com
+    - name: Julien Bouquillon
+      affiliation: DNUM des ministères sociaux
+    - name: Dylan DECRULLE
+      affiliation: Insee
+    - name: Enguerran Weiss
+      affiliation: Plat
 intendedAudience:
   scope:
     - science-and-technology
   countries:
-    - fr
+    - FR
 localisation:
-  localisationReady: false
+  localisationReady: true
   availableLanguages:
     - fr
     - en
-it:
-  conforme:
-    gdpr: true
 description:
   en:
-    documentation: 'https://react-dsfr.codegouv.studio/'
+    documentation: "https://react-dsfr.codegouv.studio/"
     shortDescription: French State Design System React integration
+    features:
+      - Always up to date with the latest DSFR evolutions
+      - Integration with Next.js, Create React App and Vite
+      - All DSFR components implemented
     longDescription: |
       This module is a wrapper/compatibility layer for [@gouvfr/dsfr](https://github.com/GouvernementFR/dsfr), the vanilla JS/CSS
       implementation of the DSFR.  
@@ -62,8 +76,5 @@ description:
 
       - [Support routing libraries](https://react-dsfr.codegouv.studio/routing) like react-router.
 
-    screenshots:
-      - |-
-        https://user-images.githubusercontent.com/6702424/210700050-b5e273b6-067d-4864-a27a-3433e2b316a7.jpeg
     videos:
-      - 'https://www.youtube.com/watch?v=5q88JgXUAY4'
+      - "https://www.youtube.com/watch?v=5q88JgXUAY4"
