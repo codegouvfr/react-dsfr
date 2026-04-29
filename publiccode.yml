@@ -1,8 +1,8 @@
 # This repository adheres to the publiccode.yml standard by including this 
 # metadata file that makes public software easily discoverable.
-# More info at https://github.com/italia/publiccode.yml
+# More info at https://github.com/publiccodeyml/publiccode.yml
 
-publiccodeYmlVersion: '0.2'
+publiccodeYmlVersion: '0'
 name: 'react-dsfr'
 url: 'https://github.com/codegouvfr/react-dsfr'
 landingURL: 'https://components.react-dsfr.codegouv.studio'
@@ -67,4 +67,3 @@ description:
         https://user-images.githubusercontent.com/6702424/210700050-b5e273b6-067d-4864-a27a-3433e2b316a7.jpeg
     videos:
       - 'https://www.youtube.com/watch?v=5q88JgXUAY4'
-    genericName: react-dsfr
