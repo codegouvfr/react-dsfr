@@ -74,9 +74,13 @@ export const Alert = memo(
             closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
-            role = "alert",
+            role: roleFromProps,
             ...rest
         } = props;
+
+        // Honour explicit `role={undefined}` to opt out of the role attribute (RGAA 8.7).
+        // When role is omitted entirely, default to "alert" for screen reader announcements.
+        const role = "role" in props ? roleFromProps : ("alert" as const);
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -147,8 +151,8 @@ export const Alert = memo(
                     className
                 )}
                 style={style}
-                {...(refShouldSetRole.current && { "role": role })}
-                {...(role ? { "role": role } : {})}
+                {...(refShouldSetRole.current && role !== undefined && { "role": role })}
+                {...(role !== undefined ? { "role": role } : {})}
                 ref={ref}
                 {...rest}
             >
