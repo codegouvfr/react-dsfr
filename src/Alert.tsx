@@ -94,7 +94,6 @@ export const Alert = memo(
         const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
         const refShouldButtonGetFocus = useRef(false);
-        const refShouldSetRole = useRef(false);
         const DescriptionTag = typeof description === "string" ? "p" : "div";
 
         useEffect(() => {
@@ -104,7 +103,6 @@ export const Alert = memo(
             setIsClosed(isClosed => {
                 if (isClosed && !props_isClosed) {
                     refShouldButtonGetFocus.current = true;
-                    refShouldSetRole.current = true;
                 }
 
                 return props_isClosed;
@@ -151,7 +149,6 @@ export const Alert = memo(
                     className
                 )}
                 style={style}
-                {...(refShouldSetRole.current && role !== undefined && { "role": role })}
                 {...(role !== undefined ? { "role": role } : {})}
                 ref={ref}
                 {...rest}
