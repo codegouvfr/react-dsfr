@@ -221,14 +221,15 @@ export const Input = memo(
                             id={messageId}
                             className={cx(
                                 fr.cx(
+                                    "fr-message",
                                     (() => {
                                         switch (state) {
                                             case "error":
-                                                return "fr-error-text";
+                                                return "fr-message--error";
                                             case "success":
-                                                return "fr-valid-text";
+                                                return "fr-message--valid";
                                             case "info":
-                                                return "fr-info-text";
+                                                return "fr-message--info";
                                         }
                                     })()
                                 ),
