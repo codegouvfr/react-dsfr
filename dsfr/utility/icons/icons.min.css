@@ -46,10 +46,40 @@
     mask-image: url("../../icons/remixicon/information-line.svg");
 }
 
+.fr-icon-chat-check-fill::before,
+.fr-icon-chat-check-fill::after {
+    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
+    mask-image: url("../../icons/communication/chat-check-fill.svg");
+}
+
+.fr-icon-git-commit-fill::before,
+.fr-icon-git-commit-fill::after {
+    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
+    mask-image: url("../../icons/development/git-commit-fill.svg");
+}
+
+.fr-icon-bank-card-line::before,
+.fr-icon-bank-card-line::after {
+    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
+    mask-image: url("../../icons/finance/bank-card-line.svg");
+}
+
 .fr-icon-warning-fill::before,
 .fr-icon-warning-fill::after {
     -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
     mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
+}
+
+.fr-icon-delete-line::before,
+.fr-icon-delete-line::after {
+    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
+    mask-image: url("../../icons/system/delete-bin-line.svg");
 }
 
 .fr-icon-mail-fill::before,
@@ -88,28 +118,16 @@
     mask-image: url("../../icons/remixicon/id-card-line.svg");
 }
 
-.ri-logout-box-line::before,
-.ri-logout-box-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
-    mask-image: url("../../icons/remixicon/logout-box-line.svg");
-}
-
 .ri-account-box-line::before,
 .ri-account-box-line::after {
     -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
     mask-image: url("../../icons/remixicon/account-box-line.svg");
 }
 
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
-.fr-icon-delete-line::before,
-.fr-icon-delete-line::after {
-    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
-    mask-image: url("../../icons/system/delete-bin-line.svg");
+.ri-logout-box-line::before,
+.ri-logout-box-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
+    mask-image: url("../../icons/remixicon/logout-box-line.svg");
 }
 
 .ri-check-line::before,
@@ -184,24 +202,6 @@
     mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
-.fr-icon-chat-check-fill::before,
-.fr-icon-chat-check-fill::after {
-    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
-    mask-image: url("../../icons/communication/chat-check-fill.svg");
-}
-
-.fr-icon-git-commit-fill::before,
-.fr-icon-git-commit-fill::after {
-    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
-    mask-image: url("../../icons/development/git-commit-fill.svg");
-}
-
-.fr-icon-bank-card-line::before,
-.fr-icon-bank-card-line::after {
-    -webkit-mask-image: url("../../icons/finance/bank-card-line.svg");
-    mask-image: url("../../icons/finance/bank-card-line.svg");
-}
-
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     .fr-icon-translate-2::before,
     .fr-icon-translate-2::after {
@@ -243,9 +243,34 @@
         background-image: url("../../icons/remixicon/information-line.svg");
     }
     
+    .fr-icon-chat-check-fill::before,
+    .fr-icon-chat-check-fill::after {
+        background-image: url("../../icons/communication/chat-check-fill.svg");
+    }
+    
+    .fr-icon-git-commit-fill::before,
+    .fr-icon-git-commit-fill::after {
+        background-image: url("../../icons/development/git-commit-fill.svg");
+    }
+    
+    .fr-icon-bank-card-line::before,
+    .fr-icon-bank-card-line::after {
+        background-image: url("../../icons/finance/bank-card-line.svg");
+    }
+    
     .fr-icon-warning-fill::before,
     .fr-icon-warning-fill::after {
         background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
+    }
+    
+    .fr-icon-delete-line::before,
+    .fr-icon-delete-line::after {
+        background-image: url("../../icons/system/delete-bin-line.svg");
     }
     
     .fr-icon-mail-fill::before,
@@ -278,24 +303,14 @@
         background-image: url("../../icons/remixicon/id-card-line.svg");
     }
     
-    .ri-logout-box-line::before,
-    .ri-logout-box-line::after {
-        background-image: url("../../icons/remixicon/logout-box-line.svg");
-    }
-    
     .ri-account-box-line::before,
     .ri-account-box-line::after {
         background-image: url("../../icons/remixicon/account-box-line.svg");
     }
     
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
-    .fr-icon-delete-line::before,
-    .fr-icon-delete-line::after {
-        background-image: url("../../icons/system/delete-bin-line.svg");
+    .ri-logout-box-line::before,
+    .ri-logout-box-line::after {
+        background-image: url("../../icons/remixicon/logout-box-line.svg");
     }
     
     .ri-check-line::before,
@@ -356,21 +371,6 @@
     .ri-arrow-up-s-fill::before,
     .ri-arrow-up-s-fill::after {
         background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
-    }
-    
-    .fr-icon-chat-check-fill::before,
-    .fr-icon-chat-check-fill::after {
-        background-image: url("../../icons/communication/chat-check-fill.svg");
-    }
-    
-    .fr-icon-git-commit-fill::before,
-    .fr-icon-git-commit-fill::after {
-        background-image: url("../../icons/development/git-commit-fill.svg");
-    }
-    
-    .fr-icon-bank-card-line::before,
-    .fr-icon-bank-card-line::after {
-        background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
 }
