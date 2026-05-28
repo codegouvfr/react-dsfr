@@ -88,3 +88,25 @@ export const WithTab2OpenedByDefault = getStory({
     "label": "Name of the tabs system",
     ...logCallbacks(["onTabChange"])
 });
+
+export const WithAriaLabelAndTitle = getStory({
+    "tabs": [
+        {
+            "label": "Tab 1",
+            "iconId": "fr-icon-add-line",
+            "content": <p>Content of tab1</p>,
+            "ariaLabel": "First tab, add content",
+            "title": "Add content"
+        },
+        {
+            "label": "Tab 2",
+            "iconId": "fr-icon-ball-pen-fill",
+            "content": <p>Content of tab2</p>,
+            "ariaLabel": "Second tab, edit content",
+            "title": "Edit content"
+        },
+        { "label": "Tab 3", "content": <p>Content of tab3</p> }
+    ],
+    "label": "Tabs with aria-label and title attributes",
+    ...logCallbacks(["onTabChange"])
+});
