@@ -12,6 +12,10 @@ import * as child_process from "child_process";
 import { patchCssForMui } from "./patchCssForMui";
 import yargsParser from "yargs-parser";
 
+function removeCharset(rawCssCode: string): string {
+    return rawCssCode.replace(/@charset "UTF-8";\s*/g, "");
+}
+
 (async () => {
     const argv = yargsParser(process.argv.slice(2));
 
@@ -31,22 +35,32 @@ import yargsParser from "yargs-parser";
         "recursive": true
     });
 
-    {
-        const filePath = pathJoin(dsfrDirPath, "dsfr.css");
-
-        const dsfrCssContent = fs.readFileSync(filePath).toString("utf8");
-
-        const dsfrCssContent_patched = dsfrCssContent.replace('@charset "UTF-8";', "");
-
-        fs.writeFileSync(filePath, Buffer.from(dsfrCssContent_patched, "utf8"));
-    }
-
     fs.cpSync(
         pathJoin(__dirname, "marianne-index.css"),
         pathJoin(dsfrDirPath, "fonts", "index.css")
     );
 
-    const rawDsfrCssCode = fs.readFileSync(pathJoin(dsfrDirPath, "dsfr.css")).toString("utf8");
+    {
+        const iconsDirPath = pathJoin(dsfrDirPath, "utility", "icons");
+
+        (
+            [
+                ["icons.main.css", "icons.css"],
+                ["icons.main.min.css", "icons.min.css"]
+            ] as const
+        ).forEach(([sourceBasename, targetBasename]) =>
+            fs.copyFileSync(
+                pathJoin(iconsDirPath, sourceBasename),
+                pathJoin(iconsDirPath, targetBasename)
+            )
+        );
+    }
+
+    const rawDsfrCssCode = ["dsfr.main.css", "dsfr.print.css"]
+        .map(fileBasename =>
+            removeCharset(fs.readFileSync(pathJoin(dsfrDirPath, fileBasename)).toString("utf8"))
+        )
+        .join("\n");
 
     fs.writeFileSync(
         pathJoin(
