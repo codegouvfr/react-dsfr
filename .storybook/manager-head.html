@@ -33,4 +33,24 @@
 	[data-parent-id^="hidden"] {
 		display: none !important;
 	}
+
+	/* full manager loader (circle) */
+	body.dark div[aria-label^="Content is loading..."] {
+		border-color: rgb(133, 133, 246) rgba(130, 130, 243, 0.29) rgba(130, 130, 243, 0.29) !important;
+		mix-blend-mode: normal !important;
+	}
+
+	body:not(.dark) div[aria-label^="Content is loading..."] {
+		border-color: rgb(0, 0, 145) rgba(0, 0, 142, 0.29) rgba(0, 0, 142, 0.29) !important;
+		mix-blend-mode: normal !important;
+	}
+
+	/* full manager page loader (dsfr vars not available) */
+	body.dark section[aria-labelledby="main-preview-heading"] div:has(+ #storybook-preview-wrapper) {
+		background-color: #161616 !important;
+	}
+
+	body:not(.dark) section[aria-labelledby="main-preview-heading"] div:has(+ #storybook-preview-wrapper) {
+		background-color: #ffffff !important;
+	}
 </style>

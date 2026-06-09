@@ -1,11 +1,10 @@
 import { Select, type SelectProps } from "../dist/SelectNext";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory<SelectProps<SelectProps.Option[]>>({
-    sectionName,
     "wrappedComponent": { "SelectNext": Select },
     "doHideImportInstruction": true,
     "description": `
@@ -161,9 +160,16 @@ function MyComponent(){
 
 `,
     "argTypes": {
+        "label": {
+            "control": { "type": "text" }
+        },
+        "options": {
+            "description": "The options to display in the select",
+            "control": false
+        },
         "nativeSelectProps": {
             "description": "The props that you would pass to a native `<select />`",
-            "control": { "type": null }
+            "control": false
         },
         "disabled": {
             "control": { "type": "boolean" }
@@ -200,7 +206,7 @@ function MyComponent(){
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/SelectNext" };
 
 const options = [
     {

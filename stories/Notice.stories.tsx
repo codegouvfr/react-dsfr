@@ -1,11 +1,10 @@
 import { Notice, type NoticeProps } from "../dist/Notice";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { Equals } from "tsafe/Equals";
 import { assert } from "tsafe/assert";
 
 const { meta, getStory } = getStoryFactory<NoticeProps>({
-    sectionName,
     "wrappedComponent": { Notice },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/bandeau-d-information-importante)
@@ -59,13 +58,13 @@ const { meta, getStory } = getStoryFactory<NoticeProps>({
                 this means that when the close button is clicked
                 the \`onClose()\` callback will be called but you are responsible
                 for setting \`isClosed\` to \`false\`, the \`<Notice />\` wont close itself.`,
-            "control": { "type": null }
+            "control": false
         }
     },
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Notice" };
 
 export const Default = getStory({
     "title": "Service maintenance is scheduled today from 12:00 to 14:00.",

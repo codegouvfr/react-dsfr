@@ -1,9 +1,7 @@
 import { RadarChart, type RadarChartProps } from "../../dist/Chart/RadarChart";
 import { getStoryFactory } from "../getStory";
-import { sectionName } from "./sectionName";
 
 const { meta, getStory } = getStoryFactory<RadarChartProps>({
-    sectionName: sectionName,
     "wrappedComponent": { RadarChart },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/composants-et-modeles/composants-beta/graphiques-charts/)
@@ -29,7 +27,7 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
     isChartComponent: true
 });
 
-export default meta;
+export default { ...meta, title: "charts/RadarChart" };
 
 export const Default = getStory({
     x: [

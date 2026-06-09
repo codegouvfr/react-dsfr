@@ -3,11 +3,9 @@ import { assert, Equals } from "tsafe/assert";
 
 import { Tooltip, type TooltipProps } from "../src/Tooltip";
 
-import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Tooltip },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/infobulle)
@@ -42,7 +40,7 @@ const { meta, getStory } = getStoryFactory({
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/Tooltip" };
 
 const defaultOnHoverProps: TooltipProps.WithHoverAction = {
     "kind": "hover",

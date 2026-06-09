@@ -1,13 +1,12 @@
 import React from "react";
 import { createModal, type ModalProps } from "../dist/Modal";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { Button } from "../dist/Button";
 import { assert } from "tsafe/assert";
 import { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { "Modal": Template },
     "description": `\`import { createModal } from "@codegouvfr/react-dsfr/Modal";\` (Click **show code** for usage details)
 
@@ -141,7 +140,7 @@ To create a Dialog component, something that you would use to ask the user a que
             "description": "Default : false, make modal anchor to the top"
         },
         "buttons": {
-            "control": { "type": null },
+            "control": false,
             "description": `The buttons at the bottom of the Modal, it's an array of ButtonProps objects.  
             If not stated otherwise all buttons are "secondary" except the last one that is "primary".  
             By default all buttons closes the modal, if you want it to be otherwise you can add \`doClosesModal: false\`
@@ -151,7 +150,7 @@ To create a Dialog component, something that you would use to ask the user a que
     "doHideImportInstruction": true
 });
 
-export default meta;
+export default { ...meta, title: "components/Modal" };
 
 const modal = createModal({
     "id": "my-modal",

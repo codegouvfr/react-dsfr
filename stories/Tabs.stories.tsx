@@ -1,10 +1,9 @@
 import React from "react";
 import { Tabs } from "../dist/Tabs";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory, logCallbacks } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Tabs },
     "description": `- [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglet)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Tabs.tsx)  
@@ -56,7 +55,7 @@ function ControlledTabs() {
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Tabs" };
 
 export const Default = getStory({
     "tabs": [
