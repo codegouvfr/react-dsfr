@@ -108,6 +108,8 @@ export const SideMenu = memo(
                         aria-expanded="false"
                         aria-controls={collapseId}
                         className={cx(fr.cx("fr-sidemenu__btn"), classes.button)}
+                        role="button"
+                        type="button"
                     >
                         {burgerMenuButtonText}
                     </button>

@@ -37,7 +37,7 @@ export const SideMenu = memo(forwardRef((props, ref) => {
             "fr-sidemenu--sticky-full-height": sticky && fullHeight
         }), classes.root, className) }),
         React.createElement("div", { className: cx(fr.cx("fr-sidemenu__inner"), classes.inner) },
-            React.createElement("button", { hidden: true, "aria-expanded": "false", "aria-controls": collapseId, className: cx(fr.cx("fr-sidemenu__btn"), classes.button) }, burgerMenuButtonText),
+            React.createElement("button", { hidden: true, "aria-expanded": "false", "aria-controls": collapseId, className: cx(fr.cx("fr-sidemenu__btn"), classes.button), role: "button", type: "button" }, burgerMenuButtonText),
             React.createElement("div", { className: fr.cx("fr-collapse"), id: collapseId },
                 title !== undefined && (React.createElement("div", { className: cx(fr.cx("fr-sidemenu__title"), classes.title), id: titleId }, title)),
                 React.createElement("ul", { className: cx(fr.cx("fr-sidemenu__list"), classes.list) }, items.map((item, i) => {
