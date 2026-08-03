@@ -74,7 +74,7 @@ export declare namespace FooterProps {
             LinkList.Link?
         ];
         interface Column {
-            categoryName?: string;
+            categoryName?: ReactNode;
             links: Links;
         }
         interface Link {
