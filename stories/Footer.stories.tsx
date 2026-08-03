@@ -241,11 +241,28 @@ export const WithLinkList = getStory({
     "contentDescription": `
     Ce message est à remplacer par les informations de votre site.
 
-    Comme exemple de contenu, vous pouvez indiquer les informations 
+    Comme exemple de contenu, vous pouvez indiquer les informations
     suivantes : Le site officiel d’information administrative pour les entreprises.
-    Retrouvez toutes les informations et démarches administratives nécessaires à la création, 
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création,
     à la gestion et au développement de votre entreprise.
     `,
     linkList,
+    linkListTitle: <h2>Liens utiles</h2>
+});
+
+export const WithLinkListAndLangOnCategoryName = getStory({
+    "accessibility": "fully compliant",
+    "contentDescription": `
+    Ce message est à remplacer par les informations de votre site.
+
+    Comme exemple de contenu, vous pouvez indiquer les informations
+    suivantes : Le site officiel d’information administrative pour les entreprises.
+    Retrouvez toutes les informations et démarches administratives nécessaires à la création,
+    à la gestion et au développement de votre entreprise.
+    `,
+    linkList: new Array(6).fill({
+        categoryName: <span lang="en">Category name</span>,
+        links
+    }) as FooterProps.LinkList.List,
     linkListTitle: <h2>Liens utiles</h2>
 });
