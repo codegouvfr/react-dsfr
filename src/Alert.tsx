@@ -80,7 +80,12 @@ export const Alert = memo(
 
         // Honour explicit `role={undefined}` to opt out of the role attribute (RGAA 8.7).
         // When role is omitted entirely, default to "alert" for screen reader announcements.
-        const role = "role" in props ? roleFromProps : ("alert" as const);
+        const role =
+            "role" in props
+                ? roleFromProps
+                : severity === "success" || severity === "info"
+                ? ("status" as const)
+                : ("alert" as const);
 
         assert<Equals<keyof typeof rest, never>>();
 

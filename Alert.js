@@ -23,7 +23,11 @@ export const Alert = memo(forwardRef((props, ref) => {
     const { className, id: id_props, severity, as: HtmlTitleTag = "h3", classes = {}, style, small: isSmall, title, description, closable: isClosableByUser = false, isClosed: props_isClosed, onClose, role: roleFromProps } = props, rest = __rest(props, ["className", "id", "severity", "as", "classes", "style", "small", "title", "description", "closable", "isClosed", "onClose", "role"]);
     // Honour explicit `role={undefined}` to opt out of the role attribute (RGAA 8.7).
     // When role is omitted entirely, default to "alert" for screen reader announcements.
-    const role = "role" in props ? roleFromProps : "alert";
+    const role = "role" in props
+        ? roleFromProps
+        : severity === "success" || severity === "info"
+            ? "status"
+            : "alert";
     assert();
     const id = useAnalyticsId({
         "explicitlyProvidedId": id_props,
