@@ -1,5 +1,5 @@
 import { createElement, useState } from "react";
-import { Source } from "@storybook/components";
+import { Source } from "@storybook/addon-docs/blocks";
 import { Search } from "./Search";
 import { useConst } from "powerhooks/useConst";
 import { Evt } from "evt";
@@ -12,8 +12,11 @@ import { Tooltip } from "../../dist/Tooltip";
 import CallOut from "../../dist/CallOut";
 import { getLink } from "../../dist/link";
 import { useColors } from "../../dist/useColors";
+import React from "react";
+import { PictoProps } from "../../dist/picto/utils/PictoWrapper";
 
-const pictogrameEntries = Object.entries(Picto);
+type PictogramKey = keyof typeof Picto;
+const pictogrameEntries = Object.entries(Picto) as [PictogramKey, React.FC<PictoProps>][];
 
 const modal = createModal({
     id: "foo-modal",
@@ -28,7 +31,7 @@ export function Pictograms() {
     const filteredPictograms = pictogrameEntries.filter(([key]) =>
         key.toLowerCase().includes(search.toLowerCase())
     );
-    const [selectedPicto, setSelectedPicto] = useState<{ key: string } | null>(null);
+    const [selectedPicto, setSelectedPicto] = useState<{ key: PictogramKey } | null>(null);
 
     const evtSearchAction = useConst(() => Evt.create<"scroll to">());
 
@@ -87,7 +90,11 @@ export function Pictograms() {
     );
 }
 
-const PictogramsModal = ({ selectedPicto }: { selectedPicto: { key: string } | null }) => {
+const PictogramsModal = ({
+    selectedPicto
+}: {
+    selectedPicto: { key: keyof typeof Picto } | null;
+}) => {
     const { isDark } = useColors();
     const { classes } = useStyles();
 
@@ -101,6 +108,7 @@ const PictogramsModal = ({ selectedPicto }: { selectedPicto: { key: string } | n
                 <Source
                     language="tsx"
                     code={`import ${selectedPicto.key} from "@codegouvfr/react-dsfr/picto/${selectedPicto.key}";`}
+                    dark={isDark}
                 />
                 <div
                     style={{

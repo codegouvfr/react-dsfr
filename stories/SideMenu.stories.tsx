@@ -1,9 +1,8 @@
 import { SideMenu } from "../dist/SideMenu";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { SideMenu },
     "defaultContainerWidth": 300,
     "description": `
@@ -39,7 +38,7 @@ const { meta, getStory } = getStoryFactory({
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/SideMenu" };
 
 export const Default = getStory({
     "title": "Titre de rubrique",

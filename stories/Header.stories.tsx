@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { Header } from "../dist/Header";
 import { Badge } from "../dist/Badge";
 import { MainNavigation } from "../dist/MainNavigation";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 import { GlobalStyles } from "tss-react";
 import placeholder_9x16ImgUrl from "./assets/placeholder.9x16.png";
 import placeholder_16x9ImgUrl from "./assets/placeholder.16x9.png";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Header },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/en-tete)
@@ -31,11 +30,11 @@ const isOpen = useIsHeaderMenuModalOpen();
 `,
     "argTypes": {
         "brandTop": {
-            "control": { "type": null },
+            "control": false,
             "description": "In the example here it's `<>INTITULE<br />OFFICIEL</>`"
         },
         "homeLinkProps": {
-            "control": { "type": null },
+            "control": false,
             "description":
                 "A link to the home, when the user click on the logo he must navigate to the homepage of the website"
         },
@@ -50,7 +49,7 @@ const isOpen = useIsHeaderMenuModalOpen();
         "onSearchButtonClick": {
             "description":
                 "Optional, callback called when the user click on the search button or press enter",
-            "control": { "type": null }
+            "control": false
         },
         "clearSearchInputOnSearch": {
             "description":
@@ -66,7 +65,7 @@ const isOpen = useIsHeaderMenuModalOpen();
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Header" };
 
 export const SimpleHeader = getStory({
     "id": "fr-header-simple-header",

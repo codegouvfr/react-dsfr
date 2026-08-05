@@ -1,17 +1,19 @@
 import { Table, type TableProps } from "../dist/Table";
 import { getStoryFactory } from "./getStory";
-import { sectionName } from "./sectionName";
+
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Table },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/tableau)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Table.tsx)`,
     "disabledProps": ["lang"],
     "argTypes": {
+        "data": {
+            "description": "Table data. Each inner array represents a row."
+        },
         "caption": {
             "description": "Table caption"
         },
@@ -69,7 +71,7 @@ const { meta, getStory } = getStoryFactory({
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/Table" };
 
 export const Default = getStory({
     "caption": "Résumé du tableau (accessibilité)",

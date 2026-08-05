@@ -3,11 +3,10 @@ import { fr } from "../dist";
 import { Header } from "../dist/Header";
 import { Footer } from "../dist/Footer";
 import { headerFooterDisplayItem } from "../dist/Display";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { "Display": Story },
     "description": `
 A button that opens a dialog to enable the user to select light or dark mode.  
@@ -53,7 +52,7 @@ function App(){
     "disabledProps": ["darkMode", "containerWidth"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Display" };
 
 const brandTop = (
     <>

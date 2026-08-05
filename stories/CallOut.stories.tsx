@@ -1,11 +1,10 @@
 import { CallOut, type CallOutProps } from "../dist/CallOut";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory, logCallbacks } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { CallOut },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/mise-en-avant)
@@ -14,6 +13,10 @@ const { meta, getStory } = getStoryFactory({
     "argTypes": {
         "title": {
             "description": "Optional"
+        },
+        "children": {
+            "description": "Optional",
+            "control": { "type": "text" }
         },
         "colorVariant": {
             "options": (() => {
@@ -63,12 +66,12 @@ const { meta, getStory } = getStoryFactory({
         "buttonProps": {
             "description":
                 "The same props you would pass to a `<Button />`, `undefined` if you don't want any button",
-            "control": { "type": null }
+            "control": false
         }
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/CallOut" };
 
 export const Default = getStory({
     "title": "Titre mise en avant",

@@ -6,13 +6,11 @@ import Badge from "../dist/Badge";
 import Tag from "../dist/Tag";
 import { Tile, type TileProps } from "../dist/Tile";
 import { getStoryFactory } from "./getStory";
-import { sectionName } from "./sectionName";
 
 import picto from "./assets/city-hall.svg";
 import CityHall from "../dist/picto/CityHall";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Tile },
     "defaultContainerWidth": 360,
     "description": `
@@ -192,7 +190,7 @@ const { meta, getStory } = getStoryFactory({
     }
 });
 
-export default meta;
+export default { ...meta, title: "components/Tile" };
 
 const defaultProps: TileProps = {
     "title": "Intitulé de la tuile",

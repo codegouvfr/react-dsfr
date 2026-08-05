@@ -1,16 +1,14 @@
 import { SkipLinks, type SkipLinksProps } from "../dist/SkipLinks";
-import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory<SkipLinksProps>({
-    sectionName,
     wrappedComponent: { SkipLinks },
     description: `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/lien-d-evitement)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/SkipLinks.tsx)`
 });
 
-export default meta;
+export default { ...meta, title: "components/SkipLinks" };
 
 export const Default = getStory({
     links: [
