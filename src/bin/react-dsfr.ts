@@ -11,6 +11,13 @@ const [, , commandName, ...args] = process.argv;
                 await main(args);
             }
             break;
+        case "only-include-used-components":
+            {
+                const { main } = await import("./only-include-used-components");
+
+                await main(args);
+            }
+            break;
         case "copy-static-assets":
             {
                 const { main } = await import("./copy-dsfr-to-public");

@@ -30,7 +30,8 @@
     "bin": {
         "react-dsfr": "dist/bin/react-dsfr.js",
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
-        "only-include-used-icons": "dist/bin/only-include-used-icons.js"
+        "only-include-used-icons": "dist/bin/only-include-used-icons.js",
+        "only-include-used-components": "dist/bin/only-include-used-components.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
