@@ -307,7 +307,7 @@ export function resolveModuleIdToDsfrComponents(params: {
             componentName => componentName === match[1]
         );
 
-        return dsfrComponent === undefined ? [] : [dsfrComponent];
+        return dsfrComponent === undefined ? undefined : [dsfrComponent];
     }
 
     if (moduleId.startsWith("dsfr/")) {
@@ -336,12 +336,8 @@ export function resolveModuleIdToDsfrComponents(params: {
         return [];
     }
 
-    if (/^[a-z]/.test(firstSegment)) {
-        // Lowercase modules are utilities by convention in this repo.
-        return [];
-    }
-
-    // A component this script does not know about (newer react-dsfr version?).
+    // A component this script does not know about (newer react-dsfr version?),
+    // or a new non-component module missing from NON_COMPONENT_MODULE_IDS.
     return undefined;
 }
 
