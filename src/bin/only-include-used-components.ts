@@ -591,8 +591,10 @@ type CommandContext = {
     spaParams:
         | {
               dsfrDirPath_static: string;
-              // Undefined in Next.js: public/dsfr exists (copy-static-assets put it there)
-              // but there is no index.html to add a cache busting query parameter to.
+              // Undefined whenever public/dsfr exists but no index.html was found to add
+              // a cache busting query parameter to: a monorepo invoked with --projectDir,
+              // a project that used to be a Vite/CRA app, or a Next.js app that opted into
+              // copy-static-assets (the documented Next.js setup has no public/dsfr at all).
               htmlFilePath: string | undefined;
           }
         | undefined;
