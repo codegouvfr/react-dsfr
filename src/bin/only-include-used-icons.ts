@@ -477,7 +477,12 @@ export async function main(args: string[]) {
             })
         );
 
-        return { "usedIconClassNames": Array.from(setUsedIconClassNames) };
+        // NOTE: The set is filled from a Promise.all over the source files, so its
+        // insertion order follows I/O completion order and varies between runs. Sorting
+        // makes the generated stylesheet byte stable, which is what the `hasChanged`
+        // comparison below relies on. Rule order carries no meaning here: every rule
+        // targets a distinct `.fr-icon-*::before` / `.ri-*::before` selector.
+        return { "usedIconClassNames": Array.from(setUsedIconClassNames).sort() };
     })();
 
     if (usedIconClassNames.length > 300) {
