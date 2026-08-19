@@ -116,7 +116,13 @@ type CommandContext = {
     spaParams:
         | {
               dsfrDirPath_static: string;
-              htmlFilePath: string;
+              // Undefined whenever public/dsfr exists but no index.html was found to add
+              // a cache busting query parameter to: a project that used to be a Vite/CRA
+              // app and lost its index.html, or a public/dsfr that was committed or
+              // restored by other means. Not reachable through copy-static-assets, which
+              // resolves index.html through the same two paths as this script and asserts
+              // "Can't locate your index.html file." before creating anything.
+              htmlFilePath: string | undefined;
           }
         | undefined;
     isSilent: boolean;
@@ -401,8 +407,6 @@ async function getCommandContext(args: string[]): Promise<CommandContext> {
                 return undefined;
             }
 
-            assert(htmlFilePath !== undefined);
-
             return {
                 dsfrDirPath_static,
                 htmlFilePath
@@ -475,7 +479,12 @@ export async function main(args: string[]) {
             })
         );
 
-        return { "usedIconClassNames": Array.from(setUsedIconClassNames) };
+        // NOTE: The set is filled from a Promise.all over the source files, so its
+        // insertion order follows I/O completion order and varies between runs. Sorting
+        // makes the generated stylesheet byte stable, which is what the `hasChanged`
+        // comparison below relies on. Rule order carries no meaning here: every rule
+        // targets a distinct `.fr-icon-*::before` / `.ri-*::before` selector.
+        return { "usedIconClassNames": Array.from(setUsedIconClassNames).sort() };
     })();
 
     if (usedIconClassNames.length > 300) {
@@ -529,12 +538,42 @@ export async function main(args: string[]) {
             })
     );
 
-    if (!hasChanged) {
-        log?.("No change since last run");
-        return;
-    }
-
+    // NOTE: Deliberately outside of the `hasChanged` guard below. These three writes are
+    // idempotent, and inside the guard a stale or hand reverted output could never be
+    // repaired as long as icons.min.css itself did not change. Nothing else writes them:
+    // copy-dsfr-to-public builds its keep list from the url() of dsfr.min.css, so the
+    // icons and the hash query parameter are this script's responsibility alone.
     await Promise.all([
+        (async function addHashQueryParameterInIndexHtml() {
+            const htmlFilePath = commandContext.spaParams?.htmlFilePath;
+
+            if (htmlFilePath === undefined) {
+                return;
+            }
+
+            const html = (await readFile(htmlFilePath)).toString("utf8");
+
+            const { modifiedHtml } = modifyHtmlHrefs({
+                "html": html,
+                "getModifiedHref": href => {
+                    if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
+                        return href;
+                    }
+
+                    const [urlWithoutQuery] = href.split("?");
+
+                    return `${urlWithoutQuery}?hash=${fnv1aHashToHex(
+                        rawIconCssCodeBuffer.toString("utf8")
+                    )}`;
+                }
+            });
+
+            if (modifiedHtml === html) {
+                return;
+            }
+
+            await writeFile(htmlFilePath, Buffer.from(modifiedHtml, "utf8"));
+        })(),
         (async function generateUsedRemixiconFiles() {
             await Promise.all(
                 [commandContext.dsfrDirPath, commandContext.spaParams?.dsfrDirPath_static]
@@ -542,9 +581,7 @@ export async function main(args: string[]) {
                     .map(async dsfrDistDirPath => {
                         const remixiconDirPath = pathJoin(dsfrDistDirPath, "icons", "remixicon");
 
-                        if (!fs.existsSync(remixiconDirPath)) {
-                            fs.mkdirSync(remixiconDirPath);
-                        }
+                        fs.mkdirSync(remixiconDirPath, { "recursive": true });
 
                         await Promise.all(
                             usedIcons
@@ -583,56 +620,35 @@ export async function main(args: string[]) {
                     )
                     .map(([srcFilePath, destFilePath]) => cp(srcFilePath, destFilePath))
             );
-        })(),
-        (async function addHashQueryParameterInIndexHtml() {
-            if (commandContext.spaParams === undefined) {
-                return;
-            }
-
-            const html = (await readFile(commandContext.spaParams.htmlFilePath)).toString("utf8");
-
-            const { modifiedHtml } = modifyHtmlHrefs({
-                "html": html,
-                "getModifiedHref": href => {
-                    if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
-                        return href;
-                    }
-
-                    const [urlWithoutQuery] = href.split("?");
-
-                    return `${urlWithoutQuery}?hash=${fnv1aHashToHex(
-                        rawIconCssCodeBuffer.toString("utf8")
-                    )}`;
-                }
-            });
-
-            await writeFile(
-                commandContext.spaParams.htmlFilePath,
-                Buffer.from(modifiedHtml, "utf8")
-            );
-        })(),
-        (async function clearCache() {
-            await Promise.all(
-                [
-                    pathJoin(".next", "cache"),
-                    pathJoin(".vite"),
-                    pathJoin(".cache", "storybook"),
-                    pathJoin(".cache", "babel-loader"),
-                    pathJoin(".cache", "default-development")
-                ]
-                    .map(relativeDirPath =>
-                        pathJoin(commandContext.projectDirPath, "node_modules", relativeDirPath)
-                    )
-                    .map(async dirPath => {
-                        if (!(await existsAsync(dirPath))) {
-                            return;
-                        }
-
-                        await rm(dirPath, { "recursive": true, "force": true });
-                    })
-            );
         })()
     ]);
+
+    if (!hasChanged) {
+        log?.("No change since last run");
+        return;
+    }
+
+    await (async function clearCache() {
+        await Promise.all(
+            [
+                pathJoin(".next", "cache"),
+                pathJoin(".vite"),
+                pathJoin(".cache", "storybook"),
+                pathJoin(".cache", "babel-loader"),
+                pathJoin(".cache", "default-development")
+            ]
+                .map(relativeDirPath =>
+                    pathJoin(commandContext.projectDirPath, "node_modules", relativeDirPath)
+                )
+                .map(async dirPath => {
+                    if (!(await existsAsync(dirPath))) {
+                        return;
+                    }
+
+                    await rm(dirPath, { "recursive": true, "force": true });
+                })
+        );
+    })();
 }
 
 if (require.main === module) {
