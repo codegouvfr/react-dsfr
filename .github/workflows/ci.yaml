@@ -114,7 +114,8 @@ jobs:
           ref: ${{ github.ref }}
       - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          # npm@latest requires node >=22 since npm 12, keep this in step with the test job
+          node-version: '22'
           registry-url: https://registry.npmjs.org/
       - run: npm install -g npm@latest
       - run: yarn install --frozen-lockfile
