@@ -592,9 +592,11 @@ type CommandContext = {
         | {
               dsfrDirPath_static: string;
               // Undefined whenever public/dsfr exists but no index.html was found to add
-              // a cache busting query parameter to: a monorepo invoked with --projectDir,
-              // a project that used to be a Vite/CRA app, or a Next.js app that opted into
-              // copy-static-assets (the documented Next.js setup has no public/dsfr at all).
+              // a cache busting query parameter to: a monorepo invoked with --projectDir
+              // where the html is not where either branch looks, a project that used to be
+              // a Vite/CRA app and lost its index.html, or a public/dsfr that was committed
+              // or restored by other means. Not reachable through copy-static-assets: it
+              // asserts "Can't locate your index.html file." before creating anything.
               htmlFilePath: string | undefined;
           }
         | undefined;
