@@ -4,6 +4,7 @@ import { SearchBar } from "../../dist/SearchBar";
 import { fr } from "../../dist/fr";
 import { NonPostableEvt } from "evt";
 import { useEvt } from "evt/hooks";
+import React from "react";
 
 export type Props = {
     className?: string;

@@ -1,9 +1,8 @@
 import { Summary } from "../dist/Summary";
-import { sectionName } from "./sectionName";
+
 import { getStoryFactory } from "./getStory";
 
 const { meta, getStory } = getStoryFactory({
-    sectionName,
     "wrappedComponent": { Summary },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/sommaire)
@@ -11,7 +10,7 @@ const { meta, getStory } = getStoryFactory({
     "disabledProps": ["lang"]
 });
 
-export default meta;
+export default { ...meta, title: "components/Summary" };
 
 export const Default = getStory({
     links: [
