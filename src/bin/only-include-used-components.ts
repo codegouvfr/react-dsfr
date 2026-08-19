@@ -17,6 +17,9 @@
  * - Usage of the component's CSS class names (e.g. "fr-table") in your sources,
  *   for when you use raw DSFR classes without the React component.
  *
+ * Stylesheets (.css, .scss...) are not scanned: class name detection is substring based,
+ * so a single compiled bundle would mark every component as used.
+ *
  * You can force the inclusion of components that the detection would miss by adding
  * to your package.json:
  * "react-dsfr": {
@@ -24,10 +27,13 @@
  * }
  * (values are DSFR CSS component names or react-dsfr component names)
  *
- * There are two optional arguments that you can use:
+ * There are three optional arguments that you can use:
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
  * - `--silent` to disable console.log
+ * - `--strict` to exit with a non zero code instead of falling back to the untrimmed
+ *   stylesheet when something can't be resolved. Recommended in CI, where the warning
+ *   would otherwise go unnoticed and the build would silently ship the full bundle.
  */
 
 import { getProjectRoot } from "./tools/getProjectRoot";
@@ -35,7 +41,7 @@ import * as fs from "fs";
 import { join as pathJoin, relative as pathRelative } from "path";
 import { assert } from "tsafe/assert";
 import { exclude } from "tsafe/exclude";
-import { writeFile, readFile, rm } from "fs/promises";
+import { writeFile, readFile, rm, cp } from "fs/promises";
 import { crawl } from "./tools/crawl";
 import { basename as pathBasename, sep as pathSep, dirname as pathDirname } from "path";
 import yargsParser from "yargs-parser";
@@ -49,7 +55,13 @@ import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
  * The DSFR CSS components (dsfr/component/<name> directories), listed in the
  * order in which they are concatenated in the upstream dsfr.css bundle.
  * Preserving this order preserves the CSS cascade of the original stylesheet.
- * (Order determined empirically by locating each component's section in dsfr.main.css)
+ *
+ * The order is the order of first occurrence of each `component/<name>/main.scss`
+ * in the `sources` of `@gouvfr/dsfr/dist/dsfr.main.css.map`. It is asserted against
+ * the installed DSFR in test/runtime/scripts/onlyIncludeUsedComponents/dsfrComponentsCascadeOrder.test.ts
+ * so that it can't silently drift on a DSFR bump.
+ * `radio` is the only component that has no `main.scss` upstream, its position is
+ * taken from the first occurrence of any of its stylesheets (between notice and card).
  */
 export const DSFR_COMPONENTS_CASCADE_ORDER = [
     "upload",
@@ -80,7 +92,6 @@ export const DSFR_COMPONENTS_CASCADE_ORDER = [
     "checkbox",
     "input",
     "content",
-    "transcription",
     "segmented",
     "toggle",
     "skiplink",
@@ -96,6 +107,7 @@ export const DSFR_COMPONENTS_CASCADE_ORDER = [
     "password",
     "translate",
     "table",
+    "transcription",
     "header"
 ] as const;
 
@@ -169,7 +181,12 @@ export const REACT_DSFR_MODULE_TO_DSFR_COMPONENTS: Record<string, DsfrComponentN
     "Tooltip": ["tooltip", "button"],
     "Upload": ["upload", "input", "form"],
     "blocks/PasswordInput": ["password", "input", "form", "link", "checkbox"],
-    "consentManagement": ["consent", "modal", "button", "link", "radio", "form"]
+    "consentManagement": ["consent", "modal", "button", "link", "radio", "form"],
+    // `link` is the registerLink module, its Link fallback renders a `fr-link` button.
+    "link": ["link"],
+    // `shared` only contains Fieldset, the internal building block of
+    // Checkbox / RadioButtons: it renders fr-fieldset, fr-label, fr-hint-text and fr-radio-rich.
+    "shared": ["form", "radio", "checkbox"]
 };
 
 /**
@@ -237,9 +254,7 @@ const NON_COMPONENT_MODULE_IDS = new Set<string>([
     "start",
     "tss",
     "mui",
-    "link",
     "picto",
-    "shared",
     "tools",
     "assets",
     "favicon",
@@ -257,14 +272,47 @@ const NON_COMPONENT_MODULE_IDS = new Set<string>([
     "zz_internal"
 ]);
 
+/**
+ * Regexes matching the specifier of an actual import statement.
+ * Matching any textual occurrence of "@codegouvfr/react-dsfr/..." instead would
+ * pick up urls and comments (a link to https://www.npmjs.com/package/@codegouvfr/react-dsfr/v/1.32.5
+ * would resolve to the unknown module "v" and trigger the include-everything fail-safe).
+ */
+const IMPORT_SPECIFIER_REGEXES = [
+    // import X from "..." / export * from "..."
+    /\bfrom\s*["'`]([^"'`\n]+)["'`]/g,
+    // import "..." / import("...")
+    /\bimport\s*\(?\s*["'`]([^"'`\n]+)["'`]/g,
+    // require("...")
+    /\brequire\s*\(\s*["'`]([^"'`\n]+)["'`]/g,
+    // @import "..." / @import url("...")
+    /@import\s+(?:url\(\s*)?["'`]([^"'`\n]+)["'`]/g
+];
+
+const REACT_DSFR_PACKAGE_NAME = "@codegouvfr/react-dsfr";
+
 export function getReactDsfrImportedModuleIds(params: { rawFileContent: string }): string[] {
     const { rawFileContent } = params;
 
     const moduleIds = new Set<string>();
 
-    for (const [, subpath] of rawFileContent.matchAll(
-        /@codegouvfr\/react-dsfr\/([\w@.-]+(?:\/[\w@.-]+)*)/g
-    )) {
+    if (!rawFileContent.includes(REACT_DSFR_PACKAGE_NAME)) {
+        return [];
+    }
+
+    const importSpecifiers = new Set(
+        IMPORT_SPECIFIER_REGEXES.map(regex =>
+            Array.from(rawFileContent.matchAll(regex), ([, specifier]) => specifier)
+        ).flat()
+    );
+
+    for (const importSpecifier of importSpecifiers) {
+        if (!importSpecifier.startsWith(`${REACT_DSFR_PACKAGE_NAME}/`)) {
+            continue;
+        }
+
+        const subpath = importSpecifier.slice(`${REACT_DSFR_PACKAGE_NAME}/`.length);
+
         const segments = subpath
             .replace(/\.(?:js|mjs|cjs|ts|tsx|jsx)$/, "")
             .split("/")
@@ -386,6 +434,33 @@ export function rewriteCssRelativeUrls(params: {
 
         return `url(${quote}${pathSegments.join("/")}${quote})`;
     });
+}
+
+/**
+ * The assets (fonts, icons, artwork...) referenced by a stylesheet whose url()
+ * have already been rewritten relative to the dsfr directory root by
+ * rewriteCssRelativeUrls(). Absolute and data: urls are skipped.
+ */
+export function getReferencedAssetRelativePaths(params: { rawCssCode: string }): string[] {
+    const { rawCssCode } = params;
+
+    const assetRelativePaths = new Set<string>();
+
+    for (const [, , url] of rawCssCode.matchAll(/url\((["']?)([^)"']+)\1\)/g)) {
+        if (/^(?:data:|https?:|\/)/.test(url)) {
+            continue;
+        }
+
+        const [urlWithoutQuery] = url.split(/[?#]/);
+
+        if (urlWithoutQuery === "") {
+            continue;
+        }
+
+        assetRelativePaths.add(urlWithoutQuery);
+    }
+
+    return Array.from(assetRelativePaths);
 }
 
 /**
@@ -520,6 +595,7 @@ type CommandContext = {
           }
         | undefined;
     isSilent: boolean;
+    isStrict: boolean;
 };
 
 const CODEGOUV_REACT_DSFR: string = JSON.parse(
@@ -624,6 +700,7 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
     })();
 
     const isSilent = argv["silent"] === true;
+    const isStrict = argv["strict"] === true;
 
     const srcFilePaths = (
         await Promise.all([
@@ -740,21 +817,14 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
         .flat()
         .filter(
             filePath =>
-                [
-                    "tsx",
-                    "jsx",
-                    "js",
-                    "ts",
-                    "mdx",
-                    "html",
-                    "htm",
-                    "svelte",
-                    "vue",
-                    "css",
-                    "scss",
-                    "sass",
-                    "less"
-                ].find(ext => filePath.endsWith(`.${ext}`)) !== undefined
+                // NOTE: Stylesheets are deliberately not scanned: detectDsfrComponentsFromClassNames()
+                // does substring matching, so a single compiled bundle (a leftover out/, a
+                // dependency shipping the DSFR) would mark every component as used.
+                // Use "react-dsfr"."additionalComponents" in your package.json for the
+                // components you only reference from a stylesheet.
+                ["tsx", "jsx", "js", "ts", "mdx", "html", "htm", "svelte", "vue"].find(ext =>
+                    filePath.endsWith(`.${ext}`)
+                ) !== undefined
         );
 
     return {
@@ -773,7 +843,8 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
                 htmlFilePath
             };
         })(),
-        isSilent
+        isSilent,
+        isStrict
     };
 }
 
@@ -786,8 +857,20 @@ export async function main(args: string[]) {
 
     const log = commandContext.isSilent ? undefined : console.log;
 
+    const componentsDirPath = pathJoin(commandContext.dsfrDirPath, "component");
+
+    if (!fs.existsSync(componentsDirPath)) {
+        assert(
+            false,
+            [
+                `Can't find the granular DSFR stylesheets in ${componentsDirPath},`,
+                `is your installation of ${CODEGOUV_REACT_DSFR} complete?`
+            ].join(" ")
+        );
+    }
+
     const availableDsfrComponents = fs
-        .readdirSync(pathJoin(commandContext.dsfrDirPath, "component"), { "withFileTypes": true })
+        .readdirSync(componentsDirPath, { "withFileTypes": true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name)
         .filter(componentName =>
@@ -815,11 +898,13 @@ export async function main(args: string[]) {
                 const dsfrComponents = resolveModuleIdToDsfrComponents({ moduleId });
 
                 if (dsfrComponents === undefined) {
+                    // NOTE: Deliberately not routed through log?.(), --silent must not hide
+                    // the fact that the optimization has been disabled for this run.
                     console.warn(
                         [
-                            `Unknown react-dsfr module "${moduleId}" imported in`,
-                            `${pathRelative(process.cwd(), srcFilePath)},`,
-                            `including every component's CSS to be safe.`,
+                            `[react-dsfr] Unknown react-dsfr module "${moduleId}" imported in`,
+                            `${pathRelative(process.cwd(), srcFilePath)}:`,
+                            `no CSS is trimmed at all for this run, every component is included.`,
                             `Please report it: https://github.com/codegouvfr/react-dsfr/issues`
                         ].join(" ")
                     );
@@ -862,11 +947,27 @@ export async function main(args: string[]) {
             break additional_components_from_package_json;
         }
 
-        const additionalComponents: unknown = JSON.parse(
+        const reactDsfrConfig: unknown = JSON.parse(
             (await readFile(packageJsonFilePath)).toString("utf8")
-        )["react-dsfr"]?.["additionalComponents"];
+        )["react-dsfr"];
+
+        const additionalComponents: unknown =
+            reactDsfrConfig === null || typeof reactDsfrConfig !== "object"
+                ? undefined
+                : (reactDsfrConfig as Record<string, unknown>)["additionalComponents"];
 
         if (additionalComponents === undefined) {
+            if (reactDsfrConfig !== null && typeof reactDsfrConfig === "object") {
+                // A typo in the key would otherwise silently disable the escape hatch.
+                console.warn(
+                    [
+                        `[react-dsfr] The "react-dsfr" entry of your package.json has no`,
+                        `"additionalComponents" key, is it a typo? Found:`,
+                        `${Object.keys(reactDsfrConfig as Record<string, unknown>).join(", ")}`
+                    ].join(" ")
+                );
+            }
+
             break additional_components_from_package_json;
         }
 
@@ -886,9 +987,9 @@ export async function main(args: string[]) {
             if (dsfrComponents === undefined) {
                 console.warn(
                     [
-                        `Unknown component "${additionalComponent}" in`,
-                        `"react-dsfr"."additionalComponents" of your package.json,`,
-                        `including every component's CSS to be safe.`
+                        `[react-dsfr] Unknown component "${additionalComponent}" in`,
+                        `"react-dsfr"."additionalComponents" of your package.json:`,
+                        `no CSS is trimmed at all for this run, every component is included.`
                     ].join(" ")
                 );
 
@@ -897,10 +998,41 @@ export async function main(args: string[]) {
                 continue;
             }
 
+            if (dsfrComponents.length === 0) {
+                // Reporting "Including <X>" here would be the exact opposite of what happens,
+                // and this escape hatch is precisely what one reaches for when something is unstyled.
+                console.warn(
+                    [
+                        `[react-dsfr] "${additionalComponent}" of`,
+                        `"react-dsfr"."additionalComponents" maps to no DSFR stylesheet,`,
+                        `nothing was added.`,
+                        ...(additionalComponent === "Chart"
+                            ? [`The Chart CSS comes from the @gouvfr/dsfr-chart package.`]
+                            : [])
+                    ].join(" ")
+                );
+
+                continue;
+            }
+
             log?.(`Including ${additionalComponent} (from package.json additionalComponents)`);
 
             dsfrComponents.forEach(componentName => usedDsfrComponents.add(componentName));
         }
+    }
+
+    if (doIncludeAllComponents && commandContext.isStrict) {
+        console.error(
+            [
+                `[react-dsfr] Aborting because of --strict:`,
+                `something could not be resolved (see the warning(s) above),`,
+                `so this run would have shipped the untrimmed dsfr.min.css.`,
+                `Fix the cause or add the component to "react-dsfr"."additionalComponents"`,
+                `in your package.json.`
+            ].join(" ")
+        );
+
+        process.exit(1);
     }
 
     const dsfrComponents = doIncludeAllComponents
@@ -981,6 +1113,38 @@ export async function main(args: string[]) {
             )
         )
     );
+
+    // NOTE: Deliberately outside of the `hasChanged` guard below.
+    // copy-dsfr-to-public builds its keep list from the url() of the dsfr.min.css it
+    // finds in node_modules, then early returns on every later run as long as
+    // public/dsfr/version.txt matches the @gouvfr/dsfr version. So once it has run
+    // against an already trimmed stylesheet, public/dsfr is frozen on that asset subset
+    // and growing the component set later can never bring the missing files back.
+    // Copying them ourselves also makes a purged public/dsfr repairable when the CSS
+    // itself did not change.
+    await (async function copyUsedDsfrAssetsToStatic() {
+        if (commandContext.spaParams === undefined) {
+            return;
+        }
+
+        const { dsfrDirPath_static } = commandContext.spaParams;
+
+        await Promise.all(
+            getReferencedAssetRelativePaths({
+                "rawCssCode": rawDsfrMinCssCodeBuffer.toString("utf8")
+            }).map(async assetRelativePath => {
+                const pathSegments = assetRelativePath.split("/");
+
+                const srcFilePath = pathJoin(commandContext.dsfrDirPath, ...pathSegments);
+
+                if (!(await existsAsync(srcFilePath))) {
+                    return;
+                }
+
+                await cp(srcFilePath, pathJoin(dsfrDirPath_static, ...pathSegments));
+            })
+        );
+    })();
 
     if (!hasChanged) {
         log?.("No change since last run");

@@ -2,7 +2,8 @@ import { it, expect, describe } from "vitest";
 import {
     generateDsfrCssCode,
     rewriteCssRelativeUrls,
-    patchCoreCssCodeForCompatWithMui
+    patchCoreCssCodeForCompatWithMui,
+    getReferencedAssetRelativePaths
 } from "../../../../src/bin/only-include-used-components";
 
 describe("rewriteCssRelativeUrls", () => {
@@ -128,5 +129,37 @@ describe("generateDsfrCssCode", () => {
         };
 
         expect(generateDsfrCssCode(params)).toBe(generateDsfrCssCode(params));
+    });
+});
+
+describe("getReferencedAssetRelativePaths", () => {
+    it("collects the local assets referenced by the generated stylesheet", () => {
+        expect(
+            getReferencedAssetRelativePaths({
+                "rawCssCode": [
+                    `@font-face{src:url("fonts/Marianne-Regular.woff2") format("woff2")}`,
+                    `.fr-header__menu{-webkit-mask-image:url(icons/system/menu-fill.svg)}`,
+                    `.fr-btn--close{mask-image:url('icons/system/close-line.svg')}`
+                ].join("")
+            }).sort()
+        ).toStrictEqual([
+            "fonts/Marianne-Regular.woff2",
+            "icons/system/close-line.svg",
+            "icons/system/menu-fill.svg"
+        ]);
+    });
+
+    it("deduplicates, strips query strings and skips data, http and absolute urls", () => {
+        expect(
+            getReferencedAssetRelativePaths({
+                "rawCssCode": [
+                    `.a{background-image:url("icons/a.svg?v=1")}`,
+                    `.b{background-image:url("icons/a.svg")}`,
+                    `.c{background-image:url("data:image/svg+xml;base64,abc")}`,
+                    `.d{background-image:url("https://example.com/b.svg")}`,
+                    `.e{background-image:url("/c.svg")}`
+                ].join("")
+            })
+        ).toStrictEqual(["icons/a.svg"]);
     });
 });

@@ -53,3 +53,32 @@ describe("getReactDsfrImportedModuleIds", () => {
         expect(getReactDsfrImportedModuleIds({ rawFileContent })).toStrictEqual([]);
     });
 });
+
+describe("getReactDsfrImportedModuleIds, non import occurrences", () => {
+    it("ignores urls and comments that merely mention the package", () => {
+        const rawFileContent = `
+            // see https://www.npmjs.com/package/@codegouvfr/react-dsfr/v/1.32.5
+            <link rel="stylesheet" href="https://unpkg.com/@codegouvfr/react-dsfr/dist/dsfr/dsfr.min.css" />
+            /* @codegouvfr/react-dsfr/Header is not imported here */
+        `;
+
+        expect(getReactDsfrImportedModuleIds({ rawFileContent })).toStrictEqual([]);
+    });
+
+    it("still detects the import when it sits next to a mention", () => {
+        const rawFileContent = `
+            // https://www.npmjs.com/package/@codegouvfr/react-dsfr/v/1.32.5
+            import { Button } from "@codegouvfr/react-dsfr/Button";
+        `;
+
+        expect(getReactDsfrImportedModuleIds({ rawFileContent })).toStrictEqual(["Button"]);
+    });
+
+    it("detects @import of a stylesheet", () => {
+        expect(
+            getReactDsfrImportedModuleIds({
+                "rawFileContent": `@import "@codegouvfr/react-dsfr/dsfr/component/table/table.min.css";`
+            })
+        ).toStrictEqual(["dsfr/component/table"]);
+    });
+});

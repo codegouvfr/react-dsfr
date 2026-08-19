@@ -46,3 +46,29 @@ describe("resolveModuleIdToDsfrComponents", () => {
         }
     });
 });
+
+describe("resolveModuleIdToDsfrComponents, modules rendering DSFR markup", () => {
+    it("resolves the modules that render DSFR markup without being components", () => {
+        // src/link.tsx renders a `fr-link` button when the Link is a button.
+        expect(resolveModuleIdToDsfrComponents({ "moduleId": "link" })).toStrictEqual(["link"]);
+
+        // src/shared/Fieldset.tsx renders fr-fieldset, fr-label, fr-hint-text and fr-radio-rich.
+        const dsfrComponents = resolveModuleIdToDsfrComponents({ "moduleId": "shared" });
+
+        for (const expected of ["form", "radio", "checkbox"]) {
+            expect(dsfrComponents).toContain(expected);
+        }
+    });
+
+    it("returns undefined for an unknown dsfr component stylesheet", () => {
+        expect(resolveModuleIdToDsfrComponents({ "moduleId": "dsfr/component/brandNew" })).toBe(
+            undefined
+        );
+    });
+
+    it("returns undefined for an unknown lowercase module", () => {
+        for (const moduleId of ["v", "dist"]) {
+            expect(resolveModuleIdToDsfrComponents({ moduleId })).toBe(undefined);
+        }
+    });
+});
