@@ -5,10 +5,14 @@ import { DSFR_COMPONENTS_CASCADE_ORDER } from "../../../../src/bin/only-include-
 
 /**
  * DSFR_COMPONENTS_CASCADE_ORDER only has a reason to exist if it matches the order in
- * which the upstream bundle concatenates the components. There is no section banner in
- * dsfr.main.css to read it from, but its source map lists the scss files in emission
- * order, so the order can be extracted and asserted against the installed DSFR.
- * This test is what makes a silent drift on a @gouvfr/dsfr bump impossible.
+ * which the upstream bundle concatenates the components. This test is what makes a
+ * silent drift on a @gouvfr/dsfr bump impossible.
+ *
+ * dsfr.main.css does carry section banners (`/* ¯¯¯ *\ NAME \* ˍˍˍ *\/`), but they are a
+ * defective index: 44 of them for 45 components, `badge`, `consent`, `notice` and `radio`
+ * have none, and `notice` is labelled ALERT so the list contains `alert` twice.
+ * The source map is read instead: its `sources` list the scss files in emission order,
+ * and only `radio` has no `main.scss` entry point to key on.
  */
 describe("DSFR_COMPONENTS_CASCADE_ORDER", () => {
     const sourceMapFilePath = pathJoin(
@@ -63,10 +67,10 @@ describe("DSFR_COMPONENTS_CASCADE_ORDER", () => {
     };
 
     it("matches the section order of the installed @gouvfr/dsfr", () => {
-        if (!fs.existsSync(sourceMapFilePath)) {
-            console.warn(`${sourceMapFilePath} not found, skipping the cascade order assertion.`);
-            return;
-        }
+        // Deliberately an assertion and not a skip: @gouvfr/dsfr is a direct dependency of
+        // this repo, so there is no legitimate case where the map is absent. Skipping would
+        // let the guard silently evaporate on a future DSFR that stops shipping source maps.
+        expect(fs.existsSync(sourceMapFilePath), `${sourceMapFilePath} not found`).toBe(true);
 
         expect([...DSFR_COMPONENTS_CASCADE_ORDER]).toStrictEqual(getUpstreamCascadeOrder());
     });

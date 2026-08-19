@@ -591,7 +591,9 @@ type CommandContext = {
     spaParams:
         | {
               dsfrDirPath_static: string;
-              htmlFilePath: string;
+              // Undefined in Next.js: public/dsfr exists (copy-static-assets put it there)
+              // but there is no index.html to add a cache busting query parameter to.
+              htmlFilePath: string | undefined;
           }
         | undefined;
     isSilent: boolean;
@@ -835,8 +837,6 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
             if (dsfrDirPath_static === undefined) {
                 return undefined;
             }
-
-            assert(htmlFilePath !== undefined);
 
             return {
                 dsfrDirPath_static,
@@ -1146,39 +1146,46 @@ export async function main(args: string[]) {
         );
     })();
 
+    // NOTE: Deliberately outside of the `hasChanged` guard below. The rewrite is
+    // idempotent, and inside the guard a stale or hand reverted hash could never be
+    // repaired as long as dsfr.min.css itself did not change.
+    await (async function addHashQueryParameterInIndexHtml() {
+        const htmlFilePath = commandContext.spaParams?.htmlFilePath;
+
+        if (htmlFilePath === undefined) {
+            return;
+        }
+
+        const html = (await readFile(htmlFilePath)).toString("utf8");
+
+        const { modifiedHtml } = modifyHtmlHrefs({
+            "html": html,
+            "getModifiedHref": href => {
+                if (!href.includes("dsfr.min.css")) {
+                    return href;
+                }
+
+                const [urlWithoutQuery] = href.split("?");
+
+                return `${urlWithoutQuery}?hash=${fnv1aHashToHex(
+                    rawDsfrMinCssCodeBuffer.toString("utf8")
+                )}`;
+            }
+        });
+
+        if (modifiedHtml === html) {
+            return;
+        }
+
+        await writeFile(htmlFilePath, Buffer.from(modifiedHtml, "utf8"));
+    })();
+
     if (!hasChanged) {
         log?.("No change since last run");
         return;
     }
 
     await Promise.all([
-        (async function addHashQueryParameterInIndexHtml() {
-            if (commandContext.spaParams === undefined) {
-                return;
-            }
-
-            const html = (await readFile(commandContext.spaParams.htmlFilePath)).toString("utf8");
-
-            const { modifiedHtml } = modifyHtmlHrefs({
-                "html": html,
-                "getModifiedHref": href => {
-                    if (!href.includes("dsfr.min.css")) {
-                        return href;
-                    }
-
-                    const [urlWithoutQuery] = href.split("?");
-
-                    return `${urlWithoutQuery}?hash=${fnv1aHashToHex(
-                        rawDsfrMinCssCodeBuffer.toString("utf8")
-                    )}`;
-                }
-            });
-
-            await writeFile(
-                commandContext.spaParams.htmlFilePath,
-                Buffer.from(modifiedHtml, "utf8")
-            );
-        })(),
         (async function clearCache() {
             await Promise.all(
                 [
