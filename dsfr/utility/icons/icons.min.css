@@ -1,13 +1,31 @@
-.fr-icon-translate-2::before,
-.fr-icon-translate-2::after {
-    -webkit-mask-image: url("../../icons/editor/translate-2.svg");
-    mask-image: url("../../icons/editor/translate-2.svg");
+.fr-icon-account-fill::before,
+.fr-icon-account-fill::after {
+    -webkit-mask-image: url("../../icons/user/account-circle-fill.svg");
+    mask-image: url("../../icons/user/account-circle-fill.svg");
 }
 
-.fr-icon-question-line::before,
-.fr-icon-question-line::after {
-    -webkit-mask-image: url("../../icons/system/question-line.svg");
-    mask-image: url("../../icons/system/question-line.svg");
+.fr-icon-account-line::before,
+.fr-icon-account-line::after {
+    -webkit-mask-image: url("../../icons/user/account-circle-line.svg");
+    mask-image: url("../../icons/user/account-circle-line.svg");
+}
+
+.fr-icon-add-circle-line::before,
+.fr-icon-add-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/add-circle-line.svg");
+    mask-image: url("../../icons/system/add-circle-line.svg");
+}
+
+.fr-icon-add-line::before,
+.fr-icon-add-line::after {
+    -webkit-mask-image: url("../../icons/system/add-line.svg");
+    mask-image: url("../../icons/system/add-line.svg");
+}
+
+.fr-icon-alert-line::before,
+.fr-icon-alert-line::after {
+    -webkit-mask-image: url("../../icons/system/alert-line.svg");
+    mask-image: url("../../icons/system/alert-line.svg");
 }
 
 .fr-icon-arrow-go-back-fill::before,
@@ -22,34 +40,10 @@
     mask-image: url("../../icons/arrows/arrow-right-line.svg");
 }
 
-.fr-icon-theme-fill::before,
-.fr-icon-theme-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
-    mask-image: url("../../icons/system/fr--theme-fill.svg");
-}
-
-.fr-icon-checkbox-circle-line::before,
-.fr-icon-checkbox-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
-    mask-image: url("../../icons/system/checkbox-circle-line.svg");
-}
-
-.ri-ancient-gate-fill::before,
-.ri-ancient-gate-fill::after {
-    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-}
-
-.fr-icon-chat-check-fill::before,
-.fr-icon-chat-check-fill::after {
-    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
-    mask-image: url("../../icons/communication/chat-check-fill.svg");
-}
-
-.fr-icon-git-commit-fill::before,
-.fr-icon-git-commit-fill::after {
-    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
-    mask-image: url("../../icons/development/git-commit-fill.svg");
+.fr-icon-ball-pen-fill::before,
+.fr-icon-ball-pen-fill::after {
+    -webkit-mask-image: url("../../icons/design/ball-pen-fill.svg");
+    mask-image: url("../../icons/design/ball-pen-fill.svg");
 }
 
 .fr-icon-bank-card-line::before,
@@ -58,118 +52,10 @@
     mask-image: url("../../icons/finance/bank-card-line.svg");
 }
 
-.ri-information-line::before,
-.ri-information-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
-    mask-image: url("../../icons/remixicon/information-line.svg");
-}
-
-.fr-icon-warning-fill::before,
-.fr-icon-warning-fill::after {
-    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
-    mask-image: url("../../icons/system/fr--warning-fill.svg");
-}
-
-.fr-icon-mail-fill::before,
-.fr-icon-mail-fill::after {
-    -webkit-mask-image: url("../../icons/business/mail-fill.svg");
-    mask-image: url("../../icons/business/mail-fill.svg");
-}
-
-.fr-icon-add-circle-line::before,
-.fr-icon-add-circle-line::after {
-    -webkit-mask-image: url("../../icons/system/add-circle-line.svg");
-    mask-image: url("../../icons/system/add-circle-line.svg");
-}
-
-.fr-icon-lock-line::before,
-.fr-icon-lock-line::after {
-    -webkit-mask-image: url("../../icons/system/lock-line.svg");
-    mask-image: url("../../icons/system/lock-line.svg");
-}
-
-.fr-icon-account-line::before,
-.fr-icon-account-line::after {
-    -webkit-mask-image: url("../../icons/user/account-circle-line.svg");
-    mask-image: url("../../icons/user/account-circle-line.svg");
-}
-
-.fr-icon-account-fill::before,
-.fr-icon-account-fill::after {
-    -webkit-mask-image: url("../../icons/user/account-circle-fill.svg");
-    mask-image: url("../../icons/user/account-circle-fill.svg");
-}
-
-.ri-id-card-line::before,
-.ri-id-card-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/id-card-line.svg");
-    mask-image: url("../../icons/remixicon/id-card-line.svg");
-}
-
-.ri-account-box-line::before,
-.ri-account-box-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
-    mask-image: url("../../icons/remixicon/account-box-line.svg");
-}
-
-.ri-logout-box-line::before,
-.ri-logout-box-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
-    mask-image: url("../../icons/remixicon/logout-box-line.svg");
-}
-
-.fr-icon-alert-line::before,
-.fr-icon-alert-line::after {
-    -webkit-mask-image: url("../../icons/system/alert-line.svg");
-    mask-image: url("../../icons/system/alert-line.svg");
-}
-
-.fr-icon-delete-line::before,
-.fr-icon-delete-line::after {
-    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
-    mask-image: url("../../icons/system/delete-bin-line.svg");
-}
-
-.ri-check-line::before,
-.ri-check-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
-    mask-image: url("../../icons/remixicon/check-line.svg");
-}
-
-.fr-icon-road-map-line::before,
-.fr-icon-road-map-line::after {
-    -webkit-mask-image: url("../../icons/map/road-map-line.svg");
-    mask-image: url("../../icons/map/road-map-line.svg");
-}
-
-.fr-icon-star-line::before,
-.fr-icon-star-line::after {
-    -webkit-mask-image: url("../../icons/system/star-line.svg");
-    mask-image: url("../../icons/system/star-line.svg");
-}
-
-.fr-icon-time-line::before,
-.fr-icon-time-line::after {
-    -webkit-mask-image: url("../../icons/system/time-line.svg");
-    mask-image: url("../../icons/system/time-line.svg");
-}
-
-.fr-icon-ball-pen-fill::before,
-.fr-icon-ball-pen-fill::after {
-    -webkit-mask-image: url("../../icons/design/ball-pen-fill.svg");
-    mask-image: url("../../icons/design/ball-pen-fill.svg");
-}
-
-.fr-icon-add-line::before,
-.fr-icon-add-line::after {
-    -webkit-mask-image: url("../../icons/system/add-line.svg");
-    mask-image: url("../../icons/system/add-line.svg");
-}
-
-.fr-icon-search-line::before,
-.fr-icon-search-line::after {
-    -webkit-mask-image: url("../../icons/system/search-line.svg");
-    mask-image: url("../../icons/system/search-line.svg");
+.fr-icon-chat-check-fill::before,
+.fr-icon-chat-check-fill::after {
+    -webkit-mask-image: url("../../icons/communication/chat-check-fill.svg");
+    mask-image: url("../../icons/communication/chat-check-fill.svg");
 }
 
 .fr-icon-check-line::before,
@@ -178,16 +64,94 @@
     mask-image: url("../../icons/system/check-line.svg");
 }
 
-.ri-clipboard-line::before,
-.ri-clipboard-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
-    mask-image: url("../../icons/remixicon/clipboard-line.svg");
+.fr-icon-checkbox-circle-line::before,
+.fr-icon-checkbox-circle-line::after {
+    -webkit-mask-image: url("../../icons/system/checkbox-circle-line.svg");
+    mask-image: url("../../icons/system/checkbox-circle-line.svg");
 }
 
-.ri-palette-line::before,
-.ri-palette-line::after {
-    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
-    mask-image: url("../../icons/remixicon/palette-line.svg");
+.fr-icon-delete-line::before,
+.fr-icon-delete-line::after {
+    -webkit-mask-image: url("../../icons/system/delete-bin-line.svg");
+    mask-image: url("../../icons/system/delete-bin-line.svg");
+}
+
+.fr-icon-git-commit-fill::before,
+.fr-icon-git-commit-fill::after {
+    -webkit-mask-image: url("../../icons/development/git-commit-fill.svg");
+    mask-image: url("../../icons/development/git-commit-fill.svg");
+}
+
+.fr-icon-lock-line::before,
+.fr-icon-lock-line::after {
+    -webkit-mask-image: url("../../icons/system/lock-line.svg");
+    mask-image: url("../../icons/system/lock-line.svg");
+}
+
+.fr-icon-mail-fill::before,
+.fr-icon-mail-fill::after {
+    -webkit-mask-image: url("../../icons/business/mail-fill.svg");
+    mask-image: url("../../icons/business/mail-fill.svg");
+}
+
+.fr-icon-question-line::before,
+.fr-icon-question-line::after {
+    -webkit-mask-image: url("../../icons/system/question-line.svg");
+    mask-image: url("../../icons/system/question-line.svg");
+}
+
+.fr-icon-road-map-line::before,
+.fr-icon-road-map-line::after {
+    -webkit-mask-image: url("../../icons/map/road-map-line.svg");
+    mask-image: url("../../icons/map/road-map-line.svg");
+}
+
+.fr-icon-search-line::before,
+.fr-icon-search-line::after {
+    -webkit-mask-image: url("../../icons/system/search-line.svg");
+    mask-image: url("../../icons/system/search-line.svg");
+}
+
+.fr-icon-star-line::before,
+.fr-icon-star-line::after {
+    -webkit-mask-image: url("../../icons/system/star-line.svg");
+    mask-image: url("../../icons/system/star-line.svg");
+}
+
+.fr-icon-theme-fill::before,
+.fr-icon-theme-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--theme-fill.svg");
+    mask-image: url("../../icons/system/fr--theme-fill.svg");
+}
+
+.fr-icon-time-line::before,
+.fr-icon-time-line::after {
+    -webkit-mask-image: url("../../icons/system/time-line.svg");
+    mask-image: url("../../icons/system/time-line.svg");
+}
+
+.fr-icon-translate-2::before,
+.fr-icon-translate-2::after {
+    -webkit-mask-image: url("../../icons/editor/translate-2.svg");
+    mask-image: url("../../icons/editor/translate-2.svg");
+}
+
+.fr-icon-warning-fill::before,
+.fr-icon-warning-fill::after {
+    -webkit-mask-image: url("../../icons/system/fr--warning-fill.svg");
+    mask-image: url("../../icons/system/fr--warning-fill.svg");
+}
+
+.ri-account-box-line::before,
+.ri-account-box-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/account-box-line.svg");
+    mask-image: url("../../icons/remixicon/account-box-line.svg");
+}
+
+.ri-ancient-gate-fill::before,
+.ri-ancient-gate-fill::after {
+    -webkit-mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
+    mask-image: url("../../icons/remixicon/ancient-gate-fill.svg");
 }
 
 .ri-arrow-down-s-fill::before,
@@ -202,15 +166,66 @@
     mask-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
 }
 
+.ri-check-line::before,
+.ri-check-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/check-line.svg");
+    mask-image: url("../../icons/remixicon/check-line.svg");
+}
+
+.ri-clipboard-line::before,
+.ri-clipboard-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/clipboard-line.svg");
+    mask-image: url("../../icons/remixicon/clipboard-line.svg");
+}
+
+.ri-id-card-line::before,
+.ri-id-card-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/id-card-line.svg");
+    mask-image: url("../../icons/remixicon/id-card-line.svg");
+}
+
+.ri-information-line::before,
+.ri-information-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/information-line.svg");
+    mask-image: url("../../icons/remixicon/information-line.svg");
+}
+
+.ri-logout-box-line::before,
+.ri-logout-box-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/logout-box-line.svg");
+    mask-image: url("../../icons/remixicon/logout-box-line.svg");
+}
+
+.ri-palette-line::before,
+.ri-palette-line::after {
+    -webkit-mask-image: url("../../icons/remixicon/palette-line.svg");
+    mask-image: url("../../icons/remixicon/palette-line.svg");
+}
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .fr-icon-translate-2::before,
-    .fr-icon-translate-2::after {
-        background-image: url("../../icons/editor/translate-2.svg");
+    .fr-icon-account-fill::before,
+    .fr-icon-account-fill::after {
+        background-image: url("../../icons/user/account-circle-fill.svg");
     }
     
-    .fr-icon-question-line::before,
-    .fr-icon-question-line::after {
-        background-image: url("../../icons/system/question-line.svg");
+    .fr-icon-account-line::before,
+    .fr-icon-account-line::after {
+        background-image: url("../../icons/user/account-circle-line.svg");
+    }
+    
+    .fr-icon-add-circle-line::before,
+    .fr-icon-add-circle-line::after {
+        background-image: url("../../icons/system/add-circle-line.svg");
+    }
+    
+    .fr-icon-add-line::before,
+    .fr-icon-add-line::after {
+        background-image: url("../../icons/system/add-line.svg");
+    }
+    
+    .fr-icon-alert-line::before,
+    .fr-icon-alert-line::after {
+        background-image: url("../../icons/system/alert-line.svg");
     }
     
     .fr-icon-arrow-go-back-fill::before,
@@ -223,29 +238,9 @@
         background-image: url("../../icons/arrows/arrow-right-line.svg");
     }
     
-    .fr-icon-theme-fill::before,
-    .fr-icon-theme-fill::after {
-        background-image: url("../../icons/system/fr--theme-fill.svg");
-    }
-    
-    .fr-icon-checkbox-circle-line::before,
-    .fr-icon-checkbox-circle-line::after {
-        background-image: url("../../icons/system/checkbox-circle-line.svg");
-    }
-    
-    .ri-ancient-gate-fill::before,
-    .ri-ancient-gate-fill::after {
-        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
-    }
-    
-    .fr-icon-chat-check-fill::before,
-    .fr-icon-chat-check-fill::after {
-        background-image: url("../../icons/communication/chat-check-fill.svg");
-    }
-    
-    .fr-icon-git-commit-fill::before,
-    .fr-icon-git-commit-fill::after {
-        background-image: url("../../icons/development/git-commit-fill.svg");
+    .fr-icon-ball-pen-fill::before,
+    .fr-icon-ball-pen-fill::after {
+        background-image: url("../../icons/design/ball-pen-fill.svg");
     }
     
     .fr-icon-bank-card-line::before,
@@ -253,99 +248,9 @@
         background-image: url("../../icons/finance/bank-card-line.svg");
     }
     
-    .ri-information-line::before,
-    .ri-information-line::after {
-        background-image: url("../../icons/remixicon/information-line.svg");
-    }
-    
-    .fr-icon-warning-fill::before,
-    .fr-icon-warning-fill::after {
-        background-image: url("../../icons/system/fr--warning-fill.svg");
-    }
-    
-    .fr-icon-mail-fill::before,
-    .fr-icon-mail-fill::after {
-        background-image: url("../../icons/business/mail-fill.svg");
-    }
-    
-    .fr-icon-add-circle-line::before,
-    .fr-icon-add-circle-line::after {
-        background-image: url("../../icons/system/add-circle-line.svg");
-    }
-    
-    .fr-icon-lock-line::before,
-    .fr-icon-lock-line::after {
-        background-image: url("../../icons/system/lock-line.svg");
-    }
-    
-    .fr-icon-account-line::before,
-    .fr-icon-account-line::after {
-        background-image: url("../../icons/user/account-circle-line.svg");
-    }
-    
-    .fr-icon-account-fill::before,
-    .fr-icon-account-fill::after {
-        background-image: url("../../icons/user/account-circle-fill.svg");
-    }
-    
-    .ri-id-card-line::before,
-    .ri-id-card-line::after {
-        background-image: url("../../icons/remixicon/id-card-line.svg");
-    }
-    
-    .ri-account-box-line::before,
-    .ri-account-box-line::after {
-        background-image: url("../../icons/remixicon/account-box-line.svg");
-    }
-    
-    .ri-logout-box-line::before,
-    .ri-logout-box-line::after {
-        background-image: url("../../icons/remixicon/logout-box-line.svg");
-    }
-    
-    .fr-icon-alert-line::before,
-    .fr-icon-alert-line::after {
-        background-image: url("../../icons/system/alert-line.svg");
-    }
-    
-    .fr-icon-delete-line::before,
-    .fr-icon-delete-line::after {
-        background-image: url("../../icons/system/delete-bin-line.svg");
-    }
-    
-    .ri-check-line::before,
-    .ri-check-line::after {
-        background-image: url("../../icons/remixicon/check-line.svg");
-    }
-    
-    .fr-icon-road-map-line::before,
-    .fr-icon-road-map-line::after {
-        background-image: url("../../icons/map/road-map-line.svg");
-    }
-    
-    .fr-icon-star-line::before,
-    .fr-icon-star-line::after {
-        background-image: url("../../icons/system/star-line.svg");
-    }
-    
-    .fr-icon-time-line::before,
-    .fr-icon-time-line::after {
-        background-image: url("../../icons/system/time-line.svg");
-    }
-    
-    .fr-icon-ball-pen-fill::before,
-    .fr-icon-ball-pen-fill::after {
-        background-image: url("../../icons/design/ball-pen-fill.svg");
-    }
-    
-    .fr-icon-add-line::before,
-    .fr-icon-add-line::after {
-        background-image: url("../../icons/system/add-line.svg");
-    }
-    
-    .fr-icon-search-line::before,
-    .fr-icon-search-line::after {
-        background-image: url("../../icons/system/search-line.svg");
+    .fr-icon-chat-check-fill::before,
+    .fr-icon-chat-check-fill::after {
+        background-image: url("../../icons/communication/chat-check-fill.svg");
     }
     
     .fr-icon-check-line::before,
@@ -353,14 +258,79 @@
         background-image: url("../../icons/system/check-line.svg");
     }
     
-    .ri-clipboard-line::before,
-    .ri-clipboard-line::after {
-        background-image: url("../../icons/remixicon/clipboard-line.svg");
+    .fr-icon-checkbox-circle-line::before,
+    .fr-icon-checkbox-circle-line::after {
+        background-image: url("../../icons/system/checkbox-circle-line.svg");
     }
     
-    .ri-palette-line::before,
-    .ri-palette-line::after {
-        background-image: url("../../icons/remixicon/palette-line.svg");
+    .fr-icon-delete-line::before,
+    .fr-icon-delete-line::after {
+        background-image: url("../../icons/system/delete-bin-line.svg");
+    }
+    
+    .fr-icon-git-commit-fill::before,
+    .fr-icon-git-commit-fill::after {
+        background-image: url("../../icons/development/git-commit-fill.svg");
+    }
+    
+    .fr-icon-lock-line::before,
+    .fr-icon-lock-line::after {
+        background-image: url("../../icons/system/lock-line.svg");
+    }
+    
+    .fr-icon-mail-fill::before,
+    .fr-icon-mail-fill::after {
+        background-image: url("../../icons/business/mail-fill.svg");
+    }
+    
+    .fr-icon-question-line::before,
+    .fr-icon-question-line::after {
+        background-image: url("../../icons/system/question-line.svg");
+    }
+    
+    .fr-icon-road-map-line::before,
+    .fr-icon-road-map-line::after {
+        background-image: url("../../icons/map/road-map-line.svg");
+    }
+    
+    .fr-icon-search-line::before,
+    .fr-icon-search-line::after {
+        background-image: url("../../icons/system/search-line.svg");
+    }
+    
+    .fr-icon-star-line::before,
+    .fr-icon-star-line::after {
+        background-image: url("../../icons/system/star-line.svg");
+    }
+    
+    .fr-icon-theme-fill::before,
+    .fr-icon-theme-fill::after {
+        background-image: url("../../icons/system/fr--theme-fill.svg");
+    }
+    
+    .fr-icon-time-line::before,
+    .fr-icon-time-line::after {
+        background-image: url("../../icons/system/time-line.svg");
+    }
+    
+    .fr-icon-translate-2::before,
+    .fr-icon-translate-2::after {
+        background-image: url("../../icons/editor/translate-2.svg");
+    }
+    
+    .fr-icon-warning-fill::before,
+    .fr-icon-warning-fill::after {
+        background-image: url("../../icons/system/fr--warning-fill.svg");
+    }
+    
+    .ri-account-box-line::before,
+    .ri-account-box-line::after {
+        background-image: url("../../icons/remixicon/account-box-line.svg");
+    }
+    
+    .ri-ancient-gate-fill::before,
+    .ri-ancient-gate-fill::after {
+        background-image: url("../../icons/remixicon/ancient-gate-fill.svg");
     }
     
     .ri-arrow-down-s-fill::before,
@@ -371,6 +341,36 @@
     .ri-arrow-up-s-fill::before,
     .ri-arrow-up-s-fill::after {
         background-image: url("../../icons/remixicon/arrow-up-s-fill.svg");
+    }
+    
+    .ri-check-line::before,
+    .ri-check-line::after {
+        background-image: url("../../icons/remixicon/check-line.svg");
+    }
+    
+    .ri-clipboard-line::before,
+    .ri-clipboard-line::after {
+        background-image: url("../../icons/remixicon/clipboard-line.svg");
+    }
+    
+    .ri-id-card-line::before,
+    .ri-id-card-line::after {
+        background-image: url("../../icons/remixicon/id-card-line.svg");
+    }
+    
+    .ri-information-line::before,
+    .ri-information-line::after {
+        background-image: url("../../icons/remixicon/information-line.svg");
+    }
+    
+    .ri-logout-box-line::before,
+    .ri-logout-box-line::after {
+        background-image: url("../../icons/remixicon/logout-box-line.svg");
+    }
+    
+    .ri-palette-line::before,
+    .ri-palette-line::after {
+        background-image: url("../../icons/remixicon/palette-line.svg");
     }
     
 }

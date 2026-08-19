@@ -469,7 +469,6 @@ function getCommandContext(args) {
                                 if (dsfrDirPath_static === undefined) {
                                     return undefined;
                                 }
-                                (0, assert_1.assert)(htmlFilePath !== undefined);
                                 return {
                                     dsfrDirPath_static: dsfrDirPath_static,
                                     htmlFilePath: htmlFilePath
@@ -549,7 +548,12 @@ function main(args) {
                                                 }); }))];
                                         case 1:
                                             _b.sent();
-                                            return [2 /*return*/, { "usedIconClassNames": Array.from(setUsedIconClassNames) }];
+                                            // NOTE: The set is filled from a Promise.all over the source files, so its
+                                            // insertion order follows I/O completion order and varies between runs. Sorting
+                                            // makes the generated stylesheet byte stable, which is what the `hasChanged`
+                                            // comparison below relies on. Rule order carries no meaning here: every rule
+                                            // targets a distinct `.fr-icon-*::before` / `.ri-*::before` selector.
+                                            return [2 /*return*/, { "usedIconClassNames": Array.from(setUsedIconClassNames).sort() }];
                                     }
                                 });
                             });
@@ -600,11 +604,47 @@ function main(args) {
                         }); }))];
                 case 4:
                     _d.sent();
-                    if (!hasChanged) {
-                        log === null || log === void 0 ? void 0 : log("No change since last run");
-                        return [2 /*return*/];
-                    }
+                    // NOTE: Deliberately outside of the `hasChanged` guard below. These three writes are
+                    // idempotent, and inside the guard a stale or hand reverted output could never be
+                    // repaired as long as icons.min.css itself did not change. Nothing else writes them:
+                    // copy-dsfr-to-public builds its keep list from the url() of dsfr.min.css, so the
+                    // icons and the hash query parameter are this script's responsibility alone.
                     return [4 /*yield*/, Promise.all([
+                            (function addHashQueryParameterInIndexHtml() {
+                                var _a;
+                                return __awaiter(this, void 0, void 0, function () {
+                                    var htmlFilePath, html, modifiedHtml;
+                                    return __generator(this, function (_b) {
+                                        switch (_b.label) {
+                                            case 0:
+                                                htmlFilePath = (_a = commandContext.spaParams) === null || _a === void 0 ? void 0 : _a.htmlFilePath;
+                                                if (htmlFilePath === undefined) {
+                                                    return [2 /*return*/];
+                                                }
+                                                return [4 /*yield*/, (0, promises_1.readFile)(htmlFilePath)];
+                                            case 1:
+                                                html = (_b.sent()).toString("utf8");
+                                                modifiedHtml = (0, modifyHtmlHrefs_1.modifyHtmlHrefs)({
+                                                    "html": html,
+                                                    "getModifiedHref": function (href) {
+                                                        if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
+                                                            return href;
+                                                        }
+                                                        var _a = __read(href.split("?"), 1), urlWithoutQuery = _a[0];
+                                                        return "".concat(urlWithoutQuery, "?hash=").concat((0, fnv1aHashToHex_1.fnv1aHashToHex)(rawIconCssCodeBuffer.toString("utf8")));
+                                                    }
+                                                }).modifiedHtml;
+                                                if (modifiedHtml === html) {
+                                                    return [2 /*return*/];
+                                                }
+                                                return [4 /*yield*/, (0, promises_1.writeFile)(htmlFilePath, Buffer.from(modifiedHtml, "utf8"))];
+                                            case 2:
+                                                _b.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                });
+                            })(),
                             (function generateUsedRemixiconFiles() {
                                 var _a;
                                 return __awaiter(this, void 0, void 0, function () {
@@ -619,9 +659,7 @@ function main(args) {
                                                         switch (_a.label) {
                                                             case 0:
                                                                 remixiconDirPath = (0, path_1.join)(dsfrDistDirPath, "icons", "remixicon");
-                                                                if (!fs.existsSync(remixiconDirPath)) {
-                                                                    fs.mkdirSync(remixiconDirPath);
-                                                                }
+                                                                fs.mkdirSync(remixiconDirPath, { "recursive": true });
                                                                 return [4 /*yield*/, Promise.all(usedIcons
                                                                         .map(function (icon) { return (icon.prefix !== "ri-" ? undefined : icon); })
                                                                         .filter((0, exclude_1.exclude)(undefined))
@@ -671,76 +709,57 @@ function main(args) {
                                         }
                                     });
                                 });
-                            })(),
-                            (function addHashQueryParameterInIndexHtml() {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var html, modifiedHtml;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0:
-                                                if (commandContext.spaParams === undefined) {
-                                                    return [2 /*return*/];
-                                                }
-                                                return [4 /*yield*/, (0, promises_1.readFile)(commandContext.spaParams.htmlFilePath)];
-                                            case 1:
-                                                html = (_a.sent()).toString("utf8");
-                                                modifiedHtml = (0, modifyHtmlHrefs_1.modifyHtmlHrefs)({
-                                                    "html": html,
-                                                    "getModifiedHref": function (href) {
-                                                        if (!href.includes(iconsMinCssRelativePath.replace(/\\/g, "/"))) {
-                                                            return href;
-                                                        }
-                                                        var _a = __read(href.split("?"), 1), urlWithoutQuery = _a[0];
-                                                        return "".concat(urlWithoutQuery, "?hash=").concat((0, fnv1aHashToHex_1.fnv1aHashToHex)(rawIconCssCodeBuffer.toString("utf8")));
-                                                    }
-                                                }).modifiedHtml;
-                                                return [4 /*yield*/, (0, promises_1.writeFile)(commandContext.spaParams.htmlFilePath, Buffer.from(modifiedHtml, "utf8"))];
-                                            case 2:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
-                            })(),
-                            (function clearCache() {
-                                return __awaiter(this, void 0, void 0, function () {
-                                    var _this = this;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0: return [4 /*yield*/, Promise.all([
-                                                    (0, path_1.join)(".next", "cache"),
-                                                    (0, path_1.join)(".vite"),
-                                                    (0, path_1.join)(".cache", "storybook"),
-                                                    (0, path_1.join)(".cache", "babel-loader"),
-                                                    (0, path_1.join)(".cache", "default-development")
-                                                ]
-                                                    .map(function (relativeDirPath) {
-                                                    return (0, path_1.join)(commandContext.projectDirPath, "node_modules", relativeDirPath);
-                                                })
-                                                    .map(function (dirPath) { return __awaiter(_this, void 0, void 0, function () {
-                                                    return __generator(this, function (_a) {
-                                                        switch (_a.label) {
-                                                            case 0: return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(dirPath)];
-                                                            case 1:
-                                                                if (!(_a.sent())) {
-                                                                    return [2 /*return*/];
-                                                                }
-                                                                return [4 /*yield*/, (0, promises_1.rm)(dirPath, { "recursive": true, "force": true })];
-                                                            case 2:
-                                                                _a.sent();
-                                                                return [2 /*return*/];
-                                                        }
-                                                    });
-                                                }); }))];
-                                            case 1:
-                                                _a.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                });
                             })()
                         ])];
                 case 5:
+                    // NOTE: Deliberately outside of the `hasChanged` guard below. These three writes are
+                    // idempotent, and inside the guard a stale or hand reverted output could never be
+                    // repaired as long as icons.min.css itself did not change. Nothing else writes them:
+                    // copy-dsfr-to-public builds its keep list from the url() of dsfr.min.css, so the
+                    // icons and the hash query parameter are this script's responsibility alone.
+                    _d.sent();
+                    if (!hasChanged) {
+                        log === null || log === void 0 ? void 0 : log("No change since last run");
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, (function clearCache() {
+                            return __awaiter(this, void 0, void 0, function () {
+                                var _this = this;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0: return [4 /*yield*/, Promise.all([
+                                                (0, path_1.join)(".next", "cache"),
+                                                (0, path_1.join)(".vite"),
+                                                (0, path_1.join)(".cache", "storybook"),
+                                                (0, path_1.join)(".cache", "babel-loader"),
+                                                (0, path_1.join)(".cache", "default-development")
+                                            ]
+                                                .map(function (relativeDirPath) {
+                                                return (0, path_1.join)(commandContext.projectDirPath, "node_modules", relativeDirPath);
+                                            })
+                                                .map(function (dirPath) { return __awaiter(_this, void 0, void 0, function () {
+                                                return __generator(this, function (_a) {
+                                                    switch (_a.label) {
+                                                        case 0: return [4 /*yield*/, (0, fs_existsAsync_1.existsAsync)(dirPath)];
+                                                        case 1:
+                                                            if (!(_a.sent())) {
+                                                                return [2 /*return*/];
+                                                            }
+                                                            return [4 /*yield*/, (0, promises_1.rm)(dirPath, { "recursive": true, "force": true })];
+                                                        case 2:
+                                                            _a.sent();
+                                                            return [2 /*return*/];
+                                                    }
+                                                });
+                                            }); }))];
+                                        case 1:
+                                            _a.sent();
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            });
+                        })()];
+                case 6:
                     _d.sent();
                     return [2 /*return*/];
             }
