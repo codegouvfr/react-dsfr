@@ -1436,10 +1436,10 @@
     vue-custom-element "^3.2.14"
     vuex "^3.6.0"
 
-"@gouvfr/dsfr@1.14.2":
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.14.2.tgz#cbd893eba6bb2151234ae484ac426f3c5ff16b19"
-  integrity sha512-EJ/ZZMLmSN4KISuuXp0X0lGf+gKVqYATyqgcM5IPhMQAkJ8s5pjzvthjv+Hu6zYk4jwf2NRVt+jQz7JRpw1yiA==
+"@gouvfr/dsfr@1.15.2":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.15.2.tgz#6c9e5d87d18113d9eb51f444407dbfd2d6784446"
+  integrity sha512-IrV/a/eV6KE06Az8Ky3wN2h0INka+ntk5UWuJg/T+ST7/tMUvIWC8fZi9azx+2YsqMFGgAkocIHxeVbPoLHAUQ==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
