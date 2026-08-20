@@ -61,7 +61,14 @@ const { meta, getStory } = getStoryFactory({
                 "By default it's Etalab v2. [You can provide a custom React node](#with-custom-license)"
         },
         "linkList": {
-            "controls": { "type": null }
+            "controls": { "type": null },
+            "description":
+                "Customizable list element for footers. It allows you to display a categorized list of links tailored to various needs, particularly for websites requiring a structured and accessible footer."
+        },
+        "linkHeadingWrapper": {
+            "controls": { "type": null },
+            "description":
+                'Allow to set a custom heading level on the column title and use a `<div role="heading" aria-level="level">` for SEO optimisation'
         },
         "brandTop": {
             "control": { "type": null },
