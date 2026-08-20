@@ -9,6 +9,7 @@ import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
 
 import picto from "./assets/city-hall.svg";
+import CityHall from "../dist/picto/CityHall";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -119,6 +120,10 @@ const { meta, getStory } = getStoryFactory({
             },
             "type": "boolean"
         },
+        "pictogram": {
+            "description":
+                "Instead of using an image with `imageUrl` and `imageSvg`, you can use [native DSFR pictogram components](/?path=/docs/🖼%EF%B8%8F-pictograms--page) or any other SVG component."
+        },
         "grey": {
             "description":
                 "Set to true if the background should be grey. Not applicable if noBackground is set true.",
@@ -201,7 +206,8 @@ const defaultProps: TileProps = {
     "noIcon": false,
     "noBackground": false,
     "grey": false,
-    "disabled": false
+    "disabled": false,
+    "pictogram": undefined
 };
 
 export const Default = getStory({ ...defaultProps });
@@ -263,6 +269,19 @@ export const TileWithoutImage = getStory(
         imageUrl: undefined
     },
     { "description": "Tuile sans picto" }
+);
+
+export const TileWithNativePictogram = getStory(
+    {
+        ...defaultProps,
+        imageUrl: undefined,
+        imageSvg: undefined,
+        imageAlt: undefined,
+        imageWidth: undefined,
+        imageHeight: undefined,
+        pictogram: <CityHall />
+    },
+    { "description": "Tuile avec Pictogramme natif DSFR" }
 );
 
 export const TileMDVertical = getStory(

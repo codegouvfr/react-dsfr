@@ -184,7 +184,7 @@ export const HeaderWithQuickAccessItems = getStory(
             {
                 "iconId": "fr-icon-mail-fill",
                 "linkProps": {
-                    "href": "mailto:contact@code.gouv.fr"
+                    "href": "mailto:floss@numerique.gouv.fr"
                 },
                 "text": "Contact us"
             },
@@ -226,7 +226,7 @@ export function Header() {
                 {
                     iconId: "fr-icon-mail-fill",
                     linkProps: {
-                        href: "mailto:contact@code.gouv.fr"
+                        href: "mailto:floss@numerique.gouv.fr"
                     },
                     text: "Contact us"
                 },

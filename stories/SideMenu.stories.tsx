@@ -307,3 +307,18 @@ export const SideMenuWith3Levels = getStory({
         }
     ]
 });
+
+export const SideMenuWithNoTitle = getStory({
+    "burgerMenuButtonText": "Dans cette rubrique",
+    "items": [
+        {
+            "isActive": true,
+            "text": "Accès direct",
+            "linkProps": { "href": "#" }
+        },
+        {
+            "text": "Accès direct",
+            "linkProps": { "href": "#" }
+        }
+    ]
+});

@@ -1,6 +1,10 @@
 import React, { useReducer, useEffect, type ReactNode } from "react";
 import type { RegisteredLinkProps } from "../../link";
-import type { ExtractFinalityFromFinalityDescription, FinalityConsent } from "../types";
+import type {
+    ExtractFinalityFromFinalityDescription,
+    FinalityConsent,
+    SubFinalityContent
+} from "../types";
 import type { ProcessConsentChanges } from "../processConsentChanges";
 import { FooterBottomItem } from "../../Footer";
 import { createConsentBanner } from "./ConsentBanner";
@@ -10,7 +14,11 @@ import { useTranslation } from "./translation";
 export function createConsentBannerAndConsentManagement<
     FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+        {
+            title: ReactNode;
+            description?: ReactNode;
+            subFinalities?: Record<string, SubFinalityContent>;
+        }
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;

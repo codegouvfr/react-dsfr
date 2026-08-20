@@ -1,14 +1,6 @@
 "use client";
 
-import React, {
-    memo,
-    forwardRef,
-    useId,
-    useState,
-    useEffect,
-    type ReactNode,
-    type CSSProperties
-} from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties, useMemo } from "react";
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { symToStr } from "tsafe/symToStr";
 import { fr } from "./fr";
@@ -35,6 +27,7 @@ export namespace TabsProps {
             iconId?: FrIconClassName | RiIconClassName;
             content: ReactNode;
             isDefault?: boolean;
+            disabled?: boolean;
         }[];
         selectedTabId?: undefined;
         onTabChange?: (params: { tabIndex: number; tab: Uncontrolled["tabs"][number] }) => void;
@@ -46,6 +39,7 @@ export namespace TabsProps {
             tabId: string;
             label: ReactNode;
             iconId?: FrIconClassName | RiIconClassName;
+            disabled?: boolean;
         }[];
         selectedTabId: string;
         onTabChange: (tabId: string) => void;
@@ -76,23 +70,14 @@ export const Tabs = memo(
             "explicitlyProvidedId": id_props
         });
 
-        const getSelectedTabIndex = () => {
+        const selectedTabIndex = useMemo(() => {
             const index = tabs.findIndex(tab =>
                 "content" in tab ? tab.isDefault ?? false : tab.tabId === selectedTabId
             );
             return index === -1 ? 0 : index;
-        };
+        }, [tabs, selectedTabId]);
 
         const buttonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
-
-        const [selectedTabIndex, setSelectedTabIndex] = useState<number>(getSelectedTabIndex);
-
-        useEffect(() => {
-            if (selectedTabId === undefined) {
-                return;
-            }
-            setSelectedTabIndex(getSelectedTabIndex());
-        }, [selectedTabId]);
 
         const onTabClickFactory = useCallbackFactory(([tabIndex]: [number]) => {
             if (selectedTabId === undefined) {
@@ -131,7 +116,7 @@ export const Tabs = memo(
         };
 
         const { getPanelId, getTabId } = (function useClosure() {
-            const id = useId();
+            const id = id_props ?? useId();
 
             const getPanelId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}-panel`;
             const getTabId = (tabIndex: number) => `tabpanel-${id}-${tabIndex}`;
@@ -156,7 +141,7 @@ export const Tabs = memo(
                     aria-label={label}
                     onKeyDownCapture={e => onKeyboardNavigation(e)}
                 >
-                    {tabs.map(({ label, iconId }, tabIndex) => (
+                    {tabs.map(({ label, iconId, disabled }, tabIndex) => (
                         <li key={tabIndex} role="presentation">
                             <button
                                 ref={button => (buttonRefs.current[tabIndex] = button)}
@@ -171,6 +156,7 @@ export const Tabs = memo(
                                 aria-selected={tabIndex === selectedTabIndex}
                                 aria-controls={getPanelId(tabIndex)}
                                 onClick={onTabClickFactory(tabIndex)}
+                                disabled={disabled}
                             >
                                 {label}
                             </button>
@@ -185,9 +171,7 @@ export const Tabs = memo(
                             className={cx(
                                 fr.cx(
                                     "fr-tabs__panel",
-                                    `fr-tabs__panel${
-                                        tabIndex === selectedTabIndex ? "--selected" : ""
-                                    }`
+                                    tabIndex === selectedTabIndex && "fr-tabs__panel--selected"
                                 ),
                                 classes.panel
                             )}

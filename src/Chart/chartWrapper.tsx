@@ -82,7 +82,12 @@ const typeSafeObjectEntries = <T extends Record<PropertyKey, unknown>>(
 };
 
 export const stringifyObjectValue = <T extends Record<PropertyKey, unknown>>(obj: T) =>
-    typeSafeObjectFromEntries(typeSafeObjectEntries(obj).map(([k, v]) => [k, JSON.stringify(v)]));
+    typeSafeObjectFromEntries(
+        typeSafeObjectEntries(obj).map(([k, v]) => [
+            k,
+            typeof v === "string" ? v : JSON.stringify(v)
+        ])
+    );
 
 export const chartWrapper = <T extends {}>(ChartComponent: React.FC<T>, idPrefix: string) => {
     return memo(

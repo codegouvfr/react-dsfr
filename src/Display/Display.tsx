@@ -2,13 +2,10 @@ import React, { useId } from "react";
 import { fr } from "../fr";
 import { symToStr } from "tsafe/symToStr";
 import { createComponentI18nApi } from "../i18n";
-import ArtworkLightSvg from "../dsfr/artwork/light.svg";
-import ArtworkDarkSvg from "../dsfr/artwork/dark.svg";
-import ArtworkSystemSvg from "../dsfr/artwork/system.svg";
-import { getAssetUrl } from "../tools/getAssetUrl";
 import type { HeaderProps } from "../Header";
 import type { FooterProps } from "../Footer";
 import { createModal } from "../Modal";
+import { Artwork } from "./Artwork";
 
 const modal = createModal({
     "isOpenedByDefault": false,
@@ -45,7 +42,7 @@ export function Display() {
 
     return (
         <modal.Component title={t("display settings")} size="small">
-            <div /*id="fr-display"*/ className="fr-display">
+            <div /*id="fr-display"*/ className={"fr-display"}>
                 <div className={fr.cx("fr-form-group" as any)}>
                     <fieldset className={fr.cx("fr-fieldset")}>
                         <legend
@@ -66,7 +63,10 @@ export function Display() {
                                         id={getInputId(theme)}
                                         name="fr-radios-theme"
                                     />
-                                    <label className="fr-label" htmlFor={getInputId(theme)}>
+                                    <label
+                                        className={fr.cx("fr-label")}
+                                        htmlFor={getInputId(theme)}
+                                    >
                                         {t(`${theme} theme`)}
                                         {theme === "system" && (
                                             <span className={fr.cx("fr-hint-text")}>
@@ -75,39 +75,7 @@ export function Display() {
                                         )}
                                     </label>
                                     <div className={fr.cx("fr-radio-rich__img")}>
-                                        <svg
-                                            aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            //className={fr.cx("fr-artwork")}
-                                            width="80px"
-                                            height="80px"
-                                            viewBox="0 0 80 80"
-                                        >
-                                            {(
-                                                [
-                                                    "artwork-decorative",
-                                                    "artwork-minor",
-                                                    "artwork-major"
-                                                ] as const
-                                            ).map(label => (
-                                                <use
-                                                    key={label}
-                                                    className={fr.cx(`fr-${label}`)}
-                                                    xlinkHref={`${getAssetUrl(
-                                                        (() => {
-                                                            switch (theme) {
-                                                                case "dark":
-                                                                    return ArtworkDarkSvg;
-                                                                case "light":
-                                                                    return ArtworkLightSvg;
-                                                                case "system":
-                                                                    return ArtworkSystemSvg;
-                                                            }
-                                                        })()
-                                                    )}#${label}`}
-                                                />
-                                            ))}
-                                        </svg>
+                                        <Artwork theme={theme} />
                                     </div>
                                 </div>
                             ))}
@@ -132,7 +100,7 @@ const { useTranslation, addDisplayTranslations } = createComponentI18nApi({
         "pick a theme": `Choisissez un thème pour personnaliser l'apparence du site.`,
         "light theme": `Thème clair`,
         "dark theme": `Thème sombre`,
-        "system theme": `Système.`,
+        "system theme": `Système`,
         "system theme hint": `Utilise les paramètres système.`
         /* spell-checker: enable */
     }
@@ -146,7 +114,7 @@ addDisplayTranslations({
         "pick a theme": `Pick a theme to customize the website's look.`,
         "light theme": `Light theme`,
         "dark theme": "Dark theme",
-        "system theme": `System.`,
+        "system theme": `System`,
         "system theme hint": "Use system preference"
     }
 });

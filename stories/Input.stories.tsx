@@ -144,3 +144,8 @@ export const WithButtonAddon = getStory({
     "label": "Label champs de saisie",
     "addon": <Button>Valider</Button>
 });
+
+export const WithButtonAction = getStory({
+    "label": "Label champs de saisie",
+    "addon": <Button title="Supprimer le champ" iconId="fr-icon-delete-line" priority="secondary" />
+});

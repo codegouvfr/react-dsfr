@@ -55,7 +55,7 @@ const getPaginationParts = ({ count, defaultPage }: { count: number; defaultPage
     // slices
     return [
         ...Array.from({ length: slicesSize }, (_, v) => {
-            if (defaultPage > slicesSize) {
+            if (defaultPage >= slicesSize) {
                 const pageNumber = v + defaultPage;
                 return { number: pageNumber, active: defaultPage === pageNumber };
             }

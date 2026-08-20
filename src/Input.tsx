@@ -1,12 +1,13 @@
 import React, {
     memo,
     forwardRef,
-    ReactNode,
     useId,
-    type InputHTMLAttributes,
-    type TextareaHTMLAttributes,
+    type CSSProperties,
     type DetailedHTMLProps,
-    type CSSProperties
+    type InputHTMLAttributes,
+    type LabelHTMLAttributes,
+    type ReactNode,
+    type TextareaHTMLAttributes
 } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -28,7 +29,10 @@ export namespace InputProps {
         disabled?: boolean;
         iconId?: FrIconClassName | RiIconClassName;
         classes?: Partial<
-            Record<"root" | "label" | "description" | "nativeInputOrTextArea" | "message", string>
+            Record<
+                "root" | "label" | "description" | "nativeInputOrTextArea" | "message" | "wrap",
+                string
+            >
         >;
         style?: CSSProperties;
         /** Default: "default" */
@@ -36,6 +40,7 @@ export namespace InputProps {
         /** The message won't be displayed if state is "default" */
         stateRelatedMessage?: ReactNode;
         addon?: ReactNode;
+        action?: ReactNode;
     };
 
     export type RegularInput = Common & {
@@ -45,6 +50,11 @@ export namespace InputProps {
         nativeInputProps?: DetailedHTMLProps<
             InputHTMLAttributes<HTMLInputElement>,
             HTMLInputElement
+        >;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<
+            LabelHTMLAttributes<HTMLLabelElement>,
+            HTMLLabelElement
         >;
 
         nativeTextAreaProps?: never;
@@ -57,6 +67,11 @@ export namespace InputProps {
         nativeTextAreaProps?: DetailedHTMLProps<
             TextareaHTMLAttributes<HTMLTextAreaElement>,
             HTMLTextAreaElement
+        >;
+        /** Props forwarded to the underlying <label /> element */
+        nativeLabelProps?: DetailedHTMLProps<
+            LabelHTMLAttributes<HTMLLabelElement>,
+            HTMLLabelElement
         >;
 
         nativeInputProps?: never;
@@ -84,6 +99,8 @@ export const Input = memo(
             nativeTextAreaProps,
             nativeInputProps,
             addon,
+            action,
+            nativeLabelProps,
             ...rest
         } = props;
 
@@ -132,9 +149,12 @@ export const Input = memo(
                     <label
                         className={cx(fr.cx("fr-label", hideLabel && "fr-sr-only"), classes.label)}
                         htmlFor={inputId}
+                        {...(nativeLabelProps as {})}
                     >
                         {label}
-                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
                     </label>
                 )}
                 {(() => {
@@ -154,13 +174,19 @@ export const Input = memo(
                                             case "default":
                                                 return undefined;
                                         }
-                                        assert<Equals<typeof state, never>>();
                                     })()
                                 ),
                                 classes.nativeInputOrTextArea
                             )}
                             disabled={disabled || undefined}
-                            aria-describedby={state !== "default" ? messageId : undefined}
+                            aria-describedby={
+                                [
+                                    state !== "default" ? messageId : undefined,
+                                    nativeInputOrTextAreaProps["aria-describedby"]
+                                ]
+                                    .filter(value => value !== undefined)
+                                    .join(" ") || undefined
+                            }
                             type={textArea ? undefined : nativeInputProps?.type ?? "text"}
                             id={inputId}
                         />
@@ -168,16 +194,22 @@ export const Input = memo(
 
                     const hasIcon = iconId !== undefined;
                     const hasAddon = addon !== undefined;
-                    return hasIcon || hasAddon ? (
+                    const hasAction = action !== undefined;
+                    return hasIcon || hasAddon || hasAction ? (
                         <div
-                            className={fr.cx(
-                                "fr-input-wrap",
-                                hasIcon && iconId,
-                                hasAddon && "fr-input-wrap--addon"
+                            className={cx(
+                                fr.cx(
+                                    "fr-input-wrap",
+                                    hasIcon && iconId,
+                                    hasAddon && "fr-input-wrap--addon",
+                                    hasAction && "fr-input-wrap--action"
+                                ),
+                                classes.wrap
                             )}
                         >
                             {nativeInputOrTextArea}
                             {hasAddon && addon}
+                            {hasAction && action}
                         </div>
                     ) : (
                         nativeInputOrTextArea
@@ -189,16 +221,16 @@ export const Input = memo(
                             id={messageId}
                             className={cx(
                                 fr.cx(
+                                    "fr-message",
                                     (() => {
                                         switch (state) {
                                             case "error":
-                                                return "fr-error-text";
+                                                return "fr-message--error";
                                             case "success":
-                                                return "fr-valid-text";
+                                                return "fr-message--valid";
                                             case "info":
-                                                return "fr-info-text";
+                                                return "fr-message--info";
                                         }
-                                        assert<Equals<typeof state, never>>();
                                     })()
                                 ),
                                 classes.message

@@ -16,6 +16,8 @@ export type StepperProps = {
     nextTitle?: ReactNode;
     classes?: Partial<Record<"root" | "title" | "state" | "steps" | "details", string>>;
     style?: CSSProperties;
+    progressText?: (params: { currentStep: number; stepCount: number }) => ReactNode;
+    nextStepText?: ReactNode;
 };
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/components-stepper> */
@@ -30,6 +32,8 @@ export const Stepper = memo(
             nextTitle,
             classes = {},
             style,
+            progressText,
+            nextStepText,
             ...rest
         } = props;
 
@@ -52,7 +56,9 @@ export const Stepper = memo(
                 <h2 className={cx(fr.cx("fr-stepper__title"), classes.title)}>
                     {title}
                     <span className={cx(fr.cx("fr-stepper__state"), classes.state)}>
-                        {t("progress", { currentStep, stepCount })}
+                        {progressText !== undefined
+                            ? progressText({ currentStep, stepCount })
+                            : t("progress", { currentStep, stepCount })}
                     </span>
                 </h2>
                 <div
@@ -62,7 +68,10 @@ export const Stepper = memo(
                 ></div>
                 {nextTitle !== undefined && (
                     <p className={cx(fr.cx("fr-stepper__details"), classes.details)}>
-                        <span className={fr.cx("fr-text--bold")}>{t("next step")}</span> {nextTitle}
+                        <span className={fr.cx("fr-text--bold")}>
+                            {nextStepText !== undefined ? nextStepText : t("next step")}
+                        </span>{" "}
+                        {nextTitle}
                     </p>
                 )}
             </div>

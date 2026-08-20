@@ -1,5 +1,5 @@
 import { useReducer, useEffect, type ReactNode } from "react";
-import type { ExtractFinalityFromFinalityDescription } from "./types";
+import type { ExtractFinalityFromFinalityDescription, SubFinalityContent } from "./types";
 import type { RegisteredLinkProps } from "../link";
 import { createUseConsent } from "./useConsent";
 import { createProcessConsentChanges, type ConsentCallback } from "./processConsentChanges";
@@ -14,7 +14,11 @@ export const defaultLocalStorageKeyPrefix = "@codegouvfr/react-dsfr finalityCons
 export function createConsentManagement<
     FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+        {
+            title: ReactNode;
+            description?: ReactNode;
+            subFinalities?: Record<string, SubFinalityContent>;
+        }
     >
 >(params: {
     finalityDescription: ((params: { lang: string }) => FinalityDescription) | FinalityDescription;
@@ -112,7 +116,11 @@ export function createConsentManagement<
 export function getFinalitiesFromFinalityDescription<
     FinalityDescription extends Record<
         string,
-        { title: ReactNode; description?: ReactNode; subFinalities?: Record<string, ReactNode> }
+        {
+            title: ReactNode;
+            description?: ReactNode;
+            subFinalities?: Record<string, SubFinalityContent>;
+        }
     >
 >(params: {
     finalityDescription: FinalityDescription;

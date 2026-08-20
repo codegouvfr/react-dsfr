@@ -21,7 +21,7 @@ export type SelectProps = {
     /** Default: false */
     disabled?: boolean;
     /** Default: "default" */
-    state?: "success" | "error" | "default";
+    state?: "success" | "error" | "info" | "default";
     /** The message won't be displayed if state is "default" */
     stateRelatedMessage?: ReactNode;
     style?: CSSProperties;
@@ -63,8 +63,13 @@ export const Select = memo(
             return `select-${id}`;
         })();
 
-        const stateDescriptionId = `select-${useId()}-desc`;
         const messagesGroupId = `${selectId}-messages-group`;
+
+        const stateDescriptionId = (function useClosure() {
+            const id = useId();
+
+            return state === "default" ? undefined : `select-${id}-desc`;
+        })();
 
         return (
             <div
@@ -80,6 +85,7 @@ export const Select = memo(
                                 case "success":
                                     return "fr-select-group--valid";
                                 case "default":
+                                case "info":
                                     return undefined;
                             }
                             assert<Equals<typeof state, never>>(false);
@@ -103,7 +109,7 @@ export const Select = memo(
                     {...nativeSelectProps}
                     className={cx(fr.cx("fr-select"), nativeSelectProps.className)}
                     id={selectId}
-                    aria-describedby={stateDescriptionId}
+                    aria-describedby={cx(stateDescriptionId, nativeSelectProps["aria-describedby"])}
                     disabled={disabled}
                 >
                     {children}
@@ -119,6 +125,8 @@ export const Select = memo(
                                             return "fr-error-text";
                                         case "success":
                                             return "fr-valid-text";
+                                        case "info":
+                                            return "fr-info-text";
                                     }
                                     assert<Equals<typeof state, never>>(false);
                                 })()

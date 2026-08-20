@@ -3,12 +3,10 @@ import React, {
     forwardRef,
     type ReactNode,
     type CSSProperties,
-    DetailedHTMLProps,
-    ImgHTMLAttributes
+    type DetailedHTMLProps,
+    type ImgHTMLAttributes
 } from "react";
 import { symToStr } from "tsafe/symToStr";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
 
 import type { FrIconClassName, RiIconClassName } from "./fr/generatedFromCss/classNames";
 import { fr } from "./fr";
@@ -16,6 +14,7 @@ import type { RegisteredLinkProps } from "./link";
 import { getLink } from "./link";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { assert, type Equals } from "tsafe/assert";
 
 //https://main--ds-gouv.netlify.app/example/component/card/
 export type CardProps = {
@@ -62,10 +61,10 @@ export type CardProps = {
         >
     >;
     style?: CSSProperties;
+    nativeDivProps?: DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 } & (CardProps.EnlargedLink | CardProps.NotEnlargedLink) &
     (CardProps.Horizontal | CardProps.Vertical) &
     (CardProps.WithImageLink | CardProps.WithImageComponent | CardProps.WithoutImage);
-
 export namespace CardProps {
     export type EnlargedLink = {
         enlargeLink: true;
@@ -146,6 +145,7 @@ export const Card = memo(
             grey = false,
             iconId,
             style,
+            nativeDivProps,
             ...rest
         } = props;
 
@@ -161,6 +161,7 @@ export const Card = memo(
         return (
             <div
                 id={id}
+                {...nativeDivProps}
                 className={cx(
                     fr.cx(
                         "fr-card",

@@ -37,7 +37,8 @@ You can find an example [here](https://github.com/codegouvfr/react-dsfr/blob/bc2
         "vlinecolor": { "description": "Color of the horizontal lines", control: "object" },
         "hlinecolor": { "description": "Color of the vertical lines", control: "object" }
     },
-    "disabledProps": ["lang"]
+    "disabledProps": ["lang"],
+    isChartComponent: true
 });
 
 export default meta;

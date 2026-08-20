@@ -1,4 +1,5 @@
 /* eslint-disable no-inner-declarations */
+import type { JSX } from "../tools/JSX";
 import React, {
     memo,
     forwardRef,
@@ -147,6 +148,7 @@ export const Header = memo(
         const menuButtonId = `${id}-menu-button`;
         const searchModalId = `${id}-search-modal`;
         const searchInputId = `${id}-search-input`;
+        const searchLabelId = `${id}-search-label`;
 
         const isSearchBarEnabled =
             renderSearchInput !== undefined || onSearchButtonClick !== undefined;
@@ -309,7 +311,6 @@ export const Header = memo(
                                                     className={fr.cx("fr-btn--menu", "fr-btn")}
                                                     data-fr-opened="false"
                                                     aria-controls={menuModalId}
-                                                    aria-haspopup="menu"
                                                     id={menuButtonId}
                                                     title={t("menu")}
                                                 >
@@ -392,6 +393,7 @@ export const Header = memo(
                                                         <label
                                                             className={fr.cx("fr-label")}
                                                             htmlFor={searchInputId}
+                                                            id={searchLabelId}
                                                         >
                                                             {tSearchBar("label")}
                                                         </label>

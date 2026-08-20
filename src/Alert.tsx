@@ -27,8 +27,14 @@ export type AlertProps = {
     as?: `h${2 | 3 | 4 | 5 | 6}`;
     classes?: Partial<Record<"root" | "title" | "description" | "close", string>>;
     style?: CSSProperties;
-} & (AlertProps.DefaultSize | AlertProps.Small) &
-    (AlertProps.NonClosable | AlertProps.Closable);
+
+    /** Display the cross icon (understand isClosableByUser) */
+    closable?: boolean;
+    /** To provide if you want the Alert to be controlled */
+    isClosed?: boolean;
+    role?: "alert" | "status";
+    onClose?: () => void;
+} & (AlertProps.DefaultSize | AlertProps.Small);
 
 export namespace AlertProps {
     export type DefaultSize = {
@@ -44,30 +50,6 @@ export namespace AlertProps {
         title?: NonNullable<ReactNode>;
         description: NonNullable<ReactNode>;
     };
-
-    export type NonClosable = {
-        /** Default false */
-        closable?: false;
-        isClosed?: never;
-        onClose?: never;
-    };
-
-    export type Closable = {
-        /** Default false */
-        closable: true;
-    } & (Closable.Controlled | Closable.Uncontrolled);
-
-    export namespace Closable {
-        export type Controlled = {
-            isClosed: boolean;
-            onClose: () => void;
-        };
-
-        export type Uncontrolled = {
-            isClosed?: never;
-            onClose?: () => void;
-        };
-    }
 
     type ExtractSeverity<FrClassName> = FrClassName extends `fr-alert--${infer Severity}`
         ? Exclude<Severity, "sm">
@@ -89,11 +71,21 @@ export const Alert = memo(
             small: isSmall,
             title,
             description,
-            closable: isClosable = false,
+            closable: isClosableByUser = false,
             isClosed: props_isClosed,
             onClose,
+            role: roleFromProps,
             ...rest
         } = props;
+
+        // Honour explicit `role={undefined}` to opt out of the role attribute (RGAA 8.7).
+        // When role is omitted entirely, default to "alert" for screen reader announcements.
+        const role =
+            "role" in props
+                ? roleFromProps
+                : severity === "success" || severity === "info"
+                ? ("status" as const)
+                : ("alert" as const);
 
         assert<Equals<keyof typeof rest, never>>();
 
@@ -107,7 +99,6 @@ export const Alert = memo(
         const [buttonElement, setButtonElement] = useState<HTMLButtonElement | null>(null);
 
         const refShouldButtonGetFocus = useRef(false);
-        const refShouldSetRole = useRef(false);
         const DescriptionTag = typeof description === "string" ? "p" : "div";
 
         useEffect(() => {
@@ -117,7 +108,6 @@ export const Alert = memo(
             setIsClosed(isClosed => {
                 if (isClosed && !props_isClosed) {
                     refShouldButtonGetFocus.current = true;
-                    refShouldSetRole.current = true;
                 }
 
                 return props_isClosed;
@@ -145,7 +135,7 @@ export const Alert = memo(
                 onClose?.();
             } else {
                 //Controlled
-                onClose();
+                onClose?.();
             }
         });
 
@@ -164,7 +154,7 @@ export const Alert = memo(
                     className
                 )}
                 style={style}
-                {...(refShouldSetRole.current && { "role": "alert" })}
+                {...(role !== undefined ? { "role": role } : {})}
                 ref={ref}
                 {...rest}
             >
@@ -173,8 +163,10 @@ export const Alert = memo(
                         {title}
                     </HtmlTitleTag>
                 )}
-                <DescriptionTag className={classes.description}>{description}</DescriptionTag>
-                {isClosable && (
+                {description !== undefined && (
+                    <DescriptionTag className={classes.description}>{description}</DescriptionTag>
+                )}
+                {isClosableByUser && (
                     <button
                         ref={setButtonElement}
                         className={cx(fr.cx("fr-link--close", "fr-link"), classes.close)}

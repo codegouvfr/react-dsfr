@@ -6,7 +6,7 @@
     <br>
     <br>
     <a href="https://github.com/codegouvfr/react-dsfr/actions">
-      <img src="https://github.com/codegouvfr/react-dsfr/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/codegouvfr/react-dsfr/actions/workflows/ci.yaml/badge.svg">
     </a>
     <a href="https://www.npmjs.com/package/@codegouvfr/react-dsfr">
       <img src="https://img.shields.io/npm/v/@codegouvfr/react-dsfr?logo=npm">
@@ -71,7 +71,7 @@ This project is co-maintained by public servants from various French administrat
 -   [Dylan DECRULLE](https://github.com/ddecrulle) - Insee
 -   [Enguerran Weiss](https://github.com/enguerranws) - Plateforme de l'Inclusion
 
-## Development
+## Development - for contributing to the project
 
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
@@ -106,26 +106,25 @@ documentation of this starter for understanding the lifecycle of this repo.
 
 A few projects that use `@codegouvfr/react-dsfr`.
 
--   [https://code.gouv.fr/sill](https://sill-preprod.lab.sspcloud.fr/)
+-   https://adresse.data.gouv.fr
 -   https://cartes.gouv.fr
--   https://immersion-facile.beta.gouv.fr/
--   https://egapro.travail.gouv.fr/
--   https://maisondelautisme.gouv.fr/
--   https://refugies.info/fr
--   https://www.mediateur-public.fr/
--   https://signal.conso.gouv.fr/
--   https://observatoire.numerique.gouv.fr/
--   https://github.com/BaseAdresseNationale/adresse.data.gouv.fr
--   https://github.com/DISIC/observatoire.numerique.gouv.fr
--   https://github.com/DISIC/monfranceconnect
--   https://github.com/InseeFr/Lunatic-DSFR
--   https://github.com/EIG6-Geocommuns/lidarviz-front
--   https://github.com/EIG6-Geocommuns/geocommuns-core
--   https://github.com/SocialGouv/bpco-site
--   https://github.com/EIG6-ArtificIA/predictia_front
--   https://github.com/BaseAdresseNationale/bal-admin
--   https://github.com/etalab/sill-web
--   https://github.com/inclusion-numerique/mediature
--   https://territoiresentransitions.fr (maybe)
--   https://potentiel.beta.gouv.fr
+-   https://code.gouv.fr/sill
 -   https://diagoriente.beta.gouv.fr
+-   https://egapro.travail.gouv.fr
+-   https://github.com/BaseAdresseNationale/bal-admin
+-   https://github.com/DISIC/monfranceconnect
+-   https://github.com/EIG6-ArtificIA/predictia_front
+-   https://github.com/EIG6-Geocommuns/geocommuns-core
+-   https://github.com/EIG6-Geocommuns/lidarviz-front
+-   https://github.com/inclusion-numerique/mediature
+-   https://github.com/InseeFr/Lunatic-DSFR
+-   https://github.com/SocialGouv/bpco-site
+-   https://immersion-facile.beta.gouv.fr
+-   https://maisondelautisme.gouv.fr/
+-   https://observatoire.numerique.gouv.fr
+-   https://potentiel.beta.gouv.fr
+-   https://refugies.info
+-   https://signal.conso.gouv.fr
+-   https://territoiresentransitions.fr
+-   https://www.mediateur-public.fr
+-   https://suiteterritoriale.anct.gouv.fr

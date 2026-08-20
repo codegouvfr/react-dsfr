@@ -32,7 +32,7 @@ export namespace FieldsetProps {
         /** Default: "vertical" */
         orientation?: "vertical" | "horizontal";
         /** Default: "default" */
-        state?: "success" | "error" | "default";
+        state?: "success" | "error" | "info" | "default";
         /**
          * The message won't be displayed if state is "default".
          * If the state is "error" providing a message is mandatory
@@ -98,12 +98,66 @@ export const Fieldset = memo(
 
         const errorDescId = `${id}-desc-error`;
         const successDescId = `${id}-desc-valid`;
+        const infoDescId = `${id}-desc-info`;
         const messagesWrapperId = `${id}-messages`;
 
         const radioName = (function useClosure() {
             const id = useId();
 
             return name_props ?? `radio-name-${id}`;
+        })();
+
+        const renderOption = (params: {
+            option: FieldsetProps.Radio["options"][number];
+            i: number | undefined;
+        }) => {
+            const { option, i } = params;
+            const { label, hintText, nativeInputProps, ...rest } = option;
+
+            const isRoot = i === undefined;
+
+            const inputId = getInputId(i ?? 0);
+
+            return (
+                <div
+                    className={cx(
+                        fr.cx(
+                            `fr-${type}-group`,
+                            isRichRadio && "fr-radio-rich",
+                            small && `fr-${type}-group--sm`
+                        ),
+                        isRoot ? className : undefined,
+                        classes.inputGroup
+                    )}
+                    key={i}
+                >
+                    <input type={type} id={inputId} name={radioName} {...nativeInputProps} />
+                    <label className={fr.cx("fr-label")} htmlFor={inputId}>
+                        {label}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
+                    </label>
+                    {"illustration" in rest && (
+                        <div className={fr.cx("fr-radio-rich__img")}>{rest.illustration}</div>
+                    )}
+                </div>
+            );
+        };
+
+        if (legend === undefined && stateRelatedMessage === undefined && options.length === 1) {
+            return renderOption({ option: options[0], i: undefined });
+        }
+
+        const messageId = (() => {
+            switch (state) {
+                case "error":
+                    return errorDescId;
+                case "success":
+                    return successDescId;
+                case "info":
+                    return infoDescId;
+            }
         })();
 
         return (
@@ -116,6 +170,7 @@ export const Fieldset = memo(
                         (() => {
                             switch (state) {
                                 case "default":
+                                case "info":
                                     return undefined;
                                 case "error":
                                     return "fr-fieldset--error";
@@ -141,6 +196,7 @@ export const Fieldset = memo(
                             fr.cx("fr-fieldset__legend", "fr-text--regular"),
                             classes.legend
                         )}
+                        aria-describedby={messageId}
                     >
                         {legend}
                         {hintText !== undefined && (
@@ -149,53 +205,16 @@ export const Fieldset = memo(
                     </legend>
                 )}
                 <div className={cx(fr.cx("fr-fieldset__content"), classes.content)}>
-                    {options.map(({ label, hintText, nativeInputProps, ...rest }, i) => (
-                        <div
-                            className={cx(
-                                fr.cx(
-                                    `fr-${type}-group`,
-                                    isRichRadio && "fr-radio-rich",
-                                    small && `fr-${type}-group--sm`
-                                ),
-                                classes.inputGroup
-                            )}
-                            key={i}
-                        >
-                            <input
-                                type={type}
-                                id={getInputId(i)}
-                                name={radioName}
-                                {...nativeInputProps}
-                            />
-                            <label className={fr.cx("fr-label")} htmlFor={getInputId(i)}>
-                                {label}
-                                {hintText !== undefined && (
-                                    <span className={fr.cx("fr-hint-text")}>{hintText}</span>
-                                )}
-                            </label>
-                            {"illustration" in rest && (
-                                <div className={fr.cx("fr-radio-rich__img")}>
-                                    {rest.illustration}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                    {options.map((option, i) => renderOption({ option, i }))}
                 </div>
                 <div
                     className={fr.cx("fr-messages-group")}
                     id={messagesWrapperId}
-                    aria-live="assertive"
+                    aria-live={state === "error" ? "assertive" : undefined}
                 >
                     {stateRelatedMessage !== undefined && (
                         <p
-                            id={(() => {
-                                switch (state) {
-                                    case "error":
-                                        return errorDescId;
-                                    case "success":
-                                        return successDescId;
-                                }
-                            })()}
+                            id={messageId}
                             className={fr.cx(
                                 "fr-message",
                                 (() => {
@@ -204,6 +223,8 @@ export const Fieldset = memo(
                                             return "fr-message--error";
                                         case "success":
                                             return "fr-message--valid";
+                                        case "info":
+                                            return "fr-message--info";
                                     }
                                 })()
                             )}

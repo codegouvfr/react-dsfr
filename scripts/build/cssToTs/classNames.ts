@@ -1,15 +1,25 @@
-import { getRulesByBreakpoint } from "./breakpoints";
 import memoize from "memoizee";
-import { objectKeys } from "tsafe/objectKeys";
+import { parseCss } from "../parseCss";
+import { assert } from "tsafe/assert";
+import { typeGuard } from "tsafe/typeGuard";
 
 export const parseClassNames = memoize((rawCssCode: string): string[] => {
-    const rulesByBreakpoint = getRulesByBreakpoint(rawCssCode);
+    const parsedCss = parseCss(rawCssCode);
 
     const classNames = new Set<string>();
 
-    objectKeys(rulesByBreakpoint).forEach(breakpoint => {
-        const rules = rulesByBreakpoint[breakpoint];
-        rules.forEach(({ selectors }) => {
+    JSON.stringify(parsedCss, (key, value) => {
+        if (key === "selectors") {
+            const selectors = value as unknown;
+
+            assert(
+                typeGuard<string[]>(
+                    selectors,
+                    selectors instanceof Array &&
+                        selectors.every(selector => typeof selector === "string")
+                )
+            );
+
             selectors.forEach(selector => {
                 const matchArr = selector.match(/\.fr-[a-zA-Z0-9_-]+(?:@[a-zA-Z0-9_-]+)?/g);
                 if (matchArr === null) {
@@ -20,8 +30,10 @@ export const parseClassNames = memoize((rawCssCode: string): string[] => {
                     .map(matchedStr => matchedStr.replace(/^\./, ""))
                     .forEach(className => classNames.add(className));
             });
-        });
+        }
+        return value;
     });
+
     return Array.from(classNames);
 });
 

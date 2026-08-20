@@ -1,4 +1,6 @@
-import { assert } from "tsafe/assert";
+import { useEffect, useReducer } from "react";
+import { assert, type Equals } from "tsafe/assert";
+import { isAmong } from "tsafe/isAmong";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
 import { fr } from "../fr";
@@ -32,32 +34,47 @@ export type UseIsDark = () => {
 const $isAfterFirstEffect = createStatefulObservable(() => false);
 
 export function getIsDarkClientSide() {
-    return $isAfterFirstEffect.current ? $clientSideIsDark.current : ssrWasPerformedWithIsDark;
+    if ($isAfterFirstEffect.current) {
+        return $clientSideIsDark.current;
+    }
+    assert(ssrWasPerformedWithIsDark !== undefined);
+    return ssrWasPerformedWithIsDark;
+}
+
+function getSystemColorScheme() {
+    return typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
 }
 
 export const useIsDarkClientSide: UseIsDark = () => {
+    const [isFirstRenderingOfTheComponent, reRender] = useReducer(() => false, true);
+
+    useEffect(() => {
+        reRender();
+    }, []);
+
     useRerenderOnChange($clientSideIsDark);
     useRerenderOnChange($isAfterFirstEffect);
 
-    const isDark = $isAfterFirstEffect.current
-        ? $clientSideIsDark.current
-        : ssrWasPerformedWithIsDark;
+    const isDark =
+        isFirstRenderingOfTheComponent || !$isAfterFirstEffect.current
+            ? (assert(ssrWasPerformedWithIsDark !== undefined), ssrWasPerformedWithIsDark)
+            : $clientSideIsDark.current;
 
     const setIsDark = useConstCallback<ReturnType<UseIsDark>["setIsDark"]>(
         newIsDarkOrDeduceNewIsDarkFromCurrentIsDark => {
             const data_fr_js_value = document.documentElement.getAttribute("data-fr-js");
 
-            const newColorScheme = ((): ColorScheme => {
+            const newColorScheme = ((): ColorScheme | "system" => {
                 switch (
                     typeof newIsDarkOrDeduceNewIsDarkFromCurrentIsDark === "function"
                         ? newIsDarkOrDeduceNewIsDarkFromCurrentIsDark(isDark)
                         : newIsDarkOrDeduceNewIsDarkFromCurrentIsDark
                 ) {
                     case "system":
-                        return typeof window.matchMedia === "function" &&
-                            window.matchMedia("(prefers-color-scheme: dark)").matches
-                            ? "dark"
-                            : "light";
+                        return "system";
                     case true:
                         return "dark";
                     case false:
@@ -69,7 +86,10 @@ export const useIsDarkClientSide: UseIsDark = () => {
 
             if (data_fr_js_value !== "true") {
                 //NOTE: DSFR not started yet.
-                document.documentElement.setAttribute(data_fr_theme, newColorScheme);
+                document.documentElement.setAttribute(
+                    data_fr_theme,
+                    newColorScheme === "system" ? getSystemColorScheme() : newColorScheme
+                );
                 localStorage.setItem("scheme", newColorScheme);
             }
         }
@@ -81,7 +101,7 @@ export const useIsDarkClientSide: UseIsDark = () => {
     };
 };
 
-let ssrWasPerformedWithIsDark: boolean;
+let ssrWasPerformedWithIsDark: boolean | undefined = undefined;
 
 function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
     const colorSchemeFromHtmlAttribute = document.documentElement.getAttribute(data_fr_theme);
@@ -98,6 +118,11 @@ function getCurrentIsDarkFromHtmlAttribute(): boolean | undefined {
     assert(false, `Unrecognized ${data_fr_theme} attribute value: ${colorSchemeFromHtmlAttribute}`);
 }
 
+// Warning: There is a ton of implicit coupling here,
+// scripts/build/early-color-scheme.js
+// and
+// src/useIsDark/scriptToRunAsap.ts
+// need to be updated if anything is changed here.
 export function startClientSideIsDarkLogic(params: {
     registerEffectAction: (action: () => void) => void;
     doPersistDarkModePreferenceWithCookie: boolean;
@@ -113,13 +138,13 @@ export function startClientSideIsDarkLogic(params: {
         trustedTypesPolicyName
     } = params;
 
-    reset_user_preference: {
-        const localStorageKey = "scheme-default";
+    reset_persisted_value_if_website_config_changed: {
+        const localStorageKey = "scheme-website-config-default";
 
         const localStorageValue = localStorage.getItem(localStorageKey);
 
         if (localStorageValue === colorSchemeExplicitlyProvidedAsParameter) {
-            break reset_user_preference;
+            break reset_persisted_value_if_website_config_changed;
         }
 
         localStorage.removeItem("scheme");
@@ -146,7 +171,7 @@ export function startClientSideIsDarkLogic(params: {
                 return undefined;
             }
 
-            switch (colorSchemeExplicitlyProvidedAsParameter as ColorScheme) {
+            switch (colorSchemeExplicitlyProvidedAsParameter) {
                 case "dark":
                     return true;
                 case "light":
@@ -161,35 +186,35 @@ export function startClientSideIsDarkLogic(params: {
                 return undefined;
             }
 
+            assert(
+                isAmong<ColorScheme | "system">(
+                    ["dark", "light", "system"],
+                    colorSchemeReadFromLocalStorage
+                )
+            );
+
             if (colorSchemeReadFromLocalStorage === "system") {
                 return undefined;
             }
 
-            switch (colorSchemeReadFromLocalStorage as ColorScheme) {
+            switch (colorSchemeReadFromLocalStorage) {
                 case "dark":
                     return true;
                 case "light":
                     return false;
             }
+
+            assert<Equals<typeof colorSchemeReadFromLocalStorage, never>>;
         })();
 
-        const isDarkFromOsPreference = (() => {
-            if (!window.matchMedia) {
-                return undefined;
-            }
-
-            return window.matchMedia("(prefers-color-scheme: dark)").matches;
-        })();
-
-        const isDarkFallback = false;
+        const isDarkFromOsPreference = getSystemColorScheme() === "dark";
 
         return {
-            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? isDarkFallback,
+            "ssrWasPerformedWithIsDark": isDarkExplicitlyProvidedAsParameter ?? false,
             "clientSideIsDark":
                 isDarkFromLocalStorage ??
                 isDarkExplicitlyProvidedAsParameter ??
-                isDarkFromOsPreference ??
-                isDarkFallback
+                isDarkFromOsPreference
         };
     })();
 
@@ -205,9 +230,26 @@ export function startClientSideIsDarkLogic(params: {
 
     $clientSideIsDark.current = clientSideIsDark;
 
-    [data_fr_scheme, data_fr_theme].forEach(attr =>
-        document.documentElement.setAttribute(attr, clientSideIsDark ? "dark" : "light")
+    document.documentElement.setAttribute(
+        data_fr_scheme,
+        ((): ColorScheme | "system" => {
+            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+
+            if (colorSchemeReadFromLocalStorage === null) {
+                return colorSchemeExplicitlyProvidedAsParameter;
+            }
+
+            assert(
+                isAmong<ColorScheme | "system">(
+                    ["dark", "light", "system"],
+                    colorSchemeReadFromLocalStorage
+                )
+            );
+
+            return colorSchemeReadFromLocalStorage;
+        })()
     );
+    document.documentElement.setAttribute(data_fr_theme, clientSideIsDark ? "dark" : "light");
 
     new MutationObserver(() => {
         const isDarkFromHtmlAttribute = getCurrentIsDarkFromHtmlAttribute();

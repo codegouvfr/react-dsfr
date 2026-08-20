@@ -21,7 +21,7 @@ import { useAnalyticsId } from "../tools/useAnalyticsId";
 
 export type PasswordInputProps = Omit<
     InputProps.Common,
-    "state" | "stateRelatedMessage" | "iconId" | "classes" | "addon"
+    "state" | "stateRelatedMessage" | "iconId" | "classes" | "addon" | "action"
 > & {
     classes?: Partial<Record<"root" | "input" | "label" | "checkbox", string>>;
     /** Default "Your password must contain:", if empty string the hint wont be displayed */
@@ -60,7 +60,7 @@ export const PasswordInput = memo(
             classes = {},
             style,
             messages = [],
-            nativeInputProps,
+            nativeInputProps = {},
             messagesHint = t("your password must contain"),
             ...rest
         } = props;
@@ -75,7 +75,7 @@ export const PasswordInput = memo(
         const inputId = (function useClosure() {
             const id = useId();
 
-            return nativeInputProps?.id ?? `password-${id}`;
+            return nativeInputProps.id ?? `password-${id}`;
         })();
         const togglePasswordShowId = `${inputId}-toggle-show`;
         const messagesGroupId = `${inputId}-messages-group`;
@@ -142,7 +142,9 @@ export const PasswordInput = memo(
                         htmlFor={inputId}
                     >
                         {label}
-                        {hintText !== undefined && <span className="fr-hint-text">{hintText}</span>}
+                        {hintText !== undefined && (
+                            <span className={fr.cx("fr-hint-text")}>{hintText}</span>
+                        )}
                     </label>
                 )}
                 <div className={fr.cx("fr-input-wrap")} ref={setInputWrapperElement}>
@@ -152,7 +154,12 @@ export const PasswordInput = memo(
                         id={inputId}
                         type={isPasswordReveled ? "text" : "password"}
                         disabled={disabled}
-                        {...(messages.length !== 0 && { "aria-describedby": messagesGroupId })}
+                        {...(messages.length !== 0 && {
+                            "aria-describedby":
+                                nativeInputProps["aria-describedby"] !== undefined
+                                    ? `${messagesGroupId} ${nativeInputProps["aria-describedby"]}`
+                                    : messagesGroupId
+                        })}
                     />
                 </div>
                 {messages.length !== 0 && (
@@ -171,6 +178,8 @@ export const PasswordInput = memo(
                                 key={index}
                                 className={fr.cx("fr-message", `fr-message--${severity}`)}
                                 id={`${messageGroupId}-${index}`}
+                                data-fr-valid={t("valid")}
+                                data-fr-error={t("error")}
                             >
                                 {message}
                             </p>
@@ -211,7 +220,9 @@ const { useTranslation, addPasswordInputTranslations } = createComponentI18nApi(
         /* spell-checker: disable */
         "show": "Afficher",
         "show password": "Afficher le mot de passe",
-        "your password must contain": "Votre mot de passe doit contenir :"
+        "your password must contain": "Votre mot de passe doit contenir :",
+        "valid": "Validé",
+        "error": "En erreur"
         /* spell-checker: enable */
     }
 });
@@ -221,7 +232,9 @@ addPasswordInputTranslations({
     "messages": {
         "show": "Show",
         "show password": "Show password",
-        "your password must contain": "Your password must contain:"
+        "your password must contain": "Your password must contain:",
+        "valid": "Valid",
+        "error": "Error"
     }
 });
 
@@ -231,10 +244,14 @@ addPasswordInputTranslations({
         /* spell-checker: disable */
         "show": "Mostrar",
         "show password": "Mostrar contraseña",
-        "your password must contain": "Su contraseña debe contener:"
+        "your password must contain": "Su contraseña debe contener:",
+        "valid": "Válido",
+        "error": "No válido"
         /* spell-checker: enable */
     }
 });
+
+export { addPasswordInputTranslations };
 
 PasswordInput.displayName = symToStr({ PasswordInput });
 

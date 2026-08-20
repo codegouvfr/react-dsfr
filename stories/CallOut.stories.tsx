@@ -114,3 +114,18 @@ export const NoButton = getStory({
     accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires 
     qui remplissent les conditions.`
 });
+
+export const BodyWithList = getStory({
+    "title": "Titre mise en avant avec liste dans le body",
+    "iconId": "ri-information-line",
+    "children": (
+        <>
+            Une mise en avant peut contenir une liste :
+            <ul>
+                <li>Un élément de liste</li>
+                <li>Un autre élément de liste</li>
+            </ul>
+        </>
+    ),
+    "bodyAs": "div"
+});

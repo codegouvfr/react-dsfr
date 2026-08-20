@@ -9,7 +9,45 @@ const { meta, getStory } = getStoryFactory({
     "wrappedComponent": { Alert },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/alerte)
-- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Alert.tsx)`,
+- [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/Alert.tsx)
+
+## Uncontrolled mode  
+
+\`\`\`tsx
+import { Alert } from "@codegouvfr/react-dsfr/Alert";
+
+<Alert
+    severity="success"
+    title="Message successfully sent"
+    description="Everything went well"
+    closable
+    onClose={()=> alert("The user clicked the close button on the modal")}
+/>
+\`\`\`
+
+## Controlled mode
+
+\`\`\`tsx
+import { Alert } from "@codegouvfr/react-dsfr/Alert";
+import { useState } from "react";
+
+const [ isClosed, setIsClosed ] = useState(false);
+
+<Alert
+    severity="success"
+    title="Message successfully sent"
+    description="Everything went well"
+    isClosed={isClosed}
+    // If the use should be able to close the modal manually
+    closable
+    // This is called only when the user clicks the close button
+    onClose={()=> setIsClosed(true)}
+/>
+<button onClick={()=> setIsClosed(false)}>Open alert</button>
+<button onClick={()=> setIsClosed(true)}>Close alert</button>
+\`\`\`
+
+`,
     "argTypes": {
         "severity": {
             "options": (() => {

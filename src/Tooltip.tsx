@@ -42,19 +42,6 @@ export const Tooltip = memo(
             "explicitlyProvidedId": id_prop
         });
 
-        const TooltipSpan = () => (
-            <span
-                className={cx(fr.cx("fr-tooltip", "fr-placement"), className)}
-                id={id}
-                ref={ref}
-                style={style}
-                role="tooltip"
-                aria-hidden="true"
-            >
-                {title}
-            </span>
-        );
-
         return (
             <>
                 {kind === "click" ? (
@@ -79,7 +66,15 @@ export const Tooltip = memo(
                         {children}
                     </span>
                 )}
-                <TooltipSpan />
+                <span
+                    className={cx(fr.cx("fr-tooltip", "fr-placement"), className)}
+                    id={id}
+                    ref={ref}
+                    style={style}
+                    role="tooltip"
+                >
+                    {title}
+                </span>
             </>
         );
     })

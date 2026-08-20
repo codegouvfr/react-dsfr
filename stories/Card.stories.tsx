@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, type CardProps } from "../dist/Card";
 import { Badge } from "../dist/Badge";
 import { Tag } from "../dist/Tag";
@@ -6,11 +5,10 @@ import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
+import TechnicalError from "../dist/picto/TechnicalError";
+import { fr } from "../dist";
 import artworkOvoidSvgUrl from "../dist/dsfr/artwork/background/ovoid.svg";
 import artworkTechnicalErrorSvgUrl from "../dist/dsfr/artwork/pictograms/system/technical-error.svg";
-
-import { fr } from "../dist";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -126,7 +124,7 @@ const defaultProps = {
         "href": "#"
     },
     "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing, incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et",
-    "imageUrl": "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
+    "imageUrl": "https://www.systeme-de-design.gouv.fr/v1.14/storybook/img/placeholder.16x9.png",
     "imageAlt": "texte alternatif de l’image"
 };
 
@@ -467,4 +465,12 @@ export const CardWithImageComponent = getStory({
             </g>
         </svg>
     )
+});
+
+export const CardWithPictogram = getStory({
+    ...defaultProps,
+    enlargeLink: false,
+    imageUrl: undefined,
+    imageAlt: undefined,
+    imageComponent: <TechnicalError className={fr.cx("fr-responsive-img")} />
 });

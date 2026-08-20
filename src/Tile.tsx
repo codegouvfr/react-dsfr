@@ -21,11 +21,6 @@ export type TileProps = {
     desc?: ReactNode;
     detail?: ReactNode;
     start?: ReactNode;
-    imageUrl?: string;
-    imageAlt?: string;
-    imageWidth?: string | number;
-    imageHeight?: string | number;
-    imageSvg?: boolean;
     grey?: boolean;
     /** make the whole tile clickable */
     enlargeLinkOrButton?: boolean;
@@ -42,7 +37,8 @@ export type TileProps = {
             | "detail"
             | "start"
             | "img"
-            | "imgTag",
+            | "imgTag"
+            | "artwork",
             string
         >
     >;
@@ -53,7 +49,8 @@ export type TileProps = {
     noBackground?: boolean;
     disabled?: boolean;
     style?: CSSProperties;
-} & (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
+} & (TileProps.WithImage | TileProps.WithPicto) &
+    (TileProps.WithLink | TileProps.WithButton | TileProps.Unclickable);
 
 export namespace TileProps {
     export type Unclickable = {
@@ -70,6 +67,30 @@ export namespace TileProps {
     export type WithButton = {
         linkProps?: never;
         buttonProps: ComponentProps<"button">;
+    };
+
+    export type WithImage = {
+        imageUrl?: string;
+        imageAlt?: string;
+        /**
+         * @deprecated imageWidth has no effect
+         */
+        imageWidth?: string | number;
+        /**
+         * @deprecated imageHeight has no effect
+         */
+        imageHeight?: string | number;
+        imageSvg?: boolean;
+        pictogram?: never;
+    };
+
+    export type WithPicto = {
+        imageUrl?: never;
+        imageAlt?: never;
+        imageWidth?: never;
+        imageHeight?: never;
+        imageSvg?: never;
+        pictogram: ReactNode;
     };
 }
 
@@ -92,6 +113,7 @@ export const Tile = memo(
             imageWidth,
             imageHeight,
             imageSvg = false,
+            pictogram,
             orientation = "vertical",
             small = false,
             noBorder = false,
@@ -167,10 +189,12 @@ export const Tile = memo(
                         </HtmlTitleTag>
 
                         {desc !== undefined && (
-                            <p className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</p>
+                            <div className={cx(fr.cx("fr-tile__desc"), classes.desc)}>{desc}</div>
                         )}
                         {detail !== undefined && (
-                            <p className={cx(fr.cx("fr-tile__detail"), classes.detail)}>{detail}</p>
+                            <div className={cx(fr.cx("fr-tile__detail"), classes.detail)}>
+                                {detail}
+                            </div>
                         )}
                         {start !== undefined && (
                             <div className={cx(fr.cx("fr-tile__start"), classes.start)}>
@@ -180,33 +204,37 @@ export const Tile = memo(
                     </div>
                 </div>
 
-                {imageUrl !== undefined && imageUrl.length > 0 && (
+                {((imageUrl !== undefined && imageUrl.length > 0) || pictogram !== undefined) && (
                     <div className={cx(fr.cx("fr-tile__header"), classes.header)}>
-                        {imageSvg ? (
+                        {imageSvg || pictogram !== undefined ? (
                             <div className={cx(fr.cx("fr-tile__pictogram"), classes.img)}>
-                                <svg
-                                    aria-hidden={true}
-                                    className={fr.cx("fr-artwork")}
-                                    viewBox="0 0 80 80"
-                                    width="80px"
-                                    height="80px"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                                >
-                                    {(
-                                        [
-                                            "artwork-decorative",
-                                            "artwork-minor",
-                                            "artwork-major"
-                                        ] as const
-                                    ).map(label => (
-                                        <use
-                                            key={label}
-                                            className={fr.cx(`fr-${label}`)}
-                                            xlinkHref={`${imageUrl}#${label}`}
-                                        />
-                                    ))}
-                                </svg>
+                                {pictogram !== undefined ? (
+                                    pictogram
+                                ) : (
+                                    <svg
+                                        aria-hidden={true}
+                                        className={cx(fr.cx("fr-artwork"), classes.artwork)}
+                                        viewBox="0 0 80 80"
+                                        width="80px"
+                                        height="80px"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                                    >
+                                        {(
+                                            [
+                                                "artwork-decorative",
+                                                "artwork-minor",
+                                                "artwork-major"
+                                            ] as const
+                                        ).map(label => (
+                                            <use
+                                                key={label}
+                                                className={fr.cx(`fr-${label}`)}
+                                                xlinkHref={`${imageUrl}#${label}`}
+                                            />
+                                        ))}
+                                    </svg>
+                                )}
                             </div>
                         ) : (
                             <div className={cx(fr.cx("fr-tile__img"), classes.img)}>

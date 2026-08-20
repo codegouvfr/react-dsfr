@@ -10,7 +10,7 @@ import { SsrIsDarkProvider } from "./useIsDark/server";
 import type { ColorScheme } from "./useIsDark";
 import { isBrowser } from "./tools/isBrowser";
 import { objectKeys } from "tsafe/objectKeys";
-import { fontUrlByFileBasename } from "./next-appdir/zz_internal/fontUrlByFileBasename";
+import { fontUrlByFileBasename } from "./next-app-router/zz_internal/fontUrlByFileBasename";
 import AppleTouchIcon from "./dsfr/favicon/apple-touch-icon.png";
 import FaviconSvg from "./dsfr/favicon/favicon.svg";
 import FaviconIco from "./dsfr/favicon/favicon.ico";

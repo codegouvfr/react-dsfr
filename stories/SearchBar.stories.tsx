@@ -41,6 +41,7 @@ export default meta;
 
 export const DefaultUncontrolled = getStory(
     {
+        "defaultValue": "France",
         "label": undefined,
         "onButtonClick": text => alert(`TODO: implement search with text: ${text}`)
     },

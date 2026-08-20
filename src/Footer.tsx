@@ -1,3 +1,4 @@
+import type { JSX } from "./tools/JSX";
 import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
 import { getLink } from "./link";
 import type { RegisteredLinkProps } from "./link";
@@ -77,6 +78,10 @@ export type FooterProps = {
         level: 2 | 3 | 4 | 5 | 6;
         useAriaLevel?: boolean;
     };
+    /**
+     * Display a title above the link list, needs linkList to be provided
+     */
+    linkListTitle?: ReactNode;
     domains?: string[];
 };
 
@@ -116,7 +121,7 @@ export namespace FooterProps {
             LinkList.Link?
         ];
         export interface Column {
-            categoryName?: string;
+            categoryName?: ReactNode;
             links: Links;
         }
         export interface Link {
@@ -173,7 +178,13 @@ export const Footer = memo(
             linkHeadingWrapper = {
                 level: 3
             },
-            domains = ["info.gouv.fr", "service-public.fr", "legifrance.gouv.fr", "data.gouv.fr"],
+            linkListTitle,
+            domains = [
+                "info.gouv.fr",
+                "service-public.gouv.fr",
+                "legifrance.gouv.fr",
+                "data.gouv.fr"
+            ],
             ...rest
         } = props;
 
@@ -221,6 +232,7 @@ export const Footer = memo(
                 {linkList !== undefined && (
                     <div className={fr.cx("fr-footer__top")}>
                         <div className={fr.cx("fr-container")}>
+                            {linkListTitle}
                             <div
                                 className={fr.cx(
                                     "fr-grid-row",
@@ -360,6 +372,7 @@ export const Footer = memo(
                                             target="_blank"
                                             href={`https://${domain}`}
                                             title={`${domain} - ${t("open new window")}`}
+                                            id={`footer-${domain.replace(/\./g, "-")}-link`}
                                         >
                                             {domain}
                                         </a>
@@ -576,14 +589,15 @@ const { useTranslation, addFooterTranslations } = createComponentI18nApi({
                 <a
                     href={p.licenseUrl}
                     target="_blank"
-                    title="licence etalab-2.0 - ouvre une nouvelle fenêtre"
+                    title="licence etalab-2.0 - nouvelle fenêtre"
+                    id="footer-etalab-licence-link"
                 >
                     licence etalab-2.0
                 </a>
             </>
         ),
         "our partners": "Nos partenaires",
-        "open new window": "ouvre une nouvelle fenêtre"
+        "open new window": "nouvelle fenêtre"
         /* spell-checker: enable */
     }
 });
