@@ -26,13 +26,24 @@
  * }
  * (values are DSFR CSS component names or react-dsfr component names)
  *
- * There are three optional arguments that you can use:
+ * There are four optional arguments that you can use:
  * - `--projectDir <path>` to specify the project directory. Default to the current working directory.
  *   This can be used in monorepos to specify the react project directory.
  * - `--silent` to disable console.log
  * - `--strict` to exit with a non zero code instead of falling back to the untrimmed
  *   stylesheet when something can't be resolved. Recommended in CI, where the warning
  *   would otherwise go unnoticed and the build would silently ship the full bundle.
+ * - `--trim-spacing-utilities` to also remove, from the core stylesheet, the spacing
+ *   utility classes (fr-m*-*, fr-p*-*) that your sources never use. This is rule level
+ *   trimming (see src/bin/trimSpacingUtilities.ts for how it is kept safe), so it is a
+ *   separate opt-in. Dynamically constructed class names (`fr-mt-${x}w`, "fr-m" + side)
+ *   are detected and every utility their static prefix could produce is kept, with a
+ *   warning. Utilities only referenced from a stylesheet or built in ways the detection
+ *   cannot see can be forced in your package.json ("*" suffix declares a prefix, which
+ *   also silences the dynamic construction warning it covers):
+ *   "react-dsfr": {
+ *       "additionalSpacingUtilities": ["fr-mt-2w", "fr-mb-*"]
+ *   }
  */
 
 import { getProjectRoot } from "./tools/getProjectRoot";
@@ -49,6 +60,14 @@ import { readPublicDirPath } from "./readPublicDirPath";
 import { existsAsync } from "./tools/fs.existsAsync";
 import { fnv1aHashToHex } from "./tools/fnv1aHashToHex";
 import { modifyHtmlHrefs } from "./tools/modifyHtmlHrefs";
+import {
+    PATH_OF_SPACING_UTILITIES_JSON,
+    extractSpacingCssRules,
+    detectUsedSpacingTokens,
+    detectDynamicSpacingClassPrefixes,
+    trimSpacingUtilitiesFromCoreCss,
+    type SpacingUtilitiesManifest
+} from "./trimSpacingUtilities";
 
 /**
  * The DSFR CSS components (dsfr/component/<name> directories), listed in the
@@ -502,13 +521,27 @@ export function patchCoreCssCodeForCompatWithMui(params: { rawCssCode: string })
         );
 }
 
+export type SpacingTrimming = {
+    manifest: SpacingUtilitiesManifest;
+    usedTokens: Set<string>;
+    keptPrefixes: string[];
+    /** Never silenced by the caller: the stylesheet then ships untrimmed */
+    onCannotTrim: (reason: string) => void;
+    onTrimmed?: (params: {
+        coreFileRelativePath: string;
+        removedRuleCount: number;
+        spacingRuleCount: number;
+    }) => void;
+};
+
 export function generateDsfrCssCode(params: {
     dsfrComponents: string[];
     isMinified: boolean;
     /** Returns the raw code of a file within the dsfr directory, undefined if it does not exist */
     readDsfrFile: (fileRelativePath: string) => string | undefined;
+    spacingTrimming?: SpacingTrimming;
 }): string {
-    const { dsfrComponents, isMinified, readDsfrFile } = params;
+    const { dsfrComponents, isMinified, readDsfrFile, spacingTrimming } = params;
 
     const sortedDsfrComponents = [
         ...DSFR_COMPONENTS_CASCADE_ORDER.filter(componentName =>
@@ -550,6 +583,7 @@ export function generateDsfrCssCode(params: {
 
                     return {
                         dirRelativePath,
+                        fileRelativePath,
                         rawCssCode
                     };
                 }
@@ -559,14 +593,55 @@ export function generateDsfrCssCode(params: {
             .filter(exclude(undefined));
     };
 
+    const mainCssChunks = readCssChunks({
+        "getFileRelativePathCandidates": (dirRelativePath, basename) =>
+            (isMinified
+                ? [`${basename}.main.min.css`, `${basename}.min.css`]
+                : [`${basename}.main.css`, `${basename}.css`]
+            ).map(fileBasename => `${dirRelativePath}/${fileBasename}`)
+    });
+
+    trim_spacing_utilities: {
+        if (spacingTrimming === undefined) {
+            break trim_spacing_utilities;
+        }
+
+        // The spacing utility grid only exists in the non print core stylesheet.
+        const coreCssChunk = mainCssChunks.find(
+            ({ dirRelativePath }) => dirRelativePath === "core"
+        );
+
+        if (coreCssChunk === undefined) {
+            break trim_spacing_utilities;
+        }
+
+        // Applied on the raw bytes, before the banner/url/MUI transformations below:
+        // the manifest hashes are the ones of the files as shipped on disk.
+        const { cssCode, wasTrimmed, removedRuleCount, spacingRuleCount } =
+            trimSpacingUtilitiesFromCoreCss({
+                "rawCssCode": coreCssChunk.rawCssCode,
+                "coreFileRelativePath": coreCssChunk.fileRelativePath,
+                "manifest": spacingTrimming.manifest,
+                "usedTokens": spacingTrimming.usedTokens,
+                "keptPrefixes": spacingTrimming.keptPrefixes,
+                "onCannotTrim": spacingTrimming.onCannotTrim
+            });
+
+        if (!wasTrimmed) {
+            break trim_spacing_utilities;
+        }
+
+        coreCssChunk.rawCssCode = cssCode;
+
+        spacingTrimming.onTrimmed?.({
+            "coreFileRelativePath": coreCssChunk.fileRelativePath,
+            removedRuleCount,
+            spacingRuleCount
+        });
+    }
+
     const cssChunks = [
-        ...readCssChunks({
-            "getFileRelativePathCandidates": (dirRelativePath, basename) =>
-                (isMinified
-                    ? [`${basename}.main.min.css`, `${basename}.min.css`]
-                    : [`${basename}.main.css`, `${basename}.css`]
-                ).map(fileBasename => `${dirRelativePath}/${fileBasename}`)
-        }),
+        ...mainCssChunks,
         ...readCssChunks({
             "getFileRelativePathCandidates": (dirRelativePath, basename) =>
                 (isMinified ? [`${basename}.print.min.css`] : [`${basename}.print.css`]).map(
@@ -622,6 +697,7 @@ type CommandContext = {
         | undefined;
     isSilent: boolean;
     isStrict: boolean;
+    doTrimSpacingUtilities: boolean;
 };
 
 const CODEGOUV_REACT_DSFR: string = JSON.parse(
@@ -727,6 +803,9 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
 
     const isSilent = argv["silent"] === true;
     const isStrict = argv["strict"] === true;
+    // yargs-parser camel-case expansion provides both forms, read both to be safe.
+    const doTrimSpacingUtilities =
+        argv["trimSpacingUtilities"] === true || argv["trim-spacing-utilities"] === true;
 
     const srcFilePaths = (
         await Promise.all([
@@ -868,7 +947,8 @@ async function getCommandContext(args: string[]): Promise<CommandContext | undef
             };
         })(),
         isSilent,
-        isStrict
+        isStrict,
+        doTrimSpacingUtilities
     };
 }
 
@@ -909,6 +989,96 @@ export async function main(args: string[]) {
                 )
             )
         );
+
+    const readDsfrFile = (fileRelativePath: string) => {
+        const filePath = pathJoin(commandContext.dsfrDirPath, ...fileRelativePath.split("/"));
+
+        if (!fs.existsSync(filePath)) {
+            return undefined;
+        }
+
+        return fs.readFileSync(filePath).toString("utf8");
+    };
+
+    let spacingTrimmingSetupFailure: string | undefined = undefined;
+
+    // The whole spacing trimming state, undefined when --trim-spacing-utilities
+    // was not passed or when its prerequisites are missing (a warning is then issued).
+    const spacingState = (():
+        | {
+              manifest: SpacingUtilitiesManifest;
+              spacingTokens: Set<string>;
+              usedSpacingTokens: Set<string>;
+              /** Dynamic construction prefix -> first file it was seen in */
+              dynamicPrefixBySrcFilePath: Map<string, string>;
+              declaredPrefixes: string[];
+              /** Non empty disables trimming for the run (and fails --strict) */
+              disabledReasons: string[];
+          }
+        | undefined => {
+        if (!commandContext.doTrimSpacingUtilities) {
+            return undefined;
+        }
+
+        const cannotEnable = (reason: string) => {
+            // NOTE: Deliberately not routed through log?.(), --silent must not hide
+            // the fact that the optimization has been disabled for this run.
+            console.warn(
+                `[react-dsfr] --trim-spacing-utilities is ignored for this run: ${reason}`
+            );
+            spacingTrimmingSetupFailure = reason;
+            return undefined;
+        };
+
+        const manifestSourceCode = readDsfrFile(
+            PATH_OF_SPACING_UTILITIES_JSON.split(pathSep).join("/")
+        );
+
+        if (manifestSourceCode === undefined) {
+            return cannotEnable(
+                [
+                    `${PATH_OF_SPACING_UTILITIES_JSON} is missing from your installation of`,
+                    `${CODEGOUV_REACT_DSFR}, is it up to date?`
+                ].join(" ")
+            );
+        }
+
+        const manifest: SpacingUtilitiesManifest = JSON.parse(manifestSourceCode);
+
+        const coreCssCode = (() => {
+            for (const fileRelativePath of Object.keys(manifest.coreFiles)) {
+                const rawCssCode = readDsfrFile(fileRelativePath);
+
+                if (rawCssCode !== undefined) {
+                    return rawCssCode;
+                }
+            }
+
+            return undefined;
+        })();
+
+        if (coreCssCode === undefined) {
+            return cannotEnable(
+                `none of the core stylesheets covered by the manifest exists on disk`
+            );
+        }
+
+        return {
+            manifest,
+            "spacingTokens": new Set(
+                extractSpacingCssRules({ "rawCssCode": coreCssCode }).flatMap(
+                    ({ tokens }) => tokens
+                )
+            ),
+            // The components of react-dsfr itself use a few spacing utilities, and the
+            // crawl deliberately excludes the package: the build time generated list
+            // is what prevents trimming them away.
+            "usedSpacingTokens": new Set(manifest.alwaysKeepTokens),
+            "dynamicPrefixBySrcFilePath": new Map<string, string>(),
+            "declaredPrefixes": [],
+            "disabledReasons": []
+        };
+    })();
 
     const usedDsfrComponents = new Set<string>();
 
@@ -961,87 +1131,238 @@ export async function main(args: string[]) {
 
                 usedDsfrComponents.add(componentName);
             }
+
+            if (spacingState !== undefined) {
+                const spacingTokens = detectUsedSpacingTokens({
+                    rawFileContent,
+                    "spacingTokens": spacingState.spacingTokens
+                });
+
+                if (spacingTokens.length !== 0) {
+                    log?.(
+                        `Found usage of spacing utilities ${spacingTokens.join(
+                            ", "
+                        )} in ${pathRelative(process.cwd(), srcFilePath)}`
+                    );
+
+                    spacingTokens.forEach(token => spacingState.usedSpacingTokens.add(token));
+                }
+
+                for (const prefix of detectDynamicSpacingClassPrefixes({
+                    rawFileContent,
+                    "spacingTokens": spacingState.spacingTokens
+                })) {
+                    if (spacingState.dynamicPrefixBySrcFilePath.has(prefix)) {
+                        continue;
+                    }
+
+                    spacingState.dynamicPrefixBySrcFilePath.set(prefix, srcFilePath);
+                }
+            }
         })
     );
 
-    additional_components_from_package_json: {
+    additional_entries_from_package_json: {
         const packageJsonFilePath = pathJoin(commandContext.projectDirPath, "package.json");
 
         if (!(await existsAsync(packageJsonFilePath))) {
-            break additional_components_from_package_json;
+            break additional_entries_from_package_json;
         }
 
         const reactDsfrConfig: unknown = JSON.parse(
             (await readFile(packageJsonFilePath)).toString("utf8")
         )["react-dsfr"];
 
-        const additionalComponents: unknown =
-            reactDsfrConfig === null || typeof reactDsfrConfig !== "object"
-                ? undefined
-                : (reactDsfrConfig as Record<string, unknown>)["additionalComponents"];
-
-        if (additionalComponents === undefined) {
-            if (reactDsfrConfig !== null && typeof reactDsfrConfig === "object") {
-                // A typo in the key would otherwise silently disable the escape hatch.
-                console.warn(
-                    [
-                        `[react-dsfr] The "react-dsfr" entry of your package.json has no`,
-                        `"additionalComponents" key, is it a typo? Found:`,
-                        `${Object.keys(reactDsfrConfig as Record<string, unknown>).join(", ")}`
-                    ].join(" ")
-                );
-            }
-
-            break additional_components_from_package_json;
+        if (reactDsfrConfig === null || typeof reactDsfrConfig !== "object") {
+            break additional_entries_from_package_json;
         }
 
-        assert(
-            Array.isArray(additionalComponents) &&
-                additionalComponents.every((value): value is string => typeof value === "string"),
-            'Malformed "react-dsfr"."additionalComponents" in package.json, expected an array of strings'
-        );
+        const config = reactDsfrConfig as Record<string, unknown>;
 
-        for (const additionalComponent of additionalComponents) {
-            const dsfrComponents =
-                REACT_DSFR_MODULE_TO_DSFR_COMPONENTS[additionalComponent] ??
-                (availableDsfrComponents.includes(additionalComponent)
-                    ? [additionalComponent]
-                    : undefined);
+        {
+            const unknownKeys = Object.keys(config).filter(
+                key => key !== "additionalComponents" && key !== "additionalSpacingUtilities"
+            );
 
-            if (dsfrComponents === undefined) {
+            if (unknownKeys.length !== 0) {
+                // A typo in a key would otherwise silently disable the escape hatch.
                 console.warn(
                     [
-                        `[react-dsfr] Unknown component "${additionalComponent}" in`,
-                        `"react-dsfr"."additionalComponents" of your package.json:`,
-                        `no CSS is trimmed at all for this run, every component is included.`
+                        `[react-dsfr] Unknown key(s) ${unknownKeys.join(", ")} in the`,
+                        `"react-dsfr" entry of your package.json, is it a typo? Expected`,
+                        `"additionalComponents" and/or "additionalSpacingUtilities".`
                     ].join(" ")
                 );
+            }
+        }
 
-                doIncludeAllComponents = true;
+        additional_components: {
+            const additionalComponents = config["additionalComponents"];
 
+            if (additionalComponents === undefined) {
+                break additional_components;
+            }
+
+            assert(
+                Array.isArray(additionalComponents) &&
+                    additionalComponents.every(
+                        (value): value is string => typeof value === "string"
+                    ),
+                'Malformed "react-dsfr"."additionalComponents" in package.json, expected an array of strings'
+            );
+
+            for (const additionalComponent of additionalComponents) {
+                const dsfrComponents =
+                    REACT_DSFR_MODULE_TO_DSFR_COMPONENTS[additionalComponent] ??
+                    (availableDsfrComponents.includes(additionalComponent)
+                        ? [additionalComponent]
+                        : undefined);
+
+                if (dsfrComponents === undefined) {
+                    console.warn(
+                        [
+                            `[react-dsfr] Unknown component "${additionalComponent}" in`,
+                            `"react-dsfr"."additionalComponents" of your package.json:`,
+                            `no CSS is trimmed at all for this run, every component is included.`
+                        ].join(" ")
+                    );
+
+                    doIncludeAllComponents = true;
+
+                    continue;
+                }
+
+                if (dsfrComponents.length === 0) {
+                    // Reporting "Including <X>" here would be the exact opposite of what happens,
+                    // and this escape hatch is precisely what one reaches for when something is unstyled.
+                    console.warn(
+                        [
+                            `[react-dsfr] "${additionalComponent}" of`,
+                            `"react-dsfr"."additionalComponents" maps to no DSFR stylesheet,`,
+                            `nothing was added.`,
+                            ...(additionalComponent === "Chart"
+                                ? [`The Chart CSS comes from the @gouvfr/dsfr-chart package.`]
+                                : [])
+                        ].join(" ")
+                    );
+
+                    continue;
+                }
+
+                log?.(`Including ${additionalComponent} (from package.json additionalComponents)`);
+
+                dsfrComponents.forEach(componentName => usedDsfrComponents.add(componentName));
+            }
+        }
+
+        additional_spacing_utilities: {
+            const additionalSpacingUtilities = config["additionalSpacingUtilities"];
+
+            if (additionalSpacingUtilities === undefined) {
+                break additional_spacing_utilities;
+            }
+
+            assert(
+                Array.isArray(additionalSpacingUtilities) &&
+                    additionalSpacingUtilities.every(
+                        (value): value is string => typeof value === "string"
+                    ),
+                'Malformed "react-dsfr"."additionalSpacingUtilities" in package.json, expected an array of strings'
+            );
+
+            if (spacingState === undefined) {
+                // Inert without --trim-spacing-utilities (or when its setup failed,
+                // which has already been warned about).
+                break additional_spacing_utilities;
+            }
+
+            for (const entry of additionalSpacingUtilities) {
+                if (entry.endsWith("*")) {
+                    const prefix = entry.slice(0, -1);
+
+                    const matchingTokenCount = Array.from(spacingState.spacingTokens).filter(
+                        token => token.startsWith(prefix)
+                    ).length;
+
+                    if (matchingTokenCount === 0) {
+                        console.warn(
+                            [
+                                `[react-dsfr] "${entry}" of`,
+                                `"react-dsfr"."additionalSpacingUtilities" of your package.json`,
+                                `matches no spacing utility class (typo?):`,
+                                `spacing utilities are not trimmed for this run.`
+                            ].join(" ")
+                        );
+
+                        spacingState.disabledReasons.push(
+                            `"${entry}" of additionalSpacingUtilities matches nothing`
+                        );
+
+                        continue;
+                    }
+
+                    log?.(
+                        `Keeping ${matchingTokenCount} spacing utilities matching "${entry}" (from package.json additionalSpacingUtilities)`
+                    );
+
+                    spacingState.declaredPrefixes.push(prefix);
+
+                    continue;
+                }
+
+                if (!spacingState.spacingTokens.has(entry)) {
+                    console.warn(
+                        [
+                            `[react-dsfr] Unknown spacing utility "${entry}" in`,
+                            `"react-dsfr"."additionalSpacingUtilities" of your package.json:`,
+                            `spacing utilities are not trimmed for this run.`
+                        ].join(" ")
+                    );
+
+                    spacingState.disabledReasons.push(
+                        `"${entry}" of additionalSpacingUtilities is not a spacing utility class`
+                    );
+
+                    continue;
+                }
+
+                log?.(`Keeping ${entry} (from package.json additionalSpacingUtilities)`);
+
+                spacingState.usedSpacingTokens.add(entry);
+            }
+        }
+    }
+
+    const uncoveredDynamicSpacingPrefixes: string[] = [];
+
+    if (spacingState !== undefined) {
+        for (const [prefix, srcFilePath] of spacingState.dynamicPrefixBySrcFilePath) {
+            if (
+                spacingState.declaredPrefixes.some(declaredPrefix =>
+                    prefix.startsWith(declaredPrefix)
+                )
+            ) {
                 continue;
             }
 
-            if (dsfrComponents.length === 0) {
-                // Reporting "Including <X>" here would be the exact opposite of what happens,
-                // and this escape hatch is precisely what one reaches for when something is unstyled.
-                console.warn(
-                    [
-                        `[react-dsfr] "${additionalComponent}" of`,
-                        `"react-dsfr"."additionalComponents" maps to no DSFR stylesheet,`,
-                        `nothing was added.`,
-                        ...(additionalComponent === "Chart"
-                            ? [`The Chart CSS comes from the @gouvfr/dsfr-chart package.`]
-                            : [])
-                    ].join(" ")
-                );
+            const keptTokenCount = Array.from(spacingState.spacingTokens).filter(token =>
+                token.startsWith(prefix)
+            ).length;
 
-                continue;
-            }
+            // NOTE: Deliberately not routed through log?.(), --silent must not hide
+            // that part of the spacing grid is retained because of a dynamic class name.
+            console.warn(
+                [
+                    `[react-dsfr] Dynamically constructed spacing class in`,
+                    `${pathRelative(process.cwd(), srcFilePath)} ("${prefix}" + an expression):`,
+                    `the ${keptTokenCount} spacing utilities this prefix can produce are kept`,
+                    `(fail-safe). If this is intended, declare "${prefix}*" in`,
+                    `"react-dsfr"."additionalSpacingUtilities" of your package.json to`,
+                    `acknowledge it and silence this warning.`
+                ].join(" ")
+            );
 
-            log?.(`Including ${additionalComponent} (from package.json additionalComponents)`);
-
-            dsfrComponents.forEach(componentName => usedDsfrComponents.add(componentName));
+            uncoveredDynamicSpacingPrefixes.push(prefix);
         }
     }
 
@@ -1059,6 +1380,26 @@ export async function main(args: string[]) {
         process.exit(1);
     }
 
+    if (
+        commandContext.isStrict &&
+        commandContext.doTrimSpacingUtilities &&
+        (spacingTrimmingSetupFailure !== undefined ||
+            (spacingState !== undefined &&
+                (spacingState.disabledReasons.length !== 0 ||
+                    uncoveredDynamicSpacingPrefixes.length !== 0)))
+    ) {
+        console.error(
+            [
+                `[react-dsfr] Aborting because of --strict:`,
+                `--trim-spacing-utilities could not do its job deterministically`,
+                `(see the warning(s) above). Fix the cause or declare the spacing`,
+                `utilities in "react-dsfr"."additionalSpacingUtilities" of your package.json.`
+            ].join(" ")
+        );
+
+        process.exit(1);
+    }
+
     const dsfrComponents = doIncludeAllComponents
         ? availableDsfrComponents
         : availableDsfrComponents.filter(componentName => usedDsfrComponents.has(componentName));
@@ -1067,21 +1408,37 @@ export async function main(args: string[]) {
         `Including the CSS of ${dsfrComponents.length} DSFR components (out of ${availableDsfrComponents.length}).`
     );
 
-    const readDsfrFile = (fileRelativePath: string) => {
-        const filePath = pathJoin(commandContext.dsfrDirPath, ...fileRelativePath.split("/"));
+    const spacingCannotTrimReasons: string[] = [];
 
-        if (!fs.existsSync(filePath)) {
-            return undefined;
-        }
+    const spacingTrimming: SpacingTrimming | undefined =
+        spacingState === undefined || spacingState.disabledReasons.length !== 0
+            ? undefined
+            : {
+                  "manifest": spacingState.manifest,
+                  "usedTokens": spacingState.usedSpacingTokens,
+                  "keptPrefixes": [
+                      ...spacingState.dynamicPrefixBySrcFilePath.keys(),
+                      ...spacingState.declaredPrefixes
+                  ],
+                  "onCannotTrim": reason => {
+                      // NOTE: Deliberately not routed through log?.(), --silent must not hide
+                      // the fact that the optimization has been disabled for this run.
+                      console.warn(`[react-dsfr] Spacing utilities are not trimmed: ${reason}`);
 
-        return fs.readFileSync(filePath).toString("utf8");
-    };
+                      spacingCannotTrimReasons.push(reason);
+                  },
+                  "onTrimmed": ({ coreFileRelativePath, removedRuleCount, spacingRuleCount }) =>
+                      log?.(
+                          `Trimmed ${removedRuleCount} of ${spacingRuleCount} spacing utility rules from ${coreFileRelativePath}`
+                      )
+              };
 
     const rawDsfrCssCodeBuffer = Buffer.from(
         generateDsfrCssCode({
             dsfrComponents,
             "isMinified": false,
-            readDsfrFile
+            readDsfrFile,
+            spacingTrimming
         }),
         "utf8"
     );
@@ -1090,10 +1447,23 @@ export async function main(args: string[]) {
         generateDsfrCssCode({
             dsfrComponents,
             "isMinified": true,
-            readDsfrFile
+            readDsfrFile,
+            spacingTrimming
         }),
         "utf8"
     );
+
+    if (spacingCannotTrimReasons.length !== 0 && commandContext.isStrict) {
+        console.error(
+            [
+                `[react-dsfr] Aborting because of --strict:`,
+                `this run would have shipped the core stylesheet with untrimmed`,
+                `spacing utilities (see the warning(s) above).`
+            ].join(" ")
+        );
+
+        process.exit(1);
+    }
 
     let hasChanged = false;
 

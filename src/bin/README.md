@@ -101,6 +101,56 @@ npx react-dsfr optimize-css --strict
 Please [report](https://github.com/codegouvfr/react-dsfr/issues) any module that triggers
 the fail-safe, the static tables need to be updated.
 
+## `--trim-spacing-utilities`, going further
+
+With component trimming in place, the floor of the stylesheet is the core, and more than
+40% of the core is the exhaustive spacing utility grid (`fr-m*-*` / `fr-p*-*`, ~2500
+classes, ~78 kB raw / ~11.5 kB gzip) of which most apps use a handful. Unlike component
+CSS these classes are never toggled by the DSFR JavaScript, so they can be trimmed per
+rule with reasonable guarantees. It is still a different risk profile than whole-file
+concatenation, hence a separate opt-in:
+
+```bash
+npx react-dsfr optimize-css --trim-spacing-utilities
+```
+
+How it stays safe:
+
+-   The rule level surgery is validated at **react-dsfr build time** against a real CSS
+    parser, and the validated core stylesheets are fingerprinted in a generated manifest
+    (`dsfr/core/spacing-utilities.json`, which also carries the utilities react-dsfr's own
+    components render). At run time, trimming only happens if the core file's hash matches:
+    on any mismatch the stylesheet ships untrimmed, with a warning.
+-   Used utilities are detected as literal class names in the same crawled sources as the
+    component detection. A mention in a comment or an url counts as a usage (over-including
+    only costs bytes).
+-   **Dynamically constructed class names** (`` `fr-mt-${x}w` ``, `"fr-m" + side`) are
+    detected, and every utility their static prefix could produce is kept, with a warning.
+    `` `fr-icon-${name}` `` does not trigger anything (no spacing class starts with that),
+    `` `fr-m${x}` `` keeps all the margins but still trims the paddings, and a bare
+    `` `fr-${x}` `` keeps the whole grid.
+
+### `additionalSpacingUtilities`, the escape hatch
+
+For utilities only referenced from a stylesheet or built in ways the detection cannot see,
+in your **`package.json`**:
+
+```jsonc
+{
+    "react-dsfr": {
+        "additionalSpacingUtilities": ["fr-mt-2w", "fr-mb-*"]
+    }
+}
+```
+
+A `*` suffix declares a prefix: every utility starting with it is kept, and the dynamic
+construction warning it covers is silenced (this is also how you make `--strict` pass when
+the dynamic construction is intended). An unknown value is a hard warning and disables
+spacing trimming for the run.
+
+Under `--strict`, a missing manifest, an unacknowledged dynamic construction or a core
+file mismatch exits non zero instead of silently shipping the untrimmed grid.
+
 ## Known limitations
 
 -   Detection is textual: a dynamically composed import path or class name is not seen.
