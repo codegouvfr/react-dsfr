@@ -123,8 +123,11 @@ How it stays safe:
 -   Used utilities are detected as literal class names in the same crawled sources as the
     component detection. A mention in a comment or an url counts as a usage (over-including
     only costs bytes).
--   **Dynamically constructed class names** (`` `fr-mt-${x}w` ``, `"fr-m" + side`) are
-    detected, and every utility their static prefix could produce is kept, with a warning.
+-   **Dynamically constructed class names** are detected, and every utility their static
+    prefix could produce is kept, with a warning. Exactly two forms are recognized:
+    template literal interpolation (`` `fr-mt-${x}w` ``) and string concatenation with `+`
+    (`"fr-m" + side`). Anything else — `.concat()`, an array `join`, a class built from its
+    suffix (`` `${side}-2v` ``) — is not seen and needs `additionalSpacingUtilities` below.
     `` `fr-icon-${name}` `` does not trigger anything (no spacing class starts with that),
     `` `fr-m${x}` `` keeps all the margins but still trims the paddings, and a bare
     `` `fr-${x}` `` keeps the whole grid.
