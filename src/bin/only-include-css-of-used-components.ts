@@ -66,6 +66,7 @@ import {
     detectUsedSpacingTokens,
     detectDynamicSpacingClassPrefixes,
     trimSpacingUtilitiesFromCoreCss,
+    parseSpacingUtilitiesManifest,
     type SpacingUtilitiesManifest
 } from "./trimSpacingUtilities";
 
@@ -1043,7 +1044,16 @@ export async function main(args: string[]) {
             );
         }
 
-        const manifest: SpacingUtilitiesManifest = JSON.parse(manifestSourceCode);
+        const manifest = parseSpacingUtilitiesManifest({ manifestSourceCode });
+
+        if (manifest === undefined) {
+            return cannotEnable(
+                [
+                    `${PATH_OF_SPACING_UTILITIES_JSON} is malformed, is your installation of`,
+                    `${CODEGOUV_REACT_DSFR} complete?`
+                ].join(" ")
+            );
+        }
 
         const coreCssCode = (() => {
             for (const fileRelativePath of Object.keys(manifest.coreFiles)) {
@@ -1271,8 +1281,18 @@ export async function main(args: string[]) {
             );
 
             if (spacingState === undefined) {
-                // Inert without --trim-spacing-utilities (or when its setup failed,
-                // which has already been warned about).
+                if (!commandContext.doTrimSpacingUtilities) {
+                    // A forgotten flag would otherwise make the whole configuration
+                    // a silent no-op.
+                    log?.(
+                        [
+                            `"react-dsfr"."additionalSpacingUtilities" is configured but`,
+                            `--trim-spacing-utilities was not passed, it has no effect.`
+                        ].join(" ")
+                    );
+                }
+
+                // Otherwise the setup failed, which has already been warned about.
                 break additional_spacing_utilities;
             }
 

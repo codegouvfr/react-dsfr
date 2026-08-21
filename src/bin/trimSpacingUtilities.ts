@@ -58,6 +58,36 @@ export type SpacingUtilitiesManifest = {
 };
 
 /**
+ * Parses and shape-checks a spacing-utilities.json source. Returns undefined on
+ * invalid JSON or an unexpected shape: a malformed manifest is the same failure
+ * as a missing one (broken or tampered installation), the caller warns and
+ * ships untrimmed instead of surfacing a raw stack trace.
+ */
+export function parseSpacingUtilitiesManifest(params: {
+    manifestSourceCode: string;
+}): SpacingUtilitiesManifest | undefined {
+    const { manifestSourceCode } = params;
+
+    try {
+        const parsed = JSON.parse(manifestSourceCode);
+
+        if (
+            parsed === null ||
+            typeof parsed !== "object" ||
+            parsed["coreFiles"] === null ||
+            typeof parsed["coreFiles"] !== "object" ||
+            !Array.isArray(parsed["alwaysKeepTokens"])
+        ) {
+            return undefined;
+        }
+
+        return parsed;
+    } catch {
+        return undefined;
+    }
+}
+
+/**
  * Extracts the CSS rules whose selectors are ALL spacing utility classes.
  * A rule with a selector that is anything else (another class, a descendant
  * combinator, a comment in the selector list...) is never extracted: removing
