@@ -13,6 +13,7 @@ import { Table } from "@codegouvfr/react-dsfr/Table";
 import { Tile } from "@codegouvfr/react-dsfr/Tile";
 
 import { Accordion } from "@codegouvfr/react-dsfr/Accordion";
+import { ContentMedia } from "@codegouvfr/react-dsfr/ContentMedia";
 import { Book, Money, Police, Sun, LocationFrance } from '@codegouvfr/react-dsfr/picto';
 import CityHall from './assets/city-hall.svg';
 
@@ -83,6 +84,9 @@ export function Home() {
             <ControlledAccordion />
             <div className={fr.cx("fr-my-4w")}>
                 <HighlightExample />
+            </div>
+            <div className={fr.cx("fr-my-4w")}>
+                <ContentMediaExamples />
             </div>
         </>
     );
@@ -260,8 +264,77 @@ function ControlledAccordion() {
 function HighlightExample() {
     return (
         <Highlight
-            children={`Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires qui remplissent les conditions.`}
+            children={`Les parents d'enfants de 11 à 14 ans n'ont aucune démarche à accomplir : les CAF versent automatiquement l'ARS aux familles déjà allocataires qui remplissent les conditions.`}
             bodyAs="p"
         />
     )
+}
+
+function ContentMediaExamples() {
+    return (
+        <>
+            <h2>ContentMedia — Image</h2>
+            <ContentMedia
+                type="img"
+                label="Exemple d'image responsive"
+                imgProps={{
+                    src: "https://www.w3schools.com/css/img_5terre.jpg",
+                    alt: "Paysage de Cinque Terre en Italie"
+                }}
+                caption="© W3Schools – Cinque Terre, Italie"
+                captionLinkLabel="Voir la source"
+                captionLinkProps={{
+                    href: "https://www.w3schools.com",
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                }}
+            />
+
+            <h2 className={fr.cx("fr-mt-4w")}>ContentMedia — Iframe (YouTube)</h2>
+            <ContentMedia
+                type="iframe"
+                iframeProps={{
+                    src: "https://www.youtube.com/embed/HyirpmPL43I",
+                    title: "Vidéo de présentation du Service National Universel – voir transcription ci-dessous",
+                    allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
+                    allowFullScreen: true
+                }}
+                caption="Service National Universel – présentation officielle"
+                captionLinkLabel="Voir sur YouTube"
+                captionLinkProps={{
+                    href: "https://www.youtube.com/watch?v=HyirpmPL43I",
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                }}
+            />
+
+            <h2 className={fr.cx("fr-mt-4w")}>ContentMedia — Vidéo native</h2>
+            <ContentMedia
+                type="video"
+                alternative="Vidéo de démonstration Big Buck Bunny – voir transcription ci-dessous"
+                videoProps={{ src: "https://www.w3schools.com/html/mov_bbb.mp4" }}
+                caption="Big Buck Bunny – Blender Foundation"
+                captionLinkLabel="Voir la source"
+                captionLinkProps={{
+                    href: "https://www.w3schools.com/html/html5_video.asp",
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                }}
+            />
+
+            <h2 className={fr.cx("fr-mt-4w")}>ContentMedia — Audio natif</h2>
+            <ContentMedia
+                type="audio"
+                alternative="Son d'un cheval – voir transcription ci-dessous"
+                audioProps={{ src: "https://www.w3schools.com/html/horse.mp3" }}
+                caption="Illustration sonore – W3Schools"
+                captionLinkLabel="Voir la source"
+                captionLinkProps={{
+                    href: "https://www.w3schools.com/html/html5_audio.asp",
+                    target: "_blank",
+                    rel: "noopener noreferrer"
+                }}
+            />
+        </>
+    );
 }
