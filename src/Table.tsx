@@ -67,23 +67,7 @@ export const Table = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const [currentSort, setCurrentSort] = useState<{
-            column: number;
-            order: SortingOrder;
-        } | null>(null);
-
-        function cycleSortingOrder(column: number): SortingOrder {
-            if (currentSort?.column !== column || currentSort?.order === "none") {
-                setCurrentSort({ column, order: "ascending" });
-                return "ascending";
-            }
-            if (currentSort?.order === "ascending") {
-                setCurrentSort({ column, order: "descending" });
-                return "descending";
-            }
-            setCurrentSort(null);
-            return "none";
-        }
+        const { currentSort, cycleSortingOrder } = useSort();
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",
@@ -182,6 +166,28 @@ const SortableTh = ({
         </div>
     </th>
 );
+
+function useSort() {
+    const [currentSort, setCurrentSort] = useState<{
+        column: number;
+        order: SortingOrder;
+    } | null>(null);
+
+    function cycleSortingOrder(column: number): SortingOrder {
+        if (currentSort?.column !== column || currentSort?.order === "none") {
+            setCurrentSort({ column, order: "ascending" });
+            return "ascending";
+        }
+        if (currentSort?.order === "ascending") {
+            setCurrentSort({ column, order: "descending" });
+            return "descending";
+        }
+        setCurrentSort(null);
+        return "none";
+    }
+
+    return { currentSort, cycleSortingOrder };
+}
 
 Table.displayName = symToStr({ Table });
 
