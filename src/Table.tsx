@@ -7,6 +7,7 @@ import { symToStr } from "tsafe/symToStr";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import SortingOrder = TableProps.SortingOrder;
+import SortingState = TableProps.SortingState;
 
 export type TableProps = {
     id?: string;
@@ -17,6 +18,7 @@ export type TableProps = {
     /** Default: [] */
     sortableColumns?: (boolean | undefined)[];
     onSort?: (column: number, order: SortingOrder) => void;
+    defaultSort?: SortingState;
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -42,6 +44,11 @@ export namespace TableProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 
     export type SortingOrder = "ascending" | "descending" | "none";
+
+    export type SortingState = {
+        column: number;
+        order: SortingOrder;
+    };
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/tableau>  */
@@ -53,6 +60,7 @@ export const Table = memo(
             headers,
             sortableColumns = [],
             onSort,
+            defaultSort,
             caption,
             bordered = false,
             noScroll = false,
@@ -67,7 +75,7 @@ export const Table = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { currentSort, cycleSortingOrder } = useSort();
+        const { currentSort, cycleSortingOrder } = useSort(defaultSort);
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",
@@ -167,11 +175,8 @@ const SortableTh = ({
     </th>
 );
 
-function useSort() {
-    const [currentSort, setCurrentSort] = useState<{
-        column: number;
-        order: SortingOrder;
-    } | null>(null);
+function useSort(defaultSort?: SortingState) {
+    const [currentSort, setCurrentSort] = useState<SortingState | null>(defaultSort ?? null);
 
     function cycleSortingOrder(column: number): SortingOrder {
         if (currentSort?.column !== column || currentSort?.order === "none") {

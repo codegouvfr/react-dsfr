@@ -182,6 +182,7 @@ export const TableWithSortableColumns = getStory(
         "headers": ["th0", "th1", "th2", "th3"],
         "sortableColumns": [undefined, true, true, false],
         "onSort": (column, order) => window.alert(`sorting column "${column}" in "${order}" order`),
+        "defaultSort": { column: 2, order: "descending" },
         "data": [
             [
                 "Lorem ipsum dolor sit ame",
@@ -215,6 +216,8 @@ export const TableWithSortableColumns = getStory(
 \`[true, , false, undefined, true]\` will make columns 1 and 5 sortable.
 
 If \`sortableColumns\` is longer that the number of columns, the remaining values are ignored.
-If it is shorter, the remaining columns will not be sortable.`
+If it is shorter, the remaining columns will not be sortable.
+
+A default sorting state can be provided with \`defaultSort\`.`
     }
 );
