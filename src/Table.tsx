@@ -112,26 +112,26 @@ export const Table = memo(
                             <tr>
                                 {headers.map((header, i) => {
                                     const sortable = sortableColumns[i];
-                                    if (sortable) {
-                                        const sortingOrder =
-                                            currentSort?.column === i ? currentSort?.order : "none";
+                                    if (!sortable) {
                                         return (
-                                            <SortableTh
-                                                key={i}
-                                                order={sortingOrder}
-                                                onSort={() => {
-                                                    const newOrder = cycleSortingOrder(i);
-                                                    onSort?.(i, newOrder);
-                                                }}
-                                            >
+                                            <th key={i} scope="col">
                                                 {header}
-                                            </SortableTh>
+                                            </th>
                                         );
                                     }
+                                    const sortingOrder =
+                                        currentSort?.column === i ? currentSort?.order : "none";
                                     return (
-                                        <th key={i} scope="col">
+                                        <SortableTh
+                                            key={i}
+                                            order={sortingOrder}
+                                            onSort={() => {
+                                                const newOrder = cycleSortingOrder(i);
+                                                onSort?.(i, newOrder);
+                                            }}
+                                        >
                                             {header}
-                                        </th>
+                                        </SortableTh>
                                     );
                                 })}
                             </tr>
