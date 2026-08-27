@@ -19,6 +19,7 @@ export type TableProps = {
     sortableColumns?: (boolean | undefined)[];
     onSort?: (column: number, order: SortingOrder) => void;
     defaultSort?: SortingState;
+    sort?: SortingState;
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -61,6 +62,7 @@ export const Table = memo(
             sortableColumns = [],
             onSort,
             defaultSort,
+            sort,
             caption,
             bordered = false,
             noScroll = false,
@@ -75,7 +77,8 @@ export const Table = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { currentSort, cycleSortingOrder } = useSort(defaultSort);
+        const { currentSort: currentSortState, cycleSortingOrder } = useSort(defaultSort);
+        const currentSort = sort ?? currentSortState;
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",

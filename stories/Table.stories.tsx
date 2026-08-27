@@ -218,6 +218,7 @@ export const TableWithSortableColumns = getStory(
 If \`sortableColumns\` is longer that the number of columns, the remaining values are ignored.
 If it is shorter, the remaining columns will not be sortable.
 
-A default sorting state can be provided with \`defaultSort\`.`
+A default sorting state can be provided with \`defaultSort\`, and the component can be entirely controlled with \`sort\`
+and \`onSort\`.`
     }
 );
