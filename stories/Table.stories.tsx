@@ -175,3 +175,46 @@ export const TableWithColorVariant = getStory({
         ["Lorem ipsum d", "Lorem ipsu"]
     ]
 });
+
+export const TableWithSortableColumns = getStory(
+    {
+        "caption": "Titre du tableau",
+        "headers": ["th0", "th1", "th2", "th3"],
+        "sortableColumns": [undefined, true, true, false],
+        "onSort": (column, order) => window.alert(`sorting column "${column}" in "${order}" order`),
+        "data": [
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ]
+        ]
+    },
+    {
+        description: `
+\`sortableColumns\` accepts an array containing any combination of booleans and \`undefined\` :
+\`[true, , false, undefined, true]\` will make columns 1 and 5 sortable.
+
+If \`sortableColumns\` is longer that the number of columns, the remaining values are ignored.
+If it is shorter, the remaining columns will not be sortable.`
+    }
+);

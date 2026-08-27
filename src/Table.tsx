@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, type ReactNode, type CSSProperties } from "react";
+import React, { forwardRef, memo, type ReactNode, type CSSProperties, useState } from "react";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { fr } from "./fr";
@@ -6,6 +6,7 @@ import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import SortingOrder = TableProps.SortingOrder;
 
 export type TableProps = {
     id?: string;
@@ -13,6 +14,9 @@ export type TableProps = {
     className?: string;
     caption?: ReactNode;
     headers?: ReactNode[];
+    /** Default: [] */
+    sortableColumns?: (boolean | undefined)[];
+    onSort?: (column: number, order: SortingOrder) => void;
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -36,6 +40,8 @@ export namespace TableProps {
         : never;
 
     export type ColorVariant = ExtractColorVariant<FrClassName>;
+
+    export type SortingOrder = "ascending" | "descending" | "none";
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/tableau>  */
@@ -45,6 +51,8 @@ export const Table = memo(
             id: id_props,
             data,
             headers,
+            sortableColumns = [],
+            onSort,
             caption,
             bordered = false,
             noScroll = false,
@@ -58,6 +66,24 @@ export const Table = memo(
         } = props;
 
         assert<Equals<keyof typeof rest, never>>();
+
+        const [currentSort, setCurrentSort] = useState<{
+            column: number;
+            order: SortingOrder;
+        } | null>(null);
+
+        function cycleSortingOrder(column: number): SortingOrder {
+            if (currentSort?.column !== column || currentSort?.order === "none") {
+                setCurrentSort({ column, order: "ascending" });
+                return "ascending";
+            }
+            if (currentSort?.order === "ascending") {
+                setCurrentSort({ column, order: "descending" });
+                return "descending";
+            }
+            setCurrentSort(null);
+            return "none";
+        }
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",
@@ -84,16 +110,35 @@ export const Table = memo(
                     className
                 )}
             >
-                <table>
+                <table className="fr-table__content">
                     {caption !== undefined && <caption>{caption}</caption>}
                     {headers !== undefined && (
                         <thead>
                             <tr>
-                                {headers.map((header, i) => (
-                                    <th key={i} scope="col">
-                                        {header}
-                                    </th>
-                                ))}
+                                {headers.map((header, i) => {
+                                    const sortable = sortableColumns[i];
+                                    if (sortable) {
+                                        const sortingOrder =
+                                            currentSort?.column === i ? currentSort?.order : "none";
+                                        return (
+                                            <SortableTh
+                                                key={i}
+                                                order={sortingOrder}
+                                                onSort={() => {
+                                                    const newOrder = cycleSortingOrder(i);
+                                                    onSort?.(i, newOrder);
+                                                }}
+                                            >
+                                                {header}
+                                            </SortableTh>
+                                        );
+                                    }
+                                    return (
+                                        <th key={i} scope="col">
+                                            {header}
+                                        </th>
+                                    );
+                                })}
                             </tr>
                         </thead>
                     )}
@@ -110,6 +155,32 @@ export const Table = memo(
             </div>
         );
     })
+);
+
+const SortableTh = ({
+    children,
+    order,
+    onSort
+}: {
+    children: React.ReactNode;
+    order: TableProps.SortingOrder;
+    onSort: () => void;
+}) => (
+    <th scope="col" aria-sort={order}>
+        <div className="fr-cell--sort">
+            {children}
+            <button
+                className={cx(
+                    `fr-btn--sort`,
+                    order === "ascending" && "fr-btn--sort-asc",
+                    order === "descending" && "fr-btn--sort-desc"
+                )}
+                onClick={() => {
+                    onSort();
+                }}
+            />
+        </div>
+    </th>
 );
 
 Table.displayName = symToStr({ Table });
