@@ -48,11 +48,20 @@ describe("REACT_DSFR_MODULE_TO_DSFR_COMPONENTS exhaustiveness", () => {
 
     const removeExtension = (fileName: string): string => fileName.replace(/\.tsx?$/, "");
 
+    const hasAnIndex = (dirPath: string): boolean =>
+        fs.readdirSync(dirPath).some(childName => /^index\.tsx?$/.test(childName));
+
     /**
-     * The `@codegouvfr/react-dsfr/<subpath>` a consumer can import.
-     * A directory with an index is importable as is; one without (Chart, blocks, shared,
-     * tools...) is only reachable through a deeper path, so its direct children are listed
-     * instead. That second case is what produces the two segment "blocks/PasswordInput".
+     * The `@codegouvfr/react-dsfr/<subpath>` a consumer can import, one per module the
+     * script has to resolve. Not every importable path: `tools/powerhooks/useConst` is
+     * importable too, but yields the same module id as `tools/cx`, so listing the
+     * shallowest path per module is enough and keeps failure messages readable.
+     *
+     * A directory with an index is importable as is. One without (Chart, blocks, shared,
+     * tools...) is only reachable deeper, so its children are listed instead, which is what
+     * produces the two segment "blocks/PasswordInput". A child directory is importable in
+     * turn only if it has an index of its own: `tools/StatefulObservable` has one,
+     * `tools/powerhooks` does not.
      */
     const getPublicSubpaths = (): string[] => {
         const excludedNames = getSrcTsconfigExcludedNames();
@@ -72,15 +81,21 @@ describe("REACT_DSFR_MODULE_TO_DSFR_COMPONENTS exhaustiveness", () => {
             }
 
             const dirPath = pathJoin(srcDirPath, dirent.name);
-            const childNames = fs.readdirSync(dirPath);
 
-            if (childNames.some(childName => /^index\.tsx?$/.test(childName))) {
+            if (hasAnIndex(dirPath)) {
                 subpaths.push(dirent.name);
                 continue;
             }
 
-            for (const childName of childNames) {
-                subpaths.push(`${dirent.name}/${removeExtension(childName)}`);
+            for (const childDirent of fs.readdirSync(dirPath, { "withFileTypes": true })) {
+                // Files are kept whatever their extension: src/assets holds only .svg and
+                // .css, and skipping those would drop the "assets" module id altogether,
+                // silently leaving it unchecked.
+                if (childDirent.isDirectory() && !hasAnIndex(pathJoin(dirPath, childDirent.name))) {
+                    continue;
+                }
+
+                subpaths.push(`${dirent.name}/${removeExtension(childDirent.name)}`);
             }
         }
 
@@ -140,14 +155,24 @@ describe("REACT_DSFR_MODULE_TO_DSFR_COMPONENTS exhaustiveness", () => {
     });
 
     it("enumerates the public modules from the real src/ layout", () => {
-        // Guards the enumeration itself: were getPublicSubpaths() to return nothing (a bad
-        // path, a changed layout), the coverage assertion above would pass on an empty set.
+        // Guards the enumeration itself: were getPublicSubpaths() to return nothing, or to
+        // quietly stop covering a module, the assertion above would pass on what it no
+        // longer looks at. Narrowing the enumeration has to fail here, not go unnoticed.
         const subpaths = getPublicSubpaths();
 
         expect(subpaths.length).toBeGreaterThan(40);
 
         for (const expected of ["Header", "Highlight", "blocks/PasswordInput", "i18n"]) {
             expect(subpaths).toContain(expected);
+        }
+
+        // One representative per shape: a component directory with an index, a flat file,
+        // index-less directories reached through a child, and a directory whose children
+        // are not TypeScript at all (src/assets holds only .svg and .css).
+        const moduleIds = new Set(Array.from(getModuleIdBySubpath().values()).flat());
+
+        for (const expected of ["Header", "Alert", "Chart", "tools", "shared", "assets"]) {
+            expect(moduleIds).toContain(expected);
         }
 
         // `src/tsconfig.json` excludes `./bin`: the CLI is not a public import subpath.
