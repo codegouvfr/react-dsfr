@@ -59,10 +59,22 @@ export type DsfrComponentName = typeof DSFR_COMPONENTS_CASCADE_ORDER[number];
  */
 export declare const REACT_DSFR_MODULE_TO_DSFR_COMPONENTS: Record<string, DsfrComponentName[]>;
 /**
+ * The stylesheet a DSFR component ships under `component/<name>/<name>.<ext>`, by order of
+ * preference. Not every component has every variant: `download` for instance only ships
+ * `download.css` and `download.min.css`, no `.main.` ones.
+ */
+export declare const DSFR_COMPONENT_CSS_FILE_EXTENSIONS: readonly ["main.min.css", "min.css", "main.css", "css"];
+/**
  * CSS class name prefixes that reveal a direct usage of a DSFR component in the
  * sources (when raw fr-* classes are used without importing the React component).
  * Substring matching is intentional and fail-safe: matching too much only means
  * including a component's CSS that may not be needed.
+ *
+ * A prefix only belongs here if it opens a selector in that component's own stylesheet.
+ * A class that the component merely *styles as a descendant* is not a usage signal: its
+ * base rules live elsewhere (usually in the always included core), so detecting on it
+ * pulls the whole component in for nothing. dsfrComponentDetectionClassPrefixes.test.ts
+ * re-derives this rule against the installed @gouvfr/dsfr.
  */
 export declare const DSFR_COMPONENT_DETECTION_CLASS_PREFIXES: Record<DsfrComponentName, string[]>;
 export declare function getReactDsfrImportedModuleIds(params: {

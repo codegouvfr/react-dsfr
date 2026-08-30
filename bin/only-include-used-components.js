@@ -145,7 +145,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.main = exports.generateDsfrCssCode = exports.patchCoreCssCodeForCompatWithMui = exports.getReferencedAssetRelativePaths = exports.rewriteCssRelativeUrls = exports.detectDsfrComponentsFromClassNames = exports.resolveModuleIdToDsfrComponents = exports.getReactDsfrImportedModuleIds = exports.DSFR_COMPONENT_DETECTION_CLASS_PREFIXES = exports.REACT_DSFR_MODULE_TO_DSFR_COMPONENTS = exports.DSFR_COMPONENTS_CASCADE_ORDER = void 0;
+exports.main = exports.generateDsfrCssCode = exports.patchCoreCssCodeForCompatWithMui = exports.getReferencedAssetRelativePaths = exports.rewriteCssRelativeUrls = exports.detectDsfrComponentsFromClassNames = exports.resolveModuleIdToDsfrComponents = exports.getReactDsfrImportedModuleIds = exports.DSFR_COMPONENT_DETECTION_CLASS_PREFIXES = exports.DSFR_COMPONENT_CSS_FILE_EXTENSIONS = exports.REACT_DSFR_MODULE_TO_DSFR_COMPONENTS = exports.DSFR_COMPONENTS_CASCADE_ORDER = void 0;
 var getProjectRoot_1 = require("./tools/getProjectRoot");
 var fs = __importStar(require("fs"));
 var path_1 = require("path");
@@ -295,10 +295,27 @@ exports.REACT_DSFR_MODULE_TO_DSFR_COMPONENTS = {
     "shared": ["form", "radio", "checkbox"]
 };
 /**
+ * The stylesheet a DSFR component ships under `component/<name>/<name>.<ext>`, by order of
+ * preference. Not every component has every variant: `download` for instance only ships
+ * `download.css` and `download.min.css`, no `.main.` ones.
+ */
+exports.DSFR_COMPONENT_CSS_FILE_EXTENSIONS = [
+    "main.min.css",
+    "min.css",
+    "main.css",
+    "css"
+];
+/**
  * CSS class name prefixes that reveal a direct usage of a DSFR component in the
  * sources (when raw fr-* classes are used without importing the React component).
  * Substring matching is intentional and fail-safe: matching too much only means
  * including a component's CSS that may not be needed.
+ *
+ * A prefix only belongs here if it opens a selector in that component's own stylesheet.
+ * A class that the component merely *styles as a descendant* is not a usage signal: its
+ * base rules live elsewhere (usually in the always included core), so detecting on it
+ * pulls the whole component in for nothing. dsfrComponentDetectionClassPrefixes.test.ts
+ * re-derives this rule against the installed @gouvfr/dsfr.
  */
 exports.DSFR_COMPONENT_DETECTION_CLASS_PREFIXES = {
     "accordion": ["fr-accordion"],
@@ -311,7 +328,10 @@ exports.DSFR_COMPONENT_DETECTION_CLASS_PREFIXES = {
     "checkbox": ["fr-checkbox"],
     "connect": ["fr-connect"],
     "consent": ["fr-consent"],
-    "content": ["fr-content-media", "fr-responsive-img", "fr-responsive-vid"],
+    // NOTE: deliberately not fr-responsive-img / fr-responsive-vid. Their base rules
+    // live in the always included core, and every rule content.css has for them is
+    // scoped under .fr-content-media, which is already the prefix detected here.
+    "content": ["fr-content-media"],
     "download": ["fr-download"],
     "follow": ["fr-follow"],
     "footer": ["fr-footer"],
@@ -919,7 +939,7 @@ function main(args) {
                         .filter(function (dirent) { return dirent.isDirectory(); })
                         .map(function (dirent) { return dirent.name; })
                         .filter(function (componentName) {
-                        return ["main.min.css", "min.css", "main.css", "css"].some(function (ext) {
+                        return exports.DSFR_COMPONENT_CSS_FILE_EXTENSIONS.some(function (ext) {
                             return fs.existsSync((0, path_1.join)(commandContext.dsfrDirPath, "component", componentName, "".concat(componentName, ".").concat(ext)));
                         });
                     });
