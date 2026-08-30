@@ -190,10 +190,28 @@ export const REACT_DSFR_MODULE_TO_DSFR_COMPONENTS: Record<string, DsfrComponentN
 };
 
 /**
+ * The stylesheet a DSFR component ships under `component/<name>/<name>.<ext>`, by order of
+ * preference. Not every component has every variant: `download` for instance only ships
+ * `download.css` and `download.min.css`, no `.main.` ones.
+ */
+export const DSFR_COMPONENT_CSS_FILE_EXTENSIONS = [
+    "main.min.css",
+    "min.css",
+    "main.css",
+    "css"
+] as const;
+
+/**
  * CSS class name prefixes that reveal a direct usage of a DSFR component in the
  * sources (when raw fr-* classes are used without importing the React component).
  * Substring matching is intentional and fail-safe: matching too much only means
  * including a component's CSS that may not be needed.
+ *
+ * A prefix only belongs here if it opens a selector in that component's own stylesheet.
+ * A class that the component merely *styles as a descendant* is not a usage signal: its
+ * base rules live elsewhere (usually in the always included core), so detecting on it
+ * pulls the whole component in for nothing. dsfrComponentDetectionClassPrefixes.test.ts
+ * re-derives this rule against the installed @gouvfr/dsfr.
  */
 export const DSFR_COMPONENT_DETECTION_CLASS_PREFIXES: Record<DsfrComponentName, string[]> = {
     "accordion": ["fr-accordion"],
@@ -206,7 +224,10 @@ export const DSFR_COMPONENT_DETECTION_CLASS_PREFIXES: Record<DsfrComponentName, 
     "checkbox": ["fr-checkbox"],
     "connect": ["fr-connect"],
     "consent": ["fr-consent"],
-    "content": ["fr-content-media", "fr-responsive-img", "fr-responsive-vid"],
+    // NOTE: deliberately not fr-responsive-img / fr-responsive-vid. Their base rules
+    // live in the always included core, and every rule content.css has for them is
+    // scoped under .fr-content-media, which is already the prefix detected here.
+    "content": ["fr-content-media"],
     "download": ["fr-download"],
     "follow": ["fr-follow"],
     "footer": ["fr-footer"],
@@ -878,7 +899,7 @@ export async function main(args: string[]) {
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name)
         .filter(componentName =>
-            ["main.min.css", "min.css", "main.css", "css"].some(ext =>
+            DSFR_COMPONENT_CSS_FILE_EXTENSIONS.some(ext =>
                 fs.existsSync(
                     pathJoin(
                         commandContext.dsfrDirPath,
