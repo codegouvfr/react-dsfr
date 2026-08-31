@@ -175,3 +175,51 @@ export const TableWithColorVariant = getStory({
         ["Lorem ipsum d", "Lorem ipsu"]
     ]
 });
+
+export const TableWithSortableColumns = getStory(
+    {
+        "caption": "Titre du tableau",
+        "headers": [
+            "th0",
+            { label: "th1", sortable: true },
+            { label: "th2", sortable: true },
+            "th3"
+        ],
+        "onSort": (column, order) => window.alert(`sorting column "${column}" in "${order}" order`),
+        "defaultSort": { column: 2, order: "descending" },
+        "data": [
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ],
+            [
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame",
+                "Lorem ipsum dolor sit ame"
+            ]
+        ]
+    },
+    {
+        description: `
+\`headers\` accepts either directly a label to render (\`<span>th</span>\`), or an object containing the label and
+whether it is sortable (\`{ label: <span>th</span>, sortable: true }\`).
+
+A default sorting state can be provided with \`defaultSort\`, and the component can be entirely controlled with \`sort\`
+and \`onSort\`.`
+    }
+);
