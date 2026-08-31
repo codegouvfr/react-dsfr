@@ -23,6 +23,8 @@ export type TableProps = {
     noCaption?: boolean;
     /** Default: false */
     bottomCaption?: boolean;
+    /** Default: false */
+    multiline?: boolean;
     style?: CSSProperties;
     colorVariant?: TableProps.ColorVariant;
 };
@@ -58,6 +60,7 @@ export const Table = memo(
             fixed = false,
             noCaption = false,
             bottomCaption = false,
+            multiline = false,
             colorVariant,
             className,
             style,
@@ -84,7 +87,8 @@ export const Table = memo(
                             "fr-table--no-scroll": noScroll,
                             "fr-table--layout-fixed": fixed,
                             "fr-table--no-caption": noCaption,
-                            "fr-table--caption-bottom": bottomCaption
+                            "fr-table--caption-bottom": bottomCaption,
+                            "fr-table--multiline": multiline
                         },
                         colorVariant !== undefined && `fr-table--${colorVariant}`
                     ),
