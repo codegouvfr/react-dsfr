@@ -6,8 +6,6 @@ import { cx } from "./tools/cx";
 import { symToStr } from "tsafe/symToStr";
 import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
-import SortingOrder = TableProps.SortingOrder;
-import SortingState = TableProps.SortingState;
 import { createComponentI18nApi } from "./i18n";
 
 export type TableProps = {
@@ -15,12 +13,10 @@ export type TableProps = {
     data: ReactNode[][];
     className?: string;
     caption?: ReactNode;
-    headers?: ReactNode[];
-    /** Default: [] */
-    sortableColumns?: (boolean | undefined)[];
-    onSort?: (column: number, order: SortingOrder) => void;
-    defaultSort?: SortingState;
-    sort?: SortingState;
+    headers?: (ReactNode | TableProps.SortableColumn)[];
+    onSort?: (column: number, order: TableProps.SortingOrder) => void;
+    defaultSort?: TableProps.SortingState;
+    sort?: TableProps.SortingState;
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -51,6 +47,11 @@ export namespace TableProps {
         column: number;
         order: SortingOrder;
     };
+
+    export type SortableColumn = {
+        label: ReactNode;
+        sortable: boolean;
+    };
 }
 
 /** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/tableau>  */
@@ -60,7 +61,6 @@ export const Table = memo(
             id: id_props,
             data,
             headers,
-            sortableColumns = [],
             onSort,
             defaultSort,
             sort,
@@ -114,11 +114,13 @@ export const Table = memo(
                                     <thead>
                                         <tr>
                                             {headers.map((header, i) => {
-                                                const sortable = sortableColumns[i];
-                                                if (!sortable) {
+                                                const label = isSortableColumn(header)
+                                                    ? header.label
+                                                    : header;
+                                                if (!isSortable(header)) {
                                                     return (
                                                         <th key={i} scope="col">
-                                                            {header}
+                                                            {label}
                                                         </th>
                                                     );
                                                 }
@@ -135,7 +137,7 @@ export const Table = memo(
                                                             onSort?.(i, newOrder);
                                                         }}
                                                     >
-                                                        {header}
+                                                        {label}
                                                     </SortableTh>
                                                 );
                                             })}
@@ -165,7 +167,7 @@ const SortableTh = ({
     order,
     onSort
 }: {
-    children: React.ReactNode;
+    children: ReactNode;
     order: TableProps.SortingOrder;
     onSort: () => void;
 }) => {
@@ -192,11 +194,13 @@ const SortableTh = ({
     );
 };
 
-function useSort(defaultSort?: SortingState, sort?: SortingState) {
-    const [currentSortState, setCurrentSort] = useState<SortingState | null>(defaultSort ?? null);
+function useSort(defaultSort?: TableProps.SortingState, sort?: TableProps.SortingState) {
+    const [currentSortState, setCurrentSort] = useState<TableProps.SortingState | null>(
+        defaultSort ?? null
+    );
     const currentSort = sort ?? currentSortState;
 
-    function cycleSortingOrder(column: number): SortingOrder {
+    function cycleSortingOrder(column: number): TableProps.SortingOrder {
         if (currentSort?.column !== column || currentSort?.order === "none") {
             setCurrentSort({ column, order: "ascending" });
             return "ascending";
@@ -210,6 +214,16 @@ function useSort(defaultSort?: SortingState, sort?: SortingState) {
     }
 
     return { currentSort, cycleSortingOrder };
+}
+
+function isSortable(header: ReactNode | TableProps.SortableColumn): boolean {
+    return isSortableColumn(header) && header.sortable;
+}
+
+function isSortableColumn(
+    header: ReactNode | TableProps.SortableColumn
+): header is TableProps.SortableColumn {
+    return typeof header === "object" && header != null && "sortable" in header;
 }
 
 Table.displayName = symToStr({ Table });

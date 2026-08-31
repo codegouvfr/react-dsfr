@@ -179,8 +179,12 @@ export const TableWithColorVariant = getStory({
 export const TableWithSortableColumns = getStory(
     {
         "caption": "Titre du tableau",
-        "headers": ["th0", "th1", "th2", "th3"],
-        "sortableColumns": [undefined, true, true, false],
+        "headers": [
+            "th0",
+            { label: "th1", sortable: true },
+            { label: "th2", sortable: true },
+            "th3"
+        ],
         "onSort": (column, order) => window.alert(`sorting column "${column}" in "${order}" order`),
         "defaultSort": { column: 2, order: "descending" },
         "data": [
@@ -212,11 +216,8 @@ export const TableWithSortableColumns = getStory(
     },
     {
         description: `
-\`sortableColumns\` accepts an array containing any combination of booleans and \`undefined\` :
-\`[true, , false, undefined, true]\` will make columns 1 and 5 sortable.
-
-If \`sortableColumns\` is longer that the number of columns, the remaining values are ignored.
-If it is shorter, the remaining columns will not be sortable.
+\`headers\` accepts either directly a label to render (\`<span>th</span>\`), or an object containing the label and
+whether it is sortable (\`{ label: <span>th</span>, sortable: true }\`).
 
 A default sorting state can be provided with \`defaultSort\`, and the component can be entirely controlled with \`sort\`
 and \`onSort\`.`
