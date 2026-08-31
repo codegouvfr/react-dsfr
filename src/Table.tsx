@@ -77,8 +77,7 @@ export const Table = memo(
 
         assert<Equals<keyof typeof rest, never>>();
 
-        const { currentSort: currentSortState, cycleSortingOrder } = useSort(defaultSort);
-        const currentSort = sort ?? currentSortState;
+        const { currentSort, cycleSortingOrder } = useSort(defaultSort, sort);
 
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-table",
@@ -178,8 +177,9 @@ const SortableTh = ({
     </th>
 );
 
-function useSort(defaultSort?: SortingState) {
-    const [currentSort, setCurrentSort] = useState<SortingState | null>(defaultSort ?? null);
+function useSort(defaultSort?: SortingState, sort?: SortingState) {
+    const [currentSortState, setCurrentSort] = useState<SortingState | null>(defaultSort ?? null);
+    const currentSort = sort ?? currentSortState;
 
     function cycleSortingOrder(column: number): SortingOrder {
         if (currentSort?.column !== column || currentSort?.order === "none") {
