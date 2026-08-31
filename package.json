@@ -80,7 +80,7 @@
         "@babel/core": "^7.20.2",
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
-        "@gouvfr/dsfr": "1.14.2",
+        "@gouvfr/dsfr": "1.14.3",
         "@gouvfr/dsfr-chart": "^1.0.0",
         "@mui/icons-material": "^5.14.18",
         "@mui/material": "^5.14.18",
