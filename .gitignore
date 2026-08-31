@@ -54,3 +54,6 @@ jspm_packages
 /react-dsfr-next-demo/
 /react-dsfr-cra-demo/
 /keycloak-theme-dsfr/
+
+# DSFR consent
+.dsfr.yml

@@ -42,7 +42,7 @@ export function Display() {
 
     return (
         <modal.Component title={t("display settings")} size="small">
-            <div /*id="fr-display"*/ className={"fr-display"}>
+            <div /*id="fr-display"*/ className={fr.cx("fr-display")}>
                 <div className={fr.cx("fr-form-group" as any)}>
                     <fieldset className={fr.cx("fr-fieldset")}>
                         <legend

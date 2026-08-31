@@ -7,6 +7,9 @@ on:
     branches:
       - main
 
+env:
+  DSFR_ACCEPT_LICENSE: 1
+
 permissions:
   id-token: write
   contents: write

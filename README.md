@@ -76,6 +76,9 @@ This project is co-maintained by public servants from various French administrat
 ```bash
 git clone https://github.com/codegouvfr/react-dsfr
 cd react-dsfr
+# Read and consent to the DSFR terms of use
+yarn create @gouvfr/dsfr
+git restore ./package.json ./yarn.lock
 yarn
 
 # Starting storybook

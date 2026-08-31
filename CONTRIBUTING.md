@@ -9,7 +9,7 @@ To get you started you can check out [the `<Alert />` component](https://compone
 -   Here is its implementation [src/Alert.tsx](https://github.com/codegouvfr/react-dsfr/blob/main/src/Alert.tsx)
 -   Here is the file that generates its documentation: [stories/Alert.stories.tsx](https://github.com/codegouvfr/react-dsfr/blob/main/stories/Alert.stories.tsx)
 
-[Here are the few commands](https://github.com/codegouvfr/react-dsfr#development) you need to run to set up your dev environment.
+[Here are the few commands](https://github.com/codegouvfr/react-dsfr#development---for-contributing-to-the-project) you need to run to set up your dev environment.
 
 _If you want to link your development version into your own project it's possible, just [ask me how](https://github.com/codegouvfr/react-dsfr/discussions)._
 
