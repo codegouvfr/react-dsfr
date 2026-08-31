@@ -48,11 +48,19 @@ When we refer to Yarn we usually refer to Yarn 1.x as most dev teams (including 
 
 If you want to use Yarn Berry you be aware that pre- post- scripts aren't supported.
 
-So you must do something like `"dev": "copy-dsfr-to-public && next dev"` (same thing for `start`)
+So you must invoke the required react-dsfr commands directly from `dev`, `start` and
+`build`, instead of relying on `pre*` or `post*` scripts. For example:
+
+`"dev": "react-dsfr optimize-css && next dev"`
 
 Also you must configure it so it uses `node_modules` (sorry)
 {% endtab %}
 {% endtabs %}
+
+`react-dsfr optimize-css` scans your project and rebuilds the DSFR stylesheets with only
+the icons and components you use. It runs the icon optimization first, followed by the
+component CSS optimization. Pass `--silent` to hide informational logs or `--strict` to
+make unresolved component detection fail instead of falling back to the complete CSS.
 
 {% tabs %}
 {% tab title="Vite" %}
@@ -63,13 +71,13 @@ Demo setup in production here: [https://vite-demo.react-dsfr.fr/](https://vite-d
 Add these three scripts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-<strong>    "postinstall": "copy-dsfr-to-public",
-</strong><strong>    "predev": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
+<strong>    "postinstall": "react-dsfr copy-static-assets",
+</strong><strong>    "predev": "react-dsfr optimize-css",
+</strong><strong>    "prebuild": "react-dsfr optimize-css"
 </strong>}
 </code></pre>
 
-For you information, scripts logs can be silenced using the argument `--silent`.
+For your information, command logs can be silenced using the argument `--silent`.
 
 Trigger the execution of the postinstall script by running:
 
@@ -149,8 +157,8 @@ module.exports = nextConfig;
 </code></pre>
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-<strong>    "predev": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
+<strong>    "predev": "react-dsfr optimize-css",
+</strong><strong>    "prebuild": "react-dsfr optimize-css"
 </strong>}
 </code></pre>
 
@@ -257,8 +265,8 @@ module.exports = nextConfig
 </code></pre>
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
-<strong>    "predev": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
+<strong>    "predev": "react-dsfr optimize-css",
+</strong><strong>    "prebuild": "react-dsfr optimize-css"
 </strong>}
 </code></pre>
 
@@ -333,9 +341,9 @@ Add these three scripts to your `package.json`:
 
 <pre class="language-json" data-title="package.json"><code class="lang-json">"scripts": {
     ...
-<strong>    "postinstall": "copy-dsfr-to-public"
-</strong><strong>    "prestart": "only-include-used-icons",
-</strong><strong>    "prebuild": "only-include-used-icons"
+<strong>    "postinstall": "react-dsfr copy-static-assets",
+</strong><strong>    "prestart": "react-dsfr optimize-css",
+</strong><strong>    "prebuild": "react-dsfr optimize-css"
 </strong>},
 ...
 "jest": {

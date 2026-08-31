@@ -25,7 +25,7 @@ First make sure you have this script in your `package.json`
 
 ```diff
  "scripts": {
-+    "postinstall": "copy-dsfr-to-public"
++    "postinstall": "react-dsfr copy-static-assets"
  }
 ```
 
