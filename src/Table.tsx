@@ -178,7 +178,9 @@ const SortableTh = ({
                 {children}
                 <button
                     className={fr.cx(
-                        `fr-btn--sort`,
+                        "fr-btn",
+                        "fr-btn--sm",
+                        order === "none" && `fr-btn--sort`,
                         order === "ascending" && "fr-btn--sort-asc",
                         order === "descending" && "fr-btn--sort-desc"
                     )}
