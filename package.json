@@ -1,6 +1,6 @@
 {
   "name": "@codegouvfr/react-dsfr",
-  "version": "1.33.1",
+  "version": "1.34.0",
   "description": "French State Design System React integration library",
   "repository": {
     "type": "git",
@@ -24,14 +24,13 @@
     "format:check": "yarn _format --list-different",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prestorybook": "yarn build && node dist/bin/react-dsfr update-icons",
+    "prestorybook": "yarn build && node dist/bin/react-dsfr optimize-css",
     "prebuild-storybook": "yarn prestorybook"
   },
   "bin": {
     "react-dsfr": "bin/react-dsfr.js",
     "copy-dsfr-to-public": "bin/copy-dsfr-to-public.js",
-    "only-include-used-icons": "bin/only-include-used-icons.js",
-    "only-include-used-components": "bin/only-include-used-components.js"
+    "only-include-used-icons": "bin/only-include-used-icons.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

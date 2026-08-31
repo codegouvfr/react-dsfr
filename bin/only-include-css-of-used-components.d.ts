@@ -1,6 +1,6 @@
-#!/usr/bin/env node
 /**
- * This script is ran with `npx react-dsfr only-include-used-components`
+ * This processing stage is run by `npx react-dsfr optimize-css`, after the icon CSS
+ * has been optimized.
  * It scans your codebase to find which react-dsfr components are used and rebuilds
  * the node_modules/@codegouvfr/react-dsfr/dsfr/dsfr.css and dsfr.min.css files
  * with only the CSS of those components (plus the core, which is always included).

@@ -77,43 +77,49 @@ var __read = (this && this.__read) || function (o, n) {
 };
 var _a = __read(process.argv), commandName = _a[2], args = _a.slice(3);
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, main, main, main;
+    var _a, updateIcons, onlyIncludeCssOfUsedComponents, main, main;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = commandName;
                 switch (_a) {
-                    case "update-icons": return [3 /*break*/, 1];
-                    case "only-include-used-components": return [3 /*break*/, 4];
-                    case "copy-static-assets": return [3 /*break*/, 7];
+                    case "optimize-css": return [3 /*break*/, 1];
+                    case "update-icons": return [3 /*break*/, 6];
+                    case "copy-static-assets": return [3 /*break*/, 9];
                 }
-                return [3 /*break*/, 10];
+                return [3 /*break*/, 12];
             case 1: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./only-include-used-icons")); })];
             case 2:
-                main = (_b.sent()).main;
-                return [4 /*yield*/, main(args)];
+                updateIcons = (_b.sent()).main;
+                return [4 /*yield*/, updateIcons(args)];
             case 3:
                 _b.sent();
-                return [3 /*break*/, 11];
-            case 4: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./only-include-used-components")); })];
+                return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./only-include-css-of-used-components")); })];
+            case 4:
+                onlyIncludeCssOfUsedComponents = (_b.sent()).main;
+                return [4 /*yield*/, onlyIncludeCssOfUsedComponents(args)];
             case 5:
+                _b.sent();
+                return [3 /*break*/, 13];
+            case 6: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./only-include-used-icons")); })];
+            case 7:
                 main = (_b.sent()).main;
                 return [4 /*yield*/, main(args)];
-            case 6:
-                _b.sent();
-                return [3 /*break*/, 11];
-            case 7: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./copy-dsfr-to-public")); })];
             case 8:
+                _b.sent();
+                return [3 /*break*/, 13];
+            case 9: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./copy-dsfr-to-public")); })];
+            case 10:
                 main = (_b.sent()).main;
                 return [4 /*yield*/, main(args)];
-            case 9:
+            case 11:
                 _b.sent();
-                return [3 /*break*/, 11];
-            case 10:
+                return [3 /*break*/, 13];
+            case 12:
                 console.error("Unknown command ".concat(commandName));
                 process.exit(-1);
-                _b.label = 11;
-            case 11: return [2 /*return*/];
+                _b.label = 13;
+            case 13: return [2 /*return*/];
         }
     });
 }); })();

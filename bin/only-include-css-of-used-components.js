@@ -1,7 +1,7 @@
-#!/usr/bin/env node
 "use strict";
 /**
- * This script is ran with `npx react-dsfr only-include-used-components`
+ * This processing stage is run by `npx react-dsfr optimize-css`, after the icon CSS
+ * has been optimized.
  * It scans your codebase to find which react-dsfr components are used and rebuilds
  * the node_modules/@codegouvfr/react-dsfr/dsfr/dsfr.css and dsfr.min.css files
  * with only the CSS of those components (plus the core, which is always included).
@@ -647,7 +647,7 @@ function generateDsfrCssCode(params) {
     })), false);
     (0, assert_1.assert)(cssChunks.length !== 0, "Can't find the granular DSFR stylesheets to rebuild dsfr.css from");
     return __spreadArray([
-        "/*! DSFR stylesheet rebuilt by react-dsfr only-include-used-components, components: ".concat(sortedDsfrComponents.join(", "), " */")
+        "/*! DSFR stylesheet rebuilt by react-dsfr optimize-css, components: ".concat(sortedDsfrComponents.join(", "), " */")
     ], __read(cssChunks.map(function (_a) {
         var dirRelativePath = _a.dirRelativePath, rawCssCode = _a.rawCssCode;
         var cssCode = rawCssCode
@@ -1309,4 +1309,4 @@ exports.main = main;
 if (require.main === module) {
     main(process.argv.slice(2));
 }
-//# sourceMappingURL=only-include-used-components.js.map
+//# sourceMappingURL=only-include-css-of-used-components.js.map
