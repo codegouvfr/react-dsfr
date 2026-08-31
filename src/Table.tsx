@@ -8,6 +8,7 @@ import type { FrClassName } from "./fr/generatedFromCss/classNames";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
 import SortingOrder = TableProps.SortingOrder;
 import SortingState = TableProps.SortingState;
+import { createComponentI18nApi } from "./i18n";
 
 export type TableProps = {
     id?: string;
@@ -159,23 +160,29 @@ const SortableTh = ({
     children: React.ReactNode;
     order: TableProps.SortingOrder;
     onSort: () => void;
-}) => (
-    <th scope="col" aria-sort={order}>
-        <div className="fr-cell--sort">
-            {children}
-            <button
-                className={cx(
-                    `fr-btn--sort`,
-                    order === "ascending" && "fr-btn--sort-asc",
-                    order === "descending" && "fr-btn--sort-desc"
-                )}
-                onClick={() => {
-                    onSort();
-                }}
-            />
-        </div>
-    </th>
-);
+}) => {
+    const { t } = useTranslation();
+    return (
+        <th scope="col" aria-sort={order}>
+            <div className="fr-cell--sort">
+                {children}
+                <button
+                    className={cx(
+                        `fr-btn--sort`,
+                        order === "ascending" && "fr-btn--sort-asc",
+                        order === "descending" && "fr-btn--sort-desc"
+                    )}
+                    onClick={() => {
+                        onSort();
+                    }}
+                    type="button"
+                >
+                    {t("sort")}
+                </button>
+            </div>
+        </th>
+    );
+};
 
 function useSort(defaultSort?: SortingState, sort?: SortingState) {
     const [currentSortState, setCurrentSort] = useState<SortingState | null>(defaultSort ?? null);
@@ -198,5 +205,19 @@ function useSort(defaultSort?: SortingState, sort?: SortingState) {
 }
 
 Table.displayName = symToStr({ Table });
+
+const { useTranslation, addTableTranslations } = createComponentI18nApi({
+    componentName: Table.displayName,
+    frMessages: {
+        "sort": "Trier"
+    }
+});
+
+addTableTranslations({
+    lang: "en",
+    messages: {
+        "sort": "Sort"
+    }
+});
 
 export default Table;
