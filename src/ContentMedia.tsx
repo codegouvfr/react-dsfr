@@ -20,12 +20,29 @@ export type ContentMediaProps = {
     label?: string;
     /** Caption text shown below the media (description / source). */
     caption?: ReactNode;
-    /** Text of the optional link inside the figcaption. */
-    captionLinkLabel?: ReactNode;
-    /** Props of the optional link inside the figcaption. */
-    captionLinkProps?: RegisteredLinkProps;
+    /**
+     * Label and props of the optional link inside the figcaption.
+     * Both properties are required together so the link always has an accessible
+     * name (RGAA 6.1 / WCAG 2.4.4 – Link Purpose).
+     */
+    captionLink?: {
+        label: ReactNode;
+        linkProps: RegisteredLinkProps;
+    };
+    /**
+     * Size variant of the media container.
+     * - `"sm"` → `fr-content-media--sm`
+     * - `"lg"` → `fr-content-media--lg`
+     * - `"md"` (default) → no modifier class
+     */
+    size?: "sm" | "md" | "lg";
+    /**
+     * Aspect-ratio utility class applied to the image/SVG wrapper (`fr-ratio-*`).
+     * Only applies to `type="img"` and `type="svg"`.
+     * Example values: `"16x9"`, `"4x3"`, `"1x1"`, `"3x2"`, `"3x4"`, `"2x3"`.
+     */
+    ratio?: "16x9" | "3x2" | "4x3" | "1x1" | "3x4" | "2x3";
 } & ContentMediaProps.Media;
-
 export namespace ContentMediaProps {
     /** Image (`<img>`) media. */
     export type ImageMedia = {
@@ -41,7 +58,6 @@ export namespace ContentMediaProps {
             alt: string;
         };
     };
-
     /** SVG media — pass your `<svg>` element as the `svg` prop. */
     export type SvgMedia = {
         type: "svg";
@@ -52,7 +68,6 @@ export namespace ContentMediaProps {
          */
         svg: ReactNode;
     };
-
     /** Embedded video via `<iframe>` (e.g. YouTube). */
     export type IframeMedia = {
         type: "iframe";
@@ -66,7 +81,6 @@ export namespace ContentMediaProps {
             title: string;
         };
     };
-
     /** Native HTML5 `<video>`. */
     export type VideoMedia = {
         type: "video";
@@ -78,7 +92,6 @@ export namespace ContentMediaProps {
         /** Props forwarded to the `<video>` element. `controls` is always set. */
         videoProps: React.VideoHTMLAttributes<HTMLVideoElement> & { src: string };
     };
-
     /** Native HTML5 `<audio>`. */
     export type AudioMedia = {
         type: "audio";
@@ -90,10 +103,8 @@ export namespace ContentMediaProps {
         /** Props forwarded to the `<audio>` element. `controls` is always set. */
         audioProps: React.AudioHTMLAttributes<HTMLAudioElement> & { src: string };
     };
-
     export type Media = ImageMedia | SvgMedia | IframeMedia | VideoMedia | AudioMedia;
 }
-
 /** @see <https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/contenu-medias> */
 export const ContentMedia = memo(
     forwardRef<HTMLElement, ContentMediaProps>((props, ref) => {
@@ -104,24 +115,26 @@ export const ContentMedia = memo(
             classes = {},
             label,
             caption,
-            captionLinkLabel,
-            captionLinkProps
+            captionLink,
+            size,
+            ratio
         } = props;
-
         const id = useAnalyticsId({
             "defaultIdPrefix": "fr-content-media",
             "explicitlyProvidedId": id_props
         });
-
         const { Link } = getLink();
-
         const ariaLabel = label ?? (typeof caption === "string" ? caption : undefined);
-
+        const imgWrapperClassName = cx(
+            fr.cx("fr-content-media__img"),
+            ratio !== undefined ? (`fr-ratio-${ratio}` as string) : undefined,
+            classes.img
+        );
         const renderMedia = () => {
             switch (props.type) {
                 case "img":
                     return (
-                        <div className={cx(fr.cx("fr-content-media__img"), classes.img)}>
+                        <div className={imgWrapperClassName}>
                             <img
                                 {...props.imgProps}
                                 className={cx(fr.cx("fr-responsive-img"), props.imgProps.className)}
@@ -129,7 +142,10 @@ export const ContentMedia = memo(
                         </div>
                     );
                 case "svg":
-                    return <>{props.svg}</>;
+                    // The DSFR reference implementation wraps SVGs in fr-content-media__img
+                    // (example/component/content/index.html). The wrapper provides width:100%
+                    // and serves as an anchor for the fr-ratio-* size utilities.
+                    return <div className={imgWrapperClassName}>{props.svg}</div>;
                 case "iframe":
                     return (
                         <iframe
@@ -159,14 +175,19 @@ export const ContentMedia = memo(
                     );
             }
         };
-
-        const hasCaption = caption !== undefined || captionLinkProps !== undefined;
-
+        const hasCaption = caption !== undefined || captionLink !== undefined;
         return (
             <figure
                 id={id}
                 role="group"
-                className={cx(fr.cx("fr-content-media"), classes.root, className)}
+                className={cx(
+                    fr.cx("fr-content-media"),
+                    size !== undefined && size !== "md"
+                        ? (`fr-content-media--${size}` as string)
+                        : undefined,
+                    classes.root,
+                    className
+                )}
                 style={style}
                 {...(ariaLabel !== undefined ? { "aria-label": ariaLabel } : {})}
                 ref={ref}
@@ -175,9 +196,9 @@ export const ContentMedia = memo(
                 {hasCaption && (
                     <figcaption className={cx(fr.cx("fr-content-media__caption"), classes.caption)}>
                         {caption}
-                        {captionLinkProps !== undefined && (
-                            <Link {...captionLinkProps} className={fr.cx("fr-link")}>
-                                {captionLinkLabel}
+                        {captionLink !== undefined && (
+                            <Link {...captionLink.linkProps} className={fr.cx("fr-link")}>
+                                {captionLink.label}
                             </Link>
                         )}
                     </figcaption>
@@ -186,7 +207,5 @@ export const ContentMedia = memo(
         );
     })
 );
-
 ContentMedia.displayName = symToStr({ ContentMedia });
-
 export default ContentMedia;

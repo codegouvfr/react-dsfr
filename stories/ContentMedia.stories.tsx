@@ -3,16 +3,13 @@ import { sectionName } from "./sectionName";
 import { getStoryFactory } from "./getStory";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-
 const { meta, getStory } = getStoryFactory({
     sectionName,
     "wrappedComponent": { ContentMedia },
     "description": `
 - [See DSFR documentation](https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/contenu-medias)
 - [See source code](https://github.com/codegouvfr/react-dsfr/blob/main/src/ContentMedia.tsx)
-
-Supports **image**, **SVG**, **iframe**, **video** and **audio** media types  
-via the \`type\` discriminator prop.
+Supports **image**, **SVG**, **iframe**, **video** and **audio** media types via the \`type\` discriminator prop.
 
 \`\`\`tsx
 import { ContentMedia } from "@codegouvfr/react-dsfr/ContentMedia";
@@ -23,14 +20,15 @@ import { ContentMedia } from "@codegouvfr/react-dsfr/ContentMedia";
     label="Description / Source"
     imgProps={{ src: "image.png", alt: "Description de l'image" }}
     caption="Description / Source"
-    captionLinkLabel="Libellé lien"
-    captionLinkProps={{
-        href: "https://www.systeme-de-design.gouv.fr",
-        target: "_blank",
-        rel: "noopener noreferrer"
+    captionLink={{
+        label: "Libellé lien",
+        linkProps: {
+            href: "https://www.systeme-de-design.gouv.fr",
+            target: "_blank",
+            rel: "noopener noreferrer"
+        }
     }}
 />
-
 // Iframe vidéo (YouTube, etc.)
 <ContentMedia
     type="iframe"
@@ -41,39 +39,13 @@ import { ContentMedia } from "@codegouvfr/react-dsfr/ContentMedia";
         allowFullScreen: true
     }}
     caption="Description / Source"
-    captionLinkLabel="Libellé lien"
-    captionLinkProps={{
-        href: "https://www.youtube.com/watch?v=HyirpmPL43I",
-        target: "_blank",
-        rel: "noopener noreferrer"
-    }}
-/>
-
-// Vidéo native
-<ContentMedia
-    type="video"
-    alternative="Alternative de la vidéo - voir transcription ci-dessous"
-    videoProps={{ src: "video.mp4" }}
-    caption="Description / Source"
-    captionLinkLabel="Libellé lien"
-    captionLinkProps={{
-        href: "https://www.w3schools.com/html/html5_video.asp",
-        target: "_blank",
-        rel: "noopener noreferrer"
-    }}
-/>
-
-// Audio natif
-<ContentMedia
-    type="audio"
-    alternative="Alternative de l'audio - voir transcription ci-dessous"
-    audioProps={{ src: "audio.mp3" }}
-    caption="Description / Source"
-    captionLinkLabel="Libellé lien"
-    captionLinkProps={{
-        href: "https://www.w3schools.com/html/html5_audio.asp",
-        target: "_blank",
-        rel: "noopener noreferrer"
+    captionLink={{
+        label: "Libellé lien",
+        linkProps: {
+            href: "https://www.youtube.com/watch?v=HyirpmPL43I",
+            target: "_blank",
+            rel: "noopener noreferrer"
+        }
     }}
 />
 \`\`\`
@@ -94,35 +66,76 @@ import { ContentMedia } from "@codegouvfr/react-dsfr/ContentMedia";
         "caption": {
             "description": "Caption / source text shown in the `<figcaption>`."
         },
-        "captionLinkLabel": {
-            "description": "Label of the link inside the `<figcaption>`."
-        },
-        "captionLinkProps": {
-            "description": "Props of the link inside the `<figcaption>`.",
+        "captionLink": {
+            "description":
+                "Label and props of the link inside the `<figcaption>`. Both are required together (RGAA 6.1).",
             "control": { "type": null }
+        },
+        "size": {
+            "options": ["sm", "md", "lg"],
+            "control": { "type": "radio" },
+            "description": "Size variant of the media container (`fr-content-media--sm/lg`)."
+        },
+        "ratio": {
+            "options": ["16x9", "3x2", "4x3", "1x1", "3x4", "2x3", undefined],
+            "control": { "type": "select" },
+            "description": "Aspect ratio applied to the image/SVG wrapper (`fr-ratio-*`)."
         }
     },
     "disabledProps": ["lang"]
 });
-
 export default meta;
-
 export const Image = getStory({
     "type": "img",
     "label": "Description / Source",
     "imgProps": {
-        "src": "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
+        "src": "https://www.systeme-de-design.gouv.fr/v1.15/storybook/img/placeholder.16x9.png",
         "alt": "Description de l'image (texte alternatif)"
     },
     "caption": "Description / Source",
-    "captionLinkLabel": "Libellé lien",
-    "captionLinkProps": {
-        "href": "https://www.systeme-de-design.gouv.fr",
-        "target": "_blank",
-        "rel": "noopener noreferrer"
+    "captionLink": {
+        "label": "Libellé lien",
+        "linkProps": {
+            "href": "https://www.systeme-de-design.gouv.fr",
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+        }
     }
 });
-
+export const ImageSmall = getStory(
+    {
+        "type": "img",
+        "size": "sm",
+        "label": "Image petite taille",
+        "imgProps": {
+            "src": "https://www.systeme-de-design.gouv.fr/v1.15/storybook/img/placeholder.16x9.png",
+            "alt": "Description de l'image"
+        },
+        "caption": "Description / Source — taille sm",
+        "captionLink": {
+            "label": "Libellé lien",
+            "linkProps": {
+                "href": "https://www.systeme-de-design.gouv.fr",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+            }
+        }
+    },
+    { "description": "Image avec variante de taille `sm` (`fr-content-media--sm`)." }
+);
+export const ImageWithRatio = getStory(
+    {
+        "type": "img",
+        "ratio": "1x1",
+        "label": "Image ratio carré",
+        "imgProps": {
+            "src": "https://www.systeme-de-design.gouv.fr/v1.15/storybook/img/placeholder.16x9.png",
+            "alt": "Description de l'image en ratio carré"
+        },
+        "caption": "Description / Source — ratio 1x1"
+    },
+    { "description": "Image avec ratio carré (`fr-ratio-1x1`) via la prop `ratio`." }
+);
 export const IframeVideo = getStory(
     {
         "type": "iframe",
@@ -134,16 +147,17 @@ export const IframeVideo = getStory(
             "allowFullScreen": true
         },
         "caption": "Description / Source",
-        "captionLinkLabel": "Libellé lien",
-        "captionLinkProps": {
-            "href": "https://www.youtube.com/watch?v=HyirpmPL43I",
-            "target": "_blank",
-            "rel": "noopener noreferrer"
+        "captionLink": {
+            "label": "Libellé lien",
+            "linkProps": {
+                "href": "https://www.youtube.com/watch?v=HyirpmPL43I",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+            }
         }
     },
     { "description": "Vidéo intégrée via `<iframe>` (ex : YouTube)." }
 );
-
 export const VideoNative = getStory(
     {
         "type": "video",
@@ -152,16 +166,17 @@ export const VideoNative = getStory(
             "src": "https://www.w3schools.com/html/mov_bbb.mp4"
         },
         "caption": "Description / Source",
-        "captionLinkLabel": "Libellé lien",
-        "captionLinkProps": {
-            "href": "https://www.w3schools.com/html/html5_video.asp",
-            "target": "_blank",
-            "rel": "noopener noreferrer"
+        "captionLink": {
+            "label": "Libellé lien",
+            "linkProps": {
+                "href": "https://www.w3schools.com/html/html5_video.asp",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+            }
         }
     },
     { "description": "Vidéo native HTML5 avec `<video>`." }
 );
-
 export const AudioNative = getStory(
     {
         "type": "audio",
@@ -170,22 +185,23 @@ export const AudioNative = getStory(
             "src": "https://www.w3schools.com/html/horse.mp3"
         },
         "caption": "Description / Source",
-        "captionLinkLabel": "Libellé lien",
-        "captionLinkProps": {
-            "href": "https://www.w3schools.com/html/html5_audio.asp",
-            "target": "_blank",
-            "rel": "noopener noreferrer"
+        "captionLink": {
+            "label": "Libellé lien",
+            "linkProps": {
+                "href": "https://www.w3schools.com/html/html5_audio.asp",
+                "target": "_blank",
+                "rel": "noopener noreferrer"
+            }
         }
     },
     { "description": "Fichier audio natif HTML5 avec `<audio>`." }
 );
-
 export const ImageWithoutCaption = getStory(
     {
         "type": "img",
         "label": "Image illustrative",
         "imgProps": {
-            "src": "https://www.systeme-de-design.gouv.fr/img/placeholder.16x9.png",
+            "src": "https://www.systeme-de-design.gouv.fr/v1.15/storybook/img/placeholder.16x9.png",
             "alt": ""
         }
     },

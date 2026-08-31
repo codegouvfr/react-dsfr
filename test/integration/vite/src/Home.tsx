@@ -264,7 +264,7 @@ function ControlledAccordion() {
 function HighlightExample() {
     return (
         <Highlight
-            children={`Les parents d'enfants de 11 à 14 ans n'ont aucune démarche à accomplir : les CAF versent automatiquement l'ARS aux familles déjà allocataires qui remplissent les conditions.`}
+            children={`Les parents d’enfants de 11 à 14 ans n’ont aucune démarche à accomplir : les CAF versent automatiquement l’ARS aux familles déjà allocataires qui remplissent les conditions.`}
             bodyAs="p"
         />
     )
@@ -282,11 +282,13 @@ function ContentMediaExamples() {
                     alt: "Paysage de Cinque Terre en Italie"
                 }}
                 caption="© W3Schools – Cinque Terre, Italie"
-                captionLinkLabel="Voir la source"
-                captionLinkProps={{
-                    href: "https://www.w3schools.com",
-                    target: "_blank",
-                    rel: "noopener noreferrer"
+                captionLink={{
+                    label: "Voir la source",
+                    linkProps: {
+                        href: "https://www.w3schools.com",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
                 }}
             />
 
@@ -300,11 +302,13 @@ function ContentMediaExamples() {
                     allowFullScreen: true
                 }}
                 caption="Service National Universel – présentation officielle"
-                captionLinkLabel="Voir sur YouTube"
-                captionLinkProps={{
-                    href: "https://www.youtube.com/watch?v=HyirpmPL43I",
-                    target: "_blank",
-                    rel: "noopener noreferrer"
+                captionLink={{
+                    label: "Voir sur YouTube",
+                    linkProps: {
+                        href: "https://www.youtube.com/watch?v=HyirpmPL43I",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
                 }}
             />
 
@@ -314,11 +318,13 @@ function ContentMediaExamples() {
                 alternative="Vidéo de démonstration Big Buck Bunny – voir transcription ci-dessous"
                 videoProps={{ src: "https://www.w3schools.com/html/mov_bbb.mp4" }}
                 caption="Big Buck Bunny – Blender Foundation"
-                captionLinkLabel="Voir la source"
-                captionLinkProps={{
-                    href: "https://www.w3schools.com/html/html5_video.asp",
-                    target: "_blank",
-                    rel: "noopener noreferrer"
+                captionLink={{
+                    label: "Voir la source",
+                    linkProps: {
+                        href: "https://www.w3schools.com/html/html5_video.asp",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
                 }}
             />
 
@@ -328,11 +334,13 @@ function ContentMediaExamples() {
                 alternative="Son d'un cheval – voir transcription ci-dessous"
                 audioProps={{ src: "https://www.w3schools.com/html/horse.mp3" }}
                 caption="Illustration sonore – W3Schools"
-                captionLinkLabel="Voir la source"
-                captionLinkProps={{
-                    href: "https://www.w3schools.com/html/html5_audio.asp",
-                    target: "_blank",
-                    rel: "noopener noreferrer"
+                captionLink={{
+                    label: "Voir la source",
+                    linkProps: {
+                        href: "https://www.w3schools.com/html/html5_audio.asp",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
                 }}
             />
         </>
