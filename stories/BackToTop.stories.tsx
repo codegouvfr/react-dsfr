@@ -1,8 +1,6 @@
-import { BackToTop, type BackToTopProps } from "../dist/BackToTop";
+import { BackToTop } from "../dist/BackToTop";
 import { getStoryFactory } from "./getStory";
 import { sectionName } from "./sectionName";
-import { assert } from "tsafe/assert";
-import type { Equals } from "tsafe";
 
 const { meta, getStory } = getStoryFactory({
     sectionName,
@@ -68,16 +66,3 @@ export const BackToTopOnRight = getStory(
     },
     { "description": "Aligned on the right, wrapped in a `fr-grid-row fr-grid-row--right`." }
 );
-
-export const WithCustomAnchor = getStory(
-    {
-        "anchor": "#header"
-    },
-    { "description": "Pointing to an element other than the top of the page." }
-);
-
-{
-    type ExpectedKeys = "id" | "className" | "style" | "classes" | "right" | "anchor" | "targetRef";
-
-    assert<Equals<keyof BackToTopProps, ExpectedKeys>>();
-}

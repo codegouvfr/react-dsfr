@@ -109,18 +109,42 @@ function scrollBackTo(element: HTMLElement | null) {
     // not: without this, keyboard and screen reader users stay where they were while the
     // viewport jumps. An element that isn't already reachable has to be made
     // programmatically focusable first.
-    if (element.tabIndex < 0) {
-        element.tabIndex = -1;
+    //
+    // Three things this shape is deliberate about:
+    // - The attribute goes back on blur, not right after `focus()`. Removing it while the
+    //   element still holds the focus blurs it, which defeats the whole point (measured:
+    //   `document.activeElement` falls back to `<body>` on the same tick).
+    // - The guard tests the attribute and not only `tabIndex`, because an element carrying
+    //   an explicit `tabindex="-1"` also reports -1 and its attribute is not ours to remove.
+    // - Should the blur never come, what is left behind is a `tabindex="-1"`, which by
+    //   definition keeps the element out of the tab order. The failure mode is inert.
+    if (!element.hasAttribute("tabindex") && element.tabIndex < 0) {
+        element.setAttribute("tabindex", "-1");
+        element.addEventListener("blur", () => element.removeAttribute("tabindex"), {
+            "once": true
+        });
     }
 
     element.focus({ "preventScroll": true });
 
-    element.scrollIntoView({
-        "behavior": window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "auto"
-            : "smooth",
-        "block": "start"
-    });
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        element.scrollIntoView({ "behavior": "smooth", "block": "start" });
+
+        return;
+    }
+
+    // `behavior: "auto"` would not do: it means "use the CSS scroll-behavior", so it still
+    // animates on a page that sets `scroll-behavior: smooth`. `"instant"` is absent from
+    // TypeScript 4.9's ScrollBehavior and throws a TypeError on browsers that predate it.
+    // Neutralising the CSS is what the DSFR itself does around its scroll lock.
+    const { documentElement } = document;
+    const inlineScrollBehavior = documentElement.style.scrollBehavior;
+
+    documentElement.style.scrollBehavior = "auto";
+
+    element.scrollIntoView({ "block": "start" });
+
+    documentElement.style.scrollBehavior = inlineScrollBehavior;
 }
 
 BackToTop.displayName = symToStr({ BackToTop });
