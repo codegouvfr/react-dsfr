@@ -105,48 +105,56 @@ export const Table = memo(
                     className
                 )}
             >
-                <table className="fr-table__content">
-                    {caption !== undefined && <caption>{caption}</caption>}
-                    {headers !== undefined && (
-                        <thead>
-                            <tr>
-                                {headers.map((header, i) => {
-                                    const sortable = sortableColumns[i];
-                                    if (!sortable) {
-                                        return (
-                                            <th key={i} scope="col">
-                                                {header}
-                                            </th>
-                                        );
-                                    }
-                                    const sortingOrder =
-                                        currentSort?.column === i ? currentSort?.order : "none";
-                                    return (
-                                        <SortableTh
-                                            key={i}
-                                            order={sortingOrder}
-                                            onSort={() => {
-                                                const newOrder = cycleSortingOrder(i);
-                                                onSort?.(i, newOrder);
-                                            }}
-                                        >
-                                            {header}
-                                        </SortableTh>
-                                    );
-                                })}
-                            </tr>
-                        </thead>
-                    )}
-                    <tbody>
-                        {data.map((row, i) => (
-                            <tr key={i}>
-                                {row.map((col, j) => (
-                                    <td key={j}>{col}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className={fr.cx("fr-table__wrapper")}>
+                    <div className={fr.cx("fr-table__container")}>
+                        <div className={fr.cx("fr-table__content")}>
+                            <table>
+                                {caption !== undefined && <caption>{caption}</caption>}
+                                {headers !== undefined && (
+                                    <thead>
+                                        <tr>
+                                            {headers.map((header, i) => {
+                                                const sortable = sortableColumns[i];
+                                                if (!sortable) {
+                                                    return (
+                                                        <th key={i} scope="col">
+                                                            {header}
+                                                        </th>
+                                                    );
+                                                }
+                                                const sortingOrder =
+                                                    currentSort?.column === i
+                                                        ? currentSort?.order
+                                                        : "none";
+                                                return (
+                                                    <SortableTh
+                                                        key={i}
+                                                        order={sortingOrder}
+                                                        onSort={() => {
+                                                            const newOrder = cycleSortingOrder(i);
+                                                            onSort?.(i, newOrder);
+                                                        }}
+                                                    >
+                                                        {header}
+                                                    </SortableTh>
+                                                );
+                                            })}
+                                        </tr>
+                                    </thead>
+                                )}
+                                <tbody>
+                                    {data.map((row, i) => (
+                                        <tr key={i}>
+                                            {row.map((col, j) => (
+                                                <td key={j}>{col}</td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     })
@@ -164,10 +172,10 @@ const SortableTh = ({
     const { t } = useTranslation();
     return (
         <th scope="col" aria-sort={order}>
-            <div className="fr-cell--sort">
+            <div className={fr.cx("fr-cell--sort")}>
                 {children}
                 <button
-                    className={cx(
+                    className={fr.cx(
                         `fr-btn--sort`,
                         order === "ascending" && "fr-btn--sort-asc",
                         order === "descending" && "fr-btn--sort-desc"
