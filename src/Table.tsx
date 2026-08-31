@@ -24,6 +24,8 @@ export type TableProps = {
     /** Default: false */
     bottomCaption?: boolean;
     style?: CSSProperties;
+    /** Default medium */
+    size?: "small" | "medium" | "large";
     colorVariant?: TableProps.ColorVariant;
 };
 
@@ -60,6 +62,7 @@ export const Table = memo(
             bottomCaption = false,
             colorVariant,
             className,
+            size = "medium",
             style,
             ...rest
         } = props;
@@ -84,7 +87,9 @@ export const Table = memo(
                             "fr-table--no-scroll": noScroll,
                             "fr-table--layout-fixed": fixed,
                             "fr-table--no-caption": noCaption,
-                            "fr-table--caption-bottom": bottomCaption
+                            "fr-table--caption-bottom": bottomCaption,
+                            "fr-table--sm": size === "small",
+                            "fr-table--lg": size === "large"
                         },
                         colorVariant !== undefined && `fr-table--${colorVariant}`
                     ),
