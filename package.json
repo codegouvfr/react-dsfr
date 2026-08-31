@@ -24,14 +24,13 @@
         "format:check": "yarn _format --list-different",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
-        "prestorybook": "yarn build && node dist/bin/react-dsfr update-icons",
+        "prestorybook": "yarn build && node dist/bin/react-dsfr optimize-css",
         "prebuild-storybook": "yarn prestorybook"
     },
     "bin": {
         "react-dsfr": "dist/bin/react-dsfr.js",
         "copy-dsfr-to-public": "dist/bin/copy-dsfr-to-public.js",
-        "only-include-used-icons": "dist/bin/only-include-used-icons.js",
-        "only-include-used-components": "dist/bin/only-include-used-components.js"
+        "only-include-used-icons": "dist/bin/only-include-used-icons.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [

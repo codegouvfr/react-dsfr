@@ -1,5 +1,5 @@
 import { it, expect, describe } from "vitest";
-import { detectDsfrComponentsFromClassNames } from "../../../../src/bin/only-include-used-components";
+import { detectDsfrComponentsFromClassNames } from "../../../../src/bin/only-include-css-of-used-components";
 
 describe("detectDsfrComponentsFromClassNames", () => {
     it("detects raw usage of DSFR component classes", () => {

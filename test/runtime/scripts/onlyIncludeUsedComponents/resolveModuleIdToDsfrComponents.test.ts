@@ -3,7 +3,7 @@ import {
     resolveModuleIdToDsfrComponents,
     REACT_DSFR_MODULE_TO_DSFR_COMPONENTS,
     DSFR_COMPONENTS_CASCADE_ORDER
-} from "../../../../src/bin/only-include-used-components";
+} from "../../../../src/bin/only-include-css-of-used-components";
 
 describe("resolveModuleIdToDsfrComponents", () => {
     it("resolves a component module with its transitive dependencies", () => {

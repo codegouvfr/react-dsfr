@@ -1,7 +1,7 @@
 import { it, expect, describe } from "vitest";
 import * as fs from "fs";
 import { join as pathJoin } from "path";
-import { DSFR_COMPONENTS_CASCADE_ORDER } from "../../../../src/bin/only-include-used-components";
+import { DSFR_COMPONENTS_CASCADE_ORDER } from "../../../../src/bin/only-include-css-of-used-components";
 
 /**
  * DSFR_COMPONENTS_CASCADE_ORDER only has a reason to exist if it matches the order in

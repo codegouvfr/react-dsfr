@@ -1,5 +1,5 @@
 import { it, expect, describe } from "vitest";
-import { getReactDsfrImportedModuleIds } from "../../../../src/bin/only-include-used-components";
+import { getReactDsfrImportedModuleIds } from "../../../../src/bin/only-include-css-of-used-components";
 
 describe("getReactDsfrImportedModuleIds", () => {
     it("detects default and named imports from a component subpath", () => {

@@ -4,7 +4,7 @@ import {
     rewriteCssRelativeUrls,
     patchCoreCssCodeForCompatWithMui,
     getReferencedAssetRelativePaths
-} from "../../../../src/bin/only-include-used-components";
+} from "../../../../src/bin/only-include-css-of-used-components";
 
 describe("rewriteCssRelativeUrls", () => {
     it("rewrites urls relative to the css file into urls relative to the dsfr directory", () => {

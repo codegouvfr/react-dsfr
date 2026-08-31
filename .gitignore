@@ -47,5 +47,10 @@ jspm_packages
 /src/fr/generatedFromCss
 /storybook-static
 
+/docs/
 
-
+/react-dsfr-vite-demo/
+/react-dsfr-next-appdir-demo/
+/react-dsfr-next-demo/
+/react-dsfr-cra-demo/
+/keycloak-theme-dsfr/

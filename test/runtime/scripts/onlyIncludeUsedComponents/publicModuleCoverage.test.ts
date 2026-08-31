@@ -4,10 +4,10 @@ import { join as pathJoin } from "path";
 import {
     getReactDsfrImportedModuleIds,
     resolveModuleIdToDsfrComponents
-} from "../../../../src/bin/only-include-used-components";
+} from "../../../../src/bin/only-include-css-of-used-components";
 
 /**
- * `only-include-used-components` maps every imported react-dsfr module to the DSFR CSS
+ * The component CSS optimizer maps every imported react-dsfr module to the DSFR CSS
  * components it renders. A module that is in neither REACT_DSFR_MODULE_TO_DSFR_COMPONENTS
  * nor NON_COMPONENT_MODULE_IDS makes resolveModuleIdToDsfrComponents() return undefined,
  * which trips the include-everything fail-safe: the script warns and exits 0, so a
@@ -142,14 +142,14 @@ describe("REACT_DSFR_MODULE_TO_DSFR_COMPONENTS exhaustiveness", () => {
         expect(
             problems,
             [
-                `only-include-used-components would fall back to including every DSFR`,
+                `The component CSS optimizer would fall back to including every DSFR`,
                 `component because of:`,
                 ...problems.map(entry => `  - ${entry}`),
                 ``,
                 `Add each unresolved module to REACT_DSFR_MODULE_TO_DSFR_COMPONENTS (with the`,
                 `DSFR components its markup renders, transitive dependencies included) or to`,
                 `NON_COMPONENT_MODULE_IDS if it renders no DSFR markup, in`,
-                `src/bin/only-include-used-components.ts.`
+                `src/bin/only-include-css-of-used-components.ts.`
             ].join("\n")
         ).toStrictEqual([]);
     });

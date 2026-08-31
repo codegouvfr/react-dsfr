@@ -4,7 +4,7 @@ import { join as pathJoin } from "path";
 import {
     DSFR_COMPONENT_DETECTION_CLASS_PREFIXES,
     DSFR_COMPONENT_CSS_FILE_EXTENSIONS
-} from "../../../../src/bin/only-include-used-components";
+} from "../../../../src/bin/only-include-css-of-used-components";
 
 /**
  * DSFR_COMPONENT_DETECTION_CLASS_PREFIXES is hand written, and a wrong entry is invisible:
@@ -97,7 +97,7 @@ describe("DSFR_COMPONENT_DETECTION_CLASS_PREFIXES", () => {
                 `Either the prefix belongs to another component (or to the always included`,
                 `core), or it is only styled as a descendant. Drop it from`,
                 `DSFR_COMPONENT_DETECTION_CLASS_PREFIXES in`,
-                `src/bin/only-include-used-components.ts.`
+                `src/bin/only-include-css-of-used-components.ts.`
             ].join("\n")
         ).toStrictEqual([]);
     });

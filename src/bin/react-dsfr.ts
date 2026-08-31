@@ -4,16 +4,22 @@ const [, , commandName, ...args] = process.argv;
 
 (async () => {
     switch (commandName) {
+        case "optimize-css":
+            {
+                const { main: updateIcons } = await import("./only-include-used-icons");
+
+                await updateIcons(args);
+
+                const { main: onlyIncludeCssOfUsedComponents } = await import(
+                    "./only-include-css-of-used-components"
+                );
+
+                await onlyIncludeCssOfUsedComponents(args);
+            }
+            break;
         case "update-icons":
             {
                 const { main } = await import("./only-include-used-icons");
-
-                await main(args);
-            }
-            break;
-        case "only-include-used-components":
-            {
-                const { main } = await import("./only-include-used-components");
 
                 await main(args);
             }
