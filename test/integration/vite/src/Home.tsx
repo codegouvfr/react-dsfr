@@ -11,6 +11,7 @@ import { useIsDark } from "@codegouvfr/react-dsfr/useIsDark";
 import { useState } from "react";
 import { Table } from "@codegouvfr/react-dsfr/Table";
 import { Tile } from "@codegouvfr/react-dsfr/Tile";
+import { Share } from "@codegouvfr/react-dsfr/Share";
 
 import { Accordion } from "@codegouvfr/react-dsfr/Accordion";
 import { Book, Money, Police, Sun, LocationFrance } from '@codegouvfr/react-dsfr/picto';
@@ -83,6 +84,9 @@ export function Home() {
             <ControlledAccordion />
             <div className={fr.cx("fr-my-4w")}>
                 <HighlightExample />
+            </div>
+            <div className={fr.cx("fr-my-4w")}>
+                <ShareExample />
             </div>
         </>
     );
@@ -264,4 +268,54 @@ function HighlightExample() {
             bodyAs="p"
         />
     )
+}
+
+function ShareExample() {
+    return (
+        <Share
+            buttons={[
+                {
+                    type: "facebook",
+                    linkProps: {
+                        href: "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.systeme-de-design.gouv.fr",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
+                },
+                {
+                    type: "twitter-x",
+                    linkProps: {
+                        href: "https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.systeme-de-design.gouv.fr",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
+                },
+                {
+                    type: "linkedin",
+                    linkProps: {
+                        href: "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.systeme-de-design.gouv.fr",
+                        target: "_blank",
+                        rel: "noopener noreferrer"
+                    }
+                },
+                {
+                    type: "mail",
+                    linkProps: {
+                        href: "mailto:?subject=DSFR&body=Decouvrez%20le%20DSFR%20https%3A%2F%2Fwww.systeme-de-design.gouv.fr"
+                    }
+                },
+                {
+                    type: "copy",
+                    buttonProps: {
+                        type: "button",
+                        onClick: () => {
+                            navigator.clipboard
+                                .writeText(window.location.href)
+                                .then(() => alert("Adresse copiee dans le presse-papier."));
+                        }
+                    }
+                }
+            ]}
+        />
+    );
 }
