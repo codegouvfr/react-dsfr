@@ -273,6 +273,7 @@ exports.REACT_DSFR_MODULE_TO_DSFR_COMPONENTS = {
     "SegmentedControl": ["segmented", "form"],
     "Select": ["select", "form"],
     "SelectNext": ["select", "form"],
+    "Share": ["share", "link"],
     "SideMenu": ["sidemenu", "link"],
     "SkipLinks": ["skiplink", "link"],
     "Stepper": ["stepper"],
