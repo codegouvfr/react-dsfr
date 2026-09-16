@@ -28,6 +28,8 @@ export namespace TabsProps {
             content: ReactNode;
             isDefault?: boolean;
             disabled?: boolean;
+            ariaLabel?: string;
+            title?: string;
         }[];
         selectedTabId?: undefined;
         onTabChange?: (params: { tabIndex: number; tab: Uncontrolled["tabs"][number] }) => void;
@@ -40,6 +42,8 @@ export namespace TabsProps {
             label: ReactNode;
             iconId?: FrIconClassName | RiIconClassName;
             disabled?: boolean;
+            ariaLabel?: string;
+            title?: string;
         }[];
         selectedTabId: string;
         onTabChange: (tabId: string) => void;
@@ -141,7 +145,7 @@ export const Tabs = memo(
                     aria-label={label}
                     onKeyDownCapture={e => onKeyboardNavigation(e)}
                 >
-                    {tabs.map(({ label, iconId, disabled }, tabIndex) => (
+                    {tabs.map(({ label, iconId, disabled, ariaLabel, title }, tabIndex) => (
                         <li key={tabIndex} role="presentation">
                             <button
                                 ref={button => (buttonRefs.current[tabIndex] = button)}
@@ -157,6 +161,8 @@ export const Tabs = memo(
                                 aria-controls={getPanelId(tabIndex)}
                                 onClick={onTabClickFactory(tabIndex)}
                                 disabled={disabled}
+                                aria-label={ariaLabel}
+                                title={title}
                             >
                                 {label}
                             </button>
