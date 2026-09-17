@@ -37,6 +37,17 @@ const { meta, getStory } = getStoryFactory({
             "description": "Move caption to bottom",
             "type": { "name": "boolean" }
         },
+        "size": {
+            "options": (() => {
+                const options = ["small", "medium", "large"] as const;
+
+                assert<Equals<typeof options[number], NonNullable<TableProps["size"]>>>();
+
+                return options;
+            })(),
+            "control": { "type": "radio" },
+            "defaultValue": "medium"
+        },
         "colorVariant": {
             "options": (() => {
                 const options = [
