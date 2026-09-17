@@ -24,6 +24,29 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
 {
 
     window.ssrWasPerformedWithIsDark = "${defaultColorScheme}" === "dark";
+
+    // Never throw when storage is blocked for the document (Chromium raises a SecurityError as
+    // soon as window.localStorage is read). Behave as if the storage was empty instead.
+    // See https://github.com/codegouvfr/react-dsfr/issues/442
+    const safeLocalStorage = {
+        getItem: key => {
+            try {
+                return localStorage.getItem(key);
+            } catch {
+                return null;
+            }
+        },
+        setItem: (key, value) => {
+            try {
+                localStorage.setItem(key, value);
+            } catch {}
+        },
+        removeItem: key => {
+            try {
+                localStorage.removeItem(key);
+            } catch {}
+        }
+    };
 	const sanitizer = typeof trustedTypes !== "undefined" ? trustedTypes.createPolicy("${trustedTypesPolicyName}-asap", { createHTML: s => s }) : {
 		createHTML: s => s,
 	};
@@ -31,15 +54,15 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
     reset_persisted_value_if_website_config_changed: {
         const localStorageKey = "scheme-website-config-default";
 
-        const localStorageValue = localStorage.getItem(localStorageKey);
+        const localStorageValue = safeLocalStorage.getItem(localStorageKey);
 
         if (localStorageValue === "${defaultColorScheme}") {
             break reset_persisted_value_if_website_config_changed;
         }
 
-        localStorage.removeItem("scheme");
+        safeLocalStorage.removeItem("scheme");
 
-        localStorage.setItem(localStorageKey, "${defaultColorScheme}");
+        safeLocalStorage.setItem(localStorageKey, "${defaultColorScheme}");
     }
     
     const isDark = (() => {
@@ -56,7 +79,7 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
     	})();
     
     	const isDarkFromLocalStorage = (() => {
-    		const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+    		const colorSchemeReadFromLocalStorage = safeLocalStorage.getItem("scheme");
     
     		if (colorSchemeReadFromLocalStorage === null) {
     			return undefined;
@@ -95,7 +118,7 @@ export const getScriptToRunAsap: GetScriptToRunAsap = ({
         document.documentElement.setAttribute(
             "${data_fr_scheme}",
             (() => {
-                const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+                const colorSchemeReadFromLocalStorage = safeLocalStorage.getItem("scheme");
 
                 if (colorSchemeReadFromLocalStorage === null) {
                     return "${defaultColorScheme}";
