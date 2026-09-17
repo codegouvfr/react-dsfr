@@ -23,6 +23,8 @@ export type TableProps = {
     noCaption?: boolean;
     /** Default: false */
     bottomCaption?: boolean;
+    /** Default: false */
+    multiline?: boolean;
     style?: CSSProperties;
     colorVariant?: TableProps.ColorVariant;
 };
@@ -31,7 +33,14 @@ export namespace TableProps {
     type ExtractColorVariant<FrClassName> = FrClassName extends `fr-table--${infer AccentColor}`
         ? Exclude<
               AccentColor,
-              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered"
+              | "no-scroll"
+              | "no-caption"
+              | "caption-bottom"
+              | "layout-fixed"
+              | "bordered"
+              | "multiline"
+              | "sm"
+              | "lg"
           >
         : never;
 
@@ -51,6 +60,7 @@ export const Table = memo(
             fixed = false,
             noCaption = false,
             bottomCaption = false,
+            multiline = false,
             colorVariant,
             className,
             style,
@@ -77,7 +87,8 @@ export const Table = memo(
                             "fr-table--no-scroll": noScroll,
                             "fr-table--layout-fixed": fixed,
                             "fr-table--no-caption": noCaption,
-                            "fr-table--caption-bottom": bottomCaption
+                            "fr-table--caption-bottom": bottomCaption,
+                            "fr-table--multiline": multiline
                         },
                         colorVariant !== undefined && `fr-table--${colorVariant}`
                     ),
