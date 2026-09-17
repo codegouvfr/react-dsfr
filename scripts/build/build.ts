@@ -11,6 +11,8 @@ import {
 import * as child_process from "child_process";
 import { patchCssForMui } from "./patchCssForMui";
 import yargsParser from "yargs-parser";
+import { generateSpacingUtilitiesManifest } from "./generateSpacingUtilitiesManifest";
+import { PATH_OF_SPACING_UTILITIES_JSON } from "../../src/bin/trimSpacingUtilities";
 
 function removeCharset(rawCssCode: string): string {
     return rawCssCode.replace(/@charset "UTF-8";\s*/g, "");
@@ -101,6 +103,57 @@ function removeCharset(rawCssCode: string): string {
         pathJoin(dsfrDirPath, PATH_OF_ICONS_JSON),
         Buffer.from(JSON.stringify(icons, null, 2), "utf8")
     );
+
+    {
+        const reactDsfrSrcFilesContents: string[] = [];
+
+        (function walk(dirPath: string) {
+            for (const dirent of fs.readdirSync(dirPath, { "withFileTypes": true })) {
+                const path = pathJoin(dirPath, dirent.name);
+
+                if (dirent.isDirectory()) {
+                    if (dirent.name === "generatedFromCss" || dirent.name === "bin") {
+                        // generatedFromCss lists every fr-* class, bin renders no markup
+                        // and its doc comments cite spacing classes as examples.
+                        continue;
+                    }
+                    walk(path);
+                    continue;
+                }
+
+                if (!/\.tsx?$/.test(dirent.name)) {
+                    continue;
+                }
+
+                reactDsfrSrcFilesContents.push(fs.readFileSync(path).toString("utf8"));
+            }
+        })(pathJoin(projectRootDirPath, "src"));
+
+        fs.writeFileSync(
+            pathJoin(dsfrDirPath, PATH_OF_SPACING_UTILITIES_JSON),
+            Buffer.from(
+                JSON.stringify(
+                    generateSpacingUtilitiesManifest({
+                        "readDsfrDistFile": fileRelativePath =>
+                            fs
+                                .readFileSync(pathJoin(dsfrDirPath, ...fileRelativePath.split("/")))
+                                .toString("utf8"),
+                        "dsfrVersion": JSON.parse(
+                            fs
+                                .readFileSync(
+                                    pathJoin(nodeModuleDirPath, "@gouvfr", "dsfr", "package.json")
+                                )
+                                .toString("utf8")
+                        )["version"],
+                        reactDsfrSrcFilesContents
+                    }),
+                    null,
+                    2
+                ),
+                "utf8"
+            )
+        );
+    }
 
     const distDirPath = pathJoin(projectRootDirPath, "dist");
 
