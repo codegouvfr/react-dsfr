@@ -216,6 +216,8 @@ export const TableWithSortableColumns = getStory(
     },
     {
         description: `
+**⚠️ Adding any sortable column to the table makes it interactive and therefore client-side only**
+
 \`headers\` accepts either directly a label to render (\`<span>th</span>\`), or an object containing the label and
 whether it is sortable (\`{ label: <span>th</span>, sortable: true }\`).
 
