@@ -134,6 +134,8 @@ export const REACT_DSFR_MODULE_TO_DSFR_COMPONENTS: Record<string, DsfrComponentN
     // The Chart components pull their CSS from the @gouvfr/dsfr-chart peer dependency.
     "Chart": [],
     "Checkbox": ["checkbox", "radio", "form"],
+    // The caption renders an fr-link.
+    "ContentMedia": ["content", "link"],
     "Display": ["modal", "radio", "form", "button", "link"],
     "Download": ["download", "link"],
     "Follow": ["follow", "form", "input", "upload", "button", "link", "alert", "checkbox"],
