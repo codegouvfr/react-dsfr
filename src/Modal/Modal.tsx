@@ -13,7 +13,7 @@ import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
 export type ModalProps = {
     className?: string;
     /** Default: "medium" */
-    size?: "small" | "medium" | "large";
+    size?: "small" | "medium" | "large" | "full";
     title: ReactNode;
     titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "div";
     titleProps?: React.DetailedHTMLProps<
@@ -81,6 +81,8 @@ const Modal = memo(
                         <div
                             className={(() => {
                                 switch (size) {
+                                    case "full":
+                                        return fr.cx("fr-col-12", "fr-col-md-12", "fr-col-lg-12");
                                     case "large":
                                         return fr.cx("fr-col-12", "fr-col-md-10", "fr-col-lg-8");
                                     case "small":
