@@ -3,6 +3,7 @@ import { assert, type Equals } from "tsafe/assert";
 import { isAmong } from "tsafe/isAmong";
 import { createStatefulObservable, useRerenderOnChange } from "../tools/StatefulObservable";
 import { useConstCallback } from "../tools/powerhooks/useConstCallback";
+import { safeLocalStorage } from "../tools/safeLocalStorage";
 import { fr } from "../fr";
 import { data_fr_scheme, data_fr_theme, rootColorSchemeStyleTagId } from "./constants";
 
@@ -90,7 +91,7 @@ export const useIsDarkClientSide: UseIsDark = () => {
                     data_fr_theme,
                     newColorScheme === "system" ? getSystemColorScheme() : newColorScheme
                 );
-                localStorage.setItem("scheme", newColorScheme);
+                safeLocalStorage.setItem("scheme", newColorScheme);
             }
         }
     );
@@ -141,15 +142,15 @@ export function startClientSideIsDarkLogic(params: {
     reset_persisted_value_if_website_config_changed: {
         const localStorageKey = "scheme-website-config-default";
 
-        const localStorageValue = localStorage.getItem(localStorageKey);
+        const localStorageValue = safeLocalStorage.getItem(localStorageKey);
 
         if (localStorageValue === colorSchemeExplicitlyProvidedAsParameter) {
             break reset_persisted_value_if_website_config_changed;
         }
 
-        localStorage.removeItem("scheme");
+        safeLocalStorage.removeItem("scheme");
 
-        localStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
+        safeLocalStorage.setItem(localStorageKey, colorSchemeExplicitlyProvidedAsParameter);
     }
 
     const { clientSideIsDark, ssrWasPerformedWithIsDark: ssrWasPerformedWithIsDark_ } = ((): {
@@ -180,7 +181,7 @@ export function startClientSideIsDarkLogic(params: {
         })();
 
         const isDarkFromLocalStorage = (() => {
-            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+            const colorSchemeReadFromLocalStorage = safeLocalStorage.getItem("scheme");
 
             if (colorSchemeReadFromLocalStorage === null) {
                 return undefined;
@@ -233,7 +234,7 @@ export function startClientSideIsDarkLogic(params: {
     document.documentElement.setAttribute(
         data_fr_scheme,
         ((): ColorScheme | "system" => {
-            const colorSchemeReadFromLocalStorage = localStorage.getItem("scheme");
+            const colorSchemeReadFromLocalStorage = safeLocalStorage.getItem("scheme");
 
             if (colorSchemeReadFromLocalStorage === null) {
                 return colorSchemeExplicitlyProvidedAsParameter;
