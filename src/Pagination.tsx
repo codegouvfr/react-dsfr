@@ -165,7 +165,7 @@ export const Pagination = memo(
                                 <Link
                                     className={cx(fr.cx("fr-pagination__link"), classes.link)}
                                     aria-current={part.active ? true : undefined}
-                                    title={`Page ${part.number}`}
+                                    aria-label={t("page", { pageNumber: part.number })}
                                     {...getPageLinkProps(part.number)}
                                 >
                                     {part.number}
@@ -223,6 +223,7 @@ const { useTranslation, addPaginationTranslations } = createComponentI18nApi({
     "frMessages": {
         "first page": "Première page",
         "previous page": "Page précédente",
+        "page": ({ pageNumber }: { pageNumber: number }) => `Page ${pageNumber}`,
         "next page": "Page suivante",
         "last page": "Dernière page",
         "aria-label": "Pagination"
@@ -234,6 +235,7 @@ addPaginationTranslations({
     "messages": {
         "first page": "First page",
         "previous page": "Previous page",
+        "page": ({ pageNumber }: { pageNumber: number }) => `Page ${pageNumber}`,
         "next page": "Next page",
         "last page": "Last page",
         "aria-label": "Pagination"
