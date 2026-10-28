@@ -31,7 +31,14 @@ export namespace TableProps {
     type ExtractColorVariant<FrClassName> = FrClassName extends `fr-table--${infer AccentColor}`
         ? Exclude<
               AccentColor,
-              "no-scroll" | "no-caption" | "caption-bottom" | "layout-fixed" | "bordered"
+              | "no-scroll"
+              | "no-caption"
+              | "caption-bottom"
+              | "layout-fixed"
+              | "bordered"
+              | "multiline"
+              | "sm"
+              | "lg"
           >
         : never;
 
