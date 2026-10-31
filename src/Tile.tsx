@@ -1,5 +1,5 @@
 import type { ComponentProps, CSSProperties, ReactNode } from "react";
-import React, { forwardRef, memo } from "react";
+import React, { forwardRef, useId, memo } from "react";
 import type { Equals } from "tsafe";
 import { assert } from "tsafe/assert";
 import { symToStr } from "tsafe/symToStr";
@@ -8,6 +8,7 @@ import { fr } from "./fr";
 import { getLink, type RegisteredLinkProps } from "./link";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { HydrationRelease } from "./tools/HydrationRelease";
 
 //https://main--ds-gouv.netlify.app/example/component/tile/
 export type TileProps = {
@@ -136,6 +137,8 @@ export const Tile = memo(
             "explicitlyProvidedId": id_props
         });
 
+        const hydrationId = useId();
+
         return (
             <div
                 id={id}
@@ -159,6 +162,7 @@ export const Tile = memo(
                     classes.root,
                     className
                 )}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 style={style}
                 {...rest}
@@ -249,6 +253,7 @@ export const Tile = memo(
                         )}
                     </div>
                 )}
+                <HydrationRelease id={hydrationId} />
             </div>
         );
     })

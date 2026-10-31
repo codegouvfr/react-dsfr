@@ -3,6 +3,7 @@
 import React, {
     type CSSProperties,
     forwardRef,
+    useId,
     memo,
     type ReactNode,
     type ComponentProps
@@ -13,6 +14,7 @@ import { type CxArg } from "tss-react";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { HydrationRelease } from "./tools/HydrationRelease";
 
 export type RangeProps = {
     id?: string;
@@ -106,6 +108,8 @@ export const Range = memo(
             "explicitlyProvidedId": props_id
         });
 
+        const hydrationId = useId();
+
         const labelId = `${id}-label`;
 
         const errorMessageId = `${id}-message-error`;
@@ -125,6 +129,7 @@ export const Range = memo(
                     className
                 )}
                 style={style}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 id={`${id}-group`}
                 {...rest}
@@ -219,6 +224,7 @@ export const Range = memo(
                         {stateRelatedMessage}
                     </p>
                 </div>
+                <HydrationRelease id={hydrationId} />
             </div>
         );
     })

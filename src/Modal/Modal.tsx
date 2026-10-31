@@ -1,5 +1,5 @@
 import type { JSX } from "../tools/JSX";
-import React, { memo, forwardRef, type CSSProperties, type ReactNode } from "react";
+import React, { memo, forwardRef, useId, type CSSProperties, type ReactNode } from "react";
 import { fr } from "../fr";
 import { cx } from "../tools/cx";
 import { assert } from "tsafe/assert";
@@ -9,6 +9,7 @@ import { createComponentI18nApi } from "../i18n";
 import type { FrIconClassName, RiIconClassName } from "../fr/generatedFromCss/classNames";
 import Button, { ButtonProps } from "../Button";
 import { overwriteReadonlyProp } from "tsafe/lab/overwriteReadonlyProp";
+import { HydrationRelease } from "../tools/HydrationRelease";
 
 export type ModalProps = {
     className?: string;
@@ -66,6 +67,7 @@ const Modal = memo(
                 : [buttons_props];
 
         const { t } = useTranslation();
+        const hydrationId = useId();
         const titleId = `fr-modal-title-${id}`;
         return (
             <dialog
@@ -73,6 +75,7 @@ const Modal = memo(
                 id={id}
                 className={cx(fr.cx("fr-modal", topAnchor && "fr-modal--top"), className)}
                 style={style}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 data-fr-concealing-backdrop={concealingBackdrop}
             >
@@ -173,6 +176,7 @@ const Modal = memo(
                         </div>
                     </div>
                 </div>
+                <HydrationRelease id={hydrationId} />
             </dialog>
         );
     })

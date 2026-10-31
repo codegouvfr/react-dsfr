@@ -1,6 +1,7 @@
 import React, {
     memo,
     forwardRef,
+    useId,
     type ReactNode,
     type RefAttributes,
     type MemoExoticComponent,
@@ -17,6 +18,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { symToStr } from "tsafe/symToStr";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { HydrationRelease } from "./tools/HydrationRelease";
 
 type DataAttribute = Record<`data-${string}`, string | boolean | null | undefined>;
 
@@ -127,6 +129,8 @@ export const Tag = memo(
                 "explicitlyProvidedId": id_props
             });
 
+            const hydrationId = useId();
+
             const { Link } = getLink();
 
             const className = cx(
@@ -174,11 +178,13 @@ export const Tag = memo(
                             title={title ?? nativeButtonProps?.title}
                             onClick={onClick ?? nativeButtonProps?.onClick}
                             disabled={nativeButtonProps?.disabled}
+                            data-fr-hydrating={hydrationId}
                             ref={ref as React.ForwardedRef<HTMLButtonElement>}
                             aria-pressed={pressed}
                             {...rest}
                         >
                             {children}
+                            <HydrationRelease id={hydrationId} />
                         </button>
                     )}
                     {linkProps === undefined &&
