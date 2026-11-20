@@ -91,7 +91,7 @@ export const Pagination = memo(forwardRef((props, ref) => {
                     "aria-disabled": isCurrentPageFirstPage ? true : undefined,
                     role: "link"
                 }), t("previous page"))),
-            parts.map(part => (React.createElement("li", { key: part.number }, part.number === null ? (React.createElement("a", { className: cx(fr.cx("fr-pagination__link"), classes.link) }, "...")) : (React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link"), classes.link), "aria-current": part.active ? true : undefined, title: `Page ${part.number}` }, getPageLinkProps(part.number)), part.number))))),
+            parts.map(part => (React.createElement("li", { key: part.number }, part.number === null ? (React.createElement("a", { className: cx(fr.cx("fr-pagination__link"), classes.link) }, "...")) : (React.createElement(Link, Object.assign({ className: cx(fr.cx("fr-pagination__link"), classes.link), "aria-current": part.active ? true : undefined, "aria-label": t("page", { pageNumber: part.number }) }, getPageLinkProps(part.number)), part.number))))),
             React.createElement("li", null,
                 React.createElement(DynamicLink, Object.assign({ useReactLinkComponent: defaultPage < count }, (defaultPage < count && getPageLinkProps(defaultPage + 1)), {
                     className: cx(fr.cx("fr-pagination__link", "fr-pagination__link--next", "fr-pagination__link--lg-label"), classes.link),
@@ -110,6 +110,7 @@ const { useTranslation, addPaginationTranslations } = createComponentI18nApi({
     "frMessages": {
         "first page": "Première page",
         "previous page": "Page précédente",
+        "page": ({ pageNumber }) => `Page ${pageNumber}`,
         "next page": "Page suivante",
         "last page": "Dernière page",
         "aria-label": "Pagination"
@@ -120,6 +121,7 @@ addPaginationTranslations({
     "messages": {
         "first page": "First page",
         "previous page": "Previous page",
+        "page": ({ pageNumber }) => `Page ${pageNumber}`,
         "next page": "Next page",
         "last page": "Last page",
         "aria-label": "Pagination"

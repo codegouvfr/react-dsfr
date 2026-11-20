@@ -17,6 +17,9 @@ declare const addPaginationTranslations: (params: {
     messages: Partial<{
         "first page": string;
         "previous page": string;
+        page: ({ pageNumber }: {
+            pageNumber: number;
+        }) => string;
         "next page": string;
         "last page": string;
         "aria-label": string;
