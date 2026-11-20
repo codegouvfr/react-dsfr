@@ -37,6 +37,11 @@ const { meta, getStory } = getStoryFactory({
             "description": "Move caption to bottom",
             "type": { "name": "boolean" }
         },
+        "multiline": {
+            "description":
+                "Allow the browser to split cell text on multiple lines to avoid scrolling",
+            "type": { "name": "boolean" }
+        },
         "colorVariant": {
             "options": (() => {
                 const options = [
