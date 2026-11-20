@@ -1,18 +1,15 @@
-import React, { forwardRef, memo, type ReactNode, type CSSProperties } from "react";
+import { type CSSProperties, forwardRef, memo } from "react";
+import { cx } from "../tools/cx";
+import { fr, FrClassName } from "../fr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import { fr } from "./fr";
-import { cx } from "./tools/cx";
+import React from "react";
 import { symToStr } from "tsafe/symToStr";
-import type { FrClassName } from "./fr/generatedFromCss/classNames";
-import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { useAnalyticsId } from "../tools/useAnalyticsId";
 
-export type TableProps = {
+export type TableWrapperProps = {
     id?: string;
-    data: ReactNode[][];
     className?: string;
-    caption?: ReactNode;
-    headers?: ReactNode[];
     /** Default: false */
     fixed?: boolean;
     /** Default: false */
@@ -25,6 +22,7 @@ export type TableProps = {
     bottomCaption?: boolean;
     style?: CSSProperties;
     colorVariant?: TableProps.ColorVariant;
+    children?: React.ReactNode;
 };
 
 export namespace TableProps {
@@ -38,14 +36,11 @@ export namespace TableProps {
     export type ColorVariant = ExtractColorVariant<FrClassName>;
 }
 
-/** @see <https://components.react-dsfr.codegouv.studio/?path=/docs/tableau>  */
-export const Table = memo(
-    forwardRef<HTMLDivElement, TableProps>((props, ref) => {
+export const TableWrapper = memo(
+    forwardRef<HTMLDivElement, TableWrapperProps>((props, ref) => {
         const {
+            children,
             id: id_props,
-            data,
-            headers,
-            caption,
             bordered = false,
             noScroll = false,
             fixed = false,
@@ -84,34 +79,16 @@ export const Table = memo(
                     className
                 )}
             >
-                <table>
-                    {caption !== undefined && <caption>{caption}</caption>}
-                    {headers !== undefined && (
-                        <thead>
-                            <tr>
-                                {headers.map((header, i) => (
-                                    <th key={i} scope="col">
-                                        {header}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                    )}
-                    <tbody>
-                        {data.map((row, i) => (
-                            <tr key={i}>
-                                {row.map((col, j) => (
-                                    <td key={j}>{col}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div className={fr.cx("fr-table__wrapper")}>
+                    <div className={fr.cx("fr-table__container")}>
+                        <div className={fr.cx("fr-table__content")}>{children}</div>
+                    </div>
+                </div>
             </div>
         );
     })
 );
 
-Table.displayName = symToStr({ Table });
+TableWrapper.displayName = symToStr({ TableWrapper });
 
-export default Table;
+export default TableWrapper;
