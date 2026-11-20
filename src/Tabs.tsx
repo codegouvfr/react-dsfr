@@ -9,6 +9,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import { useCallbackFactory } from "./tools/powerhooks/useCallbackFactory";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { HydrationRelease } from "./tools/HydrationRelease";
 
 export type TabsProps = TabsProps.Uncontrolled | TabsProps.Controlled;
 
@@ -69,6 +70,8 @@ export const Tabs = memo(
             "defaultIdPrefix": "fr-tabs",
             "explicitlyProvidedId": id_props
         });
+
+        const hydrationId = useId();
 
         const selectedTabIndex = useMemo(() => {
             const index = tabs.findIndex(tab =>
@@ -131,6 +134,7 @@ export const Tabs = memo(
             <div
                 id={id}
                 className={cx(fr.cx("fr-tabs"), className)}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 style={style}
                 {...rest}
@@ -196,6 +200,7 @@ export const Tabs = memo(
                         {children}
                     </div>
                 )}
+                <HydrationRelease id={hydrationId} />
             </div>
         );
     })

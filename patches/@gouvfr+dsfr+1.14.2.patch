@@ -8,10 +8,94 @@ index e4d335c..6c53dce 100644
  </svg>
 +<!-- Slightly increasing size so it reaches the threshold that will prevent it from being inlined by Vite. -->
 diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js b/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
-index fcde523..7996e40 100644
+index 0640386..8e30846 100644
 --- a/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
 +++ b/node_modules/@gouvfr/dsfr/dist/dsfr.module.js
-@@ -6461,9 +6461,11 @@ class HeaderLinks extends api.core.Instance {
+@@ -400,6 +400,24 @@ const queryParentSelector = (element, selectors) => {
+   return queryParentSelector(parent, selectors);
+ };
+ 
++// Un sous-arbre marqué data-fr-hydrating est en cours d'hydratation par le
++// framework qui l'a rendu côté serveur : le moteur n'y touche pas tant qu'il
++// n'est pas libéré, soit par le retrait de l'attribut, soit par
++// dsfr.hydrated(id) quand l'attribut porte un identifiant. Dans ce second cas,
++// le moteur ne modifie pas le DOM : il retient l'élément libéré.
++const HYDRATING_ATTRIBUTE = ns.attr('hydrating');
++const HYDRATING_SELECTOR = ns.attr.selector('hydrating');
++const hydratedGates = new WeakSet();
++
++const isHydrating = (node) => {
++  let gate = node.closest(HYDRATING_SELECTOR);
++  while (gate) {
++    if (!hydratedGates.has(gate)) return true;
++    gate = gate.parentElement && gate.parentElement.closest(HYDRATING_SELECTOR);
++  }
++  return false;
++};
++
+ class Registration {
+   constructor (selector, InstanceClass, creator) {
+     this.selector = selector;
+@@ -441,7 +459,9 @@ class Registration {
+     if (node.matches && node.matches(this.selector)) nodes.push(node);
+     // eslint-disable-next-line no-useless-call
+     if (!nonRecursive && node.querySelectorAll && node.querySelector(this.selector)) nodes.push.apply(nodes, querySelectorAllArray(node, this.selector));
+-    return nodes;
++    // Le retrait de l'attribut est une mutation d'attribut, à laquelle Stage
++    // répond déjà en analysant de nouveau tout le sous-arbre.
++    return nodes.filter(n => !isHydrating(n));
+   }
+ 
+   create (element) {
+@@ -1149,6 +1169,15 @@ class Engine {
+     state.isActive = false;
+     rootDispatch(RootEvent.STOP);
+   }
++
++  // À appeler par le framework une fois hydraté le sous-arbre marqué
++  // data-fr-hydrating="<id>" : il est alors dans le document. Avant le
++  // démarrage, la libération est retenue et appliquée par start().
++  hydrated (id) {
++    const gates = querySelectorAllArray(document.documentElement, HYDRATING_SELECTOR).filter(gate => gate.getAttribute(HYDRATING_ATTRIBUTE) === id);
++    for (const gate of gates) hydratedGates.add(gate);
++    if (state.isActive) for (const gate of gates) state.getModule('stage').parse(gate);
++  }
+ }
+ 
+ const engine = new Engine();
+@@ -1441,6 +1470,7 @@ api$1.version = config.version;
+ 
+ api$1.start = engine.start;
+ api$1.stop = engine.stop;
++api$1.hydrated = engine.hydrated;
+ 
+ api$1.inspector = inspector;
+ api$1.colors = colors;
+@@ -2365,6 +2395,7 @@ class Disclosure extends Instance {
+ 
+     if (this.group) {
+       this.group.retrieve();
++      this.group.retrieveLate(this);
+       return;
+     }
+ 
+@@ -2627,6 +2658,15 @@ class DisclosuresGroup extends Instance {
+     return this.getIndex();
+   }
+ 
++  // Un membre qui rejoint le groupe après _retrieve() (contenu streamé, ou
++  // libéré par dsfr.hydrated) n'y a pas été vu : ouvert par défaut, il est
++  // ouvert, sauf si un autre membre l'est déjà.
++  retrieveLate (member) {
++    if (!this._hasRetrieved || !member.isInitiallyDisclosed) return;
++    if (!this.isGrouped) member.disclose(true);
++    else if (this.current === null) this.current = member;
++  }
++
+   update () {
+     this.getMembers();
+     if (this._hasRetrieved) {
+@@ -6461,9 +6501,11 @@ class HeaderLinks extends api.core.Instance {
        case api.Modes.ANGULAR:
        case api.Modes.REACT:
        case api.Modes.VUE:

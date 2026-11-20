@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
 import { createComponentI18nApi } from "../i18n";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
@@ -12,6 +12,7 @@ import { Menu } from "./Menu";
 import type { MegaMenuProps } from "./MegaMenu";
 import { MegaMenu } from "./MegaMenu";
 import { useAnalyticsId } from "../tools/useAnalyticsId";
+import { HydrationRelease } from "../tools/HydrationRelease";
 
 export type MainNavigationProps = {
     className?: string;
@@ -89,6 +90,8 @@ export const MainNavigation = memo(
             "defaultIdPrefix": "main-navigation"
         });
 
+        const hydrationId = useId();
+
         const getMenuId = (i: number) => `${id}-menu-${i}`;
 
         return (
@@ -98,6 +101,7 @@ export const MainNavigation = memo(
                 style={style}
                 role="navigation"
                 aria-label={t("main menu")}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 {...rest}
             >
@@ -180,6 +184,7 @@ export const MainNavigation = memo(
                         )
                     )}
                 </ul>
+                <HydrationRelease id={hydrationId} />
             </nav>
         );
     })

@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, type ReactNode, type CSSProperties } from "react";
+import React, { memo, forwardRef, useId, type ReactNode, type CSSProperties } from "react";
 import { symToStr } from "tsafe/symToStr";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
@@ -7,6 +7,7 @@ import { getLink } from "./link";
 import { fr } from "./fr";
 import { cx } from "./tools/cx";
 import { useAnalyticsId } from "./tools/useAnalyticsId";
+import { HydrationRelease } from "./tools/HydrationRelease";
 
 //https://main--ds-gouv.netlify.app/example/component/sidemenu/
 export type SideMenuProps = {
@@ -75,6 +76,8 @@ export const SideMenu = memo(
             "explicitlyProvidedId": id_props
         });
 
+        const hydrationId = useId();
+
         const collapseId = `${id}-collapse`;
 
         const titleId = `${id}-title`;
@@ -89,6 +92,7 @@ export const SideMenu = memo(
             <nav
                 id={id}
                 {...rest}
+                data-fr-hydrating={hydrationId}
                 ref={ref}
                 style={style}
                 {...(title !== undefined && { "aria-labelledby": titleId })}
@@ -217,6 +221,7 @@ export const SideMenu = memo(
                         </ul>
                     </div>
                 </div>
+                <HydrationRelease id={hydrationId} />
             </nav>
         );
     })
