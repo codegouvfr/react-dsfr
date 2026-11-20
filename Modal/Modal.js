@@ -32,6 +32,8 @@ const Modal = memo(forwardRef((props, ref) => {
             React.createElement("div", { className: fr.cx("fr-grid-row", "fr-grid-row--center") },
                 React.createElement("div", { className: (() => {
                         switch (size) {
+                            case "full":
+                                return fr.cx("fr-col-12", "fr-col-md-12", "fr-col-lg-12");
                             case "large":
                                 return fr.cx("fr-col-12", "fr-col-md-10", "fr-col-lg-8");
                             case "small":

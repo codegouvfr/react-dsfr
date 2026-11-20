@@ -5,7 +5,7 @@ import { ButtonProps } from "../Button";
 export type ModalProps = {
     className?: string;
     /** Default: "medium" */
-    size?: "small" | "medium" | "large";
+    size?: "small" | "medium" | "large" | "full";
     title: ReactNode;
     titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "div";
     titleProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>;
