@@ -120,7 +120,7 @@ To create a Dialog component, something that you would use to ask the user a que
         },
         "size": {
             "options": (() => {
-                const options = ["small", "medium", "large"] as const;
+                const options = ["small", "medium", "large", "full"] as const;
 
                 assert<Equals<typeof options[number] | undefined, ModalProps["size"]>>();
 
