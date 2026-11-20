@@ -125,6 +125,7 @@ export const REACT_DSFR_MODULE_TO_DSFR_COMPONENTS: Record<string, DsfrComponentN
     "Accordion": ["accordion"],
     "AgentConnectButton": ["connect", "button"],
     "Alert": ["alert", "link", "button"],
+    "BackToTop": ["link"],
     "Badge": ["badge"],
     "Breadcrumb": ["breadcrumb", "link"],
     "Button": ["button", "link"],
